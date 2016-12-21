@@ -200,7 +200,7 @@
           <SizeOfObject>0</SizeOfObject>
           <BreakByAccess>0</BreakByAccess>
           <BreakIfRCount>1</BreakIfRCount>
-          <Filename>&lt;2&gt;.\src\Display\PainterData.c</Filename>
+          <Filename>C:\My\Work\S8-54\sources\S8-54\Bootloader\src\Display\PainterData.c</Filename>
           <ExecCommand></ExecCommand>
           <Expression>\\S8_54\src/Display/PainterData.c\573</Expression>
         </Bp>

@@ -200,7 +200,7 @@
           <SizeOfObject>0</SizeOfObject>
           <BreakByAccess>0</BreakByAccess>
           <BreakIfRCount>1</BreakIfRCount>
-          <Filename>&lt;3&gt;.\src\main.c</Filename>
+          <Filename>&lt;1&gt;.\src\main.c</Filename>
           <ExecCommand></ExecCommand>
           <Expression>\\BootloaderS8_54\src/main.c\67</Expression>
         </Bp>
@@ -216,7 +216,7 @@
           <SizeOfObject>0</SizeOfObject>
           <BreakByAccess>0</BreakByAccess>
           <BreakIfRCount>1</BreakIfRCount>
-          <Filename>&lt;3&gt;.\src\main.c</Filename>
+          <Filename>&lt;1&gt;.\src\main.c</Filename>
           <ExecCommand></ExecCommand>
           <Expression>\\BootloaderS8_54\src/main.c\63</Expression>
         </Bp>
@@ -232,7 +232,7 @@
           <SizeOfObject>0</SizeOfObject>
           <BreakByAccess>0</BreakByAccess>
           <BreakIfRCount>1</BreakIfRCount>
-          <Filename>&lt;3&gt;.\src\main.c</Filename>
+          <Filename>&lt;1&gt;.\src\main.c</Filename>
           <ExecCommand></ExecCommand>
           <Expression>\\BootloaderS8_54\src/main.c\65</Expression>
         </Bp>
@@ -248,7 +248,7 @@
           <SizeOfObject>0</SizeOfObject>
           <BreakByAccess>0</BreakByAccess>
           <BreakIfRCount>0</BreakIfRCount>
-          <Filename>&lt;3&gt;.\src\main.c</Filename>
+          <Filename>&lt;1&gt;.\src\main.c</Filename>
           <ExecCommand></ExecCommand>
           <Expression></Expression>
         </Bp>
@@ -264,7 +264,7 @@
           <SizeOfObject>0</SizeOfObject>
           <BreakByAccess>0</BreakByAccess>
           <BreakIfRCount>0</BreakIfRCount>
-          <Filename>&lt;3&gt;.\src\main.c</Filename>
+          <Filename>&lt;1&gt;.\src\main.c</Filename>
           <ExecCommand></ExecCommand>
           <Expression></Expression>
         </Bp>
@@ -280,7 +280,7 @@
           <SizeOfObject>0</SizeOfObject>
           <BreakByAccess>0</BreakByAccess>
           <BreakIfRCount>0</BreakIfRCount>
-          <Filename>&lt;3&gt;.\src\main.c</Filename>
+          <Filename>&lt;1&gt;.\src\main.c</Filename>
           <ExecCommand></ExecCommand>
           <Expression></Expression>
         </Bp>
@@ -296,7 +296,7 @@
           <SizeOfObject>0</SizeOfObject>
           <BreakByAccess>0</BreakByAccess>
           <BreakIfRCount>0</BreakIfRCount>
-          <Filename>&lt;2&gt;.\src\FPGA\FPGA_Calibration.c</Filename>
+          <Filename>C:\My\Work\S8-54\sources\S8-54\Bootloader\src\FPGA\FPGA_Calibration.c</Filename>
           <ExecCommand></ExecCommand>
           <Expression></Expression>
         </Bp>
@@ -344,7 +344,7 @@
           <SizeOfObject>0</SizeOfObject>
           <BreakByAccess>0</BreakByAccess>
           <BreakIfRCount>0</BreakIfRCount>
-          <Filename>&lt;2&gt;.\src\Display\PainterData.c</Filename>
+          <Filename>C:\My\Work\S8-54\sources\S8-54\Bootloader\src\Display\PainterData.c</Filename>
           <ExecCommand></ExecCommand>
           <Expression></Expression>
         </Bp>
