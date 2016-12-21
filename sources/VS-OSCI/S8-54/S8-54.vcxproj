@@ -1,0 +1,482 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="12.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|ARM">
+      <Configuration>Debug</Configuration>
+      <Platform>ARM</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|ARM">
+      <Configuration>Release</Configuration>
+      <Platform>ARM</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{1F13A5EB-3719-4663-BF1C-FEAD7F7A6CDB}</ProjectGuid>
+    <Keyword>Win32Proj</Keyword>
+    <RootNamespace>S854</RootNamespace>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v120</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|ARM'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v120</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v120</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|ARM'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v120</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Debug|ARM'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Release|ARM'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <LinkIncremental>true</LinkIncremental>
+    <IncludePath>..\..\S8-54\src;..\..\STM32Cube_FW_F4\Drivers\STM32F4xx_HAL_Driver\Inc;..\..\STM32Cube_FW_F4\Middlewares\ST\STM32_USB_Device_Library\Core\Inc;..\..\STM32Cube_FW_F4\Middlewares\ST\STM32_USB_Host_Library\Core\Inc;..\..\STM32Cube_FW_F4\Drivers\CMSIS\Device\ST\STM32F4xx\Include;..\..\STM32Cube_FW_F4\Middlewares\ST\STM32_USB_Device_Library\Class\CDC\Inc;..\..\STM32Cube_FW_F4\Middlewares\Third_Party\FatFs\src;..\..\STM32Cube_FW_F4\Drivers\STM32F4xx_HAL_Driver\Inc\Legacy;..\..\STM32Cube_FW_F4\Middlewares\ST\STM32_USB_Host_Library\Class\MSC\Inc;..\..\STM32Cube_FW_F4\Middlewares\Third_Party\FatFs\src\drivers;..\..\STM32Cube_FW_F4\Drivers\CMSIS\Include;..\..\STM32Cube_FW_F4\Middlewares\Third_Party\LwIP\src\include\;..\..\STM32Cube_FW_F4\Middlewares\Third_Party\LwIP\system\;..\..\STM32Cube_FW_F4\Middlewares\Third_Party\LwIP\src\include\ipv4\;..\..\S8-54\src\EMUz80;..\..\S8-54\src\libs;$(IncludePath)</IncludePath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|ARM'">
+    <LinkIncremental>true</LinkIncremental>
+    <IncludePath>..\..\src;..\..\STM32Cube_FW_F4_V1.8.0\Drivers\STM32F4xx_HAL_Driver\Inc;..\..\STM32Cube_FW_F4_V1.8.0\Middlewares\ST\STM32_USB_Device_Library\Core\Inc;..\..\STM32Cube_FW_F4_V1.8.0\Middlewares\ST\STM32_USB_Host_Library\Core\Inc;..\..\STM32Cube_FW_F4_V1.8.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include;..\..\src\libs\HAL;$(IncludePath)</IncludePath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <LinkIncremental>false</LinkIncremental>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|ARM'">
+    <LinkIncremental>false</LinkIncremental>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <WarningLevel>EnableAllWarnings</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <PreprocessorDefinitions>_DEBUG;_CONSOLE;_LIB;%(PreprocessorDefinitions);S8_54;STM32F437xx;USE_HAL_DRIVER;_CRT_SECURE_NO_WARNINGS;__GNUC__;_MS_VS</PreprocessorDefinitions>
+      <SDLCheck>true</SDLCheck>
+      <DisableSpecificWarnings>4005;4013;4068;4100;4132;4201;4668;4820</DisableSpecificWarnings>
+      <MinimalRebuild>false</MinimalRebuild>
+      <AdditionalOptions>-MP %(AdditionalOptions)</AdditionalOptions>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|ARM'">
+    <ClCompile>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;_LIB;%(PreprocessorDefinitions);S8_54;STM32F437xx</PreprocessorDefinitions>
+      <SDLCheck>true</SDLCheck>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <SDLCheck>true</SDLCheck>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|ARM'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <SDLCheck>true</SDLCheck>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\S8-54\src\defines.c" />
+    <ClCompile Include="..\..\S8-54\src\Display\Colors.c">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\..\S8-54\src\Display\Display.c">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\..\S8-54\src\Display\DisplayPrimitives.c" />
+    <ClCompile Include="..\..\S8-54\src\Display\font\Font.c" />
+    <ClCompile Include="..\..\S8-54\src\Display\Grid.c" />
+    <ClCompile Include="..\..\S8-54\src\Display\Math3D.c" />
+    <ClCompile Include="..\..\S8-54\src\Display\Painter.c" />
+    <ClCompile Include="..\..\S8-54\src\Display\PainterData.c" />
+    <ClCompile Include="..\..\S8-54\src\Display\PainterMem.c" />
+    <ClCompile Include="..\..\S8-54\src\Display\PainterText.c" />
+    <ClCompile Include="..\..\S8-54\src\Display\WelcomeScreen.c" />
+    <ClCompile Include="..\..\S8-54\src\EMUz80\Command.c" />
+    <ClCompile Include="..\..\S8-54\src\EMUz80\commonZ80.c" />
+    <ClCompile Include="..\..\S8-54\src\EMUz80\CPU\DAA.c" />
+    <ClCompile Include="..\..\S8-54\src\EMUz80\CPU\instr.c" />
+    <ClCompile Include="..\..\S8-54\src\EMUz80\CPU\instrCB.c" />
+    <ClCompile Include="..\..\S8-54\src\EMUz80\CPU\instrDD.c" />
+    <ClCompile Include="..\..\S8-54\src\EMUz80\CPU\instrED.c" />
+    <ClCompile Include="..\..\S8-54\src\EMUz80\CPU\instrFD.c" />
+    <ClCompile Include="..\..\S8-54\src\EMUz80\CPU\instrFDCB_DDCB.c" />
+    <ClCompile Include="..\..\S8-54\src\EMUz80\CPU\instrShift.c" />
+    <ClCompile Include="..\..\S8-54\src\EMUz80\CPU\registers.c" />
+    <ClCompile Include="..\..\S8-54\src\EMUz80\CPU\utils.c" />
+    <ClCompile Include="..\..\S8-54\src\EMUz80\DataBase.c" />
+    <ClCompile Include="..\..\S8-54\src\EMUz80\Decoder.c" />
+    <ClCompile Include="..\..\S8-54\src\EMUz80\definesZ80.c" />
+    <ClCompile Include="..\..\S8-54\src\EMUz80\Hardware\ports.c" />
+    <ClCompile Include="..\..\S8-54\src\EMUz80\mainZ80.c" />
+    <ClCompile Include="..\..\S8-54\src\EMUz80\RAM48.c" />
+    <ClCompile Include="..\..\S8-54\src\EMUz80\RAMZ80.c" />
+    <ClCompile Include="..\..\S8-54\src\EMUz80\String.c" />
+    <ClCompile Include="..\..\S8-54\src\EMUz80\TimerZ80.c" />
+    <ClCompile Include="..\..\S8-54\src\EMUz80\VectorCommandZ80.c" />
+    <ClCompile Include="..\..\S8-54\src\EMUz80\VectorINT.c" />
+    <ClCompile Include="..\..\S8-54\src\EMUz80\VectorUINT8.c" />
+    <ClCompile Include="..\..\S8-54\src\Ethernet\Ethernet.c" />
+    <ClCompile Include="..\..\S8-54\src\Ethernet\TcpSocket.c" />
+    <ClCompile Include="..\..\S8-54\src\FlashDrive\FlashDrive.c">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\..\S8-54\src\FPGA\DataStorage.c" />
+    <ClCompile Include="..\..\S8-54\src\FPGA\FPGA.c" />
+    <ClCompile Include="..\..\S8-54\src\FPGA\FPGA_Calibration.c" />
+    <ClCompile Include="..\..\S8-54\src\FPGA\FPGA_Settings.c" />
+    <ClCompile Include="..\..\S8-54\src\FPGA\FreqMeter.c" />
+    <ClCompile Include="..\..\S8-54\src\Globals.c" />
+    <ClCompile Include="..\..\S8-54\src\Hardware\FLASH.c" />
+    <ClCompile Include="..\..\S8-54\src\Hardware\FSMC.c" />
+    <ClCompile Include="..\..\S8-54\src\Hardware\Hardware.c" />
+    <ClCompile Include="..\..\S8-54\src\Hardware\RAM.c" />
+    <ClCompile Include="..\..\S8-54\src\Hardware\RTC.c" />
+    <ClCompile Include="..\..\S8-54\src\Hardware\Sound.c" />
+    <ClCompile Include="..\..\S8-54\src\Hardware\Timer.c" />
+    <ClCompile Include="..\..\S8-54\src\Hardware\Timer2.c" />
+    <ClCompile Include="..\..\S8-54\src\Heap.c" />
+    <ClCompile Include="..\..\S8-54\src\libs\app_ethernet.c" />
+    <ClCompile Include="..\..\S8-54\src\libs\ethernetif.c" />
+    <ClCompile Include="..\..\S8-54\src\libs\stm32f4xx_hal_msp.c" />
+    <ClCompile Include="..\..\S8-54\src\libs\stm32f4xx_it.c" />
+    <ClCompile Include="..\..\S8-54\src\libs\system_stm32f4xx.c" />
+    <ClCompile Include="..\..\S8-54\src\libs\usbd_cdc_interface.c" />
+    <ClCompile Include="..\..\S8-54\src\libs\usbd_conf.c" />
+    <ClCompile Include="..\..\S8-54\src\libs\usbd_desc.c" />
+    <ClCompile Include="..\..\S8-54\src\libs\usbh_conf.c" />
+    <ClCompile Include="..\..\S8-54\src\Log.c" />
+    <ClCompile Include="..\..\S8-54\src\main.c" />
+    <ClCompile Include="..\..\S8-54\src\Menu\FileManager.c" />
+    <ClCompile Include="..\..\S8-54\src\Menu\Menu.c" />
+    <ClCompile Include="..\..\S8-54\src\Menu\MenuDrawing.c" />
+    <ClCompile Include="..\..\S8-54\src\Menu\MenuFunctions.c" />
+    <ClCompile Include="..\..\S8-54\src\Menu\MenuItemsGraphics.c" />
+    <ClCompile Include="..\..\S8-54\src\Menu\MenuItemsLogic.c" />
+    <ClCompile Include="..\..\S8-54\src\Menu\Pages\Definition.c" />
+    <ClCompile Include="..\..\S8-54\src\Menu\Pages\HelpContent.c" />
+    <ClCompile Include="..\..\S8-54\src\Menu\Pages\PageChannels.c" />
+    <ClCompile Include="..\..\S8-54\src\Menu\Pages\PageCursors.c" />
+    <ClCompile Include="..\..\S8-54\src\Menu\Pages\PageDebug.c" />
+    <ClCompile Include="..\..\S8-54\src\Menu\Pages\PageDisplay.c" />
+    <ClCompile Include="..\..\S8-54\src\Menu\Pages\PageHelp.c">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\..\S8-54\src\Menu\Pages\PageMeasures.c" />
+    <ClCompile Include="..\..\S8-54\src\Menu\Pages\PageMemory.c" />
+    <ClCompile Include="..\..\S8-54\src\Menu\Pages\PageService.c" />
+    <ClCompile Include="..\..\S8-54\src\Menu\Pages\PageTime.c" />
+    <ClCompile Include="..\..\S8-54\src\Menu\Pages\PageTrig.c" />
+    <ClCompile Include="..\..\S8-54\src\Panel\Controls.c" />
+    <ClCompile Include="..\..\S8-54\src\Panel\Panel.c" />
+    <ClCompile Include="..\..\S8-54\src\Panel\PanelFunctions.c" />
+    <ClCompile Include="..\..\S8-54\src\Settings\Settings.c" />
+    <ClCompile Include="..\..\S8-54\src\Settings\SettingsChannel.c" />
+    <ClCompile Include="..\..\S8-54\src\Settings\SettingsCursors.c" />
+    <ClCompile Include="..\..\S8-54\src\Settings\SettingsDebug.c" />
+    <ClCompile Include="..\..\S8-54\src\Settings\SettingsDisplay.c" />
+    <ClCompile Include="..\..\S8-54\src\Settings\SettingsrMemory.c" />
+    <ClCompile Include="..\..\S8-54\src\Settings\SettingsService.c" />
+    <ClCompile Include="..\..\S8-54\src\Settings\SettingsTime.c" />
+    <ClCompile Include="..\..\S8-54\src\Tables.c" />
+    <ClCompile Include="..\..\S8-54\src\Utils\Debug.c" />
+    <ClCompile Include="..\..\S8-54\src\Utils\Generator.c" />
+    <ClCompile Include="..\..\S8-54\src\Utils\GlobalFunctions.c" />
+    <ClCompile Include="..\..\S8-54\src\Utils\Map.c" />
+    <ClCompile Include="..\..\S8-54\src\Utils\Math.c" />
+    <ClCompile Include="..\..\S8-54\src\Utils\Measures.c" />
+    <ClCompile Include="..\..\S8-54\src\Utils\ProcessingSignal.c" />
+    <ClCompile Include="..\..\S8-54\src\Utils\Strings.c" />
+    <ClCompile Include="..\..\S8-54\src\VCP\SCPI\channelSCPI.c" />
+    <ClCompile Include="..\..\S8-54\src\VCP\SCPI\commonSCPI.c" />
+    <ClCompile Include="..\..\S8-54\src\VCP\SCPI\controlSCPI.c" />
+    <ClCompile Include="..\..\S8-54\src\VCP\SCPI\displaySCPI.c" />
+    <ClCompile Include="..\..\S8-54\src\VCP\SCPI\SCPI.c" />
+    <ClCompile Include="..\..\S8-54\src\VCP\SCPI\tbaseSCPI.c" />
+    <ClCompile Include="..\..\S8-54\src\VCP\SCPI\trigSCPI.c" />
+    <ClCompile Include="..\..\S8-54\src\VCP\VCP.c" />
+    <ClCompile Include="..\..\STM32Cube_FW_F4\Drivers\STM32F4xx_HAL_Driver\Src\stm32f4xx_hal_dma.c">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\..\STM32Cube_FW_F4\Drivers\STM32F4xx_HAL_Driver\Src\stm32f4xx_hal_flash.c">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\..\STM32Cube_FW_F4\Drivers\STM32F4xx_HAL_Driver\Src\stm32f4xx_hal_flash_ex.c">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\..\STM32Cube_FW_F4\Drivers\STM32F4xx_HAL_Driver\Src\stm32f4xx_hal_rcc.c">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\..\STM32Cube_FW_F4\Drivers\STM32F4xx_HAL_Driver\Src\stm32f4xx_hal_rtc.c">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\..\STM32Cube_FW_F4\Drivers\STM32F4xx_HAL_Driver\Src\stm32f4xx_hal_rtc_ex.c">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\..\STM32Cube_FW_F4\Middlewares\ST\STM32_USB_Device_Library\Class\CDC\Src\usbd_cdc.c">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\..\STM32Cube_FW_F4\Middlewares\ST\STM32_USB_Device_Library\Core\Src\usbd_core.c">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\..\STM32Cube_FW_F4\Middlewares\ST\STM32_USB_Device_Library\Core\Src\usbd_ctlreq.c">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\..\STM32Cube_FW_F4\Middlewares\ST\STM32_USB_Device_Library\Core\Src\usbd_ioreq.c">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\..\STM32Cube_FW_F4\Middlewares\ST\STM32_USB_Host_Library\Class\MSC\Src\usbh_msc.c">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\..\STM32Cube_FW_F4\Middlewares\ST\STM32_USB_Host_Library\Class\MSC\Src\usbh_msc_bot.c">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\..\STM32Cube_FW_F4\Middlewares\ST\STM32_USB_Host_Library\Class\MSC\Src\usbh_msc_scsi.c">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\..\STM32Cube_FW_F4\Middlewares\ST\STM32_USB_Host_Library\Core\Src\usbh_core.c">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\..\STM32Cube_FW_F4\Middlewares\ST\STM32_USB_Host_Library\Core\Src\usbh_ctlreq.c">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\..\STM32Cube_FW_F4\Middlewares\ST\STM32_USB_Host_Library\Core\Src\usbh_ioreq.c">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\..\STM32Cube_FW_F4\Middlewares\ST\STM32_USB_Host_Library\Core\Src\usbh_pipes.c">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\S8-54\src\defines.h" />
+    <ClInclude Include="..\..\S8-54\src\Display\Colors.h" />
+    <ClInclude Include="..\..\S8-54\src\Display\Display.h" />
+    <ClInclude Include="..\..\S8-54\src\Display\DisplayPrimitives.h" />
+    <ClInclude Include="..\..\S8-54\src\Display\DisplayTypes.h" />
+    <ClInclude Include="..\..\S8-54\src\Display\font\Font.h" />
+    <ClInclude Include="..\..\S8-54\src\Display\Grid.h" />
+    <ClInclude Include="..\..\S8-54\src\Display\Math3D.h" />
+    <ClInclude Include="..\..\S8-54\src\Display\Painter.h" />
+    <ClInclude Include="..\..\S8-54\src\Display\PainterC.h" />
+    <ClInclude Include="..\..\S8-54\src\Display\PainterData.h" />
+    <ClInclude Include="..\..\S8-54\src\Display\PainterMem.h" />
+    <ClInclude Include="..\..\S8-54\src\Display\PainterText.h" />
+    <ClInclude Include="..\..\S8-54\src\Display\Symbols.h" />
+    <ClInclude Include="..\..\S8-54\src\Display\WelcomeScreen.h" />
+    <ClInclude Include="..\..\S8-54\src\EMUz80\Command.h" />
+    <ClInclude Include="..\..\S8-54\src\EMUz80\commonZ80.h" />
+    <ClInclude Include="..\..\S8-54\src\EMUz80\CPU\DAA.h" />
+    <ClInclude Include="..\..\S8-54\src\EMUz80\CPU\FuncFirst.h" />
+    <ClInclude Include="..\..\S8-54\src\EMUz80\CPU\FuncSecondCB.h" />
+    <ClInclude Include="..\..\S8-54\src\EMUz80\CPU\FuncSecondDD.h" />
+    <ClInclude Include="..\..\S8-54\src\EMUz80\CPU\FuncSecondED.h" />
+    <ClInclude Include="..\..\S8-54\src\EMUz80\CPU\FuncSecondFD.h" />
+    <ClInclude Include="..\..\S8-54\src\EMUz80\CPU\FuncThird.h" />
+    <ClInclude Include="..\..\S8-54\src\EMUz80\CPU\instr.h" />
+    <ClInclude Include="..\..\S8-54\src\EMUz80\CPU\instrCB.h" />
+    <ClInclude Include="..\..\S8-54\src\EMUz80\CPU\instrDD.h" />
+    <ClInclude Include="..\..\S8-54\src\EMUz80\CPU\instrED.h" />
+    <ClInclude Include="..\..\S8-54\src\EMUz80\CPU\instrFD.h" />
+    <ClInclude Include="..\..\S8-54\src\EMUz80\CPU\instrFDCB_DDCB.h" />
+    <ClInclude Include="..\..\S8-54\src\EMUz80\CPU\instrShift.h" />
+    <ClInclude Include="..\..\S8-54\src\EMUz80\CPU\registers.h" />
+    <ClInclude Include="..\..\S8-54\src\EMUz80\CPU\utils.h" />
+    <ClInclude Include="..\..\S8-54\src\EMUz80\DataBase.h" />
+    <ClInclude Include="..\..\S8-54\src\EMUz80\Decoder.h" />
+    <ClInclude Include="..\..\S8-54\src\EMUz80\definesZ80.h" />
+    <ClInclude Include="..\..\S8-54\src\EMUz80\Hardware\ports.h" />
+    <ClInclude Include="..\..\S8-54\src\EMUz80\mainZ80.h" />
+    <ClInclude Include="..\..\S8-54\src\EMUz80\RAM48.h" />
+    <ClInclude Include="..\..\S8-54\src\EMUz80\RAMZ80.h" />
+    <ClInclude Include="..\..\S8-54\src\EMUz80\String.h" />
+    <ClInclude Include="..\..\S8-54\src\EMUz80\TimerZ80.h" />
+    <ClInclude Include="..\..\S8-54\src\EMUz80\VectorCommandZ80.h" />
+    <ClInclude Include="..\..\S8-54\src\EMUz80\VectorINT.h" />
+    <ClInclude Include="..\..\S8-54\src\EMUz80\VectorUINT8.h" />
+    <ClInclude Include="..\..\S8-54\src\Ethernet\Ethernet.h" />
+    <ClInclude Include="..\..\S8-54\src\Ethernet\TcpSocket.h" />
+    <ClInclude Include="..\..\S8-54\src\FlashDrive\FlashDrive.h">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</ExcludedFromBuild>
+    </ClInclude>
+    <ClInclude Include="..\..\S8-54\src\FPGA\DataStorage.h" />
+    <ClInclude Include="..\..\S8-54\src\FPGA\FPGA.h" />
+    <ClInclude Include="..\..\S8-54\src\FPGA\FPGA_Calibration.h" />
+    <ClInclude Include="..\..\S8-54\src\FPGA\FPGA_Types.h" />
+    <ClInclude Include="..\..\S8-54\src\FPGA\FreqMeter.h" />
+    <ClInclude Include="..\..\S8-54\src\Globals.h" />
+    <ClInclude Include="..\..\S8-54\src\Hardware\FLASH.h" />
+    <ClInclude Include="..\..\S8-54\src\Hardware\FSMC.h" />
+    <ClInclude Include="..\..\S8-54\src\Hardware\Hardware.h" />
+    <ClInclude Include="..\..\S8-54\src\Hardware\RAM.h" />
+    <ClInclude Include="..\..\S8-54\src\Hardware\RTC.h" />
+    <ClInclude Include="..\..\S8-54\src\Hardware\Sound.h" />
+    <ClInclude Include="..\..\S8-54\src\Hardware\Timer.h" />
+    <ClInclude Include="..\..\S8-54\src\Hardware\Timer2.h" />
+    <ClInclude Include="..\..\S8-54\src\libs\app_ethernet.h" />
+    <ClInclude Include="..\..\S8-54\src\libs\ethernetif.h" />
+    <ClInclude Include="..\..\S8-54\src\libs\ffconf.h" />
+    <ClInclude Include="..\..\S8-54\src\libs\lwipopts.h" />
+    <ClInclude Include="..\..\S8-54\src\libs\stm32f4xx_hal_conf.h" />
+    <ClInclude Include="..\..\S8-54\src\libs\stm32f4xx_it.h" />
+    <ClInclude Include="..\..\S8-54\src\libs\usbd_cdc_interface.h" />
+    <ClInclude Include="..\..\S8-54\src\libs\usbd_conf.h" />
+    <ClInclude Include="..\..\S8-54\src\libs\usbd_desc.h" />
+    <ClInclude Include="..\..\S8-54\src\libs\usbh_conf.h" />
+    <ClInclude Include="..\..\S8-54\src\Log.h" />
+    <ClInclude Include="..\..\S8-54\src\main.h" />
+    <ClInclude Include="..\..\S8-54\src\Menu\FileManager.h" />
+    <ClInclude Include="..\..\S8-54\src\Menu\Menu.h" />
+    <ClInclude Include="..\..\S8-54\src\Menu\MenuDrawing.h" />
+    <ClInclude Include="..\..\S8-54\src\Menu\MenuFunctions.h" />
+    <ClInclude Include="..\..\S8-54\src\Menu\MenuItems.h" />
+    <ClInclude Include="..\..\S8-54\src\Menu\MenuItemsGraphics.h" />
+    <ClInclude Include="..\..\S8-54\src\Menu\MenuItemsLogic.h" />
+    <ClInclude Include="..\..\S8-54\src\Menu\Pages\Definition.h" />
+    <ClInclude Include="..\..\S8-54\src\Menu\Pages\HelpContent.h" />
+    <ClInclude Include="..\..\S8-54\src\Menu\Pages\HelpContentPages.h" />
+    <ClInclude Include="..\..\S8-54\src\Menu\Pages\PageCursors.h" />
+    <ClInclude Include="..\..\S8-54\src\Menu\Pages\PageDisplay.h" />
+    <ClInclude Include="..\..\S8-54\src\Menu\Pages\PageHelp.h" />
+    <ClInclude Include="..\..\S8-54\src\Menu\Pages\PageMemory.h" />
+    <ClInclude Include="..\..\S8-54\src\Menu\Pages\PageServiceMath.h" />
+    <ClInclude Include="..\..\S8-54\src\Panel\Controls.h" />
+    <ClInclude Include="..\..\S8-54\src\Panel\Panel.h" />
+    <ClInclude Include="..\..\S8-54\src\Settings\Settings.h" />
+    <ClInclude Include="..\..\S8-54\src\Settings\SettingsChannel.h" />
+    <ClInclude Include="..\..\S8-54\src\Settings\SettingsCursors.h" />
+    <ClInclude Include="..\..\S8-54\src\Settings\SettingsDebug.h" />
+    <ClInclude Include="..\..\S8-54\src\Settings\SettingsDisplay.h" />
+    <ClInclude Include="..\..\S8-54\src\Settings\SettingsMemory.h" />
+    <ClInclude Include="..\..\S8-54\src\Settings\SettingsService.h" />
+    <ClInclude Include="..\..\S8-54\src\Settings\SettingsTime.h" />
+    <ClInclude Include="..\..\S8-54\src\Settings\SettingsTypes.h" />
+    <ClInclude Include="..\..\S8-54\src\Tables.h" />
+    <ClInclude Include="..\..\S8-54\src\Utils\Debug.h" />
+    <ClInclude Include="..\..\S8-54\src\Utils\Generator.h" />
+    <ClInclude Include="..\..\S8-54\src\Utils\GlobalFunctions.h" />
+    <ClInclude Include="..\..\S8-54\src\Utils\Map.h" />
+    <ClInclude Include="..\..\S8-54\src\Utils\Math.h" />
+    <ClInclude Include="..\..\S8-54\src\Utils\Measures.h" />
+    <ClInclude Include="..\..\S8-54\src\Utils\ProcessingSignal.h" />
+    <ClInclude Include="..\..\S8-54\src\Utils\Strings.h" />
+    <ClInclude Include="..\..\S8-54\src\Utils\TablesLog.h" />
+    <ClInclude Include="..\..\S8-54\src\Utils\TablesWindow.h" />
+    <ClInclude Include="..\..\S8-54\src\VCP\SCPI\commonSCPI.h" />
+    <ClInclude Include="..\..\S8-54\src\VCP\SCPI\controlSCPI.h" />
+    <ClInclude Include="..\..\S8-54\src\VCP\SCPI\SCPI.h" />
+    <ClInclude Include="..\..\S8-54\src\VCP\VCP.h" />
+    <ClInclude Include="..\..\STM32Cube_FW_F4\Middlewares\ST\STM32_USB_Device_Library\Class\CDC\Inc\usbd_cdc.h" />
+    <ClInclude Include="..\..\STM32Cube_FW_F4\Middlewares\ST\STM32_USB_Device_Library\Core\Inc\usbd_core.h" />
+    <ClInclude Include="..\..\STM32Cube_FW_F4\Middlewares\ST\STM32_USB_Device_Library\Core\Inc\usbd_ctlreq.h" />
+    <ClInclude Include="..\..\STM32Cube_FW_F4\Middlewares\ST\STM32_USB_Device_Library\Core\Inc\usbd_ioreq.h" />
+    <ClInclude Include="..\..\STM32Cube_FW_F4\Middlewares\ST\STM32_USB_Host_Library\Class\MSC\Inc\usbh_msc.h" />
+    <ClInclude Include="..\..\STM32Cube_FW_F4\Middlewares\ST\STM32_USB_Host_Library\Class\MSC\Inc\usbh_msc_bot.h" />
+    <ClInclude Include="..\..\STM32Cube_FW_F4\Middlewares\ST\STM32_USB_Host_Library\Class\MSC\Inc\usbh_msc_scsi.h" />
+    <ClInclude Include="..\..\STM32Cube_FW_F4\Middlewares\ST\STM32_USB_Host_Library\Core\Inc\usbh_core.h" />
+    <ClInclude Include="..\..\STM32Cube_FW_F4\Middlewares\ST\STM32_USB_Host_Library\Core\Inc\usbh_ctlreq.h" />
+    <ClInclude Include="..\..\STM32Cube_FW_F4\Middlewares\ST\STM32_USB_Host_Library\Core\Inc\usbh_ioreq.h" />
+    <ClInclude Include="..\..\STM32Cube_FW_F4\Middlewares\ST\STM32_USB_Host_Library\Core\Inc\usbh_pipes.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\..\S8-54\src\Display\font\font5.inc" />
+    <None Include="..\..\S8-54\src\Display\font\font5display.inc" />
+    <None Include="..\..\S8-54\src\Display\font\font8.inc" />
+    <None Include="..\..\S8-54\src\Display\font\font8display.inc" />
+    <None Include="..\..\S8-54\src\Display\font\fontUGO.inc" />
+    <None Include="..\..\S8-54\src\Display\font\fontUGO2.inc" />
+    <None Include="..\..\S8-54\src\Display\font\fontUGO2display.inc" />
+    <None Include="..\..\S8-54\src\Display\font\fontUGOdisplay.inc" />
+    <None Include="..\..\S8-54\src\libs\startup_stm32f437xx.s" />
+    <None Include="..\..\S8-54\src\main2.s" />
+    <None Include="..\..\S8-54\src\Utils\CreateTables.py" />
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="..\..\doc\54\54 boolloader.txt" />
+    <Text Include="..\..\doc\алгоритмы.txt" />
+    <Text Include="..\..\doc\Hardware.txt" />
+    <Text Include="..\..\doc\HELP.txt" />
+    <Text Include="..\..\doc\Instr_For_Prog.txt" />
+    <Text Include="..\..\doc\54_reference.txt" />
+    <Text Include="..\..\doc\Memory.txt" />
+    <Text Include="..\..\doc\TODO_54.txt" />
+    <Text Include="..\..\doc\Меню.txt" />
+    <Text Include="..\..\doc\ТЗ на библиотеку работы с FLASH.txt" />
+    <Text Include="..\..\S8-54\src\EMUz80\doc\interface.txt" />
+    <Text Include="..\..\S8-54\src\Menu\Menu_reference.txt" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

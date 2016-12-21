@@ -1,0 +1,913 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Panel">
+      <UniqueIdentifier>{eb6466a9-e6e6-472e-8fa5-53b73e022c6c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src">
+      <UniqueIdentifier>{bfcffb26-e772-400e-98b1-4289b99551b4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="FPGA">
+      <UniqueIdentifier>{94739d9b-4db5-45c6-8f7d-23d7df05159e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Menu">
+      <UniqueIdentifier>{c2517d40-da04-4d85-a4b3-02d99c3ea038}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Hardware">
+      <UniqueIdentifier>{a1aadac6-8fea-4adf-b4c5-96ed9f142ca2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Settings">
+      <UniqueIdentifier>{de120c52-af26-4470-a74a-f12793a71ad1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Utils">
+      <UniqueIdentifier>{0ece2eab-8b4b-422c-81de-9ad4c4ec0dee}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Menu\Pages">
+      <UniqueIdentifier>{86c809a6-fe4b-4f6e-88eb-dc979c8770c2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Display">
+      <UniqueIdentifier>{374477c7-c0e1-4080-8425-96156104b672}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Display\font">
+      <UniqueIdentifier>{a581bed6-cbe6-4a57-9bf2-233aa7e10f12}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="libs">
+      <UniqueIdentifier>{c8dd36bc-0234-4026-aa95-26bea78a30b7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Ethernet">
+      <UniqueIdentifier>{8ca6d535-9605-414d-892e-49caa7b9ac85}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="FlashDrive">
+      <UniqueIdentifier>{de0efd87-88dd-45ef-b0ab-e28b3ee131a9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="VCP">
+      <UniqueIdentifier>{d348c68c-741e-4e33-8313-696c1d98673b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="VCP\SCPI">
+      <UniqueIdentifier>{52a365d2-4e50-445c-9469-d2dbb351010e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="HAL">
+      <UniqueIdentifier>{c5497683-6131-418f-ab89-2d107e6dacb8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="_doc_">
+      <UniqueIdentifier>{b2c50067-7f4a-4750-b6c6-5990760468bb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="USBH">
+      <UniqueIdentifier>{8c1a350d-0a28-436e-8443-083fadd5893c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="USBD">
+      <UniqueIdentifier>{38c67a26-6d7c-4ab7-97da-f53f0f632b89}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="EMUz80">
+      <UniqueIdentifier>{86bce497-d5b7-486f-9c37-0aefdf479711}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="EMUz80\CPU">
+      <UniqueIdentifier>{76fb101f-6f37-4a16-a0f3-b28440dfbe09}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="EMUz80\doc">
+      <UniqueIdentifier>{3c70cce0-4787-4207-883b-9a8e8d27e204}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="EMUz80\Hardware">
+      <UniqueIdentifier>{b83effce-953a-4b0a-84e9-74684b148c48}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\STM32Cube_FW_F4\Drivers\STM32F4xx_HAL_Driver\Src\stm32f4xx_hal_dma.c">
+      <Filter>HAL</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\STM32Cube_FW_F4\Middlewares\ST\STM32_USB_Device_Library\Class\CDC\Src\usbd_cdc.c">
+      <Filter>USBD</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\STM32Cube_FW_F4\Middlewares\ST\STM32_USB_Device_Library\Core\Src\usbd_core.c">
+      <Filter>USBD</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\STM32Cube_FW_F4\Middlewares\ST\STM32_USB_Device_Library\Core\Src\usbd_ctlreq.c">
+      <Filter>USBD</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\STM32Cube_FW_F4\Middlewares\ST\STM32_USB_Device_Library\Core\Src\usbd_ioreq.c">
+      <Filter>USBD</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\STM32Cube_FW_F4\Middlewares\ST\STM32_USB_Host_Library\Core\Src\usbh_core.c">
+      <Filter>USBH</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\STM32Cube_FW_F4\Middlewares\ST\STM32_USB_Host_Library\Core\Src\usbh_ctlreq.c">
+      <Filter>USBH</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\STM32Cube_FW_F4\Middlewares\ST\STM32_USB_Host_Library\Core\Src\usbh_ioreq.c">
+      <Filter>USBH</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\STM32Cube_FW_F4\Middlewares\ST\STM32_USB_Host_Library\Core\Src\usbh_pipes.c">
+      <Filter>USBH</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\STM32Cube_FW_F4\Middlewares\ST\STM32_USB_Host_Library\Class\MSC\Src\usbh_msc.c">
+      <Filter>USBH</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\STM32Cube_FW_F4\Middlewares\ST\STM32_USB_Host_Library\Class\MSC\Src\usbh_msc_bot.c">
+      <Filter>USBH</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\STM32Cube_FW_F4\Middlewares\ST\STM32_USB_Host_Library\Class\MSC\Src\usbh_msc_scsi.c">
+      <Filter>USBH</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\STM32Cube_FW_F4\Drivers\STM32F4xx_HAL_Driver\Src\stm32f4xx_hal_rcc.c">
+      <Filter>HAL</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\STM32Cube_FW_F4\Drivers\STM32F4xx_HAL_Driver\Src\stm32f4xx_hal_rtc.c">
+      <Filter>HAL</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\STM32Cube_FW_F4\Drivers\STM32F4xx_HAL_Driver\Src\stm32f4xx_hal_rtc_ex.c">
+      <Filter>HAL</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\S8-54\src\Hardware\FLASH.c">
+      <Filter>Hardware</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\S8-54\src\Hardware\FSMC.c">
+      <Filter>Hardware</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\S8-54\src\Hardware\Hardware.c">
+      <Filter>Hardware</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\S8-54\src\Hardware\RAM.c">
+      <Filter>Hardware</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\S8-54\src\Hardware\RTC.c">
+      <Filter>Hardware</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\S8-54\src\Hardware\Sound.c">
+      <Filter>Hardware</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\S8-54\src\Hardware\Timer.c">
+      <Filter>Hardware</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\S8-54\src\VCP\SCPI\channelSCPI.c">
+      <Filter>VCP\SCPI</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\S8-54\src\VCP\SCPI\commonSCPI.c">
+      <Filter>VCP\SCPI</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\S8-54\src\VCP\SCPI\controlSCPI.c">
+      <Filter>VCP\SCPI</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\S8-54\src\VCP\SCPI\displaySCPI.c">
+      <Filter>VCP\SCPI</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\S8-54\src\VCP\SCPI\SCPI.c">
+      <Filter>VCP\SCPI</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\S8-54\src\VCP\SCPI\tbaseSCPI.c">
+      <Filter>VCP\SCPI</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\S8-54\src\VCP\SCPI\trigSCPI.c">
+      <Filter>VCP\SCPI</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\S8-54\src\VCP\VCP.c">
+      <Filter>VCP</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\S8-54\src\Display\font\Font.c">
+      <Filter>Display\font</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\S8-54\src\Display\Colors.c">
+      <Filter>Display</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\S8-54\src\Display\Display.c">
+      <Filter>Display</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\S8-54\src\Display\DisplayPrimitives.c">
+      <Filter>Display</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\S8-54\src\Display\Grid.c">
+      <Filter>Display</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\S8-54\src\Display\Math3D.c">
+      <Filter>Display</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\S8-54\src\Display\Painter.c">
+      <Filter>Display</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\S8-54\src\Display\PainterData.c">
+      <Filter>Display</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\S8-54\src\Display\PainterMem.c">
+      <Filter>Display</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\S8-54\src\Display\PainterText.c">
+      <Filter>Display</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\S8-54\src\Display\WelcomeScreen.c">
+      <Filter>Display</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\S8-54\src\Menu\Pages\Definition.c">
+      <Filter>Menu\Pages</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\S8-54\src\Menu\Pages\HelpContent.c">
+      <Filter>Menu\Pages</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\S8-54\src\Menu\Pages\PageChannels.c">
+      <Filter>Menu\Pages</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\S8-54\src\Menu\Pages\PageCursors.c">
+      <Filter>Menu\Pages</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\S8-54\src\Menu\Pages\PageDebug.c">
+      <Filter>Menu\Pages</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\S8-54\src\Menu\Pages\PageDisplay.c">
+      <Filter>Menu\Pages</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\S8-54\src\Menu\Pages\PageHelp.c">
+      <Filter>Menu\Pages</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\S8-54\src\Menu\Pages\PageMeasures.c">
+      <Filter>Menu\Pages</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\S8-54\src\Menu\Pages\PageMemory.c">
+      <Filter>Menu\Pages</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\S8-54\src\Menu\Pages\PageService.c">
+      <Filter>Menu\Pages</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\S8-54\src\Menu\Pages\PageTime.c">
+      <Filter>Menu\Pages</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\S8-54\src\Menu\Pages\PageTrig.c">
+      <Filter>Menu\Pages</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\S8-54\src\FPGA\DataStorage.c">
+      <Filter>FPGA</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\S8-54\src\FPGA\FPGA.c">
+      <Filter>FPGA</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\S8-54\src\FPGA\FPGA_Calibration.c">
+      <Filter>FPGA</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\S8-54\src\FPGA\FPGA_Settings.c">
+      <Filter>FPGA</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\S8-54\src\FPGA\FreqMeter.c">
+      <Filter>FPGA</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\S8-54\src\Settings\Settings.c">
+      <Filter>Settings</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\S8-54\src\Settings\SettingsChannel.c">
+      <Filter>Settings</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\S8-54\src\Settings\SettingsCursors.c">
+      <Filter>Settings</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\S8-54\src\Settings\SettingsDebug.c">
+      <Filter>Settings</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\S8-54\src\Settings\SettingsDisplay.c">
+      <Filter>Settings</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\S8-54\src\Settings\SettingsrMemory.c">
+      <Filter>Settings</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\S8-54\src\Settings\SettingsService.c">
+      <Filter>Settings</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\S8-54\src\Settings\SettingsTime.c">
+      <Filter>Settings</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\S8-54\src\libs\stm32f4xx_it.c">
+      <Filter>libs</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\S8-54\src\EMUz80\Command.c">
+      <Filter>EMUz80</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\S8-54\src\EMUz80\commonZ80.c">
+      <Filter>EMUz80</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\S8-54\src\EMUz80\DataBase.c">
+      <Filter>EMUz80</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\S8-54\src\EMUz80\Decoder.c">
+      <Filter>EMUz80</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\S8-54\src\EMUz80\definesZ80.c">
+      <Filter>EMUz80</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\S8-54\src\EMUz80\mainZ80.c">
+      <Filter>EMUz80</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\S8-54\src\EMUz80\RAM48.c">
+      <Filter>EMUz80</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\S8-54\src\EMUz80\RAMZ80.c">
+      <Filter>EMUz80</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\S8-54\src\EMUz80\String.c">
+      <Filter>EMUz80</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\S8-54\src\EMUz80\TimerZ80.c">
+      <Filter>EMUz80</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\S8-54\src\EMUz80\VectorCommandZ80.c">
+      <Filter>EMUz80</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\S8-54\src\EMUz80\VectorINT.c">
+      <Filter>EMUz80</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\S8-54\src\EMUz80\VectorUINT8.c">
+      <Filter>EMUz80</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\S8-54\src\EMUz80\Hardware\ports.c">
+      <Filter>EMUz80\Hardware</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\S8-54\src\EMUz80\CPU\DAA.c">
+      <Filter>EMUz80\CPU</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\S8-54\src\EMUz80\CPU\instr.c">
+      <Filter>EMUz80\CPU</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\S8-54\src\EMUz80\CPU\instrCB.c">
+      <Filter>EMUz80\CPU</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\S8-54\src\EMUz80\CPU\instrDD.c">
+      <Filter>EMUz80\CPU</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\S8-54\src\EMUz80\CPU\instrED.c">
+      <Filter>EMUz80\CPU</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\S8-54\src\EMUz80\CPU\instrFD.c">
+      <Filter>EMUz80\CPU</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\S8-54\src\EMUz80\CPU\instrFDCB_DDCB.c">
+      <Filter>EMUz80\CPU</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\S8-54\src\EMUz80\CPU\instrShift.c">
+      <Filter>EMUz80\CPU</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\S8-54\src\EMUz80\CPU\registers.c">
+      <Filter>EMUz80\CPU</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\S8-54\src\EMUz80\CPU\utils.c">
+      <Filter>EMUz80\CPU</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\S8-54\src\FlashDrive\FlashDrive.c">
+      <Filter>FlashDrive</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\S8-54\src\Menu\FileManager.c">
+      <Filter>Menu</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\S8-54\src\Menu\Menu.c">
+      <Filter>Menu</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\S8-54\src\Menu\MenuDrawing.c">
+      <Filter>Menu</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\S8-54\src\Menu\MenuFunctions.c">
+      <Filter>Menu</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\S8-54\src\Menu\MenuItemsGraphics.c">
+      <Filter>Menu</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\S8-54\src\Menu\MenuItemsLogic.c">
+      <Filter>Menu</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\S8-54\src\Panel\Controls.c">
+      <Filter>Panel</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\S8-54\src\Panel\Panel.c">
+      <Filter>Panel</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\S8-54\src\Panel\PanelFunctions.c">
+      <Filter>Panel</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\S8-54\src\Utils\Debug.c">
+      <Filter>Utils</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\S8-54\src\Utils\Generator.c">
+      <Filter>Utils</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\S8-54\src\Utils\GlobalFunctions.c">
+      <Filter>Utils</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\S8-54\src\Utils\Map.c">
+      <Filter>Utils</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\S8-54\src\Utils\Math.c">
+      <Filter>Utils</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\S8-54\src\Utils\Measures.c">
+      <Filter>Utils</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\S8-54\src\Utils\ProcessingSignal.c">
+      <Filter>Utils</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\S8-54\src\Utils\Strings.c">
+      <Filter>Utils</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\S8-54\src\Ethernet\Ethernet.c">
+      <Filter>Ethernet</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\S8-54\src\Ethernet\TcpSocket.c">
+      <Filter>Ethernet</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\S8-54\src\libs\app_ethernet.c">
+      <Filter>libs</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\S8-54\src\libs\ethernetif.c">
+      <Filter>libs</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\S8-54\src\libs\stm32f4xx_hal_msp.c">
+      <Filter>libs</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\S8-54\src\libs\system_stm32f4xx.c">
+      <Filter>libs</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\S8-54\src\libs\usbd_cdc_interface.c">
+      <Filter>libs</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\S8-54\src\libs\usbd_conf.c">
+      <Filter>libs</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\S8-54\src\libs\usbd_desc.c">
+      <Filter>libs</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\S8-54\src\libs\usbh_conf.c">
+      <Filter>libs</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\S8-54\src\defines.c">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\S8-54\src\Globals.c">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\S8-54\src\Heap.c">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\S8-54\src\Log.c">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\S8-54\src\main.c">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\S8-54\src\Tables.c">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\S8-54\src\Hardware\Timer2.c">
+      <Filter>Hardware</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\STM32Cube_FW_F4\Drivers\STM32F4xx_HAL_Driver\Src\stm32f4xx_hal_flash.c">
+      <Filter>HAL</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\STM32Cube_FW_F4\Drivers\STM32F4xx_HAL_Driver\Src\stm32f4xx_hal_flash_ex.c">
+      <Filter>HAL</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\STM32Cube_FW_F4\Middlewares\ST\STM32_USB_Device_Library\Class\CDC\Inc\usbd_cdc.h">
+      <Filter>USBD</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\STM32Cube_FW_F4\Middlewares\ST\STM32_USB_Device_Library\Core\Inc\usbd_core.h">
+      <Filter>USBD</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\STM32Cube_FW_F4\Middlewares\ST\STM32_USB_Device_Library\Core\Inc\usbd_ctlreq.h">
+      <Filter>USBD</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\STM32Cube_FW_F4\Middlewares\ST\STM32_USB_Device_Library\Core\Inc\usbd_ioreq.h">
+      <Filter>USBD</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\STM32Cube_FW_F4\Middlewares\ST\STM32_USB_Host_Library\Core\Inc\usbh_core.h">
+      <Filter>USBH</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\STM32Cube_FW_F4\Middlewares\ST\STM32_USB_Host_Library\Core\Inc\usbh_ctlreq.h">
+      <Filter>USBH</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\STM32Cube_FW_F4\Middlewares\ST\STM32_USB_Host_Library\Core\Inc\usbh_ioreq.h">
+      <Filter>USBH</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\STM32Cube_FW_F4\Middlewares\ST\STM32_USB_Host_Library\Core\Inc\usbh_pipes.h">
+      <Filter>USBH</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\STM32Cube_FW_F4\Middlewares\ST\STM32_USB_Host_Library\Class\MSC\Inc\usbh_msc.h">
+      <Filter>USBH</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\STM32Cube_FW_F4\Middlewares\ST\STM32_USB_Host_Library\Class\MSC\Inc\usbh_msc_bot.h">
+      <Filter>USBH</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\STM32Cube_FW_F4\Middlewares\ST\STM32_USB_Host_Library\Class\MSC\Inc\usbh_msc_scsi.h">
+      <Filter>USBH</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\S8-54\src\Hardware\FLASH.h">
+      <Filter>Hardware</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\S8-54\src\Hardware\FSMC.h">
+      <Filter>Hardware</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\S8-54\src\Hardware\Hardware.h">
+      <Filter>Hardware</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\S8-54\src\Hardware\RAM.h">
+      <Filter>Hardware</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\S8-54\src\Hardware\RTC.h">
+      <Filter>Hardware</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\S8-54\src\Hardware\Sound.h">
+      <Filter>Hardware</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\S8-54\src\Hardware\Timer.h">
+      <Filter>Hardware</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\S8-54\src\VCP\SCPI\commonSCPI.h">
+      <Filter>VCP\SCPI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\S8-54\src\VCP\SCPI\controlSCPI.h">
+      <Filter>VCP\SCPI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\S8-54\src\VCP\SCPI\SCPI.h">
+      <Filter>VCP\SCPI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\S8-54\src\VCP\VCP.h">
+      <Filter>VCP</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\S8-54\src\Display\font\Font.h">
+      <Filter>Display\font</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\S8-54\src\Display\Colors.h">
+      <Filter>Display</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\S8-54\src\Display\Display.h">
+      <Filter>Display</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\S8-54\src\Display\DisplayPrimitives.h">
+      <Filter>Display</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\S8-54\src\Display\DisplayTypes.h">
+      <Filter>Display</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\S8-54\src\Display\Grid.h">
+      <Filter>Display</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\S8-54\src\Display\Math3D.h">
+      <Filter>Display</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\S8-54\src\Display\Painter.h">
+      <Filter>Display</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\S8-54\src\Display\PainterC.h">
+      <Filter>Display</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\S8-54\src\Display\PainterData.h">
+      <Filter>Display</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\S8-54\src\Display\PainterMem.h">
+      <Filter>Display</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\S8-54\src\Display\PainterText.h">
+      <Filter>Display</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\S8-54\src\Display\Symbols.h">
+      <Filter>Display</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\S8-54\src\Display\WelcomeScreen.h">
+      <Filter>Display</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\S8-54\src\Menu\Pages\Definition.h">
+      <Filter>Menu\Pages</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\S8-54\src\Menu\Pages\HelpContent.h">
+      <Filter>Menu\Pages</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\S8-54\src\Menu\Pages\HelpContentPages.h">
+      <Filter>Menu\Pages</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\S8-54\src\Menu\Pages\PageCursors.h">
+      <Filter>Menu\Pages</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\S8-54\src\Menu\Pages\PageDisplay.h">
+      <Filter>Menu\Pages</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\S8-54\src\Menu\Pages\PageHelp.h">
+      <Filter>Menu\Pages</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\S8-54\src\Menu\Pages\PageMemory.h">
+      <Filter>Menu\Pages</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\S8-54\src\Menu\Pages\PageServiceMath.h">
+      <Filter>Menu\Pages</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\S8-54\src\FPGA\DataStorage.h">
+      <Filter>FPGA</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\S8-54\src\FPGA\FPGA.h">
+      <Filter>FPGA</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\S8-54\src\FPGA\FPGA_Calibration.h">
+      <Filter>FPGA</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\S8-54\src\FPGA\FPGA_Types.h">
+      <Filter>FPGA</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\S8-54\src\FPGA\FreqMeter.h">
+      <Filter>FPGA</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\S8-54\src\Settings\Settings.h">
+      <Filter>Settings</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\S8-54\src\Settings\SettingsChannel.h">
+      <Filter>Settings</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\S8-54\src\Settings\SettingsCursors.h">
+      <Filter>Settings</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\S8-54\src\Settings\SettingsDebug.h">
+      <Filter>Settings</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\S8-54\src\Settings\SettingsDisplay.h">
+      <Filter>Settings</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\S8-54\src\Settings\SettingsMemory.h">
+      <Filter>Settings</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\S8-54\src\Settings\SettingsService.h">
+      <Filter>Settings</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\S8-54\src\Settings\SettingsTime.h">
+      <Filter>Settings</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\S8-54\src\Settings\SettingsTypes.h">
+      <Filter>Settings</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\S8-54\src\libs\stm32f4xx_it.h">
+      <Filter>libs</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\S8-54\src\EMUz80\Command.h">
+      <Filter>EMUz80</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\S8-54\src\EMUz80\commonZ80.h">
+      <Filter>EMUz80</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\S8-54\src\EMUz80\DataBase.h">
+      <Filter>EMUz80</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\S8-54\src\EMUz80\Decoder.h">
+      <Filter>EMUz80</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\S8-54\src\EMUz80\definesZ80.h">
+      <Filter>EMUz80</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\S8-54\src\EMUz80\mainZ80.h">
+      <Filter>EMUz80</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\S8-54\src\EMUz80\RAM48.h">
+      <Filter>EMUz80</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\S8-54\src\EMUz80\RAMZ80.h">
+      <Filter>EMUz80</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\S8-54\src\EMUz80\String.h">
+      <Filter>EMUz80</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\S8-54\src\EMUz80\TimerZ80.h">
+      <Filter>EMUz80</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\S8-54\src\EMUz80\VectorCommandZ80.h">
+      <Filter>EMUz80</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\S8-54\src\EMUz80\VectorINT.h">
+      <Filter>EMUz80</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\S8-54\src\EMUz80\VectorUINT8.h">
+      <Filter>EMUz80</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\S8-54\src\EMUz80\Hardware\ports.h">
+      <Filter>EMUz80\Hardware</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\S8-54\src\EMUz80\CPU\DAA.h">
+      <Filter>EMUz80\CPU</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\S8-54\src\EMUz80\CPU\FuncFirst.h">
+      <Filter>EMUz80\CPU</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\S8-54\src\EMUz80\CPU\FuncSecondCB.h">
+      <Filter>EMUz80\CPU</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\S8-54\src\EMUz80\CPU\FuncSecondDD.h">
+      <Filter>EMUz80\CPU</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\S8-54\src\EMUz80\CPU\FuncSecondED.h">
+      <Filter>EMUz80\CPU</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\S8-54\src\EMUz80\CPU\FuncSecondFD.h">
+      <Filter>EMUz80\CPU</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\S8-54\src\EMUz80\CPU\FuncThird.h">
+      <Filter>EMUz80\CPU</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\S8-54\src\EMUz80\CPU\instr.h">
+      <Filter>EMUz80\CPU</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\S8-54\src\EMUz80\CPU\instrCB.h">
+      <Filter>EMUz80\CPU</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\S8-54\src\EMUz80\CPU\instrDD.h">
+      <Filter>EMUz80\CPU</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\S8-54\src\EMUz80\CPU\instrED.h">
+      <Filter>EMUz80\CPU</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\S8-54\src\EMUz80\CPU\instrFD.h">
+      <Filter>EMUz80\CPU</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\S8-54\src\EMUz80\CPU\instrFDCB_DDCB.h">
+      <Filter>EMUz80\CPU</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\S8-54\src\EMUz80\CPU\instrShift.h">
+      <Filter>EMUz80\CPU</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\S8-54\src\EMUz80\CPU\registers.h">
+      <Filter>EMUz80\CPU</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\S8-54\src\EMUz80\CPU\utils.h">
+      <Filter>EMUz80\CPU</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\S8-54\src\FlashDrive\FlashDrive.h">
+      <Filter>FlashDrive</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\S8-54\src\Menu\FileManager.h">
+      <Filter>Menu</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\S8-54\src\Menu\Menu.h">
+      <Filter>Menu</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\S8-54\src\Menu\MenuDrawing.h">
+      <Filter>Menu</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\S8-54\src\Menu\MenuFunctions.h">
+      <Filter>Menu</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\S8-54\src\Menu\MenuItems.h">
+      <Filter>Menu</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\S8-54\src\Menu\MenuItemsGraphics.h">
+      <Filter>Menu</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\S8-54\src\Menu\MenuItemsLogic.h">
+      <Filter>Menu</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\S8-54\src\Panel\Controls.h">
+      <Filter>Panel</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\S8-54\src\Panel\Panel.h">
+      <Filter>Panel</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\S8-54\src\Utils\Debug.h">
+      <Filter>Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\S8-54\src\Utils\Generator.h">
+      <Filter>Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\S8-54\src\Utils\GlobalFunctions.h">
+      <Filter>Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\S8-54\src\Utils\Map.h">
+      <Filter>Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\S8-54\src\Utils\Math.h">
+      <Filter>Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\S8-54\src\Utils\Measures.h">
+      <Filter>Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\S8-54\src\Utils\ProcessingSignal.h">
+      <Filter>Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\S8-54\src\Utils\Strings.h">
+      <Filter>Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\S8-54\src\Utils\TablesLog.h">
+      <Filter>Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\S8-54\src\Utils\TablesWindow.h">
+      <Filter>Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\S8-54\src\Ethernet\Ethernet.h">
+      <Filter>Ethernet</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\S8-54\src\Ethernet\TcpSocket.h">
+      <Filter>Ethernet</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\S8-54\src\libs\app_ethernet.h">
+      <Filter>libs</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\S8-54\src\libs\ethernetif.h">
+      <Filter>libs</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\S8-54\src\libs\ffconf.h">
+      <Filter>libs</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\S8-54\src\libs\lwipopts.h">
+      <Filter>libs</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\S8-54\src\libs\stm32f4xx_hal_conf.h">
+      <Filter>libs</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\S8-54\src\libs\usbd_cdc_interface.h">
+      <Filter>libs</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\S8-54\src\libs\usbd_conf.h">
+      <Filter>libs</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\S8-54\src\libs\usbd_desc.h">
+      <Filter>libs</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\S8-54\src\libs\usbh_conf.h">
+      <Filter>libs</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\S8-54\src\defines.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\S8-54\src\Globals.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\S8-54\src\Log.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\S8-54\src\main.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\S8-54\src\Tables.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\S8-54\src\Hardware\Timer2.h">
+      <Filter>Hardware</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\..\S8-54\src\Display\font\font5.inc">
+      <Filter>Display\font</Filter>
+    </None>
+    <None Include="..\..\S8-54\src\Display\font\font5display.inc">
+      <Filter>Display\font</Filter>
+    </None>
+    <None Include="..\..\S8-54\src\Display\font\font8.inc">
+      <Filter>Display\font</Filter>
+    </None>
+    <None Include="..\..\S8-54\src\Display\font\font8display.inc">
+      <Filter>Display\font</Filter>
+    </None>
+    <None Include="..\..\S8-54\src\Display\font\fontUGO.inc">
+      <Filter>Display\font</Filter>
+    </None>
+    <None Include="..\..\S8-54\src\Display\font\fontUGO2.inc">
+      <Filter>Display\font</Filter>
+    </None>
+    <None Include="..\..\S8-54\src\Display\font\fontUGO2display.inc">
+      <Filter>Display\font</Filter>
+    </None>
+    <None Include="..\..\S8-54\src\Display\font\fontUGOdisplay.inc">
+      <Filter>Display\font</Filter>
+    </None>
+    <None Include="..\..\S8-54\src\Utils\CreateTables.py">
+      <Filter>Utils</Filter>
+    </None>
+    <None Include="..\..\S8-54\src\libs\startup_stm32f437xx.s">
+      <Filter>libs</Filter>
+    </None>
+    <None Include="..\..\S8-54\src\main2.s">
+      <Filter>src</Filter>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="..\..\doc\Hardware.txt">
+      <Filter>_doc_</Filter>
+    </Text>
+    <Text Include="..\..\doc\HELP.txt">
+      <Filter>_doc_</Filter>
+    </Text>
+    <Text Include="..\..\doc\Instr_For_Prog.txt">
+      <Filter>_doc_</Filter>
+    </Text>
+    <Text Include="..\..\doc\TODO_54.txt">
+      <Filter>_doc_</Filter>
+    </Text>
+    <Text Include="..\..\doc\Меню.txt">
+      <Filter>_doc_</Filter>
+    </Text>
+    <Text Include="..\..\doc\ТЗ на библиотеку работы с FLASH.txt">
+      <Filter>_doc_</Filter>
+    </Text>
+    <Text Include="..\..\doc\54_reference.txt">
+      <Filter>_doc_</Filter>
+    </Text>
+    <Text Include="..\..\doc\Memory.txt">
+      <Filter>_doc_</Filter>
+    </Text>
+    <Text Include="..\..\doc\алгоритмы.txt">
+      <Filter>_doc_</Filter>
+    </Text>
+    <Text Include="..\..\S8-54\src\EMUz80\doc\interface.txt">
+      <Filter>EMUz80\doc</Filter>
+    </Text>
+    <Text Include="..\..\S8-54\src\Menu\Menu_reference.txt">
+      <Filter>Menu</Filter>
+    </Text>
+    <Text Include="..\..\doc\54\54 boolloader.txt">
+      <Filter>_doc_</Filter>
+    </Text>
+  </ItemGroup>
+</Project>

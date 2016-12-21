@@ -1,0 +1,166 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="..\..\S8-54\Bootloader\src\main.c" />
+    <ClCompile Include="..\..\STM32Cube_FW_F4\Drivers\STM32F4xx_HAL_Driver\Src\stm32f4xx_hal_flash.c">
+      <Filter>HAL</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\STM32Cube_FW_F4\Drivers\STM32F4xx_HAL_Driver\Src\stm32f4xx_hal_flash_ex.c">
+      <Filter>HAL</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\STM32Cube_FW_F4\Drivers\STM32F4xx_HAL_Driver\Src\stm32f4xx_hal.c">
+      <Filter>HAL</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\STM32Cube_FW_F4\Drivers\STM32F4xx_HAL_Driver\Src\stm32f4xx_hal_cortex.c">
+      <Filter>HAL</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\S8-54\Bootloader\src\globals.c" />
+    <ClCompile Include="..\..\S8-54\Bootloader\src\libs\system_stm32f4xx.c">
+      <Filter>libs</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\S8-54\Bootloader\src\libs\usbh_conf.c">
+      <Filter>libs</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\S8-54\Bootloader\src\FlashDrive\FlashDrive.c">
+      <Filter>FlashDrive</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\S8-54\Bootloader\src\Hardware\FLASH.c">
+      <Filter>Hardware</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\S8-54\Bootloader\src\libs\stm32f4xx_hal_msp.c">
+      <Filter>libs</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\S8-54\Bootloader\src\Display\Display.c">
+      <Filter>Display</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\S8-54\Bootloader\src\Display\Painter.c">
+      <Filter>Display</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\S8-54\Bootloader\src\Display\Colors.c">
+      <Filter>Display</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\S8-54\Bootloader\src\Display\PainterText.c">
+      <Filter>Display</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\S8-54\Bootloader\src\Settings\Settings.c">
+      <Filter>Settings</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\S8-54\Bootloader\src\Panel\Controls.c">
+      <Filter>Panel</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\S8-54\Bootloader\src\Panel\Panel.c">
+      <Filter>Panel</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\S8-54\Bootloader\src\Panel\PanelFunctions.c">
+      <Filter>Panel</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\S8-54\Bootloader\src\Hardware\FSMC.c">
+      <Filter>Hardware</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\S8-54\Bootloader\src\Hardware\Hardware.c">
+      <Filter>Hardware</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\S8-54\Bootloader\src\Hardware\Timer.c">
+      <Filter>Hardware</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="libs">
+      <UniqueIdentifier>{cf036510-d326-427e-a1c8-8a20538e2154}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="HAL">
+      <UniqueIdentifier>{d622ba41-3c6f-48a3-9a57-8579496b6aab}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="FlashDrive">
+      <UniqueIdentifier>{892e5974-0511-4a7f-8363-2a2a989949a0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Hardware">
+      <UniqueIdentifier>{f1c11395-a65a-48a2-8aa6-a7d44fed7bc0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Display">
+      <UniqueIdentifier>{b43c61bb-d270-44f1-9e20-bef0411f7ae6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Settings">
+      <UniqueIdentifier>{2ab0065f-7f17-4b35-ace2-55cae7ba19e0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Panel">
+      <UniqueIdentifier>{e400f74c-ccea-4c6c-b28f-2ecc5a529c1c}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\STM32Cube_FW_F4\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal_flash.h">
+      <Filter>HAL</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\STM32Cube_FW_F4\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal_flash_ex.h">
+      <Filter>HAL</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\STM32Cube_FW_F4\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal.h">
+      <Filter>HAL</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\STM32Cube_FW_F4\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal_cortex.h">
+      <Filter>HAL</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\S8-54\Bootloader\src\main.h" />
+    <ClInclude Include="..\..\S8-54\Bootloader\src\globals.h" />
+    <ClInclude Include="..\..\S8-54\Bootloader\src\libs\ffconf.h">
+      <Filter>libs</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\S8-54\Bootloader\src\libs\stm32f4xx_hal_conf.h">
+      <Filter>libs</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\S8-54\Bootloader\src\libs\usbh_conf.h">
+      <Filter>libs</Filter>
+    </ClInclude>
+    <ClInclude Include="src\cmsis_gcc.h" />
+    <ClInclude Include="..\..\S8-54\Bootloader\src\FlashDrive\FlashDrive.h">
+      <Filter>FlashDrive</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\S8-54\Bootloader\src\Hardware\FLASH.h">
+      <Filter>Hardware</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\S8-54\Bootloader\src\Display\Display.h">
+      <Filter>Display</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\S8-54\Bootloader\src\Display\Painter.h">
+      <Filter>Display</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\S8-54\Bootloader\src\Display\PainterC.h">
+      <Filter>Display</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\S8-54\Bootloader\src\Display\DisplayTypes.h">
+      <Filter>Display</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\S8-54\Bootloader\src\Display\Colors.h">
+      <Filter>Display</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\S8-54\Bootloader\src\Display\PainterText.h">
+      <Filter>Display</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\S8-54\Bootloader\src\Settings\Settings.h">
+      <Filter>Settings</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\S8-54\Bootloader\src\Settings\SettingsTypes.h">
+      <Filter>Settings</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\S8-54\Bootloader\src\Panel\Controls.h">
+      <Filter>Panel</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\S8-54\Bootloader\src\Panel\Panel.h">
+      <Filter>Panel</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\S8-54\Bootloader\src\Hardware\FSMC.h">
+      <Filter>Hardware</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\S8-54\Bootloader\src\Hardware\Hardware.h">
+      <Filter>Hardware</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\S8-54\Bootloader\src\Hardware\Timer.h">
+      <Filter>Hardware</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\..\S8-54\Bootloader\src\libs\startup_stm32f437xx.s">
+      <Filter>libs</Filter>
+    </None>
+  </ItemGroup>
+</Project>

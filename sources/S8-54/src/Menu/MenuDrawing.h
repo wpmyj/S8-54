@@ -1,0 +1,10 @@
+#pragma once
+
+
+#include "Panel/Controls.h"
+
+
+void    Menu_Draw(void);                        // Нарисовать меню.
+void*   ItemUnderButton(PanelButton button);    // Возвращает адрес элемента меню, соответствующего данной button.
+bool    IsPressed(void* item);                  // Возвращает true, если кнопка, соответствующая элементу меню item, находится в нажатом положении.
+bool    IsShade(void* item);                    // Возвращает true, если элемент меню item затенён (находится не на самом верхнем слое. Как правило, это означает, что раскрыт раскрывающийся элемент меню вроде Choice или Governor.
