@@ -6,8 +6,10 @@
 
 typedef enum
 {
-    kDisplayUpdate,
-    kFlash,
+    kPressKey,
+    kShowLevelRShiftA,
+    kShowLevelRShiftB,
+    kShowLevelTrigLev,
     NumTimers
 } TypeTimer2;
 

@@ -1,7 +1,6 @@
 #include "defines.h"
 #include "Globals.h"
 #include "Log.h"
-
 #include "PainterMem.h"
 #include "Symbols.h"
 #include "Display.h"
@@ -10,15 +9,12 @@
 #include "font/Font.h"
 #include "Colors.h"
 #include "PainterData.h"
-
 #include "Ethernet/Ethernet.h"
 #include "Ethernet/TcpSocket.h"
-
 #include "FPGA/FPGA.h"
 #include "FPGA/DataStorage.h"
 #include "FPGA/FreqMeter.h"
 #include "FlashDrive/FlashDrive.h"
-
 #include "Hardware/Hardware.h"
 #include "Hardware/FSMC.h"
 #include "Hardware/FLASH.h" 
@@ -26,22 +22,19 @@
 #include "Hardware/RTC.h"
 #include "Hardware/RAM.h"
 #include "Hardware/Timer.h"
-
+#include "Hardware/Timer2.h"
 #include "Menu/Menu.h"
 #include "Menu/MenuDrawing.h"
 #include "Menu/MenuFunctions.h"
 #include "Menu/Pages/PageCursors.h"
 #include "Menu/Pages/PageMemory.h"
 #include "Menu/Pages/PageHelp.h"
-
 #include "Settings/Settings.h"
-
 #include "Utils/Measures.h"
 #include "Utils/Math.h"
 #include "Utils/GlobalFunctions.h"
 #include "Utils/ProcessingSignal.h"
 #include "Utils/Debug.h"
-
 #include "VCP/VCP.h"
 
 
@@ -135,7 +128,6 @@ void Display_Init(void)
 void DisableShowLevelRShiftA(void)
 {
     showLevelRShiftA = false;
-    Timer_Disable(kShowLevelRShiftA);
 }
 
 
@@ -144,7 +136,6 @@ void DisableShowLevelRShiftA(void)
 void DisableShowLevelRShiftB(void)
 {
     showLevelRShiftB = false;
-    Timer_Disable(kShowLevelRShiftB);
 }
 
 
@@ -155,7 +146,7 @@ void Display_RotateRShift(Channel ch)
     if(TIME_SHOW_LEVELS)
     {
         (ch == A) ? (showLevelRShiftA = true) : (showLevelRShiftB = true);
-        Timer_Enable((ch == A) ? kShowLevelRShiftA : kShowLevelRShiftB, TIME_SHOW_LEVELS  * 1000, (ch == A) ? DisableShowLevelRShiftA : DisableShowLevelRShiftB);
+        Timer2_SetAndStartOne((ch == A) ? kShowLevelRShiftA : kShowLevelRShiftB, (ch == A) ? DisableShowLevelRShiftA : DisableShowLevelRShiftB, TIME_SHOW_LEVELS  * 1000);
     };
     Display_Redraw();
 }
@@ -165,7 +156,7 @@ void Display_RotateRShift(Channel ch)
 void DisableShowLevelTrigLev(void)
 {
     showLevelTrigLev = false;
-    Timer_Disable(kShowLevelTrigLev);
+    LOG_FUNC_ENTER;
 }
 
 
@@ -175,7 +166,7 @@ void Display_RotateTrigLev(void)
     if (TIME_SHOW_LEVELS && TRIG_MODE_FIND_HAND)
     {
         showLevelTrigLev = true;
-        Timer_Enable(kShowLevelTrigLev, TIME_SHOW_LEVELS * 1000, DisableShowLevelTrigLev);
+        Timer2_SetAndStartOne(kShowLevelTrigLev, DisableShowLevelTrigLev, TIME_SHOW_LEVELS * 1000);
     }
     Display_Redraw();
 }

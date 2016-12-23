@@ -46,11 +46,6 @@ static void Disable_IfNessessary(void)
 #endif
 
 
-void AddToLog(void)
-{
-    LOG_WRITE("%d", gTimerMS);
-}
-
 //------------------------------------------------------------------------------------------------------------------------------------------------------
 int main(void)
 {
@@ -82,9 +77,6 @@ int main(void)
         Display_SetDrawMode(DrawMode_Hand, DrawWelcomeScreen);
         Timer_Enable(kTemp, 5000, StopDrawWelcomeScreen);
     }
-
-    Timer2_Init();
-    Timer2_SetAndEnable(kDisplayUpdate, AddToLog, 100);
 
     bool run = true;
     while(run)

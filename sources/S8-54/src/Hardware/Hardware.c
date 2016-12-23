@@ -1,10 +1,7 @@
 #include "defines.h"
 #include "Log.h"
-
 #include "Display/Display.h"
-
 #include "FlashDrive/FlashDrive.h"
-
 #include "Hardware.h"
 #include "Hardware/FLASH.h"
 #include "Hardware/Sound.h"
@@ -12,6 +9,7 @@
 #include "Hardware/FSMC.h"
 #include "Hardware/RAM.h"
 #include "Hardware/Timer.h"
+#include "Hardware/Timer2.h"
 #include "FPGA/FPGA.h"
 #include "Panel/Panel.h"
 #include "Utils/GlobalFunctions.h"
@@ -88,6 +86,8 @@ void Hardware_Init(void)
     HAL_NVIC_EnableIRQ(TIM6_DAC_IRQn);
 
     Timer_Init();
+
+    Timer2_Init();
 
     Sound_Init();
     

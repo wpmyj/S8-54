@@ -9,6 +9,7 @@
 #include "Utils/GlobalFunctions.h"
 #include "Utils/Debug.h"
 #include "Hardware/Timer.h"
+#include "Hardware/Timer2.h"
 #include "Hardware/Sound.h"
 #include "Hardware/Hardware.h"
 #include "Hardware/FSMC.h"
@@ -226,7 +227,7 @@ void OnTimerPressedKey(void)
         }
         pressedKey = B_Empty;
     }
-    Timer_Disable(kPressKey);
+    //Timer2_Disable(kPressKey);
 }
 
 
@@ -346,14 +347,15 @@ void Panel_Update(void)
                 Menu_ShortPressureButton(releaseButton);
                 pressedKey = B_Empty;
             }
-            Timer_Disable(kPressKey);
+            Timer2_Disable(kPressKey);
         }
         else if (pressButton)
         {
             funcButton[pressButton].funcOnKey(1);
             Menu_PressButton(pressButton);
             pressedKey = pressButton;
-            Timer_Enable(kPressKey, 500, OnTimerPressedKey);
+            //Timer2_Enable(kPressKey, 500, OnTimerPressedKey);
+            Timer2_SetAndStartOne(kPressKey, OnTimerPressedKey, 500);
         }
         else if (regLeft)
         {
