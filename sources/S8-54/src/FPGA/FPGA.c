@@ -1,8 +1,6 @@
 #include "FPGA.h"
 #include "Log.h"
-
 #include "Display/Display.h"
-
 #include "FPGA/DataStorage.h"
 #include "FPGA/FPGA_Types.h"
 #include "FPGA/FPGA_Calibration.h"
@@ -11,6 +9,7 @@
 #include "Hardware/Hardware.h"
 #include "Hardware/RAM.h"
 #include "Hardware/Timer.h"
+#include "Hardware/Timer2.h"
 #include "Hardware/RTC.h"
 #include "Menu/Pages/PageMemory.h"
 #include "Panel/Panel.h"
@@ -117,7 +116,7 @@ static void OnTimerCanReadData(void)
 //------------------------------------------------------------------------------------------------------------------------------------------------------
 void FPGA_SetNumSignalsInSec(int numSigInSec) 
 {
-    Timer_Enable(kNumSignalsInSec, (int)(1000.f / numSigInSec), OnTimerCanReadData);
+    Timer2_SetAndEnable(kNumSignalsInSec, OnTimerCanReadData, (int)(1000.f / numSigInSec));
 }
 
 

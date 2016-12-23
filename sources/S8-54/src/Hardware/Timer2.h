@@ -10,6 +10,7 @@ typedef enum
     kShowLevelRShiftA,
     kShowLevelRShiftB,
     kShowLevelTrigLev,
+    kNumSignalsInSec,
     NumTimers
 } TypeTimer2;
 
