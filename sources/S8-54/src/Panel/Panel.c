@@ -355,7 +355,7 @@ void Panel_Update(void)
             Menu_PressButton(pressButton);
             pressedKey = pressButton;
             //Timer2_Enable(kPressKey, 500, OnTimerPressedKey);
-            Timer2_SetAndStartOne(kPressKey, OnTimerPressedKey, 500);
+            Timer2_SetAndStartOnce(kPressKey, OnTimerPressedKey, 500);
         }
         else if (regLeft)
         {

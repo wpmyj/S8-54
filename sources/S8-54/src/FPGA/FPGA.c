@@ -1208,7 +1208,6 @@ uint8 CalculateMax(uint8 buffer[100])
 void StopTemporaryPause(void)
 {
     gBF.FPGAtemporaryPause = 0;
-    Timer_Disable(kTemporaryPauseFPGA);
 }
 
 
@@ -1216,7 +1215,7 @@ void StopTemporaryPause(void)
 void FPGA_TemporaryPause(void)
 {
     gBF.FPGAtemporaryPause = 1;
-    Timer_Enable(kTemporaryPauseFPGA, 100, StopTemporaryPause);
+    Timer2_SetAndStartOnce(kTemporaryPauseFPGA, StopTemporaryPause, 100);
 }
 
 

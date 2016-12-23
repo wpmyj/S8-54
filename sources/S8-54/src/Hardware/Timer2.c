@@ -71,7 +71,7 @@ void Timer2_Set(TypeTimer2 type, pFuncVV func, uint dTms)
 
 
 //---------------------------------------------------------------------------------------------------------------------------------------------------
-void Timer2_SetAndStartOne(TypeTimer2 type, pFuncVV func, uint dTms)
+void Timer2_SetAndStartOnce(TypeTimer2 type, pFuncVV func, uint dTms)
 {
     Timer2_Set(type, func, dTms);
     Timer2_StartOnce(type);

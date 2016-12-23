@@ -1,11 +1,8 @@
 #include "defines.h"
 #include "Sound.h"
 #include "Log.h"
-
-#include "Hardware/Timer.h"
-
+#include "Hardware/Timer2.h"
 #include "Settings/Settings.h"
-
 #include "Utils/Math.h"
 
 #include <stm32f437xx.h>
@@ -100,8 +97,6 @@ uint16 CalculatePeriodForTIM(void)
 //------------------------------------------------------------------------------------------------------------------------------------------------------
 void CalculateSine(void)
 {
-    int min = 10000;
-    int max = -10000;
     for(int i = 0; i < POINTS_IN_PERIOD_SOUND; i++)
     {
         float step = 2.0f * 3.1415926f / (POINTS_IN_PERIOD_SOUND - 1);
@@ -122,7 +117,7 @@ void CalculateSine(void)
         }
     }
 
-    LOG_WRITE("min = %d, max = %d", min, max);
+    //LOG_WRITE("min = %d, max = %d", min, max);
 }
 
 
@@ -198,7 +193,7 @@ static void Sound_Beep(const TypeWave newTypeWave, const float newFreq, const fl
     gSoundIsBeep = true;
     HAL_DAC_Start_DMA(&handleDAC, DAC_CHANNEL_1, (uint32_t*)points, POINTS_IN_PERIOD_SOUND, DAC_ALIGN_8B_R);
 
-    Timer_Enable(kStopSound, newDuration, Stop);
+    Timer2_SetAndStartOnce(kStopSound, Stop, newDuration);
 }
 
 

@@ -7,6 +7,7 @@
 #include "Display/Painter.h"
 #include "Panel/Panel.h"
 #include "Hardware/FSMC.h"
+#include "Hardware/Timer2.h"
 #include "Settings/SettingsTypes.h"
 #include "Settings/Settings.h"
 #include "Utils/GlobalFunctions.h"
@@ -622,7 +623,7 @@ void FPGA_ProcedureCalibration(void)
     set.chan[A].enable = set.chan[B].enable = true;
     
     Display_SetDrawMode(DrawMode_Hand, FuncAttScreen);
-    Timer_Enable(kTimerDrawHandFunction, 100, OnTimerDraw);
+    Timer2_SetAndEnable(kTimerDrawHandFunction, OnTimerDraw, 100);
     
     cal->barA.fullTime = cal->barA.passedTime = cal->barB.fullTime = cal->barB.passedTime = 0;
     
@@ -681,7 +682,7 @@ void FPGA_ProcedureCalibration(void)
     WriteAdditionRShifts(B);
     
     Panel_Enable();
-    Timer_Disable(kTimerDrawHandFunction);
+    Timer2_Disable(kTimerDrawHandFunction);
     Display_SetDrawMode(DrawMode_Auto, 0);
     
     set.chan[A].enable = chanAenable;

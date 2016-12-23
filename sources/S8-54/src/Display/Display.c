@@ -146,7 +146,7 @@ void Display_RotateRShift(Channel ch)
     if(TIME_SHOW_LEVELS)
     {
         (ch == A) ? (showLevelRShiftA = true) : (showLevelRShiftB = true);
-        Timer2_SetAndStartOne((ch == A) ? kShowLevelRShiftA : kShowLevelRShiftB, (ch == A) ? DisableShowLevelRShiftA : DisableShowLevelRShiftB, TIME_SHOW_LEVELS  * 1000);
+        Timer2_SetAndStartOnce((ch == A) ? kShowLevelRShiftA : kShowLevelRShiftB, (ch == A) ? DisableShowLevelRShiftA : DisableShowLevelRShiftB, TIME_SHOW_LEVELS  * 1000);
     };
     Display_Redraw();
 }
@@ -166,7 +166,7 @@ void Display_RotateTrigLev(void)
     if (TIME_SHOW_LEVELS && TRIG_MODE_FIND_HAND)
     {
         showLevelTrigLev = true;
-        Timer2_SetAndStartOne(kShowLevelTrigLev, DisableShowLevelTrigLev, TIME_SHOW_LEVELS * 1000);
+        Timer2_SetAndStartOnce(kShowLevelTrigLev, DisableShowLevelTrigLev, TIME_SHOW_LEVELS * 1000);
     }
     Display_Redraw();
 }
@@ -1816,7 +1816,7 @@ static void OnRShiftMarkersAutoHide(void)
 void Display_ChangedRShiftMarkers(bool active)
 {
     drawRShiftMarkers = set.display.altMarkers != AM_Hide;
-    Timer2_SetAndStartOne(kRShiftMarkersAutoHide, OnRShiftMarkersAutoHide, 5000);
+    Timer2_SetAndStartOnce(kRShiftMarkersAutoHide, OnRShiftMarkersAutoHide, 5000);
 }
 
 

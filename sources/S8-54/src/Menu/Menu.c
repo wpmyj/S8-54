@@ -347,7 +347,7 @@ void Menu_SetAutoHide(bool active)
     }
     else
     {
-        Timer2_SetAndStartOne(kMenuAutoHide, OnTimerAutoHide, sDisplay_TimeMenuAutoHide());
+        Timer2_SetAndStartOnce(kMenuAutoHide, OnTimerAutoHide, sDisplay_TimeMenuAutoHide());
     }
 }
 
