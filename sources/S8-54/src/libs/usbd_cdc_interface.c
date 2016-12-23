@@ -3,7 +3,7 @@
 #include "VCP/VCP.h"
 #include "VCP/SCPI/SCPI.h"
 #include "Log.h"
-#include "Hardware/Timer.h"
+#include "Hardware/Timer2.h"
 
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -42,7 +42,6 @@ static void SetAttributeConnected(void)
 {
     gCableVCPisConnected = true;
     gConnectToHost = false;
-    Timer_Disable(kTemp);
 }
 
 
@@ -50,7 +49,7 @@ static void SetAttributeConnected(void)
 static int8_t CDC_Itf_Init(void)
 {
     USBD_CDC_SetRxBuffer(&handleUSBD, UserRxBuffer);
-    Timer_Enable(kTemp, 100, SetAttributeConnected);    // WARN Задержка введена для того, чтобы не было ложных срабатываний в 
+    Timer2_SetAndStartOne(kTemp, SetAttributeConnected, 100);    // WARN Задержка введена для того, чтобы не было ложных срабатываний в 
     return (USBD_OK);                                   // usbd_conf.c:HAL_PCD_SetupStageCallback при определении подключения хоста
 }
 

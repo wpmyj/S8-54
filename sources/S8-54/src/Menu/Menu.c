@@ -24,6 +24,7 @@
 #include "FPGA/FPGA.h"
 #include "Hardware/Hardware.h"
 #include "Hardware/Sound.h"
+#include "Hardware/Timer2.h"
 #include "Hardware/RTC.h"
 #include "Panel/Panel.h"
 #include "FlashDrive/FlashDrive.h"
@@ -342,11 +343,11 @@ void Menu_SetAutoHide(bool active)
     }
     if(sDisplay_TimeMenuAutoHide() == 0)
     {
-        Timer_Disable(kMenuAutoHide);
+        Timer2_Disable(kMenuAutoHide);
     }
     else
     {
-        Timer_Enable(kMenuAutoHide, sDisplay_TimeMenuAutoHide(), OnTimerAutoHide);
+        Timer2_SetAndStartOne(kMenuAutoHide, OnTimerAutoHide, sDisplay_TimeMenuAutoHide());
     }
 }
 
@@ -386,7 +387,6 @@ char* Menu_StringNavigation(char buffer[100])
 void OnTimerAutoHide(void)
 {
     Menu_Show(false);
-    Timer_Disable(kMenuAutoHide);
 }
 
 

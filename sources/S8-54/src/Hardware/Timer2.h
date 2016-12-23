@@ -13,6 +13,9 @@ typedef enum
     kNumSignalsInSec,
     kFlashDisplay,
     kShowMessages,
+    kMenuAutoHide,
+    kRShiftMarkersAutoHide,
+    kTemp,
     NumTimers
 } TypeTimer2;
 

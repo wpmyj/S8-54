@@ -1809,7 +1809,6 @@ void Display_ShiftScreen(int delta)
 static void OnRShiftMarkersAutoHide(void)
 {
     drawRShiftMarkers = false;
-    Timer_Disable(kRShiftMarkersAutoHide);
 }
 
 
@@ -1817,7 +1816,7 @@ static void OnRShiftMarkersAutoHide(void)
 void Display_ChangedRShiftMarkers(bool active)
 {
     drawRShiftMarkers = set.display.altMarkers != AM_Hide;
-    Timer_Enable(kRShiftMarkersAutoHide, 5000, OnRShiftMarkersAutoHide);
+    Timer2_SetAndStartOne(kRShiftMarkersAutoHide, OnRShiftMarkersAutoHide, 5000);
 }
 
 
