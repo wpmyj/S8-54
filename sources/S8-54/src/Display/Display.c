@@ -22,7 +22,6 @@
 #include "Hardware/RTC.h"
 #include "Hardware/RAM.h"
 #include "Hardware/Timer.h"
-#include "Hardware/Timer2.h"
 #include "Menu/Menu.h"
 #include "Menu/MenuDrawing.h"
 #include "Menu/MenuFunctions.h"

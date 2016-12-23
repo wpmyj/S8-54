@@ -9,7 +9,6 @@
 #include "Hardware/Hardware.h"
 #include "Hardware/RAM.h"
 #include "Hardware/Timer.h"
-#include "Hardware/Timer2.h"
 #include "Hardware/RTC.h"
 #include "Menu/Pages/PageMemory.h"
 #include "Panel/Panel.h"
@@ -17,6 +16,7 @@
 #include "Settings/Settings.h"  
 #include "Utils/Math.h"
 #include "Utils/ProcessingSignal.h"
+#include "Utils/GlobalFunctions.h"
 #include "Utils/Debug.h"
 
 

@@ -1,7 +1,6 @@
 #include "defines.h"
 #include "Hardware/RTC.h"
 #include "Hardware/Timer.h"
-#include "Hardware/Timer2.h"
 #include "Settings/Settings.h"
 #include "Menu/Menu.h"
 #include "defines.h"

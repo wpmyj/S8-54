@@ -10,7 +10,6 @@
 #include "Ethernet/Ethernet.h"
 #include "Ethernet/TcpSocket.h"
 #include "Hardware/FSMC.h"
-#include "Hardware/Timer2.h"
 #include "Utils/Math.h"
 #include "Utils/GlobalFunctions.h"
 #include "FlashDrive/FlashDrive.h"

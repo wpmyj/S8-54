@@ -13,6 +13,7 @@
 #include "Symbols.h"
 #include "Log.h"
 #include "Settings/SettingsDisplay.h"
+#include "Utils/GlobalFunctions.h"
 
 #ifdef _MS_VS
 #pragma warning(push)

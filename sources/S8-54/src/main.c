@@ -3,7 +3,6 @@
 #include "Settings/Settings.h"
 #include "Hardware/FSMC.h"
 #include "Hardware/Timer.h"
-#include "Hardware/Timer2.h"
 #include "Hardware/FLASH.h"
 #include "Log.h"
 #include "Panel/Panel.h"

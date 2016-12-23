@@ -1,9 +1,9 @@
 #include "defines.h"
 #include "Sound.h"
 #include "Log.h"
-#include "Hardware/Timer2.h"
 #include "Settings/Settings.h"
 #include "Utils/Math.h"
+#include "Hardware/Timer.h"
 
 #include <stm32f437xx.h>
 #include <stm32f4xx_hal.h>

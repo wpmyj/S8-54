@@ -5,7 +5,6 @@
 #include "Decoder.h"
 #include "DataBase.h"
 #include "RAM48.h"
-
 #include "Display/Painter.h"
 #include "Panel/Panel.h"
 #include "Hardware/Hardware.h"

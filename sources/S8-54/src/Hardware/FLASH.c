@@ -319,7 +319,7 @@ static uint FindAddressNextDataInfo(void)
 {
     uint addressNextInfo = startDataInfo + MAX_NUM_SAVED_WAVES * 4;
 
-    while (*((uint*)addressNextInfo) != 0xffffffff)
+    while (*((uint*)addressNextInfo) != MAX_UINT)
     {
         addressNextInfo = *((uint*)addressNextInfo) + MAX_NUM_SAVED_WAVES * 4;
     }

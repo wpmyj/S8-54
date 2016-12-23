@@ -1,21 +1,17 @@
 #include "DataStorage.h"
 #include "Log.h"
-
 #include "FPGA/FPGA_Types.h"
 #include "FPGA/FPGA.h"
-
 #include "Hardware/Timer.h"
 #include "Hardware/RTC.h"
 #include "Hardware/FSMC.h"
 #include "Hardware/RAM.h"
-
 #include "Menu/Pages/PageMemory.h"
-
 #include "Settings/Settings.h"
 #include "Settings/Settings.h"
-
 #include "Utils/Math.h"
 #include "Utils/Debug.h"
+#include "Utils/GlobalFunctions.h"
 
 #include <string.h>
 

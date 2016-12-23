@@ -15,7 +15,6 @@
 #include "ffconf.h"
 #include "Hardware/Hardware.h"
 #include "Hardware/Timer.h"
-#include "Hardware/Timer2.h"
 #include "FlashDrive.h"
 
 

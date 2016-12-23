@@ -9,7 +9,6 @@
 #include "Hardware/FSMC.h"
 #include "Hardware/RAM.h"
 #include "Hardware/Timer.h"
-#include "Hardware/Timer2.h"
 #include "FPGA/FPGA.h"
 #include "Panel/Panel.h"
 #include "Utils/GlobalFunctions.h"

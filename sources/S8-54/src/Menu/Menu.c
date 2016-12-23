@@ -24,7 +24,6 @@
 #include "FPGA/FPGA.h"
 #include "Hardware/Hardware.h"
 #include "Hardware/Sound.h"
-#include "Hardware/Timer2.h"
 #include "Hardware/RTC.h"
 #include "Panel/Panel.h"
 #include "FlashDrive/FlashDrive.h"

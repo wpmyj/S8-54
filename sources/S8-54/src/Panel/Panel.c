@@ -9,7 +9,6 @@
 #include "Utils/GlobalFunctions.h"
 #include "Utils/Debug.h"
 #include "Hardware/Timer.h"
-#include "Hardware/Timer2.h"
 #include "Hardware/Sound.h"
 #include "Hardware/Hardware.h"
 #include "Hardware/FSMC.h"

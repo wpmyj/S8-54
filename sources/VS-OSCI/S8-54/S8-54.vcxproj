@@ -206,7 +206,6 @@
     <ClCompile Include="..\..\S8-54\src\Hardware\RTC.c" />
     <ClCompile Include="..\..\S8-54\src\Hardware\Sound.c" />
     <ClCompile Include="..\..\S8-54\src\Hardware\Timer.c" />
-    <ClCompile Include="..\..\S8-54\src\Hardware\Timer2.c" />
     <ClCompile Include="..\..\S8-54\src\Heap.c" />
     <ClCompile Include="..\..\S8-54\src\libs\app_ethernet.c" />
     <ClCompile Include="..\..\S8-54\src\libs\ethernetif.c" />
@@ -389,7 +388,6 @@
     <ClInclude Include="..\..\S8-54\src\Hardware\RTC.h" />
     <ClInclude Include="..\..\S8-54\src\Hardware\Sound.h" />
     <ClInclude Include="..\..\S8-54\src\Hardware\Timer.h" />
-    <ClInclude Include="..\..\S8-54\src\Hardware\Timer2.h" />
     <ClInclude Include="..\..\S8-54\src\libs\app_ethernet.h" />
     <ClInclude Include="..\..\S8-54\src\libs\ethernetif.h" />
     <ClInclude Include="..\..\S8-54\src\libs\ffconf.h" />

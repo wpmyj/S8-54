@@ -7,7 +7,6 @@
 #include "Display/Painter.h"
 #include "Panel/Panel.h"
 #include "Hardware/FSMC.h"
-#include "Hardware/Timer2.h"
 #include "Settings/SettingsTypes.h"
 #include "Settings/Settings.h"
 #include "Utils/GlobalFunctions.h"

@@ -135,9 +135,6 @@
     <ClCompile Include="..\..\S8-54\src\Hardware\Sound.c">
       <Filter>Hardware</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\S8-54\src\Hardware\Timer.c">
-      <Filter>Hardware</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\S8-54\src\VCP\SCPI\channelSCPI.c">
       <Filter>VCP\SCPI</Filter>
     </ClCompile>
@@ -447,9 +444,6 @@
     <ClCompile Include="..\..\S8-54\src\Tables.c">
       <Filter>src</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\S8-54\src\Hardware\Timer2.c">
-      <Filter>Hardware</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\STM32Cube_FW_F4\Drivers\STM32F4xx_HAL_Driver\Src\stm32f4xx_hal_flash.c">
       <Filter>HAL</Filter>
     </ClCompile>
@@ -461,6 +455,9 @@
     </ClCompile>
     <ClCompile Include="..\..\STM32Cube_FW_F4\Drivers\STM32F4xx_HAL_Driver\Src\stm32f4xx_hal_tim_ex.c">
       <Filter>HAL</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\S8-54\src\Hardware\Timer.c">
+      <Filter>Hardware</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -513,9 +510,6 @@
       <Filter>Hardware</Filter>
     </ClInclude>
     <ClInclude Include="..\..\S8-54\src\Hardware\Sound.h">
-      <Filter>Hardware</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\S8-54\src\Hardware\Timer.h">
       <Filter>Hardware</Filter>
     </ClInclude>
     <ClInclude Include="..\..\S8-54\src\VCP\SCPI\commonSCPI.h">
@@ -839,7 +833,7 @@
     <ClInclude Include="..\..\S8-54\src\Tables.h">
       <Filter>src</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\S8-54\src\Hardware\Timer2.h">
+    <ClInclude Include="..\..\S8-54\src\Hardware\Timer.h">
       <Filter>Hardware</Filter>
     </ClInclude>
   </ItemGroup>
