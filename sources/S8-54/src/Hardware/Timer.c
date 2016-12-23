@@ -4,17 +4,6 @@
 
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-static const TIM_HandleTypeDef handleTIM6 =
-{
-    TIM6,
-    {
-        179,
-        TIM_COUNTERMODE_UP,     // Init.CounterMode
-        500,                    // Init.Period
-        TIM_CLOCKDIVISION_DIV1  // Init.ClockDivision
-    }
-};
-
 static void (*f[TypeTimerSize])(void) = {0};
 static uint reactionTimeMS[TypeTimerSize] = {0};
 static int timePrevExecuteMS[TypeTimerSize] = {0};
@@ -25,14 +14,9 @@ static bool isRun[TypeTimerSize] = {false};
 void Timer_Init(void)
 {
 #ifndef _MS_VS
-    __TIM6_CLK_ENABLE();        // Для отсчёта миллисекунд
     __TIM2_CLK_ENABLE();        // Для тиков
     __TIM5_CLK_ENABLE();
 #endif
-
-    HAL_TIM_Base_Init((TIM_HandleTypeDef*)&handleTIM6);
-
-    HAL_TIM_Base_Start_IT((TIM_HandleTypeDef*)&handleTIM6);
 
     TIM_HandleTypeDef handleTIM2 =
     {
@@ -163,7 +147,7 @@ bool Timer_IsRun(TypeTimer type)
 
 
 //------------------------------------------------------------------------------------------------------------------------------------------------------
-static void Timer_Update(void)
+void Timer_Update(void)
 {
     uint curTimeMS = gTimerMS;
 
@@ -179,18 +163,6 @@ static void Timer_Update(void)
             }
             
         }
-    }
-}
-
-
-//------------------------------------------------------------------------------------------------------------------------------------------------------
-void TIM6_DAC_IRQHandler(void)
-{
-    if (__HAL_TIM_GET_FLAG(&handleTIM6, TIM_FLAG_UPDATE) == SET && __HAL_TIM_GET_ITSTATUS(&handleTIM6, TIM_IT_UPDATE))
-    {
-        Timer_Update();
-        __HAL_TIM_CLEAR_FLAG(&handleTIM6, TIM_FLAG_UPDATE);
-        __HAL_TIM_CLEAR_IT(&handleTIM6, TIM_IT_UPDATE);
     }
 }
 

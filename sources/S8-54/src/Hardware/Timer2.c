@@ -17,6 +17,7 @@ typedef struct
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 static TimerStruct timers[NumTimers];
 static TIM_HandleTypeDef handleTIM3;
+static TIM_HandleTypeDef handleTIM6;
 
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -47,6 +48,7 @@ void Timer2_Init(void)
     }
 
 #ifndef _MS_VS
+    __HAL_RCC_TIM6_CLK_ENABLE();
     __HAL_RCC_TIM3_CLK_ENABLE();
 #endif
 
@@ -54,10 +56,20 @@ void Timer2_Init(void)
     HAL_NVIC_SetPriority(TIM3_IRQn, 0, 1);
 
     handleTIM3.Instance = TIM3;
-    handleTIM3.Init.Period = 1;
     handleTIM3.Init.Prescaler = 54000 - 1;
-    handleTIM3.Init.ClockDivision = TIM_CLOCKDIVISION_DIV1;
     handleTIM3.Init.CounterMode = TIM_COUNTERMODE_UP;
+    handleTIM3.Init.Period = 1;
+    handleTIM3.Init.ClockDivision = TIM_CLOCKDIVISION_DIV1;
+
+    // Настраиваем на 10мс
+    handleTIM6.Instance = TIM6;
+    handleTIM6.Init.Prescaler = 179;
+    handleTIM6.Init.CounterMode = TIM_COUNTERMODE_UP;
+    handleTIM6.Init.Period = 500;
+    handleTIM6.Init.ClockDivision = TIM_CLOCKDIVISION_DIV1;
+
+    HAL_TIM_Base_Init(&handleTIM6);
+    HAL_TIM_Base_Start_IT(&handleTIM6);
 }
 
 
@@ -209,6 +221,18 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
 static void StopTIM(void)
 {
     HAL_TIM_Base_Stop_IT(&handleTIM3);
+}
+
+
+//------------------------------------------------------------------------------------------------------------------------------------------------------
+void TIM6_DAC_IRQHandler(void)
+{
+    if (__HAL_TIM_GET_FLAG(&handleTIM6, TIM_FLAG_UPDATE) == SET && __HAL_TIM_GET_ITSTATUS(&handleTIM6, TIM_IT_UPDATE))
+    {
+        Timer_Update();
+        __HAL_TIM_CLEAR_FLAG(&handleTIM6, TIM_FLAG_UPDATE);
+        __HAL_TIM_CLEAR_IT(&handleTIM6, TIM_IT_UPDATE);
+    }
 }
 
 
