@@ -15,6 +15,7 @@
 #include "ffconf.h"
 #include "Hardware/Hardware.h"
 #include "Hardware/Timer.h"
+#include "Hardware/Timer2.h"
 #include "FlashDrive.h"
 
 
@@ -107,7 +108,7 @@ void FDrive_Update(void)
         uint timeStart = gTimerMS;
         gBF.needToMountFlash = 0;
         Display_SetDrawMode(DrawMode_Hand, FuncDrawDisplay);
-        Timer_Enable(kTimerMountFlash, 10, Display_Update);
+        Timer2_SetAndEnable(kTimerMountFlash, Display_Update, 10);
         if (f_mount(&USBDISKFatFs, (TCHAR const*)USBDISKPath, 1) != FR_OK)
         {
             Display_ShowWarning(WrongFileSystem);
@@ -121,7 +122,7 @@ void FDrive_Update(void)
         while (gTimerMS - timeStart < 3000)
         {
         };
-        Timer_Disable(kTimerMountFlash);
+        Timer2_Disable(kTimerMountFlash);
         Display_SetDrawMode(DrawMode_Auto, 0);
     }
     else

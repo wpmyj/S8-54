@@ -222,8 +222,6 @@ void FPGA_WriteStartToHardware(void)
 //------------------------------------------------------------------------------------------------------------------------------------------------------
 void FPGA_Start(void)
 {
-    Timer_Disable(kTimerStartP2P);  // ќтключаем отложенный запуск чтени€ точек
-
     FPGA_WriteStartToHardware();
 
     timeCompletePredTrig = 0;
@@ -750,7 +748,7 @@ bool ProcessingData(void)
                 {
                     if(sTime_P2PModeEnabled() && set.trig.startMode == StartMode_Auto)  // ≈сли находимс€ в режиме поточечного вывода при автоматической синхронизации
                     {
-                        Timer_Enable(kTimerStartP2P, 1000, FPGA_Start);                 // то откладываем следующий запуск, чтобы зафиксировать сигнал на экране
+                        Timer2_SetAndStartOnce(kTimerStartP2P, FPGA_Start, 1000);                 // то откладываем следующий запуск, чтобы зафиксировать сигнал на экране
                     }
                     else
                     {
@@ -1102,9 +1100,9 @@ void FPGA_OnPressStartStop(void)
 
     if (sTime_P2PModeEnabled())
     {
-        if (Timer_IsRun(kTimerStartP2P))                // ≈сли находимс€ в режиме поточечного вывода и в данный момент пауза после считывани€ очередного полного сигнала
+        if (Timer2_IsRun(kTimerStartP2P))                // ≈сли находимс€ в режиме поточечного вывода и в данный момент пауза после считывани€ очередного полного сигнала
         {
-            Timer_Disable(kTimerStartP2P);              // “о останавливаем таймер, чтобы просмотреть сигнал
+            Timer2_Disable(kTimerStartP2P);              // “о останавливаем таймер, чтобы просмотреть сигнал
         }
         else
         {

@@ -650,15 +650,14 @@ void ShortPress_Page(void *item)
 //---------------------------------------------------------------------------------------------------------------------------------------------------
 static void TemporaryEnableStrNavi(void)
 {
-    gBF.temporaryShowStrNavi = 1;                                   // Устанавливаем признак того, что надо выводить строку навигации меню
-    Timer_Enable(kStrNaviAutoHide, 3000, OnTimerStrNaviAutoHide);   // и запускаем таймер, который его отключит
+    gBF.temporaryShowStrNavi = 1;                                           // Устанавливаем признак того, что надо выводить строку навигации меню
+    Timer2_SetAndStartOnce(kStrNaviAutoHide, OnTimerStrNaviAutoHide, 3000); // и запускаем таймер, который его отключит
 }
 
 
 //---------------------------------------------------------------------------------------------------------------------------------------------------
 static void OnTimerStrNaviAutoHide(void)
 {
-    Timer_Disable(kStrNaviAutoHide);
     gBF.temporaryShowStrNavi = 0;
 }
 

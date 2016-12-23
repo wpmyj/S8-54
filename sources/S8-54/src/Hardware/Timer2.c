@@ -29,6 +29,11 @@ static void TuneTIM(TypeTimer2 type);   // Настроить систему на таймер
 
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+bool Timer2_IsRun(TypeTimer2 type)
+{
+    return TIME_NEXT(type) != 0xffffffff;
+}
+
 void Timer2_Init(void)
 {
     for(uint i = 0; i < NumTimers; i++)

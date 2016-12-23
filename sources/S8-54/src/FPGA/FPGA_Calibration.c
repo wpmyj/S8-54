@@ -726,7 +726,7 @@ void FPGA_BalanceChannel(Channel ch)
     timeStart = gTimerMS;
 
     Display_SetDrawMode(DrawMode_Hand, FuncDrawBalance);
-    Timer_Enable(kTimerBalanceChannel, 10, Display_Update);
+    Timer2_SetAndEnable(kTimerBalanceChannel, Display_Update, 10);
 
     CreateCalibrationStruct();
     Settings storedSettings;
@@ -746,7 +746,7 @@ void FPGA_BalanceChannel(Channel ch)
 
     Panel_Enable();
 
-    Timer_Disable(kTimerBalanceChannel);
+    Timer2_Disable(kTimerBalanceChannel);
     Display_SetDrawMode(DrawMode_Auto, 0);
     
     FPGA_OnPressStartStop();
