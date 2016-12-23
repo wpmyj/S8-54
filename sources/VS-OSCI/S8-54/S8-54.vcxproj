@@ -469,16 +469,6 @@
     <None Include="..\..\S8-54\src\Utils\CreateTables.py" />
   </ItemGroup>
   <ItemGroup>
-    <Text Include="..\..\doc\54\54 boolloader.txt" />
-    <Text Include="..\..\doc\алгоритмы.txt" />
-    <Text Include="..\..\doc\Hardware.txt" />
-    <Text Include="..\..\doc\HELP.txt" />
-    <Text Include="..\..\doc\Instr_For_Prog.txt" />
-    <Text Include="..\..\doc\54_reference.txt" />
-    <Text Include="..\..\doc\Memory.txt" />
-    <Text Include="..\..\doc\TODO_54.txt" />
-    <Text Include="..\..\doc\Меню.txt" />
-    <Text Include="..\..\doc\ТЗ на библиотеку работы с FLASH.txt" />
     <Text Include="..\..\S8-54\src\EMUz80\doc\interface.txt" />
     <Text Include="..\..\S8-54\src\Menu\Menu_reference.txt" />
   </ItemGroup>

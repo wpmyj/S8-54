@@ -879,41 +879,11 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <Text Include="..\..\doc\Hardware.txt">
-      <Filter>_doc_</Filter>
-    </Text>
-    <Text Include="..\..\doc\HELP.txt">
-      <Filter>_doc_</Filter>
-    </Text>
-    <Text Include="..\..\doc\Instr_For_Prog.txt">
-      <Filter>_doc_</Filter>
-    </Text>
-    <Text Include="..\..\doc\TODO_54.txt">
-      <Filter>_doc_</Filter>
-    </Text>
-    <Text Include="..\..\doc\Меню.txt">
-      <Filter>_doc_</Filter>
-    </Text>
-    <Text Include="..\..\doc\ТЗ на библиотеку работы с FLASH.txt">
-      <Filter>_doc_</Filter>
-    </Text>
-    <Text Include="..\..\doc\54_reference.txt">
-      <Filter>_doc_</Filter>
-    </Text>
-    <Text Include="..\..\doc\Memory.txt">
-      <Filter>_doc_</Filter>
-    </Text>
-    <Text Include="..\..\doc\алгоритмы.txt">
-      <Filter>_doc_</Filter>
-    </Text>
     <Text Include="..\..\S8-54\src\EMUz80\doc\interface.txt">
       <Filter>EMUz80\doc</Filter>
     </Text>
     <Text Include="..\..\S8-54\src\Menu\Menu_reference.txt">
       <Filter>Menu</Filter>
-    </Text>
-    <Text Include="..\..\doc\54\54 boolloader.txt">
-      <Filter>_doc_</Filter>
     </Text>
   </ItemGroup>
 </Project>

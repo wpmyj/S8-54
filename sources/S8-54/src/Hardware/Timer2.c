@@ -3,6 +3,7 @@
 #include "Log.h"
 
 
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 typedef struct
 {
     pFuncVV func;       // Функция таймера
@@ -13,15 +14,17 @@ typedef struct
 } TimerStruct;
 
 
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 static TimerStruct timers[NumTimers];
+static TIM_HandleTypeDef handleTIM3;
 
-static TIM_HandleTypeDef timHandle;
 
-
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 #undef TIME_NEXT
 #define TIME_NEXT(type) (timers[type].timeNextMS)
 
 
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 static void StartTIM(uint timeStop);    // Завести таймр, который остановится в timeStop мс
 static void StopTIM(void);
 static uint NearestTime(void);          // Возвращает время срабатывания ближайщего таймера, либо 0, если таймеров нет
@@ -34,6 +37,8 @@ bool Timer2_IsRun(TypeTimer2 type)
     return TIME_NEXT(type) != 0xffffffff;
 }
 
+
+//------------------------------------------------------------------------------------------------------------------------------------------------------
 void Timer2_Init(void)
 {
     for(uint i = 0; i < NumTimers; i++)
@@ -48,21 +53,18 @@ void Timer2_Init(void)
     HAL_NVIC_EnableIRQ(TIM3_IRQn);
     HAL_NVIC_SetPriority(TIM3_IRQn, 0, 1);
 
-    timHandle.Instance = TIM3;
-    timHandle.Init.Period = 1;
-    uint prescaler = 42000 - 1;
-    timHandle.Init.Prescaler = prescaler;
-    timHandle.Init.ClockDivision = TIM_CLOCKDIVISION_DIV1;
-    timHandle.Init.CounterMode = TIM_COUNTERMODE_UP;
-
-    HAL_TIM_Base_Init(&timHandle);
+    handleTIM3.Instance = TIM3;
+    handleTIM3.Init.Period = 1;
+    handleTIM3.Init.Prescaler = 54000 - 1;
+    handleTIM3.Init.ClockDivision = TIM_CLOCKDIVISION_DIV1;
+    handleTIM3.Init.CounterMode = TIM_COUNTERMODE_UP;
 }
 
 
 //------------------------------------------------------------------------------------------------------------------------------------------------------
 void TIM3_IRQHandler(void)
 {
-    HAL_TIM_IRQHandler(&timHandle);
+    HAL_TIM_IRQHandler(&handleTIM3);
 }
 
 
@@ -162,14 +164,10 @@ static void StartTIM(uint timeStopMS)
 
     uint dT = timeStopMS - gTimerMS;
 
-    timHandle.Instance = TIM3;
-    timHandle.Init.Period = (dT * 2) - 1;      // 10 соответствует 0.1мс. Т.е. если нам нужна 1мс, нужно засылать (100 - 1)
-    timHandle.Init.Prescaler = 45000 - 1;
-    timHandle.Init.ClockDivision = 0;
-    timHandle.Init.CounterMode = TIM_COUNTERMODE_UP;
+    handleTIM3.Init.Period = (dT * 2) - 1;      // 10 соответствует 0.1мс. Т.е. если нам нужна 1мс, нужно засылать (100 - 1)
 
-    HAL_TIM_Base_Init(&timHandle);
-    HAL_TIM_Base_Start_IT(&timHandle);
+    HAL_TIM_Base_Init(&handleTIM3);
+    HAL_TIM_Base_Start_IT(&handleTIM3);
 }
 
 
@@ -210,7 +208,7 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
 //---------------------------------------------------------------------------------------------------------------------------------------------------
 static void StopTIM(void)
 {
-    HAL_TIM_Base_Stop_IT(&timHandle);
+    HAL_TIM_Base_Stop_IT(&handleTIM3);
 }
 
 
