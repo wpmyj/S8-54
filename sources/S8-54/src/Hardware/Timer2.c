@@ -164,9 +164,7 @@ static void StartTIM(uint timeStopMS)
     uint dT = timeStopMS - gTimerMS;
 
     timHandle.Instance = TIM3;
-    uint period = (dT * 2) - 1;
-    LOG_WRITE("%d %d, сейчас %d, period = %d", dT, timeStopMS, gTimerMS, period);
-    timHandle.Init.Period = period;      // 10 соответствует 0.1мс. “.е. если нам нужна 1мс, нужно засылать (100 - 1)
+    timHandle.Init.Period = (dT * 2) - 1;      // 10 соответствует 0.1мс. “.е. если нам нужна 1мс, нужно засылать (100 - 1)
     timHandle.Init.Prescaler = 45000 - 1;
     timHandle.Init.ClockDivision = 0;
     timHandle.Init.CounterMode = TIM_COUNTERMODE_UP;
@@ -179,31 +177,17 @@ static void StartTIM(uint timeStopMS)
 //------------------------------------------------------------------------------------------------------------------------------------------------------
 void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
 {
-    if (NearestTime() > gTimerMS)
+    uint time = gTimerMS;
+
+    if (NearestTime() > time)
     {
         return;
     }
 
-    LOG_WRITE("врем€ входа %d", gTimerMS);
-
-    LOG_WRITE("state %d", HAL_TIM_Base_GetState(htim));
-
-    static int count = 0;
-
-    if (count++ > 5)
-    {
-        StopTIM();
-    }
-
-    /*
-    uint time = gTimerMS;
+    StopTIM();
 
     for (uint type = 0; type < NumTimers; type++)
     {
-        if (TIME_NEXT(type) != 0xffffffff)
-        {
-            LOG_WRITE("%d %d", TIME_NEXT(type), time);
-        }
         if (TIME_NEXT(type) <= time)            // ≈сли пришло врем€ срабатывани€
         {
             TimerStruct *timer = &timers[type];
@@ -218,9 +202,8 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
             }
         }
     }
-    */
 
-    //StartTIM(NearestTime());
+    StartTIM(NearestTime());
 }
 
 

@@ -48,8 +48,7 @@ static void Disable_IfNessessary(void)
 
 void AddToLog(void)
 {
-    static int i = 0;
-    LOG_WRITE("%d", i++);
+    LOG_WRITE("%d", gTimerMS);
 }
 
 //------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -85,7 +84,7 @@ int main(void)
     }
 
     Timer2_Init();
-    Timer2_SetAndStartOne(kDisplayUpdate, AddToLog, 1000);
+    Timer2_SetAndEnable(kDisplayUpdate, AddToLog, 100);
 
     bool run = true;
     while(run)
