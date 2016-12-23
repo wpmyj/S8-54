@@ -10,6 +10,7 @@
 #include "Ethernet/Ethernet.h"
 #include "Ethernet/TcpSocket.h"
 #include "Hardware/FSMC.h"
+#include "Hardware/Timer2.h"
 #include "Utils/Math.h"
 #include "Utils/GlobalFunctions.h"
 #include "FlashDrive/FlashDrive.h"
@@ -87,7 +88,7 @@ static void OnTimerFlashDisplay(void)
 //------------------------------------------------------------------------------------------------------------------------------------------------------
 void Painter_ResetFlash(void)
 {
-    Timer_Enable(kFlashDisplay, 400, OnTimerFlashDisplay);
+    Timer2_SetAndEnable(kFlashDisplay, OnTimerFlashDisplay, 400);
     inverseColors = false;
 }
 

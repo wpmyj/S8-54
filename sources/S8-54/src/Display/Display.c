@@ -1977,7 +1977,7 @@ static void OnTimerShowWarning(void)
 
     if(pointer == 0)
     {
-        Timer_Disable(kShowMessages);
+        Timer2_Disable(kShowMessages);
     }
 }
 
@@ -1987,7 +1987,7 @@ static void Display_ShowWarn(const char *message)
 {
     if (warnings[0] == 0)
     {
-        Timer_Enable(kShowMessages, 100, OnTimerShowWarning);
+        Timer2_SetAndEnable(kShowMessages, OnTimerShowWarning, 100);
     }
     bool alreadyStored = false;
     for (int i = 0; i < NUM_WARNINGS; i++)
@@ -2010,7 +2010,7 @@ static void Display_ShowWarn(const char *message)
 //------------------------------------------------------------------------------------------------------------------------------------------------------
 void Display_ClearFromWarnings(void)
 {
-    Timer_Disable(kShowMessages);
+    Timer2_Disable(kShowMessages);
     for (int i = 0; i < NUM_WARNINGS; i++)
     {
         warnings[i] = 0;

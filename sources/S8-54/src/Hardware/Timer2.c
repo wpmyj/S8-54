@@ -124,6 +124,7 @@ static void TuneTIM(TypeTimer2 type)
 void Timer2_Disable(TypeTimer2 type)
 {
     timers[type].timeNextMS = 0xffffffff;
+    timers[type].repeat = false;
 }
 
 
@@ -171,8 +172,9 @@ static void StartTIM(uint timeStopMS)
 void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
 {
     uint time = gTimerMS;
+    uint nearestTime = NearestTime();
 
-    if (NearestTime() > time)
+    if (nearestTime > time)
     {
         return;
     }
