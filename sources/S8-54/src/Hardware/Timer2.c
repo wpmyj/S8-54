@@ -17,7 +17,6 @@ typedef struct
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 static TimerStruct timers[NumTimers];
 static TIM_HandleTypeDef handleTIM3;
-static TIM_HandleTypeDef handleTIM6;
 
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -48,8 +47,9 @@ void Timer2_Init(void)
     }
 
 #ifndef _MS_VS
-    __HAL_RCC_TIM6_CLK_ENABLE();
-    __HAL_RCC_TIM3_CLK_ENABLE();
+    __HAL_RCC_TIM2_CLK_ENABLE();    // Для тиков
+    __HAL_RCC_TIM3_CLK_ENABLE();    // Для таймеров
+    __HAL_RCC_TIM5_CLK_ENABLE();    // Для миллисекунд
 #endif
 
     HAL_NVIC_EnableIRQ(TIM3_IRQn);
@@ -61,15 +61,23 @@ void Timer2_Init(void)
     handleTIM3.Init.Period = 1;
     handleTIM3.Init.ClockDivision = TIM_CLOCKDIVISION_DIV1;
 
-    // Настраиваем на 10мс
-    handleTIM6.Instance = TIM6;
-    handleTIM6.Init.Prescaler = 179;
-    handleTIM6.Init.CounterMode = TIM_COUNTERMODE_UP;
-    handleTIM6.Init.Period = 500;
-    handleTIM6.Init.ClockDivision = TIM_CLOCKDIVISION_DIV1;
+    TIM_HandleTypeDef handleTIM2;
+    handleTIM2.Instance = TIM2;
+    handleTIM2.Init.Prescaler = 0;
+    handleTIM2.Init.CounterMode = TIM_COUNTERMODE_UP;
+    handleTIM2.Init.Period = (uint)-1;
+    handleTIM2.Init.ClockDivision = TIM_CLOCKDIVISION_DIV1;
+    HAL_TIM_Base_Init(&handleTIM2);
+    HAL_TIM_Base_Start(&handleTIM2);
 
-    HAL_TIM_Base_Init(&handleTIM6);
-    HAL_TIM_Base_Start_IT(&handleTIM6);
+    TIM_HandleTypeDef handleTIM5;
+    handleTIM5.Instance = TIM5;
+    handleTIM5.Init.Prescaler = 44999;
+    handleTIM5.Init.CounterMode = TIM_COUNTERMODE_UP;
+    handleTIM5.Init.Period = (uint) -1;
+    handleTIM5.Init.ClockDivision = TIM_CLOCKDIVISION_DIV1;
+    HAL_TIM_Base_Init(&handleTIM5);
+    HAL_TIM_Base_Start(&handleTIM5);
 }
 
 
@@ -223,17 +231,6 @@ static void StopTIM(void)
     HAL_TIM_Base_Stop_IT(&handleTIM3);
 }
 
-
-//------------------------------------------------------------------------------------------------------------------------------------------------------
-void TIM6_DAC_IRQHandler(void)
-{
-    if (__HAL_TIM_GET_FLAG(&handleTIM6, TIM_FLAG_UPDATE) == SET && __HAL_TIM_GET_ITSTATUS(&handleTIM6, TIM_IT_UPDATE))
-    {
-        Timer_Update();
-        __HAL_TIM_CLEAR_FLAG(&handleTIM6, TIM_FLAG_UPDATE);
-        __HAL_TIM_CLEAR_IT(&handleTIM6, TIM_IT_UPDATE);
-    }
-}
 
 
 #undef TIME_NEXT

@@ -47,7 +47,6 @@ static const uint ADDR_LAST_SET = ((ADDR_SECTOR_SETTINGS + SIZE_SECTOR_SETTINGS)
 
 // Признак того, что запись в этоу область флэш уже производилась. Если нулевое слово области (данных, ресурсов или настроек) имеет это значение, запись уже была произведена как минимум один раз
 static const uint MARK_OF_FILLED = 0x123456;
-static const uint MAX_UINT = 0xffffffff;
 static const uint startDataInfo = ADDR_SECTOR_DATA_MAIN;
 
 
