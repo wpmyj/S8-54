@@ -29,6 +29,7 @@ static const Button mbResetSettings;
 static const Button mbAutoSearch;
 static const Choice mcRecorder;
 static const Choice mcLanguage;
+static const Choice mcWelcomeScreen;
 
 static const Page mspCalibrator;
 static const Choice mcCalibrator;
@@ -69,15 +70,16 @@ const Page mpService =
     },
     EmptyFuncBV, Page_Service,
     {
-        (void*)&mbResetSettings,            // СЕРВИС -> Сброс настроек
-        (void*)&mbAutoSearch,               // СЕРВИС -> Поиск сигнала
-        (void*)&mspCalibrator,              // СЕРВИС -> КАЛИБРАТОР
+        (void*)&mbResetSettings,    // СЕРВИС -> Сброс настроек
+        (void*)&mbAutoSearch,       // СЕРВИС -> Поиск сигнала
+        (void*)&mspCalibrator,      // СЕРВИС -> КАЛИБРАТОР
         (void*)&mspServiceMath,
-        (void*)&mspServiceEthernet,
+        (void*)&mspServiceEthernet, 
         (void*)&mspServiceSound,
-        (void*)&mspTime,                    // СЕРВИС -> ВРЕМЯ
-        (void*)&mcRecorder,                 // СЕРВИС -> Регистратор
-        (void*)&mcLanguage                  // СЕРВИС -> Язык
+        (void*)&mspTime,            // СЕРВИС -> ВРЕМЯ
+        (void*)&mcRecorder,         // СЕРВИС -> Регистратор
+        (void*)&mcLanguage,         // СЕРВИС -> Язык
+        (void*)&mcWelcomeScreen     // СЕРВИС -> Заставка
     }
 };
 
@@ -184,6 +186,23 @@ static const Choice mcLanguage =
         {"Английский",  "English"}
     },
     (int8*)&set.common.lang, EmptyFuncVB, EmptyFuncVII
+};
+
+
+// СЕРВИС -> Заставка ------------------------------------------------------------------------------------------------------------------------------------------------------
+static const Choice mcWelcomeScreen =
+{
+    Item_Choice, &mpService, {"Заставка", "Logo"},
+    {
+        "Позволяет отключить заставку при включении прибора",
+        "It allows you to disable the splash screen when the device is turned on"
+    },
+    EmptyFuncBV,
+    {
+        {DISABLE_RU, DISABLE_EN},
+        {ENABLE_RU, ENABLE_EN}
+    },
+    (int8*)&set.service.screenWelcomeEnable, EmptyFuncVB, EmptyFuncVII
 };
 
 

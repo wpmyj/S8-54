@@ -152,10 +152,10 @@ void DisableShowLevelRShiftB(void)
 void Display_RotateRShift(Channel ch)
 {
     set.display.lastAffectedChannel = ch;
-    if(set.display.timeShowLevels)
+    if(TIME_SHOW_LEVELS)
     {
         (ch == A) ? (showLevelRShiftA = true) : (showLevelRShiftB = true);
-        Timer_Enable((ch == A) ? kShowLevelRShiftA : kShowLevelRShiftB, set.display.timeShowLevels  * 1000, (ch == A) ? DisableShowLevelRShiftA : DisableShowLevelRShiftB);
+        Timer_Enable((ch == A) ? kShowLevelRShiftA : kShowLevelRShiftB, TIME_SHOW_LEVELS  * 1000, (ch == A) ? DisableShowLevelRShiftA : DisableShowLevelRShiftB);
     };
     Display_Redraw();
 }
@@ -172,10 +172,10 @@ void DisableShowLevelTrigLev(void)
 //------------------------------------------------------------------------------------------------------------------------------------------------------
 void Display_RotateTrigLev(void)
 {
-    if (set.display.timeShowLevels && set.trig.modeFind == TrigModeFind_Hand)
+    if (TIME_SHOW_LEVELS && TRIG_MODE_FIND_HAND)
     {
         showLevelTrigLev = true;
-        Timer_Enable(kShowLevelTrigLev, set.display.timeShowLevels * 1000, DisableShowLevelTrigLev);
+        Timer_Enable(kShowLevelTrigLev, TIME_SHOW_LEVELS * 1000, DisableShowLevelTrigLev);
     }
     Display_Redraw();
 }

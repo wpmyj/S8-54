@@ -228,7 +228,7 @@ static const Choice mcSearch_Mode =
         {"Ручной",          "Hand"},
         {"Автоматический",  "Auto"}
     },
-    (int8*)&set.trig.modeFind, EmptyFuncVB, EmptyFuncVII
+    (int8*)&TRIG_MODE_FIND, EmptyFuncVB, EmptyFuncVII
 };
 
 // СИНХР -> ПОИСК -> Найти ---------------------------------------------------------------------------------------------------------------------------------------------------
@@ -247,7 +247,7 @@ static const Button mbSearch_Search =
 
 static bool IsActive_Search_Search(void)
 {
-    return set.trig.modeFind == TrigModeFind_Hand;
+    return TRIG_MODE_FIND_HAND;
 }
 
 static void OnPress_Search_Search(void)

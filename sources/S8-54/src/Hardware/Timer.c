@@ -41,7 +41,7 @@ void Timer_Init(void)
             0,
             TIM_COUNTERMODE_UP,
             0xffffffff,
-            TIM_CLOCKDIVISION_DIV4
+            TIM_CLOCKDIVISION_DIV1
         }
     };
 
@@ -53,7 +53,7 @@ void Timer_Init(void)
     {
         TIM5,
         {
-            8999,               // WARN Так и не разобрался, как настроить таймер на 1мс. При 8999 период счета - 10мс.
+            44999,             // WARN Так и не разобрался, как настроить таймер на 1мс. При 44999 период счета - 2мс.
             TIM_COUNTERMODE_UP,
             0xffffffff,
             TIM_CLOCKDIVISION_DIV1

@@ -3,6 +3,7 @@
 #include "Settings/Settings.h"
 #include "Hardware/FSMC.h"
 #include "Hardware/Timer.h"
+#include "Hardware/Timer2.h"
 #include "Hardware/FLASH.h"
 #include "Log.h"
 #include "Panel/Panel.h"
@@ -45,6 +46,12 @@ static void Disable_IfNessessary(void)
 #endif
 
 
+void AddToLog(void)
+{
+    static int i = 0;
+    LOG_WRITE("%d", i++);
+}
+
 //------------------------------------------------------------------------------------------------------------------------------------------------------
 int main(void)
 {
@@ -71,9 +78,14 @@ int main(void)
     Ethernet_Init();
     Menu_Init();
 
-    Display_SetDrawMode(DrawMode_Hand, DrawWelcomeScreen);
-    Timer_Enable(kTemp, 5000, StopDrawWelcomeScreen);
-    
+    if (set.service.screenWelcomeEnable)
+    {
+        Display_SetDrawMode(DrawMode_Hand, DrawWelcomeScreen);
+        Timer_Enable(kTemp, 5000, StopDrawWelcomeScreen);
+    }
+
+    Timer2_Init();
+    Timer2_SetAndStartOne(kDisplayUpdate, AddToLog, 1000);
 
     bool run = true;
     while(run)

@@ -9,6 +9,7 @@
 #include "SettingsDisplay.h"
 #include "SettingsMemory.h"
 #include "SettingsTime.h"
+#include "SettingsTrig.h"
 #include "SettingsService.h"
 #include "SettingsCursors.h"
 #include "SettingsDebug.h"
@@ -358,7 +359,7 @@ typedef struct
     SettingsCommon      common;                 // системные настройки
     SettingsMenu        menu;                   // состояние меню
     SettingsDebug       debug;
-    int temp[4];
+    //int temp[4];
 } Settings;
 
 

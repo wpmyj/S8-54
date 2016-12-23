@@ -2,7 +2,7 @@
 MagicCookie={0b13fe8c-dfe0-40eb-8900-6712719559a7}
 Version=1.0
 [File000]
-Location=D:\Projects\OSCI\sources\Display\Objects - Display\MainDemo.o
+Location=D:\Projects\S8-54\sources\Display\Objects - Display\MainDemo.o
 Folder=Intermediary
 DeviceName=PIC24FJ256DA210
 LanguageToolSuiteID={9BCCB495-CD65-480A-BA76-63D8E78B117F}
@@ -15,7 +15,7 @@ ToolArgsString=-Wall -mlarge-code -mlarge-data -Os -fno-ivopts -mlarge-arrays
 TraceCmdString=
 DebugOptions=
 [File001]
-Location=D:\Projects\OSCI\sources\Display\Objects - Display\Primitive.o
+Location=D:\Projects\S8-54\sources\Display\Objects - Display\Primitive.o
 Folder=Intermediary
 DeviceName=PIC24FJ256DA210
 LanguageToolSuiteID={9BCCB495-CD65-480A-BA76-63D8E78B117F}
@@ -28,7 +28,7 @@ ToolArgsString=-Wall -mlarge-code -mlarge-data -Os -fno-ivopts -mlarge-arrays
 TraceCmdString=
 DebugOptions=
 [File002]
-Location=D:\Projects\OSCI\sources\Display\Objects - Display\Palette.o
+Location=D:\Projects\S8-54\sources\Display\Objects - Display\Palette.o
 Folder=Intermediary
 DeviceName=PIC24FJ256DA210
 LanguageToolSuiteID={9BCCB495-CD65-480A-BA76-63D8E78B117F}
@@ -41,7 +41,7 @@ ToolArgsString=-Wall -mlarge-code -mlarge-data -Os -fno-ivopts -mlarge-arrays
 TraceCmdString=
 DebugOptions=
 [File003]
-Location=D:\Projects\OSCI\sources\Display\Objects - Display\mchpGfxDrv.o
+Location=D:\Projects\S8-54\sources\Display\Objects - Display\mchpGfxDrv.o
 Folder=Intermediary
 DeviceName=PIC24FJ256DA210
 LanguageToolSuiteID={9BCCB495-CD65-480A-BA76-63D8E78B117F}
@@ -54,7 +54,7 @@ ToolArgsString=-Wall -mlarge-code -mlarge-data -Os -fno-ivopts -mlarge-arrays
 TraceCmdString=
 DebugOptions=
 [File004]
-Location=D:\Projects\OSCI\sources\Display\Objects - Display\TimeDelay.o
+Location=D:\Projects\S8-54\sources\Display\Objects - Display\TimeDelay.o
 Folder=Intermediary
 DeviceName=PIC24FJ256DA210
 LanguageToolSuiteID={9BCCB495-CD65-480A-BA76-63D8E78B117F}
@@ -67,7 +67,7 @@ ToolArgsString=-Wall -mlarge-code -mlarge-data -Os -fno-ivopts -mlarge-arrays
 TraceCmdString=
 DebugOptions=
 [File005]
-Location=D:\Projects\OSCI\sources\Display\Display.cof
+Location=D:\Projects\S8-54\sources\Display\Display.cof
 Folder=Output
 DeviceName=PIC24FJ256DA210
 LanguageToolSuiteID={9BCCB495-CD65-480A-BA76-63D8E78B117F}
@@ -80,7 +80,7 @@ ToolArgsString=--heap=1024 -o"$(BINDIR_)$(TARGETBASE).$(TARGETSUFFIX)"
 TraceCmdString=
 DebugOptions=
 [File006]
-Location=D:\Projects\OSCI\sources\Display\Display.hex
+Location=D:\Projects\S8-54\sources\Display\Display.hex
 Folder=Output
 DeviceName=PIC24FJ256DA210
 LanguageToolSuiteID={9BCCB495-CD65-480A-BA76-63D8E78B117F}

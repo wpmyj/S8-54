@@ -290,7 +290,7 @@ float CalculateVoltageVybrosPlus(Channel ch)
     }
 
     uint rShift = ds.rShift[ch];
-    return POINT_2_VOLTAGE(maxSteady, ds.range[ch], rShift) - POINT_2_VOLTAGE(max, ds.range[ch], rShift);
+    return fabsf(POINT_2_VOLTAGE(maxSteady, ds.range[ch], rShift) - POINT_2_VOLTAGE(max, ds.range[ch], rShift));
 }
 
 
@@ -308,7 +308,7 @@ float CalculateVoltageVybrosMinus(Channel ch)
     }
 
     uint16 rShift = ds.rShift[ch];
-    return POINT_2_VOLTAGE(minSteady, ds.range[ch], rShift) - POINT_2_VOLTAGE(min, ds.range[ch], rShift);
+    return fabsf(POINT_2_VOLTAGE(minSteady, ds.range[ch], rShift) - POINT_2_VOLTAGE(min, ds.range[ch], rShift));
 }
 
 

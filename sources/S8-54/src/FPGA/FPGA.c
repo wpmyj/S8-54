@@ -676,7 +676,7 @@ static void DataReadSave(bool necessaryShift, bool first, bool saveToStorage, bo
         DS_AddData(dataA, dataB, ds);
     }
 
-    if (set.trig.modeFind == TrigModeFind_Auto)
+    if (TRIG_MODE_FIND_AUTO)
     {
         FPGA_FindAndSetTrigLevel();
     }

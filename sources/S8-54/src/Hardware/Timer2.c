@@ -1,5 +1,6 @@
 #include "Timer2.h"
 #include "Timer.h"
+#include "Log.h"
 
 
 typedef struct
@@ -14,6 +15,8 @@ typedef struct
 
 static TimerStruct timers[NumTimers];
 
+static TIM_HandleTypeDef timHandle;
+
 
 #undef TIME_NEXT
 #define TIME_NEXT(type) (timers[type].timeNextMS)
@@ -23,7 +26,6 @@ static void StartTIM(uint timeStop);    // Завести таймр, который остановится в 
 static void StopTIM(void);
 static uint NearestTime(void);          // Возвращает время срабатывания ближайщего таймера, либо 0, если таймеров нет
 static void TuneTIM(TypeTimer2 type);   // Настроить систему на таймер
-static void HandlerTIM(void);
 
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -33,6 +35,36 @@ void Timer2_Init(void)
     {
         timers[i].timeNextMS = 0xffffffff;
     }
+
+#ifndef _MS_VS
+    __HAL_RCC_TIM3_CLK_ENABLE();
+#endif
+
+    HAL_NVIC_EnableIRQ(TIM3_IRQn);
+    HAL_NVIC_SetPriority(TIM3_IRQn, 0, 1);
+
+    timHandle.Instance = TIM3;
+    timHandle.Init.Period = 1;
+    uint prescaler = 42000 - 1;
+    timHandle.Init.Prescaler = prescaler;
+    timHandle.Init.ClockDivision = TIM_CLOCKDIVISION_DIV1;
+    timHandle.Init.CounterMode = TIM_COUNTERMODE_UP;
+
+    HAL_TIM_Base_Init(&timHandle);
+}
+
+
+//------------------------------------------------------------------------------------------------------------------------------------------------------
+void TIM3_IRQHandler(void)
+{
+    HAL_TIM_IRQHandler(&timHandle);
+}
+
+
+//------------------------------------------------------------------------------------------------------------------------------------------------------
+void HAL_TIM_TriggerCallback(TIM_HandleTypeDef *htim)
+{
+    LOG_FUNC_ENTER;
 }
 
 
@@ -83,10 +115,10 @@ static void TuneTIM(TypeTimer2 type)
     TimerStruct *timer = &timers[type];
     timer->timeFirstMS = gTimerMS;
 
+    uint timeNearest = NearestTime();
+
     uint timeNext = timer->timeFirstMS + timer->dTms;
     timer->timeNextMS = timeNext;
-
-    uint timeNearest = NearestTime();
 
     if(timeNext < timeNearest)      // Если таймер должен сработать раньше текущего
     {
@@ -120,46 +152,82 @@ static uint NearestTime(void)
 
 
 //---------------------------------------------------------------------------------------------------------------------------------------------------
-static void StartTIM(uint timeStop)
+static void StartTIM(uint timeStopMS)
 {
     StopTIM();
 
-    if(timeStop == 0xffffffff)
+    if(timeStopMS == 0xffffffff)
     {
         return;
     }
+
+    uint dT = timeStopMS - gTimerMS;
+
+    timHandle.Instance = TIM3;
+    uint period = (dT * 2) - 1;
+    LOG_WRITE("%d %d, сейчас %d, period = %d", dT, timeStopMS, gTimerMS, period);
+    timHandle.Init.Period = period;      // 10 соответствует 0.1мс. Т.е. если нам нужна 1мс, нужно засылать (100 - 1)
+    timHandle.Init.Prescaler = 45000 - 1;
+    timHandle.Init.ClockDivision = 0;
+    timHandle.Init.CounterMode = TIM_COUNTERMODE_UP;
+
+    HAL_TIM_Base_Init(&timHandle);
+    HAL_TIM_Base_Start_IT(&timHandle);
+}
+
+
+//------------------------------------------------------------------------------------------------------------------------------------------------------
+void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
+{
+    if (NearestTime() > gTimerMS)
+    {
+        return;
+    }
+
+    LOG_WRITE("время входа %d", gTimerMS);
+
+    LOG_WRITE("state %d", HAL_TIM_Base_GetState(htim));
+
+    static int count = 0;
+
+    if (count++ > 5)
+    {
+        StopTIM();
+    }
+
+    /*
+    uint time = gTimerMS;
+
+    for (uint type = 0; type < NumTimers; type++)
+    {
+        if (TIME_NEXT(type) != 0xffffffff)
+        {
+            LOG_WRITE("%d %d", TIME_NEXT(type), time);
+        }
+        if (TIME_NEXT(type) <= time)            // Если пришло время срабатывания
+        {
+            TimerStruct *timer = &timers[type];
+            timer->func();
+            if (timer->repeat)
+            {
+                timer->timeNextMS += timer->dTms;
+            }
+            else
+            {
+                timer->timeNextMS = 0xffffffff;
+            }
+        }
+    }
+    */
+
+    //StartTIM(NearestTime());
 }
 
 
 //---------------------------------------------------------------------------------------------------------------------------------------------------
 static void StopTIM(void)
 {
-
-}
-
-
-//---------------------------------------------------------------------------------------------------------------------------------------------------
-static void HandlerTIM(void)
-{
-    uint time = gTimerMS;
-
-    for(uint type = 0; type < NumTimers; type++)
-    {
-        if(TIME_NEXT(type) <= time)            // Если пришло время срабатывания
-        {
-            TimerStruct *timer = &timers[type];
-            if(timer->repeat)
-            {
-                timer->timeNextMS += timer->dTms;
-            }
-            else
-            {
-                timer->timeNextMS = 0;                
-            }
-        }
-    }
-
-    StartTIM(NearestTime());
+    HAL_TIM_Base_Stop_IT(&timHandle);
 }
 
 

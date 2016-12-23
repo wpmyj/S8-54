@@ -3,19 +3,15 @@
 #include <stm32f4xx_hal.h>
 
 
-#ifdef _MS_VS
-#pragma warning(push)
-#pragma warning(disable:4127)
-#endif
-
-
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 void HAL_RTC_MspInit(RTC_HandleTypeDef *hrtc)
 {
     RCC_OscInitTypeDef oscIS;
     RCC_PeriphCLKInitTypeDef periphClkIS;
 
+#ifndef _MS_VS
     __PWR_CLK_ENABLE();
+#endif
 
     HAL_PWR_EnableBkUpAccess();
 
@@ -35,7 +31,10 @@ void HAL_RTC_MspInit(RTC_HandleTypeDef *hrtc)
     {
         HARDWARE_ERROR
     }
+
+#ifndef _MS_VS
     __HAL_RCC_RTC_ENABLE();
+#endif
 }
 
 
@@ -67,12 +66,14 @@ void HAL_SPI_MspDeInit(SPI_HandleTypeDef *hspi)
 //------------------------------------------------------------------------------------------------------------------------------------------------------
 void HAL_SRAM_MspInit(SRAM_HandleTypeDef *hsram)
 {
+#ifndef _MS_VS
     __HAL_RCC_FMC_CLK_ENABLE();
     __HAL_RCC_GPIOB_CLK_ENABLE();
     __HAL_RCC_GPIOD_CLK_ENABLE();
     __HAL_RCC_GPIOE_CLK_ENABLE();
     __HAL_RCC_GPIOF_CLK_ENABLE();
     __HAL_RCC_GPIOG_CLK_ENABLE();
+#endif
 
     GPIO_InitTypeDef isGPIOB =
     {
@@ -205,7 +206,9 @@ void HAL_DAC_MspInit(DAC_HandleTypeDef* hdac)
 
     HAL_DMA_Init(&hdmaDAC1);
 
+#ifndef _MS_VS
     __HAL_LINKDMA(hdac, DMA_Handle1, hdmaDAC1);
+#endif
 
     HAL_NVIC_SetPriority(DMA1_Stream5_IRQn, PRIORITY_SOUND_DMA1_STREAM5);
     HAL_NVIC_EnableIRQ(DMA1_Stream5_IRQn);
@@ -237,9 +240,11 @@ void HAL_HCD_MspInit(HCD_HandleTypeDef *hhcd)
     101 - PA9  - VBUS
     */
 
+#ifndef _MS_VS
     __GPIOA_CLK_ENABLE();
     __USB_OTG_FS_CLK_ENABLE();
     __SYSCFG_CLK_ENABLE();
+#endif
 
     isGPIO.Speed = GPIO_SPEED_HIGH;
     isGPIO.Pin = GPIO_PIN_9 | GPIO_PIN_11 | GPIO_PIN_12;
@@ -247,7 +252,9 @@ void HAL_HCD_MspInit(HCD_HandleTypeDef *hhcd)
 
     HAL_GPIO_Init(GPIOA, &isGPIO);
 
+#ifndef _MS_VS
     __HAL_RCC_USB_OTG_FS_CLK_ENABLE();
+#endif
 
     HAL_NVIC_SetPriority(OTG_FS_IRQn, PRIORITY_FLASHDRIVE_OTG);
 
@@ -266,9 +273,11 @@ void HAL_HCD_MspDeInit(HCD_HandleTypeDef *hhcd)
 // »нициализац€ VCP
 void HAL_PCD_MspInit(PCD_HandleTypeDef *hpcd)
 {
+#ifndef _MS_VS
     __GPIOB_CLK_ENABLE();
     __USB_OTG_HS_CLK_ENABLE();
     __SYSCFG_CLK_ENABLE();
+#endif
 
     GPIO_InitTypeDef  isGPIO =
     {
@@ -281,7 +290,9 @@ void HAL_PCD_MspInit(PCD_HandleTypeDef *hpcd)
 
     HAL_GPIO_Init(GPIOB, &isGPIO);
 
+#ifndef _MS_VS
     __HAL_RCC_USB_OTG_HS_CLK_ENABLE();
+#endif
 
     HAL_NVIC_SetPriority(OTG_HS_IRQn, PRIORITY_VCP_OTG);
 
@@ -303,6 +314,7 @@ void HAL_ETH_MspInit(ETH_HandleTypeDef *heth)
   GPIO_InitTypeDef GPIO_InitStructure;
   
   /* Enable GPIOs clocks */
+#ifndef _MS_VS
   __HAL_RCC_GPIOA_CLK_ENABLE();
   __HAL_RCC_GPIOB_CLK_ENABLE();
   __HAL_RCC_GPIOC_CLK_ENABLE();
@@ -310,6 +322,7 @@ void HAL_ETH_MspInit(ETH_HandleTypeDef *heth)
   __HAL_RCC_GPIOG_CLK_ENABLE();
   __HAL_RCC_GPIOH_CLK_ENABLE();
   __HAL_RCC_GPIOI_CLK_ENABLE(); 
+#endif
 
 /* Ethernet pins configuration ************************************************/
   /*
@@ -347,8 +360,10 @@ void HAL_ETH_MspInit(ETH_HandleTypeDef *heth)
 
   GPIO_InitStructure.Pin =  GPIO_PIN_13 | GPIO_PIN_14;
   HAL_GPIO_Init(GPIOG, &GPIO_InitStructure);
- 
+
+#ifndef _MS_VS
    __HAL_RCC_ETH_CLK_ENABLE();
+#endif
   
   if(heth->Init.MediaInterface == ETH_MEDIA_INTERFACE_MII)
   {
@@ -363,8 +378,3 @@ void HAL_ETH_MspDeInit(ETH_HandleTypeDef *heth)
 {
 
 }
-
-
-#ifdef _MS_VS
-#pragma warning(pop)
-#endif

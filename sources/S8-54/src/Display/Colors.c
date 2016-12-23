@@ -10,7 +10,7 @@
 
 #ifdef _MS_VS
 #pragma warning(push)
-#pragma warning(disable:4204)
+//#pragma warning(disable:4204)
 #endif
 
 

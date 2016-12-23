@@ -597,7 +597,7 @@ static const Governor mgSettings_Levels =
         "Defines the time during which, after turning the handle visits to the voltage on the screen remains auxiliary label offset level"
     },
     EmptyFuncBV,
-    &set.display.timeShowLevels, 0, 125, EmptyFuncVV
+    &TIME_SHOW_LEVELS, 0, 125, EmptyFuncVV
 };
 
 // ÄÈÑÏËÅÉ -> ÍÀÑÒÐÎÉÊÈ -> Âðåìÿ ------------------------------------------------------------------------------------------------------------------------------------------------------

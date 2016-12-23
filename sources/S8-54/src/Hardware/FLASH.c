@@ -55,7 +55,7 @@ static RecordConfig *records = (RecordConfig *)ADDR_ARRAY_RECORDS;     // ƒл€ уп
 
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-static uint CalculateFreeMemory(void);
+static int CalculateFreeMemory(void);
 static RecordConfig* FindRecordConfigForWrite(void);
 static void WriteWord(uint address, uint word);
 static void WriteBuffer(uint address, uint *buffer, int size);
@@ -98,7 +98,7 @@ void FLASH_SaveSettings(void)
 //------------------------------------------------------------------------------------------------------------------------------------------------------
 bool FLASH_LoadSettings(void)
 {
-    CLEAR_FLASH_FLAGS
+    CLEAR_FLASH_FLAGS;
 
     if(READ_WORD(ADDR_SECTOR_SETTINGS) != MARK_OF_FILLED)       // ≈сли первый байт сектора не отмаркирован - первое включение прибора
     {
@@ -155,6 +155,11 @@ static RecordConfig* FindRecordConfigForWrite(void)
        CalculateFreeMemory() < sizeof(set))         // или пам€ти осталось меньше, чем нужно дл€ сохранени€ настроек
     {
         return 0;
+    }
+    
+    if(record == 0)
+    {
+        return &records[0];
     }
 
     return ++record;                                // ¬озвращаем адрес следующей за последней заполненной записи
@@ -290,7 +295,7 @@ static uint GetSector(uint startAddress)
 
 
 //------------------------------------------------------------------------------------------------------------------------------------------------------
-uint CalculateFreeMemory(void)
+int CalculateFreeMemory(void)
 {
     RecordConfig *lastFilledRecord = LastFilledRecord();    // Ќаходим запись с последними сохранЄнными настройками
 
@@ -304,7 +309,9 @@ uint CalculateFreeMemory(void)
         return 0;                                           // то свободной пам€ти нет
     }
 
-    return ADDR_LAST_SET - (lastFilledRecord->addrData + lastFilledRecord->sizeData);
+    int retValue = ADDR_LAST_SET - (lastFilledRecord->addrData + lastFilledRecord->sizeData);
+
+    return retValue < 0 ? 0 : retValue;     // ¬озвращаем 0, если размер получилс€ отрицательный - каким-то образом последн€€ запись оказалась за пределами сектора
 }
 
 

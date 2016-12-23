@@ -59,7 +59,7 @@ void PersonalTimer_Stop(TypePersonalTimer type);
   * Максимальный отрезок времени, который можно отсчитать с её помощью - 35 сек.
 ***/
 #define gTimerTics (TIM2->CNT)
-#define TICS_IN_US(x) ((x) / 90)
-
+#define gTimerUS (TIM2->CNT / 90)
+    
 // Время, прошедшее с момента инициализации таймера, в миллисекундах
-#define gTimerMS (TIM5->CNT / 10)                    
+#define gTimerMS (TIM5->CNT / 2)                    

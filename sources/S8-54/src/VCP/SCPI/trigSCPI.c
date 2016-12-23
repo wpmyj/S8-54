@@ -154,12 +154,12 @@ void Process_FIND(uint8 *buffer)
         {0}
     };
     ENTER_ANALYSIS
-        if (0 == value)         { set.trig.modeFind = TrigModeFind_Hand; }
-        else if (1 == value)    { set.trig.modeFind = TrigModeFind_Auto; }
+        if (0 == value)         { TRIG_MODE_FIND = TrigModeFind_Hand; }
+        else if (1 == value)    { TRIG_MODE_FIND = TrigModeFind_Auto; }
         else if (2 == value)    { FPGA_FindAndSetTrigLevel(); }
         else if (3 == value)
         {
-            SCPI_SEND(":TRIGGER:FIND %s", map[set.trig.modeFind].key);
+            SCPI_SEND(":TRIGGER:FIND %s", map[TRIG_MODE_FIND].key);
         }
     LEAVE_ANALYSIS
 }

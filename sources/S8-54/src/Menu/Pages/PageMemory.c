@@ -420,6 +420,7 @@ static const SmallButton sbLast_IntEnter =
 
 static void OnPress_Last_IntEnter(void)
 {
+    return;
     OpenPageAndSetItCurrent(Page_SB_MemInt);
     MODE_WORK = ModeWork_MemInt;
     FLASH_GetData(gMemory.currentNumIntSignal, &gDSmemInt, &gDataAmemInt, &gDataBmemInt);
@@ -575,9 +576,17 @@ static void OnPress_Int_Exit(void)
     }
     else
     {
-        ShortPressOnPageItem(PagePointerFromName(Page_SB_MemInt), 0);
+        MODE_WORK = ModeWork_Direct;
+        if (gMemory.runningFPGAbeforeSmallButtons == 1)
+        {
+            FPGA_Start();
+            gMemory.runningFPGAbeforeSmallButtons = 0;
+        }
+        Display_RemoveAddDrawFunction();
+        //ShortPressOnPageItem(PagePointerFromName(Page_SB_MemInt), 0);
     }
 }
+
 
 // ПАМЯТЬ -> ВНУТР ЗУ -> Показывать всегда --------------------------------------------------------------------------------------------------------------------------------------------
 static const SmallButton sbInt_ShowSignalsAlways =
@@ -734,6 +743,7 @@ static const SmallButton sbInt_SaveToMemory =
 
 static void OnPress_Int_SaveToMemory(void)
 {
+    return;
     SaveSignalToIntMemory();
 }
 
