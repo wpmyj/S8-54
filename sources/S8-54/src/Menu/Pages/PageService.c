@@ -11,15 +11,8 @@
 #include "Display/Display.h"
 #include "Display/Painter.h"
 #include "Panel/Panel.h"
-
-
 #include "Display/Colors.h"
-
 #include "PageServiceMath.h"
-
-
-extern Page mainPage;
-extern void FuncBtnStart(int key);
 
 
 #ifdef _MS_VS
@@ -27,38 +20,45 @@ extern void FuncBtnStart(int key);
 #pragma warning(disable:4132)
 #endif
 
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+extern Page mainPage;
+extern void FuncBtnStart(int key);
+
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 static const Button mbResetSettings;
+        void OnPress_ResetSettings(void);
+static void  FuncDraw_ResetSettings(void);
+static void  OnTimerDraw_ResetSettings(void);
 static const Button mbAutoSearch;
+static void  OnPress_AutoSearch(void);
 static const Choice mcRecorder;
+static void  OnChange_Recorder(bool active);
 static const Choice mcLanguage;
 static const Choice mcWelcomeScreen;
 
 static const Page mspCalibrator;
 static const Choice mcCalibrator;
+static void  OnChange_Calibrator(bool active);
 static const Button mbCalibrator_Calibrate;
+static bool  IsActive_Calibrator_Calibrate(void);
+static void  OnPress_Calibrator_Calibrate(void);
 
-static const Page mspServiceEthernet;
-static const Page mspServiceSound;
+static const Page mspEthernet;
+static const Page mspSound;
 static const Page mspTime;
 static const Time mtTime;
 static const Governor mgTimeCorrection;
-static void OnChange_Time_Correction(void);
+static void  OnChange_Time_Correction(void);
+
 
 #ifdef _MS_VS
 #pragma warning(pop)
 #endif
 
-       void OnPress_ResetSettings(void);
-static void OnPress_AutoSearch(void);
-static void FuncDraw_ResetSettings(void);
-static void OnTimerDraw_ResetSettings(void);
-static void OnChange_Recorder(bool active);
-static void OnChange_Calibrator(bool active);
-static bool IsActive_Calibrator_Calibrate(void);
-static void OnPress_Calibrator_Calibrate(void);
 
-
-// СЕРВИС /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// СЕРВИС ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 const Page mpService =
 {
     Item_Page, &mainPage,
@@ -71,21 +71,21 @@ const Page mpService =
     },
     EmptyFuncBV, Page_Service,
     {
-        (void*)&mbResetSettings,    // СЕРВИС -> Сброс настроек
-        (void*)&mbAutoSearch,       // СЕРВИС -> Поиск сигнала
-        (void*)&mspCalibrator,      // СЕРВИС -> КАЛИБРАТОР
-        (void*)&mcRecorder,         // СЕРВИС -> Регистратор
-        (void*)&mspFFT,             // СЕРВИС -> СПЕКТР
-        (void*)&mspMathFunction,    // СЕРВИС -> ФУНКЦИЯ
-        (void*)&mspServiceEthernet, // СЕРВИС -> ETHERNET
-        (void*)&mspServiceSound,    // СЕРВИС -> ЗВУК
-        (void*)&mspTime,            // СЕРВИС -> ВРЕМЯ
-        (void*)&mcLanguage,         // СЕРВИС -> Язык
-        (void*)&mcWelcomeScreen     // СЕРВИС -> Заставка
+        (void*)&mbResetSettings,    // СЕРВИС - Сброс настроек
+        (void*)&mbAutoSearch,       // СЕРВИС - Поиск сигнала
+        (void*)&mspCalibrator,      // СЕРВИС - КАЛИБРАТОР
+        (void*)&mcRecorder,         // СЕРВИС - Регистратор
+        (void*)&mspFFT,             // СЕРВИС - СПЕКТР
+        (void*)&mspMathFunction,    // СЕРВИС - ФУНКЦИЯ
+        (void*)&mspEthernet,        // СЕРВИС - ETHERNET
+        (void*)&mspSound,           // СЕРВИС - ЗВУК
+        (void*)&mspTime,            // СЕРВИС - ВРЕМЯ
+        (void*)&mcLanguage,         // СЕРВИС - Язык
+        (void*)&mcWelcomeScreen     // СЕРВИС - Заставка
     }
 };
 
-// СЕРВИС -> Сброс настроек --------------------------------------------------------------------------------------------------------------------------------
+// СЕРВИС - Сброс настроек ---------------------------------------------------------------------------------------------------------------------------
 static const Button mbResetSettings =
 {
     Item_Button, &mpService,
@@ -131,7 +131,7 @@ static void OnTimerDraw_ResetSettings(void)
     Display_Update();
 }
 
-// СЕРВИС -> Поиск сигнала ----------------------------------------------------------------------------------------------------------------------------------------
+// СЕРВИС - Поиск сигнала ----------------------------------------------------------------------------------------------------------------------------
 static const Button mbAutoSearch =
 {
     Item_Button, &mpService,
@@ -150,7 +150,7 @@ static void OnPress_AutoSearch(void)
     FPGA_StartAutoFind();
 };
 
-// СЕРВИС -> Регистратор ---------------------------------------------------------------------------------------------------------------------------------------------
+// СЕРВИС - Регистратор ------------------------------------------------------------------------------------------------------------------------------
 static const Choice mcRecorder =
 {
     Item_Choice, &mpService,
@@ -174,7 +174,7 @@ static void OnChange_Recorder(bool active)
     FPGA_EnableRecorderMode(set.service.recorder);
 }
 
-// СЕРВИС -> Язык -------------------------------------------------------------------------------------------------------------------------------------------------------
+// СЕРВИС - Язык -------------------------------------------------------------------------------------------------------------------------------------
 static const Choice mcLanguage =
 {
     Item_Choice, &mpService, {"Язык", "Language"},
@@ -191,7 +191,7 @@ static const Choice mcLanguage =
 };
 
 
-// СЕРВИС -> Заставка ------------------------------------------------------------------------------------------------------------------------------------------------------
+// СЕРВИС - Заставка ---------------------------------------------------------------------------------------------------------------------------------
 static const Choice mcWelcomeScreen =
 {
     Item_Choice, &mpService, {"Заставка", "Logo"},
@@ -208,7 +208,7 @@ static const Choice mcWelcomeScreen =
 };
 
 
-// ВРЕМЯ ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// ВРЕМЯ /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 static const Page mspTime =
 {
     Item_Page, &mpService,
@@ -221,12 +221,12 @@ static const Page mspTime =
     },
     EmptyFuncBV, Page_ServiceTime,
     {
-        (void*)&mtTime,             // СЕРВИС -> ВРЕМЯ -> Время
-        (void*)&mgTimeCorrection    // CЕРВИС -> ВРЕМЯ -> Коррекция
+        (void*)&mtTime,             // СЕРВИС - ВРЕМЯ - Время
+        (void*)&mgTimeCorrection    // CЕРВИС - ВРЕМЯ - Коррекция
     }
 };
 
-// СЕРВИС -> ВРЕМЯ -> Время --------------------------------------------------------------------------------------------------------------------------------------------------------
+// СЕРВИС - ВРЕМЯ - Время ----------------------------------------------------------------------------------------------------------------------------
 static int8 dServicetime = 0;
 static int8 hours = 0, minutes = 0, secondes = 0, year = 0, month = 0, day = 0;
 static const Time mtTime =
@@ -255,7 +255,7 @@ static const Time mtTime =
 };
 
 
-// СЕРВИС -> Время -> Коррекция ---------------------------------------------------------------------------------------------------------------------------------------------------
+// СЕРВИС - Время - Коррекция ------------------------------------------------------------------------------------------------------------------------
 static const Governor mgTimeCorrection =
 {
     Item_Governor, &mspTime,
@@ -276,7 +276,7 @@ static void OnChange_Time_Correction(void)
 }
 
 
-// СЕРВИС -> КАЛИБРАТОР /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// СЕРВИС - КАЛИБРАТОР ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 static const Page mspCalibrator =
 {
     Item_Page, &mpService,
@@ -289,12 +289,12 @@ static const Page mspCalibrator =
     },
     EmptyFuncBV, Page_ServiceCalibrator,
     {
-        (void*)&mcCalibrator,           // СЕРВИС -> КАЛИБРАТОР -> Калибратор
-        (void*)&mbCalibrator_Calibrate  // СЕРВИС -> КАЛИБРАТОР -> Калибровать
+        (void*)&mcCalibrator,           // СЕРВИС - КАЛИБРАТОР - Калибратор
+        (void*)&mbCalibrator_Calibrate  // СЕРВИС - КАЛИБРАТОР - Калибровать
     }
 };
 
-// СЕРВИС -> КАЛИБРАТОР -> Калибратор -------------------------------------------------------------------------------------------------------------------------------
+// СЕРВИС - КАЛИБРАТОР - Калибратор ------------------------------------------------------------------------------------------------------------------
 static const Choice mcCalibrator =
 {
     Item_Choice, &mspCalibrator,
@@ -319,7 +319,7 @@ static void OnChange_Calibrator(bool active)
     FPGA_SetCalibratorMode(set.service.calibrator);
 }
 
-// СЕРВИС -> КАЛИБРАТОР -> Калибровать -------------------------------------------------------------------------------------------------------------------------------
+// СЕРВИС - КАЛИБРАТОР - Калибровать -----------------------------------------------------------------------------------------------------------------
 static const Button mbCalibrator_Calibrate =
 {
     Item_Button, &mspCalibrator,
@@ -446,11 +446,11 @@ extern const Page mspCalibrator;
 extern const Page mspFreqMeter;
 
 // СЕРВИС - ЗВУК //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-extern const Page mspServiceSound;
+extern const Page mspSound;
 
 
 //------------------------------------------------------------------------------------------------------------------------------------------------------
-extern const Page mspServiceEthernet;
+extern const Page mspEthernet;
 
 
 //------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -463,7 +463,7 @@ static void FuncOfChangedEthernetSettings(bool active)
 //------------------------------------------------------------------------------------------------------------------------------------------------------
 static const Choice mcServEthEnable =
 {
-    Item_Choice, &mspServiceEthernet, 
+    Item_Choice, &mspEthernet, 
     {"Ethernet",    "Ethernet"},
     {
         "Чтобы задействовать ethernet, выберите \"Включено\" и выключите прибор.\n"
@@ -483,7 +483,7 @@ static const Choice mcServEthEnable =
 
 static const IPaddress ipAddress =
 {
-    Item_IP, &mspServiceEthernet,
+    Item_IP, &mspEthernet,
     {"IP адрес", "IP-address"},
     {
         "Установка IP адреса",
@@ -499,7 +499,7 @@ static const IPaddress ipAddress =
 //------------------------------------------------------------------------------------------------------------------------------------------------------
 static const IPaddress ipNetMask =
 {
-    Item_IP, &mspServiceEthernet,
+    Item_IP, &mspEthernet,
     {"Маска подсети", "Network mask"},
     {
         "Установка маски подсети",
@@ -514,7 +514,7 @@ static const IPaddress ipNetMask =
 //------------------------------------------------------------------------------------------------------------------------------------------------------
 static const IPaddress ipGateway =
 {
-    Item_IP, &mspServiceEthernet,
+    Item_IP, &mspEthernet,
     {"Шлюз", "Gateway"},
     {
         "Установка адреса основного шлюза",
@@ -529,7 +529,7 @@ static const IPaddress ipGateway =
 //------------------------------------------------------------------------------------------------------------------------------------------------------
 static const MACaddress macMAC =
 {
-    Item_MAC, &mspServiceEthernet,
+    Item_MAC, &mspEthernet,
     {"Физ адрес", "MAC-address"},
     {
         "Установка физического адреса",
@@ -543,11 +543,11 @@ static const MACaddress macMAC =
 
 //------------------------------------------------------------------------------------------------------------------------------------------------------
 // СЕРВИС - ЗВУК - Звук
-const Page mspServiceSound;
+const Page mspSound;
 
 const Choice mcServiceSoundEnable =
 {
-    Item_Choice, &mspServiceSound, {"Звук", "Sound"},
+    Item_Choice, &mspSound, {"Звук", "Sound"},
     {
         "Включение/выключение звука",
         "Inclusion/switching off of a sound"
@@ -564,7 +564,7 @@ const Choice mcServiceSoundEnable =
 //---------------------------------------------------------------------------------------------------------------------------------------------------
 const Governor mgServiceSoundVolume =
 {
-    Item_Governor, &mspServiceSound,
+    Item_Governor, &mspSound,
     {
         "Громкость", "Volume"
     },
@@ -578,7 +578,7 @@ const Governor mgServiceSoundVolume =
 
 
 // СЕРВИС - ЗВУК /////////////////////////////////////////////////////////////////////////////////////////////
-const Page mspServiceSound =
+const Page mspSound =
 {
     Item_Page, &mpService,
     {
@@ -598,7 +598,7 @@ const Page mspServiceSound =
 
 
 // СЕРВИС - ETHERNET  /////////////////////////////////////////////////////////////////////////////////////////
-const Page mspServiceEthernet = 
+const Page mspEthernet = 
 {
     Item_Page, &mpService,
     {
