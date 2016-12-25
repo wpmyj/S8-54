@@ -1274,16 +1274,6 @@
               <FileType>5</FileType>
               <FilePath>.\src\Hardware\Timer.h</FilePath>
             </File>
-            <File>
-              <FileName>Timer2.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\src\Hardware\Timer2.c</FilePath>
-            </File>
-            <File>
-              <FileName>Timer2.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\src\Hardware\Timer2.h</FilePath>
-            </File>
           </Files>
         </Group>
         <Group>

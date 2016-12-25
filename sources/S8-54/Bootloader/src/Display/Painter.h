@@ -9,7 +9,6 @@
 
 // needToInterface - передавать также и по интерфейсу USB или Ethernet
 void    Painter_SendToDisplay(uint8 *bytes, int numBytes);
-inline void    Painter_SendToInterfaces(uint8 *pointer, int size) {};
 
 void    Painter_BeginScene(Color color);
 void    Painter_EndScene(void);

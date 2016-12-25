@@ -140,7 +140,6 @@ void Painter_SetPalette(Color color)
     *(command + 1) = color;
     *((uint16*)(command + 2)) = set.display.colors[color];
     Painter_SendToDisplay(command, 4);
-    Painter_SendToInterfaces(command, 4);
 }
 
 
@@ -157,7 +156,6 @@ void Painter_SetColor(Color color)
         uint8 command[4] = {SET_COLOR};
         command[1] = color;
         Painter_SendToDisplay(command, 4);
-        Painter_SendToInterfaces(command, 2);
     }
 }
 
@@ -172,7 +170,6 @@ void Painter_DrawHLine(int y, int x0, int x1)
     *((int16*)(command + 2)) = (int16)x0;
     *((int16*)(command + 4)) = (int16)x1;
     Painter_SendToDisplay(command, 8);
-    Painter_SendToInterfaces(command, 6);
 }
 
 
@@ -186,7 +183,6 @@ void Painter_DrawVLine(int x, int y0, int y1)
     *(command + 3) = (int8)y0;
     *(command + 4) = (int8)y1;
     Painter_SendToDisplay(command, 8);
-    Painter_SendToInterfaces(command, 5);
 }
 
 
@@ -223,7 +219,6 @@ void Painter_SetPoint(int x, int y)
     *((int16*)(command + 1)) = (int16)x;
     *(command + 3) = (int8)y;
     Painter_SendToDisplay(command, 4);
-    Painter_SendToInterfaces(command, 4);
 }
 
 
@@ -276,7 +271,6 @@ void Painter_DrawMultiVPointLine(int numLines, int y, uint16 x[], int delta, int
         numBytes++;
     }
     Painter_SendToDisplay(command, numBytes);
-    Painter_SendToInterfaces(command, 1 + 1 + 1 + 1 + 1 + 1 + numLines * 2);
 }
 
 
@@ -311,7 +305,6 @@ void Painter_DrawMultiHPointLine(int numLines, int x, uint8 y[], int delta, int 
         numBytes++;
     }
     Painter_SendToDisplay(command, numBytes);
-    Painter_SendToInterfaces(command, 1 + 1 + 2 + 1 + 1 + numLines);
 
     Painter_DrawHLineC(y[12], 0, 10, gColorChan[A]);
 }
@@ -342,7 +335,6 @@ void Painter_FillRegion(int x, int y, int width, int height)
     *((int16*)(command + 4)) = (int16)width;
     *(command + 6) = (int8)height;
     Painter_SendToDisplay(command, 8);
-    Painter_SendToInterfaces(command, 7);
 }
 
 
@@ -418,7 +410,6 @@ void Painter_DrawVLineArray(int x, int numLines, uint8 *y0y1, Color color)
         numBytes++;
     }
     Painter_SendToDisplay(command, numBytes);
-    Painter_SendToInterfaces(command, 1 + 2 + 1 + 2 * numLines);
 }
 
 
@@ -433,7 +424,6 @@ void Painter_DrawSignal(int x, uint8 data[281], bool modeLines)
         *(command + 3 + i) = data[i];
     }
     Painter_SendToDisplay(command, 284);
-    Painter_SendToInterfaces(command, 284);
 }
 
 
@@ -500,7 +490,6 @@ void Painter_EndScene(void)
     uint8 command[4];
     command[0] = END_SCENE;
     Painter_SendToDisplay(command, 4);
-    Painter_SendToInterfaces(command, 1);
     if (stateTransmit == StateTransmit_InProcess)
     {
         stateTransmit = StateTransmit_Free;

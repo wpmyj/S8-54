@@ -91,6 +91,10 @@ void Display_Update(void)
         DrawButton(290, 55, "ДА");
         DrawButton(290, 195, "НЕТ");
     }
+    else if (state == State_NotFile)
+    {
+        Painter_DrawStringInCenterRect(0, 0, 320, 200, "Программное обеспечение не обнаружено");
+    }
     else if (state == State_Upgrade)
     {
         Painter_DrawText(10, 10, "Upgrage");

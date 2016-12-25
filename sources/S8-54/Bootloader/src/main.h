@@ -24,6 +24,7 @@ typedef enum
 
     State_WrongFlash,       // Флешка есть, но прочитать нельзя
     State_RequestAction,    // Что делать - апгрейдить или нет
+    State_NotFile,          // Если диск примонтирован, но обновления на нём нету
     State_Upgrade,          // Процесс апгрейда
     State_Ok                // Обновление удачно завершено
 } State;

@@ -41,6 +41,7 @@ void USBH_UserProcess(USBH_HandleTypeDef *phost, uint8 id)
             break;
 
         case HOST_USER_CONNECTION:
+            state = State_Mount;
             f_mount(NULL, (TCHAR const*)"", 0);
             break;
 
@@ -333,10 +334,6 @@ bool FDrive_GetNameFile(const char *fullPath, int numFile, char *nameFileOut, St
 //------------------------------------------------------------------------------------------------------------------------------------------------------
 bool FDrive_GetNextNameFile(char *nameFileOut, StructForReadDir *s)
 {
-#ifndef _MS_VS
-    FILINFO *pFNO = &s->fno;
-#endif
-
     bool alreadyNull = false;
     bool run = true;
     while (run)
@@ -359,14 +356,15 @@ bool FDrive_GetNextNameFile(char *nameFileOut, StructForReadDir *s)
         }
         else
         {
-#ifndef _MS_VS
+            FILINFO *pFNO = &s->fno;
             char *fn = *(pFNO->lfname) ? pFNO->lfname : pFNO->fname;
             if ((pFNO->fattrib & AM_DIR) == 0 && pFNO->fname[0] != '.')
             {
+#ifndef _MS_VS
                 strcpy(nameFileOut, fn);
+#endif
                 return true;
             }
-#endif
         }
     }
 

@@ -25,21 +25,28 @@
 
 typedef void(*pFunction)(void);
 
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 uint jumpAddress = 0;
 pFunction JumpToApplication;
 State state = State_Start;
 
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+void Upgrade(void);
+
+
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 int main(void)
 {
-    //HAL_Init();
+    HAL_Init();
     
-        __disable_irq();
+    //    __disable_irq();
     // Теперь переходим на основную программу
-    JumpToApplication = (pFunction)(*(__IO uint*)(MAIN_PROGRAM_START_ADDRESS + 4));
-    __set_MSP(*(__IO uint*)MAIN_PROGRAM_START_ADDRESS);
-    __enable_irq();
-    JumpToApplication();
+    //JumpToApplication = (pFunction)(*(__IO uint*)(MAIN_PROGRAM_START_ADDRESS + 4));
+    //__set_MSP(*(__IO uint*)MAIN_PROGRAM_START_ADDRESS);
+    //__enable_irq();
+    //JumpToApplication();
 
     Hardware_Init();
 
@@ -53,7 +60,7 @@ int main(void)
 
     Timer_Enable(kTemp, 10, Display_Update);
 
-    for(uint i = 0; i < 10000000; i++)
+    for(uint i = 0; i < 1000000; i++)
     {
         if(FDrive_Update())
         {
@@ -83,12 +90,13 @@ int main(void)
             }
             else
             {
-                int i = 0;
-                while (1)
-                {
-
-                }
+                Upgrade();
             }
+        }
+        else
+        {
+            state = State_NotFile;
+            Timer_PauseOnTime(2000);
         }
     }
     else if (state == State_WrongFlash) // Диск не удалось примонтировать
@@ -117,6 +125,13 @@ int main(void)
     __set_MSP(*(__IO uint*)MAIN_PROGRAM_START_ADDRESS);
     __enable_irq();
     JumpToApplication();
+}
+
+
+//----------------------------------------------------------------------------------------------------------------------------------------------------
+void Upgrade(void)
+{
+
 }
 
 

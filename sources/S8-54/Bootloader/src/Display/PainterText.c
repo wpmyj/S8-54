@@ -29,7 +29,6 @@ void Painter_SetFont(TypeFont typeFont)
     command[0] = SET_FONT;
     command[1] = (uint8)typeFont;
     Painter_SendToDisplay(command, 4);
-    Painter_SendToInterfaces(command, 2);
 }
 
 
@@ -60,10 +59,6 @@ void Painter_LoadFont(TypeFont typeFont)
     {
         command[2 + i] = bytes[i];
     }
-    //Painter_SendToDisplay(command, 3084);     // WARN шрифты теперь зашиты в дисплей
-    Painter_SendToInterfaces(command, 2);
-    Painter_SendToInterfaces((uint8*)(fonts[typeFont]), sizeof(Font));
-
 }
 
 
@@ -232,7 +227,6 @@ int Painter_DrawText(int x, int y, const char *text)
     *(command + 4) = length;
     int numBytes = ((length + 4) / 4) * 4 + 4;
     Painter_SendToDisplay(command, numBytes);
-    Painter_SendToInterfaces(command, 1 + 2 + 1 + 1 + length);
     return retValue;
 }
 
