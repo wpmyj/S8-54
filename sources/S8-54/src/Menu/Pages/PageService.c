@@ -15,6 +15,8 @@
 
 #include "Display/Colors.h"
 
+#include "PageServiceMath.h"
+
 
 extern Page mainPage;
 extern void FuncBtnStart(int key);
@@ -35,7 +37,6 @@ static const Page mspCalibrator;
 static const Choice mcCalibrator;
 static const Button mbCalibrator_Calibrate;
 
-static const Page mspServiceMath;
 static const Page mspServiceEthernet;
 static const Page mspServiceSound;
 static const Page mspTime;
@@ -73,11 +74,12 @@ const Page mpService =
         (void*)&mbResetSettings,    // —≈–¬»— -> —·ÓÒ Ì‡ÒÚÓÂÍ
         (void*)&mbAutoSearch,       // —≈–¬»— -> œÓËÒÍ ÒË„Ì‡Î‡
         (void*)&mspCalibrator,      // —≈–¬»— ->  ¿À»¡–¿“Œ–
-        (void*)&mspServiceMath,
-        (void*)&mspServiceEthernet, 
-        (void*)&mspServiceSound,
-        (void*)&mspTime,            // —≈–¬»— -> ¬–≈Ãﬂ
         (void*)&mcRecorder,         // —≈–¬»— -> –Â„ËÒÚ‡ÚÓ
+        (void*)&mspFFT,             // —≈–¬»— -> —œ≈ “–
+        (void*)&mspMathFunction,    // —≈–¬»— -> ‘”Õ ÷»ﬂ
+        (void*)&mspServiceEthernet, // —≈–¬»— -> ETHERNET
+        (void*)&mspServiceSound,    // —≈–¬»— -> «¬” 
+        (void*)&mspTime,            // —≈–¬»— -> ¬–≈Ãﬂ
         (void*)&mcLanguage,         // —≈–¬»— -> ﬂÁ˚Í
         (void*)&mcWelcomeScreen     // —≈–¬»— -> «‡ÒÚ‡‚Í‡
     }
@@ -446,9 +448,6 @@ extern const Page mspFreqMeter;
 // —≈–¬»— - «¬”  //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 extern const Page mspServiceSound;
 
-
-//------------------------------------------------------------------------------------------------------------------------------------------------------
-#include "PageServiceMath.h"
 
 //------------------------------------------------------------------------------------------------------------------------------------------------------
 extern const Page mspServiceEthernet;

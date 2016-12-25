@@ -6,10 +6,12 @@
 #include "Hardware/Sound.h"
 #include "Utils/Math.h"
 
+
 extern const Page mspCursFFT;
-extern const Page mspServiceMathFunction;
-extern const Page mspFFT;
-extern const Page mspServiceMath;
+extern const Page mspMathFunction;
+static const Page mspFFT;
+const Page mpService;
+
 
 void Reg_FFT_Cursors(int angle)
 {
@@ -70,7 +72,7 @@ static void DrawSB_MathFunction_Type(int x, int y)
 
 static const SmallButton sbMathFunction =
 {
-    Item_SmallButton, &mspServiceMathFunction,
+    Item_SmallButton, &mspMathFunction,
     {
         "¬Ë‰",
         "Type"
@@ -130,7 +132,7 @@ static void DrawSB_MathFunction_ModeDraw(int x, int y)
 
 static const SmallButton sbMathFunctionModeDraw =
 {
-    Item_SmallButton, &mspServiceMathFunction,
+    Item_SmallButton, &mspMathFunction,
     {
         "›Í‡Ì",
         "Display"
@@ -162,7 +164,7 @@ static void DrawSB_MathFunction_RangeA(int x, int y)
 
 static const SmallButton sbMathFunctionRangeA =
 {
-    Item_SmallButton, &mspServiceMathFunction,
+    Item_SmallButton, &mspMathFunction,
     {
         "Ã‡Ò¯Ú‡· 1-„Ó Í‡Ì‡Î‡",
         "Scale of the 1st channel"
@@ -189,7 +191,7 @@ static void DrawSB_MathFunction_RangeB(int x, int y)
 
 static const SmallButton sbMathFunctionRangeB =
 {
-    Item_SmallButton, &mspServiceMathFunction,
+    Item_SmallButton, &mspMathFunction,
     {
         "Ã‡Ò¯Ú‡· 2-„Ó Í‡Ì‡Î‡",
         "Scale of the 2nd channel"
@@ -226,7 +228,7 @@ static void DrawSB_MathFunction_ModeRegSet(int x, int y)
 
 static const SmallButton sbMathFunctionModeRegSet =
 {
-    Item_SmallButton, &mspServiceMathFunction,
+    Item_SmallButton, &mspMathFunction,
     {
         "–ÂÊËÏ Û˜ÍË ”—“¿ÕŒ¬ ¿",
         "Mode regulator SET"
@@ -258,7 +260,7 @@ static void ChangeF_MathFormula(void)
 static int8 curDigit = 0;
 const Formula mfMathFormula =
 {
-    Item_Formula, &mspServiceMathFunction,
+    Item_Formula, &mspMathFunction,
     {
         "‘ÓÏÛÎ‡", "Formulf"
     },
@@ -368,7 +370,7 @@ bool ActiveP_FFT_Cursors(void)
 
 static const SmallButton sbExitMathFunction =
 {
-    Item_SmallButton, &mspServiceMathFunction,
+    Item_SmallButton, &mspMathFunction,
     {
         "¬˚ıÓ‰",
         "Exit"
@@ -466,9 +468,9 @@ static void FuncOfPressServiceMathFunction(void)
 }
 
 // —≈–¬»— - Ã¿“≈Ã¿“» ¿ - ‘”Õ ÷»ﬂ /////////////////////////////////////////////////////////////////////////////
-const Page mspServiceMathFunction =
+const Page mspMathFunction =
 {
-    Item_Page, &mspServiceMath,
+    Item_Page, &mpService,
     {
         "‘”Õ ÷»ﬂ", "FUNCTION"
     },
@@ -539,10 +541,10 @@ static void FuncOfPressFFT(void)
     }
 }
 
-// —≈–¬»— - Ã¿“≈Ã¿“» ¿ -  ”–—Œ–€ /////////////////////////////////////////////////////////////////////////////
+// —≈–¬»— - —œ≈ “– ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 const Page mspFFT =
 {
-    Item_Page, &mspServiceMath,
+    Item_Page, &mpService,
     {
         "—œ≈ “–", "SPECTRUM"
     },
@@ -560,23 +562,4 @@ const Page mspFFT =
         (void*)&mcFFTrange
     },
     FuncOfPressFFT
-};
-
-
-// —≈–¬»— - Ã¿“≈Ã¿“» ¿ /////////////////////////////////////////////////////////////////////////////
-const Page mspServiceMath =
-{
-    Item_Page, &mpService,
-    {
-        "Ã¿“≈Ã¿“» ¿", "MATH"
-    },
-    {
-        "Ã‡ÚÂÏ‡ÚË˜ÂÒÍËÂ ÙÛÌÍˆËË Ë ¡œ‘",
-        "Mathematical functions and FFT"
-    },
-    EmptyFuncBV, Page_Math,
-    {
-        (void*)&mspServiceMathFunction,
-        (void*)&mspFFT
-    }
 };
