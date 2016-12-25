@@ -2,9 +2,7 @@
 
 Color ColorCursors(Channel cnan);
 Color ColorTrig(void);                  // Возвращает цвет синхронизации.
-Color ColorMenuTitle                    // Цвет заголовка страницы.
-                    (bool inShade       // Затенена ли страница.
-                    );
+Color ColorMenuTitle(bool inShade);     // Цвет заголовка страницы. inShade == true, если страница затенена
 Color ColorMenuItem(bool inShade);      // Цвет элемента меню.
 Color ColorBorderMenu(bool inShade);    // Цвет окантовки меню.
 Color ColorContrast(Color color);       // Возвращает цвет, контрастный к color. Может быть белым или чёрным.
