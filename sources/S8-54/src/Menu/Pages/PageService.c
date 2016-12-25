@@ -103,14 +103,14 @@ void OnPress_ResetSettings(void)
 {
     Panel_Disable();
     Display_SetDrawMode(DrawMode_Hand, FuncDraw_ResetSettings);
-    Timer2_SetAndEnable(kTimerDrawHandFunction, OnTimerDraw_ResetSettings, 100);
+    Timer_SetAndEnable(kTimerDrawHandFunction, OnTimerDraw_ResetSettings, 100);
 
     if (Panel_WaitPressingButton() == B_Start)
     {
         Settings_Load(true);
     }
 
-    Timer2_Disable(kTimerDrawHandFunction);
+    Timer_Disable(kTimerDrawHandFunction);
     Display_SetDrawMode(DrawMode_Auto, 0);
     Panel_Enable();
     FuncBtnStart(1);

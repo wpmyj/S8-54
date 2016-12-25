@@ -226,7 +226,7 @@ void OnTimerPressedKey(void)
         }
         pressedKey = B_Empty;
     }
-    //Timer2_Disable(kPressKey);
+    //Timer_Disable(kPressKey);
 }
 
 
@@ -346,15 +346,15 @@ void Panel_Update(void)
                 Menu_ShortPressureButton(releaseButton);
                 pressedKey = B_Empty;
             }
-            Timer2_Disable(kPressKey);
+            Timer_Disable(kPressKey);
         }
         else if (pressButton)
         {
             funcButton[pressButton].funcOnKey(1);
             Menu_PressButton(pressButton);
             pressedKey = pressButton;
-            //Timer2_Enable(kPressKey, 500, OnTimerPressedKey);
-            Timer2_SetAndStartOnce(kPressKey, OnTimerPressedKey, 500);
+            //Timer_Enable(kPressKey, 500, OnTimerPressedKey);
+            Timer_SetAndStartOnce(kPressKey, OnTimerPressedKey, 500);
         }
         else if (regLeft)
         {

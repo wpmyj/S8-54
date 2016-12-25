@@ -9,7 +9,7 @@ typedef struct
     uint dTms;          // Период срабатывания, мс
     uint timeFirstMS;   // Время первого срабатывания
     uint timeNextMS;    // Время следующего срабатывания. Если == 0xffffffff, то таймер неактивен
-    bool repeat;        // Если true, будет срабатывать, пока не будет вызвана функция Timer2_Disable()
+    bool repeat;        // Если true, будет срабатывать, пока не будет вызвана функция Timer_Disable()
 } TimerStruct;
 
 
@@ -33,13 +33,13 @@ static void TuneTIM(TypeTimer2 type);   // Настроить систему на таймер
 
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-bool Timer2_IsRun(TypeTimer2 type)
+bool Timer_IsRun(TypeTimer2 type)
 {
     return TIME_NEXT(type) != MAX_UINT;
 }
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
-void Timer2_Init(void)
+void Timer_Init(void)
 {
     for(uint i = 0; i < NumTimers; i++)
     {
@@ -89,7 +89,7 @@ void TIM3_IRQHandler(void)
 
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
-void Timer2_Set(TypeTimer2 type, pFuncVV func, uint dTms)
+void Timer_Set(TypeTimer2 type, pFuncVV func, uint dTms)
 {
     TimerStruct *timer = &timers[type];
     timer->func = func;
@@ -98,23 +98,23 @@ void Timer2_Set(TypeTimer2 type, pFuncVV func, uint dTms)
 
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
-void Timer2_SetAndStartOnce(TypeTimer2 type, pFuncVV func, uint dTms)
+void Timer_SetAndStartOnce(TypeTimer2 type, pFuncVV func, uint dTms)
 {
-    Timer2_Set(type, func, dTms);
-    Timer2_StartOnce(type);
+    Timer_Set(type, func, dTms);
+    Timer_StartOnce(type);
 }
 
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
-void Timer2_SetAndEnable(TypeTimer2 type, pFuncVV func, uint dTms)
+void Timer_SetAndEnable(TypeTimer2 type, pFuncVV func, uint dTms)
 {
-    Timer2_Set(type, func, dTms);
-    Timer2_Enable(type);
+    Timer_Set(type, func, dTms);
+    Timer_Enable(type);
 }
 
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
-void Timer2_StartOnce(TypeTimer2 type)
+void Timer_StartOnce(TypeTimer2 type)
 {
     timers[type].repeat = false;
     TuneTIM(type);
@@ -122,7 +122,7 @@ void Timer2_StartOnce(TypeTimer2 type)
 
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
-void Timer2_Enable(TypeTimer2 type)
+void Timer_Enable(TypeTimer2 type)
 {
     timers[type].repeat = true;
     TuneTIM(type);
@@ -148,7 +148,7 @@ static void TuneTIM(TypeTimer2 type)
 
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
-void Timer2_Disable(TypeTimer2 type)
+void Timer_Disable(TypeTimer2 type)
 {
     timers[type].timeNextMS = MAX_UINT;
     timers[type].repeat = false;

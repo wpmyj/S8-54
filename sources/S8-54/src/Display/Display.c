@@ -324,7 +324,7 @@ void Display_RotateRShift(Channel ch)
     if(TIME_SHOW_LEVELS)
     {
         (ch == A) ? (showLevelRShiftA = true) : (showLevelRShiftB = true);
-        Timer2_SetAndStartOnce((ch == A) ? kShowLevelRShiftA : kShowLevelRShiftB, (ch == A) ? DisableShowLevelRShiftA : DisableShowLevelRShiftB, TIME_SHOW_LEVELS  * 1000);
+        Timer_SetAndStartOnce((ch == A) ? kShowLevelRShiftA : kShowLevelRShiftB, (ch == A) ? DisableShowLevelRShiftA : DisableShowLevelRShiftB, TIME_SHOW_LEVELS  * 1000);
     };
     Display_Redraw();
 }
@@ -336,7 +336,7 @@ void Display_RotateTrigLev(void)
     if(TIME_SHOW_LEVELS && TRIG_MODE_FIND_HAND)
     {
         showLevelTrigLev = true;
-        Timer2_SetAndStartOnce(kShowLevelTrigLev, DisableShowLevelTrigLev, TIME_SHOW_LEVELS * 1000);
+        Timer_SetAndStartOnce(kShowLevelTrigLev, DisableShowLevelTrigLev, TIME_SHOW_LEVELS * 1000);
     }
     Display_Redraw();
 }
@@ -359,7 +359,7 @@ void Display_EnableTrigLabel(bool enable)
 //----------------------------------------------------------------------------------------------------------------------------------------------------
 void Display_ClearFromWarnings(void)
 {
-    Timer2_Disable(kShowMessages);
+    Timer_Disable(kShowMessages);
     for(int i = 0; i < NUM_WARNINGS; i++)
     {
         warnings[i] = 0;
@@ -429,7 +429,7 @@ void Display_ShiftScreen(int delta)
 void Display_ChangedRShiftMarkers(bool active)
 {
     drawRShiftMarkers = set.display.altMarkers != AM_Hide;
-    Timer2_SetAndStartOnce(kRShiftMarkersAutoHide, OnRShiftMarkersAutoHide, 5000);
+    Timer_SetAndStartOnce(kRShiftMarkersAutoHide, OnRShiftMarkersAutoHide, 5000);
 }
 
 
@@ -1347,7 +1347,7 @@ static void ShowWarn(const char *message)
 {
     if(warnings[0] == 0)
     {
-        Timer2_SetAndEnable(kShowMessages, OnTimerShowWarning, 100);
+        Timer_SetAndEnable(kShowMessages, OnTimerShowWarning, 100);
     }
     bool alreadyStored = false;
     for(int i = 0; i < NUM_WARNINGS; i++)
@@ -1911,7 +1911,7 @@ static void OnTimerShowWarning(void)
 
     if(pointer == 0)
     {
-        Timer2_Disable(kShowMessages);
+        Timer_Disable(kShowMessages);
     }
 }
 

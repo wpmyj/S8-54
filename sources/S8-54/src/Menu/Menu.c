@@ -342,11 +342,11 @@ void Menu_SetAutoHide(bool active)
     }
     if(sDisplay_TimeMenuAutoHide() == 0)
     {
-        Timer2_Disable(kMenuAutoHide);
+        Timer_Disable(kMenuAutoHide);
     }
     else
     {
-        Timer2_SetAndStartOnce(kMenuAutoHide, OnTimerAutoHide, sDisplay_TimeMenuAutoHide());
+        Timer_SetAndStartOnce(kMenuAutoHide, OnTimerAutoHide, sDisplay_TimeMenuAutoHide());
     }
 }
 
@@ -650,7 +650,7 @@ void ShortPress_Page(void *item)
 static void TemporaryEnableStrNavi(void)
 {
     gBF.temporaryShowStrNavi = 1;                                           // Устанавливаем признак того, что надо выводить строку навигации меню
-    Timer2_SetAndStartOnce(kStrNaviAutoHide, OnTimerStrNaviAutoHide, 3000); // и запускаем таймер, который его отключит
+    Timer_SetAndStartOnce(kStrNaviAutoHide, OnTimerStrNaviAutoHide, 3000); // и запускаем таймер, который его отключит
 }
 
 

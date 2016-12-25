@@ -107,7 +107,7 @@ void FDrive_Update(void)
         uint timeStart = gTimerMS;
         gBF.needToMountFlash = 0;
         Display_SetDrawMode(DrawMode_Hand, FuncDrawDisplay);
-        Timer2_SetAndEnable(kTimerMountFlash, Display_Update, 10);
+        Timer_SetAndEnable(kTimerMountFlash, Display_Update, 10);
         if (f_mount(&USBDISKFatFs, (TCHAR const*)USBDISKPath, 1) != FR_OK)
         {
             Display_ShowWarning(WrongFileSystem);
@@ -121,7 +121,7 @@ void FDrive_Update(void)
         while (gTimerMS - timeStart < 3000)
         {
         };
-        Timer2_Disable(kTimerMountFlash);
+        Timer_Disable(kTimerMountFlash);
         Display_SetDrawMode(DrawMode_Auto, 0);
     }
     else

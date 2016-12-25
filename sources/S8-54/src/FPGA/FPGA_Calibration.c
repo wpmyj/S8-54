@@ -622,7 +622,7 @@ void FPGA_ProcedureCalibration(void)
     set.chan[A].enable = set.chan[B].enable = true;
     
     Display_SetDrawMode(DrawMode_Hand, FuncAttScreen);
-    Timer2_SetAndEnable(kTimerDrawHandFunction, OnTimerDraw, 100);
+    Timer_SetAndEnable(kTimerDrawHandFunction, OnTimerDraw, 100);
     
     cal->barA.fullTime = cal->barA.passedTime = cal->barB.fullTime = cal->barB.passedTime = 0;
     
@@ -681,7 +681,7 @@ void FPGA_ProcedureCalibration(void)
     WriteAdditionRShifts(B);
     
     Panel_Enable();
-    Timer2_Disable(kTimerDrawHandFunction);
+    Timer_Disable(kTimerDrawHandFunction);
     Display_SetDrawMode(DrawMode_Auto, 0);
     
     set.chan[A].enable = chanAenable;
@@ -725,7 +725,7 @@ void FPGA_BalanceChannel(Channel ch)
     timeStart = gTimerMS;
 
     Display_SetDrawMode(DrawMode_Hand, FuncDrawBalance);
-    Timer2_SetAndEnable(kTimerBalanceChannel, Display_Update, 10);
+    Timer_SetAndEnable(kTimerBalanceChannel, Display_Update, 10);
 
     CreateCalibrationStruct();
     Settings storedSettings;
@@ -745,7 +745,7 @@ void FPGA_BalanceChannel(Channel ch)
 
     Panel_Enable();
 
-    Timer2_Disable(kTimerBalanceChannel);
+    Timer_Disable(kTimerBalanceChannel);
     Display_SetDrawMode(DrawMode_Auto, 0);
     
     FPGA_OnPressStartStop();

@@ -87,7 +87,7 @@ static void OnTimerFlashDisplay(void)
 //------------------------------------------------------------------------------------------------------------------------------------------------------
 void Painter_ResetFlash(void)
 {
-    Timer2_SetAndEnable(kFlashDisplay, OnTimerFlashDisplay, 400);
+    Timer_SetAndEnable(kFlashDisplay, OnTimerFlashDisplay, 400);
     inverseColors = false;
 }
 

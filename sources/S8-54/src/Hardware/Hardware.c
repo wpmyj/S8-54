@@ -84,7 +84,7 @@ void Hardware_Init(void)
     HAL_NVIC_SetPriority(TIM6_DAC_IRQn, PRIORITY_TIMER_TIM6);
     HAL_NVIC_EnableIRQ(TIM6_DAC_IRQn);
 
-    Timer2_Init();
+    Timer_Init();
 
     Sound_Init();
     

@@ -116,7 +116,7 @@ static void OnTimerCanReadData(void)
 //------------------------------------------------------------------------------------------------------------------------------------------------------
 void FPGA_SetNumSignalsInSec(int numSigInSec) 
 {
-    Timer2_SetAndEnable(kNumSignalsInSec, OnTimerCanReadData, (int)(1000.f / numSigInSec));
+    Timer_SetAndEnable(kNumSignalsInSec, OnTimerCanReadData, (int)(1000.f / numSigInSec));
 }
 
 
@@ -748,7 +748,7 @@ bool ProcessingData(void)
                 {
                     if(sTime_P2PModeEnabled() && set.trig.startMode == StartMode_Auto)  // ≈сли находимс€ в режиме поточечного вывода при автоматической синхронизации
                     {
-                        Timer2_SetAndStartOnce(kTimerStartP2P, FPGA_Start, 1000);                 // то откладываем следующий запуск, чтобы зафиксировать сигнал на экране
+                        Timer_SetAndStartOnce(kTimerStartP2P, FPGA_Start, 1000);                 // то откладываем следующий запуск, чтобы зафиксировать сигнал на экране
                     }
                     else
                     {
@@ -1100,9 +1100,9 @@ void FPGA_OnPressStartStop(void)
 
     if (sTime_P2PModeEnabled())
     {
-        if (Timer2_IsRun(kTimerStartP2P))                // ≈сли находимс€ в режиме поточечного вывода и в данный момент пауза после считывани€ очередного полного сигнала
+        if (Timer_IsRun(kTimerStartP2P))                // ≈сли находимс€ в режиме поточечного вывода и в данный момент пауза после считывани€ очередного полного сигнала
         {
-            Timer2_Disable(kTimerStartP2P);              // “о останавливаем таймер, чтобы просмотреть сигнал
+            Timer_Disable(kTimerStartP2P);              // “о останавливаем таймер, чтобы просмотреть сигнал
         }
         else
         {
@@ -1213,7 +1213,7 @@ void StopTemporaryPause(void)
 void FPGA_TemporaryPause(void)
 {
     gBF.FPGAtemporaryPause = 1;
-    Timer2_SetAndStartOnce(kTemporaryPauseFPGA, StopTemporaryPause, 100);
+    Timer_SetAndStartOnce(kTemporaryPauseFPGA, StopTemporaryPause, 100);
 }
 
 
