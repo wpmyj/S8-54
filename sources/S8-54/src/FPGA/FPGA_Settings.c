@@ -627,11 +627,12 @@ void FPGA_SetTrigLev(TrigSource ch, uint16 trigLev)
     }
     LIMITATION(trigLev, trigLev, TrigLevMin, TrigLevMax);
 
+    Display_RotateTrigLev();
+
     if (TRIGLEV(ch) != trigLev)
     {
         TRIGLEV(ch) = trigLev;
         LoadTrigLev();
-        Display_RotateTrigLev();
     }
 };
 
