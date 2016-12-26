@@ -1024,7 +1024,7 @@ static void DrawMeasures(void)
 //----------------------------------------------------------------------------------------------------------------------------------------------------
 static void DrawStringNavigation(void)
 {
-    if((gBF.temporaryShowStrNavi || set.display.showStringNavigation == ShowStrNavi_All) && (MENU_IS_SHOWN || (TypeOpenedItem()) != Item_Page))
+    if((gBF.temporaryShowStrNavi || SHOW_STRING_NAVI_ALL) && (MENU_IS_SHOWN || (TypeOpenedItem()) != Item_Page))
     {
         char buffer[100];
         char *string = Menu_StringNavigation(buffer);
@@ -1137,7 +1137,7 @@ static void DrawConsole(void)
         numString = 22;
     }
     int delta = 0;
-    if(set.display.showStringNavigation)
+    if(SHOW_STRING_NAVI_ALL)
     {
         numString -= ((height == 8) ? 1 : 2);
         delta = 10;

@@ -636,7 +636,7 @@ void ShortPress_Page(void *item)
     {
         return;
     }
-    if (set.display.showStringNavigation == ShowStrNavi_Temp)       // ≈сли нужно временно выводить строку навигации меню
+    if (SHOW_STRING_NAVI_TEMP)       // ≈сли нужно временно выводить строку навигации меню
     {
         TemporaryEnableStrNavi();
     }
@@ -648,8 +648,11 @@ void ShortPress_Page(void *item)
 //---------------------------------------------------------------------------------------------------------------------------------------------------
 static void TemporaryEnableStrNavi(void)
 {
-    gBF.temporaryShowStrNavi = 1;                                           // ”станавливаем признак того, что надо выводить строку навигации меню
-    Timer_SetAndStartOnce(kStrNaviAutoHide, OnTimerStrNaviAutoHide, 3000); // и запускаем таймер, который его отключит
+    if (SHOW_STRING_NAVI_TEMP)
+    {
+        gBF.temporaryShowStrNavi = 1;                                           // ”станавливаем признак того, что надо выводить строку навигации меню
+        Timer_SetAndStartOnce(kStrNaviAutoHide, OnTimerStrNaviAutoHide, 3000); // и запускаем таймер, который его отключит
+    }
 }
 
 

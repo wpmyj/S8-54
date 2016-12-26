@@ -4,8 +4,11 @@
 #include "Display/Colors.h"
 
 
-#define DISPLAY_NUM_ACCUM   (1 << (int)set.display.numAccumulation) /* ¬озвращает число накоплений */
-#define DISPLAY_NUM_MIN_MAX (1 << (int)set.display.numMinMax)       /* ¬озвращает количество измерений сигналов дл€ расчЄта минимумов и максимумов. */
+#define DISPLAY_NUM_ACCUM       (1 << (int)set.display.numAccumulation) /* ¬озвращает число накоплений */
+#define DISPLAY_NUM_MIN_MAX     (1 << (int)set.display.numMinMax)       /* ¬озвращает количество измерений сигналов дл€ расчЄта минимумов и максимумов. */
+#define SHOW_STRING_NAVI        (set.display.showStringNavigation)
+#define SHOW_STRING_NAVI_TEMP   (set.display.showStringNavigation == ShowStrNavi_Temp)
+#define SHOW_STRING_NAVI_ALL    (set.display.showStringNavigation == ShowStrNavi_All)
 
 
 int     sDisplay_NumSignalsInS(void);                       // ¬озвращает ограничение частоты кадров.

@@ -515,7 +515,7 @@ static const Choice mcSettings_AltMarkers =
     (int8*)&set.display.altMarkers, Display_ChangedRShiftMarkers, EmptyFuncVII
 };
 
-// ДИСПЛЕЙ -> НАСТРОЙКИ -> Строка меню ------------------------------------------------------------------------------------------------------------------------------------------------------
+// ДИСПЛЕЙ - НАСТРОЙКИ - Строка меню -----------------------------------------------------------------------------------------------------------------
 static const Choice mcSettings_StringNavigation =
 {
     Item_Choice, &mspSettings,
@@ -532,7 +532,7 @@ static const Choice mcSettings_StringNavigation =
         { "Всегда", "All" },
         { "Никогда", "None" }
     },
-    (int8*)&set.display.showStringNavigation, EmptyFuncVB, EmptyFuncVII
+    (int8*)&SHOW_STRING_NAVI, EmptyFuncVB, EmptyFuncVII
 };
 
 
