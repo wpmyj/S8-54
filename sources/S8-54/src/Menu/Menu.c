@@ -296,7 +296,6 @@ void Menu_ReleaseButton(PanelButton button)
 //---------------------------------------------------------------------------------------------------------------------------------------------------
 void Menu_PressReg(Regulator reg)
 {
-    Sound_ButtonPress();
     if (gBF.showHelpHints == 0)
     {
         pressRegulator = reg;

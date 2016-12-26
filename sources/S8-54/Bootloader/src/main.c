@@ -60,7 +60,7 @@ int main(void)
 
     Timer_Enable(kTemp, 10, Display_Update);
 
-    for(uint i = 0; i < 1000000; i++)
+    for(uint i = 0; i < 100000; i++)
     {
         if(FDrive_Update())
         {
@@ -85,7 +85,7 @@ int main(void)
             }
             
             if (button == B_F5)
-            {
+            {   
                 state = State_Ok;
             }
             else
@@ -96,7 +96,7 @@ int main(void)
         else
         {
             state = State_NotFile;
-            Timer_PauseOnTime(2000);
+            //Timer_PauseOnTime(2000);
         }
     }
     else if (state == State_WrongFlash) // Диск не удалось примонтировать

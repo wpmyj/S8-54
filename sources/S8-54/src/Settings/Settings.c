@@ -207,7 +207,7 @@ static const Settings defaultSettings =
     {
         true,                       // screenWelcomeEnable
         true,                       // soundEnable
-        20,                         // soundVolume
+        15,                         // soundVolume
         Calibrator_Freq,            // calibrator
         0,                          // IP-адрес (временно)  WARN
         ColorScheme_WhiteLetters,   // colorScheme

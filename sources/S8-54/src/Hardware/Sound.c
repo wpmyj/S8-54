@@ -180,8 +180,7 @@ static void Sound_Beep(const TypeWave newTypeWave, const float newFreq, const fl
     if (frequency != newFreq || amplitude != newAmpl || typeWave != newTypeWave)
     {
         frequency = newFreq;
-        //amplitude = newAmpl * set.service.soundVolume / 100.0f;
-        amplitude = set.service.soundVolume / 100.0f;
+        amplitude = newAmpl * set.service.soundVolume / 100.0f;
         typeWave = newTypeWave;
         
         Stop();
@@ -200,7 +199,7 @@ static void Sound_Beep(const TypeWave newTypeWave, const float newFreq, const fl
 //------------------------------------------------------------------------------------------------------------------------------------------------------
 void Sound_ButtonPress(void)
 {
-    Sound_Beep(TypeWave_Sine, 2000.0f, 0.5f, 50);
+    Sound_Beep(TypeWave_Sine, 2000.0f, 0.75f, 50);
     buttonIsPressed = true;
 }
 
@@ -210,7 +209,7 @@ void Sound_ButtonRelease(void)
 {
     if (buttonIsPressed)
     {
-        Sound_Beep(TypeWave_Sine, 1000.0f, 0.25f, 50);
+        Sound_Beep(TypeWave_Sine, 1000.0f, 0.5f, 50);
         buttonIsPressed = false;
     }
 }
@@ -235,7 +234,7 @@ void Sound_RegulatorShiftRotate(void)
 //------------------------------------------------------------------------------------------------------------------------------------------------------
 void Sound_RegulatorSwitchRotate(void)
 {
-    Sound_Beep(TypeWave_Triangle, 2500.0f, 0.5f, 25);
+    Sound_Beep(TypeWave_Sine, 500.0f, 0.5f, 75);
     buttonIsPressed = false;
 }
 
@@ -243,7 +242,7 @@ void Sound_RegulatorSwitchRotate(void)
 //------------------------------------------------------------------------------------------------------------------------------------------------------
 void Sound_WarnBeepBad(void)
 {
-    Sound_Beep(TypeWave_Meandr, 1000.0f, 1.0f, 500);
+    Sound_Beep(TypeWave_Meandr, 500.0f, 1.0f, 500);
     soundWarnIsBeep = true;
     buttonIsPressed = false;
 }
@@ -252,6 +251,6 @@ void Sound_WarnBeepBad(void)
 //------------------------------------------------------------------------------------------------------------------------------------------------------
 void Sound_WarnBeepGood(void)
 {
-    Sound_Beep(TypeWave_Triangle, 1000.0f, 0.5f, 250);
+    Sound_Beep(TypeWave_Triangle, 1000.0f, 1.0f, 500);
     buttonIsPressed = false;
 }

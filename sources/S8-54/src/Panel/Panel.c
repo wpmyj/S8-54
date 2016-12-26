@@ -105,14 +105,14 @@ static const StructReg funculatorReg[] =
     {FuncTrigLev,   FuncBtnRegTrig,     EmptyFuncVV},   // R_TrigLev
     {FuncRegSet,    FuncBtnRegSet,      EmptyFuncVV},   // R_Set
     // WARN временно продублировано
-    {FuncRangeA, EFB, EmptyFuncVV},
-    {FuncRShiftA, FuncBtnRegChannelA, EmptyFuncVV},
-    {FuncRangeB, EFB, EmptyFuncVV},   // R_RangeB
-    {FuncRShiftB, FuncBtnRegChannelB, EmptyFuncVV},
-    {FuncTBase, EFB, EmptyFuncVV},   // R_TBase
-    {FuncTShift, FuncBtnRegTime, EmptyFuncVV},   // R_TShift
-    {FuncTrigLev, FuncBtnRegTrig, EmptyFuncVV},   // R_TrigLev
-    {FuncRegSet, FuncBtnRegSet, EmptyFuncVV}    // R_Set
+    {FuncRangeA,    EFB, EmptyFuncVV},
+    {FuncRShiftA,   FuncBtnRegChannelA, EmptyFuncVV},
+    {FuncRangeB,    EFB,                EmptyFuncVV},   // R_RangeB
+    {FuncRShiftB,   FuncBtnRegChannelB, EmptyFuncVV},
+    {FuncTBase,     EFB,                EmptyFuncVV},   // R_TBase
+    {FuncTShift,    FuncBtnRegTime,     EmptyFuncVV},   // R_TShift
+    {FuncTrigLev,   FuncBtnRegTrig,     EmptyFuncVV},   // R_TrigLev
+    {FuncRegSet,    FuncBtnRegSet,      EmptyFuncVV}    // R_Set
 };
 
 uint16 RotateRegRight(Regulator reg);
@@ -372,11 +372,13 @@ void Panel_Update(void)
         }
         else if (regPress)
         {
+            Sound_ButtonPress();
             funculatorReg[regPress].press(1);
             regPress = R_Empty;
         }
         else if (regRelease)
         {
+            Sound_ButtonRelease();
             funculatorReg[regRelease].press(-1);
             regRelease = R_Empty;
         }
