@@ -165,7 +165,7 @@ static const Settings defaultSettings =
     // measures
     {
         MN_1,                       // measures number
-        A_B,                    // source
+        A_B,                        // source
         ModeViewSignals_AsIs,       // mode view signal
         {
             Measure_VoltageMax,     Measure_VoltageMin,     Measure_VoltagePic,         Measure_VoltageMaxSteady,   Measure_VoltageMinSteady,
@@ -173,7 +173,7 @@ static const Settings defaultSettings =
             Measure_Period,         Measure_Freq,           Measure_TimeNarastaniya,    Measure_TimeSpada,          Measure_DurationPlus
         },
         false,                      // show
-        MeasuresZone_Screen,       // брать для измерений значения, видимые на экране
+        MeasuresZone_Screen,        // брать для измерений значения, видимые на экране
         //{0, 200},                 // начальные значения курсоров напряжения для зоны измерений
         //{372, 652},               // начальные значения курсоров времени для зоны измерений
         {50, 150},                  // начальные значения курсоров напряжения для зоны измерений

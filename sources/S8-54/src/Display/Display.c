@@ -2037,9 +2037,8 @@ static void DrawCursorRShift(Channel ch)
 
     if(ch == Math)
     {
-        int rShift = set.math.rShift;
         float scale = (float)GridMathHeight() / 960;
-        int y = (GridMathTop() + GridMathBottom()) / 2 - (int)(scale * (rShift - RShiftZero));
+        int y = (GridMathTop() + GridMathBottom()) / 2 - (int)(scale * (RSHIFT_MATH - RShiftZero));
         Painter_DrawCharC(x - 9, y - 4, SYMBOL_RSHIFT_NORMAL, gColorFill);
         Painter_DrawCharC(x - 8, y - 5, 'm', gColorBack);
         return;

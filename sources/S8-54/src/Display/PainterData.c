@@ -586,7 +586,7 @@ void PainterData_DrawMath(void)
 
     uint8 points[FPGA_MAX_POINTS];
 
-    Math_PointsVoltageToRel(dataAbsA, numPoints, set.math.range, set.math.rShift, points);
+    Math_PointsVoltageToRel(dataAbsA, numPoints, RANGE_MATH, RSHIFT_MATH, points);
 
     DrawDataChannel(points, Math, ds, GridMathTop(), GridMathBottom());
 
@@ -596,10 +596,10 @@ void PainterData_DrawMath(void)
     Painter_DrawRectangleC(GridLeft(), GridMathTop() + delta, WIDTH, HEIGHT, gColorFill);
     Painter_FillRegionC(GridLeft() + 1, GridMathTop() + 1 + delta, WIDTH - 2, HEIGHT - 2, gColorBack);
     Divider divider = set.math.divider;
-    Painter_DrawTextC(GridLeft() + 2, GridMathTop() + 1 + delta, sChannel_Range2String(set.math.range, divider), gColorFill);
+    Painter_DrawTextC(GridLeft() + 2, GridMathTop() + 1 + delta, sChannel_Range2String(RANGE_MATH, divider), gColorFill);
     Painter_DrawText(GridLeft() + 25, GridMathTop() + 1 + delta, ":");
     char buffer[20];
-    Painter_DrawText(GridLeft() + 27, GridMathTop() + 1 + delta, sChannel_RShift2String(set.math.rShift, set.math.range, divider, buffer));
+    Painter_DrawText(GridLeft() + 27, GridMathTop() + 1 + delta, sChannel_RShift2String(RSHIFT_MATH, RANGE_MATH, divider, buffer));
 }
 
 /*

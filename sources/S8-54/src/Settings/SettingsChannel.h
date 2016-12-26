@@ -16,6 +16,8 @@
 #define COUPLE_B    (set.chan[B].modeCouple)
 #define TRIGLEV(ch) (set.trig.levelRel[ch])
 #define TRIGSOURCE  (set.trig.source)
+#define RSHIFT_MATH (set.math.rShift)
+#define RANGE_MATH  (set.math.range)
 
 
 void    sChannel_SetRange(Channel ch, Range range);           // Установить масштаб по напряжению канала ch.

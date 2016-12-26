@@ -167,7 +167,7 @@ static const SmallButton sbMathFunctionModeDraw =
 
 static void PressSB_MathFunction_RangeA(void)
 {
-    set.math.range = set.chan[A].range;
+    RANGE_MATH = set.chan[A].range;
     set.math.divider = set.chan[A].divider;
 }
 
@@ -194,7 +194,7 @@ static const SmallButton sbMathFunctionRangeA =
 
 static void PressSB_MathFunction_RangeB(void)
 {
-    set.math.range = set.chan[B].range;
+    RANGE_MATH = set.chan[B].range;
     set.math.divider = set.chan[B].divider;
 }
 
@@ -407,7 +407,7 @@ static void OnRegSetMathFunction(int delta)
 
     if (set.math.modeRegSet == ModeRegSet_RShift)
     {
-        uint16 prevRShift = set.math.rShift;
+        uint16 prevRShift = RSHIFT_MATH;
         uint16 rShift = prevRShift;
         if (delta > 0)
         {
@@ -420,7 +420,7 @@ static void OnRegSetMathFunction(int delta)
                     rShift = RShiftZero;
                 }
                 Sound_RegulatorShiftRotate();
-                set.math.rShift = rShift;
+                RSHIFT_MATH = rShift;
             }
         }
         else if (delta < 0)
@@ -434,7 +434,7 @@ static void OnRegSetMathFunction(int delta)
                     rShift = RShiftZero;
                 }
                 Sound_RegulatorShiftRotate();
-                set.math.rShift = rShift;
+                RSHIFT_MATH = rShift;
             }
         }
     }
@@ -443,24 +443,24 @@ static void OnRegSetMathFunction(int delta)
         static int sum = 0;
         sum -= delta;
 
-        float rShiftAbs = RSHIFT_2_ABS(set.math.rShift, set.math.range);
+        float rShiftAbs = RSHIFT_2_ABS(RSHIFT_MATH, RANGE_MATH);
 
         if (sum > 2)
         {
-            if (set.math.range < RangeSize - 1)
+            if (RANGE_MATH < RangeSize - 1)
             {
-                set.math.range++;
-                set.math.rShift = (int16)Math_RShift2Rel(rShiftAbs, set.math.range);
+                RANGE_MATH++;
+                RSHIFT_MATH = (int16)Math_RShift2Rel(rShiftAbs, RANGE_MATH);
                 Sound_RegulatorSwitchRotate();
             }
             sum = 0;
         }
         else if (sum < -2)
         {
-            if (set.math.range > 0)
+            if (RANGE_MATH > 0)
             {
-                set.math.range--;
-                set.math.rShift = (int16)Math_RShift2Rel(rShiftAbs, set.math.range);
+                RANGE_MATH--;
+                RSHIFT_MATH = (int16)Math_RShift2Rel(rShiftAbs, RANGE_MATH);
                 Sound_RegulatorSwitchRotate();
             }
             sum = 0;
