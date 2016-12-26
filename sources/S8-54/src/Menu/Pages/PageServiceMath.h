@@ -1,5 +1,3 @@
-// —≈–¬»— - Ã¿“≈Ã¿“» ¿ ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
 #include "Utils/GlobalFunctions.h"
 #include "Display/Symbols.h"
 #include "Definition.h"
@@ -7,28 +5,36 @@
 #include "Utils/Math.h"
 
 
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 extern const Page mspCursFFT;
 extern const Page mspMathFunction;
 static const Page mspFFT;
 const Page mpService;
 
 
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 void Reg_FFT_Cursors(int angle)
 {
     set.math.posCur[set.math.currentCursor] += (uint8)angle;
     Sound_RegulatorShiftRotate();
 }
 
+
+//----------------------------------------------------------------------------------------------------------------------------------------------------
 void DrawSB_FFTcurs_Source(int x, int y)
 {
     Painter_DrawText(x + 7, y + 5, set.math.currentCursor == 0 ? "1" : "2");
 }
 
+
+//----------------------------------------------------------------------------------------------------------------------------------------------------
 void PressSB_FFTcurs_Source(void)
 {
     set.math.currentCursor = (set.math.currentCursor + 1) % 2;
 }
 
+
+//----------------------------------------------------------------------------------------------------------------------------------------------------
 static const SmallButton sbCursFFTSource =
 {
     Item_SmallButton, &mspCursFFT,
@@ -45,17 +51,23 @@ static const SmallButton sbCursFFTSource =
     DrawSB_FFTcurs_Source
 };
 
+
+//----------------------------------------------------------------------------------------------------------------------------------------------------
 static void PressSB_MathFunction_Type(void)
 {
     CircleIncreaseInt8((int8*)&set.math.mathFunc, 0, 1);
 }
 
+
+//----------------------------------------------------------------------------------------------------------------------------------------------------
 static void DrawSB_MathFunction_Sum(int x, int y)
 {
     Painter_DrawHLine(y + 9, x + 4, x + 14);
     Painter_DrawVLine(x + 9, y + 4, y + 14);
 }
 
+
+//----------------------------------------------------------------------------------------------------------------------------------------------------
 static void DrawSB_MathFunction_Mul(int x, int y)
 {
     Painter_SetFont(TypeFont_UGO2);
@@ -63,6 +75,8 @@ static void DrawSB_MathFunction_Mul(int x, int y)
     Painter_SetFont(TypeFont_8);
 }
 
+
+//----------------------------------------------------------------------------------------------------------------------------------------------------
 static void DrawSB_MathFunction_Type(int x, int y)
 {
     const pFuncVII funcs[2] = {DrawSB_MathFunction_Sum, DrawSB_MathFunction_Mul};
