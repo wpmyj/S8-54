@@ -96,7 +96,7 @@ int sDisplay_TimeMenuAutoHide(void)
 //------------------------------------------------------------------------------------------------------------------------------------------------------
 bool sDisplay_IsSeparate(void)
 {
-    return (MATH_NEED_DRAW && (set.math.modeDraw == ModeDrawMath_Separate)) || (set.math.enableFFT);
+    return FUNC_SEPARATE || FFT_ENABLED;
 }
 
 

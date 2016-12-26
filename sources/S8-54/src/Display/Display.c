@@ -573,11 +573,11 @@ static void DrawFullGrid(void)
     if(sDisplay_IsSeparate())
     {
         DrawGrid(GridLeft(), GRID_TOP, GridWidth(), GridFullHeight() / 2);
-        if(set.math.enableFFT)
+        if(FFT_ENABLED)
         {
             DrawGridSpectrum();
         }
-        if(MATH_NEED_DRAW)
+        if(FUNC_ENABLED)
         {
             DrawGrid(GridLeft(), GRID_TOP + GridFullHeight() / 2, GridWidth(), GridFullHeight() / 2);
         }
@@ -593,7 +593,7 @@ static void DrawFullGrid(void)
 //----------------------------------------------------------------------------------------------------------------------------------------------------
 static void DrawSpectrum(void)
 {
-    if(!set.math.enableFFT)
+    if(!FFT_ENABLED)
     {
         return;
     }
@@ -1398,10 +1398,7 @@ static void DrawGrid(int left, int top, int width, int height)
     Painter_SetColor(gColorGrid);
     if(TypeGrid_1 == set.display.typeGrid)
     {
-        if(!MATH_NEED_DRAW)
-        {
-            DrawGridType1(left, top, right, bottom, centerX, centerY, deltaX, deltaY, stepX, stepY);
-        }
+        DrawGridType1(left, top, right, bottom, centerX, centerY, deltaX, deltaY, stepX, stepY);
     }
     else if(TypeGrid_2 == set.display.typeGrid)
     {
@@ -1839,7 +1836,7 @@ static void DrawScaleLine(int x, bool forTrigLev)
 //----------------------------------------------------------------------------------------------------------------------------------------------------
 static void DrawCursorsRShift(void)
 {
-    if(MATH_NEED_DRAW)
+    if(FUNC_ENABLED)
     {
         DrawCursorRShift(Math);
     }

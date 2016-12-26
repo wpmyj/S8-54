@@ -106,13 +106,13 @@ static const SmallButton sbMathFunction =
 
 static void PressSB_MathFunction_ModeDraw(void)
 {
-    if (set.math.enableFFT)
+    if (FFT_ENABLED)
     {
         Display_ShowWarning(ImpossibleEnableMathFunction);
     }
     else
     {
-        CircleIncreaseInt8((int8*)&set.math.modeDraw, 0, 2);
+        CircleIncreaseInt8((int8*)&FUNC, 0, 2);
     }
 }
 
@@ -141,7 +141,7 @@ static void DrawSB_MathFunction_ModeDraw(int x, int y)
         DrawSB_MathFunction_ModeDraw_Separate,
         DrawSB_MathFunction_ModeDraw_Together
     };
-    funcs[set.math.modeDraw](x, y);
+    funcs[FUNC](x, y);
 }
 
 static const SmallButton sbMathFunctionModeDraw =
@@ -304,7 +304,7 @@ const Choice mcFFTenable =
     {                           {DISABLE_RU,    DISABLE_EN},
                                 {ENABLE_RU,     ENABLE_EN}
     },
-    (int8*)&set.math.enableFFT, EmptyFuncVB, EmptyFuncVII
+    (int8*)&FFT_ENABLED, EmptyFuncVB, EmptyFuncVII
 };
 
 // —≈–¬»— -> Ã¿“≈Ã¿“» ¿ -> —œ≈ “– -> ÿÍ‡Î‡
@@ -379,7 +379,7 @@ const Choice mcFFTrange =
 // —≈–¬»— -> Ã¿“≈Ã¿“» ¿ -> —œ≈ “– ->  ÛÒÓ˚
 bool ActiveP_FFT_Cursors(void)
 {
-    return set.math.enableFFT;
+    return FFT_ENABLED;
 }
 
 static const SmallButton sbExitMathFunction =
@@ -400,7 +400,7 @@ static const SmallButton sbExitMathFunction =
 
 static void OnRegSetMathFunction(int delta)
 {
-    if (!MATH_NEED_DRAW)
+    if (!FUNC_ENABLED)
     {
         return;
     }
@@ -470,18 +470,18 @@ static void OnRegSetMathFunction(int delta)
 
 static bool FuncOfActiveServiceMathFunction(void)
 {
-    return !set.math.enableFFT;
+    return !FFT_ENABLED;
 }
 
 static void FuncOfPressServiceMathFunction(void)
 {
-    if (set.math.enableFFT)
+    if (FFT_ENABLED)
     {
         Display_ShowWarning(ImpossibleEnableMathFunction);
     }
 }
 
-// —≈–¬»— - Ã¿“≈Ã¿“» ¿ - ‘”Õ ÷»ﬂ /////////////////////////////////////////////////////////////////////////////
+// —≈–¬»— - ‘”Õ ÷»ﬂ //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 const Page mspMathFunction =
 {
     Item_Page, &mpService,
@@ -544,7 +544,7 @@ const Page mspCursFFT =
 
 static bool FuncOfActiveFFT(void)
 {
-    return !MATH_NEED_DRAW;
+    return !FUNC_ENABLED;
 }
 
 static void FuncOfPressFFT(void)

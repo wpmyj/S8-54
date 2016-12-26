@@ -722,7 +722,7 @@ void PMP_DrawMultiVPointLine(void)
     BYTE delta = NextByte();
     NextByte();
 
-    //SHORT numPixels = numDots * delta;
+    SHORT numPixels = numDots * delta;
     BYTE color = curColor << 4;
 
     SHORT i = 0;
@@ -747,7 +747,7 @@ void PMP_DrawMultiVPointLine(void)
     {
         SHORT x = NextShort();
         PutPixelN(x, y);
-        mSetArea(x, y + 1, 1, 200, (WORD)pixels, curColor);
+        mSetArea(x, y + 1, 1, numPixels, (WORD)pixels, curColor);
     }
 }
 

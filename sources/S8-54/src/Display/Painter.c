@@ -303,34 +303,9 @@ void Painter_SetPoint(int x, int y)
 
 
 //------------------------------------------------------------------------------------------------------------------------------------------------------
-static void DrawMultiVPointLineColorEmulate(int numLines, int y, uint16 x[], int delta, int count, Color color)
-{
-    for (int i = 0; i < numLines; i++)
-    {
-        Painter_DrawVPointLine(x[i], y, y + count * delta, (float)delta, color);
-    }
-}
-
-
-//------------------------------------------------------------------------------------------------------------------------------------------------------
 void Painter_DrawMultiVPointLine(int numLines, int y, uint16 x[], int delta, int count, Color color) 
 {
-    /*
-    BUG
-    √де-то в прошивке диспле€ пр€четс€ баг - при рисовании нижней сетки дл€ раздельного экрана
-    и y > 66 дисплей виснет с вертикальными полосами
-    */
-    if(numLines > 20) 
-    {
-        LOG_ERROR("„исло линий слишком большое %d", numLines);
-        return;
-    }
-
-    if (y > 66) 
-    {
-        DrawMultiVPointLineColorEmulate(numLines, y, x, delta, count, color);
-        return;
-    }
+    ASSERT(numLines > 20, "„исло линий слишком большое %d", numLines);
 
     Painter_SetColor(color);
     uint8 command[60];

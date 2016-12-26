@@ -12,12 +12,14 @@
 #define LOG_FUNC_ENTER  Log_Write("%s enter", __FUNCTION__);
 #define LOG_FUNC_LEAVE  Log_Write("%s leave", __FUNCTION__);
 #define LOG_TRACE       Log_Write("%s : %d", __MODULE__, __LINE__);
+#define ASSERT(cond, ...) if(cond) {LOG_ERROR(__VA_ARGS__); return; }
 #else
 #define LOG_WRITE(...)
 #define LOG_ERROR(...)
 #define LOG_FUNC_ENTER
 #define LOG_FUNC_LEAVE
 #define LOG_TRACE
+#define ASSERT(cont, ...)
 #endif
 
 void Log_Error(const char *module, const char *func, int numLine, char *format, ...);

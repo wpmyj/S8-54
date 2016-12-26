@@ -4,8 +4,12 @@
 #include "Settings/Settings.h"
 
 
-#define MATH_NEED_DRAW      (set.math.modeDraw != ModeDrawMath_Disable)
-#define MATH_ENABLED        (MATH_NEED_DRAW || set.math.enableFFT)
+#define FUNC                (set.math.modeDraw)
+#define FUNC_ENABLED        (FUNC != ModeDrawMath_Disable)
+#define FUNC_SEPARATE       (FUNC == ModeDrawMath_Separate)
+#define FUNC_TOGETHER       (FUNC == ModeDrawMath_Together)
+#define FFT_ENABLED         (set.math.enableFFT)
+#define MATH_ENABLED        (FUNC_ENABLED || FFT_ENABLED)
 #define LANG                (set.common.lang)
 #define LANG_RU             (LANG == Russian)
 #define LANG_EN             (LANG == English)

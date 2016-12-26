@@ -564,7 +564,7 @@ void DrawSignalPointed(const uint8 *data, int startPoint, int endPoint, int minY
 //------------------------------------------------------------------------------------------------------------------------------------------------------
 void PainterData_DrawMath(void)
 {
-    if (!MATH_NEED_DRAW || DS_GetData_RAM(A, 0) == 0 || DS_GetData_RAM(B, 0) == 0)
+    if (!FUNC_ENABLED || DS_GetData_RAM(A, 0) == 0 || DS_GetData_RAM(B, 0) == 0)
     {
         return;
     }
@@ -592,7 +592,7 @@ void PainterData_DrawMath(void)
 
     static const int WIDTH = 71;
     static const int HEIGHT = 10;
-    int delta = (set.display.showStringNavigation && set.math.modeDraw == ModeDrawMath_Together) ? 10 : 0;
+    int delta = (set.display.showStringNavigation && FUNC_TOGETHER) ? 10 : 0;
     Painter_DrawRectangleC(GridLeft(), GridMathTop() + delta, WIDTH, HEIGHT, gColorFill);
     Painter_FillRegionC(GridLeft() + 1, GridMathTop() + 1 + delta, WIDTH - 2, HEIGHT - 2, gColorBack);
     Divider divider = set.math.divider;

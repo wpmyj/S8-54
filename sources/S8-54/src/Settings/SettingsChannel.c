@@ -52,7 +52,7 @@ int sChannel_MultiplierRel2Abs(Divider divider)
 //------------------------------------------------------------------------------------------------------------------------------------------------------
 bool sChannel_Enabled(Channel ch)
 {
-    if (ch == Math && MATH_NEED_DRAW)
+    if (ch == Math && FUNC_ENABLED)
     {
         return true;
     }
