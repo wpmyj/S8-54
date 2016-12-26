@@ -1262,7 +1262,6 @@ static void DisableShowLevelRShiftB(void)
 static void DisableShowLevelTrigLev(void)
 {
     showLevelTrigLev = false;
-    LOG_FUNC_ENTER;
 }
 
 
@@ -2037,10 +2036,12 @@ static void DrawCursorRShift(Channel ch)
 
     if(ch == Math)
     {
-        float scale = (float)GridMathHeight() / 960;
-        int y = (GridMathTop() + GridMathBottom()) / 2 - (int)(scale * (RSHIFT_MATH - RShiftZero));
-        Painter_DrawCharC(x - 9, y - 4, SYMBOL_RSHIFT_NORMAL, gColorFill);
-        Painter_DrawCharC(x - 8, y - 5, 'm', gColorBack);
+        int yCenter = (GridMathTop() + GridMathBottom()) / 2;
+        int y = yCenter - Math_RShift2Pixels(RSHIFT_MATH, GridMathHeight());
+        float scaleFull = (float)GridMathHeight() / (RShiftMax - RShiftMin);
+        int yFull = yCenter - (int)(scaleFull * (RSHIFT_MATH - RShiftZero));
+        Painter_DrawCharC(x - 9, yFull - 4, SYMBOL_RSHIFT_NORMAL, gColorFill);
+        Painter_DrawCharC(x - 8, yFull - 5, 'm', gColorBack);
         return;
     }
     if(!sChannel_Enabled(ch))
