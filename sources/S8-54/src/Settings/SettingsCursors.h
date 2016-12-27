@@ -22,6 +22,15 @@
 #define CURsT_ENABLED       (!CURsT_DISABLED)
 
 #define CURsU_POS(ch, num)  (set.cursors.posCurU[ch][num])
+#define CURsT_POS(ch, num)  (set.cursors.posCurT[ch][num])
+
+#define dUperc(ch)          (set.cursors.deltaU100percents[ch])
+#define dTperc(ch)          (set.cursors.deltaT100percents[ch])
+
+#define CURS_MOVE_PERCENTS  (set.cursors.movement == CursMovement_Percents)
+
+#define CURS_ACTIVE_U       (set.cursors.active == CursActive_U);
+#define CURS_ACTIVE_T       (set.cursors.active == CursActive_T);
 
 
 float       sCursors_GetCursPosU(Channel ch, int numCur);                         // Получить позицию курсора напряжения.

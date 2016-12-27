@@ -39,7 +39,7 @@ const char* sCursors_GetCursVoltage(Channel source, int numCur, char buffer[20])
 //------------------------------------------------------------------------------------------------------------------------------------------------------
 const char* sCursors_GetCursorTime(Channel source, int numCur, char buffer[20])
 {
-    float time = Math_TimeCursor(set.cursors.posCurT[source][numCur], TBASE);
+    float time = Math_TimeCursor(CURsT_POS(source, numCur), TBASE);
         
     return Time2String(time, true, buffer);
 }
@@ -49,7 +49,7 @@ const char* sCursors_GetCursorTime(Channel source, int numCur, char buffer[20])
 const char* sCursors_GetCursorPercentsU(Channel source, char buffer[20])
 {
     buffer[0] = 0;
-    float dPerc = set.cursors.deltaU100percents[source];
+    float dPerc = dUperc(source);
     float dValue = fabsf(sCursors_GetCursPosU(source, 0) - sCursors_GetCursPosU(source, 1));
     char bufferOut[20];
     char* percents = Float2String(dValue / dPerc * 100.0f, false, 5, bufferOut);
@@ -63,8 +63,8 @@ const char* sCursors_GetCursorPercentsU(Channel source, char buffer[20])
 const char* sCursors_GetCursorPercentsT(Channel source, char buffer[20])
 {
     buffer[0] = 0;
-    float dPerc = set.cursors.deltaT100percents[source];
-    float dValue = fabsf(set.cursors.posCurT[source][0] - set.cursors.posCurT[source][1]);
+    float dPerc = dTperc(source);
+    float dValue = fabsf(CURsT_POS(source, 0) - CURsT_POS(source, 1));
     char bufferOut[20];
     char* percents = Float2String(dValue / dPerc * 100.0f, false, 6, bufferOut);
     strcat(buffer, percents);

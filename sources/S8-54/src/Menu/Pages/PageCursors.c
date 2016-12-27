@@ -453,7 +453,7 @@ static void FuncDrawSB_Set_T(int x, int y)
         {
             bool condLeft = false, condDown = false;
             Channel source = CURS_SOURCE;
-            CalculateConditions((int16)set.cursors.posCurT[source][0], (int16)set.cursors.posCurT[source][1], CURsT_CNTRL, &condLeft, &condDown);
+            CalculateConditions((int16)CURsT_POS(source, 0), (int16)CURsT_POS(source, 1), CURsT_CNTRL, &condLeft, &condDown);
             if (condLeft && condDown)
             {
                 FuncDrawSB_Set_T_enableBoth(x, y);
@@ -553,7 +553,7 @@ static void OnPressSB_Set_Movement(void)
 
 static void FuncDrawSB_Set_Movement(int x, int y)
 {
-    if (set.cursors.movement == CursMovement_Percents)
+    if (CURS_MOVE_PERCENTS)
     {
         FuncDrawSB_Set_Movement_Percents(x, y);
     }
@@ -582,7 +582,7 @@ static void FuncDrawSB_Set_Movement_Points(int x, int y)
 
 static void SetShiftCursPosU(Channel ch, int numCur, float delta)
 {
-    if (set.cursors.movement == CursMovement_Percents)
+    if (CURS_MOVE_PERCENTS)
     {
         CURsU_POS(ch, numCur) = LimitationFloat(CURsU_POS(ch, numCur) - delta, 0, MAX_POS_U);
     }
@@ -595,7 +595,7 @@ static void SetShiftCursPosU(Channel ch, int numCur, float delta)
 
 static void SetCursPosU(Channel ch, int numCur, float pos)
 {
-    if (set.cursors.movement == CursMovement_Percents)
+    if (CURS_MOVE_PERCENTS)
     {
         CURsU_POS(ch, numCur) = LimitationFloat(pos, 0, MAX_POS_U);
     }
@@ -607,32 +607,32 @@ static void SetCursPosU(Channel ch, int numCur, float pos)
 
 void SetShiftCursPosT(Channel ch, int numCur, float delta)
 {
-    if (set.cursors.movement == CursMovement_Percents)
+    if (CURS_MOVE_PERCENTS)
     {
-        set.cursors.posCurT[ch][numCur] = LimitationFloat(set.cursors.posCurT[ch][numCur] + delta, 0, MAX_POS_T);
+        CURsT_POS(ch, numCur) = LimitationFloat(CURsT_POS(ch, numCur) + delta, 0, MAX_POS_T);
     }
     else
     {
-        set.cursors.posCurT[ch][numCur] = LimitationFloat(set.cursors.posCurT[ch][numCur] + delta, 0, MAX_POS_T);
+        CURsT_POS(ch, numCur) = LimitationFloat(CURsT_POS(ch, numCur) + delta, 0, MAX_POS_T);
     }
 }
 
 void SetCursPosT(Channel ch, int numCur, float pos)
 {
-    if (set.cursors.movement == CursMovement_Percents)
+    if (CURS_MOVE_PERCENTS)
     {
-        set.cursors.posCurT[ch][numCur] = LimitationFloat(pos, 0, MAX_POS_T);
+        CURsT_POS(ch, numCur) = LimitationFloat(pos, 0, MAX_POS_T);
     }
     else
     {
-        set.cursors.posCurT[ch][numCur] = LimitationFloat(pos, 0, MAX_POS_T);
+        CURsT_POS(ch, numCur) = LimitationFloat(pos, 0, MAX_POS_T);
     }
 }
 
 static void SetCursPos100(Channel ch)
 {
-    set.cursors.deltaU100percents[ch] = (float)fabs(CURsU_POS(ch, 0) - CURsU_POS(ch, 1));
-    set.cursors.deltaT100percents[ch] = (float)fabs(set.cursors.posCurT[ch][0] - set.cursors.posCurT[ch][1]);
+    dUperc(ch) = (float)fabs(CURsU_POS(ch, 0) - CURsU_POS(ch, 1));
+    dTperc(ch) = (float)fabs(CURsT_POS(ch, 0) - CURsT_POS(ch, 1));
 }
 
 static void SetCursSource(Channel ch)
@@ -660,12 +660,12 @@ void CursorsUpdate(void)
 
     if((lookMode0 == CursLookMode_Voltage || lookMode0 == CursLookMode_Both) && set.cursors.active == CursActive_T)
     {
-        float posU0 = Processing_GetCursU(source, set.cursors.posCurT[source][0]);
+        float posU0 = Processing_GetCursU(source, CURsT_POS(source, 0));
         SetCursPosU(source, 0, posU0);
     }
     if((lookMode1 == CursLookMode_Voltage || lookMode1 == CursLookMode_Both)  && set.cursors.active == CursActive_T)
     {
-        float posU1 = Processing_GetCursU(source, set.cursors.posCurT[source][1]);
+        float posU1 = Processing_GetCursU(source, CURsT_POS(source, 1));
         SetCursPosU(source, 1, posU1);
     }
     if((lookMode0 == CursLookMode_Time || lookMode0 == CursLookMode_Both) && set.cursors.active == CursActive_U)
@@ -686,9 +686,9 @@ static void MoveCursUonPercentsOrPoints(int delta)
 {
     float value = (float)delta;
 
-    if (set.cursors.movement == CursMovement_Percents)
+    if (CURS_MOVE_PERCENTS)
     {
-        value *= set.cursors.deltaU100percents[CURS_SOURCE] / 100.0f;
+        value *= dUperc(CURS_SOURCE) / 100.0f;
     }
 
     if (CURsU_CNTRL_1 || CURsU_CNTRL_1_2)
@@ -706,9 +706,9 @@ static void MoveCursTonPercentsOrPoints(int delta)
 {
     float value = (float)delta;
 
-    if (set.cursors.movement == CursMovement_Percents)
+    if (CURS_MOVE_PERCENTS)
     {
-        value *= set.cursors.deltaT100percents[CURS_SOURCE] / 100.0f;
+        value *= dTperc(CURS_SOURCE) / 100.0f;
     }
 
     if (CURsT_CNTRL_1 || CURsT_CNTRL_1_2)

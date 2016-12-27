@@ -656,8 +656,8 @@ static void DrawCursors(void)
 
         if(bothCursors)
         {
-            x0 = GridLeft() + (int)set.cursors.posCurT[source][0];
-            x1 = GridLeft() + (int)set.cursors.posCurT[source][1];
+            x0 = GridLeft() + (int)CURsT_POS(source, 0);
+            x1 = GridLeft() + (int)CURsT_POS(source, 1);
             y0 = GRID_TOP + (int)sCursors_GetCursPosU(source, 0);
             y1 = GRID_TOP + (int)sCursors_GetCursPosU(source, 1);
 
@@ -667,8 +667,8 @@ static void DrawCursors(void)
 
         if(CURsT_ENABLED)
         {
-            DrawVerticalCursor((int)set.cursors.posCurT[source][0], y0);
-            DrawVerticalCursor((int)set.cursors.posCurT[source][1], y1);
+            DrawVerticalCursor((int)CURsT_POS(source, 0), y0);
+            DrawVerticalCursor((int)CURsT_POS(source, 1), y1);
         }
         if(CURsU_ENABLED)
         {
@@ -1587,8 +1587,8 @@ static void WriteCursors(void)
             Painter_DrawText(x, y1, sCursors_GetCursorTime(source, 0, buffer));
             Painter_DrawText(x, y2, sCursors_GetCursorTime(source, 1, buffer));
             x = startX + 153;
-            float pos0 = Math_TimeCursor(set.cursors.posCurT[source][0], TBASE);
-            float pos1 = Math_TimeCursor(set.cursors.posCurT[source][1], TBASE);
+            float pos0 = Math_TimeCursor(CURsT_POS(source, 0), TBASE);
+            float pos1 = Math_TimeCursor(CURsT_POS(source, 1), TBASE);
             float delta = fabsf(pos1 - pos0);
             Painter_DrawText(x, y1, ":dT=");
             char buffer[20];
