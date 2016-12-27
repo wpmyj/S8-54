@@ -647,7 +647,7 @@ static void DrawCursors(void)
     if(sCursors_NecessaryDrawCursors())
     {
 
-        bool bothCursors = set.cursors.cntrlT[source] != CursCntrl_Disable && set.cursors.cntrlU[source] != CursCntrl_Disable;  // Признак того, что включены и вертикальные и горизонтальные курсоры - надо нарисовать квадраты в местах пересечения
+        bool bothCursors = CURST_ENABLED && CURSU_ENABLED;  // Признак того, что включены и вертикальные и горизонтальные курсоры - надо нарисовать квадраты в местах пересечения
 
         int x0 = -1;
         int x1 = -1;
@@ -665,14 +665,12 @@ static void DrawCursors(void)
             Painter_DrawRectangle(x1 - 2, y1 - 2, 4, 4);
         }
 
-        CursCntrl cntrl = set.cursors.cntrlT[source];
-        if(cntrl != CursCntrl_Disable)
+        if(CURST_ENABLED)
         {
             DrawVerticalCursor((int)set.cursors.posCurT[source][0], y0);
             DrawVerticalCursor((int)set.cursors.posCurT[source][1], y1);
         }
-        cntrl = set.cursors.cntrlU[source];
-        if(cntrl != CursCntrl_Disable)
+        if(CURSU_ENABLED)
         {
             DrawHorizontalCursor((int)sCursors_GetCursPosU(source, 0), x0);
             DrawHorizontalCursor((int)sCursors_GetCursPosU(source, 1), x1);
@@ -1556,7 +1554,7 @@ static void WriteCursors(void)
         x += 3;
         Channel source = set.cursors.source;
         Color colorText = gColorChan[source];
-        if(set.cursors.cntrlU[source] != CursCntrl_Disable)
+        if (CURSU_ENABLED)
         {
             Painter_DrawTextC(x, y1, "1:", colorText);
             Painter_DrawText(x, y2, "2:");
@@ -1580,7 +1578,7 @@ static void WriteCursors(void)
         x = startX + 101;
         Painter_DrawVLineC(x, 1, GRID_TOP - 2, gColorFill);
         x += 3;
-        if(set.cursors.cntrlT[source] != CursCntrl_Disable)
+        if(CURST_ENABLED)
         {
             Painter_SetColor(colorText);
             Painter_DrawText(x, y1, "1:");

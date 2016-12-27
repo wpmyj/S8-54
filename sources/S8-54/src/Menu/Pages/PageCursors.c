@@ -338,7 +338,7 @@ static const SmallButton sbSet_U =      // Выбор курсора напряжения - курсор 1, 
 
 static void OnPressSB_Set_U(void)
 {
-    if (set.cursors.active == CursActive_U || set.cursors.cntrlU[set.cursors.source] == CursCntrl_Disable)
+    if (set.cursors.active == CursActive_U || CURSU_DISABLED)
     {
         IncCursCntrlU(set.cursors.source);
     }
@@ -348,8 +348,7 @@ static void OnPressSB_Set_U(void)
 static void FuncDrawSB_Set_U(int x, int y)
 {
     Channel source = set.cursors.source;
-    CursCntrl cursCntrl = set.cursors.cntrlU[source];
-    if (cursCntrl == CursCntrl_Disable)
+    if (CURSU_DISABLED)
     {
        FuncDrawSB_Set_U_disable(x, y);
     }
@@ -362,7 +361,7 @@ static void FuncDrawSB_Set_U(int x, int y)
         else
         {
             bool condTop = false, condDown = false;
-            CalculateConditions((int16)sCursors_GetCursPosU(source, 0), (int16)sCursors_GetCursPosU(source, 1), cursCntrl, &condTop, &condDown);
+            CalculateConditions((int16)sCursors_GetCursPosU(source, 0), (int16)sCursors_GetCursPosU(source, 1), CNTRL_CURSU, &condTop, &condDown);
             if (condTop && condDown)
             {
                 FuncDrawSB_Set_U_enableBoth(x, y);
@@ -431,7 +430,7 @@ static const SmallButton sbSet_T =      // Выбор курсора времени - курсор 1, кур
 
 static void OnPressSB_Set_T(void)
 {
-    if (set.cursors.active == CursActive_T || set.cursors.cntrlT[set.cursors.source] == CursCntrl_Disable)
+    if (set.cursors.active == CursActive_T || CURST_DISABLED)
     {
         IncCursCntrlT(set.cursors.source);
     }
@@ -440,9 +439,7 @@ static void OnPressSB_Set_T(void)
 
 static void FuncDrawSB_Set_T(int x, int y)
 {
-    Channel source = set.cursors.source;
-    CursCntrl cursCntrl = set.cursors.cntrlT[source];
-    if (cursCntrl == CursCntrl_Disable)
+    if (CURST_DISABLED)
     {
         FuncDrawSB_Set_T_disable(x, y);
     }
@@ -455,7 +452,8 @@ static void FuncDrawSB_Set_T(int x, int y)
         else
         {
             bool condLeft = false, condDown = false;
-            CalculateConditions((int16)set.cursors.posCurT[source][0], (int16)set.cursors.posCurT[source][1], cursCntrl, &condLeft, &condDown);
+            Channel source = set.cursors.source;
+            CalculateConditions((int16)set.cursors.posCurT[source][0], (int16)set.cursors.posCurT[source][1], CNTRL_CURST, &condLeft, &condDown);
             if (condLeft && condDown)
             {
                 FuncDrawSB_Set_T_enableBoth(x, y);
@@ -644,12 +642,12 @@ static void SetCursSource(Channel ch)
 
 static void IncCursCntrlU(Channel ch)
 {
-    CircleIncreaseInt8((int8*)&set.cursors.cntrlU[ch], 0, 3);
+    CircleIncreaseInt8((int8*)&CNTRL_CURSU_CH(ch), 0, 3);
 }
 
 static void IncCursCntrlT(Channel ch)
 {
-    CircleIncreaseInt8((int8*)&set.cursors.cntrlT[ch], 0, 3);
+    CircleIncreaseInt8((int8*)&CNTRL_CURST_CH(ch), 0, 3);
 }
 
 void CursorsUpdate(void)
@@ -686,57 +684,50 @@ void CursorsUpdate(void)
 
 static void MoveCursUonPercentsOrPoints(int delta)
 {
-    Channel source = set.cursors.source;
-    CursCntrl cursCntrl = set.cursors.cntrlU[source];
-
     float value = (float)delta;
 
     if (set.cursors.movement == CursMovement_Percents)
     {
-        value *= set.cursors.deltaU100percents[source] / 100.0f;
+        value *= set.cursors.deltaU100percents[CURS_SOURCE] / 100.0f;
     }
 
-    if (cursCntrl == CursCntrl_1 || cursCntrl == CursCntrl_1_2)
+    if (CNTRL_CURSU_1 || CNTRL_CURSU_1_2)
     {
-        SetShiftCursPosU(source, 0, value);
+        SetShiftCursPosU(CURS_SOURCE, 0, value);
     }
-    if (cursCntrl == CursCntrl_2 || cursCntrl == CursCntrl_1_2)
+    if (CNTRL_CURSU_2 || CNTRL_CURSU_1_2)
     {
-        SetShiftCursPosU(source, 1, value);
+        SetShiftCursPosU(CURS_SOURCE, 1, value);
     }
     CursorsUpdate();
 }
 
 static void MoveCursTonPercentsOrPoints(int delta)
 {
-    Channel source = set.cursors.source;
-    CursCntrl cursCntrl = set.cursors.cntrlT[source];
-
     float value = (float)delta;
 
     if (set.cursors.movement == CursMovement_Percents)
     {
-        value *= set.cursors.deltaT100percents[source] / 100.0f;
+        value *= set.cursors.deltaT100percents[CURS_SOURCE] / 100.0f;
     }
 
-    if (cursCntrl == CursCntrl_1 || cursCntrl == CursCntrl_1_2)
+    if (CNTRL_CURST_1 || CNTRL_CURST_1_2)
     {
-        SetShiftCursPosT(source, 0, value);
+        SetShiftCursPosT(CURS_SOURCE, 0, value);
     }
-    if (cursCntrl == CursCntrl_2 || cursCntrl == CursCntrl_1_2)
+    if (CNTRL_CURST_2 || CNTRL_CURST_1_2)
     {
-        SetShiftCursPosT(source, 1, value);
+        SetShiftCursPosT(CURS_SOURCE, 1, value);
     }
     CursorsUpdate();
 }
 
 bool IsRegSetActiveOnCursors(void)
 {
-    Channel source = set.cursors.source;
     CursActive active = set.cursors.active;
     return (
         (GetNameOpenedPage() == Page_SB_Curs) &&
-        (((active == CursActive_U) && set.cursors.cntrlU[source] != CursCntrl_Disable) ||
-        ((active == CursActive_T) && set.cursors.cntrlT[source] != CursCntrl_Disable))
+        (((active == CursActive_U) && CURSU_ENABLED) ||
+        ((active == CursActive_T) && CURST_ENABLED))
         );
 }
