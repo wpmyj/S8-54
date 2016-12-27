@@ -191,10 +191,10 @@ static void Process_FILTR(uint8 *buffer)
         {0}
     };
     ENTER_ANALYSIS
-        if (value <= 9) { set.display.smoothing = (NumSmoothing)value; }
+        if (value <= 9) { SMOOTHING = (NumSmoothing)value; }
         else if (10 == value)
         {
-            SCPI_SEND(":DISPLAY:FILTR %s", map[set.display.smoothing].key);
+            SCPI_SEND(":DISPLAY:FILTR %s", map[SMOOTHING].key);
         }
     LEAVE_ANALYSIS
 }

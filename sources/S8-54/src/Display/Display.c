@@ -851,7 +851,7 @@ static void DrawLowPart(void)
     if(WORK_DIRECT)
     {
         Painter_SetFont(TypeFont_5);
-        WriteStringAndNumber("—√À¿∆.:", (int16)(x + 57), (int16)(GRID_BOTTOM + 10), (int)set.display.smoothing + 1);
+        WriteStringAndNumber("—√À¿∆.:", (int16)(x + 57), (int16)(GRID_BOTTOM + 10), (int)SMOOTHING + 1);
         Painter_SetFont(TypeFont_8);
     }
 }

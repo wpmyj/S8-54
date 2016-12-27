@@ -27,6 +27,8 @@
 #define MODE_ACCUM_NO_RESET     (MODE_ACCUM == ModeAccumulation_NoReset)
 #define NUM_AVE                 (set.display.numAveraging)
 #define DISPLAY_NUM_AVE         (1 << (int)NUM_AVE)
+#define SMOOTHING               (set.display.smoothing)
+#define SMOOTHING_ENABLED       (set.display.smoothing != NumSmooth_Disable)
 
 
 int     sDisplay_NumSignalsInS(void);                       // ¬озвращает ограничение частоты кадров.

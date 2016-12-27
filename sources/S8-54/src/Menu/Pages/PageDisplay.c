@@ -167,7 +167,7 @@ static const Choice mcSmoothing =
         {"9 точки", "9 points"},
         {"10 точек", "10 points"}
     },
-    (int8*)&set.display.smoothing, EmptyFuncVB, EmptyFuncVII
+    (int8*)&SMOOTHING, EmptyFuncVB, EmptyFuncVII
 };
 
 // ДИСПЛЕЙ -> ОБНОВЛЕНИЕ -> Частота ------------------------------------------------------------------------------------------------------------------------

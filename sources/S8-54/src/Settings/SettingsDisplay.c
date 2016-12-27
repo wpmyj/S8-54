@@ -20,15 +20,15 @@ void sDisplay_SetNumSignalsInS(int numSignalsInS)
 //------------------------------------------------------------------------------------------------------------------------------------------------------
 int sDisplay_NumPointSmoothing(void)
 {
-    if(set.debug.modeEMS && (set.display.smoothing < NumSmooth_4points))
+    if(set.debug.modeEMS && (SMOOTHING < NumSmooth_4points))
     {
         return 4;
     }
 
     int retValue = 0;
-    if (set.display.smoothing != NumSmooth_Disable)
+    if (SMOOTHING_ENABLED)
     {
-        retValue = set.display.smoothing + 1;
+        retValue = SMOOTHING + 1;
     }
 
     if (IN_RANDOM_MODE)
