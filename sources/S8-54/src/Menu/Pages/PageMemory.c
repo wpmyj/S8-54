@@ -1116,7 +1116,7 @@ static const SmallButton sbSetMaskDelete =
 
 static void PressSB_SetMask_Delete(void)
 {
-    set.memory.fileNameMask[0] = '\0';
+    FILE_NAME_MASK[0] = '\0';
 }
 
 static void DrawSB_SetMask_Delete(int x, int y)
@@ -1145,16 +1145,16 @@ static const SmallButton sbSetMaskBackspace =
 
 static void PressSB_SetMask_Backspace(void)
 {
-    int size = strlen(set.memory.fileNameMask);
+    int size = strlen(FILE_NAME_MASK);
     if (size > 0)
     {
-        if (size > 1 && set.memory.fileNameMask[size - 2] == 0x07)
+        if (size > 1 && FILE_NAME_MASK[size - 2] == 0x07)
         {
-            set.memory.fileNameMask[size - 2] = '\0';
+            FILE_NAME_MASK[size - 2] = '\0';
         }
         else
         {
-            set.memory.fileNameMask[size - 1] = '\0';
+            FILE_NAME_MASK[size - 1] = '\0';
         }
     }
 }
@@ -1186,15 +1186,15 @@ static const SmallButton sbSetMaskInsert =
 static void PressSB_SetMask_Insert(void)
 {
     int index = set.memory.indexCurSymbolNameMask;
-    int size = strlen(set.memory.fileNameMask);
+    int size = strlen(FILE_NAME_MASK);
     if (size == MAX_SYMBOLS_IN_FILE_NAME - 1)
     {
         return;
     }
     if (index < 0x41)
     {
-        set.memory.fileNameMask[size] = symbols[index][0];
-        set.memory.fileNameMask[size + 1] = '\0';
+        FILE_NAME_MASK[size] = symbols[index][0];
+        FILE_NAME_MASK[size + 1] = '\0';
     }
     else
     {
@@ -1203,18 +1203,18 @@ static void PressSB_SetMask_Insert(void)
         {
             if (size < MAX_SYMBOLS_IN_FILE_NAME - 2 && size > 0)
             {
-                if (set.memory.fileNameMask[size - 1] >= 0x30 && set.memory.fileNameMask[size - 1] <= 0x39) // Если ранее введено число
+                if (FILE_NAME_MASK[size - 1] >= 0x30 && FILE_NAME_MASK[size - 1] <= 0x39) // Если ранее введено число
                 {
-                    set.memory.fileNameMask[size] = set.memory.fileNameMask[size - 1] - 0x30;
-                    set.memory.fileNameMask[size - 1] = 0x07;
-                    set.memory.fileNameMask[size + 1] = '\0';
+                    FILE_NAME_MASK[size] = FILE_NAME_MASK[size - 1] - 0x30;
+                    FILE_NAME_MASK[size - 1] = 0x07;
+                    FILE_NAME_MASK[size + 1] = '\0';
                 }
             }
         }
         else
         {
-            set.memory.fileNameMask[size] = (char)index;
-            set.memory.fileNameMask[size + 1] = '\0';
+            FILE_NAME_MASK[size] = (char)index;
+            FILE_NAME_MASK[size + 1] = '\0';
         }
     }
 }
@@ -1593,7 +1593,7 @@ void DrawSetName(void)
 //------------------------------------------------------------------------------------------------------------------------------------------------------
 static void DrawFileMask(int x, int y)
 {
-    char *ch = set.memory.fileNameMask;
+    char *ch = FILE_NAME_MASK;
 
     Painter_SetColor(gColorFill);
     while (*ch != '\0')

@@ -4,6 +4,8 @@
 #include "Settings.h"
 
 
+#define FILE_NAME_MASK          (set.memory.fileNameMask)
+
 #define FILE_NAMING_MODE        (set.memory.fileNamingMode)
 #define FILE_NAMING_MODE_MASK   (FILE_NAMING_MODE == FileNamingMode_Mask)
 #define FILE_NAMING_MODE_MANUAL (FILE_NAMING_MODE == FileNamingMode_Manually)

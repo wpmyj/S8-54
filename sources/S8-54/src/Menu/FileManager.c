@@ -363,7 +363,7 @@ bool FM_GetNameForNewFile(char name[255])
         int values[10];
 #endif
 
-        char *ch = set.memory.fileNameMask;
+        char *ch = FILE_NAME_MASK;
         char *wr = name;
 
         while (*wr != '\0')
