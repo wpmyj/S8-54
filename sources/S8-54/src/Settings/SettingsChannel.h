@@ -40,6 +40,14 @@
 #define BALANCE_ADC_A       (BALANCE_ADC(A))
 #define BALANCE_ADC_B       (BALANCE_ADC(B))
 
+#define BANDWIDTH(ch)       (set.chan[ch].bandwidth)
+#define BANDWIDTH_A         (BANDWIDTH(A))
+#define BANDWIDTH_B         (BANDWIDTH(B))
+
+#define RESISTANCE(ch)      (set.chan[ch].resistance)
+#define RESISTANCE_A        (RESISTANCE(A))
+#define RESISTANCE_B        (RESISTANCE(B))
+
 
 void    sChannel_SetRange(Channel ch, Range range);           // Установить масштаб по напряжению канала ch.
 int     sChannel_MultiplierRel2Abs(Divider divider);

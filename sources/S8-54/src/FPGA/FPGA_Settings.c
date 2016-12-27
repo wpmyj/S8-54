@@ -289,7 +289,7 @@ void WriteChipSelect2(void)
     uint data = 0;
 
 
-    if(set.chan[A].resistance == Resistance_50Om)
+    if(RESISTANCE_A == Resistance_50Om)
     {
         data |= (3 << 2);
     }
@@ -299,7 +299,7 @@ void WriteChipSelect2(void)
         data |= maskCoupleA[COUPLE_A];
     }
 
-    if(set.chan[B].resistance == Resistance_50Om)
+    if(RESISTANCE_B == Resistance_50Om)
     {
         data |= (3 << 5);
     }
@@ -356,13 +356,13 @@ uint PrepareChannel(Channel ch)
         (1 << 7) + (1 << 8)     // 750
     };
 
-    if (set.debug.modeEMS || RANGE(ch) == Range_2mV || set.chan[ch].bandwidth == Bandwidth_20MHz)
+    if (set.debug.modeEMS || RANGE(ch) == Range_2mV || BANDWIDTH(ch) == Bandwidth_20MHz)
     {
         data |= maskField[Bandwidth_20MHz];
     }
     else
     {
-        data |= maskField[set.debug.bandwidth[ch]];
+        data |= maskField[BANDWIDTH(ch)];
     }
 
     return data;
@@ -468,7 +468,7 @@ void FPGA_LoadSettings(void)
 //------------------------------------------------------------------------------------------------------------------------------------------------------
 void FPGA_SetResistance(Channel ch, Resistance resistance)
 {
-    set.chan[ch].resistance = resistance;
+    RESISTANCE(ch) = resistance;
     PrepareAndWriteDataToAnalogSPI(CS2);
 }
 
