@@ -320,7 +320,7 @@ void Display_Update(void)
 //----------------------------------------------------------------------------------------------------------------------------------------------------
 void Display_RotateRShift(Channel ch)
 {
-    set.display.lastAffectedChannel = ch;
+    LAST_AFFECTED_CH = ch;
     if(TIME_SHOW_LEVELS)
     {
         (ch == A) ? (showLevelRShiftA = true) : (showLevelRShiftB = true);
@@ -620,7 +620,7 @@ static void DrawSpectrum(void)
         }
         else
         {
-            if(set.display.lastAffectedChannel == A)
+            if(LAST_AFFECTED_CH == A)
             {
                 DRAW_SPECTRUM(gDataB, numPoints, B);
                 DRAW_SPECTRUM(gDataA, numPoints, A);
@@ -1838,7 +1838,7 @@ static void DrawCursorsRShift(void)
     {
         DrawCursorRShift(Math);
     }
-    if(set.display.lastAffectedChannel == B)
+    if(LAST_AFFECTED_CH == B)
     {
         DrawCursorRShift(A);
         DrawCursorRShift(B);

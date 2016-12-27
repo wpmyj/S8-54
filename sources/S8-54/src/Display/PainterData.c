@@ -147,7 +147,7 @@ void DrawDataMinMax(void)
 {
     ModeDrawSignal modeDrawSignalOld = MODE_DRAW_SIGNAL;
     MODE_DRAW_SIGNAL = ModeDrawSignal_Lines;
-    if (set.display.lastAffectedChannel == B)
+    if (LAST_AFFECTED_CH == B)
     {
         DrawDataChannel(DS_GetLimitation(A, 0), A, gDSet, GRID_TOP, GridChannelBottom());
         DrawDataChannel(DS_GetLimitation(A, 1), A, gDSet, GRID_TOP, GridChannelBottom());
@@ -300,7 +300,7 @@ void DrawDataChannel(uint8 *dataIn, Channel ch, DataSettings *ds, int minY, int 
 //------------------------------------------------------------------------------------------------------------------------------------------------------
 static void DrawBothChannels(uint8 *dataA, uint8 *dataB)
 {
-    if (set.display.lastAffectedChannel == B)
+    if (LAST_AFFECTED_CH == B)
     {
         if (gDSet->enableChA)
         {
@@ -672,7 +672,7 @@ void PainterData_DrawMemoryWindow(void)
 
     const int xVert0 = leftX + (int)(shiftInMemory * scaleX);
 
-    Channel lastAffectedChannel = set.display.lastAffectedChannel;
+    Channel lastAffectedChannel = LAST_AFFECTED_CH;
     if (((uint)NumPoints_2_FPGA_NUM_POINTS(sMemory_NumBytesInChannel(false)) == gDSet->indexLength) && (gDataA || gDataB))
     {
         Channel chanFirst = lastAffectedChannel == A ? B : A;
