@@ -350,7 +350,7 @@ bool FM_GetNameForNewFile(char name[255])
         LIMITATION(size, size, 1, 95);
         strcat(name, FILE_NAME);
         strcat(name, ".");
-        strcat(name, set.memory.modeSaveSignal == ModeSaveSignal_BMP ? "bmp" : "txt");
+        strcat(name, MODE_SAVE_BMP ? "bmp" : "txt");
         return true;
     }
     else
@@ -402,7 +402,7 @@ bool FM_GetNameForNewFile(char name[255])
         *wr = '.';
         *(wr + 1) = '\0';
 
-        strcat(name, set.memory.modeSaveSignal == ModeSaveSignal_BMP ? "bmp" : "txt");
+        strcat(name, MODE_SAVE_BMP ? "bmp" : "txt");
 
         return true;
     }

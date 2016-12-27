@@ -32,6 +32,10 @@
 #define MODE_BTN_MEMORY_MENU    (MODE_BTN_MEMORY == ModeBtnMemory_Menu)
 #define MODE_BTN_MEMORY_SAVE    (MODE_BTN_MEMORY == ModeBtnMemory_Save)
 
+#define MODE_SAVE               (set.memory.modeSaveSignal)
+#define MODE_SAVE_BMP           (MODE_SAVE == ModeSaveSignal_BMP)
+#define MODE_SAVE_TXT           (MODE_SAVE == ModeSaveSignal_TXT)
+
 
 int sMemory_NumBytesInChannel(bool forCalculate);
 int sMemory_NumPointsInChannel(void);

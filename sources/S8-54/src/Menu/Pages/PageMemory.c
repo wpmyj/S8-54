@@ -870,7 +870,7 @@ static const Choice mcDrive_ModeSave =
         {"Изображение", "Image"},
         {"Текст", "Text"}
     },
-    (int8*)&set.memory.modeSaveSignal, EmptyFuncVB, EmptyFuncVII
+    (int8*)&MODE_SAVE, EmptyFuncVB, EmptyFuncVII
 };
 
 // ПАМЯТЬ -> ВНЕШН ЗУ -> Реж кн ПАМЯТЬ ----------------------------------------------------------------------------------------------------------------------------------------
