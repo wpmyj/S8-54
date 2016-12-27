@@ -7,6 +7,7 @@
 #define FILE_NAME_MASK          (set.memory.fileNameMask)
 #define FILE_NAME               (set.memory.fileName)
 #define INDEX_SYMBOL            (set.memory.indexCurSymbolNameMask)
+#define FLASH_AUTO_CONNECT      (set.memory.flashAutoConnect)
 
 #define FILE_NAMING_MODE        (set.memory.fileNamingMode)
 #define FILE_NAMING_MODE_MASK   (FILE_NAMING_MODE == FileNamingMode_Mask)
@@ -26,6 +27,10 @@
 #define FPGA_NUM_POINTS_8k      (FPGA_NUM_POINTS == FNP_8k)
 #define FPGA_NUM_POINTS_16k     (FPGA_NUM_POINTS == FNP_16k)
 #define FPGA_NUM_POINTS_32k     (FPGA_NUM_POINTS == FNP_32k)
+
+#define MODE_BTN_MEMORY         (set.memory.modeBtnMemory)
+#define MODE_BTN_MEMORY_MENU    (MODE_BTN_MEMORY == ModeBtnMemory_Menu)
+#define MODE_BTN_MEMORY_SAVE    (MODE_BTN_MEMORY == ModeBtnMemory_Save)
 
 
 int sMemory_NumBytesInChannel(bool forCalculate);

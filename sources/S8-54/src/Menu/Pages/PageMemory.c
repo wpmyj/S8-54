@@ -886,7 +886,7 @@ static const Choice mcDrive_ModeBtnMemory =
         {"Меню", "Menu"},
         {"Сохранение", "Save"}
     },
-    (int8*)&set.memory.modeBtnMemory, EmptyFuncVB, EmptyFuncVII
+    (int8*)&MODE_BTN_MEMORY, EmptyFuncVB, EmptyFuncVII
 };
 
 // ПАМЯТЬ -> ВНЕШН ЗУ -> Автоподключение ------------------------------------------------------------------------------------------------------------------------------------------
@@ -902,7 +902,7 @@ static const Choice mcDrive_Autoconnect =
         {DISABLE_RU, DISABLE_EN},
         {ENABLE_RU, ENABLE_EN}
     },
-    (int8*)&set.memory.flashAutoConnect, EmptyFuncVB, EmptyFuncVII
+    (int8*)&FLASH_AUTO_CONNECT, EmptyFuncVB, EmptyFuncVII
 };
 
 

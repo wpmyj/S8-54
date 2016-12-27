@@ -393,7 +393,7 @@ static void ProcessingShortPressureButton(void)
 {
     if(shortPressureButton != B_Empty)
     {
-        if (shortPressureButton == B_Memory && set.memory.modeBtnMemory == ModeBtnMemory_Save && gFlashDriveIsConnected)
+        if (shortPressureButton == B_Memory && MODE_BTN_MEMORY_SAVE && gFlashDriveIsConnected)
         {
             gMemory.exitFromModeSetNameTo = MENU_IS_SHOWN ? RETURN_TO_MAIN_MENU : RETURN_TO_DISABLE_MENU;
             Memory_SaveSignalToFlashDrive();
@@ -890,7 +890,7 @@ void ChangeStateFlashDrive(void)
             ShortPressOnPageItem(OpenedItem(), 0);
         }
     }
-    else if(set.memory.flashAutoConnect)
+    else if(FLASH_AUTO_CONNECT)
     {
         OnPressMemoryExtFileManager();
     }
