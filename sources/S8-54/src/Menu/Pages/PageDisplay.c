@@ -512,7 +512,7 @@ static const Choice mcSettings_AltMarkers =
         { "Показывать", "Show" },
         { "Авто", "Auto" }
     },
-    (int8*)&set.display.altMarkers, Display_ChangedRShiftMarkers, EmptyFuncVII
+    (int8*)&ALT_MARKERS, Display_ChangedRShiftMarkers, EmptyFuncVII
 };
 
 // ДИСПЛЕЙ - НАСТРОЙКИ - Строка меню -----------------------------------------------------------------------------------------------------------------

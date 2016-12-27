@@ -428,7 +428,7 @@ void Display_ShiftScreen(int delta)
 //----------------------------------------------------------------------------------------------------------------------------------------------------
 void Display_ChangedRShiftMarkers(bool active)
 {
-    drawRShiftMarkers = set.display.altMarkers != AM_Hide;
+    drawRShiftMarkers = !ALT_MARKERS_HIDE;
     Timer_SetAndStartOnce(kRShiftMarkersAutoHide, OnRShiftMarkersAutoHide, 5000);
 }
 
@@ -1807,7 +1807,7 @@ static void DrawTime(int x, int y)
 //----------------------------------------------------------------------------------------------------------------------------------------------------
 static void DrawScaleLine(int x, bool forTrigLev)
 {
-    if(set.display.altMarkers == AM_Hide)
+    if(ALT_MARKERS_HIDE)
     {
         return;
     }
