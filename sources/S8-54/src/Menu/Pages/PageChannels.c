@@ -222,7 +222,7 @@ static const Choice mcChanA_Divider =
         {"Выкл", "Off"},
         {"1/10", "1/10"}
     },
-    (int8*)&set.chan[A].divider, EmptyFuncVB, EmptyFuncVII
+    (int8*)&DIVIDER_A, EmptyFuncVB, EmptyFuncVII
 };
 
 // КАНАЛ 1 -> Балансировать ---------------------------------------------------------------------------------------------------------------------------------------------------
@@ -402,7 +402,7 @@ static const Choice mcChanB_Divider =
         {"Выкл", "Jff"},
         {"1/10", "1/10"}
     },
-    (int8*)&set.chan[B].divider, EmptyFuncVB, EmptyFuncVII
+    (int8*)&DIVIDER_B, EmptyFuncVB, EmptyFuncVII
 };
 
 // КАНАЛ 2 -> Балансировать ---------------------------------------------------------------------------------------------------------------------------------------------------

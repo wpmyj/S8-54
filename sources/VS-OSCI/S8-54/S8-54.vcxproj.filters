@@ -836,6 +836,9 @@
     <ClInclude Include="..\..\S8-54\src\Hardware\Timer.h">
       <Filter>Hardware</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\S8-54\src\Settings\SettingsTrig.h">
+      <Filter>Settings</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\S8-54\src\Display\font\font5.inc">

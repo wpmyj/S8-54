@@ -628,7 +628,7 @@ static const Choice mcSettings_Colors_Background =
         { "◊∏Ì˚È", "Black" },
         { "¡ÂÎ˚È", "White" }
     },
-    (int8*)&set.display.background, OnChange_Settings_Colors_Background, EmptyFuncVII
+    (int8*)&BACKGROUND, OnChange_Settings_Colors_Background, EmptyFuncVII
 };
 
 // ƒ»—œÀ≈… -> Õ¿—“–Œ… » -> ÷¬≈“¿ -> ÷‚ÂÚÓ‚‡ˇ ÒıÂÏ‡ ------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -712,12 +712,12 @@ static const GovernorColor mgcSettings_Colors_Grid =
 //------------------------------------------------------------------------------------------------------------------------------------------------------
 void PageService_InitGlobalColors(void)
 {
-    gColorBack = set.display.background == Background_Black ? COLOR_BLACK : COLOR_WHITE;
-    gColorFill = set.display.background == Background_Black ? COLOR_WHITE : COLOR_BLACK;
-    gColorGrid = set.display.background == Background_Black ? COLOR_GRID : COLOR_GRID_WHITE;
-    gColorChan[A] = set.display.background == Background_Black ? COLOR_DATA_A : COLOR_DATA_A_WHITE;
-    gColorChan[B] = set.display.background == Background_Black ? COLOR_DATA_B : COLOR_DATA_B_WHITE;
-    gColorChan[A_B] = gColorChan[Math] = set.display.background == Background_Black ? COLOR_WHITE : COLOR_BLACK;
+    gColorBack = BACKGROUND_BLACK ? COLOR_BLACK : COLOR_WHITE;
+    gColorFill = BACKGROUND_BLACK ? COLOR_WHITE : COLOR_BLACK;
+    gColorGrid = BACKGROUND_BLACK ? COLOR_GRID : COLOR_GRID_WHITE;
+    gColorChan[A] = BACKGROUND_BLACK ? COLOR_DATA_A : COLOR_DATA_A_WHITE;
+    gColorChan[B] = BACKGROUND_BLACK ? COLOR_DATA_B : COLOR_DATA_B_WHITE;
+    gColorChan[A_B] = gColorChan[Math] = BACKGROUND_BLACK ? COLOR_WHITE : COLOR_BLACK;
 }
 
 /*

@@ -5,26 +5,32 @@
 
 
 #define INVERSE(ch)         (set.chan[ch].inverse)
+
 #define RANGE(ch)           (set.chan[ch].range)
 #define RANGE_A             (set.chan[A].range)
 #define RANGE_B             (set.chan[B].range)
+
 #define RSHIFT(ch)          (set.chan[ch].rShiftRel)
 #define RSHIFT_A            (set.chan[A].rShiftRel)
 #define RSHIFT_B            (set.chan[B].rShiftRel)
+
 #define COUPLE(ch)          (set.chan[ch].modeCouple)
 #define COUPLE_A            (set.chan[A].modeCouple)
 #define COUPLE_B            (set.chan[B].modeCouple)
-#define TRIGLEV(ch)         (set.trig.levelRel[ch])
-#define TRIGSOURCE          (set.trig.source)
-#define TRIGSOURCE_A        (TRIGSOURCE == TrigSource_A)
-#define TRIGSOURCE_B        (TRIGSOURCE == TrigSource_B)
-#define TRIGSOURCE_EXT      (TRIGSOURCE == TrigSource_Ext)
+
 #define RSHIFT_MATH         (set.math.rShift)
 #define RANGE_MATH          (set.math.range)
+
 #define START_MODE          (set.trig.startMode)
 #define START_MODE_AUTO     (START_MODE == StartMode_Auto)
 #define START_MODE_WAIT     (START_MODE == StartMode_Wait)
 #define START_MODE_SINGLE   (START_MODE == StartMode_Single)
+
+#define DIVIDER(ch)         (set.chan[ch].divider)
+#define DIVIDER_A           (set.chan[A].divider)
+#define DIVIDER_B           (set.chan[B].divider)
+#define DIVIDER_10(ch)      (DIVIDER(ch) == Multiplier_10)
+#define DIVIDER_1(ch)       (DIVIDER(ch) == Multiplier_1)
 
 
 void    sChannel_SetRange(Channel ch, Range range);           // Установить масштаб по напряжению канала ch.

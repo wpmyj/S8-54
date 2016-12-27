@@ -1567,7 +1567,7 @@ static void WriteCursors(void)
             float pos0 = Math_VoltageCursor(sCursors_GetCursPosU(source, 0), RANGE(source), RSHIFT(source));
             float pos1 = Math_VoltageCursor(sCursors_GetCursPosU(source, 1), RANGE(source), RSHIFT(source));
             float delta = fabsf(pos1 - pos0);
-            if(set.chan[source].divider == Multiplier_10)
+            if(DIVIDER_10(source))
             {
                 delta *= 10;
             }
@@ -1697,7 +1697,7 @@ static void WriteTextVoltage(Channel ch, int x, int y)
 
     bool inverse = INVERSE(ch);
     ModeCouple modeCouple = COUPLE(ch);
-    Divider divider = set.chan[ch].divider;
+    Divider divider = DIVIDER(ch);
     Range range = RANGE(ch);
     uint rShift = RSHIFT(ch);
     bool enable = sChannel_Enabled(ch);

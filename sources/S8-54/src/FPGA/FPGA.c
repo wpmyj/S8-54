@@ -1234,8 +1234,8 @@ void FPGA_FillDataPointer(DataSettings *ds)
     ds->trigLev[A] = TRIGLEV(A);
     ds->trigLev[B] = TRIGLEV(B);
     ds->peackDet = (uint)PEACKDET;
-    ds->multiplierA = set.chan[A].divider;
-    ds->multiplierB = set.chan[B].divider;
+    ds->multiplierA = DIVIDER_A;
+    ds->multiplierB = DIVIDER_B;
     ds->time.timeMS = 0;                        // Ёто важно дл€ режима поточеного вывода. ќзначает, что полный сигнал ещЄ не считан
 }
 

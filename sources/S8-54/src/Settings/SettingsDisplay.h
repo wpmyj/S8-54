@@ -44,6 +44,9 @@
 #define ALT_MARKERS_HIDE        (ALT_MARKERS == AM_Hide)
 #define ALT_MARKERS_AUTO        (ALT_MARKERS == AM_AutoHide)
 
+#define BACKGROUND              (set.display.background)
+#define BACKGROUND_BLACK        (BACKGROUND == Background_Black)
+
 
 int     sDisplay_NumSignalsInS(void);                       // ¬озвращает ограничение частоты кадров.
 void    sDisplay_SetNumSignalsInS(int maxFPS);              // ”станавливает ограничение частоты кадров.
