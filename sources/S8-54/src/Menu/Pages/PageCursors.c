@@ -292,14 +292,14 @@ static const SmallButton sbSet_Channel =
 
 static void OnPressSB_Set_Channel(void)
 {
-    Channel source = set.cursors.source == A ? B : A;
+    Channel source = CURS_SOURCE_A ? B : A;
     SetCursSource(source);
 }
 
 static void FuncDrawSB_Set_Source(int x, int y)
 {
     static const pFuncVII func[2] = {FuncDrawSB_Set_SourceA, FuncDrawSB_Set_SourceB};
-    func[set.cursors.source](x, y);
+    func[CURS_SOURCE](x, y);
 }
 
 static void FuncDrawSB_Set_SourceA(int x, int y)
@@ -340,14 +340,14 @@ static void OnPressSB_Set_U(void)
 {
     if (set.cursors.active == CursActive_U || CURSU_DISABLED)
     {
-        IncCursCntrlU(set.cursors.source);
+        IncCursCntrlU(CURS_SOURCE);
     }
     set.cursors.active = CursActive_U;
 }
 
 static void FuncDrawSB_Set_U(int x, int y)
 {
-    Channel source = set.cursors.source;
+    Channel source = CURS_SOURCE;
     if (CURSU_DISABLED)
     {
        FuncDrawSB_Set_U_disable(x, y);
@@ -432,7 +432,7 @@ static void OnPressSB_Set_T(void)
 {
     if (set.cursors.active == CursActive_T || CURST_DISABLED)
     {
-        IncCursCntrlT(set.cursors.source);
+        IncCursCntrlT(CURS_SOURCE);
     }
     set.cursors.active = CursActive_T;
 }
@@ -452,7 +452,7 @@ static void FuncDrawSB_Set_T(int x, int y)
         else
         {
             bool condLeft = false, condDown = false;
-            Channel source = set.cursors.source;
+            Channel source = CURS_SOURCE;
             CalculateConditions((int16)set.cursors.posCurT[source][0], (int16)set.cursors.posCurT[source][1], CNTRL_CURST, &condLeft, &condDown);
             if (condLeft && condDown)
             {
@@ -514,7 +514,7 @@ static const SmallButton sbSet_100 =    // Установка 100 процентов в текущие мес
 
 static void OnPressSB_Set_100(void)
 {
-    SetCursPos100(set.cursors.source);
+    SetCursPos100(CURS_SOURCE);
 }
 
 static void FuncDrawSB_Set_100(int x, int y)
@@ -637,7 +637,7 @@ static void SetCursPos100(Channel ch)
 
 static void SetCursSource(Channel ch)
 {
-    set.cursors.source = ch;
+    CURS_SOURCE = ch;
 }
 
 static void IncCursCntrlU(Channel ch)
@@ -652,7 +652,7 @@ static void IncCursCntrlT(Channel ch)
 
 void CursorsUpdate(void)
 {
-    Channel source = set.cursors.source;
+    Channel source = CURS_SOURCE;
     CursLookMode lookMode0 = set.cursors.lookMode[0];
     CursLookMode lookMode1 = set.cursors.lookMode[1];
 

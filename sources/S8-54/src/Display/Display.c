@@ -642,7 +642,7 @@ static void DrawSpectrum(void)
 //----------------------------------------------------------------------------------------------------------------------------------------------------
 static void DrawCursors(void)
 {
-    Channel source = set.cursors.source;
+    Channel source = CURS_SOURCE;
     Painter_SetColor(ColorCursors(source));
     if(sCursors_NecessaryDrawCursors())
     {
@@ -1552,7 +1552,7 @@ static void WriteCursors(void)
     {
         Painter_DrawVLineC(x, 1, GRID_TOP - 2, gColorFill);
         x += 3;
-        Channel source = set.cursors.source;
+        Channel source = CURS_SOURCE;
         Color colorText = gColorChan[source];
         if (CURSU_ENABLED)
         {

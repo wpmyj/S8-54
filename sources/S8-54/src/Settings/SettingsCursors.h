@@ -2,6 +2,8 @@
 
 
 #define CURS_SOURCE         (set.cursors.source)
+#define CURS_SOURCE_A       (set.cursors.source == A)
+#define CURS_SOURCE_B       (set.cursors.source == B)
 
 #define CNTRL_CURSU_CH(ch)  (set.cursors.cntrlU[ch])
 #define CNTRL_CURSU         (CNTRL_CURSU_CH(CURS_SOURCE))
