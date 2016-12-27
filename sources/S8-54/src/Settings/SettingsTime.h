@@ -23,6 +23,7 @@
 
 #define SAMPLE          (set.time.sampleType)
 #define SAMPLE_REAL     (SAMPLE == SampleType_Real)
+#define SAMPLE_OLD      (set.time.sampleTypeOld)
 
 
 void    sTime_SetTBase(TBase tBase);        // Сохранить масштаб по времени.
