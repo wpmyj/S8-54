@@ -130,13 +130,13 @@ typedef struct
          // Примеры\n
          // name_%4N_%y_%m_%d_%H_%M_%S будет генерировать файлы вида name_0043_2014_04_25_14_45_32\n
          // При этом обратите внимание, что если спецификатор %4N стоИт после временнЫх параметров, то, скорее всего, этот параметр будет всегда равен 0001, т.к. для определения номера просматриваются только символы ДО него.
-    char            fileName[MAX_SYMBOLS_IN_FILE_NAME];     // Имя файла для режима ручного задания
-    int8                indexCurSymbolNameMask; // Индекс текущего символа в режиме задания маски или выбора имени.
+    char                fileName[MAX_SYMBOLS_IN_FILE_NAME]; // Имя файла для режима ручного задания
+    int8                indexCurSymbolNameMask;             // Индекс текущего символа в режиме задания маски или выбора имени.
     StructMemoryLast    strMemoryLast;
     ModeShowIntMem      modeShowIntMem;
-    bool                flashAutoConnect;       // Если true, при подлючении флеш автоматически выводится NC (Нортон Коммандер)
-    ModeBtnMemory       modeBtnMemory;     
-    ModeSaveSignal      modeSaveSignal;         // В каком виде сохранять сигнал.
+    bool                flashAutoConnect;                   // Если true, при подлючении флеш автоматически выводится NC (Нортон Коммандер)
+    ModeBtnMemory       modeBtnMemory;
+    ModeSaveSignal      modeSaveSignal;                     // В каком виде сохранять сигнал.
 } SettingsMemory;
 
 

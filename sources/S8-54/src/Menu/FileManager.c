@@ -339,7 +339,7 @@ bool FM_GetNameForNewFile(char name[255])
     strcpy(name, currentDir);
     strcat(name, "\\");
 
-    int size = strlen(set.memory.fileName);
+    int size = strlen(FILE_NAME);
     if (size == 0)
     {
         return false;
@@ -348,7 +348,7 @@ bool FM_GetNameForNewFile(char name[255])
     if (FILE_NAMING_MODE_MANUAL)
     {
         LIMITATION(size, size, 1, 95);
-        strcat(name, set.memory.fileName);
+        strcat(name, FILE_NAME);
         strcat(name, ".");
         strcat(name, set.memory.modeSaveSignal == ModeSaveSignal_BMP ? "bmp" : "txt");
         return true;

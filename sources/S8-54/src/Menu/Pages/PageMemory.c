@@ -1308,7 +1308,7 @@ static const SmallButton sbSetNameDelete =
 
 static void PressSB_SetName_Delete(void)
 {
-    set.memory.fileName[0] = '\0';
+    FILE_NAME[0] = '\0';
 }
 
 static void DrawSB_SetName_Delete(int x, int y)
@@ -1337,10 +1337,10 @@ static const SmallButton sbSetNameBackspace =
 
 static void PressSB_SetName_Backspace(void)
 {
-    int size = strlen(set.memory.fileName);
+    int size = strlen(FILE_NAME);
     if (size > 0)
     {
-        set.memory.fileName[size - 1] = '\0';
+        FILE_NAME[size - 1] = '\0';
     }
 }
 
@@ -1371,11 +1371,11 @@ static const SmallButton sbSetNameInsert =
 
 static void PressSB_SetName_Insert(void)
 {
-    int size = strlen(set.memory.fileName);
+    int size = strlen(FILE_NAME);
     if (size < MAX_SYMBOLS_IN_FILE_NAME - 1)
     {
-        set.memory.fileName[size] = symbols[set.memory.indexCurSymbolNameMask][0];
-        set.memory.fileName[size + 1] = '\0';
+        FILE_NAME[size] = symbols[set.memory.indexCurSymbolNameMask][0];
+        FILE_NAME[size + 1] = '\0';
     }
 }
 
@@ -1585,7 +1585,7 @@ void DrawSetName(void)
         position++;
     }
 
-    int x = Painter_DrawTextC(x0 + deltaX, y0 + 65, set.memory.fileName, gColorFill);
+    int x = Painter_DrawTextC(x0 + deltaX, y0 + 65, FILE_NAME, gColorFill);
     Painter_FillRegionC(x, y0 + 65, 5, 8, COLOR_FLASH_10);
 }
 

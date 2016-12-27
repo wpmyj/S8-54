@@ -5,6 +5,7 @@
 
 
 #define FILE_NAME_MASK          (set.memory.fileNameMask)
+#define FILE_NAME               (set.memory.fileName)
 
 #define FILE_NAMING_MODE        (set.memory.fileNamingMode)
 #define FILE_NAMING_MODE_MASK   (FILE_NAMING_MODE == FileNamingMode_Mask)
