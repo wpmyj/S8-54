@@ -4,20 +4,23 @@
 #include "SettingsTypes.h"
 
 
-#define INVERSE(ch) (set.chan[ch].inverse)
-#define RANGE(ch)   (set.chan[ch].range)
-#define RANGE_A     (set.chan[A].range)
-#define RANGE_B     (set.chan[B].range)
-#define RSHIFT(ch)  (set.chan[ch].rShiftRel)
-#define RSHIFT_A    (set.chan[A].rShiftRel)
-#define RSHIFT_B    (set.chan[B].rShiftRel)
-#define COUPLE(ch)  (set.chan[ch].modeCouple)
-#define COUPLE_A    (set.chan[A].modeCouple)
-#define COUPLE_B    (set.chan[B].modeCouple)
-#define TRIGLEV(ch) (set.trig.levelRel[ch])
-#define TRIGSOURCE  (set.trig.source)
-#define RSHIFT_MATH (set.math.rShift)
-#define RANGE_MATH  (set.math.range)
+#define INVERSE(ch)     (set.chan[ch].inverse)
+#define RANGE(ch)       (set.chan[ch].range)
+#define RANGE_A         (set.chan[A].range)
+#define RANGE_B         (set.chan[B].range)
+#define RSHIFT(ch)      (set.chan[ch].rShiftRel)
+#define RSHIFT_A        (set.chan[A].rShiftRel)
+#define RSHIFT_B        (set.chan[B].rShiftRel)
+#define COUPLE(ch)      (set.chan[ch].modeCouple)
+#define COUPLE_A        (set.chan[A].modeCouple)
+#define COUPLE_B        (set.chan[B].modeCouple)
+#define TRIGLEV(ch)     (set.trig.levelRel[ch])
+#define TRIGSOURCE      (set.trig.source)
+#define TRIGSOURCE_A    (TRIGSOURCE == TrigSource_A)
+#define TRIGSOURCE_B    (TRIGSOURCE == TrigSource_B)
+#define TRIGSOURCE_EXT  (TRIGSOURCE == TrigSource_Ext)
+#define RSHIFT_MATH     (set.math.rShift)
+#define RANGE_MATH      (set.math.range)
 
 
 void    sChannel_SetRange(Channel ch, Range range);           // Установить масштаб по напряжению канала ch.

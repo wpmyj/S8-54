@@ -1245,20 +1245,18 @@ void FPGA_FillDataPointer(DataSettings *ds)
 //------------------------------------------------------------------------------------------------------------------------------------------------------
 void FPGA_FindAndSetTrigLevel(void)
 {
-    TrigSource trigSource = TRIGSOURCE;
-    if (DS_NumElementsInStorage() == 0 || TRIGSOURCE == TrigSource_Ext)
+    if (DS_NumElementsInStorage() == 0 || TRIGSOURCE_EXT)
     {
         return;
     }
 
-    Channel chanTrig = (Channel)trigSource;
     uint16 *dataA = 0;
     uint16 *dataB = 0;
     DataSettings *ds_ = 0;
 
     DS_GetDataFromEnd_RAM(0, &ds_, &dataA, &dataB);
 
-    const uint16 *data = (chanTrig == A) ? dataA : dataB;
+    const uint16 *data = TRIGSOURCE_A ? dataA : dataB;
 
     int lastPoint = NumBytesInChannel(ds_) - 1;
 
@@ -1269,9 +1267,9 @@ void FPGA_FindAndSetTrigLevel(void)
 
     static const float scale = (float)(TrigLevMax - TrigLevZero) / (float)(MAX_VALUE - AVE_VALUE) / 2.4f;
 
-    int trigLev = (int)(TrigLevZero + scale * ((int)aveValue - AVE_VALUE) - (RSHIFT(chanTrig) - RShiftZero));
+    int trigLev = (int)(TrigLevZero + scale * ((int)aveValue - AVE_VALUE) - (RSHIFT(TRIGSOURCE) - RShiftZero));
 
-    FPGA_SetTrigLev(trigSource, (int16)trigLev);
+    FPGA_SetTrigLev(TRIGSOURCE, (int16)trigLev);
 }
 
 

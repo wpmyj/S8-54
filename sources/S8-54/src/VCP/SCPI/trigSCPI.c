@@ -85,8 +85,8 @@ void Process_SOURCE(uint8 *buffer)
         {0}
     };
     ENTER_ANALYSIS
-        if (0 == value)         { FPGA_SetTrigSource(TrigSource_ChannelA); }
-        else if (1 == value)    { FPGA_SetTrigSource(TrigSource_ChannelB); }
+        if (0 == value)         { FPGA_SetTrigSource(TrigSource_A); }
+        else if (1 == value)    { FPGA_SetTrigSource(TrigSource_B); }
         else if (2 == value)    { FPGA_SetTrigSource(TrigSource_Ext); }
         else if (3 == value)
         {

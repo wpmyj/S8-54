@@ -33,12 +33,12 @@ Color ColorCursors(Channel ch)
 //----------------------------------------------------------------------------------------------------------------------------------------------------
 Color ColorTrig(void)
 {
-    TrigSource trigChan = TRIGSOURCE;
-    if (trigChan == TrigSource_ChannelA || trigChan == TrigSource_ChannelB)
+    if (TRIGSOURCE_EXT)
     {
-        return gColorChan[(Channel)trigChan];
+        return gColorFill;
     }
-    return gColorFill;
+
+    return gColorChan[(Channel)TRIGSOURCE];
 }
 
 

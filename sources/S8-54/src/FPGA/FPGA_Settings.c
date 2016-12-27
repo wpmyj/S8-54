@@ -790,7 +790,7 @@ void FPGA_SetTrigSource(TrigSource trigSource)
 {
     TRIGSOURCE = trigSource;
     PrepareAndWriteDataToAnalogSPI(CS2);
-    if (TRIGSOURCE != TrigSource_Ext)
+    if (!TRIGSOURCE_EXT)
     {
         FPGA_SetTrigLev(TRIGSOURCE, TRIGLEV(TRIGSOURCE));
     }

@@ -78,7 +78,7 @@ void LoadSettingsCalcAddRShift(Channel ch)
 {
     FPGA_SetRShift(ch, RShiftZero);
     FPGA_SetTBase(TBase_200us);
-    FPGA_SetTrigSource(ch == A ? TrigSource_ChannelA : TrigSource_ChannelB);
+    FPGA_SetTrigSource(ch == A ? TrigSource_A : TrigSource_B);
     FPGA_SetTrigPolarity(TrigPolarity_Front);
     FPGA_SetTrigLev((TrigSource)ch, TrigLevZero);
 

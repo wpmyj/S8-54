@@ -243,8 +243,8 @@ typedef enum
 // Источник синхронизации
 typedef enum
 {
-    TrigSource_ChannelA,    // Канал 1
-    TrigSource_ChannelB,    // Канал 2
+    TrigSource_A,    // Канал 1
+    TrigSource_B,    // Канал 2
     TrigSource_Ext          // Внешняя
 } TrigSource;
 

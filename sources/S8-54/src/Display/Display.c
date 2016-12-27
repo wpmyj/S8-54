@@ -870,17 +870,17 @@ static void DrawCursorsWindow(void)
 //----------------------------------------------------------------------------------------------------------------------------------------------------
 static void DrawCursorTrigLevel(void)
 {
-    TrigSource ch = TRIGSOURCE;
-    if(ch == TrigSource_Ext)
+    if(TRIGSOURCE_EXT)
     {
         return;
     }
-    int trigLev = TRIGLEV(ch) + ((ch == TrigSource_Ext) ? 0 : RSHIFT(ch) - RShiftZero);
+    TrigSource ch = TRIGSOURCE;
+    int trigLev = TRIGLEV(ch) + (TRIGSOURCE_EXT ? 0 : RSHIFT(ch) - RShiftZero);
     float scale = 1.0f / ((TrigLevMax - TrigLevMin) / 2.4f / GridChannelHeight());
     int y0 = (GRID_TOP + GridChannelBottom()) / 2 + (int)(scale * (TrigLevZero - TrigLevMin));
     int y = y0 - (int)(scale * (trigLev - TrigLevMin));
 
-    if(ch != TrigSource_Ext)
+    if(!TRIGSOURCE_EXT)
     {
         y = (y - GridChannelCenterHeight()) + GridChannelCenterHeight();
     }
@@ -921,7 +921,7 @@ static void DrawCursorTrigLevel(void)
         int shiftFullMin = RShiftMin + TrigLevMin;
         int shiftFullMax = RShiftMax + TrigLevMax;
         scale = (float)height / (shiftFullMax - shiftFullMin);
-        int shiftFull = TRIGLEV(TRIGSOURCE) + ((TRIGSOURCE == TrigSource_Ext) ? 0 : RSHIFT(ch));
+        int shiftFull = TRIGLEV(TRIGSOURCE) + (TRIGSOURCE_EXT ? 0 : RSHIFT(ch));
         int yFull = GRID_TOP + DELTA + height - (int)(scale * (shiftFull - RShiftMin - TrigLevMin) + 4);
         Painter_FillRegionC(left + 2, yFull + 1, 4, 6, ColorTrig());
         Painter_SetFont(TypeFont_5);
@@ -1174,8 +1174,8 @@ static void WriteValueTrigLevel(void)
     if(showLevelTrigLev && WORK_DIRECT)
     {
         TrigSource trigSource = TRIGSOURCE;
-        float trigLev = RSHIFT_2_ABS(TRIGLEV(trigSource), trigSource == TrigSource_Ext ? Range_500mV : RANGE(trigSource));
-        if(set.trig.input == TrigInput_AC && trigSource <= TrigSource_ChannelB)
+        float trigLev = RSHIFT_2_ABS(TRIGLEV(trigSource), TRIGSOURCE_EXT ? Range_500mV : RANGE(trigSource));
+        if(set.trig.input == TrigInput_AC && !TRIGSOURCE_EXT)
         {
             uint16 rShift = RSHIFT(trigSource);
             float rShiftAbs = RSHIFT_2_ABS(rShift, RANGE(trigSource));
