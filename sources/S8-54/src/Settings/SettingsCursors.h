@@ -29,8 +29,9 @@
 
 #define CURS_MOVE_PERCENTS  (set.cursors.movement == CursMovement_Percents)
 
-#define CURS_ACTIVE_U       (set.cursors.active == CursActive_U);
-#define CURS_ACTIVE_T       (set.cursors.active == CursActive_T);
+#define CURS_ACTIVE         (set.cursors.active)
+#define CURS_ACTIVE_U       (CURS_ACTIVE == CursActive_U)
+#define CURS_ACTIVE_T       (CURS_ACTIVE == CursActive_T)
 
 
 float       sCursors_GetCursPosU(Channel ch, int numCur);                         // Получить позицию курсора напряжения.

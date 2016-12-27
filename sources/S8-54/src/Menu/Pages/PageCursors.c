@@ -226,7 +226,7 @@ static const Page mspSet =
 
 static void OnRot_Set(int angle)
 {
-    if (set.cursors.active == CursActive_U)
+    if (CURS_ACTIVE_U)
     {
         MoveCursUonPercentsOrPoints(angle);
     }
@@ -338,11 +338,11 @@ static const SmallButton sbSet_U =      // Выбор курсора напряжения - курсор 1, 
 
 static void OnPressSB_Set_U(void)
 {
-    if (set.cursors.active == CursActive_U || CURsU_DISABLED)
+    if (CURS_ACTIVE_U || CURsU_DISABLED)
     {
         IncCursCntrlU(CURS_SOURCE);
     }
-    set.cursors.active = CursActive_U;
+    CURS_ACTIVE = CursActive_U;
 }
 
 static void FuncDrawSB_Set_U(int x, int y)
@@ -354,7 +354,7 @@ static void FuncDrawSB_Set_U(int x, int y)
     }
     else
     {
-        if (set.cursors.active != CursActive_U)
+        if (!CURS_ACTIVE_U)
         {
             FuncDrawSB_Set_U_disableBoth(x, y);
         }
@@ -430,11 +430,11 @@ static const SmallButton sbSet_T =      // Выбор курсора времени - курсор 1, кур
 
 static void OnPressSB_Set_T(void)
 {
-    if (set.cursors.active == CursActive_T || CURsT_DISABLED)
+    if (CURS_ACTIVE_T || CURsT_DISABLED)
     {
         IncCursCntrlT(CURS_SOURCE);
     }
-    set.cursors.active = CursActive_T;
+    CURS_ACTIVE = CursActive_T;
 }
 
 static void FuncDrawSB_Set_T(int x, int y)
@@ -445,7 +445,7 @@ static void FuncDrawSB_Set_T(int x, int y)
     }
     else
     {
-        if (set.cursors.active != CursActive_T)
+        if (!CURS_ACTIVE_T)
         {
             FuncDrawSB_Set_T_disableBoth(x, y);
         }
@@ -658,23 +658,23 @@ void CursorsUpdate(void)
 
     float posT0 = 0.0f, posT1 = 0.0f;
 
-    if((lookMode0 == CursLookMode_Voltage || lookMode0 == CursLookMode_Both) && set.cursors.active == CursActive_T)
+    if((lookMode0 == CursLookMode_Voltage || lookMode0 == CursLookMode_Both) && CURS_ACTIVE_T)
     {
         float posU0 = Processing_GetCursU(source, CURsT_POS(source, 0));
         SetCursPosU(source, 0, posU0);
     }
-    if((lookMode1 == CursLookMode_Voltage || lookMode1 == CursLookMode_Both)  && set.cursors.active == CursActive_T)
+    if((lookMode1 == CursLookMode_Voltage || lookMode1 == CursLookMode_Both)  && CURS_ACTIVE_T)
     {
         float posU1 = Processing_GetCursU(source, CURsT_POS(source, 1));
         SetCursPosU(source, 1, posU1);
     }
-    if((lookMode0 == CursLookMode_Time || lookMode0 == CursLookMode_Both) && set.cursors.active == CursActive_U)
+    if((lookMode0 == CursLookMode_Time || lookMode0 == CursLookMode_Both) && CURS_ACTIVE_U)
     {
         float posU0 = CURsU_POS(source, 0);
         posT0 = Processing_GetCursT(source, posU0, 0);
         SetCursPosT(source, 0, posT0);
     }
-    if((lookMode1 == CursLookMode_Time || lookMode1 == CursLookMode_Both) && set.cursors.active == CursActive_U)
+    if((lookMode1 == CursLookMode_Time || lookMode1 == CursLookMode_Both) && CURS_ACTIVE_U)
     {
         float posU1 = CURsU_POS(source, 1);
         posT1 = Processing_GetCursT(source, posU1, 1);
@@ -724,10 +724,6 @@ static void MoveCursTonPercentsOrPoints(int delta)
 
 bool IsRegSetActiveOnCursors(void)
 {
-    CursActive active = set.cursors.active;
-    return (
-        (GetNameOpenedPage() == Page_SB_Curs) &&
-        (((active == CursActive_U) && CURsU_ENABLED) ||
-        ((active == CursActive_T) && CURsT_ENABLED))
-        );
+    return ((GetNameOpenedPage() == Page_SB_Curs) &&
+        ((CURS_ACTIVE_U && CURsU_ENABLED) || (CURS_ACTIVE_T && CURsT_ENABLED)));
 }
