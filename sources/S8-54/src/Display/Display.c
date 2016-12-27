@@ -142,6 +142,7 @@ static void DrawCursorsWindow(void);                    // Нарисовать вспомогате
 static void DrawScaleLine(int x, bool forTrigLev);      // Нарисовать сетку для вспомогательных курсоров по напряжению
 
 static void DrawCursorTrigLevel(void);
+static void WriteValueTrigLevel(void);                  // Вывести значение уровня синхронизации
 static void DrawCursorsRShift(void);
 static void DrawCursorRShift(Channel ch);
 static void DrawCursorTShift(void);
@@ -159,22 +160,21 @@ static void DrawStringNavigation(void);                 // Вывести строку навига
 static void DrawRandStat(void);                         // Нарисовать график статистики рандомизатора
 static void DrawWarnings(void);                         // Вывести предупреждающие сообщения
 static void DrawConsole(void);                          // Вывести содержимое консоли
-static void WriteValueTrigLevel(void);                  // Вывести значение уровня синхронизации
 static void DrawTimeForFrame(uint timeTicks);
 static void DisableShowLevelRShiftA(void);              // Отключить вспомогательную линию маркера смещения по напряжению первого канала
 static void DisableShowLevelRShiftB(void);              // Отключить вспомогательную линию маркера смещения по напряжению второго канала
 static void DisableShowLevelTrigLev(void);
 static void OnRShiftMarkersAutoHide(void);
-static int FirstEmptyString(void);
+static int  FirstEmptyString(void);
 static void DeleteFirstString(void);
 static void AddString(const char *string);
 static void ShowWarn(const char *message);
 static void WriteStringAndNumber(char *text, int16 x, int16 y, int number);
 static void DrawStringInRectangle(int x, int y, char const *text);
-static int CalculateFreeSize(void);
+static int  CalculateFreeSize(void);
 static void OnTimerShowWarning(void);
-static int CalculateCountV(void);
-static int CalculateCountH(void);
+static int  CalculateCountV(void);
+static int  CalculateCountH(void);
 
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -1174,8 +1174,7 @@ static void WriteValueTrigLevel(void)
     if(showLevelTrigLev && WORK_DIRECT)
     {
         TrigSource trigSource = TRIGSOURCE;
-        float trigLev = RSHIFT_2_ABS(TRIGLEV(trigSource), RANGE(trigSource));     // WARN Здесь для внешней синхронизации неправильно рассчитывается уровень.
-
+        float trigLev = RSHIFT_2_ABS(TRIGLEV(trigSource), trigSource == TrigSource_Ext ? Range_500mV : RANGE(trigSource));
         if(set.trig.input == TrigInput_AC && trigSource <= TrigSource_ChannelB)
         {
             uint16 rShift = RSHIFT(trigSource);
