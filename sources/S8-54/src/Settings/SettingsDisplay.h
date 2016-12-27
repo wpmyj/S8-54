@@ -29,6 +29,7 @@
 #define DISPLAY_NUM_AVE         (1 << (int)NUM_AVE)
 #define SMOOTHING               (set.display.smoothing)
 #define SMOOTHING_ENABLED       (set.display.smoothing != NumSmooth_Disable)
+#define NUM_SIGNALS_IN_SEC      (set.display.numSignalsInSec)
 
 
 int     sDisplay_NumSignalsInS(void);                       // ¬озвращает ограничение частоты кадров.

@@ -214,10 +214,10 @@ static void Process_FPS(uint8 *buffer)
         {0}
     };
     ENTER_ANALYSIS
-        if (value < 5) { set.display.numSignalsInSec = (NumSignalsInSec)value; }
+        if (value < 5) { NUM_SIGNALS_IN_SEC = (NumSignalsInSec)value; }
         else if (5 == value)
         {
-            SCPI_SEND(":DISPLAY:FPS %s", map[set.display.numSignalsInSec].key);
+            SCPI_SEND(":DISPLAY:FPS %s", map[NUM_SIGNALS_IN_SEC].key);
         }
     LEAVE_ANALYSIS
 }

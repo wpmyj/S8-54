@@ -6,14 +6,14 @@
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 int sDisplay_NumSignalsInS(void)
 {
-    return Tables_ENUMtoNumSignalsInSec(set.display.numSignalsInSec);
+    return Tables_ENUMtoNumSignalsInSec(NUM_SIGNALS_IN_SEC);
 }
 
 
 //------------------------------------------------------------------------------------------------------------------------------------------------------
 void sDisplay_SetNumSignalsInS(int numSignalsInS)
 {
-    set.display.numSignalsInSec = Tables_NumSignalsInSecToENUM(numSignalsInS);
+    NUM_SIGNALS_IN_SEC = Tables_NumSignalsInSecToENUM(numSignalsInS);
 }
  
 

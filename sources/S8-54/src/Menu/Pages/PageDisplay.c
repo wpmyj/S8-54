@@ -186,7 +186,7 @@ static const Choice mcRefreshFPS =
         {"2",   "2"},
         {"1",   "1"}
     },
-    (int8*)&set.display.numSignalsInSec, OnChange_RefreshFPS, EmptyFuncVII
+    (int8*)&NUM_SIGNALS_IN_SEC, OnChange_RefreshFPS, EmptyFuncVII
 };
 
 static void OnChange_RefreshFPS(bool active)
