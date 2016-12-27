@@ -6,6 +6,7 @@
 
 #define FILE_NAME_MASK          (set.memory.fileNameMask)
 #define FILE_NAME               (set.memory.fileName)
+#define INDEX_SYMBOL            (set.memory.indexCurSymbolNameMask)
 
 #define FILE_NAMING_MODE        (set.memory.fileNamingMode)
 #define FILE_NAMING_MODE_MASK   (FILE_NAMING_MODE == FileNamingMode_Mask)

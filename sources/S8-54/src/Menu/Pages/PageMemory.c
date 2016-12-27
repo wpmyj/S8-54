@@ -1185,7 +1185,7 @@ static const SmallButton sbSetMaskInsert =
 
 static void PressSB_SetMask_Insert(void)
 {
-    int index = set.memory.indexCurSymbolNameMask;
+    int index = INDEX_SYMBOL;
     int size = strlen(FILE_NAME_MASK);
     if (size == MAX_SYMBOLS_IN_FILE_NAME - 1)
     {
@@ -1374,7 +1374,7 @@ static void PressSB_SetName_Insert(void)
     int size = strlen(FILE_NAME);
     if (size < MAX_SYMBOLS_IN_FILE_NAME - 1)
     {
-        FILE_NAME[size] = symbols[set.memory.indexCurSymbolNameMask][0];
+        FILE_NAME[size] = symbols[INDEX_SYMBOL][0];
         FILE_NAME[size + 1] = '\0';
     }
 }
@@ -1511,11 +1511,11 @@ static void OnMemExtSetMaskNameRegSet(int angle, int maxIndex)
     };
 
     Painter_ResetFlash();
-    if (set.memory.indexCurSymbolNameMask > maxIndex)
+    if (INDEX_SYMBOL > maxIndex)
     {
-        set.memory.indexCurSymbolNameMask = (int8)(maxIndex - 1);
+        INDEX_SYMBOL = (int8)(maxIndex - 1);
     }
-    func[Math_Sign(angle) + 1](&set.memory.indexCurSymbolNameMask, 0, (int8)(maxIndex - 1));
+    func[Math_Sign(angle) + 1](&INDEX_SYMBOL, 0, (int8)(maxIndex - 1));
     Sound_RegulatorSwitchRotate();
 
 }
@@ -1534,11 +1534,11 @@ extern const Page mspDrive;
 void DrawStr(int index, int x, int y)
 {
     const char *str = symbols[index];
-    if(index == set.memory.indexCurSymbolNameMask)
+    if(index == INDEX_SYMBOL)
     {
         Painter_FillRegionC(x - 1, y, Font_GetLengthText(str), 9, COLOR_FLASH_10);
     }
-    Painter_DrawTextC(x, y, symbols[index], index == set.memory.indexCurSymbolNameMask ? COLOR_FLASH_01 : gColorFill);
+    Painter_DrawTextC(x, y, symbols[index], index == INDEX_SYMBOL ? COLOR_FLASH_01 : gColorFill);
 }
 
 
