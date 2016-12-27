@@ -61,7 +61,7 @@ static const Choice mcTimeSample =
         {"–еальное врем€", "Real"},
         {"Ёквивалентна€", "Equals"}
     },
-    (int8*)&set.time.sampleType, EmptyFuncVB, EmptyFuncVII
+    (int8*)&SAMPLE, EmptyFuncVB, EmptyFuncVII
 };
 
 static bool FuncTimeSampleActive(void)

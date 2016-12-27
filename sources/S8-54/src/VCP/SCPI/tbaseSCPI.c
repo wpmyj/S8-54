@@ -125,10 +125,10 @@ void Process_SAMPLING(uint8 *buffer)
         {0}
     };
     ENTER_ANALYSIS
-        if (value < 2) { set.time.sampleType = (SampleType)value; }
+        if (value < 2) { SAMPLE = (SampleType)value; }
         else if (2 == value)
         {
-            SCPI_SEND(":TBASE:SAMPLING %s", map[set.time.sampleType].key);
+            SCPI_SEND(":TBASE:SAMPLING %s", map[SAMPLE].key);
         }
     LEAVE_ANALYSIS
 }

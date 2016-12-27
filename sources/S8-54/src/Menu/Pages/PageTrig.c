@@ -89,12 +89,12 @@ void OnChange_Mode(bool active)
         // и переключаемся на одиночный режим запуска, то надо сохранить имеющийся тип выборки, чтобы восстановить при возвращении в режим рандомизатора автоматический или ждущий
         if (START_MODE_SINGLE)
         {
-            set.time.sampleTypeOld = set.time.sampleType;
-            set.time.sampleType = SampleType_Real;
+            set.time.sampleTypeOld = SAMPLE;
+            SAMPLE = SampleType_Real;
         }
         else if(START_MODE_AUTO)    // Иначе восстановим ранее сохранённый
         {
-            set.time.sampleType = set.time.sampleTypeOld;
+            SAMPLE = set.time.sampleTypeOld;
         }
     }
 }

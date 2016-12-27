@@ -21,6 +21,9 @@
 #define TPOS_LEFT       (TPOS == TPos_Left)
 #define TPOS_CENTER     (TPOS == TPos_Center)
 
+#define SAMPLE          (set.time.sampleType)
+#define SAMPLE_REAL     (SAMPLE == SampleType_Real)
+
 
 void    sTime_SetTBase(TBase tBase);        // Сохранить масштаб по времени.
 void    sTime_SetTShift(int16 shift);       // Сохранить смещение по времени в относительных единицах.

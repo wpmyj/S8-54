@@ -559,7 +559,7 @@ void FPGA_TBaseDecrease(void)
     if (TBASE == TBase_20ns &&                 // Если перешли в режим эквавалентного времени
         !START_MODE_SINGLE)         // И не находимся в режиме однократного запуска
     {
-        set.time.sampleType = set.time.sampleTypeOld;
+        SAMPLE = set.time.sampleTypeOld;
     }
 }
 
@@ -580,7 +580,7 @@ void FPGA_TBaseIncrease(void)
     if (TBASE == TBase_50ns &&                 // Если перешли в режим реального времени
         !START_MODE_SINGLE)         // И не находимся в режиме однократного запуска
     {
-        set.time.sampleType = SampleType_Real;          // И установим реальный, потому что в реальном режиме эквивалентный глупо смотрится
+        SAMPLE = SampleType_Real;          // И установим реальный, потому что в реальном режиме эквивалентный глупо смотрится
     }
 }
 
