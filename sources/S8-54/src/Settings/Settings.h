@@ -120,7 +120,7 @@ typedef  struct
 typedef struct
 {
 #define MAX_SYMBOLS_IN_FILE_NAME 35
-    FPGA_NUM_POINTS fpgaNumPoints;              // Число точек.
+    NumPoinstFPGA   fpgaNumPoints;              // Число точек.
     ModeWork        modeWork;                   // Режим работы.
     FileNamingMode  fileNamingMode;             // Режим именования файлов.
     char            fileNameMask[MAX_SYMBOLS_IN_FILE_NAME]; // Здесь маска для автоматического именования файлов\n

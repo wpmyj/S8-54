@@ -283,7 +283,7 @@ static const Choice mcChanB_Input =
 
 static bool IsActive_ChanB_Input(void)
 {
-    return set.memory.fpgaNumPoints != FNP_32k;
+    return !FPGA_NUM_POINTS_32k;
 }
 
 
@@ -295,7 +295,7 @@ void OnChange_ChanB_Input(bool active)
         return;
     }
 
-    if (set.memory.fpgaNumPoints == FNP_32k && ENABLE_B)
+    if (FPGA_NUM_POINTS_32k && ENABLE_B)
     {
         ENABLE_B = false;
     }

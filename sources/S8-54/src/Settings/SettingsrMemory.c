@@ -16,12 +16,12 @@ int sMemory_NumBytesInChannel(bool forCalculate)
         {32768, 32768, 32768}
     };
 
-    if (set.memory.fpgaNumPoints >= FNP_1k && forCalculate)
+    if (FPGA_NUM_POINTS >= FNP_1k && forCalculate)
     {
         return FPGA_MAX_POINTS_FOR_CALCULATE;
     }
 
-    return numPoints[set.memory.fpgaNumPoints][PEACKDET];
+    return numPoints[FPGA_NUM_POINTS][PEACKDET];
 }
 
 
@@ -39,12 +39,12 @@ int sMemory_NumPointsInChannel(void)
         32768
     };
 
-    return numPoints[set.memory.fpgaNumPoints];
+    return numPoints[FPGA_NUM_POINTS];
 }
 
 
 //------------------------------------------------------------------------------------------------------------------------------------------------------
-FPGA_NUM_POINTS NumPoints_2_FPGA_NUM_POINTS(int numPoints)
+NumPoinstFPGA NumPoints_2_FPGA_NUM_POINTS(int numPoints)
 {
     if (numPoints == 32768)      { return FNP_32k; }
     else if (numPoints == 16384) { return FNP_16k; }
@@ -57,7 +57,7 @@ FPGA_NUM_POINTS NumPoints_2_FPGA_NUM_POINTS(int numPoints)
 
 
 //------------------------------------------------------------------------------------------------------------------------------------------------------
-int FPGA_NUM_POINTS_2_NumPoints(FPGA_NUM_POINTS numPoints)
+int FPGA_NUM_POINTS_2_NumPoints(NumPoinstFPGA numPoints)
 {
     const int n[FPGA_NUM_POINTS_SIZE] =
     {

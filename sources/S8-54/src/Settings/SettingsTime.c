@@ -34,7 +34,7 @@ int sTime_TPosInBytes(void)
         {{0, 8192, 16382}, {0, 8192, 16382}},
         {{0, 16384, 32766}, {0, 16384, 32766}}
     };
-    return m[set.memory.fpgaNumPoints][PEACKDET][TPOS];
+    return m[FPGA_NUM_POINTS][PEACKDET][TPOS];
 }
 
 
@@ -51,7 +51,7 @@ int sTime_TPosInPoints(void)
         {{0, 8192, 16382}, {0, 4096, 8190}},
         {{0, 16384, 32766}, {0, 8192, 16382}}
     };
-    return m[set.memory.fpgaNumPoints][PEACKDET][TPOS];
+    return m[FPGA_NUM_POINTS][PEACKDET][TPOS];
 }
 
 
@@ -77,14 +77,12 @@ int16 sTime_TShiftMin(void)
         {-16384 + k, -8192 + k, 0 + k}  // 32758
     };
 
-    FPGA_NUM_POINTS numPoints = set.memory.fpgaNumPoints;
-
     if (PEACKDET_DIS)
     {
-        return m[numPoints][TPOS];
+        return m[FPGA_NUM_POINTS][TPOS];
     }
 
-    return m[numPoints][TPOS] * 2; // Для пикового детектора это значение должно быть в два раза больше
+    return m[FPGA_NUM_POINTS][TPOS] * 2; // Для пикового детектора это значение должно быть в два раза больше
 }
 
 

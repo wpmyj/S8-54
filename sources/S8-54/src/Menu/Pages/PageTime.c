@@ -88,12 +88,12 @@ static const Choice mcTimePicDet =
 
 static bool IsActiveChoiceTimePicDeat(void)
 {
-    if (set.memory.fpgaNumPoints == FNP_32k)                       // ѕри 32к точек на канал мы не можем включать пиковый детектор
+    if (FPGA_NUM_POINTS_32k)                       // ѕри 32к точек на канал мы не можем включать пиковый детектор
     {
         return false;
     }
 
-    if (set.memory.fpgaNumPoints == FNP_16k && ENABLE_B) // ѕри 16к точках на канал мы можем работать только с одним каналом
+    if (FPGA_NUM_POINTS_16k && ENABLE_B) // ѕри 16к точках на канал мы можем работать только с одним каналом
     {
         return false;
     }
@@ -111,11 +111,11 @@ void OnPeacDetChanged(bool active)
     }
     else
     {
-        if (set.memory.fpgaNumPoints == FNP_32k)
+        if (FPGA_NUM_POINTS_32k)
         {
             Display_ShowWarning(NoPeakDet32k);
         }
-        else if (set.memory.fpgaNumPoints == FNP_16k && ENABLE_B)
+        else if (FPGA_NUM_POINTS_16k && ENABLE_B)
         {
             Display_ShowWarning(NoPeakDet16k);
         }

@@ -692,7 +692,7 @@ void PainterData_DrawMemoryWindow(void)
         }
     }
 
-    Painter_DrawRectangleC(xVert0, top, width - (set.memory.fpgaNumPoints == FNP_8k ? 1 : 0), bottom - top, gColorFill);
+    Painter_DrawRectangleC(xVert0, top, width - (FPGA_NUM_POINTS_8k ? 1 : 0), bottom - top, gColorFill);
 
     DrawTPos(leftX, rightX);
 
@@ -725,7 +725,7 @@ static void DrawTShift(int leftX, int rightX, int numBytes)
             --xShift;
         }
     }
-    if (set.memory.fpgaNumPoints == FNP_512)
+    if (FPGA_NUM_POINTS_512)
     {
         ++xShift;                           // WARN Костыль
     }

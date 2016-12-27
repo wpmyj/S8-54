@@ -134,7 +134,7 @@ DataSettings    *gDSmemLast = 0;
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 int NumBytesInChannel(DataSettings *ds)
 {
-    return FPGA_NUM_POINTS_2_NumPoints((FPGA_NUM_POINTS)ds->indexLength);
+    return FPGA_NUM_POINTS_2_NumPoints((NumPoinstFPGA)ds->indexLength);
 }
 
 

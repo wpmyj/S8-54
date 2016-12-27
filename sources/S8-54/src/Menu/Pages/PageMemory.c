@@ -207,7 +207,7 @@ static const Choice mcLengthMemory =
         {"16к", "16k"}
         //,{"32к", "32k"}
     },
-    (int8*)&set.memory.fpgaNumPoints, OnChange_MemoryLength, EmptyFuncVII
+    (int8*)&FPGA_NUM_POINTS, OnChange_MemoryLength, EmptyFuncVII
 };
 
 static bool IsActive_MemoryLength(void)
@@ -225,10 +225,10 @@ void OnChange_MemoryLength(bool active)
     }
 
     // Блокируем включение 32к длины записи, если включен второй канал
-    if (set.memory.fpgaNumPoints == FNP_32k && ENABLE_B)
+    if (FPGA_NUM_POINTS_32k && ENABLE_B)
     {
         Display_ShowWarning(DisableChannel2);
-        set.memory.fpgaNumPoints = FNP_16k;
+        FPGA_NUM_POINTS = FNP_16k;
     }
 
     int width = GridWidth();

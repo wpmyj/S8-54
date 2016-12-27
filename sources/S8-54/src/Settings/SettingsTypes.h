@@ -392,7 +392,7 @@ typedef enum
     FNP_16k,
     FNP_32k,  // WARN В этом режиме только один канал
     FPGA_NUM_POINTS_SIZE
-} FPGA_NUM_POINTS;
+} NumPoinstFPGA;
 
 // Режим работы.
 typedef enum

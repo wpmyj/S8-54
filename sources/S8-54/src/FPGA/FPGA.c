@@ -666,7 +666,7 @@ static void DataReadSave(bool necessaryShift, bool first, bool saveToStorage, bo
         InverseDataIsNecessary(B, dataB);
     }
     
-    if (saveToStorage && ((FPGA_NUM_POINTS)ds.indexLength == (FPGA_NUM_POINTS)NumPoints_2_FPGA_NUM_POINTS(sMemory_NumBytesInChannel(false))))
+    if (saveToStorage && ((NumPoinstFPGA)ds.indexLength == (NumPoinstFPGA)NumPoints_2_FPGA_NUM_POINTS(sMemory_NumBytesInChannel(false))))
     {
         DS_AddData(dataA, dataB, ds);
     }
