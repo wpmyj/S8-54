@@ -66,7 +66,7 @@ static const Choice mcTimeSample =
 
 static bool FuncTimeSampleActive(void)
 {
-    return IN_RANDOM_MODE && set.trig.startMode != StartMode_Single;
+    return IN_RANDOM_MODE && !START_MODE_SINGLE;
 }
 
 //---------------------------------------------------------------------------------------------------------------------------------------------------

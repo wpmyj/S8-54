@@ -254,7 +254,7 @@ static bool CalculateGate(uint16 rand, uint16 *eMin, uint16 *eMax)
     if (gBF.FPGAfirstAfterWrite == 1)   // Если первый запуск после записи в альтеру -
     {
         gBF.FPGAfirstAfterWrite = 0;    // пропускаем его, потому что оно дудет портить нам статистику
-        if (set.trig.startMode != StartMode_Single)     // И если не однократный режим -
+        if (!START_MODE_SINGLE)         // И если не однократный режим -
         {
             return false;               // то выходим с ошибкой
         }
@@ -476,9 +476,7 @@ static bool ReadRandomizeModeSave(bool first, bool last, bool onlySave)
             return false;
         };
 
-        StartMode startMode = set.trig.startMode;
-
-        if (startMode == StartMode_Single || set.time.sampleType == SampleType_Real)
+        if (START_MODE_SINGLE || set.time.sampleType == SampleType_Real)
         {
             FPGA_ClearData();
 
@@ -512,7 +510,7 @@ static bool ReadRandomizeModeSave(bool first, bool last, bool onlySave)
         ReadRandomizeChannel(B, addrFirstRead, &dataRandB[index], &dataRandB[FPGA_MAX_POINTS - 1], step, numSkipped);
         ReadRandomizeChannel(A, addrFirstRead, &dataRandA[index], &dataRandA[FPGA_MAX_POINTS - 1], step, numSkipped);
         
-        if (startMode == StartMode_Single || set.time.sampleType == SampleType_Real)
+        if (START_MODE_SINGLE || set.time.sampleType == SampleType_Real)
         {
             Processing_InterpolationSinX_X(dataRandA, bytesInChannel, tBase);
             Processing_InterpolationSinX_X(dataRandB, bytesInChannel, tBase);
@@ -744,9 +742,9 @@ bool ProcessingData(void)
                 DataReadSave(false, i == 0, i == num - 1, false);
 
                 retValue = true;
-                if (set.trig.startMode != StartMode_Single)
+                if (!START_MODE_SINGLE)
                 {
-                    if(IN_P2P_MODE && set.trig.startMode == StartMode_Auto)  // Если находимся в режиме поточечного вывода при автоматической синхронизации
+                    if(IN_P2P_MODE && START_MODE_AUTO)  // Если находимся в режиме поточечного вывода при автоматической синхронизации
                     {
                         Timer_SetAndStartOnce(kTimerStartP2P, FPGA_Start, 1000);                 // то откладываем следующий запуск, чтобы зафиксировать сигнал на экране
                     }
@@ -761,7 +759,7 @@ bool ProcessingData(void)
                 }
             }
         }
-        else if (set.trig.startMode == StartMode_Auto)  // Если имупльса синхронизации нету, а включён автоматический режим синхронизации
+        else if (START_MODE_AUTO)  // Если имупльса синхронизации нету, а включён автоматический режим синхронизации
         {
             if (gTimerMS - timeCompletePredTrig > TSHIFT_2_ABS(2, TBASE) * 1000)  // Если прошло больше времени, чем помещается в десяти клетках
             {

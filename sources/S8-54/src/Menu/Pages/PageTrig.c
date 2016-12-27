@@ -71,13 +71,13 @@ static const Choice mcMode =
         {"Ждущий",      "Wait"},
         {"Однократный", "Single"}
     },
-    (int8*)&set.trig.startMode, OnChange_Mode, EmptyFuncVII
+    (int8*)&START_MODE, OnChange_Mode, EmptyFuncVII
 };
 
 void OnChange_Mode(bool active)
 {
     FPGA_Stop(false);
-    if(set.trig.startMode != StartMode_Single)
+    if(!START_MODE_SINGLE)
     {
         FPGA_OnPressStartStop();
     }
@@ -87,12 +87,12 @@ void OnChange_Mode(bool active)
     //if (TBASE < TBase_50ns)    // WARN Это вместо функции sTime_RandomizeModeEnabled() было сделано потому, что с функцией экран периодически отваливался
     {
         // и переключаемся на одиночный режим запуска, то надо сохранить имеющийся тип выборки, чтобы восстановить при возвращении в режим рандомизатора автоматический или ждущий
-        if (set.trig.startMode == StartMode_Single)
+        if (START_MODE_SINGLE)
         {
             set.time.sampleTypeOld = set.time.sampleType;
             set.time.sampleType = SampleType_Real;
         }
-        else if(set.trig.startMode == StartMode_Auto)    // Иначе восстановим ранее сохранённый
+        else if(START_MODE_AUTO)    // Иначе восстановим ранее сохранённый
         {
             set.time.sampleType = set.time.sampleTypeOld;
         }
