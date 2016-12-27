@@ -251,7 +251,7 @@ static void LoadRShift(Channel ch)
 
     FPGA_Write(RecordDAC, ch == A ? dacRShiftA : dacRShiftB, mask[ch] | (rShift << 4), true);
 
-    if (set.trig.input == TrigInput_LPF || set.trig.input == TrigInput_Full)
+    if (TRIG_INPUT_LPF || TRIG_INPUT_FULL)
     {
         LoadTrigLev();  // На некоторых настройках входа синхронизации требуется и коррекция уровня синхронизации
     }
@@ -266,7 +266,7 @@ static void LoadTrigLev(void)
 
     trigLev = TrigLevMax + TrigLevMin - trigLev;
 
-    if (set.trig.input == TrigInput_LPF || set.trig.input == TrigInput_Full)
+    if (TRIG_INPUT_LPF || TRIG_INPUT_FULL)
     {
         trigLev += (uint16)(CalculateDeltaRShift((Channel)TRIGSOURCE) * divR[RANGE(TRIGSOURCE)]);
     }
@@ -332,7 +332,7 @@ void WriteChipSelect2(void)
 
     const uint trigInput[4] = {(1 << 9), (1 << 8) + (1 << 9), 0, (1 << 8)};
 
-    data |= trigInput[set.trig.input];
+    data |= trigInput[TRIG_INPUT];
 
     FPGA_Write(RecordAnalog, CS2, data, true);
 }
@@ -408,7 +408,7 @@ static void LoadRange(Channel ch)
 //------------------------------------------------------------------------------------------------------------------------------------------------------
 void LoadTrigPolarity(void)
 {
-    FPGA_Write(RecordFPGA, WR_TRIG, set.trig.polarity == TrigPolarity_Front ? 0x01 : 0x00, true);
+    FPGA_Write(RecordFPGA, WR_TRIG, TRIG_POLARITY_FRONT ? 0x01 : 0x00, true);
 }
 
 
@@ -796,7 +796,7 @@ void FPGA_SetTrigSource(TrigSource trigSource)
 //------------------------------------------------------------------------------------------------------------------------------------------------------
 void FPGA_SetTrigPolarity(TrigPolarity polarity)
 {
-    set.trig.polarity = polarity;
+    TRIG_POLARITY = polarity;
     LoadTrigPolarity();
 }
 
@@ -804,7 +804,7 @@ void FPGA_SetTrigPolarity(TrigPolarity polarity)
 //------------------------------------------------------------------------------------------------------------------------------------------------------
 void FPGA_SetTrigInput(TrigInput trigInput)
 {
-    set.trig.input = trigInput;
+    TRIG_INPUT = trigInput;
     PrepareAndWriteDataToAnalogSPI(CS2);
     LoadTrigLev();      // На некотрых насройках входа требуется коррекция уровня синхронизации
 }

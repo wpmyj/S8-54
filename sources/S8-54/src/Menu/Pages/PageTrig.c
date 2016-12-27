@@ -137,12 +137,12 @@ static const Choice mcPolarity =
         {"Фронт", "Front"},
         {"Срез", "Back"}
     },
-    (int8*)&set.trig.polarity, OnChange_Polarity, EmptyFuncVII
+    (int8*)&TRIG_POLARITY, OnChange_Polarity, EmptyFuncVII
 };
 
 static void OnChange_Polarity(bool active)
 {
-    FPGA_SetTrigPolarity(set.trig.polarity);
+    FPGA_SetTrigPolarity(TRIG_POLARITY);
 }
 
 // СИНХР -> Вход -----------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -169,12 +169,12 @@ static const Choice mcInput =
         {"ФНЧ", "LPF"},
         {"ФВЧ", "HPF"}
     },
-    (int8*)&set.trig.input, OnChange_Input, EmptyFuncVII
+    (int8*)&TRIG_INPUT, OnChange_Input, EmptyFuncVII
 };
 
 static void OnChange_Input(bool active)
 {
-    FPGA_SetTrigInput(set.trig.input);
+    FPGA_SetTrigInput(TRIG_INPUT);
 }
 
 // СИНХР -> Удержание ---------------------------------------------------------------------------------------------------------------------------------------------------

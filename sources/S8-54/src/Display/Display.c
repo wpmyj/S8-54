@@ -759,10 +759,10 @@ static void DrawLowPart(void)
     };
     if(WORK_DIRECT)
     {
-        sprintf(buffer, "\xa5\x10%s\x10\xa5\x10%s\x10\xa5\x10", couple[set.trig.input], polar[set.trig.polarity]);
+        sprintf(buffer, "\xa5\x10%s\x10\xa5\x10%s\x10\xa5\x10", couple[TRIG_INPUT], polar[TRIG_POLARITY]);
         Painter_DrawText(x + 18, y1, buffer);
-        Painter_DrawChar(x + 45, y1, filtr[set.trig.input][0]);
-        Painter_DrawChar(x + 53, y1, filtr[set.trig.input][1]);
+        Painter_DrawChar(x + 45, y1, filtr[TRIG_INPUT][0]);
+        Painter_DrawChar(x + 53, y1, filtr[TRIG_INPUT][1]);
     }
 
     buffer[0] = '\0';
@@ -774,7 +774,7 @@ static void DrawLowPart(void)
     };
     if(WORK_DIRECT)
     {
-        sprintf(buffer, "\xa5\x10%c", mode[set.trig.startMode]);
+        sprintf(buffer, "\xa5\x10%c", mode[START_MODE]);
         Painter_DrawText(x + 63, y1, buffer);
     }
 
@@ -1175,7 +1175,7 @@ static void WriteValueTrigLevel(void)
     {
         TrigSource trigSource = TRIGSOURCE;
         float trigLev = RSHIFT_2_ABS(TRIGLEV(trigSource), TRIGSOURCE_EXT ? Range_500mV : RANGE(trigSource));
-        if(set.trig.input == TrigInput_AC && !TRIGSOURCE_EXT)
+        if(TRIG_INPUT_AC && !TRIGSOURCE_EXT)
         {
             uint16 rShift = RSHIFT(trigSource);
             float rShiftAbs = RSHIFT_2_ABS(rShift, RANGE(trigSource));

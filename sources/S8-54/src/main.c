@@ -117,9 +117,9 @@ void ProcessingSignal(void)
     sDisplay_PointsOnDisplay(&first, &last);
     if (WORK_DIRECT)
     {
-        if (IN_P2P_MODE &&                   // Ќаходимс€ в режиме поточечного вывода
-            set.trig.startMode == StartMode_Wait &&     // в режиме ждущей синхронизации
-            DS_NumElementsWithCurrentSettings() > 1     // и в хранилище уже есть считанные сигналы с такими настройками
+        if (IN_P2P_MODE         &&                  // Ќаходимс€ в режиме поточечного вывода
+            START_MODE_WAIT     &&                  // в режиме ждущей синхронизации
+            DS_NumElementsWithCurrentSettings() > 1 // и в хранилище уже есть считанные сигналы с такими настройками
             )
         {
             DS_GetDataFromEnd_RAM(1, &gDSet, (uint16**)&gDataA, (uint16**)&gDataB);

@@ -62,12 +62,12 @@ void Process_MODE(uint8 *buffer)
         {0}
     };
     ENTER_ANALYSIS
-        if (0 == value)         { set.trig.startMode = StartMode_Auto; OnChange_Mode(true); }
-        else if (1 == value)    { set.trig.startMode = StartMode_Wait; OnChange_Mode(true); }
-        else if (2 == value)    { set.trig.startMode = StartMode_Single; OnChange_Mode(true); }
+        if (0 == value)         { START_MODE = StartMode_Auto; OnChange_Mode(true); }
+        else if (1 == value)    { START_MODE = StartMode_Wait; OnChange_Mode(true); }
+        else if (2 == value)    { START_MODE = StartMode_Single; OnChange_Mode(true); }
         else if (3 == value)
         {
-            SCPI_SEND(":TRIGGER:MODE %s", map[set.trig.startMode].key);
+            SCPI_SEND(":TRIGGER:MODE %s", map[START_MODE].key);
         }
     LEAVE_ANALYSIS
 }
@@ -90,7 +90,7 @@ void Process_SOURCE(uint8 *buffer)
         else if (2 == value)    { FPGA_SetTrigSource(TrigSource_Ext); }
         else if (3 == value)
         {
-            SCPI_SEND(":TRIGGER:SOUCRE %s", map[set.trig.startMode].key);
+            SCPI_SEND(":TRIGGER:SOUCRE %s", map[START_MODE].key);
         }
     LEAVE_ANALYSIS
 }
@@ -111,7 +111,7 @@ void Process_POLARITY(uint8 *buffer)
         else if (1 == value)    { FPGA_SetTrigPolarity(TrigPolarity_Back); }
         else if (2 == value)
         {
-            SCPI_SEND(":TRIGGER:POLARITY %s", map[set.trig.polarity].key);
+            SCPI_SEND(":TRIGGER:POLARITY %s", map[TRIG_POLARITY].key);
         }
     LEAVE_ANALYSIS
 }
@@ -136,7 +136,7 @@ void Process_INPUT(uint8 *buffer)
         else if (3 == value)    { FPGA_SetTrigInput(TrigInput_HPF); }
         else if (4 == value)
         {
-            SCPI_SEND(":TRIGGER:INPUT %s", map[set.trig.input].key);
+            SCPI_SEND(":TRIGGER:INPUT %s", map[TRIG_INPUT].key);
         }
     LEAVE_ANALYSIS
 }

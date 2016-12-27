@@ -21,11 +21,6 @@
 #define RSHIFT_MATH         (set.math.rShift)
 #define RANGE_MATH          (set.math.range)
 
-#define START_MODE          (set.trig.startMode)
-#define START_MODE_AUTO     (START_MODE == StartMode_Auto)
-#define START_MODE_WAIT     (START_MODE == StartMode_Wait)
-#define START_MODE_SINGLE   (START_MODE == StartMode_Single)
-
 #define DIVIDER(ch)         (set.chan[ch].divider)
 #define DIVIDER_A           (DIVIDER(A))
 #define DIVIDER_B           (DIVIDER(B))

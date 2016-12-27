@@ -123,7 +123,7 @@ void FPGA_SetNumSignalsInSec(int numSigInSec)
 //------------------------------------------------------------------------------------------------------------------------------------------------------
 void FPGA_SwitchingTrig(void)
 {
-    if (set.trig.polarity == TrigPolarity_Front)
+    if (TRIG_POLARITY_FRONT)
     {
         *WR_TRIG = 0;
         *WR_TRIG = 1;
@@ -215,7 +215,7 @@ void FPGA_WriteStartToHardware(void)
 {
     *WR_POST = gPost;
     *WR_PRED = gPred;
-    *WR_TRIG = set.trig.polarity == TrigPolarity_Front ? 1 : 0;
+    *WR_TRIG = TRIG_POLARITY_FRONT ? 1 : 0;
     *WR_START = 0xffff;
 }
 
