@@ -400,10 +400,10 @@ void OnPressPrevSettings(void)
 //------------------------------------------------------------------------------------------------------------------------------------------------------
 void OnChangedColorMenuTitle(void)
 {
-    uint16 newColor1 = Painter_ReduceBrightness(set.display.colors[COLOR_MENU_TITLE], 0.50f);
-    uint16 newColor2 = Painter_ReduceBrightness(set.display.colors[COLOR_MENU_TITLE], 1.50f);
-    set.display.colors[COLOR_MENU_TITLE_DARK] = newColor1;
-    set.display.colors[COLOR_MENU_TITLE_BRIGHT] = newColor2;
+    uint16 newColor1 = Painter_ReduceBrightness(COLOR(COLOR_MENU_TITLE), 0.50f);
+    uint16 newColor2 = Painter_ReduceBrightness(COLOR(COLOR_MENU_TITLE), 1.50f);
+    COLOR(COLOR_MENU_TITLE_DARK) = newColor1;
+    COLOR(COLOR_MENU_TITLE_BRIGHT) = newColor2;
     Color_Log(COLOR_MENU_TITLE);
     Color_Log(COLOR_MENU_TITLE_DARK);
     Color_Log(COLOR_MENU_TITLE_BRIGHT);
@@ -413,10 +413,10 @@ void OnChangedColorMenuTitle(void)
 //------------------------------------------------------------------------------------------------------------------------------------------------------
 void OnChangedColorMenu2Item(void)
 {
-    uint16 newColor1 = Painter_ReduceBrightness(set.display.colors[COLOR_MENU_ITEM], 0.50f);
-    uint16 newColor2 = Painter_ReduceBrightness(set.display.colors[COLOR_MENU_ITEM], 1.50f);
-    set.display.colors[COLOR_MENU_ITEM_DARK] = newColor1;
-    set.display.colors[COLOR_MENU_ITEM_BRIGHT] = newColor2;
+    uint16 newColor1 = Painter_ReduceBrightness(COLOR(COLOR_MENU_ITEM), 0.50f);
+    uint16 newColor2 = Painter_ReduceBrightness(COLOR(COLOR_MENU_ITEM), 1.50f);
+    COLOR(COLOR_MENU_ITEM_DARK) = newColor1;
+    COLOR(COLOR_MENU_ITEM_BRIGHT) = newColor2;
     Color_Log(COLOR_MENU_ITEM);
     Color_Log(COLOR_MENU_ITEM_DARK);
     Color_Log(COLOR_MENU_ITEM_BRIGHT);

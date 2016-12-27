@@ -464,7 +464,7 @@ void DrawGovernorColorValue(int x, int y, GovernorColor *govColor, int delta)
 #ifdef _MS_VS
     int16 vals[10];
 #else
-    uint16 color = set.display.colors[ct->color];
+    uint16 color = COLOR(ct->color);
     int red = R_FROM_COLOR(color);
     int green = G_FROM_COLOR(color);
     int blue = B_FROM_COLOR(color);

@@ -18,7 +18,7 @@ Color gColorChan[4];
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 static void SetColor(ColorType *colorType)
 {
-    set.display.colors[colorType->color] = MAKE_COLOR((int)colorType->red, (int)colorType->green, (int)colorType->blue);
+    COLOR(colorType->color) = MAKE_COLOR((int)colorType->red, (int)colorType->green, (int)colorType->blue);
     Painter_SetPalette(colorType->color);
 }
 
@@ -66,7 +66,7 @@ Color ColorBorderMenu(bool inShade)
 //----------------------------------------------------------------------------------------------------------------------------------------------------
 Color ColorContrast(Color color)
 {
-    uint16 colorValue = set.display.colors[color];
+    uint16 colorValue = COLOR(color);
     if (R_FROM_COLOR(colorValue) > 16 || G_FROM_COLOR(colorValue) > 32 || B_FROM_COLOR(colorValue) > 16)    //-V112
     {
         return COLOR_BLACK;
@@ -85,7 +85,7 @@ Color LightShadingTextColor(void)
 //----------------------------------------------------------------------------------------------------------------------------------------------------
 void Color_Log(Color color)
 {
-    uint16 colorValue = set.display.colors[color];
+    uint16 colorValue = COLOR(color);
     LOG_WRITE("%s   r=%d, g=%d, b=%d", NameColor(color), R_FROM_COLOR(colorValue), G_FROM_COLOR(colorValue), B_FROM_COLOR(colorValue));
 }
 
@@ -182,7 +182,7 @@ void Color_Init(ColorType *colorType, bool forced)
     {
         colorType->alreadyUsed = true;                  // Признак того, что начальные установки уже произведены
 
-        uint16 colorValue = set.display.colors[colorType->color];
+        uint16 colorValue = COLOR(colorType->color);
 
         colorType->red = (float)R_FROM_COLOR(colorValue);
         colorType->green = (float)G_FROM_COLOR(colorValue);
@@ -249,7 +249,7 @@ const char* NameColorFromValue(uint16 colorValue)
 {
     for (int i = 0; i < NUM_COLORS; i++)
     {
-        if (set.display.colors[(Color)i] == colorValue)
+        if (COLOR((Color)i) == colorValue)
         {
             return colorNames[i];
         }

@@ -612,7 +612,7 @@ static const Governor mgSettings_Time =
         "Set the time during which the message will be on the screen"
     },
     EmptyFuncBV,
-    &set.display.timeMessages, 1, 99, EmptyFuncVV
+    &TIME_MESSAGES, 1, 99, EmptyFuncVV
 };
 
 

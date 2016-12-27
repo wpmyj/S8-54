@@ -261,7 +261,7 @@ void LoadDefaultColors(void)
 {
     for(int color = 0; color < NUM_COLORS; color++) 
     {
-        set.display.colors[color] = defaultSettings.display.colors[color];
+        COLOR(color) = defaultSettings.display.colors[color];
     }
 }
 

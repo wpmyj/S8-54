@@ -206,7 +206,7 @@ void Painter_SetPalette(Color color)
     uint8 command[4];
     command[0] = SET_PALETTE;
     *(command + 1) = color;
-    *((uint16*)(command + 2)) = set.display.colors[color];
+    *((uint16*)(command + 2)) = COLOR(color);
     Painter_SendToDisplay(command, 4);
     Painter_SendToInterfaces(command, 4);
 }
@@ -734,7 +734,7 @@ bool Painter_SaveScreenToFlashDrive(void) {
 
     for(int i = 0; i < 16; i++)
     {
-        uint16 color = set.display.colors[i];
+        uint16 color = COLOR(i);
         colorStruct.blue = (uint8)((float)B_FROM_COLOR(color) / 31.0f * 255.0f);
         colorStruct.green = (uint8)((float)G_FROM_COLOR(color) / 63.0f * 255.0f);
         colorStruct.red = (uint8)((float)R_FROM_COLOR(color) / 31.0f * 255.0f);
