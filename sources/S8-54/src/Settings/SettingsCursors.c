@@ -13,14 +13,14 @@
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 float sCursors_GetCursPosU(Channel ch, int numCur)
 {
-    return set.cursors.posCurU[ch][numCur] / (GridChannelBottom() == GridFullBottom() ? 1.0f : 2.0f);
+    return CURsU_POS(ch, numCur) / (GridChannelBottom() == GridFullBottom() ? 1.0f : 2.0f);
 }
 
 
 //------------------------------------------------------------------------------------------------------------------------------------------------------
 bool sCursors_NecessaryDrawCursors(void)
 {
-    return (CURSU_ENABLED || CURST_ENABLED) && (set.cursors.showCursors || GetNameOpenedPage() == Page_SB_Curs);
+    return (CURsU_ENABLED || CURsT_ENABLED) && (set.cursors.showCursors || GetNameOpenedPage() == Page_SB_Curs);
 }
 
 

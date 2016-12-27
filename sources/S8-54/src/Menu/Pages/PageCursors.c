@@ -338,7 +338,7 @@ static const SmallButton sbSet_U =      // Выбор курсора напряжения - курсор 1, 
 
 static void OnPressSB_Set_U(void)
 {
-    if (set.cursors.active == CursActive_U || CURSU_DISABLED)
+    if (set.cursors.active == CursActive_U || CURsU_DISABLED)
     {
         IncCursCntrlU(CURS_SOURCE);
     }
@@ -348,7 +348,7 @@ static void OnPressSB_Set_U(void)
 static void FuncDrawSB_Set_U(int x, int y)
 {
     Channel source = CURS_SOURCE;
-    if (CURSU_DISABLED)
+    if (CURsU_DISABLED)
     {
        FuncDrawSB_Set_U_disable(x, y);
     }
@@ -361,7 +361,7 @@ static void FuncDrawSB_Set_U(int x, int y)
         else
         {
             bool condTop = false, condDown = false;
-            CalculateConditions((int16)sCursors_GetCursPosU(source, 0), (int16)sCursors_GetCursPosU(source, 1), CNTRL_CURSU, &condTop, &condDown);
+            CalculateConditions((int16)sCursors_GetCursPosU(source, 0), (int16)sCursors_GetCursPosU(source, 1), CURsU_CNTRL, &condTop, &condDown);
             if (condTop && condDown)
             {
                 FuncDrawSB_Set_U_enableBoth(x, y);
@@ -430,7 +430,7 @@ static const SmallButton sbSet_T =      // Выбор курсора времени - курсор 1, кур
 
 static void OnPressSB_Set_T(void)
 {
-    if (set.cursors.active == CursActive_T || CURST_DISABLED)
+    if (set.cursors.active == CursActive_T || CURsT_DISABLED)
     {
         IncCursCntrlT(CURS_SOURCE);
     }
@@ -439,7 +439,7 @@ static void OnPressSB_Set_T(void)
 
 static void FuncDrawSB_Set_T(int x, int y)
 {
-    if (CURST_DISABLED)
+    if (CURsT_DISABLED)
     {
         FuncDrawSB_Set_T_disable(x, y);
     }
@@ -453,7 +453,7 @@ static void FuncDrawSB_Set_T(int x, int y)
         {
             bool condLeft = false, condDown = false;
             Channel source = CURS_SOURCE;
-            CalculateConditions((int16)set.cursors.posCurT[source][0], (int16)set.cursors.posCurT[source][1], CNTRL_CURST, &condLeft, &condDown);
+            CalculateConditions((int16)set.cursors.posCurT[source][0], (int16)set.cursors.posCurT[source][1], CURsT_CNTRL, &condLeft, &condDown);
             if (condLeft && condDown)
             {
                 FuncDrawSB_Set_T_enableBoth(x, y);
@@ -584,11 +584,11 @@ static void SetShiftCursPosU(Channel ch, int numCur, float delta)
 {
     if (set.cursors.movement == CursMovement_Percents)
     {
-        set.cursors.posCurU[ch][numCur] = LimitationFloat(set.cursors.posCurU[ch][numCur] - delta, 0, MAX_POS_U);
+        CURsU_POS(ch, numCur) = LimitationFloat(CURsU_POS(ch, numCur) - delta, 0, MAX_POS_U);
     }
     else
     {
-        set.cursors.posCurU[ch][numCur] = LimitationFloat(set.cursors.posCurU[ch][numCur] - delta, 0, MAX_POS_U);
+        CURsU_POS(ch, numCur) = LimitationFloat(CURsU_POS(ch, numCur) - delta, 0, MAX_POS_U);
     }
 }
 
@@ -597,11 +597,11 @@ static void SetCursPosU(Channel ch, int numCur, float pos)
 {
     if (set.cursors.movement == CursMovement_Percents)
     {
-        set.cursors.posCurU[ch][numCur] = LimitationFloat(pos, 0, MAX_POS_U);
+        CURsU_POS(ch, numCur) = LimitationFloat(pos, 0, MAX_POS_U);
     }
     else
     {
-        set.cursors.posCurU[ch][numCur] = LimitationFloat(pos, 0, MAX_POS_U);
+        CURsU_POS(ch, numCur) = LimitationFloat(pos, 0, MAX_POS_U);
     }
 }
 
@@ -631,7 +631,7 @@ void SetCursPosT(Channel ch, int numCur, float pos)
 
 static void SetCursPos100(Channel ch)
 {
-    set.cursors.deltaU100percents[ch] = (float)fabs(set.cursors.posCurU[ch][0] - set.cursors.posCurU[ch][1]);
+    set.cursors.deltaU100percents[ch] = (float)fabs(CURsU_POS(ch, 0) - CURsU_POS(ch, 1));
     set.cursors.deltaT100percents[ch] = (float)fabs(set.cursors.posCurT[ch][0] - set.cursors.posCurT[ch][1]);
 }
 
@@ -642,12 +642,12 @@ static void SetCursSource(Channel ch)
 
 static void IncCursCntrlU(Channel ch)
 {
-    CircleIncreaseInt8((int8*)&CNTRL_CURSU_CH(ch), 0, 3);
+    CircleIncreaseInt8((int8*)&CURsU_CNTRL_CH(ch), 0, 3);
 }
 
 static void IncCursCntrlT(Channel ch)
 {
-    CircleIncreaseInt8((int8*)&CNTRL_CURST_CH(ch), 0, 3);
+    CircleIncreaseInt8((int8*)&CURsT_CNTRL_CH(ch), 0, 3);
 }
 
 void CursorsUpdate(void)
@@ -670,13 +670,13 @@ void CursorsUpdate(void)
     }
     if((lookMode0 == CursLookMode_Time || lookMode0 == CursLookMode_Both) && set.cursors.active == CursActive_U)
     {
-        float posU0 = set.cursors.posCurU[source][0];
+        float posU0 = CURsU_POS(source, 0);
         posT0 = Processing_GetCursT(source, posU0, 0);
         SetCursPosT(source, 0, posT0);
     }
     if((lookMode1 == CursLookMode_Time || lookMode1 == CursLookMode_Both) && set.cursors.active == CursActive_U)
     {
-        float posU1 = set.cursors.posCurU[source][1];
+        float posU1 = CURsU_POS(source, 1);
         posT1 = Processing_GetCursT(source, posU1, 1);
         SetCursPosT(source, 1, posT1);
     }
@@ -691,11 +691,11 @@ static void MoveCursUonPercentsOrPoints(int delta)
         value *= set.cursors.deltaU100percents[CURS_SOURCE] / 100.0f;
     }
 
-    if (CNTRL_CURSU_1 || CNTRL_CURSU_1_2)
+    if (CURsU_CNTRL_1 || CURsU_CNTRL_1_2)
     {
         SetShiftCursPosU(CURS_SOURCE, 0, value);
     }
-    if (CNTRL_CURSU_2 || CNTRL_CURSU_1_2)
+    if (CURsU_CNTRL_2 || CURsU_CNTRL_1_2)
     {
         SetShiftCursPosU(CURS_SOURCE, 1, value);
     }
@@ -711,11 +711,11 @@ static void MoveCursTonPercentsOrPoints(int delta)
         value *= set.cursors.deltaT100percents[CURS_SOURCE] / 100.0f;
     }
 
-    if (CNTRL_CURST_1 || CNTRL_CURST_1_2)
+    if (CURsT_CNTRL_1 || CURsT_CNTRL_1_2)
     {
         SetShiftCursPosT(CURS_SOURCE, 0, value);
     }
-    if (CNTRL_CURST_2 || CNTRL_CURST_1_2)
+    if (CURsT_CNTRL_2 || CURsT_CNTRL_1_2)
     {
         SetShiftCursPosT(CURS_SOURCE, 1, value);
     }
@@ -727,7 +727,7 @@ bool IsRegSetActiveOnCursors(void)
     CursActive active = set.cursors.active;
     return (
         (GetNameOpenedPage() == Page_SB_Curs) &&
-        (((active == CursActive_U) && CURSU_ENABLED) ||
-        ((active == CursActive_T) && CURST_ENABLED))
+        (((active == CursActive_U) && CURsU_ENABLED) ||
+        ((active == CursActive_T) && CURsT_ENABLED))
         );
 }

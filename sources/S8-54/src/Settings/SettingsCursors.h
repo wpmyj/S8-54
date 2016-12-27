@@ -2,24 +2,26 @@
 
 
 #define CURS_SOURCE         (set.cursors.source)
-#define CURS_SOURCE_A       (set.cursors.source == A)
-#define CURS_SOURCE_B       (set.cursors.source == B)
+#define CURS_SOURCE_A       (CURS_SOURCE == A)
+#define CURS_SOURCE_B       (CURS_SOURCE == B)
 
-#define CNTRL_CURSU_CH(ch)  (set.cursors.cntrlU[ch])
-#define CNTRL_CURSU         (CNTRL_CURSU_CH(CURS_SOURCE))
-#define CNTRL_CURSU_1       (CNTRL_CURSU == CursCntrl_1)
-#define CNTRL_CURSU_2       (CNTRL_CURSU == CursCntrl_2)
-#define CNTRL_CURSU_1_2     (CNTRL_CURSU == CursCntrl_1_2)
-#define CURSU_DISABLED      (CNTRL_CURSU == CursCntrl_Disable)
-#define CURSU_ENABLED       (!CURSU_DISABLED)
+#define CURsU_CNTRL_CH(ch)  (set.cursors.cntrlU[ch])
+#define CURsU_CNTRL         (CURsU_CNTRL_CH(CURS_SOURCE))
+#define CURsU_CNTRL_1       (CURsU_CNTRL == CursCntrl_1)
+#define CURsU_CNTRL_2       (CURsU_CNTRL == CursCntrl_2)
+#define CURsU_CNTRL_1_2     (CURsU_CNTRL == CursCntrl_1_2)
+#define CURsU_DISABLED      (CURsU_CNTRL == CursCntrl_Disable)
+#define CURsU_ENABLED       (!CURsU_DISABLED)
 
-#define CNTRL_CURST_CH(ch)  (set.cursors.cntrlT[ch])
-#define CNTRL_CURST         (CNTRL_CURST_CH(CURS_SOURCE))
-#define CNTRL_CURST_1       (CNTRL_CURST == CursCntrl_1)
-#define CNTRL_CURST_2       (CNTRL_CURST == CursCntrl_2)
-#define CNTRL_CURST_1_2     (CNTRL_CURST == CursCntrl_1_2)
-#define CURST_DISABLED      (CNTRL_CURST == CursCntrl_Disable)
-#define CURST_ENABLED       (!CURST_DISABLED)
+#define CURsT_CNTRL_CH(ch)  (set.cursors.cntrlT[ch])
+#define CURsT_CNTRL         (CURsT_CNTRL_CH(CURS_SOURCE))
+#define CURsT_CNTRL_1       (CURsT_CNTRL == CursCntrl_1)
+#define CURsT_CNTRL_2       (CURsT_CNTRL == CursCntrl_2)
+#define CURsT_CNTRL_1_2     (CURsT_CNTRL == CursCntrl_1_2)
+#define CURsT_DISABLED      (CURsT_CNTRL == CursCntrl_Disable)
+#define CURsT_ENABLED       (!CURsT_DISABLED)
+
+#define CURsU_POS(ch, num)  (set.cursors.posCurU[ch][num])
 
 
 float       sCursors_GetCursPosU(Channel ch, int numCur);                         // Получить позицию курсора напряжения.
