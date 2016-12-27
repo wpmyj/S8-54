@@ -101,14 +101,14 @@ static void Process_ACCUM(uint8 *buffer)
         {0}
     };
     ENTER_ANALYSIS
-        if (value <= 7)         { set.display.numAccumulation = (NumAccumulation)value; }
-        else if (8 == value)    { set.display.modeAccumulation = ModeAccumulation_NoReset; }
-        else if (9 == value)    { set.display.modeAccumulation = ModeAccumulation_Reset; }
-        else if (10 == value)   { set.display.numAccumulation = NumAccumulation_Infinity; } 
+        if (value <= 7)         { NUM_ACCUM = (NumAccumulation)value; }
+        else if (8 == value)    { MODE_ACCUM = ModeAccumulation_NoReset; }
+        else if (9 == value)    { MODE_ACCUM = ModeAccumulation_Reset; }
+        else if (10 == value)   { NUM_ACCUM = NumAccumulation_Infinity; } 
         else if (11 == value)   { OnPress_Accum_Clear(); }
         else if (12 == value)
         {
-            SCPI_SEND(":DISPLAY:ACCUMULATION %s %s", map[set.display.numAccumulation].key, map[set.display.modeAccumulation + 8].key);
+            SCPI_SEND(":DISPLAY:ACCUMULATION %s %s", map[NUM_ACCUM].key, map[MODE_ACCUM + 8].key);
         }
     LEAVE_ANALYSIS
 }

@@ -259,7 +259,7 @@ static const Choice mcAccum_Num =
         {"128", "128"},
         {"Áåñêîíå÷íîñòü", "Infinity"}
     },
-    (int8*)&set.display.numAccumulation, EmptyFuncVB, EmptyFuncVII
+    (int8*)&NUM_ACCUM, EmptyFuncVB, EmptyFuncVII
 };
 
 // ÄÈÑÏËÅÉ -> ÍÀÊÎÏËÅÍÈÅ -> Òèï ---------------------------------------------------------------------------------------------------------------------------------------
@@ -278,7 +278,7 @@ static const Choice mcAccum_Mode =
         {"Íå ñáðàñûâàòü",   "Not to dump"},
         {"Ñáðàñûâàòü",      "Dump"}
     },
-    (int8*)&set.display.modeAccumulation, EmptyFuncVB, EmptyFuncVII
+    (int8*)&MODE_ACCUM, EmptyFuncVB, EmptyFuncVII
 };
 
 // ÄÈÑÏËÅÉ -> ÍÀÊÎÏËÅÍÈÅ -> Î÷èñòèòü -------------------------------------------------------------------------------------------------------------------------------------
@@ -297,7 +297,7 @@ static const Button mbAccum_Crear =
 
 static bool IsActive_Accum_Clear(void)
 {
-    return set.display.numAccumulation == NumAccumulation_Infinity;
+    return NUM_ACCUM_INF;
 }
 
 void OnPress_Accum_Clear(void)

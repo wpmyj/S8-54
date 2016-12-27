@@ -114,10 +114,10 @@ void DrawDataInModeNormal(void)
 
     int16 numSignals = (int16)DS_NumElementsWithSameSettings();
     LIMITATION(numSignals, numSignals, 1, DISPLAY_NUM_ACCUM);
-    if (numSignals == 1 ||                                          // В хранилище только один сигнал с текущими настройками
-        set.display.numAccumulation == NumAccumulation_Infinity ||  // или бесконечное накопление
-        set.display.modeAccumulation == ModeAccumulation_Reset ||   // или автоматическая очистка экрана для накопления
-        IN_RANDOM_MODE)                               // или в режиме рандомизатора
+    if (numSignals == 1         ||  // В хранилище только один сигнал с текущими настройками
+        NUM_ACCUM_INF    ||  // или бесконечное накопление
+        MODE_ACCUM_RESET ||  // или автоматическая очистка экрана для накопления
+        IN_RANDOM_MODE)             // или в режиме рандомизатора
     {
         DrawBothChannels(0, 0);                                     // когда 0, просто рисуем последний сигнал
     }

@@ -536,7 +536,7 @@ static void InitHardware(void)
 static bool NeedForClearScreen(void)
 {
     int numAccum = DISPLAY_NUM_ACCUM;
-    if(IN_RANDOM_MODE || numAccum == 1 || set.display.modeAccumulation == ModeAccumulation_NoReset || set.service.recorder)
+    if(IN_RANDOM_MODE || numAccum == 1 || MODE_ACCUM_NO_RESET || set.service.recorder)
     {
         return true;
     }
@@ -545,7 +545,7 @@ static bool NeedForClearScreen(void)
         needFinishDraw = false;
         return true;
     }
-    if(set.display.modeAccumulation == ModeAccumulation_Reset && numDrawingSignals >= (uint)numAccum)
+    if(MODE_ACCUM_RESET && numDrawingSignals >= (uint)numAccum)
     {
         numDrawingSignals = 0;
         return true;

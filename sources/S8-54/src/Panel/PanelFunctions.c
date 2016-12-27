@@ -201,7 +201,7 @@ bool CanChangeRShiftOrTrigLev(TrigSource channel, uint16 rShift)
 //------------------------------------------------------------------------------------------------------------------------------------------------------
 void ChangeRShift(int *prevTime, void(*f)(Channel, uint16), Channel ch, int relStep)
 {
-    if (set.display.numAccumulation == NumAccumulation_1)
+    if (NUM_ACCUM == NumAccumulation_1)
     {
         FPGA_TemporaryPause();
     }

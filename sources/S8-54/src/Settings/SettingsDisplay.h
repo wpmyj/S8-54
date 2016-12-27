@@ -20,6 +20,11 @@
 #define TYPE_GRID_2             (TYPE_GRID == TypeGrid_2)
 #define TYPE_GRID_3             (TYPE_GRID == TypeGrid_3)
 #define TYPE_GRID_4             (TYPE_GRID == TypeGrid_4)
+#define NUM_ACCUM               (set.display.numAccumulation)
+#define NUM_ACCUM_INF           (NUM_ACCUM == NumAccumulation_Infinity)
+#define MODE_ACCUM              (set.display.modeAccumulation)
+#define MODE_ACCUM_RESET        (MODE_ACCUM == ModeAccumulation_Reset)
+#define MODE_ACCUM_NO_RESET     (MODE_ACCUM == ModeAccumulation_NoReset)
 
 
 int     sDisplay_NumSignalsInS(void);                       // ¬озвращает ограничение частоты кадров.
