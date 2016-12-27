@@ -103,7 +103,7 @@ static const Choice mcViewMode =
         {"Вектор",  "Vector"},
         {"Точки",   "Points"}
     },
-    (int8*)&set.display.modeDrawSignal, EmptyFuncVB, EmptyFuncVII
+    (int8*)&MODE_DRAW_SIGNAL, EmptyFuncVB, EmptyFuncVII
 };
 
 // ДИСПЛЕЙ -> Мин Макс -----------------------------------------------------------------------------------------------------------------------------------

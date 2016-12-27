@@ -145,8 +145,8 @@ void DrawDataInModeWorkLatest(void)
 //------------------------------------------------------------------------------------------------------------------------------------------------------
 void DrawDataMinMax(void)
 {
-    ModeDrawSignal modeDrawSignalOld = set.display.modeDrawSignal;
-    set.display.modeDrawSignal = ModeDrawSignal_Lines;
+    ModeDrawSignal modeDrawSignalOld = MODE_DRAW_SIGNAL;
+    MODE_DRAW_SIGNAL = ModeDrawSignal_Lines;
     if (set.display.lastAffectedChannel == B)
     {
         DrawDataChannel(DS_GetLimitation(A, 0), A, gDSet, GRID_TOP, GridChannelBottom());
@@ -161,7 +161,7 @@ void DrawDataMinMax(void)
         DrawDataChannel(DS_GetLimitation(A, 0), A, gDSet, GRID_TOP, GridChannelBottom());
         DrawDataChannel(DS_GetLimitation(A, 1), A, gDSet, GRID_TOP, GridChannelBottom());
     }
-    set.display.modeDrawSignal = modeDrawSignalOld;
+    MODE_DRAW_SIGNAL = modeDrawSignalOld;
 }
 
 
@@ -286,7 +286,7 @@ void DrawDataChannel(uint8 *dataIn, Channel ch, DataSettings *ds, int minY, int 
 
     if (!DataBeyondTheBorders(dataIn, firstPoint, lastPoint))   // Если сигнал не выходит за пределы экрана
     {
-        if (set.display.modeDrawSignal == ModeDrawSignal_Lines)
+        if (MODE_DRAW_SIGNAL_LINES)
         {
             DrawSignalLined(dataIn, ds, firstPoint, lastPoint, minY, maxY, scaleY, scaleX, calculateFiltr);
         }

@@ -69,9 +69,9 @@ static void Process_MAPPING(uint8 *buffer)
         {0}
     };
     ENTER_ANALYSIS
-        if (1 == value)         { set.display.modeDrawSignal = ModeDrawSignal_Points; } 
-        else if (2 == value)    { set.display.modeDrawSignal = ModeDrawSignal_Lines; } 
-        else if (3 == value)    { SCPI_SEND(":DISPLAY:MAPPING %s", ModeDrawSignal_Lines == set.display.modeDrawSignal ? "LINES" : "POINTS"); }
+        if (1 == value)         { MODE_DRAW_SIGNAL = ModeDrawSignal_Points; } 
+        else if (2 == value)    { MODE_DRAW_SIGNAL = ModeDrawSignal_Lines; } 
+        else if (3 == value)    { SCPI_SEND(":DISPLAY:MAPPING %s", MODE_DRAW_SIGNAL_LINES ? "LINES" : "POINTS"); }
     LEAVE_ANALYSIS
 }
 

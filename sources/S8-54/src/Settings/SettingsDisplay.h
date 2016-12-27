@@ -12,6 +12,9 @@
 #define SHIFT_IN_MEMORY         (set.display.shiftInMemory)
 #define TIME_MESSAGES           (set.display.timeMessages)
 #define COLOR(x)                (set.display.colors[x])
+#define MODE_DRAW_SIGNAL        (set.display.modeDrawSignal)
+#define MODE_DRAW_SIGNAL_LINES  (MODE_DRAW_SIGNAL == ModeDrawSignal_Lines)
+#define MODE_DRAW_SIGNAL_POINTS (MODE_DRAW_SIGNAL == ModeDrawSignal_Points)
 
 
 int     sDisplay_NumSignalsInS(void);                       // ¬озвращает ограничение частоты кадров.
