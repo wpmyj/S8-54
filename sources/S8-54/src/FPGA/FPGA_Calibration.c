@@ -254,9 +254,9 @@ float CalculateStretchADC(Channel ch)
 void AlignmentADC(void)
 {
     cal->shiftADCA = (cal->deltaADCold[0] > 0) ? (int8)(cal->deltaADCold[0] + 0.5f) : (int8)(cal->deltaADCold[0] - 0.5f);
-    set.chan[A].balanceShiftADC = cal->shiftADCA;
+    BALANCE_ADC_A = cal->shiftADCA;
     cal->shiftADCB = (cal->deltaADCold[1] > 0) ? (int8)(cal->deltaADCold[1] + 0.5f) : (int8)(cal->deltaADCold[1] - 0.5f);
-    set.chan[B].balanceShiftADC = cal->shiftADCB;
+    BALANCE_ADC_B = cal->shiftADCB;
 }
 
 
@@ -290,7 +290,7 @@ void DrawParametersChannel(Channel ch, int eX, int eY, bool inProgress)
         sprintf(buffer, "Расхождение AЦП = %.2f/%.2f %%", cal->deltaADCPercentsOld[ch], cal->deltaADCPercents[ch]);
         Painter_DrawText(x, y + 11, buffer);
         buffer[0] = 0;
-        sprintf(buffer, "Записано %d", set.chan[ch].balanceShiftADC);
+        sprintf(buffer, "Записано %d", BALANCE_ADC(ch));
         Painter_DrawText(x, y + 19, buffer);
     }
 }
@@ -667,8 +667,8 @@ void FPGA_ProcedureCalibration(void)
     
     RestoreSettings(&storedSettings);
     
-    set.chan[A].balanceShiftADC = cal->shiftADCA;
-    set.chan[B].balanceShiftADC = cal->shiftADCB;
+    BALANCE_ADC_A = cal->shiftADCA;
+    BALANCE_ADC_B = cal->shiftADCB;
     
     FPGA_SetRShift(A, RSHIFT_A);
     FPGA_SetRShift(B, RSHIFT_B);

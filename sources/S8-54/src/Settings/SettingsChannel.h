@@ -36,6 +36,10 @@
 #define ENABLE_A            (ENABLE(A))
 #define ENABLE_B            (ENABLE(B))
 
+#define BALANCE_ADC(ch)     (set.chan[ch].balanceShiftADC)
+#define BALANCE_ADC_A       (BALANCE_ADC(A))
+#define BALANCE_ADC_B       (BALANCE_ADC(B))
+
 
 void    sChannel_SetRange(Channel ch, Range range);           // Установить масштаб по напряжению канала ch.
 int     sChannel_MultiplierRel2Abs(Divider divider);

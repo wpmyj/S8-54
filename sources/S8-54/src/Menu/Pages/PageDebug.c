@@ -502,8 +502,8 @@ static void OnDraw_ADC_Balance_Mode(int x, int y)
 #else
     int8 shift[2][3] =
     {
-        {0, set.chan[A].balanceShiftADC, (int8)set.nr.balanceADC[0]},
-        {0, set.chan[B].balanceShiftADC, (int8)set.nr.balanceADC[1]}
+        {0, BALANCE_ADC_A, (int8)set.nr.balanceADC[0]},
+        {0, BALANCE_ADC_B, (int8)set.nr.balanceADC[1]}
     };
 #endif
 
