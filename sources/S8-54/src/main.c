@@ -117,7 +117,7 @@ void ProcessingSignal(void)
     sDisplay_PointsOnDisplay(&first, &last);
     if (WORK_DIRECT)
     {
-        if (sTime_P2PModeEnabled() &&                   // Ќаходимс€ в режиме поточечного вывода
+        if (IN_P2P_MODE &&                   // Ќаходимс€ в режиме поточечного вывода
             set.trig.startMode == StartMode_Wait &&     // в режиме ждущей синхронизации
             DS_NumElementsWithCurrentSettings() > 1     // и в хранилище уже есть считанные сигналы с такими настройками
             )
@@ -129,7 +129,7 @@ void ProcessingSignal(void)
             DS_GetDataFromEnd_RAM(0, &gDSet, (uint16**)&gDataA, (uint16**)&gDataB);
         }
 
-        if (sDisplay_NumAverage() != 1 || sTime_RandomizeModeEnabled())
+        if (sDisplay_NumAverage() != 1 || IN_RANDOM_MODE)
         {
             ModeFSMC mode = FSMC_GetMode();
             FSMC_SetMode(ModeFSMC_RAM);

@@ -25,6 +25,8 @@
 #define __va_list va_list
 #define vsprintf(buf, form, ...) vsprintf_s(buf, 10, form, __VA_ARGS__)
 #define sprintf(buf, form, ...) sprintf_s(buf, 10, form, __VA_ARGS__)
+#define memset(x, y, z)
+#define memcpy(x, y, z)
 #endif
 
 #endif

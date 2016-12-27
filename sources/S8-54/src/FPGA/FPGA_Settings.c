@@ -1,16 +1,12 @@
 #include "FPGA/FPGA_Types.h"
 #include "FPGA/FPGA.h"
 #include "Log.h"
-
 #include "Display/Display.h"
-
 #include "Hardware/Hardware.h"
 #include "Hardware/FSMC.h"
 #include "Hardware/Timer.h"
 #include "Panel/Panel.h"
-
 #include "Settings/Settings.h"
-
 #include "Utils/GlobalFunctions.h"
 #include "Utils/Math.h"
 
@@ -160,7 +156,7 @@ void LoadTShift(void)
 
     gPost = (uint16)tShift;
 
-    if(sTime_RandomizeModeEnabled())
+    if(IN_RANDOM_MODE)
     {
         extern const int Kr[];
         int k = 0;
@@ -421,7 +417,7 @@ void LoadTrigPolarity(void)
 void LoadRegUPR(void)
 {
     uint16 data = 0;
-    if(sTime_RandomizeModeEnabled())
+    if(IN_RANDOM_MODE)
     {
         SetBit(data, 0);
     }

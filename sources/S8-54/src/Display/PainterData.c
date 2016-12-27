@@ -117,7 +117,7 @@ void DrawDataInModeNormal(void)
     if (numSignals == 1 ||                                          // ¬ хранилище только один сигнал с текущими настройками
         set.display.numAccumulation == NumAccumulation_Infinity ||  // или бесконечное накопление
         set.display.modeAccumulation == ModeAccumulation_Reset ||   // или автоматическа€ очистка экрана дл€ накоплени€
-        sTime_RandomizeModeEnabled())                               // или в режиме рандомизатора
+        IN_RANDOM_MODE)                               // или в режиме рандомизатора
     {
         DrawBothChannels(0, 0);                                     // когда 0, просто рисуем последний сигнал
     }
@@ -238,13 +238,13 @@ void DrawDataChannel(uint8 *dataIn, Channel ch, DataSettings *ds, int minY, int 
     int firstPoint = 0;
     int lastPoint = 280;
 
-    if (!sTime_P2PModeEnabled() ||                          // ≈сли не находимс€ в режиме медленных поточечных развЄрток
-        (sTime_P2PModeEnabled() && ds->time.timeMS))        // »ли в поточечном, но данные уже считаны
+    if (!IN_P2P_MODE ||                          // ≈сли не находимс€ в режиме медленных поточечных развЄрток
+        (IN_P2P_MODE && ds->time.timeMS))        // »ли в поточечном, но данные уже считаны
     {
         sDisplay_PointsOnDisplay(&firstPoint, &lastPoint);  // то находим первую и последнюю точки, выводимые на экран
     }
     
-    if (sTime_P2PModeEnabled() &&                           // ≈сли находимс€ в режиме медленных поточечных развЄрток
+    if (IN_P2P_MODE &&                           // ≈сли находимс€ в режиме медленных поточечных развЄрток
         ds->time.timeMS == 0)                               // и считывание полного набора данных ещЄ не произошло
     {
         lastPoint = FillDataP2P(data, ch, &ds);           
@@ -361,11 +361,8 @@ static int FillDataP2PforNormal(int numPoints, int numPointsDS, int pointsInScre
 
     if (numPoints > pointsInScreen)
     {
+#ifndef _MS_VS
         int numScreens = numPoints / pointsInScreen;                                                        // „исло полных нарисованных экранов.
-
-#ifdef _MS_VS
-        uint8 dataTemp[10];
-#else
         uint8 dataTemp[pointsInScreen];
 #endif
 

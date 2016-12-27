@@ -536,7 +536,7 @@ static void InitHardware(void)
 static bool NeedForClearScreen(void)
 {
     int numAccum = DISPLAY_NUM_ACCUM;
-    if(sTime_RandomizeModeEnabled() || numAccum == 1 || set.display.modeAccumulation == ModeAccumulation_NoReset || set.service.recorder)
+    if(IN_RANDOM_MODE || numAccum == 1 || set.display.modeAccumulation == ModeAccumulation_NoReset || set.service.recorder)
     {
         return true;
     }

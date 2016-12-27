@@ -7,7 +7,7 @@
 #include "Log.h"
 #include "Display/Display.h"
 #include "Utils/GlobalFunctions.h"
-#include "Utils/Math.h"
+#include "Utils/Math.h" 
 #include "Hardware/FSMC.h"
 #include "Display/Grid.h"
 
@@ -66,7 +66,7 @@ static const Choice mcTimeSample =
 
 static bool FuncTimeSampleActive(void)
 {
-    return sTime_RandomizeModeEnabled() && set.trig.startMode != StartMode_Single;
+    return IN_RANDOM_MODE && set.trig.startMode != StartMode_Single;
 }
 
 //---------------------------------------------------------------------------------------------------------------------------------------------------

@@ -15,7 +15,7 @@ void sDisplay_SetNumSignalsInS(int numSignalsInS)
 {
     set.display.numSignalsInSec = Tables_NumSignalsInSecToENUM(numSignalsInS);
 }
-
+ 
 
 //------------------------------------------------------------------------------------------------------------------------------------------------------
 int sDisplay_NumPointSmoothing(void)
@@ -31,7 +31,7 @@ int sDisplay_NumPointSmoothing(void)
         retValue = set.display.smoothing + 1;
     }
 
-    if (sTime_RandomizeModeEnabled())
+    if (IN_RANDOM_MODE)
     {
         int numRand = 0;
         if (set.nr.numSmoothForRand > 1)
@@ -110,7 +110,7 @@ void sDisplay_SetBrightness(int16 brightness)
 //---------------------------------------------------------------------------------------------------------------------------------------------------
 ModeAveraging sDisplay_GetModeAveraging(void)
 {
-    if (sTime_RandomizeModeEnabled())
+    if (IN_RANDOM_MODE)
     {
         return Averaging_Accurately;
     }

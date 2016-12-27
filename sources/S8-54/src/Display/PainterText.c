@@ -9,6 +9,8 @@
 
 
 #include <stdarg.h>
+#include <string.h>
+
 
 #ifdef _MS_VS
 #define __va_list va_list

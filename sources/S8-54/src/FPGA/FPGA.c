@@ -13,7 +13,7 @@
 #include "Menu/Pages/PageMemory.h"
 #include "Panel/Panel.h"
 #include "Panel/Controls.h"
-#include "Settings/Settings.h"  
+#include "Settings/Settings.h"
 #include "Utils/Math.h"
 #include "Utils/ProcessingSignal.h"
 #include "Utils/GlobalFunctions.h"
@@ -230,7 +230,7 @@ void FPGA_Start(void)
     timeStart = gTimerMS;
     gBF.FPGAcritiacalSituation = 0;
 
-    if (!sTime_P2PModeEnabled())
+    if (!IN_P2P_MODE)
     {
         HAL_NVIC_DisableIRQ(EXTI2_IRQn);    // Выключаем чтение одиночной точки
     }
@@ -359,7 +359,7 @@ static int CalculateShift(void)            // WARN Не забыть восстановить функци
         LOG_WRITE("rand = %d, ворота %d - %d", (int)adcValueFPGA, min, max);
     }
 
-    if (sTime_RandomizeModeEnabled())
+    if (IN_RANDOM_MODE)
     {
         float tin = (float)(adcValueFPGA - min) / (max - min) * 10e-9f;
         int retValue = (int)(tin / 10e-9f * Kr[TBASE]);
@@ -650,7 +650,7 @@ static void DataReadSave(bool necessaryShift, bool first, bool saveToStorage, bo
     uint8 *dataB = malloc(FPGA_MAX_POINTS);
 
     gBF.FPGAinProcessingOfRead = 1;
-    if (sTime_RandomizeModeEnabled())
+    if (IN_RANDOM_MODE)
     {
         ReadRandomizeModeSave(first, saveToStorage, onlySave);
     }
@@ -662,7 +662,7 @@ static void DataReadSave(bool necessaryShift, bool first, bool saveToStorage, bo
     RAM_MemCpy16(RAM(FPGA_DATA_A), dataA, sMemory_NumBytesInChannel(false));
     RAM_MemCpy16(RAM(FPGA_DATA_B), dataB, sMemory_NumBytesInChannel(false));
 
-    if (!sTime_RandomizeModeEnabled())
+    if (!IN_RANDOM_MODE)
     {
         InverseDataIsNecessary(A, dataA);
         InverseDataIsNecessary(B, dataB);
@@ -693,7 +693,7 @@ bool ProcessingData(void)
 
     static const int numRead[] = {100, 50, 20, 10, 5};
 
-    int num = sTime_RandomizeModeEnabled() ? numRead[TBASE] / 2 : 1;
+    int num = IN_RANDOM_MODE ? numRead[TBASE] / 2 : 1;
 
     if (num > 1)
     {
@@ -746,7 +746,7 @@ bool ProcessingData(void)
                 retValue = true;
                 if (set.trig.startMode != StartMode_Single)
                 {
-                    if(sTime_P2PModeEnabled() && set.trig.startMode == StartMode_Auto)  // Если находимся в режиме поточечного вывода при автоматической синхронизации
+                    if(IN_P2P_MODE && set.trig.startMode == StartMode_Auto)  // Если находимся в режиме поточечного вывода при автоматической синхронизации
                     {
                         Timer_SetAndStartOnce(kTimerStartP2P, FPGA_Start, 1000);                 // то откладываем следующий запуск, чтобы зафиксировать сигнал на экране
                     }
@@ -765,7 +765,7 @@ bool ProcessingData(void)
         {
             if (gTimerMS - timeCompletePredTrig > TSHIFT_2_ABS(2, TBASE) * 1000)  // Если прошло больше времени, чем помещается в десяти клетках
             {
-                if (sTime_P2PModeEnabled())
+                if (IN_P2P_MODE)
                 {
                     Panel_EnableLEDTrig(false);     // В поточечном режиме просто тушим лампочку синхронизации
                 }
@@ -783,7 +783,7 @@ bool ProcessingData(void)
             break;
         }
 
-        if (gBF.panelControlReceive && sTime_RandomizeModeEnabled())
+        if (gBF.panelControlReceive && IN_RANDOM_MODE)
         {
             DataReadSave(false, false, true, true);
             retValue = true;
@@ -1098,7 +1098,7 @@ void FPGA_OnPressStartStop(void)
         return;
     }
 
-    if (sTime_P2PModeEnabled())
+    if (IN_P2P_MODE)
     {
         if (Timer_IsRun(kTimerStartP2P))                // Если находимся в режиме поточечного вывода и в данный момент пауза после считывания очередного полного сигнала
         {
