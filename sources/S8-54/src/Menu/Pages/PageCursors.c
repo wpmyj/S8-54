@@ -653,28 +653,26 @@ static void IncCursCntrlT(Channel ch)
 void CursorsUpdate(void)
 {
     Channel source = CURS_SOURCE;
-    CursLookMode lookMode0 = set.cursors.lookMode[0];
-    CursLookMode lookMode1 = set.cursors.lookMode[1];
 
     float posT0 = 0.0f, posT1 = 0.0f;
 
-    if((lookMode0 == CursLookMode_Voltage || lookMode0 == CursLookMode_Both) && CURS_ACTIVE_T)
+    if(CURS_ACTIVE_T && (CURS_LOOK_U(0) || CURS_LOOK_BOTH(0)))
     {
         float posU0 = Processing_GetCursU(source, CURsT_POS(source, 0));
         SetCursPosU(source, 0, posU0);
     }
-    if((lookMode1 == CursLookMode_Voltage || lookMode1 == CursLookMode_Both)  && CURS_ACTIVE_T)
+    if(CURS_ACTIVE_T && (CURS_LOOK_U(1) || CURS_LOOK_BOTH(1)))
     {
         float posU1 = Processing_GetCursU(source, CURsT_POS(source, 1));
         SetCursPosU(source, 1, posU1);
     }
-    if((lookMode0 == CursLookMode_Time || lookMode0 == CursLookMode_Both) && CURS_ACTIVE_U)
+    if(CURS_ACTIVE_U && (CURS_LOOK_T(0) || CURS_LOOK_BOTH(0)))
     {
         float posU0 = CURsU_POS(source, 0);
         posT0 = Processing_GetCursT(source, posU0, 0);
         SetCursPosT(source, 0, posT0);
     }
-    if((lookMode1 == CursLookMode_Time || lookMode1 == CursLookMode_Both) && CURS_ACTIVE_U)
+    if(CURS_ACTIVE_U && (CURS_LOOK_T(1) || CURS_LOOK_BOTH(1)))
     {
         float posU1 = CURsU_POS(source, 1);
         posT1 = Processing_GetCursT(source, posU1, 1);

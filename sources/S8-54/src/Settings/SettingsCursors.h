@@ -33,6 +33,10 @@
 #define CURS_ACTIVE_U       (CURS_ACTIVE == CursActive_U)
 #define CURS_ACTIVE_T       (CURS_ACTIVE == CursActive_T)
 
+#define CURS_LOOK_U(numCur) (set.cursors.lookMode[numCur] == CursLookMode_Voltage)
+#define CURS_LOOK_T(numCur) (set.cursors.lookMode[numCur] == CursLookMode_Time)
+#define CURS_LOOK_BOTH(numCur) (set.cursors.lookMode[numCur] == CursLookMode_Both)
+
 
 float       sCursors_GetCursPosU(Channel ch, int numCur);                         // ѕолучить позицию курсора напр€жени€.
 bool        sCursors_NecessaryDrawCursors(void);                                    // ¬озвращает true,если нужно рисовать курсоры.
