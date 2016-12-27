@@ -249,12 +249,12 @@ static void Process_GRID(uint8 *buffer)
     }
 
     ENTER_ANALYSIS
-        if (value < 4) { set.display.typeGrid = (TypeGrid)value; }
+        if (value < 4) { TYPE_GRID = (TypeGrid)value; }
         else if (4 == value)
         {
             extern ColorType colorTypeGrid;
             Color_Init(&colorTypeGrid, false);
-            SCPI_SEND(":DISPLAY:GRID %s %d", map[set.display.typeGrid].key, (int)(colorTypeGrid.brightness * 100.0f));
+            SCPI_SEND(":DISPLAY:GRID %s %d", map[TYPE_GRID].key, (int)(colorTypeGrid.brightness * 100.0f));
         }
     LEAVE_ANALYSIS
 }

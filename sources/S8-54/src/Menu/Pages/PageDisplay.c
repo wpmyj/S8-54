@@ -405,7 +405,7 @@ static const Choice mcGrid_Type =
         {"Òèï 3", "Type 3"},
         {"Òèï 4", "Type 4"}
     },
-    (int8*)&set.display.typeGrid, EmptyFuncVB, EmptyFuncVII
+    (int8*)&TYPE_GRID, EmptyFuncVB, EmptyFuncVII
 };
 
 // ÄÈÑÏËÅÉ -> ÑÅÒÊÀ -> ßðêîñòü -------------------------------------------------------------------------------------------------------------------------------------------------

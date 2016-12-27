@@ -15,6 +15,11 @@
 #define MODE_DRAW_SIGNAL        (set.display.modeDrawSignal)
 #define MODE_DRAW_SIGNAL_LINES  (MODE_DRAW_SIGNAL == ModeDrawSignal_Lines)
 #define MODE_DRAW_SIGNAL_POINTS (MODE_DRAW_SIGNAL == ModeDrawSignal_Points)
+#define TYPE_GRID               (set.display.typeGrid)
+#define TYPE_GRID_1             (TYPE_GRID == TypeGrid_1)
+#define TYPE_GRID_2             (TYPE_GRID == TypeGrid_2)
+#define TYPE_GRID_3             (TYPE_GRID == TypeGrid_3)
+#define TYPE_GRID_4             (TYPE_GRID == TypeGrid_4)
 
 
 int     sDisplay_NumSignalsInS(void);                       // ¬озвращает ограничение частоты кадров.

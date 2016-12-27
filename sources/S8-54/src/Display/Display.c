@@ -1394,15 +1394,15 @@ static void DrawGrid(int left, int top, int width, int height)
     float centerY = (float)(top + height / 2);
 
     Painter_SetColor(gColorGrid);
-    if(TypeGrid_1 == set.display.typeGrid)
+    if(TYPE_GRID_1)
     {
         DrawGridType1(left, top, right, bottom, centerX, centerY, deltaX, deltaY, stepX, stepY);
     }
-    else if(TypeGrid_2 == set.display.typeGrid)
+    else if(TYPE_GRID_2)
     {
         DrawGridType2(left, top, right, bottom, (int)deltaX, (int)deltaY, (int)stepX, (int)stepY);
     }
-    else if(TypeGrid_3 == set.display.typeGrid)
+    else if(TYPE_GRID_3)
     {
         DrawGridType3(left, top, right, bottom, (int)centerX, (int)centerY, (int)deltaX, (int)deltaY, (int)stepX);
     }
