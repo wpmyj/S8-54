@@ -851,7 +851,7 @@ static const Choice mcDrive_Name =
         {"По маске",    "Mask"},
         {"Вручную",     "Manually"}
     },
-    (int8*)&set.memory.fileNamingMode, EmptyFuncVB, EmptyFuncVII
+    (int8*)&FILE_NAMING_MODE, EmptyFuncVB, EmptyFuncVII
 };
 
 
@@ -1069,7 +1069,7 @@ static const Page mspSetMask =
 
 static bool IsActiveMemoryExtSetMask(void)
 {
-    return set.memory.fileNamingMode == FileNamingMode_Mask;
+    return FILE_NAMING_MODE_MASK;
 }
 
 static void OnPressMemoryExtMask(void)
@@ -1698,7 +1698,7 @@ void Memory_SaveSignalToFlashDrive(void)
 {
     if (gFlashDriveIsConnected)
     {
-        if (set.memory.fileNamingMode == FileNamingMode_Manually)
+        if (FILE_NAMING_MODE_MANUAL)
         {
             OpenPageAndSetItCurrent(Page_SB_MemExtSetName);
             Display_SetAddDrawFunction(DrawSetName);

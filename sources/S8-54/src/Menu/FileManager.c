@@ -345,7 +345,7 @@ bool FM_GetNameForNewFile(char name[255])
         return false;
     }
 
-    if (set.memory.fileNamingMode == FileNamingMode_Manually)
+    if (FILE_NAMING_MODE_MANUAL)
     {
         LIMITATION(size, size, 1, 95);
         strcat(name, set.memory.fileName);
