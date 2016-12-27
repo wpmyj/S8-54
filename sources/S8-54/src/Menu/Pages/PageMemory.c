@@ -225,7 +225,7 @@ void OnChange_MemoryLength(bool active)
     }
 
     // Блокируем включение 32к длины записи, если включен второй канал
-    if (set.memory.fpgaNumPoints == FNP_32k && set.chan[B].enable)
+    if (set.memory.fpgaNumPoints == FNP_32k && ENABLE_B)
     {
         Display_ShowWarning(DisableChannel2);
         set.memory.fpgaNumPoints = FNP_16k;

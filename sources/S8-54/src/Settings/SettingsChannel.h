@@ -27,10 +27,14 @@
 #define START_MODE_SINGLE   (START_MODE == StartMode_Single)
 
 #define DIVIDER(ch)         (set.chan[ch].divider)
-#define DIVIDER_A           (set.chan[A].divider)
-#define DIVIDER_B           (set.chan[B].divider)
+#define DIVIDER_A           (DIVIDER(A))
+#define DIVIDER_B           (DIVIDER(B))
 #define DIVIDER_10(ch)      (DIVIDER(ch) == Multiplier_10)
 #define DIVIDER_1(ch)       (DIVIDER(ch) == Multiplier_1)
+
+#define ENABLE(ch)          (set.chan[ch].enable)
+#define ENABLE_A            (ENABLE(A))
+#define ENABLE_B            (ENABLE(B))
 
 
 void    sChannel_SetRange(Channel ch, Range range);           // Установить масштаб по напряжению канала ch.

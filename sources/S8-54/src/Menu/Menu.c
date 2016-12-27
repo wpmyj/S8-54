@@ -440,13 +440,13 @@ static void ProcessingShortPressureButton(void)
                 NamePage name = GetNamePage(OpenedItem());
                 if(button == B_ChannelA && name == Page_ChannelA && MENU_IS_SHOWN)
                 {
-                    set.chan[A].enable = !set.chan[A].enable;
+                    ENABLE_A = !ENABLE_A;
                     OnChange_ChanA_Input(true);
                     break;
                 }
                 if(button == B_ChannelB && name == Page_ChannelB && MENU_IS_SHOWN)
                 {
-                    set.chan[B].enable = !set.chan[B].enable;
+                    ENABLE_B = !ENABLE_B;
                     OnChange_ChanB_Input(true);
                     break;
                 }

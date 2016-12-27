@@ -56,7 +56,7 @@ bool sChannel_Enabled(Channel ch)
     {
         return true;
     }
-    return set.chan[ch].enable;
+    return ENABLE(ch);
 }
 
 

@@ -996,7 +996,7 @@ static bool FindWave(Channel ch)
     Settings settings = set;    // Сохраняем предыдущие настройки
 
     FPGA_SetTBase(TBase_20ms);
-    set.chan[ch].enable = true;
+    ENABLE(ch) = true;
     FPGA_SetTrigSource((TrigSource)ch);
     FPGA_SetTrigLev((TrigSource)ch, TrigLevZero);
     FPGA_SetRShift(ch, RShiftZero);

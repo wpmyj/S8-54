@@ -93,7 +93,7 @@ static bool IsActiveChoiceTimePicDeat(void)
         return false;
     }
 
-    if (set.memory.fpgaNumPoints == FNP_16k && set.chan[B].enable) // При 16к точках на канал мы можем работать только с одним каналом
+    if (set.memory.fpgaNumPoints == FNP_16k && ENABLE_B) // При 16к точках на канал мы можем работать только с одним каналом
     {
         return false;
     }
@@ -115,7 +115,7 @@ void OnPeacDetChanged(bool active)
         {
             Display_ShowWarning(NoPeakDet32k);
         }
-        else if (set.memory.fpgaNumPoints == FNP_16k && set.chan[B].enable)
+        else if (set.memory.fpgaNumPoints == FNP_16k && ENABLE_B)
         {
             Display_ShowWarning(NoPeakDet16k);
         }

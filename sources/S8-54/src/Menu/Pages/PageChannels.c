@@ -109,7 +109,7 @@ static const Choice mcChanA_Input =
         {DISABLE_RU, DISABLE_EN},
         {ENABLE_RU, ENABLE_EN}
     },
-    (int8*)&set.chan[A].enable, OnChange_ChanA_Input, EmptyFuncVII
+    (int8*)&ENABLE_A, OnChange_ChanA_Input, EmptyFuncVII
 };
 
 void OnChange_ChanA_Input(bool active)
@@ -278,7 +278,7 @@ static const Choice mcChanB_Input =
         {DISABLE_RU, DISABLE_EN},
         {ENABLE_RU, ENABLE_EN}
     },
-    (int8*)&set.chan[B].enable, OnChange_ChanB_Input, EmptyFuncVII
+    (int8*)&ENABLE_B, OnChange_ChanB_Input, EmptyFuncVII
 };
 
 static bool IsActive_ChanB_Input(void)
@@ -295,9 +295,9 @@ void OnChange_ChanB_Input(bool active)
         return;
     }
 
-    if (set.memory.fpgaNumPoints == FNP_32k && set.chan[B].enable)
+    if (set.memory.fpgaNumPoints == FNP_32k && ENABLE_B)
     {
-        set.chan[B].enable = false;
+        ENABLE_B = false;
     }
     Panel_EnableLEDChannelB(sChannel_Enabled(B));
 }

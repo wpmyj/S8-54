@@ -619,7 +619,7 @@ void FPGA_ProcedureCalibration(void)
     bool chanAenable = sChannel_Enabled(A);
     bool chanBenable = sChannel_Enabled(B);
 
-    set.chan[A].enable = set.chan[B].enable = true;
+    ENABLE_A = ENABLE_B = true;
     
     Display_SetDrawMode(DrawMode_Hand, FuncAttScreen);
     Timer_SetAndEnable(kTimerDrawHandFunction, OnTimerDraw, 100);
@@ -684,8 +684,8 @@ void FPGA_ProcedureCalibration(void)
     Timer_Disable(kTimerDrawHandFunction);
     Display_SetDrawMode(DrawMode_Auto, 0);
     
-    set.chan[A].enable = chanAenable;
-    set.chan[B].enable = chanBenable;
+    ENABLE_A = chanAenable;
+    ENABLE_B = chanBenable;
     
     DeleteCalibrationStruct();
     

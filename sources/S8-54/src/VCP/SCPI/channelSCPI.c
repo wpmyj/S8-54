@@ -55,8 +55,8 @@ void Process_INPUT(uint8 *buffer)
         {0}
     };
     ENTER_ANALYSIS
-        if (0 == value)         { set.chan[ch].enable = true; }
-        else if (1 == value)    { set.chan[ch].enable = false; }
+        if (0 == value)         { ENABLE(ch) = true; }
+        else if (1 == value)    { ENABLE(ch) = false; }
         else if (2 == value)
         {
             SCPI_SEND(":CHANNEL%d:INPUT %s", Tables_GetNumChannel(ch), sChannel_Enabled(ch) ? "ON" : "OFF");
