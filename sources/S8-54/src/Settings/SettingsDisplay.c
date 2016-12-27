@@ -62,7 +62,7 @@ int sDisplay_NumAverage(void)
 //------------------------------------------------------------------------------------------------------------------------------------------------------
 void sDisplay_PointsOnDisplay(int *firstPoint, int *lastPoint)
 {
-    *firstPoint = set.display.shiftInMemory;
+    *firstPoint = SHIFT_IN_MEMORY;
     if (PEACKDET_EN)
     {
         *firstPoint /= 2;
@@ -76,9 +76,9 @@ int sDisplay_ShiftInMemoryInPoints(void)
 {
     if (PEACKDET_DIS)
     {
-        return set.display.shiftInMemory;
+        return SHIFT_IN_MEMORY;
     }
-    return set.display.shiftInMemory / 2;
+    return SHIFT_IN_MEMORY / 2;
 }
 
 

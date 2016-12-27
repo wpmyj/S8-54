@@ -236,7 +236,7 @@ void OnChange_MemoryLength(bool active)
     FPGA_Reset();
     if (sMemory_NumBytesInChannel(false) == 281)
     {
-        set.display.shiftInMemory = 0;
+        SHIFT_IN_MEMORY = 0;
     }
     else
     {
@@ -246,21 +246,21 @@ void OnChange_MemoryLength(bool active)
         }
         if (set.time.tPos == TPos_Left)
         {
-            set.display.shiftInMemory = 0;
+            SHIFT_IN_MEMORY = 0;
         }
         else if (set.time.tPos == TPos_Center)
         {
-            set.display.shiftInMemory = (int16)(sMemory_NumBytesInChannel(false) / 2 - width / 2);
+            SHIFT_IN_MEMORY = (int16)(sMemory_NumBytesInChannel(false) / 2 - width / 2);
         }
         else if (set.time.tPos == TPos_Right)
         {
-            set.display.shiftInMemory = (int16)(sMemory_NumBytesInChannel(false) - width - 2);
+            SHIFT_IN_MEMORY = (int16)(sMemory_NumBytesInChannel(false) - width - 2);
         }
     }
     FPGA_Reset();
     FPGA_SetTShift(TSHIFT);
     FPGA_Reset();
-    //LOG_WRITE("shift %d, num %d, width %d", set.display.shiftInMemory, sMemory_NumBytesInChannel(false), width);
+    //LOG_WRITE("shift %d, num %d, width %d", SHIFT_IN_MEMORY, sMemory_NumBytesInChannel(false), width);
 }
 
 // ПАМЯТЬ -> Последние ---------------------------------------------------------------------------------------------------------------------------------------------------------------

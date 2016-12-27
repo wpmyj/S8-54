@@ -643,8 +643,8 @@ float CalculateTimeNarastaniya(Channel ch)                    // WARN Здесь, воз
     {
         markerHor[ch][0] = (int)max09;
         markerHor[ch][1] = (int)min01;
-        markerVert[ch][0] = (int)((int16)firstIntersection - set.display.shiftInMemory);
-        markerVert[ch][1] = (int)((int16)secondIntersection - set.display.shiftInMemory);
+        markerVert[ch][0] = (int)((int16)firstIntersection - SHIFT_IN_MEMORY);
+        markerVert[ch][1] = (int)((int16)secondIntersection - SHIFT_IN_MEMORY);
     }
 
     return retValue;
@@ -681,8 +681,8 @@ float CalculateTimeSpada(Channel ch)                          // WARN Аналогично
     {
         markerHor[ch][0] = (int)max09;
         markerHor[ch][1] = (int)min01;
-        markerVert[ch][0] = (int)((int16)firstIntersection - set.display.shiftInMemory);
-        markerVert[ch][1] = (int)((int16)secondIntersection - set.display.shiftInMemory);
+        markerVert[ch][0] = (int)((int16)firstIntersection - SHIFT_IN_MEMORY);
+        markerVert[ch][1] = (int)((int16)secondIntersection - SHIFT_IN_MEMORY);
     }
 
     return retValue;

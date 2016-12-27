@@ -9,6 +9,7 @@
 #define SHOW_STRING_NAVI        (set.display.showStringNavigation)
 #define SHOW_STRING_NAVI_TEMP   (set.display.showStringNavigation == ShowStrNavi_Temp)
 #define SHOW_STRING_NAVI_ALL    (set.display.showStringNavigation == ShowStrNavi_All)
+#define SHIFT_IN_MEMORY         (set.display.shiftInMemory)
 
 
 int     sDisplay_NumSignalsInS(void);                       // ¬озвращает ограничение частоты кадров.

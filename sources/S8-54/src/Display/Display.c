@@ -410,7 +410,7 @@ void Display_ShiftScreen(int delta)
     {
         delta *= 2;
     }
-    int16 shift = set.display.shiftInMemory;
+    int16 shift = SHIFT_IN_MEMORY;
     shift += (int16)delta;
     int16 max = (int16)sMemory_NumBytesInChannel(false) - 282 * (PEACKDET_EN ? 2 : 1);
     if(shift < 0)
@@ -421,7 +421,7 @@ void Display_ShiftScreen(int delta)
     {
         shift = max;
     }
-    set.display.shiftInMemory = shift;
+    SHIFT_IN_MEMORY = shift;
 }
 
 
@@ -949,9 +949,9 @@ static void DrawMeasures(void)
 
     if(set.measures.zone == MeasuresZone_Hand)
     {
-        int x0 = set.measures.posCurT[0] - set.display.shiftInMemory + GridLeft();
+        int x0 = set.measures.posCurT[0] - SHIFT_IN_MEMORY + GridLeft();
         int y0 = set.measures.posCurU[0] + GRID_TOP;
-        int x1 = set.measures.posCurT[1] - set.display.shiftInMemory + GridLeft();
+        int x1 = set.measures.posCurT[1] - SHIFT_IN_MEMORY + GridLeft();
         int y1 = set.measures.posCurU[1] + GRID_TOP;
         SortInt(&x0, &x1);
         SortInt(&y0, &y1);
