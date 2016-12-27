@@ -49,7 +49,7 @@ extern uint16* AddressRead(Channel ch);
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 static bool IsCalibrateChannel(Channel ch)
 {
-    return set.chan[ch].calibrationMode != CalibrationMode_Disable;
+    return CALIBR_MODE(ch) != CalibrationMode_Disable;
 }
 
 static void OnTimerDraw(void)
@@ -179,7 +179,7 @@ float CalculateStretchADC(Channel ch)
 {
     FPGA_Write(RecordFPGA, WR_UPR, BINARY_U8(00000100), false);
 
-    FPGA_SetRange(ch, (set.chan[ch].calibrationMode == CalibrationMode_x1) ? Range_500mV : Range_50mV);
+    FPGA_SetRange(ch, (CALIBR_MODE(ch) == CalibrationMode_x1) ? Range_500mV : Range_50mV);
     FPGA_SetRShift(ch, RShiftZero - 2700 * 4);    // Смещаем сигнал на 4 клетки вниз
     FPGA_SetModeCouple(ch, ModeCouple_DC);
     FPGA_SetTrigSource((TrigSource)ch);
@@ -736,12 +736,12 @@ void FPGA_BalanceChannel(Channel ch)
 
     RestoreSettings(&storedSettings);
 
-    CalibrationMode mode = set.chan[ch].calibrationMode;
-    set.chan[ch].calibrationMode = CalibrationMode_x1;
+    CalibrationMode mode = CALIBR_MODE(ch);
+    CALIBR_MODE(ch) = CalibrationMode_x1;
 
     WriteAdditionRShifts(A);
     
-    set.chan[ch].calibrationMode = mode;
+    CALIBR_MODE(ch) = mode;
 
     Panel_Enable();
 

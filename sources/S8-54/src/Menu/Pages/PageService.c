@@ -335,7 +335,7 @@ static const Button mbCalibrator_Calibrate =
 
 static bool IsActive_Calibrator_Calibrate(void)
 {
-    return !(set.chan[A].calibrationMode == CalibrationMode_Disable && set.chan[B].calibrationMode == CalibrationMode_Disable);
+    return !(CALIBR_MODE_A == CalibrationMode_Disable && CALIBR_MODE_B == CalibrationMode_Disable);
 }
 
 static void OnPress_Calibrator_Calibrate(void)

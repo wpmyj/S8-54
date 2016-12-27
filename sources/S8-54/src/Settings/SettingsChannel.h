@@ -48,6 +48,10 @@
 #define RESISTANCE_A        (RESISTANCE(A))
 #define RESISTANCE_B        (RESISTANCE(B))
 
+#define CALIBR_MODE(ch)     (set.chan[ch].calibrationMode)
+#define CALIBR_MODE_A       (CALIBR_MODE(A))
+#define CALIBR_MODE_B       (CALIBR_MODE(B))
+
 
 void    sChannel_SetRange(Channel ch, Range range);           // Установить масштаб по напряжению канала ch.
 int     sChannel_MultiplierRel2Abs(Divider divider);
