@@ -174,10 +174,10 @@ void Process_TPOS(uint8 *buffer)
         {0}
     };
     ENTER_ANALYSIS
-        if (value < 3)      { set.time.tPos = (TPos)value; OnTPosChanged(true); }
+        if (value < 3)      { TPOS = (TPos)value; OnTPosChanged(true); }
         else if (4 == value)
         {
-            SCPI_SEND(":TBASE:TPOS %s", map[set.time.tPos].key);
+            SCPI_SEND(":TBASE:TPOS %s", map[TPOS].key);
         }
     LEAVE_ANALYSIS
 }
@@ -214,10 +214,10 @@ void Process_FUNCTIMEDIV(uint8 *buffer)
         {0}
     };
     ENTER_ANALYSIS
-        if (value < 2) { set.time.timeDivXPos = (FunctionTime)value; }
+        if (value < 2) { TIME_DIVXPOS = (FunctionTime)value; }
         else if (2 == value)
         {
-            SCPI_SEND(":TBASE:FUNCTIMEDIV %s", map[set.time.timeDivXPos].key);
+            SCPI_SEND(":TBASE:FUNCTIMEDIV %s", map[TIME_DIVXPOS].key);
         }
     LEAVE_ANALYSIS
 }

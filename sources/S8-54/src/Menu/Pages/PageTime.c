@@ -143,7 +143,7 @@ static const Choice mcTimeTPos =
         {"Центр", "Center"},
         {"Право", "Right"}
     },
-    (int8*)&set.time.tPos, OnTPosChanged, EmptyFuncVII
+    (int8*)&TPOS, OnTPosChanged, EmptyFuncVII
 };
 
 void OnTPosChanged(bool active)
@@ -170,5 +170,5 @@ static const Choice mcTimeDivRole =
         {"Время", "Time"},
         {"Память", "Memory"}
     },
-    (int8*)&set.time.timeDivXPos, EmptyFuncVB, EmptyFuncVII
+    (int8*)&TIME_DIVXPOS, EmptyFuncVB, EmptyFuncVII
 };

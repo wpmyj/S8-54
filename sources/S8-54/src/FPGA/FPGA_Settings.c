@@ -160,11 +160,11 @@ void LoadTShift(void)
     {
         extern const int Kr[];
         int k = 0;
-        if (set.time.tPos == TPos_Left)
+        if (TPOS_LEFT)
         {
             k = sMemory_NumPointsInChannel() % Kr[tBase];
         }
-        else if (set.time.tPos == TPos_Center)
+        else if (TPOS_CENTER)
         {
             k = (sMemory_NumPointsInChannel() / 2) % Kr[tBase];
         }

@@ -244,15 +244,15 @@ void OnChange_MemoryLength(bool active)
         {
             width *= 2;
         }
-        if (set.time.tPos == TPos_Left)
+        if (TPOS_LEFT)
         {
             SHIFT_IN_MEMORY = 0;
         }
-        else if (set.time.tPos == TPos_Center)
+        else if (TPOS_CENTER)
         {
             SHIFT_IN_MEMORY = (int16)(sMemory_NumBytesInChannel(false) / 2 - width / 2);
         }
-        else if (set.time.tPos == TPos_Right)
+        else if (TPOS_RIGHT)
         {
             SHIFT_IN_MEMORY = (int16)(sMemory_NumBytesInChannel(false) - width - 2);
         }

@@ -707,7 +707,7 @@ void PainterData_DrawMemoryWindow(void)
 static void DrawTPos(int leftX, int rightX)
 {
     int x[] = {leftX, (rightX - leftX) / 2 + leftX, rightX};
-    int x0 = x[set.time.tPos];
+    int x0 = x[TPOS];
     Painter_FillRegionC(x0 - 3, 9, 6, 6, gColorBack);
     Painter_DrawCharC(x0 - 3, 9, SYMBOL_TPOS_1, gColorFill);
 }
@@ -720,7 +720,7 @@ static void DrawTShift(int leftX, int rightX, int numBytes)
     int xShift = (int)(1.5f + (sTime_TPosInBytes() - sTime_TShiftInPoints()) * scale) - 1;
     if (PEACKDET_EN)
     {
-        if (set.time.tPos == TPos_Right)
+        if (TPOS_RIGHT)
         {
             --xShift;
         }
