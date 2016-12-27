@@ -1674,6 +1674,11 @@
               <FileType>5</FileType>
               <FilePath>.\src\Settings\SettingsTypes.h</FilePath>
             </File>
+            <File>
+              <FileName>SettingsMeasures.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\src\Settings\SettingsMeasures.h</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>

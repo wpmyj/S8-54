@@ -140,14 +140,14 @@ int BottomMessages(void)
 //---------------------------------------------------------------------------------------------------------------------------------------------------
 void CoordTrigLevel(int *left, int *top, int width)
 {
-    if (set.measures.show == false || set.measures.number < MN_6_1)
+    if (set.measures.show == false || NUM_MEASURES < MN_6_1)
     {
         *left = (GridWidth() - width) / 2 + GridLeft();
         *top = BottomMessages() - 20;
     }
     else
     {
-        *left = set.measures.number == MN_6_1 ? 100 : 130;
+        *left = NUM_MEASURES_6_1 ? 100 : 130;
         *top = GridFullBottom() - 32;
     }
 }

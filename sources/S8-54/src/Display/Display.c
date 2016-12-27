@@ -2094,15 +2094,15 @@ static int CalculateCountV(void)
 {
     if(set.measures.show && set.measures.modeViewSignals == ModeViewSignals_Compress)
     {
-        if(set.measures.number == MN_1_5)
+        if(NUM_MEASURES_1_5)
         {
             return set.measures.source == A_B ? 42 : 44;
         }
-        if(set.measures.number == MN_2_5)
+        if(NUM_MEASURES_2_5)
         {
             return set.measures.source == A_B ? 69 : 39;
         }
-        if(set.measures.number == MN_3_5)
+        if(NUM_MEASURES_3_5)
         {
             return set.measures.source == A_B ? 54 : 68;
         }
@@ -2117,11 +2117,11 @@ static int CalculateCountH(void)
 {
     if(set.measures.modeViewSignals == ModeViewSignals_Compress)
     {
-        if(set.measures.number == MN_6_1)
+        if(NUM_MEASURES_6_1)
         {
             return 73;
         }
-        if(set.measures.number == MN_6_2)
+        if(NUM_MEASURES_6_2)
         {
             return 83;
         }

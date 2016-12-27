@@ -115,7 +115,7 @@ Measure Measure_Type(int row, int col)
 //------------------------------------------------------------------------------------------------------------------------------------------------------
 int Measure_GetTopTable(void)
 {
-    if(set.measures.number == MN_6_1 || set.measures.number == MN_6_2)
+    if(NUM_MEASURES_6_1 || NUM_MEASURES_6_2)
     {
         return GRID_BOTTOM - Measure_GetDY() * 6;
     }
@@ -127,7 +127,7 @@ int Measure_GetTopTable(void)
 int Measure_NumCols(void)
 {
     const int cols[] = {1, 2, 5, 5, 5, 1, 2};
-    return cols[set.measures.number];
+    return cols[NUM_MEASURES];
 }
 
 
@@ -135,7 +135,7 @@ int Measure_NumCols(void)
 int Measure_NumRows(void)
 {
     int rows[] = {1, 1, 1, 2, 3, 6, 6};
-    return rows[set.measures.number];
+    return rows[NUM_MEASURES];
 }
 
 
@@ -144,11 +144,11 @@ int Measure_GetDeltaGridLeft(void)
 {
     if(set.measures.show && set.measures.modeViewSignals == ModeViewSignals_Compress)
     {
-        if(set.measures.number == MN_6_1)
+        if(NUM_MEASURES_6_1)
         {
             return Measure_GetDX();
         }
-        else if(set.measures.number == MN_6_2)
+        else if(NUM_MEASURES_6_2)
         {
             return Measure_GetDX() * 2;
         }
@@ -162,15 +162,15 @@ int Measure_GetDeltaGridBottom(void)
 {
     if(set.measures.show && set.measures.modeViewSignals == ModeViewSignals_Compress)
     {
-        if(set.measures.number == MN_1_5)
+        if(NUM_MEASURES_1_5)
         {
             return Measure_GetDY();
         }
-        else if(set.measures.number == MN_2_5)
+        else if(NUM_MEASURES_2_5)
         {
             return Measure_GetDY() * 2;
         }
-        else if(set.measures.number == MN_3_5)
+        else if(NUM_MEASURES_3_5)
         {
             return Measure_GetDY() * 3;
         }
@@ -200,12 +200,12 @@ void Measure_DrawPageChoice(void)
     {
         return;
     }
-    int x = (set.measures.number == MN_6_1 || set.measures.number == MN_6_2) ? (GridRight() - 3 * GRID_WIDTH / 5) : GridLeft();
+    int x = (NUM_MEASURES_6_1 || NUM_MEASURES_6_2) ? (GridRight() - 3 * GRID_WIDTH / 5) : GridLeft();
     int y = GRID_TOP;
     int dX = GRID_WIDTH / 5;
     int dY = 22;
-    int maxRow = (set.measures.number == MN_6_1 || set.measures.number == MN_6_2) ? 8 : 5;
-    int maxCol = (set.measures.number == MN_6_1 || set.measures.number == MN_6_2) ? 3 : 5;
+    int maxRow = (NUM_MEASURES_6_1 || NUM_MEASURES_6_2) ? 8 : 5;
+    int maxCol = (NUM_MEASURES_6_1 || NUM_MEASURES_6_2) ? 3 : 5;
     Measure meas = Measure_None;
     Painter_SetFont(TypeFont_UGO);
     for(int row = 0; row < maxRow; row++)

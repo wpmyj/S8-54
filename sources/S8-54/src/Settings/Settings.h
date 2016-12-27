@@ -13,6 +13,8 @@
 #include "SettingsService.h"
 #include "SettingsCursors.h"
 #include "SettingsDebug.h"
+#include "SettingsMeasures.h"
+
 
 #ifndef _MS_VS
 #pragma anon_unions     // Разрешаем безымянные определения

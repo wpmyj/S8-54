@@ -422,6 +422,7 @@
     <ClInclude Include="..\..\S8-54\src\Settings\SettingsCursors.h" />
     <ClInclude Include="..\..\S8-54\src\Settings\SettingsDebug.h" />
     <ClInclude Include="..\..\S8-54\src\Settings\SettingsDisplay.h" />
+    <ClInclude Include="..\..\S8-54\src\Settings\SettingsMeasures.h" />
     <ClInclude Include="..\..\S8-54\src\Settings\SettingsMemory.h" />
     <ClInclude Include="..\..\S8-54\src\Settings\SettingsService.h" />
     <ClInclude Include="..\..\S8-54\src\Settings\SettingsTime.h" />

@@ -839,6 +839,9 @@
     <ClInclude Include="..\..\S8-54\src\Settings\SettingsTrig.h">
       <Filter>Settings</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\S8-54\src\Settings\SettingsMeasures.h">
+      <Filter>Settings</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\S8-54\src\Display\font\font5.inc">

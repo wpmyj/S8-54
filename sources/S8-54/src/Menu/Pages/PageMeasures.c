@@ -218,7 +218,7 @@ static const Choice mcNumber =
         {"6x1", "6x1"},
         {"6x2", "6x2"}
     },
-    (int8*)&set.measures.number, EmptyFuncVB, EmptyFuncVII
+    (int8*)&NUM_MEASURES, EmptyFuncVB, EmptyFuncVII
 };
 
 static bool IsActive_Number(void)
