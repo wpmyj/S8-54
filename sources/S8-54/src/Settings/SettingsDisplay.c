@@ -50,12 +50,12 @@ int sDisplay_NumPointSmoothing(void)
 //---------------------------------------------------------------------------------------------------------------------------------------------------
 int sDisplay_NumAverage(void)
 {
-    if (set.debug.modeEMS && (set.display.numAveraging < NumAveraging_8))
+    if (set.debug.modeEMS && (NUM_AVE < NumAveraging_8))
     {
         return 8;
     }
 
-    return (1 << (int)set.display.numAveraging);
+    return (DISPLAY_NUM_AVE);
 }
 
 

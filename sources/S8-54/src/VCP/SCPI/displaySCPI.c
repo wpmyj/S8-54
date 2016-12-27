@@ -135,12 +135,12 @@ static void Process_AVERAGE(uint8 *buffer)
         {0}
     };
     ENTER_ANALYSIS
-        if (value <= 9) {set.display.numAveraging = (NumAveraging)value; }
+        if (value <= 9) {NUM_AVE = (NumAveraging)value; }
         else if (10 == value) { set.display.modeAveraging = Averaging_Accurately; }
         else if (11 == value) { set.display.modeAveraging = Averaging_Around; }
         else if (12 == value)
         {
-            SCPI_SEND(":DISPLAY:AVERAGE %s %s", map[set.display.numAveraging].key, map[set.display.modeAveraging + 10].key);
+            SCPI_SEND(":DISPLAY:AVERAGE %s %s", map[NUM_AVE].key, map[set.display.modeAveraging + 10].key);
         }
     LEAVE_ANALYSIS
 }

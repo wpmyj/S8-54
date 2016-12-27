@@ -4,7 +4,6 @@
 #include "Display/Colors.h"
 
 
-#define DISPLAY_NUM_ACCUM       (1 << (int)set.display.numAccumulation) /* Возвращает число накоплений */
 #define DISPLAY_NUM_MIN_MAX     (1 << (int)set.display.numMinMax)       /* Возвращает количество измерений сигналов для расчёта минимумов и максимумов. */
 #define SHOW_STRING_NAVI        (set.display.showStringNavigation)
 #define SHOW_STRING_NAVI_TEMP   (set.display.showStringNavigation == ShowStrNavi_Temp)
@@ -22,9 +21,12 @@
 #define TYPE_GRID_4             (TYPE_GRID == TypeGrid_4)
 #define NUM_ACCUM               (set.display.numAccumulation)
 #define NUM_ACCUM_INF           (NUM_ACCUM == NumAccumulation_Infinity)
+#define DISPLAY_NUM_ACCUM       (1 << (int)NUM_ACCUM)                   /* Возвращает число накоплений */
 #define MODE_ACCUM              (set.display.modeAccumulation)
 #define MODE_ACCUM_RESET        (MODE_ACCUM == ModeAccumulation_Reset)
 #define MODE_ACCUM_NO_RESET     (MODE_ACCUM == ModeAccumulation_NoReset)
+#define NUM_AVE                 (set.display.numAveraging)
+#define DISPLAY_NUM_AVE         (1 << (int)NUM_AVE)
 
 
 int     sDisplay_NumSignalsInS(void);                       // Возвращает ограничение частоты кадров.

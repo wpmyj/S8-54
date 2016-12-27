@@ -792,7 +792,7 @@ static void DrawLowPart(void)
     if(WORK_DIRECT)
     {
         WriteStringAndNumber("накопл", (int16)x, (int16)y0, DISPLAY_NUM_ACCUM);
-        WriteStringAndNumber("усредн", (int16)x, (int16)y1, 1 << (int)set.display.numAveraging);
+        WriteStringAndNumber("усредн", (int16)x, (int16)y1, DISPLAY_NUM_AVE);
         WriteStringAndNumber("мн\x93мкс", (int16)x, (int16)y2, DISPLAY_NUM_MIN_MAX);
     }
 

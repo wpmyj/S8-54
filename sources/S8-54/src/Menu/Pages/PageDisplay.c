@@ -350,7 +350,7 @@ static const Choice mcAverage_Num =
         {"256", "256"},
         {"512", "512"}
     },
-    (int8*)&set.display.numAveraging, EmptyFuncVB, EmptyFuncVII
+    (int8*)&NUM_AVE, EmptyFuncVB, EmptyFuncVII
 };
 
 // ÄÈÑÏËÅÉ -> ÓÑÐÅÄÍÅÍÈÅ -> Ðåæèì -----------------------------------------------------------------------------------------------------------------------------------------
