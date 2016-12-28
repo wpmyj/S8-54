@@ -83,7 +83,7 @@ char  Measure_GetChar(Measure measure)
 //------------------------------------------------------------------------------------------------------------------------------------------------------
 int Measure_GetDY(void)
 {
-    if(set.measures.source == A_B)
+    if(SOURCE_MEASURE_A_B)
     {
         return 30;
     }
@@ -101,14 +101,14 @@ int Measure_GetDX(void)
 //------------------------------------------------------------------------------------------------------------------------------------------------------
 const char* Measure_Name(int row, int col)
 {
-    return measures[set.measures.measures[row * Measure_NumCols() + col]].name;
+    return measures[MEASURE(row * Measure_NumCols() + col)].name;
 }
 
 
 //------------------------------------------------------------------------------------------------------------------------------------------------------
 Measure Measure_Type(int row, int col)
 {
-    return set.measures.measures[row * Measure_NumCols() + col];
+    return MEASURE(row * Measure_NumCols() + col);
 }
 
 
@@ -142,7 +142,7 @@ int Measure_NumRows(void)
 //------------------------------------------------------------------------------------------------------------------------------------------------------
 int Measure_GetDeltaGridLeft(void)
 {
-    if(set.measures.show && set.measures.modeViewSignals == ModeViewSignals_Compress)
+    if(SHOW_MEASURES && MEAS_COMPRESS_GRID)
     {
         if(NUM_MEASURES_6_1)
         {
@@ -160,7 +160,7 @@ int Measure_GetDeltaGridLeft(void)
 //------------------------------------------------------------------------------------------------------------------------------------------------------
 int Measure_GetDeltaGridBottom(void)
 {
-    if(set.measures.show && set.measures.modeViewSignals == ModeViewSignals_Compress)
+    if(SHOW_MEASURES && MEAS_COMPRESS_GRID)
     {
         if(NUM_MEASURES_1_5)
         {
@@ -182,13 +182,13 @@ int Measure_GetDeltaGridBottom(void)
 //------------------------------------------------------------------------------------------------------------------------------------------------------
 void Measure_ShortPressOnSmallButonMarker(void)
 {
-    if(set.measures.measures[posActive] == set.measures.markedMeasure)
+    if(MEASURE(posActive) == MARKED_MEAS)
     {
-        set.measures.markedMeasure = Measure_None;
+        MARKED_MEAS = Measure_None;
     }
     else
     {
-        set.measures.markedMeasure = set.measures.measures[posActive];
+        MARKED_MEAS = MEASURE(posActive);
     }
 }
 

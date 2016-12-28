@@ -277,7 +277,7 @@ void DrawDataChannel(uint8 *dataIn, Channel ch, DataSettings *ds, int minY, int 
     float scaleY = (float)(maxY - minY) / (MAX_VALUE - MIN_VALUE);
     float scaleX = (float)GridWidth() / 280.0f;
                                             
-    if(set.measures.show)
+    if(SHOW_MEASURES)
     {
         DrawMarkersForMeasure(scaleY, ch);
     }

@@ -129,7 +129,7 @@ int BottomMessages(void)
     {
         retValue -= 12;
     }
-    else if (set.measures.show)
+    else if (SHOW_MEASURES)
     {
         retValue = gBF.topMeasures;
     }
@@ -140,7 +140,7 @@ int BottomMessages(void)
 //---------------------------------------------------------------------------------------------------------------------------------------------------
 void CoordTrigLevel(int *left, int *top, int width)
 {
-    if (set.measures.show == false || NUM_MEASURES < MN_6_1)
+    if (!SHOW_MEASURES || NUM_MEASURES < MN_6_1)
     {
         *left = (GridWidth() - width) / 2 + GridLeft();
         *top = BottomMessages() - 20;

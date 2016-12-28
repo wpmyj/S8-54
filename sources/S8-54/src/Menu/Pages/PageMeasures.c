@@ -182,7 +182,7 @@ static const Choice mcIsShow =
         {"Íåò", "No"},
         {"Äà", "Yes"}
     },
-    (int8*)&set.measures.show, EmptyFuncVB, EmptyFuncVII
+    (int8*)&SHOW_MEASURES, EmptyFuncVB, EmptyFuncVII
 };
 
 // ÈÇÌÅÐÅÍÈß -> Êîëè÷åñòâî -----------------------------------------------------------------------------------------------------------------------------
@@ -223,7 +223,7 @@ static const Choice mcNumber =
 
 static bool IsActive_Number(void)
 {
-    return set.measures.show;
+    return SHOW_MEASURES;
 }
 
 // ÈÇÌÅÐÅÍÈß -> Êàíàëû ----------------------------------------------------------------------------------------------------------------------------------
@@ -240,12 +240,12 @@ static const Choice mcChannels =
         {"2", "2"},
         {"1 è 2", "1 and 2"}
     },
-    (int8*)&set.measures.source, EmptyFuncVB, EmptyFuncVII
+    (int8*)&SOURCE_MEASURE, EmptyFuncVB, EmptyFuncVII
 };
 
 static bool IsActive_Channels(void)
 {
-    return set.measures.show;
+    return SHOW_MEASURES;
 }
 
 // ÈÇÌÅÐÅÍÈß -> Âèä ---------------------------------------------------------------------------------------------------------------------------------------
@@ -266,7 +266,7 @@ static const Choice mcMode =
 
 static bool IsActive_Mode(void)
 {
-    return set.measures.show;
+    return SHOW_MEASURES;
 }
 
 
@@ -298,7 +298,7 @@ static const Page mspTune =
 
 static bool IsActive_Tune(void)
 {
-    return set.measures.show;
+    return SHOW_MEASURES;
 }
 
 static void OnRot_Tune(int angle)
@@ -322,7 +322,7 @@ static void OnRot_Tune(int angle)
         {
             posOnPageChoice = 0;
         }
-        set.measures.measures[posActive] = (Measure)posOnPageChoice;
+        MEASURE(posActive) = (Measure)posOnPageChoice;
         Painter_ResetFlash();
     }
     else
@@ -420,7 +420,7 @@ static void OnPress_Tune_Settings(void)
     pageChoiceIsActive = !pageChoiceIsActive;
     if (pageChoiceIsActive)
     {
-        posOnPageChoice = set.measures.measures[posActive];
+        posOnPageChoice = MEASURE(posActive);
     }
 }
 

@@ -155,7 +155,7 @@ typedef struct
     CursCntrl       cntrlU;             // јктивные курсоры напр€жени€.
     CursCntrl       cntrlT;             // јктивные курсоры времени.
     CursActive      cursActive;         //  акие курсоры активны - по времени или напр€жению.
-    Measure         markedMeasure;      // »змерение, на которое нужно выводить маркеры.
+    Measure         marked;             // »змерение, на которое нужно выводить маркеры.
 } SettingsMeasures;
 
 

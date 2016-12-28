@@ -935,7 +935,7 @@ static void DrawCursorTrigLevel(void)
 //----------------------------------------------------------------------------------------------------------------------------------------------------
 static void DrawMeasures(void)
 {
-    if(!set.measures.show)
+    if(!SHOW_MEASURES)
     {
         gBF.topMeasures = GRID_BOTTOM;
         return;
@@ -947,10 +947,10 @@ static void DrawMeasures(void)
 
     if(set.measures.zone == MeasuresZone_Hand)
     {
-        int x0 = set.measures.posCurT[0] - SHIFT_IN_MEMORY + GridLeft();
-        int y0 = set.measures.posCurU[0] + GRID_TOP;
-        int x1 = set.measures.posCurT[1] - SHIFT_IN_MEMORY + GridLeft();
-        int y1 = set.measures.posCurU[1] + GRID_TOP;
+        int x0 = POS_MEAS_CUR_T_0 - SHIFT_IN_MEMORY + GridLeft();
+        int y0 = POS_MEAS_CUR_U_0 + GRID_TOP;
+        int x1 = POS_MEAS_CUR_T_1 - SHIFT_IN_MEMORY + GridLeft();
+        int y1 = POS_MEAS_CUR_U_1 + GRID_TOP;
         SortInt(&x0, &x1);
         SortInt(&y0, &y1);
         Painter_DrawRectangleC(x0, y0, x1 - x0, y1 - y0, gColorFill);
@@ -989,16 +989,16 @@ static void DrawMeasures(void)
                 char buffer[SIZE_BUFFER];
 
                 Painter_DrawTextC(x + 4, y + 2, Measure_Name(str, elem), color);
-                if(meas == set.measures.markedMeasure)
+                if(meas == MARKED_MEAS)
                 {
                     Painter_FillRegionC(x + 1, y + 1, dX - 2, 9, active ? gColorBack : gColorFill);
                     Painter_DrawTextC(x + 4, y + 2, Measure_Name(str, elem), active ? gColorFill : gColorBack);
                 }
-                if(set.measures.source == A)
+                if(SOURCE_MEASURE_A)
                 {
                     Painter_DrawTextC(x + 2, y + 11, Processing_GetStringMeasure(meas, A, buffer, SIZE_BUFFER), gColorChan[A]);
                 }
-                else if(set.measures.source == B)
+                else if(SOURCE_MEASURE_B)
                 {
                     Painter_DrawTextC(x + 2, y + 11, Processing_GetStringMeasure(meas, B, buffer, SIZE_BUFFER), gColorChan[B]);
                 }
@@ -2034,7 +2034,7 @@ static void DrawCursorRShift(Channel ch)
     if(ch == Math)
     {
         int yCenter = (GridMathTop() + GridMathBottom()) / 2;
-        int y = yCenter - Math_RShift2Pixels(RSHIFT_MATH, GridMathHeight());
+//        int y = yCenter - Math_RShift2Pixels(RSHIFT_MATH, GridMathHeight());
         float scaleFull = (float)GridMathHeight() / (RShiftMax - RShiftMin);
         int yFull = yCenter - (int)(scaleFull * (RSHIFT_MATH - RShiftZero));
         Painter_DrawCharC(x - 9, yFull - 4, SYMBOL_RSHIFT_NORMAL, gColorFill);
@@ -2092,19 +2092,19 @@ static void DrawCursorRShift(Channel ch)
 //----------------------------------------------------------------------------------------------------------------------------------------------------
 static int CalculateCountV(void)
 {
-    if(set.measures.show && set.measures.modeViewSignals == ModeViewSignals_Compress)
+    if(SHOW_MEASURES && MEAS_COMPRESS_GRID)
     {
         if(NUM_MEASURES_1_5)
         {
-            return set.measures.source == A_B ? 42 : 44;
+            return SOURCE_MEASURE_A_B ? 42 : 44;
         }
         if(NUM_MEASURES_2_5)
         {
-            return set.measures.source == A_B ? 69 : 39;
+            return SOURCE_MEASURE_A_B ? 69 : 39;
         }
         if(NUM_MEASURES_3_5)
         {
-            return set.measures.source == A_B ? 54 : 68;
+            return SOURCE_MEASURE_A_B ? 54 : 68;
         }
     }
 
@@ -2115,7 +2115,7 @@ static int CalculateCountV(void)
 //----------------------------------------------------------------------------------------------------------------------------------------------------
 static int CalculateCountH(void)
 {
-    if(set.measures.modeViewSignals == ModeViewSignals_Compress)
+    if(MEAS_COMPRESS_GRID)
     {
         if(NUM_MEASURES_6_1)
         {

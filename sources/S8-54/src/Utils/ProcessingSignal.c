@@ -143,7 +143,7 @@ static bool picIsCalculating[2] = {false, false};
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 void Processing_CalculateMeasures(void)
 {
-    if(!set.measures.show || !isSet)
+    if(!SHOW_MEASURES || !isSet)
     {
         return;
     }
@@ -177,16 +177,16 @@ void Processing_CalculateMeasures(void)
             pFuncFU8 func = measures[meas].FuncCalculate;
             if(func)
             {
-                if(meas == set.measures.markedMeasure || set.measures.markedMeasure == Measure_None)
+                if(meas == MARKED_MEAS || MARKED_MEAS == Measure_None)
                 {
                     markerVert[A][0] = markerVert[A][1] = markerVert[B][0] = markerVert[B][1] = ERROR_VALUE_INT;
                     markerHor[A][0] = markerHor[A][1] = markerHor[B][0] = markerHor[B][1] = ERROR_VALUE_INT;
                 }
-                if(set.measures.source == A || set.measures.source == A_B)
+                if(SOURCE_MEASURE_A || SOURCE_MEASURE_A_B)
                 {
                     values[meas].value[A] = func(A);
                 }
-                if(set.measures.source == B || set.measures.source == A_B)
+                if(SOURCE_MEASURE_B || SOURCE_MEASURE_A_B)
                 {
                     values[meas].value[B] = func(B);
                 }
@@ -205,7 +205,7 @@ float CalculateVoltageMax(Channel ch)
 {
     float max = CalculateMaxRel(ch);
     EXIT_IF_ERROR_FLOAT(max);
-    if(set.measures.markedMeasure == Measure_VoltageMax)
+    if(MARKED_MEAS == Measure_VoltageMax)
     {
         markerHor[ch][0] = (int)max;                           // Здесь не округляем, потому что max может быть только целым
     }
@@ -219,7 +219,7 @@ float CalculateVoltageMin(Channel ch)
 {
     float min = CalculateMinRel(ch);
     EXIT_IF_ERROR_FLOAT(min);
-    if(set.measures.markedMeasure == Measure_VoltageMin)
+    if(MARKED_MEAS == Measure_VoltageMin)
     {
         markerHor[ch][0] = (int)min;                           // Здесь не округляем, потому что min может быть только целым
     }
@@ -236,7 +236,7 @@ float CalculateVoltagePic(Channel ch)
 
     EXIT_IF_ERRORS_FLOAT(min, max);
 
-    if(set.measures.markedMeasure == Measure_VoltagePic)
+    if(MARKED_MEAS == Measure_VoltagePic)
     {
         markerHor[ch][0] = (int)CalculateMaxRel(ch);
         markerHor[ch][1] = (int)CalculateMinRel(ch);
@@ -250,7 +250,7 @@ float CalculateVoltageMinSteady(Channel ch)
 {
     float min = CalculateMinSteadyRel(ch);
     EXIT_IF_ERROR_FLOAT(min);
-    if(set.measures.markedMeasure == Measure_VoltageMinSteady)
+    if(MARKED_MEAS == Measure_VoltageMinSteady)
     {
         markerHor[ch][0] = (int)ROUND(min);
     }
@@ -266,7 +266,7 @@ float CalculateVoltageMaxSteady(Channel ch)
 
     EXIT_IF_ERROR_FLOAT(max);
 
-    if(set.measures.markedMeasure == Measure_VoltageMaxSteady)
+    if(MARKED_MEAS == Measure_VoltageMaxSteady)
     {
         markerHor[ch][0] = (int)max;
     }
@@ -283,7 +283,7 @@ float CalculateVoltageVybrosPlus(Channel ch)
 
     EXIT_IF_ERRORS_FLOAT(max, maxSteady);
 
-    if (set.measures.markedMeasure == Measure_VoltageVybrosPlus)
+    if (MARKED_MEAS == Measure_VoltageVybrosPlus)
     {
         markerHor[ch][0] = (int)max;
         markerHor[ch][1] = (int)maxSteady;
@@ -301,7 +301,7 @@ float CalculateVoltageVybrosMinus(Channel ch)
     float minSteady = CalculateMinSteadyRel(ch);
     EXIT_IF_ERRORS_FLOAT(min, minSteady);
 
-    if (set.measures.markedMeasure == Measure_VoltageVybrosMinus)
+    if (MARKED_MEAS == Measure_VoltageVybrosMinus)
     {
         markerHor[ch][0] = (int)min;
         markerHor[ch][1] = (int)minSteady;
@@ -320,7 +320,7 @@ float CalculateVoltageAmpl(Channel ch)
 
     EXIT_IF_ERRORS_FLOAT(min, max);
 
-    if(set.measures.markedMeasure == Measure_VoltageAmpl)
+    if(MARKED_MEAS == Measure_VoltageAmpl)
     {
         markerHor[ch][0] = (int)CalculateMaxSteadyRel(ch);
         markerHor[ch][1] = (int)CalculateMinSteadyRel(ch);
@@ -351,7 +351,7 @@ float CalculateVoltageAverage(Channel ch)
 
     uint8 aveRel = (uint8)((float)sum / period);
 
-    if(set.measures.markedMeasure == Measure_VoltageAverage)
+    if(MARKED_MEAS == Measure_VoltageAverage)
     {
         markerHor[ch][0] = aveRel;
     }
@@ -378,7 +378,7 @@ float CalculateVoltageRMS(Channel ch)
         rms +=  volts * volts;
     }
 
-    if(set.measures.markedMeasure == Measure_VoltageRMS)
+    if(MARKED_MEAS == Measure_VoltageRMS)
     {
         markerHor[ch][0] = Math_VoltageToPoint(sqrtf(rms / period), (Range)ds.range[ch], rShift);
     }
@@ -639,7 +639,7 @@ float CalculateTimeNarastaniya(Channel ch)                    // WARN Здесь, воз
 
     float retValue = TSHIFT_2_ABS((secondIntersection - firstIntersection) / 2.0f, ds.tBase);
 
-    if (set.measures.markedMeasure == Measure_TimeNarastaniya)
+    if (MARKED_MEAS == Measure_TimeNarastaniya)
     {
         markerHor[ch][0] = (int)max09;
         markerHor[ch][1] = (int)min01;
@@ -677,7 +677,7 @@ float CalculateTimeSpada(Channel ch)                          // WARN Аналогично
 
     float retValue = TSHIFT_2_ABS((secondIntersection - firstIntersection) / 2.0f, ds.tBase);
 
-    if (set.measures.markedMeasure == Measure_TimeSpada)
+    if (MARKED_MEAS == Measure_TimeSpada)
     {
         markerHor[ch][0] = (int)max09;
         markerHor[ch][1] = (int)min01;
