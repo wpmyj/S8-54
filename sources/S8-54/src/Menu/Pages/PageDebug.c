@@ -185,7 +185,7 @@ static const Governor mgConsole_NumStrings =
         ""
     },
     EmptyFuncBV,
-    &set.debug.numStrings, 0, 33, EmptyFuncVV
+    &CONSOLE_NUM_STRINGS, 0, 33, EmptyFuncVV
 };
 
 // ОТЛАДКА -> КОНСОЛЬ -> Размер шрифта ---------------------------------------------------------------------------------------------------------------------------------------------------
@@ -1047,12 +1047,12 @@ static const Governor mgRand_NumMeasures =
         ""
     },
     EmptyFuncBV,
-    &set.debug.numMeasuresForGates, 1, 2500, OnChange_Rand_NumMeasures
+    &NUM_MEASURES_FOR_GATES, 1, 2500, OnChange_Rand_NumMeasures
 };
 
 static void OnChange_Rand_NumMeasures(void)
 {
-    FPGA_SetNumberMeasuresForGates(set.debug.numMeasuresForGates);
+    FPGA_SetNumberMeasuresForGates(NUM_MEASURES_FOR_GATES);
 }
 
 // ОТЛАДКА -> РАНД-ТОР -> Компенсация задержки ------------------------------------------------------------------------------------------------------------------
@@ -1067,12 +1067,12 @@ static const Governor mgRand_TimeCompensation =
         ""
     },
     EmptyFuncBV,
-    &set.debug.timeCompensation, 0, 510, OnChange_Rand_TimeCompensation
+    &TIME_COMPENSATION, 0, 510, OnChange_Rand_TimeCompensation
 };
 
 static void OnChange_Rand_TimeCompensation(void)
 {
-    FPGA_SetDeltaTShift(set.debug.timeCompensation);
+    FPGA_SetDeltaTShift(TIME_COMPENSATION);
 }
 
 // ОТЛАДКА -> РАНД-ТОР -> Смещение ------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -1212,7 +1212,7 @@ static const Choice mcRand_ShowInfo =
         {"Не показывать", "Hide"},
         {"Показывать", "Show"}
     },
-    (int8*)&set.debug.showRandInfo, EmptyFuncVB, EmptyFuncVII
+    (int8*)&SHOW_RAND_INFO, EmptyFuncVB, EmptyFuncVII
 };
 
 // ОТЛАДКА -> РАНД-ТОР -> Статистика -----------------------------------------------------------------------------------------------------------------------------
@@ -1318,7 +1318,7 @@ void OnPressDebugDisable(void)
 //------------------------------------------------------------------------------------------------------------------------------------------------------
 void OnDegubConsoleViewChanged(bool active)
 {
-    Display_SetPauseForConsole(set.debug.consoleInPause);
+    Display_SetPauseForConsole(CONSOLE_IN_PAUSE);
 }
 
 

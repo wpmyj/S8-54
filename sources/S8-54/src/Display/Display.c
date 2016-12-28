@@ -448,10 +448,10 @@ void Display_AddStringToIndicating(const char *string)
 //----------------------------------------------------------------------------------------------------------------------------------------------------
 void Display_OneStringUp(void)
 {
-    if(!set.debug.consoleInPause)
+    if(!CONSOLE_IN_PAUSE)
     {
     }
-    else if(lastStringForPause > set.debug.numStrings - 1)
+    else if(lastStringForPause > CONSOLE_NUM_STRINGS - 1)
     {
         lastStringForPause--;
     }
@@ -461,7 +461,7 @@ void Display_OneStringUp(void)
 //----------------------------------------------------------------------------------------------------------------------------------------------------
 void Display_OneStringDown(void)
 {
-    if(!set.debug.consoleInPause)
+    if(!CONSOLE_IN_PAUSE)
     {
     }
     else if(lastStringForPause < FirstEmptyString() - 1)
@@ -1125,11 +1125,11 @@ static void DrawWarnings(void)
 static void DrawConsole(void)
 {
     int count = 0;
-    Painter_SetFont(sDebug_GetSizeFontForConsole() == 5 ? TypeFont_5 : TypeFont_8);
+    Painter_SetFont(CONSOLE_SIZE_FONT == 5 ? TypeFont_5 : TypeFont_8);
     int height = Font_GetSize();
 
     int lastString = FirstEmptyString() - 1;
-    int numString = set.debug.numStrings;
+    int numString = CONSOLE_NUM_STRINGS;
     if(height == 8 && numString > 22)
     {
         numString = 22;
@@ -1310,7 +1310,7 @@ static void DeleteFirstString(void)
 //----------------------------------------------------------------------------------------------------------------------------------------------------
 static void AddString(const char *string)
 {
-    if(set.debug.consoleInPause)
+    if(CONSOLE_IN_PAUSE)
     {
         return;
     }

@@ -354,7 +354,7 @@ static int CalculateShift(void)            // WARN Не забыть восстановить функци
         return NULL_TSHIFT;
     }
 
-    if (set.debug.showRandInfo)
+    if (SHOW_RAND_INFO)
     {
         LOG_WRITE("rand = %d, ворота %d - %d", (int)adcValueFPGA, min, max);
     }

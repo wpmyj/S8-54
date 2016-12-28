@@ -1,13 +1,13 @@
 #pragma once
 
-int     sDebug_GetSizeFontForConsole(void);            // Возвращает размер шрифта, которым нужно выводить сообщения в консоли.
-//bool    sDebug_IsShowReg_RShiftA(void);
-bool    sDebug_IsShowReg_RShift1(void);
-bool    sDebug_IsShowReg_TrigLev(void);
-bool    sDebug_IsShowReg_Range(Channel ch);
-bool    sDebug_IsShowReg_TrigParam(void);
-bool    sDebug_IsShowReg_ChanParam(Channel ch);
-bool    sDebug_IsShowReg_TShift(void);
-bool    sDebug_IsShowReg_TBase(void);
+
+#define CONSOLE_NUM_STRINGS     (set.debug.numStrings)
+#define CONSOLE_SIZE_FONT       (set.debug.sizeFont ? 8 : 5)
+#define CONSOLE_IN_PAUSE        (set.debug.consoleInPause)
+#define NUM_MEASURES_FOR_GATES  (set.debug.numMeasuresForGates)
+#define TIME_COMPENSATION       (set.debug.timeCompensation)
+#define SHOW_RAND_INFO          (set.debug.showRandInfo)
+
+
 float   GetStretchADC(Channel ch);
 void    SetStretchADC(Channel ch, float kStretch);

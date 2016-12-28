@@ -284,7 +284,7 @@ void Settings_Load(bool default_)
     FPGA_SetNumSignalsInSec(sDisplay_NumSignalsInS());
     Panel_EnableLEDChannelA(sChannel_Enabled(A));
     Panel_EnableLEDChannelB(sChannel_Enabled(B));
-    FPGA_SetNumberMeasuresForGates(set.debug.numMeasuresForGates);
+    FPGA_SetNumberMeasuresForGates(NUM_MEASURES_FOR_GATES);
     Menu_SetAutoHide(true);
     Display_ChangedRShiftMarkers(true);
     OnChange_ADC_Stretch_Mode(true);

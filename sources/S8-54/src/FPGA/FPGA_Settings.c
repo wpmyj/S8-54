@@ -130,7 +130,7 @@ static void LoadTBase(void)
     TBase tBase = TBASE;
     uint8 mask = PEACKDET ? masksTBase[tBase].maskPeackDet : masksTBase[tBase].maskNorm;
     FPGA_Write(RecordFPGA, WR_RAZV, mask, true);
-    set.debug.timeCompensation = timeCompensation[tBase];
+    TIME_COMPENSATION = timeCompensation[tBase];
 }
 
 //static const int16 addShift[][5][3] =
