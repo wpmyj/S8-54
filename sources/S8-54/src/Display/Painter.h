@@ -7,8 +7,8 @@
 #include "PainterC.h"
 
 
-void    Painter_SendToDisplay(uint8 *bytes, int numBytes);
-void    Painter_SendToInterfaces(uint8 *pointer, int size);
+extern void CalculateCurrentColor(void);
+
 
 void    Painter_BeginScene(Color color);
 void    Painter_EndScene(void);
@@ -42,9 +42,12 @@ void    Painter_DrawPicture(int x, int y, int width, int height, uint8 *address)
 #define _USE_LFN 0
 #endif
 
-
 #if _USE_LFN > 0
 void Painter_SaveScreenToFlashDrive(TCHAR *fileName);
 #else
 bool Painter_SaveScreenToFlashDrive(void);
 #endif
+
+
+void    Painter_SendToDisplay(uint8 *bytes, int numBytes);
+void    Painter_SendToInterfaces(uint8 *pointer, int size);

@@ -16,7 +16,7 @@
 #include "Menu/FileManager.h"
 
 
-/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 static bool inverseColors = false;
 static Color currentColor = NUM_COLORS;
 static bool framesElapsed = false;
@@ -31,56 +31,78 @@ static enum StateTransmit
 } stateTransmit = StateTransmit_Free;
 
 
-/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+static void RunDisplay(void);
+static void OnTimerFlashDisplay(void);
+static void CalculateColor(uint8 *color);
+static uint8 Read2points(int x, int y);
+
+// Эти функции не используются, но оставлены для образца
+//static void Get4Bytes(uint8 bytes[4]);
+//static Color GetColor(int x, int y);
+//static void Get8Points(int x, int y, uint8 buffer[4]);
+
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+void Painter_BeginScene(Color color)
+{
+    if (stateTransmit == StateTransmit_NeedForTransmitFirst || stateTransmit == StateTransmit_NeedForTransmitSecond)
+    {
+        bool needForLoadFontsAndPalette = stateTransmit == StateTransmit_NeedForTransmitFirst;
+        stateTransmit = StateTransmit_InProcess;
+        if (needForLoadFontsAndPalette)
+        {
+            Painter_LoadPalette(0);
+            Painter_LoadPalette(1);
+            Painter_LoadPalette(2);
+            Painter_LoadFont(TypeFont_5);
+#define dT 100
+            Ethernet_Update(dT);            // WARN Говнокод. Доработать метод посылки в TCPSocket
+
+            Painter_LoadFont(TypeFont_8);
+            Ethernet_Update(dT);
+
+            Painter_LoadFont(TypeFont_UGO);
+            Ethernet_Update(dT);
+
+            Painter_LoadFont(TypeFont_UGO2);
+            Ethernet_Update(dT);
+        }
+    }
+
+    Painter_FillRegionC(0, 0, 319, 239, color);
+}
+
+
+//------------------------------------------------------------------------------------------------------------------------------------------------------
+void Painter_EndScene(void)
+{
+    if (!framesElapsed)
+    {
+        framesElapsed = true;
+        return;
+    }
+    uint8 command[4];
+    command[0] = END_SCENE;
+    Painter_SendToDisplay(command, 4);
+    Painter_SendToInterfaces(command, 1);
+    if (stateTransmit == StateTransmit_InProcess)
+    {
+        VCP_Flush();
+        stateTransmit = StateTransmit_Free;
+    }
+
+    RunDisplay();
+}
+
+
+//----------------------------------------------------------------------------------------------------------------------------------------------------
 void Painter_SendFrame(bool first)
 {
     if (stateTransmit == StateTransmit_Free)
     {
         stateTransmit = (first ? StateTransmit_NeedForTransmitFirst : StateTransmit_NeedForTransmitSecond);
     }
-}
-
-
-//------------------------------------------------------------------------------------------------------------------------------------------------------
-void CalculateCurrentColor(void)
-{
-    if (currentColor == COLOR_FLASH_10)
-    {
-        Painter_SetColor(inverseColors ? gColorBack : gColorFill);
-    }
-    else if (currentColor == COLOR_FLASH_01)
-    {
-        Painter_SetColor(inverseColors ? gColorFill : gColorBack);
-    }
-}
-
-
-//------------------------------------------------------------------------------------------------------------------------------------------------------
-void CalculateColor(uint8 *color)
-{
-    currentColor = (Color)*color;
-    if (*color == COLOR_FLASH_10)
-    {
-        *color = inverseColors ? (uint8)gColorBack : (uint8)gColorFill;
-    }
-    else if (*color == COLOR_FLASH_01)
-    {
-        *color = inverseColors ? (uint8)gColorFill : (uint8)gColorBack;
-    }
-}
-
-
-//------------------------------------------------------------------------------------------------------------------------------------------------------
-void InverseColor(Color *color)
-{
-    *color = (*color == COLOR_BLACK) ? COLOR_WHITE : COLOR_BLACK;
-}
-
-
-//------------------------------------------------------------------------------------------------------------------------------------------------------
-static void OnTimerFlashDisplay(void)
-{
-    inverseColors = !inverseColors;
 }
 
 
@@ -93,110 +115,43 @@ void Painter_ResetFlash(void)
 
 
 //------------------------------------------------------------------------------------------------------------------------------------------------------
-void Painter_DrawRectangle(int x, int y, int width, int height)
+void Painter_SetColor(Color color)
 {
-    Painter_DrawHLine(y, x, x + width);
-    Painter_DrawVLine(x, y, y + height);
-    Painter_DrawHLine(y + height, x, x + width);
-    if (x + width < SCREEN_WIDTH)
+    if (color != currentColor)
     {
-        Painter_DrawVLine(x + width, y, y + height);
-    }
-}
-
-
-//------------------------------------------------------------------------------------------------------------------------------------------------------
-void Painter_DrawDashedVLine(int x, int y0, int y1, int deltaFill, int deltaEmtpy, int deltaStart)
-{
-    if (deltaStart < 0 || deltaStart >= (deltaFill + deltaEmtpy))
-    {
-        LOG_ERROR("Неправильный аргумент deltaStart = %d", deltaStart);
-        return;
-    }
-    int y = y0;
-    if (deltaStart != 0)                 // Если линию нужно рисовать не с начала штриха
-    {
-        y += (deltaFill + deltaEmtpy - deltaStart);
-        if (deltaStart < deltaFill)     // Если начало линии приходится на штрих
+        currentColor = color;
+        if (currentColor > NUM_COLORS)
         {
-            Painter_DrawVLine(x, y0, y - 1);
+            CalculateColor((uint8*)(&(color)));
         }
-    }
-
-    while (y < y1)
-    {
-        Painter_DrawVLine(x, y, y + deltaFill - 1);
-        y += (deltaFill + deltaEmtpy);
+        uint8 command[4] = {SET_COLOR};
+        command[1] = color;
+        Painter_SendToDisplay(command, 4);
+        Painter_SendToInterfaces(command, 2);
     }
 }
 
 
 //------------------------------------------------------------------------------------------------------------------------------------------------------
-void Painter_DrawDashedHLine(int y, int x0, int x1, int deltaFill, int deltaEmpty, int deltaStart)
+Color Painter_GetColor(void)
 {
-    if (deltaStart < 0 || deltaStart >= (deltaFill + deltaEmpty))
-    {
-        LOG_ERROR("Неправильный аргумент deltaStart = %d", deltaStart);
-        return;
-    }
-    int x = x0;
-    if (deltaStart != 0)                // Если линию нужно рисовать не с начала штриха
-    {
-        x += (deltaFill + deltaEmpty - deltaStart);
-        if (deltaStart < deltaFill)     // Если начало линии приходится на штрих
-        {
-            Painter_DrawHLine(y, x0, x - 1);
-        }
-    }
-
-    while (x < x1)
-    {
-        Painter_DrawHLine(y, x, x + deltaFill - 1);
-        x += (deltaFill + deltaEmpty);
-    }
+    return currentColor;
 }
 
 
 //------------------------------------------------------------------------------------------------------------------------------------------------------
-static int numberColorsUsed = 0;
-
-
-//------------------------------------------------------------------------------------------------------------------------------------------------------
-void Painter_SendToInterfaces(uint8 *pointer, int size)
+void Painter_LoadPalette(int num)
 {
-    if(stateTransmit == StateTransmit_InProcess)
+    int min[] = {0, 5, 10};
+    int max[] = {4, 9, 15};
+
+    int i = min[num];
+    int a = max[num];
+
+    for (; i <= a; i++)
     {
-        VCP_SendDataSynch(pointer, size);
-        TCPSocket_Send((const char*)pointer, size);
+        Painter_SetPalette((Color)i);
     }
-}
-
-
-//------------------------------------------------------------------------------------------------------------------------------------------------------
-void Painter_SendToDisplay(uint8 *bytes, int numBytes)
-{
-    for (int i = 0; i < numBytes; i += 4)
-    {
-        while (HAL_GPIO_ReadPin(GPIOG, GPIO_PIN_11) == GPIO_PIN_RESET)
-        {
-        };
-        Timer_PauseOnTicks(75);    // WARN Здесь время ожидание увеличено по сравнению с С8-53 (там частота 120МГц, здесь - 180МГц)
-        *ADDR_CDISPLAY = *bytes++;
-        *ADDR_CDISPLAY = *bytes++;
-        *ADDR_CDISPLAY = *bytes++;
-        *ADDR_CDISPLAY = *bytes++;
-    }
-}
-
-
-//------------------------------------------------------------------------------------------------------------------------------------------------------
-static void Get4Bytes(uint8 bytes[4])
-{
-    while (HAL_GPIO_ReadPin(GPIOG, GPIO_PIN_11) == GPIO_PIN_RESET) {};
-    bytes[0] = *ADDR_CDISPLAY;
-    bytes[1] = *ADDR_CDISPLAY;
-    bytes[2] = *ADDR_CDISPLAY;
-    bytes[3] = *ADDR_CDISPLAY;
 }
 
 
@@ -213,27 +168,14 @@ void Painter_SetPalette(Color color)
 
 
 //------------------------------------------------------------------------------------------------------------------------------------------------------
-void Painter_SetColor(Color color)
+void Painter_SetPoint(int x, int y)
 {
-    if (color != currentColor)
-    {
-        currentColor = color;
-        if (currentColor > NUM_COLORS)
-        {   
-            CalculateColor((uint8*)(&(color)));
-        }
-        uint8 command[4] = {SET_COLOR};
-        command[1] = color;
-        Painter_SendToDisplay(command, 4);
-        Painter_SendToInterfaces(command, 2);
-    }
-}
-
-
-//------------------------------------------------------------------------------------------------------------------------------------------------------
-Color Painter_GetColor(void)
-{
-    return currentColor;
+    uint8 command[4];
+    command[0] = SET_POINT;
+    *((int16*)(command + 1)) = (int16)x;
+    *(command + 3) = (int8)y;
+    Painter_SendToDisplay(command, 4);
+    Painter_SendToInterfaces(command, 4);
 }
 
 
@@ -291,19 +233,7 @@ void Painter_DrawHPointLine(int y, int x0, int x1, float delta)
 
 
 //------------------------------------------------------------------------------------------------------------------------------------------------------
-void Painter_SetPoint(int x, int y)
-{
-    uint8 command[4];
-    command[0] = SET_POINT;
-    *((int16*)(command + 1)) = (int16)x;
-    *(command + 3) = (int8)y;
-    Painter_SendToDisplay(command, 4);
-    Painter_SendToInterfaces(command, 4);
-}
-
-
-//------------------------------------------------------------------------------------------------------------------------------------------------------
-void Painter_DrawMultiVPointLine(int numLines, int y, uint16 x[], int delta, int count, Color color) 
+void Painter_DrawMultiVPointLine(int numLines, int y, uint16 x[], int delta, int count, Color color)
 {
     ASSERT(numLines > 20, "Число линий слишком большое %d", numLines);
 
@@ -316,13 +246,13 @@ void Painter_DrawMultiVPointLine(int numLines, int y, uint16 x[], int delta, int
     *(command + 4) = (uint8)delta;
     *(command + 5) = 0;
     uint8 *pointer = command + 6;
-    for(int i = 0; i < numLines; i++) 
+    for (int i = 0; i < numLines; i++)
     {
         *((uint16*)pointer) = x[i];
         pointer += 2;
     }
     int numBytes = 1 + 1 + 1 + numLines * 2 + 1 + 1;
-    while(numBytes % 4) 
+    while (numBytes % 4)
     {
         numBytes++;
     }
@@ -379,6 +309,71 @@ void Painter_DrawLine(int x0, int y0, int x1, int y1)
     else if (y0 == y1)
     {
         Painter_DrawHLine(y0, x0, x1);
+    }
+}
+
+
+//------------------------------------------------------------------------------------------------------------------------------------------------------
+void Painter_DrawDashedHLine(int y, int x0, int x1, int deltaFill, int deltaEmpty, int deltaStart)
+{
+    if (deltaStart < 0 || deltaStart >= (deltaFill + deltaEmpty))
+    {
+        LOG_ERROR("Неправильный аргумент deltaStart = %d", deltaStart);
+        return;
+    }
+    int x = x0;
+    if (deltaStart != 0)                // Если линию нужно рисовать не с начала штриха
+    {
+        x += (deltaFill + deltaEmpty - deltaStart);
+        if (deltaStart < deltaFill)     // Если начало линии приходится на штрих
+        {
+            Painter_DrawHLine(y, x0, x - 1);
+        }
+    }
+
+    while (x < x1)
+    {
+        Painter_DrawHLine(y, x, x + deltaFill - 1);
+        x += (deltaFill + deltaEmpty);
+    }
+}
+
+
+//------------------------------------------------------------------------------------------------------------------------------------------------------
+void Painter_DrawDashedVLine(int x, int y0, int y1, int deltaFill, int deltaEmtpy, int deltaStart)
+{
+    if (deltaStart < 0 || deltaStart >= (deltaFill + deltaEmtpy))
+    {
+        LOG_ERROR("Неправильный аргумент deltaStart = %d", deltaStart);
+        return;
+    }
+    int y = y0;
+    if (deltaStart != 0)                 // Если линию нужно рисовать не с начала штриха
+    {
+        y += (deltaFill + deltaEmtpy - deltaStart);
+        if (deltaStart < deltaFill)     // Если начало линии приходится на штрих
+        {
+            Painter_DrawVLine(x, y0, y - 1);
+        }
+    }
+
+    while (y < y1)
+    {
+        Painter_DrawVLine(x, y, y + deltaFill - 1);
+        y += (deltaFill + deltaEmtpy);
+    }
+}
+
+
+//------------------------------------------------------------------------------------------------------------------------------------------------------
+void Painter_DrawRectangle(int x, int y, int width, int height)
+{
+    Painter_DrawHLine(y, x, x + width);
+    Painter_DrawVLine(x, y, y + height);
+    Painter_DrawHLine(y + height, x, x + width);
+    if (x + width < SCREEN_WIDTH)
+    {
+        Painter_DrawVLine(x + width, y, y + height);
     }
 }
 
@@ -441,9 +436,15 @@ void Painter_SetBrightnessDisplay(int16 brightness)
 
 
 //------------------------------------------------------------------------------------------------------------------------------------------------------
-int NumberColorsInSceneCol(void)
+uint16 Painter_ReduceBrightness(uint16 colorValue, float newBrightness)
 {
-    return numberColorsUsed;
+    int red = (int)(R_FROM_COLOR(colorValue) * newBrightness);
+    LIMITATION(red, red, 0, 31);
+    int green = (int)(G_FROM_COLOR(colorValue) * newBrightness);
+    LIMITATION(green, green, 0, 63);
+    int blue = (int)(B_FROM_COLOR(colorValue) * newBrightness);
+    LIMITATION(blue, blue, 0, 31);
+    return MAKE_COLOR(red, green, blue);
 }
 
 
@@ -490,111 +491,6 @@ void Painter_DrawSignal(int x, uint8 data[281], bool modeLines)
 
 
 //------------------------------------------------------------------------------------------------------------------------------------------------------
-void Painter_LoadPalette(int num)
-{
-    int min[] = {0, 5, 10};
-    int max[] = {4, 9, 15};
-
-    int i = min[num];
-    int a = max[num];
-
-    for (; i <= a; i++)
-    {
-        Painter_SetPalette((Color)i);
-    }
-}
-
-
-//------------------------------------------------------------------------------------------------------------------------------------------------------
-void Painter_BeginScene(Color color)
-{
-    if (stateTransmit == StateTransmit_NeedForTransmitFirst || stateTransmit == StateTransmit_NeedForTransmitSecond)
-    {
-        bool needForLoadFontsAndPalette = stateTransmit == StateTransmit_NeedForTransmitFirst;
-        stateTransmit = StateTransmit_InProcess;
-        if(needForLoadFontsAndPalette) 
-        {
-            Painter_LoadPalette(0);
-            Painter_LoadPalette(1);
-            Painter_LoadPalette(2);
-            Painter_LoadFont(TypeFont_5);
-#define dT 100
-            Ethernet_Update(dT);            // WARN Говнокод. Доработать метод посылки в TCPSocket
-            
-            Painter_LoadFont(TypeFont_8);
-            Ethernet_Update(dT);
-            
-            Painter_LoadFont(TypeFont_UGO);
-            Ethernet_Update(dT);
-            
-            Painter_LoadFont(TypeFont_UGO2);
-            Ethernet_Update(dT);
-        }
-    }
-
-    Painter_FillRegionC(0, 0, 319, 239, color);
-}
-
-
-//------------------------------------------------------------------------------------------------------------------------------------------------------
-static void Painter_RunDisplay(void)
-{
-    uint8 command[4];
-    command[0] = RUN_BUFFER;
-    Painter_SendToDisplay(command, 4);
-}
-
-
-//------------------------------------------------------------------------------------------------------------------------------------------------------
-void Painter_EndScene(void)
-{
-    if (!framesElapsed)
-    {
-        framesElapsed = true;
-        return;
-    }
-    uint8 command[4];
-    command[0] = END_SCENE;
-    Painter_SendToDisplay(command, 4);
-    Painter_SendToInterfaces(command, 1);
-    if (stateTransmit == StateTransmit_InProcess)
-    {
-        VCP_Flush();
-        stateTransmit = StateTransmit_Free;
-    }
-
-    Painter_RunDisplay();
-}
-
-
-//------------------------------------------------------------------------------------------------------------------------------------------------------
-Color GetColor(int x, int y)
-{
-    uint8 command[4];
-    command[0] = GET_POINT;
-    *((int16*)(command + 1)) = (int16)x;
-    *(command + 3) = (int8)y;
-    Painter_SendToDisplay(command, 4);
-
-    Get4Bytes(command);
-
-    return (Color)(command[0] & 0x0f);
-}
-
-
-//------------------------------------------------------------------------------------------------------------------------------------------------------
-void Get8Points(int x, int y, uint8 buffer[4])
-{
-    uint8 command[4];
-    command[0] = GET_POINT;
-    *((int16*)(command + 1)) = (int16)x;
-    *(command + 3) = (int8)y;
-    Painter_SendToDisplay(command, 4);
-    Get4Bytes(buffer);
-}
-
-
-//------------------------------------------------------------------------------------------------------------------------------------------------------
 void Painter_DrawPicture(int x, int y, int width, int height, uint8 *address)
 {
     uint8 command[4];
@@ -618,38 +514,8 @@ void Painter_DrawPicture(int x, int y, int width, int height, uint8 *address)
 
 
 //------------------------------------------------------------------------------------------------------------------------------------------------------
-uint16 Painter_ReduceBrightness(uint16 colorValue, float newBrightness)
+bool Painter_SaveScreenToFlashDrive(void)
 {
-    int red = (int)(R_FROM_COLOR(colorValue) * newBrightness);
-    LIMITATION(red, red, 0, 31);
-    int green = (int)(G_FROM_COLOR(colorValue) * newBrightness);
-    LIMITATION(green, green, 0, 63);
-    int blue = (int)(B_FROM_COLOR(colorValue) * newBrightness);
-    LIMITATION(blue, blue, 0, 31);
-    return MAKE_COLOR(red, green, blue);
-}
-
-
-//------------------------------------------------------------------------------------------------------------------------------------------------------
-static uint8 Read2points(int x, int y)
-{
-    while (HAL_GPIO_ReadPin(GPIOG, GPIO_PIN_11) == GPIO_PIN_RESET) {};
-    Timer_PauseOnTicks(12);               // WARN временно увеличено время ожидания - не читает флешку
-
-    *ADDR_CDISPLAY = GET_POINT;
-    *ADDR_CDISPLAY = (uint8)x;
-    *ADDR_CDISPLAY = (uint8)(x >> 8);
-    *ADDR_CDISPLAY = (uint8)y;
-
-    while (HAL_GPIO_ReadPin(GPIOG, GPIO_PIN_11) == GPIO_PIN_RESET) {};
-    //Timer_PauseOnTicks(6);               // WARN - временно увеличено время ожидания - не читает флешку
-
-    return *ADDR_CDISPLAY;
-}
-
-
-//------------------------------------------------------------------------------------------------------------------------------------------------------
-bool Painter_SaveScreenToFlashDrive(void) {
 
 #pragma pack(1)
     typedef struct
@@ -693,12 +559,12 @@ bool Painter_SaveScreenToFlashDrive(void) {
 
     StructForWrite structForWrite;
     char fileName[255];
-    
-    if(!FM_GetNameForNewFile(fileName))
+
+    if (!FM_GetNameForNewFile(fileName))
     {
         return false;
     }
-    
+
     FDrive_OpenNewFileForWrite(fileName, &structForWrite);
 
     FDrive_WriteToFile((uint8*)(&bmFH), 14, &structForWrite);
@@ -716,23 +582,23 @@ bool Painter_SaveScreenToFlashDrive(void) {
         0,  // yPelsPerMeter;
         0,  // clrUsed;
         0   // clrImportant;
-    };  
+    };
 
     FDrive_WriteToFile((uint8*)(&bmIH), 40, &structForWrite);
 
     uint8 buffer[320 * 3] = {0};
-    
-    typedef struct tagRGBQUAD 
-    {
-        uint8    blue; 
-        uint8    green; 
-        uint8    red; 
-        uint8    rgbReserved; 
-    } RGBQUAD;
-    
-    RGBQUAD colorStruct;    
 
-    for(int i = 0; i < 16; i++)
+    typedef struct tagRGBQUAD
+    {
+        uint8    blue;
+        uint8    green;
+        uint8    red;
+        uint8    rgbReserved;
+    } RGBQUAD;
+
+    RGBQUAD colorStruct;
+
+    for (int i = 0; i < 16; i++)
     {
         uint16 color = COLOR(i);
         colorStruct.blue = (uint8)((float)B_FROM_COLOR(color) / 31.0f * 255.0f);
@@ -742,16 +608,16 @@ bool Painter_SaveScreenToFlashDrive(void) {
         ((RGBQUAD*)(buffer))[i] = colorStruct;
     }
 
-    for(int i = 0; i < 4; i++)
+    for (int i = 0; i < 4; i++)
     {
         FDrive_WriteToFile(buffer, 256, &structForWrite);
     }
 
     FSMC_SET_MODE(ModeFSMC_Display);
 
-    for(int y = 239; y >= 0; y--)
+    for (int y = 239; y >= 0; y--)
     {
-        for(int x = 1; x < 320; x += 2)
+        for (int x = 1; x < 320; x += 2)
         {
             uint8 color = Read2points(x, y);
 
@@ -759,7 +625,7 @@ bool Painter_SaveScreenToFlashDrive(void) {
             {
                 color = Read2points(x, y);
             }
-            
+
             buffer[x / 2] = ((color & 0x0f) << 4) + (color >> 4);
         }
 
@@ -769,6 +635,143 @@ bool Painter_SaveScreenToFlashDrive(void) {
     FSMC_RESTORE_MODE();
 
     FDrive_CloseFile(&structForWrite);
-    
+
     return true;
 }
+
+
+//------------------------------------------------------------------------------------------------------------------------------------------------------
+void Painter_SendToDisplay(uint8 *bytes, int numBytes)
+{
+    for (int i = 0; i < numBytes; i += 4)
+    {
+        while (HAL_GPIO_ReadPin(GPIOG, GPIO_PIN_11) == GPIO_PIN_RESET)
+        {
+        };
+        Timer_PauseOnTicks(75);    // WARN Здесь время ожидание увеличено по сравнению с С8-53 (там частота 120МГц, здесь - 180МГц)
+        *ADDR_CDISPLAY = *bytes++;
+        *ADDR_CDISPLAY = *bytes++;
+        *ADDR_CDISPLAY = *bytes++;
+        *ADDR_CDISPLAY = *bytes++;
+    }
+}
+
+
+//------------------------------------------------------------------------------------------------------------------------------------------------------
+void Painter_SendToInterfaces(uint8 *pointer, int size)
+{
+    if (stateTransmit == StateTransmit_InProcess)
+    {
+        VCP_SendDataSynch(pointer, size);
+        TCPSocket_Send((const char*)pointer, size);
+    }
+}
+
+
+//------------------------------------------------------------------------------------------------------------------------------------------------------
+static void RunDisplay(void)
+{
+    uint8 command[4];
+    command[0] = RUN_BUFFER;
+    Painter_SendToDisplay(command, 4);
+}
+
+
+//------------------------------------------------------------------------------------------------------------------------------------------------------
+static void OnTimerFlashDisplay(void)
+{
+    inverseColors = !inverseColors;
+}
+
+
+//------------------------------------------------------------------------------------------------------------------------------------------------------
+static void CalculateColor(uint8 *color)
+{
+    currentColor = (Color)*color;
+    if (*color == COLOR_FLASH_10)
+    {
+        *color = inverseColors ? (uint8)gColorBack : (uint8)gColorFill;
+    }
+    else if (*color == COLOR_FLASH_01)
+    {
+        *color = inverseColors ? (uint8)gColorFill : (uint8)gColorBack;
+    }
+}
+
+
+//------------------------------------------------------------------------------------------------------------------------------------------------------
+void CalculateCurrentColor(void)
+{
+    if (currentColor == COLOR_FLASH_10)
+    {
+        Painter_SetColor(inverseColors ? gColorBack : gColorFill);
+    }
+    else if (currentColor == COLOR_FLASH_01)
+    {
+        Painter_SetColor(inverseColors ? gColorFill : gColorBack);
+    }
+}
+
+
+//------------------------------------------------------------------------------------------------------------------------------------------------------
+static uint8 Read2points(int x, int y)
+{
+    while (HAL_GPIO_ReadPin(GPIOG, GPIO_PIN_11) == GPIO_PIN_RESET)
+    {
+    };
+    Timer_PauseOnTicks(12);               // WARN временно увеличено время ожидания - не читает флешку
+
+    *ADDR_CDISPLAY = GET_POINT;
+    *ADDR_CDISPLAY = (uint8)x;
+    *ADDR_CDISPLAY = (uint8)(x >> 8);
+    *ADDR_CDISPLAY = (uint8)y;
+
+    while (HAL_GPIO_ReadPin(GPIOG, GPIO_PIN_11) == GPIO_PIN_RESET)
+    {
+    };
+    //Timer_PauseOnTicks(6);               // временно увеличено время ожидания - не читает флешку
+
+    return *ADDR_CDISPLAY;
+}
+
+
+//------------------------------------------------------------------------------------------------------------------------------------------------------
+/*
+static void Get4Bytes(uint8 bytes[4])
+{
+    while (HAL_GPIO_ReadPin(GPIOG, GPIO_PIN_11) == GPIO_PIN_RESET) {};
+    bytes[0] = *ADDR_CDISPLAY;
+    bytes[1] = *ADDR_CDISPLAY;
+    bytes[2] = *ADDR_CDISPLAY;
+    bytes[3] = *ADDR_CDISPLAY;
+}
+*/
+
+
+//------------------------------------------------------------------------------------------------------------------------------------------------------
+/*
+static Color GetColor(int x, int y)
+{
+    uint8 command[4];
+    command[0] = GET_POINT;
+    *((int16*)(command + 1)) = (int16)x;
+    *(command + 3) = (int8)y;
+    Painter_SendToDisplay(command, 4);
+    Get4Bytes(command);
+    return (Color)(command[0] & 0x0f);
+}
+*/
+
+
+//------------------------------------------------------------------------------------------------------------------------------------------------------
+/*
+static void Get8Points(int x, int y, uint8 buffer[4])
+{
+    uint8 command[4];
+    command[0] = GET_POINT;
+    *((int16*)(command + 1)) = (int16)x;
+    *(command + 3) = (int8)y;
+    Painter_SendToDisplay(command, 4);
+    Get4Bytes(buffer);
+}
+*/
