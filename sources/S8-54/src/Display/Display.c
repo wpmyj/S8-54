@@ -272,7 +272,7 @@ void Display_Update(void)
 
     Menu_Draw();
 
-    if(set.debug.showRandStat)
+    if(SHOW_RAND_STAT)
     {
         DrawRandStat();
     }
@@ -1202,7 +1202,7 @@ static void WriteValueTrigLevel(void)
 //----------------------------------------------------------------------------------------------------------------------------------------------------
 static void DrawTimeForFrame(uint timeTicks)
 {
-    if(!set.debug.showStats)
+    if(!SHOW_STAT)
     {
         return;
     }

@@ -5,21 +5,21 @@
 
 
 #define INVERSE(ch)         (set.chan[ch].inverse)
-
-#define RANGE(ch)           (set.chan[ch].range)
-#define RANGE_A             (set.chan[A].range)
-#define RANGE_B             (set.chan[B].range)
-
-#define RSHIFT(ch)          (set.chan[ch].rShiftRel)
-#define RSHIFT_A            (set.chan[A].rShiftRel)
-#define RSHIFT_B            (set.chan[B].rShiftRel)
-
-#define COUPLE(ch)          (set.chan[ch].modeCouple)
-#define COUPLE_A            (set.chan[A].modeCouple)
-#define COUPLE_B            (set.chan[B].modeCouple)
-
 #define RSHIFT_MATH         (set.math.rShift)
 #define RANGE_MATH          (set.math.range)
+
+#define RANGE(ch)           (set.chan[ch].range)
+#define RANGE_A             (RANGE(A))
+#define RANGE_B             (RANGE(B))
+#define RANGE_2mV(ch)       (RANGE(ch) == Range_2mV)
+
+#define RSHIFT(ch)          (set.chan[ch].rShiftRel)
+#define RSHIFT_A            (RSHIFT(A))
+#define RSHIFT_B            (RSHIFT(B))
+
+#define COUPLE(ch)          (set.chan[ch].modeCouple)
+#define COUPLE_A            (COUPLE(A))
+#define COUPLE_B            (COUPLE(B))
 
 #define DIVIDER(ch)         (set.chan[ch].divider)
 #define DIVIDER_A           (DIVIDER(A))
@@ -38,6 +38,7 @@
 #define BANDWIDTH(ch)       (set.chan[ch].bandwidth)
 #define BANDWIDTH_A         (BANDWIDTH(A))
 #define BANDWIDTH_B         (BANDWIDTH(B))
+#define BANDWIDTH_20MHz(ch) (BANDWIDTH(ch) == Bandwidth_20MHz)
 
 #define RESISTANCE(ch)      (set.chan[ch].resistance)
 #define RESISTANCE_A        (RESISTANCE(A))

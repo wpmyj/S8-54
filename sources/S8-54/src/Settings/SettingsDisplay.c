@@ -20,7 +20,7 @@ void sDisplay_SetNumSignalsInS(int numSignalsInS)
 //------------------------------------------------------------------------------------------------------------------------------------------------------
 int sDisplay_NumPointSmoothing(void)
 {
-    if(set.debug.modeEMS && (SMOOTHING < NumSmooth_4points))
+    if(MODE_EMS && (SMOOTHING < NumSmooth_4points))
     {
         return 4;
     }
@@ -50,7 +50,7 @@ int sDisplay_NumPointSmoothing(void)
 //---------------------------------------------------------------------------------------------------------------------------------------------------
 int sDisplay_NumAverage(void)
 {
-    if (set.debug.modeEMS && (NUM_AVE < NumAveraging_8))
+    if (MODE_EMS && (NUM_AVE < NumAveraging_8))
     {
         return 8;
     }

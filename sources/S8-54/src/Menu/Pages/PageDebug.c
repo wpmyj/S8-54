@@ -151,7 +151,7 @@ static const Choice mcStats =
         {"Не показывать",   "Hide"},
         {"Показывать",      "Show"}
     },
-    (int8*)&set.debug.showStats, EmptyFuncVB, EmptyFuncVII
+    (int8*)&SHOW_STAT, EmptyFuncVB, EmptyFuncVII
 };
 
 // ОТЛАДКА -> КОНСОЛЬ ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -1000,7 +1000,7 @@ static const Choice mcChannels_BandwidthA =
         {"650МГц", "650MHz"},
         {"750МГц", "750MHz"}
     },
-    (int8*)&set.debug.bandwidth[A], OnChange_Channels_BandwidthA, EmptyFuncVII
+    (int8*)&BANDWIDTH_DEBUG(A), OnChange_Channels_BandwidthA, EmptyFuncVII
 };
 
 static void OnChange_Channels_BandwidthA(bool active)
@@ -1026,7 +1026,7 @@ static const Choice mcChannels_BandwidthB =
         {"650МГц", "650MHz"},
         {"750МГц", "750MHz"}
     },
-    (int8*)&set.debug.bandwidth[B], OnChange_Channels_BandwidthB, EmptyFuncVII
+    (int8*)&BANDWIDTH_DEBUG(B), OnChange_Channels_BandwidthB, EmptyFuncVII
 };
 
 static void OnChange_Channels_BandwidthB(bool active)
@@ -1110,7 +1110,7 @@ static const Governor mgRand_Pretriggered =
         ""
     },
     EmptyFuncBV,
-    &set.debug.pretriggered, 0, 30000, OnChange_Rand_Pretriggered
+    &PRETRIGGERED, 0, 30000, OnChange_Rand_Pretriggered
 };
 
 static void OnChange_Rand_Pretriggered(void)
@@ -1231,7 +1231,7 @@ static const Choice mgRand_ShowStat =
         {"Не показывать",   "Hide"},
         {"Показывать",      "Show"}
     },
-    (int8*)&set.debug.showRandStat, EmptyFuncVB, EmptyFuncVII
+    (int8*)&SHOW_RAND_STAT, EmptyFuncVB, EmptyFuncVII
 };
 
 
@@ -1251,7 +1251,7 @@ static const Choice mcEMS =
         {DISABLE_RU,    DISABLE_EN},
         {ENABLE_RU,     ENABLE_EN}
     },
-    (int8*)&set.debug.modeEMS, OnChange_EMS, EmptyFuncVII
+    (int8*)&MODE_EMS, OnChange_EMS, EmptyFuncVII
 };
 
 static void OnChange_EMS(bool active)

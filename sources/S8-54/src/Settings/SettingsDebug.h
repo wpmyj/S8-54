@@ -7,6 +7,11 @@
 #define NUM_MEASURES_FOR_GATES  (set.debug.numMeasuresForGates)
 #define TIME_COMPENSATION       (set.debug.timeCompensation)
 #define SHOW_RAND_INFO          (set.debug.showRandInfo)
+#define SHOW_RAND_STAT          (set.debug.showRandStat)
+#define MODE_EMS                (set.debug.modeEMS)
+#define SHOW_STAT               (set.debug.showStats)
+#define PRETRIGGERED            (set.debug.pretriggered)
+#define BANDWIDTH_DEBUG(ch)     (set.debug.bandwidth[ch])
 
 
 float   GetStretchADC(Channel ch);

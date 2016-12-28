@@ -176,7 +176,7 @@ void LoadTShift(void)
         {
             addShiftForFPGA = Kr[tBase] + addShiftForFPGA;
         }
-        gPred = ~(set.debug.pretriggered);
+        gPred = ~(PRETRIGGERED);
     }
     else
     {
@@ -356,13 +356,13 @@ uint PrepareChannel(Channel ch)
         (1 << 7) + (1 << 8)     // 750
     };
 
-    if (set.debug.modeEMS || RANGE(ch) == Range_2mV || BANDWIDTH(ch) == Bandwidth_20MHz)
+    if (MODE_EMS || RANGE_2mV(ch) || BANDWIDTH_20MHz(ch))
     {
         data |= maskField[Bandwidth_20MHz];
     }
     else
     {
-        data |= maskField[BANDWIDTH(ch)];
+        data |= maskField[BANDWIDTH_DEBUG(ch)];
     }
 
     return data;
