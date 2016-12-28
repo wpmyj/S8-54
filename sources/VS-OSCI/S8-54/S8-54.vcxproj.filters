@@ -900,5 +900,8 @@
     <Text Include="..\..\doc\Hardware.txt">
       <Filter>_doc_</Filter>
     </Text>
+    <Text Include="..\..\doc\remarks.txt">
+      <Filter>_doc_</Filter>
+    </Text>
   </ItemGroup>
 </Project>

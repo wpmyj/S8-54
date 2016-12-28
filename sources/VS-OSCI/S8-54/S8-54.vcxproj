@@ -473,6 +473,7 @@
   <ItemGroup>
     <Text Include="..\..\doc\54 boolloader.txt" />
     <Text Include="..\..\doc\Hardware.txt" />
+    <Text Include="..\..\doc\remarks.txt" />
     <Text Include="..\..\doc\TODO_54.txt" />
     <Text Include="..\..\S8-54\src\EMUz80\doc\interface.txt" />
     <Text Include="..\..\S8-54\src\Menu\Menu_reference.txt" />
