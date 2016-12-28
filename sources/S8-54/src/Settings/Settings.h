@@ -162,20 +162,20 @@ typedef struct
 
 typedef struct
 {
-    ScaleFFT        scaleFFT;
+    ScaleFFT        scaleFFT;  
     SourceFFT       sourceFFT;
     WindowFFT       windowFFT;
     FFTmaxDB        fftMaxDB;
     Function        mathFunc;
-    uint8           currentCursor;          // Определяет, каким курсором спектра управляет ручка УСТАНОВКА
-    uint8           posCur[2];              // Позиция курсора спектра. Изменятеся 0...256.
-    int8            koeff1add;              // Коэффициент при первом слагаемом для сложения.
+    uint8           currentCursor;      // Определяет, каким курсором спектра управляет ручка УСТАНОВКА
+    uint8           posCur[2];          // Позиция курсора спектра. Изменятеся 0...256.
+    int8            koeff1add;          // Коэффициент при первом слагаемом для сложения.
     int8            koeff2add;
     int8            koeff1mul;
     int8            koeff2mul;
     bool            enableFFT;
-    ModeDrawMath    modeDraw;               // Раздельный или общий дисплей в режиме математической функции
-    ModeRegSet      modeRegSet;             // Функция ручки УСТАНОВКА - масштаб по времени или смещение по вертикали
+    ModeDrawMath    modeDraw;           // Раздельный или общий дисплей в режиме математической функции
+    ModeRegSet      modeRegSet;         // Функция ручки УСТАНОВКА - масштаб по времени или смещение по вертикали
     Range           range;
     Divider         divider;
     uint16          rShift;
@@ -287,8 +287,8 @@ typedef struct
 {
     int8            posActItem[Page_NumPages];      // Позиция ативного пункта. bit7 == 1 - item is opened, 0x7f - нет активного пункта
     int8            currentSubPage[Page_NumPages];  // Номер текущей подстраницы.
-    bool            pageDebugActive;                    // Активна ли кнопка отладки в меню.
-    int8            isShown;                            // Меню показано. Если == false, и при этом какой-либо элемент меню расрыт, то он будет показан на экране
+    bool            pageDebugActive;                // Активна ли кнопка отладки в меню.
+    int8            isShown;                        // Меню показано. Если == false, и при этом какой-либо элемент меню расрыт, то он будет показан на экране
 } SettingsMenu;
 
 
