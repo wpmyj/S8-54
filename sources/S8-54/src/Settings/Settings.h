@@ -14,6 +14,7 @@
 #include "SettingsCursors.h"
 #include "SettingsDebug.h"
 #include "SettingsMeasures.h"
+#include "SettingsMath.h"
 
 
 #ifndef _MS_VS

@@ -514,7 +514,7 @@ void Math_CalculateFFT(float *dataR, int numPoints, float *result, float *freq0,
 
     Normalize(result, 256);
 
-    if (set.math.scaleFFT == ScaleFFT_Log)
+    if (SCALE_FFT_LOG)
     {
         float minDB = sService_MathGetFFTmaxDBabs();
 

@@ -319,7 +319,7 @@ const Choice mcFFTscale =
     {                           {"Логарифм",    "Log"},
                                 {"Линейная",    "Linear"}
     },
-    (int8*)&set.math.scaleFFT, EmptyFuncVB, EmptyFuncVII
+    (int8*)&SCALE_FFT, EmptyFuncVB, EmptyFuncVII
 };
 
 // СЕРВИС -> МАТЕМАТИКА -> СПЕКТР -> Источник
@@ -358,7 +358,7 @@ const Choice mcFFTwindow =
 // СЕРВИС -> МАТЕМАТИКА -> СПЕКТР -> Предел
 bool ActiveC_FFT_Limit(void)
 {
-    return set.math.scaleFFT == ScaleFFT_Log;
+    return SCALE_FFT_LOG;
 }
 
 const Choice mcFFTrange =

@@ -1410,7 +1410,7 @@ static void DrawGrid(int left, int top, int width, int height)
 //----------------------------------------------------------------------------------------------------------------------------------------------------
 static void DrawGridSpectrum(void)
 {
-    if(set.math.scaleFFT == ScaleFFT_Log)
+    if(SCALE_FFT_LOG)
     {
         static const int nums[] ={4, 6, 8};
         static const char *strs[] ={"0", "-10", "-20", "-30", "-40", "-50", "-60", "-70"};
@@ -1432,7 +1432,7 @@ static void DrawGridSpectrum(void)
             Painter_DrawText(5, GridMathTop() + 1, "Да");
         }
     }
-    else if(set.math.scaleFFT == ScaleFFT_Linear)
+    else if(SCALE_FFT_LIN)
     {
         static const char *strs[] ={"1.0", "0.8", "0.6", "0.4", "0.2"};
         float scale = (float)GridMathHeight() / 5;
@@ -2020,9 +2020,9 @@ static void WriteParametersFFT(Channel ch, float freq0, float density0, float fr
         y += dY * 3 + 4;
     }
     Painter_SetColor(gColorChan[ch]);
-    Painter_DrawText(x, y, set.math.scaleFFT == ScaleFFT_Log ? Float2Db(density0, 4, buffer) : Float2String(density0, false, 7, buffer));
+    Painter_DrawText(x, y, SCALE_FFT_LOG ? Float2Db(density0, 4, buffer) : Float2String(density0, false, 7, buffer));
     y += dY;
-    Painter_DrawText(x, y, set.math.scaleFFT == ScaleFFT_Log ? Float2Db(density1, 4, buffer) : Float2String(density1, false, 7, buffer));
+    Painter_DrawText(x, y, SCALE_FFT_LOG ? Float2Db(density1, 4, buffer) : Float2String(density1, false, 7, buffer));
 }
 
 
