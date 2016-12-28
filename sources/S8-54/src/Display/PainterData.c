@@ -589,7 +589,7 @@ void PainterData_DrawMath(void)
 
     static const int WIDTH = 71;
     static const int HEIGHT = 10;
-    int delta = (SHOW_STRING_NAVI_ALL && FUNC_TOGETHER) ? 10 : 0;
+    int delta = (SHOW_STRING_NAVI_ALL && FUNC_MODE_DRAW_TOGETHER) ? 10 : 0;
     Painter_DrawRectangleC(GridLeft(), GridMathTop() + delta, WIDTH, HEIGHT, gColorFill);
     Painter_FillRegionC(GridLeft() + 1, GridMathTop() + 1 + delta, WIDTH - 2, HEIGHT - 2, gColorBack);
     Divider divider = set.math.divider;

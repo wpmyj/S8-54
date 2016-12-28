@@ -106,7 +106,7 @@ int GridMathTop(void)
 //------------------------------------------------------------------------------------------------------------------------------------------------------
 int GridMathHeight(void)
 {
-    if (FFT_ENABLED || FUNC_SEPARATE)
+    if (FFT_ENABLED || FUNC_MODE_DRAW_SEPARATE)
     {
         return GridFullHeight() / 2;
     }

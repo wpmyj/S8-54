@@ -1414,7 +1414,7 @@ static void DrawGridSpectrum(void)
     {
         static const int nums[] ={4, 6, 8};
         static const char *strs[] ={"0", "-10", "-20", "-30", "-40", "-50", "-60", "-70"};
-        int numParts = nums[set.math.fftMaxDB];
+        int numParts = nums[MAX_DB_FFT];
         float scale = (float)GridMathHeight() / numParts;
         for(int i = 1; i < numParts; i++)
         {

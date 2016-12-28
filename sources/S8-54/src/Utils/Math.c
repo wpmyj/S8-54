@@ -368,14 +368,14 @@ static void MultiplyToWindow(float *data, int numPoints)
         data[i] *= koeff[i];
     }
 #else
-    if (set.math.windowFFT == WindowFFT_Hamming)
+    if (WINDOW_FFT == WindowFFT_Hamming)
     {
         for (int i = 0; i < numPoints; i++)
         {
             data[i] *= 0.53836f - 0.46164f * cosf(2.0f * 3.1415926f * i / (numPoints - 1));
         }
     }
-    else if (set.math.windowFFT == WindowFFT_Blackman)
+    else if (WINDOW_FFT == WindowFFT_Blackman)
     {
         float alpha = 0.16f;
         float a0 = (1.0f - alpha) / 2.0f;
@@ -386,7 +386,7 @@ static void MultiplyToWindow(float *data, int numPoints)
             data[i] *= a0 - a1 * cosf(2.0f * 3.1415926f * i / (numPoints - 1.0f)) + a2 * cosf(4.0f * 3.1415926f * i / (numPoints - 1.0f));
         }
     }
-    else if (set.math.windowFFT == WindowFFT_Hann)
+    else if (WINDOW_FFT == WindowFFT_Hann)
     {
         for (int i = 0; i < numPoints; i++)
         {
@@ -553,7 +553,7 @@ void Math_CalculateFFT(float *dataR, int numPoints, float *result, float *freq0,
 //------------------------------------------------------------------------------------------------------------------------------------------------------
 void Math_CalculateMathFunction(float *data0andResult, float *dataB, int numPoints)
 {
-    if (set.math.mathFunc == Function_Sum)
+    if (MATH_FUNC_SUM)
     {
         int delta = dataB - data0andResult;
         float *end = &data0andResult[numPoints];
@@ -563,7 +563,7 @@ void Math_CalculateMathFunction(float *data0andResult, float *dataB, int numPoin
             data0andResult++;
         }
     }
-    else if (set.math.mathFunc == Function_Mul)
+    else if (MATH_FUNC_MUL)
     {
         int delta = dataB - data0andResult;
         float *end = &data0andResult[numPoints];

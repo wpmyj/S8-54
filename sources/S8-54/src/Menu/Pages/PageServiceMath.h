@@ -55,7 +55,7 @@ static const SmallButton sbCursFFTSource =
 //----------------------------------------------------------------------------------------------------------------------------------------------------
 static void PressSB_MathFunction_Type(void)
 {
-    CircleIncreaseInt8((int8*)&set.math.mathFunc, 0, 1);
+    CircleIncreaseInt8((int8*)&MATH_FUNC, 0, 1);
 }
 
 
@@ -80,7 +80,7 @@ static void DrawSB_MathFunction_Mul(int x, int y)
 static void DrawSB_MathFunction_Type(int x, int y)
 {
     const pFuncVII funcs[2] = {DrawSB_MathFunction_Sum, DrawSB_MathFunction_Mul};
-    funcs[set.math.mathFunc](x, y);
+    funcs[MATH_FUNC](x, y);
 }
 
 
@@ -112,7 +112,7 @@ static void PressSB_MathFunction_ModeDraw(void)
     }
     else
     {
-        CircleIncreaseInt8((int8*)&FUNC, 0, 2);
+        CircleIncreaseInt8((int8*)&FUNC_MODE_DRAW, 0, 2);
     }
 }
 
@@ -141,7 +141,7 @@ static void DrawSB_MathFunction_ModeDraw(int x, int y)
         DrawSB_MathFunction_ModeDraw_Separate,
         DrawSB_MathFunction_ModeDraw_Together
     };
-    funcs[FUNC](x, y);
+    funcs[FUNC_MODE_DRAW](x, y);
 }
 
 static const SmallButton sbMathFunctionModeDraw =
@@ -263,14 +263,15 @@ static const SmallButton sbMathFunctionModeRegSet =
 // СЕРВИС -> Математика -> ФУНКЦИЯ -> Формула
 static bool ActiveF_MathFormula(void)
 {
-    return set.math.mathFunc == Function_Mul || set.math.mathFunc == Function_Sum;
+    return MATH_FUNC_MUL || MATH_FUNC_SUM;
 }
 
 static void ChangeF_MathFormula(void)
 {
 
 }
-                                    
+
+
 static int8 curDigit = 0;
 const Formula mfMathFormula =
 {
@@ -283,13 +284,14 @@ const Formula mfMathFormula =
         "Here you can set the coefficients and signs in a mathematical formula"
     },
     ActiveF_MathFormula,
-    (int8*)&set.math.mathFunc, (int8*)&set.math.koeff1add, (int8*)&set.math.koeff2add, (int8*)&set.math.koeff1mul, (int8*)&set.math.koeff2mul, &curDigit, ChangeF_MathFormula
+    (int8*)&MATH_FUNC, (int8*)&set.math.koeff1add, (int8*)&set.math.koeff2add, (int8*)&set.math.koeff1mul, (int8*)&set.math.koeff2mul, &curDigit, ChangeF_MathFormula
 };
+
 
 /// СЕРВИС -> Математика -> ФУНКЦИЯ -> Масштаб
 static bool ActiveF_Math_Scale(void)
 {
-    return set.math.mathFunc == Function_Mul || set.math.mathFunc == Function_Sum;
+    return MATH_FUNC_MUL || MATH_FUNC_SUM;
 }
 
 // СЕРВИС -> МАТЕМАТИКА -> СПЕКТР -> Отображение
@@ -352,7 +354,7 @@ const Choice mcFFTwindow =
                                 {"Блэкмена",    "Blackman"},
                                 {"Ханна",       "Hann"}
     },
-    (int8*)&set.math.windowFFT, EmptyFuncVB, EmptyFuncVII
+    (int8*)&WINDOW_FFT, EmptyFuncVB, EmptyFuncVII
 };
 
 // СЕРВИС -> МАТЕМАТИКА -> СПЕКТР -> Предел
@@ -373,7 +375,7 @@ const Choice mcFFTrange =
                                 {"-60дБ",   "-60dB"},
                                 {"-80дБ",   "-80dB"}
     },
-    (int8*)&set.math.fftMaxDB, EmptyFuncVB, EmptyFuncVII
+    (int8*)&MAX_DB_FFT, EmptyFuncVB, EmptyFuncVII
 };
 
 // СЕРВИС -> МАТЕМАТИКА -> СПЕКТР -> Курсоры

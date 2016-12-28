@@ -96,7 +96,7 @@ int sDisplay_TimeMenuAutoHide(void)
 //------------------------------------------------------------------------------------------------------------------------------------------------------
 bool sDisplay_IsSeparate(void)
 {
-    return FUNC_SEPARATE || FFT_ENABLED;
+    return FUNC_MODE_DRAW_SEPARATE || FFT_ENABLED;
 }
 
 

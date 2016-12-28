@@ -6,5 +6,5 @@
 float sService_MathGetFFTmaxDBabs(void)
 {
     static const float db[] = {-40.0f, -60.0f, -80.0f};
-    return db[set.math.fftMaxDB];
+    return db[MAX_DB_FFT];
 }
