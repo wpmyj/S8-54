@@ -15,7 +15,7 @@ const Page mpService;
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 void Reg_FFT_Cursors(int angle)
 {
-    set.math.posCur[set.math.currentCursor] += (uint8)angle;
+    POS_MATH_CUR(set.math.currentCursor) += (uint8)angle;
     Sound_RegulatorShiftRotate();
 }
 
@@ -337,7 +337,7 @@ const Choice mcFFTsource =
                                 {"Канал 2",     "Channel 2"},
                                 {"Канал 1 + 2", "Channel 1 + 2"}
     },
-    (int8*)&set.math.sourceFFT, EmptyFuncVB, EmptyFuncVII
+    (int8*)&SOURCE_FFT, EmptyFuncVB, EmptyFuncVII
 };
 
 // СЕРВИС -> МАТЕМАТИКА -> СПЕКТР -> Окно

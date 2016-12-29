@@ -197,7 +197,7 @@ static const Choice mcShowFreq =
         {DISABLE_RU,    DISABLE_EN},
         {ENABLE_RU,     ENABLE_EN}
     },
-    (int8*)&set.cursors.showFreq, EmptyFuncVB, EmptyFuncVII
+    (int8*)&CURSORS_SHOW_FREQ, EmptyFuncVB, EmptyFuncVII
 };
 
 

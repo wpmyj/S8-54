@@ -6,6 +6,8 @@
 #define SHOW_MEASURES       (set.measures.show)
 #define MARKED_MEAS         (set.measures.marked)
 
+#define MEAS_ZONE           (set.measures.zone)
+#define MEAS_ZONE_HAND      (MEAS_ZONE == MeasuresZone_Hand)
 
 #define NUM_MEASURES        (set.measures.number)
 #define NUM_MEASURES_1_5    (NUM_MEASURES == MN_1_5)

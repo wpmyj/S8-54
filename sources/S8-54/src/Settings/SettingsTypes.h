@@ -486,8 +486,8 @@ typedef enum
 
 typedef enum
 {
-    SourceFFT_Channel0,
-    SourceFFT_Channel1,
+    SourceFFT_ChannelA,
+    SourceFFT_ChannelB,
     SourceFFT_Both
 } SourceFFT;
 

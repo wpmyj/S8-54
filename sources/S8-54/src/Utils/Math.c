@@ -410,8 +410,8 @@ void Math_CalculateFFT(float *dataR, int numPoints, float *result, float *freq0,
 
     float k = 1024.0f / numPoints;
 
-    *freq0 = scale * set.math.posCur[0] * k;
-    *freq1 = scale * set.math.posCur[1] * k;
+    *freq0 = scale * POS_MATH_CUR_0 * k;
+    *freq1 = scale * POS_MATH_CUR_1 * k;
     if (PEACKDET)
     {
         *freq0 *= 2;
@@ -525,11 +525,11 @@ void Math_CalculateFFT(float *dataR, int numPoints, float *result, float *freq0,
 #else
             result[i] = Log10[(int)(result[i] * 10000)];
 #endif
-            if (i == set.math.posCur[0])
+            if (i == POS_MATH_CUR_0)
             {
                 *density0 = result[i];
             }
-            else if (i == set.math.posCur[1])
+            else if (i == POS_MATH_CUR_1)
             {
                 *density1 = result[i];
             }
@@ -542,11 +542,11 @@ void Math_CalculateFFT(float *dataR, int numPoints, float *result, float *freq0,
     }
     else
     {
-        *density0 = result[set.math.posCur[0]];
-        *density1 = result[set.math.posCur[1]];
+        *density0 = result[POS_MATH_CUR_0];
+        *density1 = result[POS_MATH_CUR_1];
     }
-    *y0 = GridMathBottom() - (int)(result[set.math.posCur[0]] * GridMathHeight());
-    *y1 = GridMathBottom() - (int)(result[set.math.posCur[1]] * GridMathHeight());
+    *y0 = GridMathBottom() - (int)(result[POS_MATH_CUR_0] * GridMathHeight());
+    *y1 = GridMathBottom() - (int)(result[POS_MATH_CUR_1] * GridMathHeight());
 }
 
 

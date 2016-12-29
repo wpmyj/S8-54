@@ -608,13 +608,11 @@ static void DrawSpectrum(void)
             numPoints = 256;
         }
 
-        SourceFFT source = set.math.sourceFFT;
-
-        if(source == SourceFFT_Channel0)
+        if(SOURCE_FFT_A)
         {
             DRAW_SPECTRUM(gDataA, numPoints, A);
         }
-        else if(source == SourceFFT_Channel1)
+        else if(SOURCE_FFT_B)
         {
             DRAW_SPECTRUM(gDataB, numPoints, B);
         }
@@ -945,7 +943,7 @@ static void DrawMeasures(void)
 
     Processing_CalculateMeasures();
 
-    if(set.measures.zone == MeasuresZone_Hand)
+    if(MEAS_ZONE_HAND)
     {
         int x0 = POS_MEAS_CUR_T_0 - SHIFT_IN_MEMORY + GridLeft();
         int y0 = POS_MEAS_CUR_U_0 + GRID_TOP;
@@ -1489,11 +1487,11 @@ static void DRAW_SPECTRUM(const uint8 *dataIn, int numPoints, Channel ch)
     {
         Color color = gColorFill;
         WriteParametersFFT(ch, freq0, density0, freq1, density1);
-        Painter_DrawRectangleC(set.math.posCur[0] + GridLeft() - s, y0 - s, s * 2, s * 2, color);
-        Painter_DrawRectangle(set.math.posCur[1] + GridLeft() - s, y1 - s, s * 2, s * 2);
+        Painter_DrawRectangleC(POS_MATH_CUR_0 + GridLeft() - s, y0 - s, s * 2, s * 2, color);
+        Painter_DrawRectangle(POS_MATH_CUR_1 + GridLeft() - s, y1 - s, s * 2, s * 2);
 
-        Painter_DrawVLine(GridLeft() + set.math.posCur[0], GridMathBottom(), y0 + s);
-        Painter_DrawVLine(GridLeft() + set.math.posCur[1], GridMathBottom(), y1 + s);
+        Painter_DrawVLine(GridLeft() + POS_MATH_CUR_0, GridMathBottom(), y0 + s);
+        Painter_DrawVLine(GridLeft() + POS_MATH_CUR_1, GridMathBottom(), y1 + s);
     }
 
     free(data);
@@ -1596,7 +1594,7 @@ static void WriteCursors(void)
             Painter_DrawText(x, y2, ":");
             Painter_DrawText(x + 8, y2, sCursors_GetCursorPercentsT(source, buffer));
 
-            if(set.cursors.showFreq)
+            if(CURSORS_SHOW_FREQ)
             {
                 int width = 65;
                 int x = GridRight() - width;

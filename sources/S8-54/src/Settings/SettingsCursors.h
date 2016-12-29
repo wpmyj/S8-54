@@ -1,6 +1,9 @@
 #pragma once
 
 
+#define CURSORS_SHOW_FREQ   (set.cursors.showFreq)
+#define CURS_MOVE_PERCENTS  (set.cursors.movement == CursMovement_Percents)
+
 #define CURS_SOURCE         (set.cursors.source)
 #define CURS_SOURCE_A       (CURS_SOURCE == A)
 #define CURS_SOURCE_B       (CURS_SOURCE == B)
@@ -26,8 +29,6 @@
 
 #define dUperc(ch)          (set.cursors.deltaU100percents[ch])
 #define dTperc(ch)          (set.cursors.deltaT100percents[ch])
-
-#define CURS_MOVE_PERCENTS  (set.cursors.movement == CursMovement_Percents)
 
 #define CURS_ACTIVE         (set.cursors.active)
 #define CURS_ACTIVE_U       (CURS_ACTIVE == CursActive_U)
