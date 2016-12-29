@@ -143,7 +143,7 @@ static uint16 ReadFlag(void)
 {
     uint16 flag = FSMC_READ(RD_FL);
 
-    if (set.service.recorder == 0)
+    if (!RECORDER_MODE)
     {
         if(GetBit(flag, FL_TRIG_READY) == 1 && timeStart > timeSwitchingTrig)
         {
@@ -1082,7 +1082,7 @@ void FPGA_Update(void)
         return;
     }
 
-    if (!set.service.recorder)
+    if (!RECORDER_MODE)
     {
         ProcessingData();
     }

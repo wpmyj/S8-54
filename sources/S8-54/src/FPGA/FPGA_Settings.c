@@ -293,7 +293,7 @@ void WriteChipSelect2(void)
     {
         data |= (3 << 2);
     }
-    else if (set.service.recorder == false)
+    else if (!RECORDER_MODE)
     {               //                     D2        D3
         const uint maskCoupleA[3] = {0, (1 << 2), (1 << 3)};
         data |= maskCoupleA[COUPLE_A];
@@ -319,7 +319,7 @@ void WriteChipSelect2(void)
         data |= (1 << 4);
     }
 
-    if (set.service.recorder)       // В режмие регистратора страхуемся и делаем запуск от внешней синхронизации (чтобы случайно не отключилось считывание точек);
+    if (RECORDER_MODE)       // В режмие регистратора страхуемся и делаем запуск от внешней синхронизации (чтобы случайно не отключилось считывание точек);
     {
         data |= (1 << 14);
     }
@@ -431,7 +431,7 @@ void LoadRegUPR(void)
 
     data |= mask[set.service.calibrator];
 
-    if (set.service.recorder)
+    if (RECORDER_MODE)
     {
         data |= (1 << UPR_BIT_RECORDER);
     }
@@ -541,7 +541,7 @@ void FPGA_TBaseDecrease(void)
 
     if ((int)TBASE > 0)
     {
-        if (set.service.recorder && TBASE == MIN_TBASE_P2P)
+        if (RECORDER_MODE && TBASE == MIN_TBASE_P2P)
         {
             Display_ShowWarning(TooFastScanForRecorder);
         }
@@ -718,9 +718,9 @@ void FPGA_SetCalibratorMode(CalibratorMode calibratorMode)
 //------------------------------------------------------------------------------------------------------------------------------------------------------
 void FPGA_EnableRecorderMode(bool enable)
 {
-    set.service.recorder = enable;
+    RECORDER_MODE = enable;
 
-    if (set.service.recorder)
+    if (RECORDER_MODE)
     {
         if (TBASE < TBase_100ms)
         {

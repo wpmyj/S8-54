@@ -1277,13 +1277,13 @@ static const Choice mcDisplayOrientation =
         { "Прямая", "Direct" },
         { "Обратная", "Back" }
     },
-    (int8*)&set.debug.orientation, OnChange_DisplayOrientation, EmptyFuncVII
+    (int8*)&DISPLAY_ORIENTATION, OnChange_DisplayOrientation, EmptyFuncVII
 };
 
 
 void OnChange_DisplayOrientation(bool active)
 {
-    Display_SetOrientation(set.debug.orientation);
+    Display_SetOrientation(DISPLAY_ORIENTATION);
 }
 
 

@@ -194,10 +194,10 @@ void Process_SELFRECORDER(uint8 *buffer)
         {0}
     };
     ENTER_ANALYSIS
-        if (value < 2) { set.service.recorder = (value == 0); }
+        if (value < 2) { RECORDER_MODE = (value == 0); }
         else if (2 == value)
         {
-            SCPI_SEND(":TBASE:RECORDER %s", set.service.recorder == true ? "ON" : "OFF");
+            SCPI_SEND(":TBASE:RECORDER %s", RECORDER_MODE == true ? "ON" : "OFF");
         }
     LEAVE_ANALYSIS
 }

@@ -557,7 +557,7 @@ static int FillDataP2P(uint8 *data, Channel ch, DataSettings **ds)
 
     int numPointsDS = NumBytesInChannel(*ds);
 
-    return set.service.recorder ?
+    return RECORDER_MODE ?
         FillDataP2PforRecorder(numPoints, numPointsDS, pointsInScreen, ch == A ? dataA : dataB, data) :   // Это возвращаем, если включен режим регистратора
         FillDataP2PforNormal(numPoints, numPointsDS, pointsInScreen, ch == A ? dataA : dataB, data);      // А это в нормальном режиме
 }

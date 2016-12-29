@@ -166,12 +166,12 @@ static const Choice mcRecorder =
         {DISABLE_RU, DISABLE_EN},
         {ENABLE_RU, ENABLE_EN}
     },
-    (int8*)&set.service.recorder, OnChange_Recorder, EmptyFuncVII
+    (int8*)&RECORDER_MODE, OnChange_Recorder, EmptyFuncVII
 };
 
 static void OnChange_Recorder(bool active)
 {
-    FPGA_EnableRecorderMode(set.service.recorder);
+    FPGA_EnableRecorderMode(RECORDER_MODE);
 }
 
 // ÑÅÐÂÈÑ - ßçûê -------------------------------------------------------------------------------------------------------------------------------------

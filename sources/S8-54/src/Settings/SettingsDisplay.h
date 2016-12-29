@@ -10,6 +10,8 @@
 #define DISPLAY_NUM_MIN_MAX     (1 << (int)set.display.numMinMax)       /* ¬озвращает количество измерений сигналов дл€ расчЄта минимумов и максимумов. */
 #define NUM_SIGNALS_IN_SEC      (set.display.numSignalsInSec)
 #define LAST_AFFECTED_CH        (set.display.lastAffectedChannel)
+#define DISPLAY_ORIENTATION     (set.debug.orientation)
+
 
 #define SHOW_STRING_NAVI        (set.display.showStringNavigation)
 #define SHOW_STRING_NAVI_TEMP   (set.display.showStringNavigation == ShowStrNavi_Temp)

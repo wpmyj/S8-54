@@ -488,7 +488,7 @@ void Display_SetPauseForConsole(bool pause)
 //----------------------------------------------------------------------------------------------------------------------------------------------------
 void Display_SetOrientation(DisplayOrientation orientation)
 {
-    set.debug.orientation = orientation;
+    DISPLAY_ORIENTATION = orientation;
     gBF.needSetOrientation = 1;
 }
 
@@ -536,7 +536,7 @@ static void InitHardware(void)
 static bool NeedForClearScreen(void)
 {
     int numAccum = DISPLAY_NUM_ACCUM;
-    if(IN_RANDOM_MODE || numAccum == 1 || MODE_ACCUM_NO_RESET || set.service.recorder)
+    if(IN_RANDOM_MODE || numAccum == 1 || MODE_ACCUM_NO_RESET || RECORDER_MODE)
     {
         return true;
     }
@@ -559,7 +559,7 @@ static void SetOrientation(void)
 {
     if(gBF.needSetOrientation == 1)
     {
-        uint8 command[4] ={SET_ORIENTATION, set.debug.orientation, 0, 0};
+        uint8 command[4] ={SET_ORIENTATION, DISPLAY_ORIENTATION, 0, 0};
         Painter_SendToDisplay(command, 4);
         Painter_SendToInterfaces(command, 2);
         gBF.needSetOrientation = 0;
