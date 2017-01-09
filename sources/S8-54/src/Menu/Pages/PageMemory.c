@@ -743,7 +743,6 @@ static const SmallButton sbInt_SaveToMemory =
 
 static void OnPress_Int_SaveToMemory(void)
 {
-    return;
     SaveSignalToIntMemory();
 }
 

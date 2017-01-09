@@ -74,7 +74,7 @@ int main(void)
     if (set.service.screenWelcomeEnable)
     {
         Display_SetDrawMode(DrawMode_Hand, DrawWelcomeScreen);
-        Timer_SetAndStartOnce(kTemp, StopDrawWelcomeScreen, 5000);
+        Timer_SetAndStartOnce(kTemp, StopDrawWelcomeScreen, 1000);
     }
 
     bool run = true;

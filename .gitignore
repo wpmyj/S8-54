@@ -22,6 +22,7 @@
 *.obj
 *.bin
 *.pdf
+~*.*
 Makefile
 NMakefile
 _old_for_delete_

@@ -7,6 +7,36 @@
 #include "Utils/GlobalFunctions.h"
 
 
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// Программа и константные данные
+#define ADDR_SECTOR_BOOT_0      ((uint)0x08000000)  // 16k Загрузчик
+#define ADDR_SECTOR_BOOT_1      ((uint)0x08004000)  // 16k Загрузчик
+#define ADDR_FLASH_SECTOR_2     ((uint)0x08008000)  // 16k
+#define ADDR_FLASH_SECTOR_3     ((uint)0x0800C000)  // 16k
+#define ADDR_FLASH_SECTOR_4     ((uint)0x08010000)  // 64k
+#define ADDR_SECTOR_PROGRAM_0   ((uint)0x08020000)  // 128k Основная программа
+#define ADDR_SECTOR_PROGRAM_1   ((uint)0x08040000)  // 128k Основная программа
+#define ADDR_SECTOR_PROGRAM_2   ((uint)0x08060000)  // 128k Основная программа
+#define ADDR_FLASH_SECTOR_8     ((uint)0x08080000)  // 128k
+#define ADDR_SECTOR_TEMP        ((uint)0x080A0000)  // 128k Это сектор для хранения временных даннх. Например, при упллотненнии данных сюда писать будем
+#define ADDR_SECTOR_RESOURCES   ((uint)0x080C0000)  // 128k Графические и звуковые ресурсы
+#define ADDR_SECTOR_SETTINGS    ((uint)0x080E0000)  // 128k Настройки
+#define ADDR_FLASH_SECTOR_12    ((uint)0x08100000)  // 16k
+#define ADDR_FLASH_SECTOR_13    ((uint)0x08104000)  // 16k
+#define ADDR_FLASH_SECTOR_14    ((uint)0x08108000)  // 16k
+#define ADDR_FLASH_SECTOR_15    ((uint)0x0810C000)  // 16k
+#define ADDR_SECTOR_DATA_DATA   ((uint)0x08110000)  // 64k  Здесь будем сохранять массивы адресов с нашими данными
+#define ADDR_SECTOR_DATA_0      ((uint)0x08120000)  // 128k |
+#define ADDR_SECTOR_DATA_1      ((uint)0x08140000)  // 128k |
+#define ADDR_SECTOR_DATA_2      ((uint)0x08160000)  // 128k | Здесь будут храниться собственно данные
+#define ADDR_SECTOR_DATA_3      ((uint)0x08180000)  // 128k |
+#define ADDR_SECTOR_DATA_4      ((uint)0x081A0000)  // 128k |
+#define ADDR_SECTOR_DATA_5      ((uint)0x081C0000)  // 128k |
+#define ADDR_SECTOR_DATA_6      ((uint)0x081E0000)  // 128k /
+
+#define SIZE_SECTOR_SETTINGS    (128 * 1024)        // Размер сектора, куда сохраняются настройки, в байтах
+
+
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 #undef CLEAR_FLASH_FLAGS
 #define CLEAR_FLASH_FLAGS                                                                   \
@@ -47,7 +77,7 @@ static const uint ADDR_LAST_SET = ((ADDR_SECTOR_SETTINGS + SIZE_SECTOR_SETTINGS)
 
 // Признак того, что запись в этоу область флэш уже производилась. Если нулевое слово области (данных, ресурсов или настроек) имеет это значение, запись уже была произведена как минимум один раз
 static const uint MARK_OF_FILLED = 0x123456;
-static const uint startDataInfo = ADDR_SECTOR_DATA_MAIN;
+static const uint startDataInfo = ADDR_SECTOR_DATA_0;
 
 
 static RecordConfig *records = (RecordConfig *)ADDR_ARRAY_RECORDS;     // Для упрощения операций с записями
@@ -198,7 +228,7 @@ static void WriteBuffer(uint address, uint *buffer, int size)
 //------------------------------------------------------------------------------------------------------------------------------------------------------
 static void PrepareSectorForData(void)
 {
-    EraseSector(ADDR_SECTOR_DATA_MAIN);
+    EraseSector(ADDR_SECTOR_DATA_0);
     for(int i = 0; i < MAX_NUM_SAVED_WAVES; i++)
     {
         WriteWord(startDataInfo + i * 4, 0);
@@ -261,22 +291,22 @@ static uint GetSector(uint startAddress)
         {FLASH_SECTOR_5, ADDR_SECTOR_PROGRAM_0},
         {FLASH_SECTOR_6, ADDR_SECTOR_PROGRAM_1},
         {FLASH_SECTOR_7, ADDR_SECTOR_PROGRAM_2},
-        {FLASH_SECTOR_8, ADDR_SECTOR_DATA_MAIN},
-        {FLASH_SECTOR_9, ADDR_SECTOR_DATA_HELP},
+        {FLASH_SECTOR_8, ADDR_FLASH_SECTOR_8},
+        {FLASH_SECTOR_9, ADDR_SECTOR_TEMP},
         {FLASH_SECTOR_10, ADDR_SECTOR_RESOURCES},
         {FLASH_SECTOR_11, ADDR_SECTOR_SETTINGS},
         {FLASH_SECTOR_12, ADDR_FLASH_SECTOR_12},
         {FLASH_SECTOR_13, ADDR_FLASH_SECTOR_13},
         {FLASH_SECTOR_14, ADDR_FLASH_SECTOR_14},
         {FLASH_SECTOR_15, ADDR_FLASH_SECTOR_15},
-        {FLASH_SECTOR_16, ADDR_FLASH_SECTOR_16},
-        {FLASH_SECTOR_17, ADDR_FLASH_SECTOR_17},
-        {FLASH_SECTOR_18, ADDR_FLASH_SECTOR_18},
-        {FLASH_SECTOR_19, ADDR_FLASH_SECTOR_19},
-        {FLASH_SECTOR_20, ADDR_FLASH_SECTOR_20},
-        {FLASH_SECTOR_21, ADDR_FLASH_SECTOR_21},
-        {FLASH_SECTOR_22, ADDR_FLASH_SECTOR_22},
-        {FLASH_SECTOR_23, ADDR_FLASH_SECTOR_23}
+        {FLASH_SECTOR_16, ADDR_SECTOR_DATA_DATA},
+        {FLASH_SECTOR_17, ADDR_SECTOR_DATA_0},
+        {FLASH_SECTOR_18, ADDR_SECTOR_DATA_1},
+        {FLASH_SECTOR_19, ADDR_SECTOR_DATA_2},
+        {FLASH_SECTOR_20, ADDR_SECTOR_DATA_3},
+        {FLASH_SECTOR_21, ADDR_SECTOR_DATA_4},
+        {FLASH_SECTOR_22, ADDR_SECTOR_DATA_5},
+        {FLASH_SECTOR_23, ADDR_SECTOR_DATA_6}
     };
 
     for(int i = 0; i < 24; i++)
@@ -387,7 +417,7 @@ int CalculateSizeData(DataSettings *ds)
 //------------------------------------------------------------------------------------------------------------------------------------------------------
 static uint FreeMemory(void)
 {
-    return ADDR_SECTOR_DATA_MAIN + 128 * 1024 - FindAddressNextDataInfo() - 1 - 4 * MAX_NUM_SAVED_WAVES - 3000;
+    return ADDR_SECTOR_DATA_0 + 128 * 1024 - FindAddressNextDataInfo() - 1 - 4 * MAX_NUM_SAVED_WAVES - 3000;
 }
 
 
@@ -410,13 +440,13 @@ static void CompactMemory(void)
     Display_ClearFromWarnings();
     Display_ShowWarning(MovingData);
     Display_Update();
-    uint dataInfoRel = FindActualDataInfo() - ADDR_SECTOR_DATA_MAIN;
+    uint dataInfoRel = FindActualDataInfo() - ADDR_SECTOR_DATA_0;
 
-    EraseSector(ADDR_SECTOR_DATA_HELP);
-    WriteBufferBytes(ADDR_SECTOR_DATA_HELP, (uint8*)ADDR_SECTOR_DATA_MAIN, 1024 * 128);
+    EraseSector(ADDR_SECTOR_DATA_1);
+    WriteBufferBytes(ADDR_SECTOR_DATA_1, (uint8*)ADDR_SECTOR_DATA_0, 1024 * 128);
     PrepareSectorForData();
 
-    uint addressDataInfo = ADDR_SECTOR_DATA_HELP + dataInfoRel;
+    uint addressDataInfo = ADDR_SECTOR_DATA_1 + dataInfoRel;
 
     for (int i = 0; i < MAX_NUM_SAVED_WAVES; i++)
     {
@@ -454,9 +484,7 @@ void FLASH_SaveData(int num, DataSettings *ds, uint8 *dataA, uint8 *dataB)
         4. В хвост ему пишем адрес, в котором будет храниться след. массив информации.
         5. Записываем за ним данные.
         6. За данными записываем обновлённый массив информации.
-    */
 
-    /*
         Алгоритм сохранения данных.
         ADDR_SECTOR_DATA_HELP используется для временного хранения данных, когда полностью заполнен ADDR_SECTOR_DATA_MAIN и некуда писать очередной сигнал
 
@@ -466,6 +494,11 @@ void FLASH_SaveData(int num, DataSettings *ds, uint8 *dataA, uint8 *dataB)
 
         uint[MAX_NUM_SAVED_WAVES] - адреса, по которым записаны соответствующие сигналы. Если 0 - сигнал стёрт.
         uint - адрес первой свободной ячейки памяти (следующего массива адресов). В неё будет записан адрес первого сигнала.
+    */
+
+    /*
+        1. Узнаём количество оставшейся памяти
+        2. Если не хватает памяти для записи данных - уплотняем массив (    
     */
 
     if (FLASH_ExistData(num))
@@ -528,12 +561,15 @@ void FLASH_SaveData(int num, DataSettings *ds, uint8 *dataA, uint8 *dataB)
 //------------------------------------------------------------------------------------------------------------------------------------------------------
 bool FLASH_GetData(int num, DataSettings **ds, uint8 **dataA, uint8 **dataB)
 {
+    *ds = 0;
+    *dataA = 0;
+    *dataB = 0;
+    
+    return false;
+
     uint addrDataInfo = FindActualDataInfo();
     if (READ_WORD(addrDataInfo + 4 * num) == 0)
     {
-        *ds = 0;
-        *dataA = 0;
-        *dataB = 0;
         return false;
     }
 
