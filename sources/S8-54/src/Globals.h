@@ -131,12 +131,12 @@ typedef struct
     uint8       range[2];               // Масштаб по напряжению обоих каналов.
     int16       tShift;                 // Смещение по времени
     uint        tBase           : 5;    // Масштаб по времени
-    uint        enableChB       : 1;    // Включен ли канал 1
+    uint        enableChB       : 1;    // Включен ли канал B
     uint        indexLength     : 3;    // Сколько байт в канале (при включённом пиковом детекторе байт в два раза больше, чем точек)
     uint        modeCoupleA     : 2;    // Режим канала по входу
     uint        modeCoupleB     : 2;
     uint        peackDet        : 2;    // Включен ли пиковый детектор
-    uint        enableChA       : 1;    // Включён ли канал 0
+    uint        enableChA       : 1;    // Включён ли канал A
     uint        inverseChA      : 1;
     uint        inverseChB      : 1;
     uint        multiplierA     : 1;
@@ -145,6 +145,7 @@ typedef struct
 } DataSettings;
 
 int NumBytesInChannel(DataSettings *ds);    // Возвращает количество байт на канал
+int NumBytesInData(DataSettings *ds);       // Возвращает количество байт в обоих каналах
 int NumPointsInChannel(DataSettings *ds);   // Возвращает количество точек на канал
 
 // Возвращает 0, если канал выключен

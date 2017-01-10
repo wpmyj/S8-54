@@ -1784,6 +1784,16 @@
               <FileType>5</FileType>
               <FilePath>.\src\Utils\TablesWindow.h</FilePath>
             </File>
+            <File>
+              <FileName>Segments.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\src\Utils\Segments.c</FilePath>
+            </File>
+            <File>
+              <FileName>Segments.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\src\Utils\Segments.h</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>

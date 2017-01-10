@@ -17,7 +17,6 @@ void    Display_RotateRShift(Channel ch);
 void    Display_RotateTrigLev(void);
 void    Display_Redraw(void);
 void    Display_EnableTrigLabel(bool enable);
-void    Display_ClearFromWarnings(void);
 void    Display_SetDrawMode(DrawMode mode, pFuncVV func);
 void    Display_SetAddDrawFunction(pFuncVV func);
 pFuncVV Display_GetAddDrawFunction(void);
@@ -67,4 +66,5 @@ typedef enum
     Warning_NumWarnings
 } Warning;
 
+void    Display_ClearFromWarnings(void);
 void    Display_ShowWarning(Warning warning);

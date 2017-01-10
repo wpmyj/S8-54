@@ -5,6 +5,7 @@
 #include "Hardware/Timer.h"
 #include "Settings/Settings.h"
 #include "Utils/GlobalFunctions.h"
+#include "Utils/Segments.h"
 
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -13,7 +14,7 @@
 
     В секторе ADDR_SECTOR_DATA_DATA хранятся массивы с адресами MAX_NUM_SAVED_WAVES данных (если адрес == -1, то данные стёрты). Его размер MAX_NUM_SAVED_WAVES + 1
     При этом в элементе с индексом MAX_NUM_SAVED_WAVES хранится маркер, указываеющий на то, является ли текущий массив активным. Если там -1, то пользуемся им, если нет - переходим к следующему
-    Для хранения собственно данных предназначены сектора ADDR_SECTOR_DATA_0...6. Данные хранятся так - сначала DataSettings, а потом каналы в естественном порядке.\
+    Для хранения собственно данных предназначены сектора ADDR_DATA_0...6. Данные хранятся так - сначала DataSettings, а потом каналы в естественном порядке.\
 */
 
 
@@ -27,8 +28,8 @@
 #define ADDR_SECTOR_PROGRAM_0   ((uint)0x08020000)  // 128k Основная программа
 #define ADDR_SECTOR_PROGRAM_1   ((uint)0x08040000)  // 128k Основная программа
 #define ADDR_SECTOR_PROGRAM_2   ((uint)0x08060000)  // 128k Основная программа
-#define ADDR_SECTOR_TEMP_1      ((uint)0x08080000)  // 128k | Это сектора для хранения временных даннх. Например, при упллотненнии данных сюда писать будем
-#define ADDR_SECTOR_TEMP_2      ((uint)0x080A0000)  // 128k /
+#define ADDR_FLASH_SECTOR_8     ((uint)0x08080000)  // 128k
+#define ADDR_FLASH_SECTOR_9     ((uint)0x080A0000)  // 128k
 #define ADDR_SECTOR_RESOURCES   ((uint)0x080C0000)  // 128k Графические и звуковые ресурсы
 #define ADDR_SECTOR_SETTINGS    ((uint)0x080E0000)  // 128k Настройки
 #define ADDR_FLASH_SECTOR_12    ((uint)0x08100000)  // 16k
@@ -36,20 +37,24 @@
 #define ADDR_FLASH_SECTOR_14    ((uint)0x08108000)  // 16k
 #define ADDR_FLASH_SECTOR_15    ((uint)0x0810C000)  // 16k
 #define ADDR_SECTOR_DATA_DATA   ((uint)0x08110000)  // 64k  Здесь будем сохранять массивы адресов с нашими данными
-#define ADDR_SECTOR_DATA_0      ((uint)0x08120000)  // 128k |
-#define ADDR_SECTOR_DATA_1      ((uint)0x08140000)  // 128k |
-#define ADDR_SECTOR_DATA_2      ((uint)0x08160000)  // 128k | Здесь будут храниться собственно данные
-#define ADDR_SECTOR_DATA_3      ((uint)0x08180000)  // 128k |
-#define ADDR_SECTOR_DATA_4      ((uint)0x081A0000)  // 128k |
-#define ADDR_SECTOR_DATA_5      ((uint)0x081C0000)  // 128k |
-#define ADDR_SECTOR_DATA_6      ((uint)0x081E0000)  // 128k /
+#define ADDR_DATA_0             ((uint)0x08120000)  // 128k |
+#define ADDR_DATA_1             ((uint)0x08140000)  // 128k |
+#define ADDR_DATA_2             ((uint)0x08160000)  // 128k |
+#define ADDR_DATA_3             ((uint)0x08180000)  // 128k | Здесь будут храниться собственно данные
+#define ADDR_DATA_4             ((uint)0x081A0000)  // 128k |
+#define ADDR_DATA_5             ((uint)0x081C0000)  // 128k |
+#define ADDR_DATA_6             ((uint)0x081E0000)  // 128k /
 
 #define SIZE_SECTOR_SETTINGS    (128 * 1024)        // Размер сектора, куда сохраняются настройки, в байтах
+
+#define DATA_START              ADDR_DATA_0
+#define DATA_END                (ADDR_DATA_6 + 128 * 1024)  // На самом указывает на первый байт после области
 
 // Структура для записи массива указателей на данные
 typedef struct
 {
-    uint address[MAX_NUM_SAVED_WAVES + 1];
+    uint start[MAX_NUM_SAVED_WAVES + 1];
+    uint end[MAX_NUM_SAVED_WAVES + 1];
 } ArrayDatas;
 
 
@@ -93,7 +98,7 @@ static const uint ADDR_LAST_SET = ((ADDR_SECTOR_SETTINGS + SIZE_SECTOR_SETTINGS)
 
 // Признак того, что запись в этоу область флэш уже производилась. Если нулевое слово области (данных, ресурсов или настроек) имеет это значение, запись уже была произведена как минимум один раз
 static const uint MARK_OF_FILLED = 0x123456;
-static const uint startDataInfo = ADDR_SECTOR_DATA_0;
+static const uint startDataInfo = ADDR_DATA_1;
 
 
 static RecordConfig *records = (RecordConfig *)ADDR_ARRAY_RECORDS;     // Для упрощения операций с записями
@@ -104,7 +109,7 @@ static RecordConfig *records = (RecordConfig *)ADDR_ARRAY_RECORDS;     // Для уп
 static int CalculateFreeMemory(void);
 static RecordConfig* FindRecordConfigForWrite(void);
 static void WriteWord(uint address, uint word);
-static void WriteBuffer(uint address, uint *buffer, int size);
+static void WriteBufferWords(uint address, void *buffer, int numWords);
 static void PrepareSectorForData(void);
 static void ReadBuffer(uint addressSrc, uint *bufferDest, int size);
 static void EraseSector(uint startAddress);
@@ -113,7 +118,10 @@ static RecordConfig* LastFilledRecord(void);    // Возвращает адрес последней за
 
 // Для данных
 static ArrayDatas* CurrentArray(void);          // Возвращает адрес актуального массива с адресами данных
-
+static ArrayDatas* NextArray(void);             // Возвращает адрес массива, находящегося за актуальным. Если сектор DATA_DATA исчерпан, этот адрес будет меньше, чем текущий
+static uint VerifyOnFreeMem(uint start, uint end, uint size);   // Найти на отрезке [start; end] свободный участок для записи размером size. Если найти не удалось, возвращает 0
+static void SaveDataToAddress(uint address, int num, DataSettings *ds, uint8 *dataA, uint8 *dataB);
+static uint SaveDataChannel(uint address, DataSettings *ds, uint8 *data);               // Сохраняте данные канала по указанному адресу. Возвращает адрес первого байта, следующего после сохранённых данных
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 void FLASH_SaveSettings(void)
@@ -140,7 +148,7 @@ void FLASH_SaveSettings(void)
 
     WriteWord((uint)(&record->size), sizeof(set));
 
-    WriteBuffer(record->addr, (uint*)(&set), record->size / 4);
+    WriteBufferWords(record->addr, &set, record->size / 4);
 }
 
 
@@ -230,12 +238,12 @@ static void WriteWord(uint address, uint word)
 
 
 //------------------------------------------------------------------------------------------------------------------------------------------------------
-static void WriteBuffer(uint address, uint *buffer, int size)
+static void WriteBufferWords(uint address, void *buffer, int numWords)
 {
     HAL_FLASH_Unlock();
-    for(int i = 0; i < size; i++)
+    for(int i = 0; i < numWords; i++)
     {
-        if(HAL_FLASH_Program(TYPEPROGRAM_WORD, address, (uint64_t)(buffer[i])) != HAL_OK)
+        if(HAL_FLASH_Program(TYPEPROGRAM_WORD, address, (uint64_t)(((uint*)buffer)[i])) != HAL_OK)
         {
             LOG_ERROR("Не могу записать в флеш-память");
         }
@@ -248,7 +256,7 @@ static void WriteBuffer(uint address, uint *buffer, int size)
 //------------------------------------------------------------------------------------------------------------------------------------------------------
 static void PrepareSectorForData(void)
 {
-    EraseSector(ADDR_SECTOR_DATA_0);
+    EraseSector(ADDR_DATA_1);
     for(int i = 0; i < MAX_NUM_SAVED_WAVES; i++)
     {
         WriteWord(startDataInfo + i * 4, 0);
@@ -311,8 +319,8 @@ static uint GetSector(uint startAddress)
         {FLASH_SECTOR_5, ADDR_SECTOR_PROGRAM_0},
         {FLASH_SECTOR_6, ADDR_SECTOR_PROGRAM_1},
         {FLASH_SECTOR_7, ADDR_SECTOR_PROGRAM_2},
-        {FLASH_SECTOR_8, ADDR_SECTOR_TEMP_1},
-        {FLASH_SECTOR_9, ADDR_SECTOR_TEMP_2},
+        {FLASH_SECTOR_8, ADDR_FLASH_SECTOR_8},
+        {FLASH_SECTOR_9, ADDR_FLASH_SECTOR_9},
         {FLASH_SECTOR_10, ADDR_SECTOR_RESOURCES},
         {FLASH_SECTOR_11, ADDR_SECTOR_SETTINGS},
         {FLASH_SECTOR_12, ADDR_FLASH_SECTOR_12},
@@ -320,13 +328,13 @@ static uint GetSector(uint startAddress)
         {FLASH_SECTOR_14, ADDR_FLASH_SECTOR_14},
         {FLASH_SECTOR_15, ADDR_FLASH_SECTOR_15},
         {FLASH_SECTOR_16, ADDR_SECTOR_DATA_DATA},
-        {FLASH_SECTOR_17, ADDR_SECTOR_DATA_0},
-        {FLASH_SECTOR_18, ADDR_SECTOR_DATA_1},
-        {FLASH_SECTOR_19, ADDR_SECTOR_DATA_2},
-        {FLASH_SECTOR_20, ADDR_SECTOR_DATA_3},
-        {FLASH_SECTOR_21, ADDR_SECTOR_DATA_4},
-        {FLASH_SECTOR_22, ADDR_SECTOR_DATA_5},
-        {FLASH_SECTOR_23, ADDR_SECTOR_DATA_6}
+        {FLASH_SECTOR_17, ADDR_DATA_0},
+        {FLASH_SECTOR_18, ADDR_DATA_1},
+        {FLASH_SECTOR_19, ADDR_DATA_2},
+        {FLASH_SECTOR_20, ADDR_DATA_3},
+        {FLASH_SECTOR_21, ADDR_DATA_4},
+        {FLASH_SECTOR_22, ADDR_DATA_5},
+        {FLASH_SECTOR_23, ADDR_DATA_6}
     };
 
     for(int i = 0; i < 24; i++)
@@ -401,7 +409,7 @@ void FLASH_GetDataInfo(bool existData[MAX_NUM_SAVED_WAVES])
 bool FLASH_ExistData(int num)
 {
     ArrayDatas *array = CurrentArray();
-    return array->address[num] != MAX_UINT;     // Признаком того, что данные не записаны в этот элемент, является равенство его (-1)
+    return array->start[num] != MAX_UINT;     // Признаком того, что данные не записаны в этот элемент, является равенство его (-1)
 }
 
 
@@ -410,49 +418,45 @@ void FLASH_DeleteData(int num)
 {
     /*
         Для того, чтобы удалить данные, нужно сделать следующее:
-        1. Если в DATA_DATA нет места для записи нового массива:
-            1.1 Запомнить содержимое текущего массива.
-            1.2 Cтереть сектор DATA_DATA
-            1.3 Записать в начало сектора DATA_DATA массив, который был текущим, со следующими изменениями:
-                - в MAX_NUM_SAVED_WAVES и array[num] должно быть (-1)
-            1.4 Выход
-        2. 
+        1. Если array[num] == MAX_UINT:
+            - выход
+        2. Сохранить в array_temp текущий массив со следующими изменениями:
+            - array_temp[MAX_NUM_SAVED_WAVES] = MAX_UINT; array_temp[num] = MAX_UINT
+        3. Если в DATA_DATA нет места для записи нового массива:
+            3.1 Cтереть сектор DATA_DATA
+            3.2 Записать в начало DATA_DATA array_temp
+            3.3 Выход
+        4. Записать в array[MAX_NUM_SAVED_WAVES] 0
+        5. Разместить за текущим массивом array_temp
     */
 
-    uint address = FindActualDataInfo();
-    WriteWord(address + num * 4, 0);
-}
-
-
-//------------------------------------------------------------------------------------------------------------------------------------------------------
-int CalculateSizeData(DataSettings *ds)
-{
-    int size = sizeof(DataSettings);
-
-    int pointsInChannel = NumBytesInChannel(ds);
-
-    if (ds->enableChA == 1)
+    if (!FLASH_ExistData(num))  // Если здесь данные не сохранены
     {
-        size += pointsInChannel;
+        return;
     }
 
-    if (ds->enableChB == 1)
+    ArrayDatas *array = CurrentArray();
+    ArrayDatas array_temp = *array;
+    array_temp.start[MAX_NUM_SAVED_WAVES] = MAX_UINT;
+    array_temp.start[num] = MAX_UINT;
+
+    ArrayDatas *next = NextArray();     // По этому адресу будет сохранён следующий массив
+
+    if (next < array)                   // Если этот адрес меньше адреса следующего массива, значит, в DATA_DATA нет места сохранения нового массива. Будем стирать
     {
-        size += pointsInChannel;
+        EraseSector(ADDR_SECTOR_DATA_DATA);
+        WriteBufferWords(ADDR_SECTOR_DATA_DATA, &array_temp, sizeof(ArrayDatas) / 4);
     }
-
-    return size;
+    else
+    {
+        WriteWord((uint)&array->start[MAX_NUM_SAVED_WAVES], 0);
+        WriteBufferWords((uint)next, &array_temp, sizeof(ArrayDatas) / 4);
+    }
 }
 
 
 //------------------------------------------------------------------------------------------------------------------------------------------------------
-static uint FreeMemory(void)
-{
-    return ADDR_SECTOR_DATA_0 + 128 * 1024 - FindAddressNextDataInfo() - 1 - 4 * MAX_NUM_SAVED_WAVES - 3000;
-}
-
-
-//------------------------------------------------------------------------------------------------------------------------------------------------------
+/*
 static void WriteBufferBytes(uint address, uint8 *buffer, int size)
 {
     HAL_FLASH_Unlock();
@@ -463,117 +467,56 @@ static void WriteBufferBytes(uint address, uint8 *buffer, int size)
     }
     HAL_FLASH_Lock();
 }
+*/
 
 
 //------------------------------------------------------------------------------------------------------------------------------------------------------
 static void CompactMemory(void)
 {
-    Display_ClearFromWarnings();
-    Display_ShowWarning(MovingData);
-    Display_Update();
-    uint dataInfoRel = FindActualDataInfo() - ADDR_SECTOR_DATA_0;
-
-    EraseSector(ADDR_SECTOR_DATA_1);
-    WriteBufferBytes(ADDR_SECTOR_DATA_1, (uint8*)ADDR_SECTOR_DATA_0, 1024 * 128);
-    PrepareSectorForData();
-
-    uint addressDataInfo = ADDR_SECTOR_DATA_1 + dataInfoRel;
-
-    for (int i = 0; i < MAX_NUM_SAVED_WAVES; i++)
-    {
-        uint addrDataOld = READ_WORD(addressDataInfo + i * 4);
-        if (addrDataOld != 0)
-        {
-            uint addrDataNew = addrDataOld + 1024 * 128;
-            DataSettings *ds = (DataSettings*)addrDataNew;
-            addrDataNew += sizeof(DataSettings);
-            uint8 *dataA = 0;
-            uint8 *dataB = 0;
-            if (ds->enableChA == 1)
-            {
-                dataA = (uint8*)addrDataNew;
-                addrDataNew += NumBytesInChannel(ds);
-            }
-            if (ds->enableChB == 1)
-            {
-                dataB = (uint8*)addrDataNew;
-            }
-            FLASH_SaveData(i, ds, dataA, dataB);
-        }
-    }
-    Display_ClearFromWarnings();
+    ArrayDatas array = *CurrentArray();
 }
 
 
 //------------------------------------------------------------------------------------------------------------------------------------------------------
 void FLASH_SaveData(int num, DataSettings *ds, uint8 *dataA, uint8 *dataB)
 {
-    /*
-        0. Если в num уже записаны данные, то удаляем их
-        1. Узнаём количество оставшейся памяти
-        2. Если не хватает памяти для записи данных - уплотняем массив (для этой цели используем вспомогательные сектора TEMP_1 и TEMP_2)
-        4. Записываем в сектора данных данные в порядке DataSettings, dataChanA, dataChanB
-        5. Записываем в массив из DATA_DATA адрес наших записанных данных
-    */
+    // Сначала удаляем данные из данной позиции
+    FLASH_DeleteData(num);
 
-// 0
-    if (FLASH_ExistData(num))
-    {
-        FLASH_DeleteData(num);
-    }
-
-
-
-
-
-    int size = CalculateSizeData(ds);
-
-// 2
-    if (FreeMemory() < (uint)size)
-    {
-        CompactMemory();
-    }
-
-// 3
-    uint addrDataInfo = FindActualDataInfo();          // Находим начало действующего информационного массива
-
-// 4
-    uint addrForWrite = addrDataInfo + MAX_NUM_SAVED_WAVES * 4;             // Это - адрес, по которому будет храниться адрес следующего информационного массива
-    uint valueForWrite = addrForWrite + 4 + size;                           // Это - адрес следующего информационного массива
-    WriteWord(addrForWrite, valueForWrite);
-
-// 5
-    uint address = addrDataInfo + MAX_NUM_SAVED_WAVES * 4 + 4;              // Адрес, по которому будет сохранён сигнал с настройками
-    uint addressNewData = address;
-    WriteBufferBytes(address, (uint8*)ds, sizeof(DataSettings));            // Сохраняем настройки сигнала
-    address += sizeof(DataSettings);
+    // Ищем место для записи данных
+    // Сначала попробуем найти свободное место для записи данных
     
-    int pointsInChannel = NumBytesInChannel(ds);
-
-    if (ds->enableChA == 1)
+    for (int i = 0; i < 2; i++)
     {
-        WriteBufferBytes(address, (uint8*)dataA, pointsInChannel);       // Сохраняем первый канал
-        address += pointsInChannel;
-    }
+        Segment segments[MAX_NUM_SAVED_WAVES + 2];
+        segments[0].start = DATA_START;
+        segments[0].end = DATA_END - 1;
+        Segments_Set(segments);
 
-    if (ds->enableChB == 1)
-    {
-        WriteBufferBytes(address, (uint8*)dataB, pointsInChannel);       // Сохраняем второй канал
-        address += pointsInChannel;
-    }
+        ArrayDatas array = *CurrentArray();
 
-// 6
-    for (int i = 0; i < MAX_NUM_SAVED_WAVES; i++)
-    {
-        uint addressForWrite = address + i * 4;
-        if (i == num)
+        for (int i = 0; i < MAX_NUM_SAVED_WAVES; i++)
         {
-            WriteWord(addressForWrite, addressNewData);
+            if (array.start[i] != MAX_UINT)
+            {
+                Segments_Cut(array.start[i], array.end[i]);
+            }
         }
-        else
+
+        int numBytesForWrite = sizeof(DataSettings) + NumBytesInChannel(ds);
+
+        for (int i = 0; i < Segments_Num(); i++)
         {
-            WriteWord(addressForWrite, READ_WORD(addrDataInfo + i * 4));
+            uint address = VerifyOnFreeMem(segments[i].start, segments[i].end, numBytesForWrite);
+            if (address)
+            {
+                SaveDataToAddress(address, num, ds, dataA, dataB);
+                return;
+            }
         }
+
+        CompactMemory();
+
     }
 }
 
@@ -582,11 +525,94 @@ void FLASH_SaveData(int num, DataSettings *ds, uint8 *dataA, uint8 *dataB)
 static ArrayDatas* CurrentArray(void)
 {
     ArrayDatas *array = (ArrayDatas*)ADDR_SECTOR_DATA_DATA;
-    while (array->address[MAX_NUM_SAVED_WAVES] != MAX_UINT)
+    while (array->start[MAX_NUM_SAVED_WAVES] != MAX_UINT)
     {
         ++array;
     }
     return array;
+}
+
+
+//----------------------------------------------------------------------------------------------------------------------------------------------------
+static ArrayDatas* NextArray(void)
+{
+    ArrayDatas* current = CurrentArray();
+    ArrayDatas* next = current + 1;
+
+    if (ADDR_SECTOR_DATA_DATA - (uint)next < sizeof(ArrayDatas))    // Если в DATA_DATA не осталось места для ещё одного массива
+    {
+        next = (ArrayDatas*)ADDR_SECTOR_DATA_DATA;
+    }
+
+    return next;
+}
+
+
+//----------------------------------------------------------------------------------------------------------------------------------------------------
+static uint VerifyOnFreeMem(uint start, uint end, uint size)
+{
+    uint8* currentAddr = (uint8*)start;
+    uint8* endAddr = (uint8*)end;
+
+    uint8* addrStart = 0;
+
+    while (currentAddr <= endAddr)
+    {
+        // Находим первый неиспользованный адрес
+        while (*currentAddr != 0xff && currentAddr <= endAddr)
+        {
+            currentAddr++;
+        }
+
+        if (currentAddr > endAddr)              // Если достигли верхней границы отрезка
+        {
+            break;                              // выход
+        }
+
+        if ((uint)currentAddr + size > end)     // Если в отрезке недостаточно места для записи
+        {
+            break;                              // выход
+        }
+
+        addrStart = currentAddr;
+        int numFreeBytes = 0;
+
+        // Сейчас убеждаемся, что существует size неиспользованных адресов
+        for (int i = 0; i < size; i++)
+        {
+            if (*currentAddr++ == 0xff)
+            {
+                numFreeBytes++;
+            }
+            else
+            {
+                break;
+            }
+        }
+
+        if (numFreeBytes == size)       // Если нашли необходимое количество памяти
+        {
+            break;                      // выход
+        }
+
+        addrStart = 0;
+    }
+
+    return (uint)addrStart;
+}
+
+
+//----------------------------------------------------------------------------------------------------------------------------------------------------
+static void SaveDataToAddress(uint address, int num, DataSettings *ds, uint8 *dataA, uint8 *dataB)
+{
+    ArrayDatas *array = CurrentArray();
+    WriteWord((uint)&array->start[num], address);
+
+    int sizeData = sizeof(DataSettings) + NumBytesInData(ds);
+    WriteWord((uint)&array->end[num], array->start[num] + sizeData - 1);
+
+    WriteBufferWords(array->start[num], ds, sizeof(DataSettings) / 4);
+
 }
 
 
