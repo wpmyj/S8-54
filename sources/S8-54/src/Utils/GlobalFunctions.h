@@ -72,6 +72,7 @@ bool    IntInRange                              // Возвращает true, если value в
 
 int     BCD2Int(uint bcd);
 
+void    BubbleSortINT(int array[], int num);
 float   MaxFloat(float val1, float val2, float val3);                   // Возвращает максимальное значение из трёх.
 int8    CircleIncreaseInt8(int8 *val, int8 min, int8 max);              // Увеличивает значение по адресу val на 1. Затем, если результат превышает max, приравинвает его к min.
 int16   CircleIncreaseInt16(int16 *val, int16 min, int16 max);

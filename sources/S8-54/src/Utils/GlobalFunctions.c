@@ -657,3 +657,21 @@ int BCD2Int(uint bcd)
 
     return value;
 }
+
+
+//----------------------------------------------------------------------------------------------------------------------------------------------------
+void BubbleSortINT(int array[], int num)
+{
+    for (int i = 0; i < num; i++)
+    {
+        for (int j = 0; j < num - 1; j++)
+        {
+            if (array[j] > array[j + 1])
+            {
+                int time = array[j];
+                array[j] = array[j + 1];
+                array[j + 1] = time;
+            }
+        }
+    }
+}
