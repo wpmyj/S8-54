@@ -38,7 +38,7 @@
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 static int xP2P = 0;                // Здесь хранится значение для отрисовки вертикальной линии
-static Channel currentCh = A;       // Текущий ресуемый сигнал
+static Channel curCh = A;       // Текущий ресуемый сигнал
 
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -46,13 +46,13 @@ static void DrawDataMemInt(void);
 static void DrawDataInModeNormal(void);
 static void DrawDataInModeWorkLatest(void);
 static void DrawDataMinMax(void);
-static void DrawDataChannel(uint8 *dataIn, Channel ch, DataSettings *ds, int minY, int maxY);
+static void DrawDataChannel(uint8 *dataIn, DataSettings *ds, int minY, int maxY);
 static void DrawDataInRect(int x, int width, const uint8 *data, int numElems, bool peackDet);
 static void DrawTPos(int leftX, int rightX);
 static void DrawTShift(int leftX, int rightX, int numPoints);
 static void DrawBothChannels(uint8 *dataA, uint8 *dataB);                       // Нарисовать оба канала. Если data == 0, то данные берутся из Processing_GetData
-static int FillDataP2P(uint8 *data, Channel ch, DataSettings **ds);
-static void DrawMarkersForMeasure(float scale, Channel ch);
+static int FillDataP2P(uint8 *data, DataSettings **ds);
+static void DrawMarkersForMeasure(float scale);
 static bool DataBeyondTheBorders(uint8 *data, int firstPoint, int lastPoint);   // Возвращает true, если изогражение сигнала выходит за пределы экрана
 static void DrawSignalLined(const uint8 *data, DataSettings *ds, int startPoint, int endPoint, int minY, int maxY, float scaleY, float scaleX, bool calculateFiltr);
 static void DrawSignalPointed(const uint8 *data, int startPoint, int endPoint, int minY, int maxY, float scaleY, float scaleX);
@@ -141,7 +141,8 @@ void PainterData_DrawMath(void)
 
     Math_PointsVoltageToRel(dataAbsA, numPoints, RANGE_MATH, RSHIFT_MATH, points);
 
-    DrawDataChannel(points, Math, ds, GridMathTop(), GridMathBottom());
+    curCh = Math;
+    DrawDataChannel(points, ds, GridMathTop(), GridMathBottom());
 
     static const int WIDTH = 71;
     static const int HEIGHT = 10;
@@ -222,12 +223,12 @@ void PainterData_DrawMemoryWindow(void)
 
         if (sChannel_NeedForDraw(dataFirst, chanFirst, ds))
         {
-            currentCh = chanFirst;
+            curCh = chanFirst;
             DrawDataInRect(1, rightX + 3, dataFirst, sMemory_NumBytesInChannel(false), peackDet);
         }
         if (sChannel_NeedForDraw(dataSecond, chanSecond, ds))
         {
-            currentCh = chanSecond;
+            curCh = chanSecond;
             DrawDataInRect(1, rightX + 3, dataSecond, sMemory_NumBytesInChannel(false), peackDet);
         }
     }
@@ -248,8 +249,10 @@ static void DrawDataMemInt(void)
 {
     if (gDSmemInt != 0)
     {
-        DrawDataChannel(gDataAmemInt, A, gDSmemInt, GRID_TOP, GridChannelBottom());
-        DrawDataChannel(gDataBmemInt, B, gDSmemInt, GRID_TOP, GridChannelBottom());
+        curCh = A;
+        DrawDataChannel(gDataAmemInt, gDSmemInt, GRID_TOP, GridChannelBottom());
+        curCh = B;
+        DrawDataChannel(gDataBmemInt, gDSmemInt, GRID_TOP, GridChannelBottom());
     }
 }
 
@@ -286,8 +289,10 @@ static void DrawDataInModeWorkLatest(void)
 {
     if (gDSmemLast != 0)
     {
-        DrawDataChannel(gDataAmemLast, A, gDSmemLast, GRID_TOP, GridChannelBottom());
-        DrawDataChannel(gDataBmemLast, B, gDSmemLast, GRID_TOP, GridChannelBottom());
+        curCh = A;
+        DrawDataChannel(gDataAmemLast, gDSmemLast, GRID_TOP, GridChannelBottom());
+        curCh = B;
+        DrawDataChannel(gDataBmemLast, gDSmemLast, GRID_TOP, GridChannelBottom());
     }
 }
 
@@ -299,24 +304,28 @@ static void DrawDataMinMax(void)
     MODE_DRAW_SIGNAL = ModeDrawSignal_Lines;
     if (LAST_AFFECTED_CH == B)
     {
-        DrawDataChannel(DS_GetLimitation(A, 0), A, gDSet, GRID_TOP, GridChannelBottom());
-        DrawDataChannel(DS_GetLimitation(A, 1), A, gDSet, GRID_TOP, GridChannelBottom());
-        DrawDataChannel(DS_GetLimitation(B, 0), B, gDSet, GRID_TOP, GridChannelBottom());
-        DrawDataChannel(DS_GetLimitation(B, 1), B, gDSet, GRID_TOP, GridChannelBottom());
+        curCh = A;
+        DrawDataChannel(DS_GetLimitation(A, 0), gDSet, GRID_TOP, GridChannelBottom());
+        DrawDataChannel(DS_GetLimitation(A, 1), gDSet, GRID_TOP, GridChannelBottom());
+        curCh = B;
+        DrawDataChannel(DS_GetLimitation(B, 0), gDSet, GRID_TOP, GridChannelBottom());
+        DrawDataChannel(DS_GetLimitation(B, 1), gDSet, GRID_TOP, GridChannelBottom());
     }
     else
     {
-        DrawDataChannel(DS_GetLimitation(B, 0), B, gDSet, GRID_TOP, GridChannelBottom());
-        DrawDataChannel(DS_GetLimitation(B, 1), B, gDSet, GRID_TOP, GridChannelBottom());
-        DrawDataChannel(DS_GetLimitation(A, 0), A, gDSet, GRID_TOP, GridChannelBottom());
-        DrawDataChannel(DS_GetLimitation(A, 1), A, gDSet, GRID_TOP, GridChannelBottom());
+        curCh = B;
+        DrawDataChannel(DS_GetLimitation(B, 0), gDSet, GRID_TOP, GridChannelBottom());
+        DrawDataChannel(DS_GetLimitation(B, 1), gDSet, GRID_TOP, GridChannelBottom());
+        curCh = A;
+        DrawDataChannel(DS_GetLimitation(A, 0), gDSet, GRID_TOP, GridChannelBottom());
+        DrawDataChannel(DS_GetLimitation(A, 1), gDSet, GRID_TOP, GridChannelBottom());
     }
     MODE_DRAW_SIGNAL = modeDrawSignalOld;
 }
 
 
 //------------------------------------------------------------------------------------------------------------------------------------------------------
-static void DrawDataChannel(uint8 *dataIn, Channel ch, DataSettings *ds, int minY, int maxY)
+static void DrawDataChannel(uint8 *dataIn, DataSettings *ds, int minY, int maxY)
 {
     bool calculateFiltr = true;
     int sizeBuffer = NumBytesInChannel(ds);
@@ -338,7 +347,7 @@ static void DrawDataChannel(uint8 *dataIn, Channel ch, DataSettings *ds, int min
     if (IN_P2P_MODE &&                                      // Если находимся в режиме медленных поточечных развёрток
         ds->time.timeMS == 0)                               // и считывание полного набора данных ещё не произошло
     {
-        lastPoint = FillDataP2P(data, ch, &ds);
+        lastPoint = FillDataP2P(data, &ds);
         if (lastPoint < 2)                                  // Если готово меньше двух точек - выход
         {
             return;
@@ -348,7 +357,7 @@ static void DrawDataChannel(uint8 *dataIn, Channel ch, DataSettings *ds, int min
     else if (dataIn == 0)                                   // Значит, для вывода используем последние считаныые данные из Processing_GetData()
     {
         calculateFiltr = false;
-        if (ch == A)
+        if (curCh == A)
         {
             Processing_GetData(&dataIn, 0, &ds);
         }
@@ -360,7 +369,7 @@ static void DrawDataChannel(uint8 *dataIn, Channel ch, DataSettings *ds, int min
         dataIn = data;
     }
 
-    if (!sChannel_NeedForDraw(dataIn, ch, ds))
+    if (!sChannel_NeedForDraw(dataIn, curCh, ds))
     {
         return;
     }
@@ -370,10 +379,10 @@ static void DrawDataChannel(uint8 *dataIn, Channel ch, DataSettings *ds, int min
 
     if (SHOW_MEASURES)
     {
-        DrawMarkersForMeasure(scaleY, ch);
+        DrawMarkersForMeasure(scaleY);
     }
 
-    Painter_SetColor(gColorChan[ch]);
+    Painter_SetColor(gColorChan[curCh]);
 
     if (!DataBeyondTheBorders(dataIn, firstPoint, lastPoint))   // Если сигнал не выходит за пределы экрана
     {
@@ -477,7 +486,7 @@ static void SendToDisplayDataInRect(int x, uint8 *min, uint8 *max, int width)
                 points[i * 2 + 1 - start * 2] = min[i];
             }
 
-            Painter_DrawVLineArray(x + start, numPoints, points, gColorChan[currentCh]);
+            Painter_DrawVLineArray(x + start, numPoints, points, gColorChan[curCh]);
             start = end;
         }
     }
@@ -543,29 +552,33 @@ static void DrawBothChannels(uint8 *dataA, uint8 *dataB)
     {
         if (gDSet->enableChA)
         {
-            DrawDataChannel(dataA, A, gDSet, GRID_TOP, GridChannelBottom());
+            curCh = A;
+            DrawDataChannel(dataA, gDSet, GRID_TOP, GridChannelBottom());
         }
         if (gDSet->enableChB)
         {
-            DrawDataChannel(dataB, B, gDSet, GRID_TOP, GridChannelBottom());
+            curCh = B;
+            DrawDataChannel(dataB, gDSet, GRID_TOP, GridChannelBottom());
         }
     }
     else
     {
         if (gDSet->enableChB)
         {
-            DrawDataChannel(dataB, B, gDSet, GRID_TOP, GridChannelBottom());
+            curCh = B;
+            DrawDataChannel(dataB, gDSet, GRID_TOP, GridChannelBottom());
         }
         if (gDSet->enableChA)
         {
-            DrawDataChannel(dataA, A, gDSet, GRID_TOP, GridChannelBottom());
+            curCh = A;
+            DrawDataChannel(dataA, gDSet, GRID_TOP, GridChannelBottom());
         }
     }
 }
 
 
 //------------------------------------------------------------------------------------------------------------------------------------------------------
-static int FillDataP2P(uint8 *data, Channel ch, DataSettings **ds)
+static int FillDataP2P(uint8 *data, DataSettings **ds)
 {
     int pointsInScreen = 281;
     if (PEACKDET_EN)
@@ -580,29 +593,31 @@ static int FillDataP2P(uint8 *data, Channel ch, DataSettings **ds)
 
     int numPointsDS = NumBytesInChannel(*ds);
 
+    uint8 *dat[] = {dataA, dataB};
+
     return RECORDER_MODE ?
-        FillDataP2PforRecorder(numPoints, numPointsDS, pointsInScreen, ch == A ? dataA : dataB, data) :   // Это возвращаем, если включен режим регистратора
-        FillDataP2PforNormal(numPoints, numPointsDS, pointsInScreen, ch == A ? dataA : dataB, data);      // А это в нормальном режиме
+        FillDataP2PforRecorder(numPoints, numPointsDS, pointsInScreen, dat[curCh], data) :   // Это возвращаем, если включен режим регистратора
+        FillDataP2PforNormal(numPoints, numPointsDS, pointsInScreen, dat[curCh], data);      // А это в нормальном режиме
 }
 
 
 //------------------------------------------------------------------------------------------------------------------------------------------------------
-static void DrawMarkersForMeasure(float scale, Channel ch)
+static void DrawMarkersForMeasure(float scale)
 {
-    if (ch == Math)
+    if (curCh == Math)
     {
         return;
     }
-    Painter_SetColor(ColorCursors(ch));
+    Painter_SetColor(ColorCursors(curCh));
     for (int numMarker = 0; numMarker < 2; numMarker++)
     {
-        int pos = Processing_GetMarkerHorizontal(ch, numMarker);
+        int pos = Processing_GetMarkerHorizontal(curCh, numMarker);
         if (pos != ERROR_VALUE_INT && pos > 0 && pos < 200)
         {
             Painter_DrawDashedHLine(GridFullBottom() - (int)(pos * scale), GridLeft(), GridRight(), 3, 2, 0);
         }
 
-        pos = Processing_GetMarkerVertical(ch, numMarker);
+        pos = Processing_GetMarkerVertical(curCh, numMarker);
         if (pos != ERROR_VALUE_INT && pos > 0 && pos < GridRight())
         {
             Painter_DrawDashedVLine(GridLeft() + (int)(pos * scale), GRID_TOP, GridFullBottom(), 3, 2, 0);
