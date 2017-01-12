@@ -37,7 +37,8 @@
 
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-static int xP2P = 0;   // Здесь хранится значение для отрисовки вертикальной линии
+static int xP2P = 0;                // Здесь хранится значение для отрисовки вертикальной линии
+static Channel currentCh = A;       // Текущий ресуемый сигнал
 
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -46,7 +47,7 @@ static void DrawDataInModeNormal(void);
 static void DrawDataInModeWorkLatest(void);
 static void DrawDataMinMax(void);
 static void DrawDataChannel(uint8 *dataIn, Channel ch, DataSettings *ds, int minY, int maxY);
-static void DrawDataInRect(int x, int width, const uint8 *data, int numElems, Channel ch, bool peackDet);
+static void DrawDataInRect(int x, int width, const uint8 *data, int numElems, bool peackDet);
 static void DrawTPos(int leftX, int rightX);
 static void DrawTShift(int leftX, int rightX, int numPoints);
 static void DrawBothChannels(uint8 *dataA, uint8 *dataB);                       // Нарисовать оба канала. Если data == 0, то данные берутся из Processing_GetData
@@ -59,7 +60,7 @@ static uint8 Ordinate(uint8 x, int bottom, float scale);
 static int FillDataP2PforRecorder(int numPoints, int numPointsDS, int pointsInScreen, uint8 *src, uint8 *dest);
 static int FillDataP2PforNormal(int numPoints, int numPointsDS, int pointsInScreen, uint8 *src, uint8 *dest);
 static void DrawLimitLabel(int delta);      // Выоводит сообщение на экране о выходе сигнала за границы экрана. delta - расстояние от края сетки, на котором находится сообщение. Если delta < 0 - выводится внизу сетки
-static void SendToDisplayDataInRect(int x, uint8 *min, uint8 *max, int width, Color color);
+static void SendToDisplayDataInRect(int x, uint8 *min, uint8 *max, int width);
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 void PainterData_DrawData(void)
@@ -221,15 +222,17 @@ void PainterData_DrawMemoryWindow(void)
 
         if (sChannel_NeedForDraw(dataFirst, chanFirst, ds))
         {
-            DrawDataInRect(1, rightX + 3, dataFirst, sMemory_NumBytesInChannel(false), chanFirst, peackDet);
+            currentCh = chanFirst;
+            DrawDataInRect(1, rightX + 3, dataFirst, sMemory_NumBytesInChannel(false), peackDet);
         }
         if (sChannel_NeedForDraw(dataSecond, chanSecond, ds))
         {
-            DrawDataInRect(1, rightX + 3, dataSecond, sMemory_NumBytesInChannel(false), chanSecond, peackDet);
+            currentCh = chanSecond;
+            DrawDataInRect(1, rightX + 3, dataSecond, sMemory_NumBytesInChannel(false), peackDet);
         }
     }
 
-    Painter_DrawRectangleC(xVert0, top, width - (FPGA_NUM_POINTS_8k ? 1 : 0), bottom - top, gColorFill);
+    Painter_DrawRectangleC(xVert0, top, width - (FPGA_NUM_POINTS_8k ? 1 : 0), bottom - top + 1, gColorFill);
 
     DrawTPos(leftX, rightX);
 
@@ -386,7 +389,7 @@ static void DrawDataChannel(uint8 *dataIn, Channel ch, DataSettings *ds, int min
 }
 
 //------------------------------------------------------------------------------------------------------------------------------------------------------
-static void DrawDataInRect(int x, int width, const uint8 *data, int numBytes, Channel ch, bool peackDet)
+static void DrawDataInRect(int x, int width, const uint8 *data, int numBytes, bool peackDet)
 {
     if (numBytes == 0)
     {
@@ -450,20 +453,20 @@ static void DrawDataInRect(int x, int width, const uint8 *data, int numBytes, Ch
         val0[i] = Ordinate((uint8)value0, bottom, scale);
     }
 
-    SendToDisplayDataInRect(x, val0, val1, width, gColorChan[ch]);
+    SendToDisplayDataInRect(x, val0, val1, width);
 }
 
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
-static void SendToDisplayDataInRect(int x, uint8 *min, uint8 *max, int width, Color color)
+static void SendToDisplayDataInRect(int x, uint8 *min, uint8 *max, int width)
 {
     int start = 0;
     for (; start < width; start++)
     {
-        if (min[start] && max[start])
+        if (min[start] || max[start])
         {
             int end = start + 1;
-            for (; (end < width) && (end - start < 250) && min[end] && max[end]; end++)
+            for (; (end < width) && (end - start < 250) && (min[end] || max[end]); end++)   // WARN тут обрезает сверху
             {
             }
             int numPoints = end - start;
@@ -474,7 +477,7 @@ static void SendToDisplayDataInRect(int x, uint8 *min, uint8 *max, int width, Co
                 points[i * 2 + 1 - start * 2] = min[i];
             }
 
-            Painter_DrawVLineArray(x + start, numPoints, points, color);
+            Painter_DrawVLineArray(x + start, numPoints, points, gColorChan[currentCh]);
             start = end;
         }
     }
@@ -486,8 +489,8 @@ static void DrawTPos(int leftX, int rightX)
 {
     int x[] = {leftX, (rightX - leftX) / 2 + leftX, rightX};
     int x0 = x[TPOS];
-    Painter_FillRegionC(x0 - 3, 9, 6, 6, gColorBack);
-    Painter_DrawCharC(x0 - 3, 9, SYMBOL_TPOS_1, gColorFill);
+    Painter_FillRegionC(x0 - 3, 10, 6, 6, gColorBack);
+    Painter_DrawCharC(x0 - 3, 10, SYMBOL_TPOS_1, gColorFill);
 }
 
 
@@ -756,7 +759,7 @@ static void DrawSignalPointed(const uint8 *data, int startPoint, int endPoint, i
 //----------------------------------------------------------------------------------------------------------------------------------------------------
 static uint8 Ordinate(uint8 x, int bottom, float scale)
 {
-    return (x == NONE_VALUE) ? 0 : (uint8)(((float)bottom - scale * LimitationInt(x - MIN_VALUE, 0, (MAX_VALUE - MIN_VALUE))) + 0.5f);
+    return (uint8)(((float)bottom - scale * LimitationInt(x - MIN_VALUE, 0, (MAX_VALUE - MIN_VALUE))) + 0.5f);
 }
 
 

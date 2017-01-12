@@ -657,8 +657,16 @@ static void DataReadSave(bool necessaryShift, bool first, bool saveToStorage, bo
         ReadRealMode(dataA, dataB, necessaryShift);
     }
 
-    RAM_MemCpy16(RAM(FPGA_DATA_A), dataA, sMemory_NumBytesInChannel(false));
-    RAM_MemCpy16(RAM(FPGA_DATA_B), dataB, sMemory_NumBytesInChannel(false));
+    int numBytes = sMemory_NumBytesInChannel(false);
+
+    RAM_MemCpy16(RAM(FPGA_DATA_A), dataA, numBytes);
+    RAM_MemCpy16(RAM(FPGA_DATA_B), dataB, numBytes);
+
+    for (int i = 0; i < numBytes; i++)
+    {
+        LIMITATION(dataA[i], dataA[i], MIN_VALUE, MAX_VALUE);
+        LIMITATION(dataB[i], dataB[i], MIN_VALUE, MAX_VALUE);
+    }
 
     if (!IN_RANDOM_MODE)
     {
