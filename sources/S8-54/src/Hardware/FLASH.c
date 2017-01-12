@@ -380,34 +380,11 @@ int CalculateFreeMemory(void)
 
 
 //------------------------------------------------------------------------------------------------------------------------------------------------------
-static uint FindAddressNextDataInfo(void)
-{
-    uint addressNextInfo = startDataInfo + MAX_NUM_SAVED_WAVES * 4;
-
-    while (*((uint*)addressNextInfo) != MAX_UINT)
-    {
-        addressNextInfo = *((uint*)addressNextInfo) + MAX_NUM_SAVED_WAVES * 4;
-    }
-
-    return addressNextInfo;
-}
-
-
-//------------------------------------------------------------------------------------------------------------------------------------------------------
-static uint FindActualDataInfo(void)
-{
-    return FindAddressNextDataInfo() - MAX_NUM_SAVED_WAVES * 4;
-}
-
-
-//------------------------------------------------------------------------------------------------------------------------------------------------------
 void FLASH_GetDataInfo(bool existData[MAX_NUM_SAVED_WAVES])
 {
-    uint address = FindActualDataInfo();
-
     for (int i = 0; i < MAX_NUM_SAVED_WAVES; i++)
     {
-        existData[i] = READ_WORD(address + i * 4) != 0;
+        existData[i] = FLASH_ExistData(i);
     }
 }
 
@@ -415,8 +392,7 @@ void FLASH_GetDataInfo(bool existData[MAX_NUM_SAVED_WAVES])
 //------------------------------------------------------------------------------------------------------------------------------------------------------
 bool FLASH_ExistData(int num)
 {
-    ArrayDatas *array = CurrentArray();
-    return array->addr[num] != MAX_UINT;     // ѕризнаком того, что данные не записаны в этот элемент, €вл€етс€ равенство его (-1)
+    return CurrentArray()->addr[num] != MAX_UINT;     // ѕризнаком того, что данные не записаны в этот элемент, €вл€етс€ равенство его (-1)
 }
 
 
@@ -644,41 +620,26 @@ bool FLASH_GetData(int num, DataSettings **ds, uint8 **dataA, uint8 **dataB)
     *ds = 0;
     *dataA = 0;
     *dataB = 0;
-    
-    return false;
 
-    uint addrDataInfo = FindActualDataInfo();
-    if (READ_WORD(addrDataInfo + 4 * num) == 0)
+    ArrayDatas array = *CurrentArray();
+    uint address = array.addr[num];
+    if (address == MAX_UINT)
     {
         return false;
     }
 
-    uint addrDS = READ_WORD(addrDataInfo + 4 * num);
+    *ds = (DataSettings*)address;
 
-    uint addrData0 = 0;
-    uint addrData1 = 0;
-
-    *ds = (DataSettings*)addrDS;
-    
-    if ((*ds)->enableChA == 1)
+    address += sizeof(DataSettings);
+    if ((*ds)->enableChA)
     {
-        addrData0 = addrDS + sizeof(DataSettings);
+        *dataA = (uint8*)address;
+        address += NumBytesInChannel(*ds);
     }
-
-    if ((*ds)->enableChB == 1)
+    if ((*ds)->enableChB)
     {
-        if (addrData0 != 0)
-        {
-            addrData1 = addrData0 + NumBytesInChannel(*ds);
-        }
-        else
-        {
-            addrData1 = addrDS + sizeof(DataSettings);
-        }
+        *dataB = (uint8*)address;
     }
-
-    *dataA = (uint8*)addrData0;
-    *dataB = (uint8*)addrData1;
     
     return true;
 }
