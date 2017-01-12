@@ -281,7 +281,7 @@ static void PushData(DataSettings *ds, uint8 *dataA, uint8 *dataB)
     }
     else
     {
-        RAM_MemSet_Sinch(AddressChannel(ds, A), AVE_VALUE, numPoints);  // Для режима поточечного вывода - заполняем одним значением
+        RAM_MemSet_Sinch(AddressChannel(ds, A), NONE_VALUE, numPoints);  // Для режима поточечного вывода - заполняем одним значением
     }
 
     if(dataB)
@@ -293,7 +293,7 @@ static void PushData(DataSettings *ds, uint8 *dataA, uint8 *dataB)
     }
     else
     {
-        RAM_MemSet_Sinch(AddressChannel(ds, B), AVE_VALUE, numPoints);  // Для режима поточечного вывода - заполянем одним значением
+        RAM_MemSet_Sinch(AddressChannel(ds, B), NONE_VALUE, numPoints);  // Для режима поточечного вывода - заполянем одним значением
     }
 
     numElementsInStorage++;

@@ -92,7 +92,7 @@ void PainterData_DrawData(void)
 	// Нормальный режим
 	else
 	{
-		if (gMemory.alwaysShowMemIntSignal == 1)    // Если нужно показывать сигннал из ППЗУ
+		if (ALWAYS_SHOW_MEM_INT_SIGNAL)    // Если нужно показывать сигннал из ППЗУ
 		{
 			DrawDataMemInt();                       // то показываем
 		}
@@ -318,7 +318,7 @@ static void DrawDataChannel(uint8 *dataIn, Channel ch, DataSettings *ds, int min
     bool calculateFiltr = true;
     int sizeBuffer = NumBytesInChannel(ds);
 #ifndef _MS_VS
-    uint8 data[sizeBuffer];     // Место, куда будем считывать данные канала из внешнего ОЗУ
+    uint8 data[sizeBuffer];                                 // Место, куда будем считывать данные канала из внешнего ОЗУ
 #else
     uint8 data[10];
 #endif
@@ -326,13 +326,13 @@ static void DrawDataChannel(uint8 *dataIn, Channel ch, DataSettings *ds, int min
     int firstPoint = 0;
     int lastPoint = 280;
 
-    if (!IN_P2P_MODE ||                          // Если не находимся в режиме медленных поточечных развёрток
-        (IN_P2P_MODE && ds->time.timeMS))        // Или в поточечном, но данные уже считаны
+    if (!IN_P2P_MODE ||                                     // Если не находимся в режиме медленных поточечных развёрток
+        (IN_P2P_MODE && ds->time.timeMS))                   // Или в поточечном, но данные уже считаны
     {
         sDisplay_PointsOnDisplay(&firstPoint, &lastPoint);  // то находим первую и последнюю точки, выводимые на экран
     }
 
-    if (IN_P2P_MODE &&                           // Если находимся в режиме медленных поточечных развёрток
+    if (IN_P2P_MODE &&                                      // Если находимся в режиме медленных поточечных развёрток
         ds->time.timeMS == 0)                               // и считывание полного набора данных ещё не произошло
     {
         lastPoint = FillDataP2P(data, ch, &ds);

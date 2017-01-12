@@ -80,6 +80,7 @@ typedef struct
     uint    needForSaveToFlashDrive         : 1;    // Если 1, то нужно сохранить после отрисовки на флешку.
 } GMemory;
 
+#define ALWAYS_SHOW_MEM_INT_SIGNAL (gMemory.alwaysShowMemIntSignal == 1)
 
 extern GMemory gMemory;
 
