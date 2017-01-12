@@ -194,10 +194,12 @@ static bool ReadPoint(void)
 
         int16 byte0 = 0;
         LIMITATION(byte0, (int16)bsA.byte0 + balanceA, 0, 255);
-        bsA.byte0 = (uint8)byte0;
+        LIMITATION(bsA.byte0, (uint8)byte0, MIN_VALUE, MAX_VALUE);
+        LIMITATION(bsA.byte1, bsA.byte1, MIN_VALUE, MAX_VALUE);
         byte0 = 0;
         LIMITATION(byte0, (int16)bsB.byte0 + balanceB, 0, 255);
-        bsB.byte0 = (uint8)byte0;
+        LIMITATION(bsB.byte0, (uint8)byte0, MIN_VALUE, MAX_VALUE);
+        LIMITATION(bsB.byte1, bsB.byte1, MIN_VALUE, MAX_VALUE);
 
         DS_AddPointsP2P(bsA.halfWord, bsB.halfWord);
 

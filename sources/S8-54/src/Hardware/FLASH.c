@@ -407,7 +407,7 @@ void FLASH_DeleteData(int num)
             - array_temp[MAX_NUM_SAVED_WAVES] = MAX_UINT; array_temp[num] = MAX_UINT
         3. Если в DATA_DATA нет места для записи нового массива:
             3.1 Cтереть сектор DATA_DATA
-            3.2 Записать в начало DATA_DATA array_temp
+            3.2 Записать в начало DATA_DATA array_temp  
             3.3 Выход
         4. Записать в array[MAX_NUM_SAVED_WAVES] 0
         5. Разместить за текущим массивом array_temp
