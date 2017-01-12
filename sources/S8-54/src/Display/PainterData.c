@@ -59,7 +59,7 @@ static uint8 Ordinate(uint8 x, int bottom, float scale);
 static int FillDataP2PforRecorder(int numPoints, int numPointsDS, int pointsInScreen, uint8 *src, uint8 *dest);
 static int FillDataP2PforNormal(int numPoints, int numPointsDS, int pointsInScreen, uint8 *src, uint8 *dest);
 static void DrawLimitLabel(int delta);      // Выоводит сообщение на экране о выходе сигнала за границы экрана. delta - расстояние от края сетки, на котором находится сообщение. Если delta < 0 - выводится внизу сетки
-
+static void SendToDisplayDataInRect(int x, uint8 *min, uint8 *max, int width, Color color);
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 void PainterData_DrawData(void)
@@ -436,27 +436,47 @@ static void DrawDataInRect(int x, int width, const uint8 *data, int numBytes, Ch
     int height = 17;
     float scale = (float)height / (float)(MAX_VALUE - MIN_VALUE);
 
-    uint8 points[300 * 2];
+    uint8 val0[300];
+    uint8 val1[300];
 
-    points[0] = Ordinate(max[0], bottom, scale);
-    points[1] = Ordinate(min[0], bottom, scale);
-
+    val0[0] = Ordinate(max[0], bottom, scale);
+    val1[0] = Ordinate(min[0], bottom, scale);
 
     for (int i = 1; i < width; i++)
     {
         int value0 = min[i] > max[i - 1] ? max[i - 1] : min[i];
         int value1 = max[i] < min[i - 1] ? min[i - 1] : max[i];
-        points[i * 2] = Ordinate((uint8)value1, bottom, scale);
-        points[i * 2 + 1] = Ordinate((uint8)value0, bottom, scale);
+        val1[i] = Ordinate((uint8)value1, bottom, scale);
+        val0[i] = Ordinate((uint8)value0, bottom, scale);
     }
-    if (width < 256)
+
+    SendToDisplayDataInRect(x, val0, val1, width, gColorChan[ch]);
+}
+
+
+//----------------------------------------------------------------------------------------------------------------------------------------------------
+static void SendToDisplayDataInRect(int x, uint8 *min, uint8 *max, int width, Color color)
+{
+    int start = 0;
+    for (; start < width; start++)
     {
-        Painter_DrawVLineArray(x, width, points, gColorChan[ch]);
-    }
-    else
-    {
-        Painter_DrawVLineArray(x, 255, points, gColorChan[ch]);
-        Painter_DrawVLineArray(x + 255, width - 255, points + 255 * 2, gColorChan[ch]);
+        if (min[start] && max[start])
+        {
+            int end = start + 1;
+            for (; (end < width) && (end - start < 250) && min[end] && max[end]; end++)
+            {
+            }
+            int numPoints = end - start;
+            uint8 points[numPoints * 2];
+            for (int i = start; i < end; i++)
+            {
+                points[i * 2 - start * 2] = max[i];
+                points[i * 2 + 1 - start * 2] = min[i];
+            }
+
+            Painter_DrawVLineArray(x + start, numPoints, points, color);
+            start = end;
+        }
     }
 }
 
@@ -736,7 +756,7 @@ static void DrawSignalPointed(const uint8 *data, int startPoint, int endPoint, i
 //----------------------------------------------------------------------------------------------------------------------------------------------------
 static uint8 Ordinate(uint8 x, int bottom, float scale)
 {
-    return (uint8)(((float)bottom - scale * LimitationInt(x - MIN_VALUE, 0, (MAX_VALUE - MIN_VALUE))) + 0.5f);
+    return (x == NONE_VALUE) ? 0 : (uint8)(((float)bottom - scale * LimitationInt(x - MIN_VALUE, 0, (MAX_VALUE - MIN_VALUE))) + 0.5f);
 }
 
 
