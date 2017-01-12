@@ -43,25 +43,25 @@ static DataSettings *curDS = 0;     // DataSettings для рисуемого сигнала
 
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-static void DrawDataMemInt(void);
-static void DrawDataInModeNormal(void);
-static void DrawDataInModeWorkLatest(void);
-static void DrawDataMinMax(void);
-static void DrawDataChannel(uint8 *dataIn, int minY, int maxY);
-static void DrawDataInRect(int x, int width, const uint8 *data, int numElems, bool peackDet);
-static void DrawTPos(int leftX, int rightX);
-static void DrawTShift(int leftX, int rightX, int numPoints);
-static void DrawBothChannels(uint8 *dataA, uint8 *dataB);                       // Нарисовать оба канала. Если data == 0, то данные берутся из Processing_GetData
-static int FillDataP2P(uint8 *data, DataSettings **ds);
-static void DrawMarkersForMeasure(float scale);
-static bool DataBeyondTheBorders(uint8 *data, int firstPoint, int lastPoint);   // Возвращает true, если изогражение сигнала выходит за пределы экрана
-static void DrawSignalLined(const uint8 *data, DataSettings *ds, int startPoint, int endPoint, int minY, int maxY, float scaleY, float scaleX, bool calculateFiltr);
-static void DrawSignalPointed(const uint8 *data, int startPoint, int endPoint, int minY, int maxY, float scaleY, float scaleX);
+static void  DrawDataMemInt(void);
+static void  DrawDataInModeNormal(void);
+static void  DrawDataInModeWorkLatest(void);
+static void  DrawDataMinMax(void);
+static void  DrawDataChannel(uint8 *dataIn, int minY, int maxY);
+static void  DrawDataInRect(int x, int width, const uint8 *data, int numElems, bool peackDet);
+static void  DrawTPos(int leftX, int rightX);
+static void  DrawTShift(int leftX, int rightX, int numPoints);
+static void  DrawBothChannels(uint8 *dataA, uint8 *dataB);                       // Нарисовать оба канала. Если data == 0, то данные берутся из Processing_GetData
+static int   FillDataP2P(uint8 *data, DataSettings **ds);
+static void  DrawMarkersForMeasure(float scale);
+static bool  DataBeyondTheBorders(uint8 *data, int firstPoint, int lastPoint);   // Возвращает true, если изогражение сигнала выходит за пределы экрана
+static void  DrawSignalLined(const uint8 *data, int startPoint, int endPoint, int minY, int maxY, float scaleY, float scaleX, bool calculateFiltr);
+static void  DrawSignalPointed(const uint8 *data, int startPoint, int endPoint, int minY, int maxY, float scaleY, float scaleX);
 static uint8 Ordinate(uint8 x, int bottom, float scale);
-static int FillDataP2PforRecorder(int numPoints, int numPointsDS, int pointsInScreen, uint8 *src, uint8 *dest);
-static int FillDataP2PforNormal(int numPoints, int numPointsDS, int pointsInScreen, uint8 *src, uint8 *dest);
-static void DrawLimitLabel(int delta);      // Выоводит сообщение на экране о выходе сигнала за границы экрана. delta - расстояние от края сетки, на котором находится сообщение. Если delta < 0 - выводится внизу сетки
-static void SendToDisplayDataInRect(int x, uint8 *min, uint8 *max, int width);
+static int   FillDataP2PforRecorder(int numPoints, int numPointsDS, int pointsInScreen, uint8 *src, uint8 *dest);
+static int   FillDataP2PforNormal(int numPoints, int numPointsDS, int pointsInScreen, uint8 *src, uint8 *dest);
+static void  DrawLimitLabel(int delta);      // Выоводит сообщение на экране о выходе сигнала за границы экрана. delta - расстояние от края сетки, на котором находится сообщение. Если delta < 0 - выводится внизу сетки
+static void  SendToDisplayDataInRect(int x, uint8 *min, uint8 *max, int width);
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 void PainterData_DrawData(void)
@@ -391,7 +391,7 @@ static void DrawDataChannel(uint8 *dataIn, int minY, int maxY)
     {
         if (MODE_DRAW_SIGNAL_LINES)
         {
-            DrawSignalLined(dataIn, curDS, firstPoint, lastPoint, minY, maxY, scaleY, scaleX, calculateFiltr);
+            DrawSignalLined(dataIn, firstPoint, lastPoint, minY, maxY, scaleY, scaleX, calculateFiltr);
         }
         else
         {
@@ -663,7 +663,7 @@ static bool DataBeyondTheBorders(uint8 *data, int firstPoint, int lastPoint)
 
 
 //------------------------------------------------------------------------------------------------------------------------------------------------------
-static void DrawSignalLined(const uint8 *data, DataSettings *ds, int startPoint, int endPoint, int minY, int maxY, float scaleY, float scaleX, bool calculateFiltr)
+static void DrawSignalLined(const uint8 *data, int startPoint, int endPoint, int minY, int maxY, float scaleY, float scaleX, bool calculateFiltr)
 {
     if (endPoint < startPoint)
     {
@@ -678,7 +678,7 @@ static void DrawSignalLined(const uint8 *data, DataSettings *ds, int startPoint,
     int numPoints = sMemory_NumBytesInChannel(false);
     int numSmoothing = sDisplay_NumPointSmoothing();
 
-    if (ds->peackDet == PeackDet_Disable)
+    if (curDS->peackDet == PeackDet_Disable)
     {
         for (int i = startPoint; i < endPoint; i++)
         {
@@ -738,7 +738,7 @@ static void DrawSignalLined(const uint8 *data, DataSettings *ds, int startPoint,
         }
     }
 
-    if (ds->peackDet == PeackDet_Disable)
+    if (curDS->peackDet == PeackDet_Disable)
     {
         CONVERT_DATA_TO_DISPLAY(dataCD[280], data[endPoint]);
         Painter_DrawSignal(GridLeft(), dataCD, true);
