@@ -239,7 +239,7 @@ float CalculateStretchADC(Channel ch)
     float aveMin = (float)sumMIN / (float)numMIN;
     float aveMax = (float)sumMAX / (float)numMAX;
     
-    float retValue = 160.0f / (aveMax - aveMin);
+    float retValue = 160.0f / (aveMax - aveMin) * (MAX_VALUE - MIN_VALUE) / 200.0f;
 
     if(retValue < 0.5f || retValue > 1.5f || numMIN < NUM_POINTS / 4 || numMAX < NUM_POINTS / 4 || numNot > NUM_POINTS / 4)
     {
