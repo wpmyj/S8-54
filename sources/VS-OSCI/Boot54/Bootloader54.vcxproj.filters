@@ -63,6 +63,12 @@
     <ClCompile Include="..\..\S8-54\Bootloader\src\Hardware\Timer.c">
       <Filter>Hardware</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\S8-54\Bootloader\src\Utils\GlobalFunctions.c">
+      <Filter>Utils</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\S8-54\Bootloader\src\Utils\Math.c">
+      <Filter>Utils</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="libs">
@@ -85,6 +91,9 @@
     </Filter>
     <Filter Include="Panel">
       <UniqueIdentifier>{e400f74c-ccea-4c6c-b28f-2ecc5a529c1c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Utils">
+      <UniqueIdentifier>{e7954f41-ea06-4f81-b3b5-015c4b32ee6a}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -156,6 +165,12 @@
     </ClInclude>
     <ClInclude Include="..\..\S8-54\Bootloader\src\Hardware\Timer.h">
       <Filter>Hardware</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\S8-54\Bootloader\src\Utils\GlobalFunctions.h">
+      <Filter>Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\S8-54\Bootloader\src\Utils\Math.h">
+      <Filter>Utils</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

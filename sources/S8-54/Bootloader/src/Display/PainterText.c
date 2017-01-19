@@ -515,6 +515,21 @@ static int DrawPartWord(char *word, int x, int y, int xRight, bool draw)
     return 0;
 }
 
+//------------------------------------------------------------------------------------------------------------------------------------------------------
+// Возвращает часть слова до слога numSyllable(включительн) вместе со знаком переноса
+static char* PartWordForTransfer(char *word, int8* lengthSyllables, int numSyllable, char buffer[30])
+{
+    int length = 0;
+    for (int i = 0; i <= numSyllable; i++)
+    {
+        length += lengthSyllables[i];
+    }
+    memcpy((void*)buffer, (void*)word, length);
+    buffer[length] = '-';
+    buffer[length + 1] = '\0';
+    return buffer;
+}
+
 
 //------------------------------------------------------------------------------------------------------------------------------------------------------
 int Painter_DrawTextInRectWithTransfers(int eX, int eY, int eWidth, int eHeight, const char *text)

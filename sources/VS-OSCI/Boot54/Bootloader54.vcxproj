@@ -14,7 +14,7 @@
     <ProjectGuid>{AA6B10F6-8750-4B5A-BBAB-15EAB5A4DF83}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
     <RootNamespace>Bootloader54</RootNamespace>
-    <ProjectName>Boot54</ProjectName>
+    <ProjectName>BootloaderS8-54</ProjectName>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
@@ -100,6 +100,8 @@
     <ClCompile Include="..\..\S8-54\Bootloader\src\Panel\Panel.c" />
     <ClCompile Include="..\..\S8-54\Bootloader\src\Panel\PanelFunctions.c" />
     <ClCompile Include="..\..\S8-54\Bootloader\src\Settings\Settings.c" />
+    <ClCompile Include="..\..\S8-54\Bootloader\src\Utils\GlobalFunctions.c" />
+    <ClCompile Include="..\..\S8-54\Bootloader\src\Utils\Math.c" />
     <ClCompile Include="..\..\STM32Cube_FW_F4\Drivers\STM32F4xx_HAL_Driver\Src\stm32f4xx_hal.c">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
     </ClCompile>
@@ -134,6 +136,8 @@
     <ClInclude Include="..\..\S8-54\Bootloader\src\Panel\Panel.h" />
     <ClInclude Include="..\..\S8-54\Bootloader\src\Settings\Settings.h" />
     <ClInclude Include="..\..\S8-54\Bootloader\src\Settings\SettingsTypes.h" />
+    <ClInclude Include="..\..\S8-54\Bootloader\src\Utils\GlobalFunctions.h" />
+    <ClInclude Include="..\..\S8-54\Bootloader\src\Utils\Math.h" />
     <ClInclude Include="..\..\STM32Cube_FW_F4\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal.h" />
     <ClInclude Include="..\..\STM32Cube_FW_F4\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal_cortex.h" />
     <ClInclude Include="..\..\STM32Cube_FW_F4\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal_flash.h" />
