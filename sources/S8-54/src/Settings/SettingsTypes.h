@@ -243,9 +243,9 @@ typedef enum
 // Источник синхронизации
 typedef enum
 {
-    TrigSource_A,    // Канал 1
-    TrigSource_B,    // Канал 2
-    TrigSource_Ext          // Внешняя
+    TrigSource_A,       // Канал 1
+    TrigSource_B,       // Канал 2
+    TrigSource_Ext      // Внешняя
 } TrigSource;
 
 // Тип синхронизацц

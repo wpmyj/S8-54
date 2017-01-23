@@ -235,7 +235,9 @@ static int CalculateDeltaRShift(Channel ch)
     }
     rShiftRel = (uint16)(delta + RShiftZero);
 
-    return RShiftMax + RShiftMin - rShiftRel - RShiftZero;
+    int retValue = RShiftMax + RShiftMin - rShiftRel - RShiftZero;
+
+    return retValue;
 }
 
 
@@ -250,6 +252,8 @@ static void LoadRShift(Channel ch)
     int rShift = RShiftZero + CalculateDeltaRShift(ch);
 
     FPGA_Write(RecordDAC, ch == A ? dacRShiftA : dacRShiftB, mask[ch] | (rShift << 4), true);
+
+    //LOG_WRITE("rShift = %d", rShift);
 
     if (TRIG_INPUT_LPF || TRIG_INPUT_FULL)
     {
@@ -268,9 +272,20 @@ static void LoadTrigLev(void)
 
     if (TRIG_INPUT_LPF || TRIG_INPUT_FULL)
     {
-        trigLev += (uint16)(CalculateDeltaRShift((Channel)TRIGSOURCE) * divR[RANGE(TRIGSOURCE)]);
+        int delta = (CalculateDeltaRShift((Channel)TRIGSOURCE) * divR[RANGE(TRIGSOURCE)]);
+        trigLev = (int)trigLev + delta;
+        if (trigLev < TrigLevMin)
+        {
+            trigLev = TrigLevMin;
+        }
+        else if (trigLev > TrigLevMax)
+        {
+            trigLev = TrigLevMax;
+        }
     }
 
+    //LOG_WRITE("trig %d", trigLev);
+    
     data |= trigLev << 4;
     FPGA_Write(RecordDAC, dacTrigLev, data, true);
 }

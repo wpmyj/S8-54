@@ -49,9 +49,6 @@ int main(void)
     __enable_irq();
     JumpToApplication();
 //    */
-
-    
-    
     
     
     Hardware_Init();
