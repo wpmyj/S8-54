@@ -66,21 +66,6 @@ const float voltsInPoint[RangeSize] =
     5.0f / 20 * GRID_HEIGHT / (MAX_VALUE - MIN_VALUE)     // 5V
 };
 
-const int voltsInPixelInt[RangeSize] =   // Коэффициент 20000
-{
-    2,      // 2
-    5,      // 5
-    10,     // 10
-    20,     // 20
-    50,     // 50
-    100,    // 100
-    200,    // 200
-    500,    // 500
-    1000,   // 1
-    2000,   // 2
-    5000    // 5
-};
-
 const float absStepTShift[] =
 {
     1e-9f / 20.0f, 2e-9f / 20, 5e-9f / 20, 10e-9f / 20, 20e-9f / 20, 
@@ -201,14 +186,29 @@ void Math_DataExtrapolation(uint8 *data, uint8 *there, int size)
 //------------------------------------------------------------------------------------------------------------------------------------------------------
 void Math_PointsRelToVoltage(const uint8 *points, int numPoints, Range range, uint16 rShift, float *voltage)
 {
-    int voltInPixel = voltsInPixelInt[range];
+    const int voltsInPointInt[RangeSize] =   // Коэффициент 20000
+    {
+        2,      // 2
+        5,      // 5
+        10,     // 10
+        20,     // 20
+        50,     // 50
+        100,    // 100
+        200,    // 200
+        500,    // 500
+        1000,   // 1
+        2000,   // 2
+        5000    // 5
+    };
+
+    float voltInPoint = voltsInPointInt[range] / ((MAX_VALUE - MIN_VALUE) / 200.0f);
     float maxVoltsOnScreen = MAX_VOLTAGE_ON_SCREEN(range);
     float rShiftAbs = RSHIFT_2_ABS(rShift, range);
-    int diff = (MIN_VALUE * voltInPixel) + (int)((maxVoltsOnScreen + rShiftAbs) * 20e3f);
+    int diff = (MIN_VALUE * voltInPoint) + (int)((maxVoltsOnScreen + rShiftAbs) * 20e3f);
     float koeff = 1.0f / 20e3f;
     for (int i = 0; i < numPoints; i++)
     {
-        voltage[i] = (points[i] * voltInPixel - diff) * koeff;
+        voltage[i] = (points[i] * voltInPoint - diff) * koeff;
     }
 }
 
@@ -218,7 +218,7 @@ void Math_PointsVoltageToRel(const float *voltage, int numPoints, Range range, u
 {
     float maxVoltOnScreen = MAX_VOLTAGE_ON_SCREEN(range);
     float rShiftAbs = RSHIFT_2_ABS(rShift, range);
-    float voltInPixel = 1.0f / voltsInPixel[range];
+    float voltInPixel = 1.0f / (voltsInPixel[range] / ((MAX_VALUE - MIN_VALUE) / 200.0f));
 
     float add = maxVoltOnScreen + rShiftAbs;
 
