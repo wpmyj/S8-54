@@ -464,7 +464,7 @@ static const Page mspADC_Balance =
     },
     EmptyFuncBV, Page_DebugADCbalance,
     {
-        (void*)&mcADC_Balance_Mode,   // ÎÒËÀÄÊÀ -> ÀÖÏ - ÁÀËÀÍÑ -> Ðåæèì
+        (void*)&mcADC_Balance_Mode,   // ÎÒËÀÄÊÀ -> ÀÖÏ -> ÁÀËÀÍÑ -> Ðåæèì
         (void*)&mgADC_Balance_ShiftA, // ÎÒËÀÄÊÀ -> ÀÖÏ -> ÁÀËÀÍÑ -> Ñìåùåíèå 1
         (void*)&mgADC_Balance_ShiftB  // ÎÒËÀÄÊÀ -> ÀÖÏ -> ÁÀËÀÍÑ -> Ñìåùåíèå 2
     }
@@ -497,15 +497,11 @@ static int16 shiftADCB;
 
 static void OnDraw_ADC_Balance_Mode(int x, int y)
 {
-#ifdef _MS_VS
-    int8 shift[2][3];
-#else
     int8 shift[2][3] =
     {
         {0, BALANCE_ADC_A, (int8)set.nr.balanceADC[0]},
         {0, BALANCE_ADC_B, (int8)set.nr.balanceADC[1]}
     };
-#endif
 
     shiftADCA = shift[A][set.nr.balanceADCtype];
     shiftADCB = shift[B][set.nr.balanceADCtype];
@@ -612,8 +608,16 @@ static int16 stretchB;
 
 void OnChange_ADC_Stretch_Mode(bool active)
 {
-    stretchA = set.nr.stretchADC[A][set.nr.stretchADCtype];
-    stretchB = set.nr.stretchADC[B][set.nr.stretchADCtype];
+    if (set.nr.stretchADCtype == StretchADC_Disable)
+    {
+        stretchA = set.nr.stretchADC[A][StretchADC_Disable] = 0;
+        stretchB = set.nr.stretchADC[B][StretchADC_Disable] = 0;
+    }
+    else
+    {
+        stretchA = set.nr.stretchADC[A][set.nr.stretchADCtype];
+        stretchB = set.nr.stretchADC[B][set.nr.stretchADCtype];
+    }
 }
 
 // ÎÒËÀÄÊÀ -> ÀÖÏ -> ÐÀÑÒßÆÊÀ -> Ðàñòÿæêà 1ê ----------------------------------------------------------------------------------------------------------------------
