@@ -97,7 +97,15 @@ void Display_Update(void)
     }
     else if (state == State_Upgrade)
     {
-        //Painter_DrawTextC(10, 10, "Upgrage", COLOR_WHITE);
+        Painter_DrawStringInCenterRect(0, 0, 320, 190, "Подождите, пока закончится");
+        Painter_DrawStringInCenterRect(0, 0, 320, 220, "установка программного обеспечения");
+
+        int height = 30;
+        int fullWidth = 280;
+        int width = fullWidth * percentUpdate;
+
+        Painter_FillRegion(20, 130, width, height);
+        Painter_DrawRectangle(20, 130, fullWidth, height);
     }
     else if (state == State_Ok)
     {

@@ -30,3 +30,4 @@ typedef enum
 } State;
 
 extern State state;
+extern float percentUpdate;

@@ -32,6 +32,8 @@ uint jumpAddress = 0;
 pFunction JumpToApplication;
 State state = State_Start;
 
+float percentUpdate = 0.0f;     // Сколько времени обновления завершено
+
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 void Upgrade(void);
@@ -178,13 +180,15 @@ uint ReadKey(void)
 //----------------------------------------------------------------------------------------------------------------------------------------------------
 void Upgrade(void)
 {
-    const int sizeSector = 32 * 1024;
+    const int sizeSector = 1 * 1024;
     
     static uint8 buffer[sizeSector];
     
     ClearSectors();
     
     int size = FDrive_OpenFileForRead(FILE_NAME);
+
+    int fullSize = size;
 
     uint address = ADDR_SECTOR_PROGRAM_0;
 
@@ -194,6 +198,8 @@ void Upgrade(void)
         WriteData(address, buffer, readedBytes);
         size -= readedBytes;
         address += readedBytes;
+
+        percentUpdate = 1.0f - (float)size / fullSize;
     }
     
     FDrive_CloseOpenedFile();
