@@ -42,12 +42,12 @@ int main(void)
     HAL_Init();
     
 //    /*
-    __disable_irq();
+//    __disable_irq();
 //    Теперь переходим на основную программу
-    JumpToApplication = (pFunction)(*(__IO uint*)(MAIN_PROGRAM_START_ADDRESS + 4));
-    __set_MSP(*(__IO uint*)MAIN_PROGRAM_START_ADDRESS);
-    __enable_irq();
-    JumpToApplication();
+//    JumpToApplication = (pFunction)(*(__IO uint*)(MAIN_PROGRAM_START_ADDRESS + 4));
+//    __set_MSP(*(__IO uint*)MAIN_PROGRAM_START_ADDRESS);
+//    __enable_irq();
+//    JumpToApplication();
 //    */
     
     

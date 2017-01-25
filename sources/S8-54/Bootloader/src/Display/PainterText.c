@@ -35,6 +35,7 @@ void Painter_SetFont(TypeFont typeFont)
 //------------------------------------------------------------------------------------------------------------------------------------------------------
 void Painter_LoadFont(TypeFont typeFont)
 {
+    /*
     const uchar *bytes = 0;
     if (typeFont == TypeFont_5)
     {
@@ -52,6 +53,8 @@ void Painter_LoadFont(TypeFont typeFont)
     {
         bytes = fontUGO2display;
     }
+    */
+    /*
     uint8 command[3084];
     command[0] = LOAD_FONT;
     command[1] = typeFont;
@@ -59,6 +62,7 @@ void Painter_LoadFont(TypeFont typeFont)
     {
         command[2 + i] = bytes[i];
     }
+    */
 }
 
 
@@ -513,21 +517,6 @@ static int DrawPartWord(char *word, int x, int y, int xRight, bool draw)
     }
 
     return 0;
-}
-
-//------------------------------------------------------------------------------------------------------------------------------------------------------
-// Возвращает часть слова до слога numSyllable(включительн) вместе со знаком переноса
-static char* PartWordForTransfer(char *word, int8* lengthSyllables, int numSyllable, char buffer[30])
-{
-    int length = 0;
-    for (int i = 0; i <= numSyllable; i++)
-    {
-        length += lengthSyllables[i];
-    }
-    memcpy((void*)buffer, (void*)word, length);
-    buffer[length] = '-';
-    buffer[length + 1] = '\0';
-    return buffer;
 }
 
 
