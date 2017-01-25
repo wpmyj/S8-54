@@ -28,7 +28,7 @@ typedef struct
 } StructForReadDir;
 
 
-void    FDrive_Init(void);
+bool    FDrive_Init(void);
 bool    FDrive_Update(void);
 void    FDrive_GetNumDirsAndFiles(const char* fullPath, int *numDirs, int *numFiles);
 bool    FDrive_GetNameDir(const char* fuulPath, int numDir, char *nameDirOut, StructForReadDir *sfrd);

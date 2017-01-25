@@ -69,18 +69,16 @@ bool FDrive_Mount(void)
 
 
 //------------------------------------------------------------------------------------------------------------------------------------------------------
-void FDrive_Init(void)
+bool FDrive_Init(void)
 {
     if(FATFS_LinkDriver(&USBH_Driver, USBDISKPath) == FR_OK) 
     {
         USBH_StatusTypeDef res = USBH_Init(&handleUSBH, USBH_UserProcess, 0);
         res = USBH_RegisterClass(&handleUSBH, USBH_MSC_CLASS);
         res = USBH_Start(&handleUSBH);
+        return true;
     }
-    else
-    {
-        // —юда попадаем, если usbh driver не удалось инициализировать
-    }
+    return false;
 }
 
 

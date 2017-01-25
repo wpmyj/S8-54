@@ -63,7 +63,9 @@ int main(void)
 
     Timer_Enable(kTemp, 10, Display_Update);
 
-    for(uint i = 0; i < 100000; i++)
+    FDrive_Init();
+
+    for(uint i = 0; i < 1000000; i++)
     {
         if(FDrive_Update())
         {
