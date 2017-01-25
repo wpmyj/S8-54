@@ -42,3 +42,8 @@ bool    FDrive_CloseFile(StructForWrite *structForWrite);
 bool    FDrive_AppendStringToFile(const char* string);
 bool    FDrive_IsConnected(void);
 bool    FDrive_FileExist(char *fileName);
+
+
+int     FDrive_OpenFileForRead(char *fileName);
+int     FDrive_ReadFromFile(int numBytes, uint8 *buffer);   // Считывает из открытого файла numBytes байт. Возвращает число реально считанных байт
+void    FDrive_CloseOpenedFile(void);

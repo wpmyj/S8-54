@@ -72,7 +72,7 @@ void Display_Update(void)
 
     if (state == State_Start)
     {
-        Painter_DrawText(10, 10, "Start");
+        //Painter_DrawText(10, 10, "Start");
     }
     else if (state == State_Mount)
     {
@@ -93,19 +93,19 @@ void Display_Update(void)
     }
     else if (state == State_NotFile)
     {
-        Painter_DrawStringInCenterRect(0, 0, 320, 200, "Программное обеспечение не обнаружено");
+        //Painter_DrawStringInCenterRect(0, 0, 320, 200, "Программное обеспечение не обнаружено");
     }
     else if (state == State_Upgrade)
     {
-        Painter_DrawText(10, 10, "Upgrage");
+        //Painter_DrawTextC(10, 10, "Upgrage", COLOR_WHITE);
     }
     else if (state == State_Ok)
     {
-        Painter_DrawText(10, 10, "Ok");
+        //Painter_DrawTextC(10, 10, "Ok", COLOR_WHITE);
     }
     else
     {
-        Painter_DrawText(10, 10, "Неизвестное состояние");
+        //Painter_DrawText(10, 10, "Неизвестное состояние");
     }
 
     Painter_EndScene();

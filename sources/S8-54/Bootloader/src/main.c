@@ -18,6 +18,7 @@
 #include "Display/Display.h"
 #include "Hardware/Timer.h"
 #include "Panel/Panel.h"
+#include "Hardware/Flash.h"
 
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -78,24 +79,21 @@ int main(void)
         if (FDrive_FileExist(FILE_NAME))
         {
             state = State_RequestAction;
-            volatile PanelButton button = Panel_PressedButton();
             
-            while(1)
+            while (1)
             {
-                button = Panel_PressedButton();
-                if(button == B_F1 || button == B_F5)
+                PanelButton button = Panel_PressedButton();
+                if (button == B_F1)
                 {
+                    state = State_Upgrade;
+                    Upgrade();
                     break;
                 }
-            }
-            
-            if (button == B_F5)
-            {   
-                state = State_Ok;
-            }
-            else
-            {
-                Upgrade();
+                else if (button == B_F5)
+                {
+                    state = State_Ok;
+                    break;
+                }
             }
         }
         else
@@ -109,7 +107,7 @@ int main(void)
         Timer_PauseOnTime(5000);
     }
 
-    state = State_Ok;
+    //state = State_Ok;
 
     Panel_DeInit();
 
@@ -130,13 +128,6 @@ int main(void)
     __set_MSP(*(__IO uint*)MAIN_PROGRAM_START_ADDRESS);
     __enable_irq();
     JumpToApplication();
-}
-
-
-//----------------------------------------------------------------------------------------------------------------------------------------------------
-void Upgrade(void)
-{
-
 }
 
 
@@ -182,3 +173,28 @@ uint ReadKey(void)
             Вывести сообщение "Не удалось примонтировать флешку. Убедитесь, что на ней файловая система fat32"
     Далее выполняется переход по адресу, указанному в 0x0802004
 */
+
+
+//----------------------------------------------------------------------------------------------------------------------------------------------------
+void Upgrade(void)
+{
+    const int sizeSector = 32 * 1024;
+    
+    static uint8 buffer[sizeSector];
+    
+    ClearSectors();
+    
+    int size = FDrive_OpenFileForRead(FILE_NAME);
+
+    uint address = ADDR_SECTOR_PROGRAM_0;
+
+    while (size)
+    {
+        int readedBytes = FDrive_ReadFromFile(sizeSector, buffer);
+        WriteData(address, buffer, readedBytes);
+        size -= readedBytes;
+        address += readedBytes;
+    }
+    
+    FDrive_CloseOpenedFile();
+}

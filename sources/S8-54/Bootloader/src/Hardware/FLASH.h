@@ -9,9 +9,9 @@
 #define ADDR_FLASH_SECTOR_2     ((uint)0x08008000)  // 16k
 #define ADDR_FLASH_SECTOR_3     ((uint)0x0800C000)  // 16k
 #define ADDR_FLASH_SECTOR_4     ((uint)0x08010000)  // 64k
-#define ADDR_FLASH_SECTOR_5     ((uint)0x08020000)  // 128k
-#define ADDR_FLASH_SECTOR_6     ((uint)0x08040000)  // 128k
-#define ADDR_FLASH_SECTOR_7     ((uint)0x08060000)  // 128k
+#define ADDR_SECTOR_PROGRAM_0   ((uint)0x08020000)  // 128k |
+#define ADDR_SECTOR_PROGRAM_1   ((uint)0x08040000)  // 128k | В этих секторах хранится наша программа 
+#define ADDR_SECTOR_PROGRAM_2   ((uint)0x08060000)  // 128k /
 #define ADDR_FLASH_SECTOR_8     ((uint)0x08080000)  // 128k
 #define ADDR_FLASH_SECTOR_9     ((uint)0x080A0000)  // 128k
 #define ADDR_FLASH_SECTOR_10    ((uint)0x080C0000)  // 128k
@@ -30,5 +30,5 @@
 #define ADDR_FLASH_SECTOR_23    ((uint)0x081E0000)  // 128k
 
 
-void EraseSector(uint address);
-void WriteData(uint address, uint8 data, int size);
+void ClearSectors(void);                                // Очищает сектора, предназначенные для записи прошивки
+void WriteData(uint address, uint8 *data, int size);

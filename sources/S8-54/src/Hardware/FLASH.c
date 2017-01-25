@@ -37,7 +37,7 @@
 #define ADDR_FLASH_SECTOR_13    ((uint)0x08104000)  // 16k
 #define ADDR_FLASH_SECTOR_14    ((uint)0x08108000)  // 16k
 #define ADDR_FLASH_SECTOR_15    ((uint)0x0810C000)  // 16k
-#define ADDR_DATA_DATA   ((uint)0x08110000)  // 64k  Здесь будем сохранять массивы адресов с нашими данными
+#define ADDR_DATA_DATA          ((uint)0x08110000)  // 64k  Здесь будем сохранять массивы адресов с нашими данными
 #define ADDR_DATA_0             ((uint)0x08120000)  // 128k |
 #define ADDR_DATA_1             ((uint)0x08140000)  // 128k |
 #define ADDR_DATA_2             ((uint)0x08160000)  // 128k |

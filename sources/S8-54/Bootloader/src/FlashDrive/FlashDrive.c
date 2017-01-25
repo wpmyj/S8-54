@@ -21,6 +21,7 @@
 static FATFS USBDISKFatFs;
 static char USBDISKPath[4];
 static bool isProcessing = false;   // true, когда обработано подключение диска
+FIL file;
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 void USBH_UserProcess(USBH_HandleTypeDef *phost, uint8 id)
@@ -468,4 +469,34 @@ bool FDrive_FileExist(char *fileName)
     }
 
     return false;
+}
+
+
+//----------------------------------------------------------------------------------------------------------------------------------------------------
+int FDrive_OpenFileForRead(char *fileName)
+{
+    if (f_open(&file, fileName, FA_READ) == FR_OK)
+    {
+        return (int)file.fsize;
+    }
+    return -1;
+}
+
+
+//----------------------------------------------------------------------------------------------------------------------------------------------------
+int FDrive_ReadFromFile(int numBytes, uint8 *buffer)
+{
+    uint readed = 0;
+    if (f_read(&file, buffer, numBytes, &readed) == FR_OK)
+    {
+        return (int)readed;
+    }
+    return -1;
+}
+
+
+//----------------------------------------------------------------------------------------------------------------------------------------------------
+void FDrive_CloseOpenedFile(void)
+{
+    f_close(&file);
 }
