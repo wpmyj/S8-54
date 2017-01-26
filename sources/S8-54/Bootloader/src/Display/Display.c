@@ -43,10 +43,10 @@ void Display_Init(void)
     Painter_LoadPalette(1);
     Painter_LoadPalette(2);
 
-    Painter_LoadFont(TypeFont_5);
+    //Painter_LoadFont(TypeFont_5);
     Painter_LoadFont(TypeFont_8);
-    Painter_LoadFont(TypeFont_UGO);
-    Painter_LoadFont(TypeFont_UGO2);
+    //Painter_LoadFont(TypeFont_UGO);
+    //Painter_LoadFont(TypeFont_UGO2);
     Painter_SetFont(TypeFont_8);
 }
 
