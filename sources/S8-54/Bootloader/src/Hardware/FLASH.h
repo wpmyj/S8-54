@@ -30,5 +30,5 @@
 #define ADDR_FLASH_SECTOR_23    ((uint)0x081E0000)  // 128k
 
 
-void ClearSectors(void);                                // Очищает сектора, предназначенные для записи прошивки
+void FLASH_Prepare(void);                                // Очищает сектора, предназначенные для записи прошивки
 void WriteData(uint address, uint8 *data, int size);

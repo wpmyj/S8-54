@@ -9,7 +9,7 @@
                             FLASH_FLAG_PGSERR);  /* programming sequence error flag    */
 
 //------------------------------------------------------------------------------------------------------------------------------------------------------
-void ClearSectors(void)
+void FLASH_Prepare(void)
 {
     CLEAR_FLASH_FLAGS;
 

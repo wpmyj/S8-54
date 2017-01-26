@@ -3,12 +3,6 @@
 */
 
 
-#ifdef WIN32
-
-#define __STATIC_INLINE
-
-#endif
-
 #include "main.h"
 #include "globals.h"
 #include "FlashDrive/FlashDrive.h"
@@ -43,37 +37,33 @@ void Upgrade(void);
 int main(void)
 {
     HAL_Init();
-    
-//    /*
-//    __disable_irq();
-//    “еперь переходим на основную программу
-//    JumpToApplication = (pFunction)(*(__IO uint*)(MAIN_PROGRAM_START_ADDRESS + 4));
-//    __set_MSP(*(__IO uint*)MAIN_PROGRAM_START_ADDRESS);
-//    __enable_irq();
-//    JumpToApplication();
-//    */
-    
-    
+
     Hardware_Init();
 
     Settings_Load();
-    
+
     Timer_PauseOnTime(250);
-    
+
     Display_Init();
 
     state = State_Start;
 
     Timer_Enable(kTemp, 10, Display_Update);
 
-    FDrive_Init();
+    uint timeStart = gTimerMS;
 
-    for(uint i = 0; i < 1000000; i++)
+    FDriveStruct *fds = malloc(sizeof(FDriveStruct));
+
+    FDrive_Init(fds);
+
+    while (gTimerMS - timeStart < 2000 && !FDrive_Update())
     {
-        if(FDrive_Update())
-        {
-            break;
-        }
+    }
+
+    if ((fds->connection && fds->active == 0) || (fds->active && state != State_Mount))
+    {
+        free(fds);
+        NVIC_SystemReset();
     }
 
     if (state == State_Mount)   // Ёто означает, что диск удачно примонтирован
@@ -101,7 +91,6 @@ int main(void)
         else
         {
             state = State_NotFile;
-            //Timer_PauseOnTime(2000);
         }
     }
     else if (state == State_WrongFlash) // ƒиск не удалось примонтировать
@@ -109,15 +98,12 @@ int main(void)
         Timer_PauseOnTime(5000);
     }
 
-    //state = State_Ok;
-
     Panel_DeInit();
 
     Timer_Disable(kTemp);
 
     while (Display_IsRun())
     {
-
     }
 
     Display_Update();
@@ -132,32 +118,6 @@ int main(void)
     JumpToApplication();
 }
 
-
-//------------------------------------------------------------------------------------------------------------------------------------------------------
-void ResetKey(void)
-{
-    HAL_FLASH_Unlock();
-
-    FLASH_EraseInitTypeDef flashITD =
-    {
-        TYPEERASE_SECTORS,
-        KEY_START_ADDRESS,
-        1,
-        VOLTAGE_RANGE_3
-    };
-
-    uint error = 0;
-
-    HAL_FLASHEx_Erase(&flashITD, &error);
-    HAL_FLASH_Lock();
-}
-
-
-//------------------------------------------------------------------------------------------------------------------------------------------------------
-uint ReadKey(void)
-{
-    return *(uint*)KEY_START_ADDRESS;
-}
 
 
 /*
@@ -184,12 +144,10 @@ void Upgrade(void)
     
     static uint8 buffer[sizeSector];
     
-    ClearSectors();
+    FLASH_Prepare();
     
     int size = FDrive_OpenFileForRead(FILE_NAME);
-
     int fullSize = size;
-
     uint address = ADDR_SECTOR_PROGRAM_0;
 
     while (size)

@@ -97,7 +97,7 @@ void Display_Update(void)
     }
     else if (state == State_Upgrade)
     {
-        Painter_DrawStringInCenterRect(0, 0, 320, 190, "Подождите, пока закончится");
+        Painter_DrawStringInCenterRect(0, 0, 320, 190, "Подождите завершения");
         Painter_DrawStringInCenterRect(0, 0, 320, 220, "установка программного обеспечения");
 
         int height = 30;
