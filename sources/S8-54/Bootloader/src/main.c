@@ -20,6 +20,7 @@
 
 typedef void(*pFunction)(void);
 
+MainStruct *ms;
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 uint jumpAddress = 0;
@@ -36,6 +37,8 @@ void Upgrade(void);
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 int main(void)
 {
+    ms = malloc(sizeof(MainStruct));
+    
     HAL_Init();
 
     Hardware_Init();
@@ -52,17 +55,15 @@ int main(void)
 
     uint timeStart = gTimerMS;
 
-    FDriveStruct *fds = malloc(sizeof(FDriveStruct));
-
-    FDrive_Init(fds);
+    FDrive_Init();
 
     while (gTimerMS - timeStart < 2000 && !FDrive_Update())
     {
     }
 
-    if ((fds->connection && fds->active == 0) || (fds->active && state != State_Mount))
+    if ((ms->connection && ms->active == 0) || (ms->active && state != State_Mount))
     {
-        free(fds);
+        free(ms);
         NVIC_SystemReset();
     }
 
@@ -110,6 +111,8 @@ int main(void)
     
     HAL_DeInit();
 
+    free(ms);
+    
     __disable_irq();
     // Теперь переходим на основную программу
     JumpToApplication = (pFunction)(*(__IO uint*)(MAIN_PROGRAM_START_ADDRESS + 4));

@@ -29,6 +29,8 @@ void InitHardware(void)
 //------------------------------------------------------------------------------------------------------------------------------------------------------
 void Display_Init(void)
 {
+    ms->value = 0.0f;
+
     gColorBack = COLOR_BLACK;
     gColorFill = COLOR_WHITE;
 
@@ -70,11 +72,7 @@ void Display_Update(void)
 
     Painter_SetColor(COLOR_WHITE);
 
-    if (state == State_Start)
-    {
-        //Painter_DrawText(10, 10, "Start");
-    }
-    else if (state == State_Mount)
+    if (state == State_Mount)
     {
         DrawProgressBar(dT);
     }
@@ -91,14 +89,10 @@ void Display_Update(void)
         DrawButton(290, 55, "ДА");
         DrawButton(290, 195, "НЕТ");
     }
-    else if (state == State_NotFile)
-    {
-        //Painter_DrawStringInCenterRect(0, 0, 320, 200, "Программное обеспечение не обнаружено");
-    }
     else if (state == State_Upgrade)
     {
         Painter_DrawStringInCenterRect(0, 0, 320, 190, "Подождите завершения");
-        Painter_DrawStringInCenterRect(0, 0, 320, 220, "установка программного обеспечения");
+        Painter_DrawStringInCenterRect(0, 0, 320, 220, "установки программного обеспечения");
 
         int height = 30;
         int fullWidth = 280;
@@ -106,14 +100,6 @@ void Display_Update(void)
 
         Painter_FillRegion(20, 130, width, height);
         Painter_DrawRectangle(20, 130, fullWidth, height);
-    }
-    else if (state == State_Ok)
-    {
-        //Painter_DrawTextC(10, 10, "Ok", COLOR_WHITE);
-    }
-    else
-    {
-        //Painter_DrawText(10, 10, "Неизвестное состояние");
     }
 
     Painter_EndScene();
@@ -124,8 +110,6 @@ void Display_Update(void)
 //------------------------------------------------------------------------------------------------------------------------------------------------------
 void DrawProgressBar(uint dT)
 {
-    static float value = 0;
-
     const int WIDTH = 300;
     const int HEIGHT = 20;
     const int X = 10;
@@ -135,17 +119,17 @@ void DrawProgressBar(uint dT)
     
     float step = dT / direction;
 
-    value = value + step;
+    ms->value += step;
 
-    if (direction > 0.0f && value > WIDTH)
+    if (direction > 0.0f && ms->value > WIDTH)
     {
         direction = -direction;
-        value -= step;
+        ms->value -= step;
     }
-    else if (direction < 0.0f && value < 0)
+    else if (direction < 0.0f && ms->value < 0)
     {
         direction = -direction;
-        value -= step;
+        ms->value -= step;
     }
 
     int dH = 15;
@@ -156,7 +140,7 @@ void DrawProgressBar(uint dT)
     Painter_DrawStringInCenterRect(X, y0 + 2 * dH, WIDTH, 10, "Подождите...");
 
     Painter_DrawRectangle(X, Y, WIDTH, HEIGHT);
-    Painter_FillRegion(X, Y, value, HEIGHT);
+    Painter_FillRegion(X, Y, ms->value, HEIGHT);
 }
 
 

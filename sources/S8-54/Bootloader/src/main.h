@@ -1,6 +1,7 @@
 #pragma once
 
 #include <stm32f4xx_hal.h>
+#include <ff.h>
 
 
 typedef unsigned int uint;
@@ -29,5 +30,26 @@ typedef enum
     State_Ok                // Обновление удачно завершено
 } State;
 
+typedef enum
+{
+    StateDisk_Idle,
+    StateDisk_Start
+} StateDisk;
+
+typedef struct
+{
+    FATFS USBDISKFatFS;
+    char USBDISKPath[4];
+    StateDisk stateDisk;
+    FIL file;
+    int connection;
+    int active;
+    float value;
+} MainStruct;
+
 extern State state;
 extern float percentUpdate;
+
+// Данная структура используется во всех модулях программы для уменьшения расхода ОЗУ
+// Память для деё должна быть выделена с помощью malloc в начале программы и возвращена в момент перехода на основную программу
+extern MainStruct *ms;
