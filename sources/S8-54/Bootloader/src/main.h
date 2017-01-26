@@ -1,5 +1,7 @@
 #pragma once
 
+#include "defines.h"
+
 #include <stm32f4xx_hal.h>
 #include <ff.h>
 
@@ -38,17 +40,30 @@ typedef enum
 
 typedef struct
 {
+    bool isRun;
+    float value;
+    float direction;
+    uint timePrev;
+} Display;
+
+typedef struct
+{
     FATFS USBDISKFatFS;
     char USBDISKPath[4];
-    StateDisk stateDisk;
+    StateDisk state;
     FIL file;
     int connection;
     int active;
-    float value;
+} FDrive;
+
+typedef struct
+{
+    FDrive drive;
+    Display display;
+    float percentUpdate;
+    State state;
 } MainStruct;
 
-extern State state;
-extern float percentUpdate;
 
 // Данная структура используется во всех модулях программы для уменьшения расхода ОЗУ
 // Память для деё должна быть выделена с помощью malloc в начале программы и возвращена в момент перехода на основную программу

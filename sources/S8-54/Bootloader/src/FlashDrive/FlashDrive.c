@@ -31,11 +31,11 @@ static void USBH_UserProcess(USBH_HandleTypeDef *phost, uint8 id);
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 void FDrive_Init(void)
 {
-    ms->stateDisk = StateDisk_Idle;
-    ms->connection = 0;
-    ms->active = 0;
+    ms->drive.state = StateDisk_Idle;
+    ms->drive.connection = 0;
+    ms->drive.active = 0;
 
-    if (FATFS_LinkDriver(&USBH_Driver, ms->USBDISKPath) == FR_OK)
+    if (FATFS_LinkDriver(&USBH_Driver, ms->drive.USBDISKPath) == FR_OK)
     {
         USBH_StatusTypeDef res = USBH_Init(&handleUSBH, USBH_UserProcess, 0);
         res = USBH_RegisterClass(&handleUSBH, USBH_MSC_CLASS);
@@ -53,16 +53,16 @@ void USBH_UserProcess(USBH_HandleTypeDef *phost, uint8 id)
             break;
 
         case HOST_USER_CLASS_ACTIVE:
-            ms->active++;
-            ms->stateDisk = StateDisk_Start;
+            ms->drive.active++;
+            ms->drive.state = StateDisk_Start;
             break;
 
         case HOST_USER_CLASS_SELECTED:
             break;
 
         case HOST_USER_CONNECTION:
-            ms->connection++;
-            state = State_Mount;
+            ms->drive.connection++;
+            ms->state = State_Mount;
             f_mount(NULL, (TCHAR const*)"", 0);
             break;
 
@@ -79,15 +79,15 @@ void USBH_UserProcess(USBH_HandleTypeDef *phost, uint8 id)
 bool FDrive_Update(void)
 {
     USBH_Process(&handleUSBH);
-    if (ms->stateDisk == StateDisk_Start)
+    if (ms->drive.state == StateDisk_Start)
     {
-        if (f_mount(&(ms->USBDISKFatFS), (TCHAR const*)ms->USBDISKPath, 0) == FR_OK)
+        if (f_mount(&(ms->drive.USBDISKFatFS), (TCHAR const*)ms->drive.USBDISKPath, 0) == FR_OK)
         {
             return true;
         }
         else
         {
-            state = State_WrongFlash;
+            ms->state = State_WrongFlash;
             return false;
         }
     }
@@ -224,9 +224,9 @@ static bool GetNextNameFile(char *nameFileOut, StructForReadDir *s)
 //----------------------------------------------------------------------------------------------------------------------------------------------------
 int FDrive_OpenFileForRead(char *fileName)
 {
-    if (f_open(&ms->file, fileName, FA_READ) == FR_OK)
+    if (f_open(&ms->drive.file, fileName, FA_READ) == FR_OK)
     {
-        return (int)ms->file.fsize;
+        return (int)ms->drive.file.fsize;
     }
     return -1;
 }
@@ -236,7 +236,7 @@ int FDrive_OpenFileForRead(char *fileName)
 int FDrive_ReadFromFile(int numBytes, uint8 *buffer)
 {
     uint readed = 0;
-    if (f_read(&ms->file, buffer, numBytes, &readed) == FR_OK)
+    if (f_read(&ms->drive.file, buffer, numBytes, &readed) == FR_OK)
     {
         return (int)readed;
     }
@@ -247,6 +247,6 @@ int FDrive_ReadFromFile(int numBytes, uint8 *buffer)
 //----------------------------------------------------------------------------------------------------------------------------------------------------
 void FDrive_CloseOpenedFile(void)
 {
-    f_close(&ms->file);
+    f_close(&ms->drive.file);
 }
 

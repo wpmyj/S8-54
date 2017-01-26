@@ -4,13 +4,11 @@
 #include "main.h"
 
 
-///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 static void DrawProgressBar(uint dT);
 
-static bool isRun = false;
 
-
-///////////////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 void InitHardware(void)
 {
     GPIO_InitTypeDef isGPIO_ =
@@ -29,7 +27,10 @@ void InitHardware(void)
 //------------------------------------------------------------------------------------------------------------------------------------------------------
 void Display_Init(void)
 {
-    ms->value = 0.0f;
+    ms->display.value = 0.0f;
+    ms->display.isRun = false;
+    ms->display.timePrev = 0;
+    ms->display.direction = 10.0f;
 
     gColorBack = COLOR_BLACK;
     gColorFill = COLOR_WHITE;
@@ -62,26 +63,25 @@ void DrawButton(int x, int y, char *text)
 //------------------------------------------------------------------------------------------------------------------------------------------------------
 void Display_Update(void)
 {
-    isRun = true;
-    static uint timePrev = 0;
+    ms->display.isRun = true;
 
-    uint dT = gTimerMS - timePrev;
-    timePrev = gTimerMS;
+    uint dT = gTimerMS - ms->display.timePrev;
+    ms->display.timePrev = gTimerMS;
 
     Painter_BeginScene(COLOR_BLACK);
 
     Painter_SetColor(COLOR_WHITE);
 
-    if (state == State_Mount)
+    if (ms->state == State_Mount)
     {
         DrawProgressBar(dT);
     }
-    else if (state == State_WrongFlash)
+    else if (ms->state == State_WrongFlash)
     {
         Painter_DrawStringInCenterRectC(0, 0, 320, 200, "ÍÅ ÓÄÀËÎÑÜ ÏÐÎ×ÈÒÀÒÜ ÄÈÑÊ", COLOR_FLASH_10);
         Painter_DrawStringInCenterRectC(0, 20, 320, 200, "ÓÁÅÄÈÒÅÑÜ, ×ÒÎ ÔÀÉËÎÂÀß ÑÈÑÒÅÌÀ FAT32", COLOR_WHITE);
     }
-    else if (state == State_RequestAction)
+    else if (ms->state == State_RequestAction)
     {
         Painter_DrawStringInCenterRect(0, 0, 320, 200, "Îáíàðóæåíî ïðîãðàììíîå îáåñïå÷åíèå");
         Painter_DrawStringInCenterRect(0, 20, 320, 200, "Óñòàíîâèòü åãî?");
@@ -89,21 +89,21 @@ void Display_Update(void)
         DrawButton(290, 55, "ÄÀ");
         DrawButton(290, 195, "ÍÅÒ");
     }
-    else if (state == State_Upgrade)
+    else if (ms->state == State_Upgrade)
     {
         Painter_DrawStringInCenterRect(0, 0, 320, 190, "Ïîäîæäèòå çàâåðøåíèÿ");
         Painter_DrawStringInCenterRect(0, 0, 320, 220, "óñòàíîâêè ïðîãðàììíîãî îáåñïå÷åíèÿ");
 
         int height = 30;
         int fullWidth = 280;
-        int width = fullWidth * percentUpdate;
+        int width = fullWidth * ms->percentUpdate;
 
         Painter_FillRegion(20, 130, width, height);
         Painter_DrawRectangle(20, 130, fullWidth, height);
     }
 
     Painter_EndScene();
-    isRun = false;
+    ms->display.isRun = false;
 }
 
 
@@ -114,22 +114,20 @@ void DrawProgressBar(uint dT)
     const int HEIGHT = 20;
     const int X = 10;
     const int Y = 200;
-
-    static float direction = 10.0f;
     
-    float step = dT / direction;
+    float step = dT / ms->display.direction;
 
-    ms->value += step;
+    ms->display.value += step;
 
-    if (direction > 0.0f && ms->value > WIDTH)
+    if (ms->display.direction > 0.0f && ms->display.value > WIDTH)
     {
-        direction = -direction;
-        ms->value -= step;
+        ms->display.direction = -ms->display.direction;
+        ms->display.value -= step;
     }
-    else if (direction < 0.0f && ms->value < 0)
+    else if (ms->display.direction < 0.0f && ms->display.value < 0)
     {
-        direction = -direction;
-        ms->value -= step;
+        ms->display.direction = -ms->display.direction;
+        ms->display.value -= step;
     }
 
     int dH = 15;
@@ -140,12 +138,12 @@ void DrawProgressBar(uint dT)
     Painter_DrawStringInCenterRect(X, y0 + 2 * dH, WIDTH, 10, "Ïîäîæäèòå...");
 
     Painter_DrawRectangle(X, Y, WIDTH, HEIGHT);
-    Painter_FillRegion(X, Y, ms->value, HEIGHT);
+    Painter_FillRegion(X, Y, ms->display.value, HEIGHT);
 }
 
 
 //------------------------------------------------------------------------------------------------------------------------------------------------------
 bool Display_IsRun(void)
 {
-    return isRun;
+    return ms->display.isRun;
 }

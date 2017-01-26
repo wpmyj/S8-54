@@ -15,29 +15,28 @@
 #include "Hardware/Flash.h"
 
 
-///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 #define FILE_NAME "S8-54.bin"
 
 typedef void(*pFunction)(void);
 
-MainStruct *ms;
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-uint jumpAddress = 0;
-pFunction JumpToApplication;
-State state = State_Start;
+MainStruct *ms;
 
-float percentUpdate = 0.0f;     // Сколько времени обновления завершено
 
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 void Upgrade(void);
 
 
-///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 int main(void)
 {
+    pFunction JumpToApplication;
+
     ms = malloc(sizeof(MainStruct));
+    ms->percentUpdate = 0.0f;
     
     HAL_Init();
 
@@ -49,7 +48,7 @@ int main(void)
 
     Display_Init();
 
-    state = State_Start;
+    ms->state = State_Start;
 
     Timer_Enable(kTemp, 10, Display_Update);
 
@@ -61,40 +60,40 @@ int main(void)
     {
     }
 
-    if ((ms->connection && ms->active == 0) || (ms->active && state != State_Mount))
+    if ((ms->drive.connection && ms->drive.active == 0) || (ms->drive.active && ms->state != State_Mount))
     {
         free(ms);
         NVIC_SystemReset();
     }
 
-    if (state == State_Mount)   // Это означает, что диск удачно примонтирован
+    if (ms->state == State_Mount)   // Это означает, что диск удачно примонтирован
     {
         if (FDrive_FileExist(FILE_NAME))
         {
-            state = State_RequestAction;
+            ms->state = State_RequestAction;
             
             while (1)
             {
                 PanelButton button = Panel_PressedButton();
                 if (button == B_F1)
                 {
-                    state = State_Upgrade;
+                    ms->state = State_Upgrade;
                     Upgrade();
                     break;
                 }
                 else if (button == B_F5)
                 {
-                    state = State_Ok;
+                    ms->state = State_Ok;
                     break;
                 }
             }
         }
         else
         {
-            state = State_NotFile;
+            ms->state = State_NotFile;
         }
     }
-    else if (state == State_WrongFlash) // Диск не удалось примонтировать
+    else if (ms->state == State_WrongFlash) // Диск не удалось примонтировать
     {
         Timer_PauseOnTime(5000);
     }
@@ -145,7 +144,7 @@ void Upgrade(void)
 {
     const int sizeSector = 1 * 1024;
     
-    static uint8 buffer[sizeSector];
+    uint8 buffer[sizeSector];
     
     FLASH_Prepare();
     
@@ -160,7 +159,7 @@ void Upgrade(void)
         size -= readedBytes;
         address += readedBytes;
 
-        percentUpdate = 1.0f - (float)size / fullSize;
+        ms->percentUpdate = 1.0f - (float)size / fullSize;
     }
     
     FDrive_CloseOpenedFile();
