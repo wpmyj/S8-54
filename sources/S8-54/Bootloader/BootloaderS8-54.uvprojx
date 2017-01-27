@@ -310,7 +310,7 @@
           </ArmAdsMisc>
           <Cads>
             <interw>1</interw>
-            <Optim>4</Optim>
+            <Optim>3</Optim>
             <oTime>0</oTime>
             <SplitLS>0</SplitLS>
             <OneElfS>1</OneElfS>
@@ -390,11 +390,6 @@
               <FilePath>..\..\STM32Cube_FW_F4\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal_flash_ex.h</FilePath>
             </File>
             <File>
-              <FileName>stm32f4xx_hal_flash.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\STM32Cube_FW_F4\Drivers\STM32F4xx_HAL_Driver\Src\stm32f4xx_hal_flash.c</FilePath>
-            </File>
-            <File>
               <FileName>stm32f4xx_hal_flash_ex.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\STM32Cube_FW_F4\Drivers\STM32F4xx_HAL_Driver\Src\stm32f4xx_hal_flash_ex.c</FilePath>
@@ -460,19 +455,9 @@
               <FilePath>..\..\STM32Cube_FW_F4\Drivers\STM32F4xx_HAL_Driver\Src\stm32f4xx_hal_rcc.c</FilePath>
             </File>
             <File>
-              <FileName>stm32f4xx_hal_rcc_ex.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\STM32Cube_FW_F4\Drivers\STM32F4xx_HAL_Driver\Src\stm32f4xx_hal_rcc_ex.c</FilePath>
-            </File>
-            <File>
               <FileName>stm32f4xx_hal_rcc.h</FileName>
               <FileType>5</FileType>
               <FilePath>..\..\STM32Cube_FW_F4\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal_rcc.h</FilePath>
-            </File>
-            <File>
-              <FileName>stm32f4xx_hal_rcc_ex.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\..\STM32Cube_FW_F4\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal_rcc_ex.h</FilePath>
             </File>
             <File>
               <FileName>stm32f4xx_hal_sram.h</FileName>
@@ -490,24 +475,9 @@
               <FilePath>..\..\STM32Cube_FW_F4\Drivers\STM32F4xx_HAL_Driver\Src\stm32f4xx_hal_tim.c</FilePath>
             </File>
             <File>
-              <FileName>stm32f4xx_hal_nor.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\STM32Cube_FW_F4\Drivers\STM32F4xx_HAL_Driver\Src\stm32f4xx_hal_nor.c</FilePath>
-            </File>
-            <File>
               <FileName>stm32f4xx_hal_dma.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\STM32Cube_FW_F4\Drivers\STM32F4xx_HAL_Driver\Src\stm32f4xx_hal_dma.c</FilePath>
-            </File>
-            <File>
-              <FileName>stm32f4xx_hal_dma_ex.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\STM32Cube_FW_F4\Drivers\STM32F4xx_HAL_Driver\Src\stm32f4xx_hal_dma_ex.c</FilePath>
-            </File>
-            <File>
-              <FileName>stm32f4xx_ll_fsmc.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\STM32Cube_FW_F4\Drivers\STM32F4xx_HAL_Driver\Src\stm32f4xx_ll_fsmc.c</FilePath>
             </File>
             <File>
               <FileName>stm32f4xx_ll_fmc.c</FileName>
@@ -523,6 +493,11 @@
               <FileName>stm32f4xx_hal_spi.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\STM32Cube_FW_F4\Drivers\STM32F4xx_HAL_Driver\Src\stm32f4xx_hal_spi.c</FilePath>
+            </File>
+            <File>
+              <FileName>stm32f4xx_hal_flash.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\STM32Cube_FW_F4\Drivers\STM32F4xx_HAL_Driver\Src\stm32f4xx_hal_flash.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -812,6 +787,21 @@
           </Files>
         </Group>
         <Group>
+          <GroupName>Display/fonts</GroupName>
+          <Files>
+            <File>
+              <FileName>Font.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\src\Display\font\Font.c</FilePath>
+            </File>
+            <File>
+              <FileName>Font.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\src\Display\font\Font.h</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
           <GroupName>Panel</GroupName>
           <Files>
             <File>
@@ -883,21 +873,6 @@
               <FileName>Math.h</FileName>
               <FileType>5</FileType>
               <FilePath>.\src\Utils\Math.h</FilePath>
-            </File>
-          </Files>
-        </Group>
-        <Group>
-          <GroupName>Display/fonts</GroupName>
-          <Files>
-            <File>
-              <FileName>Font.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\src\Display\font\Font.c</FilePath>
-            </File>
-            <File>
-              <FileName>Font.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\src\Display\font\Font.h</FilePath>
             </File>
           </Files>
         </Group>
