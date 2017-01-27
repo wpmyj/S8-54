@@ -366,8 +366,8 @@ typedef struct
 } Settings;
 
 
-extern Settings set;
-
+extern Settings         set;
+extern SettingsNonReset setNR;
 
 void Settings_Load(bool _default);          // Загрузить настройки. Если default == true, загружаются настройки по умолчанию, иначе пытается загрузить настройки из ПЗУ, а в случае неудачи - тоже настройки по умолчанию.
 void Settings_Save(void);                   // Сохранить настройки во флеш-память.
