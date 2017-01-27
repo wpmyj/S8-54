@@ -5,19 +5,8 @@
 
 typedef unsigned char BYTE;
 
-//#include "font5display.inc"
-#include "font8display.inc"
-//#include "fontUGOdisplay.inc"
-//#include "fontUGO2display.inc"
-
-
 #include "font8.inc"
-//#include "font5.inc"
-//#include "fontUGO.inc"
-//#include "fontUGO2.inc"
 
-
-const Font *fonts[TypeFont_Number] = {0, &font8, 0, 0};
 const Font *font = &font8;
 
 

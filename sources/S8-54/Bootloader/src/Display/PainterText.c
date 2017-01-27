@@ -24,7 +24,6 @@ void Painter_SetFont(TypeFont typeFont)
     {
         return;
     }
-    font = fonts[typeFont];
     uint8 command[4];
     command[0] = SET_FONT;
     command[1] = (uint8)typeFont;
