@@ -244,11 +244,9 @@ static bool LoadNonResetSettings(void)
 
             ReadBuffer(address, (uint*)(&setNR), sizeof(SettingsNonReset));
         }
+        return true;
     }
-    else                                                            // Здесь мы окажемся, если настроек ещё не сохранялось в этот сектор
-    {
-        if (READ_WORD(ADDR_SECTOR_SETTINGS) != MARK_OF_FILLED)
-    }
+    return false;
 }
 
 
