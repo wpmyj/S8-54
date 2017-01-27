@@ -35,9 +35,22 @@ void WriteData(uint address, uint8 *data, int size)
 
     HAL_FLASH_Unlock();
 
-    for (int i = 0; i < size; i++)
+    if ((size % 4) == 0)
     {
-        HAL_FLASH_Program(TYPEPROGRAM_BYTE, address++, (uint64_t)data[i]);
+        size /= 4;
+        for (int i = 0; i < size; i++)
+        {
+            uint *data32 = (uint*)data;
+            HAL_FLASH_Program(TYPEPROGRAM_WORD, address, (uint64_t)(data32[i]));
+            address += 4;
+        }
+    }
+    else
+    {
+        for (int i = 0; i < size; i++)
+        {
+            HAL_FLASH_Program(TYPEPROGRAM_BYTE, address++, (uint64_t)data[i]);
+        }
     }
 
     HAL_FLASH_Lock();
