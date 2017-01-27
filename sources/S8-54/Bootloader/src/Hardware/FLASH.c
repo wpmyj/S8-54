@@ -35,18 +35,14 @@ void WriteData(uint address, uint8 *data, int size)
 
     HAL_FLASH_Unlock();
 
-    if ((size % 8) == 0)
+    if ((size % 4) == 0)
     {
-        size /= 8;
+        size /= 4;
         for (int i = 0; i < size; i++)
         {
-            uint64_t *data32 = (uint64_t*)data;
-            HAL_StatusTypeDef error = HAL_FLASH_Program(TYPEPROGRAM_DOUBLEWORD, address, (uint64_t)(data32[i]));
-            if (error != HAL_OK)
-            {
-                error = error;
-            }
-            address += 8;
+            uint *data32 = (uint*)data;
+            HAL_StatusTypeDef error = HAL_FLASH_Program(TYPEPROGRAM_WORD, address, (uint64_t)(data32[i]));
+            address += 4;
         }
     }
     else
