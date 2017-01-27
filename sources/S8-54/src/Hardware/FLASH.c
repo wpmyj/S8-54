@@ -23,9 +23,9 @@
 // Программа и константные данные
 #define ADDR_SECTOR_BOOT_0      ((uint)0x08000000)  // 16k Загрузчик
 #define ADDR_SECTOR_BOOT_1      ((uint)0x08004000)  // 16k Загрузчик
-#define ADDR_FLASH_SECTOR_2     ((uint)0x08008000)  // 16k
-#define ADDR_FLASH_SECTOR_3     ((uint)0x0800C000)  // 16k
-#define ADDR_FLASH_SECTOR_4     ((uint)0x08010000)  // 64k
+#define ADDR_FLASH_SECTOR_2     ((uint)0x08008000)  // 16k Загрузчик
+#define ADDR_FLASH_SECTOR_3     ((uint)0x0800C000)  // 16k TODO Здесь будут храниться идентификационные данные прибора - серийный номер, версия ПО
+#define ADDR_FLASH_SECTOR_4     ((uint)0x08010000)  // 64k TODO Здесь будут храниться несбрасываемые настройки
 #define ADDR_SECTOR_PROGRAM_0   ((uint)0x08020000)  // 128k Основная программа
 #define ADDR_SECTOR_PROGRAM_1   ((uint)0x08040000)  // 128k Основная программа
 #define ADDR_SECTOR_PROGRAM_2   ((uint)0x08060000)  // 128k Основная программа
