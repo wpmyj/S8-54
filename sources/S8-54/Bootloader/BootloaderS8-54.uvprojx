@@ -377,6 +377,66 @@
       </TargetOption>
       <Groups>
         <Group>
+          <GroupName>FatFS</GroupName>
+          <Files>
+            <File>
+              <FileName>diskio.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\STM32Cube_FW_F4\Middlewares\Third_Party\FatFs\src\diskio.c</FilePath>
+            </File>
+            <File>
+              <FileName>diskio.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\..\STM32Cube_FW_F4\Middlewares\Third_Party\FatFs\src\diskio.h</FilePath>
+            </File>
+            <File>
+              <FileName>ff.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\STM32Cube_FW_F4\Middlewares\Third_Party\FatFs\src\ff.c</FilePath>
+            </File>
+            <File>
+              <FileName>ff.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\..\STM32Cube_FW_F4\Middlewares\Third_Party\FatFs\src\ff.h</FilePath>
+            </File>
+            <File>
+              <FileName>ff_gen_drv.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\STM32Cube_FW_F4\Middlewares\Third_Party\FatFs\src\ff_gen_drv.c</FilePath>
+            </File>
+            <File>
+              <FileName>ff_gen_drv.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\..\STM32Cube_FW_F4\Middlewares\Third_Party\FatFs\src\ff_gen_drv.h</FilePath>
+            </File>
+            <File>
+              <FileName>00readme.txt</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\..\STM32Cube_FW_F4\Middlewares\Third_Party\FatFs\src\00readme.txt</FilePath>
+            </File>
+            <File>
+              <FileName>unicode.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\STM32Cube_FW_F4\Middlewares\Third_Party\FatFs\src\option\unicode.c</FilePath>
+            </File>
+            <File>
+              <FileName>usbh_diskio.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\STM32Cube_FW_F4\Middlewares\Third_Party\FatFs\src\drivers\usbh_diskio.c</FilePath>
+            </File>
+            <File>
+              <FileName>usbh_diskio.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\..\STM32Cube_FW_F4\Middlewares\Third_Party\FatFs\src\drivers\usbh_diskio.h</FilePath>
+            </File>
+            <File>
+              <FileName>syscall.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\STM32Cube_FW_F4\Middlewares\Third_Party\FatFs\src\option\syscall.c</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
           <GroupName>HAL</GroupName>
           <Files>
             <File>
@@ -542,66 +602,6 @@
           </Files>
         </Group>
         <Group>
-          <GroupName>FatFS</GroupName>
-          <Files>
-            <File>
-              <FileName>diskio.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\STM32Cube_FW_F4\Middlewares\Third_Party\FatFs\src\diskio.c</FilePath>
-            </File>
-            <File>
-              <FileName>diskio.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\..\STM32Cube_FW_F4\Middlewares\Third_Party\FatFs\src\diskio.h</FilePath>
-            </File>
-            <File>
-              <FileName>ff.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\STM32Cube_FW_F4\Middlewares\Third_Party\FatFs\src\ff.c</FilePath>
-            </File>
-            <File>
-              <FileName>ff.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\..\STM32Cube_FW_F4\Middlewares\Third_Party\FatFs\src\ff.h</FilePath>
-            </File>
-            <File>
-              <FileName>ff_gen_drv.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\STM32Cube_FW_F4\Middlewares\Third_Party\FatFs\src\ff_gen_drv.c</FilePath>
-            </File>
-            <File>
-              <FileName>ff_gen_drv.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\..\STM32Cube_FW_F4\Middlewares\Third_Party\FatFs\src\ff_gen_drv.h</FilePath>
-            </File>
-            <File>
-              <FileName>00readme.txt</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\..\STM32Cube_FW_F4\Middlewares\Third_Party\FatFs\src\00readme.txt</FilePath>
-            </File>
-            <File>
-              <FileName>unicode.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\STM32Cube_FW_F4\Middlewares\Third_Party\FatFs\src\option\unicode.c</FilePath>
-            </File>
-            <File>
-              <FileName>usbh_diskio.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\STM32Cube_FW_F4\Middlewares\Third_Party\FatFs\src\drivers\usbh_diskio.c</FilePath>
-            </File>
-            <File>
-              <FileName>usbh_diskio.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\..\STM32Cube_FW_F4\Middlewares\Third_Party\FatFs\src\drivers\usbh_diskio.h</FilePath>
-            </File>
-            <File>
-              <FileName>syscall.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\STM32Cube_FW_F4\Middlewares\Third_Party\FatFs\src\option\syscall.c</FilePath>
-            </File>
-          </Files>
-        </Group>
-        <Group>
           <GroupName>src</GroupName>
           <Files>
             <File>
@@ -672,66 +672,6 @@
           </Files>
         </Group>
         <Group>
-          <GroupName>FlashDrive</GroupName>
-          <Files>
-            <File>
-              <FileName>FlashDrive.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\src\FlashDrive\FlashDrive.c</FilePath>
-            </File>
-            <File>
-              <FileName>FlashDrive.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\src\FlashDrive\FlashDrive.h</FilePath>
-            </File>
-          </Files>
-        </Group>
-        <Group>
-          <GroupName>Hardware</GroupName>
-          <Files>
-            <File>
-              <FileName>FLASH.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\src\Hardware\FLASH.c</FilePath>
-            </File>
-            <File>
-              <FileName>FLASH.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\src\Hardware\FLASH.h</FilePath>
-            </File>
-            <File>
-              <FileName>Hardware.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\src\Hardware\Hardware.c</FilePath>
-            </File>
-            <File>
-              <FileName>Hardware.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\src\Hardware\Hardware.h</FilePath>
-            </File>
-            <File>
-              <FileName>FSMC.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\src\Hardware\FSMC.c</FilePath>
-            </File>
-            <File>
-              <FileName>FSMC.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\src\Hardware\FSMC.h</FilePath>
-            </File>
-            <File>
-              <FileName>Timer.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\src\Hardware\Timer.c</FilePath>
-            </File>
-            <File>
-              <FileName>Timer.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\src\Hardware\Timer.h</FilePath>
-            </File>
-          </Files>
-        </Group>
-        <Group>
           <GroupName>Display</GroupName>
           <Files>
             <File>
@@ -798,6 +738,66 @@
               <FileName>Font.h</FileName>
               <FileType>5</FileType>
               <FilePath>.\src\Display\font\Font.h</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>FlashDrive</GroupName>
+          <Files>
+            <File>
+              <FileName>FlashDrive.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\src\FlashDrive\FlashDrive.c</FilePath>
+            </File>
+            <File>
+              <FileName>FlashDrive.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\src\FlashDrive\FlashDrive.h</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>Hardware</GroupName>
+          <Files>
+            <File>
+              <FileName>FLASH.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\src\Hardware\FLASH.c</FilePath>
+            </File>
+            <File>
+              <FileName>FLASH.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\src\Hardware\FLASH.h</FilePath>
+            </File>
+            <File>
+              <FileName>Hardware.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\src\Hardware\Hardware.c</FilePath>
+            </File>
+            <File>
+              <FileName>Hardware.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\src\Hardware\Hardware.h</FilePath>
+            </File>
+            <File>
+              <FileName>FSMC.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\src\Hardware\FSMC.c</FilePath>
+            </File>
+            <File>
+              <FileName>FSMC.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\src\Hardware\FSMC.h</FilePath>
+            </File>
+            <File>
+              <FileName>Timer.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\src\Hardware\Timer.c</FilePath>
+            </File>
+            <File>
+              <FileName>Timer.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\src\Hardware\Timer.h</FilePath>
             </File>
           </Files>
         </Group>
