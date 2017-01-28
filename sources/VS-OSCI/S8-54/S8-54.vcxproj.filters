@@ -49,9 +49,6 @@
     <Filter Include="HAL">
       <UniqueIdentifier>{c5497683-6131-418f-ab89-2d107e6dacb8}</UniqueIdentifier>
     </Filter>
-    <Filter Include="_doc_">
-      <UniqueIdentifier>{b2c50067-7f4a-4750-b6c6-5990760468bb}</UniqueIdentifier>
-    </Filter>
     <Filter Include="USBH">
       <UniqueIdentifier>{8c1a350d-0a28-436e-8443-083fadd5893c}</UniqueIdentifier>
     </Filter>
@@ -880,9 +877,6 @@
     <None Include="..\..\S8-54\src\main2.s">
       <Filter>src</Filter>
     </None>
-    <None Include="..\..\doc\C8 - 54 Инструкция по программированию.docx">
-      <Filter>_doc_</Filter>
-    </None>
   </ItemGroup>
   <ItemGroup>
     <Text Include="..\..\S8-54\src\EMUz80\doc\interface.txt">
@@ -890,18 +884,6 @@
     </Text>
     <Text Include="..\..\S8-54\src\Menu\Menu_reference.txt">
       <Filter>Menu</Filter>
-    </Text>
-    <Text Include="..\..\doc\54 boolloader.txt">
-      <Filter>_doc_</Filter>
-    </Text>
-    <Text Include="..\..\doc\TODO_54.txt">
-      <Filter>_doc_</Filter>
-    </Text>
-    <Text Include="..\..\doc\Hardware.txt">
-      <Filter>_doc_</Filter>
-    </Text>
-    <Text Include="..\..\doc\remarks.txt">
-      <Filter>_doc_</Filter>
     </Text>
   </ItemGroup>
 </Project>

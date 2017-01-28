@@ -457,7 +457,6 @@
     <ClInclude Include="..\..\STM32Cube_FW_F4\Middlewares\ST\STM32_USB_Host_Library\Core\Inc\usbh_pipes.h" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="..\..\doc\C8 - 54 Инструкция по программированию.docx" />
     <None Include="..\..\S8-54\src\Display\font\font5.inc" />
     <None Include="..\..\S8-54\src\Display\font\font5display.inc" />
     <None Include="..\..\S8-54\src\Display\font\font8.inc" />
@@ -471,10 +470,6 @@
     <None Include="..\..\S8-54\src\Utils\CreateTables.py" />
   </ItemGroup>
   <ItemGroup>
-    <Text Include="..\..\doc\54 boolloader.txt" />
-    <Text Include="..\..\doc\Hardware.txt" />
-    <Text Include="..\..\doc\remarks.txt" />
-    <Text Include="..\..\doc\TODO_54.txt" />
     <Text Include="..\..\S8-54\src\EMUz80\doc\interface.txt" />
     <Text Include="..\..\S8-54\src\Menu\Menu_reference.txt" />
   </ItemGroup>

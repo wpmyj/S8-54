@@ -326,23 +326,23 @@ void HAL_ETH_MspInit(ETH_HandleTypeDef *heth)
 
 /* Ethernet pins configuration ************************************************/
   /*
-        ETH_MDIO -------------------------> PA2
-        ETH_MDC --------------------------> PC1
-        ETH_MII_RXD2 ---------------------> PB0
-        ETH_MII_RXD3 ---------------------> PB1
-        ETH_MII_TX_CLK -------------------> PC3
-        ETH_MII_TXD2 ---------------------> PC2
-        ETH_MII_TXD3 ---------------------> PB8
-        ETH_MII_RX_CLK -------------------> PA1
-        ETH_MII_RX_DV --------------------> PA7
-        ETH_MII_RXD0 ---------------------> PC4
-        ETH_MII_RXD1 ---------------------> PC5
-        ETH_MII_TX_EN --------------------> PB11
-        ETH_MII_TXD0 ---------------------> PG13
-        ETH_MII_TXD1 ---------------------> PG14
-        ETH_MII_RX_ER --------------------> PB10
-        ETH_MII_CRS ----------------------> PA0
-        ETH_MII_COL ----------------------> PA3
+        MDIO -----> PA2
+        MDC ------> PC1
+        RXD2 -----> PB0
+        RXD3 -----> PB1
+        TX_CLK ---> PC3
+        TXD2 -----> PC2
+        TXD3 -----> PB8
+        RX_CLK ---> PA1
+        RX_DV ----> PA7
+        RXD0 -----> PC4
+        RXD1 -----> PC5
+        TX_EN ----> PB11
+        TXD0 -----> PG13
+        TXD1 -----> PG14
+        RX_ER ----> PB10
+        CRS ------> PA0
+        COL ------> PA3
   */
   
   GPIO_InitStructure.Speed = GPIO_SPEED_HIGH;
