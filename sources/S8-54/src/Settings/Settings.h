@@ -344,11 +344,6 @@ const SmallButton*  GetSmallButton(PanelButton button);             // Вернуть у
 // Струкура хранит все настройки прибора.
 typedef struct
 {
-    union
-    {
-        SettingsNonReset nr;                    // здесь хранятся настройки, которые не сбрасываются при СЕРВИС - Сброс настроек
-        uint8 buf[SIZE_NONRESET_SETTINGS];
-    };
     SettingsDisplay     display;                // настройки изображения          (меню ДИСПЛЕЙ)
     SettingsChannel     chan[NumChannels];      // настройки каналов              (меню КАНАЛ 1 и КАНАЛ 2)
     SettingsTrig        trig;                   // настройки синхронизации        (меню СИНХР)

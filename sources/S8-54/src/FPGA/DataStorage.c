@@ -436,7 +436,7 @@ void CalculateSums(void)
 
     if(IN_RANDOM_MODE)
     {
-        numAveragings = set.nr.numAveForRand;
+        numAveragings = setNR.numAveForRand;
     }
 
     if(sDisplay_NumAverage() > numAveragings)
@@ -714,7 +714,7 @@ uint8* DS_GetAverageData(Channel ch)
     int numAveraging = 0;
     if (IN_RANDOM_MODE)
     {
-        numAveraging = set.nr.numAveForRand;
+        numAveraging = setNR.numAveForRand;
     }
 
     if (sDisplay_NumAverage() > numAveraging)

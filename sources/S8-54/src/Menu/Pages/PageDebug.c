@@ -484,7 +484,7 @@ static const Choice mcADC_Balance_Mode =
         {"Ðåàëüíûé", "Real"},
         {"Ðó÷íîé", "Manual"}
     },
-    (int8*)&set.nr.balanceADCtype, OnChange_ADC_Balance_Mode, OnDraw_ADC_Balance_Mode
+    (int8*)&setNR.balanceADCtype, OnChange_ADC_Balance_Mode, OnDraw_ADC_Balance_Mode
 };
 
 static void OnChange_ADC_Balance_Mode(bool active)
@@ -499,12 +499,12 @@ static void OnDraw_ADC_Balance_Mode(int x, int y)
 {
     int8 shift[2][3] =
     {
-        {0, BALANCE_ADC_A, (int8)set.nr.balanceADC[0]},
-        {0, BALANCE_ADC_B, (int8)set.nr.balanceADC[1]}
+        {0, BALANCE_ADC_A, (int8)setNR.balanceADC[0]},
+        {0, BALANCE_ADC_B, (int8)setNR.balanceADC[1]}
     };
 
-    shiftADCA = shift[A][set.nr.balanceADCtype];
-    shiftADCB = shift[B][set.nr.balanceADCtype];
+    shiftADCA = shift[A][setNR.balanceADCtype];
+    shiftADCB = shift[B][setNR.balanceADCtype];
 }
 
 // ÎÒËÀÄÊÀ -> ÀÖÏ -> ÁÀËÀÍÑ -> Ñìåùåíèå 1 ----------------------------------------------------------------------------------------------------------------------------
@@ -524,12 +524,12 @@ static const Governor mgADC_Balance_ShiftA =
 
 static bool IsActive_ADC_Balance(void)
 {
-    return set.nr.balanceADCtype == BalanceADC_Hand;
+    return setNR.balanceADCtype == BalanceADC_Hand;
 }
 
 static void OnChange_ADC_BalanceA(void)
 {
-    set.nr.balanceADC[A] = shiftADCA;
+    setNR.balanceADC[A] = shiftADCA;
 }
 
 // ÎÒËÀÄÊÀ -> ÀÖÏ -> ÁÀËÀÍÑ -> Ñìåùåíèå 2 ---------------------------------------------------------------------------------------------------------------------------------
@@ -549,7 +549,7 @@ static const Governor mgADC_Balance_ShiftB =
 
 static void OnChange_ADC_BalanceB(void)
 {
-    set.nr.balanceADC[B] = shiftADCB;
+    setNR.balanceADC[B] = shiftADCB;
 }
 
 
@@ -600,7 +600,7 @@ static const Choice mcADC_Stretch_Mode =
         {"Ðåàëüíûé", "Real"},
         {"Ðó÷íîé", "Manual"}
     },
-    (int8*)&set.nr.stretchADCtype, OnChange_ADC_Stretch_Mode, EmptyFuncVII
+    (int8*)&setNR.stretchADCtype, OnChange_ADC_Stretch_Mode, EmptyFuncVII
 };
 
 static int16 stretchA;
@@ -608,15 +608,15 @@ static int16 stretchB;
 
 void OnChange_ADC_Stretch_Mode(bool active)
 {
-    if (set.nr.stretchADCtype == StretchADC_Disable)
+    if (setNR.stretchADCtype == StretchADC_Disable)
     {
-        stretchA = set.nr.stretchADC[A][StretchADC_Disable] = 0;
-        stretchB = set.nr.stretchADC[B][StretchADC_Disable] = 0;
+        stretchA = setNR.stretchADC[A][StretchADC_Disable] = 0;
+        stretchB = setNR.stretchADC[B][StretchADC_Disable] = 0;
     }
     else
     {
-        stretchA = set.nr.stretchADC[A][set.nr.stretchADCtype];
-        stretchB = set.nr.stretchADC[B][set.nr.stretchADCtype];
+        stretchA = setNR.stretchADC[A][setNR.stretchADCtype];
+        stretchB = setNR.stretchADC[B][setNR.stretchADCtype];
     }
 }
 
@@ -639,12 +639,12 @@ static const Governor mgADC_Stretch_A =
 
 static bool IsActive_ADC_StretchAB(void)
 {
-    return set.nr.stretchADCtype == StretchADC_Hand;
+    return setNR.stretchADCtype == StretchADC_Hand;
 }
 
 static void OnChange_ADC_Stretch_A(void)
 {
-    set.nr.stretchADC[A][set.nr.stretchADCtype] = stretchA;
+    setNR.stretchADC[A][setNR.stretchADCtype] = stretchA;
 }
 
 // ÎÒËÀÄÊÀ -> ÀÖÏ -> ÐÀÑÒßÆÊÀ -> Ðàñòÿæêà 2ê ------------------------------------------------------------------------------------------------------------------------
@@ -666,7 +666,7 @@ static const Governor mgADC_Stretch_B =
 
 static void OnChange_ADC_Stretch_B(void)
 {
-    set.nr.stretchADC[B][set.nr.stretchADCtype] = stretchB;
+    setNR.stretchADC[B][setNR.stretchADCtype] = stretchB;
 }
 
 // ÎÒËÀÄÊÀ -> ÀÖÏ -> ÐÀÑÒßÆÊÀ -> 20ìÂ/1Â 1ê -------------------------------------------------------------------------------------------------------------------
@@ -681,7 +681,7 @@ static const Governor mgADC_Stretch_Ak20mV =
         ""
     },
     EmptyFuncBV,
-    &set.nr.addStretch20mV[A], -10000, 10000, EmptyFuncVV
+    &setNR.addStretch20mV[A], -10000, 10000, EmptyFuncVV
 };
 
 // ÎÒËÀÄÊÀ -> ÀÖÏ -> ÐÀÑÒßÆÊÀ -> 50ìÂ 1ê -------------------------------------------------------------------------------------------------------------------
@@ -696,7 +696,7 @@ static const Governor mgADC_Stretch_Ak50mV =
         ""
     },
     EmptyFuncBV,
-    &set.nr.addStretch50mV[A], -10000, 10000, EmptyFuncVV
+    &setNR.addStretch50mV[A], -10000, 10000, EmptyFuncVV
 };
 
 // ÎÒËÀÄÊÀ -> ÀÖÏ -> ÐÀÑÒßÆÊÀ -> 100ìÂ/5Â 1ê -------------------------------------------------------------------------------------------------------------------
@@ -711,7 +711,7 @@ static const Governor mgADC_Stretch_Ak100mV =
         ""
     },
     EmptyFuncBV,
-    &set.nr.addStretch100mV[A], -10000, 10000, EmptyFuncVV
+    &setNR.addStretch100mV[A], -10000, 10000, EmptyFuncVV
 };
 
 // ÎÒËÀÄÊÀ -> ÀÖÏ -> ÐÀÑÒßÆÊÀ -> 2Â 1ê -----------------------------------------------------------------------------------------------------------------------------
@@ -726,7 +726,7 @@ static const Governor mgADC_Stretch_Ak2V =
         ""
     },
     EmptyFuncBV,
-    &set.nr.addStretch2V[A], -10000, 10000, EmptyFuncVV
+    &setNR.addStretch2V[A], -10000, 10000, EmptyFuncVV
 };
 
 // ÎÒËÀÄÊÀ -> ÀÖÏ -> ÐÀÑÒßÆÊÀ -> 20ìÂ/1Â 2ê -------------------------------------------------------------------------------------------------------------------
@@ -741,7 +741,7 @@ static const Governor mgADC_Stretch_Bk20mV =
         ""
     },
     EmptyFuncBV,
-    &set.nr.addStretch20mV[B], -10000, 10000, EmptyFuncVV
+    &setNR.addStretch20mV[B], -10000, 10000, EmptyFuncVV
 };
 
 // ÎÒËÀÄÊÀ -> ÀÖÏ -> ÐÀÑÒßÆÊÀ -> Äîï ñìåù 50ìÂ 2ê -------------------------------------------------------------------------------------------------------------------
@@ -756,7 +756,7 @@ static const Governor mgADC_Stretch_Bk50mV =
         ""
     },
     EmptyFuncBV,
-    &set.nr.addStretch50mV[B], -10000, 10000, EmptyFuncVV
+    &setNR.addStretch50mV[B], -10000, 10000, EmptyFuncVV
 };
 
 // ÎÒËÀÄÊÀ -> ÀÖÏ -> ÐÀÑÒßÆÊÀ -> 100ìÂ/5Â 2ê -------------------------------------------------------------------------------------------------------------------
@@ -771,7 +771,7 @@ static const Governor mgADC_Stretch_Bk100mV =
         ""
     },
     EmptyFuncBV,
-    &set.nr.addStretch100mV[B], -10000, 10000, EmptyFuncVV
+    &setNR.addStretch100mV[B], -10000, 10000, EmptyFuncVV
 };
 
 // ÎÒËÀÄÊÀ -> ÀÖÏ -> ÐÀÑÒßÆÊÀ -> 2Â 2ê -----------------------------------------------------------------------------------------------------------------------------
@@ -786,7 +786,7 @@ static const Governor mgADC_Stretch_Bk2V =
         ""
     },
     EmptyFuncBV,
-    &set.nr.addStretch2V[B], -10000, 10000, EmptyFuncVV
+    &setNR.addStretch2V[B], -10000, 10000, EmptyFuncVV
 };
 
 // ÎÒËÀÄÊÀ -> ÀÖÏ -> ÄÎÏ ÑÌÅÙ /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -834,7 +834,7 @@ static void OnPress_ADC_Shift_Reset(void)
         {
             for (int range = 0; range < RangeSize; range++)
             {
-                set.nr.rShiftAdd[ch][range][mode] = 0;
+                setNR.rShiftAdd[ch][range][mode] = 0;
             }
         }
     }
@@ -854,7 +854,7 @@ static const Governor mgADC_Shift_A2mV =
         ""
     },
     EmptyFuncBV,
-    (int16*)(&set.nr.rShiftAdd[A][Range_2mV][ModeCouple_DC]), -100, 100, OnChange_ADC_Shift_A
+    (int16*)(&setNR.rShiftAdd[A][Range_2mV][ModeCouple_DC]), -100, 100, OnChange_ADC_Shift_A
 };
 
 static void OnChange_ADC_Shift_A(void)
@@ -874,7 +874,7 @@ static const Governor mgADC_Shift_B2mV =
         ""
     },
     EmptyFuncBV,
-    (int16*)(&set.nr.rShiftAdd[B][Range_2mV][ModeCouple_DC]), -100, 100, OnChange_ADC_Shift_B
+    (int16*)(&setNR.rShiftAdd[B][Range_2mV][ModeCouple_DC]), -100, 100, OnChange_ADC_Shift_B
 };
 
 static void OnChange_ADC_Shift_B(void)
@@ -894,7 +894,7 @@ static const Governor mgADC_Shift_A5mV =
         ""
     },
     EmptyFuncBV,
-    (int16*)(&set.nr.rShiftAdd[A][Range_5mV][ModeCouple_DC]), -100, 100, OnChange_ADC_Shift_A
+    (int16*)(&setNR.rShiftAdd[A][Range_5mV][ModeCouple_DC]), -100, 100, OnChange_ADC_Shift_A
 };
 
 // ÎÒËÀÄÊÀ -> ÀÖÏ -> ÄÎÏ ÑÌÅÙ -> Ñì 2ê 5ìÂ ïîñò -----------------------------------------------------------------------------------------------------------------------------
@@ -909,7 +909,7 @@ static const Governor mgADC_Shift_B5mV =
         ""
     },
     EmptyFuncBV,
-    (int16*)(&set.nr.rShiftAdd[B][Range_5mV][ModeCouple_DC]), -100, 100, OnChange_ADC_Shift_B
+    (int16*)(&setNR.rShiftAdd[B][Range_5mV][ModeCouple_DC]), -100, 100, OnChange_ADC_Shift_B
 };
 
 // ÎÒËÀÄÊÀ -> ÀÖÏ -> ÄÎÏ ÑÌÅÙ -> Ñì 1ê 10ìÂ ïîñò ----------------------------------------------------------------------------------------------------------------------------
@@ -924,7 +924,7 @@ static const Governor mgADC_Shift_A10mV =
         ""
     },
     EmptyFuncBV,
-    (int16*)(&set.nr.rShiftAdd[A][Range_10mV][ModeCouple_DC]), -100, 100, OnChange_ADC_Shift_A
+    (int16*)(&setNR.rShiftAdd[A][Range_10mV][ModeCouple_DC]), -100, 100, OnChange_ADC_Shift_A
 };
 
 // ÎÒËÀÄÊÀ -> ÀÖÏ -> ÄÎÏ ÑÌÅÙ -> Ñì 2ê 10ìÂ ïîñò ------------------------------------------------------------------------------------------------------------------------------
@@ -939,7 +939,7 @@ static const Governor mgADC_Shift_B10mV =
         ""
     },
     EmptyFuncBV,
-    (int16*)(&set.nr.rShiftAdd[B][Range_10mV][ModeCouple_DC]), -100, 100, OnChange_ADC_Shift_B
+    (int16*)(&setNR.rShiftAdd[B][Range_10mV][ModeCouple_DC]), -100, 100, OnChange_ADC_Shift_B
 };
 
 
@@ -1134,7 +1134,7 @@ static const Governor mgRand_NumAverage =
         ""
     },
     EmptyFuncBV,
-    &set.nr.numAveForRand, 1, 32, EmptyFuncVV
+    &setNR.numAveForRand, 1, 32, EmptyFuncVV
 };
 
 
@@ -1150,7 +1150,7 @@ static const Governor mgRand_NumSmooth =
         ""
     },
     EmptyFuncBV,
-    &set.nr.numSmoothForRand, 1, 10, EmptyFuncVV
+    &setNR.numSmoothForRand, 1, 10, EmptyFuncVV
 };
 
 

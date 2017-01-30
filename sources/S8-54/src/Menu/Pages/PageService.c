@@ -267,12 +267,12 @@ static const Governor mgTimeCorrection =
         "Setting correction factor to compensate for time travel"
     },
     EmptyFuncBV,
-    &set.nr.correctionTime, -63, 63, OnChange_Time_Correction  
+    &setNR.correctionTime, -63, 63, OnChange_Time_Correction  
 };
 
 static void OnChange_Time_Correction(void)
 {
-    RTC_SetCorrection((int8)set.nr.correctionTime);
+    RTC_SetCorrection((int8)setNR.correctionTime);
 }
 
 

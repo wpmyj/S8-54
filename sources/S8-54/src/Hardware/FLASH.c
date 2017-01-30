@@ -130,6 +130,7 @@ static int CalculateFreeMemory(void);
 static RecordConfig* FindRecordConfigForWrite(void);
 static void WriteWord(uint address, uint word);
 static void WriteBufferWords(uint address, void *buffer, int numWords);
+static void WriteBufferBytes(uint address, void *buffer, int numBytes);
 static void PrepareSectorForData(void);
 static void ReadBuffer(uint addressSrc, uint *bufferDest, int size);
 static void EraseSector(uint startAddress);
@@ -201,7 +202,7 @@ void FLASH_SaveSettings(void)
 
     CLEAR_FLASH_FLAGS
 
-    //Sa
+    SaveNonResetSettings();
     
     RecordConfig *record = FindRecordConfigForWrite();
     if(record == 0)                                                 // Если нет места для записи настроек
@@ -227,9 +228,7 @@ static bool LoadNonResetSettings(void)
 {
     // Первым делом проверим, есть ли такие настройки в специально предназначенном секторе
 
-    int size = READ_WORD(ADDR_SECTOR_NR_SETTINGS);
-
-    if (size != MAX_VALUE)                                      // Если в первом слове уже что-то записано, значит, настройки там сохранены
+    if (READ_WORD(ADDR_SECTOR_NR_SETTINGS) != MAX_VALUE)                                              // Если в первом слове уже что-то записано, значит, настройки там сохранены
     {
         uint address = ADDR_SECTOR_NR_SETTINGS;
         uint lastAddress = ADDR_SECTOR_NR_SETTINGS + SIZE_SECTOR_NR_SETTINGS;
@@ -237,8 +236,8 @@ static bool LoadNonResetSettings(void)
         {
             if (READ_WORD(address) == MAX_VALUE)
             {
-                address -= size;                                // Перешли на последнее сохранение
-                ReadBuffer(address, (uint*)(&setNR), size);     // Считывать мы должны именно 
+                address -= SIZE_NR_SET_PARAGRAPH;                       // Перешли на последнее сохранение
+                ReadBuffer(address, (uint*)(&setNR), sizeof(setNR));    // Считывать мы должны именно 
                 return true;
             }
             address += SIZE_NR_SET_PARAGRAPH;
@@ -278,7 +277,7 @@ static void SaveNonResetSettings(void)
 
     WriteWord(address, SIZE_NR_SET_PARAGRAPH);
 
-    WriteBufferBytes(address, 4, (void*)&setNR, sizeof(setNR));
+    WriteBufferBytes(address + 4, (void*)(&setNR), sizeof(setNR));
 }
 
 
