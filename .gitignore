@@ -54,5 +54,5 @@ sources/VS-OSCI/ControllerETH/Controller S8-53/obj
 sources/VS-OSCI/Display/Debug
 sources/S8-54/Bootloader/Objects
 sources/S8-54/Bootloader/Listings
-
 sources/Display/Display.hex
+bins

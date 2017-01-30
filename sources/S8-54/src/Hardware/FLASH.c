@@ -37,7 +37,8 @@
 #define ADDR_FLASH_SECTOR_2     ((uint)0x08008000)  // 16k  Загрузчик
 #define ADDR_FLASH_SECTOR_3     ((uint)0x0800C000)  // 16k  TODO Здесь будут храниться идентификационные данные прибора - серийный номер, версия ПО
 #define ADDR_SECTOR_NR_SETTINGS ((uint)0x08010000)  // 64k  Несбрасываемые настройки
-#define SIZE_SECTOR_NR_SETTINGS (64 * 1024)
+#define SIZE_SECTOR_NR_SETTINGS (64 * 1024)         // Размер сектора для хранения несбрасываемых настроек
+#define SIZE_NR_SETTINGS        (64)                // Размер структуры для хранения несбрасываемых настроек
 #define ADDR_SECTOR_PROGRAM_0   ((uint)0x08020000)  // 128k Основная программа
 #define ADDR_SECTOR_PROGRAM_1   ((uint)0x08040000)  // 128k Основная программа
 #define ADDR_SECTOR_PROGRAM_2   ((uint)0x08060000)  // 128k Основная программа
@@ -88,6 +89,9 @@ typedef struct
 
 #undef READ_WORD
 #define READ_WORD(address) (*((volatile uint*)address))
+
+#undef READ_BYTE
+#define READ_BYTE(address) (*((volatile uint8*)address))
 
 #undef RECORD_EXIST
 #define RECORD_EXIST (READ_WORD(ADDR_ARRAY_RECORDS) != MAX_UINT)   // true, если есть хоть одна заполненная запись (сохранённые данные)
@@ -141,7 +145,6 @@ static bool IsPlacedDataInSector(uint address, int size);       // Возвращает tr
 static uint StartAddressSector(uint address);                   // Возвращает первый адрес сектора, которому принадлежить адрес address
 static uint LastAddressSector(uint address);                    // Возвращает послединй адрес сектора, которому принадлежит адрес address
 
-static uint8 ReadByte(uint address);
 static bool LoadNonResetSettings(void);
 
 
@@ -186,27 +189,33 @@ bool FLASH_LoadSettings(void)
         set.common.countErasedFlashData = 0;
         set.common.workingTimeInSecs = 0;
         EraseSector(ADDR_SECTOR_SETTINGS);                      // На всякий случай стираем сектор
+        EraseSector(ADDR_SECTOR_NR_SETTINGS);
         WriteWord(ADDR_SECTOR_SETTINGS, MARK_OF_FILLED);        // И маркируем
         PrepareSectorForData();                                 // Также готовим сектор для сохранения данных
         return false;
     }
 
     RecordConfig *record = LastFilledRecord();
-
-    if(record == 0)                                             // По какой-то причине сохранённых настроек может не оказаться. Например, сектор был промаркирован при предыдущем включении,
+    if (record == 0)                                            // По какой-то причине сохранённых настроек может не оказаться. Например, сектор был промаркирован при предыдущем включении,
     {                                                           // но прибор выключили выключателем на задней стенке, а не кнопкой на передней панели, вследствие чего настройки не сохранились
         return false;
     }
 
     int numWordsForCopy = record->size / 4;
 
-    if(sizeof(set) != record->size)                             // Если новая структура настроек не соответствует сохранённой
-    {
-        numWordsForCopy = SIZE_NONRESET_SETTINGS / 4;           // то будем копировать только несбрасываемые настройки (у них всегда один размер и они в начале структуры)
-    }
+    // Сначала пытаемся загрузить несбрасываемые настройки из своего сектора
 
-    ReadBuffer(record->addr, (uint*)(&set), numWordsForCopy);
-    set.common.countEnables++;
+    if (LoadNonResetSettings())
+    {
+        if (sizeof(set) == record->size)                                // В случае, если размер не совпадает, считывать не будем, но вернём всё равно true -
+        {                                                               // несбрасываемые-то настройки считаны
+            ReadBuffer(record->addr, (uint*)(&set), numWordsForCopy);
+        }
+    }
+    else                                                                // Если настройки сохранены по старому методу - в одном секторе
+    {
+        ReadBuffer(record->addr, (uint*)(&setNR), SIZE_NR_SETTINGS);    // То считываем только первую часть - где хранятся несбрасываемые настройки
+    }
     return true;
 }
 
@@ -216,35 +225,24 @@ static bool LoadNonResetSettings(void)
 {
     // Первым делом проверим, есть ли такие настройки в специально предназначенном секторе
 
-    int value = ReadByte(ADDR_SECTOR_NR_SETTINGS);
+    int value = READ_WORD(ADDR_SECTOR_NR_SETTINGS);
 
-    if (value != 0xff)                                          // Если в первом байте уже что-то записано, значит, настройки там сохранены
+    if (value != MAX_VALUE)                                     // Если в первом слове уже что-то записано, значит, настройки там сохранены
     {
         int size = value * 16;                                  // Будем прыгать по значениям, кратным size, чтобы найти участок с последними настройками
 
-        if (size > sizeof(SettingsNonReset))                    // На всякий случай страхуемся от слишком больши данных
+        uint address = ADDR_SECTOR_NR_SETTINGS;
+        uint lastAddress = ADDR_SECTOR_NR_SETTINGS + SIZE_SECTOR_NR_SETTINGS;
+        while (address < lastAddress)
         {
-            LOG_ERROR("Настройки не влазят в структуру");
-            memset(&setNR, sizeof(SettingsNonReset), 0);
-        }
-        else
-        {
-            uint address = ADDR_SECTOR_NR_SETTINGS;
-            uint lastAddress = ADDR_SECTOR_NR_SETTINGS + SIZE_SECTOR_NR_SETTINGS;
-            while (address < lastAddress)
+            if (READ_WORD(address) == MAX_VALUE)
             {
-                if (ReadByte(address) == 0xff)
-                {
-                    break;
-                }
-                address += size;
+                address -= size;                                // Перешли на последнее сохранение
+                ReadBuffer(address, (uint*)(&setNR), sizeof(setNR));
+                return true;
             }
-
-            address -= size;                                        // Перешли на последнее сохранение
-
-            ReadBuffer(address, (uint*)(&setNR), sizeof(SettingsNonReset));
+            address += size;
         }
-        return true;
     }
     return false;
 }
@@ -333,13 +331,6 @@ static void ReadBuffer(uint addressSrc, uint *bufferDest, int size)
         bufferDest[i] = *((uint*)addressSrc);
         addressSrc += 4;
     }
-}
-
-
-//----------------------------------------------------------------------------------------------------------------------------------------------------
-static uint8 ReadByte(uint address)
-{
-    return *((uint8*)address);
 }
 
 
