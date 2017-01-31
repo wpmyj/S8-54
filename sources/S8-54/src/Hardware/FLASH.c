@@ -152,7 +152,7 @@ static void SaveNonResetSettings(void);
 
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-bool FLASH_LoadSettings(void)
+void FLASH_LoadSettings(bool onlyNonReset)
 {
     CLEAR_FLASH_FLAGS;
 
@@ -166,18 +166,25 @@ bool FLASH_LoadSettings(void)
         EraseSector(ADDR_SECTOR_NR_SETTINGS);
         WriteWord(ADDR_SECTOR_SETTINGS, MARK_OF_FILLED);        // И маркируем
         PrepareSectorForData();                                 // Также готовим сектор для сохранения данных
-        return false;
+        return;
     }
 
     RecordConfig *record = LastFilledRecord();
     if (record == 0)                                            // По какой-то причине сохранённых настроек может не оказаться. Например, сектор был промаркирован при предыдущем включении,
     {                                                           // но прибор выключили выключателем на задней стенке, а не кнопкой на передней панели, вследствие чего настройки не сохранились
-        return false;
+        return;
     }
 
     // Сначала пытаемся загрузить несбрасываемые настройки из своего сектора
 
-    if (LoadNonResetSettings())
+    bool nonResetLoaded = LoadNonResetSettings();
+
+    if (onlyNonReset)
+    {
+        return;
+    }
+
+    if (nonResetLoaded)
     {
         if (sizeof(set) == record->size)                                // В случае, если размер не совпадает, считывать не будем, но вернём всё равно true -
         {                                                               // несбрасываемые-то настройки считаны
@@ -188,7 +195,6 @@ bool FLASH_LoadSettings(void)
     {
         ReadBuffer(record->addr, (uint*)(&setNR), SIZE_NR_SETTINGS);    // То считываем только первую часть - где хранятся несбрасываемые настройки
     }
-    return true;
 }
 
 

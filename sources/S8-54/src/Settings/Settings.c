@@ -253,7 +253,7 @@ SettingsNonReset defaultSettingsNR =
 };
 
 Settings set;
-Settings setNR;
+SettingsNonReset setNR;
 
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -269,17 +269,14 @@ void LoadDefaultColors(void)
 //------------------------------------------------------------------------------------------------------------------------------------------------------
 void Settings_Load(bool default_)
 {
-    SettingsNonReset setNonReset = set.nr;
+    setNR = defaultSettingsNR;
+    set = defaultSettings;
 
-    memcpy((void*)&set, (void*)(&defaultSettings), sizeof(set));
-    if (default_)
+    if (!default_)
     {
-        set.nr = setNonReset;
+        FLASH_LoadSettings(true);
     }
-    else
-    {
-        FLASH_LoadSettings();
-    }
+
     FPGA_LoadSettings();
     FPGA_SetNumSignalsInSec(sDisplay_NumSignalsInS());
     Panel_EnableLEDChannelA(sChannel_Enabled(A));
