@@ -184,7 +184,7 @@ static const SmallButton sbMathFunctionRangeA =
         "Scale of the 1st channel"
     },
     {
-        "Берёт масштаб для математического сигнала из первого канала",
+        "Использует масштаб первого канала для отображения результата",
         "Takes scale for a mathematical signal from the first channel"
     },
     EmptyFuncBV,
@@ -211,7 +211,7 @@ static const SmallButton sbMathFunctionRangeB =
         "Scale of the 2nd channel"
     },
     {
-        "Берёт масштаб для математического сигнала из второго канала",
+        "Использует масштаб второго канала для отображения результата",
         "Takes scale for a mathematical signal from the second channel"
     },
     EmptyFuncBV,

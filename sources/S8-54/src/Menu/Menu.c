@@ -55,23 +55,23 @@ static void OnTimerAutoHide(void);                  // Обработка события таймера
 
 static void SwitchSetLED(void);                     // Включить/выключить светодиод ручки УСТАНОВКА, если необходимо.
 
-static void ShortPress_Page(void *page);                   // Обработка короткого нажатия на элемент NamePage с адресом page.
-static void ShortPress_Choice(void *choice);               // Обработка короткого нажатия на элемент Choice с адресом choice.
+static void ShortPress_Page(void *page);            // Обработка короткого нажатия на элемент NamePage с адресом page.
+static void ShortPress_Choice(void *choice);        // Обработка короткого нажатия на элемент Choice с адресом choice.
 static void ShortPress_Time(void *time);
-static void ShortPress_Button(void *button);               // Обработка короткого нажатия на элемент Button с адресом button.
-static void ShortPress_Governor(void *governor);           // Обработка короткого нажатия на элемент Governor с адресом governor.
+static void ShortPress_Button(void *button);        // Обработка короткого нажатия на элемент Button с адресом button.
+static void ShortPress_Governor(void *governor);    // Обработка короткого нажатия на элемент Governor с адресом governor.
 #ifdef DISPLAY_COLOR
 static void ShortPress_GovernorColor(void *governorColor); // Обработка короткого нажатия на элемент GovernorColor с адресом governorColor.
 #endif
-static void FuncOnLongPressItem(void *item);                        // Обработка длинного нажатия на элемент меню item.
+static void FuncOnLongPressItem(void *item);                // Обработка длинного нажатия на элемент меню item.
 static void FuncOnLongPressItemTime(void *item);
-static void FuncOnLongPressItemButton(void *button);                // Обработка длинного нажатия на элемент Button с адресом button.
+static void FuncOnLongPressItemButton(void *button);        // Обработка длинного нажатия на элемент Button с адресом button.
 
 static  pFuncVpV    FuncForShortPressOnItem(void *item);    // Возвращает функцию обработки короткого нажатия на элемент меню item.
 static  pFuncVpV    FuncForLongPressureOnItem(void *item);  // Возвращает функцию обработки длинного нажатия на элемент меню item.
 
-static void OnTimerStrNaviAutoHide(void);   // Функция, которая отключит вывод строки навигации меню
-static void TemporaryEnableStrNavi(void);   // Функция временно включает отображение строки навигации меню, если задано настройками
+static void OnTimerStrNaviAutoHide(void);                   // Функция, которая отключит вывод строки навигации меню
+static void TemporaryEnableStrNavi(void);                   // Функция временно включает отображение строки навигации меню, если задано настройками
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 #define SIZE_BUFFER_FOR_BUTTONS 10

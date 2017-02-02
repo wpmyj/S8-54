@@ -10,7 +10,7 @@ bool            ItemIsAcitve(void *item);                       // Вовзращает tr
 int             NumItemsInPage(const Page * const page);        // Возвращает количество элементов в странице по адресу page.
 int             NumCurrentSubPage(Page *page);                  // Возвращает номер текущей подстранцы элемента по адресу page.
 int             NumSubPages(const Page *page);                  // Dозвращает число подстраниц в странице по адресу page.
-TypeItem        TypeMenuItem(const void *address);                    // Возвращает тип элемента меню по адресу address.
+TypeItem        TypeMenuItem(const void *address);              // Возвращает тип элемента меню по адресу address.
 TypeItem        TypeOpenedItem(void);                           // Возвращает тип открытого элемента меню.
 void*           OpenedItem(void);                               // Возвращает адрес открытого элемента меню.
 void*           CurrentItem(void);                              // Возвращает адрес текущего элемента меню (текущим, как правило, является элемент, кнопка которого была нажата последней.
@@ -30,9 +30,9 @@ NamePage        GetNameOpenedPage(void);
 void            OpenPageAndSetItCurrent(NamePage namePage);
 bool            ChangeOpenedItem(void *item, int delta);
 void            ChangeItem(void *item, int delta);              // Уменьшает или увеличивает значение Governor, GovernorColor или Choice по адресу item в зависимости от знака delta
-const char*     NameCurrentSubItem(Choice *choice);         // Возвращает имя текущего варианта выбора элемента choice, как оно записано в исходном коде программы.
-const char*     NameSubItem(Choice *choice, int i);         // Возвращает имя варианта выбора элемента choice в позиции i как оно записано в исходном коде программы.
-const char*     NameNextSubItem(Choice *choice);            // Возвращает имя следующего варианта выбора элемента choice, как оно записано в исходном коде программы.
+const char*     NameCurrentSubItem(Choice *choice);             // Возвращает имя текущего варианта выбора элемента choice, как оно записано в исходном коде программы.
+const char*     NameSubItem(Choice *choice, int i);             // Возвращает имя варианта выбора элемента choice в позиции i как оно записано в исходном коде программы.
+const char*     NameNextSubItem(Choice *choice);                // Возвращает имя следующего варианта выбора элемента choice, как оно записано в исходном коде программы.
 const char*     NamePrevSubItem(Choice *choice);
 int             HeightOpenedItem(void *item);                   // Возвращает высоту в пикселях открытого элемента Choice или NamePage по адресу item.
 const char*     TitleItem(void *item);                          // Возвращает название элемента по адресу item, как оно выглядит на дисплее прибора.
@@ -43,7 +43,7 @@ void            OpenItem(const void *item, bool open);          // Открыть/закры
 bool            ItemIsOpened(void *item);                       // Возвращает true, если элемент меню по адрему item открыт.
 void            ChangeSubPage(const Page *page, int delta);
 void            PrintStatePage(Page *page);
-void            ShortPressOnPageItem(Page *page, int numItem);   // Вызывает функцию короткого нажатия кнопки над итемом numItem страницы page;
+void            ShortPressOnPageItem(Page *page, int numItem);  // Вызывает функцию короткого нажатия кнопки над итемом numItem страницы page;
 Page*           PagePointerFromName(NamePage namePage);
 bool            IsPageSB(const void *item);
 SmallButton* SmallButonFromPage(Page *page, int numButton);
