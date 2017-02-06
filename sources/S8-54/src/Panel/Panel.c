@@ -34,7 +34,7 @@ extern void OnPress_ResetSettings(void);
 
 
 static PanelButton pressedKey = B_Empty;
-static PanelButton pressedButton = B_Empty;         // Это используется для отслеживания нажатой кнопки при отключенной панели
+static volatile PanelButton pressedButton = B_Empty;         // Это используется для отслеживания нажатой кнопки при отключенной панели
 static uint16 dataTransmitted[MAX_DATA] = {0x00};
 static uint16 firstPos = 0;
 static uint16 lastPos = 0;
