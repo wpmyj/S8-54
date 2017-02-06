@@ -34,9 +34,9 @@ int sDisplay_NumPointSmoothing(void)
     if (IN_RANDOM_MODE)
     {
         int numRand = 0;
-        if (set.nr.numSmoothForRand > 1)
+        if (setNR.numSmoothForRand > 1)
         {
-            numRand = set.nr.numSmoothForRand;
+            numRand = setNR.numSmoothForRand;
         }
 
         LIMIT_BELOW(retValue, numRand);

@@ -1,7 +1,6 @@
 #include "FLASH.h"
 #include "Log.h"
 #include "Hardware/Hardware.h"
-#include "Hardware/Sound.h"
 #include "Hardware/Timer.h"
 #include "Settings/Settings.h"
 #include "Utils/GlobalFunctions.h"
@@ -18,33 +17,47 @@
     и пишется в него. Когда полностью заполняется ADDR_DATA_0 сектор, стирается ADDR_DATA_1
 */
 
+/*
+    Принцип хранения несбрасываемых настроек.
+    У несбрасываемых настроек есть одна особенность - там хранятся достаточно важные настройки, которые нельзя терять.
+    В обычнх, сбрасываемых, настройках их хранить опасно. Если изменится размер структуры данных, стандартный алгоритм чтения не сможет прочитать их
+    и загрузит настройки по умолчанию. Поэтому в сбрасываемых настройках должно быть соблюдено следующиее условие:
+    порядок следования полей структуры не должен изменяться - новые настройки могут лишь добавляться в конец структуры.
+    Весь сектор, предназначенный для хранения несбрасываемых настроек, поделен на участки размером 64 байта (могут быть и другие значения, кратные 16.
+    пока достаточно 64. Для того, чтобы определить, сколько реально занимает участок, в его первом байте записан множитель, на который нужно умножить
+    16, чтобы получить размер участка - для 64 байт - 4, для 128 - 8, и т.д.
+    Располагая такой информацией, мы просто скачем по первым байтам участков и ищем тот, в который ничего ещё не было записано (в нём будет 0xff). 
+*/
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Программа и константные данные
-#define ADDR_SECTOR_BOOT_0      ((uint)0x08000000)  // 16k Загрузчик
-#define ADDR_SECTOR_BOOT_1      ((uint)0x08004000)  // 16k Загрузчик
-#define ADDR_FLASH_SECTOR_2     ((uint)0x08008000)  // 16k Загрузчик
-#define ADDR_FLASH_SECTOR_3     ((uint)0x0800C000)  // 16k TODO Здесь будут храниться идентификационные данные прибора - серийный номер, версия ПО
-#define ADDR_FLASH_SECTOR_4     ((uint)0x08010000)  // 64k TODO Здесь будут храниться несбрасываемые настройки
-#define ADDR_SECTOR_PROGRAM_0   ((uint)0x08020000)  // 128k Основная программа
-#define ADDR_SECTOR_PROGRAM_1   ((uint)0x08040000)  // 128k Основная программа
-#define ADDR_SECTOR_PROGRAM_2   ((uint)0x08060000)  // 128k Основная программа
-#define ADDR_FLASH_SECTOR_8     ((uint)0x08080000)  // 128k
-#define ADDR_FLASH_SECTOR_9     ((uint)0x080A0000)  // 128k
-#define ADDR_SECTOR_RESOURCES   ((uint)0x080C0000)  // 128k Графические и звуковые ресурсы
-#define ADDR_SECTOR_SETTINGS    ((uint)0x080E0000)  // 128k Настройки
-#define ADDR_FLASH_SECTOR_12    ((uint)0x08100000)  // 16k
-#define ADDR_FLASH_SECTOR_13    ((uint)0x08104000)  // 16k
-#define ADDR_FLASH_SECTOR_14    ((uint)0x08108000)  // 16k
-#define ADDR_FLASH_SECTOR_15    ((uint)0x0810C000)  // 16k
-#define ADDR_DATA_DATA          ((uint)0x08110000)  // 64k  Здесь будем сохранять массивы адресов с нашими данными
-#define ADDR_DATA_0             ((uint)0x08120000)  // 128k |
-#define ADDR_DATA_1             ((uint)0x08140000)  // 128k |
-#define ADDR_DATA_2             ((uint)0x08160000)  // 128k |
-#define ADDR_DATA_3             ((uint)0x08180000)  // 128k | Здесь будут храниться собственно данные
-#define ADDR_DATA_4             ((uint)0x081A0000)  // 128k |
-#define ADDR_DATA_5             ((uint)0x081C0000)  // 128k |
-#define ADDR_DATA_6             ((uint)0x081E0000)  // 128k /
+#define ADDR_SECTOR_BOOT_0      ((uint)0x08000000)          // 16k  Загрузчик
+#define ADDR_SECTOR_BOOT_1      ((uint)0x08004000)          // 16k  Загрузчик
+#define ADDR_FLASH_SECTOR_2     ((uint)0x08008000)          // 16k  Загрузчик
+#define ADDR_FLASH_SECTOR_3     ((uint)0x0800C000)          // 16k  TODO Здесь будут храниться идентификационные данные прибора - серийный номер, версия ПО
+#define ADDR_SECTOR_NR_SETTINGS ((uint)0x08010000)          // 64k  Несбрасываемые настройки
+#define SIZE_SECTOR_NR_SETTINGS (64 * 1024)                 // Размер сектора для хранения несбрасываемых настроек
+#define SIZE_NR_SET_PARAGRAPH   (128)                       // Это размер одного параграфа, в котором, кроме настроек, сохранена ещё и его длина в первом слове
+#define SIZE_NR_SETTINGS        (SIZE_NR_SET_PARAGRAPH - 4) // Размер структуры для хранения несбрасываемых настроек
+#define ADDR_SECTOR_PROGRAM_0   ((uint)0x08020000)          // 128k Основная программа
+#define ADDR_SECTOR_PROGRAM_1   ((uint)0x08040000)          // 128k Основная программа
+#define ADDR_SECTOR_PROGRAM_2   ((uint)0x08060000)          // 128k Основная программа
+#define ADDR_FLASH_SECTOR_8     ((uint)0x08080000)          // 128k
+#define ADDR_FLASH_SECTOR_9     ((uint)0x080A0000)          // 128k
+#define ADDR_SECTOR_RESOURCES   ((uint)0x080C0000)          // 128k Графические и звуковые ресурсы
+#define ADDR_SECTOR_SETTINGS    ((uint)0x080E0000)          // 128k Настройки
+#define ADDR_FLASH_SECTOR_12    ((uint)0x08100000)          // 16k
+#define ADDR_FLASH_SECTOR_13    ((uint)0x08104000)          // 16k
+#define ADDR_FLASH_SECTOR_14    ((uint)0x08108000)          // 16k
+#define ADDR_FLASH_SECTOR_15    ((uint)0x0810C000)          // 16k
+#define ADDR_DATA_DATA          ((uint)0x08110000)          // 64k  Здесь будем сохранять массивы адресов с нашими данными
+#define ADDR_DATA_0             ((uint)0x08120000)          // 128k |
+#define ADDR_DATA_1             ((uint)0x08140000)          // 128k |
+#define ADDR_DATA_2             ((uint)0x08160000)          // 128k |
+#define ADDR_DATA_3             ((uint)0x08180000)          // 128k | Здесь будут храниться собственно данные
+#define ADDR_DATA_4             ((uint)0x081A0000)          // 128k |
+#define ADDR_DATA_5             ((uint)0x081C0000)          // 128k |
+#define ADDR_DATA_6             ((uint)0x081E0000)          // 128k /
 
 #define SIZE_SECTOR_128         (128 * 1024)
 
@@ -76,6 +89,9 @@ typedef struct
 
 #undef READ_WORD
 #define READ_WORD(address) (*((volatile uint*)address))
+
+#undef READ_BYTE
+#define READ_BYTE(address) (*((volatile uint8*)address))
 
 #undef RECORD_EXIST
 #define RECORD_EXIST (READ_WORD(ADDR_ARRAY_RECORDS) != MAX_UINT)   // true, если есть хоть одна заполненная запись (сохранённые данные)
@@ -113,6 +129,7 @@ static int CalculateFreeMemory(void);
 static RecordConfig* FindRecordConfigForWrite(void);
 static void WriteWord(uint address, uint word);
 static void WriteBufferWords(uint address, void *buffer, int numWords);
+static void WriteBufferBytes(uint address, void *buffer, int numBytes);
 static void PrepareSectorForData(void);
 static void ReadBuffer(uint addressSrc, uint *bufferDest, int size);
 static void EraseSector(uint startAddress);
@@ -129,8 +146,58 @@ static bool IsPlacedDataInSector(uint address, int size);       // Возвращает tr
 static uint StartAddressSector(uint address);                   // Возвращает первый адрес сектора, которому принадлежить адрес address
 static uint LastAddressSector(uint address);                    // Возвращает послединй адрес сектора, которому принадлежит адрес address
 
+static bool LoadNonResetSettings(void);
+static void SaveNonResetSettings(void);
 
-/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+void FLASH_LoadSettings(bool onlyNonReset)
+{
+    CLEAR_FLASH_FLAGS;
+
+    if (READ_WORD(ADDR_SECTOR_SETTINGS) != MARK_OF_FILLED)       // Если первый байт сектора не отмаркирован - первое включение прибора
+    {
+        set.common.countErasedFlashSettings = 0;
+        set.common.countEnables = 0;
+        set.common.countErasedFlashData = 0;
+        set.common.workingTimeInSecs = 0;
+        EraseSector(ADDR_SECTOR_SETTINGS);                      // На всякий случай стираем сектор
+        EraseSector(ADDR_SECTOR_NR_SETTINGS);
+        WriteWord(ADDR_SECTOR_SETTINGS, MARK_OF_FILLED);        // И маркируем
+        PrepareSectorForData();                                 // Также готовим сектор для сохранения данных
+        return;
+    }
+
+    RecordConfig *record = LastFilledRecord();
+    if (record == 0)                                            // По какой-то причине сохранённых настроек может не оказаться. Например, сектор был промаркирован при предыдущем включении,
+    {                                                           // но прибор выключили выключателем на задней стенке, а не кнопкой на передней панели, вследствие чего настройки не сохранились
+        return;
+    }
+
+    // Сначала пытаемся загрузить несбрасываемые настройки из своего сектора
+
+    bool nonResetLoaded = LoadNonResetSettings();
+
+    if (onlyNonReset)
+    {
+        return;
+    }
+
+    if (nonResetLoaded)
+    {
+        if (sizeof(set) == record->size)                                // В случае, если размер не совпадает, считывать не будем, но вернём всё равно true -
+        {                                                               // несбрасываемые-то настройки считаны
+            ReadBuffer(record->addr, (uint*)(&set), record->size / 4);
+        }
+    }
+    else                                                                // Если настройки сохранены по старому методу - в одном секторе
+    {
+        ReadBuffer(record->addr, (uint*)(&setNR), SIZE_NR_SETTINGS);    // То считываем только первую часть - где хранятся несбрасываемые настройки
+    }
+}
+
+
+//----------------------------------------------------------------------------------------------------------------------------------------------------
 void FLASH_SaveSettings(void)
 {
     if(gBF.alreadyLoadSettings == 0)
@@ -139,6 +206,8 @@ void FLASH_SaveSettings(void)
     }
 
     CLEAR_FLASH_FLAGS
+
+    SaveNonResetSettings();
     
     RecordConfig *record = FindRecordConfigForWrite();
     if(record == 0)                                                 // Если нет места для записи настроек
@@ -159,40 +228,63 @@ void FLASH_SaveSettings(void)
 }
 
 
-//------------------------------------------------------------------------------------------------------------------------------------------------------
-bool FLASH_LoadSettings(void)
+//----------------------------------------------------------------------------------------------------------------------------------------------------
+static bool LoadNonResetSettings(void)
 {
-    CLEAR_FLASH_FLAGS;
+    // Первым делом проверим, есть ли такие настройки в специально предназначенном секторе
 
-    if(READ_WORD(ADDR_SECTOR_SETTINGS) != MARK_OF_FILLED)       // Если первый байт сектора не отмаркирован - первое включение прибора
+    if (READ_WORD(ADDR_SECTOR_NR_SETTINGS) != MAX_VALUE)                                              // Если в первом слове уже что-то записано, значит, настройки там сохранены
     {
-        set.common.countErasedFlashSettings = 0;
-        set.common.countEnables = 0;
-        set.common.countErasedFlashData = 0;
-        set.common.workingTimeInSecs = 0;
-        EraseSector(ADDR_SECTOR_SETTINGS);                      // На всякий случай стираем сектор
-        WriteWord(ADDR_SECTOR_SETTINGS, MARK_OF_FILLED);        // И маркируем
-        PrepareSectorForData();                                 // Также готовим сектор для сохранения данных
-        return false;
+        uint address = ADDR_SECTOR_NR_SETTINGS;
+        uint lastAddress = ADDR_SECTOR_NR_SETTINGS + SIZE_SECTOR_NR_SETTINGS;
+        while (address < lastAddress)
+        {
+            if (READ_WORD(address) == MAX_VALUE)
+            {
+                address -= SIZE_NR_SET_PARAGRAPH;                       // Перешли на последнее сохранение
+                ReadBuffer(address, (uint*)(&setNR), sizeof(setNR));    // Считывать мы должны именно 
+                return true;
+            }
+            address += SIZE_NR_SET_PARAGRAPH;
+        }
     }
+    return false;
+}
 
-    RecordConfig *record = LastFilledRecord();
 
-    if(record == 0)                                             // По какой-то причине сохранённых настроек может не оказаться. Например, сектор был промаркирован при предыдущем включении,
-    {                                                           // но прибор выключили выключателем на задней стенке, а не кнопкой на передней панели, вследствие чего настройки не сохранились
-        return false;
-    }
-
-    int numWordsForCopy = record->size / 4;
-
-    if(sizeof(set) != record->size)                         // Если новая структура настроек не соответствует сохранённой
+//----------------------------------------------------------------------------------------------------------------------------------------------------
+static void SaveNonResetSettings(void)
+{
+    uint value = READ_WORD(ADDR_SECTOR_NR_SETTINGS);
+    
+    if (value != SIZE_NR_SETTINGS)     // Если настройки ещё не сохранялись либо же сохранённые настройки не того размера
     {
-        numWordsForCopy = SIZE_NONRESET_SETTINGS / 4;           // то будем копировать только несбрасываемые настройки (у них всегда один размер и они в начале структуры)
+        EraseSector(ADDR_SECTOR_NR_SETTINGS);
     }
 
-    ReadBuffer(record->addr, (uint*)(&set), numWordsForCopy);
-    set.common.countEnables++;
-    return true;
+    // Теперь найдём адрес для сохранения
+
+    uint address = ADDR_SECTOR_NR_SETTINGS;
+    const uint LAST_ADDRESS = ADDR_SECTOR_NR_SETTINGS + SIZE_SECTOR_NR_SETTINGS;
+
+    while (address < LAST_ADDRESS)
+    {
+        if (READ_WORD(address) == MAX_UINT)
+        {
+            break;
+        }
+        address += SIZE_NR_SET_PARAGRAPH;
+    }
+
+    if (address >= LAST_ADDRESS)                    // Нет места для сохранения
+    {
+        EraseSector(ADDR_SECTOR_NR_SETTINGS);       // Тогда обнуляем сектор
+        address = ADDR_SECTOR_NR_SETTINGS;
+    }
+
+    WriteWord(address, SIZE_NR_SETTINGS);
+
+    WriteBufferBytes(address + 4, (void*)(&setNR), sizeof(setNR));
 }
 
 
@@ -297,7 +389,7 @@ static void EraseSector(uint startAddress)
 
     uint32_t error = 0;
 
-    while(gSoundIsBeep) // WARN Здесь ждём, пока бикалка не закончит. Костыль, надо разобраться, почему они не могут вместе работать
+    while(gBF.soundIsBeep) // WARN Здесь ждём, пока бикалка не закончит. Костыль, надо разобраться, почему они не могут вместе работать
     {
     };
 
@@ -322,7 +414,7 @@ static uint GetSector(uint startAddress)
         {FLASH_SECTOR_1, ADDR_SECTOR_BOOT_1},
         {FLASH_SECTOR_2, ADDR_FLASH_SECTOR_2},
         {FLASH_SECTOR_3, ADDR_FLASH_SECTOR_3},
-        {FLASH_SECTOR_4, ADDR_FLASH_SECTOR_4},
+        {FLASH_SECTOR_4, ADDR_SECTOR_NR_SETTINGS},
         {FLASH_SECTOR_5, ADDR_SECTOR_PROGRAM_0},
         {FLASH_SECTOR_6, ADDR_SECTOR_PROGRAM_1},
         {FLASH_SECTOR_7, ADDR_SECTOR_PROGRAM_2},

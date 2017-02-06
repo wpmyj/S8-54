@@ -375,13 +375,13 @@ void FuncAttScreen(void)
             {
                 if (drawA)
                 {
-                    FuncDrawAdditionRShift(x, 55 + dY, &set.nr.rShiftAdd[A][i][ModeCouple_DC]);
-                    FuncDrawAdditionRShift(x, 65 + dY, &set.nr.rShiftAdd[A][i][ModeCouple_AC]);
+                    FuncDrawAdditionRShift(x, 55 + dY, &setNR.rShiftAdd[A][i][ModeCouple_DC]);
+                    FuncDrawAdditionRShift(x, 65 + dY, &setNR.rShiftAdd[A][i][ModeCouple_AC]);
                 }
                 if (drawB)
                 {
-                    FuncDrawAdditionRShift(x, 80 + dY, &set.nr.rShiftAdd[B][i][ModeCouple_DC]);
-                    FuncDrawAdditionRShift(x, 90 + dY, &set.nr.rShiftAdd[B][i][ModeCouple_AC]);
+                    FuncDrawAdditionRShift(x, 80 + dY, &setNR.rShiftAdd[B][i][ModeCouple_DC]);
+                    FuncDrawAdditionRShift(x, 90 + dY, &setNR.rShiftAdd[B][i][ModeCouple_AC]);
                 }
                 x += 16;
             }
@@ -508,7 +508,7 @@ static void CalibrateStretch(Channel ch)
     else
     {
         cal->isCalculateStretch[ch] = true;
-        set.nr.stretchADCtype = StretchADC_Real;
+        setNR.stretchADCtype = StretchADC_Real;
         SetStretchADC(ch, kStretch);
     }
 }
@@ -523,7 +523,7 @@ static void CalibrateAddRShift(Channel ch)
     {
         for (int i = 0; i < 2; i++)
         {
-            set.nr.rShiftAdd[ch][range][i] = 0;
+            setNR.rShiftAdd[ch][range][i] = 0;
         }
         for (int i = 0; i < 2; i++)
         {
@@ -531,10 +531,10 @@ static void CalibrateAddRShift(Channel ch)
         }
         for (int mode = 0; mode < 2; mode++)
         {
-            set.nr.rShiftAdd[ch][range][mode] = CalculateAdditionRShift(ch, (Range)range);
+            setNR.rShiftAdd[ch][range][mode] = CalculateAdditionRShift(ch, (Range)range);
             if (mode == ModeCouple_DC && range == Range_2mV)
             {
-                set.nr.rShiftAdd[ch][range][mode] -= 5;
+                setNR.rShiftAdd[ch][range][mode] -= 5;
             }
         }
     }
@@ -567,9 +567,9 @@ static void WriteAdditionRShifts(Channel ch)
         {
             for (int range = 0; range < RangeSize; range++)
             {
-                if (set.nr.rShiftAdd[ch][range][mode] == ERROR_VALUE_INT16)
+                if (setNR.rShiftAdd[ch][range][mode] == ERROR_VALUE_INT16)
                 {
-                    set.nr.rShiftAdd[ch][range][mode] = 0;
+                    setNR.rShiftAdd[ch][range][mode] = 0;
                 }
             }
         }
@@ -587,11 +587,11 @@ static void RestoreSettings(Settings *savedSettings)
     {
         for(int type = 0; type < 3; type++)
         {
-            stretch[ch][type] = set.nr.stretchADC[ch][type];
+            stretch[ch][type] = setNR.stretchADC[ch][type];
         }
     }
 
-    StretchADCtype type = set.nr.stretchADCtype;
+    StretchADCtype type = setNR.stretchADCtype;
     
     Settings_RestoreState(savedSettings);
 
@@ -599,11 +599,11 @@ static void RestoreSettings(Settings *savedSettings)
     {
         for(int type = 0; type < 3; type++)
         {
-            set.nr.stretchADC[ch][type] = stretch[ch][type];
+            setNR.stretchADC[ch][type] = stretch[ch][type];
         }
     }
 
-    set.nr.stretchADCtype = type;
+    setNR.stretchADCtype = type;
 
     OnChange_ADC_Stretch_Mode(true);
 }

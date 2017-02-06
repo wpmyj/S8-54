@@ -22,26 +22,6 @@ extern void OnChange_DisplayOrientation(bool);
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 static const Settings defaultSettings =
 {
-    {
-        // NonReset
-        {
-            // channel
-            { {0}, {0} },           // rShiftAdd
-            // service
-            0,                      // correctionTime
-            // debug
-            { 0, 0 },               // balanceADC
-            1,                      // numAveForRand
-            BalanceADC_Settings,    // balanceADCtype
-            StretchADC_Real,        // stretchADCtype
-            {{0, 0, 0}, {0, 0, 0}}, // stretchADC
-            {0, 0},                 // addStretch20mV
-            {0, 0},                 // addStretch50mV
-            {0, 0},                 // addStretch100mV
-            {0, 0},                 // addStretch2V
-            1                       // numSmoothForRand
-        }
-    },
     // Display
     {
         5,                          // timeShowLevels
@@ -253,7 +233,27 @@ static const Settings defaultSettings =
     }
 };
 
+SettingsNonReset defaultSettingsNR =
+{
+    // channel
+    {{0}, {0}},             // rShiftAdd
+    // service
+    0,                      // correctionTime
+    // debug
+    {0, 0},                 // balanceADC
+    1,                      // numAveForRand
+    BalanceADC_Settings,    // balanceADCtype
+    StretchADC_Real,        // stretchADCtype
+    {{0, 0, 0}, {0, 0, 0}}, // stretchADC
+    {0, 0},                 // addStretch20mV
+    {0, 0},                 // addStretch50mV
+    {0, 0},                 // addStretch100mV
+    {0, 0},                 // addStretch2V
+    1                       // numSmoothForRand
+};
+
 Settings set;
+SettingsNonReset setNR;
 
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -269,17 +269,14 @@ void LoadDefaultColors(void)
 //------------------------------------------------------------------------------------------------------------------------------------------------------
 void Settings_Load(bool default_)
 {
-    SettingsNonReset setNonReset = set.nr;
+    setNR = defaultSettingsNR;
+    set = defaultSettings;
 
-    memcpy((void*)&set, (void*)(&defaultSettings), sizeof(set));
-    if (default_)
+    if (!default_)
     {
-        set.nr = setNonReset;
+        FLASH_LoadSettings(true);
     }
-    else
-    {
-        FLASH_LoadSettings();
-    }
+
     FPGA_LoadSettings();
     FPGA_SetNumSignalsInSec(sDisplay_NumSignalsInS());
     Panel_EnableLEDChannelA(sChannel_Enabled(A));
@@ -392,7 +389,7 @@ void Settings_RestoreState(Settings *set_)
         {
             for (int range = 0; range < RangeSize; range++)
             {
-                rShiftAdd[ch][range][mode] = set.nr.rShiftAdd[ch][range][mode];
+                rShiftAdd[ch][range][mode] = setNR.rShiftAdd[ch][range][mode];
             }
         }
     }
@@ -403,7 +400,7 @@ void Settings_RestoreState(Settings *set_)
         {
             for (int range = 0; range < RangeSize; range++)
             {
-                set.nr.rShiftAdd[ch][range][mode] = rShiftAdd[ch][range][mode];
+                setNR.rShiftAdd[ch][range][mode] = rShiftAdd[ch][range][mode];
             }
         }
     }

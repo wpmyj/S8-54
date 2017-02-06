@@ -220,7 +220,7 @@ static int CalculateDeltaRShift(Channel ch)
     ModeCouple mode = COUPLE(ch);
     static const int index[3] = {0, 1, 1};
 
-    int addRShift = -(INVERSE(ch) ? -1 : 1) * (int)set.nr.rShiftAdd[ch][range][index[mode]];
+    int addRShift = -(INVERSE(ch) ? -1 : 1) * (int)setNR.rShiftAdd[ch][range][index[mode]];
     int addRShiftFull = addRShift * (RSHIFT_IN_CELL / 20);
 
     uint16 rShiftRel = (uint16)((int)RSHIFT(ch) + addRShiftFull);
