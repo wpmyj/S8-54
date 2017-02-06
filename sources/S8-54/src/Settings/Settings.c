@@ -272,10 +272,7 @@ void Settings_Load(bool default_)
     setNR = defaultSettingsNR;
     set = defaultSettings;
 
-    if (!default_)
-    {
-        FLASH_LoadSettings(true);
-    }
+    FLASH_LoadSettings(default_);
 
     FPGA_LoadSettings();
     FPGA_SetNumSignalsInSec(sDisplay_NumSignalsInS());
