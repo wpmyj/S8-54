@@ -255,9 +255,7 @@ static bool LoadNonResetSettings(void)
 //----------------------------------------------------------------------------------------------------------------------------------------------------
 static void SaveNonResetSettings(void)
 {
-    uint value = READ_WORD(ADDR_SECTOR_NR_SETTINGS);
-    
-    if (value != SIZE_NR_SETTINGS)     // Если настройки ещё не сохранялись либо же сохранённые настройки не того размера
+    if (READ_WORD(ADDR_SECTOR_NR_SETTINGS) != SIZE_NR_SETTINGS)     // Если настройки ещё не сохранялись либо же сохранённые настройки не того размера
     {
         EraseSector(ADDR_SECTOR_NR_SETTINGS);
     }

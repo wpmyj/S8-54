@@ -58,7 +58,7 @@ DAC_HandleTypeDef handleDAC =
 };
 
 
-BitField gBF =
+volatile BitField gBF =
 {
     // FPGA
     0,  // FPGAneedAutoFind
