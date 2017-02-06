@@ -132,7 +132,7 @@ static void WriteWord(uint address, uint word);
 static void WriteBufferWords(uint address, void *buffer, int numWords);
 static void WriteBufferBytes(uint address, void *buffer, int numBytes);
 static void PrepareSectorForData(void);
-static void ReadBufferWords(uint addressSrc, uint *bufferDest, int size);
+static void ReadBufferBytes(uint addressSrc, void *bufferDest, int size);
 static void EraseSector(uint startAddress);
 static uint GetSector(uint startAddress);
 static RecordConfig* LastFilledRecord(void);    // Возвращает адрес последней записи с сохранёнными настройками или 0, если нет сохранённых настроек
@@ -190,13 +190,12 @@ void FLASH_LoadSettings(bool onlyNonReset)
     {
         if (sizeof(set) == record->size)
         {
-            ReadBufferWords(record->addr, (uint*)(&set), record->size / 4);
+            ReadBufferBytes(record->addr, &set, record->size);
         }
     }
     else                                                        // Если настройки сохранены по старому методу - в одном секторе
     {
-        uint *address = (uint*)(&setNR);
-        ReadBufferWords(record->addr, address, sizeof(setNR) / 4);   // То считываем только первую часть - где хранятся несбрасываемые настройки
+        ReadBufferBytes(record->addr, &setNR, sizeof(setNR));   // То считываем только первую часть - где хранятся несбрасываемые настройки
     }
 }
 
@@ -246,7 +245,7 @@ static bool LoadNonResetSettings(void)
             if (READ_WORD(address) == MAX_UINT)
             {
                 address -= SIZE_NR_SET_PARAGRAPH;                               // Перешли на последнее сохранение
-                ReadBufferWords(address + 4, (uint*)(&setNR), sizeof(setNR) / 4);    // Считывать мы должны именно 
+                ReadBufferBytes(address + 4, &setNR, sizeof(setNR));   // Считывать мы должны именно 
                 return true;
             }
             address += SIZE_NR_SET_PARAGRAPH;
@@ -366,12 +365,14 @@ static void PrepareSectorForData(void)
 
 
 //------------------------------------------------------------------------------------------------------------------------------------------------------
-static void ReadBufferWords(uint addressSrc, uint *bufferDest, int size)
+static void ReadBufferBytes(uint addressSrc, void *bufferDest, int size)
 {
-    for(int i = 0; i < size; i++)
+    uint8 *src = (uint8*)addressSrc;
+    uint8 *dest = (uint8*)bufferDest;
+
+    for (int i = 0; i < size; i++)
     {
-        bufferDest[i] = *((uint*)addressSrc);
-        addressSrc += 4;
+        dest[i] = src[i];
     }
 }
 
