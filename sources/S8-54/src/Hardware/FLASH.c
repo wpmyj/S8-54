@@ -255,7 +255,9 @@ static bool LoadNonResetSettings(void)
 //----------------------------------------------------------------------------------------------------------------------------------------------------
 static void SaveNonResetSettings(void)
 {
-    if (READ_WORD(ADDR_SECTOR_NR_SETTINGS) != SIZE_NR_SETTINGS)     // Если настройки ещё не сохранялись либо же сохранённые настройки не того размера
+    uint value = READ_WORD(ADDR_SECTOR_NR_SETTINGS);
+    
+    if (value != SIZE_NR_SETTINGS)     // Если настройки ещё не сохранялись либо же сохранённые настройки не того размера
     {
         EraseSector(ADDR_SECTOR_NR_SETTINGS);
     }
@@ -267,7 +269,7 @@ static void SaveNonResetSettings(void)
 
     while (address < LAST_ADDRESS)
     {
-        if (READ_WORD(address) == MAX_VALUE)
+        if (READ_WORD(address) == MAX_UINT)
         {
             break;
         }
@@ -280,7 +282,7 @@ static void SaveNonResetSettings(void)
         address = ADDR_SECTOR_NR_SETTINGS;
     }
 
-    WriteWord(address, SIZE_NR_SET_PARAGRAPH);
+    WriteWord(address, SIZE_NR_SETTINGS);
 
     WriteBufferBytes(address + 4, (void*)(&setNR), sizeof(setNR));
 }
