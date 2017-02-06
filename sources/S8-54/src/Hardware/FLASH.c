@@ -37,7 +37,8 @@
 #define ADDR_FLASH_SECTOR_3     ((uint)0x0800C000)          // 16k  TODO Здесь будут храниться идентификационные данные прибора - серийный номер, версия ПО
 #define ADDR_SECTOR_NR_SETTINGS ((uint)0x08010000)          // 64k  Несбрасываемые настройки
 #define SIZE_SECTOR_NR_SETTINGS (64 * 1024)                 // Размер сектора для хранения несбрасываемых настроек
-#define SIZE_NR_SET_PARAGRAPH   (128)                       // Это размер одного параграфа, в котором, кроме настроек, сохранена ещё и его длина в первом слове
+#define SIZE_NR_SET_PARAGRAPH   (512)                       // Это размер одного параграфа, в котором, кроме настроек, сохранена ещё и его длина в первом слове
+                                                            // (Сначала сделал 128 байт, но оказалось мало - уже как раз 128, поэтому ввёл четырёхкратный запас)
 #define SIZE_NR_SETTINGS        (SIZE_NR_SET_PARAGRAPH - 4) // Размер структуры для хранения несбрасываемых настроек
 #define ADDR_SECTOR_PROGRAM_0   ((uint)0x08020000)          // 128k Основная программа
 #define ADDR_SECTOR_PROGRAM_1   ((uint)0x08040000)          // 128k Основная программа
@@ -155,7 +156,9 @@ void FLASH_LoadSettings(bool onlyNonReset)
 {
     CLEAR_FLASH_FLAGS;
 
-    if (READ_WORD(ADDR_SECTOR_SETTINGS) != MARK_OF_FILLED)       // Если первый байт сектора не отмаркирован - первое включение прибора
+    uint value = READ_WORD(ADDR_SECTOR_SETTINGS);
+    
+    if (value != MARK_OF_FILLED)       // Если первый байт сектора не отмаркирован - первое включение прибора
     {
         set.common.countErasedFlashSettings = 0;
         set.common.countEnables = 0;
@@ -185,14 +188,15 @@ void FLASH_LoadSettings(bool onlyNonReset)
 
     if (nonResetLoaded)
     {
-        if (sizeof(set) == record->size)                                // В случае, если размер не совпадает, считывать не будем, но вернём всё равно true -
-        {                                                               // несбрасываемые-то настройки считаны
+        if (sizeof(set) == record->size)
+        {
             ReadBuffer(record->addr, (uint*)(&set), record->size / 4);
         }
     }
-    else                                                                // Если настройки сохранены по старому методу - в одном секторе
+    else                                                        // Если настройки сохранены по старому методу - в одном секторе
     {
-        ReadBuffer(record->addr, (uint*)(&setNR), SIZE_NR_SETTINGS);    // То считываем только первую часть - где хранятся несбрасываемые настройки
+        uint *address = (uint*)(&setNR);
+        ReadBuffer(record->addr, address, sizeof(setNR) / 4);   // То считываем только первую часть - где хранятся несбрасываемые настройки
     }
 }
 
@@ -233,16 +237,16 @@ static bool LoadNonResetSettings(void)
 {
     // Первым делом проверим, есть ли такие настройки в специально предназначенном секторе
 
-    if (READ_WORD(ADDR_SECTOR_NR_SETTINGS) != MAX_VALUE)                                              // Если в первом слове уже что-то записано, значит, настройки там сохранены
+    if (READ_WORD(ADDR_SECTOR_NR_SETTINGS) != MAX_UINT)                         // Если в первом слове уже что-то записано, значит, настройки там сохранены
     {
         uint address = ADDR_SECTOR_NR_SETTINGS;
         uint lastAddress = ADDR_SECTOR_NR_SETTINGS + SIZE_SECTOR_NR_SETTINGS;
         while (address < lastAddress)
         {
-            if (READ_WORD(address) == MAX_VALUE)
+            if (READ_WORD(address) == MAX_UINT)
             {
-                address -= SIZE_NR_SET_PARAGRAPH;                       // Перешли на последнее сохранение
-                ReadBuffer(address, (uint*)(&setNR), sizeof(setNR));    // Считывать мы должны именно 
+                address -= SIZE_NR_SET_PARAGRAPH;                               // Перешли на последнее сохранение
+                ReadBuffer(address + 4, (uint*)(&setNR), sizeof(setNR) / 4);    // Считывать мы должны именно 
                 return true;
             }
             address += SIZE_NR_SET_PARAGRAPH;
