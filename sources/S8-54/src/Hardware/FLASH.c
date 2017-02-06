@@ -108,11 +108,11 @@ typedef struct
 } RecordConfig;
 
 
-#define ADDR_ARRAY_RECORDS             ((ADDR_SECTOR_SETTINGS) + 4)
-#define MAX_NUM_RECORDS 1024
-#define SIZE_ARRAY_RECORDS_IN_BYTES    ((MAX_NUM_RECORDS) * sizeof(RecordConfig))
-static const uint ADDR_FIRST_SET = ADDR_ARRAY_RECORDS + SIZE_ARRAY_RECORDS_IN_BYTES;    // Адрес первого байта буфера, где сохранены настройки
-static const uint ADDR_LAST_SET = ((ADDR_SECTOR_SETTINGS + SIZE_SECTOR_SETTINGS) - 1);  // Адрес последнего байта буфера, где сохранены настройки
+#define ADDR_ARRAY_RECORDS          ((ADDR_SECTOR_SETTINGS) + 4)
+#define MAX_NUM_RECORDS             1024
+#define SIZE_ARRAY_RECORDS_IN_BYTES ((MAX_NUM_RECORDS) * sizeof(RecordConfig))
+static const uint ADDR_FIRST_SET    = ADDR_ARRAY_RECORDS + SIZE_ARRAY_RECORDS_IN_BYTES;     // Адрес первого байта буфера, где сохранены настройки
+static const uint ADDR_LAST_SET     = ((ADDR_SECTOR_SETTINGS + SIZE_SECTOR_SETTINGS) - 1);  // Адрес последнего байта буфера, где сохранены настройки
 
 
 // Признак того, что запись в этоу область флэш уже производилась. Если нулевое слово области (данных, ресурсов или настроек) имеет это значение, запись уже была произведена как минимум один раз

@@ -35,11 +35,11 @@
 #define MODE_NORMAL     // Нормальный режим
 
 #ifndef MODE_NORMAL
- #define MODE_Z80        // Режим эмуляции z80
+ #define MODE_Z80       // Режим эмуляции z80
 #endif
 
 
-#define INTERRUPT_P2P       // Если определено, то для чтения точек используется прерывание
+#define INTERRUPT_P2P   // Если определено, то для чтения точек используется прерывание
 
  
 #include <stm32f4xx_hal.h>
