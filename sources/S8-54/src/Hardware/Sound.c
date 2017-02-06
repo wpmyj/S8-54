@@ -23,7 +23,6 @@ static uint8 points[POINTS_IN_PERIOD_SOUND] = {0};
 static float frequency = 0.0f;
 static float amplitude = 0.0f;
 static TypeWave typeWave = TypeWave_Sine;
-bool gSoundIsBeep = false;
 static bool soundWarnIsBeep = false;
 static bool buttonIsPressed = false;    // Когда запускается звук нажатой кнопки, устанавливается этот флаг, чтобы знать, проигрывать ли знак отпускания
 
@@ -49,7 +48,7 @@ void Sound_Init(void)
 static void Stop(void)
 {
     HAL_DAC_Stop_DMA(&handleDAC, DAC_CHANNEL_1);
-    gSoundIsBeep = false;
+    gBF.soundIsBeep = 0;
     soundWarnIsBeep = false;
 }
 
@@ -189,7 +188,7 @@ static void Sound_Beep(const TypeWave newTypeWave, const float newFreq, const fl
 
     Stop();
     
-    gSoundIsBeep = true;
+    gBF.soundIsBeep = 1;
     HAL_DAC_Start_DMA(&handleDAC, DAC_CHANNEL_1, (uint32_t*)points, POINTS_IN_PERIOD_SOUND, DAC_ALIGN_8B_R);
 
     Timer_SetAndStartOnce(kStopSound, Stop, newDuration);

@@ -1,7 +1,6 @@
 #include "FLASH.h"
 #include "Log.h"
 #include "Hardware/Hardware.h"
-#include "Hardware/Sound.h"
 #include "Hardware/Timer.h"
 #include "Settings/Settings.h"
 #include "Utils/GlobalFunctions.h"
@@ -388,7 +387,7 @@ static void EraseSector(uint startAddress)
 
     uint32_t error = 0;
 
-    while(gSoundIsBeep) // WARN Здесь ждём, пока бикалка не закончит. Костыль, надо разобраться, почему они не могут вместе работать
+    while(gBF.soundIsBeep) // WARN Здесь ждём, пока бикалка не закончит. Костыль, надо разобраться, почему они не могут вместе работать
     {
     };
 

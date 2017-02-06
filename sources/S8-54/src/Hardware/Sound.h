@@ -24,5 +24,3 @@ void    Sound_RegulatorSwitchRotate(void);
 
 void    Sound_WarnBeepBad(void);
 void    Sound_WarnBeepGood(void);
-
-extern bool gSoundIsBeep;
