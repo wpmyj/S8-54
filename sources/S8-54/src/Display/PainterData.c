@@ -57,11 +57,12 @@ static void  DrawMarkersForMeasure(float scale);
 static bool  DataBeyondTheBorders(uint8 *data, int firstPoint, int lastPoint);   // Возвращает true, если изогражение сигнала выходит за пределы экрана
 static void  DrawSignalLined(const uint8 *data, int startPoint, int endPoint, int minY, int maxY, float scaleY, float scaleX, bool calculateFiltr);
 static void  DrawSignalPointed(const uint8 *data, int startPoint, int endPoint, int minY, int maxY, float scaleY, float scaleX);
-static uint8 Ordinate(uint8 x, float scale);
+static int   Ordinate(uint8 x, float scale);                                    // Возвращает точку в экранной координате
 static int   FillDataP2PforRecorder(int numPoints, int numPointsDS, int pointsInScreen, uint8 *src, uint8 *dest);
 static int   FillDataP2PforNormal(int numPoints, int numPointsDS, int pointsInScreen, uint8 *src, uint8 *dest);
-static void  DrawLimitLabel(int delta);      // Выоводит сообщение на экране о выходе сигнала за границы экрана. delta - расстояние от края сетки, на котором находится сообщение. Если delta < 0 - выводится внизу сетки
-static void  SendToDisplayDataInRect(int x, uint8 *min, uint8 *max, int width);
+static void  DrawLimitLabel(int delta);  // Выоводит сообщение на экране о выходе сигнала за границы экрана. 
+                                         // delta - расстояние от края сетки, на котором находится сообщение. Если delta < 0 - выводится внизу сетки
+static void  SendToDisplayDataInRect(int x, int *min, int *max, int width);
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 void PainterData_DrawData(void)
@@ -447,11 +448,11 @@ static void DrawDataInRect(int x, int width, const uint8 *data, int numBytes, bo
         }
     }
 
-    int height = 17;
+    int height = 18;
     float scale = (float)height / (float)(MAX_VALUE - MIN_VALUE);
 
-    uint8 mines[width + 1];     // Массив для максимальных значений в каждом столбике
-    uint8 maxes[width + 1];     // Массив для минимальных значений в каждом столбике
+    int mines[width + 1];     // Массив для максимальных значений в каждом столбике
+    int maxes[width + 1];     // Массив для минимальных значений в каждом столбике
 
     mines[0] = Ordinate(max[0], scale);
     maxes[0] = Ordinate(min[0], scale);
@@ -467,7 +468,23 @@ static void DrawDataInRect(int x, int width, const uint8 *data, int numBytes, bo
 
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
-static void SendToDisplayDataInRect(int x, uint8 *min, uint8 *max, int width)
+static int Ordinate(uint8 x, float scale)
+{
+    const float bottom = 18.0;
+
+    if (x == NONE_VALUE)
+    {
+        return 0;
+    }
+
+    int retValue = (bottom - scale * LimitationInt(x - MIN_VALUE, 0, (MAX_VALUE - MIN_VALUE))) + 0.5f;
+
+    return (retValue == 0) ? 1 : retValue;
+}
+
+
+//----------------------------------------------------------------------------------------------------------------------------------------------------
+static void SendToDisplayDataInRect(int x, int *min, int *max, int width)
 {
     int start = 0;
     for (; start < width; start++)
@@ -475,18 +492,21 @@ static void SendToDisplayDataInRect(int x, uint8 *min, uint8 *max, int width)
         if (min[start] || max[start])
         {
             int end = start + 1;
-            for (; (end < width) && (end - start < 250) && (min[end] || max[end]); end++)   // WARN тут обрезает сверху
+            for (; (end < width) && (end - start < 250) && (min[end] || max[end]); end++)
             {
             }
             int numPoints = end - start;
             uint8 points[numPoints * 2];
             for (int i = start; i < end; i++)
             {
-                points[i * 2 - start * 2] = max[i];
-                points[i * 2 + 1 - start * 2] = min[i];
+                points[i * 2 - start * 2] = max[i] - 1;
+                points[i * 2 + 1 - start * 2] = min[i] - 1;
             }
 
-            Painter_DrawVLineArray(x + start, numPoints, points, gColorChan[curCh]);
+            if (numPoints > 1)
+            {
+                Painter_DrawVLineArray(x + start, numPoints - 1, points, gColorChan[curCh]);    // WARN Выводим на одну точку, чем рассчитали, потому что в конце была лишняя вертикальная линия
+            }
             start = end;
         }
     }
@@ -769,14 +789,6 @@ static void DrawSignalPointed(const uint8 *data, int startPoint, int endPoint, i
             Painter_SetPoint(GridLeft() + (int)(index * scaleX), dat);
         }
     }
-}
-
-
-//----------------------------------------------------------------------------------------------------------------------------------------------------
-static uint8 Ordinate(uint8 x, float scale)
-{
-    const float bottom = 17.0;
-    return (x == NONE_VALUE) ? 0 : (uint8)((bottom - scale * LimitationInt(x - MIN_VALUE, 0, (MAX_VALUE - MIN_VALUE))) + 0.5f);
 }
 
 
