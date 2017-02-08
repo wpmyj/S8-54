@@ -410,8 +410,8 @@ static void DrawDataInRect(int x, int width, const uint8 *data, int numBytes, bo
 
     width--;
     float elemsInColumn = (float)numBytes / (float)width;
-    uint8 min[300];
-    uint8 max[300];
+    uint8 min[width + 1];
+    uint8 max[width + 1];
 
     if (peackDet == PeackDet_Disable)              // Если пик. дет. выключен
     {
@@ -451,8 +451,8 @@ static void DrawDataInRect(int x, int width, const uint8 *data, int numBytes, bo
     int height = 17;
     float scale = (float)height / (float)(MAX_VALUE - MIN_VALUE);
 
-    uint8 val0[300];
-    uint8 val1[300];
+    uint8 val0[width + 1];
+    uint8 val1[width + 1];
 
     val0[0] = Ordinate(max[0], bottom, scale);
     val1[0] = Ordinate(min[0], bottom, scale);
