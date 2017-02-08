@@ -57,7 +57,7 @@ static void  DrawMarkersForMeasure(float scale);
 static bool  DataBeyondTheBorders(uint8 *data, int firstPoint, int lastPoint);   // Возвращает true, если изогражение сигнала выходит за пределы экрана
 static void  DrawSignalLined(const uint8 *data, int startPoint, int endPoint, int minY, int maxY, float scaleY, float scaleX, bool calculateFiltr);
 static void  DrawSignalPointed(const uint8 *data, int startPoint, int endPoint, int minY, int maxY, float scaleY, float scaleX);
-static uint8 Ordinate(uint8 x, int bottom, float scale);
+static uint8 Ordinate(uint8 x, float scale);
 static int   FillDataP2PforRecorder(int numPoints, int numPointsDS, int pointsInScreen, uint8 *src, uint8 *dest);
 static int   FillDataP2PforNormal(int numPoints, int numPointsDS, int pointsInScreen, uint8 *src, uint8 *dest);
 static void  DrawLimitLabel(int delta);      // Выоводит сообщение на экране о выходе сигнала за границы экрана. delta - расстояние от края сетки, на котором находится сообщение. Если delta < 0 - выводится внизу сетки
@@ -447,25 +447,22 @@ static void DrawDataInRect(int x, int width, const uint8 *data, int numBytes, bo
         }
     }
 
-    int bottom = 17;
     int height = 17;
     float scale = (float)height / (float)(MAX_VALUE - MIN_VALUE);
 
-    uint8 val0[width + 1];
-    uint8 val1[width + 1];
+    uint8 mines[width + 1];     // Массив для максимальных значений в каждом столбике
+    uint8 maxes[width + 1];     // Массив для минимальных значений в каждом столбике
 
-    val0[0] = Ordinate(max[0], bottom, scale);
-    val1[0] = Ordinate(min[0], bottom, scale);
+    mines[0] = Ordinate(max[0], scale);
+    maxes[0] = Ordinate(min[0], scale);
 
     for (int i = 1; i < width; i++)
     {
-        int value0 = min[i] > max[i - 1] ? max[i - 1] : min[i];
-        int value1 = max[i] < min[i - 1] ? min[i - 1] : max[i];
-        val1[i] = Ordinate((uint8)value1, bottom, scale);
-        val0[i] = Ordinate((uint8)value0, bottom, scale);
+        maxes[i] = Ordinate((uint8)(max[i] < min[i - 1] ? min[i - 1] : max[i]), scale);
+        mines[i] = Ordinate((uint8)(min[i] > max[i - 1] ? max[i - 1] : min[i]), scale);
     }
 
-    SendToDisplayDataInRect(x, val0, val1, width);
+    SendToDisplayDataInRect(x, mines, maxes, width);
 }
 
 
@@ -776,9 +773,10 @@ static void DrawSignalPointed(const uint8 *data, int startPoint, int endPoint, i
 
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
-static uint8 Ordinate(uint8 x, int bottom, float scale)
+static uint8 Ordinate(uint8 x, float scale)
 {
-    return (x == NONE_VALUE) ? 0 : (uint8)(((float)bottom - scale * LimitationInt(x - MIN_VALUE, 0, (MAX_VALUE - MIN_VALUE))) + 0.5f);
+    const float bottom = 17.0;
+    return (x == NONE_VALUE) ? 0 : (uint8)((bottom - scale * LimitationInt(x - MIN_VALUE, 0, (MAX_VALUE - MIN_VALUE))) + 0.5f);
 }
 
 
