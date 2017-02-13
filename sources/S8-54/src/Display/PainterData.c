@@ -327,7 +327,7 @@ static void DrawDataChannel(uint8 *dataIn, int minY, int maxY)
 {
     bool calculateFiltr = true;
     int sizeBuffer = NumBytesInChannel(curDS);
-    uint8 data[10];
+    uint8 data[sizeBuffer];                                 // �����, ���� ����� ��������� ������ ������ �� �������� ���
 
     int firstPoint = 0;
     int lastPoint = 280;
