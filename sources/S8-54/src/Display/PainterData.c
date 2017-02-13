@@ -786,7 +786,7 @@ static void DrawSignalPointed(const uint8 *data, int startPoint, int endPoint, i
             int index = i - startPoint;
             int dat = 0;
             CONVERT_DATA_TO_DISPLAY(dat, Math_CalculateFiltr(data, i, numPoints, numSmoothing));
-            Painter_SetPoint(GridLeft() + (int)(index * scaleX), dat);
+            Painter_SetPoint(GridLeft() + (int)(index * scaleX), dat);  
         }
     }
 }

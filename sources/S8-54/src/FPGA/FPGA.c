@@ -1412,9 +1412,7 @@ static void InitADC(void)
     - одиночное измерение по фронту внешнего запуска(прерывание от 112 - EXT11 - PC11)
     */
 
-#ifndef _MS_VS
     __ADC3_CLK_ENABLE();
-#endif
 
     static GPIO_InitTypeDef isGPIO =
     {
