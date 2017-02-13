@@ -72,9 +72,7 @@ uint16 READ_DATA_ADC_16(uint16 *address, Channel ch   )
 //------------------------------------------------------------------------------------------------------------------------------------------------------
 static void HardwareInit(void)
 {
-#ifndef _MS_VS
     __HAL_RCC_GPIOD_CLK_ENABLE();
-#endif
 
     // Настроим PD2 на внешнее прерывание EXTI2 - сюда будет приходить флаг считанной точки для поточечного вывода
     GPIO_InitTypeDef isGPIOD =
@@ -546,9 +544,7 @@ static void ReadChannel(uint8 *data, Channel ch, int length, uint16 nStop, bool 
 
     uint16 *address = (ch == A) ? RD_ADC_A : RD_ADC_B;
 
-#ifndef _MS_VS
     volatile uint16 dat = *address;
-#endif
 
     if (shift)
     {

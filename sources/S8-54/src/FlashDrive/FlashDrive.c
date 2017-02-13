@@ -3,9 +3,6 @@
 #include "Menu/FileManager.h"
 #include "Display/Display.h"
 
-#ifdef _MS_VS
-#undef _WIN32
-#endif
 
 #include <usbh_def.h>
 #include <ff_gen_drv.h>

@@ -1,21 +1,10 @@
 #include "Decoder.h"
 
-#ifdef _MS_VS
-
-#pragma warning(push)
-#pragma warning(disable:4007 4255 4668 4820)
-#include <Windows.h>
-
-#else
-
 #define BOOL int
 #define APIENTRY
 #define HMODULE int
 #define DWORD int
 #define LPVOID int
-	
-#endif
-
 
 #include "CPU/instr.h"
 #include "CPU/registers.h"
@@ -94,8 +83,3 @@ __declspec(dllexport) int RunNext(void)
 {
     return RunCommand();
 }
-
-
-#ifdef _MS_VS
-#pragma warning(pop)
-#endif

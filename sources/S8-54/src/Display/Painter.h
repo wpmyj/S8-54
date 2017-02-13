@@ -37,17 +37,11 @@ void    Painter_DrawVLineArray(int x, int numLines, uint8 *y0y1, Color color);  
 void    Painter_DrawSignal(int x, uint8 data[281], bool modeLines);                         // modeLines - true - точками, false - точками
 void    Painter_DrawPicture(int x, int y, int width, int height, uint8 *address);
 
-#ifdef _MS_VS
-#undef _USE_LFN
-#define _USE_LFN 0
-#endif
-
 #if _USE_LFN > 0
 void Painter_SaveScreenToFlashDrive(TCHAR *fileName);
 #else
 bool Painter_SaveScreenToFlashDrive(void);
 #endif
-
 
 void    Painter_SendToDisplay(uint8 *bytes, int numBytes);
 void    Painter_SendToInterfaces(uint8 *pointer, int size);

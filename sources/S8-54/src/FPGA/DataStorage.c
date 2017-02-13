@@ -503,10 +503,6 @@ void CalculateSums(void)
                 uint loSum = 0;
                 uint16 data16 = *dA++;                      // Считываем первые два отсчёта данных
 
-#ifdef _MS_VS
-#pragma warning(push)
-#pragma warning(disable:4333)
-#endif
                 ALTERNATE_ADD(sumA16, 0);                   // WARN Похоже, sum неправильно вычисляется, из-за чего артефаты при больших накоплениях. Нужно (loSum - data16) заменить на старое значение (*data16)
 
                 ALTERNATE_ADD(sumA16, 8);
@@ -516,9 +512,6 @@ void CalculateSums(void)
                 ALTERNATE_ADD(sumB16, 0);
 
                 ALTERNATE_ADD(sumB16, 8);
-#ifdef _MS_VS
-#pragma warning(pop)
-#endif
             }
         }
     }

@@ -16,12 +16,6 @@
 #include "Utils/GlobalFunctions.h"
 
 
-#ifdef _MS_VS
-#pragma warning(push)
-#pragma warning(disable:4204)
-#endif
-
-
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 #define CONVERT_DATA_TO_DISPLAY(out, inVal)                     \
     int in = inVal;                                             \
@@ -333,11 +327,7 @@ static void DrawDataChannel(uint8 *dataIn, int minY, int maxY)
 {
     bool calculateFiltr = true;
     int sizeBuffer = NumBytesInChannel(curDS);
-#ifndef _MS_VS
-    uint8 data[sizeBuffer];                                 // Место, куда будем считывать данные канала из внешнего ОЗУ
-#else
     uint8 data[10];
-#endif
 
     int firstPoint = 0;
     int lastPoint = 280;
@@ -828,10 +818,8 @@ static int FillDataP2PforNormal(int numPoints, int numPointsDS, int pointsInScre
 
     if (numPoints > pointsInScreen)
     {
-#ifndef _MS_VS
         int numScreens = numPoints / pointsInScreen;                                                        // Число полных нарисованных экранов.
         uint8 dataTemp[pointsInScreen];
-#endif
 
         memcpy(dataTemp, dest + (numScreens - 1) * pointsInScreen - deltaNumPoints, pointsInScreen);        // Теперь скопируем последний полный экран в буфер
 
@@ -873,88 +861,3 @@ static void DrawLimitLabel(int delta)
     Painter_DrawRectangleC(x, y, width, height, color);
     Painter_DrawStringInCenterRect(x, y, width, height, "Сигнал за пределами экрана");
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-#ifdef _MS_VS
-#pragma warning(pop)
-#endif

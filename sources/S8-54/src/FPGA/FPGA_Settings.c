@@ -34,12 +34,6 @@
 */
 
 
-#ifdef _MS_VS
-#pragma warning(push)
-#pragma warning(disable:4310)   // warning C4310: cast truncates constant value
-#endif
-
-
 static const uint8 masksRange[RangeSize] =
 {         //  543210
     BINARY_U8(010011),  // Range_2mV
@@ -56,11 +50,6 @@ static const uint8 masksRange[RangeSize] =
 };
 
 
-#ifdef _MS_VS
-#pragma warning(pop)
-#endif
-
-
 // Добавочные смещения по времени для разверёток режима рандомизатора.
 static int16 timeCompensation[TBaseSize] = {550, 275, 120, 55, 25, 9, 4, 1};
 
@@ -69,12 +58,6 @@ typedef struct
     uint8 maskNorm;         // Маска. Требуется для записи в аппаратную часть при выключенном режиме пикового детектора.
     uint8 maskPeackDet;     // Маска. Требуется для записи в аппаратную часть при включенном режиме пикового детектора.
 } TBaseMaskStruct;
-
-
-#ifdef _MS_VS
-#pragma warning(push)
-#pragma warning(disable:4310)   // warning C4310: cast truncates constant value
-#endif
 
 
 static const TBaseMaskStruct masksTBase[TBaseSize] =
@@ -111,11 +94,6 @@ static const TBaseMaskStruct masksTBase[TBaseSize] =
     {BINARY_U8(01011111), BINARY_U8(01011110)}, // TBase_5s
     {BINARY_U8(01111111), BINARY_U8(01011111)}  // TBase_10s
 };
-
-
-#ifdef _MS_VS
-#pragma warning(pop)
-#endif
 
 
 uint16 gPost = 1024;

@@ -1,15 +1,7 @@
 #pragma once
-//#include "defines.h"
-
-#ifdef _MS_VS
-#undef _WIN32
-#endif
 
 #include <ff.h>
 
-#ifdef _MS_VS
-#undef _WIN32
-#endif
 
 #define SIZE_FLASH_TEMP_BUFFER 512
 typedef struct

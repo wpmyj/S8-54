@@ -37,12 +37,6 @@
 #include "VCP/VCP.h"
 
 
-#ifdef _MS_VS
-#pragma warning(push)
-#pragma warning(disable:4204)
-#endif
-
-
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 typedef struct
 {
@@ -1456,17 +1450,8 @@ static void DRAW_SPECTRUM(const uint8 *dataIn, int numPoints, Channel ch)
         return;
     }
 
-#ifdef _MS_VS
-
-    float dataR[10];
-    float spectrum[10];
-
-#else
-
     float dataR[numPoints];
     float spectrum[numPoints];
-
-#endif
 
     float freq0 = 0.0f;
     float freq1 = 0.0f;
@@ -2126,8 +2111,3 @@ static int CalculateCountH(void)
     }
     return 69;
 }
-
-
-#ifdef _MS_VS
-#pragma warning(pop)
-#endif

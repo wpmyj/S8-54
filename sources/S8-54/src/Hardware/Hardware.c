@@ -27,10 +27,9 @@ static void SystemClock_Config(void)
     RCC_OscInitTypeDef RCC_OscInitStruct;
     RCC_ClkInitTypeDef RCC_ClkInitStruct;
 
-#ifndef _MS_VS
     __HAL_RCC_PWR_CLK_ENABLE();
     __HAL_PWR_VOLTAGESCALING_CONFIG(PWR_REGULATOR_VOLTAGE_SCALE1);
-#endif
+
     RCC_OscInitStruct.OscillatorType = RCC_OSCILLATORTYPE_HSE;
     RCC_OscInitStruct.HSEState = RCC_HSE_ON;
     RCC_OscInitStruct.PLL.PLLState = RCC_PLL_ON;
@@ -58,8 +57,7 @@ void Hardware_Init(void)
 
     SystemClock_Config();
 
-#ifndef _MS_VS
-    __GPIOA_CLK_ENABLE();
+   __GPIOA_CLK_ENABLE();
     __GPIOB_CLK_ENABLE();
     __GPIOC_CLK_ENABLE();
     __GPIOD_CLK_ENABLE();
@@ -73,7 +71,6 @@ void Hardware_Init(void)
     __PWR_CLK_ENABLE();
 
     __SYSCFG_CLK_ENABLE();
-#endif
 
     HAL_NVIC_SetPriority(SysTick_IRQn, PRIORITY_SYS_TICK);
 
