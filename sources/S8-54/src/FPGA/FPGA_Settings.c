@@ -231,8 +231,6 @@ static void LoadRShift(Channel ch)
 
     FPGA_Write(RecordDAC, ch == A ? dacRShiftA : dacRShiftB, mask[ch] | (rShift << 4), true);
 
-    //LOG_WRITE("rShift = %d", rShift);
-
     if (TRIG_INPUT_LPF || TRIG_INPUT_FULL)
     {
         LoadTrigLev();  // На некоторых настройках входа синхронизации требуется и коррекция уровня синхронизации
@@ -261,8 +259,6 @@ static void LoadTrigLev(void)
             trigLev = TrigLevMax;
         }
     }
-
-    //LOG_WRITE("trig %d", trigLev);
     
     data |= trigLev << 4;
     FPGA_Write(RecordDAC, dacTrigLev, data, true);
