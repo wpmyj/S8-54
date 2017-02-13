@@ -51,7 +51,7 @@ static void  DrawMarkersForMeasure(float scale);
 static bool  DataBeyondTheBorders(uint8 *data, int firstPoint, int lastPoint);   // Возвращает true, если изогражение сигнала выходит за пределы экрана
 static void  DrawSignalLined(const uint8 *data, int startPoint, int endPoint, int minY, int maxY, float scaleY, float scaleX, bool calculateFiltr);
 static void  DrawSignalPointed(const uint8 *data, int startPoint, int endPoint, int minY, int maxY, float scaleY, float scaleX);
-static int   Ordinate(uint8 x, float scale);                                    // Возвращает точку в экранной координате. Если точка не считана (NONE_VALUE), возвращает 0
+static int   Ordinate(uint8 x, float scale);                                    // Возвращает точку в экранной координате. Если точка не считана (NONE_VALUE), возвращает -1
 static int   FillDataP2PforRecorder(int numPoints, int numPointsDS, int pointsInScreen, uint8 *src, uint8 *dest);
 static int   FillDataP2PforNormal(int numPoints, int numPointsDS, int pointsInScreen, uint8 *src, uint8 *dest);
 static void  DrawLimitLabel(int delta);  // Выоводит сообщение на экране о выходе сигнала за границы экрана. 
@@ -438,7 +438,7 @@ static void DrawDataInRect(int x, int width, const uint8 *data, int numBytes, bo
         }
     }
 
-    int height = 18;
+    int height = 17;
     float scale = (float)height / (float)(MAX_VALUE - MIN_VALUE);
 
     const int SIZE_BUFFER = width + 1;
@@ -455,7 +455,20 @@ static void DrawDataInRect(int x, int width, const uint8 *data, int numBytes, bo
         mines[i] = Ordinate((uint8)(min[i] > max[i - 1] ? max[i - 1] : min[i]), scale);
     }
 
-    int numPoints = width;
+    // Теперь уточним количество точек, которые нужно нарисовать (исходим из того, что в реальном режиме и рандомизаторе рисуем все точки,
+    // а в поточечном только начальные до определённой позиции
+
+    int numPoints = 0;
+    for (int i = 0; i < width; i++)
+    {
+        if (maxes[i] == -1 && mines[i] == -1)   { break; }          // Если обе точки не были считаны, то выходим
+        numPoints++;
+    }
+
+    if (numPoints != width)                     // Если нужно выводить не все точки,
+    {
+        numPoints--;                            // то выводим на одну меньше - во избежание артефакта в конце вывода
+    }
 
     if (numPoints > 1)
     {
@@ -474,20 +487,18 @@ static void DrawDataInRect(int x, int width, const uint8 *data, int numBytes, bo
 
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
-// Возвращает ноль, если точка не считана (NONE_VALUE)
+// Возвращает (-1), если точка не считана (NONE_VALUE)
 //----------------------------------------------------------------------------------------------------------------------------------------------------
 static int Ordinate(uint8 x, float scale)
 {
-    const float bottom = 18.0;
+    const float bottom = 17.0;
 
     if (x == NONE_VALUE)
     {
-        return 0;
+        return -1;
     }
 
-    int retValue = (bottom - scale * LimitationInt(x - MIN_VALUE, 0, (MAX_VALUE - MIN_VALUE))) + 0.5f;
-
-    return (retValue == 0) ? 1 : retValue;
+    return (bottom - scale * LimitationInt(x - MIN_VALUE, 0, (MAX_VALUE - MIN_VALUE))) + 0.5f;
 }
 
 
@@ -500,20 +511,13 @@ static void SendToDisplayDataInRect(int x, int *min, int *max, int width)
 
     uint8 points[width * 2];
 
-    int numPoints = 0;
-
     for (int i = 0; i < width; i++)
     {
-        if (min[i] == 0 || max[i] == 0)
-        {
-            break;
-        }
-        points[i * 2] = max[i] - 1;
-        points[i * 2 + 1] = min[i] - 1;
-        numPoints++;
+        points[i * 2] = max[i];
+        points[i * 2 + 1] = min[i];
     }
 
-    Painter_DrawVLineArray(x, numPoints, points, gColorChan[curCh]);
+    Painter_DrawVLineArray(x, width, points, gColorChan[curCh]);
 }
 
 
