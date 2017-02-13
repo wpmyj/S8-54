@@ -139,12 +139,10 @@ void VCP_SendFormatStringAsynch(char *format, ...)
 #undef SIZE_BUFFER
 #define SIZE_BUFFER 200
     static char buffer[SIZE_BUFFER];
-#ifndef _MS_VS
     __va_list args;
     va_start(args, format);
     vsprintf(buffer, format, args);
     va_end(args);
-#endif
     strcat(buffer, "\r\n");
     VCP_SendDataAsinch((uint8*)buffer, strlen(buffer));
 }
@@ -156,12 +154,10 @@ void VCP_SendFormatStringSynch(char *format, ...)
 #undef SIZE_BUFFER
 #define SIZE_BUFFER 200
     char buffer[SIZE_BUFFER];
-#ifndef _MS_VS
     __va_list args;
     va_start(args, format);
     vsprintf(buffer, format, args);
     va_end(args);
-#endif
     strcat(buffer, "\r\n");
     VCP_SendDataSynch((uint8*)buffer, strlen(buffer));
 }

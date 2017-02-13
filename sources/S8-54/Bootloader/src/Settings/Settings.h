@@ -4,10 +4,6 @@
 #include "SettingsTypes.h"
 #include "Panel/Controls.h"
 
-#ifndef _MS_VS
-#pragma anon_unions     // Разрешаем безымянные определения
-#endif
-
 
 #define SIZE_NONRESET_SETTINGS 200
 

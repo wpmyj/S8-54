@@ -54,9 +54,6 @@ void DrawGovernorChoiceColorFormulaHiPart(void *item, int x, int y, bool pressed
             Time *time = (Time*)item;
             if ((OpenedItem() == item) && (*time->curField != iEXIT) && (*time->curField != iSET))
             {
-#ifdef _MS_VS
-                int8 values[10];
-#else
                 int8 values[7] =
                 {
                     0,
@@ -67,7 +64,6 @@ void DrawGovernorChoiceColorFormulaHiPart(void *item, int x, int y, bool pressed
                     *time->minutes,
                     *time->seconds
                 };
-#endif
                 symbol = GetSymbolForGovernor(values[*time->curField]);
             }
         }
@@ -461,16 +457,12 @@ void DrawGovernorColorValue(int x, int y, GovernorColor *govColor, int delta)
     int8 field = ct->currentField;
     char *texts[4] = {"Яр", "Сн", "Зл", "Кр"};
 
-#ifdef _MS_VS
-    int16 vals[10];
-#else
     uint16 color = COLOR(ct->color);
     int red = R_FROM_COLOR(color);
     int green = G_FROM_COLOR(color);
     int blue = B_FROM_COLOR(color);
     Color_Init(ct, false);
     int16 vals[4] = {(int16)(ct->brightness * 100.0f), (int16)blue, (int16)green, (int16)red};
-#endif
 
     Painter_FillRegionC(x, y, MI_WIDTH + delta - 2, MI_HEIGHT / 2 - 3, COLOR_BLACK);
     x += 92;
@@ -581,9 +573,6 @@ void Time_DrawOpened(Time *time, int x, int y)
         int width;
     } StructPaint;
     
-#ifdef _MS_VS
-    StructPaint strPaint[10];
-#else
     int y2 = 41;
     int y3 = 51;
     int dX = 13;
@@ -600,7 +589,6 @@ void Time_DrawOpened(Time *time, int x, int y)
         {x0 + 2 * dX,   y1, wS},    // сек
         {3,             y2, 46}     // Сохранить
     };
-#endif
 
     char strI[8][20];
     strcpy(strI[iEXIT],     "Не сохранять");

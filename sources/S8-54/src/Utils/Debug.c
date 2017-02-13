@@ -27,7 +27,6 @@ static bool running = false;
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 void Sys_PrintSizeStack(void)
 {
-#ifndef _MS_VS
     uint value = 0;
     __asm
     {
@@ -35,7 +34,6 @@ void Sys_PrintSizeStack(void)
     }
     value -= 0x10000000;
     Log_Write("%d", value);
-#endif
 }
 
 

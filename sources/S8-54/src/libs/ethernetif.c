@@ -354,9 +354,7 @@ void ethernetif_input(struct netif *netif)
     
   if (err != ERR_OK)
   {
-#ifndef _MS_VS
     LWIP_DEBUGF(NETIF_DEBUG, ("ethernetif_input: IP input error\n"));
-#endif
     pbuf_free(p);
     p = NULL;
   }
@@ -376,9 +374,7 @@ void ethernetif_input(struct netif *netif)
   */
 err_t ethernetif_init(struct netif *netif)
 {
-#ifndef _MS_VS
   LWIP_ASSERT("netif != NULL", (netif != NULL));
-#endif
   
 #if LWIP_NETIF_HOSTNAME
   /* Initialize interface hostname */

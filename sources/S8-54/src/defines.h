@@ -7,31 +7,6 @@
 #include <limits.h>
 
 
-#ifdef _MS_VS                   // Это для компиляции в MSVS
-
-#pragma warning(push)
-#pragma warning(disable:4820)
-
-#define __ALIGN_BEGIN
-#define _ARMABI
-#define DECLARE_HANDLE(x)
-#define __stdcall
-#define WINAPI
-#define __attribute__
-#define __ALIGN_END
-#define __weak
-
-#ifdef _MS_VS
-#define __va_list va_list
-#define vsprintf(buf, form, ...) vsprintf_s(buf, 10, form, __VA_ARGS__)
-#define sprintf(buf, form, ...) sprintf_s(buf, 10, form, __VA_ARGS__)
-#define memset(x, y, z)
-#define memcpy(x, y, z)
-#endif
-
-#endif
-
-
 #define MODE_NORMAL     // Нормальный режим
 
 #ifndef MODE_NORMAL
@@ -114,13 +89,10 @@ typedef void    (*pFuncVpVIIB)(void*, int, int, bool);
 
 #define GetBit(value, bit) (((value) >> (bit)) & 0x01)
 #define SetBit_(value, bit) ((value) |= (1 << (bit)))
-//#define ClearBit_(value, bit) ((value) &= (~(1 << (bit))))
 
 #define BIT_MASK(numBit) (1 << (numBit))
 
-#ifndef _MS_VS
 #pragma anon_unions
-#endif
 
 // Объединение размером 16 бит
 typedef union
@@ -226,12 +198,3 @@ void HardwareErrorHandler(const char *file, const char *function, int line);
 #define SAFE_FREE(x) if(x) free(x); (x) = 0;
 
 #include "Globals.h"
-
-
-#ifdef _MS_VS
-
-#pragma warning(pop)
-
-#pragma warning(disable:4820)
-
-#endif

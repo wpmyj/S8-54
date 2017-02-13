@@ -82,12 +82,6 @@ typedef struct
 } MeasureCalculate;
 
 
-#ifdef _MS_VS
-#pragma warning(push)
-#pragma warning(disable:4028)   // warning C4028: formal parameter 1 different from declaration
-#endif
-
-
 static const MeasureCalculate measures[Measure_NumMeasures] =
 {
     {"", 0, 0, false},
@@ -115,9 +109,6 @@ static const MeasureCalculate measures[Measure_NumMeasures] =
     {"CalculatePhazaMinus",         CalculatePhazaMinus,           Phase2String, false}
 };
 
-#ifdef _MS_VS
-#pragma warning(pop)
-#endif
 
 static MeasureValue values[Measure_NumMeasures] = {{0.0f, 0.0f}};
 

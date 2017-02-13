@@ -2,9 +2,6 @@
 
 #include "defines.h"
 
-#ifdef _MS_VS
-#define __MODULE__ "module"
-#endif
 
 #ifdef DEBUG
 #define LOG_WRITE(...)  Log_Write(__VA_ARGS__)

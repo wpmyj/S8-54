@@ -21,11 +21,6 @@
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 extern const Page mainPage;
 
-#ifdef _MS_VS
-#pragma warning(push)
-#pragma warning(disable:4132)
-#endif
-
 static const Choice mcShow;
 static const Choice mcLookModeChanA;
 static const Choice mcLookModeChanB;
@@ -38,10 +33,6 @@ static const SmallButton sbSet_U;
 static const SmallButton sbSet_T;
 static const SmallButton sbSet_100;
 static const SmallButton sbSet_Movement;
-
-#ifdef _MS_VS
-#pragma warning(pop)
-#endif
 
 static void OnRot_Set(int angle);
 

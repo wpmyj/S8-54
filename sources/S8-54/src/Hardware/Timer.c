@@ -46,11 +46,9 @@ void Timer_Init(void)
         timers[i].timeNextMS = MAX_UINT;
     }
 
-#ifndef _MS_VS
     __HAL_RCC_TIM2_CLK_ENABLE();    // Для тиков
     __HAL_RCC_TIM3_CLK_ENABLE();    // Для таймеров
     __HAL_RCC_TIM5_CLK_ENABLE();    // Для миллисекунд
-#endif
 
     HAL_NVIC_EnableIRQ(TIM3_IRQn);
     HAL_NVIC_SetPriority(TIM3_IRQn, 0, 1);

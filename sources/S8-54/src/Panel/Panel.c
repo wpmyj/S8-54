@@ -488,11 +488,9 @@ void Panel_Enable(void)
 //------------------------------------------------------------------------------------------------------------------------------------------------------
 void Panel_Init(void)
 {
-#ifndef _MS_VS
     __HAL_RCC_GPIOA_CLK_ENABLE();
     __HAL_RCC_GPIOB_CLK_ENABLE();
     __SPI1_CLK_ENABLE();
-#endif
 
     GPIO_InitTypeDef isGPIOA_B =
     {

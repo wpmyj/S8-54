@@ -183,9 +183,7 @@ static void TransferError(DMA_HandleTypeDef *dmaHandle)
 //------------------------------------------------------------------------------------------------------------------------------------------------------
 void RAM_Init(void)
 {
-#ifndef _MS_VS
     __HAL_RCC_DMA2_CLK_ENABLE();
-#endif
 
     handleDMA_RAM.XferCpltCallback = TransferComplete;
     handleDMA_RAM.XferErrorCallback = TransferError;

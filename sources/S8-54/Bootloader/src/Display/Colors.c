@@ -8,12 +8,6 @@
 #include <math.h>
 
 
-#ifdef _MS_VS
-#pragma warning(push)
-#pragma warning(disable:4204)
-#endif
-
-
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 Color gColorBack;
 Color gColorFill;
@@ -248,8 +242,3 @@ const char* NameColor(Color color)
 {
     return colorNames[color];
 }
-
-
-#ifdef _MS_VS
-#pragma warning(pop)
-#endif

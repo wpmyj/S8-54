@@ -105,11 +105,7 @@
 /   1    - ASCII (Valid for only non-LFN configuration) */
 
 
-#ifdef _MS_VS
-#define _USE_LFN                0
-#else
 #define	_USE_LFN                3		/* 0 to 3 */
-#endif
 
 #define	_MAX_LFN                255		/* Maximum LFN length to handle (12 to 255) */
 /* The _USE_LFN option switches the LFN feature.

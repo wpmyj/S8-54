@@ -13,11 +13,6 @@
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 extern const Page mainPage;
 
-#ifdef _MS_VS
-#pragma warning(push)
-#pragma warning(disable:4132)
-#endif
-
 static const Choice mcChanA_Input;
 static const Choice mcChanA_Couple;
 static const Choice mcChanA_Bandwidth;
@@ -49,9 +44,6 @@ static void OnChange_ChanB_Resistance(bool active);
 static void OnChange_ChanB_Inverse(bool active);
 static void OnPress_ChanB_Balance(void);
 
-#ifdef _MS_VS
-#pragma warning(pop)
-#endif
 
 //------------------------------------------------------------------------------------------------------------------------------------------------------
 static const char chanInputRu[] =   "1. \"¬кл\" - выводить сигнал на экран.\n"

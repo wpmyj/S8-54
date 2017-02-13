@@ -5,11 +5,6 @@
 
 #include <stdarg.h>
 
-#ifdef _MS_VS
-#pragma warning(push)
-#pragma warning(disable:4100)
-#endif
-
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 static bool loggerUSB = false;
@@ -44,13 +39,11 @@ void Log_Error(const char *module, const char *func, int numLine, char *format, 
     char numBuffer[20];
     sprintf(numBuffer, ":%d", numLine);
     message[0] = 0;
-#ifndef _MS_VS
     strcat(message, "!!!ERROR!!! ");
     strcat(message, module);
     strcat(message, " ");
     strcat(message, func);
     strcat(message, numBuffer);
-#endif
     Display_AddStringToIndicating(message);
     Display_AddStringToIndicating(buffer);
     if(loggerUSB)
@@ -75,7 +68,3 @@ void Log_EnableLoggerUSB(bool enable)
 {
     loggerUSB = enable;
 }
-
-#ifdef _MS_VS
-#pragma warning(pop)
-#endif

@@ -352,11 +352,7 @@ void Time_SelectNextPosition(Time *time)
 void Time_IncCurrentPosition(Time *time)
 {
     Sound_GovernorChangedValue();
-#ifdef _MS_VS
-    int8 *value[10];
-#else
     int8 *value[] = {0, time->day, time->month, time->year, time->hours, time->minutes, time->seconds};
-#endif
     int8 position = *time->curField;
     if (position != iSET && position != iEXIT)
     {
@@ -377,11 +373,7 @@ void Time_DecCurrentPosition(Time *time)
     Sound_GovernorChangedValue();
     static const int8 max[] = {0, 31, 12, 99, 23, 59, 59};
     static const int8 min[] = {0, 1, 1, 15, 0, 0, 0};
-#ifdef _MS_VS
-    int8 *value[10];
-#else
     int8 *value[] = {0, time->day, time->month, time->year, time->hours, time->minutes, time->seconds};
-#endif
     int8 position = *time->curField;
     if (position != iSET && position != iEXIT)
     {
