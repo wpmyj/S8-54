@@ -186,3 +186,8 @@ extern int gAddNStop;
 extern void *extraMEM;      // Это специальный указатель. Используется для выделения памяти переменным, которые не нужны всё время выполения программы,
                             // но нужны болеее чем в одной функции. Перед использованием с помощью вызова malloc() выделяется необходимое количество
                             // памяти, которая затем освобождается вызвом free()
+
+#define MALLOC_EXTRAMEM(NameStruct, name)   extraMEM = malloc(sizeof(NameStruct));    \
+                                            NameStruct *name = (NameStruct*)extraMEM
+#define ACCESS_EXTRAMEM(NameStruct, name)   NameStruct *name = (NameStruct*)extraMEM
+#define FREE_EXTRAMEM()                     free(extraMEM)

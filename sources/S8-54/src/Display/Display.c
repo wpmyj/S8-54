@@ -153,7 +153,6 @@ static void DrawMeasures(void);                         // Вывести значения авто
 static void DrawStringNavigation(void);                 // Вывести строку навигации по меню
 static void DrawRandStat(void);                         // Нарисовать график статистики рандомизатора
 static void DrawWarnings(void);                         // Вывести предупреждающие сообщения
-static void DrawConsole(void);                          // Вывести содержимое консоли
 static void DrawTimeForFrame(uint timeTicks);
 static void DisableShowLevelRShiftA(void);              // Отключить вспомогательную линию маркера смещения по напряжению первого канала
 static void DisableShowLevelRShiftB(void);              // Отключить вспомогательную линию маркера смещения по напряжению второго канала
@@ -281,7 +280,7 @@ void Display_Update(void)
         }
     }
 
-    DrawConsole();
+    Display_DrawConsole();
 
     if(needClear)
     {
@@ -1113,8 +1112,7 @@ static void DrawWarnings(void)
 
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
-// Написать сообщения отладочной консоли
-static void DrawConsole(void)
+void Display_DrawConsole(void)
 {
     int count = 0;
     Painter_SetFont(CONSOLE_SIZE_FONT == 5 ? TypeFont_5 : TypeFont_8);

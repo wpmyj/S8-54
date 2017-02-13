@@ -29,6 +29,7 @@ void    Display_OneStringUp(void);
 void    Display_OneStringDown(void);
 void    Display_SetPauseForConsole(bool pause);
 void    Display_SetOrientation(DisplayOrientation orientation);
+void    Display_DrawConsole(void);                              // Вывести сообщеия отладочной консоли
 
 
 typedef enum

@@ -804,7 +804,7 @@ bool ProcessingData(void)
 //------------------------------------------------------------------------------------------------------------------------------------------------------
 static void FuncDrawAutoFind(void)
 {
-    StrForAutoFind *s = (StrForAutoFind*)extraMEM;
+    ACCESS_EXTRAMEM(StrForAutoFind, s);
 
     Painter_BeginScene(gColorBack);
 
@@ -828,6 +828,8 @@ static void FuncDrawAutoFind(void)
 
     Painter_DrawRectangle(40, 100, width, height);
     Painter_DrawVLine(40 + s->progress, 100, 100 + height);
+
+    Display_DrawConsole();
 
     Painter_EndScene();
 }
@@ -1030,6 +1032,8 @@ static bool FindWave(Channel ch)
 
     while (range != FindRange(ch))
     {
+        LOG_WRITE("1");
+
         FuncDrawAutoFind();
         FPGA_Start();
         while (!ProcessingData())
@@ -1056,8 +1060,7 @@ static bool FindWave(Channel ch)
 static void AutoFind(void)
 {
     // Подготовим структуру, использующуюся для отрисовки прогресс-бара
-    extraMEM = malloc(sizeof(StrForAutoFind));
-    StrForAutoFind *p = (StrForAutoFind *)extraMEM;
+    MALLOC_EXTRAMEM(StrForAutoFind, p);
     p->progress = 0;
     p->sign = 1;
 
@@ -1071,7 +1074,7 @@ static void AutoFind(void)
         }
     }
 
-    free(extraMEM);
+    FREE_EXTRAMEM();
 
     gBF.FPGAneedAutoFind = 0;
     FPGA_Start();
