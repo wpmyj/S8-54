@@ -429,6 +429,7 @@
     <ClInclude Include="..\..\S8-54\src\Settings\SettingsTime.h" />
     <ClInclude Include="..\..\S8-54\src\Settings\SettingsTrig.h" />
     <ClInclude Include="..\..\S8-54\src\Settings\SettingsTypes.h" />
+    <ClInclude Include="..\..\S8-54\src\structures.h" />
     <ClInclude Include="..\..\S8-54\src\Tables.h" />
     <ClInclude Include="..\..\S8-54\src\Utils\Debug.h" />
     <ClInclude Include="..\..\S8-54\src\Utils\Generator.h" />

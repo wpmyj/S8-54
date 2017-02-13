@@ -158,8 +158,8 @@ int NumPointsInChannel(DataSettings *ds);   // Возвращает количество точек на ка
 // Возвращает 0, если канал выключен
 uint8 *AddressChannel(DataSettings *ds, Channel ch);
 
-extern const char *gStringForHint;  // Строка подсказки, которую надо выводить в случае включённого режима подсказок.
-extern void* gItemHint;              // Item, подсказку для которого нужно выводить в случае включённого режима подсказок.
+extern const char *gStringForHint;          // Строка подсказки, которую надо выводить в случае включённого режима подсказок.
+extern void* gItemHint;                     // Item, подсказку для которого нужно выводить в случае включённого режима подсказок.
 
 void SetItemForHint(void *item);
 
@@ -182,3 +182,7 @@ extern DataSettings gDatas[NUM_DATAS];                  // Используется только в
 extern uint8 gDataAve[NumChannels][FPGA_MAX_POINTS];    // Используется только в DataStorage
 
 extern int gAddNStop;
+
+extern void *extraMEM;      // Это специальный указатель. Используется для выделения памяти переменным, которые не нужны всё время выполения программы,
+                            // но нужны болеее чем в одной функции. Перед использованием с помощью вызова malloc() выделяется необходимое количество
+                            // памяти, которая затем освобождается вызвом free()

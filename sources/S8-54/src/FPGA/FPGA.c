@@ -18,6 +18,7 @@
 #include "Utils/ProcessingSignal.h"
 #include "Utils/GlobalFunctions.h"
 #include "Utils/Debug.h"
+#include "structures.h"
 
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -43,9 +44,7 @@ static uint timeSwitchingTrig = 0;
 
 static bool readingPointP2P = false;    // Признак того, что точка и последнего прерывания поточечного вывода прочитана.
 
-static uint forDraw = 0;                // Вспомогательная переменная для функции рисования
-
-uint16 adcValueFPGA = 0;         // Здесь хранится значение считанное с АЦП для правильной расстановки точек
+uint16 adcValueFPGA = 0;                // Здесь хранится значение считанное с АЦП для правильной расстановки точек
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 static bool ReadPoint(void);                                        // Чтение точки в поточечном режиме
@@ -805,14 +804,30 @@ bool ProcessingData(void)
 //------------------------------------------------------------------------------------------------------------------------------------------------------
 static void FuncDrawAutoFind(void)
 {
+    StrForAutoFind *s = (StrForAutoFind*)extraMEM;
+
     Painter_BeginScene(gColorBack);
 
-    Painter_DrawTextC(100, 50, "Идёт поиск сигнала. Подождите.", gColorFill);
+    Painter_DrawTextC(92, 50, "Идёт поиск сигнала. Подождите.", gColorFill);
 
-    static const int height = 5;
+    static const int height = 20;
+    static const int width = 240;
 
-    Painter_DrawRectangle(40, 100, 240, height);
-    Painter_FillRegion(40, 100, ((gTimerMS - forDraw) / 20) % 240, height);
+    s->progress += s->sign;
+    if (s->sign > 0)
+    {
+        if (s->progress == 240)
+        {
+            s->sign = -1;
+        }
+    }
+    else if (s->progress == 1)
+    {
+        s->sign = 1;
+    }
+
+    Painter_DrawRectangle(40, 100, width, height);
+    Painter_DrawVLine(40 + s->progress, 100, 100 + height);
 
     Painter_EndScene();
 }
@@ -1040,7 +1055,11 @@ static bool FindWave(Channel ch)
 //------------------------------------------------------------------------------------------------------------------------------------------------------
 static void AutoFind(void)
 {
-    forDraw = gTimerMS;
+    // Подготовим структуру, использующуюся для отрисовки прогресс-бара
+    extraMEM = malloc(sizeof(StrForAutoFind));
+    StrForAutoFind *p = (StrForAutoFind *)extraMEM;
+    p->progress = 0;
+    p->sign = 1;
 
     FindWave(A);
     if (!FindWave(A))
@@ -1051,6 +1070,8 @@ static void AutoFind(void)
             Display_ShowWarning(SignalNotFound);
         }
     }
+
+    free(extraMEM);
 
     gBF.FPGAneedAutoFind = 0;
     FPGA_Start();
