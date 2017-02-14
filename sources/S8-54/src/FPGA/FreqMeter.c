@@ -1,5 +1,4 @@
 #include "defines.h"
-#include "FreqMeter.h"
 #include "FPGA/FPGAtypes.h"
 #include "Hardware/FSMC.h"
 #include "Display/Painter.h"

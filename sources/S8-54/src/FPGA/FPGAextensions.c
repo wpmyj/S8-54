@@ -1,6 +1,6 @@
-#include "FPGAextensions.h"
-#include "FPGA/FPGA.h" 
-#include "FPGA/FPGAtypes.h"
+#include "fpgaExtensions.h"
+#include "FPGA/fpga.h" 
+#include "FPGA/fpgaTypes.h"
 #include "Display/Display.h"
 #include "Display/DisplayPrimitives.h"
 #include "Display/Colors.h"
@@ -14,7 +14,6 @@
 #include "Log.h"
 #include "structures.h"
 #include "DataStorage.h"
-#include "FreqMeter.h"
 
 
 #include <limits.h>

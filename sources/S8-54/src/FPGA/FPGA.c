@@ -4,7 +4,6 @@
 #include "FPGA/DataStorage.h"
 #include "FPGA/FPGAtypes.h"
 #include "FPGA/FPGAextensions.h"
-#include "FPGA/FreqMeter.h"
 #include "Hardware/FSMC.h"
 #include "Hardware/Hardware.h"
 #include "Hardware/RAM.h"
