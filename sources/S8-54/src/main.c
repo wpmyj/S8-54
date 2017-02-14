@@ -20,8 +20,6 @@ extern void main3(void);
 
 #define TICS ((gTimerTics - time) / 120.0f)
 
-#ifdef MODE_NORMAL
-
 static void ProcessingSignal(void);
 static void DrawWelcomeScreen(void);
 static void StopDrawWelcomeScreen(void);
@@ -42,9 +40,6 @@ static void Disable_IfNessessary(void)
 }
 
 
-#endif
-
-
 //------------------------------------------------------------------------------------------------------------------------------------------------------
 int main(void)
 {
@@ -54,12 +49,7 @@ int main(void)
     Адрес запуска находится по адресу 0x08020004 (там адрес обработчика прерывания сброса)
     Мы переходим на него из загрузчика, расположенного по адресу 0x08000000
     */
-#ifdef MODE_Z80
-    
-    Z80_Run();
-    
-#else
-    
+
     Log_EnableLoggerUSB(true);
     main3();
     VCP_Init();
@@ -90,12 +80,8 @@ int main(void)
         Display_Update();                   // Рисуем экран.
         Disable_IfNessessary();
     }
-    
-#endif
 }
 
-
-#ifdef MODE_NORMAL
 
 //------------------------------------------------------------------------------------------------------------------------------------------------------
 void ProcessingSignal(void)
@@ -188,5 +174,3 @@ static void StopDrawWelcomeScreen(void)
 {
     Display_SetDrawMode(DrawMode_Auto, 0);
 }
-
-#endif
