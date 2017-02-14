@@ -133,7 +133,7 @@ static void WriteBufferWords(uint address, void *buffer, int numWords);
 static void WriteBufferBytes(uint address, void *buffer, int numBytes);
 static void PrepareSectorForData(void);
 static void ReadBufferBytes(uint addressSrc, void *bufferDest, int size);
-static void EraseSector(uint startAddress);
+static bool EraseSector(uint startAddress);
 static uint GetSector(uint startAddress);
 static RecordConfig* LastFilledRecord(void);    // Возвращает адрес последней записи с сохранёнными настройками или 0, если нет сохранённых настроек
 
@@ -378,8 +378,13 @@ static void ReadBufferBytes(uint addressSrc, void *bufferDest, int size)
 
 
 //------------------------------------------------------------------------------------------------------------------------------------------------------
-static void EraseSector(uint startAddress)
+static bool EraseSector(uint startAddress)
 {
+    if (GetSector(startAddress) == MAX_UINT)    // если неизвестный сектор
+    {
+        return false;
+    }
+
     CLEAR_FLASH_FLAGS
 
     HAL_FLASH_Unlock();
@@ -399,6 +404,8 @@ static void EraseSector(uint startAddress)
     HAL_FLASHEx_Erase(&flashITD, &error);
 
     HAL_FLASH_Lock();
+
+    return true;
 }
 
 
@@ -411,45 +418,33 @@ static uint GetSector(uint startAddress)
         uint startAddress;
     } StructSector;
 
-    static const StructSector sectors[24] =
+    static const StructSector sectors[] =
     {
-        {FLASH_SECTOR_0, ADDR_SECTOR_BOOT_0},
-        {FLASH_SECTOR_1, ADDR_SECTOR_BOOT_1},
-        {FLASH_SECTOR_2, ADDR_SECTOR_BOOT_2},
-        {FLASH_SECTOR_3, ADDR_FLASH_SECTOR_3},
-        {FLASH_SECTOR_4, ADDR_SECTOR_NR_SETTINGS},
-        {FLASH_SECTOR_5, ADDR_SECTOR_PROGRAM_0},
-        {FLASH_SECTOR_6, ADDR_SECTOR_PROGRAM_1},
-        {FLASH_SECTOR_7, ADDR_SECTOR_PROGRAM_2},
-        {FLASH_SECTOR_8, ADDR_FLASH_SECTOR_8},
-        {FLASH_SECTOR_9, ADDR_FLASH_SECTOR_9},
-        {FLASH_SECTOR_10, ADDR_SECTOR_RESOURCES},
-        {FLASH_SECTOR_11, ADDR_SECTOR_SETTINGS},
-        {FLASH_SECTOR_12, ADDR_FLASH_SECTOR_12},
-        {FLASH_SECTOR_13, ADDR_FLASH_SECTOR_13},
-        {FLASH_SECTOR_14, ADDR_FLASH_SECTOR_14},
-        {FLASH_SECTOR_15, ADDR_FLASH_SECTOR_15},
-        {FLASH_SECTOR_16, ADDR_DATA_DATA},
-        {FLASH_SECTOR_17, ADDR_DATA_0},
-        {FLASH_SECTOR_18, ADDR_DATA_1},
-        {FLASH_SECTOR_19, ADDR_DATA_2},
-        {FLASH_SECTOR_20, ADDR_DATA_3},
-        {FLASH_SECTOR_21, ADDR_DATA_4},
-        {FLASH_SECTOR_22, ADDR_DATA_5},
-        {FLASH_SECTOR_23, ADDR_DATA_6}
+        {FLASH_SECTOR_4, ADDR_SECTOR_NR_SETTINGS},  // Сюда сохраняются несбрасываемые настройки    64 кБ
+        {FLASH_SECTOR_11, ADDR_SECTOR_SETTINGS},    // Сюда сохраняются сбрасываеме настройки       128 кБ
+        {FLASH_SECTOR_16, ADDR_DATA_DATA},          // Массив адресов данных                        64 кБ
+        {FLASH_SECTOR_17, ADDR_DATA_0},             // + 
+        {FLASH_SECTOR_18, ADDR_DATA_1},             // |
+        {FLASH_SECTOR_19, ADDR_DATA_2},             // | Здесь собственно данные                    6 х 128кБ = 768 кБ
+        {FLASH_SECTOR_20, ADDR_DATA_3},             // |
+        {FLASH_SECTOR_21, ADDR_DATA_4},             // |
+        {FLASH_SECTOR_22, ADDR_DATA_5},             // /
+        {0, 0}
     };
 
-    for(int i = 0; i < 24; i++)
+    int i = 0;
+    while (sectors[i].startAddress)
     {
-        if(sectors[i].startAddress == startAddress)
+        if (sectors[i].startAddress == startAddress)
         {
             return sectors[i].number;
         }
+        i++;
     }
 
-    LOG_ERROR("Неправильный адрес сектора");
+    LOG_ERROR("Неправильный адрес сектора %d", startAddress);
 
-    return (uint)-1;
+    return MAX_UINT;
 }
 
 
@@ -556,7 +551,7 @@ static int SizeDataInAddress(uint address)
 
 
 //------------------------------------------------------------------------------------------------------------------------------------------------------
-void FLASH_SaveData(int num, DataSettings *ds, uint8 *dataA, uint8 *dataB)
+bool FLASH_SaveData(int num, DataSettings *ds, uint8 *dataA, uint8 *dataB)
 {
     int size = sizeof(DataSettings) + NumBytesInData(ds);                   // Количество байт, которые нужно записать
 
@@ -576,12 +571,18 @@ void FLASH_SaveData(int num, DataSettings *ds, uint8 *dataA, uint8 *dataB)
 
     if (IsFirstAddressSectorData(address))                                  // Если это первый адрес сектора
     {
-        EraseSector(address);                                               // то сотрём его перед записью
+        if (!EraseSector(address))                                          // то сотрём его перед записью
+        {
+            return false;
+        }
     }
 
     if (!IsPlacedDataInSector(address, size))                               // Если не хватает места для рамещения в одном секторе
     {
-        EraseSector(StartAddressSector(address) + SIZE_SECTOR_128);         // То стираем следующий сектор
+        if (!EraseSector(StartAddressSector(address) + SIZE_SECTOR_128))     // То стираем следующий сектор
+        {
+            return false;
+        }
     }
     
     array.addr[num] = address;
@@ -602,6 +603,8 @@ void FLASH_SaveData(int num, DataSettings *ds, uint8 *dataA, uint8 *dataB)
     address = array.addr[num] + sizeof(DataSettings);
     address = SaveDataChannel(address, A, ds, dataA);                       // Сохраняем данные каналов
               SaveDataChannel(address, B, ds, dataB);
+
+    return true;
 }
 
 
