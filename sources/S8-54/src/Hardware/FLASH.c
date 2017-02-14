@@ -31,9 +31,9 @@
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Программа и константные данные
-#define ADDR_SECTOR_BOOT_0      ((uint)0x08000000)          // 16k  Загрузчик
-#define ADDR_SECTOR_BOOT_1      ((uint)0x08004000)          // 16k  Загрузчик
-#define ADDR_FLASH_SECTOR_2     ((uint)0x08008000)          // 16k  Загрузчик
+#define ADDR_SECTOR_BOOT_0      ((uint)0x08000000)          // 16k +
+#define ADDR_SECTOR_BOOT_1      ((uint)0x08004000)          // 16k | Загрузчик
+#define ADDR_SECTOR_BOOT_2      ((uint)0x08008000)          // 16k /
 #define ADDR_FLASH_SECTOR_3     ((uint)0x0800C000)          // 16k  TODO Здесь будут храниться идентификационные данные прибора - серийный номер, версия ПО
 #define ADDR_SECTOR_NR_SETTINGS ((uint)0x08010000)          // 64k  Несбрасываемые настройки
 #define SIZE_SECTOR_NR_SETTINGS (64 * 1024)                 // Размер сектора для хранения несбрасываемых настроек
@@ -52,7 +52,7 @@
 #define ADDR_FLASH_SECTOR_14    ((uint)0x08108000)          // 16k
 #define ADDR_FLASH_SECTOR_15    ((uint)0x0810C000)          // 16k
 #define ADDR_DATA_DATA          ((uint)0x08110000)          // 64k  Здесь будем сохранять массивы адресов с нашими данными
-#define ADDR_DATA_0             ((uint)0x08120000)          // 128k |
+#define ADDR_DATA_0             ((uint)0x08120000)          // 128k +
 #define ADDR_DATA_1             ((uint)0x08140000)          // 128k |
 #define ADDR_DATA_2             ((uint)0x08160000)          // 128k |
 #define ADDR_DATA_3             ((uint)0x08180000)          // 128k | Здесь будут храниться собственно данные
@@ -62,7 +62,7 @@
 
 #define SIZE_SECTOR_128         (128 * 1024)
 
-#define SIZE_SECTOR_SETTINGS    (128 * 1024)        // Размер сектора, куда сохраняются настройки, в байтах
+#define SIZE_SECTOR_SETTINGS    (128 * 1024)                // Размер сектора, куда сохраняются настройки, в байтах
 
 #define DATA_START              ADDR_DATA_0
 #define DATA_END                (ADDR_DATA_6 + 128 * 1024)  // На самом указывает на первый байт после области
@@ -415,7 +415,7 @@ static uint GetSector(uint startAddress)
     {
         {FLASH_SECTOR_0, ADDR_SECTOR_BOOT_0},
         {FLASH_SECTOR_1, ADDR_SECTOR_BOOT_1},
-        {FLASH_SECTOR_2, ADDR_FLASH_SECTOR_2},
+        {FLASH_SECTOR_2, ADDR_SECTOR_BOOT_2},
         {FLASH_SECTOR_3, ADDR_FLASH_SECTOR_3},
         {FLASH_SECTOR_4, ADDR_SECTOR_NR_SETTINGS},
         {FLASH_SECTOR_5, ADDR_SECTOR_PROGRAM_0},
