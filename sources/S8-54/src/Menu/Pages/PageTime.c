@@ -2,7 +2,7 @@
 #include "Settings/Settings.h"
 #include "Settings/SettingsTypes.h"
 #include "PageMemory.h"
-#include "FPGA/FPGA_Types.h"
+#include "FPGA/FPGAtypes.h"
 #include "FPGA/FPGA.h"
 #include "Log.h"
 #include "Display/Display.h"

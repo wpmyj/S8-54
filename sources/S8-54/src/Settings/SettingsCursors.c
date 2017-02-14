@@ -4,7 +4,7 @@
 #include "Utils/Math.h"
 #include "Utils/GlobalFunctions.h"
 #include "Menu/MenuFunctions.h"
-#include "FPGA/FPGA_Types.h"
+#include "FPGA/FPGAtypes.h"
 
 
 #include <math.h>

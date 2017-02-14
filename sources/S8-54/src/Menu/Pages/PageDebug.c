@@ -4,7 +4,7 @@
 #include "Display/Display.h"
 #include "Utils/GlobalFunctions.h"
 #include "FPGA/FPGA.h"
-#include "FPGA/FPGA_Types.h"
+#include "FPGA/FPGAtypes.h"
 #include "Hardware/FSMC.h"
 #include "Hardware/Sound.h"
 #include "Log.h"

@@ -1175,16 +1175,6 @@
               <FilePath>.\src\FPGA\FPGA.h</FilePath>
             </File>
             <File>
-              <FileName>FPGA_Settings.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\src\FPGA\FPGA_Settings.c</FilePath>
-            </File>
-            <File>
-              <FileName>FPGA_Types.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\src\FPGA\FPGA_Types.h</FilePath>
-            </File>
-            <File>
               <FileName>FreqMeter.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\src\FPGA\FreqMeter.c</FilePath>
@@ -1203,6 +1193,16 @@
               <FileName>FPGAextensions.h</FileName>
               <FileType>5</FileType>
               <FilePath>.\src\FPGA\FPGAextensions.h</FilePath>
+            </File>
+            <File>
+              <FileName>FPGAsettings.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\src\FPGA\FPGAsettings.c</FilePath>
+            </File>
+            <File>
+              <FileName>FPGAtypes.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\src\FPGA\FPGAtypes.h</FilePath>
             </File>
           </Files>
         </Group>

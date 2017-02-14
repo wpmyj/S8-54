@@ -2,7 +2,7 @@
 
 
 #include "defines.h"
-#include "FPGA/FPGA_Types.h"
+#include "FPGA/FPGAtypes.h"
 #include "Panel/Controls.h"
 #include "Settings/Settings.h"
 

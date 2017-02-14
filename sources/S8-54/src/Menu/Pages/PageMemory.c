@@ -5,7 +5,7 @@
 #include "Menu/FileManager.h"
 #include "Menu/MenuFunctions.h"
 #include "FPGA/FPGA.h"
-#include "FPGA/FPGA_Types.h"
+#include "FPGA/FPGAtypes.h"
 #include "FPGA/DataStorage.h"
 #include "Display/Colors.h"
 #include "Display/Display.h"

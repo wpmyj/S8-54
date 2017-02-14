@@ -3,7 +3,7 @@
 
 #include "Measures.h"
 #include "defines.h"
-#include "FPGA/FPGA_Types.h"
+#include "FPGA/FPGAtypes.h"
 #include "FPGA/DataStorage.h"
 
 

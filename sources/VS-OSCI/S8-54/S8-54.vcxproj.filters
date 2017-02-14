@@ -228,12 +228,6 @@
     <ClCompile Include="..\..\S8-54\src\FPGA\DataStorage.c">
       <Filter>FPGA</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\S8-54\src\FPGA\FPGA.c">
-      <Filter>FPGA</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\S8-54\src\FPGA\FPGA_Settings.c">
-      <Filter>FPGA</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\S8-54\src\FPGA\FreqMeter.c">
       <Filter>FPGA</Filter>
     </ClCompile>
@@ -453,7 +447,13 @@
     <ClCompile Include="..\..\S8-54\src\Hardware\Timer.c">
       <Filter>Hardware</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\S8-54\src\FPGA\FPGAextensions.c">
+    <ClCompile Include="..\..\S8-54\src\FPGA\fpga.c">
+      <Filter>FPGA</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\S8-54\src\FPGA\fpgaExtensions.c">
+      <Filter>FPGA</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\S8-54\src\FPGA\fpgaSettings.c">
       <Filter>FPGA</Filter>
     </ClCompile>
   </ItemGroup>
@@ -588,12 +588,6 @@
       <Filter>Menu\Pages</Filter>
     </ClInclude>
     <ClInclude Include="..\..\S8-54\src\FPGA\DataStorage.h">
-      <Filter>FPGA</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\S8-54\src\FPGA\FPGA.h">
-      <Filter>FPGA</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\S8-54\src\FPGA\FPGA_Types.h">
       <Filter>FPGA</Filter>
     </ClInclude>
     <ClInclude Include="..\..\S8-54\src\FPGA\FreqMeter.h">
@@ -842,7 +836,13 @@
     <ClInclude Include="..\..\S8-54\src\structures.h">
       <Filter>src</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\S8-54\src\FPGA\FPGAextensions.h">
+    <ClInclude Include="..\..\S8-54\src\FPGA\fpga.h">
+      <Filter>FPGA</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\S8-54\src\FPGA\fpgaExtensions.h">
+      <Filter>FPGA</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\S8-54\src\FPGA\fpgaTypes.h">
       <Filter>FPGA</Filter>
     </ClInclude>
   </ItemGroup>

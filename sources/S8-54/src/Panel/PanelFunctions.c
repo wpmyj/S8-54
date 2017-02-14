@@ -2,7 +2,7 @@
 #include "Settings/Settings.h"
 #include "Display/Display.h"
 #include "FPGA/FPGA.h"
-#include "FPGA/FPGA_Types.h"
+#include "FPGA/FPGAtypes.h"
 #include "Menu/Menu.h"
 #include "Menu/MenuFunctions.h"
 #include "Menu/Pages/Definition.h"

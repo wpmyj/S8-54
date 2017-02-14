@@ -3,7 +3,7 @@
 #include "Display/Display.h"
 #include "Panel/Panel.h"
 #include "FPGA/FPGA.h"
-#include "FPGA/FPGA_Types.h"
+#include "FPGA/FPGAtypes.h"
 #include "Utils/Math.h"
 #include "Utils/GlobalFunctions.h"
 #include "Display/Display.h"

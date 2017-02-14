@@ -2,7 +2,7 @@
 #include "Menu/MenuItems.h"
 #include "Settings/Settings.h"
 #include "Utils/GlobalFunctions.h"
-#include "FPGA/FPGA_Types.h"
+#include "FPGA/FPGAtypes.h"
 #include "FPGA/FPGA.h"
 #include "Settings/Settings.h"
 #include "Utils/GlobalFunctions.h"

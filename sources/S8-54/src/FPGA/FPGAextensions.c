@@ -1,6 +1,6 @@
 #include "FPGAextensions.h"
 #include "FPGA/FPGA.h" 
-#include "FPGA/FPGA_Types.h"
+#include "FPGA/FPGAtypes.h"
 #include "Display/Display.h"
 #include "Display/DisplayPrimitives.h"
 #include "Display/Colors.h"
