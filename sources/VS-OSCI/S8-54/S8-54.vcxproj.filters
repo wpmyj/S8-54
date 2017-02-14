@@ -228,9 +228,6 @@
     <ClCompile Include="..\..\S8-54\src\FPGA\DataStorage.c">
       <Filter>FPGA</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\S8-54\src\FPGA\FreqMeter.c">
-      <Filter>FPGA</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\S8-54\src\Settings\Settings.c">
       <Filter>Settings</Filter>
     </ClCompile>

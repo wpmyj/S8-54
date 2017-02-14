@@ -1175,11 +1175,6 @@
               <FilePath>.\src\FPGA\FPGA.h</FilePath>
             </File>
             <File>
-              <FileName>FreqMeter.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\src\FPGA\FreqMeter.c</FilePath>
-            </File>
-            <File>
               <FileName>FPGAextensions.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\src\FPGA\FPGAextensions.c</FilePath>

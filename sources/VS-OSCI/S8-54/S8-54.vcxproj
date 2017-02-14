@@ -197,7 +197,6 @@
     <ClCompile Include="..\..\S8-54\src\FPGA\fpga.c" />
     <ClCompile Include="..\..\S8-54\src\FPGA\fpgaExtensions.c" />
     <ClCompile Include="..\..\S8-54\src\FPGA\fpgaSettings.c" />
-    <ClCompile Include="..\..\S8-54\src\FPGA\FreqMeter.c" />
     <ClCompile Include="..\..\S8-54\src\Globals.c" />
     <ClCompile Include="..\..\S8-54\src\Hardware\FLASH.c" />
     <ClCompile Include="..\..\S8-54\src\Hardware\FSMC.c" />
