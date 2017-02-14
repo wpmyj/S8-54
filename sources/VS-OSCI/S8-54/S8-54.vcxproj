@@ -195,7 +195,7 @@
     </ClCompile>
     <ClCompile Include="..\..\S8-54\src\FPGA\DataStorage.c" />
     <ClCompile Include="..\..\S8-54\src\FPGA\FPGA.c" />
-    <ClCompile Include="..\..\S8-54\src\FPGA\FPGA_Calibration.c" />
+    <ClCompile Include="..\..\S8-54\src\FPGA\FPGAextensions.c" />
     <ClCompile Include="..\..\S8-54\src\FPGA\FPGA_Settings.c" />
     <ClCompile Include="..\..\S8-54\src\FPGA\FreqMeter.c" />
     <ClCompile Include="..\..\S8-54\src\Globals.c" />
@@ -377,7 +377,7 @@
     </ClInclude>
     <ClInclude Include="..\..\S8-54\src\FPGA\DataStorage.h" />
     <ClInclude Include="..\..\S8-54\src\FPGA\FPGA.h" />
-    <ClInclude Include="..\..\S8-54\src\FPGA\FPGA_Calibration.h" />
+    <ClInclude Include="..\..\S8-54\src\FPGA\FPGAextensions.h" />
     <ClInclude Include="..\..\S8-54\src\FPGA\FPGA_Types.h" />
     <ClInclude Include="..\..\S8-54\src\FPGA\FreqMeter.h" />
     <ClInclude Include="..\..\S8-54\src\Globals.h" />

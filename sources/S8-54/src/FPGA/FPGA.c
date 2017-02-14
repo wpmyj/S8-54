@@ -3,7 +3,7 @@
 #include "Display/Display.h"
 #include "FPGA/DataStorage.h"
 #include "FPGA/FPGA_Types.h"
-#include "FPGA/FPGA_Calibration.h"
+#include "FPGA/FPGAextensions.h"
 #include "FPGA/FreqMeter.h"
 #include "Hardware/FSMC.h"
 #include "Hardware/Hardware.h"
@@ -802,90 +802,7 @@ bool ProcessingData(void)
 
 
 //------------------------------------------------------------------------------------------------------------------------------------------------------
-static void FuncDrawAutoFind(void)
-{
-    ACCESS_EXTRAMEM(StrForAutoFind, s);
-
-    Painter_BeginScene(gColorBack);
-
-    Painter_DrawTextC(92, 50, "Идёт поиск сигнала. Подождите.", gColorFill);
-
-    static const int height = 20;
-    static const int width = 240;
-
-    s->progress += s->sign;
-    if (s->sign > 0)
-    {
-        if (s->progress == 240)
-        {
-            s->sign = -1;
-        }
-    }
-    else if (s->progress == 1)
-    {
-        s->sign = 1;
-    }
-
-    Painter_DrawRectangle(40, 100, width, height);
-    Painter_DrawVLine(40 + s->progress, 100, 100 + height);
-
-    Display_DrawConsole();
-
-    Painter_EndScene();
-}
-
-
-//------------------------------------------------------------------------------------------------------------------------------------------------------
-static Range FindRange(Channel ch)
-{
-    PeackDetMode peackDet = PEACKDET;
-
-    FPGA_SetPeackDetMode(PeackDet_Enable);
-
-    for (int range = RangeSize - 1; range >= 0; --range)
-    {
-        FuncDrawAutoFind();
-        FPGA_Stop(false);
-        FPGA_SetRange(ch, (Range)range);
-        FPGA_Start();
-        FPGA_SetRange(ch, (Range)range);
-        while (!ProcessingData()) {};
-        FPGA_Stop(false);
-        uint16 *dataChan = (uint16*)DS_GetData_RAM(ch, 0);
-
-        int i = 0;
-        int iMax = 256;
-
-        for (; i < iMax; i++)
-        {
-            BitSet16 data;
-            data.halfWord = *dataChan;
-            dataChan++;
-            if (data.byte0 > MAX_VALUE || data.byte0 < MIN_VALUE || data.byte1 > MAX_VALUE || data.byte1 < MIN_VALUE)
-            {
-                break;           // Если хоть одно значение вышло за пределы экрана - выходим из цикла чтобы перейти к следующему значению range
-            }
-        }
-        
-        if (i != iMax)  // Если вышли за границы экрана
-        {
-            FPGA_SetPeackDetMode(peackDet);
-            if (range != RangeSize - 1)
-            {
-                ++range;
-            }
-            return (Range)range;
-        }
-    }
-
-    FPGA_SetPeackDetMode(peackDet);
-
-    return (Range)(RangeSize - 1);
-}
-
-
-//------------------------------------------------------------------------------------------------------------------------------------------------------
-static TBase CalculateTBase(float freq)
+TBase CalculateTBase(float freq)
 {
     typedef struct
     {
@@ -938,149 +855,6 @@ static TBase CalculateTBase(float freq)
 }
 
 
-#define TIME_DELAY 10
-
-
-//------------------------------------------------------------------------------------------------------------------------------------------------------
-static bool FindParams(Channel ch, TBase *tBase)
-{
-    FPGA_SetTrigInput(TrigInput_Full);
-
-    FPGA_Start();
-    while (GetBit(ReadFlag(), FL_FREQ_READY) == 0) {};
-    FPGA_Stop(false);
-    float freq = FreqMeter_GetFreq();
-
-    FPGA_SetTrigInput(freq < 1e6f ? TrigInput_LPF : TrigInput_Full);
-
-    FPGA_Start();
-    while (GetBit(ReadFlag(), FL_FREQ_READY) == 0) {};
-    FPGA_Stop(false);
-    freq = FreqMeter_GetFreq();
-
-    if (freq >= 50.0f)
-    {
-        *tBase = CalculateTBase(freq);
-        FPGA_SetTBase(*tBase);
-        FPGA_Start();
-        FPGA_SetTrigInput(freq < 500e3f ? TrigInput_LPF : TrigInput_HPF);
-        return true;
-    }
-    else
-    {
-        FPGA_SetTrigInput(TrigInput_LPF);
-        freq = FreqMeter_GetFreq();
-        if (freq > 0.0f)
-        {
-            *tBase = CalculateTBase(freq);
-            FPGA_SetTBase(*tBase);
-            Timer_PauseOnTime(TIME_DELAY);
-            FPGA_Start();
-            return true;
-        }
-    }
-
-    return false;
-}
-
-
-#undef NUM_MEASURES
-#define NUM_MEASURES 3
-
-//------------------------------------------------------------------------------------------------------------------------------------------------------
-static bool AccurateFindParams(Channel ch)
-{
-    TBase tBase = TBaseSize;
-
-    int i = 0;
-    for (; i < 3; i++)
-    {
-        int numMeasures = 0;
-        FindParams(ch, &tBase);
-        TBase secondTBase = TBaseSize;
-        do
-        {
-            FindParams(ch, &secondTBase);
-            numMeasures++;
-        } while (numMeasures < NUM_MEASURES && tBase == secondTBase);
-        if (numMeasures == NUM_MEASURES)
-        {
-            return true;
-        }
-    }
-    return false;
-}
-
-#undef NUM_MEASURES
-
-
-//------------------------------------------------------------------------------------------------------------------------------------------------------
-static bool FindWave(Channel ch)
-{
-    FuncDrawAutoFind();
-
-    Settings settings = set;    // Сохраняем предыдущие настройки
-
-    FPGA_SetTBase(TBase_20ms);
-    ENABLE(ch) = true;
-    FPGA_SetTrigSource((TrigSource)ch);
-    FPGA_SetTrigLev((TrigSource)ch, TrigLevZero);
-    FPGA_SetRShift(ch, RShiftZero);
-    FPGA_SetModeCouple(ch, ModeCouple_AC);
-
-    Range range = RangeSize;
-
-    while (range != FindRange(ch))
-    {
-        LOG_WRITE("1");
-
-        FuncDrawAutoFind();
-        FPGA_Start();
-        while (!ProcessingData())
-        {
-            FuncDrawAutoFind();
-        };
-        range = FindRange(ch);
-        FPGA_SetRange(ch, range);
-    }
-
-    FuncDrawAutoFind();
-    if (AccurateFindParams(ch))
-    {
-        return true;
-    }
-
-    set = settings;
-    FPGA_LoadSettings();
-    return false;
-}
-
-
-//------------------------------------------------------------------------------------------------------------------------------------------------------
-static void AutoFind(void)
-{
-    // Подготовим структуру, использующуюся для отрисовки прогресс-бара
-    MALLOC_EXTRAMEM(StrForAutoFind, p);
-    p->progress = 0;
-    p->sign = 1;
-
-    FindWave(A);
-    if (!FindWave(A))
-    {
-        FindWave(B);
-        if (!FindWave(B))
-        {
-            Display_ShowWarning(SignalNotFound);
-        }
-    }
-
-    FREE_EXTRAMEM();
-
-    gBF.FPGAneedAutoFind = 0;
-    FPGA_Start();
-}
-
-
 //------------------------------------------------------------------------------------------------------------------------------------------------------
 void FPGA_Update(void)
 {
@@ -1103,7 +877,7 @@ void FPGA_Update(void)
 
 	if(gBF.FPGAneedAutoFind == 1)
     {
-		AutoFind();
+		FPGA_AutoFind();
 		return;
 	}
 
