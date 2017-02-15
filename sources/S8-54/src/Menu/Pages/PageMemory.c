@@ -752,30 +752,18 @@ static void SaveSignalToIntMemory(void)
     {
         if (gDSmemLast != 0)
         {
-            if (!FLASH_SaveData(gMemory.currentNumIntSignal, gDSmemLast, gDataAmemLast, gDataBmemLast))
-            {
-                LOG_ERROR("Не могу сохранить данные");
-            }
-            else
-            {
-                FLASH_GetData(gMemory.currentNumIntSignal, &gDSmemInt, &gDataAmemInt, &gDataBmemInt);
-                Display_ShowWarning(SignalIsSaved);
-            }
+            FLASH_SaveData(gMemory.currentNumIntSignal, gDSmemLast, gDataAmemLast, gDataBmemLast);
+            FLASH_GetData(gMemory.currentNumIntSignal, &gDSmemInt, &gDataAmemInt, &gDataBmemInt);
+            Display_ShowWarning(SignalIsSaved);
         }
     }
     else
     {
         if (gDSet != 0)
         {
-            if (!FLASH_SaveData(gMemory.currentNumIntSignal, gDSet, gDataA, gDataB))
-            {
-                LOG_ERROR("Не могу сохранить данные");
-            }
-            else
-            {
-                FLASH_GetData(gMemory.currentNumIntSignal, &gDSet, &gDataAmemInt, &gDataBmemInt);
-                Display_ShowWarning(SignalIsSaved);
-            }
+            FLASH_SaveData(gMemory.currentNumIntSignal, gDSet, gDataA, gDataB);
+            FLASH_GetData(gMemory.currentNumIntSignal, &gDSet, &gDataAmemInt, &gDataBmemInt);
+            Display_ShowWarning(SignalIsSaved);
         }
     }
 }

@@ -821,7 +821,7 @@ static bool FindRange2(Channel ch)
         ¬ключаем пиковый детектор.
     */
 
-    Settings settings = set;
+//    Settings settings = set;
 
     FPGA_SetTBase(TBase_20ms);
     ENABLE(ch) = true;

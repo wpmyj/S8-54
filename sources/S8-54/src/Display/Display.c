@@ -289,7 +289,6 @@ void Display_Update(void)
 
     DrawTimeForFrame(gTimerTics - timeStart);
 
-
     Painter_EndScene();
 
     if(gMemory.needForSaveToFlashDrive == 1)

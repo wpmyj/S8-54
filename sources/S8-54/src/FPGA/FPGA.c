@@ -135,7 +135,7 @@ void FPGA_SwitchingTrig(void)
 
 
 //------------------------------------------------------------------------------------------------------------------------------------------------------
-static uint16 ReadFlag(void)
+uint16 ReadFlag(void)
 {
     uint16 flag = FSMC_READ(RD_FL);
 
