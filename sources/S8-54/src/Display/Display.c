@@ -694,7 +694,8 @@ static void DrawLowPart(void)
     Painter_DrawVLineC(x + 95, GRID_BOTTOM + 2, SCREEN_HEIGHT - 2, gColorFill);
 
     x += 98;
-    char buffer[100] ={0};
+    const int SIZE = 100;
+    char buffer[SIZE] ={0};
 
     TBase tBase = TBASE;
     int16 tShift = TSHIFT;
@@ -708,19 +709,19 @@ static void DrawLowPart(void)
             tShift = ds->tShift;
         }
     }
-    sprintf(buffer, "ð\xa5%s", Tables_GetTBaseString(tBase));
+    snprintf(buffer, SIZE, "ð\xa5%s", Tables_GetTBaseString(tBase));
     Painter_DrawText(x, y0, buffer);
 
     buffer[0] = 0;
     char bufForVal[20];
-    sprintf(buffer, "\xa5%s", FPGA_GetTShiftString(tShift, bufForVal));
+    snprintf(buffer, SIZE, "\xa5%s", FPGA_GetTShiftString(tShift, bufForVal));
     Painter_DrawText(x + 35, y0, buffer);
 
     buffer[0] = 0;
     const char *source[3] ={"1", "2", "\x82"};
     if(WORK_DIRECT)
     {
-        sprintf(buffer, "ñ\xa5\x10%s", source[TRIGSOURCE]);
+        snprintf(buffer, 100, "ñ\xa5\x10%s", source[TRIGSOURCE]);
     }
 
     Painter_DrawTextC(x, y1, buffer, ColorTrig());
@@ -747,7 +748,7 @@ static void DrawLowPart(void)
     };
     if(WORK_DIRECT)
     {
-        sprintf(buffer, "\xa5\x10%s\x10\xa5\x10%s\x10\xa5\x10", couple[TRIG_INPUT], polar[TRIG_POLARITY]);
+        snprintf(buffer, SIZE, "\xa5\x10%s\x10\xa5\x10%s\x10\xa5\x10", couple[TRIG_INPUT], polar[TRIG_POLARITY]);
         Painter_DrawText(x + 18, y1, buffer);
         Painter_DrawChar(x + 45, y1, filtr[TRIG_INPUT][0]);
         Painter_DrawChar(x + 53, y1, filtr[TRIG_INPUT][1]);
@@ -762,7 +763,7 @@ static void DrawLowPart(void)
     };
     if(WORK_DIRECT)
     {
-        sprintf(buffer, "\xa5\x10%c", mode[START_MODE]);
+        snprintf(buffer, 100, "\xa5\x10%c", mode[START_MODE]);
         Painter_DrawText(x + 63, y1, buffer);
     }
 
@@ -1195,7 +1196,8 @@ static void DrawTimeForFrame(uint timeTicks)
     {
         return;
     }
-    static char buffer[10];
+    const int SIZE = 20;
+    static char buffer[SIZE];
     static bool first = true;
     static uint timeMSstartCalculation = 0;
     static int numFrames = 0;
@@ -1210,7 +1212,7 @@ static void DrawTimeForFrame(uint timeTicks)
 
     if((gTimerMS - timeMSstartCalculation) >= 500)
     {
-        sprintf(buffer, "%.1fms/%d", numMS / numFrames, numFrames * 2);
+        snprintf(buffer, SIZE, "%.1fms/%d", numMS / numFrames, numFrames * 2);
         timeMSstartCalculation = gTimerMS;
         numMS = 0.0f;
         numFrames = 0;
@@ -1220,11 +1222,11 @@ static void DrawTimeForFrame(uint timeTicks)
     Painter_FillRegionC(GridLeft() + 1, GridFullBottom() - 9, 82, 8, gColorBack);
     Painter_DrawTextC(GridLeft() + 2, GridFullBottom() - 9, buffer, gColorFill);
 
-    char message[20] ={0};
-    sprintf(message, "%d", DS_NumElementsWithSameSettings());
+    char message[SIZE] ={0};
+    snprintf(message, SIZE, "%d", DS_NumElementsWithSameSettings());
     strcat(message, "/");
     char numAvail[10] ={0};
-    sprintf(numAvail, "%d", DS_NumberAvailableEntries());
+    snprintf(numAvail, SIZE, "%d", DS_NumberAvailableEntries());
     strcat(message, numAvail);
     Painter_DrawText(GridLeft() + 50, GridFullBottom() - 9, message);
 }
@@ -1304,8 +1306,9 @@ static void AddString(const char *string)
         return;
     }
     static int num = 0;
-    char buffer[100];
-    sprintf(buffer, "%d\x11", num++);
+    const int SIZE = 100;
+    char buffer[SIZE];
+    snprintf(buffer, SIZE, "%d\x11", num++);
     strcat(buffer, string);
     int size = strlen(buffer) + 1;
     while(CalculateFreeSize() < size)
@@ -1706,14 +1709,14 @@ static void WriteTextVoltage(Channel ch, int x, int y)
         }
 
         const int SIZE = 100;
-        char buffer[SIZE] = {0};
+        char buffer[SIZE];
 
         snprintf(buffer, SIZE, "%s\xa5%s\xa5%s", (ch == A) ? (LANG_RU ? "1ê" : "1c") : (LANG_RU ? "2ê" : "2c"), couple[modeCouple], sChannel_Range2String(range, divider));
 
         Painter_DrawTextC(x + 1, y, buffer, colorDraw);
 
-        char bufferTemp[20];
-        sprintf(buffer, "\xa5%s", sChannel_RShift2String((int16)rShift, range, divider, bufferTemp));
+        char bufferTemp[SIZE];
+        snprintf(buffer, SIZE, "\xa5%s", sChannel_RShift2String((int16)rShift, range, divider, bufferTemp));
         Painter_DrawText(x + 46, y, buffer);
     }
 }
@@ -1722,15 +1725,16 @@ static void WriteTextVoltage(Channel ch, int x, int y)
 //----------------------------------------------------------------------------------------------------------------------------------------------------
 static void WriteStringAndNumber(char *text, int16 x, int16 y, int number)
 {
-    char buffer[100];
+    const int SIZE = 100;
+    char buffer[SIZE];
     Painter_DrawTextC(x, y, text, gColorFill);
     if(number == 0)
     {
-        sprintf(buffer, "-");
+        snprintf(buffer, SIZE, "-");
     }
     else
     {
-        sprintf(buffer, "%d", number);
+        snprintf(buffer, SIZE, "%d", number);
     }
     Painter_DrawTextRelativelyRight(x + 41, y, buffer);
 }

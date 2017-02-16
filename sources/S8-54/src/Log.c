@@ -36,8 +36,9 @@ void Log_Error(const char *module, const char *func, int numLine, char *format, 
     va_start(args, format);
     vsprintf(buffer, format, args);
     va_end(args);
-    char numBuffer[20];
-    sprintf(numBuffer, ":%d", numLine);
+    const int SIZE = 20;
+    char numBuffer[SIZE];
+    snprintf(numBuffer, 100, ":%d", numLine);
     message[0] = 0;
     strcat(message, "!!!ERROR!!! ");
     strcat(message, module);

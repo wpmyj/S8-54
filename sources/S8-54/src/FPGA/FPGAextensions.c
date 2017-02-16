@@ -299,17 +299,18 @@ void DrawParametersChannel(Channel ch, int eX, int eY, bool inProgress)
         int x = inProgress ? 5 : eX;
         int y = eY + (inProgress ? 110 : 0);
         Painter_DrawText(x, y, "Отклонение от нуля:");
-        char buffer[100] = {0};
-        sprintf(buffer, "АЦП1 = %.2f/%.2f, АЦП2 = %.2f/%.2f, d = %.2f/%.2f", cal->avrADC1old[ch] - AVE_VALUE, cal->avrADC1[ch] - AVE_VALUE,
+        const int SIZE = 100;
+        char buffer[SIZE] = {0};
+        snprintf(buffer, SIZE, "АЦП1 = %.2f/%.2f, АЦП2 = %.2f/%.2f, d = %.2f/%.2f", cal->avrADC1old[ch] - AVE_VALUE, cal->avrADC1[ch] - AVE_VALUE,
                 cal->avrADC2old[ch] - AVE_VALUE, cal->avrADC2[ch] - AVE_VALUE,
                 cal->deltaADCold[ch], cal->deltaADC[ch]);
         y += 10;
         Painter_DrawText(x, y, buffer);
         buffer[0] = 0;
-        sprintf(buffer, "Расхождение AЦП = %.2f/%.2f %%", cal->deltaADCPercentsOld[ch], cal->deltaADCPercents[ch]);
+        snprintf(buffer, SIZE, "Расхождение AЦП = %.2f/%.2f %%", cal->deltaADCPercentsOld[ch], cal->deltaADCPercents[ch]);
         Painter_DrawText(x, y + 11, buffer);
         buffer[0] = 0;
-        sprintf(buffer, "Записано %d", BALANCE_ADC(ch));
+        snprintf(buffer, SIZE, "Записано %d", BALANCE_ADC(ch));
         Painter_DrawText(x, y + 19, buffer);
     }
 }
@@ -347,8 +348,9 @@ static void DrawMessageErrorCalibrate(Channel ch)
     Painter_SetColor(COLOR_FLASH_01);
     Painter_DrawBigText(100, 30, 2, "ВНИМАНИЕ !!!");
 
-    char buffer[100];
-    sprintf(buffer, "Канал %d не скалиброван.", (int)ch + 1);
+    const int SIZE = 100;
+    char buffer[SIZE];
+    snprintf(buffer, SIZE, "Канал %d не скалиброван.", (int)ch + 1);
     Painter_DrawBigText(50, 70, 2, buffer);
 
     Painter_DrawStringInCenterRectC(0, 200, 319, 40, "Для продолжения нажмите кнопку ПУСК/СТОП", gColorFill);
@@ -462,8 +464,9 @@ void FuncAttScreen(void)
     DrawStringInCenterRect(x, y - delta, width, height, "ОТМЕНИТЬ", COLOR_BLACK, false);
     }
     */
-    char buffer[100];
-    sprintf(buffer, "%.1f", (gTimerMS - startTime) / 1000.0f);
+    const int SIZE = 100;
+    char buffer[SIZE];
+    snprintf(buffer, SIZE, "%.1f", (gTimerMS - startTime) / 1000.0f);
     Painter_DrawTextC(0, 0, buffer, COLOR_BLACK);
 
     Painter_EndScene();

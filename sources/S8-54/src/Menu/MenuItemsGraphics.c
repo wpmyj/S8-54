@@ -129,7 +129,8 @@ void DrawGovernorLowPart(Governor *governor, int x, int y, bool pressed, bool sh
 //------------------------------------------------------------------------------------------------------------------------------------------------------
 static void DrawIPaddressLowPart(IPaddress *ip, int x, int y, bool pressed, bool shade)
 {
-    char buffer[20];
+    const int SIZE = 20;
+    char buffer[SIZE];
 
     Color colorTextDown = COLOR_BLACK;
 
@@ -140,7 +141,7 @@ static void DrawIPaddressLowPart(IPaddress *ip, int x, int y, bool pressed, bool
         colorTextDown = ColorMenuItem(false);
     }
 
-    sprintf(buffer, "%03d.%03d.%03d.%03d", *ip->ip0, *ip->ip1, *ip->ip2, *ip->ip3);
+    snprintf(buffer, SIZE, "%03d.%03d.%03d.%03d", *ip->ip0, *ip->ip1, *ip->ip2, *ip->ip3);
 
     if (OpenedItem() != ip)
     {
@@ -157,7 +158,8 @@ static void DrawIPaddressLowPart(IPaddress *ip, int x, int y, bool pressed, bool
 //------------------------------------------------------------------------------------------------------------------------------------------------------
 static void DrawMACaddressLowPart(MACaddress *mac, int x, int y, bool pressed, bool shade)
 {
-    char buffer[20];
+    const int SIZE = 20;
+    char buffer[SIZE];
 
     Color colorTextDown = COLOR_BLACK;
 
@@ -168,7 +170,7 @@ static void DrawMACaddressLowPart(MACaddress *mac, int x, int y, bool pressed, b
         colorTextDown = ColorMenuItem(false);
     }
 
-    sprintf(buffer, "%02X.%02X.%02X.%02X.%02X.%02X", *mac->mac0, *mac->mac1, *mac->mac2, *mac->mac3, *mac->mac4, *mac->mac5);
+    snprintf(buffer, SIZE, "%02X.%02X.%02X.%02X.%02X.%02X", *mac->mac0, *mac->mac1, *mac->mac2, *mac->mac3, *mac->mac4, *mac->mac5);
 
     if (OpenedItem() != mac)
     {
@@ -380,8 +382,9 @@ static void DrawMACvalue(int x, int y, MACaddress *mac)
         {
             Painter_FillRegionC(x - 1, y, 10, 8, COLOR_WHITE);
         }
-        char buffer[20];
-        sprintf(buffer, "%02X", value);
+        const int SIZE = 20;
+        char buffer[SIZE];
+        snprintf(buffer, SIZE, "%02X", value);
         Painter_DrawTextC(x, y, buffer, gCurDigit == num ? COLOR_BLACK : COLOR_WHITE);
         x -= 12;
     }

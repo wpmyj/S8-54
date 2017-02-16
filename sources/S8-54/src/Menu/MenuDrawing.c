@@ -72,8 +72,9 @@ static void DrawHintItem(int x, int y, int width)
     Language lang = LANG;
     Page *item = (Page*)gItemHint;
 
-    char title[100];
-    sprintf(title, "%s \"%s\"", names[type][lang], item->title[lang]);
+    const int SIZE = 100;
+    char title[SIZE];
+    snprintf(title, SIZE, "%s \"%s\"", names[type][lang], item->title[lang]);
 
     if (item->type == Item_SmallButton)
     {

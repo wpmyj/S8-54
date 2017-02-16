@@ -85,7 +85,7 @@ char* Float2String(float value, bool alwaysSign, int numDigits, char bufferOut[2
         format[5] = '.';
     }
     
-    sprintf(pBuffer, format, fabsf(value));
+    snprintf(pBuffer, format, fabsf(value));
 
     float val = (float)atof(pBuffer);
 
@@ -97,7 +97,7 @@ char* Float2String(float value, bool alwaysSign, int numDigits, char bufferOut[2
         {
             format[5] = '.';
         }
-        sprintf(pBuffer, format, value);
+        snprintf(pBuffer, format, value);
     }
 
     bool signExist = alwaysSign || value < 0;
@@ -114,16 +114,16 @@ char* Float2String(float value, bool alwaysSign, int numDigits, char bufferOut[2
 char* Int2String(int value, bool alwaysSign, int numMinFields, char buffer[20])
 {
     char format[20] = "%";
-    sprintf(&(format[1]), "0%d", numMinFields);
+    snprintf(&(format[1]), "0%d", numMinFields);
     strcat(format, "d");
     if(alwaysSign && value >= 0)
     {
         buffer[0] = '+';
-        sprintf(buffer + 1, format, value);
+        snprintf(buffer + 1, format, value);
     }
     else
     {
-        sprintf(buffer, format, value);
+        snprintf(buffer, format, value);
     }
     return buffer;
 }
@@ -165,7 +165,7 @@ bool String2Int(char *str, int *value)
 //------------------------------------------------------------------------------------------------------------------------------------------------------
 char* Hex8toString(uint8 value, char buffer[3], bool upper)
 {
-    sprintf(value < 16 ? (buffer[0] = '0', buffer + 1) :  (buffer), upper ? "%X" : "%x", value);
+    snprintf(value < 16 ? (buffer[0] = '0', buffer + 1) :  (buffer), upper ? "%X" : "%x", value);
     return buffer;
 }
 
@@ -173,7 +173,7 @@ char* Hex8toString(uint8 value, char buffer[3], bool upper)
 //------------------------------------------------------------------------------------------------------------------------------------------------------
 char* Hex16toString(uint16 value, char buffer[5], bool upper)
 {
-    sprintf(buffer, "%04X", value);
+    snprintf(buffer, "%04X", value);
     return buffer;
 }
 
@@ -270,7 +270,7 @@ char* Time2StringAccuracy(float time, bool alwaysSign, char buffer[20], int numD
 char* Phase2String(float phase, bool empty, char bufferOut[20])
 {
     char buffer[20];
-    sprintf(bufferOut, "%s\xa8", Float2String(phase, false, 4, buffer));
+    snprintf(bufferOut, "%s\xa8", Float2String(phase, false, 4, buffer));
     return bufferOut;
 }
 

@@ -1282,7 +1282,7 @@ char* Processing_GetStringMeasure(Measure measure, Channel ch, char* buffer, int
         return "";
     }
     buffer[0] = '\0';
-    sprintf(buffer, ch == A ? "1: " : "2: ");
+    snprintf(buffer, 20, ch == A ? "1: " : "2: ");
     if(!isSet || values[measure].value[ch] == ERROR_VALUE_FLOAT)
     {
         strcat(buffer, "-.-");
