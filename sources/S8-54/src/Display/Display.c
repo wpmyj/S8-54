@@ -686,7 +686,7 @@ static void DrawLowPart(void)
 
     Painter_DrawHLineC(GridChannelBottom(), 1, GridLeft() - Measure_GetDeltaGridLeft() - 2, gColorFill);
     Painter_DrawHLine(GridFullBottom(), 1, GridLeft() - Measure_GetDeltaGridLeft() - 2);
-
+    
     WriteTextVoltage(A, x + 2, y0);
 
     WriteTextVoltage(B, x + 2, y1);
@@ -1705,9 +1705,10 @@ static void WriteTextVoltage(Channel ch, int x, int y)
             Painter_FillRegionC(x, y, widthField, heightField, color);
         }
 
-        char buffer[100] ={0};
-        sprintf(buffer, "%s\xa5%s\xa5%s", (ch == A) ? (LANG_RU ? "1ê" : "1c") : (LANG_RU ? "2ê" : "2c"), couple[modeCouple],
-                sChannel_Range2String(range, divider));
+        const int SIZE = 100;
+        char buffer[SIZE] = {0};
+
+        snprintf(buffer, SIZE, "%s\xa5%s\xa5%s", (ch == A) ? (LANG_RU ? "1ê" : "1c") : (LANG_RU ? "2ê" : "2c"), couple[modeCouple], sChannel_Range2String(range, divider));
 
         Painter_DrawTextC(x + 1, y, buffer, colorDraw);
 
