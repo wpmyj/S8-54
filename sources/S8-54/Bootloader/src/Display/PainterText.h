@@ -27,4 +27,5 @@ void    Painter_Draw2SymbolsC(int x, int y, char symbol1, char symbol2, Color co
 void    Painter_Draw4SymbolsInRect(int x, int y, char eChar);
 void    Painter_Draw10SymbolsInRect(int x, int y, char eChar);
 int     Painter_DrawTextInRectWithTransfers(int x, int y, int width, int height, const char *text);                             // Пишет текст с переносами
+int     Painter_DrawBigChar(int x, int y, int size, char symbol);
 void    Painter_DrawBigText(int x, int y, int size, const char *text);

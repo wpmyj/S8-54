@@ -118,7 +118,7 @@ static void DrawCharInColorDisplay(int eX, int eY, uchar symbol)
 
 
 //---------------------------------------------------------------------------------------------------------------------------------------------------
-static int Painter_DrawBigChar(int eX, int eY, int size, char symbol)
+int Painter_DrawBigChar(int eX, int eY, int size, char symbol)
 {
     int8 width = font->symbol[symbol].width;
     int8 height = (int8)font->height;

@@ -2,10 +2,13 @@
 #include "Painter.h"
 #include "Hardware/Timer.h"
 #include "main.h"
+#include "Utils/Math.h"
 
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 static void DrawProgressBar(uint dT);
+static void DrawBigMNIPI(uint dT);
+static void DrawLetter(uint dT, int numLetter, char letter);
 
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -77,7 +80,7 @@ void Display_Update(void)
         Painter_BeginScene(gColorBack);
         Painter_SetColor(gColorFill);
         Painter_DrawRectangle(0, 0, 319, 239);
-        Painter_DrawBigText(32, 50, 9, "МНИПИ");
+        DrawBigMNIPI(dT);
         Painter_DrawStringInCenterRect(0, 180, 320, 20, "Для получения помощи нажмите и удерживайте кнопку ПОМОЩЬ");
         Painter_DrawStringInCenterRect(0, 205, 320, 20, "Отдел маркетинга: тел./факс. 8-017-262-57-50");
         Painter_DrawStringInCenterRect(0, 220, 320, 20, "Разработчики: e-mail: mnipi-24(@)tut.by, тел. 8-017-262-57-51");
@@ -157,4 +160,46 @@ void DrawProgressBar(uint dT)
 bool Display_IsRun(void)
 {
     return ms->display.isRun;
+}
+
+
+//----------------------------------------------------------------------------------------------------------------------------------------------------
+static void DrawBigMNIPI(uint dT)
+{
+    char *letter = "МНИПИ";
+
+    for (int i = 0; i < 5; i++)
+    {
+        DrawLetter(dT, i, letter[i]);
+    }
+}
+
+
+//----------------------------------------------------------------------------------------------------------------------------------------------------
+static void DrawLetter(uint dT, int numLetter, char letter)
+{
+    static int prevX = 0;
+    static uint time = 0;
+    if (numLetter == 0)
+    {
+        time += dT;
+    }
+    int x = 100;
+    int startY[5] = {-100};
+
+    for (int i = 1; i < 5; i++)
+    {
+        startY[i] = startY[i - 1] - 50;
+    }
+
+    int stopY = 70;
+    float speed = 0.4f;
+    
+    int y = startY[numLetter] + time * speed;
+    LIMIT_BELOW(y, startY[0]);
+    LIMIT_ABOVE(y, stopY);
+
+    x = numLetter == 0 ? 25 : prevX;
+
+    prevX = Painter_DrawBigChar(x + 9, y, 9, letter);
 }

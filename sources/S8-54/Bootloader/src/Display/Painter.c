@@ -214,6 +214,10 @@ void Painter_DrawHPointLine(int y, int x0, int x1, float delta)
 //------------------------------------------------------------------------------------------------------------------------------------------------------
 void Painter_SetPoint(int x, int y)
 {
+    if (x < 0 || y < 0)
+    {
+        return;
+    }
     uint8 command[4];
     command[0] = SET_POINT;
     *((int16*)(command + 1)) = (int16)x;
