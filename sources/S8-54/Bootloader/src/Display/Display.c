@@ -72,7 +72,7 @@ void Display_Update(void)
 
     Painter_SetColor(COLOR_WHITE);
 
-    if (ms->state == State_Start)
+    if (ms->state == State_Start || ms->state == State_Ok)
     {
         Painter_BeginScene(gColorBack);
         Painter_SetColor(gColorFill);

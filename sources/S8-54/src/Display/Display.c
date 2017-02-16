@@ -111,7 +111,6 @@ static uint numDrawingSignals = 0;      // Число нарисованных сигналов для режим
 
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-static void InitHardware(void);
 static void SetOrientation(void);
 
 static bool NeedForClearScreen(void);
@@ -188,7 +187,7 @@ void Display_Init(void)
 
     Painter_ResetFlash();
 
-    InitHardware();
+    //InitHardware();
 
     Painter_LoadPalette(0);
     Painter_LoadPalette(1);
@@ -505,22 +504,6 @@ void Display_ShowWarning(Warning warning)
     {
         Sound_WarnBeepBad();
     }
-}
-
-
-//----------------------------------------------------------------------------------------------------------------------------------------------------
-static void InitHardware(void)
-{
-    GPIO_InitTypeDef isGPIO_ =
-    {
-        GPIO_PIN_11,
-        GPIO_MODE_INPUT,
-        GPIO_NOPULL,
-        GPIO_SPEED_HIGH,
-        GPIO_AF0_MCO,
-    };
-    // Сигнал готовности дисплея  к приёму команды
-    HAL_GPIO_Init(GPIOG, &isGPIO_);
 }
 
 
