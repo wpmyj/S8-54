@@ -21,8 +21,6 @@ extern void main3(void);
 #define TICS ((gTimerTics - time) / 120.0f)
 
 static void ProcessingSignal(void);
-static void DrawWelcomeScreen(void);
-static void StopDrawWelcomeScreen(void);
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 static void Disable_IfNessessary(void)
@@ -55,17 +53,10 @@ int main(void)
     VCP_Init();
     Settings_Load(false);
     FPGA_Init();
-    Timer_PauseOnTime(250);
     FPGA_OnPressStartStop();
     Display_Init();
     Ethernet_Init();
     Menu_Init();
-
-    if (set.service.screenWelcomeEnable)
-    {
-        Display_SetDrawMode(DrawMode_Hand, DrawWelcomeScreen);
-        Timer_SetAndStartOnce(kTemp, StopDrawWelcomeScreen, 1000);
-    }
 
     bool run = true;
     while(run)
@@ -152,25 +143,4 @@ void ProcessingSignal(void)
     }
 
     CursorsUpdate();    // В случае, если находимся в режиме курсорных измерений, обновляем их положение, если нужно.
-}
-
-
-//------------------------------------------------------------------------------------------------------------------------------------------------------
-static void DrawWelcomeScreen(void)
-{
-    Painter_BeginScene(gColorBack);
-    Painter_SetColor(gColorFill);
-    Painter_DrawRectangle(0, 0, 319, 239);
-    Painter_DrawBigText(32, 50, 9, "МНИПИ");
-    Painter_DrawStringInCenterRect(0, 180, 320, 20, "Для получения помощи нажмите и удерживайте кнопку ПОМОЩЬ");
-    Painter_DrawStringInCenterRect(0, 205, 320, 20, "Отдел маркетинга: тел./факс. 8-017-262-57-50");
-    Painter_DrawStringInCenterRect(0, 220, 320, 20, "Разработчики: e-mail: mnipi-24(@)tut.by, тел. 8-017-262-57-51");
-    Painter_EndScene();
-}
-
-
-//------------------------------------------------------------------------------------------------------------------------------------------------------
-static void StopDrawWelcomeScreen(void)
-{
-    Display_SetDrawMode(DrawMode_Auto, 0);
 }

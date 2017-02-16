@@ -190,7 +190,6 @@ typedef struct
 // Эти настройки меняются через МЕНЮ -> СЕРВИС
 typedef struct
 {
-    bool                screenWelcomeEnable;    // Будет ли показываться экран приглашения при включении прибора.
     bool                soundEnable;            // Включены ли звуки.
     int16               soundVolume;            // Громкость звука [0...100]
     CalibratorMode      calibrator;             // Режим работы калибратора.

@@ -72,7 +72,18 @@ void Display_Update(void)
 
     Painter_SetColor(COLOR_WHITE);
 
-    if (ms->state == State_Mount)
+    if (ms->state == State_Start)
+    {
+        Painter_BeginScene(gColorBack);
+        Painter_SetColor(gColorFill);
+        Painter_DrawRectangle(0, 0, 319, 239);
+        Painter_DrawBigText(32, 50, 9, "МНИПИ");
+        Painter_DrawStringInCenterRect(0, 180, 320, 20, "Для получения помощи нажмите и удерживайте кнопку ПОМОЩЬ");
+        Painter_DrawStringInCenterRect(0, 205, 320, 20, "Отдел маркетинга: тел./факс. 8-017-262-57-50");
+        Painter_DrawStringInCenterRect(0, 220, 320, 20, "Разработчики: e-mail: mnipi-24(@)tut.by, тел. 8-017-262-57-51");
+        Painter_EndScene();
+    }
+    else if (ms->state == State_Mount)
     {
         DrawProgressBar(dT);
     }

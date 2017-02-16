@@ -185,7 +185,6 @@ static const Settings defaultSettings =
     },
     // service
     {
-        true,                       // screenWelcomeEnable
         true,                       // soundEnable
         15,                         // soundVolume
         Calibrator_Freq,            // calibrator

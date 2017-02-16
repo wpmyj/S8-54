@@ -30,7 +30,6 @@ static void  OnPress_AutoSearch(void);
 static const Choice mcRecorder;
 static void  OnChange_Recorder(bool active);
 static const Choice mcLanguage;
-static const Choice mcWelcomeScreen;
 
 static const Page mspCalibrator;
 static const Choice mcCalibrator;
@@ -69,8 +68,7 @@ const Page mpService =
         (void*)&mspEthernet,        // СЕРВИС - ETHERNET
         (void*)&mspSound,           // СЕРВИС - ЗВУК
         (void*)&mspTime,            // СЕРВИС - ВРЕМЯ
-        (void*)&mcLanguage,         // СЕРВИС - Язык
-        (void*)&mcWelcomeScreen     // СЕРВИС - Заставка
+        (void*)&mcLanguage          // СЕРВИС - Язык
     }
 };
 
@@ -177,23 +175,6 @@ static const Choice mcLanguage =
         {"Английский",  "English"}
     },
     (int8*)&set.common.lang, EmptyFuncVB, EmptyFuncVII
-};
-
-
-// СЕРВИС - Заставка ---------------------------------------------------------------------------------------------------------------------------------
-static const Choice mcWelcomeScreen =
-{
-    Item_Choice, &mpService, {"Заставка", "Logo"},
-    {
-        "Позволяет отключить заставку при включении прибора",
-        "It allows you to disable the splash screen when the device is turned on"
-    },
-    EmptyFuncBV,
-    {
-        {DISABLE_RU, DISABLE_EN},
-        {ENABLE_RU, ENABLE_EN}
-    },
-    (int8*)&set.service.screenWelcomeEnable, EmptyFuncVB, EmptyFuncVII
 };
 
 
