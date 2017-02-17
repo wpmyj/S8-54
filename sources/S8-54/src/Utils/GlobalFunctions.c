@@ -232,7 +232,7 @@ char*   Bin2String16(uint16 value, char valBuffer[19])
 //------------------------------------------------------------------------------------------------------------------------------------------------------
 char* Hex8toString(uint8 value, char buffer[3], bool upper)
 {
-    sprintf(value < 16 ? (buffer[0] = '0', buffer + 1) :  (buffer), upper ? "%X" : "%x", value);
+    sprintf(buffer, upper ? "%02X" : "%02x", value);
     return buffer;
 }
 
@@ -240,7 +240,15 @@ char* Hex8toString(uint8 value, char buffer[3], bool upper)
 //------------------------------------------------------------------------------------------------------------------------------------------------------
 char* Hex16toString(uint16 value, char buffer[5], bool upper)
 {
-    sprintf(buffer, "%04X", value);
+    sprintf(buffer, upper ? "%04X" : "%04x", value);
+    return buffer;
+}
+
+
+//----------------------------------------------------------------------------------------------------------------------------------------------------
+char* Hex32toString(uint16 value, char buffer[9], bool upper)
+{
+    sprintf(buffer, upper ? "%08X" : "%08x", value);
     return buffer;
 }
 

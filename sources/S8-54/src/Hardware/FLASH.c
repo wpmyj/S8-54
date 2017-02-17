@@ -247,7 +247,7 @@ static bool LoadNonResetSettings(void)
             if (READ_WORD(address) == MAX_UINT)
             {
                 address -= SIZE_NR_SET_PARAGRAPH;                               // ѕерешли на последнее сохранение
-                ReadBufferBytes(address + 4, &setNR, sizeof(setNR));   // —читывать мы должны именно 
+                ReadBufferBytes(address + 4, &setNR, sizeof(setNR));            // —читывать мы должны именно 
                 return true;
             }
             address += SIZE_NR_SET_PARAGRAPH;

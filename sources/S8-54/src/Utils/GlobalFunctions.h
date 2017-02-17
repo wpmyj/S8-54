@@ -29,6 +29,7 @@ char*   Hex8toString                            // Преобразует value в текстовую
                     char buffer[3],
                     bool upper);
 char*   Hex16toString(uint16 value, char buffer[5], bool upper);
+char*   Hex32toString(uint16 value, char buffer[9], bool upper);
 char*   Int2String                              // Преобразует value в текстовую строку.
                                                 // @attention Строка будет храниться до следующего вызова функции. Если результат нужен большее количество времени, то его нужно скопировать себе.
                     (int value,                 // значение.
