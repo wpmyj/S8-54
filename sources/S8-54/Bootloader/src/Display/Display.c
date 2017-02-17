@@ -3,18 +3,25 @@
 #include "Hardware/Timer.h"
 #include "main.h"
 #include "Utils/Math.h"
+#include "Settings/Settings.h"
+
+
+#include <math.h>
 
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 typedef enum
 {
-    TypeWelcomeScreen_
+    TypeWelcomeScreen_Vague,
+    TypeWelcomeScreen_Wave,
+    TypeWelcomeScreen_VagueWave
 } TypeWelcomeScreen;
+
 
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 static void DrawProgressBar(uint dT);
-static void DrawBigMNIPI(uint dT);
+static void DrawBigMNIPI(void);
 static int RandValue(int min, int max);
 
 #pragma pack(1)
@@ -27,8 +34,15 @@ typedef struct
 
 
 int numPoints = 0;
-//Vector *array;
 Vector array[7000] __attribute__ ((section("CCM_DATA")));
+
+static TypeWelcomeScreen typeScreen = TypeWelcomeScreen_VagueWave;
+
+#define VAGUE (typeScreen == TypeWelcomeScreen_Vague)
+#define WAVE (typeScreen == TypeWelcomeScreen_Wave)
+#define ALL (typeScreen == TypeWelcomeScreen_VagueWave)
+#define VAGUE_OR_ALL (VAGUE || ALL)
+#define WAVE_OR_ALL (WAVE || ALL)
 
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -57,6 +71,14 @@ void Display_Init(void)
 
     gColorBack = COLOR_BLACK;
     gColorFill = COLOR_WHITE;
+
+    for (int i = 0; i < 14; i++)
+    {
+        float red = i / 14.0f * 31.0f + 0.5f;
+        float green = i / 14.0f * 63.0f + 0.5f;
+        float blue = i / 14.0f * 31.0f + 0.5f;
+        set.display.colors[i + 2] = MAKE_COLOR((int)red, (int)green, (int)blue);
+    }
 
     Painter_ResetFlash();
 
@@ -100,7 +122,8 @@ void Display_Update(void)
         Painter_BeginScene(gColorBack);
         Painter_SetColor(gColorFill);
         Painter_DrawRectangle(0, 0, 319, 239);
-        DrawBigMNIPI(dT);
+        DrawBigMNIPI();
+        Painter_SetColor(COLOR_WHITE);
         Painter_DrawStringInCenterRect(0, 180, 320, 20, "Для получения помощи нажмите и удерживайте кнопку ПОМОЩЬ");
         Painter_DrawStringInCenterRect(0, 205, 320, 20, "Отдел маркетинга: тел./факс. 8-017-262-57-50");
         Painter_DrawStringInCenterRect(0, 220, 320, 20, "Разработчики: e-mail: mnipi-24(@)tut.by, тел. 8-017-262-57-51");
@@ -184,7 +207,7 @@ bool Display_IsRun(void)
 
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
-static void DrawBigMNIPI(uint dT)
+static void DrawBigMNIPI(void)
 {
     static uint startTime = 0;
     static bool first = true;
@@ -197,31 +220,41 @@ static void DrawBigMNIPI(uint dT)
 
     uint time = gTimerMS - startTime;
 
-    float radius = 2500.0f / time;
+
+    int numColor = 0;
+    LIMITATION(numColor, time / (float)TIME_WAIT * 13.0f, 0, 13);
+    Painter_SetColor((Color)(numColor + 2));
+
 
     uint8 buffer[320][240];
 
     Painter_DrawBigTextInBuffer(31, 70, 9, "МНИПИ", buffer);
 
+    float amplitude = 10.0f - (time / (TIME_WAIT / 2.0f)) * 10;
+    LIMIT_BELOW(amplitude, 0.0f);
+    float frequency = 0.05f;
 
-    for (int x = 0; x < 320; x++)
+    float radius = 2500.0f / time;
+    LIMIT_BELOW(radius, 1);
+
+    float shift[240];
+
+    for (int i = 0; i < 240; i++)
     {
-        for (int y = 0; y < 240; y++)
+        shift[i] = WAVE_OR_ALL ? amplitude * sin(frequency * time + i / 5.0f) : 0;
+    }
+
+    for (int i = 0; i < 320; i++)
+    {
+        for (int j = 0; j < 240; j++)
         {
-            if (buffer[x][y])
+            if (buffer[i][j])
             {
-                int i = x + RandValue(-radius, radius);
-                int j = y + RandValue(-radius, radius);
-
-                if (radius < 1)
+                int x = i + (VAGUE_OR_ALL ? RandValue(-radius, radius) : 0) + shift[j];
+                int y = j + (VAGUE_OR_ALL ? RandValue(-radius, radius) : 0);
+                if (x >= 0 && x < 320 && y >= 0 && y < 240)
                 {
-                    i = x;
-                    j = y;
-                }
-
-                if (i >= 0 && i < 320 && j >= 0 && j < 240)
-                {
-                    Painter_SetPoint(i, j);
+                    Painter_SetPoint(x, y);
                 }
             }
         }
@@ -232,7 +265,7 @@ static void DrawBigMNIPI(uint dT)
 //----------------------------------------------------------------------------------------------------------------------------------------------------]
 static int RandValue(int min, int max)
 {
-    int value = rand() % (max - min);
+    int value = rand() % (max - min + 1);
 
     return value + min;
 }

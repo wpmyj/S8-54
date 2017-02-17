@@ -67,7 +67,7 @@ int main(void)
 
     FDrive_Init();
 
-    while (gTimerMS - timeStart < 3000 && !FDrive_Update())
+    while (gTimerMS - timeStart < TIME_WAIT && !FDrive_Update())
     {
     }
 
