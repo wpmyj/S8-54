@@ -63,7 +63,8 @@ void PainterData_DrawData(void)
 {
     xP2P = 0;
 
-	if (DS_NumElementsInStorage() == 0)
+	if (DS_NumElementsInStorage() < 2)  // WARN Это сделано для того, чтобы не было артефактов при включении
+                                        // Но не факт, что причина в этом. И в поточечном режиме однозначно долго ждать
 	{
         Painter_DrawRectangleC(GridLeft(), GRID_TOP, GridWidth(), GridFullHeight(), gColorFill);
 		return;
