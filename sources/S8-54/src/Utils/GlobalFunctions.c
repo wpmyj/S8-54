@@ -246,7 +246,7 @@ char* Hex16toString(uint16 value, char buffer[5], bool upper)
 
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
-char* Hex32toString(uint16 value, char buffer[9], bool upper)
+char* Hex32toString(uint32 value, char buffer[9], bool upper)
 {
     sprintf(buffer, upper ? "%08X" : "%08x", value);
     return buffer;

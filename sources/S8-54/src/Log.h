@@ -4,12 +4,13 @@
 
 
 #ifdef DEBUG
-#define LOG_WRITE(...)  Log_Write(__VA_ARGS__)
-#define LOG_ERROR(...)  Log_Error(__MODULE__, __FUNCTION__, __LINE__, __VA_ARGS__)
-#define LOG_FUNC_ENTER  Log_Write("%s enter", __FUNCTION__);
-#define LOG_FUNC_LEAVE  Log_Write("%s leave", __FUNCTION__);
-#define LOG_TRACE       Log_Write("%s : %d", __MODULE__, __LINE__);
-#define ASSERT(cond, ...) if(cond) {LOG_ERROR(__VA_ARGS__); return; }
+#define LOG_WRITE(...)      Log_Write(__VA_ARGS__)
+#define LOG_WRITE_BUF(...)  { char buffer[100]; Log_Write(__VA_ARGS__); }   // Когда нужен вспомогательный буфер для преобразования числа в строку, можно пользоваться этой функцией
+#define LOG_ERROR(...)      Log_Error(__MODULE__, __FUNCTION__, __LINE__, __VA_ARGS__)
+#define LOG_FUNC_ENTER      Log_Write("%s enter", __FUNCTION__);
+#define LOG_FUNC_LEAVE      Log_Write("%s leave", __FUNCTION__);
+#define LOG_TRACE           Log_Write("%s : %d", __MODULE__, __LINE__);
+#define ASSERT(cond, ...)  if(cond) {LOG_ERROR(__VA_ARGS__); return; }
 #else
 #define LOG_WRITE(...)
 #define LOG_ERROR(...)
