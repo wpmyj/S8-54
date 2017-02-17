@@ -229,7 +229,7 @@ static void DrawBigMNIPI(void)
     LIMIT_BELOW(amplitude, 0.0f);
     float frequency = 0.05f;
 
-    float radius = 5000.0f / time;
+    float radius = 5000.0f * (TIME_WAIT) / 3000.0f / time;
     LIMIT_BELOW(radius, 1);
 
     float shift[240];
