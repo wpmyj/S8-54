@@ -6,9 +6,29 @@
 
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+typedef enum
+{
+    TypeWelcomeScreen_
+} TypeWelcomeScreen;
+
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 static void DrawProgressBar(uint dT);
 static void DrawBigMNIPI(uint dT);
-static void DrawLetter(uint dT, int numLetter, char letter);
+static int RandValue(int min, int max);
+
+#pragma pack(1)
+
+typedef struct
+{
+    uint8 startY;
+    uint16 startX;
+} Vector;
+
+
+int numPoints = 0;
+//Vector *array;
+Vector array[7000] __attribute__ ((section("CCM_DATA")));
 
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -166,40 +186,53 @@ bool Display_IsRun(void)
 //----------------------------------------------------------------------------------------------------------------------------------------------------
 static void DrawBigMNIPI(uint dT)
 {
-    char *letter = "ÃÕ»œ»";
-
-    for (int i = 0; i < 5; i++)
+    static uint startTime = 0;
+    static bool first = true;
+    
+    if(first)
     {
-        DrawLetter(dT, i, letter[i]);
+        first = false;
+        startTime = gTimerMS;
+    }
+
+    uint time = gTimerMS - startTime;
+
+    float radius = 2500.0f / time;
+
+    uint8 buffer[320][240];
+
+    Painter_DrawBigTextInBuffer(31, 70, 9, "ÃÕ»œ»", buffer);
+
+
+    for (int x = 0; x < 320; x++)
+    {
+        for (int y = 0; y < 240; y++)
+        {
+            if (buffer[x][y])
+            {
+                int i = x + RandValue(-radius, radius);
+                int j = y + RandValue(-radius, radius);
+
+                if (radius < 1)
+                {
+                    i = x;
+                    j = y;
+                }
+
+                if (i >= 0 && i < 320 && j >= 0 && j < 240)
+                {
+                    Painter_SetPoint(i, j);
+                }
+            }
+        }
     }
 }
 
 
-//----------------------------------------------------------------------------------------------------------------------------------------------------
-static void DrawLetter(uint dT, int numLetter, char letter)
+//----------------------------------------------------------------------------------------------------------------------------------------------------]
+static int RandValue(int min, int max)
 {
-    static int prevX = 0;
-    static uint time = 0;
-    if (numLetter == 0)
-    {
-        time += dT;
-    }
-    int x = 100;
-    int startY[5] = {-100};
+    int value = rand() % (max - min);
 
-    for (int i = 1; i < 5; i++)
-    {
-        startY[i] = startY[i - 1] - 50;
-    }
-
-    int stopY = 70;
-    float speed = 0.4f;
-    
-    int y = startY[numLetter] + time * speed;
-    LIMIT_BELOW(y, startY[0]);
-    LIMIT_ABOVE(y, stopY);
-
-    x = numLetter == 0 ? 25 : prevX;
-
-    prevX = Painter_DrawBigChar(x + 9, y, 9, letter);
+    return value + min;
 }

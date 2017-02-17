@@ -828,3 +828,66 @@ void Painter_DrawBigText(int eX, int eY, int size, const char *text)
         x += size;
     }
 }
+
+
+//----------------------------------------------------------------------------------------------------------------------------------------------------
+static int Painter_DrawBigCharInBuffer(int eX, int eY, int size, char symbol, uint8 buffer[320][240])
+{
+    int8 width = font->symbol[symbol].width;
+    int8 height = (int8)font->height;
+
+    for (int b = 0; b < height; b++)
+    {
+        if (ByteFontNotEmpty(symbol, b))
+        {
+            int x = eX;
+            int y = eY + b * size + 9 - height;
+            int endBit = 8 - width;
+            for (int bit = 7; bit >= endBit; bit--)
+            {
+                if (BitInFontIsExist(symbol, b, bit))
+                {
+                    for (int i = 0; i < size; i++)
+                    {
+                        for (int j = 0; j < size; j++)
+                        {
+                            int fullX = x + i;
+                            int fullY = y + j;
+
+                            if (fullX >= 0 && fullX < 320 && fullY >= 0 && fullY < 240)
+                            {
+                                buffer[fullX][fullY] = 1;
+                            }
+                        }
+                    }
+                }
+                x += size;
+            }
+        }
+    }
+
+    return eX + width * size;
+}
+
+
+//----------------------------------------------------------------------------------------------------------------------------------------------------
+void Painter_DrawBigTextInBuffer(int eX, int eY, int size, const char* text, uint8 buffer[320][240])
+{
+    for (int x = 0; x < 320; x++)
+    {
+        for (int y = 0; y < 240; y++)
+        {
+            buffer[x][y] = 0;
+        }
+    }
+
+    int numSymbols = strlen(text);
+
+    int x = eX;
+
+    for (int i = 0; i < numSymbols; i++)
+    {
+        x = Painter_DrawBigCharInBuffer(x, eY, size, text[i], buffer);
+        x += size;
+    }
+}

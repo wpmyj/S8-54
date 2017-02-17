@@ -29,3 +29,4 @@ void    Painter_Draw10SymbolsInRect(int x, int y, char eChar);
 int     Painter_DrawTextInRectWithTransfers(int x, int y, int width, int height, const char *text);                             // Пишет текст с переносами
 int     Painter_DrawBigChar(int x, int y, int size, char symbol);
 void    Painter_DrawBigText(int x, int y, int size, const char *text);
+void    Painter_DrawBigTextInBuffer(int x, int y, int size, const char *text, uint8 buffer[320][240]);
