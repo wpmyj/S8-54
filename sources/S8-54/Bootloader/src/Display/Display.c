@@ -23,13 +23,12 @@ typedef enum
 static void DrawProgressBar(uint dT);
 static void DrawBigMNIPI(void);
 static int RandValue(int min, int max);
-
-#pragma pack(1)
+static void InitPoints(void);
 
 typedef struct
 {
-    uint8 startY;
-    uint16 startX;
+    uint16 x;
+    uint8 y;
 } Vector;
 
 
@@ -93,6 +92,8 @@ void Display_Init(void)
     //Painter_LoadFont(TypeFont_UGO);
     //Painter_LoadFont(TypeFont_UGO2);
     Painter_SetFont(TypeFont_8);
+
+    InitPoints();
 }
 
 
@@ -220,21 +221,15 @@ static void DrawBigMNIPI(void)
 
     uint time = gTimerMS - startTime;
 
-
     int numColor = 0;
     LIMITATION(numColor, time / (float)TIME_WAIT * 13.0f, 0, 13);
     Painter_SetColor((Color)(numColor + 2));
-
-
-    uint8 buffer[320][240];
-
-    Painter_DrawBigTextInBuffer(31, 70, 9, "ÃÕ»œ»", buffer);
 
     float amplitude = 10.0f - (time / (TIME_WAIT / 2.0f)) * 10;
     LIMIT_BELOW(amplitude, 0.0f);
     float frequency = 0.05f;
 
-    float radius = 2500.0f / time;
+    float radius = 5000.0f / time;
     LIMIT_BELOW(radius, 1);
 
     float shift[240];
@@ -244,19 +239,13 @@ static void DrawBigMNIPI(void)
         shift[i] = WAVE_OR_ALL ? amplitude * sin(frequency * time + i / 5.0f) : 0;
     }
 
-    for (int i = 0; i < 320; i++)
+    for (int i = 0; i < numPoints; i++)
     {
-        for (int j = 0; j < 240; j++)
+        int x = array[i].x + (VAGUE_OR_ALL ? RandValue(-radius, radius) : 0) + shift[array[i].y];
+        int y = array[i].y + (VAGUE_OR_ALL ? RandValue(-radius, radius) : 0);
+        if (x > 0 && x < 319 && y > 0 && y < 239)
         {
-            if (buffer[i][j])
-            {
-                int x = i + (VAGUE_OR_ALL ? RandValue(-radius, radius) : 0) + shift[j];
-                int y = j + (VAGUE_OR_ALL ? RandValue(-radius, radius) : 0);
-                if (x >= 0 && x < 320 && y >= 0 && y < 240)
-                {
-                    Painter_SetPoint(x, y);
-                }
-            }
+            Painter_SetPoint(x, y);
         }
     }
 }
@@ -268,4 +257,26 @@ static int RandValue(int min, int max)
     int value = rand() % (max - min + 1);
 
     return value + min;
+}
+
+
+//----------------------------------------------------------------------------------------------------------------------------------------------------
+static void InitPoints(void)
+{
+    uint8 buffer[320][240];
+
+    Painter_DrawBigTextInBuffer(31, 70, 9, "ÃÕ»œ»", buffer);
+
+    for (int x = 0; x < 320; x++)
+    {
+        for (int y = 0; y < 240; y++)
+        {
+            if (buffer[x][y])
+            {
+                array[numPoints].x = x;
+                array[numPoints].y = y;
+                numPoints++;
+            }
+        }
+    }
 }
