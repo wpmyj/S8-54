@@ -137,12 +137,9 @@ int16 CalculateAdditionRShift(Channel ch, Range range)
     int sum = 0;
     int numPoints = 0;
     
-
-    //Timer_PauseOnTime(200);
-
     for(int i = 0; i < numMeasures; i++)
     {
-        uint startTime = gTimerMS;
+        volatile uint startTime = gTimerMS;
         const uint timeWait = 5000;
 
         FPGA_WriteStartToHardware();
@@ -715,38 +712,19 @@ void FPGA_ProcedureCalibration(void)
 }
 
 
-static uint timeStart = 0;
-
-//------------------------------------------------------------------------------------------------------------------------------------------------------
-static void FuncDrawBalance(void)
-{
-    uint time = ((gTimerMS - timeStart) / 50) % 50;
-
-    int width = 200;
-    int height = 80;
-    int x = 160 - width / 2;
-    int y = 120 - height / 2;
-
-    Painter_FillRegionC(x, y, width, height, gColorBack);
-    Painter_DrawRectangleC(x, y, width, height, gColorFill);
-    Painter_DrawStringInCenterRect(x, y, width, height - 20, "Балансировка канала");
-    char buffer[100];
-    buffer[0] = 0;
-    for (uint i = 0; i < time; i++)
-    {
-        strcat(buffer, ".");
-    }
-    Painter_DrawStringInCenterRect(x, y + 20, width, height - 20, buffer);
-    Painter_EndScene();
-}
-
-
 //---------------------------------------------------------------------------------------------------------------------------------------------------
 void FPGA_BalanceChannel(Channel ch)
 {
-    timeStart = gTimerMS;
-
-    Display_SetDrawMode(DrawMode_Hand, FuncDrawBalance);
+    Display_FuncOnWaitReset();
+    if(ch == A)
+    {
+        Display_FuncOnWaitSetText("Балансировка канала 1");
+    }
+    else
+    {
+        Display_FuncOnWaitSetText("Балансировка канала 2");
+    }
+    Display_SetDrawMode(DrawMode_Hand, Display_FuncOnWait);
     Timer_SetAndEnable(kTimerBalanceChannel, Display_Update, 10);
 
     CreateCalibrationStruct();

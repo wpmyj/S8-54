@@ -2096,3 +2096,42 @@ static int CalculateCountH(void)
     }
     return 69;
 }
+
+
+static uint timeStart = 0;
+static char *textWait = 0;
+
+//----------------------------------------------------------------------------------------------------------------------------------------------------
+void Display_FuncOnWait(void)
+{
+    uint time = ((gTimerMS - timeStart) / 50) % 50;
+
+    int width = 200;
+    int height = 80;
+    int x = 160 - width / 2;
+    int y = 120 - height / 2;
+
+    Painter_FillRegionC(x, y, width, height, gColorBack);
+    Painter_DrawRectangleC(x, y, width, height, gColorFill);
+    Painter_DrawStringInCenterRect(x, y, width, height - 20, textWait);
+    char buffer[100];
+    buffer[0] = 0;
+    for (uint i = 0; i < time; i++)
+    {
+        strcat(buffer, ".");
+    }
+    Painter_DrawStringInCenterRect(x, y + 20, width, height - 20, buffer);
+    Painter_EndScene();
+}
+
+//----------------------------------------------------------------------------------------------------------------------------------------------------
+void Display_FuncOnWaitReset()
+{
+    timeStart = gTimerMS;
+}
+
+//----------------------------------------------------------------------------------------------------------------------------------------------------
+void Display_FuncOnWaitSetText(char *text)
+{
+    textWait = text;
+}
