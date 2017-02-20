@@ -715,17 +715,14 @@ void FPGA_ProcedureCalibration(void)
 //---------------------------------------------------------------------------------------------------------------------------------------------------
 void FPGA_BalanceChannel(Channel ch)
 {
-    Display_FuncOnWaitReset();
-    if(ch == A)
+    if (ch == A)
     {
-        Display_FuncOnWaitSetText("Балансировка канала 1", "Balancde channel 1");
+        FUNC_WAIT_BEGIN(kTimerBalanceChannel, "Балансировка канала 1", "Balancde channel 1");
     }
     else
     {
-        Display_FuncOnWaitSetText("Балансировка канала 2", "Balance channel 2");
+        FUNC_WAIT_BEGIN(kTimerBalanceChannel, "Балансировка канала 2", "Balance channel 2");
     }
-    Display_SetDrawMode(DrawMode_Hand, Display_FuncOnWait);
-    Timer_SetAndEnable(kTimerBalanceChannel, Display_Update, 10);
 
     CreateCalibrationStruct();
     Settings storedSettings;
@@ -745,8 +742,7 @@ void FPGA_BalanceChannel(Channel ch)
 
     Panel_Enable();
 
-    Timer_Disable(kTimerBalanceChannel);
-    Display_SetDrawMode(DrawMode_Auto, 0);
+    FUNC_WAIT_END(kTimerBalanceChannel);
     
     FPGA_OnPressStartStop();
 }

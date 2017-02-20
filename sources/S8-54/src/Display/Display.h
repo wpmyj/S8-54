@@ -70,7 +70,17 @@ typedef enum
 void    Display_ClearFromWarnings(void);
 void    Display_ShowWarning(Warning warning);
 
-// Группа функций для вывода сообщения о занятом приборе
+#define FUNC_WAIT_BEGIN(timer, textRU, textEN)                  \
+        Display_FuncOnWaitReset();                              \
+        Display_FuncOnWaitSetText(textRU, textEN);              \
+        Display_SetDrawMode(DrawMode_Hand, Display_FuncOnWait); \
+        Timer_SetAndEnable(timer, Display_Update, 10);
+
+#define FUNC_WAIT_END(timer)                    \
+        Timer_Disable(timer);                   \
+        Display_SetDrawMode(DrawMode_Auto, 0);
+
+// Группа функций для вывода сообщения о занятом приборе. Ими желательно пользоваться с помощью вышеприведённых макросов
 void Display_FuncOnWaitReset(void);                         // Вначале нужно вызвать эту функцию
 void Display_FuncOnWaitSetText(char *textRu, char *textEn); // Здесь устанавливаем сообщение, которое будет выводиться на экран
 void Display_FuncOnWait(void);                              // Собственно функция отрисовки

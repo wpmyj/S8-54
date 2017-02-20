@@ -756,13 +756,9 @@ static const SmallButton sbInt_EraseAll =
 
 static void OnPress_Int_EraseAll(void)
 {
-    Display_FuncOnWaitReset();
-    Display_FuncOnWaitSetText("Стираю. Подождите", "Erase. Wait");
-    Display_SetDrawMode(DrawMode_Hand, Display_FuncOnWait);
-    Timer_SetAndEnable(kTemp, Display_Update, 10);
+    FUNC_WAIT_BEGIN(kTemp, "Стираю. Подождите", "Erase. Wait");
     FLASH_DeleteAllData();
-    Timer_Disable(kTemp);
-    Display_SetDrawMode(DrawMode_Auto, 0);
+    FUNC_WAIT_END(kTemp);
 }
 
 static void Draw_Int_EraseAll(int x, int y)
