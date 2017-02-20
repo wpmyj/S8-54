@@ -103,7 +103,7 @@ void FDrive_Update(void)
         uint timeStart = gTimerMS;
         gBF.needToMountFlash = 0;
 
-        FUNC_WAIT_BEGIN(kTimerMountFlash, "Обнаружено запоминающее устройство", "Detected flash drive");
+        Display_FuncOnWaitStart("Обнаружено запоминающее устройство", "Detected flash drive");
 
         if (f_mount(&USBDISKFatFs, (TCHAR const*)USBDISKPath, 1) != FR_OK)
         {
@@ -119,7 +119,7 @@ void FDrive_Update(void)
         {
         };
 
-        FUNC_WAIT_END(kTimerMountFlash);
+        Display_FuncOnWaitStop();
     }
     else
     {

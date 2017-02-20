@@ -685,7 +685,7 @@ void FPGA_ProcedureCalibration(void)
     }
     
     RestoreSettings(&storedSettings);
-    
+
     BALANCE_ADC_A = cal->shiftADCA;
     BALANCE_ADC_B = cal->shiftADCB;
     
@@ -717,11 +717,11 @@ void FPGA_BalanceChannel(Channel ch)
 {
     if (ch == A)
     {
-        FUNC_WAIT_BEGIN(kTimerBalanceChannel, "Балансировка канала 1", "Balancde channel 1");
+        Display_FuncOnWaitStart("Балансировка канала 1", "Balancde channel 1");
     }
     else
     {
-        FUNC_WAIT_BEGIN(kTimerBalanceChannel, "Балансировка канала 2", "Balance channel 2");
+        Display_FuncOnWaitStart("Балансировка канала 2", "Balance channel 2");
     }
 
     CreateCalibrationStruct();
@@ -742,7 +742,7 @@ void FPGA_BalanceChannel(Channel ch)
 
     Panel_Enable();
 
-    FUNC_WAIT_END(kTimerBalanceChannel);
+    Display_FuncOnWaitStop();
     
     FPGA_OnPressStartStop();
 }

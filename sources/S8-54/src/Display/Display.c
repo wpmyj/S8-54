@@ -2102,7 +2102,7 @@ static uint timeStart = 0;
 static char *textWait = 0;
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
-void Display_FuncOnWait(void)
+static void FuncOnWait(void)
 {
     uint time = ((gTimerMS - timeStart) / 50) % 50;
 
@@ -2124,14 +2124,16 @@ void Display_FuncOnWait(void)
     Painter_EndScene();
 }
 
-//----------------------------------------------------------------------------------------------------------------------------------------------------
-void Display_FuncOnWaitReset()
+void Display_FuncOnWaitStart(char *textRu, char *textEn)
 {
     timeStart = gTimerMS;
+    textWait = (set.common.lang == Russian) ? textRu : textEn;
+    Display_SetDrawMode(DrawMode_Hand, FuncOnWait);
+    Timer_SetAndEnable(kTimerMountFlash, Display_Update, 10);
 }
 
-//----------------------------------------------------------------------------------------------------------------------------------------------------
-void Display_FuncOnWaitSetText(char *textRu, char *textEn)
+void Display_FuncOnWaitStop(void)
 {
-    textWait = (set.common.lang == Russian) ? textRu : textEn;
+    Timer_Disable(kTimerMountFlash);
+    Display_SetDrawMode(DrawMode_Auto, 0);
 }
