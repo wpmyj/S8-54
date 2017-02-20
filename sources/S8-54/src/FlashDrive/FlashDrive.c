@@ -22,7 +22,6 @@ bool gFlashDriveIsConnected = false;
 
 
 extern void ChangeStateFlashDrive(void);
-static void FuncDrawDisplay(void);
 
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -103,7 +102,9 @@ void FDrive_Update(void)
     {
         uint timeStart = gTimerMS;
         gBF.needToMountFlash = 0;
-        Display_SetDrawMode(DrawMode_Hand, FuncDrawDisplay);
+        Display_FuncOnWaitReset();
+        Display_FuncOnWaitSetText("Обнаружено запоминающее устройство");
+        Display_SetDrawMode(DrawMode_Hand, Display_FuncOnWait);
         Timer_SetAndEnable(kTimerMountFlash, Display_Update, 10);
         if (f_mount(&USBDISKFatFs, (TCHAR const*)USBDISKPath, 1) != FR_OK)
         {
@@ -125,39 +126,6 @@ void FDrive_Update(void)
     {
         USBH_Process(&handleUSBH);
     }
-}
-
-
-//------------------------------------------------------------------------------------------------------------------------------------------------------
-static void FuncDrawDisplay(void)
-{
-    static uint timeStart = 0;
-    static bool first = true;
-    if (first)
-    {
-        timeStart = gTimerMS;
-        first = false;
-    }
-
-    uint time = ((gTimerMS - timeStart) / 400) % 4;
-
-    int width = 200;
-    int height = 150;
-    int x = 160 - width / 2;
-    int y = 120 - height / 2;
-
-    Painter_FillRegionC(x, y, width, height, gColorBack);
-    Painter_DrawRectangleC(x, y, width, height, gColorFill);
-    Painter_DrawStringInCenterRect(x, y, width, height - 10, "Обнаружено запоминающее устройство");
-    char buffer[100];
-    buffer[0] = 0;
-    strcat(buffer, "Идёт подключение");
-    for (int i = 0; i < time; i++)
-    {
-        strcat(buffer, " .");
-    }
-    Painter_DrawStringInCenterRect(x, y + 10, width, height - 10, buffer);
-    Painter_EndScene();
 }
 
 
