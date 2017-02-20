@@ -718,11 +718,11 @@ void FPGA_BalanceChannel(Channel ch)
     Display_FuncOnWaitReset();
     if(ch == A)
     {
-        Display_FuncOnWaitSetText("Балансировка канала 1");
+        Display_FuncOnWaitSetText("Балансировка канала 1", "Balancde channel 1");
     }
     else
     {
-        Display_FuncOnWaitSetText("Балансировка канала 2");
+        Display_FuncOnWaitSetText("Балансировка канала 2", "Balance channel 2");
     }
     Display_SetDrawMode(DrawMode_Hand, Display_FuncOnWait);
     Timer_SetAndEnable(kTimerBalanceChannel, Display_Update, 10);

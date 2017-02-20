@@ -19,6 +19,7 @@
 #include "FlashDrive/FlashDrive.h"
 #include "Hardware/FLASH.h"
 #include "Hardware/Sound.h"
+#include "Hardware/Timer.h"
 #include "Log.h"
 
 
@@ -77,6 +78,10 @@ static void Draw_Int_ModeShow(int x, int y);
 static void Draw_Int_ModeShow_Direct(int x, int y);
 static void Draw_Int_ModeShow_Saved(int x, int y);
 static void Draw_Int_ModeShow_Both(int x, int y);
+
+static const SmallButton sbInt_EraseAll;
+static void OnPress_Int_EraseAll(void);
+static void Draw_Int_EraseAll(int x, int y);
 
 static const SmallButton sbInt_SaveToMemory;
 static void OnPress_Int_SaveToMemory(void);
@@ -485,7 +490,8 @@ static const Page mspInt =
         (void*)&sbInt_Exit,                 // ПАМЯТЬ -> ВНУТР ЗУ -> Выход
         (void*)&sbInt_ShowSignalsAlways,    // ПАМЯТЬ -> ВНУТР ЗУ -> Показывать всегда
         (void*)&sbInt_ModeShow,             // ПАМЯТЬ -> ВНУТР ЗУ -> Вид сигнала
-        (void*)0,
+        //(void*)0,
+        (void*)&sbInt_EraseAll,
         (void*)&sbInt_SaveToMemory,         // ПАМЯТЬ -> ВНУТР ЗУ -> Сохранить
         (void*)&sbInt_SaveToDrive           // ПАМЯТЬ -> ВНУТР ЗУ -> Сохранить на флешку
     },
@@ -724,6 +730,46 @@ static void Draw_Int_ModeShow_Both(int x, int y)
 }
 
 
+// ПАМЯТЬ -> ВНУТР ЗУ -> Стереть всё -----------------------------------------------------------------------------------------------------------------
+static const SmallButton sbInt_EraseAll =
+{
+    Item_SmallButton, &mspInt,
+    {
+        "Стереть всё",
+        "Erase all"
+    },
+    {
+        "Стирает все данные из области хранения данных, включая область иноформации. Тотальное форматирование",
+        "It erases all data from the storage area, including the area inoformatsiya. The total format"
+    },
+    EmptyFuncBV,
+    OnPress_Int_EraseAll,
+    Draw_Int_EraseAll,
+    {
+        {
+            Draw_Int_EraseAll,
+            "Стереть все данные",
+            "Erase all data"
+        }
+    }
+};
+
+static void OnPress_Int_EraseAll(void)
+{
+    Display_FuncOnWaitReset();
+    Display_FuncOnWaitSetText("Стираю. Подождите", "Erase. Wait");
+    Display_SetDrawMode(DrawMode_Hand, Display_FuncOnWait);
+    Timer_SetAndEnable(kTemp, Display_Update, 10);
+    FLASH_DeleteAllData();
+    Timer_Disable(kTemp);
+    Display_SetDrawMode(DrawMode_Auto, 0);
+}
+
+static void Draw_Int_EraseAll(int x, int y)
+{
+    Painter_DrawText(x + 5, y + 5, "E");
+}
+
 // ПАМЯТЬ -> ВНУТР ЗУ -> Сохранить в памяти ----------------------------------------------------------------------------------------------------------------------------
 static const SmallButton sbInt_SaveToMemory =
 {
@@ -743,7 +789,14 @@ static const SmallButton sbInt_SaveToMemory =
 
 static void OnPress_Int_SaveToMemory(void)
 {
+    /*
+    Display_FuncOnWaitReset();
+    Display_FuncOnWaitSetText("Сохраняю");
+    Display_SetDrawMode(DrawMode_Hand, Display_FuncOnWait);
+    Timer_SetAndEnable(kTimerMountFlash, Display_Update, 10);
+    */
     SaveSignalToIntMemory();
+    //Display_SetDrawMode(DrawMode_Auto, 0);
 }
 
 static void SaveSignalToIntMemory(void)

@@ -490,6 +490,20 @@ bool FLASH_ExistData(int num)
 }
 
 
+//----------------------------------------------------------------------------------------------------------------------------------------------------
+void FLASH_DeleteAllData(void)
+{
+    EraseSector(ADDR_DATA_DATA);
+    EraseSector(ADDR_DATA_0);
+    EraseSector(ADDR_DATA_1);
+    EraseSector(ADDR_DATA_2);
+    EraseSector(ADDR_DATA_3);
+    EraseSector(ADDR_DATA_4);
+    EraseSector(ADDR_DATA_5);
+    EraseSector(ADDR_DATA_TEMP);
+}
+
+
 //------------------------------------------------------------------------------------------------------------------------------------------------------
 void FLASH_DeleteData(int num)
 {

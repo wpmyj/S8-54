@@ -71,6 +71,6 @@ void    Display_ClearFromWarnings(void);
 void    Display_ShowWarning(Warning warning);
 
 // Группа функций для вывода сообщения о занятом приборе
-void Display_FuncOnWaitReset(void);             // Вначале нужно вызвать эту функцию
-void Display_FuncOnWaitSetText(char *text);     // Здесь устанавливаем сообщение, которое будет выводиться на экран
-void Display_FuncOnWait(void);                  // Собственно функция отрисовки
+void Display_FuncOnWaitReset(void);                         // Вначале нужно вызвать эту функцию
+void Display_FuncOnWaitSetText(char *textRu, char *textEn); // Здесь устанавливаем сообщение, которое будет выводиться на экран
+void Display_FuncOnWait(void);                              // Собственно функция отрисовки

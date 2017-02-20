@@ -18,3 +18,4 @@ bool    FLASH_ExistData(int num);
 void    FLASH_SaveData(int num, DataSettings *ds, uint8 *dataA, uint8 *dataB);
 bool    FLASH_GetData(int num, DataSettings **ds, uint8 **dataA, uint8 **dataB);
 void    FLASH_DeleteData(int num);
+void    FLASH_DeleteAllData(void);

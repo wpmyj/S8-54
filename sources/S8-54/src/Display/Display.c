@@ -213,17 +213,17 @@ void Display_Update(void)
         prevLoadPalette = gTimerMS;
     }
 
-    if(needReloadPalette)
-    {
-        Painter_LoadPalette(2);
-    }
-
     uint timeStart = gTimerTics;
 
     if(funcOnHand != 0)
     {
         funcOnHand();
         return;
+    }
+
+    if (needReloadPalette)
+    {
+        Painter_LoadPalette(2);
     }
 
     ModeFSMC mode = FSMC_GetMode();
@@ -2131,7 +2131,7 @@ void Display_FuncOnWaitReset()
 }
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
-void Display_FuncOnWaitSetText(char *text)
+void Display_FuncOnWaitSetText(char *textRu, char *textEn)
 {
-    textWait = text;
+    textWait = (set.common.lang == Russian) ? textRu : textEn;
 }
