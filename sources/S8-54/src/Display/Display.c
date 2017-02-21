@@ -215,7 +215,7 @@ void Display_Update(void)
 
     uint timeStart = gTimerTics;
 
-    if(funcOnHand != 0)
+    if (funcOnHand)
     {
         funcOnHand();
         return;
@@ -362,7 +362,15 @@ void Display_ClearFromWarnings(void)
 //----------------------------------------------------------------------------------------------------------------------------------------------------
 void Display_SetDrawMode(DrawMode mode, pFuncVV func)
 {
-    funcOnHand = mode == DrawMode_Auto ? 0 : func;
+    funcOnHand = func;
+    if (mode == DrawMode_Hand)
+    {
+        Timer_SetAndEnable(kTimerDisplay, funcOnHand, 40);
+    }
+    else
+    {
+        Timer_Disable(kTimerDisplay);
+    }
 }
 
 
@@ -2104,7 +2112,12 @@ static char *textWait = 0;
 //----------------------------------------------------------------------------------------------------------------------------------------------------
 static void FuncOnWait(void)
 {
-    uint time = ((gTimerMS - timeStart) / 50) % 50;
+    uint time = ((gTimerMS - timeStart) / 50) % 100;
+
+    if (time > 50)
+    {
+        time = (100 - time);
+    }
 
     int width = 200;
     int height = 80;
@@ -2129,11 +2142,9 @@ void Display_FuncOnWaitStart(char *textRu, char *textEn)
     timeStart = gTimerMS;
     textWait = (set.common.lang == Russian) ? textRu : textEn;
     Display_SetDrawMode(DrawMode_Hand, FuncOnWait);
-    Timer_SetAndEnable(kTimerMountFlash, Display_Update, 10);
 }
 
 void Display_FuncOnWaitStop(void)
 {
-    Timer_Disable(kTimerMountFlash);
     Display_SetDrawMode(DrawMode_Auto, 0);
 }

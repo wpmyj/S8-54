@@ -71,12 +71,6 @@ static bool IsCalibrateChannel(Channel ch)
     return CALIBR_MODE(ch) != CalibrationMode_Disable;
 }
 
-static void OnTimerDraw(void)
-{
-    Display_Update();
-}
-
-
 //---------------------------------------------------------------------------------------------------------------------------------------------------
 static void CreateCalibrationStruct(void)
 {
@@ -641,7 +635,6 @@ void FPGA_ProcedureCalibration(void)
     ENABLE_A = ENABLE_B = true;
     
     Display_SetDrawMode(DrawMode_Hand, FuncAttScreen);
-    Timer_SetAndEnable(kTimerDrawHandFunction, OnTimerDraw, 100);
     
     cal->barA.fullTime = cal->barA.passedTime = cal->barB.fullTime = cal->barB.passedTime = 0;
     
@@ -700,7 +693,6 @@ void FPGA_ProcedureCalibration(void)
     WriteAdditionRShifts(B);
     
     Panel_Enable();
-    Timer_Disable(kTimerDrawHandFunction);
     Display_SetDrawMode(DrawMode_Auto, 0);
     
     ENABLE_A = chanAenable;

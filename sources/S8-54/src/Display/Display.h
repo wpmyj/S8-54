@@ -17,7 +17,6 @@ void    Display_RotateRShift(Channel ch);
 void    Display_RotateTrigLev(void);
 void    Display_Redraw(void);
 void    Display_EnableTrigLabel(bool enable);
-void    Display_SetDrawMode(DrawMode mode, pFuncVV func);
 void    Display_SetAddDrawFunction(pFuncVV func);
 pFuncVV Display_GetAddDrawFunction(void);
 void    Display_RemoveAddDrawFunction(void);
@@ -30,7 +29,12 @@ void    Display_OneStringDown(void);
 void    Display_SetPauseForConsole(bool pause);
 void    Display_SetOrientation(DisplayOrientation orientation);
 void    Display_DrawConsole(void);                              // Вывести сообщеия отладочной консоли
-
+void    Display_SetDrawMode(DrawMode mode, pFuncVV func);       // Установить функцию и режим отрисовки экрана. Возможны три варианта
+                                                                // 1. DrawMode_Hand - в этом случае будет вызываться функция func(), определяемая пользователем, с частотой 25 раз в секунду.
+                                                                // Используется в случаях, когда не выполняется главный цикл
+                                                                // 2. DrawMode_Auto и func == 0 - в этом случае будет выполняться функция Display_Update() в главном цикле
+                                                                // 3. DrawMode_Auto и func != 0 - в этом случае будет выполняться функция func(), определяемая пользователем, но в теле
+                                                                // главного цикла, будучи вызываемой из Display_Update() вместо Display_Update()
 
 typedef enum
 {

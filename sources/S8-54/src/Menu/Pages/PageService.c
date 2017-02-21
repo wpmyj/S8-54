@@ -24,7 +24,6 @@ extern void FuncBtnStart(int key);
 static const Button mbResetSettings;
         void OnPress_ResetSettings(void);
 static void  FuncDraw_ResetSettings(void);
-static void  OnTimerDraw_ResetSettings(void);
 static const Button mbAutoSearch;
 static void  OnPress_AutoSearch(void);
 static const Choice mcRecorder;
@@ -90,14 +89,12 @@ void OnPress_ResetSettings(void)
 {
     Panel_Disable();
     Display_SetDrawMode(DrawMode_Hand, FuncDraw_ResetSettings);
-    Timer_SetAndEnable(kTimerDrawHandFunction, OnTimerDraw_ResetSettings, 100);
 
     if (Panel_WaitPressingButton() == B_Start)
     {
         Settings_Load(true);
     }
 
-    Timer_Disable(kTimerDrawHandFunction);
     Display_SetDrawMode(DrawMode_Auto, 0);
     Panel_Enable();
     FuncBtnStart(1);
@@ -111,11 +108,6 @@ static void FuncDraw_ResetSettings(void)
                                          "Нажмите любую другую кнопку, если сброс не нужен.", gColorFill);
 
     Painter_EndScene();
-}
-
-static void OnTimerDraw_ResetSettings(void)
-{
-    Display_Update();
 }
 
 // СЕРВИС - Поиск сигнала ----------------------------------------------------------------------------------------------------------------------------

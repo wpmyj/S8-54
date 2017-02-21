@@ -983,7 +983,7 @@ void OnPressMemoryExtFileManager(void)
     {
         FDrive_Mount();
         OpenPageAndSetItCurrent(Page_SB_FileManager);
-        Display_SetDrawMode(DrawMode_Hand, FM_Draw);
+        Display_SetDrawMode(DrawMode_Auto, FM_Draw);
         gBF.needRedrawFileManager = 1;
     }
     else
