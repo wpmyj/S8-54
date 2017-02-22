@@ -153,6 +153,15 @@ typedef struct
     PackedTime  time;
 } DataSettings;
 
+// Макросы для доступа к членам DataSettings
+#define INVERSE_DS(ds, ch)  ((ch == A) ? (bool)ds->inverseChA : (bool)ds->inverseChB)
+#define COUPLE_DS(ds, ch)   ((ch == A) ? (ModeCouple)ds->modeCoupleA : (ModeCouple)ds->modeCoupleB)
+#define DIVIDER_DS(ds, ch)  ((ch == A) ? (Divider)ds->multiplierA : (Divider)ds->multiplierB)
+#define RANGE_DS(ds, ch)    ((Range)ds->range[ch])
+#define RSHIFT_DS(ds, ch)   (ds->rShift[ch])
+#define ENABLE_DS(ds, ch)   ((ch == A) ? (bool)ds->enableChA : (bool)ds->enableChB)
+
+
 int NumBytesInChannel(DataSettings *ds);    // Возвращает количество байт на канал
 int NumBytesInData(DataSettings *ds);       // Возвращает количество байт в обоих каналах
 int NumPointsInChannel(DataSettings *ds);   // Возвращает количество точек на канал

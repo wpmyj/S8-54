@@ -1667,24 +1667,33 @@ static void WriteTextVoltage(Channel ch, int x, int y)
     };
     Color color = gColorChan[ch];
 
-    bool inverse = INVERSE(ch);
-    ModeCouple modeCouple = COUPLE(ch);
-    Divider divider = DIVIDER(ch);
-    Range range = RANGE(ch);
-    uint rShift = RSHIFT(ch);
-    bool enable = sChannel_Enabled(ch);
+    bool inverse = false;
+    bool enable = true;
+    ModeCouple modeCouple = ModeCouple_DC;
+    Divider divider = Multiplier_1;
+    Range range = Range_2mV;
+    uint rShift = 0;
 
-    if(!WORK_DIRECT)
+    if (WORK_DIRECT)
     {
-        DataSettings *ds = WORK_DIRECT ? gDSet : gDSmemInt;
+        inverse = INVERSE(ch);
+        modeCouple = COUPLE(ch);
+        divider = DIVIDER(ch);
+        range = RANGE(ch);
+        rShift = RSHIFT(ch);
+        enable = sChannel_Enabled(ch);
+    }
+    else 
+    {
+        DataSettings *ds = WORK_LAST ? gDSmemLast : gDSmemInt;
         if(ds != 0)
         {
-            inverse = (ch == A) ? (bool)ds->inverseChA : (bool)ds->inverseChB;
-            modeCouple = (ch == A) ? (ModeCouple)ds->modeCoupleA : (ModeCouple)ds->modeCoupleB;
-            divider = (ch == A) ? (Divider)ds->multiplierA : (Divider)ds->multiplierB;
-            range = (Range)ds->range[ch];
-            rShift = ds->rShift[ch];
-            enable = (ch == A) ? (bool)ds->enableChA : (bool)ds->enableChB;
+            inverse = INVERSE_DS(ds, ch);
+            modeCouple = COUPLE_DS(ds, ch);
+            divider = DIVIDER_DS(ds, ch);
+            range = RANGE_DS(ds, ch);
+            rShift = RSHIFT_DS(ds, ch);
+            enable = ENABLE_DS(ds, ch);
         }
     }
 
