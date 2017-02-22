@@ -103,7 +103,7 @@ static const Choice mcViewMode =
         {"Вектор",  "Vector"},
         {"Точки",   "Points"}
     },
-    (int8*)&MODE_DRAW_SIGNAL, EmptyFuncVB, EmptyFuncVII
+    (int8*)&MODE_DRAW_SIGNAL
 };
 
 // ДИСПЛЕЙ -> Мин Макс -----------------------------------------------------------------------------------------------------------------------------------
@@ -125,7 +125,7 @@ static const Choice mcMinMax =
         {"64",  "64"},
         {"128", "128"}
     },
-    (int8*)&set.display.numMinMax, OnChange_MinMax, EmptyFuncVII
+    (int8*)&set.display.numMinMax, OnChange_MinMax
 };
 
 static bool IsActive_MinMax(void)
@@ -167,7 +167,7 @@ static const Choice mcSmoothing =
         {"9 точки", "9 points"},
         {"10 точек", "10 points"}
     },
-    (int8*)&SMOOTHING, EmptyFuncVB, EmptyFuncVII
+    (int8*)&SMOOTHING
 };
 
 // ДИСПЛЕЙ -> ОБНОВЛЕНИЕ -> Частота ------------------------------------------------------------------------------------------------------------------------
@@ -186,7 +186,7 @@ static const Choice mcRefreshFPS =
         {"2",   "2"},
         {"1",   "1"}
     },
-    (int8*)&NUM_SIGNALS_IN_SEC, OnChange_RefreshFPS, EmptyFuncVII
+    (int8*)&NUM_SIGNALS_IN_SEC, OnChange_RefreshFPS
 };
 
 static void OnChange_RefreshFPS(bool active)
@@ -208,7 +208,7 @@ static const Choice mcScaleYtype =
         {"Напряжение", "Voltage"},
         {"Деления", "Divisions"}
     },
-    (int8*)&set.display.linkingRShift, EmptyFuncVB, EmptyFuncVII
+    (int8*)&set.display.linkingRShift
 };
 
 
@@ -259,7 +259,7 @@ static const Choice mcAccum_Num =
         {"128", "128"},
         {"Бесконечность", "Infinity"}
     },
-    (int8*)&NUM_ACCUM, EmptyFuncVB, EmptyFuncVII
+    (int8*)&NUM_ACCUM
 };
 
 // ДИСПЛЕЙ -> НАКОПЛЕНИЕ -> Тип ---------------------------------------------------------------------------------------------------------------------------------------
@@ -278,7 +278,7 @@ static const Choice mcAccum_Mode =
         {"Не сбрасывать",   "Not to dump"},
         {"Сбрасывать",      "Dump"}
     },
-    (int8*)&MODE_ACCUM, EmptyFuncVB, EmptyFuncVII
+    (int8*)&MODE_ACCUM
 };
 
 // ДИСПЛЕЙ -> НАКОПЛЕНИЕ -> Очистить -------------------------------------------------------------------------------------------------------------------------------------
@@ -350,7 +350,7 @@ static const Choice mcAverage_Num =
         {"256", "256"},
         {"512", "512"}
     },
-    (int8*)&NUM_AVE, EmptyFuncVB, EmptyFuncVII
+    (int8*)&NUM_AVE
 };
 
 // ДИСПЛЕЙ -> УСРЕДНЕНИЕ -> Режим -----------------------------------------------------------------------------------------------------------------------------------------
@@ -368,7 +368,7 @@ static const Choice mcAverage_Mode =
         {"Точно",           "Accurately"},
         {"Приблизительно",  "Around"}
     },
-    (int8*)&set.display.modeAveraging, EmptyFuncVB, EmptyFuncVII
+    (int8*)&set.display.modeAveraging
 };
 
 
@@ -405,7 +405,7 @@ static const Choice mcGrid_Type =
         {"Тип 3", "Type 3"},
         {"Тип 4", "Type 4"}
     },
-    (int8*)&TYPE_GRID, EmptyFuncVB, EmptyFuncVII
+    (int8*)&TYPE_GRID
 };
 
 // ДИСПЛЕЙ -> СЕТКА -> Яркость -------------------------------------------------------------------------------------------------------------------------------------------------
@@ -485,7 +485,7 @@ static const Choice mcSettings_AutoHide =
         { "Через 30 сек", "Through 30 s" },
         { "Через 60 сек", "Through 60 s" }
     },
-    (int8*)&set.display.menuAutoHide, Menu_AutoHide, EmptyFuncVII
+    (int8*)&set.display.menuAutoHide, Menu_AutoHide
 };
 
 // СЕРВИС -> ДИСПЛЕЙ -> Доп. маркеры ------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -512,7 +512,7 @@ static const Choice mcSettings_AltMarkers =
         { "Показывать", "Show" },
         { "Авто", "Auto" }
     },
-    (int8*)&ALT_MARKERS, Display_ChangedRShiftMarkers, EmptyFuncVII
+    (int8*)&ALT_MARKERS, Display_ChangedRShiftMarkers
 };
 
 // ДИСПЛЕЙ - НАСТРОЙКИ - Строка меню -----------------------------------------------------------------------------------------------------------------
@@ -532,7 +532,7 @@ static const Choice mcSettings_StringNavigation =
         { "Всегда", "All" },
         { "Никогда", "None" }
     },
-    (int8*)&SHOW_STRING_NAVI, EmptyFuncVB, EmptyFuncVII
+    (int8*)&SHOW_STRING_NAVI
 };
 
 
@@ -628,7 +628,7 @@ static const Choice mcSettings_Colors_Background =
         { "Чёрный", "Black" },
         { "Белый", "White" }
     },
-    (int8*)&BACKGROUND, OnChange_Settings_Colors_Background, EmptyFuncVII
+    (int8*)&BACKGROUND, OnChange_Settings_Colors_Background
 };
 
 // ДИСПЛЕЙ -> НАСТРОЙКИ -> ЦВЕТА -> Цветовая схема ------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -644,7 +644,7 @@ static const Choice mcSettings_Colors_Scheme =
         { "Схема 1", "Scheme 1" },
         { "Схема 2", "Scheme 2" }
     },
-    (int8*)&set.service.colorScheme, EmptyFuncVB, EmptyFuncVII
+    (int8*)&set.service.colorScheme
 };
 
 static void OnChange_Settings_Colors_Background(bool active)
@@ -770,6 +770,6 @@ const Choice mcServDisplInverse =
     { { DISABLE_RU, DISABLE_EN },
     { ENABLE_RU, ENABLE_EN },
     },
-    0, EmptyFuncVB, EmptyFuncVII
+    0
 };
 */

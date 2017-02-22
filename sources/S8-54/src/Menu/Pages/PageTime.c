@@ -61,7 +61,7 @@ static const Choice mcTimeSample =
         {"Реальное время", "Real"},
         {"Эквивалентная", "Equals"}
     },
-    (int8*)&SAMPLE, EmptyFuncVB, EmptyFuncVII
+    (int8*)&SAMPLE
 };
 
 static bool FuncTimeSampleActive(void)
@@ -83,7 +83,7 @@ static const Choice mcTimePicDet =
         {ENABLE_RU, ENABLE_EN}
     /* , {"Среднее",   "Average"} */
     },
-    (int8*)&PEACKDET, OnPeacDetChanged, EmptyFuncVII
+    (int8*)&PEACKDET, OnPeacDetChanged
 };
 
 static bool IsActiveChoiceTimePicDeat(void)
@@ -143,7 +143,7 @@ static const Choice mcTimeTPos =
         {"Центр", "Center"},
         {"Право", "Right"}
     },
-    (int8*)&TPOS, OnTPosChanged, EmptyFuncVII
+    (int8*)&TPOS, OnTPosChanged
 };
 
 void OnTPosChanged(bool active)
@@ -170,5 +170,5 @@ static const Choice mcTimeDivRole =
         {"Время", "Time"},
         {"Память", "Memory"}
     },
-    (int8*)&TIME_DIVXPOS, EmptyFuncVB, EmptyFuncVII
+    (int8*)&TIME_DIVXPOS
 };

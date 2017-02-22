@@ -19,6 +19,7 @@ static const Choice mcStats;
 static const Page mspConsole;
 static const Governor mgConsole_NumStrings;
 static const Choice mcConsole_SizeFont;
+static const Choice mcConsole_ModeStop;
 
 static const Page mspConsole_Registers;
 static const Choice mcConsole_Registers_ShowAll;
@@ -138,7 +139,7 @@ const Page mpDebug =
     }
 };
 
-// ОТЛАДКА -> Статистика ---------------------------------------------------------------------------------------------------------------------------------------------------
+// ОТЛАДКА -> Статистика -----------------------------------------------------------------------------------------------------------------------------
 static const Choice mcStats =
 {
     Item_Choice, &mpDebug, {"Статистика", "Statistics"},
@@ -151,10 +152,10 @@ static const Choice mcStats =
         {"Не показывать",   "Hide"},
         {"Показывать",      "Show"}
     },
-    (int8*)&SHOW_STAT, EmptyFuncVB, EmptyFuncVII
+    (int8*)&SHOW_STAT
 };
 
-// ОТЛАДКА -> КОНСОЛЬ ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// ОТЛАДКА -> КОНСОЛЬ ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 static const Page mspConsole =
 {
     Item_Page, &mpDebug,
@@ -167,13 +168,14 @@ static const Page mspConsole =
     },
     EmptyFuncBV, Page_DebugConsole,
     {
-        (void*)&mgConsole_NumStrings,     // ОТЛАДКА -> КОНСОЛЬ -> Число строк
-        (void*)&mcConsole_SizeFont,       // ОТЛАДКА -> КОНСОЛЬ -> Размер шрифта
-        (void*)&mspConsole_Registers      // ОТЛАДКА -> КОНСОЛЬ -> РЕГИСТРЫ
+        (void*)&mgConsole_NumStrings,   // ОТЛАДКА -> КОНСОЛЬ -> Число строк
+        (void*)&mcConsole_SizeFont,     // ОТЛАДКА -> КОНСОЛЬ -> Размер шрифта
+        (void*)&mcConsole_ModeStop,     // ОТЛАДКА -> КОНСОЛЬ -> Реж. останова
+        (void*)&mspConsole_Registers    // ОТЛАДКА -> КОНСОЛЬ -> РЕГИСТРЫ
     }
 };
 
-// ОТЛАДКА -> КОНСОЛЬ -> Число строк ---------------------------------------------------------------------------------------------------------------------------------------------------
+// ОТЛАДКА -> КОНСОЛЬ -> Число строк -----------------------------------------------------------------------------------------------------------------
 static const Governor mgConsole_NumStrings =
 {
     Item_Governor, &mspConsole,
@@ -188,7 +190,7 @@ static const Governor mgConsole_NumStrings =
     &CONSOLE_NUM_STRINGS, 0, 33, EmptyFuncVV
 };
 
-// ОТЛАДКА -> КОНСОЛЬ -> Размер шрифта ---------------------------------------------------------------------------------------------------------------------------------------------------
+// ОТЛАДКА -> КОНСОЛЬ -> Размер шрифта ---------------------------------------------------------------------------------------------------------------
 static const Choice mcConsole_SizeFont =
 {
     Item_Choice, &mspConsole, {"Размер шрифта", "Size font"},
@@ -197,13 +199,30 @@ static const Choice mcConsole_SizeFont =
         ""
     },
     EmptyFuncBV,
-    {{"5", "5"},
-    {"8", "8"}
+    {
+        {"5", "5"},
+        {"8", "8"}
     },
-    &set.debug.sizeFont, EmptyFuncVB, EmptyFuncVII
+    &set.debug.sizeFont
 };
 
-// ОТЛАДКА -> КОНСОЛЬ -> РЕГИСТРЫ ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// ОТЛАДКА -> КОНСОЛЬ -> Реж. останова ---------------------------------------------------------------------------------------------------------------
+static const Choice mcConsole_ModeStop =
+{
+    Item_Choice, &mspConsole, {"Реж. останова", "Mode stop"},
+    {
+        "Предоставляет возможность приостановки вывода в консоль путём нажатия на кнопку ПУСК/СТОП",
+        "It provides the ability to pause the output to the console by pressing the ПУСК/СТОП button"
+    },
+    EmptyFuncBV,
+    {
+        {DISABLE_RU, DISABLE_EN},
+        {ENABLE_RU, ENABLE_EN}
+    },
+    (int8*)&set.debug.modePauseConsole
+};
+
+// ОТЛАДКА -> КОНСОЛЬ -> РЕГИСТРЫ ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 static const Page mspConsole_Registers =
 {
     Item_Page, &mspConsole,
@@ -231,7 +250,7 @@ static const Page mspConsole_Registers =
     }
 };
 
-// ОТЛАДКА -> КОНСОЛЬ -> РЕГИСТРЫ -> Показывать все ----------------------------------------------------------------------------------------------------------------------------
+// ОТЛАДКА -> КОНСОЛЬ -> РЕГИСТРЫ -> Показывать все --------------------------------------------------------------------------------------------------
 static const Choice mcConsole_Registers_ShowAll =
 {
     Item_Choice, &mspConsole_Registers, {"Показывать все", "Show all"},
@@ -244,10 +263,10 @@ static const Choice mcConsole_Registers_ShowAll =
         {"Нет", "No"},
         {"Да", "Yes"}
     },
-    (int8*)&set.debug.show.all, EmptyFuncVB, EmptyFuncVII
+    (int8*)&set.debug.show.all
 };
 
-// ОТЛАДКА -> КОНСОЛЬ -> РЕГИСТРЫ -> RD_FL --------------------------------------------------------------------------------------------------------------------------
+// ОТЛАДКА -> КОНСОЛЬ -> РЕГИСТРЫ -> RD_FL -----------------------------------------------------------------------------------------------------------
 static const Choice mcConsole_Registers_RD_FL =
 {
     Item_Choice, &mspConsole_Registers, {"RD_FL", "RD_FL"},
@@ -260,7 +279,7 @@ static const Choice mcConsole_Registers_RD_FL =
         {DISABLE_RU, DISABLE_EN},
         {ENABLE_RU, ENABLE_EN}
     },
-    (int8*)&set.debug.show.flag, EmptyFuncVB, EmptyFuncVII
+    (int8*)&set.debug.show.flag
 };
 
 static bool IsActive_Registers(void)
@@ -268,7 +287,7 @@ static bool IsActive_Registers(void)
     return set.debug.show.all;
 }
 
-// ОТЛАДКА -> КОНСОЛЬ -> РЕГИСТРЫ -> U см. 1к ------------------------------------------------------------------------------------------------------------------
+// ОТЛАДКА -> КОНСОЛЬ -> РЕГИСТРЫ -> U см. 1к --------------------------------------------------------------------------------------------------------
 static const Choice mcConsole_Registers_RShiftA =
 {
     Item_Choice, &mspConsole_Registers, {"U см. 1к", "U shift 1ch"},
@@ -281,7 +300,7 @@ static const Choice mcConsole_Registers_RShiftA =
         {DISABLE_RU, DISABLE_EN},
         {ENABLE_RU, ENABLE_EN}
     },
-    (int8*)&set.debug.show.rShift[A], EmptyFuncVB, EmptyFuncVII
+    (int8*)&set.debug.show.rShift[A]
 };
 
 // ОТЛАДКА -> КОНСОЛЬ -> РЕГИСТРЫ -> U см. 2к ----------------------------------------------------------------------------------------------------------------
@@ -297,7 +316,7 @@ static const Choice mcConsole_Registers_RShiftB =
         {DISABLE_RU, DISABLE_EN},
         {ENABLE_RU, ENABLE_EN}
     },
-    (int8*)&set.debug.show.range[B], EmptyFuncVB, EmptyFuncVII
+    (int8*)&set.debug.show.range[B]
 };
 
 // ОТЛАДКА -> КОНСОЛЬ -> РЕГИСТРЫ -> U синхр. ---------------------------------------------------------------------------------------------------------------
@@ -313,7 +332,7 @@ static const Choice mcConsole_Registers_TrigLev =
         {DISABLE_RU, DISABLE_EN},
         {ENABLE_RU, ENABLE_EN}
     },
-    (int8*)&set.debug.show.trigLev, EmptyFuncVB, EmptyFuncVII
+    (int8*)&set.debug.show.trigLev
 };
 
 // ОТЛАДКА -> КОНСОЛЬ -> РЕГИСТРЫ -> ВОЛЬТ/ДЕЛ 1 --------------------------------------------------------------------------------------------------------
@@ -329,7 +348,7 @@ static const Choice mcConsole_Registers_RangeA =
         {DISABLE_RU, DISABLE_EN},
         {ENABLE_RU, ENABLE_EN}
     },
-    (int8*)&set.debug.show.range[A], EmptyFuncVB, EmptyFuncVII
+    (int8*)&set.debug.show.range[A]
 };
 
 // ОТЛАДКА -> КОНСОЛЬ -> РЕГИСТРЫ -> ВОЛЬТ/ДЕЛ 2 --------------------------------------------------------------------------------------------------------
@@ -345,7 +364,7 @@ static const Choice mcConsole_Registers_RangeB =
         {DISABLE_RU, DISABLE_EN},
         {ENABLE_RU, ENABLE_EN}
     },
-    (int8*)&set.debug.show.range[B], EmptyFuncVB, EmptyFuncVII
+    (int8*)&set.debug.show.range[B]
 };
 
 // ОТЛАДКА -> КОНСОЛЬ -> РЕГИСТРЫ -> Парам. синхр. --------------------------------------------------------------------------------------------------------
@@ -361,7 +380,7 @@ static const Choice mcConsole_Registers_TrigParam =
         {DISABLE_RU, DISABLE_EN},
         {ENABLE_RU, ENABLE_EN}
     },
-    (int8*)&set.debug.show.trigParam, EmptyFuncVB, EmptyFuncVII
+    (int8*)&set.debug.show.trigParam
 };
 
 // ОТЛАДКА -> КОНСОЛЬ -> РЕГИСТРЫ -> Парам. кан. 1 ------------------------------------------------------------------------------------------------------
@@ -377,7 +396,7 @@ static const Choice mcConsole_Registers_ChanParamA =
         {DISABLE_RU, DISABLE_EN},
         {ENABLE_RU, ENABLE_EN}
     },
-    (int8*)&set.debug.show.chanParam[A], EmptyFuncVB, EmptyFuncVII
+    (int8*)&set.debug.show.chanParam[A]
 };
 
 
@@ -394,7 +413,7 @@ static const Choice mcConsole_Registers_ChanParamB =
         {DISABLE_RU, DISABLE_EN},
         {ENABLE_RU, ENABLE_EN}
     },
-    (int8*)&set.debug.show.chanParam[B], EmptyFuncVB, EmptyFuncVII
+    (int8*)&set.debug.show.chanParam[B]
 };
 
 
@@ -411,7 +430,7 @@ static const Choice mcConsole_Registers_TBase =
         {DISABLE_RU, DISABLE_EN},
         {ENABLE_RU, ENABLE_EN}
     },
-    (int8*)&set.debug.show.tBase, EmptyFuncVB, EmptyFuncVII
+    (int8*)&set.debug.show.tBase
 };
 
 
@@ -428,7 +447,7 @@ static const Choice mcConsole_Registers_TShift =
         {DISABLE_RU, DISABLE_EN},
         {ENABLE_RU, ENABLE_EN}
     },
-    (int8*)&set.debug.show.tShift, EmptyFuncVB, EmptyFuncVII
+    (int8*)&set.debug.show.tShift
 };
 
 
@@ -600,7 +619,7 @@ static const Choice mcADC_Stretch_Mode =
         {"Реальный", "Real"},
         {"Ручной", "Manual"}
     },
-    (int8*)&setNR.stretchADCtype, OnChange_ADC_Stretch_Mode, EmptyFuncVII
+    (int8*)&setNR.stretchADCtype, OnChange_ADC_Stretch_Mode
 };
 
 static int16 stretchA;
@@ -1004,7 +1023,7 @@ static const Choice mcChannels_BandwidthA =
         {"650МГц", "650MHz"},
         {"750МГц", "750MHz"}
     },
-    (int8*)&BANDWIDTH_DEBUG(A), OnChange_Channels_BandwidthA, EmptyFuncVII
+    (int8*)&BANDWIDTH_DEBUG(A), OnChange_Channels_BandwidthA
 };
 
 static void OnChange_Channels_BandwidthA(bool active)
@@ -1030,7 +1049,7 @@ static const Choice mcChannels_BandwidthB =
         {"650МГц", "650MHz"},
         {"750МГц", "750MHz"}
     },
-    (int8*)&BANDWIDTH_DEBUG(B), OnChange_Channels_BandwidthB, EmptyFuncVII
+    (int8*)&BANDWIDTH_DEBUG(B), OnChange_Channels_BandwidthB
 };
 
 static void OnChange_Channels_BandwidthB(bool active)
@@ -1216,7 +1235,7 @@ static const Choice mcRand_ShowInfo =
         {"Не показывать", "Hide"},
         {"Показывать", "Show"}
     },
-    (int8*)&SHOW_RAND_INFO, EmptyFuncVB, EmptyFuncVII
+    (int8*)&SHOW_RAND_INFO
 };
 
 // ОТЛАДКА -> РАНД-ТОР -> Статистика -----------------------------------------------------------------------------------------------------------------------------
@@ -1235,7 +1254,7 @@ static const Choice mgRand_ShowStat =
         {"Не показывать",   "Hide"},
         {"Показывать",      "Show"}
     },
-    (int8*)&SHOW_RAND_STAT, EmptyFuncVB, EmptyFuncVII
+    (int8*)&SHOW_RAND_STAT
 };
 
 
@@ -1255,7 +1274,7 @@ static const Choice mcEMS =
         {DISABLE_RU,    DISABLE_EN},
         {ENABLE_RU,     ENABLE_EN}
     },
-    (int8*)&MODE_EMS, OnChange_EMS, EmptyFuncVII
+    (int8*)&MODE_EMS, OnChange_EMS
 };
 
 static void OnChange_EMS(bool active)
@@ -1281,7 +1300,7 @@ static const Choice mcDisplayOrientation =
         { "Прямая", "Direct" },
         { "Обратная", "Back" }
     },
-    (int8*)&DISPLAY_ORIENTATION, OnChange_DisplayOrientation, EmptyFuncVII
+    (int8*)&DISPLAY_ORIENTATION, OnChange_DisplayOrientation
 };
 
 

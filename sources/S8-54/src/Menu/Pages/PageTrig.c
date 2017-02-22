@@ -71,7 +71,7 @@ static const Choice mcMode =
         {"Ждущий",      "Wait"},
         {"Однократный", "Single"}
     },
-    (int8*)&START_MODE, OnChange_Mode, EmptyFuncVII
+    (int8*)&START_MODE, OnChange_Mode
 };
 
 void OnChange_Mode(bool active)
@@ -113,7 +113,7 @@ static const Choice mcSource =
         {"Канал 2", "Channel 2"},
         {"Внешний", "External"}
     },
-    (int8*)&TRIGSOURCE, OnChange_Source, EmptyFuncVII
+    (int8*)&TRIGSOURCE, OnChange_Source
 };
 
 static void OnChange_Source(bool active)
@@ -137,7 +137,7 @@ static const Choice mcPolarity =
         {"Фронт", "Front"},
         {"Срез", "Back"}
     },
-    (int8*)&TRIG_POLARITY, OnChange_Polarity, EmptyFuncVII
+    (int8*)&TRIG_POLARITY, OnChange_Polarity
 };
 
 static void OnChange_Polarity(bool active)
@@ -169,7 +169,7 @@ static const Choice mcInput =
         {"ФНЧ", "LPF"},
         {"ФВЧ", "HPF"}
     },
-    (int8*)&TRIG_INPUT, OnChange_Input, EmptyFuncVII
+    (int8*)&TRIG_INPUT, OnChange_Input
 };
 
 static void OnChange_Input(bool active)
@@ -228,7 +228,7 @@ static const Choice mcSearch_Mode =
         {"Ручной",          "Hand"},
         {"Автоматический",  "Auto"}
     },
-    (int8*)&TRIG_MODE_FIND, EmptyFuncVB, EmptyFuncVII
+    (int8*)&TRIG_MODE_FIND
 };
 
 // СИНХР -> ПОИСК -> Найти ---------------------------------------------------------------------------------------------------------------------------------------------------

@@ -72,7 +72,11 @@ volatile BitField gBF =
     1,  // cursorInDirs
     1,  // needRedrawFileManager
 
+
+
     0,  // alreadyLoadSettings
+
+
     0,  // showHelpHints
 
     0,  // showDebugMenu
@@ -85,10 +89,12 @@ volatile BitField gBF =
     0,  // временный показ строки меню навигации
     0,  // needSetOrientation
     0,  // cableEthIsConnected
+
     0,  // panelControlReceive
     0,  // needToMountFlash
 
-    0   // soundIsBeep
+    0,  // soundIsBeep
+    0   // consoleInPause
 };
 
 

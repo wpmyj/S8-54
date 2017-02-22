@@ -101,7 +101,7 @@ static const Choice mcChanA_Input =
         {DISABLE_RU, DISABLE_EN},
         {ENABLE_RU, ENABLE_EN}
     },
-    (int8*)&ENABLE_A, OnChange_ChanA_Input, EmptyFuncVII
+    (int8*)&ENABLE_A, OnChange_ChanA_Input
 };
 
 void OnChange_ChanA_Input(bool active)
@@ -124,7 +124,7 @@ static const Choice mcChanA_Couple =
         {"Перем", "DC"},
         {"Земля", "Ground"}
     },
-    (int8*)&COUPLE_A, OnChange_ChanA_Couple, EmptyFuncVII
+    (int8*)&COUPLE_A, OnChange_ChanA_Couple
 };
 
 static void OnChange_ChanA_Couple(bool active)
@@ -145,7 +145,7 @@ static const Choice mcChanA_Bandwidth =
         {"Полная", "Full"},
         {"20МГц", "20MHz"}
     },
-    (int8*)&BANDWIDTH_A, OnChange_ChanA_Bandwidth, EmptyFuncVII
+    (int8*)&BANDWIDTH_A, OnChange_ChanA_Bandwidth
 };
 
 static void OnChange_ChanA_Bandwidth(bool active)
@@ -166,7 +166,7 @@ static const Choice mcChanA_Resistance =
         {"1 МОм", "1 Mohm"},
         {"50 Ом", "50 Ohm"}
     },
-    (int8*)&RESISTANCE_A, OnChange_ChanA_Resistance, EmptyFuncVII
+    (int8*)&RESISTANCE_A, OnChange_ChanA_Resistance
 };
 
 static void OnChange_ChanA_Resistance(bool active)
@@ -192,7 +192,7 @@ static const Choice mcChanA_Inverse =
         {DISABLE_RU, DISABLE_EN},
         {ENABLE_RU, ENABLE_EN}
     },
-    (int8*)&INVERSE(A), OnChange_ChanA_Inverse, EmptyFuncVII
+    (int8*)&INVERSE(A), OnChange_ChanA_Inverse
 };
 
 static void OnChange_ChanA_Inverse(bool active)
@@ -214,7 +214,7 @@ static const Choice mcChanA_Divider =
         {"Выкл", "Off"},
         {"1/10", "1/10"}
     },
-    (int8*)&DIVIDER_A, EmptyFuncVB, EmptyFuncVII
+    (int8*)&DIVIDER_A
 };
 
 // КАНАЛ 1 -> Балансировать ---------------------------------------------------------------------------------------------------------------------------------------------------
@@ -270,7 +270,7 @@ static const Choice mcChanB_Input =
         {DISABLE_RU, DISABLE_EN},
         {ENABLE_RU, ENABLE_EN}
     },
-    (int8*)&ENABLE_B, OnChange_ChanB_Input, EmptyFuncVII
+    (int8*)&ENABLE_B, OnChange_ChanB_Input
 };
 
 static bool IsActive_ChanB_Input(void)
@@ -308,7 +308,7 @@ static const Choice mcChanB_Couple =
         {"Перем", "DC"},
         {"Земля", "Ground"}
     },
-    (int8*)&COUPLE_B, OnChange_ChanB_Couple, EmptyFuncVII
+    (int8*)&COUPLE_B, OnChange_ChanB_Couple
 };
 
 static void OnChange_ChanB_Couple(bool active)
@@ -328,7 +328,7 @@ static const Choice mcChanB_Bandwidth =
         {"Полная", "Full"}, 
         {"20МГц", "20MHz"}
     },
-    (int8*)&BANDWIDTH_B, OnChange_ChanB_Bandwidth, EmptyFuncVII
+    (int8*)&BANDWIDTH_B, OnChange_ChanB_Bandwidth
 };
 
 static void OnChange_ChanB_Bandwidth(bool active)
@@ -348,7 +348,7 @@ static const Choice mcChanB_Resistance =
         {"1 МОм", "1 Mohm"},
         {"50 Ом", "50 Ohm"}
     },
-    (int8*)&RESISTANCE_B, OnChange_ChanB_Resistance, EmptyFuncVII
+    (int8*)&RESISTANCE_B, OnChange_ChanB_Resistance
 };
 
 static void OnChange_ChanB_Resistance(bool active)
@@ -373,7 +373,7 @@ static const Choice mcChanB_Inverse =
         {DISABLE_RU, DISABLE_EN},
         {ENABLE_RU, ENABLE_EN}
     },
-    (int8*)&INVERSE(B), OnChange_ChanB_Inverse, EmptyFuncVII
+    (int8*)&INVERSE(B), OnChange_ChanB_Inverse
 };
 
 static void OnChange_ChanB_Inverse(bool active)
@@ -394,7 +394,7 @@ static const Choice mcChanB_Divider =
         {"Выкл", "Jff"},
         {"1/10", "1/10"}
     },
-    (int8*)&DIVIDER_B, EmptyFuncVB, EmptyFuncVII
+    (int8*)&DIVIDER_B, EmptyFuncVB
 };
 
 // КАНАЛ 2 -> Балансировать ---------------------------------------------------------------------------------------------------------------------------------------------------

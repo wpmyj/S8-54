@@ -212,7 +212,7 @@ static const Choice mcLengthMemory =
         {"16к", "16k"}
         //,{"32к", "32k"}
     },
-    (int8*)&FPGA_NUM_POINTS, OnChange_MemoryLength, EmptyFuncVII
+    (int8*)&FPGA_NUM_POINTS, OnChange_MemoryLength
 };
 
 static bool IsActive_MemoryLength(void)
@@ -894,7 +894,7 @@ static const Choice mcDrive_Name =
         {"По маске",    "Mask"},
         {"Вручную",     "Manually"}
     },
-    (int8*)&FILE_NAMING_MODE, EmptyFuncVB, EmptyFuncVII
+    (int8*)&FILE_NAMING_MODE
 };
 
 
@@ -913,7 +913,7 @@ static const Choice mcDrive_ModeSave =
         {"Изображение", "Image"},
         {"Текст", "Text"}
     },
-    (int8*)&MODE_SAVE, EmptyFuncVB, EmptyFuncVII
+    (int8*)&MODE_SAVE
 };
 
 // ПАМЯТЬ -> ВНЕШН ЗУ -> Реж кн ПАМЯТЬ ----------------------------------------------------------------------------------------------------------------------------------------
@@ -929,7 +929,7 @@ static const Choice mcDrive_ModeBtnMemory =
         {"Меню", "Menu"},
         {"Сохранение", "Save"}
     },
-    (int8*)&MODE_BTN_MEMORY, EmptyFuncVB, EmptyFuncVII
+    (int8*)&MODE_BTN_MEMORY
 };
 
 // ПАМЯТЬ -> ВНЕШН ЗУ -> Автоподключение ------------------------------------------------------------------------------------------------------------------------------------------
@@ -945,7 +945,7 @@ static const Choice mcDrive_Autoconnect =
         {DISABLE_RU, DISABLE_EN},
         {ENABLE_RU, ENABLE_EN}
     },
-    (int8*)&FLASH_AUTO_CONNECT, EmptyFuncVB, EmptyFuncVII
+    (int8*)&FLASH_AUTO_CONNECT
 };
 
 

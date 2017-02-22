@@ -145,7 +145,7 @@ static const Choice mcRecorder =
         {DISABLE_RU, DISABLE_EN},
         {ENABLE_RU, ENABLE_EN}
     },
-    (int8*)&RECORDER_MODE, OnChange_Recorder, EmptyFuncVII
+    (int8*)&RECORDER_MODE, OnChange_Recorder
 };
 
 static void OnChange_Recorder(bool active)
@@ -166,7 +166,7 @@ static const Choice mcLanguage =
         {"Русский",     "Russian"},
         {"Английский",  "English"}
     },
-    (int8*)&set.common.lang, EmptyFuncVB, EmptyFuncVII
+    (int8*)&set.common.lang
 };
 
 
@@ -273,7 +273,7 @@ static const Choice mcCalibrator =
         {"+4V", "+4V"},
         {"0V", "0V"}
     },
-    (int8*)&set.service.calibrator, OnChange_Calibrator, EmptyFuncVII
+    (int8*)&set.service.calibrator, OnChange_Calibrator
 };
 
 static void OnChange_Calibrator(bool active)
@@ -439,7 +439,7 @@ static const Choice mcServEthEnable =
         {"Включено",    "Included"},
         {"Отключено",   "Disconnected"}
     },
-    (int8*)&set.eth.enable, FuncOfChangedEthernetSettings, EmptyFuncVII
+    (int8*)&set.eth.enable, FuncOfChangedEthernetSettings
 };
 
 
@@ -519,7 +519,7 @@ const Choice mcServiceSoundEnable =
         {DISABLE_RU, DISABLE_EN},
         {ENABLE_RU, ENABLE_EN}
     },
-    (int8*)&set.service.soundEnable, EmptyFuncVB, EmptyFuncVII
+    (int8*)&set.service.soundEnable
 };
 
 

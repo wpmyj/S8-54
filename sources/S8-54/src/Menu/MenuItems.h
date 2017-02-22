@@ -238,3 +238,9 @@ typedef struct
 {
     int16 i;
 } StructFuncReg;
+
+#define CHOICE_RUN_FUNC_CHANGED(c, val)     \
+    if(c->funcOnChanged)                    \
+    {                                       \
+        c->funcOnChanged(val);              \
+    }

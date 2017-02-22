@@ -215,18 +215,19 @@ static const Settings defaultSettings =
     },
     // debug
     {
-        0,          // numStrings
-        0,          // נאחלונ רנטפעא - 5
-        false,      // consoleInPause
-        1000,       // numMeasuresForGates
-        0,          // timeCompensation
-        false,      // view altera writting data
-        false,      // view all altera writting data
-        0,          // alt shift
         false,      // showRandInfo
         false,      // showRandStat
         false,      // modeEMS
         false,      // showStats
+        false,      // view altera writting data
+        false,      // view all altera writting data
+        false,      // modePauseConsole
+        0,          // נאחלונ רנטפעא - 5
+        Direct,     // orientation
+        0,          // numStrings
+        1000,       // numMeasuresForGates
+        0,          // timeCompensation
+        0,          // alt shift
         200,        // pretriggered
         {Bandwidth_Full, Bandwidth_Full}    // bandwidth[2]
     }

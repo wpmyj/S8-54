@@ -103,7 +103,7 @@ static const Choice mcServiceFreqMeterEnable =
         {DISABLE_RU, DISABLE_EN},
         {ENABLE_RU, ENABLE_EN}
     },
-    (int8*)&set.service.freqMeter.enable, ChangeParameterFreqMeter, EmptyFuncVII
+    (int8*)&set.service.freqMeter.enable, ChangeParameterFreqMeter
 };
 
 static void ChangeParameterFreqMeter(bool param)
@@ -127,7 +127,7 @@ static const Choice mcServiceFreqMeterTimeF =
         {"1с", "1s"},
         {"10с", "10ms"}
     },
-    (int8*)&set.service.freqMeter.timeCounting, ChangeParameterFreqMeter, EmptyFuncVII
+    (int8*)&set.service.freqMeter.timeCounting, ChangeParameterFreqMeter
 };
 
 static const Choice mcServiceFreqFreqClc =
@@ -147,7 +147,7 @@ static const Choice mcServiceFreqFreqClc =
         {"10МГц", "10MHz"},
         {"100МГц", "100MHz"}
     },
-    (int8*)&set.service.freqMeter.freqClc, ChangeParameterFreqMeter, EmptyFuncVII
+    (int8*)&set.service.freqMeter.freqClc, ChangeParameterFreqMeter
 };
 
 static const Choice mcServiceFreqMeterNumberPeriods =
@@ -166,7 +166,7 @@ static const Choice mcServiceFreqMeterNumberPeriods =
         {"10", "10"},
         {"100", "100"}
     },
-    (int8*)&set.service.freqMeter.numberPeriods, ChangeParameterFreqMeter, EmptyFuncVII
+    (int8*)&set.service.freqMeter.numberPeriods, ChangeParameterFreqMeter
 };
 
 // ИЗМЕРЕНИЯ -> Показывать -----------------------------------------------------------------------------------------------------------------------------
@@ -182,7 +182,7 @@ static const Choice mcIsShow =
         {"Нет", "No"},
         {"Да", "Yes"}
     },
-    (int8*)&SHOW_MEASURES, EmptyFuncVB, EmptyFuncVII
+    (int8*)&SHOW_MEASURES
 };
 
 // ИЗМЕРЕНИЯ -> Количество -----------------------------------------------------------------------------------------------------------------------------
@@ -218,7 +218,7 @@ static const Choice mcNumber =
         {"6x1", "6x1"},
         {"6x2", "6x2"}
     },
-    (int8*)&NUM_MEASURES, EmptyFuncVB, EmptyFuncVII
+    (int8*)&NUM_MEASURES
 };
 
 static bool IsActive_Number(void)
@@ -240,7 +240,7 @@ static const Choice mcChannels =
         {"2", "2"},
         {"1 и 2", "1 and 2"}
     },
-    (int8*)&SOURCE_MEASURE, EmptyFuncVB, EmptyFuncVII
+    (int8*)&SOURCE_MEASURE
 };
 
 static bool IsActive_Channels(void)
@@ -261,7 +261,7 @@ static const Choice mcMode =
         {"Как есть",    "As is"},
         {"Уменьшать",   "Reduce"}
     },
-    (int8*)&set.measures.modeViewSignals, EmptyFuncVB, EmptyFuncVII
+    (int8*)&set.measures.modeViewSignals
 };
 
 static bool IsActive_Mode(void)

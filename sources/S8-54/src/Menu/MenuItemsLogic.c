@@ -57,7 +57,7 @@ void Choice_ChangeIndex(Choice *choice, int delta)
         }
     }
     *choice->cell = (int8)index;
-    choice->funcOnChanged(choice->funcOfActive());
+    CHOICE_RUN_FUNC_CHANGED(choice, choice->funcOfActive());
     Sound_GovernorChangedValue();
     Display_Redraw();
 }
@@ -178,7 +178,7 @@ void Choice_StartChange(Choice *choice, int delta)
     }
     else if (!choice->funcOfActive)
     {
-        choice->funcOnChanged(false);
+        CHOICE_RUN_FUNC_CHANGED(choice, false);
     }
     else
     {
@@ -222,7 +222,7 @@ float Choice_Step(Choice *choice)
         }
         *choice->cell = index;
         tsChoice.address = 0;
-        choice->funcOnChanged(choice->funcOfActive());
+        CHOICE_RUN_FUNC_CHANGED(choice, choice->funcOfActive());
         Display_Redraw();
         tsChoice.dir = NONE;
         return 0.0f;

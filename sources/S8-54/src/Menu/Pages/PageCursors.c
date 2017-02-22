@@ -115,7 +115,7 @@ static const Choice mcShow =
         {"Нет", "No"},
         {"Да",  "Yes"}
     },
-    (int8*)&set.cursors.showCursors, EmptyFuncVB, EmptyFuncVII
+    (int8*)&set.cursors.showCursors
 };
 
 // КУРСОРЫ -> Слежение канал 1 ---------------------------------------------------------------------------------------------------------------------------------------------------
@@ -145,7 +145,7 @@ static const Choice mcLookModeChanA =
         {"Время",           "Time"},
         {"Напряж и время",  "Volt and time"}
     },
-    (int8*)&set.cursors.lookMode[A], EmptyFuncVB, EmptyFuncVII
+    (int8*)&set.cursors.lookMode[A]
 };
 
 // КУРСОРЫ -> Слежение канал 2 ---------------------------------------------------------------------------------------------------------------------------------------------------
@@ -172,7 +172,7 @@ static const Choice mcLookModeChanB =
         {"Время",           "Time"},
         {"Напряж. и время", "Volt. and time"}
     },
-    (int8*)&set.cursors.lookMode[B], EmptyFuncVB, EmptyFuncVII
+    (int8*)&set.cursors.lookMode[B]
 };
 
 // КУРОСРЫ -> 1/dT ---------------------------------------------------------------------------------------------------------------------------------------------------
@@ -188,7 +188,7 @@ static const Choice mcShowFreq =
         {DISABLE_RU,    DISABLE_EN},
         {ENABLE_RU,     ENABLE_EN}
     },
-    (int8*)&CURSORS_SHOW_FREQ, EmptyFuncVB, EmptyFuncVII
+    (int8*)&CURSORS_SHOW_FREQ
 };
 
 

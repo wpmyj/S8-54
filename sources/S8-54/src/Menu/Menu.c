@@ -651,11 +651,13 @@ static void OnTimerStrNaviAutoHide(void)
 
 
 //------------------------------------------------------------------------------------------------------------------------------------------------------
-void ShortPress_Choice(void *choice)
+void ShortPress_Choice(void *choice_)
 {
+    Choice *choice = (Choice*)choice_;
+
     if (!ItemIsAcitve(choice))
     {
-        ((Choice*)choice)->funcOnChanged(false);
+        CHOICE_RUN_FUNC_CHANGED(choice, false);
     }
     else if (!ItemIsOpened(choice))
     {
@@ -670,11 +672,13 @@ void ShortPress_Choice(void *choice)
 
 
 //------------------------------------------------------------------------------------------------------------------------------------------------------
-void ShortPress_ChoiceReg(void *choice) 
+void ShortPress_ChoiceReg(void *choice_)
 {
+    Choice *choice = (Choice*)choice_;
+
     if(!ItemIsAcitve(choice)) 
     {
-        ((Choice*)choice)->funcOnChanged(false);
+        CHOICE_RUN_FUNC_CHANGED(choice, false);
     } 
     else if(OpenedItem() != choice) 
     {

@@ -191,18 +191,34 @@
         <Bp>
           <Number>0</Number>
           <Type>0</Type>
-          <LineNumber>496</LineNumber>
+          <LineNumber>1679</LineNumber>
           <EnabledFlag>1</EnabledFlag>
-          <Address>134409644</Address>
+          <Address>134515716</Address>
           <ByteObject>0</ByteObject>
           <HtxType>0</HtxType>
           <ManyObjects>0</ManyObjects>
           <SizeOfObject>0</SizeOfObject>
           <BreakByAccess>0</BreakByAccess>
           <BreakIfRCount>1</BreakIfRCount>
-          <Filename>&lt;1&gt;.\src\Hardware\FLASH.c</Filename>
+          <Filename>&lt;1&gt;.\src\Display\Display.c</Filename>
           <ExecCommand></ExecCommand>
-          <Expression>\\S8_54\src/Hardware/FLASH.c\496</Expression>
+          <Expression>\\S8_54\src/Display/Display.c\1679</Expression>
+        </Bp>
+        <Bp>
+          <Number>1</Number>
+          <Type>0</Type>
+          <LineNumber>1712</LineNumber>
+          <EnabledFlag>1</EnabledFlag>
+          <Address>134515958</Address>
+          <ByteObject>0</ByteObject>
+          <HtxType>0</HtxType>
+          <ManyObjects>0</ManyObjects>
+          <SizeOfObject>0</SizeOfObject>
+          <BreakByAccess>0</BreakByAccess>
+          <BreakIfRCount>1</BreakIfRCount>
+          <Filename>&lt;1&gt;.\src\Display\Display.c</Filename>
+          <ExecCommand></ExecCommand>
+          <Expression>\\S8_54\src/Display/Display.c\1712</Expression>
         </Bp>
       </Breakpoint>
       <WatchWindow1>
@@ -1618,7 +1634,7 @@
 
   <Group>
     <GroupName>Display</GroupName>
-    <tvExp>0</tvExp>
+    <tvExp>1</tvExp>
     <tvExpOptDlg>0</tvExpOptDlg>
     <cbSel>0</cbSel>
     <RteFlg>0</RteFlg>
@@ -2190,7 +2206,7 @@
 
   <Group>
     <GroupName>Hardware</GroupName>
-    <tvExp>1</tvExp>
+    <tvExp>0</tvExp>
     <tvExpOptDlg>0</tvExpOptDlg>
     <cbSel>0</cbSel>
     <RteFlg>0</RteFlg>
@@ -2542,7 +2558,7 @@
 
   <Group>
     <GroupName>Menu/Pages</GroupName>
-    <tvExp>1</tvExp>
+    <tvExp>0</tvExp>
     <tvExpOptDlg>0</tvExpOptDlg>
     <cbSel>0</cbSel>
     <RteFlg>0</RteFlg>

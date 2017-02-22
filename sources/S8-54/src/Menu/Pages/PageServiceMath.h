@@ -306,7 +306,7 @@ const Choice mcFFTenable =
     {                           {DISABLE_RU,    DISABLE_EN},
                                 {ENABLE_RU,     ENABLE_EN}
     },
-    (int8*)&FFT_ENABLED, EmptyFuncVB, EmptyFuncVII
+    (int8*)&FFT_ENABLED
 };
 
 // СЕРВИС -> МАТЕМАТИКА -> СПЕКТР -> Шкала
@@ -321,7 +321,7 @@ const Choice mcFFTscale =
     {                           {"Логарифм",    "Log"},
                                 {"Линейная",    "Linear"}
     },
-    (int8*)&SCALE_FFT, EmptyFuncVB, EmptyFuncVII
+    (int8*)&SCALE_FFT
 };
 
 // СЕРВИС -> МАТЕМАТИКА -> СПЕКТР -> Источник
@@ -337,7 +337,7 @@ const Choice mcFFTsource =
                                 {"Канал 2",     "Channel 2"},
                                 {"Канал 1 + 2", "Channel 1 + 2"}
     },
-    (int8*)&SOURCE_FFT, EmptyFuncVB, EmptyFuncVII
+    (int8*)&SOURCE_FFT
 };
 
 // СЕРВИС -> МАТЕМАТИКА -> СПЕКТР -> Окно
@@ -354,7 +354,7 @@ const Choice mcFFTwindow =
                                 {"Блэкмена",    "Blackman"},
                                 {"Ханна",       "Hann"}
     },
-    (int8*)&WINDOW_FFT, EmptyFuncVB, EmptyFuncVII
+    (int8*)&WINDOW_FFT
 };
 
 // СЕРВИС -> МАТЕМАТИКА -> СПЕКТР -> Предел
@@ -375,7 +375,7 @@ const Choice mcFFTrange =
                                 {"-60дБ",   "-60dB"},
                                 {"-80дБ",   "-80dB"}
     },
-    (int8*)&MAX_DB_FFT, EmptyFuncVB, EmptyFuncVII
+    (int8*)&MAX_DB_FFT
 };
 
 // СЕРВИС -> МАТЕМАТИКА -> СПЕКТР -> Курсоры

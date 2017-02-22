@@ -3,7 +3,8 @@
 
 #define CONSOLE_NUM_STRINGS     (set.debug.numStrings)
 #define CONSOLE_SIZE_FONT       (set.debug.sizeFont ? 8 : 5)
-#define CONSOLE_IN_PAUSE        (set.debug.consoleInPause)
+#define MODE_PAUSE_CONSOLE      (set.debug.modePauseConsole)        // Если truе, то включён режим остновки консоли, в котором нажатие ПУСК/СТОП приостанавливает вывод в консоль
+#define CONSOLE_IN_PAUSE        (gBF.consoleInPause)                // Если 1, то консоль находится в режиме паузы
 #define NUM_MEASURES_FOR_GATES  (set.debug.numMeasuresForGates)
 #define TIME_COMPENSATION       (set.debug.timeCompensation)
 #define SHOW_RAND_INFO          (set.debug.showRandInfo)
