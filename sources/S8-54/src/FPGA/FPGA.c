@@ -1024,10 +1024,10 @@ void FPGA_TemporaryPause(void)
 //------------------------------------------------------------------------------------------------------------------------------------------------------
 void FPGA_FillDataPointer(DataSettings *ds)
 {
-    ds->enableChA = sChannel_Enabled(A) ? 1 : 0;
-    ds->enableChB = sChannel_Enabled(B) ? 1 : 0;
-    ds->inverseChA = INVERSE(A) ? 1 : 0;
-    ds->inverseChB = INVERSE(B) ? 1 : 0;
+    ds->enableA = sChannel_Enabled(A) ? 1 : 0;
+    ds->enableB = sChannel_Enabled(B) ? 1 : 0;
+    ds->inverseA = INVERSE(A) ? 1 : 0;
+    ds->inverseB = INVERSE(B) ? 1 : 0;
     ds->range[A] = RANGE_A;
     ds->range[B] = RANGE_B;
     ds->rShift[A] = RSHIFT_A;

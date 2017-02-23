@@ -252,9 +252,9 @@ void Display_Update(void)
         DrawCursors();
         DrawHiPart();
         
-        if(COUPLE_DS(gDSmemInt, B) > 2)
+        if(DS_COUPLE(gDSmemInt, B) > 2)
         {
-            LOG_WRITE_TRACE("modeCouple %d", COUPLE_DS(gDSmemInt, B));
+            LOG_WRITE_TRACE("modeCouple %d", DS_COUPLE(gDSmemInt, B));
         }
         
         DrawLowPart();
@@ -684,18 +684,18 @@ static void DrawLowPart(void)
     Painter_DrawHLineC(GridChannelBottom(), 1, GridLeft() - Measure_GetDeltaGridLeft() - 2, gColorFill);
     Painter_DrawHLine(GridFullBottom(), 1, GridLeft() - Measure_GetDeltaGridLeft() - 2);
     
-    if (COUPLE_DS(gDSmemInt, B) > 2)
+    if (DS_COUPLE(gDSmemInt, B) > 2)
     {
-        LOG_WRITE_TRACE("modeCouple %d", COUPLE_DS(gDSmemInt, B));
+        LOG_WRITE_TRACE("modeCouple %d", DS_COUPLE(gDSmemInt, B));
     }
 
     WriteTextVoltage(A, x + 2, y0);
 
     WriteTextVoltage(B, x + 2, y1);
 
-    if (COUPLE_DS(gDSmemInt, B) > 2)
+    if (DS_COUPLE(gDSmemInt, B) > 2)
     {
-        LOG_WRITE_TRACE("modeCouple %d", COUPLE_DS(gDSmemInt, B));
+        LOG_WRITE_TRACE("modeCouple %d", DS_COUPLE(gDSmemInt, B));
     }
 
     Painter_DrawVLineC(x + 95, GRID_BOTTOM + 2, SCREEN_HEIGHT - 2, gColorFill);
@@ -1704,18 +1704,21 @@ static void WriteTextVoltage(Channel ch, int x, int y)
         DataSettings *ds = WORK_LAST ? gDSmemLast : gDSmemInt;
         if(ds != 0)
         {
-            inverse = INVERSE_DS(ds, ch);
-            modeCouple = COUPLE_DS(ds, ch);
+            inverse = DS_INVERSE(ds, ch);
+            modeCouple = DS_COUPLE(ds, ch);
 
             if (modeCouple > 2)
             {
-                LOG_WRITE_TRACE("modeCouple %d", modeCouple);
+                //LOG_WRITE_TRACE("modeCouple %d", modeCouple);
             }
 
-            divider = DIVIDER_DS(ds, ch);
-            range = RANGE_DS(ds, ch);
-            rShift = RSHIFT_DS(ds, ch);
-            enable = ENABLE_DS(ds, ch);
+            divider = DS_DIVIDER(ds, ch);
+            range = DS_RANGE(ds, ch);
+            rShift = DS_RSHIFT(ds, ch);
+            
+            LOG_WRITE("tshift %d", DS_TSHIFT(ds));
+
+            enable = DS_ENABLED(ds, ch);
         }
     }
 
@@ -1741,9 +1744,9 @@ static void WriteTextVoltage(Channel ch, int x, int y)
             LOG_WRITE_TRACE("modeCouple %d", modeCouple);
         }
 
-        if (COUPLE_DS(gDSmemInt, B) > 2)
+        if (DS_COUPLE(gDSmemInt, B) > 2)
         {
-            LOG_WRITE_TRACE("modeCouple %d", COUPLE_DS(gDSmemInt, B));
+            LOG_WRITE_TRACE("modeCouple %d", DS_COUPLE(gDSmemInt, B));
         }
 
         Painter_DrawTextC(x + 1, y, buffer, colorDraw);

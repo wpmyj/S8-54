@@ -136,30 +136,35 @@ typedef struct
 {
     uint16      rShift[2];
     uint16      trigLev[2];
-    uint8*      addrData;               // Адрес данных во внешнем ОЗУ
-    uint8       range[2];               // Масштаб по напряжению обоих каналов.
     int16       tShift;                 // Смещение по времени
+    uint8       range[2];               // Масштаб по напряжению обоих каналов.
+    uint8*      addrData;               // Адрес данных во внешнем ОЗУ
     uint        tBase           : 5;    // Масштаб по времени
-    uint        enableChB       : 1;    // Включен ли канал B
+    uint        enableB         : 1;    // Включен ли канал B
     uint        indexLength     : 3;    // Сколько байт в канале (при включённом пиковом детекторе байт в два раза больше, чем точек)
     uint        modeCoupleA     : 2;    // Режим канала по входу
     uint        modeCoupleB     : 2;
     uint        peackDet        : 2;    // Включен ли пиковый детектор
-    uint        enableChA       : 1;    // Включён ли канал A
-    uint        inverseChA      : 1;
-    uint        inverseChB      : 1;
+    uint        enableA         : 1;    // Включён ли канал A
+    uint        inverseA        : 1;
+    uint        inverseB        : 1;
     uint        multiplierA     : 1;
     uint        multiplierB     : 1;
     PackedTime  time;
 } DataSettings;
 
 // Макросы для доступа к членам DataSettings
-#define INVERSE_DS(ds, ch)  ((ch == A) ? (bool)ds->inverseChA : (bool)ds->inverseChB)
-#define COUPLE_DS(ds, ch)   ((ch == A) ? (ModeCouple)ds->modeCoupleA : (ModeCouple)ds->modeCoupleB)
-#define DIVIDER_DS(ds, ch)  ((ch == A) ? (Divider)ds->multiplierA : (Divider)ds->multiplierB)
-#define RANGE_DS(ds, ch)    ((Range)ds->range[ch])
-#define RSHIFT_DS(ds, ch)   (ds->rShift[ch])
-#define ENABLE_DS(ds, ch)   ((ch == A) ? (bool)ds->enableChA : (bool)ds->enableChB)
+#define DS_INVERSE(ds, ch)  (((ch) == A) ? (ds)->inverseA : (ds)->inverseB)
+#define DS_INVERSE_A(ds)    ((ds)->inverseA)
+#define DS_INVERSE_B(ds)    ((ds)->inverseB)
+#define DS_COUPLE(ds, ch)   (((ch) == A) ? (ModeCouple)(ds)->modeCoupleA : (ModeCouple)(ds)->modeCoupleB)
+#define DS_DIVIDER(ds, ch)  (((ch) == A) ? (Divider)(ds)->multiplierA : (Divider)(ds)->multiplierB)
+#define DS_RANGE(ds, ch)    ((Range)(ds)->range[ch])
+#define DS_RSHIFT(ds, ch)   ((ds)->rShift[ch])
+#define DS_TSHIFT(ds)       ((ds)->tShift)
+#define DS_ENABLED(ds, ch)  (((ch) == A) ? (ds)->enableA : (ds)->enableB)
+#define DS_ENABLED_A(ds)    ((ds)->enableA)
+#define DS_ENABLED_B(ds)    ((ds)->enableB)
 
 
 int NumBytesInChannel(DataSettings *ds);    // Возвращает количество байт на канал

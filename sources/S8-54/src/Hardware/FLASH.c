@@ -678,13 +678,13 @@ static void SaveData(int num, DataSettings *ds, uint8 *dataA, uint8 *dataB)
     uint address = AddressForData(num);
     int sizeChannel = NumBytesInChannel(ds);
 
-    if (ds->enableChA)
+    if (DS_ENABLED_A(ds))
     {
         WriteBufferBytes(address, dataA, sizeChannel);
         address += sizeChannel;
     }
 
-    if (ds->enableChB)
+    if (DS_ENABLED_B(ds))
     {
         WriteBufferBytes(address, dataB, sizeChannel);
     }
@@ -714,13 +714,13 @@ bool FLASH_GetData(int num, DataSettings **ds, uint8 **dataA, uint8 **dataB)
 
     *ds = &array.datas[num].ds;
 
-    if ((*ds)->enableChA)
+    if (DS_ENABLED_A(*ds))
     {
         *dataA = (uint8*)addrData;
         addrData += NumBytesInChannel(*ds);
     }
 
-    if ((*ds)->enableChB)
+    if (DS_ENABLED_B(*ds))
     {
         *dataB = (uint8*)addrData;
     }

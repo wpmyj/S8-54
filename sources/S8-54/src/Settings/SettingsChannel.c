@@ -92,7 +92,7 @@ bool sChannel_NeedForDraw(const uint8 *data, Channel ch, DataSettings *ds)
     }
     else if (ds != 0)
     {
-        if ((ch == A && ds->enableChA == 0) || (ch == B && ds->enableChB == 0))
+        if ((ch == A && !DS_ENABLED_A(ds)) || (ch == B && !DS_ENABLED_B(ds)))
         {
             return false;
         }

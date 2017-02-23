@@ -580,12 +580,12 @@ static void DrawBothChannels(uint8 *dataA, uint8 *dataB)
     curDS = gDSet;
     if (LAST_AFFECTED_CH == B)
     {
-        if (gDSet->enableChA)
+        if (DS_ENABLED(gDSet, A))
         {
             curCh = A;
             DrawDataChannel(dataA, GRID_TOP, GridChannelBottom());
         }
-        if (gDSet->enableChB)
+        if (DS_ENABLED(gDSet, B))
         {
             curCh = B;
             DrawDataChannel(dataB, GRID_TOP, GridChannelBottom());
@@ -593,12 +593,12 @@ static void DrawBothChannels(uint8 *dataA, uint8 *dataB)
     }
     else
     {
-        if (gDSet->enableChB)
+        if (DS_ENABLED(gDSet, B))
         {
             curCh = B;
             DrawDataChannel(dataB, GRID_TOP, GridChannelBottom());
         }
-        if (gDSet->enableChA)
+        if (DS_ENABLED(gDSet, A))
         {
             curCh = A;
             DrawDataChannel(dataA, GRID_TOP, GridChannelBottom());
