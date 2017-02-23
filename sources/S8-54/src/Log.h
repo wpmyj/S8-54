@@ -1,4 +1,4 @@
-#pragma once   
+п»ї#pragma once   
 #include "defines.h"
 
 
@@ -7,7 +7,7 @@
 #define LOG_ERROR(...)          Log_Write(TypeTrace_Error, __VA_ARGS__)
 #define LOG_WRITE_TRACE(...)    Log_Trace(TypeTrace_Info, __MODULE__, __FUNCTION__, __LINE__, __VA_ARGS__)
 #define LOG_ERROR_TRACE(...)    Log_Trace(TypeTrace_Error, __MODULE__, __FUNCTION__, __LINE__, __VA_ARGS__)
-// Когда нужен вспомогательный буфер для преобразования числа в строку, можно пользоваться этой функцией
+// РљРѕРіРґР° РЅСѓР¶РµРЅ РІСЃРїРѕРјРѕРіР°С‚РµР»СЊРЅС‹Р№ Р±СѓС„РµСЂ РґР»СЏ РїСЂРµРѕР±СЂР°Р·РѕРІР°РЅРёСЏ С‡РёСЃР»Р° РІ СЃС‚СЂРѕРєСѓ, РјРѕР¶РЅРѕ РїРѕР»СЊР·РѕРІР°С‚СЊСЃСЏ СЌС‚РѕР№ С„СѓРЅРєС†РёРµР№
 #define LOG_WRITE_BUF(...)      { char buffer[100]; Log_Write(TypeTrace_Info, __VA_ARGS__); }
 #define LOG_FUNC_ENTER          Log_Write(TypeTrace_Info, "%s enter", __FUNCTION__);
 #define LOG_FUNC_LEAVE          Log_Write(TypeTrace_Info, "%s leave", __FUNCTION__);
