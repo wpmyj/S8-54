@@ -50,7 +50,7 @@ static void FuncReceiver(const char *buffer, uint length)
         }
         if (sizeData == SIZE_BUFFER_TCP)
         {
-            LOG_ERROR("Переполнение приёмного буфера ЕTH");
+            LOG_ERROR_TRACE("Переполнение приёмного буфера ЕTH");
             sizeData = 0;
             break;
         }

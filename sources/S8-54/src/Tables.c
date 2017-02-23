@@ -75,7 +75,7 @@ NumSignalsInSec Tables_NumSignalsInSecToENUM(int numSignalsInSec)
     {
         return NumSignalsInSec_25;
     }
-    LOG_ERROR("Число сигналов в секунду равно %d", numSignalsInSec);
+    LOG_ERROR_TRACE("Число сигналов в секунду равно %d", numSignalsInSec);
     return NumSignalsInSec_1;
 }
 
@@ -88,7 +88,7 @@ int Tables_ENUMtoNumSignalsInSec(NumSignalsInSec numSignalsInSec)
     {
         return fps[numSignalsInSec];
     }
-    LOG_ERROR("Неправильный параметр %d", (int)numSignalsInSec);
+    LOG_ERROR_TRACE("Неправильный параметр %d", (int)numSignalsInSec);
     return 1;
 }
 

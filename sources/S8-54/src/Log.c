@@ -13,12 +13,21 @@ static bool loggerUSB = false;
 #define SIZE_BUFFER_LOG 200
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-void Log_Write(char *format, ...)
+void Log_Write(TypeTrace type, char *format, ...)
 {
     char buffer[SIZE_BUFFER_LOG];
+    char *pointer = buffer;
+
+    if (type == TypeTrace_Error)
+    {
+        buffer[0] = 0;
+        strcat(buffer, "!!! ERROR !!! ");
+        while (*pointer++) {};
+        ++pointer;
+    }
     __va_list args;
     va_start(args, format);
-    vsprintf(buffer, format, args);
+    vsprintf(pointer, format, args);
     va_end(args);
     Display_AddStringToIndicating(buffer);
     if(loggerUSB)
@@ -28,7 +37,7 @@ void Log_Write(char *format, ...)
 }
 
 //------------------------------------------------------------------------------------------------------------------------------------------------------
-void Log_Error(const char *module, const char *func, int numLine, char *format, ...)
+void Log_Trace(TypeTrace type, const char *module, const char *func, int numLine, char *format, ...)
 {
     char buffer[SIZE_BUFFER_LOG];
     char message[SIZE_BUFFER_LOG];
@@ -40,7 +49,14 @@ void Log_Error(const char *module, const char *func, int numLine, char *format, 
     char numBuffer[SIZE];
     snprintf(numBuffer, 100, ":%d", numLine);
     message[0] = 0;
-    strcat(message, "!!!ERROR!!! ");
+    if (type == TypeTrace_Error)
+    {
+        strcat(message, "!!!ERROR!!! ");
+    }
+    else if (type == TypeTrace_Info)
+    {
+        strcat(message, "            ");
+    }
     strcat(message, module);
     strcat(message, " ");
     strcat(message, func);
@@ -53,7 +69,6 @@ void Log_Error(const char *module, const char *func, int numLine, char *format, 
         VCP_SendFormatStringAsynch(buffer);
     }
 }
-
 
 //------------------------------------------------------------------------------------------------------------------------------------------------------
 void Log_DisconnectLoggerUSB(void)

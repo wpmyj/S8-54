@@ -260,7 +260,7 @@ static bool CalculateGate(uint16 rand, uint16 *eMin, uint16 *eMax)
 
     if (rand < 500 || rand > 3500)
     {
-        LOG_ERROR("ОШИБКА!!! считано %d", rand);
+        LOG_ERROR_TRACE("ОШИБКА!!! считано %d", rand);
         return false;
     }
 

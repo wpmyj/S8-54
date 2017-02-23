@@ -237,7 +237,7 @@ void Painter_DrawHPointLine(int y, int x0, int x1, float delta)
 //------------------------------------------------------------------------------------------------------------------------------------------------------
 void Painter_DrawMultiVPointLine(int numLines, int y, uint16 x[], int delta, int count, Color color)
 {
-    ASSERT(numLines > 20, "Число линий слишком большое %d", numLines);
+    ASSERT_RET(numLines > 20, "Число линий слишком большое %d", numLines);
 
     Painter_SetColor(color);
     uint8 command[60];
@@ -268,7 +268,7 @@ void Painter_DrawMultiHPointLine(int numLines, int x, uint8 y[], int delta, int 
 {
     if (numLines > 20)
     {
-        LOG_ERROR("Число линий слишком большое %d", numLines);
+        LOG_ERROR_TRACE("Число линий слишком большое %d", numLines);
         return;
     }
     Painter_SetColor(color);
@@ -320,7 +320,7 @@ void Painter_DrawDashedHLine(int y, int x0, int x1, int deltaFill, int deltaEmpt
 {
     if (deltaStart < 0 || deltaStart >= (deltaFill + deltaEmpty))
     {
-        LOG_ERROR("Неправильный аргумент deltaStart = %d", deltaStart);
+        LOG_ERROR_TRACE("Неправильный аргумент deltaStart = %d", deltaStart);
         return;
     }
     int x = x0;
@@ -346,7 +346,7 @@ void Painter_DrawDashedVLine(int x, int y0, int y1, int deltaFill, int deltaEmtp
 {
     if (deltaStart < 0 || deltaStart >= (deltaFill + deltaEmtpy))
     {
-        LOG_ERROR("Неправильный аргумент deltaStart = %d", deltaStart);
+        LOG_ERROR_TRACE("Неправильный аргумент deltaStart = %d", deltaStart);
         return;
     }
     int y = y0;

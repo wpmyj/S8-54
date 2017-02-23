@@ -144,7 +144,7 @@ static int8 CDC_Itf_Receive(uint8* buffer, uint *length)
         }
         if (sizeData == APP_RX_DATA_SIZE)
         {
-            LOG_ERROR("Переполнение приёмного буфера VCP");
+            LOG_ERROR_TRACE("Переполнение приёмного буфера VCP");
             sizeData = 0;
             break;
         }

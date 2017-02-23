@@ -251,6 +251,12 @@ void Display_Update(void)
         DrawSpectrum();
         DrawCursors();
         DrawHiPart();
+        
+        if(COUPLE_DS(gDSmemInt, B) > 2)
+        {
+            LOG_WRITE_TRACE("modeCouple %d", COUPLE_DS(gDSmemInt, B));
+        }
+        
         DrawLowPart();
         DrawCursorsWindow();
         DrawCursorTrigLevel();
@@ -678,9 +684,19 @@ static void DrawLowPart(void)
     Painter_DrawHLineC(GridChannelBottom(), 1, GridLeft() - Measure_GetDeltaGridLeft() - 2, gColorFill);
     Painter_DrawHLine(GridFullBottom(), 1, GridLeft() - Measure_GetDeltaGridLeft() - 2);
     
+    if (COUPLE_DS(gDSmemInt, B) > 2)
+    {
+        LOG_WRITE_TRACE("modeCouple %d", COUPLE_DS(gDSmemInt, B));
+    }
+
     WriteTextVoltage(A, x + 2, y0);
 
     WriteTextVoltage(B, x + 2, y1);
+
+    if (COUPLE_DS(gDSmemInt, B) > 2)
+    {
+        LOG_WRITE_TRACE("modeCouple %d", COUPLE_DS(gDSmemInt, B));
+    }
 
     Painter_DrawVLineC(x + 95, GRID_BOTTOM + 2, SCREEN_HEIGHT - 2, gColorFill);
 
@@ -1690,6 +1706,12 @@ static void WriteTextVoltage(Channel ch, int x, int y)
         {
             inverse = INVERSE_DS(ds, ch);
             modeCouple = COUPLE_DS(ds, ch);
+
+            if (modeCouple > 2)
+            {
+                LOG_WRITE_TRACE("modeCouple %d", modeCouple);
+            }
+
             divider = DIVIDER_DS(ds, ch);
             range = RANGE_DS(ds, ch);
             rShift = RSHIFT_DS(ds, ch);
@@ -1712,6 +1734,17 @@ static void WriteTextVoltage(Channel ch, int x, int y)
         char buffer[SIZE];
 
         snprintf(buffer, SIZE, "%s\xa5%s\xa5%s", (ch == A) ? (LANG_RU ? "1ê" : "1c") : (LANG_RU ? "2ê" : "2c"), couple[modeCouple], sChannel_Range2String(range, divider));
+        
+        if(modeCouple > ModeCouple_GND)
+        {
+            modeCouple = modeCouple;
+            LOG_WRITE_TRACE("modeCouple %d", modeCouple);
+        }
+
+        if (COUPLE_DS(gDSmemInt, B) > 2)
+        {
+            LOG_WRITE_TRACE("modeCouple %d", COUPLE_DS(gDSmemInt, B));
+        }
 
         Painter_DrawTextC(x + 1, y, buffer, colorDraw);
 

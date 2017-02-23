@@ -1307,7 +1307,7 @@ char* Processing_GetStringMeasure(Measure measure, Channel ch, char* buffer, int
         }
         else
         {
-            LOG_ERROR("Буфер слишком мал");
+            LOG_ERROR_TRACE("Буфер слишком мал");
         }
     }
     else

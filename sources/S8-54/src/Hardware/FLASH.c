@@ -334,7 +334,7 @@ static void WriteWord(uint address, uint word)
     HAL_FLASH_Unlock();
     if(HAL_FLASH_Program(TYPEPROGRAM_WORD, address, (uint64_t)word) != HAL_OK)
     {
-        LOG_ERROR("Не могу записать в память");
+        LOG_ERROR_TRACE("Не могу записать в память");
     }
     HAL_FLASH_Lock();
 }
@@ -348,7 +348,7 @@ static void WriteBufferWords(uint address, void *buffer, int numWords)
     {
         if(HAL_FLASH_Program(TYPEPROGRAM_WORD, address, (uint64_t)(((uint*)buffer)[i])) != HAL_OK)
         {
-            LOG_ERROR("Не могу записать в флеш-память");
+            LOG_ERROR_TRACE("Не могу записать в флеш-память");
         }
         address += sizeof(uint);
     }
@@ -446,7 +446,7 @@ static uint GetSector(uint startAddress)
         i++;
     }
 
-    LOG_ERROR("Неправильный адрес сектора %d", startAddress);
+    LOG_ERROR_TRACE("Неправильный адрес сектора %d", startAddress);
 
     return MAX_UINT;
 }
@@ -595,7 +595,7 @@ static uint AddressSectorForAddress(uint address)
 
     if (address < addresses[0] || address >= ADDR_DATA_TEMP + SIZE_SECTOR_128)
     {
-        LOG_ERROR("Адрес за пределами ППЗУ");
+        LOG_ERROR_TRACE("Адрес за пределами ППЗУ");
     }
 
     const uint *pointer = &addresses[1];
@@ -672,7 +672,7 @@ static void SaveData(int num, DataSettings *ds, uint8 *dataA, uint8 *dataB)
 {
     if (FLASH_ExistData(num))
     {
-        LOG_ERROR("Данные не стёрты");
+        LOG_ERROR_TRACE("Данные не стёрты");
     }
 
     uint address = AddressForData(num);

@@ -74,7 +74,7 @@ void FDrive_Mount(void)
     ChangeStateFlashDrive();
     if (f_mount(&USBDISKFatFs, (TCHAR const*)USBDISKPath, 0) != FR_OK)
     {
-        LOG_ERROR("Не могу примонтировать диск");
+        LOG_ERROR_TRACE("Не могу примонтировать диск");
     }
 }
 
@@ -90,7 +90,7 @@ void FDrive_Init(void)
     }
     else
     {
-        LOG_ERROR("Can not %s", __FUNCTION__);
+        LOG_ERROR_TRACE("Can not %s", __FUNCTION__);
     }
 }
 

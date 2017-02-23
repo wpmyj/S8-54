@@ -301,7 +301,7 @@ bool Panel_ProcessingCommandFromPIC(uint16 command)
                                         buffer[0] = 0;
                                         snprintf(buffer, SIZE, "%5.3f", percent);
                                         strcat(buffer, "%");
-                                        LOG_ERROR("Ошибок SPI - %s %d/%d, command = %d", buffer, errRecData, allRecData, (int)command);
+                                        LOG_ERROR_TRACE("Ошибок SPI - %s %d/%d, command = %d", buffer, errRecData, allRecData, (int)command);
                                     }
                                     return false;
                                 }
@@ -432,7 +432,7 @@ void Panel_TransmitData(uint16 data)
 {
     if(lastPos == MAX_DATA)
     {
-        LOG_ERROR("Не могу послать в панель - мало места");
+        LOG_ERROR_TRACE("Не могу послать в панель - мало места");
     }
     else
     {

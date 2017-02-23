@@ -33,7 +33,7 @@ void Sys_PrintSizeStack(void)
         MRS value, MSP
     }
     value -= 0x10000000;
-    Log_Write("%d", value);
+    LOG_WRITE("%d", value);
 }
 
 
