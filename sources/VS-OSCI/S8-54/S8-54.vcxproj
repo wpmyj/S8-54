@@ -221,7 +221,7 @@
     <ClCompile Include="..\..\S8-54\src\Settings\SettingsCursors.c" />
     <ClCompile Include="..\..\S8-54\src\Settings\SettingsDebug.c" />
     <ClCompile Include="..\..\S8-54\src\Settings\SettingsDisplay.c" />
-    <ClCompile Include="..\..\S8-54\src\Settings\SettingsrMemory.c" />
+    <ClCompile Include="..\..\S8-54\src\Settings\SettingsMemory.c" />
     <ClCompile Include="..\..\S8-54\src\Settings\SettingsService.c" />
     <ClCompile Include="..\..\S8-54\src\Settings\SettingsTime.c" />
     <ClCompile Include="..\..\S8-54\src\Tables.c" />
@@ -481,7 +481,6 @@
     <ClInclude Include="..\..\STM32Cube_FW_F4\Middlewares\ST\STM32_USB_Host_Library\Class\MSC\Inc\usbh_msc_scsi.h">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</ExcludedFromBuild>
     </ClInclude>
-    <ClInclude Include="..\..\STM32Cube_FW_F4\Middlewares\ST\STM32_USB_Host_Library\Core\Inc\usbh_conf_template.h" />
     <ClInclude Include="..\..\STM32Cube_FW_F4\Middlewares\ST\STM32_USB_Host_Library\Core\Inc\usbh_core.h">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</ExcludedFromBuild>
     </ClInclude>

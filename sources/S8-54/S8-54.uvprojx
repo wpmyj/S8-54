@@ -780,14 +780,24 @@
           <GroupName>libs</GroupName>
           <Files>
             <File>
-              <FileName>stm32f4xx_it.c</FileName>
+              <FileName>app_ethernet.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\src\libs\stm32f4xx_it.c</FilePath>
+              <FilePath>.\src\libs\app_ethernet.c</FilePath>
             </File>
             <File>
-              <FileName>stm32f4xx_it.h</FileName>
+              <FileName>app_ethernet.h</FileName>
               <FileType>5</FileType>
-              <FilePath>.\src\libs\stm32f4xx_it.h</FilePath>
+              <FilePath>.\src\libs\app_ethernet.h</FilePath>
+            </File>
+            <File>
+              <FileName>ethernetif.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\src\libs\ethernetif.c</FilePath>
+            </File>
+            <File>
+              <FileName>ethernetif.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\src\libs\ethernetif.h</FilePath>
             </File>
             <File>
               <FileName>ffconf.h</FileName>
@@ -795,14 +805,14 @@
               <FilePath>.\src\libs\ffconf.h</FilePath>
             </File>
             <File>
+              <FileName>lwipopts.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\src\libs\lwipopts.h</FilePath>
+            </File>
+            <File>
               <FileName>startup_stm32f437xx.s</FileName>
               <FileType>2</FileType>
               <FilePath>.\src\libs\startup_stm32f437xx.s</FilePath>
-            </File>
-            <File>
-              <FileName>system_stm32f4xx.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\src\libs\system_stm32f4xx.c</FilePath>
             </File>
             <File>
               <FileName>stm32f4xx_hal_conf.h</FileName>
@@ -815,14 +825,19 @@
               <FilePath>.\src\libs\stm32f4xx_hal_msp.c</FilePath>
             </File>
             <File>
-              <FileName>usbh_conf.c</FileName>
+              <FileName>stm32f4xx_it.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\src\libs\usbh_conf.c</FilePath>
+              <FilePath>.\src\libs\stm32f4xx_it.c</FilePath>
             </File>
             <File>
-              <FileName>usbh_conf.h</FileName>
+              <FileName>stm32f4xx_it.h</FileName>
               <FileType>5</FileType>
-              <FilePath>.\src\libs\usbh_conf.h</FilePath>
+              <FilePath>.\src\libs\stm32f4xx_it.h</FilePath>
+            </File>
+            <File>
+              <FileName>system_stm32f4xx.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\src\libs\system_stm32f4xx.c</FilePath>
             </File>
             <File>
               <FileName>usbd_cdc_interface.c</FileName>
@@ -855,29 +870,14 @@
               <FilePath>.\src\libs\usbd_desc.h</FilePath>
             </File>
             <File>
-              <FileName>app_ethernet.c</FileName>
+              <FileName>usbh_conf.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\src\libs\app_ethernet.c</FilePath>
+              <FilePath>.\src\libs\usbh_conf.c</FilePath>
             </File>
             <File>
-              <FileName>app_ethernet.h</FileName>
+              <FileName>usbh_conf.h</FileName>
               <FileType>5</FileType>
-              <FilePath>.\src\libs\app_ethernet.h</FilePath>
-            </File>
-            <File>
-              <FileName>ethernetif.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\src\libs\ethernetif.c</FilePath>
-            </File>
-            <File>
-              <FileName>ethernetif.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\src\libs\ethernetif.h</FilePath>
-            </File>
-            <File>
-              <FileName>lwipopts.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\src\libs\lwipopts.h</FilePath>
+              <FilePath>.\src\libs\usbh_conf.h</FilePath>
             </File>
           </Files>
         </Group>
@@ -910,6 +910,16 @@
               <FilePath>.\src\Heap.c</FilePath>
             </File>
             <File>
+              <FileName>Log.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\src\Log.c</FilePath>
+            </File>
+            <File>
+              <FileName>Log.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\src\Log.h</FilePath>
+            </File>
+            <File>
               <FileName>main.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\src\main.c</FilePath>
@@ -925,6 +935,11 @@
               <FilePath>.\src\main2.s</FilePath>
             </File>
             <File>
+              <FileName>structures.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\src\structures.h</FilePath>
+            </File>
+            <File>
               <FileName>Tables.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\src\Tables.c</FilePath>
@@ -933,21 +948,6 @@
               <FileName>Tables.h</FileName>
               <FileType>5</FileType>
               <FilePath>.\src\Tables.h</FilePath>
-            </File>
-            <File>
-              <FileName>Log.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\src\Log.c</FilePath>
-            </File>
-            <File>
-              <FileName>Log.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\src\Log.h</FilePath>
-            </File>
-            <File>
-              <FileName>structures.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\src\structures.h</FilePath>
             </File>
           </Files>
         </Group>
@@ -1165,34 +1165,34 @@
               <FilePath>.\src\FPGA\DataStorage.h</FilePath>
             </File>
             <File>
-              <FileName>FPGA.c</FileName>
+              <FileName>fpga.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\src\FPGA\FPGA.c</FilePath>
+              <FilePath>.\src\FPGA\fpga.c</FilePath>
             </File>
             <File>
-              <FileName>FPGA.h</FileName>
+              <FileName>fpga.h</FileName>
               <FileType>5</FileType>
-              <FilePath>.\src\FPGA\FPGA.h</FilePath>
+              <FilePath>.\src\FPGA\fpga.h</FilePath>
             </File>
             <File>
-              <FileName>FPGAextensions.c</FileName>
+              <FileName>fpgaExtensions.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\src\FPGA\FPGAextensions.c</FilePath>
+              <FilePath>.\src\FPGA\fpgaExtensions.c</FilePath>
             </File>
             <File>
-              <FileName>FPGAextensions.h</FileName>
+              <FileName>fpgaExtensions.h</FileName>
               <FileType>5</FileType>
-              <FilePath>.\src\FPGA\FPGAextensions.h</FilePath>
+              <FilePath>.\src\FPGA\fpgaExtensions.h</FilePath>
             </File>
             <File>
-              <FileName>FPGAsettings.c</FileName>
+              <FileName>fpgaSettings.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\src\FPGA\FPGAsettings.c</FilePath>
+              <FilePath>.\src\FPGA\fpgaSettings.c</FilePath>
             </File>
             <File>
-              <FileName>FPGAtypes.h</FileName>
+              <FileName>fpgaTypes.h</FileName>
               <FileType>5</FileType>
-              <FilePath>.\src\FPGA\FPGAtypes.h</FilePath>
+              <FilePath>.\src\FPGA\fpgaTypes.h</FilePath>
             </File>
           </Files>
         </Group>
@@ -1635,14 +1635,24 @@
               <FilePath>.\src\Settings\SettingsDisplay.h</FilePath>
             </File>
             <File>
+              <FileName>SettingsMath.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\src\Settings\SettingsMath.h</FilePath>
+            </File>
+            <File>
+              <FileName>SettingsMeasures.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\src\Settings\SettingsMeasures.h</FilePath>
+            </File>
+            <File>
+              <FileName>SettingsMemory.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\src\Settings\SettingsMemory.c</FilePath>
+            </File>
+            <File>
               <FileName>SettingsMemory.h</FileName>
               <FileType>5</FileType>
               <FilePath>.\src\Settings\SettingsMemory.h</FilePath>
-            </File>
-            <File>
-              <FileName>SettingsrMemory.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\src\Settings\SettingsrMemory.c</FilePath>
             </File>
             <File>
               <FileName>SettingsService.c</FileName>
@@ -1665,19 +1675,14 @@
               <FilePath>.\src\Settings\SettingsTime.h</FilePath>
             </File>
             <File>
+              <FileName>SettingsTrig.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\src\Settings\SettingsTrig.h</FilePath>
+            </File>
+            <File>
               <FileName>SettingsTypes.h</FileName>
               <FileType>5</FileType>
               <FilePath>.\src\Settings\SettingsTypes.h</FilePath>
-            </File>
-            <File>
-              <FileName>SettingsMeasures.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\src\Settings\SettingsMeasures.h</FilePath>
-            </File>
-            <File>
-              <FileName>SettingsMath.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\src\Settings\SettingsMath.h</FilePath>
             </File>
           </Files>
         </Group>
