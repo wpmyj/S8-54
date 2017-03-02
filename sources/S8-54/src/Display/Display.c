@@ -1689,6 +1689,7 @@ static void WriteTextVoltage(Channel ch, int x, int y)
     Divider divider = Multiplier_1;
     Range range = Range_2mV;
     uint rShift = 0;
+    int tShift = TSHIFT;
 
     if (WORK_DIRECT)
     {
@@ -1709,16 +1710,14 @@ static void WriteTextVoltage(Channel ch, int x, int y)
 
             if (modeCouple > 2)
             {
-                //LOG_WRITE_TRACE("modeCouple %d", modeCouple);
+                LOG_WRITE_TRACE("modeCouple %d", modeCouple);
             }
 
             divider = DS_DIVIDER(ds, ch);
             range = DS_RANGE(ds, ch);
-            rShift = DS_RSHIFT(ds, ch);
-            
-            LOG_WRITE("tshift %d", DS_TSHIFT(ds));
-
+            rShift = DS_RSHIFT(ds, ch);            
             enable = DS_ENABLED(ds, ch);
+            tShift = DS_TSHIFT(ds);
         }
     }
 
@@ -1738,15 +1737,21 @@ static void WriteTextVoltage(Channel ch, int x, int y)
 
         snprintf(buffer, SIZE, "%s\xa5%s\xa5%s", (ch == A) ? (LANG_RU ? "1ê" : "1c") : (LANG_RU ? "2ê" : "2c"), couple[modeCouple], sChannel_Range2String(range, divider));
         
-        if(modeCouple > ModeCouple_GND)
+        if (tShift != 0)
         {
-            modeCouple = modeCouple;
-            LOG_WRITE_TRACE("modeCouple %d", modeCouple);
+            LOG_WRITE_TRACE("tShift %d", tShift);
+            if (DS_COUPLE(gDSmemInt, B) > 2)
+            {
+                LOG_WRITE_TRACE("modeCouple %d", DS_COUPLE(gDSmemInt, B));
+            }
+            if(modeCouple > 2)
+            {
+                LOG_WRITE_TRACE("modeCouple %d", modeCouple);
+            }
         }
-
-        if (DS_COUPLE(gDSmemInt, B) > 2)
+        else
         {
-            LOG_WRITE_TRACE("modeCouple %d", DS_COUPLE(gDSmemInt, B));
+            LOG_WRITE_TRACE("tShift is OK!");
         }
 
         Painter_DrawTextC(x + 1, y, buffer, colorDraw);
