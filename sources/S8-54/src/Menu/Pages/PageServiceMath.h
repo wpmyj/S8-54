@@ -46,7 +46,7 @@ static const SmallButton sbCursFFTSource =
         "Выбор источника для расчёта спектра",
         "Source choice for calculation of a range"
     },
-    EmptyFuncBV,
+    0,
     PressSB_FFTcurs_Source,
     DrawSB_FFTcurs_Source
 };
@@ -95,7 +95,7 @@ static const SmallButton sbMathFunction =
         "Выбор математической функции",
         "Choice of mathematical function"
     },
-    EmptyFuncBV,
+    0,
     PressSB_MathFunction_Type,
     DrawSB_MathFunction_Type,
     {
@@ -155,7 +155,7 @@ static const SmallButton sbMathFunctionModeDraw =
         "Выбирает режим отображения математического сигнала",
         "Chooses the mode of display of a mathematical signal"
     },
-    EmptyFuncBV,
+    0,
     PressSB_MathFunction_ModeDraw,
     DrawSB_MathFunction_ModeDraw,
     {
@@ -187,7 +187,7 @@ static const SmallButton sbMathFunctionRangeA =
         "Использует масштаб первого канала для отображения результата",
         "Takes scale for a mathematical signal from the first channel"
     },
-    EmptyFuncBV,
+    0,
     PressSB_MathFunction_RangeA,
     DrawSB_MathFunction_RangeA
 };
@@ -214,7 +214,7 @@ static const SmallButton sbMathFunctionRangeB =
         "Использует масштаб второго канала для отображения результата",
         "Takes scale for a mathematical signal from the second channel"
     },
-    EmptyFuncBV,
+    0,
     PressSB_MathFunction_RangeB,
     DrawSB_MathFunction_RangeB
 };
@@ -251,7 +251,7 @@ static const SmallButton sbMathFunctionModeRegSet =
         "Выбор режима ручки УСТАНОВКА - управление масштабом или смещением",
         "Choice mode regulcator УСТАНОВКА - management of scale or shift"
     },
-    EmptyFuncBV,
+    0,
     PressSB_MathFunction_ModeRegSet,
     DrawSB_MathFunction_ModeRegSet,
     {
@@ -302,7 +302,7 @@ const Choice mcFFTenable =
         "Включает и выключает отображение спектра",
         "Enables or disables the display of the spectrum"
     },
-    EmptyFuncBV,
+    0,
     {                           {DISABLE_RU,    DISABLE_EN},
                                 {ENABLE_RU,     ENABLE_EN}
     },
@@ -317,7 +317,7 @@ const Choice mcFFTscale =
         "Задаёт масштаб вывода спектра - линейный или логарифмический",
         "Sets the scale of the output spectrum - linear or logarithmic"
     },
-    EmptyFuncBV,
+    0,
     {                           {"Логарифм",    "Log"},
                                 {"Линейная",    "Linear"}
     },
@@ -332,7 +332,7 @@ const Choice mcFFTsource =
         "Выбор источника для расчёта спектра",
         "Selecting the source for the calculation of the spectrum"
     },
-    EmptyFuncBV,
+    0,
     {                           {"Канал 1",     "Channel 1"},
                                 {"Канал 2",     "Channel 2"},
                                 {"Канал 1 + 2", "Channel 1 + 2"}
@@ -348,7 +348,7 @@ const Choice mcFFTwindow =
         "Задаёт окно для расчёта спектра",
         "Sets the window to calculate the spectrum"
     },
-    EmptyFuncBV,
+    0,
     {                           {"Прямоугольн", "Rectangle"},
                                 {"Хэмминга",    "Hamming"},
                                 {"Блэкмена",    "Blackman"},
@@ -395,8 +395,8 @@ static const SmallButton sbExitMathFunction =
         "Кнопка для выхода в предыдущее меню",
         "Button to return to the previous menu"
     },
-    EmptyFuncBV,
-    EmptyFuncVV,
+    0,
+    0,
     DrawSB_Exit
 };
 

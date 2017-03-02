@@ -125,7 +125,7 @@ const Page mpDebug =
         "",
         ""
     },
-    EmptyFuncBV, Page_Debug,
+    0, Page_Debug,
     {
         (void*)&mspConsole,             // ОТЛАДКА -> КОНСОЛЬ
         (void*)&mspADC,                 // ОТЛАДКА -> АЦП
@@ -147,7 +147,7 @@ static const Choice mcStats =
         "Показывать/не показывать время/кадр, кадров в секунду, количество сигналов с последними настройками в памяти/количество сохраняемых в памяти сигналов",
         "To show/not to show a time/shot, frames per second, quantity of signals with the last settings in memory/quantity of the signals kept in memory"
     },
-    EmptyFuncBV,
+    0,
     {
         {"Не показывать",   "Hide"},
         {"Показывать",      "Show"}
@@ -166,7 +166,7 @@ static const Page mspConsole =
         "",
         ""
     },
-    EmptyFuncBV, Page_DebugConsole,
+    0, Page_DebugConsole,
     {
         (void*)&mgConsole_NumStrings,   // ОТЛАДКА -> КОНСОЛЬ -> Число строк
         (void*)&mcConsole_SizeFont,     // ОТЛАДКА -> КОНСОЛЬ -> Размер шрифта
@@ -186,8 +186,8 @@ static const Governor mgConsole_NumStrings =
         "",
         ""
     },
-    EmptyFuncBV,
-    &CONSOLE_NUM_STRINGS, 0, 33, EmptyFuncVV
+    0,
+    &CONSOLE_NUM_STRINGS, 0, 33
 };
 
 // ОТЛАДКА -> КОНСОЛЬ -> Размер шрифта ---------------------------------------------------------------------------------------------------------------
@@ -198,7 +198,7 @@ static const Choice mcConsole_SizeFont =
         "",
         ""
     },
-    EmptyFuncBV,
+    0,
     {
         {"5", "5"},
         {"8", "8"}
@@ -214,7 +214,7 @@ static const Choice mcConsole_ModeStop =
         "Предоставляет возможность приостановки вывода в консоль путём нажатия на кнопку ПУСК/СТОП",
         "It provides the ability to pause the output to the console by pressing the ПУСК/СТОП button"
     },
-    EmptyFuncBV,
+    0,
     {
         {DISABLE_RU, DISABLE_EN},
         {ENABLE_RU, ENABLE_EN}
@@ -233,7 +233,7 @@ static const Page mspConsole_Registers =
         "",
         ""
     },
-    EmptyFuncBV, Page_DebugShowRegisters,
+    0, Page_DebugShowRegisters,
     {
         (void*)&mcConsole_Registers_ShowAll,      // ОТЛАДКА -> КОНСОЛЬ -> РЕГИСТРЫ -> Показывать все
         (void*)&mcConsole_Registers_RD_FL,        // ОТЛАДКА -> КОНСОЛЬ -> РЕГИСТРЫ -> RD_FL
@@ -258,7 +258,7 @@ static const Choice mcConsole_Registers_ShowAll =
         "Показывать все значения, засылаемые в регистры",
         "To show all values transferred in registers"
     },
-    EmptyFuncBV,
+    0,
     {
         {"Нет", "No"},
         {"Да", "Yes"}
@@ -462,7 +462,7 @@ static const Page mspADC =
         "",
         ""
     },
-    EmptyFuncBV, Page_DebugADC,
+    0, Page_DebugADC,
     {
         (void*)&mspADC_Balance,   // ОТЛАДКА -> АЦП -> БАЛАНС
         (void*)&mspADC_Stretch,   // ОТЛАДКА -> АЦП -> РАСТЯЖКА
@@ -481,7 +481,7 @@ static const Page mspADC_Balance =
         "",
         ""
     },
-    EmptyFuncBV, Page_DebugADCbalance,
+    0, Page_DebugADCbalance,
     {
         (void*)&mcADC_Balance_Mode,   // ОТЛАДКА -> АЦП -> БАЛАНС -> Режим
         (void*)&mgADC_Balance_ShiftA, // ОТЛАДКА -> АЦП -> БАЛАНС -> Смещение 1
@@ -497,7 +497,7 @@ static const Choice mcADC_Balance_Mode =
         "",
         ""
     },
-    EmptyFuncBV,
+    0,
     {
         {DISABLE_RU, DISABLE_EN},
         {"Реальный", "Real"},
@@ -585,7 +585,7 @@ static const Page mspADC_Stretch =
         "Устанавливает режим и величину растяжки (для ручного режима)",
         "Sets mode and the value of stretching (manual mode)"
     },
-    EmptyFuncBV, Page_DebugADCstretch,
+    0, Page_DebugADCstretch,
     {
         (void*)&mcADC_Stretch_Mode,       // ОТЛАДКА -> АЦП -> РАСТЯЖКА -> Режим
         (void*)&mgADC_Stretch_A,          // ОТЛАДКА -> АЦП -> РАСТЯЖКА -> Растяжка 1к
@@ -613,7 +613,7 @@ static const Choice mcADC_Stretch_Mode =
         "",
         ""
     },
-    EmptyFuncBV,
+    0,
     {
         {DISABLE_RU, DISABLE_EN},
         {"Реальный", "Real"},
@@ -699,8 +699,7 @@ static const Governor mgADC_Stretch_Ak20mV =
         "",
         ""
     },
-    EmptyFuncBV,
-    &setNR.addStretch20mV[A], -10000, 10000, EmptyFuncVV
+    0, &setNR.addStretch20mV[A], -10000, 10000
 };
 
 // ОТЛАДКА -> АЦП -> РАСТЯЖКА -> 50мВ 1к -------------------------------------------------------------------------------------------------------------------
@@ -714,8 +713,7 @@ static const Governor mgADC_Stretch_Ak50mV =
         "",
         ""
     },
-    EmptyFuncBV,
-    &setNR.addStretch50mV[A], -10000, 10000, EmptyFuncVV
+    0, &setNR.addStretch50mV[A], -10000, 10000
 };
 
 // ОТЛАДКА -> АЦП -> РАСТЯЖКА -> 100мВ/5В 1к -------------------------------------------------------------------------------------------------------------------
@@ -729,8 +727,7 @@ static const Governor mgADC_Stretch_Ak100mV =
         "",
         ""
     },
-    EmptyFuncBV,
-    &setNR.addStretch100mV[A], -10000, 10000, EmptyFuncVV
+    0, &setNR.addStretch100mV[A], -10000, 10000
 };
 
 // ОТЛАДКА -> АЦП -> РАСТЯЖКА -> 2В 1к -----------------------------------------------------------------------------------------------------------------------------
@@ -744,8 +741,7 @@ static const Governor mgADC_Stretch_Ak2V =
         "",
         ""
     },
-    EmptyFuncBV,
-    &setNR.addStretch2V[A], -10000, 10000, EmptyFuncVV
+    0, &setNR.addStretch2V[A], -10000, 10000
 };
 
 // ОТЛАДКА -> АЦП -> РАСТЯЖКА -> 20мВ/1В 2к -------------------------------------------------------------------------------------------------------------------
@@ -759,8 +755,7 @@ static const Governor mgADC_Stretch_Bk20mV =
         "",
         ""
     },
-    EmptyFuncBV,
-    &setNR.addStretch20mV[B], -10000, 10000, EmptyFuncVV
+    0, &setNR.addStretch20mV[B], -10000, 10000
 };
 
 // ОТЛАДКА -> АЦП -> РАСТЯЖКА -> Доп смещ 50мВ 2к -------------------------------------------------------------------------------------------------------------------
@@ -774,8 +769,7 @@ static const Governor mgADC_Stretch_Bk50mV =
         "",
         ""
     },
-    EmptyFuncBV,
-    &setNR.addStretch50mV[B], -10000, 10000, EmptyFuncVV
+    0, &setNR.addStretch50mV[B], -10000, 10000
 };
 
 // ОТЛАДКА -> АЦП -> РАСТЯЖКА -> 100мВ/5В 2к -------------------------------------------------------------------------------------------------------------------
@@ -789,8 +783,7 @@ static const Governor mgADC_Stretch_Bk100mV =
         "",
         ""
     },
-    EmptyFuncBV,
-    &setNR.addStretch100mV[B], -10000, 10000, EmptyFuncVV
+    0, &setNR.addStretch100mV[B], -10000, 10000
 };
 
 // ОТЛАДКА -> АЦП -> РАСТЯЖКА -> 2В 2к -----------------------------------------------------------------------------------------------------------------------------
@@ -804,8 +797,7 @@ static const Governor mgADC_Stretch_Bk2V =
         "",
         ""
     },
-    EmptyFuncBV,
-    &setNR.addStretch2V[B], -10000, 10000, EmptyFuncVV
+    0, &setNR.addStretch2V[B], -10000, 10000
 };
 
 // ОТЛАДКА -> АЦП -> ДОП СМЕЩ /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -819,7 +811,7 @@ static const Page mspADC_Shift =
         "",
         ""
     },
-    EmptyFuncBV, Page_DebugADCrShift,
+    0, Page_DebugADCrShift,
     {
         (void*)&mbADC_Shift_Reset,    // ОТЛАДКА -> АЦП -> ДОП СМЕЩ -> Сброс
         (void*)&mgADC_Shift_A2mV,     // ОТЛАДКА -> АЦП -> ДОП СМЕЩ -> См 1к 2мВ пост
@@ -842,7 +834,7 @@ static const Button mbADC_Shift_Reset =
         "",
         ""
     },
-    EmptyFuncBV, OnPress_ADC_Shift_Reset, EmptyFuncVII
+    0, OnPress_ADC_Shift_Reset
 };
 
 static void OnPress_ADC_Shift_Reset(void)
@@ -872,8 +864,7 @@ static const Governor mgADC_Shift_A2mV =
         "",
         ""
     },
-    EmptyFuncBV,
-    (int16*)(&setNR.rShiftAdd[A][Range_2mV][ModeCouple_DC]), -100, 100, OnChange_ADC_Shift_A
+    0, (int16*)(&setNR.rShiftAdd[A][Range_2mV][ModeCouple_DC]), -100, 100, OnChange_ADC_Shift_A
 };
 
 static void OnChange_ADC_Shift_A(void)
@@ -892,8 +883,7 @@ static const Governor mgADC_Shift_B2mV =
         "",
         ""
     },
-    EmptyFuncBV,
-    (int16*)(&setNR.rShiftAdd[B][Range_2mV][ModeCouple_DC]), -100, 100, OnChange_ADC_Shift_B
+    0, (int16*)(&setNR.rShiftAdd[B][Range_2mV][ModeCouple_DC]), -100, 100, OnChange_ADC_Shift_B
 };
 
 static void OnChange_ADC_Shift_B(void)
@@ -912,8 +902,7 @@ static const Governor mgADC_Shift_A5mV =
         "",
         ""
     },
-    EmptyFuncBV,
-    (int16*)(&setNR.rShiftAdd[A][Range_5mV][ModeCouple_DC]), -100, 100, OnChange_ADC_Shift_A
+    0, (int16*)(&setNR.rShiftAdd[A][Range_5mV][ModeCouple_DC]), -100, 100, OnChange_ADC_Shift_A
 };
 
 // ОТЛАДКА -> АЦП -> ДОП СМЕЩ -> См 2к 5мВ пост -----------------------------------------------------------------------------------------------------------------------------
@@ -927,8 +916,7 @@ static const Governor mgADC_Shift_B5mV =
         "",
         ""
     },
-    EmptyFuncBV,
-    (int16*)(&setNR.rShiftAdd[B][Range_5mV][ModeCouple_DC]), -100, 100, OnChange_ADC_Shift_B
+    0, (int16*)(&setNR.rShiftAdd[B][Range_5mV][ModeCouple_DC]), -100, 100, OnChange_ADC_Shift_B
 };
 
 // ОТЛАДКА -> АЦП -> ДОП СМЕЩ -> См 1к 10мВ пост ----------------------------------------------------------------------------------------------------------------------------
@@ -942,8 +930,7 @@ static const Governor mgADC_Shift_A10mV =
         "",
         ""
     },
-    EmptyFuncBV,
-    (int16*)(&setNR.rShiftAdd[A][Range_10mV][ModeCouple_DC]), -100, 100, OnChange_ADC_Shift_A
+    0, (int16*)(&setNR.rShiftAdd[A][Range_10mV][ModeCouple_DC]), -100, 100, OnChange_ADC_Shift_A
 };
 
 // ОТЛАДКА -> АЦП -> ДОП СМЕЩ -> См 2к 10мВ пост ------------------------------------------------------------------------------------------------------------------------------
@@ -957,8 +944,7 @@ static const Governor mgADC_Shift_B10mV =
         "",
         ""
     },
-    EmptyFuncBV,
-    (int16*)(&setNR.rShiftAdd[B][Range_10mV][ModeCouple_DC]), -100, 100, OnChange_ADC_Shift_B
+    0,(int16*)(&setNR.rShiftAdd[B][Range_10mV][ModeCouple_DC]), -100, 100, OnChange_ADC_Shift_B
 };
 
 
@@ -973,7 +959,7 @@ static const Page mspRand =
         "",
         ""
     },
-    EmptyFuncBV, Page_DebugRandomizer,
+    0, Page_DebugRandomizer,
     {
         (void*)&mgRand_NumAverage,          // ОТЛАДКА -> РАНД-ТОР -> Усредн.
         (void*)&mgRand_NumSmooth,           // ОТЛАДКА -> РАНД-ТОР -> Сглаживание
@@ -998,7 +984,7 @@ static const Page mspChannels =
         "",
         ""
     },
-    EmptyFuncBV, Page_DebugChannels,
+    0, Page_DebugChannels,
     {
         (void*)&mcChannels_BandwidthA,  // ОТЛАДКА -> КАНАЛЫ -> Полоса 1
         (void*)&mcChannels_BandwidthB   // ОТЛАДКА -> КАНАЛЫ -> Полоса 2
@@ -1013,7 +999,7 @@ static const Choice mcChannels_BandwidthA =
         "Здесь можно выбрать полосу, которая будет действовать в КАНАЛ1-Полоса при выборе значения Полная",
         "Here you can select the bandwidth, which will operate in CHANNEL1-Bandwidth when set to Full"
     },
-    EmptyFuncBV,
+    0,
     {
         {"Полная", "Full"},
         {"20МГц", "20MHz"},
@@ -1039,7 +1025,7 @@ static const Choice mcChannels_BandwidthB =
         "Здесь можно выбрать полосу, которая будет действовать в КАНАЛ2-Полоса при выборе значения Полная",
         "Here you can select the bandwidth, which will operate in CHANNEL2-Bandwidth when set to Full"
     },
-    EmptyFuncBV,
+    0,
     {
         {"Полная", "Full"},
         {"20МГц", "20MHz"},
@@ -1069,7 +1055,7 @@ static const Governor mgRand_NumMeasures =
         "",
         ""
     },
-    EmptyFuncBV,
+    0,
     &NUM_MEASURES_FOR_GATES, 1, 2500, OnChange_Rand_NumMeasures
 };
 
@@ -1089,7 +1075,7 @@ static const Governor mgRand_TimeCompensation =
         "Подстройка компенсации задержки АЦП 40 нс",
         ""
     },
-    EmptyFuncBV,
+    0,
     &TIME_COMPENSATION, 0, 510, OnChange_Rand_TimeCompensation
 };
 
@@ -1111,8 +1097,7 @@ static const Governor mgRand_AddTimeShift =
         "Добавочное смщение при вращении tShift",
         ""
     },
-    EmptyFuncBV,
-    &addShift, -100, 100, OnChange_Rand_AddTimeShift
+    0, &addShift, -100, 100, OnChange_Rand_AddTimeShift
 };
 
 static void OnChange_Rand_AddTimeShift(void)
@@ -1132,8 +1117,7 @@ static const Governor mgRand_Pretriggered =
         "Величина предзапуска, которая пишется в рандомизатор",
         ""
     },
-    EmptyFuncBV,
-    &PRETRIGGERED, 0, 30000, OnChange_Rand_Pretriggered
+    0, &PRETRIGGERED, 0, 30000, OnChange_Rand_Pretriggered
 };
 
 static void OnChange_Rand_Pretriggered(void)
@@ -1152,8 +1136,7 @@ static const Governor mgRand_NumAverage =
         "",
         ""
     },
-    EmptyFuncBV,
-    &setNR.numAveForRand, 1, 32, EmptyFuncVV
+    0, &setNR.numAveForRand, 1, 32
 };
 
 
@@ -1168,8 +1151,7 @@ static const Governor mgRand_NumSmooth =
         "",
         ""
     },
-    EmptyFuncBV,
-    &setNR.numSmoothForRand, 1, 10, EmptyFuncVV
+    0, &setNR.numSmoothForRand, 1, 10
 };
 
 
@@ -1186,8 +1168,7 @@ static const Governor mgPred =
         "", ""
     }
     ,
-    EmptyFuncBV,
-    &pred, 0, 15000, OnChange_Pred
+    0, &pred, 0, 15000, OnChange_Pred
 };
 
 static const Governor mgPost =
@@ -1199,8 +1180,7 @@ static const Governor mgPost =
     {
         "", ""
     },
-    EmptyFuncBV,
-    &post, 0, 15000, OnChange_Post
+    0, &post, 0, 15000, OnChange_Post
 };
 
 static void OnChange_Pred(void)
@@ -1230,7 +1210,7 @@ static const Choice mcRand_ShowInfo =
         "Показывать информацию о воротах рандомизатора",
         "To show information on randomizer gate"
     },
-    EmptyFuncBV,
+    0,
     {
         {"Не показывать", "Hide"},
         {"Показывать", "Show"}
@@ -1249,7 +1229,7 @@ static const Choice mgRand_ShowStat =
         "Показывать график статистики",
         "Statistics show schedule"
     },
-    EmptyFuncBV,
+    0,
     {
         {"Не показывать",   "Hide"},
         {"Показывать",      "Show"}
@@ -1269,7 +1249,7 @@ static const Choice mcEMS =
         "Принудительно включает фильтр 20МГц, сглаживание по 4-м точкам, усреднение по 8-ми точкам",
         ""
     },
-    EmptyFuncBV,
+    0,
     {
         {DISABLE_RU,    DISABLE_EN},
         {ENABLE_RU,     ENABLE_EN}
@@ -1295,7 +1275,7 @@ static const Choice mcDisplayOrientation =
         "Устанавливает ориентацию дисплея",
         "Sets display orientation"
     },
-    EmptyFuncBV,
+    0,
     {
         { "Прямая", "Direct" },
         { "Обратная", "Back" }
@@ -1369,8 +1349,8 @@ void OnPressDebugConsoleDown(void)
                 "",
                 ""
             },
-            EmptyFuncBV,
-            &set.debug.altShift, -2, 2, EmptyFuncVV
+            0,
+            &set.debug.altShift, -2, 2, 0
         };
 
 bool sIsShowReg_RShift1(void)
@@ -1431,7 +1411,7 @@ const Page mspDebugADCaltShift =    // ОТЛАДКА - АЦП - ДОП СМЕЩ ПАМ
         "",
         ""
     },
-    EmptyFuncBV, Page_DebugADCaltShift,
+    0, Page_DebugADCaltShift,
     {
         (void*)&mgDebugADCaltShift
     }

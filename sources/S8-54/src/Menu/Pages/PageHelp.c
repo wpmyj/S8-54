@@ -101,7 +101,7 @@ const SmallButton sbHelpParagraphPrev =
         "Выбрать предыдущий раздел справки",
         "To choose the previous section of the reference"
     },
-    EmptyFuncBV,
+    0,
     HelpContent_PrevParagraph,
     DrawSB_Help_ParagraphPrev
 };
@@ -119,7 +119,7 @@ const SmallButton sbHelpParagraphNext =
         "",
         ""
     },
-    EmptyFuncBV,
+    0,
     HelpContent_NextParagraph,
     DrawSB_Help_ParagraphNext
 };
@@ -153,7 +153,7 @@ const Page mpHelp =
         "Открыть разделы помощи",
         "To open sections of the help"
     },
-    EmptyFuncBV,
+    0,
     Page_SB_Help, 
     {
         (void*)&sbExitHelp,
@@ -163,5 +163,5 @@ const Page mpHelp =
         (void*)&sbHelpParagraphPrev,
         (void*)&sbHelpParagraphNext
     },  
-    EmptyFuncVV, HelpContent_Draw, OnHelpRegSet
+    0, HelpContent_Draw, OnHelpRegSet
 };

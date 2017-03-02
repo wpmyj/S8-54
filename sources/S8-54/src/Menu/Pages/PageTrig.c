@@ -39,7 +39,7 @@ const Page mpTrig =
         "Содержит настройки синхронизации.",
         "Contains synchronization settings."
     },
-    EmptyFuncBV, Page_Trig,
+    0, Page_Trig,
     {
         (void*)&mcMode,         // СИНХР -> Режим
         (void*)&mcSource,       // СИНХР -> Источник
@@ -65,7 +65,7 @@ static const Choice mcMode =
         "2. \"Standby\" - the launch takes place at the level of synchronization.\n"
         "3. \"Single\" - the launch takes place on reaching the trigger levelonce. For the next measurement is necessary to press the START/STOP."
     },
-    EmptyFuncBV,
+    0,
     {
         {"Авто ",       "Auto"},
         {"Ждущий",      "Wait"},
@@ -107,7 +107,7 @@ static const Choice mcSource =
         "Выбор источника сигнала синхронизации.",
         "Synchronization signal source choice."
     },
-    EmptyFuncBV,
+    0,
     {
         {"Канал 1", "Channel 1"},
         {"Канал 2", "Channel 2"},
@@ -132,7 +132,7 @@ static const Choice mcPolarity =
         "1. \"Front\" - start happens on the front of clock pulse.\n"
         "2. \"Back\" - start happens on a clock pulse cut."
     },
-    EmptyFuncBV,
+    0,
     {
         {"Фронт", "Front"},
         {"Срез", "Back"}
@@ -162,7 +162,7 @@ static const Choice mcInput =
         "3. \"LPF\" - low-pass filter.\n"
         "4. \"HPF\" - high-pass filter frequency."
     },
-    EmptyFuncBV,
+    0,
     {
         {"ПС", "Full"},
         {"АС", "AC"},
@@ -185,8 +185,7 @@ static const Governor mgTimeDelay =
         "Устанавливает минимальное время между запусками.",
         "Sets the minimum time between starts."
     },
-    EmptyFuncBV,
-    (int16*)&set.trig.timeDelay, 45, 10000, EmptyFuncVV
+    0, (int16*)&set.trig.timeDelay, 45, 10000
 };
 
 // СИНХР -> ПОИСК //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -200,7 +199,7 @@ static const Page mspSearch =
         "Управление автоматическим поиском уровня синхронизации.",
         "Office of the automatic search the trigger level."
     },
-    EmptyFuncBV, Page_TrigAuto,
+    0, Page_TrigAuto,
     {
         (void*)&mcSearch_Mode,
         (void*)&mbSearch_Search
@@ -223,7 +222,7 @@ static const Choice mcSearch_Mode =
 #pragma pop
         "2. \"Auto\" - the search is automatically."
     },
-    EmptyFuncBV,
+    0,
     {
         {"Ручной",          "Hand"},
         {"Автоматический",  "Auto"}

@@ -92,7 +92,7 @@ const Page mpCursors =
         "Курсорные измерения.",
         "Cursor measurements."
     },
-    EmptyFuncBV, Page_Cursors,
+    0, Page_Cursors,
     {
         (void*)&mcShow,             // КУРСОРЫ -> Показывать
         (void*)&mcLookModeChanA,    // КУРСОРЫ -> Слежение канал 1
@@ -110,7 +110,7 @@ static const Choice mcShow =
         "Включает/отключает курсоры.",
         "Enable/disable cursors."
     },
-    EmptyFuncBV,
+    0,
     {
         {"Нет", "No"},
         {"Да",  "Yes"}
@@ -138,7 +138,7 @@ static const Choice mcLookModeChanA =
         "3. \"Time\" - when manually changing the position of the cursor voltage cursors time automatically track changes in the signal.\n"
         "4. \"Volt and time\" - acts as one of the previous modes, depending on which was carried out last effect cursors."
     },
-    EmptyFuncBV,
+    0,
     {
         {DISABLE_RU,        DISABLE_EN},
         {"Напряжение",      "Voltage"},
@@ -165,7 +165,7 @@ static const Choice mcLookModeChanB =
         "3. \"Time\" - when manually changing the position of the cursor voltage cursors time automatically track changes in the signal.\n"
         "4. \"Volt and time\" - acts as one of the previous modes, depending on which was carried out last effect cursors."
     },
-    EmptyFuncBV,
+    0,
     {
         {DISABLE_RU,        DISABLE_EN},
         {"Напряжение",      "Voltage"},
@@ -183,7 +183,7 @@ static const Choice mcShowFreq =
         "Если выбрано \"Вкл\", в правом верхнем углу выводится величина, обратная расстоянию между курсорами времени - частота сигнала, один период которого равен расстоянию между временными курсорами.",
         "If you select \"Enable\" in the upper right corner displays the inverse of the distance between cursors time - frequency signal, a period equal to the distance between the time cursors."
     },
-    EmptyFuncBV,
+    0,
     {
         {DISABLE_RU,    DISABLE_EN},
         {ENABLE_RU,     ENABLE_EN}
@@ -203,7 +203,7 @@ static const Page mspSet =
         "Переход в режим курсорных измерений",
         "Switch to cursor measures"
     },
-    EmptyFuncBV, Page_SB_Curs,
+    0, Page_SB_Curs,
     {
         (void*)&sbSet_Exit,     // КУРСОРЫ -> УСТАНОВИТЬ -> Выход
         (void*)&sbSet_Channel,  // КУРСОРЫ -> УСТАНОВИТЬ -> Канал
@@ -241,7 +241,7 @@ static const SmallButton sbSet_Exit =
         "Кнопка для выхода в предыдущее меню",
         "Button to return to the previous menu"
     },
-    EmptyFuncBV,
+    0,
     OnPressSB_Set_Exit,
     DrawSB_Exit
 };
@@ -264,7 +264,7 @@ static const SmallButton sbSet_Channel =
         "Выбор канала для курсорных измерений",
         "Channel choice for measurements"
     },
-    EmptyFuncBV,
+    0,
     OnPressSB_Set_Channel,
     FuncDrawSB_Set_Source,
     {
@@ -315,7 +315,7 @@ static const SmallButton sbSet_U =      // Выбор курсора напряжения - курсор 1, 
         "Выбор курсоров напряжения для индикации и управления",
         "Choice of cursors of voltage for indication and management"
     },
-    EmptyFuncBV,
+    0,
     OnPressSB_Set_U,
     FuncDrawSB_Set_U,
     {
@@ -407,7 +407,7 @@ static const SmallButton sbSet_T =      // Выбор курсора времени - курсор 1, кур
         "Выбор курсоров времени для индикации и управления",
         "Choice of cursors of time for indication and management"
     },
-    EmptyFuncBV,
+    0,
     OnPressSB_Set_T,
     FuncDrawSB_Set_T,
     {
@@ -498,7 +498,7 @@ static const SmallButton sbSet_100 =    // Установка 100 процентов в текущие мес
         "Используется для процентных измерений. Нажатие помечает расстояние между активными курсорами как 100%",
         "It is used for percentage measurements. Pressing marks distance between active cursors as 100%"
     },
-    EmptyFuncBV,
+    0,
     OnPressSB_Set_100,
     FuncDrawSB_Set_100
 };
@@ -528,7 +528,7 @@ static const SmallButton sbSet_Movement =     // Переключение шага перемещения к
         "Выбор шага перемещения курсоров - проценты или точки",
         "Choice of a step of movement of cursors - percent or points"
     },
-    EmptyFuncBV,
+    0,
     OnPressSB_Set_Movement,
     FuncDrawSB_Set_Movement,
     {

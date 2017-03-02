@@ -91,7 +91,10 @@ void Governor_ChangeValue(Governor *governor, int delta)
     LIMITATION(*governor->cell, oldValue + (int16)(Math_Sign(delta) * Math_Pow10(gCurDigit)), governor->minValue, governor->maxValue);
     if (*governor->cell != oldValue)
     {
-        governor->funcOfChanged();
+        if (governor->funcOfChanged)
+        {
+            governor->funcOfChanged();
+        }
         Sound_GovernorChangedValue();
     }
 }
@@ -251,7 +254,10 @@ float Governor_Step(Governor *governor)
             {
                 tsGovernor.dir = NONE;
                 *governor->cell = Governor_PrevValue(governor);
-                governor->funcOfChanged();
+                if (governor->funcOfChanged)
+                {
+                    governor->funcOfChanged();
+                }
                 delta = 0.0f;
                 tsGovernor.address = 0;
             }
@@ -266,7 +272,10 @@ float Governor_Step(Governor *governor)
             {
                 tsGovernor.dir = NONE;
                 *governor->cell = Governor_NextValue(governor);
-                governor->funcOfChanged();
+                if (governor->funcOfChanged)
+                {
+                    governor->funcOfChanged();
+                }
                 delta = 0.0f;
                 tsGovernor.address = 0;
             }

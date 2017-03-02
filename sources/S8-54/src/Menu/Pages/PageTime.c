@@ -35,7 +35,7 @@ const Page mpTime =
         "Содержит настройки развёртки.",
         "Contains scan settings."
     },
-    EmptyFuncBV, Page_Time,
+    0, Page_Time,
     {
         (void*)&mcTimeSample,
         (void*)&mcTimePicDet,
@@ -137,7 +137,7 @@ static const Choice mcTimeTPos =
         "Задаёт точку привязки нулевого смещения по времени к экрану - левый край, центр, правый край.", 
         "Sets the anchor point nuleovgo time offset to the screen - the left edge, center, right edge."
     },
-    EmptyFuncBV,
+    0,
     {
         {"Лево", "Left"},
         {"Центр", "Center"},
@@ -165,7 +165,7 @@ static const Choice mcTimeDivRole =
         "1. \"Time\" - change the time shift.\n"
         "2. \"Memory\" - moving from memory."
     },
-    EmptyFuncBV,
+    0,
     {
         {"Время", "Time"},
         {"Память", "Memory"}

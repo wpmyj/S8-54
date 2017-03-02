@@ -56,7 +56,7 @@ const Page mpMeasures =
         "Автоматические измерения",
         "Automatic measurements"
     },
-    EmptyFuncBV, Page_Measures,
+    0, Page_Measures,
     {
         (void*)&mspFreqMeter,   // ИЗМЕРЕНИЯ -> ЧАСТОТОМЕР
         (void*)&mcIsShow,       // ИЗМЕРЕНИЯ -> Показывать
@@ -78,7 +78,7 @@ const Page mspFreqMeter =
         "",
         ""
     },
-    EmptyFuncBV, Page_ServiceFreqMeter,
+    0, Page_ServiceFreqMeter,
     {
         (void*)&mcServiceFreqMeterEnable,
         (void*)&mcServiceFreqMeterTimeF,
@@ -98,7 +98,7 @@ static const Choice mcServiceFreqMeterEnable =
         "",
         ""
     },
-    EmptyFuncBV,
+    0,
     {
         {DISABLE_RU, DISABLE_EN},
         {ENABLE_RU, ENABLE_EN}
@@ -121,7 +121,7 @@ static const Choice mcServiceFreqMeterTimeF =
         "Позволяет выбрать точность измерения частоты - чем больше время, тем больше точность и больше время измерения",
         "Allows to choose the accuracy of measurement of frequency - the more time, the accuracy more time of measurement is more"
     },
-    EmptyFuncBV,
+    0,
     {
         {"100мс", "100ms"},
         {"1с", "1s"},
@@ -140,7 +140,7 @@ static const Choice mcServiceFreqFreqClc =
         "Выбор частоты следования счётных импульсов",
         "Choice of frequency of following of calculating impulses"
     },
-    EmptyFuncBV,
+    0,
     {
         {"100кГц", "10MHz"},
         {"1МГц", "200MHz"},
@@ -160,7 +160,7 @@ static const Choice mcServiceFreqMeterNumberPeriods =
         "Позволяет выбрать точность измерения периода - чем больше время, тем больше точность и больше время измерения",
         "Allows to choose the accuracy of measurement of period - the more time, the accuracy more time of measurement is more"
     },
-    EmptyFuncBV,
+    0,
     {
         {"1", "1"},
         {"10", "10"},
@@ -177,7 +177,7 @@ static const Choice mcIsShow =
         "Выводить или не выводить измерения на экран",
         "Output or output measurements on screen"
     },
-    EmptyFuncBV,
+    0,
     {
         {"Нет", "No"},
         {"Да", "Yes"}
@@ -381,7 +381,7 @@ static const SmallButton sbTune_Markers =
         "Позволяет установить маркеры для визуального контроля измерений",
         "Allows to establish markers for visual control of measurements"
     },
-    EmptyFuncBV,
+    0,
     OnPress_Tune_Markers,
     DrawSB_Tune_Markers
 };
@@ -410,7 +410,7 @@ static const SmallButton sbTune_Settings =
         "Позволяет выбрать необходимые измерения",
         "Allows to choose necessary measurements"
     },
-    EmptyFuncBV,
+    0,
     OnPress_Tune_Settings,
     DrawSB_Tune_Settings
 };

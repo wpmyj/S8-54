@@ -702,7 +702,10 @@ void ShortPress_Button(void *button)
         return;
     }
     SetCurrentItem(button, true);
-    ((Button*)button)->funcOnPress();
+    if (((Button*)button)->funcOnPress)
+    {
+        ((Button*)button)->funcOnPress();
+    }
 }
 
 

@@ -75,7 +75,7 @@ const Page mpChanA =
         "Содержит настройки канала 1.",
         "Contains settings of the channel 1."
     },
-    EmptyFuncBV, Page_ChannelA,
+    0, Page_ChannelA,
     {
         (void*)&mcChanA_Input,      // КАНАЛ 1 -> Вход
         (void*)&mcChanA_Couple,     // КАНАЛ 1 -> Связь
@@ -96,7 +96,7 @@ static const Choice mcChanA_Input =
         chanInputRu,
         chanInputEn
     },
-    EmptyFuncBV,
+    0,
     {
         {DISABLE_RU, DISABLE_EN},
         {ENABLE_RU, ENABLE_EN}
@@ -118,7 +118,7 @@ static const Choice mcChanA_Couple =
         chanCoupleRu,
         chanCoupleEn
     },
-    EmptyFuncBV,
+    0,
     {
         {"Пост", "AC"},
         {"Перем", "DC"},
@@ -140,7 +140,7 @@ static const Choice mcChanA_Bandwidth =
     {
         "Задаёт полосу пропускания канала", "Sets the channel bandwidth"
     },
-    EmptyFuncBV,
+    0,
     {
         {"Полная", "Full"},
         {"20МГц", "20MHz"}
@@ -161,7 +161,7 @@ static const Choice mcChanA_Resistance =
     {
         "", ""
     },
-    EmptyFuncBV,
+    0,
     {
         {"1 МОм", "1 Mohm"},
         {"50 Ом", "50 Ohm"}
@@ -187,7 +187,7 @@ static const Choice mcChanA_Inverse =
         chanInverseRu,
         chanInverseEn
     },
-    EmptyFuncBV,
+    0,
     {
         {DISABLE_RU, DISABLE_EN},
         {ENABLE_RU, ENABLE_EN}
@@ -209,7 +209,7 @@ static const Choice mcChanA_Divider =
         chanDividerRu,
         chanDividerEn
     },
-    EmptyFuncBV,
+    0,
     {
         {"Выкл", "Off"},
         {"1/10", "1/10"}
@@ -228,7 +228,7 @@ static const Button mbChanA_Balance =
         "Балансировать канал",
         "Balancing channel"
     },
-    EmptyFuncBV, OnPress_ChanA_Balance, EmptyFuncVII
+    0, OnPress_ChanA_Balance
 };
 
 static void OnPress_ChanA_Balance(void)
@@ -245,7 +245,7 @@ const Page mpChanB =
         "Содержит настройки канала 2.",
         "Contains settings of the channel 2."
     },
-    EmptyFuncBV, Page_ChannelB,
+    0, Page_ChannelB,
     {
         (void*)&mcChanB_Input,      // КАНАЛ 2 -> Вход
         (void*)&mcChanB_Couple,     // КАНАЛ 2 -> Связь
@@ -302,7 +302,7 @@ static const Choice mcChanB_Couple =
         chanCoupleRu,
         chanCoupleEn
     },
-    EmptyFuncBV,
+    0,
     {
         {"Пост", "AC"},
         {"Перем", "DC"},
@@ -323,7 +323,7 @@ static const Choice mcChanB_Bandwidth =
     {
         "", ""
     },
-    EmptyFuncBV,
+    0,
     {
         {"Полная", "Full"}, 
         {"20МГц", "20MHz"}
@@ -343,7 +343,7 @@ static const Choice mcChanB_Resistance =
     {
         "", ""
     },
-    EmptyFuncBV,
+    0,
     {
         {"1 МОм", "1 Mohm"},
         {"50 Ом", "50 Ohm"}
@@ -368,7 +368,7 @@ static const Choice mcChanB_Inverse =
         chanInverseRu,
         chanInverseEn
     },
-    EmptyFuncBV,
+    0,
     {
         {DISABLE_RU, DISABLE_EN},
         {ENABLE_RU, ENABLE_EN}
@@ -389,12 +389,12 @@ static const Choice mcChanB_Divider =
         chanDividerRu,
         chanDividerEn
     },
-    EmptyFuncBV,
+    0,
     {
         {"Выкл", "Jff"},
         {"1/10", "1/10"}
     },
-    (int8*)&DIVIDER_B, EmptyFuncVB
+    (int8*)&DIVIDER_B
 };
 
 // КАНАЛ 2 -> Балансировать ---------------------------------------------------------------------------------------------------------------------------------------------------
@@ -408,7 +408,7 @@ static const Button mbChanB_Balance =
         "Балансировать канал",
         "Balancing channel"
     },
-    EmptyFuncBV, OnPress_ChanB_Balance, EmptyFuncVII
+    0, OnPress_ChanB_Balance
 };
 
 static void OnPress_ChanB_Balance(void)

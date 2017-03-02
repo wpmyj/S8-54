@@ -62,7 +62,7 @@ const Page mpService =
         "Дополнительные настройки, калибровка, поиск сигнала, математические функции",
         "Additional settings, calibration, signal search, mathematical functions"
     },
-    EmptyFuncBV, Page_Service,
+    0, Page_Service,
     {
         (void*)&mbResetSettings,    // СЕРВИС - Сброс настроек
         (void*)&mbAutoSearch,       // СЕРВИС - Поиск сигнала
@@ -89,7 +89,7 @@ static const Button mbResetSettings =
         "Сброс настроек на настройки по умолчанию",
         "Reset to default settings"
     },
-    EmptyFuncBV, OnPress_ResetSettings, EmptyFuncVII
+    0, OnPress_ResetSettings
 };
 
 void OnPress_ResetSettings(void)
@@ -128,7 +128,7 @@ static const Button mbAutoSearch =
         "Устанавливает оптимальные установки осциллографа для сигнала в канале 1",
         "Sets optimal settings for the oscilloscope signal on channel 1"
     },
-    EmptyFuncBV, OnPress_AutoSearch
+    0, OnPress_AutoSearch
 };
 
 static void OnPress_AutoSearch(void)
@@ -147,7 +147,7 @@ static const Choice mcRecorder =
         "Включает/выключает режим регистратора. Этот режим доступен на развёртках 50 мс/дел и более медленных.",
         "Turn on/off recorder mode. This mode is available for scanning 20ms/div and slower."
     },
-    EmptyFuncBV,
+    0,
     {
         {DISABLE_RU, DISABLE_EN},
         {ENABLE_RU, ENABLE_EN}
@@ -168,7 +168,7 @@ static const Choice mcLanguage =
         "Позволяет выбрать язык меню",
         "Allows you to select the menu language"
     },
-    EmptyFuncBV,
+    0,
     {
         {"Русский",     "Russian"},
         {"Английский",  "English"}
@@ -188,7 +188,7 @@ static const Page mspTime =
         "Установка и настройка времени",
         "Set and setup time"
     },
-    EmptyFuncBV, Page_ServiceTime,
+    0, Page_ServiceTime,
     {
         (void*)&mtTime,             // СЕРВИС - ВРЕМЯ - Время
         (void*)&mgTimeCorrection    // CЕРВИС - ВРЕМЯ - Коррекция
@@ -219,8 +219,7 @@ static const Time mtTime =
         "Control. Menu Setting the current time will be closed to the conservation of the new current time. Pressing a button on the prolonged retention of any other element "
         "will lead to the closure of the current time setting menu without saving the new current time"
     },
-    EmptyFuncBV,
-    &dServicetime, &hours, &minutes, &secondes, &month, &day, &year
+    0, &dServicetime, &hours, &minutes, &secondes, &month, &day, &year
 };
 
 
@@ -235,8 +234,7 @@ static const Governor mgTimeCorrection =
         "Установка корректирующего коэффициента для компенсации хода времени",
         "Setting correction factor to compensate for time travel"
     },
-    EmptyFuncBV,
-    &setNR.correctionTime, -63, 63, OnChange_Time_Correction  
+    0, &setNR.correctionTime, -63, 63, OnChange_Time_Correction  
 };
 
 static void OnChange_Time_Correction(void)
@@ -324,7 +322,7 @@ static const Page mspCalibrator =
         "Управлением калибратором и калибровка осциллографа",
         "Control of the calibrator and calibration of an oscillograph"
     },
-    EmptyFuncBV, Page_ServiceCalibrator,
+    0, Page_ServiceCalibrator,
     {
         (void*)&mcCalibrator,           // СЕРВИС - КАЛИБРАТОР - Калибратор
         (void*)&mbCalibrator_Calibrate  // СЕРВИС - КАЛИБРАТОР - Калибровать
@@ -342,7 +340,7 @@ static const Choice mcCalibrator =
         "Режим работы калибратора",
         "Mode of operation of the calibrator"
     },
-    EmptyFuncBV,
+    0,
     {
         {"Перем", "DC"},
         {"+4V", "+4V"},
@@ -474,7 +472,7 @@ const Button mbServicePreviousSettings =
         "Возвращает настройки осциллографа, которые были в момент нажатия \"Поиск сигнала\"",
         "Returns the oscilloscope settings that were in when you press \"Searching for signal\""
     },
-    EmptyFuncBV, OnPressPrevSettings, EmptyFuncVII
+    0, OnPressPrevSettings
 };
 
 // СЕРВИС - КАЛИБРАТОР ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -509,7 +507,7 @@ static const Choice mcServEthEnable =
         "To involve ethernet, choose \"Included\" and switch off the device.\n"
         "To disconnect ethernet, choose \"Disconnected\" and switch off the device."
     },
-    EmptyFuncBV,
+    0,
     {
         {"Включено",    "Included"},
         {"Отключено",   "Disconnected"}
@@ -526,7 +524,7 @@ static const IPaddress ipAddress =
         "Установка IP адреса",
         "Set of IP-address"
     },
-    EmptyFuncBV,
+    0,
     &set.eth.ip0, &set.eth.ip1, &set.eth.ip2, &set.eth.ip3,
     FuncOfChangedEthernetSettings,
     &set.eth.port
@@ -542,7 +540,7 @@ static const IPaddress ipNetMask =
         "Установка маски подсети",
         "Set of network mask"
     },
-    EmptyFuncBV,
+    0,
     &set.eth.mask0, &set.eth.mask1, &set.eth.mask2, &set.eth.mask3,
     FuncOfChangedEthernetSettings
 };
@@ -557,7 +555,7 @@ static const IPaddress ipGateway =
         "Установка адреса основного шлюза",
         "Set of gateway address"
     },
-    EmptyFuncBV,
+    0,
     &set.eth.gw0, &set.eth.gw1, &set.eth.gw2, &set.eth.gw3,
     FuncOfChangedEthernetSettings
 };
@@ -572,7 +570,7 @@ static const MACaddress macMAC =
         "Установка физического адреса",
         "Set of MAC-address"
     },
-    EmptyFuncBV,
+    0,
     &set.eth.mac0, &set.eth.mac1, &set.eth.mac2, &set.eth.mac3, &set.eth.mac4, &set.eth.mac5,
     FuncOfChangedEthernetSettings
 };
@@ -589,7 +587,7 @@ const Choice mcServiceSoundEnable =
         "Включение/выключение звука",
         "Inclusion/switching off of a sound"
     },
-    EmptyFuncBV,
+    0,
     {
         {DISABLE_RU, DISABLE_EN},
         {ENABLE_RU, ENABLE_EN}
@@ -609,7 +607,7 @@ const Governor mgServiceSoundVolume =
         "Установка громкости звука",
         "Set the volume"
     },
-    EmptyFuncBV,
+    0,
     &set.service.soundVolume, 0, 100, EmptyFuncVV
 };
 
@@ -625,7 +623,7 @@ const Page mspSound =
         "В этом меню можно настроить громкость звука",
         "In this menu, you can adjust the volume"
     },
-    EmptyFuncBV, Page_ServiceSound,
+    0, Page_ServiceSound,
     {
         (void*)&mcServiceSoundEnable,
         (void*)&mgServiceSoundVolume
@@ -645,7 +643,7 @@ const Page mspEthernet =
         "Настройки ethernet",
         "Settings of ethernet"
     },
-    EmptyFuncBV, Page_ServiceEthernet,
+    0, Page_ServiceEthernet,
     {
         (void*)&mcServEthEnable,
         (void*)&ipAddress,

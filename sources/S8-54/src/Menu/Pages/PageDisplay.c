@@ -76,7 +76,7 @@ const Page mpDisplay =
         "Содержит настройки отображения дисплея.",
         "Contains settings of display of the display."
     },
-    EmptyFuncBV, Page_Display,
+    0, Page_Display,
     {
         (void*)&mcViewMode,     // ДИСПЛЕЙ -> Отображение
         (void*)&mspAccum,       // ДИСПЛЕЙ -> НАКОПЛЕНИЕ
@@ -98,7 +98,7 @@ static const Choice mcViewMode =
         "Задаёт режим отображения сигнала.",
         "Sets the display mode signal."
     },
-    EmptyFuncBV,
+    0,
     {
         {"Вектор",  "Vector"},
         {"Точки",   "Points"}
@@ -154,7 +154,7 @@ static const Choice mcSmoothing =
         "Устанавливает количество точек для расчёта сглаженного по соседним точкам сигнала.",
         "Establishes quantity of points for calculation of the signal smoothed on the next points."
     },
-    EmptyFuncBV,
+    0,
     {
         {DISABLE_RU, DISABLE_EN},
         {"2 точки", "2 points"},
@@ -178,7 +178,7 @@ static const Choice mcRefreshFPS =
         "Задаёт максимальное число выводимых в секунду кадров.",
         "Sets the maximum number of the shots removed in a second."
     },
-    EmptyFuncBV,
+    0,
     {
         {"25",  "25"},
         {"10",  "10"},
@@ -203,7 +203,7 @@ static const Choice mcScaleYtype =
         "Задаёт режим удержания смещения по вертикали\n1. \"Напряжение\" - сохраняется наряжение смещения.\n2. \"Деления\" - сохраняется положение смещения на экране.",
         "Sets the mode of retaining the vertical displacement\n1. \"Voltage\" - saved dressing bias.\n2. \"Divisions\" - retained the position of the offset on the screen."
     },
-    EmptyFuncBV,
+    0,
     {
         {"Напряжение", "Voltage"},
         {"Деления", "Divisions"}
@@ -247,7 +247,7 @@ static const Choice mcAccum_Num =
         "Sets the maximum quantity of the last signals on the screen. If in control \"Mode\" it is chosen \"Infinity\", the screen is cleared only by pressing of the button \"Clear\"."
         "\"Infinity\" - each measurement remains on the display until the button \"Clear\" is pressed."
     },
-    EmptyFuncBV,
+    0,
     {
         {DISABLE_RU, DISABLE_EN},
         {"2",   "2"},
@@ -273,7 +273,7 @@ static const Choice mcAccum_Mode =
         "1. \"Dump\" - after accumulation of the set number of measurement there is a cleaning of the display. This mode is convenient when memory isn't enough for preservation of the necessary number of measurements.\n"
         "2. \"Not to dump\" - the number of measurements is always output to the display set or smaller (in case of shortage of memory). Shortcoming is smaller speed and impossibility of accumulation of the set number of measurements at a lack of memory."
     },
-    EmptyFuncBV,
+    0,
     {
         {"Не сбрасывать",   "Not to dump"},
         {"Сбрасывать",      "Dump"}
@@ -337,7 +337,7 @@ static const Choice mcAverage_Num =
         "Задаёт количество последних измерений, по которым производится усреднение.",
         "Sets number of the last measurements on which averaging is made."
     },
-    EmptyFuncBV,
+    0,
     {
         {DISABLE_RU, DISABLE_EN},
         {"2",   "2"},
@@ -363,7 +363,7 @@ static const Choice mcAverage_Mode =
         "1. \"Accurately\" - the exact mode of averaging when only the last signals participate in calculation.\n"
         "2. \"Around\" - approximate mode of averaging. It makes sense to use when the number of measurements bigger is set, than can be located in memory."
     },
-    EmptyFuncBV,
+    0,
     {
         {"Точно",           "Accurately"},
         {"Приблизительно",  "Around"}
@@ -383,7 +383,7 @@ static const Page mspGrid =
         "Содержит настройки отображения координатной сетки.",
         "Contains settings of display of a coordinate grid."
     },
-    EmptyFuncBV, Page_DisplayGrid,
+    0, Page_DisplayGrid,
     {
         (void*)&mcGrid_Type,        // ДИСПЛЕЙ -> СЕТКА -> Тип
         (void*)&mgGrid_Brightness   // ДИСПЛЕЙ -> СЕТКА -> Яркость
@@ -398,7 +398,7 @@ static const Choice mcGrid_Type =
         "Выбор типа сетки.",
         "Choice like grid."
     },
-    EmptyFuncBV,
+    0,
     {
         {"Тип 1", "Type 1"},
         {"Тип 2", "Type 2"},
@@ -420,8 +420,7 @@ static const Governor mgGrid_Brightness =
         "Устанавливает яркость сетки.",
         "Adjust the brightness of the grid."
     },
-    EmptyFuncBV,
-    &set.display.brightnessGrid, 0, 100, OnChange_Grid_Brightness, BeforeDraw_Grid_Brightness
+    0, &set.display.brightnessGrid, 0, 100, OnChange_Grid_Brightness, BeforeDraw_Grid_Brightness
 };
 
 void OnChange_Grid_Brightness(void)
@@ -448,7 +447,7 @@ const Page mspSettings =
         "Дополнительные настройки дисплея",
         "Additional display settings"
     },
-    EmptyFuncBV, Page_DisplaySettings,
+    0, Page_DisplaySettings,
     {
         (void*)&mspSettings_Colors,
         (void*)&mgSettings_Brightness,
@@ -476,7 +475,7 @@ static const Choice mcSettings_AutoHide =
         "Установка после последнего нажатия кнопки или поворота ручки, по истечении которого меню автоматически убирается с экрана",
         "Installation after the last keystroke or turning the handle, after which the menu will automatically disappear"
     },
-    EmptyFuncBV,
+    0,
     {
         { "Никогда", "Never" },
         { "Через 5 сек", "Through 5 s" },
@@ -506,7 +505,7 @@ static const Choice mcSettings_AltMarkers =
         "\"Show\" - additional markers are shown always,\n"
         "\"Auto\" - additional markers are displayed for 5 seconds after turning the handle channel offset voltage or trigger level"
     },
-    EmptyFuncBV,
+    0,
     {
         { "Скрывать", "Hide" },
         { "Показывать", "Show" },
@@ -526,7 +525,7 @@ static const Choice mcSettings_StringNavigation =
         "При выборе \nПоказывать\n слева вверху экрана выводится полный путь до текущей страницы меню",                         // WARN Исправить перевод
         "When choosing \nDisplay\n at the top left of the screen displays the full path to the current page menu"
     },
-    EmptyFuncBV,
+    0,
     {
         { "Временно", "Temporary" },                    // WARN Исправить перевод
         { "Всегда", "All" },
@@ -547,7 +546,7 @@ static const Page mspSettings_Colors =
         "Выбор цветов дисплея",
         "The choice of colors display"
     },
-    EmptyFuncBV, Page_ServiceDisplayColors,
+    0, Page_ServiceDisplayColors,
     {
         (void*)&mcSettings_Colors_Scheme,
         (void*)&mgcSettings_Colors_ChannelA,
@@ -576,8 +575,7 @@ static const Governor mgSettings_Brightness =
         "Установка яркости свечения дисплея",
         "Setting the brightness of the display"
     },
-    EmptyFuncBV,
-    &set.display.brightness, 0, 100, OnChange_Settings_Brightness
+    0, &set.display.brightness, 0, 100, OnChange_Settings_Brightness
 };
 
 static void OnChange_Settings_Brightness(void)
@@ -596,8 +594,7 @@ static const Governor mgSettings_Levels =
         "Задаёт время, в течение которого после поворота ручки сещения напряжения на экране остаётся вспомогательная метка уровня смещения",
         "Defines the time during which, after turning the handle visits to the voltage on the screen remains auxiliary label offset level"
     },
-    EmptyFuncBV,
-    &TIME_SHOW_LEVELS, 0, 125, EmptyFuncVV
+    0, &TIME_SHOW_LEVELS, 0, 125
 };
 
 // ДИСПЛЕЙ -> НАСТРОЙКИ -> Время ------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -611,8 +608,7 @@ static const Governor mgSettings_Time =
         "Установка времени, в течение которого сообщения будут находиться на экране",
         "Set the time during which the message will be on the screen"
     },
-    EmptyFuncBV,
-    &TIME_MESSAGES, 1, 99, EmptyFuncVV
+    0, &TIME_MESSAGES, 1, 99
 };
 
 
@@ -623,7 +619,7 @@ static const Choice mcSettings_Colors_Background =
         "Выбор цвета фона",
         "Choice of color of a background"
     },
-    EmptyFuncBV,
+    0,
     {
         { "Чёрный", "Black" },
         { "Белый", "White" }
@@ -639,7 +635,7 @@ static const Choice mcSettings_Colors_Scheme =
         "Режим работы калибратора",
         "Mode of operation of the calibrator"
     },
-    EmptyFuncBV,
+    0,
     {
         { "Схема 1", "Scheme 1" },
         { "Схема 2", "Scheme 2" }
@@ -673,7 +669,7 @@ static const GovernorColor mgcSettings_Colors_ChannelA =
         "",
         ""
     },
-    EmptyFuncBV, &colorT1, EmptyFuncVV
+    0, &colorT1
 };
 
 
@@ -689,7 +685,7 @@ static const GovernorColor mgcSettings_Colors_ChannelB =
         "",
         ""
     },
-    EmptyFuncBV, &colorT2, EmptyFuncVV
+    0, &colorT2
 };
 
 
@@ -705,7 +701,7 @@ static const GovernorColor mgcSettings_Colors_Grid =
         "Устанавливает цвет сетки",
         "Sets the grid color"
     },
-    EmptyFuncBV, &colorTypeGrid, EmptyFuncVV
+    0, &colorTypeGrid
 };
 
 
@@ -729,7 +725,7 @@ const GovernorColor mgcColorMenu3 = { Item_GovernorColor, &mspSettings_Colors, {
     "",
     "",
 },
-EmptyFuncBV, &colorT6, EmptyFuncVV
+0, &colorT6
 };
 
 
@@ -741,7 +737,7 @@ const GovernorColor mgcColorMenu1 = { Item_GovernorColor, &mspSettings_Colors, {
     "",
     ""
 },
-EmptyFuncBV, &colorT7, OnChangedColorMenuTitle
+0, &colorT7, OnChangedColorMenuTitle
 };
 
 
@@ -753,7 +749,7 @@ const GovernorColor mgcColorMenu2 = { Item_GovernorColor, &mspSettings_Colors, {
     "",
     ""
 },
-EmptyFuncBV, &colorT8, OnChangedColorMenu2Item
+0, &colorT8, OnChangedColorMenu2Item
 };
 
 
@@ -766,7 +762,7 @@ const Choice mcServDisplInverse =
         "",
         ""
     },
-    EmptyFuncBV,
+    0,
     { { DISABLE_RU, DISABLE_EN },
     { ENABLE_RU, ENABLE_EN },
     },

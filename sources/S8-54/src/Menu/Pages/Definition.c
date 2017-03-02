@@ -135,7 +135,7 @@ const Page mainPage =
         "",
         ""
     },
-    EmptyFuncBV,
+    0,
     Page_MainPage,
     {
         (void*)&mpDisplay,

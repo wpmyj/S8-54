@@ -182,7 +182,7 @@ const Page mpMemory =
         "Работа с внешней и внутренней памятью.",
         "Working with external and internal memory."
     },
-    EmptyFuncBV, Page_Memory,
+    0, Page_Memory,
     {
         (void*)&mcLengthMemory, // ПАМЯТЬ -> Точки
         (void*)&mspLast,        // ПАМЯТЬ -> Последние
@@ -279,7 +279,7 @@ static const Page mspLast =
         "Переход в режим работы с последними полученными сигналами",
         "Transition to an operating mode with the last received signals"
     },
-    EmptyFuncBV, Page_SB_MemLatest,
+    0, Page_SB_MemLatest,
     {
         (void*)&sbLast_Exit,        // ПАМЯТЬ -> ПОСЛЕДНИЕ -> Выход
         (void*)0,
@@ -360,7 +360,7 @@ static const SmallButton sbLast_Next =
         "Перейти к следующему сигналу",
         "Go to the next signal"
     },
-    EmptyFuncBV,
+    0,
     OnPress_Last_Next,
     Draw_Last_Next
 };
@@ -389,7 +389,7 @@ static const SmallButton sbLast_Prev =
         "Перейти к предыдущему сигналу",
         "Go to the previous signal"
     },
-    EmptyFuncBV,
+    0,
     OnPress_Last_Prev,
     Draw_Last_Prev
 };
@@ -418,7 +418,7 @@ static const SmallButton sbLast_IntEnter =
         "Нажмите эту кнопку, чтобы сохранить сигнал во внутреннем запоминающем устройстве",
         "Press this button to keep a signal in an internal memory"
     },
-    EmptyFuncBV,
+    0,
     OnPress_Last_IntEnter,
     Draw_Last_IntEnter
 };
@@ -452,7 +452,7 @@ static const SmallButton sbLast_SaveToDrive =
         "Кнопка становится доступна при присоединённом внешнем ЗУ. Позволяет сохранить сигнал на внешем ЗУ",
         "Click this button to save the signal on the external FLASH"
     },
-    EmptyFuncBV,
+    0,
     OnPress_Last_SaveToDrive,
     Draw_Last_SaveToDrive
 };
@@ -485,7 +485,7 @@ static const Page mspInt =
         "Переход в режим работы с внутренней памятью",
         "Transition to an operating mode with internal memory"
     },
-    EmptyFuncBV, Page_SB_MemInt,
+    0, Page_SB_MemInt,
     {
         (void*)&sbInt_Exit,                 // ПАМЯТЬ -> ВНУТР ЗУ -> Выход
         (void*)&sbInt_ShowSignalsAlways,    // ПАМЯТЬ -> ВНУТР ЗУ -> Показывать всегда
@@ -566,7 +566,7 @@ static const SmallButton sbInt_Exit =
         "Кнопка для выхода в предыдущее меню",
         "Button to return to the previous menu"
     },
-    EmptyFuncBV,
+    0,
     OnPress_Int_Exit,
     DrawSB_Exit
 };
@@ -606,7 +606,7 @@ static const SmallButton sbInt_ShowSignalsAlways =
         "Позволяет всегда показывать выбранный сохранённый сигнал поверх текущего",
         "Allows to show always the chosen kept signal over the current"
     },
-    EmptyFuncBV,
+    0,
     OnPress_Int_ShowSignalAlways,
     Draw_Int_ShowSignalAlways,
     {
@@ -667,7 +667,7 @@ static const SmallButton sbInt_ModeShow =
         "Показывать записанный или текущий сигнал в режиме ВНУТР ЗУ",
         "Show recorded or current signal in mode Internal Memory"
     },
-    EmptyFuncBV,
+    0,
     OnPress_Int_ModeShow,
     Draw_Int_ModeShow,
     {
@@ -742,7 +742,7 @@ static const SmallButton sbInt_EraseAll =
         "Стирает все данные из области хранения данных, включая область иноформации. Тотальное форматирование",
         "It erases all data from the storage area, including the area inoformatsiya. The total format"
     },
-    EmptyFuncBV,
+    0,
     OnPress_Int_EraseAll,
     Draw_Int_EraseAll,
     {
@@ -778,7 +778,7 @@ static const SmallButton sbInt_SaveToMemory =
         "Сохранить сигнал во внутреннем запоминующем устройстве",
         "To keep a signal in an internal memory"
     },
-    EmptyFuncBV,
+    0,
     OnPress_Int_SaveToMemory,
     Draw_Int_SaveToMemory
 };
@@ -831,7 +831,7 @@ static const SmallButton sbInt_SaveToDrive =
         "Сохраняет сигнал на флешку",
         "Save signal to flash drive"
     },
-    EmptyFuncBV,
+    0,
     OnPress_Int_SaveToDrive,
     Draw_Int_SaveToDrive
 };
@@ -864,7 +864,7 @@ static const Page mspDrive =
         "Работа с внешним запоминающим устройством.",
         "Work with external storage device."
     },
-    EmptyFuncBV, Page_MemoryExt,
+    0, Page_MemoryExt,
     {
         (void*)&mspDrive_Manager,       // ПАМЯТЬ -> ВНЕШН ЗУ -> КАТАЛОГ
         (void*)&mcDrive_Name,           // ПАМЯТЬ -> ВНЕШН ЗУ -> Имя файла
@@ -889,7 +889,7 @@ static const Choice mcDrive_Name =
         "\"By mask\" - files are named automatically advance to the entered mask(seq.Menu),\n"
         "\"Manual\" - each time the file name must be specified manually"
     },
-    EmptyFuncBV,
+    0,
     {
         {"По маске",    "Mask"},
         {"Вручную",     "Manually"}
@@ -908,7 +908,7 @@ static const Choice mcDrive_ModeSave =
         "If you select \"Image\", the signal will be stored in the current directory in graphic file with the extension BMP\n"
         "If you select \"Text\", the signal will be stored in the current directory as a text file with the extension TXT"
     },
-    EmptyFuncBV,
+    0,
     {
         {"Изображение", "Image"},
         {"Текст", "Text"}
@@ -924,7 +924,7 @@ static const Choice mcDrive_ModeBtnMemory =
         "",
         ""
     },
-    EmptyFuncBV,
+    0,
     {
         {"Меню", "Menu"},
         {"Сохранение", "Save"}
@@ -940,7 +940,7 @@ static const Choice mcDrive_Autoconnect =
         "Eсли \"Вкл\", при подключении внешнего накопителя происходит автоматический переход на страницу ПАМЯТЬ - Внешн ЗУ",
         "If \"Enable\", when you connect an external drive is automatically transferred to the page MEMORY - Ext.Storage"
     },
-    EmptyFuncBV,
+    0,
     {
         {DISABLE_RU, DISABLE_EN},
         {ENABLE_RU, ENABLE_EN}
@@ -969,7 +969,7 @@ static const Page mspDrive_Manager =
         (void*)&sbFileManagerLevelUp,   // ПАМЯТЬ -> ВНЕШН ЗУ -> КАТАЛОГ -> Выйти из каталога
         (void*)&sbFileManagerLevelDown  // ПАМЯТЬ -> ВНЕШН ЗУ -> КАТАЛОГ -> Войти в каталог
     },
-    OnPressMemoryExtFileManager, EmptyFuncVV, FM_RotateRegSet
+    OnPressMemoryExtFileManager, 0, FM_RotateRegSet
 };
 
 static bool FuncOfActiveExtMemFolder(void)
@@ -1004,7 +1004,7 @@ static const SmallButton sbExitFileManager =
         "Кнопка для выхода в предыдущее меню",
         "Button to return to the previous menu"
     },
-    EmptyFuncBV,
+    0,
     PressSB_FM_Exit,
     DrawSB_Exit
 };
@@ -1027,7 +1027,7 @@ static const SmallButton sbFileManagerTab =
         "Переход между каталогами и файлами",
         "The transition between the directories and files"
     },
-    EmptyFuncBV,
+    0,
     PressSB_FM_Tab,
     DrawSB_FM_Tab
 };
@@ -1051,7 +1051,7 @@ static const SmallButton sbFileManagerLevelUp =
         "Переход в родительский каталог",
         "Transition to the parental catalog"
     },
-    EmptyFuncBV,
+    0,
     PressSB_FM_LevelUp,
     DrawSB_FM_LevelUp
 };
@@ -1075,7 +1075,7 @@ static const SmallButton sbFileManagerLevelDown =
         "Переход в выбранный каталог",
         "Transition to the chosen catalog"
     },
-    EmptyFuncBV,
+    0,
     PressSB_FM_LevelDown,
     DrawSB_FM_LevelDown
 };
@@ -1152,7 +1152,7 @@ static const SmallButton sbSetMaskDelete =
         "Удаляет все введённые символы",
         "Deletes all entered symbols"
     },
-    EmptyFuncBV,
+    0,
     PressSB_SetMask_Delete,
     DrawSB_SetMask_Delete
 };
@@ -1181,7 +1181,7 @@ static const SmallButton sbSetMaskBackspace =
         "Удаляет последний введённый символ",
         "Deletes the last entered symbol"
     },
-    EmptyFuncBV,
+    0,
     PressSB_SetMask_Backspace,
     DrawSB_SetMask_Backspace
 };
@@ -1221,7 +1221,7 @@ static const SmallButton sbSetMaskInsert =
         "Вставляет выбранный символ",
         "Inserts the chosen symbol"
     },
-    EmptyFuncBV,
+    0,
     PressSB_SetMask_Insert,
     DrawSB_SetMask_Insert
 };
@@ -1279,7 +1279,7 @@ const Page mpSetName =
     {
         "", ""
     },
-    EmptyFuncBV, Page_SB_MemExtSetName,
+    0, Page_SB_MemExtSetName,
     {
         (void*)&sbExitSetName,
         (void*)&sbSetNameDelete,
@@ -1288,7 +1288,7 @@ const Page mpSetName =
         (void*)&sbSetNameInsert,
         (void*)&sbSetNameSave
     },
-    EmptyFuncVV, EmptyFuncVV, OnMemExtSetNameRegSet
+    0, 0, OnMemExtSetNameRegSet
 };
 
 static void OnMemExtSetNameRegSet(int angle)
@@ -1308,7 +1308,7 @@ static const SmallButton sbExitSetName =   // Кнопк для выхода из режима задания
         "Отказ от сохранения",
         "Failure to save"
     },
-    EmptyFuncBV,
+    0,
     PressSB_SetName_Exit,
     DrawSB_Exit
 };
@@ -1344,7 +1344,7 @@ static const SmallButton sbSetNameDelete =
         "Удаляет все введённые символы",
         "Deletes all entered characters"
     },
-    EmptyFuncBV,
+    0,
     PressSB_SetName_Delete,
     DrawSB_SetName_Delete
 };
@@ -1373,7 +1373,7 @@ static const SmallButton sbSetNameBackspace =
         "Удаляет последний символ",
         "Delete the last character"
     },
-    EmptyFuncBV,
+    0,
     PressSB_SetName_Backspace,
     DrawSB_SetName_Backspace
 };
@@ -1407,7 +1407,7 @@ static const SmallButton sbSetNameInsert =
         "Вводит очередной символ",
         "Print the next character"
     },
-    EmptyFuncBV,
+    0,
     PressSB_SetName_Insert,
     DrawSB_SetName_Insert
 };
@@ -1442,7 +1442,7 @@ static const SmallButton sbSetNameSave =
         "Сохранение на флеш под заданным именем",
         "Saving to flashdrive with the specified name"
     },
-    EmptyFuncBV,
+    0,
     PressSB_MemExtSetNameSave,
     DrawSB_MemExtSetNameSave
 };
