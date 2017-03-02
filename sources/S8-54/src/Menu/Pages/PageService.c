@@ -43,6 +43,7 @@ static const Page mspTime;
 static const Time mtTime;
 static const Governor mgTimeCorrection;
 static void  OnChange_Time_Correction(void);
+static const Page mspInformation;
 
 
 // ÑÅĞÂÈÑ ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -67,7 +68,8 @@ const Page mpService =
         (void*)&mspEthernet,        // ÑÅĞÂÈÑ - ETHERNET
         (void*)&mspSound,           // ÑÅĞÂÈÑ - ÇÂÓÊ
         (void*)&mspTime,            // ÑÅĞÂÈÑ - ÂĞÅÌß
-        (void*)&mcLanguage          // ÑÅĞÂÈÑ - ßçûê
+        (void*)&mcLanguage,         // ÑÅĞÂÈÑ - ßçûê
+        (void*)&mspInformation      // ÑÅĞÂÈÑ - ÈÍÔÎĞÌÀÖÈß
     }
 };
 
@@ -236,6 +238,21 @@ static void OnChange_Time_Correction(void)
 {
     RTC_SetCorrection((int8)setNR.correctionTime);
 }
+
+
+// ÑÅĞÂÈÑ - ÈÍÔÎĞÌÀÖÈß ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+static const Page mspInformation =
+{
+    Item_Page, &mpService,
+    {
+        "ÈÍÔÎĞÌÀÖÈß", "INFORMATION"
+    },
+    {
+        "Ïîêàçûâàåò èíôîğìàöèş î ïğèáîğå",
+        "Displays information about the device"
+    },
+    EmptyFuncBV
+};
 
 
 // ÑÅĞÂÈÑ - ÊÀËÈÁĞÀÒÎĞ ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

@@ -658,7 +658,7 @@ static void MACaddress_DrawOpened(MACaddress *mac, int x, int y)
 void Choice_DrawClosed(Choice *choice, int x, int y)
 {
     bool pressed = IsPressed(choice);
-    bool shade = IsShade(choice) || ! choice->funcOfActive();
+    bool shade = IsShade(choice) || ! ItemIsAcitve(choice);
         
     Painter_DrawVolumeButton(x + 1, y + 17, MI_WIDTH_VALUE + 2, MI_HEIGHT_VALUE + 3, 1, ColorMenuField(), ColorMenuItemBrighter(), ColorMenuItemLessBright(), true, IsShade(choice));
 
@@ -767,7 +767,7 @@ void Button_Draw(Button *button, int x, int y)
 //------------------------------------------------------------------------------------------------------------------------------------------------------
 void SmallButton_Draw(SmallButton *smallButton, int x, int y)
 {
-    if (smallButton->funcOfActive())
+    if (ItemIsAcitve(smallButton))
     {
         if (IsPressed(smallButton))
         {

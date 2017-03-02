@@ -289,22 +289,12 @@ void OpenPageAndSetItCurrent(NamePage namePage) // WARN Пустая функция
 bool ItemIsAcitve(void *item) 
 {
     TypeItem type = TypeMenuItem(item);
-    if(type == Item_Choice) 
+
+    if (type == Item_Choice || type == Item_Page || type == Item_Button || type == Item_Governor || type == Item_SmallButton)
     {
-        return ((Choice*)(item))->funcOfActive();
-    }
-    else if(type == Item_Page) 
-    {
-        Page *page = (Page*)(item);
-        return page->funcOfActive();
-    }
-    else if(type == Item_Button) 
-    {
-        return ((Button*)(item))->funcOfActive();
-    }
-    else if(type == Item_Governor) 
-    {
-        return ((Governor*)(item))->funcOfActive();
+        pFuncBV func = ((Page*)(item))->funcOfActive;
+
+        return func ? func() : true;
     }
 
     return true;

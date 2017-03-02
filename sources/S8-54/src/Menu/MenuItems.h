@@ -81,8 +81,9 @@ typedef enum
     Page_SB_MemExtSetName,      // Появляется перед сохранением файла на флешку для задания имени файла при соответствующей опции ВНЕШН ЗУ - Имя файла
     Page_SB_FileManager,        // Открыта страница ПАМЯТЬ - ВНЕШН ЗУ - Обзор
     Page_SB_Help,               // Открыта страница HELP
-    Page_SB_MathCursorsFFT,        // Открыта страница СЕРВИС - Математика - Курсоры
+    Page_SB_MathCursorsFFT,     // Открыта страница СЕРВИС - Математика - Курсоры
     Page_SB_MathFunction,       // СЕРВИС - МАТЕМАТИКА - ФУНКЦИЯ
+    Page_SB_ServiceInformation, // СЕРВИС - ИНФОРМАЦИЯ
     Page_NumPages,
     Page_NoPage
 } NamePage;             // При добавлении страниц нужно изменять инициализацию SettingsMenu в SSettings.c
