@@ -31,15 +31,13 @@ static void OnPress_Search_Search(void);
 // СИНХР ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 const Page mpTrig =
 {
-    Item_Page, &mainPage,
+    Item_Page, &mainPage, 0,
     {
-        "СИНХР", "TRIG"
-    },
-    {
+        "СИНХР", "TRIG",
         "Содержит настройки синхронизации.",
         "Contains synchronization settings."
     },
-    0, Page_Trig,
+    Page_Trig,
     {
         (void*)&mcMode,         // СИНХР -> Режим
         (void*)&mcSource,       // СИНХР -> Источник
@@ -53,8 +51,10 @@ const Page mpTrig =
 // СИНХР -> Режим --------------------------------------------------------------------------------------------------------------------------------------------------
 static const Choice mcMode =
 {
-    Item_Choice, &mpTrig, {"Режим", "Mode"},
+    Item_Choice, &mpTrig, 0,
     {
+        "Режим",        "Mode"
+        ,
         "Задаёт режим запуска:\n"
         "1. \"Авто\" - запуск происходит автоматически.\n"
         "2. \"Ждущий\" - запуск происходит по уровню синхронизации.\n"
@@ -65,7 +65,6 @@ static const Choice mcMode =
         "2. \"Standby\" - the launch takes place at the level of synchronization.\n"
         "3. \"Single\" - the launch takes place on reaching the trigger levelonce. For the next measurement is necessary to press the START/STOP."
     },
-    0,
     {
         {"Авто ",       "Auto"},
         {"Ждущий",      "Wait"},
@@ -102,12 +101,12 @@ void OnChange_Mode(bool active)
 // СИНХР -> Источник ---------------------------------------------------------------------------------------------------------------------------------------------------
 static const Choice mcSource =
 {
-    Item_Choice, &mpTrig, {"Источник", "Source"},
+    Item_Choice, &mpTrig, 0,
     {
+        "Источник", "Source",
         "Выбор источника сигнала синхронизации.",
         "Synchronization signal source choice."
     },
-    0,
     {
         {"Канал 1", "Channel 1"},
         {"Канал 2", "Channel 2"},
@@ -124,18 +123,19 @@ static void OnChange_Source(bool active)
 // СИНХР -> Полярность ---------------------------------------------------------------------------------------------------------------------------------------------------
 static const Choice mcPolarity =
 {
-    Item_Choice, &mpTrig, {"Полярность", "Polarity"},
+    Item_Choice, &mpTrig, 0,
     {
+        "Полярность",   "Polarity"
+        ,
         "1. \"Фронт\" - запуск происходит по фронту синхроимпульса.\n"
         "2. \"Срез\" - запуск происходит по срезу синхроимпульса."
         ,
         "1. \"Front\" - start happens on the front of clock pulse.\n"
         "2. \"Back\" - start happens on a clock pulse cut."
     },
-    0,
     {
-        {"Фронт", "Front"},
-        {"Срез", "Back"}
+        {"Фронт",       "Front"},
+        {"Срез",        "Back"}
     },
     (int8*)&TRIG_POLARITY, OnChange_Polarity
 };
@@ -148,8 +148,10 @@ static void OnChange_Polarity(bool active)
 // СИНХР -> Вход -----------------------------------------------------------------------------------------------------------------------------------------------------------
 static const Choice mcInput =
 {
-    Item_Choice, &mpTrig, {"Вход", "Input"},
+    Item_Choice, &mpTrig, 0,
     {
+        "Вход", "Input"
+        ,
         "Выбор связи с источником синхронизации:\n"
         "1. \"ПС\" - полный сигнал.\n"
         "2. \"АС\" - закрытый вход.\n"
@@ -162,7 +164,6 @@ static const Choice mcInput =
         "3. \"LPF\" - low-pass filter.\n"
         "4. \"HPF\" - high-pass filter frequency."
     },
-    0,
     {
         {"ПС", "Full"},
         {"АС", "AC"},
@@ -180,26 +181,25 @@ static void OnChange_Input(bool active)
 // СИНХР -> Удержание ---------------------------------------------------------------------------------------------------------------------------------------------------
 static const Governor mgTimeDelay =
 {
-    Item_Governor, &mpTrig, {"Удержание, мс", "Holdoff, ms"},
+    Item_Governor, &mpTrig, 0,
     {
+        "Удержание, мс", "Holdoff, ms",
         "Устанавливает минимальное время между запусками.",
         "Sets the minimum time between starts."
     },
-    0, (int16*)&set.trig.timeDelay, 45, 10000
+    (int16*)&set.trig.timeDelay, 45, 10000
 };
 
 // СИНХР -> ПОИСК //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 static const Page mspSearch =
 {
-    Item_Page, &mpTrig,
+    Item_Page, &mpTrig, 0,
     {
-        "ПОИСК", "SEARCH"
-    },
-    {
+        "ПОИСК", "SEARCH",
         "Управление автоматическим поиском уровня синхронизации.",
         "Office of the automatic search the trigger level."
     },
-    0, Page_TrigAuto,
+    Page_TrigAuto,
     {
         (void*)&mcSearch_Mode,
         (void*)&mbSearch_Search
@@ -209,8 +209,10 @@ static const Page mspSearch =
 // СИНХР -> ПОИСК -> Режим ---------------------------------------------------------------------------------------------------------------------------------------------------
 static const Choice mcSearch_Mode =
 {
-    Item_Choice, &mspSearch, {"Режим", "Mode"},
+    Item_Choice, &mspSearch, 0,
     {
+        "Режим", "Mode"
+        ,
         "Выбор режима автоматического поиска синхронизации:\n"
         "1. \"Ручной\" - поиск производится по нажатию кнопки \"Найти\" или по удержанию в течение 0.5с кнопки СИНХР, если установлено \"СЕРВИС\x99Реж длит СИНХР\x99Автоуровень\".\n"
         "2. \"Автоматический\" - поиск производится автоматически."
@@ -222,7 +224,6 @@ static const Choice mcSearch_Mode =
 #pragma pop
         "2. \"Auto\" - the search is automatically."
     },
-    0,
     {
         {"Ручной",          "Hand"},
         {"Автоматический",  "Auto"}
@@ -233,15 +234,13 @@ static const Choice mcSearch_Mode =
 // СИНХР -> ПОИСК -> Найти ---------------------------------------------------------------------------------------------------------------------------------------------------
 static const Button mbSearch_Search =
 {
-    Item_Button, &mspSearch,
+    Item_Button, &mspSearch, IsActive_Search_Search,
     {
-        "Найти", "Search"
-    },
-    {
+        "Найти", "Search",
         "Производит поиск уровня синхронизации.",
         "Runs for search synchronization level."
     },
-    IsActive_Search_Search, OnPress_Search_Search, EmptyFuncVII
+    OnPress_Search_Search, EmptyFuncVII
 };
 
 static bool IsActive_Search_Search(void)

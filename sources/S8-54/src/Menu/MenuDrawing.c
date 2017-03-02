@@ -74,14 +74,14 @@ static void DrawHintItem(int x, int y, int width)
 
     const int SIZE = 100;
     char title[SIZE];
-    snprintf(title, SIZE, "%s \"%s\"", names[type][lang], item->title[lang]);
+    snprintf(title, SIZE, "%s \"%s\"", names[type][lang], item->titleHint[lang]);
 
     if (item->type == Item_SmallButton)
     {
         y -= 9;
     }
     Painter_DrawStringInCenterRectAndBoundItC(x, y, width, 15, title, gColorBack, gColorFill);
-    y = Painter_DrawTextInBoundedRectWithTransfers(x, y + 15, width, item->helpHint[lang], gColorBack, gColorFill);
+    y = Painter_DrawTextInBoundedRectWithTransfers(x, y + 15, width, item->titleHint[2 + lang], gColorBack, gColorFill);
     if (item->type == Item_SmallButton)
     {
         Painter_DrawHintsForSmallButton(x, y, width, (SmallButton*)item);

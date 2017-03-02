@@ -130,12 +130,11 @@ extern const Page mpTrig;
 /// лемч 
 const Page mainPage =
 {
-    Item_Page, 0, {"лемч", "MENU"},
+    Item_Page, 0, 0,
     {
-        "",
-        ""
+        "лемч", "MENU",
+        "", ""
     },
-    0,
     Page_MainPage,
     {
         (void*)&mpDisplay,

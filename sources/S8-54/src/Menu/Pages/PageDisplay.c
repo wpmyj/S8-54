@@ -68,15 +68,13 @@ void PageDisplay_Init(void)
 
 const Page mpDisplay =
 {
-    Item_Page, &mainPage,
+    Item_Page, &mainPage, 0,
     {
-        "ДИСПЛЕЙ", "DISPLAY"
-    },
-    {
+        "ДИСПЛЕЙ", "DISPLAY",
         "Содержит настройки отображения дисплея.",
         "Contains settings of display of the display."
     },
-    0, Page_Display,
+    Page_Display,
     {
         (void*)&mcViewMode,     // ДИСПЛЕЙ -> Отображение
         (void*)&mspAccum,       // ДИСПЛЕЙ -> НАКОПЛЕНИЕ
@@ -93,12 +91,12 @@ const Page mpDisplay =
 // ДИСПЛЕЙ -> Отображение --------------------------------------------------------------------------------------------------------------------------------
 static const Choice mcViewMode =
 {
-    Item_Choice, &mpDisplay, {"Отображение", "View"},
+    Item_Choice, &mpDisplay, 0,
     {
+        "Отображение", "View",
         "Задаёт режим отображения сигнала.",
         "Sets the display mode signal."
     },
-    0,
     {
         {"Вектор",  "Vector"},
         {"Точки",   "Points"}
@@ -109,12 +107,12 @@ static const Choice mcViewMode =
 // ДИСПЛЕЙ -> Мин Макс -----------------------------------------------------------------------------------------------------------------------------------
 static const Choice mcMinMax =
 {
-    Item_ChoiceReg, &mpDisplay, {"Мин Макс", "Min Max"},
+    Item_ChoiceReg, &mpDisplay, IsActive_MinMax,
     {
+        "Мин Макс", "Min Max",
         "Задаёт количество последних измерений, по которым строятся ограничительные линии, огибающие минимумы и максимумы измерений.",
         "Sets number of the last measurements on which the limiting lines which are bending around minima and maxima of measurements are under construction."
     },
-    IsActive_MinMax,
     {
         {DISABLE_RU,DISABLE_EN},
         {"2",   "2"},
@@ -149,12 +147,12 @@ static void OnChange_MinMax(bool active)
 // ДИСПЛЕЙ -> Сглаживание ---------------------------------------------------------------------------------------------------------------------------------
 static const Choice mcSmoothing =
 {
-    Item_ChoiceReg, &mpDisplay, {"Сглаживание", "Smoothing"},
+    Item_ChoiceReg, &mpDisplay, 0,
     {
+        "Сглаживание", "Smoothing",
         "Устанавливает количество точек для расчёта сглаженного по соседним точкам сигнала.",
         "Establishes quantity of points for calculation of the signal smoothed on the next points."
     },
-    0,
     {
         {DISABLE_RU, DISABLE_EN},
         {"2 точки", "2 points"},
@@ -173,12 +171,12 @@ static const Choice mcSmoothing =
 // ДИСПЛЕЙ -> ОБНОВЛЕНИЕ -> Частота ------------------------------------------------------------------------------------------------------------------------
 static const Choice mcRefreshFPS =
 {
-    Item_Choice, &mpDisplay, {"Частота обновл", "Refresh rate"},
+    Item_Choice, &mpDisplay, 0,
     {
+        "Частота обновл", "Refresh rate",
         "Задаёт максимальное число выводимых в секунду кадров.",
         "Sets the maximum number of the shots removed in a second."
     },
-    0,
     {
         {"25",  "25"},
         {"10",  "10"},
@@ -198,12 +196,12 @@ static void OnChange_RefreshFPS(bool active)
 // ДИСПЛЕЙ -> Смещение -----------------------------------------------------------------------------------------------------------------------------------------
 static const Choice mcScaleYtype =
 {
-    Item_Choice, &mpDisplay, {"Смещение", "Оffset"},
+    Item_Choice, &mpDisplay, 0,
     {
+        "Смещение", "Оffset",
         "Задаёт режим удержания смещения по вертикали\n1. \"Напряжение\" - сохраняется наряжение смещения.\n2. \"Деления\" - сохраняется положение смещения на экране.",
         "Sets the mode of retaining the vertical displacement\n1. \"Voltage\" - saved dressing bias.\n2. \"Divisions\" - retained the position of the offset on the screen."
     },
-    0,
     {
         {"Напряжение", "Voltage"},
         {"Деления", "Divisions"}
@@ -215,15 +213,13 @@ static const Choice mcScaleYtype =
 // ДИСПЛЕЙ -> НАКОПЛЕНИЕ -------------------------------------------------------------------------------------------------------------------------------------------
 static const Page mspAccum =
 {
-    Item_Page, &mpDisplay,
+    Item_Page, &mpDisplay, IsActive_Accum,
     {
-        "НАКОПЛЕНИЕ", "ACCUMULATION"
-    },
-    {
+        "НАКОПЛЕНИЕ", "ACCUMULATION",
         "Настройки режима отображения последних сигналов на экране.",
         "Mode setting signals to display the last screen."
     },
-    IsActive_Accum, Page_DisplayAccumulation,
+    Page_DisplayAccumulation,
     {
         (void*)&mcAccum_Num,    // ДИСПЛЕЙ -> НАКОПЛЕНИЕ -> Количество
         (void*)&mcAccum_Mode,   // ДИСПЛЕЙ -> НАКОПЛЕНИЕ -> Тип
@@ -239,15 +235,16 @@ static bool IsActive_Accum(void)
 // ДИСПЛЕЙ -> НАКОПЛЕНИЕ -> Количество ------------------------------------------------------------------------------------------------------------------------------
 static const Choice mcAccum_Num =
 {
-    Item_ChoiceReg, &mspAccum, {"Количество", "Number"},
+    Item_ChoiceReg, &mspAccum, 0,
     {
+        "Количество", "Number"
+        ,
         "Задаёт максимальное количество последних сигналов на экране. Если в настройке \"Режим\" выбрано \"Бесконечность\", экран очищается только нажатием кнопки \"Очистить\"."
         "\"Бесконечность\" - каждое измерение остаётся на дисплее до тех пор, пока не будет нажата кнопка \"Очистить\"."
         ,
         "Sets the maximum quantity of the last signals on the screen. If in control \"Mode\" it is chosen \"Infinity\", the screen is cleared only by pressing of the button \"Clear\"."
         "\"Infinity\" - each measurement remains on the display until the button \"Clear\" is pressed."
     },
-    0,
     {
         {DISABLE_RU, DISABLE_EN},
         {"2",   "2"},
@@ -265,15 +262,16 @@ static const Choice mcAccum_Num =
 // ДИСПЛЕЙ -> НАКОПЛЕНИЕ -> Тип ---------------------------------------------------------------------------------------------------------------------------------------
 static const Choice mcAccum_Mode =
 {
-    Item_Choice, &mspAccum, {"Режим", "Mode"},
+    Item_Choice, &mspAccum, 0,
     {
+        "Режим", "Mode"
+        ,
         "1. \"Сбрасывать\" - после накопления заданного количества измерения происходит очистка дисплея. Этот режим удобен, когда памяти не хватает для сохранения нужного количества измерений.\n"
         "2. \"Не сбрасывать\" - на дисплей всегда выводится заданное или меньшее (в случае нехватки памяти) количество измерений. Недостатком является меньшее быстродействие и невозможность накопления заданного количества измерений при недостатке памяти."
         ,
         "1. \"Dump\" - after accumulation of the set number of measurement there is a cleaning of the display. This mode is convenient when memory isn't enough for preservation of the necessary number of measurements.\n"
         "2. \"Not to dump\" - the number of measurements is always output to the display set or smaller (in case of shortage of memory). Shortcoming is smaller speed and impossibility of accumulation of the set number of measurements at a lack of memory."
     },
-    0,
     {
         {"Не сбрасывать",   "Not to dump"},
         {"Сбрасывать",      "Dump"}
@@ -284,15 +282,13 @@ static const Choice mcAccum_Mode =
 // ДИСПЛЕЙ -> НАКОПЛЕНИЕ -> Очистить -------------------------------------------------------------------------------------------------------------------------------------
 static const Button mbAccum_Crear =
 {
-    Item_Button, &mspAccum,
+    Item_Button, &mspAccum, IsActive_Accum_Clear,
     {
-        "Очистить", "Clear"
-    },
-    {
+        "Очистить", "Clear",
         "Очищает экран от накопленных сигналов.",
         "Clears the screen of the saved-up signals."
     },
-    IsActive_Accum_Clear, OnPress_Accum_Clear, EmptyFuncVII
+    OnPress_Accum_Clear, EmptyFuncVII
 };
 
 static bool IsActive_Accum_Clear(void)
@@ -309,15 +305,13 @@ void OnPress_Accum_Clear(void)
 // ДИСПЛЕЙ -> УСРЕДНЕНИЕ -------------------------------------------------------------------------------------------------------------------------------------------------
 static const Page mspAverage =
 {
-    Item_Page, &mpDisplay,
+    Item_Page, &mpDisplay, IsActive_Average,
     {
-        "УСРЕДНЕНИЕ", "AVERAGE"
-    },
-    {
+        "УСРЕДНЕНИЕ", "AVERAGE",
         "Настройки режима усреднения по последним измерениям.",
         "Settings of the mode of averaging on the last measurements."
     },
-    IsActive_Average, Page_DisplayAverage,
+    Page_DisplayAverage,
     {
         (void*)&mcAverage_Num,  // ДИСПЛЕЙ -> УСРЕДНЕНИЕ -> Количество
         (void*)&mcAverage_Mode  // ДИСПЛЕЙ -> УСРЕДНЕНИЕ -> Режим
@@ -332,12 +326,12 @@ static bool IsActive_Average(void)
 // ДИСПЛЕЙ -> УСРЕДНЕНИЕ -> Количество ------------------------------------------------------------------------------------------------------------------------------------
 static const Choice mcAverage_Num =
 {
-    Item_ChoiceReg, &mspAverage, {"Количество", "Number"},
+    Item_ChoiceReg, &mspAverage, 0,
     {
+        "Количество", "Number",
         "Задаёт количество последних измерений, по которым производится усреднение.",
         "Sets number of the last measurements on which averaging is made."
     },
-    0,
     {
         {DISABLE_RU, DISABLE_EN},
         {"2",   "2"},
@@ -356,14 +350,16 @@ static const Choice mcAverage_Num =
 // ДИСПЛЕЙ -> УСРЕДНЕНИЕ -> Режим -----------------------------------------------------------------------------------------------------------------------------------------
 static const Choice mcAverage_Mode =
 {
-    Item_Choice, &mspAverage, {"Режим", "Mode"},
+    Item_Choice, &mspAverage, 0,
     {
+        "Режим", "Mode"
+        ,
         "1. \"Точно\" - точный режим усреднения, когда в расчёте участвуют только последние сигналы.\n"
-        "2. \"Приблизительно\" - приблизительный режим усреднения. Имеет смысл использовать, когда задано количество измерений большее, чем может поместиться в памяти.",
+        "2. \"Приблизительно\" - приблизительный режим усреднения. Имеет смысл использовать, когда задано количество измерений большее, чем может поместиться в памяти."
+        ,
         "1. \"Accurately\" - the exact mode of averaging when only the last signals participate in calculation.\n"
         "2. \"Around\" - approximate mode of averaging. It makes sense to use when the number of measurements bigger is set, than can be located in memory."
     },
-    0,
     {
         {"Точно",           "Accurately"},
         {"Приблизительно",  "Around"}
@@ -375,15 +371,13 @@ static const Choice mcAverage_Mode =
 // ДИСПЛЕЙ -> СЕТКА --------------------------------------------------------------------------------------------------------------------------------------------------------
 static const Page mspGrid =
 {
-    Item_Page, &mpDisplay,
+    Item_Page, &mpDisplay, 0,
     {
         "СЕТКА", "GRID",
-    },
-    {
         "Содержит настройки отображения координатной сетки.",
         "Contains settings of display of a coordinate grid."
     },
-    0, Page_DisplayGrid,
+    Page_DisplayGrid,
     {
         (void*)&mcGrid_Type,        // ДИСПЛЕЙ -> СЕТКА -> Тип
         (void*)&mgGrid_Brightness   // ДИСПЛЕЙ -> СЕТКА -> Яркость
@@ -393,12 +387,12 @@ static const Page mspGrid =
 // ДИСПЛЕЙ -> СЕТКА -> Тип --------------------------------------------------------------------------------------------------------------------------------------------------
 static const Choice mcGrid_Type =
 {
-    Item_Choice, &mspGrid, {"Тип", "Type"},
+    Item_Choice, &mspGrid, 0,
     {
+        "Тип", "Type",
         "Выбор типа сетки.",
         "Choice like grid."
     },
-    0,
     {
         {"Тип 1", "Type 1"},
         {"Тип 2", "Type 2"},
@@ -411,16 +405,13 @@ static const Choice mcGrid_Type =
 // ДИСПЛЕЙ -> СЕТКА -> Яркость -------------------------------------------------------------------------------------------------------------------------------------------------
 static const Governor mgGrid_Brightness =
 {
-    Item_Governor, &mspGrid,
+    Item_Governor, &mspGrid, 0,
     {
-        "Яркость",
-        "Brightness"
-    },
-    {
+        "Яркость", "Brightness",
         "Устанавливает яркость сетки.",
         "Adjust the brightness of the grid."
     },
-    0, &set.display.brightnessGrid, 0, 100, OnChange_Grid_Brightness, BeforeDraw_Grid_Brightness
+    &set.display.brightnessGrid, 0, 100, OnChange_Grid_Brightness, BeforeDraw_Grid_Brightness
 };
 
 void OnChange_Grid_Brightness(void)
@@ -439,15 +430,13 @@ static void BeforeDraw_Grid_Brightness(void)
 // ДИСПЛЕЙ -> НАСТРОЙКИ /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 const Page mspSettings =
 {
-    Item_Page, &mpDisplay,
+    Item_Page, &mpDisplay, 0,
     {
-        "НАСТРОЙКИ", "SETTINGS"
-    },
-    {
+        "НАСТРОЙКИ", "SETTINGS",
         "Дополнительные настройки дисплея",
         "Additional display settings"
     },
-    0, Page_DisplaySettings,
+    Page_DisplaySettings,
     {
         (void*)&mspSettings_Colors,
         (void*)&mgSettings_Brightness,
@@ -467,15 +456,12 @@ static void Menu_AutoHide(bool autoHide)
 
 static const Choice mcSettings_AutoHide =
 {
-    Item_Choice, &mspSettings,
+    Item_Choice, &mspSettings, 0,
     {
-        "Скрывать", "Hide"
-    },
-    {
+        "Скрывать", "Hide",
         "Установка после последнего нажатия кнопки или поворота ручки, по истечении которого меню автоматически убирается с экрана",
         "Installation after the last keystroke or turning the handle, after which the menu will automatically disappear"
     },
-    0,
     {
         { "Никогда", "Never" },
         { "Через 5 сек", "Through 5 s" },
@@ -490,22 +476,20 @@ static const Choice mcSettings_AutoHide =
 // СЕРВИС -> ДИСПЛЕЙ -> Доп. маркеры ------------------------------------------------------------------------------------------------------------------------------------------------------
 static const Choice mcSettings_AltMarkers =
 {
-    Item_Choice, &mspSettings,
+    Item_Choice, &mspSettings, 0,
     {
         "Доп. маркеры", "Alt. markers"
-    },
-    {
+        ,
         "Устанавливает режим отображения дополнительных маркеров уровней смещения и синхронизации:\n"
         "\"Скрывать\" - дополнительные маркеры не показываются,\n"
         "\"Показывать\" - дополнительные маркеры показываются всегда,\n"
-        "\"Авто\" - дополнительные маркеры показываются в течение 5 сек после поворота ручки смещения канала по напряжению или уровня синхронизации",
-
+        "\"Авто\" - дополнительные маркеры показываются в течение 5 сек после поворота ручки смещения канала по напряжению или уровня синхронизации"
+        ,
         "Sets the display mode of additional markers levels of displacement and synchronization:\n"
         "\"Hide\" - additional markers are not shown,\n"
         "\"Show\" - additional markers are shown always,\n"
         "\"Auto\" - additional markers are displayed for 5 seconds after turning the handle channel offset voltage or trigger level"
     },
-    0,
     {
         { "Скрывать", "Hide" },
         { "Показывать", "Show" },
@@ -517,15 +501,12 @@ static const Choice mcSettings_AltMarkers =
 // ДИСПЛЕЙ - НАСТРОЙКИ - Строка меню -----------------------------------------------------------------------------------------------------------------
 static const Choice mcSettings_StringNavigation =
 {
-    Item_Choice, &mspSettings,
+    Item_Choice, &mspSettings, 0,
     {
-        "Строка меню", "Path menu"
-    },
-    {
+        "Строка меню", "Path menu",
         "При выборе \nПоказывать\n слева вверху экрана выводится полный путь до текущей страницы меню",                         // WARN Исправить перевод
         "When choosing \nDisplay\n at the top left of the screen displays the full path to the current page menu"
     },
-    0,
     {
         { "Временно", "Temporary" },                    // WARN Исправить перевод
         { "Всегда", "All" },
@@ -538,15 +519,13 @@ static const Choice mcSettings_StringNavigation =
 // ДИСПЛЕЙ -> НАСТРОЙКИ -> ЦВЕТА ------------------------------------------------------------------------------------------------------------------------------------------------------
 static const Page mspSettings_Colors =
 {
-    Item_Page, &mspSettings,
+    Item_Page, &mspSettings, 0,
     {
-        "ЦВЕТА", "COLORS"
-    },
-    {
+        "ЦВЕТА", "COLORS",
         "Выбор цветов дисплея",
         "The choice of colors display"
     },
-    0, Page_ServiceDisplayColors,
+    Page_ServiceDisplayColors,
     {
         (void*)&mcSettings_Colors_Scheme,
         (void*)&mgcSettings_Colors_ChannelA,
@@ -567,15 +546,13 @@ static const Page mspSettings_Colors =
 // ДИСПЛЕЙ -> НАСТРОЙКИ -> Яркость ------------------------------------------------------------------------------------------------------------------------------------------------------
 static const Governor mgSettings_Brightness =
 {
-    Item_Governor, &mspSettings,
+    Item_Governor, &mspSettings, 0,
     {
-        "Яркость", "Brightness"
-    },
-    {
+        "Яркость", "Brightness",
         "Установка яркости свечения дисплея",
         "Setting the brightness of the display"
     },
-    0, &set.display.brightness, 0, 100, OnChange_Settings_Brightness
+    &set.display.brightness, 0, 100, OnChange_Settings_Brightness
 };
 
 static void OnChange_Settings_Brightness(void)
@@ -586,40 +563,36 @@ static void OnChange_Settings_Brightness(void)
 // ДИСПЛЕЙ -> НАСТРОЙКИ -> Уровни ------------------------------------------------------------------------------------------------------------------------------------------------------
 static const Governor mgSettings_Levels =
 {
-    Item_Governor, &mspSettings,
+    Item_Governor, &mspSettings, 0,
     {
-        "Уровни", "Levels"
-    },
-    {
+        "Уровни", "Levels",
         "Задаёт время, в течение которого после поворота ручки сещения напряжения на экране остаётся вспомогательная метка уровня смещения",
         "Defines the time during which, after turning the handle visits to the voltage on the screen remains auxiliary label offset level"
     },
-    0, &TIME_SHOW_LEVELS, 0, 125
+    &TIME_SHOW_LEVELS, 0, 125
 };
 
 // ДИСПЛЕЙ -> НАСТРОЙКИ -> Время ------------------------------------------------------------------------------------------------------------------------------------------------------
 static const Governor mgSettings_Time =
 {
-    Item_Governor, &mspSettings,
+    Item_Governor, &mspSettings, 0,
     {
-        "Время", "Time"
-    },
-    {
+        "Время", "Time",
         "Установка времени, в течение которого сообщения будут находиться на экране",
         "Set the time during which the message will be on the screen"
     },
-    0, &TIME_MESSAGES, 1, 99
+    &TIME_MESSAGES, 1, 99
 };
 
 
 static const Choice mcSettings_Colors_Background =
 {
-    Item_Choice, &mspSettings_Colors, { "Фон", "Background" },
+    Item_Choice, &mspSettings_Colors, 0,
     {
+        "Фон", "Background",
         "Выбор цвета фона",
         "Choice of color of a background"
     },
-    0,
     {
         { "Чёрный", "Black" },
         { "Белый", "White" }
@@ -630,12 +603,12 @@ static const Choice mcSettings_Colors_Background =
 // ДИСПЛЕЙ -> НАСТРОЙКИ -> ЦВЕТА -> Цветовая схема ------------------------------------------------------------------------------------------------------------------------------------------------------
 static const Choice mcSettings_Colors_Scheme =
 {
-    Item_Choice, &mspSettings_Colors, { "Цветовая схема", "Color scheme" },
+    Item_Choice, &mspSettings_Colors, 0,
     {
+        "Цветовая схема", "Color scheme",
         "Режим работы калибратора",
         "Mode of operation of the calibrator"
     },
-    0,
     {
         { "Схема 1", "Scheme 1" },
         { "Схема 2", "Scheme 2" }
@@ -661,15 +634,13 @@ static void OnChange_Settings_Colors_Background(bool active)
 static ColorType colorT1 = { 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, COLOR_DATA_A };
 static const GovernorColor mgcSettings_Colors_ChannelA =
 {
-    Item_GovernorColor, &mspSettings_Colors,
+    Item_GovernorColor, &mspSettings_Colors, 0,
     {
-        "Канал 1", "Channel 1"
-    },
-    {
+        "Канал 1", "Channel 1",
         "",
         ""
     },
-    0, &colorT1
+    &colorT1
 };
 
 
@@ -677,15 +648,13 @@ static const GovernorColor mgcSettings_Colors_ChannelA =
 static ColorType colorT2 = { 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, COLOR_DATA_B };
 static const GovernorColor mgcSettings_Colors_ChannelB =
 {
-    Item_GovernorColor, &mspSettings_Colors,
+    Item_GovernorColor, &mspSettings_Colors, 0,
     {
-        "Канал 2", "Channel 2"
-    },
-    {
+        "Канал 2", "Channel 2",
         "",
         ""
     },
-    0, &colorT2
+    &colorT2
 };
 
 
@@ -693,15 +662,13 @@ static const GovernorColor mgcSettings_Colors_ChannelB =
 ColorType colorTypeGrid = { 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, COLOR_GRID };
 static const GovernorColor mgcSettings_Colors_Grid = 
 { 
-    Item_GovernorColor, &mspSettings_Colors, 
+    Item_GovernorColor, &mspSettings_Colors, 0,
     { 
-        "Сетка", "Grid" 
-    },
-    {
+        "Сетка", "Grid",
         "Устанавливает цвет сетки",
         "Sets the grid color"
     },
-    0, &colorTypeGrid
+    &colorTypeGrid
 };
 
 

@@ -30,7 +30,7 @@ static void DrawPageContent(void)
     while(currentPage->pages[numPage])
     {
         Page *page = (Page*)currentPage->pages[numPage];
-        const char *title = page->title[LANG];
+        const char *title = page->titleHint[LANG];
         if(currentParagraph == numPage)
         {
             Painter_DrawStringInCenterRectOnBackgroundC(0, y, WIDTH, 10, title, gColorBack, 2, gColorFill);

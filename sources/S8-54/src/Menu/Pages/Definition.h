@@ -5,7 +5,7 @@
 #include "Panel/Controls.h"
 
 
-#define COMMON_BEGIN_SB_EXIT  {"Выход", "Exit"}, {"Кнопка для выхода в предыдущее меню", "Button to return to the previous menu" }, 0
+#define COMMON_BEGIN_SB_EXIT  0, {"Выход", "Exit", "Кнопка для выхода в предыдущее меню", "Button to return to the previous menu" }
 
 
 const void* PageForButton(PanelButton button);          // Возвращает страницу меню, которая должна открываться по нажатию кнопки button.

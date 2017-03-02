@@ -117,15 +117,12 @@ static void OnChange_Rand_NumMeasures(void);
 // ОТЛАДКА ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 const Page mpDebug =
 {
-    Item_Page, &mainPage,
+    Item_Page, &mainPage, 0,
     {
-        "ОТЛАДКА", "DEBUG"
+        "ОТЛАДКА", "DEBUG",
+        "", ""
     },
-    {
-        "",
-        ""
-    },
-    0, Page_Debug,
+    Page_Debug,
     {
         (void*)&mspConsole,             // ОТЛАДКА -> КОНСОЛЬ
         (void*)&mspADC,                 // ОТЛАДКА -> АЦП
@@ -142,12 +139,12 @@ const Page mpDebug =
 // ОТЛАДКА -> Статистика -----------------------------------------------------------------------------------------------------------------------------
 static const Choice mcStats =
 {
-    Item_Choice, &mpDebug, {"Статистика", "Statistics"},
+    Item_Choice, &mpDebug, 0,
     {
+        "Статистика", "Statistics",
         "Показывать/не показывать время/кадр, кадров в секунду, количество сигналов с последними настройками в памяти/количество сохраняемых в памяти сигналов",
         "To show/not to show a time/shot, frames per second, quantity of signals with the last settings in memory/quantity of the signals kept in memory"
     },
-    0,
     {
         {"Не показывать",   "Hide"},
         {"Показывать",      "Show"}
@@ -158,15 +155,13 @@ static const Choice mcStats =
 // ОТЛАДКА -> КОНСОЛЬ ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 static const Page mspConsole =
 {
-    Item_Page, &mpDebug,
+    Item_Page, &mpDebug, 0,
     {
-        "КОНСОЛЬ", "CONSOLE"
-    },
-    {
+        "КОНСОЛЬ", "CONSOLE",
         "",
         ""
     },
-    0, Page_DebugConsole,
+    Page_DebugConsole,
     {
         (void*)&mgConsole_NumStrings,   // ОТЛАДКА -> КОНСОЛЬ -> Число строк
         (void*)&mcConsole_SizeFont,     // ОТЛАДКА -> КОНСОЛЬ -> Размер шрифта
@@ -178,27 +173,24 @@ static const Page mspConsole =
 // ОТЛАДКА -> КОНСОЛЬ -> Число строк -----------------------------------------------------------------------------------------------------------------
 static const Governor mgConsole_NumStrings =
 {
-    Item_Governor, &mspConsole,
+    Item_Governor, &mspConsole, 0,
     {
-        "Число строк", "Number strings"
-    },
-    {
+        "Число строк", "Number strings",
         "",
         ""
     },
-    0,
     &CONSOLE_NUM_STRINGS, 0, 33
 };
 
 // ОТЛАДКА -> КОНСОЛЬ -> Размер шрифта ---------------------------------------------------------------------------------------------------------------
 static const Choice mcConsole_SizeFont =
 {
-    Item_Choice, &mspConsole, {"Размер шрифта", "Size font"},
+    Item_Choice, &mspConsole, 0,
     {
+        "Размер шрифта", "Size font",
         "",
         ""
     },
-    0,
     {
         {"5", "5"},
         {"8", "8"}
@@ -209,12 +201,12 @@ static const Choice mcConsole_SizeFont =
 // ОТЛАДКА -> КОНСОЛЬ -> Реж. останова ---------------------------------------------------------------------------------------------------------------
 static const Choice mcConsole_ModeStop =
 {
-    Item_Choice, &mspConsole, {"Реж. останова", "Mode stop"},
+    Item_Choice, &mspConsole, 0,
     {
+        "Реж. останова", "Mode stop",
         "Предоставляет возможность приостановки вывода в консоль путём нажатия на кнопку ПУСК/СТОП",
         "It provides the ability to pause the output to the console by pressing the ПУСК/СТОП button"
     },
-    0,
     {
         {DISABLE_RU, DISABLE_EN},
         {ENABLE_RU, ENABLE_EN}
@@ -225,15 +217,13 @@ static const Choice mcConsole_ModeStop =
 // ОТЛАДКА -> КОНСОЛЬ -> РЕГИСТРЫ ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 static const Page mspConsole_Registers =
 {
-    Item_Page, &mspConsole,
+    Item_Page, &mspConsole, 0,
     {
-        "РЕГИСТРЫ", "REGISTERS"
-    },
-    {
+        "РЕГИСТРЫ", "REGISTERS",
         "",
         ""
     },
-    0, Page_DebugShowRegisters,
+    Page_DebugShowRegisters,
     {
         (void*)&mcConsole_Registers_ShowAll,      // ОТЛАДКА -> КОНСОЛЬ -> РЕГИСТРЫ -> Показывать все
         (void*)&mcConsole_Registers_RD_FL,        // ОТЛАДКА -> КОНСОЛЬ -> РЕГИСТРЫ -> RD_FL
@@ -253,12 +243,12 @@ static const Page mspConsole_Registers =
 // ОТЛАДКА -> КОНСОЛЬ -> РЕГИСТРЫ -> Показывать все --------------------------------------------------------------------------------------------------
 static const Choice mcConsole_Registers_ShowAll =
 {
-    Item_Choice, &mspConsole_Registers, {"Показывать все", "Show all"},
+    Item_Choice, &mspConsole_Registers, 0,
     {
+        "Показывать все", "Show all",
         "Показывать все значения, засылаемые в регистры",
         "To show all values transferred in registers"
     },
-    0,
     {
         {"Нет", "No"},
         {"Да", "Yes"}
@@ -269,12 +259,12 @@ static const Choice mcConsole_Registers_ShowAll =
 // ОТЛАДКА -> КОНСОЛЬ -> РЕГИСТРЫ -> RD_FL -----------------------------------------------------------------------------------------------------------
 static const Choice mcConsole_Registers_RD_FL =
 {
-    Item_Choice, &mspConsole_Registers, {"RD_FL", "RD_FL"},
+    Item_Choice, &mspConsole_Registers, IsActive_Registers,
     {
+        "RD_FL", "RD_FL",
         "",
         ""
     },
-    IsActive_Registers,
     {
         {DISABLE_RU, DISABLE_EN},
         {ENABLE_RU, ENABLE_EN}
@@ -290,12 +280,12 @@ static bool IsActive_Registers(void)
 // ОТЛАДКА -> КОНСОЛЬ -> РЕГИСТРЫ -> U см. 1к --------------------------------------------------------------------------------------------------------
 static const Choice mcConsole_Registers_RShiftA =
 {
-    Item_Choice, &mspConsole_Registers, {"U см. 1к", "U shift 1ch"},
+    Item_Choice, &mspConsole_Registers, IsActive_Registers,
     {
+        "U см. 1к", "U shift 1ch",
         "",
         ""
     },
-    IsActive_Registers,
     {
         {DISABLE_RU, DISABLE_EN},
         {ENABLE_RU, ENABLE_EN}
@@ -306,12 +296,12 @@ static const Choice mcConsole_Registers_RShiftA =
 // ОТЛАДКА -> КОНСОЛЬ -> РЕГИСТРЫ -> U см. 2к ----------------------------------------------------------------------------------------------------------------
 static const Choice mcConsole_Registers_RShiftB =
 {
-    Item_Choice, &mspConsole_Registers, {"U см. 2к", "U shift 2ch"},
+    Item_Choice, &mspConsole_Registers, IsActive_Registers,
     {
+        "U см. 2к", "U shift 2ch",
         "",
         ""
     },
-    IsActive_Registers,
     {
         {DISABLE_RU, DISABLE_EN},
         {ENABLE_RU, ENABLE_EN}
@@ -322,12 +312,12 @@ static const Choice mcConsole_Registers_RShiftB =
 // ОТЛАДКА -> КОНСОЛЬ -> РЕГИСТРЫ -> U синхр. ---------------------------------------------------------------------------------------------------------------
 static const Choice mcConsole_Registers_TrigLev =
 {
-    Item_Choice, &mspConsole_Registers, {"U синхр.", "U trig."},
+    Item_Choice, &mspConsole_Registers, IsActive_Registers,
     {
+        "U синхр.", "U trig.",
         "",
         ""
     },
-    IsActive_Registers,
     {
         {DISABLE_RU, DISABLE_EN},
         {ENABLE_RU, ENABLE_EN}
@@ -338,12 +328,12 @@ static const Choice mcConsole_Registers_TrigLev =
 // ОТЛАДКА -> КОНСОЛЬ -> РЕГИСТРЫ -> ВОЛЬТ/ДЕЛ 1 --------------------------------------------------------------------------------------------------------
 static const Choice mcConsole_Registers_RangeA =
 {
-    Item_Choice, &mspConsole_Registers, {"ВОЛЬТ/ДЕЛ 1", "Range 1"},
+    Item_Choice, &mspConsole_Registers, IsActive_Registers,
     {
+        "ВОЛЬТ/ДЕЛ 1", "Range 1",
         "",
         ""
     },
-    IsActive_Registers,
     {
         {DISABLE_RU, DISABLE_EN},
         {ENABLE_RU, ENABLE_EN}
@@ -354,12 +344,12 @@ static const Choice mcConsole_Registers_RangeA =
 // ОТЛАДКА -> КОНСОЛЬ -> РЕГИСТРЫ -> ВОЛЬТ/ДЕЛ 2 --------------------------------------------------------------------------------------------------------
 static const Choice mcConsole_Registers_RangeB =
 {
-    Item_Choice, &mspConsole_Registers, {"ВОЛЬТ/ДЕЛ 2", "Range 2"},
+    Item_Choice, &mspConsole_Registers, IsActive_Registers,
     {
+        "ВОЛЬТ/ДЕЛ 2", "Range 2",
         "",
         ""
     },
-    IsActive_Registers,
     {
         {DISABLE_RU, DISABLE_EN},
         {ENABLE_RU, ENABLE_EN}
@@ -370,12 +360,12 @@ static const Choice mcConsole_Registers_RangeB =
 // ОТЛАДКА -> КОНСОЛЬ -> РЕГИСТРЫ -> Парам. синхр. --------------------------------------------------------------------------------------------------------
 static const Choice mcConsole_Registers_TrigParam =
 {
-    Item_Choice, &mspConsole_Registers, {"Парам. синхр.", "Trig param"},
+    Item_Choice, &mspConsole_Registers, IsActive_Registers,
     {
+        "Парам. синхр.", "Trig param",
         "",
         ""
     },
-    IsActive_Registers,
     {
         {DISABLE_RU, DISABLE_EN},
         {ENABLE_RU, ENABLE_EN}
@@ -386,12 +376,12 @@ static const Choice mcConsole_Registers_TrigParam =
 // ОТЛАДКА -> КОНСОЛЬ -> РЕГИСТРЫ -> Парам. кан. 1 ------------------------------------------------------------------------------------------------------
 static const Choice mcConsole_Registers_ChanParamA =
 {
-    Item_Choice, &mspConsole_Registers, {"Парам. кан. 1", "Chan 1 param"},
+    Item_Choice, &mspConsole_Registers, IsActive_Registers,
     {
+        "Парам. кан. 1", "Chan 1 param",
         "",
         ""
     },
-    IsActive_Registers,
     {
         {DISABLE_RU, DISABLE_EN},
         {ENABLE_RU, ENABLE_EN}
@@ -403,12 +393,12 @@ static const Choice mcConsole_Registers_ChanParamA =
 // ОТЛАДКА -> КОНСОЛЬ -> РЕГИСТРЫ -> Парам. кан. 2 -------------------------------------------------------------------------------------------------------
 static const Choice mcConsole_Registers_ChanParamB =
 {
-    Item_Choice, &mspConsole_Registers, {"Парам. кан. 2", "Chan 2 param"},
+    Item_Choice, &mspConsole_Registers, IsActive_Registers,
     {
+        "Парам. кан. 2", "Chan 2 param",
         "",
         ""
     },
-    IsActive_Registers,
     {
         {DISABLE_RU, DISABLE_EN},
         {ENABLE_RU, ENABLE_EN}
@@ -420,12 +410,12 @@ static const Choice mcConsole_Registers_ChanParamB =
 // ОТЛАДКА -> КОНСОЛЬ -> РЕГИСТРЫ -> ВРЕМЯ/ДЕЛ ---------------------------------------------------------------------------------------------------------
 static const Choice mcConsole_Registers_TBase =
 {
-    Item_Choice, &mspConsole_Registers, {"ВРЕМЯ/ДЕЛ", "TBase"},
+    Item_Choice, &mspConsole_Registers, IsActive_Registers,
     {
+        "ВРЕМЯ/ДЕЛ", "TBase",
         "",
         ""
     },
-    IsActive_Registers,
     {
         {DISABLE_RU, DISABLE_EN},
         {ENABLE_RU, ENABLE_EN}
@@ -437,12 +427,12 @@ static const Choice mcConsole_Registers_TBase =
 // ОТЛАДКА -> КОНСОЛЬ -> РЕГИСТРЫ -> Т см. --------------------------------------------------------------------------------------------------------------
 static const Choice mcConsole_Registers_TShift =
 {
-    Item_Choice, &mspConsole_Registers, {"Т см.", "tShift"},
+    Item_Choice, &mspConsole_Registers, IsActive_Registers,
     {
+        "Т см.", "tShift",
         "",
         ""
     },
-    IsActive_Registers,
     {
         {DISABLE_RU, DISABLE_EN},
         {ENABLE_RU, ENABLE_EN}
@@ -454,15 +444,13 @@ static const Choice mcConsole_Registers_TShift =
 // ОТЛАДКА -> АЦП //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 static const Page mspADC =
 {
-    Item_Page, &mpDebug,
+    Item_Page, &mpDebug, 0,
     {
-        "АЦП", "ADC"
-    },
-    {
+        "АЦП", "ADC",
         "",
         ""
     },
-    0, Page_DebugADC,
+    Page_DebugADC,
     {
         (void*)&mspADC_Balance,   // ОТЛАДКА -> АЦП -> БАЛАНС
         (void*)&mspADC_Stretch,   // ОТЛАДКА -> АЦП -> РАСТЯЖКА
@@ -473,15 +461,13 @@ static const Page mspADC =
 // ОТЛАДКА -> АЦП -> БАЛАНС //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 static const Page mspADC_Balance =
 {
-    Item_Page, &mspADC,
+    Item_Page, &mspADC, 0,
     {
-        "БАЛАНС", "BALANCE"
-    },
-    {
+        "БАЛАНС", "BALANCE",
         "",
         ""
     },
-    0, Page_DebugADCbalance,
+    Page_DebugADCbalance,
     {
         (void*)&mcADC_Balance_Mode,   // ОТЛАДКА -> АЦП -> БАЛАНС -> Режим
         (void*)&mgADC_Balance_ShiftA, // ОТЛАДКА -> АЦП -> БАЛАНС -> Смещение 1
@@ -492,12 +478,12 @@ static const Page mspADC_Balance =
 // ОТЛАДКА -> АЦП - БАЛАНС -> Режим --------------------------------------------------------------------------------------------------------------------------
 static const Choice mcADC_Balance_Mode =
 {
-    Item_Choice, &mspADC_Balance, {"Режим", "Mode"},
+    Item_Choice, &mspADC_Balance, 0,
     {
+        "Режим", "Mode",
         "",
         ""
     },
-    0,
     {
         {DISABLE_RU, DISABLE_EN},
         {"Реальный", "Real"},
@@ -529,15 +515,12 @@ static void OnDraw_ADC_Balance_Mode(int x, int y)
 // ОТЛАДКА -> АЦП -> БАЛАНС -> Смещение 1 ----------------------------------------------------------------------------------------------------------------------------
 static const Governor mgADC_Balance_ShiftA =
 {
-    Item_Governor, &mspADC_Balance,
+    Item_Governor, &mspADC_Balance, IsActive_ADC_Balance,
     {
-        "Смещение 1", "Offset 1"
-    },
-    {
+        "Смещение 1", "Offset 1",
         "",
         ""
     },
-    IsActive_ADC_Balance,
     &shiftADCA, -125, 125, OnChange_ADC_BalanceA
 };
 
@@ -554,15 +537,12 @@ static void OnChange_ADC_BalanceA(void)
 // ОТЛАДКА -> АЦП -> БАЛАНС -> Смещение 2 ---------------------------------------------------------------------------------------------------------------------------------
 static const Governor mgADC_Balance_ShiftB =
 {
-    Item_Governor, &mspADC_Balance,
+    Item_Governor, &mspADC_Balance, IsActive_ADC_Balance,
     {
-        "Смещение 2", "Offset 2"
-    },
-    {
+        "Смещение 2", "Offset 2",
         "",
         ""
     },
-    IsActive_ADC_Balance,
     &shiftADCB, -125, 125, OnChange_ADC_BalanceB
 };
 
@@ -577,15 +557,13 @@ static const Choice emptyChoice;
 // ОТЛАДКА -> АЦП -> РАСТЯЖКА ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 static const Page mspADC_Stretch =
 {
-    Item_Page, &mspADC,
+    Item_Page, &mspADC, 0,
     {
-        "РАСТЯЖКА", "STRETCH"
-    },
-    {
+        "РАСТЯЖКА", "STRETCH",
         "Устанавливает режим и величину растяжки (для ручного режима)",
         "Sets mode and the value of stretching (manual mode)"
     },
-    0, Page_DebugADCstretch,
+    Page_DebugADCstretch,
     {
         (void*)&mcADC_Stretch_Mode,       // ОТЛАДКА -> АЦП -> РАСТЯЖКА -> Режим
         (void*)&mgADC_Stretch_A,          // ОТЛАДКА -> АЦП -> РАСТЯЖКА -> Растяжка 1к
@@ -608,12 +586,12 @@ static const Page mspADC_Stretch =
 // ОТЛАДКА -> АЦП -> РАСТЯЖКА -> Режим --------------------------------------------------------------------------------------------------------------------------
 static const Choice mcADC_Stretch_Mode =
 {
-    Item_Choice, &mspADC_Stretch, {"Режим", "Mode"},
+    Item_Choice, &mspADC_Stretch, 0,
     {
+        "Режим", "Mode",
         "",
         ""
     },
-    0,
     {
         {DISABLE_RU, DISABLE_EN},
         {"Реальный", "Real"},
@@ -642,17 +620,16 @@ void OnChange_ADC_Stretch_Mode(bool active)
 // ОТЛАДКА -> АЦП -> РАСТЯЖКА -> Растяжка 1к ----------------------------------------------------------------------------------------------------------------------
 static const Governor mgADC_Stretch_A =
 {
-    Item_Governor, &mspADC_Stretch,
+    Item_Governor, &mspADC_Stretch, IsActive_ADC_StretchAB,
     {
         "Растяжка 1к", "Stretch 1ch"
-    },
-    {
+        ,
         "Задаёт ручную растяжку первого канала.\n"
-        "1 единица = 0.0001",
+        "1 единица = 0.0001"
+        ,
         "Sets the manual stretching of the first channel.\n"
         "1 = 0.0001"
     },
-    IsActive_ADC_StretchAB,
     &stretchA, -10000, 10000, OnChange_ADC_Stretch_A
 };
 
@@ -669,17 +646,16 @@ static void OnChange_ADC_Stretch_A(void)
 // ОТЛАДКА -> АЦП -> РАСТЯЖКА -> Растяжка 2к ------------------------------------------------------------------------------------------------------------------------
 static const Governor mgADC_Stretch_B =
 {
-    Item_Governor, &mspADC_Stretch,
+    Item_Governor, &mspADC_Stretch, IsActive_ADC_StretchAB,
     {
         "Растяжка 2к", "Stretch 2ch"
-    },
-    {
+        ,
         "Задаёт ручную растяжку второго канала.\n"
-        "1 единица = 0.0001",
+        "1 единица = 0.0001"
+        ,
         "Sets the manual stretching of the second channel.\n"
         "1 = 0.0001"
     },
-    IsActive_ADC_StretchAB,
     &stretchB, -10000, 10000, OnChange_ADC_Stretch_B
 };
 
@@ -691,127 +667,109 @@ static void OnChange_ADC_Stretch_B(void)
 // ОТЛАДКА -> АЦП -> РАСТЯЖКА -> 20мВ/1В 1к -------------------------------------------------------------------------------------------------------------------
 static const Governor mgADC_Stretch_Ak20mV =
 {
-    Item_Governor, &mspADC_Stretch,
+    Item_Governor, &mspADC_Stretch, 0,
     {
-        "20мВ/1В 1к", "20mV/1V 1k"
-    },
-    {
+        "20мВ/1В 1к", "20mV/1V 1k",
         "",
         ""
     },
-    0, &setNR.addStretch20mV[A], -10000, 10000
+    &setNR.addStretch20mV[A], -10000, 10000
 };
 
 // ОТЛАДКА -> АЦП -> РАСТЯЖКА -> 50мВ 1к -------------------------------------------------------------------------------------------------------------------
 static const Governor mgADC_Stretch_Ak50mV =
 {
-    Item_Governor, &mspADC_Stretch,
+    Item_Governor, &mspADC_Stretch, 0,
     {
-        "50мВ 1к", "50mV 1k"
-    },
-    {
+        "50мВ 1к", "50mV 1k",
         "",
         ""
     },
-    0, &setNR.addStretch50mV[A], -10000, 10000
+    &setNR.addStretch50mV[A], -10000, 10000
 };
 
 // ОТЛАДКА -> АЦП -> РАСТЯЖКА -> 100мВ/5В 1к -------------------------------------------------------------------------------------------------------------------
 static const Governor mgADC_Stretch_Ak100mV =
 {
-    Item_Governor, &mspADC_Stretch,
+    Item_Governor, &mspADC_Stretch, 0,
     {
-        "100мВ/5В 1к", "100mV/5V 1ch"
-    },
-    {
+        "100мВ/5В 1к", "100mV/5V 1ch",
         "",
         ""
     },
-    0, &setNR.addStretch100mV[A], -10000, 10000
+    &setNR.addStretch100mV[A], -10000, 10000
 };
 
 // ОТЛАДКА -> АЦП -> РАСТЯЖКА -> 2В 1к -----------------------------------------------------------------------------------------------------------------------------
 static const Governor mgADC_Stretch_Ak2V =
 {
-    Item_Governor, &mspADC_Stretch,
+    Item_Governor, &mspADC_Stretch, 0,
     {
-        "2В 1к", "2V 1ch"
-    },
-    {
+        "2В 1к", "2V 1ch",
         "",
         ""
     },
-    0, &setNR.addStretch2V[A], -10000, 10000
+    &setNR.addStretch2V[A], -10000, 10000
 };
 
 // ОТЛАДКА -> АЦП -> РАСТЯЖКА -> 20мВ/1В 2к -------------------------------------------------------------------------------------------------------------------
 static const Governor mgADC_Stretch_Bk20mV =
 {
-    Item_Governor, &mspADC_Stretch,
+    Item_Governor, &mspADC_Stretch, 0,
     {
-        "20мВ/1В 2к", "20mV/1V 2k"
-    },
-    {
+        "20мВ/1В 2к", "20mV/1V 2k",
         "",
         ""
     },
-    0, &setNR.addStretch20mV[B], -10000, 10000
+    &setNR.addStretch20mV[B], -10000, 10000
 };
 
 // ОТЛАДКА -> АЦП -> РАСТЯЖКА -> Доп смещ 50мВ 2к -------------------------------------------------------------------------------------------------------------------
 static const Governor mgADC_Stretch_Bk50mV =
 {
-    Item_Governor, &mspADC_Stretch,
+    Item_Governor, &mspADC_Stretch, 0,
     {
-        "50мВ 2к", "50mV 2k"
-    },
-    {
+        "50мВ 2к", "50mV 2k",
         "",
         ""
     },
-    0, &setNR.addStretch50mV[B], -10000, 10000
+    &setNR.addStretch50mV[B], -10000, 10000
 };
 
 // ОТЛАДКА -> АЦП -> РАСТЯЖКА -> 100мВ/5В 2к -------------------------------------------------------------------------------------------------------------------
 static const Governor mgADC_Stretch_Bk100mV =
 {
-    Item_Governor, &mspADC_Stretch,
+    Item_Governor, &mspADC_Stretch, 0,
     {
-        "100мВ/5В 2к", "100mV/5V 2k"
-    },
-    {
+        "100мВ/5В 2к", "100mV/5V 2k",
         "",
         ""
     },
-    0, &setNR.addStretch100mV[B], -10000, 10000
+    &setNR.addStretch100mV[B], -10000, 10000
 };
 
 // ОТЛАДКА -> АЦП -> РАСТЯЖКА -> 2В 2к -----------------------------------------------------------------------------------------------------------------------------
 static const Governor mgADC_Stretch_Bk2V =
 {
-    Item_Governor, &mspADC_Stretch,
+    Item_Governor, &mspADC_Stretch, 0,
     {
-        "2В 2к", "2V 2ch"
-    },
-    {
+        "2В 2к", "2V 2ch",
         "",
         ""
     },
-    0, &setNR.addStretch2V[B], -10000, 10000
+    &setNR.addStretch2V[B], -10000, 10000
 };
 
 // ОТЛАДКА -> АЦП -> ДОП СМЕЩ /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 static const Page mspADC_Shift =
 {
-    Item_Page, &mspADC,
+    Item_Page, &mspADC, 0,
     {
-        "ДОП СМЕЩ", "ADD RSHFIT"
-    },
-    {
+        "ДОП СМЕЩ", "ADD RSHFIT",
         "",
         ""
     },
-    0, Page_DebugADCrShift,
+    Page_DebugADCrShift,
     {
         (void*)&mbADC_Shift_Reset,    // ОТЛАДКА -> АЦП -> ДОП СМЕЩ -> Сброс
         (void*)&mgADC_Shift_A2mV,     // ОТЛАДКА -> АЦП -> ДОП СМЕЩ -> См 1к 2мВ пост
@@ -826,15 +784,13 @@ static const Page mspADC_Shift =
 // ОТЛАДКА -> АЦП -> ДОП СМЕЩ -> Сброс -------------------------------------------------------------------------------------------------------------------------------
 static const Button mbADC_Shift_Reset =
 {
-    Item_Button, &mspADC_Shift,
+    Item_Button, &mspADC_Shift, 0,
     {
-        "Сброс", "Reset"
-    },
-    {
+        "Сброс", "Reset",
         "",
         ""
     },
-    0, OnPress_ADC_Shift_Reset
+    OnPress_ADC_Shift_Reset
 };
 
 static void OnPress_ADC_Shift_Reset(void)
@@ -856,15 +812,13 @@ static void OnPress_ADC_Shift_Reset(void)
 // ОТЛАДКА -> АЦП -> ДОП СМЕЩ -> См 1к 2мВ пост -------------------------------------------------------------------------------------------------------------------------
 static const Governor mgADC_Shift_A2mV =
 {
-    Item_Governor, &mspADC_Shift,
+    Item_Governor, &mspADC_Shift, 0,
     {
-        "См 1к 2мВ пост", "Shift 1ch 2mV DC"
-    },
-    {
+        "См 1к 2мВ пост", "Shift 1ch 2mV DC",
         "",
         ""
     },
-    0, (int16*)(&setNR.rShiftAdd[A][Range_2mV][ModeCouple_DC]), -100, 100, OnChange_ADC_Shift_A
+    (int16*)(&setNR.rShiftAdd[A][Range_2mV][ModeCouple_DC]), -100, 100, OnChange_ADC_Shift_A
 };
 
 static void OnChange_ADC_Shift_A(void)
@@ -875,15 +829,13 @@ static void OnChange_ADC_Shift_A(void)
 // ОТЛАДКА -> АЦП -> ДОП СМЕЩ -> См 2к 2мВ пост ---------------------------------------------------------------------------------------------------------------------------
 static const Governor mgADC_Shift_B2mV =
 {
-    Item_Governor, &mspADC_Shift,
+    Item_Governor, &mspADC_Shift, 0,
     {
-        "См 2к 2мВ пост", "Shift 2ch 2mV DC"
-    },
-    {
+        "См 2к 2мВ пост", "Shift 2ch 2mV DC",
         "",
         ""
     },
-    0, (int16*)(&setNR.rShiftAdd[B][Range_2mV][ModeCouple_DC]), -100, 100, OnChange_ADC_Shift_B
+    (int16*)(&setNR.rShiftAdd[B][Range_2mV][ModeCouple_DC]), -100, 100, OnChange_ADC_Shift_B
 };
 
 static void OnChange_ADC_Shift_B(void)
@@ -894,72 +846,62 @@ static void OnChange_ADC_Shift_B(void)
 // ОТЛАДКА -> АЦП -> ДОП СМЕЩ -> См 1к 5мВ пост -----------------------------------------------------------------------------------------------------------------------------
 static const Governor mgADC_Shift_A5mV =
 {
-    Item_Governor, &mspADC_Shift,
+    Item_Governor, &mspADC_Shift, 0,
     {
-        "См 1к 5мВ пост", "Shift 1ch 5mV DC"
-    },
-    {
+        "См 1к 5мВ пост", "Shift 1ch 5mV DC",
         "",
         ""
     },
-    0, (int16*)(&setNR.rShiftAdd[A][Range_5mV][ModeCouple_DC]), -100, 100, OnChange_ADC_Shift_A
+    (int16*)(&setNR.rShiftAdd[A][Range_5mV][ModeCouple_DC]), -100, 100, OnChange_ADC_Shift_A
 };
 
 // ОТЛАДКА -> АЦП -> ДОП СМЕЩ -> См 2к 5мВ пост -----------------------------------------------------------------------------------------------------------------------------
 static const Governor mgADC_Shift_B5mV =
 {
-    Item_Governor, &mspADC_Shift,
+    Item_Governor, &mspADC_Shift, 0,
     {
-        "См 2к 5мВ пост", "Shift 2ch 5mV DC"
-    },
-    {
+        "См 2к 5мВ пост", "Shift 2ch 5mV DC",
         "",
         ""
     },
-    0, (int16*)(&setNR.rShiftAdd[B][Range_5mV][ModeCouple_DC]), -100, 100, OnChange_ADC_Shift_B
+    (int16*)(&setNR.rShiftAdd[B][Range_5mV][ModeCouple_DC]), -100, 100, OnChange_ADC_Shift_B
 };
 
 // ОТЛАДКА -> АЦП -> ДОП СМЕЩ -> См 1к 10мВ пост ----------------------------------------------------------------------------------------------------------------------------
 static const Governor mgADC_Shift_A10mV =
 {
-    Item_Governor, &mspADC_Shift,
+    Item_Governor, &mspADC_Shift, 0,
     {
-        "См 1к 10мВ пост", "Shift 1ch 10mV DC"
-    },
-    {
+        "См 1к 10мВ пост", "Shift 1ch 10mV DC",
         "",
         ""
     },
-    0, (int16*)(&setNR.rShiftAdd[A][Range_10mV][ModeCouple_DC]), -100, 100, OnChange_ADC_Shift_A
+    (int16*)(&setNR.rShiftAdd[A][Range_10mV][ModeCouple_DC]), -100, 100, OnChange_ADC_Shift_A
 };
 
 // ОТЛАДКА -> АЦП -> ДОП СМЕЩ -> См 2к 10мВ пост ------------------------------------------------------------------------------------------------------------------------------
 static const Governor mgADC_Shift_B10mV =
 {
-    Item_Governor, &mspADC_Shift,
+    Item_Governor, &mspADC_Shift, 0,
     {
-        "См 2к 10мВ пост", "Shift 2ch 10mV DC"
-    },
-    {
+        "См 2к 10мВ пост", "Shift 2ch 10mV DC",
         "",
         ""
     },
-    0,(int16*)(&setNR.rShiftAdd[B][Range_10mV][ModeCouple_DC]), -100, 100, OnChange_ADC_Shift_B
+    (int16*)(&setNR.rShiftAdd[B][Range_10mV][ModeCouple_DC]), -100, 100, OnChange_ADC_Shift_B
 };
 
 
 // ОТЛАДКА -> РАНД-ТОР //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 static const Page mspRand =
 {
-    Item_Page, &mpDebug,
+    Item_Page, &mpDebug, 0,
     {
-        "РАНД-ТОР", "RANDOMIZER"
-    },
-    {
+        "РАНД-ТОР", "RANDOMIZER",
         "",
         ""
     },
-    0, Page_DebugRandomizer,
+    Page_DebugRandomizer,
     {
         (void*)&mgRand_NumAverage,          // ОТЛАДКА -> РАНД-ТОР -> Усредн.
         (void*)&mgRand_NumSmooth,           // ОТЛАДКА -> РАНД-ТОР -> Сглаживание
@@ -976,15 +918,13 @@ static const Page mspRand =
 // ОТЛАДКА -> КАНАЛЫ /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 static const Page mspChannels =
 {
-    Item_Page, &mpDebug,
+    Item_Page, &mpDebug, 0,
     {
-        "КАНЛАЫ", "CHANNELS"
-    },
-    {
+        "КАНЛАЫ", "CHANNELS",
         "",
         ""
     },
-    0, Page_DebugChannels,
+    Page_DebugChannels,
     {
         (void*)&mcChannels_BandwidthA,  // ОТЛАДКА -> КАНАЛЫ -> Полоса 1
         (void*)&mcChannels_BandwidthB   // ОТЛАДКА -> КАНАЛЫ -> Полоса 2
@@ -994,12 +934,12 @@ static const Page mspChannels =
 // ОТЛАДКА -> КАНЛАЫ -> Полоса 1 ------------------------------------------------------------------------------------------------------------------------------------------------------
 static const Choice mcChannels_BandwidthA =
 {
-    Item_Choice, &mspChannels, {"Полоса 1", "Bandwidth 1"},
+    Item_Choice, &mspChannels, 0,
     {
+        "Полоса 1", "Bandwidth 1",
         "Здесь можно выбрать полосу, которая будет действовать в КАНАЛ1-Полоса при выборе значения Полная",
         "Here you can select the bandwidth, which will operate in CHANNEL1-Bandwidth when set to Full"
     },
-    0,
     {
         {"Полная", "Full"},
         {"20МГц", "20MHz"},
@@ -1020,12 +960,12 @@ static void OnChange_Channels_BandwidthA(bool active)
 // ОТЛАДКА -> КАНЛАЫ -> Полоса 1 ------------------------------------------------------------------------------------------------------------------------------------------------------
 static const Choice mcChannels_BandwidthB =
 {
-    Item_Choice, &mspChannels, {"Полоса 2", "Bandwidth 2"},
+    Item_Choice, &mspChannels, 0,
     {
+        "Полоса 2", "Bandwidth 2",
         "Здесь можно выбрать полосу, которая будет действовать в КАНАЛ2-Полоса при выборе значения Полная",
         "Here you can select the bandwidth, which will operate in CHANNEL2-Bandwidth when set to Full"
     },
-    0,
     {
         {"Полная", "Full"},
         {"20МГц", "20MHz"},
@@ -1047,15 +987,12 @@ static void OnChange_Channels_BandwidthB(bool active)
 // ОТЛАДКА -> РАНД-ТОР -> Измерений ------------------------------------------------------------------------------------------------------------------
 static const Governor mgRand_NumMeasures =
 {
-    Item_Governor, &mspRand,
+    Item_Governor, &mspRand, 0,
     {
-        "Выб-к/ворота", "Samples/gates"
-    },
-    {
+        "Выб-к/ворота", "Samples/gates",
         "",
         ""
     },
-    0,
     &NUM_MEASURES_FOR_GATES, 1, 2500, OnChange_Rand_NumMeasures
 };
 
@@ -1067,15 +1004,12 @@ static void OnChange_Rand_NumMeasures(void)
 // ОТЛАДКА -> РАНД-ТОР -> Компенсация задержки ------------------------------------------------------------------------------------------------------------------
 static const Governor mgRand_TimeCompensation =
 {
-    Item_Governor, &mspRand,
+    Item_Governor, &mspRand, 0,
     {
-        "Компенсация задержки", "Compenstaion time"
-    },
-    {
+        "Компенсация задержки", "Compenstaion time",
         "Подстройка компенсации задержки АЦП 40 нс",
         ""
     },
-    0,
     &TIME_COMPENSATION, 0, 510, OnChange_Rand_TimeCompensation
 };
 
@@ -1089,15 +1023,13 @@ int16 addShift = 0;
 
 static const Governor mgRand_AddTimeShift =
 {
-    Item_Governor, &mspRand,
+    Item_Governor, &mspRand, 0,
     {
-        "Доп смещение", "Add shift"
-    },
-    {
+        "Доп смещение", "Add shift",
         "Добавочное смщение при вращении tShift",
         ""
     },
-    0, &addShift, -100, 100, OnChange_Rand_AddTimeShift
+    &addShift, -100, 100, OnChange_Rand_AddTimeShift
 };
 
 static void OnChange_Rand_AddTimeShift(void)
@@ -1109,15 +1041,13 @@ static void OnChange_Rand_AddTimeShift(void)
 // ОТЛАДКА -> РАНД-ТОР -> Предзапуск ------------------------------------------------------------------------------------------------------------------------------------------------------
 static const Governor mgRand_Pretriggered =
 {
-    Item_Governor, &mspRand,
+    Item_Governor, &mspRand, 0,
     {
-        "Предзапуск", "Pretiggered"
-    },
-    {
+        "Предзапуск", "Pretiggered",
         "Величина предзапуска, которая пишется в рандомизатор",
         ""
     },
-    0, &PRETRIGGERED, 0, 30000, OnChange_Rand_Pretriggered
+    &PRETRIGGERED, 0, 30000, OnChange_Rand_Pretriggered
 };
 
 static void OnChange_Rand_Pretriggered(void)
@@ -1128,30 +1058,26 @@ static void OnChange_Rand_Pretriggered(void)
 // ОТЛАДКА -> РАНД-ТОР -> Усредн. -------------------------------------------------------------------------------------------------------------------------
 static const Governor mgRand_NumAverage =
 {
-    Item_Governor, &mspRand,
+    Item_Governor, &mspRand, 0,
     {
-        "Усредн.", "Average"
-    },
-    {
+        "Усредн.", "Average",
         "",
         ""
     },
-    0, &setNR.numAveForRand, 1, 32
+    &setNR.numAveForRand, 1, 32
 };
 
 
 // ОТЛАДКА -> РАНД-ТОР -> Сглаживание ------------------------------------------------------------------------------------------------------------------------------------------------------
 static const Governor mgRand_NumSmooth =
 {
-    Item_Governor, &mspRand,
+    Item_Governor, &mspRand, 0,
     {
-        "Сглаживание", "Smoothing"
-    },
-    {
+        "Сглаживание", "Smoothing",
         "",
         ""
     },
-    0, &setNR.numSmoothForRand, 1, 10
+    &setNR.numSmoothForRand, 1, 10
 };
 
 
@@ -1160,27 +1086,22 @@ static int16 post;
 
 static const Governor mgPred =
 {
-    Item_Governor, &mpDebug,
+    Item_Governor, &mpDebug, 0,
     {
-        "Предзапуск", ""
-    },
-    {
+        "Предзапуск", "",
         "", ""
-    }
-    ,
-    0, &pred, 0, 15000, OnChange_Pred
+    },
+    &pred, 0, 15000, OnChange_Pred
 };
 
 static const Governor mgPost =
 {
-    Item_Governor, &mpDebug,
+    Item_Governor, &mpDebug, 0,
     {
-        "Послезапуск", ""
-    },
-    {
+        "Послезапуск", "",
         "", ""
     },
-    0, &post, 0, 15000, OnChange_Post
+    &post, 0, 15000, OnChange_Post
 };
 
 static void OnChange_Pred(void)
@@ -1202,15 +1123,12 @@ static void OnChange_Post(void)
 // ОТЛАДКА -> РАНД-ТОР -> Информация -------------------------------------------------------------------------------------------------------------------------
 static const Choice mcRand_ShowInfo =
 {
-    Item_Choice, &mspRand,
+    Item_Choice, &mspRand, 0,
     {
         "Информация", "Information",
-    },
-    {
         "Показывать информацию о воротах рандомизатора",
         "To show information on randomizer gate"
     },
-    0,
     {
         {"Не показывать", "Hide"},
         {"Показывать", "Show"}
@@ -1221,15 +1139,12 @@ static const Choice mcRand_ShowInfo =
 // ОТЛАДКА -> РАНД-ТОР -> Статистика -----------------------------------------------------------------------------------------------------------------------------
 static const Choice mgRand_ShowStat =
 {
-    Item_Choice, &mspRand,
+    Item_Choice, &mspRand, 0,
     {
         "Статистика", "Statistics",
-    },
-    {
         "Показывать график статистики",
         "Statistics show schedule"
     },
-    0,
     {
         {"Не показывать",   "Hide"},
         {"Показывать",      "Show"}
@@ -1241,15 +1156,12 @@ static const Choice mgRand_ShowStat =
 // ОТЛАДКА -> ЭМС ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 static const Choice mcEMS =
 {
-    Item_Choice, &mpDebug,
+    Item_Choice, &mpDebug, 0,
     {
-        "Режим ЭМС", "EMS mode"
-    },
-    {
+        "Режим ЭМС", "EMS mode",
         "Принудительно включает фильтр 20МГц, сглаживание по 4-м точкам, усреднение по 8-ми точкам",
         ""
     },
-    0,
     {
         {DISABLE_RU,    DISABLE_EN},
         {ENABLE_RU,     ENABLE_EN}
@@ -1267,15 +1179,12 @@ static void OnChange_EMS(bool active)
 // ОТЛАДКА -> Ориентация /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 static const Choice mcDisplayOrientation =
 {
-    Item_Choice, &mpDebug,
+    Item_Choice, &mpDebug, 0,
     {
-        "Ориентация", "DisplayOrientation"
-    },
-    {
+        "Ориентация", "DisplayOrientation",
         "Устанавливает ориентацию дисплея",
         "Sets display orientation"
     },
-    0,
     {
         { "Прямая", "Direct" },
         { "Обратная", "Back" }

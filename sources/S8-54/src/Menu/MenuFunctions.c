@@ -134,7 +134,7 @@ int NumCurrentSubPage(Page *page)
 //------------------------------------------------------------------------------------------------------------------------------------------------------
 const char* TitleItem(void *item) 
 {
-    return ((Page*)item)->title[LANG];
+    return ((Page*)item)->titleHint[LANG];
 }
 
 

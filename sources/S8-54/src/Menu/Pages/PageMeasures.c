@@ -48,15 +48,13 @@ static void DrawSB_Tune_Settings(int x, int y);
 // ИЗМЕРЕНИЯ ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 const Page mpMeasures =
 {
-    Item_Page, &mainPage,
+    Item_Page, &mainPage, 0,
     {
-        "ИЗМЕРЕНИЯ", "MEASURES"
-    },
-    {
+        "ИЗМЕРЕНИЯ", "MEASURES",
         "Автоматические измерения",
         "Automatic measurements"
     },
-    0, Page_Measures,
+    Page_Measures,
     {
         (void*)&mspFreqMeter,   // ИЗМЕРЕНИЯ -> ЧАСТОТОМЕР
         (void*)&mcIsShow,       // ИЗМЕРЕНИЯ -> Показывать
@@ -70,15 +68,13 @@ const Page mpMeasures =
 // ИЗМЕРЕНИЯ -> ЧАСТОТОМЕР ////////////////////////////////////////////////////////////////////////////////////////
 const Page mspFreqMeter =
 {
-    Item_Page, &mpMeasures,
+    Item_Page, &mpMeasures, 0,
     {
-        "ЧАСТОТОМЕР", "FREQ METER"
-    },
-    {
+        "ЧАСТОТОМЕР", "FREQ METER",
         "",
         ""
     },
-    0, Page_ServiceFreqMeter,
+    Page_ServiceFreqMeter,
     {
         (void*)&mcServiceFreqMeterEnable,
         (void*)&mcServiceFreqMeterTimeF,
@@ -90,15 +86,12 @@ const Page mspFreqMeter =
 
 static const Choice mcServiceFreqMeterEnable =
 {
-    Item_Choice, &mspFreqMeter,
+    Item_Choice, &mspFreqMeter, 0,
     {
-        "Частотомер", "Freq meter"
-    },
-    {
+        "Частотомер", "Freq meter",
         "",
         ""
     },
-    0,
     {
         {DISABLE_RU, DISABLE_EN},
         {ENABLE_RU, ENABLE_EN}
@@ -113,15 +106,12 @@ static void ChangeParameterFreqMeter(bool param)
 
 static const Choice mcServiceFreqMeterTimeF =
 {
-    Item_Choice, &mspFreqMeter,
+    Item_Choice, &mspFreqMeter, 0,
     {
-        "Время счёта F", "Time calc F"
-    },
-    {
+        "Время счёта F", "Time calc F",
         "Позволяет выбрать точность измерения частоты - чем больше время, тем больше точность и больше время измерения",
         "Allows to choose the accuracy of measurement of frequency - the more time, the accuracy more time of measurement is more"
     },
-    0,
     {
         {"100мс", "100ms"},
         {"1с", "1s"},
@@ -132,15 +122,12 @@ static const Choice mcServiceFreqMeterTimeF =
 
 static const Choice mcServiceFreqFreqClc =
 {
-    Item_Choice, &mspFreqMeter,
+    Item_Choice, &mspFreqMeter, 0,
     {
-        "Метки времени", "Timestamps"
-    },
-    {
+        "Метки времени", "Timestamps",
         "Выбор частоты следования счётных импульсов",
         "Choice of frequency of following of calculating impulses"
     },
-    0,
     {
         {"100кГц", "10MHz"},
         {"1МГц", "200MHz"},
@@ -152,15 +139,12 @@ static const Choice mcServiceFreqFreqClc =
 
 static const Choice mcServiceFreqMeterNumberPeriods =
 {
-    Item_Choice, &mspFreqMeter,
+    Item_Choice, &mspFreqMeter, 0,
     {
-        "Кол-во периодов", "Num periods"
-    },
-    {
+        "Кол-во периодов", "Num periods",
         "Позволяет выбрать точность измерения периода - чем больше время, тем больше точность и больше время измерения",
         "Allows to choose the accuracy of measurement of period - the more time, the accuracy more time of measurement is more"
     },
-    0,
     {
         {"1", "1"},
         {"10", "10"},
@@ -172,12 +156,12 @@ static const Choice mcServiceFreqMeterNumberPeriods =
 // ИЗМЕРЕНИЯ -> Показывать -----------------------------------------------------------------------------------------------------------------------------
 static const Choice mcIsShow =
 {
-    Item_Choice, &mpMeasures, {"Показывать", "Show"},
+    Item_Choice, &mpMeasures, 0,
     {
+        "Показывать", "Show",
         "Выводить или не выводить измерения на экран",
         "Output or output measurements on screen"
     },
-    0,
     {
         {"Нет", "No"},
         {"Да", "Yes"}
@@ -188,8 +172,10 @@ static const Choice mcIsShow =
 // ИЗМЕРЕНИЯ -> Количество -----------------------------------------------------------------------------------------------------------------------------
 static const Choice mcNumber =
 {
-    Item_Choice, &mpMeasures, {"Количество", "Number"},
+    Item_Choice, &mpMeasures, IsActive_Number,
     {
+        "Количество", "Number"
+        ,
         "Устанавливает максимальное количество выводимых измерений:\n"
         "\"1\" - одно измерение\n"
         "\"2\" - два измерения\n"
@@ -197,8 +183,8 @@ static const Choice mcNumber =
         "\"2х5\" - 2 строки с пятью измерениями в каждой\n"
         "\"3х5\" - 3 строки с пятью измерениями в каждой\n"
         "\"6x1\" - 6 строк по одному измерению в каждой\n"
-        "\"6х2\" - 6 строк по два измерения в каждой",
-
+        "\"6х2\" - 6 строк по два измерения в каждой"
+        ,
         "Sets the maximum number of output measurements:\n"
         "\"1\" - one measurement\n"
         "\"2\" - two measurements\n"
@@ -208,7 +194,6 @@ static const Choice mcNumber =
         "\"6x1\" - 6 lines, one in each dimension\n"
         "\"6x2\" - 6 lines of two dimensions in each\n"
     },
-    IsActive_Number,
     {
         {"1", "1"},
         {"2", "2"},
@@ -229,12 +214,12 @@ static bool IsActive_Number(void)
 // ИЗМЕРЕНИЯ -> Каналы ----------------------------------------------------------------------------------------------------------------------------------
 static const Choice mcChannels =
 {
-    Item_Choice, &mpMeasures, {"Каналы", "Channels"},
+    Item_Choice, &mpMeasures, IsActive_Channels,
     {
+        "Каналы", "Channels",
         "По каким каналам выводить измерения",
         "Which channels to output measurement"
     },
-    IsActive_Channels,
     {
         {"1", "1"},
         {"2", "2"},
@@ -251,12 +236,12 @@ static bool IsActive_Channels(void)
 // ИЗМЕРЕНИЯ -> Вид ---------------------------------------------------------------------------------------------------------------------------------------
 static const Choice mcMode =
 {
-    Item_Choice, &mpMeasures, {"Вид", "View"},
+    Item_Choice, &mpMeasures, IsActive_Mode,
     {
+        "Вид", "View",
         "Уменьшать или нет зону вывода сигнала для исключения перекрытия его результами измерений",
         "Decrease or no zone output signal to avoid overlapping of its measurement results"
     },
-    IsActive_Mode,
     {
         {"Как есть",    "As is"},
         {"Уменьшать",   "Reduce"}
@@ -273,15 +258,12 @@ static bool IsActive_Mode(void)
 // ИЗМЕРЕНИЯ -> НАСТРОИТЬ //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 static const Page mspTune =
 {
-    Item_Page, &mpMeasures,
+    Item_Page, &mpMeasures, IsActive_Tune,
     {
-        "НАСТРОИТЬ", "CONFIGURE"
-    },
-    {
+        "НАСТРОИТЬ", "CONFIGURE",
         "Переход в режми точной настройки количества и видов измерений",
         "Transition to rezhm of exact control of quantity and types of measurements"
     },
-    IsActive_Tune,
     Page_SB_MeasTuneMeas,
     {
         (void*)&sbTune_Exit,     // ИЗМЕРЕНИЯ -> НАСТРОИТЬ -> Выход
@@ -372,16 +354,12 @@ static void OnPress_Tune_Exit(void)
 // ИЗМЕРЕНИЯ -> НАСТРОИТЬ -> Маркеры ------------------------------------------------------------------------------------------------------------------------------------
 static const SmallButton sbTune_Markers =
 {
-    Item_SmallButton, &mspTune,
+    Item_SmallButton, &mspTune, 0,
     {
-        "Маркер",
-        "Marker"
-    },
-    {
+        "Маркер", "Marker",
         "Позволяет установить маркеры для визуального контроля измерений",
         "Allows to establish markers for visual control of measurements"
     },
-    0,
     OnPress_Tune_Markers,
     DrawSB_Tune_Markers
 };
@@ -401,16 +379,12 @@ static void DrawSB_Tune_Markers(int x, int y)
 // ИЗМЕРЕНИЯ -> НАСТРОИТЬ -> Настройка --------------------------------------------------------------------------------------------------------------------------------------
 static const SmallButton sbTune_Settings =
 {
-    Item_SmallButton, &mspTune,
+    Item_SmallButton, &mspTune, 0,
     {
-        "Настройка",
-        "Setup"
-    },
-    {
+        "Настройка", "Setup",
         "Позволяет выбрать необходимые измерения",
         "Allows to choose necessary measurements"
     },
-    0,
     OnPress_Tune_Settings,
     DrawSB_Tune_Settings
 };

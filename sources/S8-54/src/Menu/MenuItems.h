@@ -91,9 +91,8 @@ typedef enum
 #define COMMON_PART_MENU_ITEM                                                                                   \
     TypeItem                type;           /* Тип итема */                                                     \
     const struct Page*      keeper;         /* Адрес страницы, которой принадлежит. Для Page_MainPage = 0 */    \
-    const char*             title[2];       /* Название страницы на русском и английском языках. */             \
-    const char*             helpHint[2];    /* Выводится при нажатии на итем в режиме Help */                   \
-    pFuncBV                 funcOfActive;   /* Активен ли данный элемент */
+    pFuncBV                 funcOfActive;   /* Активен ли данный элемент */                                     \
+    const char*             titleHint[4];   /* Название страницы на русском и английском языках. Также подсказка для режима помощи */
 
 // Описывает страницу меню.
 struct Page

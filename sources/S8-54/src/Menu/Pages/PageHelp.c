@@ -56,16 +56,12 @@ void OnHelpRegSet(int angle)
 //------------------------------------------------------------------------------------------------------------------------------------------------------
 const SmallButton sbHelpParagraphEnter =
 {
-    Item_SmallButton, &mpHelp,
+    Item_SmallButton, &mpHelp, HelpContent_EnterParagraphIsActive,
     {
-        "Открыть",
-        "Open"
-    },
-    {
+        "Открыть",  "Open",
         "Открывает раздел справки",
         "Opens the section of the reference"
     },
-    HelpContent_EnterParagraphIsActive,
     HelpContent_EnterParagraph,
     DrawSB_Help_ParagraphEnter
 };
@@ -74,16 +70,12 @@ const SmallButton sbHelpParagraphEnter =
 //------------------------------------------------------------------------------------------------------------------------------------------------------
 const SmallButton sbHelpParagraphLeave =
 {
-    Item_SmallButton, &mpHelp,
+    Item_SmallButton, &mpHelp, HelpContent_LeaveParagraphIsActive,
     {
-        "Закрыть",
-        "Close"
-    },
-    {
+        "Закрыть", "Close",
         "Закрывает раздел справки",
         "Closes the section of the reference"
     },
-    HelpContent_LeaveParagraphIsActive,
     HelpContent_LeaveParagraph,
     DrawSB_Help_ParagraphLeave
 };
@@ -92,16 +84,12 @@ const SmallButton sbHelpParagraphLeave =
 //------------------------------------------------------------------------------------------------------------------------------------------------------
 const SmallButton sbHelpParagraphPrev =
 {
-    Item_SmallButton, &mpHelp,
+    Item_SmallButton, &mpHelp, 0,
     {
-        "Предыдущий раздел",
-        "Previous section"
-    },
-    {
+        "Предыдущий раздел", "Previous section",
         "Выбрать предыдущий раздел справки",
         "To choose the previous section of the reference"
     },
-    0,
     HelpContent_PrevParagraph,
     DrawSB_Help_ParagraphPrev
 };
@@ -110,16 +98,11 @@ const SmallButton sbHelpParagraphPrev =
 //------------------------------------------------------------------------------------------------------------------------------------------------------
 const SmallButton sbHelpParagraphNext =
 {
-    Item_SmallButton, &mpHelp,
+    Item_SmallButton, &mpHelp, 0,
     {
-        "",
-        ""
+        "", "",
+        "", ""
     },
-    {
-        "",
-        ""
-    },
-    0,
     HelpContent_NextParagraph,
     DrawSB_Help_ParagraphNext
 };
@@ -145,15 +128,12 @@ const SmallButton sbExitHelp =
 //------------------------------------------------------------------------------------------------------------------------------------------------------
 const Page mpHelp =
 {
-    Item_Page, &mainPage,
+    Item_Page, &mainPage, 0,
     {
-        "ПОМОЩЬ", "HELP"
-    },
-    {
+        "ПОМОЩЬ", "HELP",
         "Открыть разделы помощи",
         "To open sections of the help"
     },
-    0,
     Page_SB_Help, 
     {
         (void*)&sbExitHelp,

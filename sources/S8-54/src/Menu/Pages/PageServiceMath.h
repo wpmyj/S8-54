@@ -37,16 +37,12 @@ void PressSB_FFTcurs_Source(void)
 //----------------------------------------------------------------------------------------------------------------------------------------------------
 static const SmallButton sbCursFFTSource =
 {
-    Item_SmallButton, &mspCursFFT,
+    Item_SmallButton, &mspCursFFT, 0,
     {
-        "Источник",
-        "Source"
-    },
-    {
+        "Источник", "Source",
         "Выбор источника для расчёта спектра",
         "Source choice for calculation of a range"
     },
-    0,
     PressSB_FFTcurs_Source,
     DrawSB_FFTcurs_Source
 };
@@ -86,16 +82,12 @@ static void DrawSB_MathFunction_Type(int x, int y)
 
 static const SmallButton sbMathFunction =
 {
-    Item_SmallButton, &mspMathFunction,
+    Item_SmallButton, &mspMathFunction, 0,
     {
-        "Вид",
-        "Type"
-    },
-    {
+        "Вид", "Type",
         "Выбор математической функции",
         "Choice of mathematical function"
     },
-    0,
     PressSB_MathFunction_Type,
     DrawSB_MathFunction_Type,
     {
@@ -146,16 +138,12 @@ static void DrawSB_MathFunction_ModeDraw(int x, int y)
 
 static const SmallButton sbMathFunctionModeDraw =
 {
-    Item_SmallButton, &mspMathFunction,
+    Item_SmallButton, &mspMathFunction, 0,
     {
-        "Экран",
-        "Display"
-    },
-    {
+        "Экран", "Display",
         "Выбирает режим отображения математического сигнала",
         "Chooses the mode of display of a mathematical signal"
     },
-    0,
     PressSB_MathFunction_ModeDraw,
     DrawSB_MathFunction_ModeDraw,
     {
@@ -178,16 +166,12 @@ static void DrawSB_MathFunction_RangeA(int x, int y)
 
 static const SmallButton sbMathFunctionRangeA =
 {
-    Item_SmallButton, &mspMathFunction,
+    Item_SmallButton, &mspMathFunction, 0,
     {
-        "Масштаб 1-го канала",
-        "Scale of the 1st channel"
-    },
-    {
+        "Масштаб 1-го канала", "Scale of the 1st channel",
         "Использует масштаб первого канала для отображения результата",
         "Takes scale for a mathematical signal from the first channel"
     },
-    0,
     PressSB_MathFunction_RangeA,
     DrawSB_MathFunction_RangeA
 };
@@ -205,16 +189,12 @@ static void DrawSB_MathFunction_RangeB(int x, int y)
 
 static const SmallButton sbMathFunctionRangeB =
 {
-    Item_SmallButton, &mspMathFunction,
+    Item_SmallButton, &mspMathFunction, 0,
     {
-        "Масштаб 2-го канала",
-        "Scale of the 2nd channel"
-    },
-    {
+        "Масштаб 2-го канала", "Scale of the 2nd channel",
         "Использует масштаб второго канала для отображения результата",
         "Takes scale for a mathematical signal from the second channel"
     },
-    0,
     PressSB_MathFunction_RangeB,
     DrawSB_MathFunction_RangeB
 };
@@ -242,16 +222,12 @@ static void DrawSB_MathFunction_ModeRegSet(int x, int y)
 
 static const SmallButton sbMathFunctionModeRegSet =
 {
-    Item_SmallButton, &mspMathFunction,
+    Item_SmallButton, &mspMathFunction, 0,
     {
-        "Режим ручки УСТАНОВКА",
-        "Mode regulator SET"
-    },
-    {
+        "Режим ручки УСТАНОВКА", "Mode regulator SET",
         "Выбор режима ручки УСТАНОВКА - управление масштабом или смещением",
         "Choice mode regulcator УСТАНОВКА - management of scale or shift"
     },
-    0,
     PressSB_MathFunction_ModeRegSet,
     DrawSB_MathFunction_ModeRegSet,
     {
@@ -275,15 +251,12 @@ static void ChangeF_MathFormula(void)
 static int8 curDigit = 0;
 const Formula mfMathFormula =
 {
-    Item_Formula, &mspMathFunction,
+    Item_Formula, &mspMathFunction, ActiveF_MathFormula,
     {
-        "Формула", "Formulf"
-    },
-    {
+        "Формула", "Formulf",
         "Здесь задаются коэффициенты и знаки в математической формуле",
         "Here you can set the coefficients and signs in a mathematical formula"
     },
-    ActiveF_MathFormula,
     (int8*)&MATH_FUNC, (int8*)&set.math.koeff1add, (int8*)&set.math.koeff2add, (int8*)&set.math.koeff1mul, (int8*)&set.math.koeff2mul, &curDigit, ChangeF_MathFormula
 };
 
@@ -297,14 +270,15 @@ static bool ActiveF_Math_Scale(void)
 // СЕРВИС -> МАТЕМАТИКА -> СПЕКТР -> Отображение
 const Choice mcFFTenable =
 {
-    Item_Choice, &mspFFT,   {"Отображение", "Display"},
+    Item_Choice, &mspFFT, 0,
     {
+        "Отображение", "Display",
         "Включает и выключает отображение спектра",
         "Enables or disables the display of the spectrum"
     },
-    0,
-    {                           {DISABLE_RU,    DISABLE_EN},
-                                {ENABLE_RU,     ENABLE_EN}
+    {
+        {DISABLE_RU,    DISABLE_EN},
+        {ENABLE_RU,     ENABLE_EN}
     },
     (int8*)&FFT_ENABLED
 };
@@ -312,14 +286,15 @@ const Choice mcFFTenable =
 // СЕРВИС -> МАТЕМАТИКА -> СПЕКТР -> Шкала
 const Choice mcFFTscale =
 {
-    Item_Choice, &mspFFT,   {"Шкала",       "Scale"},
+    Item_Choice, &mspFFT, 0,
     {
+        "Шкала",        "Scale",
         "Задаёт масштаб вывода спектра - линейный или логарифмический",
         "Sets the scale of the output spectrum - linear or logarithmic"
     },
-    0,
-    {                           {"Логарифм",    "Log"},
-                                {"Линейная",    "Linear"}
+    {
+        {"Логарифм",    "Log"},
+        {"Линейная",    "Linear"}
     },
     (int8*)&SCALE_FFT
 };
@@ -327,15 +302,16 @@ const Choice mcFFTscale =
 // СЕРВИС -> МАТЕМАТИКА -> СПЕКТР -> Источник
 const Choice mcFFTsource =
 {
-    Item_Choice, &mspFFT,   {"Источник",    "Source"},
+    Item_Choice, &mspFFT, 0,
     {
+        "Источник",     "Source",
         "Выбор источника для расчёта спектра",
         "Selecting the source for the calculation of the spectrum"
     },
-    0,
-    {                           {"Канал 1",     "Channel 1"},
-                                {"Канал 2",     "Channel 2"},
-                                {"Канал 1 + 2", "Channel 1 + 2"}
+    {
+        {"Канал 1",     "Channel 1"},
+        {"Канал 2",     "Channel 2"},
+        {"Канал 1 + 2", "Channel 1 + 2"}
     },
     (int8*)&SOURCE_FFT
 };
@@ -343,16 +319,17 @@ const Choice mcFFTsource =
 // СЕРВИС -> МАТЕМАТИКА -> СПЕКТР -> Окно
 const Choice mcFFTwindow =
 {
-    Item_Choice, &mspFFT,   {"Окно",        "Window"},
+    Item_Choice, &mspFFT, 0,
     {
+        "Окно",         "Window",
         "Задаёт окно для расчёта спектра",
         "Sets the window to calculate the spectrum"
     },
-    0,
-    {                           {"Прямоугольн", "Rectangle"},
-                                {"Хэмминга",    "Hamming"},
-                                {"Блэкмена",    "Blackman"},
-                                {"Ханна",       "Hann"}
+    {                         
+        {"Прямоугольн", "Rectangle"},
+        {"Хэмминга",    "Hamming"},
+        {"Блэкмена",    "Blackman"},
+        {"Ханна",       "Hann"}
     },
     (int8*)&WINDOW_FFT
 };
@@ -365,15 +342,17 @@ bool ActiveC_FFT_Limit(void)
 
 const Choice mcFFTrange =
 {
-    Item_Choice, &mspFFT,   {"Диапазон",  "Range"},
+    Item_Choice, &mspFFT, ActiveC_FFT_Limit,
     {
+        "Диапазон", "Range",
         "Здесь можно задать предел наблюдения за мощностью спектра",
         "Here you can set the limit of monitoring the power spectrum"
     },
-    ActiveC_FFT_Limit,
-    {                           {"-40дБ",   "-40dB"},
-                                {"-60дБ",   "-60dB"},
-                                {"-80дБ",   "-80dB"}
+    
+    {                           
+        {"-40дБ",   "-40dB"},
+        {"-60дБ",   "-60dB"},
+        {"-80дБ",   "-80dB"}
     },
     (int8*)&MAX_DB_FFT
 };
@@ -386,16 +365,12 @@ bool ActiveP_FFT_Cursors(void)
 
 static const SmallButton sbExitMathFunction =
 {
-    Item_SmallButton, &mspMathFunction,
+    Item_SmallButton, &mspMathFunction, 0,
     {
-        "Выход",
-        "Exit"
-    },
-    {
+        "Выход", "Exit",
         "Кнопка для выхода в предыдущее меню",
         "Button to return to the previous menu"
     },
-    0,
     0,
     DrawSB_Exit
 };
@@ -486,15 +461,13 @@ static void FuncOfPressServiceMathFunction(void)
 // СЕРВИС - ФУНКЦИЯ //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 const Page mspMathFunction =
 {
-    Item_Page, &mpService,
+    Item_Page, &mpService, FuncOfActiveServiceMathFunction,
     {
-        "ФУНКЦИЯ", "FUNCTION"
-    },
-    {
+        "ФУНКЦИЯ", "FUNCTION",
         "Установка и выбор математической функции - сложения или умножения",
         "Installation and selection of mathematical functions - addition or multiplication"
     },
-    FuncOfActiveServiceMathFunction, Page_SB_MathFunction,
+    Page_SB_MathFunction,
     {
         (void*)&sbExitMathFunction,
         (void*)&sbMathFunctionModeDraw,
@@ -524,15 +497,13 @@ const SmallButton sbExitCursFFT =
 ///////////////////////////////////////////////////////////////////////////////////
 const Page mspCursFFT =
 {
-    Item_Page, &mspFFT,
+    Item_Page, &mspFFT, ActiveP_FFT_Cursors,
     {
-        "КУРСОРЫ", "CURSORS"
-    },
-    {
+        "КУРСОРЫ", "CURSORS",
         "Включает курсоры для измерения параметров спектра",
         "Includes cursors to measure the parameters of the spectrum"
     },
-    ActiveP_FFT_Cursors, Page_SB_MathCursorsFFT,
+    Page_SB_MathCursorsFFT,
     {
         (void*)&sbExitCursFFT,
         (void*)&sbCursFFTSource,
@@ -560,15 +531,13 @@ static void FuncOfPressFFT(void)
 // СЕРВИС - СПЕКТР ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 const Page mspFFT =
 {
-    Item_Page, &mpService,
+    Item_Page, &mpService, FuncOfActiveFFT,
     {
-        "СПЕКТР", "SPECTRUM"
-    },
-    {
+        "СПЕКТР", "SPECTRUM",
         "Отображение спектра входного сигнала",
         "Mapping the input signal spectrum"
     },
-    FuncOfActiveFFT, Page_MathFFT,
+    Page_MathFFT,
     {
         (void*)&mcFFTenable,
         (void*)&mcFFTscale,

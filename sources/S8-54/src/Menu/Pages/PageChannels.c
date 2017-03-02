@@ -70,12 +70,13 @@ static const char chanDividerEn[] = "Attenuation: \n\"Off\" - the signal is not 
 // КАНАЛ 1 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 const Page mpChanA =
 {
-    Item_Page, &mainPage, {"КАНАЛ 1", "CHANNEL 1"},
+    Item_Page, &mainPage, 0,
     {
+        "КАНАЛ 1", "CHANNEL 1",
         "Содержит настройки канала 1.",
         "Contains settings of the channel 1."
     },
-    0, Page_ChannelA,
+    Page_ChannelA,
     {
         (void*)&mcChanA_Input,      // КАНАЛ 1 -> Вход
         (void*)&mcChanA_Couple,     // КАНАЛ 1 -> Связь
@@ -91,12 +92,12 @@ const Page mpChanA =
 // КАНАЛ 1 -> Вход ---------------------------------------------------------------------------------------------------------------------------------------------------
 static const Choice mcChanA_Input =
 {
-    Item_Choice, &mpChanA, {"Вход", "Input"},
+    Item_Choice, &mpChanA, 0,
     {
+        "Вход", "Input",
         chanInputRu,
         chanInputEn
     },
-    0,
     {
         {DISABLE_RU, DISABLE_EN},
         {ENABLE_RU, ENABLE_EN}
@@ -113,12 +114,12 @@ void OnChange_ChanA_Input(bool active)
 // КАНАЛ 1 -> Связь ---------------------------------------------------------------------------------------------------------------------------------------------------
 static const Choice mcChanA_Couple =
 {
-    Item_Choice, &mpChanA, {"Связь", "Couple"},
+    Item_Choice, &mpChanA, 0,
     {
+        "Связь", "Couple",
         chanCoupleRu,
         chanCoupleEn
     },
-    0,
     {
         {"Пост", "AC"},
         {"Перем", "DC"},
@@ -136,11 +137,11 @@ static void OnChange_ChanA_Couple(bool active)
 // КАНАЛ 1 -> Полоса ---------------------------------------------------------------------------------------------------------------------------------------------------
 static const Choice mcChanA_Bandwidth =
 {
-    Item_Choice, &mpChanA, {"Полоса", "Bandwidth"},
+    Item_Choice, &mpChanA, 0,
     {
+        "Полоса", "Bandwidth",
         "Задаёт полосу пропускания канала", "Sets the channel bandwidth"
     },
-    0,
     {
         {"Полная", "Full"},
         {"20МГц", "20MHz"}
@@ -157,11 +158,11 @@ static void OnChange_ChanA_Bandwidth(bool active)
 // КАНАЛ 1 -> Сопротивление ---------------------------------------------------------------------------------------------------------------------------------------------------
 static const Choice mcChanA_Resistance =
 {
-    Item_Choice, &mpChanA, {"Вх сопр", "Resistance"},
+    Item_Choice, &mpChanA, 0,
     {
+        "Вх сопр", "Resistance",
         "", ""
     },
-    0,
     {
         {"1 МОм", "1 Mohm"},
         {"50 Ом", "50 Ohm"}
@@ -182,12 +183,12 @@ static void OnChange_ChanA_Resistance(bool active)
 // КАНАЛ 1 -> Инверсия ---------------------------------------------------------------------------------------------------------------------------------------------------
 static const Choice mcChanA_Inverse =
 {
-    Item_Choice, &mpChanA, {"Инверсия", "Inverse"},
+    Item_Choice, &mpChanA, 0,
     {
+        "Инверсия", "Inverse",
         chanInverseRu,
         chanInverseEn
     },
-    0,
     {
         {DISABLE_RU, DISABLE_EN},
         {ENABLE_RU, ENABLE_EN}
@@ -204,12 +205,12 @@ static void OnChange_ChanA_Inverse(bool active)
 // КАНАЛ 1 -> Множитель ---------------------------------------------------------------------------------------------------------------------------------------------------
 static const Choice mcChanA_Divider =
 {
-    Item_Choice, &mpChanA, {"Делитель", "Divider"},
+    Item_Choice, &mpChanA, 0,
     {
+        "Делитель", "Divider",
         chanDividerRu,
         chanDividerEn
     },
-    0,
     {
         {"Выкл", "Off"},
         {"1/10", "1/10"}
@@ -220,15 +221,13 @@ static const Choice mcChanA_Divider =
 // КАНАЛ 1 -> Балансировать ---------------------------------------------------------------------------------------------------------------------------------------------------
 static const Button mbChanA_Balance =
 {
-    Item_Button, &mpChanA,
+    Item_Button, &mpChanA, 0,
     {
-        "Балансировать", "Balance"
-    },
-    {
+        "Балансировать", "Balance",
         "Балансировать канал",
         "Balancing channel"
     },
-    0, OnPress_ChanA_Balance
+    OnPress_ChanA_Balance
 };
 
 static void OnPress_ChanA_Balance(void)
@@ -240,12 +239,13 @@ static void OnPress_ChanA_Balance(void)
 // КАНАЛ 2 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 const Page mpChanB =
 {
-    Item_Page, &mainPage, {"КАНАЛ 2", "CHANNEL 2"},
+    Item_Page, &mainPage, 0,
     {
+        "КАНАЛ 2", "CHANNEL 2",
         "Содержит настройки канала 2.",
         "Contains settings of the channel 2."
     },
-    0, Page_ChannelB,
+    Page_ChannelB,
     {
         (void*)&mcChanB_Input,      // КАНАЛ 2 -> Вход
         (void*)&mcChanB_Couple,     // КАНАЛ 2 -> Связь
@@ -260,12 +260,12 @@ const Page mpChanB =
 // КАНАЛ 2 -> Вход ---------------------------------------------------------------------------------------------------------------------------------------------------
 static const Choice mcChanB_Input =
 {
-    Item_Choice, &mpChanB, {"Вход", "Input"},
+    Item_Choice, &mpChanB, IsActive_ChanB_Input,
     {
+        "Вход", "Input",
         chanInputRu,
         chanInputEn
     },
-    IsActive_ChanB_Input,
     {
         {DISABLE_RU, DISABLE_EN},
         {ENABLE_RU, ENABLE_EN}
@@ -297,12 +297,12 @@ void OnChange_ChanB_Input(bool active)
 // КАНАЛ 2 -> Связь ---------------------------------------------------------------------------------------------------------------------------------------------------
 static const Choice mcChanB_Couple =
 {
-    Item_Choice, &mpChanB, {"Связь", "Couple"},
+    Item_Choice, &mpChanB, 0,
     {
+        "Связь", "Couple",
         chanCoupleRu,
         chanCoupleEn
     },
-    0,
     {
         {"Пост", "AC"},
         {"Перем", "DC"},
@@ -319,11 +319,12 @@ static void OnChange_ChanB_Couple(bool active)
 // КАНАЛ 2 -> Полоса ------------------------------------------------------------------------------------------------------------------------------------------------------
 static const Choice mcChanB_Bandwidth =
 {
-    Item_Choice, &mpChanB, {"Полоса", "Bandwidth"},
+    Item_Choice, &mpChanB, 0,
     {
-        "", ""
+        "Полоса", "Bandwidth",
+        "",
+        ""
     },
-    0,
     {
         {"Полная", "Full"}, 
         {"20МГц", "20MHz"}
@@ -339,11 +340,11 @@ static void OnChange_ChanB_Bandwidth(bool active)
 // КАНАЛ 2 -> Сопротивление ---------------------------------------------------------------------------------------------------------------------------------------------------
 static const Choice mcChanB_Resistance =
 {
-    Item_Choice, &mpChanB, {"Вх сопр", "Resistance"},
+    Item_Choice, &mpChanB, 0,
     {
+        "Вх сопр", "Resistance",
         "", ""
     },
-    0,
     {
         {"1 МОм", "1 Mohm"},
         {"50 Ом", "50 Ohm"}
@@ -363,12 +364,12 @@ static void OnChange_ChanB_Resistance(bool active)
 // КАНАЛ 2 -> Инверсия ---------------------------------------------------------------------------------------------------------------------------------------------------
 static const Choice mcChanB_Inverse =
 {
-    Item_Choice, &mpChanB, {"Инверсия", "Inverse"},
+    Item_Choice, &mpChanB, 0,
     {
+        "Инверсия", "Inverse",
         chanInverseRu,
         chanInverseEn
     },
-    0,
     {
         {DISABLE_RU, DISABLE_EN},
         {ENABLE_RU, ENABLE_EN}
@@ -384,12 +385,12 @@ static void OnChange_ChanB_Inverse(bool active)
 // КАНАЛ 2 -> Множитель ---------------------------------------------------------------------------------------------------------------------------------------------------
 static const Choice mcChanB_Divider =
 {
-    Item_Choice, &mpChanB, {"Делитель", "Divider"},
+    Item_Choice, &mpChanB, 0,
     {
+        "Делитель", "Divider",
         chanDividerRu,
         chanDividerEn
     },
-    0,
     {
         {"Выкл", "Jff"},
         {"1/10", "1/10"}
@@ -400,15 +401,13 @@ static const Choice mcChanB_Divider =
 // КАНАЛ 2 -> Балансировать ---------------------------------------------------------------------------------------------------------------------------------------------------
 static const Button mbChanB_Balance =
 {
-    Item_Button, &mpChanB,
+    Item_Button, &mpChanB, 0,
     {
-        "Балансировать", "Balance"
-    },
-    {
+        "Балансировать", "Balance",
         "Балансировать канал",
         "Balancing channel"
     },
-    0, OnPress_ChanB_Balance
+    OnPress_ChanB_Balance
 };
 
 static void OnPress_ChanB_Balance(void)

@@ -54,15 +54,13 @@ static void  Information_Draw(void);
 // СЕРВИС ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 const Page mpService =
 {
-    Item_Page, &mainPage,
+    Item_Page, &mainPage, 0,
     {
-        "СЕРВИС", "SERVICE"
-    },
-    {
+        "СЕРВИС", "SERVICE",
         "Дополнительные настройки, калибровка, поиск сигнала, математические функции",
         "Additional settings, calibration, signal search, mathematical functions"
     },
-    0, Page_Service,
+    Page_Service,
     {
         (void*)&mbResetSettings,    // СЕРВИС - Сброс настроек
         (void*)&mbAutoSearch,       // СЕРВИС - Поиск сигнала
@@ -81,15 +79,13 @@ const Page mpService =
 // СЕРВИС - Сброс настроек ---------------------------------------------------------------------------------------------------------------------------
 static const Button mbResetSettings =
 {
-    Item_Button, &mpService,
+    Item_Button, &mpService, 0,
     {
-        "Сброс настроек", "Reset settings"
-    },
-    {
+        "Сброс настроек", "Reset settings",
         "Сброс настроек на настройки по умолчанию",
         "Reset to default settings"
     },
-    0, OnPress_ResetSettings
+    OnPress_ResetSettings
 };
 
 void OnPress_ResetSettings(void)
@@ -120,15 +116,13 @@ static void FuncDraw_ResetSettings(void)
 // СЕРВИС - Поиск сигнала ----------------------------------------------------------------------------------------------------------------------------
 static const Button mbAutoSearch =
 {
-    Item_Button, &mpService,
+    Item_Button, &mpService, 0,
     {
-        "Поиск сигнала", "Find signal"
-    },
-    {
+        "Поиск сигнала", "Find signal",
         "Устанавливает оптимальные установки осциллографа для сигнала в канале 1",
         "Sets optimal settings for the oscilloscope signal on channel 1"
     },
-    0, OnPress_AutoSearch
+    OnPress_AutoSearch
 };
 
 static void OnPress_AutoSearch(void)
@@ -139,15 +133,12 @@ static void OnPress_AutoSearch(void)
 // СЕРВИС - Регистратор ------------------------------------------------------------------------------------------------------------------------------
 static const Choice mcRecorder =
 {
-    Item_Choice, &mpService,
+    Item_Choice, &mpService, 0,
     {
-        "Регистратор", "Recorder"
-    },
-    {
+        "Регистратор", "Recorder",
         "Включает/выключает режим регистратора. Этот режим доступен на развёртках 50 мс/дел и более медленных.",
         "Turn on/off recorder mode. This mode is available for scanning 20ms/div and slower."
     },
-    0,
     {
         {DISABLE_RU, DISABLE_EN},
         {ENABLE_RU, ENABLE_EN}
@@ -163,12 +154,12 @@ static void OnChange_Recorder(bool active)
 // СЕРВИС - Язык -------------------------------------------------------------------------------------------------------------------------------------
 static const Choice mcLanguage =
 {
-    Item_Choice, &mpService, {"Язык", "Language"},
+    Item_Choice, &mpService, 0,
     {
+        "Язык",         "Language",
         "Позволяет выбрать язык меню",
         "Allows you to select the menu language"
     },
-    0,
     {
         {"Русский",     "Russian"},
         {"Английский",  "English"}
@@ -180,15 +171,13 @@ static const Choice mcLanguage =
 // ВРЕМЯ /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 static const Page mspTime =
 {
-    Item_Page, &mpService,
+    Item_Page, &mpService, 0,
     {
-        "ВРЕМЯ", "TIME"
-    },
-    {
+        "ВРЕМЯ", "TIME",
         "Установка и настройка времени",
         "Set and setup time"
     },
-    0, Page_ServiceTime,
+    Page_ServiceTime,
     {
         (void*)&mtTime,             // СЕРВИС - ВРЕМЯ - Время
         (void*)&mgTimeCorrection    // CЕРВИС - ВРЕМЯ - Коррекция
@@ -200,18 +189,17 @@ static int8 dServicetime = 0;
 static int8 hours = 0, minutes = 0, secondes = 0, year = 0, month = 0, day = 0;
 static const Time mtTime =
 {
-    Item_Time, &mspTime,    
+    Item_Time, &mspTime, 0,
     {
         "Время", "Time"
-    },
-    {
+        ,
         "Установка текущего времени.\nПорядок работы:\n"
         "Нажать на элемент меню \"Время\". Откроется меню установки текущего времени. Короткими нажатиями кнопки на цифровой клавиатуре, соответсвующей "
         "элементу управления \"Время\", выделить часы, минуты, секунды, год, месяц, или число. Выделенный элемент обозначается мигающей областью. "
         "Вращением ручки УСТАНОВКА установить необходимое значение. Затем выделить пункт \"Сохранить\", нажать и удреживать более 0.5 сек кнопку на панели "
         "управления. Меню установки текущего временя закроется с сохранением нового текущего времени. Нажатие длительное удержание кнопки на любом другом элементе "
-        "приведёт к закрытию меню установки текущего вре    мени без сохранения нового текущего времени",
-
+        "приведёт к закрытию меню установки текущего вре    мени без сохранения нового текущего времени"
+        ,
         "Setting the current time. \nPoryadok work:\n"
         "Click on the menu item \"Time\".The menu set the current time.By briefly pressing the button on the numeric keypad of conformity "
         "Control \"Time\", highlight the hours, minutes, seconds, year, month, or a number.The selected item is indicated by a flashing area. "
@@ -219,22 +207,20 @@ static const Time mtTime =
         "Control. Menu Setting the current time will be closed to the conservation of the new current time. Pressing a button on the prolonged retention of any other element "
         "will lead to the closure of the current time setting menu without saving the new current time"
     },
-    0, &dServicetime, &hours, &minutes, &secondes, &month, &day, &year
+    &dServicetime, &hours, &minutes, &secondes, &month, &day, &year
 };
 
 
 // СЕРВИС - Время - Коррекция ------------------------------------------------------------------------------------------------------------------------
 static const Governor mgTimeCorrection =
 {
-    Item_Governor, &mspTime,
+    Item_Governor, &mspTime, 0,
     {
-        "Коррекция", "Correction"
-    },
-    {
+        "Коррекция", "Correction",
         "Установка корректирующего коэффициента для компенсации хода времени",
         "Setting correction factor to compensate for time travel"
     },
-    0, &setNR.correctionTime, -63, 63, OnChange_Time_Correction  
+    &setNR.correctionTime, -63, 63, OnChange_Time_Correction  
 };
 
 static void OnChange_Time_Correction(void)
@@ -246,15 +232,13 @@ static void OnChange_Time_Correction(void)
 // СЕРВИС - ИНФОРМАЦИЯ ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 static const Page mspInformation =
 {
-    Item_Page, &mpService,
+    Item_Page, &mpService, 0,
     {
-        "ИНФОРМАЦИЯ", "INFORMATION"
-    },
-    {
+        "ИНФОРМАЦИЯ", "INFORMATION",
         "Показывает информацию о приборе",
         "Displays information about the device"
     },
-    0, Page_SB_ServiceInformation,
+    Page_SB_ServiceInformation,
     {
         (void*)&sbExitInformation
     },
@@ -314,15 +298,13 @@ static void Information_Draw()
 // СЕРВИС - КАЛИБРАТОР ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 static const Page mspCalibrator =
 {
-    Item_Page, &mpService,
+    Item_Page, &mpService, 0,
     {
-        "КАЛИБРАТОР", "CALIBRATOR"
-    },
-    {
+        "КАЛИБРАТОР", "CALIBRATOR",
         "Управлением калибратором и калибровка осциллографа",
         "Control of the calibrator and calibration of an oscillograph"
     },
-    0, Page_ServiceCalibrator,
+    Page_ServiceCalibrator,
     {
         (void*)&mcCalibrator,           // СЕРВИС - КАЛИБРАТОР - Калибратор
         (void*)&mbCalibrator_Calibrate  // СЕРВИС - КАЛИБРАТОР - Калибровать
@@ -332,19 +314,16 @@ static const Page mspCalibrator =
 // СЕРВИС - КАЛИБРАТОР - Калибратор ------------------------------------------------------------------------------------------------------------------
 static const Choice mcCalibrator =
 {
-    Item_Choice, &mspCalibrator,
+    Item_Choice, &mspCalibrator, 0,
     {
-        "Калибратор", "Calibrator"
-    },
-    {
+        "Калибратор",   "Calibrator",
         "Режим работы калибратора",
         "Mode of operation of the calibrator"
     },
-    0,
     {
-        {"Перем", "DC"},
-        {"+4V", "+4V"},
-        {"0V", "0V"}
+        {"Перем",       "DC"},
+        {"+4V",         "+4V"},
+        {"0V",          "0V"}
     },
     (int8*)&set.service.calibrator, OnChange_Calibrator
 };
@@ -357,15 +336,13 @@ static void OnChange_Calibrator(bool active)
 // СЕРВИС - КАЛИБРАТОР - Калибровать -----------------------------------------------------------------------------------------------------------------
 static const Button mbCalibrator_Calibrate =
 {
-    Item_Button, &mspCalibrator,
+    Item_Button, &mspCalibrator, IsActive_Calibrator_Calibrate,
     {
-        "Калибровать", "Calibrate"
-    },
-    {
+        "Калибровать", "Calibrate",
         "Запуск процедуры калибровки",
         "Running the calibration procedure"
     },
-    IsActive_Calibrator_Calibrate, OnPress_Calibrator_Calibrate, EmptyFuncVII
+    OnPress_Calibrator_Calibrate, EmptyFuncVII
 };
 
 static bool IsActive_Calibrator_Calibrate(void)
@@ -464,15 +441,13 @@ extern const Page mpService;
 // СЕРВИС - Откат настроек
 const Button mbServicePreviousSettings =
 {
-    Item_Button, &mpService,
+    Item_Button, &mpService, 0,
     {
-        "Откат настроек", "Return settings"
-    },
-    {
+        "Откат настроек", "Return settings",
         "Возвращает настройки осциллографа, которые были в момент нажатия \"Поиск сигнала\"",
         "Returns the oscilloscope settings that were in when you press \"Searching for signal\""
     },
-    0, OnPressPrevSettings
+    OnPressPrevSettings
 };
 
 // СЕРВИС - КАЛИБРАТОР ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -498,16 +473,16 @@ static void FuncOfChangedEthernetSettings(bool active)
 //------------------------------------------------------------------------------------------------------------------------------------------------------
 static const Choice mcServEthEnable =
 {
-    Item_Choice, &mspEthernet, 
-    {"Ethernet",    "Ethernet"},
+    Item_Choice, &mspEthernet, 0,
     {
+        "Ethernet",    "Ethernet"
+        ,
         "Чтобы задействовать ethernet, выберите \"Включено\" и выключите прибор.\n"
         "Чтобы отключить ethernet, выберите \"Отключено\" и выключите прибор."
         ,
         "To involve ethernet, choose \"Included\" and switch off the device.\n"
         "To disconnect ethernet, choose \"Disconnected\" and switch off the device."
     },
-    0,
     {
         {"Включено",    "Included"},
         {"Отключено",   "Disconnected"}
@@ -518,13 +493,12 @@ static const Choice mcServEthEnable =
 
 static const IPaddress ipAddress =
 {
-    Item_IP, &mspEthernet,
-    {"IP адрес", "IP-address"},
+    Item_IP, &mspEthernet, 0,
     {
+        "IP адрес", "IP-address",
         "Установка IP адреса",
         "Set of IP-address"
     },
-    0,
     &set.eth.ip0, &set.eth.ip1, &set.eth.ip2, &set.eth.ip3,
     FuncOfChangedEthernetSettings,
     &set.eth.port
@@ -534,13 +508,12 @@ static const IPaddress ipAddress =
 //------------------------------------------------------------------------------------------------------------------------------------------------------
 static const IPaddress ipNetMask =
 {
-    Item_IP, &mspEthernet,
-    {"Маска подсети", "Network mask"},
+    Item_IP, &mspEthernet, 0,
     {
+        "Маска подсети", "Network mask",
         "Установка маски подсети",
         "Set of network mask"
     },
-    0,
     &set.eth.mask0, &set.eth.mask1, &set.eth.mask2, &set.eth.mask3,
     FuncOfChangedEthernetSettings
 };
@@ -549,13 +522,12 @@ static const IPaddress ipNetMask =
 //------------------------------------------------------------------------------------------------------------------------------------------------------
 static const IPaddress ipGateway =
 {
-    Item_IP, &mspEthernet,
-    {"Шлюз", "Gateway"},
+    Item_IP, &mspEthernet, 0,
     {
+        "Шлюз", "Gateway",
         "Установка адреса основного шлюза",
         "Set of gateway address"
     },
-    0,
     &set.eth.gw0, &set.eth.gw1, &set.eth.gw2, &set.eth.gw3,
     FuncOfChangedEthernetSettings
 };
@@ -564,13 +536,12 @@ static const IPaddress ipGateway =
 //------------------------------------------------------------------------------------------------------------------------------------------------------
 static const MACaddress macMAC =
 {
-    Item_MAC, &mspEthernet,
-    {"Физ адрес", "MAC-address"},
+    Item_MAC, &mspEthernet, 0,
     {
+        "Физ адрес", "MAC-address",
         "Установка физического адреса",
         "Set of MAC-address"
     },
-    0,
     &set.eth.mac0, &set.eth.mac1, &set.eth.mac2, &set.eth.mac3, &set.eth.mac4, &set.eth.mac5,
     FuncOfChangedEthernetSettings
 };
@@ -582,12 +553,12 @@ const Page mspSound;
 
 const Choice mcServiceSoundEnable =
 {
-    Item_Choice, &mspSound, {"Звук", "Sound"},
+    Item_Choice, &mspSound, 0,
     {
+        "Звук", "Sound",
         "Включение/выключение звука",
         "Inclusion/switching off of a sound"
     },
-    0,
     {
         {DISABLE_RU, DISABLE_EN},
         {ENABLE_RU, ENABLE_EN}
@@ -599,15 +570,12 @@ const Choice mcServiceSoundEnable =
 //---------------------------------------------------------------------------------------------------------------------------------------------------
 const Governor mgServiceSoundVolume =
 {
-    Item_Governor, &mspSound,
+    Item_Governor, &mspSound, 0,
     {
-        "Громкость", "Volume"
-    },
-    {
+        "Громкость", "Volume",
         "Установка громкости звука",
         "Set the volume"
     },
-    0,
     &set.service.soundVolume, 0, 100, EmptyFuncVV
 };
 
@@ -615,15 +583,13 @@ const Governor mgServiceSoundVolume =
 // СЕРВИС - ЗВУК /////////////////////////////////////////////////////////////////////////////////////////////
 const Page mspSound =
 {
-    Item_Page, &mpService,
+    Item_Page, &mpService, 0,
     {
-        "ЗВУК", "SOUND"
-    },
-    {
+        "ЗВУК", "SOUND",
         "В этом меню можно настроить громкость звука",
         "In this menu, you can adjust the volume"
     },
-    0, Page_ServiceSound,
+    Page_ServiceSound,
     {
         (void*)&mcServiceSoundEnable,
         (void*)&mgServiceSoundVolume
@@ -635,15 +601,13 @@ const Page mspSound =
 // СЕРВИС - ETHERNET  /////////////////////////////////////////////////////////////////////////////////////////
 const Page mspEthernet = 
 {
-    Item_Page, &mpService,
+    Item_Page, &mpService, 0,
     {
-        "ETHERNET", "ETHERNET"
-    },
-    {
+        "ETHERNET", "ETHERNET",
         "Настройки ethernet",
         "Settings of ethernet"
     },
-    0, Page_ServiceEthernet,
+    Page_ServiceEthernet,
     {
         (void*)&mcServEthEnable,
         (void*)&ipAddress,
