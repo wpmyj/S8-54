@@ -778,7 +778,10 @@ void SmallButton_Draw(SmallButton *smallButton, int x, int y)
         {
             Painter_DrawRectangleC(x, y, WIDTH_SB, WIDTH_SB, gColorFill);
         }
-        smallButton->funcOnDraw(x, y);
+        if (smallButton->funcOnDraw)
+        {
+            smallButton->funcOnDraw(x, y);
+        }
     }
     else
     {

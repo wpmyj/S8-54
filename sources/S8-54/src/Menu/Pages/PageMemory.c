@@ -332,7 +332,7 @@ static void OnRot_Last(int angle)
 static const SmallButton sbLast_Exit =
 {
     Item_SmallButton, &mspLast,
-    COMMON_BEGIN_SB_EXIT
+    COMMON_BEGIN_SB_EXIT,
     OnPress_Last_Exit,
     DrawSB_Exit
 };
@@ -1130,7 +1130,7 @@ static void OnMemExtSetMaskRegSet(int angle)
 static const SmallButton sbExitSetMask =
 {
     Item_SmallButton, &mspSetMask,
-    COMMON_BEGIN_SB_EXIT
+    COMMON_BEGIN_SB_EXIT,
     PressSB_SetMask_Exit,
     DrawSB_Exit
 };

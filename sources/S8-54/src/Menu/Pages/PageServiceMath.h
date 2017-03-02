@@ -516,7 +516,7 @@ static void PressSB_CursFFT_Exit(void)
 const SmallButton sbExitCursFFT =
 {
     Item_SmallButton, &mspCursFFT,
-    COMMON_BEGIN_SB_EXIT
+    COMMON_BEGIN_SB_EXIT,
     PressSB_CursFFT_Exit,
     DrawSB_Exit
 };

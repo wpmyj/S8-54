@@ -136,7 +136,7 @@ static void PressSB_Help_Exit(void)
 const SmallButton sbExitHelp =
 {
     Item_SmallButton, &mpHelp,
-    COMMON_BEGIN_SB_EXIT
+    COMMON_BEGIN_SB_EXIT,
     PressSB_Help_Exit,
     DrawSB_Exit
 };

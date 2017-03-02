@@ -1,18 +1,18 @@
 #include "defines.h"
-#include "Hardware/RTC.h"
-#include "Hardware/Timer.h"
-#include "Settings/Settings.h"
-#include "Menu/Menu.h"
-#include "defines.h"
-#include "Menu/MenuFunctions.h"
-#include "FPGA/FPGA.h"
-#include "Settings/Settings.h"
-#include "Utils/GlobalFunctions.h"
 #include "Display/Display.h"
 #include "Display/Painter.h"
-#include "Panel/Panel.h"
 #include "Display/Colors.h"
+#include "FPGA/FPGA.h"
+#include "Hardware/RTC.h"
+#include "Hardware/Timer.h"
+#include "Menu/Menu.h"
+#include "Menu/MenuDrawing.h"
+#include "Menu/MenuFunctions.h"
 #include "PageServiceMath.h"
+#include "Panel/Panel.h"
+#include "Settings/Settings.h"
+#include "Settings/Settings.h"
+#include "Utils/GlobalFunctions.h"
 
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -40,10 +40,15 @@ static void  OnPress_Calibrator_Calibrate(void);
 static const Page mspEthernet;
 static const Page mspSound;
 static const Page mspTime;
+
 static const Time mtTime;
 static const Governor mgTimeCorrection;
 static void  OnChange_Time_Correction(void);
+
 static const Page mspInformation;
+static const SmallButton sbExitInformation;
+static void  OnPress_Information(void);
+static void  Information_Draw(void);
 
 
 // СЕРВИС ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -251,8 +256,61 @@ static const Page mspInformation =
         "Показывает информацию о приборе",
         "Displays information about the device"
     },
-    EmptyFuncBV
+    0, Page_SB_ServiceInformation,
+    {
+        (void*)&sbExitInformation
+    },
+    OnPress_Information
 };
+
+static void PressSB_Information_Exit()
+{
+    Display_SetDrawMode(DrawMode_Auto, 0);
+}
+
+static const SmallButton sbExitInformation =
+{
+    Item_SmallButton, &mspInformation,
+    COMMON_BEGIN_SB_EXIT,
+    PressSB_Information_Exit,
+    DrawSB_Exit
+};
+
+static void OnPress_Information()
+{
+    OpenPageAndSetItCurrent(Page_SB_ServiceInformation);
+    Display_SetDrawMode(DrawMode_Hand, Information_Draw);
+}
+
+static void Information_Draw()
+{
+    Language lang = set.common.lang;
+
+    Painter_BeginScene(gColorBack);
+    int x = 70;
+    int y = 40;
+    int width = SCREEN_WIDTH - 2 * x;
+    int height = 120;
+    Painter_FillRegionC(x, y, width, height, COLOR_GRID);
+    Painter_DrawRectangleC(x, y, width, height, gColorFill);
+    Painter_DrawStringInCenterRect(x, y, width, 30, lang == Russian ? "ИНФОРМАЦИЯ" : "INFORMATION");
+    Painter_DrawText(x + 20, y + 30, lang == Russian ? "Модель С8-53/1" : "Model S8-53/1");
+    char buffer[100];
+    sprintf(buffer, lang == Russian ? "c/н - %s" : "s/n - %s", SER_NUM);
+    //Painter_DrawText(x, y, buffer);
+    Painter_DrawStringInCenterRect(x, y + 50, width, 30, lang == Russian ? "Программное обеспечение:" : "Software:");
+    sprintf(buffer, lang == Russian ? "версия %s" : "version %s", NUM_VER);
+    Painter_DrawText(x + 20, y + 79, buffer);
+    Painter_DrawText(x + 20, y + 95, "CRC32 A1C8760F");
+
+    int dY = -10;
+    Painter_DrawStringInCenterRect(0, 190 + dY, 320, 20, "Для получения помощи нажмите и удерживайте кнопку ПОМОЩЬ");
+    Painter_DrawStringInCenterRect(0, 205 + dY, 320, 20, "Отдел маркетинга: тел./факс. 8-017-262-57-50");
+    Painter_DrawStringInCenterRect(0, 220 + dY, 320, 20, "Разработчики: e-mail: mnipi-24(@)tut.by, тел. 8-017-262-57-51");
+
+    Menu_Draw();
+    Painter_EndScene();
+}
 
 
 // СЕРВИС - КАЛИБРАТОР ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

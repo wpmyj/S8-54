@@ -359,7 +359,7 @@ static void OnRot_Tune(int angle)
 static const SmallButton sbTune_Exit =
 {
     Item_SmallButton, &mspTune,
-    COMMON_BEGIN_SB_EXIT
+    COMMON_BEGIN_SB_EXIT,
     OnPress_Tune_Exit,
     DrawSB_Exit
 };
