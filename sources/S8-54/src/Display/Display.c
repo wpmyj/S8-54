@@ -73,7 +73,7 @@ static const StructWarning warns[Warning_NumWarnings] =
     {NeedRebootDevice, true, {{"Для вступления изменений в силу", "выключите прибор"}, {"FOR THE INTRODUCTION OF CHANGES", "IN FORCE SWITCH OFF THE DEVICE"}}},
     {ImpossibleEnableMathFunction, true, {"Отключите вычисление БПФ", "DISCONNECT CALCULATION OF FFT"}},
     {ImpossibleEnableFFT, true, {{"Отключите математическую функцию"}, {"DISCONNECT MATHEMATICAL FUNCTION"}}},
-    {WrongFileSystem, false, {{"Не могу примонтировать флешку. Убедитесь, что на ней FAT32"}, {"I can not mount a usb flash drive. Make sure to her FAT32"}}},
+    {WrongFileSystem, false, {{"Не могу прочитать флешку. Убедитесь, что на ней FAT32"}, {"I can not mount a usb flash drive. Make sure to her FAT32"}}},
     {WrongModePeackDet, true, {{"Чтобы изменить длину памяти, отключите пиковый детектор"}, {"To change the length of the memory, turn off the peak detector"}}},
     {DisableChannel2, true, {{"Сначала выключите канал 2"}, {"First, turn off the channel 2"}}},
     {TooLongMemory, true, {{"Второй канал рабоатает при длине памяти 16к и менее"}, {"The second channel runs at a length of memory 16k and less"}}},
