@@ -1,6 +1,4 @@
 #pragma once
-
-
 #include "defines.h"
 #include "Panel/Controls.h"
 

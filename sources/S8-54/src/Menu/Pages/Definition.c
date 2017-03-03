@@ -1,14 +1,14 @@
 #include "defines.h"
-#include "PageMemory.h"
-#include "PageHelp.h"
-#include "FPGA/FPGA.h"
 #include "Display/Colors.h"
 #include "Display/Display.h"
 #include "Display/Painter.h"
+#include "FPGA/FPGA.h"
+#include "Menu/MenuFunctions.h"
+#include "PageMemory.h"
+#include "PageHelp.h"
+#include "Panel/Panel.h"
 #include "Settings/Settings.h"
 #include "Settings/SettingsTypes.h"
-#include "Panel/Panel.h"
-#include "Menu/MenuFunctions.h"
 
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

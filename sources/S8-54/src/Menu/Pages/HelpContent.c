@@ -1,12 +1,13 @@
-#include "HelpContentPages.h"
-#include "HelpContent.h"
+#include "defines.h"
 #include "Display/Painter.h"
 #include "Display/Grid.h"
 #include "Display/font/Font.h"
+#include "HelpContentPages.h"
+#include "HelpContent.h"
+#include "Hardware/Timer.h"
+#include "Settings/Settings.h"
 #include "Utils/GlobalFunctions.h"
 #include "Utils/Math.h"
-#include "Settings/Settings.h"
-#include "Hardware/Timer.h"
 
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

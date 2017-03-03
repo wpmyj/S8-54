@@ -1,6 +1,4 @@
 #pragma once
-
-
 #include "Settings/SettingsTypes.h"
 
 

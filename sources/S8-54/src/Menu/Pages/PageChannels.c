@@ -1,12 +1,12 @@
 #include "defines.h"
+#include "Display/Display.h"
+#include "FPGA/fpga.h"
+#include "FPGA/fpgaExtensions.h"
 #include "Log.h"
-#include "Settings/SettingsTypes.h"
 #include "Menu/MenuItems.h"
 #include "Panel/Panel.h"
-#include "FPGA/FPGA.h"
-#include "FPGA/FPGAextensions.h"
-#include "Display/Display.h"
 #include "Settings/Settings.h"
+#include "Settings/SettingsTypes.h"
 #include "Utils/GlobalFunctions.h"
 
 
