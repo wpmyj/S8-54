@@ -23,7 +23,7 @@
 #include "Log.h"
 
 
-/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 extern Page mainPage;
 
 extern void PressSB_FM_Tab(void);
@@ -155,6 +155,8 @@ static void DrawSB_MemExtSetNameSave(int x, int y);
 
 
 static void DrawSetMask(void);  // Ёта функци€ рисует, когда выбран режим задани€ маски.
+static void DrawStr(int index, int x, int y);
+static void DrawFileMask(int x, int y);
 static void DrawSetName(void);  // Ёта функци€ рисует, когда нужно задать им€ файла дл€ сохранени€
 
 static void DrawMemoryWave(int num, bool exist);
@@ -171,7 +173,7 @@ static const char* symbols[] =
     //         0x01  0x02  0x03  0x04  0x05  0x06   0x07   - под этими значени€ми элементы хран€тс€ в set.memory.fileNameMask
 };
 
-// ѕяћя“№ ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// ѕяћя“№ ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 const Page mpMemory =
 {
     Item_Page, &mainPage, 0,
@@ -189,7 +191,7 @@ const Page mpMemory =
     }
 };
 
-// ѕјћя“№ -> “очки ---------------------------------------------------------------------------------------------------------------------------------------------
+// ѕјћя“№ -> “очки -----------------------------------------------------------------------------------------------------------------------------------
 static const Choice mcLengthMemory =
 {
     Item_Choice, &mpMemory, IsActive_MemoryLength,
@@ -267,7 +269,7 @@ void OnChange_MemoryLength(bool active)
     //LOG_WRITE("shift %d, num %d, width %d", SHIFT_IN_MEMORY, sMemory_NumBytesInChannel(false), width);
 }
 
-// ѕјћя“№ -> ѕоследние ---------------------------------------------------------------------------------------------------------------------------------------------------------------
+// ѕјћя“№ -> ѕоследние -------------------------------------------------------------------------------------------------------------------------------
 static const Page mspLast =
 {
     Item_Page, &mpMemory, 0,
@@ -325,7 +327,7 @@ static void OnRot_Last(int angle)
     }
 }
 
-// ѕјћя“№ -> ѕќ—Ћ≈ƒЌ»≈ -> ¬ыход --------------------------------------------------------------------------------------------------------------------------------------------------------
+// ѕјћя“№ -> ѕќ—Ћ≈ƒЌ»≈ -> ¬ыход ----------------------------------------------------------------------------------------------------------------------
 static const SmallButton sbLast_Exit =
 {
     Item_SmallButton, &mspLast,
@@ -345,7 +347,7 @@ static void OnPress_Last_Exit(void)
     Display_RemoveAddDrawFunction();
 }
 
-// ѕјћя“№ -> ѕќ—Ћ≈ƒЌ»≈ -> —ледующий ----------------------------------------------------------------------------------------------------------------------------------------------
+// ѕјћя“№ -> ѕќ—Ћ≈ƒЌ»≈ -> —ледующий ------------------------------------------------------------------------------------------------------------------
 static const SmallButton sbLast_Next =
 {
     Item_SmallButton, &mspLast, 0,
@@ -370,7 +372,7 @@ static void Draw_Last_Next(int x, int y)
     Painter_SetFont(TypeFont_8);
 }
 
-// ѕјћя“№ -> ѕќ—Ћ≈ƒЌ»≈ -> ѕредыдущий ---------------------------------------------------------------------------------------------------------------------------------------------
+// ѕјћя“№ -> ѕќ—Ћ≈ƒЌ»≈ -> ѕредыдущий -----------------------------------------------------------------------------------------------------------------
 static const SmallButton sbLast_Prev =
 {
     Item_SmallButton, &mspLast, 0,
@@ -395,7 +397,7 @@ static void Draw_Last_Prev(int x, int y)
     Painter_SetFont(TypeFont_8);
 }
 
-// ѕјћя“№ -> ѕќ—Ћ≈ƒЌ»≈ -> ¬нутр «” -------------------------------------------------------------------------------------------------------------------------------------------------
+// ѕјћя“№ -> ѕќ—Ћ≈ƒЌ»≈ -> ¬нутр «” -------------------------------------------------------------------------------------------------------------------
 static const SmallButton sbLast_IntEnter =
 {
     Item_SmallButton, &mspLast, 0,
@@ -424,7 +426,7 @@ static void Draw_Last_IntEnter(int x, int y)
 }
 
 
-// ѕјћя“№ -> ѕќ—Ћ≈ƒЌ»≈ -> —охранить ------------------------------------------------------------------------------------------------------------------------------------------------------
+// ѕјћя“№ -> ѕќ—Ћ≈ƒЌ»≈ -> —охранить ------------------------------------------------------------------------------------------------------------------
 static const SmallButton sbLast_SaveToDrive =
 {
     Item_SmallButton, &mspLast, 0,
@@ -443,6 +445,82 @@ static void OnPress_Last_SaveToDrive(void)
     Memory_SaveSignalToFlashDrive();
 }
 
+void Memory_SaveSignalToFlashDrive(void)
+{
+    if (gFlashDriveIsConnected)
+    {
+        if (FILE_NAMING_MODE_MANUAL)
+        {
+            OpenPageAndSetItCurrent(Page_SB_MemExtSetName);
+            Display_SetAddDrawFunction(DrawSetName);
+        }
+        else
+        {
+            gMemory.needForSaveToFlashDrive = 1;
+        }
+    }
+    else
+    {
+        gMemory.exitFromModeSetNameTo = 0;
+    }
+}
+
+static void DrawSetName(void)
+{
+    int x0 = GridLeft() + 40;
+    int y0 = GRID_TOP + 60;
+    int width = GridWidth() - 80;
+    int height = 80;
+
+    Painter_DrawRectangleC(x0, y0, width, height, gColorFill);
+    Painter_FillRegionC(x0 + 1, y0 + 1, width - 2, height - 2, gColorBack);
+
+    int index = 0;
+    int position = 0;
+    int deltaX = 10;
+    int deltaY0 = 5;
+    int deltaY = 12;
+
+    // –исуем большие буквы английского алфавита
+    while (symbols[index][0] != ' ')
+    {
+        DrawStr(index, x0 + deltaX + position * 7, y0 + deltaY0);
+        index++;
+        position++;
+    }
+
+    // “еперь рисуем цифры и пробел
+    position = 0;
+    while (symbols[index][0] != 'a')
+    {
+        DrawStr(index, x0 + deltaX + 50 + position * 7, y0 + deltaY0 + deltaY);
+        index++;
+        position++;
+    }
+
+    // “еперь рисуем малые буквы алфавита
+    position = 0;
+    while (symbols[index][0] != '%')
+    {
+        DrawStr(index, x0 + deltaX + position * 7, y0 + deltaY0 + deltaY * 2);
+        index++;
+        position++;
+    }
+
+    int x = Painter_DrawTextC(x0 + deltaX, y0 + 65, FILE_NAME, gColorFill);
+    Painter_FillRegionC(x, y0 + 65, 5, 8, COLOR_FLASH_10);
+}
+
+static void DrawStr(int index, int x, int y)
+{
+    const char *str = symbols[index];
+    if (index == INDEX_SYMBOL)
+    {
+        Painter_FillRegionC(x - 1, y, Font_GetLengthText(str), 9, COLOR_FLASH_10);
+    }
+    Painter_DrawTextC(x, y, symbols[index], index == INDEX_SYMBOL ? COLOR_FLASH_01 : gColorFill);
+}
+
 static void Draw_Last_SaveToDrive(int x, int y)
 {
     if (gFlashDriveIsConnected)
@@ -454,7 +532,7 @@ static void Draw_Last_SaveToDrive(int x, int y)
 }
 
 
-// ѕјћя“№ -> ¬Ќ”“– «” ---------------------------------------------------------------------------------------------------------------------------------------------------------------
+// ѕјћя“№ -> ¬Ќ”“– «” --------------------------------------------------------------------------------------------------------------------------------
 static const Page mspInt =
 {
     Item_Page, &mpMemory, 0,
@@ -532,7 +610,7 @@ static void OnReg_Int(int delta)
     Painter_ResetFlash();
 }
 
-// ѕјћя“№ -> ¬Ќ”“– «” -> ¬ыход ------------------------------------------------------------------------------------------------------------------------------------------------------
+// ѕјћя“№ -> ¬Ќ”“– «” -> ¬ыход -----------------------------------------------------------------------------------------------------------------------
 static const SmallButton sbInt_Exit =
 {
     Item_SmallButton, &mspInt, 0,
@@ -568,7 +646,7 @@ static void OnPress_Int_Exit(void)
 }
 
 
-// ѕјћя“№ -> ¬Ќ”“– «” -> ѕоказывать всегда --------------------------------------------------------------------------------------------------------------------------------------------
+// ѕјћя“№ -> ¬Ќ”“– «” -> ѕоказывать всегда -----------------------------------------------------------------------------------------------------------
 static const SmallButton sbInt_ShowSignalsAlways =
 {
     Item_SmallButton, &mspInt, 0,
@@ -625,7 +703,7 @@ static void Draw_Int_ShowSignalAllways_No(int x, int y)
     Painter_SetFont(TypeFont_8);
 }
 
-// ѕјћя“№ -> ¬Ќ”“– «” -> ¬ид сигнала -------------------------------------------------------------------------------------------------------------------------------------------
+// ѕјћя“№ -> ¬Ќ”“– «” -> ¬ид сигнала -----------------------------------------------------------------------------------------------------------------
 static const SmallButton sbInt_ModeShow =
 {
     Item_SmallButton, &mspInt, 0,
@@ -687,7 +765,7 @@ static void Draw_Int_ModeShow_Saved(int x, int y)
 }
 
 
-//------------------------------------------------------------------------------------------------------------------------------------------------------
+//----------------------------------------------------------------------------------------------------------------------------------------------------
 static void Draw_Int_ModeShow_Both(int x, int y)
 {
     Painter_DrawText(x + 1, y + 5, "ќЅј");
@@ -728,7 +806,7 @@ static void Draw_Int_EraseAll(int x, int y)
     Painter_DrawText(x + 5, y + 5, "E");
 }
 
-// ѕјћя“№ -> ¬Ќ”“– «” -> —охранить в пам€ти ----------------------------------------------------------------------------------------------------------------------------
+// ѕјћя“№ -> ¬Ќ”“– «” -> —охранить в пам€ти ----------------------------------------------------------------------------------------------------------
 static const SmallButton sbInt_SaveToMemory =
 {
     Item_SmallButton, &mspInt, 0,
@@ -777,7 +855,7 @@ static void Draw_Int_SaveToMemory(int x, int y)
     Painter_SetFont(TypeFont_8);
 }
 
-// ѕјћя“№ -> ¬Ќ”“– «” -> —охранить на флешку -------------------------------------------------------------------------------------------------------------------------------
+// ѕјћя“№ -> ¬Ќ”“– «” -> —охранить на флешку ---------------------------------------------------------------------------------------------------------
 static const SmallButton sbInt_SaveToDrive =
 {
     Item_SmallButton, &mspInt, 0,
@@ -807,7 +885,7 @@ static void Draw_Int_SaveToDrive(int x, int y)
 }
 
 
-// ѕјћя“№ -> ¬Ќ≈ЎЌ «” ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// ѕјћя“№ -> ¬Ќ≈ЎЌ «” ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 static const Page mspDrive =
 {
     Item_Page, &mpMemory, 0,
@@ -828,7 +906,7 @@ static const Page mspDrive =
 };
 
 
-// ѕјћя“№ -> ¬Ќ≈ЎЌ «” -> »м€ файла ----------------------------------------------------------------------------------------------------------------------------------------
+// ѕјћя“№ -> ¬Ќ≈ЎЌ «” -> »м€ файла -------------------------------------------------------------------------------------------------------------------
 static const Choice mcDrive_Name =
 {
     Item_Choice, &mspDrive, 0,
@@ -851,7 +929,7 @@ static const Choice mcDrive_Name =
 };
 
 
-// ѕјћя“№ -> ¬Ќ≈ЎЌ «” -> —охран€ть как ---------------------------------------------------------------------------------------------------------------------------------------
+// ѕјћя“№ -> ¬Ќ≈ЎЌ «” -> —охран€ть как ---------------------------------------------------------------------------------------------------------------
 static const Choice mcDrive_ModeSave =
 {
     Item_Choice, &mspDrive, 0,
@@ -871,7 +949,7 @@ static const Choice mcDrive_ModeSave =
     (int8*)&MODE_SAVE
 };
 
-// ѕјћя“№ -> ¬Ќ≈ЎЌ «” -> –еж кн ѕјћя“№ ----------------------------------------------------------------------------------------------------------------------------------------
+// ѕјћя“№ -> ¬Ќ≈ЎЌ «” -> –еж кн ѕјћя“№ ---------------------------------------------------------------------------------------------------------------
 static const Choice mcDrive_ModeBtnMemory =
 {
     Item_Choice, &mspDrive, 0,
@@ -887,7 +965,7 @@ static const Choice mcDrive_ModeBtnMemory =
     (int8*)&MODE_BTN_MEMORY
 };
 
-// ѕјћя“№ -> ¬Ќ≈ЎЌ «” -> јвтоподключение ------------------------------------------------------------------------------------------------------------------------------------------
+// ѕјћя“№ -> ¬Ќ≈ЎЌ «” -> јвтоподключение -------------------------------------------------------------------------------------------------------------
 static const Choice mcDrive_Autoconnect =
 {
     Item_Choice, &mspDrive, 0,
@@ -904,7 +982,7 @@ static const Choice mcDrive_Autoconnect =
 };
 
 
-// ѕјћя“№ -> ¬Ќ≈ЎЌ «” ->  ј“јЋќ√ /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// ѕјћя“№ -> ¬Ќ≈ЎЌ «” ->  ј“јЋќ√ /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 static const Page mspDrive_Manager =
 {
     Item_Page, &mspDrive, FuncOfActiveExtMemFolder,
@@ -945,7 +1023,7 @@ void OnPressMemoryExtFileManager(void)
     }
 }
 
-// ѕјћя“№ -> ¬Ќ≈ЎЌ «” ->  ј“јЋќ√ -> ¬ыход ----------------------------------------------------------------------------------------------------------------------------------------
+// ѕјћя“№ -> ¬Ќ≈ЎЌ «” ->  ј“јЋќ√ -> ¬ыход ------------------------------------------------------------------------------------------------------------
 static const SmallButton sbExitFileManager =
 {
     Item_SmallButton, &mspDrive_Manager, 0,
@@ -964,7 +1042,7 @@ static void PressSB_FM_Exit(void)
     Display_RemoveAddDrawFunction();
 }
 
-// ѕјћя“№ -> ¬Ќ≈ЎЌ «” ->  ј“јЋќ√ -> Tab -------------------------------------------------------------------------------------------------------------------------------------------
+// ѕјћя“№ -> ¬Ќ≈ЎЌ «” ->  ј“јЋќ√ -> Tab --------------------------------------------------------------------------------------------------------------
 static const SmallButton sbFileManagerTab =
 {
     Item_SmallButton, &mspDrive_Manager, 0,
@@ -984,7 +1062,7 @@ static void DrawSB_FM_Tab(int x, int y)
     Painter_SetFont(TypeFont_8);
 }
 
-// ѕјћя“№ -> ¬Ќ≈ЎЌ «” ->  ј“јЋќ√ -> ¬ыйти из каталога ---------------------------------------------------------------------------------------------------------------------------------
+// ѕјћя“№ -> ¬Ќ≈ЎЌ «” ->  ј“јЋќ√ -> ¬ыйти из каталога ------------------------------------------------------------------------------------------------
 static const SmallButton sbFileManagerLevelUp =
 {
     Item_SmallButton, &mspDrive_Manager, 0,
@@ -1004,7 +1082,7 @@ static void DrawSB_FM_LevelUp(int x, int y)
     Painter_SetFont(TypeFont_8);
 }
 
-// ѕјћя“№ -> ¬Ќ≈ЎЌ «” ->  ј“јЋќ√ -> ¬ойти в каталог ------------------------------------------------------------------------------------------------------------------------------------
+// ѕјћя“№ -> ¬Ќ≈ЎЌ «” ->  ј“јЋќ√ -> ¬ойти в каталог --------------------------------------------------------------------------------------------------
 static const SmallButton sbFileManagerLevelDown =
 {
     Item_SmallButton, &mspDrive_Manager, 0,
@@ -1024,7 +1102,7 @@ static void DrawSB_FM_LevelDown(int x, int y)
     Painter_SetFont(TypeFont_8);
 }
 
-// ѕам€ть -> ¬Ќ≈ЎЌ «” -> ћј— ј ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// ѕам€ть -> ¬Ќ≈ЎЌ «” -> ћј— ј ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 static const Page mspSetMask =
 {
     Item_Page, &mspDrive, IsActiveMemoryExtSetMask,
@@ -1056,12 +1134,111 @@ static void OnPressMemoryExtMask(void)
     Display_SetAddDrawFunction(DrawSetMask);
 }
 
+static void DrawSetMask(void)
+{
+    int x0 = GridLeft() + 40;
+    int y0 = GRID_TOP + 20;
+    int width = GridWidth() - 80;
+    int height = 160;
+
+    Painter_DrawRectangleC(x0, y0, width, height, gColorFill);
+    Painter_FillRegionC(x0 + 1, y0 + 1, width - 2, height - 2, gColorBack);
+
+    int index = 0;
+    int position = 0;
+    int deltaX = 10;
+    int deltaY0 = 5;
+    int deltaY = 12;
+
+    // –исуем большие буквы английского алфавита
+    while (symbols[index][0] != ' ')
+    {
+        DrawStr(index, x0 + deltaX + position * 7, y0 + deltaY0);
+        index++;
+        position++;
+    }
+
+    // “еперь рисуем цифры и пробел
+    position = 0;
+    while (symbols[index][0] != 'a')
+    {
+        DrawStr(index, x0 + deltaX + 50 + position * 7, y0 + deltaY0 + deltaY);
+        index++;
+        position++;
+    }
+
+    // “еперь рисуем малые буквы алфавита
+    position = 0;
+    while (symbols[index][0] != '%')
+    {
+        DrawStr(index, x0 + deltaX + position * 7, y0 + deltaY0 + deltaY * 2);
+        index++;
+        position++;
+    }
+
+    // “еперь рисуем спецсимволы
+    position = 0;
+    while (index < (sizeof(symbols) / 4))
+    {
+        DrawStr(index, x0 + deltaX + 26 + position * 20, y0 + deltaY0 + deltaY * 3);
+        index++;
+        position++;
+    }
+
+    DrawFileMask(x0 + deltaX, y0 + 65);
+
+    static const char* strings[] =
+    {
+        "%y - год, %m - мес€ц, %d - день",
+        "%H - часы, %M - минуты, %S - секунды",
+        "%nN - пор€дковый номер, где",
+        "n - минимальное количество знаков дл€ N"
+    };
+
+    deltaY--;
+    Painter_SetColor(gColorFill);
+    for (int i = 0; i < sizeof(strings) / 4; i++)
+    {
+        Painter_DrawText(x0 + deltaX, y0 + 100 + deltaY * i, strings[i]);
+    }
+}
+
+static void DrawFileMask(int x, int y)
+{
+    char *ch = FILE_NAME_MASK;
+
+    Painter_SetColor(gColorFill);
+    while (*ch != '\0')
+    {
+        if (*ch >= 32)
+        {
+            x = Painter_DrawChar(x, y, *ch);
+        }
+        else
+        {
+            if (*ch == 0x07)
+            {
+                x = Painter_DrawChar(x, y, '%');
+                x = Painter_DrawChar(x, y, (char)(0x30 | *(ch + 1)));
+                x = Painter_DrawChar(x, y, 'N');
+                ch++;
+            }
+            else
+            {
+                x = Painter_DrawText(x, y, symbols[*ch + 0x40]);
+            }
+        }
+        ch++;
+    }
+    Painter_FillRegionC(x, y, 5, 8, COLOR_FLASH_10);
+}
+
 static void OnMemExtSetMaskRegSet(int angle)
 {
     OnMemExtSetMaskNameRegSet(angle, sizeof(symbols) / 4);
 }
 
-// ѕјћя“№ -> ¬Ќ≈ЎЌ «” -> ћј— ј -> ¬ыход -----------------------------------------------------------------------------------------------------------------------------------------
+// ѕјћя“№ -> ¬Ќ≈ЎЌ «” -> ћј— ј -> ¬ыход --------------------------------------------------------------------------------------------------------------
 static const SmallButton sbExitSetMask =
 {
     Item_SmallButton, &mspSetMask,
@@ -1075,7 +1252,7 @@ static void PressSB_SetMask_Exit(void)
     Display_RemoveAddDrawFunction();
 }
 
-// ѕјћя“№ -> ¬Ќ≈ЎЌ «” -> ћј— ј -> ”далить ----------------------------------------------------------------------------------------------------------------------------------------
+// ѕјћя“№ -> ¬Ќ≈ЎЌ «” -> ћј— ј -> ”далить ------------------------------------------------------------------------------------------------------------
 static const SmallButton sbSetMaskDelete =
 {
     Item_SmallButton, &mspSetMask, 0,
@@ -1100,7 +1277,7 @@ static void DrawSB_SetMask_Delete(int x, int y)
     Painter_SetFont(TypeFont_8);
 }
 
-// ѕјћя“№ -> ¬Ќ≈ЎЌ «” -> ћј— ј -> Backspace --------------------------------------------------------------------------------------------------------------------------------------
+// ѕјћя“№ -> ¬Ќ≈ЎЌ «” -> ћј— ј -> Backspace ----------------------------------------------------------------------------------------------------------
 static const SmallButton sbSetMaskBackspace =
 {
     Item_SmallButton, &mspSetMask, 0,
@@ -1136,7 +1313,7 @@ static void DrawSB_SetMask_Backspace(int x, int y)
     Painter_SetFont(TypeFont_8);
 }
 
-// ѕјћя“№ -> ¬Ќ≈ЎЌ «” -> ћј— ј -> ¬ставить ----------------------------------------------------------------------------------------------------------------------------------------
+// ѕјћя“№ -> ¬Ќ≈ЎЌ «” -> ћј— ј -> ¬ставить -----------------------------------------------------------------------------------------------------------
 static const SmallButton sbSetMaskInsert =
 {
     Item_SmallButton, &mspSetMask, 0,
@@ -1192,7 +1369,7 @@ static void DrawSB_SetMask_Insert(int x, int y)
     Painter_SetFont(TypeFont_8);
 }
 
-// —траница вызываетс€ дл€ ввода имени файла ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// —траница вызываетс€ дл€ ввода имени файла /////////////////////////////////////////////////////////////////////////////////////////////////////////
 const Page mpSetName =
 {
     Item_Page, 0, 0,
@@ -1218,7 +1395,26 @@ static void OnMemExtSetNameRegSet(int angle)
     OnMemExtSetMaskNameRegSet(angle, sizeof(symbols) / 4 - 7);
 }
 
-//---------------------------------------------------------------------------------------------------------------------------------------------------
+static void OnMemExtSetMaskNameRegSet(int angle, int maxIndex)
+{
+    int8(*func[3])(int8 *, int8, int8) =
+    {
+        CircleDecreaseInt8,
+        CircleDecreaseInt8,
+        CircleIncreaseInt8
+    };
+
+    Painter_ResetFlash();
+    if (INDEX_SYMBOL > maxIndex)
+    {
+        INDEX_SYMBOL = (int8)(maxIndex - 1);
+    }
+    func[Math_Sign(angle) + 1](&INDEX_SYMBOL, 0, (int8)(maxIndex - 1));
+    Sound_RegulatorSwitchRotate();
+
+}
+
+//----------------------------------------------------------------------------------------------------------------------------------------------------
 static const SmallButton sbExitSetName =   //  нопк дл€ выхода из режима задани€ имени сохран€емому сигналу. ќдновременно кнопка отказа от сохранени€
 {
     Item_SmallButton, &mpSetName, 0,
@@ -1250,7 +1446,7 @@ static void PressSB_SetName_Exit(void)
     gMemory.exitFromModeSetNameTo = RETURN_TO_DISABLE_MENU;
 }
 
-//---------------------------------------------------------------------------------------------------------------------------------------------------
+//----------------------------------------------------------------------------------------------------------------------------------------------------
 static const SmallButton sbSetNameDelete =
 {
     Item_SmallButton, &mpSetName, 0,
@@ -1275,7 +1471,7 @@ static void DrawSB_SetName_Delete(int x, int y)
     Painter_SetFont(TypeFont_8);
 }
 
-//---------------------------------------------------------------------------------------------------------------------------------------------------
+//----------------------------------------------------------------------------------------------------------------------------------------------------
 static const SmallButton sbSetNameBackspace =
 {
     Item_SmallButton, &mpSetName, 0,
@@ -1305,7 +1501,7 @@ static void DrawSB_SetName_Backspace(int x, int y)
 }
 
 
-//---------------------------------------------------------------------------------------------------------------------------------------------------
+//----------------------------------------------------------------------------------------------------------------------------------------------------
 static const SmallButton sbSetNameInsert =
 {
     Item_SmallButton, &mpSetName, 0,
@@ -1336,7 +1532,7 @@ static void DrawSB_SetName_Insert(int x, int y)
 }
 
 
-//---------------------------------------------------------------------------------------------------------------------------------------------------
+//----------------------------------------------------------------------------------------------------------------------------------------------------
 static const SmallButton sbSetNameSave =
 {
     Item_SmallButton, &mpSetName, 0,
@@ -1368,67 +1564,8 @@ static void DrawSB_MemExtSetNameSave(int x, int y)
     }
 }
 
+/*
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-//------------------------------------------------------------------------------------------------------------------------------------------------------
 void DrawSB_MemLastSelect(int x, int y)
 {
     Painter_SetFont(TypeFont_UGO2);
@@ -1442,30 +1579,6 @@ void PressSB_MemLastSelect(void)
 }
 
 
-
-
-
-
-static void OnMemExtSetMaskNameRegSet(int angle, int maxIndex)
-{
-    int8(*func[3])(int8 *, int8, int8) =
-    {
-        CircleDecreaseInt8,
-        CircleDecreaseInt8,
-        CircleIncreaseInt8
-    };
-
-    Painter_ResetFlash();
-    if (INDEX_SYMBOL > maxIndex)
-    {
-        INDEX_SYMBOL = (int8)(maxIndex - 1);
-    }
-    func[Math_Sign(angle) + 1](&INDEX_SYMBOL, 0, (int8)(maxIndex - 1));
-    Sound_RegulatorSwitchRotate();
-
-}
-
-
 void DrawSB_MemExtNewFolder(int x, int y)
 {
     Painter_SetFont(TypeFont_UGO2);
@@ -1476,185 +1589,4 @@ void DrawSB_MemExtNewFolder(int x, int y)
 extern const Page mpMemory;
 extern const Page mspDrive;
 
-void DrawStr(int index, int x, int y)
-{
-    const char *str = symbols[index];
-    if(index == INDEX_SYMBOL)
-    {
-        Painter_FillRegionC(x - 1, y, Font_GetLengthText(str), 9, COLOR_FLASH_10);
-    }
-    Painter_DrawTextC(x, y, symbols[index], index == INDEX_SYMBOL ? COLOR_FLASH_01 : gColorFill);
-}
-
-
-//------------------------------------------------------------------------------------------------------------------------------------------------------
-void DrawSetName(void)
-{
-    int x0 = GridLeft() + 40;
-    int y0 = GRID_TOP + 60;
-    int width = GridWidth() - 80;
-    int height = 80;
-
-    Painter_DrawRectangleC(x0, y0, width, height, gColorFill);
-    Painter_FillRegionC(x0 + 1, y0 + 1, width - 2, height - 2, gColorBack);
-
-    int index = 0;
-    int position = 0;
-    int deltaX = 10;
-    int deltaY0 = 5;
-    int deltaY = 12;
-
-    // –исуем большие буквы английского алфавита
-    while (symbols[index][0] != ' ')
-    {
-        DrawStr(index, x0 + deltaX + position * 7, y0 + deltaY0);
-        index++;
-        position++;
-    }
-
-    // “еперь рисуем цифры и пробел
-    position = 0;
-    while (symbols[index][0] != 'a')
-    {
-        DrawStr(index, x0 + deltaX + 50 + position * 7, y0 + deltaY0 + deltaY);
-        index++;
-        position++;
-    }
-
-    // “еперь рисуем малые буквы алфавита
-    position = 0;
-    while (symbols[index][0] != '%')
-    {
-        DrawStr(index, x0 + deltaX + position * 7, y0 + deltaY0 + deltaY * 2);
-        index++;
-        position++;
-    }
-
-    int x = Painter_DrawTextC(x0 + deltaX, y0 + 65, FILE_NAME, gColorFill);
-    Painter_FillRegionC(x, y0 + 65, 5, 8, COLOR_FLASH_10);
-}
-
-
-//------------------------------------------------------------------------------------------------------------------------------------------------------
-static void DrawFileMask(int x, int y)
-{
-    char *ch = FILE_NAME_MASK;
-
-    Painter_SetColor(gColorFill);
-    while (*ch != '\0')
-    {
-        if (*ch >= 32)
-        {
-            x = Painter_DrawChar(x, y, *ch);
-        }
-        else
-        {
-            if (*ch == 0x07)
-            {
-                x = Painter_DrawChar(x, y, '%');
-                x = Painter_DrawChar(x, y, (char)(0x30 | *(ch + 1)));
-                x = Painter_DrawChar(x, y, 'N');
-                ch++;
-            }
-            else
-            {
-                x = Painter_DrawText(x, y, symbols[*ch + 0x40]);
-            }
-        }
-        ch++;
-    }
-    Painter_FillRegionC(x, y, 5, 8, COLOR_FLASH_10);
-}
-
-
-//------------------------------------------------------------------------------------------------------------------------------------------------------
-void DrawSetMask(void)
-{
-    int x0 = GridLeft() + 40;
-    int y0 = GRID_TOP + 20;
-    int width = GridWidth() - 80;
-    int height = 160;
-
-    Painter_DrawRectangleC(x0, y0, width, height, gColorFill);
-    Painter_FillRegionC(x0 + 1, y0 + 1, width - 2, height - 2, gColorBack);
-
-    int index = 0;
-    int position = 0;
-    int deltaX = 10;
-    int deltaY0 = 5;
-    int deltaY = 12;
-
-    // –исуем большие буквы английского алфавита
-    while(symbols[index][0] != ' ')
-    {
-        DrawStr(index, x0 + deltaX + position * 7, y0 + deltaY0);
-        index++;
-        position++;
-    }
-    
-    // “еперь рисуем цифры и пробел
-    position = 0;
-    while(symbols[index][0] != 'a')
-    {
-        DrawStr(index, x0 + deltaX + 50 + position * 7, y0 + deltaY0 + deltaY);
-        index++;
-        position++;
-    }
-
-    // “еперь рисуем малые буквы алфавита
-    position = 0;
-    while(symbols[index][0] != '%')
-    {
-        DrawStr(index, x0 + deltaX + position * 7, y0 + deltaY0 + deltaY * 2);
-        index++;
-        position++;
-    }
-
-    // “еперь рисуем спецсимволы
-    position = 0;
-    while (index < (sizeof(symbols) / 4))
-    {
-        DrawStr(index, x0 + deltaX + 26 + position * 20, y0 + deltaY0 + deltaY * 3);
-        index++;
-        position++;
-    }
-
-    DrawFileMask(x0 + deltaX, y0 + 65);
-
-    static const char* strings[] =
-    {
-        "%y - год, %m - мес€ц, %d - день",
-        "%H - часы, %M - минуты, %S - секунды",
-        "%nN - пор€дковый номер, где",
-        "n - минимальное количество знаков дл€ N"
-    };
-
-    deltaY--;
-    Painter_SetColor(gColorFill);
-    for(int i = 0; i < sizeof(strings) / 4; i++)
-    {
-        Painter_DrawText(x0 + deltaX, y0 + 100 + deltaY * i, strings[i]);
-    }
-}
-
-
-//------------------------------------------------------------------------------------------------------------------------------------------------------
-void Memory_SaveSignalToFlashDrive(void)
-{
-    if (gFlashDriveIsConnected)
-    {
-        if (FILE_NAMING_MODE_MANUAL)
-        {
-            OpenPageAndSetItCurrent(Page_SB_MemExtSetName);
-            Display_SetAddDrawFunction(DrawSetName);
-        }
-        else
-        {
-            gMemory.needForSaveToFlashDrive = 1;
-        }
-    }
-    else
-    {
-        gMemory.exitFromModeSetNameTo = 0;
-    }
-}
+*/
