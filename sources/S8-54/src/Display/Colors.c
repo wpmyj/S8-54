@@ -4,7 +4,6 @@
 #include "Settings/Settings.h"
 #include "Utils/GlobalFunctions.h"
 #include "Utils/Math.h"
-
 #include <math.h>
 
 
@@ -22,13 +21,11 @@ static void SetColor(ColorType *colorType)
     Painter_SetPalette(colorType->color);
 }
 
-
 //----------------------------------------------------------------------------------------------------------------------------------------------------
 Color ColorCursors(Channel ch)
 {
     return gColorChan[ch];
 }
-
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
 Color ColorTrig(void)
@@ -41,13 +38,11 @@ Color ColorTrig(void)
     return gColorChan[(Channel)TRIGSOURCE];
 }
 
-
 //----------------------------------------------------------------------------------------------------------------------------------------------------
 Color ColorMenuTitle(bool inShade)
 {
     return inShade ? COLOR_MENU_ITEM : COLOR_MENU_TITLE;
 }
-
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
 Color ColorMenuItem(bool inShade)
@@ -55,13 +50,11 @@ Color ColorMenuItem(bool inShade)
     return inShade ? COLOR_MENU_ITEM_DARK : COLOR_MENU_ITEM;
 }
 
-
 //----------------------------------------------------------------------------------------------------------------------------------------------------
 Color ColorBorderMenu(bool inShade)
 {
     return ColorMenuTitle(inShade);
 }
-
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
 Color ColorContrast(Color color)
@@ -74,13 +67,11 @@ Color ColorContrast(Color color)
     return COLOR_WHITE;
 }
 
-
 //----------------------------------------------------------------------------------------------------------------------------------------------------
 Color LightShadingTextColor(void)
 {
     return ColorMenuTitle(false);
 }
-
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
 void Color_Log(Color color)
@@ -88,7 +79,6 @@ void Color_Log(Color color)
     uint16 colorValue = COLOR(color);
     LOG_WRITE("%s   r=%d, g=%d, b=%d", NameColor(color), R_FROM_COLOR(colorValue), G_FROM_COLOR(colorValue), B_FROM_COLOR(colorValue));
 }
-
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
 /*
@@ -102,7 +92,6 @@ void Color_Log(Color color)
     3. При изменения интенсивности цветового канала пересчитывать яркость и шаг изменения каждого канала.
 */
 
-
 //----------------------------------------------------------------------------------------------------------------------------------------------------
 static void ColorType_CalcSteps(ColorType *colorType)
 {
@@ -111,7 +100,6 @@ static void ColorType_CalcSteps(ColorType *colorType)
     colorType->stepBlue = colorType->blue / (colorType->brightness * 100.0f);
 }
 
-
 //----------------------------------------------------------------------------------------------------------------------------------------------------
 static void ColorType_SetBrightness(ColorType *colorType)
 {
@@ -119,7 +107,6 @@ static void ColorType_SetBrightness(ColorType *colorType)
 
     ColorType_CalcSteps(colorType);
 }
-
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
 void Color_SetBrightness(ColorType *colorType, float brightness)
@@ -141,7 +128,6 @@ void Color_SetBrightness(ColorType *colorType, float brightness)
         }
     }
 }
-
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
 void Color_BrightnessChange(ColorType *colorType, int delta)
@@ -168,7 +154,6 @@ void Color_BrightnessChange(ColorType *colorType, int delta)
         colorType->stepBlue = 0.31f;
     }
 }
-
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
 void Color_Init(ColorType *colorType, bool forced)
@@ -199,7 +184,6 @@ void Color_Init(ColorType *colorType, bool forced)
     }
 }
 
-
 //----------------------------------------------------------------------------------------------------------------------------------------------------
 void Color_ComponentChange(ColorType * const colorType, int delta)
 {
@@ -216,7 +200,6 @@ void Color_ComponentChange(ColorType * const colorType, int delta)
 
     ColorType_SetBrightness(colorType);
 }
-
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
 static const char* colorNames[] =
@@ -243,7 +226,6 @@ static const char* colorNames[] =
     "INVERSE"
 };
 
-
 //----------------------------------------------------------------------------------------------------------------------------------------------------
 const char* NameColorFromValue(uint16 colorValue)
 {
@@ -256,7 +238,6 @@ const char* NameColorFromValue(uint16 colorValue)
     }
     return "Sorry, this color is not in the palette";
 }
-
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
 const char* NameColor(Color color)

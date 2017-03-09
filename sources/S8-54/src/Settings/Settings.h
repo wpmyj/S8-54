@@ -1,6 +1,4 @@
 ﻿#pragma once
-
-
 #include "SettingsTypes.h"
 #include "Utils/Measures.h"
 #include "Menu/MenuItems.h"

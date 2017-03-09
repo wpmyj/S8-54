@@ -200,7 +200,6 @@ void Display_Init(void)
     Painter_SetFont(TypeFont_8);
 }
 
-
 //----------------------------------------------------------------------------------------------------------------------------------------------------
 void Display_Update(void)
 {
@@ -313,7 +312,6 @@ void Display_Update(void)
     FSMC_SetMode(mode);
 }
 
-
 //----------------------------------------------------------------------------------------------------------------------------------------------------
 void Display_RotateRShift(Channel ch)
 {
@@ -326,7 +324,6 @@ void Display_RotateRShift(Channel ch)
     Display_Redraw();
 }
 
-
 //----------------------------------------------------------------------------------------------------------------------------------------------------
 void Display_RotateTrigLev(void)
 {
@@ -338,20 +335,17 @@ void Display_RotateTrigLev(void)
     Display_Redraw();
 }
 
-
 //----------------------------------------------------------------------------------------------------------------------------------------------------
 void Display_Redraw(void)
 {
     needFinishDraw = true;
 }
 
-
 //----------------------------------------------------------------------------------------------------------------------------------------------------
 void Display_EnableTrigLabel(bool enable)
 {
     trigEnable = enable;
 }
-
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
 void Display_ClearFromWarnings(void)
@@ -363,7 +357,6 @@ void Display_ClearFromWarnings(void)
         timeWarnings[i] = 0;
     }
 }
-
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
 void Display_SetDrawMode(DrawMode mode, pFuncVV func)
@@ -379,13 +372,11 @@ void Display_SetDrawMode(DrawMode mode, pFuncVV func)
     }
 }
 
-
 //----------------------------------------------------------------------------------------------------------------------------------------------------
 void Display_SetAddDrawFunction(pFuncVV func)
 {
     funcAdditionDraw = func;
 }
-
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
 pFuncVV Display_GetAddDrawFunction(void)
@@ -393,20 +384,17 @@ pFuncVV Display_GetAddDrawFunction(void)
     return funcAdditionDraw;
 }
 
-
 //----------------------------------------------------------------------------------------------------------------------------------------------------
 void Display_RemoveAddDrawFunction(void)
 {
     funcAdditionDraw = 0;
 }
 
-
 //----------------------------------------------------------------------------------------------------------------------------------------------------
 void Display_Clear(void)
 {
     Painter_FillRegionC(0, 0, SCREEN_WIDTH - 1, SCREEN_HEIGHT - 2, gColorBack);
 }
-
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
 void Display_ShiftScreen(int delta)
@@ -429,14 +417,12 @@ void Display_ShiftScreen(int delta)
     SHIFT_IN_MEMORY = shift;
 }
 
-
 //----------------------------------------------------------------------------------------------------------------------------------------------------
 void Display_ChangedRShiftMarkers(bool active)
 {
     drawRShiftMarkers = !ALT_MARKERS_HIDE;
     Timer_SetAndStartOnce(kRShiftMarkersAutoHide, OnRShiftMarkersAutoHide, 5000);
 }
-
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
 void Display_AddStringToIndicating(const char *string)
@@ -448,7 +434,6 @@ void Display_AddStringToIndicating(const char *string)
 
     AddString(string);
 }
-
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
 void Display_OneStringUp(void)
@@ -462,7 +447,6 @@ void Display_OneStringUp(void)
     }
 }
 
-
 //----------------------------------------------------------------------------------------------------------------------------------------------------
 void Display_OneStringDown(void)
 {
@@ -474,7 +458,6 @@ void Display_OneStringDown(void)
         lastStringForPause++;
     }
 }
-
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
 void Display_SetPauseForConsole(bool pause)
@@ -489,14 +472,12 @@ void Display_SetPauseForConsole(bool pause)
     }
 }
 
-
 //----------------------------------------------------------------------------------------------------------------------------------------------------
 void Display_SetOrientation(DisplayOrientation orientation)
 {
     DISPLAY_ORIENTATION = orientation;
     gBF.needSetOrientation = 1;
 }
-
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
 void Display_ShowWarning(Warning warning)
@@ -520,7 +501,6 @@ void Display_ShowWarning(Warning warning)
     }
 }
 
-
 //----------------------------------------------------------------------------------------------------------------------------------------------------
 static bool NeedForClearScreen(void)
 {
@@ -542,7 +522,6 @@ static bool NeedForClearScreen(void)
     return false;
 }
 
-
 //----------------------------------------------------------------------------------------------------------------------------------------------------
 static void SetOrientation(void)
 {
@@ -554,7 +533,6 @@ static void SetOrientation(void)
         gBF.needSetOrientation = 0;
     }
 }
-
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
 static void DrawFullGrid(void)
@@ -577,7 +555,6 @@ static void DrawFullGrid(void)
         DrawGrid(GridLeft(), GRID_TOP, GridWidth(), GridFullHeight());
     }
 }
-
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
 static void DrawSpectrum(void)
@@ -625,7 +602,6 @@ static void DrawSpectrum(void)
     Painter_DrawHLine(GridMathBottom(), GridLeft(), GridRight());
 }
 
-
 //----------------------------------------------------------------------------------------------------------------------------------------------------
 static void DrawCursors(void)
 {
@@ -634,7 +610,8 @@ static void DrawCursors(void)
     if(sCursors_NecessaryDrawCursors())
     {
 
-        bool bothCursors = CURsT_ENABLED && CURsU_ENABLED;  // ѕризнак того, что включены и вертикальные и горизонтальные курсоры - надо нарисовать квадраты в местах пересечени€
+        bool bothCursors = CURsT_ENABLED && CURsU_ENABLED;  // ѕризнак того, что включены и вертикальные и горизонтальные курсоры - надо нарисовать 
+                                                            // квадраты в местах пересечени€
 
         int x0 = -1;
         int x1 = -1;
@@ -665,14 +642,12 @@ static void DrawCursors(void)
     }
 }
 
-
 //----------------------------------------------------------------------------------------------------------------------------------------------------
 static void DrawHiPart(void)
 {
     WriteCursors();
     DrawHiRightPart();
 }
-
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
 static void DrawLowPart(void)
@@ -852,7 +827,6 @@ static void DrawLowPart(void)
     }
 }
 
-
 //----------------------------------------------------------------------------------------------------------------------------------------------------
 static void DrawCursorsWindow(void)
 {
@@ -861,7 +835,6 @@ static void DrawCursorsWindow(void)
         DrawScaleLine(2, false);
     }
 }
-
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
 static void DrawCursorTrigLevel(void)
@@ -925,10 +898,6 @@ static void DrawCursorTrigLevel(void)
         Painter_SetFont(TypeFont_8);
     }
 }
-
-
-
-
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
 static void DrawMeasures(void)
@@ -1016,7 +985,6 @@ static void DrawMeasures(void)
     }
 }
 
-
 //----------------------------------------------------------------------------------------------------------------------------------------------------
 static void DrawStringNavigation(void)
 {
@@ -1034,7 +1002,6 @@ static void DrawStringNavigation(void)
         }
     }
 }
-
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
 static void DrawCursorTShift(void)
@@ -1074,7 +1041,6 @@ static void DrawCursorTShift(void)
     }
 }
 
-
 //-------------------------------------------------------------------------------------------------------------------------------------------------
 static void DrawRandStat(void)
 {
@@ -1100,7 +1066,6 @@ static void DrawRandStat(void)
     }
 }
 
-
 //----------------------------------------------------------------------------------------------------------------------------------------------------
 // Ќаписать предупреждени€
 static void DrawWarnings(void)
@@ -1116,7 +1081,6 @@ static void DrawWarnings(void)
         }
     }
 }
-
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
 void Display_DrawConsole(void)
@@ -1161,7 +1125,6 @@ void Display_DrawConsole(void)
     Painter_SetFont(TypeFont_8);
 }
 
-
 //----------------------------------------------------------------------------------------------------------------------------------------------------
 // ¬ывести значение уров€н синхронизации
 static void WriteValueTrigLevel(void)
@@ -1194,7 +1157,6 @@ static void WriteValueTrigLevel(void)
         Painter_DrawTextC(x + 2, y + 1, buffer, gColorFill);
     }
 }
-
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
 static void DrawTimeForFrame(uint timeTicks)
@@ -1238,13 +1200,11 @@ static void DrawTimeForFrame(uint timeTicks)
     Painter_DrawText(GridLeft() + 50, GridFullBottom() - 9, message);
 }
 
-
 //----------------------------------------------------------------------------------------------------------------------------------------------------
 static void DisableShowLevelRShiftA(void)
 {
     showLevelRShiftA = false;
 }
-
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
 static void DisableShowLevelRShiftB(void)
@@ -1252,20 +1212,17 @@ static void DisableShowLevelRShiftB(void)
     showLevelRShiftB = false;
 }
 
-
 //----------------------------------------------------------------------------------------------------------------------------------------------------
 static void DisableShowLevelTrigLev(void)
 {
     showLevelTrigLev = false;
 }
 
-
 //----------------------------------------------------------------------------------------------------------------------------------------------------
 static void OnRShiftMarkersAutoHide(void)
 {
     drawRShiftMarkers = false;
 }
-
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
 static int FirstEmptyString(void)
@@ -1279,7 +1236,6 @@ static int FirstEmptyString(void)
     }
     return MAX_NUM_STRINGS;
 }
-
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
 static void DeleteFirstString(void)
@@ -1303,7 +1259,6 @@ static void DeleteFirstString(void)
         bufferForStrings[i] = bufferForStrings[i + delta];
     }
 }
-
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
 static void AddString(const char *string)
@@ -1336,7 +1291,6 @@ static void AddString(const char *string)
     }
 }
 
-
 //----------------------------------------------------------------------------------------------------------------------------------------------------
 static void ShowWarn(const char *message)
 {
@@ -1360,7 +1314,6 @@ static void ShowWarn(const char *message)
         }
     }
 }
-
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
 static void DrawGrid(int left, int top, int width, int height)
@@ -1405,7 +1358,6 @@ static void DrawGrid(int left, int top, int width, int height)
     }
 }
 
-
 //----------------------------------------------------------------------------------------------------------------------------------------------------
 static void DrawGridSpectrum(void)
 {
@@ -1448,7 +1400,6 @@ static void DrawGridSpectrum(void)
     Painter_DrawVLineC(GridLeft() + 256, GridMathTop(), GridMathBottom(), gColorFill);
 }
 
-
 //----------------------------------------------------------------------------------------------------------------------------------------------------
 static void DRAW_SPECTRUM(const uint8 *dataIn, int numPoints, Channel ch)
 {
@@ -1489,7 +1440,6 @@ static void DRAW_SPECTRUM(const uint8 *dataIn, int numPoints, Channel ch)
     free(data);
 }
 
-
 //----------------------------------------------------------------------------------------------------------------------------------------------------
 static void DrawVerticalCursor(int x, int yTearing)
 {
@@ -1507,7 +1457,6 @@ static void DrawVerticalCursor(int x, int yTearing)
     Painter_DrawRectangle(x - 1, GridChannelBottom() - 1, 2, 2);
 }
 
-
 //----------------------------------------------------------------------------------------------------------------------------------------------------
 static void DrawHorizontalCursor(int y, int xTearing)
 {
@@ -1524,7 +1473,6 @@ static void DrawHorizontalCursor(int y, int xTearing)
     Painter_DrawRectangle(GridLeft() - 1, y - 1, 2, 2);
     Painter_DrawRectangle(GridRight() - 1, y - 1, 2, 2);
 }
-
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
 static void WriteCursors(void)
@@ -1600,7 +1548,6 @@ static void WriteCursors(void)
     }
 }
 
-
 //----------------------------------------------------------------------------------------------------------------------------------------------------
 static void DrawHiRightPart(void)
 {
@@ -1670,7 +1617,6 @@ static void DrawHiRightPart(void)
         }
     }
 }
-
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
 static void WriteTextVoltage(Channel ch, int x, int y)
@@ -1762,7 +1708,6 @@ static void WriteTextVoltage(Channel ch, int x, int y)
     }
 }
 
-
 //----------------------------------------------------------------------------------------------------------------------------------------------------
 static void WriteStringAndNumber(char *text, int16 x, int16 y, int number)
 {
@@ -1779,7 +1724,6 @@ static void WriteStringAndNumber(char *text, int16 x, int16 y, int number)
     }
     Painter_DrawTextRelativelyRight(x + 41, y, buffer);
 }
-
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
 static void DrawTime(int x, int y)
@@ -1827,7 +1771,6 @@ static void DrawTime(int x, int y)
     Painter_DrawText(x + 2 * dField + 2 * dSeparator, y, Int2String(time.seconds, false, 2, buffer));
 }
 
-
 //----------------------------------------------------------------------------------------------------------------------------------------------------
 static void DrawScaleLine(int x, bool forTrigLev)
 {
@@ -1854,7 +1797,6 @@ static void DrawScaleLine(int x, bool forTrigLev)
     }
 }
 
-
 //----------------------------------------------------------------------------------------------------------------------------------------------------
 static void DrawCursorsRShift(void)
 {
@@ -1874,7 +1816,6 @@ static void DrawCursorsRShift(void)
     }
 }
 
-
 //----------------------------------------------------------------------------------------------------------------------------------------------------
 static void DrawStringInRectangle(int x, int y, char const *text)
 {
@@ -1886,7 +1827,6 @@ static void DrawStringInRectangle(int x, int y, char const *text)
     Painter_DrawTextC(x + 3, y + 2, text, COLOR_FLASH_01);
 }
 
-
 //----------------------------------------------------------------------------------------------------------------------------------------------------
 static int CalculateFreeSize(void)
 {
@@ -1897,7 +1837,6 @@ static int CalculateFreeSize(void)
     }
     return SIZE_BUFFER_FOR_STRINGS - (strings[firstEmptyString - 1] - bufferForStrings) - strlen(strings[firstEmptyString - 1]) - 1;
 }
-
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
 static void OnTimerShowWarning(void)
@@ -1933,7 +1872,6 @@ static void OnTimerShowWarning(void)
         Timer_Disable(kShowMessages);
     }
 }
-
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
 static void DrawGridType1(int left, int top, int right, int bottom, float centerX, float centerY, float deltaX, float deltaY, float stepX, float stepY)
@@ -1975,7 +1913,6 @@ static void DrawGridType1(int left, int top, int right, int bottom, float center
     Painter_DrawMultiHPointLine(13, left + (int)stepX, mas, (int)stepX, CalculateCountH(), gColorGrid);
 }
 
-
 //----------------------------------------------------------------------------------------------------------------------------------------------------
 static void DrawGridType2(int left, int top, int right, int bottom, int deltaX, int deltaY, int stepX, int stepY)
 {
@@ -1998,7 +1935,6 @@ static void DrawGridType2(int left, int top, int right, int bottom, int deltaX, 
     Painter_DrawMultiHPointLine(11, left + stepX, mas, stepX, CalculateCountH(), gColorGrid);
 }
 
-
 //----------------------------------------------------------------------------------------------------------------------------------------------------
 static void DrawGridType3(int left, int top, int right, int bottom, int centerX, int centerY, int deltaX, int deltaY, int stepX)
 {
@@ -2009,7 +1945,6 @@ static void DrawGridType3(int left, int top, int right, int bottom, int centerX,
     uint16 masX[6] ={(uint16)(left + 1), (uint16)(left + 2), (uint16)(centerX - 1), (uint16)(centerX + 1), (uint16)(right - 2), (uint16)(right - 1)};
     Painter_DrawMultiVPointLine(6, top + deltaY, masX, deltaY, (bottom - top) / deltaY, gColorGrid);
 }
-
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
 static void DrawSpectrumChannel(float *spectrum, Color color)
@@ -2023,7 +1958,6 @@ static void DrawSpectrumChannel(float *spectrum, Color color)
         Painter_DrawVLine(gridLeft + i, gridBottom, gridBottom - (int)(gridHeight * spectrum[i]));
     }
 }
-
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
 static void WriteParametersFFT(Channel ch, float freq0, float density0, float freq1, float density1)
@@ -2050,7 +1984,6 @@ static void WriteParametersFFT(Channel ch, float freq0, float density0, float fr
     y += dY;
     Painter_DrawText(x, y, SCALE_FFT_LOG ? Float2Db(density1, 4, buffer) : Float2String(density1, false, 7, buffer));
 }
-
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
 static void DrawCursorRShift(Channel ch)
@@ -2114,7 +2047,6 @@ static void DrawCursorRShift(Channel ch)
     Painter_SetFont(TypeFont_8);
 }
 
-
 //----------------------------------------------------------------------------------------------------------------------------------------------------
 static int CalculateCountV(void)
 {
@@ -2137,7 +2069,6 @@ static int CalculateCountV(void)
     return 49;
 }
 
-
 //----------------------------------------------------------------------------------------------------------------------------------------------------
 static int CalculateCountH(void)
 {
@@ -2154,7 +2085,6 @@ static int CalculateCountH(void)
     }
     return 69;
 }
-
 
 static uint timeStart = 0;
 static char *textWait = 0;
