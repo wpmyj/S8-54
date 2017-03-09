@@ -1,12 +1,12 @@
-#pragma once
+п»ї#pragma once
 
 
 void    VCP_Init(void);
 void    VCP_SendDataAsynch(uint8 *data, int size);
 void    VCP_SendDataSynch(const uint8 *data, int size);
-void    VCP_SendStringAsynch(char *data);               // Передаётся строка без завершающего нуля
-void    VCP_SendStringSynch(char *data);                // Передаётся строка без завершающего нуля
-void    VCP_SendFormatStringAsynch(char *format, ...);  // Эта строка передаётся с завершающими символами \r\n
-void    VCP_SendFormatStringSynch(char *format, ...);   // Эта строка передаётся с завершающими символами \r\n
+void    VCP_SendStringAsynch(char *data);               // РџРµСЂРµРґР°С‘С‚СЃСЏ СЃС‚СЂРѕРєР° Р±РµР· Р·Р°РІРµСЂС€Р°СЋС‰РµРіРѕ РЅСѓР»СЏ
+void    VCP_SendStringSynch(char *data);                // РџРµСЂРµРґР°С‘С‚СЃСЏ СЃС‚СЂРѕРєР° Р±РµР· Р·Р°РІРµСЂС€Р°СЋС‰РµРіРѕ РЅСѓР»СЏ
+void    VCP_SendFormatStringAsynch(char *format, ...);  // Р­С‚Р° СЃС‚СЂРѕРєР° РїРµСЂРµРґР°С‘С‚СЃСЏ СЃ Р·Р°РІРµСЂС€Р°СЋС‰РёРјРё СЃРёРјРІРѕР»Р°РјРё \r\n
+void    VCP_SendFormatStringSynch(char *format, ...);   // Р­С‚Р° СЃС‚СЂРѕРєР° РїРµСЂРµРґР°С‘С‚СЃСЏ СЃ Р·Р°РІРµСЂС€Р°СЋС‰РёРјРё СЃРёРјРІРѕР»Р°РјРё \r\n
 void    VCP_SendByte(uint8 data);
 void    VCP_Flush(void);

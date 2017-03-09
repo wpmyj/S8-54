@@ -1,10 +1,9 @@
-#pragma once
-
-
+п»ї#pragma once
 #include "defines.h"
 #include "Settings/SettingsTypes.h"
 
 
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 #define LIMIT_BELOW(x, min)         if(x < (min)) { (x) = (min); }
 
 #define LIMIT_ABOVE(x, max)         if(x > (max)) { (x) = (max); }
@@ -33,14 +32,18 @@
 
 #define PI 3.141592653589793f
 
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 extern const float tableScalesRange[RangeSize];
 extern const float absStepRShift[];
 extern const float voltsInPixel[];
 extern const float voltsInPoint[];
 extern const float absStepTShift[];
 
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 int     Math_RShift2Rel(float rShiftAbs, Range range);
-int     Math_RShift2Pixels(uint16 rShift, int heightGrid);                     // Смещение относительно нулевого в пикселях экрана
+int     Math_RShift2Pixels(uint16 rShift, int heightGrid);                     // РЎРјРµС‰РµРЅРёРµ РѕС‚РЅРѕСЃРёС‚РµР»СЊРЅРѕ РЅСѓР»РµРІРѕРіРѕ РІ РїРёРєСЃРµР»СЏС… СЌРєСЂР°РЅР°
 float   Math_VoltageCursor(float shiftCurU, Range range, uint16 rShift);
 float   Math_TimeCursor(float shiftCurT, TBase tBase);
 void    Math_DataExtrapolation(uint8 *data, uint8 *there, int size);
@@ -52,10 +55,10 @@ uint8   Math_GetMinFromArrayWithErrorCode(const uint8 *data, int firstPoint, int
 uint8   Math_GetMaxFromArray(const uint8 *data, int firstPoint, int lastPoint);
 uint8   Math_GetMaxFromArray_RAM(const uint16 *data, int firstPoint, int lastPoint);
 uint8   Math_GetMinFromArray(const uint8 *data, int firstPoint, int lastPoint);
-uint8   Math_GetMinFromArray_RAM(const uint16 *data, int firstPoint, int lastPoint);    // Работает с внешним ОЗУ - считывать можно 16-битные значения.
+uint8   Math_GetMinFromArray_RAM(const uint16 *data, int firstPoint, int lastPoint);    // Р Р°Р±РѕС‚Р°РµС‚ СЃ РІРЅРµС€РЅРёРј РћР—РЈ - СЃС‡РёС‚С‹РІР°С‚СЊ РјРѕР¶РЅРѕ 16-Р±РёС‚РЅС‹Рµ Р·РЅР°С‡РµРЅРёСЏ.
 
-float   Math_GetIntersectionWithHorizontalLine(int x0, int y0, int x1, int y1, int yHorLine);   // Возвращает координату x пересечения линии, проходящей через (x0, y0), (x1, y1), с горизонтальной линией, проходящей через точку с ординатой yHorLine.
-bool    Math_FloatsIsEquals(float value0, float value1, float epsilonPart);                     // Сравнивает два числа. Возвращает true, если числа отличаются друг от друга не более, чем на epsilonPart. При этом для расчёта epsilonPart используется большее в смысле модуля число.
+float   Math_GetIntersectionWithHorizontalLine(int x0, int y0, int x1, int y1, int yHorLine);   // Р’РѕР·РІСЂР°С‰Р°РµС‚ РєРѕРѕСЂРґРёРЅР°С‚Сѓ x РїРµСЂРµСЃРµС‡РµРЅРёСЏ Р»РёРЅРёРё, РїСЂРѕС…РѕРґСЏС‰РµР№ С‡РµСЂРµР· (x0, y0), (x1, y1), СЃ РіРѕСЂРёР·РѕРЅС‚Р°Р»СЊРЅРѕР№ Р»РёРЅРёРµР№, РїСЂРѕС…РѕРґСЏС‰РµР№ С‡РµСЂРµР· С‚РѕС‡РєСѓ СЃ РѕСЂРґРёРЅР°С‚РѕР№ yHorLine.
+bool    Math_FloatsIsEquals(float value0, float value1, float epsilonPart);                     // РЎСЂР°РІРЅРёРІР°РµС‚ РґРІР° С‡РёСЃР»Р°. Р’РѕР·РІСЂР°С‰Р°РµС‚ true, РµСЃР»Рё С‡РёСЃР»Р° РѕС‚Р»РёС‡Р°СЋС‚СЃСЏ РґСЂСѓРі РѕС‚ РґСЂСѓРіР° РЅРµ Р±РѕР»РµРµ, С‡РµРј РЅР° epsilonPart. РџСЂРё СЌС‚РѕРј РґР»СЏ СЂР°СЃС‡С‘С‚Р° epsilonPart РёСЃРїРѕР»СЊР·СѓРµС‚СЃСЏ Р±РѕР»СЊС€РµРµ РІ СЃРјС‹СЃР»Рµ РјРѕРґСѓР»СЏ С‡РёСЃР»Рѕ.
 float   Math_MinFrom3float(float value1, float value2, float value3);
 int     Math_MinInt(int val1, int val2);
 int     Math_MaxInt(int val1, int val2);
@@ -64,9 +67,9 @@ void    Math_CalculateMathFunction(float *data0andResult, float *dataB, int numP
 float   Math_RandFloat(float min, float max);
 int8    Math_AddInt8WithLimitation(int8 value, int8 delta, int8 min, int8 max);
 int     Math_Sign(int vlaue);
-int     Math_Pow10(int pow);                                                                    // Вычисляет 10**pow.
-int     Math_NumDigitsInNumber(int value);                                                      // Вычисляет число разрядов в целом типа int.
-int     Math_FabsInt(int value);                                                                // Возвращает модуль value.
+int     Math_Pow10(int pow);                                                                    // Р’С‹С‡РёСЃР»СЏРµС‚ 10**pow.
+int     Math_NumDigitsInNumber(int value);                                                      // Р’С‹С‡РёСЃР»СЏРµС‚ С‡РёСЃР»Рѕ СЂР°Р·СЂСЏРґРѕРІ РІ С†РµР»РѕРј С‚РёРїР° int.
+int     Math_FabsInt(int value);                                                                // Р’РѕР·РІСЂР°С‰Р°РµС‚ РјРѕРґСѓР»СЊ value.
 
 int     LimitationInt(int value, int min, int max);
 uint8   LimitationUInt8(uint8 value, uint8 min, uint8 max);

@@ -1,6 +1,7 @@
-#pragma once
+п»ї#pragma once
 
 
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 typedef struct
 {
     uint8*   address;
@@ -8,8 +9,9 @@ typedef struct
 } Word;
 
 
-int GetNumWordsInString(const uint8 *string);                       // Возвращает количество слов в строке. Разделители - пробелы. Строка заканчивается байтами 0x0d, 0x0a.
-bool GetWord(const uint8 *string, Word *word, const int numWord);   // Эта команда сразу преобразует к верхенму регистру слово.
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+int GetNumWordsInString(const uint8 *string);                       // Р’РѕР·РІСЂР°С‰Р°РµС‚ РєРѕР»РёС‡РµСЃС‚РІРѕ СЃР»РѕРІ РІ СЃС‚СЂРѕРєРµ. Р Р°Р·РґРµР»РёС‚РµР»Рё - РїСЂРѕР±РµР»С‹. РЎС‚СЂРѕРєР° Р·Р°РєР°РЅС‡РёРІР°РµС‚СЃСЏ Р±Р°Р№С‚Р°РјРё 0x0d, 0x0a.
+bool GetWord(const uint8 *string, Word *word, const int numWord);   // Р­С‚Р° РєРѕРјР°РЅРґР° СЃСЂР°Р·Сѓ РїСЂРµРѕР±СЂР°Р·СѓРµС‚ Рє РІРµСЂС…РµРЅРјСѓ СЂРµРіРёСЃС‚СЂСѓ СЃР»РѕРІРѕ.
 bool WordEqualZeroString(Word *word, char* string);
 bool EqualsStrings(char *str1, char *str2, int size);
 bool EqualsZeroStrings(char *str1, char *str2);

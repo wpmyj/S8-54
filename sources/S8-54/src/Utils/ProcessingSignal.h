@@ -1,18 +1,17 @@
-#pragma once
-
-
+п»ї#pragma once
 #include "Measures.h"
 #include "defines.h"
 #include "FPGA/FPGAtypes.h"
 #include "FPGA/DataStorage.h"
 
 
-void    Processing_SetSignal(uint8 *dataA, uint8 *dataB, DataSettings *ds, int firstPoint, int lastPoint);         // Установить сигнал для обработки.
-void    Processing_GetData(uint8 **dataA, uint8 **dataB, DataSettings **ds);        // Получить данные ранее установленного сигнала.
-float   Processing_GetCursU(Channel ch, float posCurT);                           // Получить позицию курсора напряжения, соответствующю заданной позиции курсора posCurT.
-float   Processing_GetCursT(Channel ch, float posCurU, int numCur);               // Получить позицию курсора времени, соответствующую заданной позиции курсора напряжения posCurU.
-void    Processing_InterpolationSinX_X(uint8 *data, int numPoints, TBase tBase);    // Аппроксимировать единичное измерение режима рандомизатора функцией sinX/X.
-char*   Processing_GetStringMeasure(Measure measure, Channel ch, char *buffer, int lenBuf);// Возвращает строку автоматического измерения.
-void    Processing_CalculateMeasures(void);                                         // Расчитать все измерения.
-int     Processing_GetMarkerHorizontal(Channel ch, int numMarker);                // Возвращает значение горизонтального маркера. Если ERROR_VALUE_INT - маркер рисовать не нужно.
-int     Processing_GetMarkerVertical(Channel ch, int numMarker);                  // Возвращает значение вертикального маркера. Если ERROR_VALUE_INT - маркер рисовать не нужно.
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+void    Processing_SetSignal(uint8 *dataA, uint8 *dataB, DataSettings *ds, int firstPoint, int lastPoint);         // РЈСЃС‚Р°РЅРѕРІРёС‚СЊ СЃРёРіРЅР°Р» РґР»СЏ РѕР±СЂР°Р±РѕС‚РєРё.
+void    Processing_GetData(uint8 **dataA, uint8 **dataB, DataSettings **ds);            // РџРѕР»СѓС‡РёС‚СЊ РґР°РЅРЅС‹Рµ СЂР°РЅРµРµ СѓСЃС‚Р°РЅРѕРІР»РµРЅРЅРѕРіРѕ СЃРёРіРЅР°Р»Р°.
+float   Processing_GetCursU(Channel ch, float posCurT);                                 // РџРѕР»СѓС‡РёС‚СЊ РїРѕР·РёС†РёСЋ РєСѓСЂСЃРѕСЂР° РЅР°РїСЂСЏР¶РµРЅРёСЏ, СЃРѕРѕС‚РІРµС‚СЃС‚РІСѓСЋС‰СЋ Р·Р°РґР°РЅРЅРѕР№ РїРѕР·РёС†РёРё РєСѓСЂСЃРѕСЂР° posCurT.
+float   Processing_GetCursT(Channel ch, float posCurU, int numCur);                     // РџРѕР»СѓС‡РёС‚СЊ РїРѕР·РёС†РёСЋ РєСѓСЂСЃРѕСЂР° РІСЂРµРјРµРЅРё, СЃРѕРѕС‚РІРµС‚СЃС‚РІСѓСЋС‰СѓСЋ Р·Р°РґР°РЅРЅРѕР№ РїРѕР·РёС†РёРё РєСѓСЂСЃРѕСЂР° РЅР°РїСЂСЏР¶РµРЅРёСЏ posCurU.
+void    Processing_InterpolationSinX_X(uint8 *data, int numPoints, TBase tBase);        // РђРїРїСЂРѕРєСЃРёРјРёСЂРѕРІР°С‚СЊ РµРґРёРЅРёС‡РЅРѕРµ РёР·РјРµСЂРµРЅРёРµ СЂРµР¶РёРјР° СЂР°РЅРґРѕРјРёР·Р°С‚РѕСЂР° С„СѓРЅРєС†РёРµР№ sinX/X.
+char*   Processing_GetStringMeasure(Measure measure, Channel ch, char *buffer, int lenBuf); // Р’РѕР·РІСЂР°С‰Р°РµС‚ СЃС‚СЂРѕРєСѓ Р°РІС‚РѕРјР°С‚РёС‡РµСЃРєРѕРіРѕ РёР·РјРµСЂРµРЅРёСЏ.
+void    Processing_CalculateMeasures(void);                                             // Р Р°СЃС‡РёС‚Р°С‚СЊ РІСЃРµ РёР·РјРµСЂРµРЅРёСЏ.
+int     Processing_GetMarkerHorizontal(Channel ch, int numMarker);                      // Р’РѕР·РІСЂР°С‰Р°РµС‚ Р·РЅР°С‡РµРЅРёРµ РіРѕСЂРёР·РѕРЅС‚Р°Р»СЊРЅРѕРіРѕ РјР°СЂРєРµСЂР°. Р•СЃР»Рё ERROR_VALUE_INT - РјР°СЂРєРµСЂ СЂРёСЃРѕРІР°С‚СЊ РЅРµ РЅСѓР¶РЅРѕ.
+int     Processing_GetMarkerVertical(Channel ch, int numMarker);                        // Р’РѕР·РІСЂР°С‰Р°РµС‚ Р·РЅР°С‡РµРЅРёРµ РІРµСЂС‚РёРєР°Р»СЊРЅРѕРіРѕ РјР°СЂРєРµСЂР°. Р•СЃР»Рё ERROR_VALUE_INT - РјР°СЂРєРµСЂ СЂРёСЃРѕРІР°С‚СЊ РЅРµ РЅСѓР¶РЅРѕ.

@@ -1,6 +1,4 @@
-#pragma once
-
-
+Ôªø#pragma once
 #include "defines.h"
 
 
@@ -10,7 +8,7 @@ void Sys_PrintSizeStack(void);
 
 #define PROFILER_POINT(NamePoint)                       \
     time_ = gTimerTics - timeProfiler;                  \
-    Log_Write("%s = %d ÏÍÒ", NamePoint, time_ / 90);    \
+    Log_Write("%s = %d –º–∫—Å", NamePoint, time_ / 90);    \
     timeProfiler = gTimerTics;
 
 #define PROFILER_POINT_TICS()                                       \

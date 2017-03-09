@@ -1,10 +1,9 @@
-#pragma once
-
-
+п»ї#pragma once
 #include "defines.h"
 
 
-// Виды измерений
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// Р’РёРґС‹ РёР·РјРµСЂРµРЅРёР№
 typedef enum
 {
     Measure_None,
@@ -34,6 +33,7 @@ typedef enum
 } Measure;
 
 
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 char        Measure_GetChar(Measure measure);
 bool        Measure_IsActive(int row, int col); 
 void        Measure_GetActive(int *row, int *col);
@@ -48,4 +48,4 @@ int         Measure_GetTopTable(void);
 int         Measure_GetDeltaGridLeft(void);
 int         Measure_GetDeltaGridBottom(void);
 void        Measure_ShortPressOnSmallButonMarker(void);
-void        Measure_DrawPageChoice(void);                   // Нарисовать страницу выбора измерений.
+void        Measure_DrawPageChoice(void);                   // РќР°СЂРёСЃРѕРІР°С‚СЊ СЃС‚СЂР°РЅРёС†Сѓ РІС‹Р±РѕСЂР° РёР·РјРµСЂРµРЅРёР№.

@@ -1,7 +1,7 @@
-#pragma once
+п»ї#pragma once
 
 
-#define MEAS_COMPRESS_GRID  (set.measures.modeViewSignals == ModeViewSignals_Compress)  // Сжимать ли сетку при выводе измерений
+#define MEAS_COMPRESS_GRID  (set.measures.modeViewSignals == ModeViewSignals_Compress)  // РЎР¶РёРјР°С‚СЊ Р»Рё СЃРµС‚РєСѓ РїСЂРё РІС‹РІРѕРґРµ РёР·РјРµСЂРµРЅРёР№
 #define MEASURE(n)          (set.measures.measures[n])
 #define SHOW_MEASURES       (set.measures.show)
 #define MARKED_MEAS         (set.measures.marked)

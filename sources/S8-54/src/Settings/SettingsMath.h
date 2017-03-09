@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 
 
 #define SOURCE_FFT              (set.math.sourceFFT)

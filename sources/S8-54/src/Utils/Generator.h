@@ -1,10 +1,13 @@
-#pragma once
-
-
+п»ї#pragma once
 #include "defines.h"
 #include "Settings/SettingsTypes.h"
 
 
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+extern const SGenerator Generator;
+
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 typedef enum
 {
     Wave_Sinus,
@@ -13,10 +16,8 @@ typedef enum
 
 typedef struct
 {
-    void(*SetParametersWave)(Channel ch, TypeWave typeWave, float frequency, float startAngle, float amplWave, float amplNoise);    // numWave = 1, 2. Может быть до двух сигналов.
-                                                                                                    // amplWave = 0.0f...1.0f, amplNoise = 0.0f...1.0f - относительно амплитуды сигнала.
+    void(*SetParametersWave)(Channel ch, TypeWave typeWave, float frequency, float startAngle, float amplWave, float amplNoise);    // numWave = 1, 2. РњРѕР¶РµС‚ Р±С‹С‚СЊ РґРѕ РґРІСѓС… СЃРёРіРЅР°Р»РѕРІ.
+                                                                                                    // amplWave = 0.0f...1.0f, amplNoise = 0.0f...1.0f - РѕС‚РЅРѕСЃРёС‚РµР»СЊРЅРѕ Р°РјРїР»РёС‚СѓРґС‹ СЃРёРіРЅР°Р»Р°.
     void(*StartNewWave)(Channel ch);
     uint8(*GetSampleWave)(Channel ch);
 } SGenerator;
-
-extern const SGenerator Generator;
