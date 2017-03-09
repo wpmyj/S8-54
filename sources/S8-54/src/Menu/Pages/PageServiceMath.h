@@ -19,20 +19,17 @@ void Reg_FFT_Cursors(int angle)
     Sound_RegulatorShiftRotate();
 }
 
-
 //----------------------------------------------------------------------------------------------------------------------------------------------------
 void DrawSB_FFTcurs_Source(int x, int y)
 {
     Painter_DrawText(x + 7, y + 5, set.math.currentCursor == 0 ? "1" : "2");
 }
 
-
 //----------------------------------------------------------------------------------------------------------------------------------------------------
 void PressSB_FFTcurs_Source(void)
 {
     set.math.currentCursor = (set.math.currentCursor + 1) % 2;
 }
-
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
 static const SmallButton sbCursFFTSource =
@@ -47,13 +44,11 @@ static const SmallButton sbCursFFTSource =
     DrawSB_FFTcurs_Source
 };
 
-
 //----------------------------------------------------------------------------------------------------------------------------------------------------
 static void PressSB_MathFunction_Type(void)
 {
     CircleIncreaseInt8((int8*)&MATH_FUNC, 0, 1);
 }
-
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
 static void DrawSB_MathFunction_Sum(int x, int y)
@@ -61,7 +56,6 @@ static void DrawSB_MathFunction_Sum(int x, int y)
     Painter_DrawHLine(y + 9, x + 4, x + 14);
     Painter_DrawVLine(x + 9, y + 4, y + 14);
 }
-
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
 static void DrawSB_MathFunction_Mul(int x, int y)
@@ -71,14 +65,12 @@ static void DrawSB_MathFunction_Mul(int x, int y)
     Painter_SetFont(TypeFont_8);
 }
 
-
 //----------------------------------------------------------------------------------------------------------------------------------------------------
 static void DrawSB_MathFunction_Type(int x, int y)
 {
     const pFuncVII funcs[2] = {DrawSB_MathFunction_Sum, DrawSB_MathFunction_Mul};
     funcs[MATH_FUNC](x, y);
 }
-
 
 static const SmallButton sbMathFunction =
 {
@@ -236,7 +228,7 @@ static const SmallButton sbMathFunctionModeRegSet =
     }
 };
     
-// СЕРВИС -> Математика -> ФУНКЦИЯ -> Формула
+// СЕРВИС - Математика - ФУНКЦИЯ - Формула
 static bool ActiveF_MathFormula(void)
 {
     return MATH_FUNC_MUL || MATH_FUNC_SUM;
@@ -246,7 +238,6 @@ static void ChangeF_MathFormula(void)
 {
 
 }
-
 
 static int8 curDigit = 0;
 const Formula mfMathFormula =
@@ -260,14 +251,13 @@ const Formula mfMathFormula =
     (int8*)&MATH_FUNC, (int8*)&set.math.koeff1add, (int8*)&set.math.koeff2add, (int8*)&set.math.koeff1mul, (int8*)&set.math.koeff2mul, &curDigit, ChangeF_MathFormula
 };
 
-
-/// СЕРВИС -> Математика -> ФУНКЦИЯ -> Масштаб
+/// СЕРВИС - Математика - ФУНКЦИЯ - Масштаб
 static bool ActiveF_Math_Scale(void)
 {
     return MATH_FUNC_MUL || MATH_FUNC_SUM;
 }
 
-// СЕРВИС -> МАТЕМАТИКА -> СПЕКТР -> Отображение
+// СЕРВИС - МАТЕМАТИКА - СПЕКТР - Отображение
 const Choice mcFFTenable =
 {
     Item_Choice, &mspFFT, 0,
@@ -283,7 +273,7 @@ const Choice mcFFTenable =
     (int8*)&FFT_ENABLED
 };
 
-// СЕРВИС -> МАТЕМАТИКА -> СПЕКТР -> Шкала
+// СЕРВИС - МАТЕМАТИКА - СПЕКТР - Шкала
 const Choice mcFFTscale =
 {
     Item_Choice, &mspFFT, 0,
@@ -299,7 +289,7 @@ const Choice mcFFTscale =
     (int8*)&SCALE_FFT
 };
 
-// СЕРВИС -> МАТЕМАТИКА -> СПЕКТР -> Источник
+// СЕРВИС - МАТЕМАТИКА - СПЕКТР - Источник
 const Choice mcFFTsource =
 {
     Item_Choice, &mspFFT, 0,
@@ -316,7 +306,7 @@ const Choice mcFFTsource =
     (int8*)&SOURCE_FFT
 };
 
-// СЕРВИС -> МАТЕМАТИКА -> СПЕКТР -> Окно
+// СЕРВИС - МАТЕМАТИКА - СПЕКТР - Окно
 const Choice mcFFTwindow =
 {
     Item_Choice, &mspFFT, 0,
@@ -334,7 +324,7 @@ const Choice mcFFTwindow =
     (int8*)&WINDOW_FFT
 };
 
-// СЕРВИС -> МАТЕМАТИКА -> СПЕКТР -> Предел
+// СЕРВИС - МАТЕМАТИКА - СПЕКТР - Предел
 bool ActiveC_FFT_Limit(void)
 {
     return SCALE_FFT_LOG;
@@ -357,7 +347,7 @@ const Choice mcFFTrange =
     (int8*)&MAX_DB_FFT
 };
 
-// СЕРВИС -> МАТЕМАТИКА -> СПЕКТР -> Курсоры
+// СЕРВИС - МАТЕМАТИКА - СПЕКТР - Курсоры
 bool ActiveP_FFT_Cursors(void)
 {
     return FFT_ENABLED;
