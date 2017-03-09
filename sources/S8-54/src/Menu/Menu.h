@@ -1,8 +1,12 @@
 #pragma once
-
-
 #include "Panel/Controls.h"
 
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+#define MENU_IS_SHOWN (set.menu.isShown)
+
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 void    Menu_Init(void);
 void    Menu_UpdateInput(void);                             // Функция должна вызываться в главном цикле.
 
@@ -17,10 +21,6 @@ void    Menu_RotateRegSetLeft(void);                        // Функция обработки
 void    Menu_SetAutoHide(bool active);                      // Установить время автоматического сокрытия меню в соответствии с установками.
 void*   Menu_ItemUnderKey(void);                            // Возвращает адрес пункта меню, находящегося под нажатой в данный момент кнопкой.
 char*   Menu_StringNavigation(char buffer[100]);            // Возвращает путь к текущему пункту меню в текстовом виде, готовом к выводу на экран.
-void    Menu_ChangeStateFlashDrive(bool flashIsConnected);  // Вызывается, когда флешка подключается или отлкючается.
 
 void    Menu_Show(bool show);
-
-#define MENU_IS_SHOWN (set.menu.isShown)
-
 void    Menu_OpenItemTime(void);

@@ -43,8 +43,7 @@ PanelButton GetFuncButtonFromY(int _y)
     return  B_F5;
 }
 
-
-//------------------------------------------------------------------------------------------------------------------------------------------------------
+//----------------------------------------------------------------------------------------------------------------------------------------------------
 static void DrawHintItem(int x, int y, int width)
 {
     if (!gItemHint)
@@ -87,7 +86,6 @@ static void DrawHintItem(int x, int y, int width)
         Painter_DrawHintsForSmallButton(x, y, width, (SmallButton*)item);
     }
 }
-
 
 //------------------------------------------------------------------------------------------------------------------------------------------------------
 void Menu_Draw(void)
@@ -147,7 +145,6 @@ void Menu_Draw(void)
     }
 }
 
-
 //------------------------------------------------------------------------------------------------------------------------------------------------------
 void DrawTitlePage(Page *page, int layer, int yTop)
 {
@@ -191,7 +188,6 @@ void DrawTitlePage(Page *page, int layer, int yTop)
     DrawNestingPage(page, CalculateX(layer) + 5, yTop + MP_TITLE_HEIGHT - 8);
 }
 
-
 //------------------------------------------------------------------------------------------------------------------------------------------------------
 static void DrawPagesUGO(Page *page, int right, int bottom)
 {
@@ -217,7 +213,6 @@ static void DrawPagesUGO(Page *page, int right, int bottom)
         }
     }
 }
-
 
 //---------------------------------------------------------------------------------------------------------------------------------------------------
 static void DrawNestingPage(Page *page, int left, int bottom)
@@ -246,13 +241,11 @@ static void DrawNestingPage(Page *page, int left, int bottom)
     }
 }
 
-
 //------------------------------------------------------------------------------------------------------------------------------------------------------
 static void DrawGovernor(void* item, int x, int y)
 {
     Governor_Draw(item, x, y, false);
 }
-
 
 //------------------------------------------------------------------------------------------------------------------------------------------------------
 static void DrawIPaddress(void* item, int x, int y)
@@ -260,13 +253,11 @@ static void DrawIPaddress(void* item, int x, int y)
     IPaddress_Draw(item, x, y, false);
 }
 
-
 //------------------------------------------------------------------------------------------------------------------------------------------------------
 static void DrawMACaddress(void* item, int x, int y)
 {
     MACaddress_Draw(item, x, y, false);
 }
-
 
 //------------------------------------------------------------------------------------------------------------------------------------------------------
 static void DrawFormula(void* item, int x, int y)
@@ -274,13 +265,11 @@ static void DrawFormula(void* item, int x, int y)
     Formula_Draw(item, x, y, false);
 }
 
-
 //------------------------------------------------------------------------------------------------------------------------------------------------------
 static void DrawChoice(void *item, int x, int y)
 {
     Choice_Draw(item, x, y, false);
 }
-
 
 //------------------------------------------------------------------------------------------------------------------------------------------------------
 static void DrawSmallButton(void *item, int x, int y)
@@ -288,13 +277,11 @@ static void DrawSmallButton(void *item, int x, int y)
     SmallButton_Draw(item, LEFT_SB, y + 7);
 }
 
-
 //------------------------------------------------------------------------------------------------------------------------------------------------------
 static void DrawTime(void *item, int x, int y)
 {
     Time_Draw(item, x, y, false);
 }
-
 
 //------------------------------------------------------------------------------------------------------------------------------------------------------
 static void DrawGovernorColor(void *item, int x, int y)
@@ -302,20 +289,17 @@ static void DrawGovernorColor(void *item, int x, int y)
     GovernorColor_Draw(item, x, y, false);
 }
 
-
 //------------------------------------------------------------------------------------------------------------------------------------------------------
 static void DrawButton(void *item, int x, int y)
 {
     Button_Draw(item, x, y);
 }
 
-
 //------------------------------------------------------------------------------------------------------------------------------------------------------
 static void DrawPage(void *item, int x, int y)
 {
     Page_Draw(item, x, y);
 }
-
 
 //------------------------------------------------------------------------------------------------------------------------------------------------------
 void DrawItemsPage(Page *page, int layer, int yTop)
@@ -356,7 +340,6 @@ void DrawItemsPage(Page *page, int layer, int yTop)
         itemUnderButton[GetFuncButtonFromY(top)] = item;
     }
 }
-
 
 //------------------------------------------------------------------------------------------------------------------------------------------------------
 void DrawOpenedPage(Page *page, int layer, int yTop)
@@ -407,13 +390,11 @@ void DrawOpenedPage(Page *page, int layer, int yTop)
     }
 }
 
-
 //------------------------------------------------------------------------------------------------------------------------------------------------------
 int CalculateX(int layer)
 {
     return MP_X - layer * GRID_DELTA / 4;
 }
-
 
 //------------------------------------------------------------------------------------------------------------------------------------------------------
 bool IsShade(void* item)
@@ -421,20 +402,17 @@ bool IsShade(void* item)
     return CurrentItemIsOpened(GetNamePage(Keeper(item))) && (item != OpenedItem());
 }
 
-
 //------------------------------------------------------------------------------------------------------------------------------------------------------
 bool IsPressed(void* item)
 {
     return item == Menu_ItemUnderKey();
 }
 
-
 //------------------------------------------------------------------------------------------------------------------------------------------------------
 void* ItemUnderButton(PanelButton button)
 {
     return itemUnderButton[button];
 }
-
 
 //------------------------------------------------------------------------------------------------------------------------------------------------------
 void ResetItemsUnderButton(void)
@@ -444,7 +422,6 @@ void ResetItemsUnderButton(void)
         itemUnderButton[i] = 0;
     }
 }
-
 
 //------------------------------------------------------------------------------------------------------------------------------------------------------
 int ItemOpenedPosY(void *item)
