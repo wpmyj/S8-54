@@ -35,6 +35,9 @@ static const Choice mcConsole_Registers_ChanParamB;
 static const Choice mcConsole_Registers_TBase;
 static const Choice mcConsole_Registers_TShift;
 
+static const Button mbConsole_SizeSettings;
+static void FuncDrawSizeSettings(int, int);
+
 static const Page mspADC;
 
 static const Page mspADC_Balance;
@@ -166,7 +169,9 @@ static const Page mspConsole =
         (void*)&mgConsole_NumStrings,   // Œ“À¿ƒ ¿ ->  ŒÕ—ŒÀ‹ -> ◊ËÒÎÓ ÒÚÓÍ
         (void*)&mcConsole_SizeFont,     // Œ“À¿ƒ ¿ ->  ŒÕ—ŒÀ‹ -> –‡ÁÏÂ ¯ËÙÚ‡
         (void*)&mcConsole_ModeStop,     // Œ“À¿ƒ ¿ ->  ŒÕ—ŒÀ‹ -> –ÂÊ. ÓÒÚ‡ÌÓ‚‡
-        (void*)&mspConsole_Registers    // Œ“À¿ƒ ¿ ->  ŒÕ—ŒÀ‹ -> –≈√»—“–€
+        (void*)&mspConsole_Registers,   // Œ“À¿ƒ ¿ ->  ŒÕ—ŒÀ‹ -> –≈√»—“–€
+        (void*)&mbConsole_SizeSettings  // Œ“À¿ƒ ¿ ->  ŒÕ—ŒÀ‹ -> –‡ÁÏ. Ì‡ÒÚÓÂÍ
+
     }
 };
 
@@ -407,7 +412,7 @@ static const Choice mcConsole_Registers_ChanParamB =
 };
 
 
-// Œ“À¿ƒ ¿ ->  ŒÕ—ŒÀ‹ -> –≈√»—“–€ -> ¬–≈Ãﬂ/ƒ≈À ---------------------------------------------------------------------------------------------------------
+// Œ“À¿ƒ ¿ ->  ŒÕ—ŒÀ‹ -> –≈√»—“–€ -> ¬–≈Ãﬂ/ƒ≈À -------------------------------------------------------------------------------------------------------
 static const Choice mcConsole_Registers_TBase =
 {
     Item_Choice, &mspConsole_Registers, IsActive_Registers,
@@ -424,7 +429,7 @@ static const Choice mcConsole_Registers_TBase =
 };
 
 
-// Œ“À¿ƒ ¿ ->  ŒÕ—ŒÀ‹ -> –≈√»—“–€ -> “ ÒÏ. --------------------------------------------------------------------------------------------------------------
+// Œ“À¿ƒ ¿ ->  ŒÕ—ŒÀ‹ -> –≈√»—“–€ -> “ ÒÏ. -----------------------------------------------------------------------------------------------------------
 static const Choice mcConsole_Registers_TShift =
 {
     Item_Choice, &mspConsole_Registers, IsActive_Registers,
@@ -441,7 +446,28 @@ static const Choice mcConsole_Registers_TShift =
 };
 
 
-// Œ“À¿ƒ ¿ -> ¿÷œ //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// Œ“À¿ƒ ¿- ŒÕ—ŒÀ‹-–‡ÁÏ.Ì‡ÒÚÓÂÍ ---------------------------------------------------------------------------------------------------------------------
+static const Button mbConsole_SizeSettings =
+{
+    Item_Button, &mspConsole, 0,
+    {
+        "", "",
+        "œÓÍ‡Á˚‚‡ÂÚ ÚÂÍÛ˘ËÈ ‡ÁÏÂ ÒÚÛÍÚÛ˚ ‰Îˇ ÒÓı‡ÌÂÌËˇ Ì‡ÒÚÓÂÍ",
+        "Displays the current size of the structure to save settings"
+    },
+    0, FuncDrawSizeSettings
+};
+
+static void FuncDrawSizeSettings(int x, int y)
+{
+    char buffer[30];
+    sprintf(buffer, "–‡ÁÏ.Ì‡ÒÚ. %d", sizeof(Settings));
+    Painter_DrawTextC(x + 6, y + 13, buffer, gColorBack);
+    LOG_WRITE(buffer);
+}
+
+
+// Œ“À¿ƒ ¿ -> ¿÷œ ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 static const Page mspADC =
 {
     Item_Page, &mpDebug, 0,

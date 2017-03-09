@@ -208,11 +208,7 @@ void CloseOpenedItem(void)
     {
         if (IsPageSB(item))
         {
-            SmallButton *sb = SmallButonFromPage(item, 0);
-            if (sb->funcOnPress)
-            {
-                sb->funcOnPress();
-            }
+            CallFuncOnPressButton(SmallButonFromPage(item, 0));
         }
         NamePage name = Keeper(item)->name;
         SetMenuPosActItem(name, MENU_POS_ACT_ITEM(name) & 0x7f);
@@ -463,11 +459,7 @@ void ShortPressOnPageItem(Page *page, int numItem)
     NamePage namePage = page->name;
     if (namePage >= Page_SB_Curs)
     {
-        SmallButton *sb = (SmallButton*)page->items[numItem];
-        if (sb && sb->funcOnPress)
-        {
-            sb->funcOnPress();
-        }
+        CallFuncOnPressButton(page->items[numItem]);
     }
 }
 
@@ -494,4 +486,27 @@ bool IsPageSB(const void *item)
 SmallButton* SmallButonFromPage(Page *page, int numButton)
 {
     return page->items[numButton];
+}
+
+
+//----------------------------------------------------------------------------------------------------------------------------------------------------
+void CallFuncOnPressButton(void *button)
+{
+    if (button)
+    {
+        Button *btn = (Button*)button;
+        if (btn->funcOnPress)
+        {
+            btn->funcOnPress();
+        }
+    }
+}
+
+//----------------------------------------------------------------------------------------------------------------------------------------------------
+void CallFuncOnDrawButton(Button *button, int x, int y)
+{
+    if (button->funcForDraw)
+    {
+        button->funcForDraw(x, y);
+    }
 }

@@ -46,4 +46,6 @@ void            PrintStatePage(Page *page);
 void            ShortPressOnPageItem(Page *page, int numItem);  // Вызывает функцию короткого нажатия кнопки над итемом numItem страницы page;
 Page*           PagePointerFromName(NamePage namePage);
 bool            IsPageSB(const void *item);
-SmallButton* SmallButonFromPage(Page *page, int numButton);
+SmallButton*    SmallButonFromPage(Page *page, int numButton);
+void            CallFuncOnPressButton(void *button);
+void            CallFuncOnDrawButton(Button *button, int x, int y);
