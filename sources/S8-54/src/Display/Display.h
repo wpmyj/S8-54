@@ -1,12 +1,12 @@
-#pragma once
+п»ї#pragma once
 #include "DisplayTypes.h"
 #include "Settings/SettingsTypes.h"
 #include "Tables.h"
 #include "Painter.h"
 
 /*
-    При поточечном режиме вывода текущие точки берутся из DS_GetData(0),
-    а последний полный сигнал из DS_GetData(1);
+    РџСЂРё РїРѕС‚РѕС‡РµС‡РЅРѕРј СЂРµР¶РёРјРµ РІС‹РІРѕРґР° С‚РµРєСѓС‰РёРµ С‚РѕС‡РєРё Р±РµСЂСѓС‚СЃСЏ РёР· DS_GetData(0),
+    Р° РїРѕСЃР»РµРґРЅРёР№ РїРѕР»РЅС‹Р№ СЃРёРіРЅР°Р» РёР· DS_GetData(1);
 */
 
 
@@ -28,13 +28,13 @@ void    Display_OneStringUp(void);
 void    Display_OneStringDown(void);
 void    Display_SetPauseForConsole(bool pause);
 void    Display_SetOrientation(DisplayOrientation orientation);
-void    Display_DrawConsole(void);                              // Вывести сообщеия отладочной консоли
-void    Display_SetDrawMode(DrawMode mode, pFuncVV func);       // Установить функцию и режим отрисовки экрана. Возможны три варианта
-                                                                // 1. DrawMode_Hand - в этом случае будет вызываться функция func(), определяемая пользователем, с частотой 25 раз в секунду.
-                                                                // Используется в случаях, когда не выполняется главный цикл
-                                                                // 2. DrawMode_Auto и func == 0 - в этом случае будет выполняться функция Display_Update() в главном цикле
-                                                                // 3. DrawMode_Auto и func != 0 - в этом случае будет выполняться функция func(), определяемая пользователем, но в теле
-                                                                // главного цикла, будучи вызываемой из Display_Update() вместо Display_Update()
+void    Display_DrawConsole(void);                              // Р’С‹РІРµСЃС‚Рё СЃРѕРѕР±С‰РµРёСЏ РѕС‚Р»Р°РґРѕС‡РЅРѕР№ РєРѕРЅСЃРѕР»Рё
+void    Display_SetDrawMode(DrawMode mode, pFuncVV func);       // РЈСЃС‚Р°РЅРѕРІРёС‚СЊ С„СѓРЅРєС†РёСЋ Рё СЂРµР¶РёРј РѕС‚СЂРёСЃРѕРІРєРё СЌРєСЂР°РЅР°. Р’РѕР·РјРѕР¶РЅС‹ С‚СЂРё РІР°СЂРёР°РЅС‚Р°
+                                                                // 1. DrawMode_Hand - РІ СЌС‚РѕРј СЃР»СѓС‡Р°Рµ Р±СѓРґРµС‚ РІС‹Р·С‹РІР°С‚СЊСЃСЏ С„СѓРЅРєС†РёСЏ func(), РѕРїСЂРµРґРµР»СЏРµРјР°СЏ РїРѕР»СЊР·РѕРІР°С‚РµР»РµРј, СЃ С‡Р°СЃС‚РѕС‚РѕР№ 25 СЂР°Р· РІ СЃРµРєСѓРЅРґСѓ.
+                                                                // РСЃРїРѕР»СЊР·СѓРµС‚СЃСЏ РІ СЃР»СѓС‡Р°СЏС…, РєРѕРіРґР° РЅРµ РІС‹РїРѕР»РЅСЏРµС‚СЃСЏ РіР»Р°РІРЅС‹Р№ С†РёРєР»
+                                                                // 2. DrawMode_Auto Рё func == 0 - РІ СЌС‚РѕРј СЃР»СѓС‡Р°Рµ Р±СѓРґРµС‚ РІС‹РїРѕР»РЅСЏС‚СЊСЃСЏ С„СѓРЅРєС†РёСЏ Display_Update() РІ РіР»Р°РІРЅРѕРј С†РёРєР»Рµ
+                                                                // 3. DrawMode_Auto Рё func != 0 - РІ СЌС‚РѕРј СЃР»СѓС‡Р°Рµ Р±СѓРґРµС‚ РІС‹РїРѕР»РЅСЏС‚СЊСЃСЏ С„СѓРЅРєС†РёСЏ func(), РѕРїСЂРµРґРµР»СЏРµРјР°СЏ РїРѕР»СЊР·РѕРІР°С‚РµР»РµРј, РЅРѕ РІ С‚РµР»Рµ
+                                                                // РіР»Р°РІРЅРѕРіРѕ С†РёРєР»Р°, Р±СѓРґСѓС‡Рё РІС‹Р·С‹РІР°РµРјРѕР№ РёР· Display_Update() РІРјРµСЃС‚Рѕ Display_Update()
 
 typedef enum
 {
@@ -74,6 +74,6 @@ typedef enum
 void Display_ClearFromWarnings(void);
 void Display_ShowWarning(Warning warning);
 
-// Группа функций для вывода сообщения о занятом приборе
+// Р“СЂСѓРїРїР° С„СѓРЅРєС†РёР№ РґР»СЏ РІС‹РІРѕРґР° СЃРѕРѕР±С‰РµРЅРёСЏ Рѕ Р·Р°РЅСЏС‚РѕРј РїСЂРёР±РѕСЂРµ
 void Display_FuncOnWaitStart(char *textRu, char *textEn);
 void Display_FuncOnWaitStop(void);

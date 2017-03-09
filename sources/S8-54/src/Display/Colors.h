@@ -1,24 +1,26 @@
-#pragma once
+п»ї#pragma once
 
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 Color ColorCursors(Channel cnan);
-Color ColorTrig(void);                  // Возвращает цвет синхронизации.
-Color ColorMenuTitle(bool inShade);     // Цвет заголовка страницы. inShade == true, если страница затенена
-Color ColorMenuItem(bool inShade);      // Цвет элемента меню.
-Color ColorBorderMenu(bool inShade);    // Цвет окантовки меню.
-Color ColorContrast(Color color);       // Возвращает цвет, контрастный к color. Может быть белым или чёрным.
-Color LightShadingTextColor(void);      // Светлый цвет в тени.
+Color ColorTrig(void);                  // Р’РѕР·РІСЂР°С‰Р°РµС‚ С†РІРµС‚ СЃРёРЅС…СЂРѕРЅРёР·Р°С†РёРё.
+Color ColorMenuTitle(bool inShade);     // Р¦РІРµС‚ Р·Р°РіРѕР»РѕРІРєР° СЃС‚СЂР°РЅРёС†С‹. inShade == true, РµСЃР»Рё СЃС‚СЂР°РЅРёС†Р° Р·Р°С‚РµРЅРµРЅР°
+Color ColorMenuItem(bool inShade);      // Р¦РІРµС‚ СЌР»РµРјРµРЅС‚Р° РјРµРЅСЋ.
+Color ColorBorderMenu(bool inShade);    // Р¦РІРµС‚ РѕРєР°РЅС‚РѕРІРєРё РјРµРЅСЋ.
+Color ColorContrast(Color color);       // Р’РѕР·РІСЂР°С‰Р°РµС‚ С†РІРµС‚, РєРѕРЅС‚СЂР°СЃС‚РЅС‹Р№ Рє color. РњРѕР¶РµС‚ Р±С‹С‚СЊ Р±РµР»С‹Рј РёР»Рё С‡С‘СЂРЅС‹Рј.
+Color LightShadingTextColor(void);      // РЎРІРµС‚Р»С‹Р№ С†РІРµС‚ РІ С‚РµРЅРё.
 
 
 #define ColorMenuField() COLOR_MENU_FIELD
-// Чуть менее светлый цвет, чем цвет элемента меню. Используется для создания эффекта объёма.
+// Р§СѓС‚СЊ РјРµРЅРµРµ СЃРІРµС‚Р»С‹Р№ С†РІРµС‚, С‡РµРј С†РІРµС‚ СЌР»РµРјРµРЅС‚Р° РјРµРЅСЋ. РСЃРїРѕР»СЊР·СѓРµС‚СЃСЏ РґР»СЏ СЃРѕР·РґР°РЅРёСЏ СЌС„С„РµРєС‚Р° РѕР±СЉС‘РјР°.
 #define ColorMenuItemLessBright()   COLOR_MENU_ITEM_DARK
-// Чуть более светлый цвет, чем цвет заголовка страницы. Используется для создания эффекта объёма.
+// Р§СѓС‚СЊ Р±РѕР»РµРµ СЃРІРµС‚Р»С‹Р№ С†РІРµС‚, С‡РµРј С†РІРµС‚ Р·Р°РіРѕР»РѕРІРєР° СЃС‚СЂР°РЅРёС†С‹. РСЃРїРѕР»СЊР·СѓРµС‚СЃСЏ РґР»СЏ СЃРѕР·РґР°РЅРёСЏ СЌС„С„РµРєС‚Р° РѕР±СЉС‘РјР°.
 #define ColorMenuTitleBrighter()    COLOR_MENU_TITLE_BRIGHT
-// Чуть менее светлый цвет, чем цвет заголовка страницы. Используется для создания эффекта объёма.
+// Р§СѓС‚СЊ РјРµРЅРµРµ СЃРІРµС‚Р»С‹Р№ С†РІРµС‚, С‡РµРј С†РІРµС‚ Р·Р°РіРѕР»РѕРІРєР° СЃС‚СЂР°РЅРёС†С‹. РСЃРїРѕР»СЊР·СѓРµС‚СЃСЏ РґР»СЏ СЃРѕР·РґР°РЅРёСЏ СЌС„С„РµРєС‚Р° РѕР±СЉС‘РјР°.
 #define ColorMenuTitleLessBright()  COLOR_MENU_TITLE_DARK
-// Чуть более светлый цвет, чем цвет элемента меню. Используется для создания эффекта объёма.
+// Р§СѓС‚СЊ Р±РѕР»РµРµ СЃРІРµС‚Р»С‹Р№ С†РІРµС‚, С‡РµРј С†РІРµС‚ СЌР»РµРјРµРЅС‚Р° РјРµРЅСЋ. РСЃРїРѕР»СЊР·СѓРµС‚СЃСЏ РґР»СЏ СЃРѕР·РґР°РЅРёСЏ СЌС„С„РµРєС‚Р° РѕР±СЉС‘РјР°.
 #define ColorMenuItemBrighter()     COLOR_MENU_ITEM_BRIGHT
-// Тёмный цвет в тени.
+// РўС‘РјРЅС‹Р№ С†РІРµС‚ РІ С‚РµРЅРё.
 #define DarkShadingTextColor()      COLOR_MENU_TITLE_DARK
 
 typedef struct
@@ -35,10 +37,10 @@ typedef struct
     bool    alreadyUsed;
 } ColorType;
 
-void Color_Log(Color color);           // Вывести в лог значение цвета.
+void Color_Log(Color color);           // Р’С‹РІРµСЃС‚Рё РІ Р»РѕРі Р·РЅР°С‡РµРЅРёРµ С†РІРµС‚Р°.
 void Color_BrightnessChange(ColorType *colorType, int delta);
 void Color_SetBrightness(ColorType *colorType, float brightness);
-void Color_Init(ColorType *colorType, bool forced);                 // Если forced == false, то инициализация происходит только при первом вызове функции
+void Color_Init(ColorType *colorType, bool forced);                 // Р•СЃР»Рё forced == false, С‚Рѕ РёРЅРёС†РёР°Р»РёР·Р°С†РёСЏ РїСЂРѕРёСЃС…РѕРґРёС‚ С‚РѕР»СЊРєРѕ РїСЂРё РїРµСЂРІРѕРј РІС‹Р·РѕРІРµ С„СѓРЅРєС†РёРё
 void Color_ComponentChange(ColorType * const colorType, int delta);
 
 const char* NameColorFromValue(uint16 colorValue);

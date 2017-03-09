@@ -1,4 +1,4 @@
-#pragma once
+п»ї#pragma once
 #include "defines.h"
 #pragma once
 
@@ -9,7 +9,7 @@
 #define SCREEN_HEIGHT_IN_BYTES  (240 / 8)
 #define SIZE_BUFFER_FOR_SCREEN  ((SCREEN_WIDTH) * (SCREEN_HEIGHT) / 8)
 
-#define GRID_DELTA              20  /* Количество точек в клетке */
+#define GRID_DELTA              20  /* РљРѕР»РёС‡РµСЃС‚РІРѕ С‚РѕС‡РµРє РІ РєР»РµС‚РєРµ */
 #define GRID_TOP                19
 #define GRID_CELLS_IN_HEIGHT    10
 #define GRID_HEIGHT             ((GRID_CELLS_IN_HEIGHT) * (GRID_DELTA))
@@ -32,7 +32,7 @@
 #define MOSI_HEIGHT             14
 #define MOI_HEIGHT_TITLE        19
 #define MOI_WIDTH               MP_TITLE_WIDTH
-#define MOI_WIDTH_D_IP          34      /* Увеличение ширины открытого ip-адреса в случае наличия порта */
+#define MOI_WIDTH_D_IP          34      /* РЈРІРµР»РёС‡РµРЅРёРµ С€РёСЂРёРЅС‹ РѕС‚РєСЂС‹С‚РѕРіРѕ ip-Р°РґСЂРµСЃР° РІ СЃР»СѓС‡Р°Рµ РЅР°Р»РёС‡РёСЏ РїРѕСЂС‚Р° */
 #define WIDTH_SB                19
 #define LEFT_SB                 299 
 
@@ -80,11 +80,11 @@ typedef enum
     DRAW_MULTI_HPOINT_LINES     = 16,   //
     DRAW_MULTI_HPOINT_LINES_2   = 17,   // 17 numLines:1 x:2 numPoints:1 dx:1 lines:numLines
     DRAW_MULTI_VPOINT_LINES     = 18,   // 18 numLines:1 y:1 numPoints:1 dy:1 empty:1 lines:numLines*2
-    LOAD_FONT                   = 19,   // 19 typeFont:1 height:4 symbols:9 * 256 . Описание symbols смотри в Font.h
+    LOAD_FONT                   = 19,   // 19 typeFont:1 height:4 symbols:9 * 256 . РћРїРёСЃР°РЅРёРµ symbols СЃРјРѕС‚СЂРё РІ Font.h
     LOAD_IMAGE                  = 20,   // 
     GET_POINT                   = 21,   // 
     RUN_BUFFER                  = 22,   //
     SET_REINIT                  = 23,   //
-    SET_ORIENTATION             = 24,   // Установить ориентацию экрана. 0 - нормальная, 1 - обратная
+    SET_ORIENTATION             = 24,   // РЈСЃС‚Р°РЅРѕРІРёС‚СЊ РѕСЂРёРµРЅС‚Р°С†РёСЋ СЌРєСЂР°РЅР°. 0 - РЅРѕСЂРјР°Р»СЊРЅР°СЏ, 1 - РѕР±СЂР°С‚РЅР°СЏ
     NUM_COMMANDS
 } Command;
