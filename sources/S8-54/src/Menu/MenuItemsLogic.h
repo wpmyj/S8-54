@@ -1,24 +1,28 @@
-#pragma once
+п»ї#pragma once
 #include "defines.h"
 #include "MenuItems.h"
 
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+extern int8 gCurDigit;
+
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 void    Choice_StartChange(Choice *choice, int delta);
-float   Choice_Step(Choice *choice);                            // Рассчитывает следующий кадр анимации.
-void    Choice_ChangeIndex(Choice *choice, int delta);          // Изменяет значение choice в зависимости от величины и знака delta.
+float   Choice_Step(Choice *choice);                            // Р Р°СЃСЃС‡РёС‚С‹РІР°РµС‚ СЃР»РµРґСѓСЋС‰РёР№ РєР°РґСЂ Р°РЅРёРјР°С†РёРё.
+void    Choice_ChangeIndex(Choice *choice, int delta);          // РР·РјРµРЅСЏРµС‚ Р·РЅР°С‡РµРЅРёРµ choice РІ Р·Р°РІРёСЃРёРјРѕСЃС‚Рё РѕС‚ РІРµР»РёС‡РёРЅС‹ Рё Р·РЅР°РєР° delta.
 
-void    Governor_StartChange(Governor *governor, int detla);    // Запускает процессс анимации инкремента или декремента элемента меню типа Governor (в зависимости от знака delta)
-float   Governor_Step(Governor *governor);                      // Рассчитывате следующий кадр анимации.
-void    Governor_ChangeValue(Governor *governor, int delta);    // Изменяет значение в текущей позиции при раскрытом элементе
-int16   Governor_NextValue(Governor *governor);                 // Возвращает следующее большее значение, которое может принять governor.
-int16   Governor_PrevValue(Governor *governor);                 // Возвращает следующее меньшее значение, которое может принять governor.
-void    Governor_NextPosition(Governor *governor);              // При открытом элементе переставляет курсор на следующую позицию
-int     Governor_NumDigits(Governor *governor);                 // Возвращает число знакомест в поле для ввода элемента governor. Зависит от максимального значения, которое может принимать governor.
+void    Governor_StartChange(Governor *governor, int detla);    // Р—Р°РїСѓСЃРєР°РµС‚ РїСЂРѕС†РµСЃСЃСЃ Р°РЅРёРјР°С†РёРё РёРЅРєСЂРµРјРµРЅС‚Р° РёР»Рё РґРµРєСЂРµРјРµРЅС‚Р° СЌР»РµРјРµРЅС‚Р° РјРµРЅСЋ С‚РёРїР° Governor (РІ Р·Р°РІРёСЃРёРјРѕСЃС‚Рё РѕС‚ Р·РЅР°РєР° delta)
+float   Governor_Step(Governor *governor);                      // Р Р°СЃСЃС‡РёС‚С‹РІР°С‚Рµ СЃР»РµРґСѓСЋС‰РёР№ РєР°РґСЂ Р°РЅРёРјР°С†РёРё.
+void    Governor_ChangeValue(Governor *governor, int delta);    // РР·РјРµРЅСЏРµС‚ Р·РЅР°С‡РµРЅРёРµ РІ С‚РµРєСѓС‰РµР№ РїРѕР·РёС†РёРё РїСЂРё СЂР°СЃРєСЂС‹С‚РѕРј СЌР»РµРјРµРЅС‚Рµ
+int16   Governor_NextValue(Governor *governor);                 // Р’РѕР·РІСЂР°С‰Р°РµС‚ СЃР»РµРґСѓСЋС‰РµРµ Р±РѕР»СЊС€РµРµ Р·РЅР°С‡РµРЅРёРµ, РєРѕС‚РѕСЂРѕРµ РјРѕР¶РµС‚ РїСЂРёРЅСЏС‚СЊ governor.
+int16   Governor_PrevValue(Governor *governor);                 // Р’РѕР·РІСЂР°С‰Р°РµС‚ СЃР»РµРґСѓСЋС‰РµРµ РјРµРЅСЊС€РµРµ Р·РЅР°С‡РµРЅРёРµ, РєРѕС‚РѕСЂРѕРµ РјРѕР¶РµС‚ РїСЂРёРЅСЏС‚СЊ governor.
+void    Governor_NextPosition(Governor *governor);              // РџСЂРё РѕС‚РєСЂС‹С‚РѕРј СЌР»РµРјРµРЅС‚Рµ РїРµСЂРµСЃС‚Р°РІР»СЏРµС‚ РєСѓСЂСЃРѕСЂ РЅР° СЃР»РµРґСѓСЋС‰СѓСЋ РїРѕР·РёС†РёСЋ
+int     Governor_NumDigits(Governor *governor);                 // Р’РѕР·РІСЂР°С‰Р°РµС‚ С‡РёСЃР»Рѕ Р·РЅР°РєРѕРјРµСЃС‚ РІ РїРѕР»Рµ РґР»СЏ РІРІРѕРґР° СЌР»РµРјРµРЅС‚Р° governor. Р—Р°РІРёСЃРёС‚ РѕС‚ РјР°РєСЃРёРјР°Р»СЊРЅРѕРіРѕ Р·РЅР°С‡РµРЅРёСЏ, РєРѕС‚РѕСЂРѕРµ РјРѕР¶РµС‚ РїСЂРёРЅРёРјР°С‚СЊ governor.
 
-void    IPaddress_NextPosition(IPaddress *ip);                  // При открытом элементе переставляет курсор на следующую позицию
-void    IPaddress_ChangeValue(IPaddress *ip, int delta);        // Изменяет значение в текущей позиции при открытом элементе
-void    IPaddress_GetNumPosIPvalue(int *numIP, int *selPos);        // Возвращает номер текущего байта (4 - номер порта) и номер текущей позиции в байте.
+void    IPaddress_NextPosition(IPaddress *ip);                  // РџСЂРё РѕС‚РєСЂС‹С‚РѕРј СЌР»РµРјРµРЅС‚Рµ РїРµСЂРµСЃС‚Р°РІР»СЏРµС‚ РєСѓСЂСЃРѕСЂ РЅР° СЃР»РµРґСѓСЋС‰СѓСЋ РїРѕР·РёС†РёСЋ
+void    IPaddress_ChangeValue(IPaddress *ip, int delta);        // РР·РјРµРЅСЏРµС‚ Р·РЅР°С‡РµРЅРёРµ РІ С‚РµРєСѓС‰РµР№ РїРѕР·РёС†РёРё РїСЂРё РѕС‚РєСЂС‹С‚РѕРј СЌР»РµРјРµРЅС‚Рµ
+void    IPaddress_GetNumPosIPvalue(int *numIP, int *selPos);        // Р’РѕР·РІСЂР°С‰Р°РµС‚ РЅРѕРјРµСЂ С‚РµРєСѓС‰РµРіРѕ Р±Р°Р№С‚Р° (4 - РЅРѕРјРµСЂ РїРѕСЂС‚Р°) Рё РЅРѕРјРµСЂ С‚РµРєСѓС‰РµР№ РїРѕР·РёС†РёРё РІ Р±Р°Р№С‚Рµ.
 
 void    MACaddress_ChangeValue(MACaddress *mac, int delta);
 
@@ -28,6 +32,4 @@ void    Time_SelectNextPosition(Time *time);
 void    Time_IncCurrentPosition(Time *time);
 void    Time_DecCurrentPosition(Time *time);
 
-void    GovernorColor_ChangeValue(GovernorColor *governor, int delta);  // Изменить яркость цвета в governor
-
-extern int8 gCurDigit;
+void    GovernorColor_ChangeValue(GovernorColor *governor, int delta);  // РР·РјРµРЅРёС‚СЊ СЏСЂРєРѕСЃС‚СЊ С†РІРµС‚Р° РІ governor

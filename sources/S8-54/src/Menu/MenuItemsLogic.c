@@ -62,7 +62,6 @@ void Choice_ChangeIndex(Choice *choice, int delta)
     Display_Redraw();
 }
 
-
 //------------------------------------------------------------------------------------------------------------------------------------------------------
 void Governor_StartChange(Governor *governor, int delta)
 {
@@ -83,7 +82,6 @@ void Governor_StartChange(Governor *governor, int delta)
     tsGovernor.dir = delta > 0 ? INCREASE : DECREASE;
 }
 
-
 //------------------------------------------------------------------------------------------------------------------------------------------------------
 void Governor_ChangeValue(Governor *governor, int delta)
 {
@@ -98,7 +96,6 @@ void Governor_ChangeValue(Governor *governor, int delta)
         Sound_GovernorChangedValue();
     }
 }
-
 
 //------------------------------------------------------------------------------------------------------------------------------------------------------
 void IPaddress_ChangeValue(IPaddress *ip, int delta)
@@ -138,7 +135,6 @@ void IPaddress_ChangeValue(IPaddress *ip, int delta)
     }
 }
 
-
 //------------------------------------------------------------------------------------------------------------------------------------------------------
 void MACaddress_ChangeValue(MACaddress *mac, int delta)
 {
@@ -147,7 +143,6 @@ void MACaddress_ChangeValue(MACaddress *mac, int delta)
     Sound_GovernorChangedValue();
     Display_ShowWarning(NeedRebootDevice);
 }
-
 
 //------------------------------------------------------------------------------------------------------------------------------------------------------
 void IPaddress_GetNumPosIPvalue(int *numIP, int *selPos)
@@ -165,7 +160,6 @@ void IPaddress_GetNumPosIPvalue(int *numIP, int *selPos)
 
 
 }
-
 
 //------------------------------------------------------------------------------------------------------------------------------------------------------
 void Choice_StartChange(Choice *choice, int delta)
@@ -190,7 +184,6 @@ void Choice_StartChange(Choice *choice, int delta)
         tsChoice.dir = delta > 0 ? INCREASE : DECREASE;
     }
 }
-
 
 //------------------------------------------------------------------------------------------------------------------------------------------------------
 float Choice_Step(Choice *choice)
@@ -232,7 +225,6 @@ float Choice_Step(Choice *choice)
     }
     return 0.0f;
 }
-
 
 //------------------------------------------------------------------------------------------------------------------------------------------------------
 float Governor_Step(Governor *governor)
@@ -284,20 +276,17 @@ float Governor_Step(Governor *governor)
     return delta;
 }
 
-
 //------------------------------------------------------------------------------------------------------------------------------------------------------
 int16 Governor_NextValue(Governor *governor)
 {
     return ((*governor->cell) < governor->maxValue) ? (*governor->cell) + 1 : governor->minValue;
 }
 
-
 //------------------------------------------------------------------------------------------------------------------------------------------------------
 int16 Governor_PrevValue(Governor *governor)
 {
     return ((*governor->cell) > governor->minValue) ? (*governor->cell) - 1 : governor->maxValue;
 }
-
 
 //------------------------------------------------------------------------------------------------------------------------------------------------------
 void Governor_NextPosition(Governor *governor)
@@ -307,7 +296,6 @@ void Governor_NextPosition(Governor *governor)
         CircleIncreaseInt8(&gCurDigit, 0, (int8)(Governor_NumDigits(governor) - 1));
     }
 }
-
 
 //------------------------------------------------------------------------------------------------------------------------------------------------------
 int Governor_NumDigits(Governor *governor)
@@ -321,13 +309,11 @@ int Governor_NumDigits(Governor *governor)
     return max;
 }
 
-
 //------------------------------------------------------------------------------------------------------------------------------------------------------
 void IPaddress_NextPosition(IPaddress *ipAddress)
 {
     CircleIncreaseInt8(&gCurDigit, 0, ipAddress->port == 0 ? 11 : 16);
 }
-
 
 //------------------------------------------------------------------------------------------------------------------------------------------------------
 void Time_SetOpened(Time *item)
@@ -341,13 +327,11 @@ void Time_SetOpened(Time *item)
     *(item->year) = (int8)time.year ;
 }
 
-
 //------------------------------------------------------------------------------------------------------------------------------------------------------
 void Time_SetNewTime(Time *time)
 {
     RTC_SetTimeAndData(*time->day, *time->month, *time->year, *time->hours, *time->minutes, *time->seconds);
 }
-
 
 //------------------------------------------------------------------------------------------------------------------------------------------------------
 void Time_SelectNextPosition(Time *time)
@@ -355,7 +339,6 @@ void Time_SelectNextPosition(Time *time)
     CircleIncreaseInt8(time->curField, 0, 7);
     Painter_ResetFlash();
 }
-
 
 //------------------------------------------------------------------------------------------------------------------------------------------------------
 void Time_IncCurrentPosition(Time *time)
@@ -375,7 +358,6 @@ void Time_IncCurrentPosition(Time *time)
     }
 }
 
-
 //------------------------------------------------------------------------------------------------------------------------------------------------------
 void Time_DecCurrentPosition(Time *time)
 {
@@ -393,7 +375,6 @@ void Time_DecCurrentPosition(Time *time)
         }
     }
 }
-
 
 //------------------------------------------------------------------------------------------------------------------------------------------------------
 void GovernorColor_ChangeValue(GovernorColor *governor, int delta)

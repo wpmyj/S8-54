@@ -15,7 +15,7 @@ static void MACaddress_DrawOpened(MACaddress *mac, int x, int y);
 static void IPaddress_DrawOpened(IPaddress *ip, int x, int y);
 
 
-//------------------------------------------------------------------------------------------------------------------------------------------------------
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 void DrawGovernorChoiceColorFormulaHiPart(void *item, int x, int y, bool pressed, bool shade, bool opened)
 {
     int delta = pressed && !shade ? 1 : 0;
