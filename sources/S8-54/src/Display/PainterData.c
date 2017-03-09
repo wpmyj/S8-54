@@ -110,7 +110,6 @@ void PainterData_DrawData(void)
     Painter_DrawRectangleC(GridLeft(), GRID_TOP, GridWidth(), GridFullHeight(), gColorFill);
 }
 
-
 //------------------------------------------------------------------------------------------------------------------------------------------------------
 void PainterData_DrawMath(void)
 {
@@ -151,7 +150,6 @@ void PainterData_DrawMath(void)
     char buffer[20];
     Painter_DrawText(GridLeft() + 27, GridMathTop() + 1 + delta, sChannel_RShift2String(RSHIFT_MATH, RANGE_MATH, divider, buffer));
 }
-
 
 //------------------------------------------------------------------------------------------------------------------------------------------------------
 // Нарисовать окно памяти
@@ -239,7 +237,6 @@ void PainterData_DrawMemoryWindow(void)
     free(dB);
 }
 
-
 //---------------------------------------------------------------------------------------------------------------------------------------------------
 static void DrawDataMemInt(void)
 {
@@ -252,7 +249,6 @@ static void DrawDataMemInt(void)
         DrawDataChannel(gDataBmemInt, GRID_TOP, GridChannelBottom());
     }
 }
-
 
 //------------------------------------------------------------------------------------------------------------------------------------------------------
 static void DrawDataInModeNormal(void)
@@ -280,7 +276,6 @@ static void DrawDataInModeNormal(void)
     }
 }
 
-
 //------------------------------------------------------------------------------------------------------------------------------------------------------
 static void DrawDataInModeWorkLatest(void)
 {
@@ -293,7 +288,6 @@ static void DrawDataInModeWorkLatest(void)
         DrawDataChannel(gDataBmemLast, GRID_TOP, GridChannelBottom());
     }
 }
-
 
 //------------------------------------------------------------------------------------------------------------------------------------------------------
 static void DrawDataMinMax(void)
@@ -321,7 +315,6 @@ static void DrawDataMinMax(void)
     }
     MODE_DRAW_SIGNAL = modeDrawSignalOld;
 }
-
 
 //------------------------------------------------------------------------------------------------------------------------------------------------------
 static void DrawDataChannel(uint8 *dataIn, int minY, int maxY)
@@ -486,7 +479,6 @@ static void DrawDataInRect(int x, int width, const uint8 *data, int numBytes, bo
     }
 }
 
-
 //----------------------------------------------------------------------------------------------------------------------------------------------------
 // Возвращает (-1), если точка не считана (NONE_VALUE)
 //----------------------------------------------------------------------------------------------------------------------------------------------------
@@ -501,7 +493,6 @@ static int Ordinate(uint8 x, float scale)
 
     return (bottom - scale * LimitationInt(x - MIN_VALUE, 0, (MAX_VALUE - MIN_VALUE))) + 0.5f;
 }
-
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
 // Процедура ограничивает width числом 255
@@ -521,7 +512,6 @@ static void SendToDisplayDataInRect(int x, int *min, int *max, int width)
     Painter_DrawVLineArray(x, width, points, gColorChan[curCh]);
 }
 
-
 //------------------------------------------------------------------------------------------------------------------------------------------------------
 static void DrawTPos(int leftX, int rightX)
 {
@@ -530,7 +520,6 @@ static void DrawTPos(int leftX, int rightX)
     Painter_FillRegionC(x0 - 3, 10, 6, 6, gColorBack);
     Painter_DrawCharC(x0 - 3, 10, SYMBOL_TPOS_1, gColorFill);
 }
-
 
 //------------------------------------------------------------------------------------------------------------------------------------------------------
 static void DrawTShift(int leftX, int rightX, int numBytes)
@@ -573,7 +562,6 @@ static void DrawTShift(int leftX, int rightX, int numBytes)
     Painter_DrawLine((int)xShift + dX02, 4, (int)xShift + 2, dY12 - 2);
 }
 
-
 //------------------------------------------------------------------------------------------------------------------------------------------------------
 static void DrawBothChannels(uint8 *dataA, uint8 *dataB)
 {
@@ -606,7 +594,6 @@ static void DrawBothChannels(uint8 *dataA, uint8 *dataB)
     }
 }
 
-
 //------------------------------------------------------------------------------------------------------------------------------------------------------
 static int FillDataP2P(uint8 *data, DataSettings **ds)
 {
@@ -629,7 +616,6 @@ static int FillDataP2P(uint8 *data, DataSettings **ds)
         FillDataP2PforRecorder(numPoints, numPointsDS, pointsInScreen, dat[curCh], data) :   // Это возвращаем, если включен режим регистратора
         FillDataP2PforNormal(numPoints, numPointsDS, pointsInScreen, dat[curCh], data);      // А это в нормальном режиме
 }
-
 
 //------------------------------------------------------------------------------------------------------------------------------------------------------
 static void DrawMarkersForMeasure(float scale)
@@ -655,7 +641,6 @@ static void DrawMarkersForMeasure(float scale)
 
     }
 }
-
 
 //------------------------------------------------------------------------------------------------------------------------------------------------------
 static bool DataBeyondTheBorders(uint8 *data, int firstPoint, int lastPoint)
@@ -686,7 +671,6 @@ static bool DataBeyondTheBorders(uint8 *data, int firstPoint, int lastPoint)
     }
     return false;
 }
-
 
 //------------------------------------------------------------------------------------------------------------------------------------------------------
 static void DrawSignalLined(const uint8 *data, int startPoint, int endPoint, int minY, int maxY, float scaleY, float scaleX, bool calculateFiltr)
@@ -771,7 +755,6 @@ static void DrawSignalLined(const uint8 *data, int startPoint, int endPoint, int
     }
 }
 
-
 //------------------------------------------------------------------------------------------------------------------------------------------------------
 static void DrawSignalPointed(const uint8 *data, int startPoint, int endPoint, int minY, int maxY, float scaleY, float scaleX)
 {
@@ -800,7 +783,6 @@ static void DrawSignalPointed(const uint8 *data, int startPoint, int endPoint, i
     }
 }
 
-
 //------------------------------------------------------------------------------------------------------------------------------------------------------
 static int FillDataP2PforRecorder(int numPoints, int numPointsDS, int pointsInScreen, uint8 *src, uint8 *dest)
 {
@@ -817,7 +799,6 @@ static int FillDataP2PforRecorder(int numPoints, int numPointsDS, int pointsInSc
     RAM_MemCpy16(src + startIndex, dest, pointsInScreen);
     return pointsInScreen;
 }
-
 
 //------------------------------------------------------------------------------------------------------------------------------------------------------
 static int FillDataP2PforNormal(int numPoints, int numPointsDS, int pointsInScreen, uint8 *src, uint8 *dest)
@@ -855,7 +836,6 @@ static int FillDataP2PforNormal(int numPoints, int numPointsDS, int pointsInScre
 
     return numPoints > pointsInScreen ? pointsInScreen : numPoints;
 }
-
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
 static void DrawLimitLabel(int delta)

@@ -1,5 +1,7 @@
 #pragma once
 
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 #define Painter_SetPointC(x, y, color)          Painter_SetColor(color); Painter_SetPoint(x, y);
 
 #define Painter_DrawVLineC(x, y0, y1, color)    Painter_SetColor(color); Painter_DrawVLine(x, y0, y1);

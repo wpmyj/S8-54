@@ -1,11 +1,11 @@
 #pragma once
-
 #include "defines.h"
 
 /*
     Рисует в памяти 4-битным цветом
 */
 
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 void PainterMem_SetBuffer(uint8 *address, int width, int height);
 void PainterMem_FillRect(int x, int y, int width, int height, int color);
 void PainterMem_SetPoint(int x, int y, int color);

@@ -1,9 +1,8 @@
 #pragma once
-
-
 #include "DisplayTypes.h"
 
 
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 void    Painter_SetFont(TypeFont typeFont);
 void    Painter_LoadFont(TypeFont typeFont);         //  Загрузить шрифта в дисплей
 int     Painter_DrawChar(int x, int y, char symbol);

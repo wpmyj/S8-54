@@ -185,7 +185,6 @@ void Painter_DrawHLine(int y, int x0, int x1)
     Painter_SendToInterfaces(command, 6);
 }
 
-
 //------------------------------------------------------------------------------------------------------------------------------------------------------
 void Painter_DrawVLine(int x, int y0, int y1)
 {
@@ -198,7 +197,6 @@ void Painter_DrawVLine(int x, int y0, int y1)
     Painter_SendToDisplay(command, 8);
     Painter_SendToInterfaces(command, 5);
 }
-
 
 //------------------------------------------------------------------------------------------------------------------------------------------------------
 void Painter_DrawVPointLine(int x, int y0, int y1, float delta, Color color)
@@ -214,7 +212,6 @@ void Painter_DrawVPointLine(int x, int y0, int y1, float delta, Color color)
     Painter_SendToDisplay(command, 6);
 }
 
-
 //------------------------------------------------------------------------------------------------------------------------------------------------------
 void Painter_DrawHPointLine(int y, int x0, int x1, float delta)
 {
@@ -223,7 +220,6 @@ void Painter_DrawHPointLine(int y, int x0, int x1, float delta)
         Painter_SetPoint(x, y);
     }
 }
-
 
 //------------------------------------------------------------------------------------------------------------------------------------------------------
 void Painter_DrawMultiVPointLine(int numLines, int y, uint16 x[], int delta, int count, Color color)
@@ -252,7 +248,6 @@ void Painter_DrawMultiVPointLine(int numLines, int y, uint16 x[], int delta, int
     Painter_SendToDisplay(command, numBytes);
     Painter_SendToInterfaces(command, 1 + 1 + 1 + 1 + 1 + 1 + numLines * 2);
 }
-
 
 //------------------------------------------------------------------------------------------------------------------------------------------------------
 void Painter_DrawMultiHPointLine(int numLines, int x, uint8 y[], int delta, int count, Color color)
@@ -291,7 +286,6 @@ void Painter_DrawMultiHPointLine(int numLines, int x, uint8 y[], int delta, int 
     Painter_DrawHLineC(y[12], 0, 10, gColorChan[A]);
 }
 
-
 //------------------------------------------------------------------------------------------------------------------------------------------------------
 void Painter_DrawLine(int x0, int y0, int x1, int y1)
 {
@@ -304,7 +298,6 @@ void Painter_DrawLine(int x0, int y0, int x1, int y1)
         Painter_DrawHLine(y0, x0, x1);
     }
 }
-
 
 //------------------------------------------------------------------------------------------------------------------------------------------------------
 void Painter_DrawDashedHLine(int y, int x0, int x1, int deltaFill, int deltaEmpty, int deltaStart)
@@ -331,7 +324,6 @@ void Painter_DrawDashedHLine(int y, int x0, int x1, int deltaFill, int deltaEmpt
     }
 }
 
-
 //------------------------------------------------------------------------------------------------------------------------------------------------------
 void Painter_DrawDashedVLine(int x, int y0, int y1, int deltaFill, int deltaEmtpy, int deltaStart)
 {
@@ -357,7 +349,6 @@ void Painter_DrawDashedVLine(int x, int y0, int y1, int deltaFill, int deltaEmtp
     }
 }
 
-
 //------------------------------------------------------------------------------------------------------------------------------------------------------
 void Painter_DrawRectangle(int x, int y, int width, int height)
 {
@@ -369,7 +360,6 @@ void Painter_DrawRectangle(int x, int y, int width, int height)
         Painter_DrawVLine(x + width, y, y + height);
     }
 }
-
 
 //------------------------------------------------------------------------------------------------------------------------------------------------------
 void Painter_FillRegion(int x, int y, int width, int height)
@@ -384,7 +374,6 @@ void Painter_FillRegion(int x, int y, int width, int height)
     Painter_SendToDisplay(command, 8);
     Painter_SendToInterfaces(command, 7);
 }
-
 
 //------------------------------------------------------------------------------------------------------------------------------------------------------
 void Painter_DrawVolumeButton(int x, int y, int width, int height, int thickness, Color normal, Color bright, Color dark, bool isPressed, bool isShade)
@@ -412,7 +401,6 @@ void Painter_DrawVolumeButton(int x, int y, int width, int height, int thickness
     }
 }
 
-
 //------------------------------------------------------------------------------------------------------------------------------------------------------
 void Painter_SetBrightnessDisplay(int16 brightness)
 {
@@ -427,7 +415,6 @@ void Painter_SetBrightnessDisplay(int16 brightness)
     Painter_SendToDisplay(command, 4);
 }
 
-
 //------------------------------------------------------------------------------------------------------------------------------------------------------
 uint16 Painter_ReduceBrightness(uint16 colorValue, float newBrightness)
 {
@@ -439,7 +426,6 @@ uint16 Painter_ReduceBrightness(uint16 colorValue, float newBrightness)
     LIMITATION(blue, blue, 0, 31);
     return MAKE_COLOR(red, green, blue);
 }
-
 
 //------------------------------------------------------------------------------------------------------------------------------------------------------
 void Painter_DrawVLineArray(int x, int numLines, uint8 *y0y1, Color color)
@@ -467,8 +453,7 @@ void Painter_DrawVLineArray(int x, int numLines, uint8 *y0y1, Color color)
     Painter_SendToInterfaces(command, 1 + 2 + 1 + 2 * numLines);
 }
 
-
-//------------------------------------------------------------------------------------------------------------------------------------------------------
+//----------------------------------------------------------------------------------------------------------------------------------------------------
 void Painter_DrawSignal(int x, uint8 data[281], bool modeLines)
 {
     uint8 command[284];
@@ -482,8 +467,7 @@ void Painter_DrawSignal(int x, uint8 data[281], bool modeLines)
     Painter_SendToInterfaces(command, 284);
 }
 
-
-//------------------------------------------------------------------------------------------------------------------------------------------------------
+//----------------------------------------------------------------------------------------------------------------------------------------------------
 void Painter_DrawPicture(int x, int y, int width, int height, uint8 *address)
 {
     uint8 command[4];
@@ -505,8 +489,7 @@ void Painter_DrawPicture(int x, int y, int width, int height, uint8 *address)
     }
 }
 
-
-//------------------------------------------------------------------------------------------------------------------------------------------------------
+//----------------------------------------------------------------------------------------------------------------------------------------------------
 bool Painter_SaveScreenToFlashDrive(void)
 {
 
@@ -632,7 +615,6 @@ bool Painter_SaveScreenToFlashDrive(void)
     return true;
 }
 
-
 //------------------------------------------------------------------------------------------------------------------------------------------------------
 void Painter_SendToDisplay(uint8 *bytes, int numBytes)
 {
@@ -649,7 +631,6 @@ void Painter_SendToDisplay(uint8 *bytes, int numBytes)
     }
 }
 
-
 //------------------------------------------------------------------------------------------------------------------------------------------------------
 void Painter_SendToInterfaces(uint8 *pointer, int size)
 {
@@ -660,7 +641,6 @@ void Painter_SendToInterfaces(uint8 *pointer, int size)
     }
 }
 
-
 //------------------------------------------------------------------------------------------------------------------------------------------------------
 static void RunDisplay(void)
 {
@@ -669,13 +649,11 @@ static void RunDisplay(void)
     Painter_SendToDisplay(command, 4);
 }
 
-
 //------------------------------------------------------------------------------------------------------------------------------------------------------
 static void OnTimerFlashDisplay(void)
 {
     inverseColors = !inverseColors;
 }
-
 
 //------------------------------------------------------------------------------------------------------------------------------------------------------
 static void CalculateColor(uint8 *color)
@@ -691,7 +669,6 @@ static void CalculateColor(uint8 *color)
     }
 }
 
-
 //------------------------------------------------------------------------------------------------------------------------------------------------------
 void CalculateCurrentColor(void)
 {
@@ -704,7 +681,6 @@ void CalculateCurrentColor(void)
         Painter_SetColor(inverseColors ? gColorFill : gColorBack);
     }
 }
-
 
 //------------------------------------------------------------------------------------------------------------------------------------------------------
 static uint8 Read2points(int x, int y)
@@ -726,6 +702,7 @@ static uint8 Read2points(int x, int y)
 
     return *ADDR_CDISPLAY;
 }
+
 
 
 //------------------------------------------------------------------------------------------------------------------------------------------------------

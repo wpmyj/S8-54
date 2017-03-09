@@ -1,4 +1,3 @@
-
 #include "defines.h"
 #include "WelcomeScreen.h"
 #include "Math3D.h"
@@ -6,6 +5,8 @@
 #include "Display/Display.h"
 #include "Display/Painter.h"
 
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 static Point points[8] = {
     {-1.0,  1.0, -1.0},
     { 1.0,  1.0, -1.0},
@@ -42,6 +43,8 @@ static float angleX = 0.0;
 static float angleY = 0.0;
 static float angleZ = 0.0;
 
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 void WelcomeScreen_Init(void)
 {
     for (int i = 0; i < 8; i++) {
@@ -52,6 +55,7 @@ void WelcomeScreen_Init(void)
     }
 }
 
+//----------------------------------------------------------------------------------------------------------------------------------------------------
 void WelcomeScreen_Update(void)
 {
     Painter_BeginScene(COLOR_WHITE);
