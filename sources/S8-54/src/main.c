@@ -15,6 +15,12 @@
 #include "FlashDrive/FlashDrive.h"
 
 
+// По идее c этим должно работать TODO("message")
+#define STRINGIZE_2( _ ) #_
+#define STRINGIZE( _ ) STRINGIZE_2( _ )
+#define TODO(msg) __pragma(message(__FILE__ "(" STRINGIZE(__LINE__) ") : TODO: " msg))
+
+
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 extern void main3(void);
 

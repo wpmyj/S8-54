@@ -210,7 +210,6 @@ static const Time mtTime =
     &dServicetime, &hours, &minutes, &secondes, &month, &day, &year
 };
 
-
 // ÑÅĞÂÈÑ - Âğåìÿ - Êîğğåêöèÿ ------------------------------------------------------------------------------------------------------------------------
 static const Governor mgTimeCorrection =
 {
@@ -227,7 +226,6 @@ static void OnChange_Time_Correction(void)
 {
     RTC_SetCorrection((int8)setNR.correctionTime);
 }
-
 
 // ÑÅĞÂÈÑ - ÈÍÔÎĞÌÀÖÈß ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 static const Page mspInformation =
@@ -294,7 +292,6 @@ static void Information_Draw()
     Painter_EndScene();
 }
 
-
 // ÑÅĞÂÈÑ - ÊÀËÈÁĞÀÒÎĞ ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 static const Page mspCalibrator =
 {
@@ -354,37 +351,6 @@ static void OnPress_Calibrator_Calibrate(void)
 {
     gStateFPGA.needCalibration = true;
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

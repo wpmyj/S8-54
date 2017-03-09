@@ -13,8 +13,6 @@
 #include "Display/Painter.h"
 #include "Hardware/Sound.h"
 #include "../MenuFunctions.h"
-
-
 #include <math.h>
 #include <string.h>
 
@@ -78,7 +76,6 @@ static void IncCursCntrlU(Channel ch);                                // Выбрать
 static void IncCursCntrlT(Channel ch);                                // Выбрать следующий курсор.
 static void SetCursPosU(Channel ch, int numCur, float pos);           // Установить позицию курсора напряжения.
 static void SetCursPosT(Channel ch, int numCur, float pos);           // Установить значение курсора по времени.
-
 
 
 // КУРСОРЫ ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -188,7 +185,6 @@ static const Choice mcShowFreq =
     (int8*)&CURSORS_SHOW_FREQ
 };
 
-
 // КУРСОРЫ -> УСТАНОВИТЬ /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 static const Page mspSet =
 {
@@ -223,7 +219,6 @@ static void OnRot_Set(int angle)
     Sound_RegulatorShiftRotate();
 }
 
-
 // КУРСОРЫ -> УСТАНОВИТЬ -> Выход --------------------------------------------------------------------------------------------------------------------
 static const SmallButton sbSet_Exit =
 {
@@ -241,7 +236,6 @@ static void OnPressSB_Set_Exit(void)
 {
     Display_RemoveAddDrawFunction();
 }
-
 
 // КУРСОРЫ -> УСТАНОВИТЬ -> Канал --------------------------------------------------------------------------------------------------------------------
 static const SmallButton sbSet_Channel =
@@ -490,7 +484,6 @@ static void FuncDrawSB_Set_100(int x, int y)
     Painter_SetFont(TypeFont_8);
 }
 
-
 // КУРСОРЫ -> УСТАНОВИТЬ -> Перемещение --------------------------------------------------------------------------------------------------------------
 static const SmallButton sbSet_Movement =     // Переключение шага перемещения курсоров - по пикселям или по процентам.
 {
@@ -537,7 +530,6 @@ static void FuncDrawSB_Set_Movement_Points(int x, int y)
     Painter_SetFont(TypeFont_8);
 }
 
-
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 #define MAX_POS_U   200
 #define MAX_POS_T   280
@@ -553,7 +545,6 @@ static void SetShiftCursPosU(Channel ch, int numCur, float delta)
         CURsU_POS(ch, numCur) = LimitationFloat(CURsU_POS(ch, numCur) - delta, 0, MAX_POS_U);
     }
 }
-
 
 static void SetCursPosU(Channel ch, int numCur, float pos)
 {

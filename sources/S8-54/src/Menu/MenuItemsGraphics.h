@@ -1,9 +1,8 @@
 #pragma once
-
-
 #include "MenuItems.h"
 
 
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 void GovernorColor_Draw(GovernorColor *govColor, int x, int y, bool opened);
 void Governor_Draw(Governor *governor, int x, int y, bool opened);
 void IPaddress_Draw(IPaddress *ip, int x, int y, bool opened);

@@ -6,8 +6,6 @@
 #include "Utils/GlobalFunctions.h"
 #include "Menu/MenuDrawing.h"
 #include "Hardware/RTC.h"
-
-
 #include <string.h>
 
 
@@ -72,7 +70,6 @@ void DrawGovernorChoiceColorFormulaHiPart(void *item, int x, int y, bool pressed
     }
 }
 
-
 //------------------------------------------------------------------------------------------------------------------------------------------------------
 void DrawGovernorLowPart(Governor *governor, int x, int y, bool pressed, bool shade)
 {
@@ -125,7 +122,6 @@ void DrawGovernorLowPart(Governor *governor, int x, int y, bool pressed, bool sh
     Painter_DrawTextC(x + 1, y + 21, "\x81", colorTextDown);
 }
 
-
 //------------------------------------------------------------------------------------------------------------------------------------------------------
 static void DrawIPaddressLowPart(IPaddress *ip, int x, int y, bool pressed, bool shade)
 {
@@ -154,7 +150,6 @@ static void DrawIPaddressLowPart(IPaddress *ip, int x, int y, bool pressed, bool
     }
 }
 
-
 //------------------------------------------------------------------------------------------------------------------------------------------------------
 static void DrawMACaddressLowPart(MACaddress *mac, int x, int y, bool pressed, bool shade)
 {
@@ -182,7 +177,6 @@ static void DrawMACaddressLowPart(MACaddress *mac, int x, int y, bool pressed, b
         Painter_DrawTextC(x + 4, y + 21, buffer, COLOR_WHITE);
     }
 }
-
 
 //------------------------------------------------------------------------------------------------------------------------------------------------------
 void WriteTextFormula(Formula *formula, int x, int y, bool opened)
@@ -214,7 +208,6 @@ void WriteTextFormula(Formula *formula, int x, int y, bool opened)
     Painter_DrawText(x + 48, y, "K2");
 }
 
-
 //------------------------------------------------------------------------------------------------------------------------------------------------------
 void DrawFormulaLowPart(Formula *formula, int x, int y, bool pressed, bool shade)
 {
@@ -230,7 +223,6 @@ void DrawFormulaLowPart(Formula *formula, int x, int y, bool pressed, bool shade
     WriteTextFormula(formula, x + 6, y + 21, false);
 }
 
-
 //------------------------------------------------------------------------------------------------------------------------------------------------------
 static void Governor_DrawClosed(Governor *governor, int x, int y)
 {
@@ -239,7 +231,6 @@ static void Governor_DrawClosed(Governor *governor, int x, int y)
     DrawGovernorLowPart(governor, x, y, pressed, shade);
     DrawGovernorChoiceColorFormulaHiPart(governor, x, y, pressed, shade, false);
 }
-
 
 //------------------------------------------------------------------------------------------------------------------------------------------------------
 static void IPaddress_DrawClosed(IPaddress *ip, int x, int y)
@@ -250,7 +241,6 @@ static void IPaddress_DrawClosed(IPaddress *ip, int x, int y)
     DrawGovernorChoiceColorFormulaHiPart(ip, x, y, pressed, shade, false);
 }
 
-
 //------------------------------------------------------------------------------------------------------------------------------------------------------
 static void MACaddress_DrawClosed(MACaddress *mac, int x, int y)
 {
@@ -260,7 +250,6 @@ static void MACaddress_DrawClosed(MACaddress *mac, int x, int y)
     DrawGovernorChoiceColorFormulaHiPart(mac, x, y, pressed, shade, false);
 }
 
-
 //------------------------------------------------------------------------------------------------------------------------------------------------------
 void Formula_DrawClosed(Formula *formula, int x, int y)
 {
@@ -269,7 +258,6 @@ void Formula_DrawClosed(Formula *formula, int x, int y)
     DrawFormulaLowPart(formula, x, y, pressed, shade);
     DrawGovernorChoiceColorFormulaHiPart(formula, x, y, pressed, shade, false);
 }
-
 
 //------------------------------------------------------------------------------------------------------------------------------------------------------
 static void DrawValueWithSelectedPosition(int x, int y, int value, int numDigits, int selPos, bool hLine, bool fillNull) // Если selPos == -1, подсвечивать не нужно
@@ -300,7 +288,6 @@ static void DrawValueWithSelectedPosition(int x, int y, int value, int numDigits
     }
 }
 
-
 //------------------------------------------------------------------------------------------------------------------------------------------------------
 void DrawGovernorValue(int x, int y, Governor *governor)
 {
@@ -326,7 +313,6 @@ void DrawGovernorValue(int x, int y, Governor *governor)
        Painter_DrawChar(startX - 30, y, signGovernor < 0 ? '\x9b' : '\x9a');
     }
 }
-
 
 //------------------------------------------------------------------------------------------------------------------------------------------------------
 static void DrawIPvalue(int x, int y, IPaddress *ip)
@@ -364,7 +350,6 @@ static void DrawIPvalue(int x, int y, IPaddress *ip)
     }
 }
 
-
 //------------------------------------------------------------------------------------------------------------------------------------------------------
 static void DrawMACvalue(int x, int y, MACaddress *mac)
 {
@@ -390,7 +375,6 @@ static void DrawMACvalue(int x, int y, MACaddress *mac)
     }
 }
 
-
 //------------------------------------------------------------------------------------------------------------------------------------------------------
 void Governor_Draw(Governor *governor, int x, int y, bool opened)
 {
@@ -408,7 +392,6 @@ void Governor_Draw(Governor *governor, int x, int y, bool opened)
     }
 }
 
-
 //------------------------------------------------------------------------------------------------------------------------------------------------------
 void IPaddress_Draw(IPaddress *ip, int x, int y, bool opened)
 {
@@ -421,7 +404,6 @@ void IPaddress_Draw(IPaddress *ip, int x, int y, bool opened)
         IPaddress_DrawClosed(ip, x, y);
     }
 }
-
 
 //------------------------------------------------------------------------------------------------------------------------------------------------------
 void MACaddress_Draw(MACaddress *mac, int x, int y, bool opened)
@@ -436,7 +418,6 @@ void MACaddress_Draw(MACaddress *mac, int x, int y, bool opened)
     }
 }
 
-
 //------------------------------------------------------------------------------------------------------------------------------------------------------
 void Formula_Draw(Formula *formula, int x, int y, bool opened)
 {
@@ -449,7 +430,6 @@ void Formula_Draw(Formula *formula, int x, int y, bool opened)
         Formula_DrawClosed(formula, x, y);
     }
 }
-
 
 //------------------------------------------------------------------------------------------------------------------------------------------------------
 void DrawGovernorColorValue(int x, int y, GovernorColor *govColor, int delta)
@@ -482,7 +462,6 @@ void DrawGovernorColorValue(int x, int y, GovernorColor *govColor, int delta)
     
 }
 
-
 //------------------------------------------------------------------------------------------------------------------------------------------------------
 static void GovernorColor_DrawOpened(GovernorColor *gov, int x, int y)
 {
@@ -498,7 +477,6 @@ static void GovernorColor_DrawOpened(GovernorColor *gov, int x, int y)
     DrawGovernorColorValue(x + 1, y + 19, gov, delta);
 }
 
-
 //------------------------------------------------------------------------------------------------------------------------------------------------------
 static void GovernorColor_DrawClosed(GovernorColor *gov, int x, int y)
 {
@@ -506,7 +484,6 @@ static void GovernorColor_DrawClosed(GovernorColor *gov, int x, int y)
     DrawGovernorChoiceColorFormulaHiPart(gov, x, y, IsPressed(gov), IsShade(gov) || !ItemIsAcitve(gov), true);
     Painter_FillRegionC(x + 2, y + 20, MI_WIDTH_VALUE, MI_HEIGHT_VALUE - 1, gov->colorType->color);
 }
-
 
 //------------------------------------------------------------------------------------------------------------------------------------------------------
 void GovernorColor_Draw(GovernorColor *govColor, int x, int y, bool opened)
@@ -520,7 +497,6 @@ void GovernorColor_Draw(GovernorColor *govColor, int x, int y, bool opened)
         GovernorColor_DrawClosed(govColor, x, y);
     }
 }
-
 
 //------------------------------------------------------------------------------------------------------------------------------------------------------
 void Choice_DrawOpened(Choice *choice, int x, int y)
@@ -548,7 +524,6 @@ void Choice_DrawOpened(Choice *choice, int x, int y)
         Painter_DrawTextC(x + 4, yItem + 2, NameSubItem(choice, i), pressed ? COLOR_BLACK : ColorMenuField());
     }
 }
-
 
 //------------------------------------------------------------------------------------------------------------------------------------------------------
 void Time_DrawOpened(Time *time, int x, int y)
@@ -616,7 +591,6 @@ void Time_DrawOpened(Time *time, int x, int y)
     }
 }
 
-
 //------------------------------------------------------------------------------------------------------------------------------------------------------
 static void GovernorIpCommon_DrawOpened(void *item, int x, int y, int dWidth)
 {
@@ -629,14 +603,12 @@ static void GovernorIpCommon_DrawOpened(void *item, int x, int y, int dWidth)
                              ColorMenuTitleLessBright(), false, IsShade(item));
 }
 
-
 //------------------------------------------------------------------------------------------------------------------------------------------------------
 static void Governor_DrawOpened(Governor *governor, int x, int y)
 {
     GovernorIpCommon_DrawOpened(governor, x, y, 0);
     DrawGovernorValue(x, y + 22, governor);
 }
-
 
 //------------------------------------------------------------------------------------------------------------------------------------------------------
 static void IPaddress_DrawOpened(IPaddress *ip, int x, int y)
@@ -645,14 +617,12 @@ static void IPaddress_DrawOpened(IPaddress *ip, int x, int y)
     DrawIPvalue(x, y + 22, ip);
 }
 
-
 //------------------------------------------------------------------------------------------------------------------------------------------------------
 static void MACaddress_DrawOpened(MACaddress *mac, int x, int y)
 {
     GovernorIpCommon_DrawOpened(mac, x, y, 0);
     DrawMACvalue(x, y + 22, mac);
 }
-
 
 //------------------------------------------------------------------------------------------------------------------------------------------------------
 void Choice_DrawClosed(Choice *choice, int x, int y)
@@ -684,7 +654,6 @@ void Choice_DrawClosed(Choice *choice, int x, int y)
     DrawGovernorChoiceColorFormulaHiPart(choice, x, y, pressed, shade, false);
 }
 
-
 //------------------------------------------------------------------------------------------------------------------------------------------------------
 void Choice_Draw(Choice *choice, int x, int y, bool opened)
 {
@@ -697,7 +666,6 @@ void Choice_Draw(Choice *choice, int x, int y, bool opened)
         Choice_DrawClosed(choice, x, y);
     }
 }
-
 
 //------------------------------------------------------------------------------------------------------------------------------------------------------
 void Time_DrawClosed(Time *item, int x, int y)
@@ -731,7 +699,6 @@ void Time_DrawClosed(Time *item, int x, int y)
     Painter_DrawText(x + startX + 2 * deltaField + 2 * deltaSeparator, y, Int2String(time.year, false, 2, buffer));
 }
 
-
 //------------------------------------------------------------------------------------------------------------------------------------------------------
 void Time_Draw(Time *time, int x, int y, bool opened)
 {
@@ -744,7 +711,6 @@ void Time_Draw(Time *time, int x, int y, bool opened)
         Time_DrawClosed(time, x, y);
     }
 }
-
 
 //------------------------------------------------------------------------------------------------------------------------------------------------------
 void Button_Draw(Button *button, int x, int y)
@@ -764,7 +730,6 @@ void Button_Draw(Button *button, int x, int y)
 
     CallFuncOnDrawButton(button, x, y);
 }
-
 
 //------------------------------------------------------------------------------------------------------------------------------------------------------
 void SmallButton_Draw(SmallButton *smallButton, int x, int y)
@@ -790,7 +755,6 @@ void SmallButton_Draw(SmallButton *smallButton, int x, int y)
         Painter_DrawRectangleC(x, y, WIDTH_SB, WIDTH_SB, gColorFill);
     }
 }
-
 
 //------------------------------------------------------------------------------------------------------------------------------------------------------
 void Page_Draw(Page *page, int x, int y)

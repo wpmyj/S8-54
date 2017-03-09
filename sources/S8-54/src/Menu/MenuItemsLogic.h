@@ -1,10 +1,9 @@
 #pragma once
-
-
 #include "defines.h"
 #include "MenuItems.h"
 
 
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 void    Choice_StartChange(Choice *choice, int delta);
 float   Choice_Step(Choice *choice);                            // –ассчитывает следующий кадр анимации.
 void    Choice_ChangeIndex(Choice *choice, int delta);          // »змен€ет значение choice в зависимости от величины и знака delta.

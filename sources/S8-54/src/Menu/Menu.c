@@ -27,8 +27,6 @@
 #include "Hardware/RTC.h"
 #include "Panel/Panel.h"
 #include "FlashDrive/FlashDrive.h"
-
-
 #include <string.h>
 
 
@@ -43,7 +41,6 @@ static PanelButton releaseButton = B_Empty;         // При отпускании кнопки её 
 static Regulator pressRegulator = R_Empty;
 static int angleRegSet = 0;                         // Угол, на который нужно повернуть ручку УСТАНОВКА - величина означает количество щелчков, знак - направление - "-" - влево, "+" - вправо
 static void* itemUnderKey = 0;                      // Здесь хранится адрес элемента меню, соответствующего функциональной клавише [1..5], если она находится в нижнем положении, и 0, если ни одна кнопка не нажата.
-
                                                 
 static void ProcessingShortPressureButton(void);    // Обработка короткого нажатия кнопки.
 static void ProcessingLongPressureButton(void);     // Обработка длинного нажатия кнопки.
@@ -91,7 +88,6 @@ void Menu_UpdateInput(void)
     SwitchSetLED();
 };
 
-
 //------------------------------------------------------------------------------------------------------------------------------------------------------
 void Menu_ShortPressureButton(PanelButton button)
 {
@@ -100,7 +96,6 @@ void Menu_ShortPressureButton(PanelButton button)
         shortPressureButton = button;
     }
 };
-
 
 //------------------------------------------------------------------------------------------------------------------------------------------------------
 void Menu_LongPressureButton(PanelButton button)
@@ -111,7 +106,6 @@ void Menu_LongPressureButton(PanelButton button)
         Display_Redraw();
     }
 };
-
 
 //------------------------------------------------------------------------------------------------------------------------------------------------------
 static void ProcessButtonForHint(PanelButton button)
@@ -236,7 +230,6 @@ static void ProcessButtonForHint(PanelButton button)
     }
 }
 
-
 //------------------------------------------------------------------------------------------------------------------------------------------------------
 void Menu_PressButton(PanelButton button)
 {
@@ -268,7 +261,6 @@ void Menu_PressButton(PanelButton button)
     pressButton = button;
 };
 
-
 //------------------------------------------------------------------------------------------------------------------------------------------------------
 void Menu_ReleaseButton(PanelButton button)
 {
@@ -279,7 +271,6 @@ void Menu_ReleaseButton(PanelButton button)
     }
 };
 
-
 //---------------------------------------------------------------------------------------------------------------------------------------------------
 void Menu_PressReg(Regulator reg)
 {
@@ -288,7 +279,6 @@ void Menu_PressReg(Regulator reg)
         pressRegulator = reg;
     }
 }
-
 
 //------------------------------------------------------------------------------------------------------------------------------------------------------
 void Menu_RotateRegSetRight(void)
@@ -300,7 +290,6 @@ void Menu_RotateRegSetRight(void)
     }
 };
 
-
 //------------------------------------------------------------------------------------------------------------------------------------------------------
 void Menu_RotateRegSetLeft(void)
 {
@@ -311,13 +300,11 @@ void Menu_RotateRegSetLeft(void)
     }
 };
 
-
 //------------------------------------------------------------------------------------------------------------------------------------------------------
 void* Menu_ItemUnderKey(void)
 {
     return itemUnderKey;
 };
-
 
 //------------------------------------------------------------------------------------------------------------------------------------------------------
 void Menu_SetAutoHide(bool active)
@@ -335,7 +322,6 @@ void Menu_SetAutoHide(bool active)
         Timer_SetAndStartOnce(kMenuAutoHide, OnTimerAutoHide, sDisplay_TimeMenuAutoHide());
     }
 }
-
 
 //------------------------------------------------------------------------------------------------------------------------------------------------------
 char* Menu_StringNavigation(char buffer[100])
@@ -367,13 +353,11 @@ char* Menu_StringNavigation(char buffer[100])
     return buffer;
 }
 
-
 //------------------------------------------------------------------------------------------------------------------------------------------------------
 void OnTimerAutoHide(void)
 {
     Menu_Show(false);
 }
-
 
 //------------------------------------------------------------------------------------------------------------------------------------------------------
 static void ProcessingShortPressureButton(void)
@@ -453,7 +437,6 @@ static void ProcessingShortPressureButton(void)
     }
 }
 
-
 //------------------------------------------------------------------------------------------------------------------------------------------------------
 void ProcessingLongPressureButton(void)
 {
@@ -508,7 +491,6 @@ void ProcessingLongPressureButton(void)
     }
 }
 
-
 //---------------------------------------------------------------------------------------------------------------------------------------------------
 void ProcessingRegulatorPress(void)
 {
@@ -527,7 +509,6 @@ void ProcessingRegulatorPress(void)
         pressRegulator = R_Empty;
     }
 }
-
 
 //------------------------------------------------------------------------------------------------------------------------------------------------------
 void ProcessingRegulatorSetRotate(void)
@@ -581,7 +562,6 @@ void ProcessingRegulatorSetRotate(void)
     angleRegSet = 0;
 }
 
-
 //------------------------------------------------------------------------------------------------------------------------------------------------------
 void ProcessingPressButton(void)
 {
@@ -599,7 +579,6 @@ void ProcessingPressButton(void)
     pressButton = B_Empty;
 }
 
-
 //------------------------------------------------------------------------------------------------------------------------------------------------------
 void ProcessingReleaseButton(void)
 {
@@ -609,7 +588,6 @@ void ProcessingReleaseButton(void)
         releaseButton = B_Empty;
     }
 }
-
 
 //------------------------------------------------------------------------------------------------------------------------------------------------------
 void ShortPress_Page(void *item)
@@ -631,7 +609,6 @@ void ShortPress_Page(void *item)
     OpenItem((Page*)page, !ItemIsOpened((Page*)page));
 }
 
-
 //---------------------------------------------------------------------------------------------------------------------------------------------------
 static void TemporaryEnableStrNavi(void)
 {
@@ -642,13 +619,11 @@ static void TemporaryEnableStrNavi(void)
     }
 }
 
-
 //---------------------------------------------------------------------------------------------------------------------------------------------------
 static void OnTimerStrNaviAutoHide(void)
 {
     gBF.temporaryShowStrNavi = 0;
 }
-
 
 //------------------------------------------------------------------------------------------------------------------------------------------------------
 void ShortPress_Choice(void *choice_)
@@ -670,7 +645,6 @@ void ShortPress_Choice(void *choice_)
     }
 }
 
-
 //------------------------------------------------------------------------------------------------------------------------------------------------------
 void ShortPress_ChoiceReg(void *choice_)
 {
@@ -686,13 +660,11 @@ void ShortPress_ChoiceReg(void *choice_)
     }
 }
 
-
 //------------------------------------------------------------------------------------------------------------------------------------------------------
 void FuncOnLongPressItemButton(void *button)
 {
     ShortPress_Button(button);
 }
-
 
 //------------------------------------------------------------------------------------------------------------------------------------------------------
 void ShortPress_Button(void *button)
@@ -705,7 +677,6 @@ void ShortPress_Button(void *button)
     CallFuncOnPressButton(button);
 }
 
-
 //------------------------------------------------------------------------------------------------------------------------------------------------------
 void FuncOnLongPressItem(void *item)
 {
@@ -715,7 +686,6 @@ void FuncOnLongPressItem(void *item)
     }
     OpenItem(item, !ItemIsOpened(item));
 }
-
 
 //------------------------------------------------------------------------------------------------------------------------------------------------------
 void FuncOnLongPressItemTime(void *time)
@@ -732,7 +702,6 @@ void FuncOnLongPressItemTime(void *time)
     Time_SetOpened(time);
 }
 
-
 //------------------------------------------------------------------------------------------------------------------------------------------------------
 void ShortPress_Time(void *time)
 {
@@ -747,7 +716,6 @@ void ShortPress_Time(void *time)
         Time_SelectNextPosition(time);
     }
 }
-
 
 //------------------------------------------------------------------------------------------------------------------------------------------------------
 void ShortPress_Governor(void *governor)
@@ -767,7 +735,6 @@ void ShortPress_Governor(void *governor)
     }
 }
 
-
 //------------------------------------------------------------------------------------------------------------------------------------------------------
 void ShortPress_IP(void *item)
 {
@@ -777,7 +744,6 @@ void ShortPress_IP(void *item)
     }
 }
 
-
 //------------------------------------------------------------------------------------------------------------------------------------------------------
 void ShortPress_MAC(void *item)
 {
@@ -786,7 +752,6 @@ void ShortPress_MAC(void *item)
         CircleIncreaseInt8(&gCurDigit, 0, 5);
     }
 }
-
 
 //------------------------------------------------------------------------------------------------------------------------------------------------------
 void ShortPress_GovernorColor(void *governorColor)
@@ -806,7 +771,6 @@ void ShortPress_GovernorColor(void *governorColor)
     }
 }
 
-
 //------------------------------------------------------------------------------------------------------------------------------------------------------
 static void ShortPress_SmallButton(void *smallButton)
 {
@@ -821,7 +785,6 @@ static void ShortPress_SmallButton(void *smallButton)
         }
     }
 }
-
 
 //------------------------------------------------------------------------------------------------------------------------------------------------------
 pFuncVpV FuncForShortPressOnItem(void *item)
@@ -846,7 +809,6 @@ pFuncVpV FuncForShortPressOnItem(void *item)
     return shortFunction[TypeMenuItem(item)];
 }
 
-
 //------------------------------------------------------------------------------------------------------------------------------------------------------
 pFuncVpV FuncForLongPressureOnItem(void *item)
 {
@@ -870,7 +832,6 @@ pFuncVpV FuncForLongPressureOnItem(void *item)
     return ItemIsAcitve(item) ? longFunction[TypeMenuItem(item)] : EmptyFuncVpV;
 }
 
-
 //------------------------------------------------------------------------------------------------------------------------------------------------------
 void ChangeStateFlashDrive(void)
 {
@@ -886,7 +847,6 @@ void ChangeStateFlashDrive(void)
         OnPressMemoryExtFileManager();
     }
 }
-
 
 //------------------------------------------------------------------------------------------------------------------------------------------------------
 void Menu_OpenItemTime(void)
@@ -905,7 +865,6 @@ void Menu_OpenItemTime(void)
     Menu_UpdateInput();
     Display_Update();
 }
-
 
 //------------------------------------------------------------------------------------------------------------------------------------------------------
 static bool NeedForFireSetLED(void)    // Возвращает true, если лампочка УСТАНОВКА должна гореть
@@ -948,7 +907,6 @@ static bool NeedForFireSetLED(void)    // Возвращает true, если лампочка УСТАНОВ
     return false;
 }
 
-
 //------------------------------------------------------------------------------------------------------------------------------------------------------
 void SwitchSetLED(void)
 {
@@ -970,7 +928,6 @@ void SwitchSetLED(void)
     }
 }
 
-
 //------------------------------------------------------------------------------------------------------------------------------------------------------
 void Menu_Show(bool show)
 {
@@ -981,7 +938,6 @@ void Menu_Show(bool show)
     }
     Menu_SetAutoHide(true);
 }
-
 
 //---------------------------------------------------------------------------------------------------------------------------------------------------
 void Menu_Init(void)

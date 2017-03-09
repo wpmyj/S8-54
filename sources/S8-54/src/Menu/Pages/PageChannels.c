@@ -88,7 +88,6 @@ const Page mpChanA =
     }
 };
 
-
 // КАНАЛ 1 -> Вход -----------------------------------------------------------------------------------------------------------------------------------
 static const Choice mcChanA_Input =
 {
@@ -109,7 +108,6 @@ void OnChange_ChanA_Input(bool active)
 {
     Panel_EnableLEDChannelA(sChannel_Enabled(A));
 }
-
 
 // КАНАЛ 1 -> Связь ----------------------------------------------------------------------------------------------------------------------------------
 static const Choice mcChanA_Couple =
@@ -133,7 +131,6 @@ static void OnChange_ChanA_Couple(bool active)
     FPGA_SetModeCouple(A, COUPLE_A);
 }
 
-
 // КАНАЛ 1 -> Полоса ---------------------------------------------------------------------------------------------------------------------------------
 static const Choice mcChanA_Bandwidth =
 {
@@ -153,7 +150,6 @@ static void OnChange_ChanA_Bandwidth(bool active)
 {
     FPGA_SetBandwidth(A);
 }
-
 
 // КАНАЛ 1 -> Сопротивление --------------------------------------------------------------------------------------------------------------------------
 static const Choice mcChanA_Resistance =
@@ -179,7 +175,6 @@ static void OnChange_ChanA_Resistance(bool active)
     }
 }
 
-
 // КАНАЛ 1 -> Инверсия -------------------------------------------------------------------------------------------------------------------------------
 static const Choice mcChanA_Inverse =
 {
@@ -200,7 +195,6 @@ static void OnChange_ChanA_Inverse(bool active)
 {
     FPGA_SetRShift(A, RSHIFT_A);
 }
-
 
 // КАНАЛ 1 -> Множитель ------------------------------------------------------------------------------------------------------------------------------
 static const Choice mcChanA_Divider =
@@ -234,7 +228,6 @@ static void OnPress_ChanA_Balance(void)
 {
     FPGA_BalanceChannel(A);
 }
-
 
 // КАНАЛ 2 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 const Page mpChanB =
@@ -277,7 +270,6 @@ static bool IsActive_ChanB_Input(void)
 {
     return !FPGA_NUM_POINTS_32k;
 }
-
 
 void OnChange_ChanB_Input(bool active)
 {
