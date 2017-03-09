@@ -1,24 +1,19 @@
 ﻿#pragma once
-
-
 #include "FPGA/FPGAtypes.h"
 #include "Panel/Controls.h"
 #include "Settings/SettingsTypes.h"
-
 #include <stm32f4xx_hal.h>
-
 #include <stm32f4xx_hal_hcd.h>
 #include <stm32f4xx_hal_pcd.h>
 #include <stm32f4xx_hal_dma.h>
 #include <stm32f4xx_hal_spi.h>
 #include <stm32f4xx_hal_adc.h>
 #include <stm32f4xx_hal_dac.h>
-
-
 #include <usbd_def.h>
 #include <usbh_def.h>
 
 
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 extern USBH_HandleTypeDef handleUSBH;
 extern HCD_HandleTypeDef handleHCD;
 extern SPI_HandleTypeDef handleSPI;
@@ -27,6 +22,7 @@ extern ADC_HandleTypeDef handleADC;
 extern DAC_HandleTypeDef handleDAC;
 
 
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 typedef struct
 {
     // FPGA
@@ -89,8 +85,6 @@ typedef struct
 } GMemory;
 
 #define ALWAYS_SHOW_MEM_INT_SIGNAL (gMemory.alwaysShowMemIntSignal == 1)
-
-extern GMemory gMemory;
 
 
 typedef enum
@@ -192,6 +186,8 @@ extern uint8        *gDataBmemInt;      //-/
 extern DataSettings *gDSmemLast;        //--
 extern uint8        *gDataAmemLast;     // | Здесь данные из ОЗУ, которые должны выводиться на экран
 extern uint8        *gDataBmemLast;     //-/
+
+extern GMemory gMemory;
 
 #define NUM_DATAS 999
 extern DataSettings gDatas[NUM_DATAS];                  // Используется только в DataStorage
