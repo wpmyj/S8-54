@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 
 #define PRIORITY_SYS_TICK           0, 0
 #define PRIORITY_FPGA_ADC           1, 0

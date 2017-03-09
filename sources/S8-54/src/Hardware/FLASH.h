@@ -1,4 +1,4 @@
-#pragma once
+п»ї#pragma once
 
 
 #include "defines.h"
@@ -7,13 +7,13 @@
 #include "FPGA/DataStorage.h"
 
 
-#define MAX_NUM_SAVED_WAVES 23  /* Пока ограничено количеством квадратиков, которые можно вывести в одну линию внизу сетки */
+#define MAX_NUM_SAVED_WAVES 23  /* РџРѕРєР° РѕРіСЂР°РЅРёС‡РµРЅРѕ РєРѕР»РёС‡РµСЃС‚РІРѕРј РєРІР°РґСЂР°С‚РёРєРѕРІ, РєРѕС‚РѕСЂС‹Рµ РјРѕР¶РЅРѕ РІС‹РІРµСЃС‚Рё РІ РѕРґРЅСѓ Р»РёРЅРёСЋ РІРЅРёР·Сѓ СЃРµС‚РєРё */
 
 
-void    FLASH_LoadSettings(bool onlyNonReset);                      // Если onlyNonReset == true, загружаются только несбрасываемые настройки
+void    FLASH_LoadSettings(bool onlyNonReset);                      // Р•СЃР»Рё onlyNonReset == true, Р·Р°РіСЂСѓР¶Р°СЋС‚СЃСЏ С‚РѕР»СЊРєРѕ РЅРµСЃР±СЂР°СЃС‹РІР°РµРјС‹Рµ РЅР°СЃС‚СЂРѕР№РєРё
 void    FLASH_SaveSettings(void);
 
-void    FLASH_GetDataInfo(bool existData[MAX_NUM_SAVED_WAVES]);     // Если даннные есть, соответствующий элемент массива равен true
+void    FLASH_GetDataInfo(bool existData[MAX_NUM_SAVED_WAVES]);     // Р•СЃР»Рё РґР°РЅРЅРЅС‹Рµ РµСЃС‚СЊ, СЃРѕРѕС‚РІРµС‚СЃС‚РІСѓСЋС‰РёР№ СЌР»РµРјРµРЅС‚ РјР°СЃСЃРёРІР° СЂР°РІРµРЅ true
 bool    FLASH_ExistData(int num);
 void    FLASH_SaveData(int num, DataSettings *ds, uint8 *dataA, uint8 *dataB);
 bool    FLASH_GetData(int num, DataSettings **ds, uint8 **dataA, uint8 **dataB);

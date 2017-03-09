@@ -1,4 +1,4 @@
-#pragma once
+ï»¿#pragma once
 #include "defines.h"
 #include "SettingsTypes.h"
 #include "Display/Colors.h"
@@ -7,7 +7,7 @@
 #define SHIFT_IN_MEMORY         (set.display.shiftInMemory)
 #define TIME_MESSAGES           (set.display.timeMessages)
 #define COLOR(x)                (set.display.colors[x])
-#define DISPLAY_NUM_MIN_MAX     (1 << (int)set.display.numMinMax)       /* Âîçâðàùàåò êîëè÷åñòâî èçìåðåíèé ñèãíàëîâ äëÿ ðàñ÷¸òà ìèíèìóìîâ è ìàêñèìóìîâ. */
+#define DISPLAY_NUM_MIN_MAX     (1 << (int)set.display.numMinMax)       /* Ð’Ð¾Ð·Ð²Ñ€Ð°Ñ‰Ð°ÐµÑ‚ ÐºÐ¾Ð»Ð¸Ñ‡ÐµÑÑ‚Ð²Ð¾ Ð¸Ð·Ð¼ÐµÑ€ÐµÐ½Ð¸Ð¹ ÑÐ¸Ð³Ð½Ð°Ð»Ð¾Ð² Ð´Ð»Ñ Ñ€Ð°ÑÑ‡Ñ‘Ñ‚Ð° Ð¼Ð¸Ð½Ð¸Ð¼ÑƒÐ¼Ð¾Ð² Ð¸ Ð¼Ð°ÐºÑÐ¸Ð¼ÑƒÐ¼Ð¾Ð². */
 #define NUM_SIGNALS_IN_SEC      (set.display.numSignalsInSec)
 #define LAST_AFFECTED_CH        (set.display.lastAffectedChannel)
 #define DISPLAY_ORIENTATION     (set.debug.orientation)
@@ -29,7 +29,7 @@
 
 #define NUM_ACCUM               (set.display.numAccumulation)
 #define NUM_ACCUM_INF           (NUM_ACCUM == NumAccumulation_Infinity)
-#define DISPLAY_NUM_ACCUM       (1 << (int)NUM_ACCUM)                   /* Âîçâðàùàåò ÷èñëî íàêîïëåíèé */
+#define DISPLAY_NUM_ACCUM       (1 << (int)NUM_ACCUM)                   /* Ð’Ð¾Ð·Ð²Ñ€Ð°Ñ‰Ð°ÐµÑ‚ Ñ‡Ð¸ÑÐ»Ð¾ Ð½Ð°ÐºÐ¾Ð¿Ð»ÐµÐ½Ð¸Ð¹ */
 
 #define MODE_ACCUM              (set.display.modeAccumulation)
 #define MODE_ACCUM_RESET        (MODE_ACCUM == ModeAccumulation_Reset)
@@ -50,14 +50,14 @@
 #define BACKGROUND_BLACK        (BACKGROUND == Background_Black)
 
 
-int     sDisplay_NumSignalsInS(void);                       // Âîçâðàùàåò îãðàíè÷åíèå ÷àñòîòû êàäðîâ.
-void    sDisplay_SetNumSignalsInS(int maxFPS);              // Óñòàíàâëèâàåò îãðàíè÷åíèå ÷àñòîòû êàäðîâ.
-int     sDisplay_NumPointSmoothing(void);                   // Âîçâðàùàåò ÷èñëî òî÷åê ñãëàæèâàþùåãî ôèëüòðà (ðåæèì ÄÈÑÏËÅÉ - Ñãëàæèâàíèå).
-void    sDisplay_PointsOnDisplay(int *firstPoint, int *lastPoint); // Âîçâðàùàåò àäðåñ ïåðâîé è ïîñëåäíåé òî÷êè íà ýêðàíå.
-int     sDisplay_TimeMenuAutoHide(void);                    // Âîçâðàùàåò âðåìÿ, ÷åðåç êîòîðîå ìåíþ àâòîìàòè÷åñêè ñêðûâàåòñÿ, åñëè íå áûëî áîëüøå íàæàòèé.
-bool    sDisplay_IsSeparate(void);                          // Åñëè ýêðàí ðàçäåë¸í íà äâå ÷àñòè è îñíîâíîé ñèãíàë âûâîäèòñÿ ñâåðõó - íàïðèìåð, â ðåæèìå âûâîäà ñïåêòðà
+int     sDisplay_NumSignalsInS(void);                       // Ð’Ð¾Ð·Ð²Ñ€Ð°Ñ‰Ð°ÐµÑ‚ Ð¾Ð³Ñ€Ð°Ð½Ð¸Ñ‡ÐµÐ½Ð¸Ðµ Ñ‡Ð°ÑÑ‚Ð¾Ñ‚Ñ‹ ÐºÐ°Ð´Ñ€Ð¾Ð².
+void    sDisplay_SetNumSignalsInS(int maxFPS);              // Ð£ÑÑ‚Ð°Ð½Ð°Ð²Ð»Ð¸Ð²Ð°ÐµÑ‚ Ð¾Ð³Ñ€Ð°Ð½Ð¸Ñ‡ÐµÐ½Ð¸Ðµ Ñ‡Ð°ÑÑ‚Ð¾Ñ‚Ñ‹ ÐºÐ°Ð´Ñ€Ð¾Ð².
+int     sDisplay_NumPointSmoothing(void);                   // Ð’Ð¾Ð·Ð²Ñ€Ð°Ñ‰Ð°ÐµÑ‚ Ñ‡Ð¸ÑÐ»Ð¾ Ñ‚Ð¾Ñ‡ÐµÐº ÑÐ³Ð»Ð°Ð¶Ð¸Ð²Ð°ÑŽÑ‰ÐµÐ³Ð¾ Ñ„Ð¸Ð»ÑŒÑ‚Ñ€Ð° (Ñ€ÐµÐ¶Ð¸Ð¼ Ð”Ð˜Ð¡ÐŸÐ›Ð•Ð™ - Ð¡Ð³Ð»Ð°Ð¶Ð¸Ð²Ð°Ð½Ð¸Ðµ).
+void    sDisplay_PointsOnDisplay(int *firstPoint, int *lastPoint); // Ð’Ð¾Ð·Ð²Ñ€Ð°Ñ‰Ð°ÐµÑ‚ Ð°Ð´Ñ€ÐµÑ Ð¿ÐµÑ€Ð²Ð¾Ð¹ Ð¸ Ð¿Ð¾ÑÐ»ÐµÐ´Ð½ÐµÐ¹ Ñ‚Ð¾Ñ‡ÐºÐ¸ Ð½Ð° ÑÐºÑ€Ð°Ð½Ðµ.
+int     sDisplay_TimeMenuAutoHide(void);                    // Ð’Ð¾Ð·Ð²Ñ€Ð°Ñ‰Ð°ÐµÑ‚ Ð²Ñ€ÐµÐ¼Ñ, Ñ‡ÐµÑ€ÐµÐ· ÐºÐ¾Ñ‚Ð¾Ñ€Ð¾Ðµ Ð¼ÐµÐ½ÑŽ Ð°Ð²Ñ‚Ð¾Ð¼Ð°Ñ‚Ð¸Ñ‡ÐµÑÐºÐ¸ ÑÐºÑ€Ñ‹Ð²Ð°ÐµÑ‚ÑÑ, ÐµÑÐ»Ð¸ Ð½Ðµ Ð±Ñ‹Ð»Ð¾ Ð±Ð¾Ð»ÑŒÑˆÐµ Ð½Ð°Ð¶Ð°Ñ‚Ð¸Ð¹.
+bool    sDisplay_IsSeparate(void);                          // Ð•ÑÐ»Ð¸ ÑÐºÑ€Ð°Ð½ Ñ€Ð°Ð·Ð´ÐµÐ»Ñ‘Ð½ Ð½Ð° Ð´Ð²Ðµ Ñ‡Ð°ÑÑ‚Ð¸ Ð¸ Ð¾ÑÐ½Ð¾Ð²Ð½Ð¾Ð¹ ÑÐ¸Ð³Ð½Ð°Ð» Ð²Ñ‹Ð²Ð¾Ð´Ð¸Ñ‚ÑÑ ÑÐ²ÐµÑ€Ñ…Ñƒ - Ð½Ð°Ð¿Ñ€Ð¸Ð¼ÐµÑ€, Ð² Ñ€ÐµÐ¶Ð¸Ð¼Ðµ Ð²Ñ‹Ð²Ð¾Ð´Ð° ÑÐ¿ÐµÐºÑ‚Ñ€Ð°
 void    sDisplay_SetBrightness(int16 brightness);           // brightness = 1..100
-ModeAveraging sDisplay_GetModeAveraging(void);              // Âîçâðàùàåò ðåæèì óñðåäíåíèÿ
+ModeAveraging sDisplay_GetModeAveraging(void);              // Ð’Ð¾Ð·Ð²Ñ€Ð°Ñ‰Ð°ÐµÑ‚ Ñ€ÐµÐ¶Ð¸Ð¼ ÑƒÑÑ€ÐµÐ´Ð½ÐµÐ½Ð¸Ñ
 int     sDisplay_NumAverage(void);
-int     sDisplay_ShiftInMemoryInPoints(void);               // Ýòî ñìåùåíèå ýêðàíà ïî ïàìÿòè â ðåæèìå ïèêîâîãî äåòåêòîðà îíî áóäåò â äâà ðàçà ìåíüøå, ÷åì áàéò, ïîòîìó ÷òî êàæäàÿ òî÷êà ïðåäñòàâëåíà äâóìÿ áàéòàìè
+int     sDisplay_ShiftInMemoryInPoints(void);               // Ð­Ñ‚Ð¾ ÑÐ¼ÐµÑ‰ÐµÐ½Ð¸Ðµ ÑÐºÑ€Ð°Ð½Ð° Ð¿Ð¾ Ð¿Ð°Ð¼ÑÑ‚Ð¸ Ð² Ñ€ÐµÐ¶Ð¸Ð¼Ðµ Ð¿Ð¸ÐºÐ¾Ð²Ð¾Ð³Ð¾ Ð´ÐµÑ‚ÐµÐºÑ‚Ð¾Ñ€Ð° Ð¾Ð½Ð¾ Ð±ÑƒÐ´ÐµÑ‚ Ð² Ð´Ð²Ð° Ñ€Ð°Ð·Ð° Ð¼ÐµÐ½ÑŒÑˆÐµ, Ñ‡ÐµÐ¼ Ð±Ð°Ð¹Ñ‚, Ð¿Ð¾Ñ‚Ð¾Ð¼Ñƒ Ñ‡Ñ‚Ð¾ ÐºÐ°Ð¶Ð´Ð°Ñ Ñ‚Ð¾Ñ‡ÐºÐ° Ð¿Ñ€ÐµÐ´ÑÑ‚Ð°Ð²Ð»ÐµÐ½Ð° Ð´Ð²ÑƒÐ¼Ñ Ð±Ð°Ð¹Ñ‚Ð°Ð¼Ð¸
 

@@ -1,4 +1,4 @@
-#pragma once
+п»ї#pragma once
 
 
 typedef enum
@@ -27,17 +27,17 @@ typedef enum
     DRAW_MATH_DATA_REL_A = 16,
     DRAW_MATH_DATA_REL_B = 17,
 
-    DS_POOL_BEGIN = 18,             // Здесь начало места, где хранятся сигналы во внешнем ОЗУ
-    DS_POOL_END = 19                // Здесь конец места, где хранятся сигналы во внешнем ОЗУ
+    DS_POOL_BEGIN = 18,             // Р—РґРµСЃСЊ РЅР°С‡Р°Р»Рѕ РјРµСЃС‚Р°, РіРґРµ С…СЂР°РЅСЏС‚СЃСЏ СЃРёРіРЅР°Р»С‹ РІРѕ РІРЅРµС€РЅРµРј РћР—РЈ
+    DS_POOL_END = 19                // Р—РґРµСЃСЊ РєРѕРЅРµС† РјРµСЃС‚Р°, РіРґРµ С…СЂР°РЅСЏС‚СЃСЏ СЃРёРіРЅР°Р»С‹ РІРѕ РІРЅРµС€РЅРµРј РћР—РЈ
 } Address;
 
 
 void RAM_Init(void);
 
-void RAM_WriteRead_Sinch2(void *src, void *dest, int numBytes);     // Число в названии функции указывает на количество байт, которым кратно numBytes
-void RAM_WriteRead_Sinch4(void *src, void *dest, int numBytes);     // Чем больше число, тем больше скорость
+void RAM_WriteRead_Sinch2(void *src, void *dest, int numBytes);     // Р§РёСЃР»Рѕ РІ РЅР°Р·РІР°РЅРёРё С„СѓРЅРєС†РёРё СѓРєР°Р·С‹РІР°РµС‚ РЅР° РєРѕР»РёС‡РµСЃС‚РІРѕ Р±Р°Р№С‚, РєРѕС‚РѕСЂС‹Рј РєСЂР°С‚РЅРѕ numBytes
+void RAM_WriteRead_Sinch4(void *src, void *dest, int numBytes);     // Р§РµРј Р±РѕР»СЊС€Рµ С‡РёСЃР»Рѕ, С‚РµРј Р±РѕР»СЊС€Рµ СЃРєРѕСЂРѕСЃС‚СЊ
 void RAM_WriteRead_Sinch8(void *src, void *dest, int numBytes);
-void RAM_WriteRead_Asinch(uint16 *src, uint16 *dest, int numHalfWords); // Для записи использует режим DMA. Не работает, если данные размещены в памяти CCM data RAM
+void RAM_WriteRead_Asinch(uint16 *src, uint16 *dest, int numHalfWords); // Р”Р»СЏ Р·Р°РїРёСЃРё РёСЃРїРѕР»СЊР·СѓРµС‚ СЂРµР¶РёРј DMA. РќРµ СЂР°Р±РѕС‚Р°РµС‚, РµСЃР»Рё РґР°РЅРЅС‹Рµ СЂР°Р·РјРµС‰РµРЅС‹ РІ РїР°РјСЏС‚Рё CCM data RAM
 
 bool RAM_WriteReadComplete(void);
 void RAM_WaitWriteReadComplete(void);
@@ -52,8 +52,8 @@ uint8 RAM_ReadByte(void *src);
 void RAM_WriteWord(void *dest, uint value);
 uint RAM_ReadWord(void *src);
 
-void RAM_MemCpy16(void *src, void *dest, int numBytes);         // Копирует буфер с размером, кратным 16. Адрес во внешнем ОЗУ должен быть выравнен по полусловам
-void RAM_ReadBuffer1(void *src, void *dest, int numBytes);      // Читает данные из ОЗУ. Рамзем кратен одному байту. src может быть кратен байту
+void RAM_MemCpy16(void *src, void *dest, int numBytes);         // РљРѕРїРёСЂСѓРµС‚ Р±СѓС„РµСЂ СЃ СЂР°Р·РјРµСЂРѕРј, РєСЂР°С‚РЅС‹Рј 16. РђРґСЂРµСЃ РІРѕ РІРЅРµС€РЅРµРј РћР—РЈ РґРѕР»Р¶РµРЅ Р±С‹С‚СЊ РІС‹СЂР°РІРЅРµРЅ РїРѕ РїРѕР»СѓСЃР»РѕРІР°Рј
+void RAM_ReadBuffer1(void *src, void *dest, int numBytes);      // Р§РёС‚Р°РµС‚ РґР°РЅРЅС‹Рµ РёР· РћР—РЈ. Р Р°РјР·РµРј РєСЂР°С‚РµРЅ РѕРґРЅРѕРјСѓ Р±Р°Р№С‚Сѓ. src РјРѕР¶РµС‚ Р±С‹С‚СЊ РєСЂР°С‚РµРЅ Р±Р°Р№С‚Сѓ
 void RAM_MemClear(void *address, int numHalfWords);
 
 void RAM_Test(void);
