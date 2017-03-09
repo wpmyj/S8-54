@@ -18,7 +18,6 @@ void DrawSB_Help_ParagraphEnter(int x, int y)
     Painter_SetFont(TypeFont_8);
 }
 
-
 //------------------------------------------------------------------------------------------------------------------------------------------------------
 void DrawSB_Help_ParagraphLeave(int x, int y)
 {
@@ -26,7 +25,6 @@ void DrawSB_Help_ParagraphLeave(int x, int y)
     Painter_Draw4SymbolsInRect(x + 2, y + 1, '\x48');
     Painter_SetFont(TypeFont_8);
 }
-
 
 //------------------------------------------------------------------------------------------------------------------------------------------------------
 void DrawSB_Help_ParagraphPrev(int x, int y)
@@ -36,7 +34,6 @@ void DrawSB_Help_ParagraphPrev(int x, int y)
     Painter_SetFont(TypeFont_8);
 }
 
-
 //------------------------------------------------------------------------------------------------------------------------------------------------------
 void DrawSB_Help_ParagraphNext(int x, int y)
 {
@@ -45,13 +42,11 @@ void DrawSB_Help_ParagraphNext(int x, int y)
     Painter_SetFont(TypeFont_8);
 }
 
-
 //------------------------------------------------------------------------------------------------------------------------------------------------------
 void OnHelpRegSet(int angle) 
 {
 
 }
-
 
 //------------------------------------------------------------------------------------------------------------------------------------------------------
 const SmallButton sbHelpParagraphEnter =
@@ -66,7 +61,6 @@ const SmallButton sbHelpParagraphEnter =
     DrawSB_Help_ParagraphEnter
 };
 
-
 //------------------------------------------------------------------------------------------------------------------------------------------------------
 const SmallButton sbHelpParagraphLeave =
 {
@@ -79,7 +73,6 @@ const SmallButton sbHelpParagraphLeave =
     HelpContent_LeaveParagraph,
     DrawSB_Help_ParagraphLeave
 };
-
 
 //------------------------------------------------------------------------------------------------------------------------------------------------------
 const SmallButton sbHelpParagraphPrev =
@@ -94,7 +87,6 @@ const SmallButton sbHelpParagraphPrev =
     DrawSB_Help_ParagraphPrev
 };
 
-
 //------------------------------------------------------------------------------------------------------------------------------------------------------
 const SmallButton sbHelpParagraphNext =
 {
@@ -107,13 +99,11 @@ const SmallButton sbHelpParagraphNext =
     DrawSB_Help_ParagraphNext
 };
 
-
 //------------------------------------------------------------------------------------------------------------------------------------------------------
 static void PressSB_Help_Exit(void)
 {
     Display_RemoveAddDrawFunction();
 }
-
 
 //------------------------------------------------------------------------------------------------------------------------------------------------------
 const SmallButton sbExitHelp =
@@ -123,7 +113,6 @@ const SmallButton sbExitHelp =
     PressSB_Help_Exit,
     DrawSB_Exit
 };
-
 
 //------------------------------------------------------------------------------------------------------------------------------------------------------
 const Page mpHelp =
