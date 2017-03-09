@@ -45,14 +45,12 @@ static void DrawPageContent(void)
     }
 }
 
-
 //------------------------------------------------------------------------------------------------------------------------------------------------------
 static void DrawPageDescription(void)
 {
     Painter_DrawStringInCenterRect(0, 3, WIDTH, 10, currentPage->title[LANG]);
     Painter_DrawTextInRectWithTransfers(2, 15, WIDTH - 5, 240, currentPage->content[LANG]);
 }
-
 
 //------------------------------------------------------------------------------------------------------------------------------------------------------
 void HelpContent_Draw(void)
@@ -87,7 +85,6 @@ void HelpContent_Draw(void)
     Painter_DrawFormText(2, 230, gColorFill, "%d", gTimerMS - startTime);
 }
 
-
 //------------------------------------------------------------------------------------------------------------------------------------------------------
 static int NumParagraphs(const PageHelp *page)
 {
@@ -99,7 +96,6 @@ static int NumParagraphs(const PageHelp *page)
     return retValue;
 }
 
-
 //------------------------------------------------------------------------------------------------------------------------------------------------------
 void HelpContent_NextParagraph(void)
 {
@@ -109,7 +105,6 @@ void HelpContent_NextParagraph(void)
     }
 }
 
-
 //------------------------------------------------------------------------------------------------------------------------------------------------------
 void HelpContent_PrevParagraph(void)
 {
@@ -118,7 +113,6 @@ void HelpContent_PrevParagraph(void)
         CircleDecreaseInt(&currentParagraph, 0, NumParagraphs(currentPage) - 1);
     }
 }
-
 
 //------------------------------------------------------------------------------------------------------------------------------------------------------
 void HelpContent_EnterParagraph(void)
@@ -130,7 +124,6 @@ void HelpContent_EnterParagraph(void)
     currentParagraph = 0;
 }
 
-
 //------------------------------------------------------------------------------------------------------------------------------------------------------
 void HelpContent_LeaveParagraph(void)
 {
@@ -141,13 +134,11 @@ void HelpContent_LeaveParagraph(void)
     }
 }
 
-
 //------------------------------------------------------------------------------------------------------------------------------------------------------
 bool HelpContent_LeaveParagraphIsActive(void)
 {
     return currentPage->parent != 0;
 }
-
 
 //------------------------------------------------------------------------------------------------------------------------------------------------------
 bool HelpContent_EnterParagraphIsActive(void)

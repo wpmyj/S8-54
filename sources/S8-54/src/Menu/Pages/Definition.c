@@ -25,20 +25,17 @@ void CalculateConditions(int16 pos0, int16 pos1, CursCntrl cursCntrl, bool *cond
     *cond1 = cursCntrl == CursCntrl_1_2 || (cursCntrl == CursCntrl_1 && !zeroLessFirst) || (cursCntrl == CursCntrl_2 && zeroLessFirst);
 }
 
-
 //------------------------------------------------------------------------------------------------------------------------------------------------------
 int CalculateYforCurs(int y, bool top)
 {
     return top ? y + MI_HEIGHT / 2 + 4 : y + MI_HEIGHT - 2;
 }
 
-
 //------------------------------------------------------------------------------------------------------------------------------------------------------
 int CalculateXforCurs(int x, bool left)
 {
     return left ? x + MI_WIDTH - 20 : x + MI_WIDTH - 5;
 }
-
 
 //------------------------------------------------------------------------------------------------------------------------------------------------------
 void CalculateXY(int *x0, int *x1, int *y0, int *y1)
@@ -48,7 +45,6 @@ void CalculateXY(int *x0, int *x1, int *y0, int *y1)
     *y0 = CalculateYforCurs(*y0, true);
     *y1 = CalculateYforCurs(*y1, false);
 }
-
 
 //------------------------------------------------------------------------------------------------------------------------------------------------------
 void DrawMenuCursTime(int x, int y, bool left, bool right)
@@ -67,7 +63,6 @@ void DrawMenuCursTime(int x, int y, bool left, bool right)
     }
 }
 
-
 //------------------------------------------------------------------------------------------------------------------------------------------------------
 void DrawMenuCursVoltage(int x, int y, bool top, bool bottom)
 {
@@ -84,7 +79,6 @@ void DrawMenuCursVoltage(int x, int y, bool top, bool bottom)
         Painter_DrawHLine(y1 - i, x0, x1);
     }
 }
-
 
 //------------------------------------------------------------------------------------------------------------------------------------------------------
 /*
@@ -151,7 +145,6 @@ const Page mainPage =
     }
 };
 
-
 //------------------------------------------------------------------------------------------------------------------------------------------------------
 const void *PageForButton(PanelButton button)
 {
@@ -179,7 +172,6 @@ const void *PageForButton(PanelButton button)
 
     return pages[button];
 }
-
 
 //------------------------------------------------------------------------------------------------------------------------------------------------------
 bool IsMainPage(void *item)
