@@ -1,11 +1,10 @@
 #include "defines.h"
 #include "Math3D.h"
-
-
 #include <string.h>
 #include <math.h>
 
 
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 void FillMatriceRotation(Mat4x4 *mat, float angleX, float angleY, float angleZ)
 {
     memset(mat, 0, sizeof(float)* 16);
@@ -42,6 +41,7 @@ void FillMatriceRotation(Mat4x4 *mat, float angleX, float angleY, float angleZ)
     MatrixMul(&matTemp, &matZ, mat);
 }
 
+//----------------------------------------------------------------------------------------------------------------------------------------------------
 void FillMatriceScale(Mat4x4 *mat, float scaleX, float scaleY, float scaleZ)
 {
     memset(mat, 0, sizeof(float)* 16);
@@ -51,6 +51,7 @@ void FillMatriceScale(Mat4x4 *mat, float scaleX, float scaleY, float scaleZ)
     mat->n[3][3] = 1.0f;
 }
 
+//----------------------------------------------------------------------------------------------------------------------------------------------------
 void FillMatriceMov(Mat4x4 *mat, float movX, float movY, float movZ)
 {
     memset(mat, 0, sizeof(float)* 16);
@@ -60,6 +61,7 @@ void FillMatriceMov(Mat4x4 *mat, float movX, float movY, float movZ)
     mat->n[3][2] = movZ;
 }
 
+//----------------------------------------------------------------------------------------------------------------------------------------------------
 void SetMatriceTransform(Mat4x4 *matTransform, Mat4x4 *matScale, Mat4x4 *matRotate, Mat4x4 *matMove)
 {
     Mat4x4 matTemp = {0};
@@ -67,6 +69,7 @@ void SetMatriceTransform(Mat4x4 *matTransform, Mat4x4 *matScale, Mat4x4 *matRota
     MatrixMul(&matTemp, matMove, matTransform);
 }
 
+//----------------------------------------------------------------------------------------------------------------------------------------------------
 void TransformPoint(Mat4x4 *mat, Point *pointIn, Point *pointOut)
 {
     pointOut->x = pointIn->x * mat->n[0][0] + pointIn->y * mat->n[1][0] + pointIn->z * mat->n[2][0] + mat->n[3][0];
@@ -74,12 +77,14 @@ void TransformPoint(Mat4x4 *mat, Point *pointIn, Point *pointOut)
     pointOut->z = pointIn->z * mat->n[0][2] + pointIn->y * mat->n[1][2] + pointIn->z * mat->n[2][2] + mat->n[3][2];
 }
 
+//----------------------------------------------------------------------------------------------------------------------------------------------------
 void PresentPointToScreen(Point *point, float *x, float *y)
 {
     *x = point->x * (500.0f / point->z);
     *y = point->y * (500.0f / point->z);
 }
 
+//----------------------------------------------------------------------------------------------------------------------------------------------------
 void MatrixMul(Mat4x4 *mat0, Mat4x4 *mat1, Mat4x4 *matOut)
 {
     for (int i = 0; i < 4; i++)

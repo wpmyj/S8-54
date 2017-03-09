@@ -1,6 +1,4 @@
 #pragma once
-
-
 #include "DisplayTypes.h"
 #include "Settings/SettingsTypes.h"
 #include "Tables.h"
@@ -11,6 +9,8 @@
     а последний полный сигнал из DS_GetData(1);
 */
 
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 void    Display_Init(void);
 void    Display_Update(void);
 void    Display_RotateRShift(Channel ch);

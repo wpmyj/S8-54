@@ -1,8 +1,5 @@
 #pragma once
-
 #include "defines.h"
-
-
 #pragma once
 
 
