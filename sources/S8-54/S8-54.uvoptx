@@ -3550,7 +3550,7 @@
 
   <Group>
     <GroupName>Menu/Pages/Service</GroupName>
-    <tvExp>1</tvExp>
+    <tvExp>0</tvExp>
     <tvExpOptDlg>0</tvExpOptDlg>
     <cbSel>0</cbSel>
     <RteFlg>0</RteFlg>
@@ -3623,6 +3623,18 @@
       <bDave2>0</bDave2>
       <PathWithFileName>.\src\Menu\Pages\Service\ServiceTime.h</PathWithFileName>
       <FilenameWithoutPath>ServiceTime.h</FilenameWithoutPath>
+      <RteFlg>0</RteFlg>
+      <bShared>0</bShared>
+    </File>
+    <File>
+      <GroupNumber>23</GroupNumber>
+      <FileNumber>264</FileNumber>
+      <FileType>5</FileType>
+      <tvExp>0</tvExp>
+      <tvExpOptDlg>0</tvExpOptDlg>
+      <bDave2>0</bDave2>
+      <PathWithFileName>.\src\Menu\Pages\Service\ServiceEthernet.h</PathWithFileName>
+      <FilenameWithoutPath>ServiceEthernet.h</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
     </File>

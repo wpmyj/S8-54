@@ -403,6 +403,7 @@
     <ClInclude Include="..\..\S8-54\src\Menu\Pages\PageHelp.h" />
     <ClInclude Include="..\..\S8-54\src\Menu\Pages\Service\PageServiceMath.h" />
     <ClInclude Include="..\..\S8-54\src\Menu\Pages\Service\ServiceCalibrator.h" />
+    <ClInclude Include="..\..\S8-54\src\Menu\Pages\Service\ServiceEthernet.h" />
     <ClInclude Include="..\..\S8-54\src\Menu\Pages\Service\ServiceInformation.h" />
     <ClInclude Include="..\..\S8-54\src\Menu\Pages\Service\ServiceSound.h" />
     <ClInclude Include="..\..\S8-54\src\Menu\Pages\Service\ServiceTime.h" />
