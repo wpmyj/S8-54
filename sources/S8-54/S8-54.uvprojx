@@ -1873,6 +1873,18 @@
         </Group>
         <Group>
           <GroupName>Menu/Pages/Service</GroupName>
+          <Files>
+            <File>
+              <FileName>PageService.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\src\Menu\Pages\Service\PageService.c</FilePath>
+            </File>
+            <File>
+              <FileName>PageServiceMath.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\src\Menu\Pages\Service\PageServiceMath.h</FilePath>
+            </File>
+          </Files>
         </Group>
       </Groups>
     </Target>
