@@ -1,5 +1,5 @@
 #include "defines.h"
-#include "Definition.h"
+#include "Menu/Pages/Definition.h"
 #include "Settings/SettingsTypes.h"
 #include "Settings/Settings.h"
 #include "Display/Display.h"
@@ -11,6 +11,7 @@
 #include "Menu/MenuDrawing.h"
 #include "Menu/MenuFunctions.h"
 #include "Log.h"
+#include "DebugSerialNumber.h"
 
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -142,7 +143,8 @@ const Page mpDebug =
         (void*)&mcEMS,                  // ОТЛАДКА - ЭМС
         (void*)&mgPred,                 // ОТЛАДКА - Предзапуск
         (void*)&mgPost,                 // ОТЛАДКА - Послезапуск
-        (void*)&mspShowSettingsInfo     // ОТЛАДКА - Настройки
+        (void*)&mspShowSettingsInfo,    // ОТЛАДКА - Настройки
+        (void*)&mspSerialNumber         // ОТЛАДКА - С/Н
     }
 };
 
@@ -1127,6 +1129,8 @@ static const Governor mgPost =
     &post, 0, 15000, OnChange_Post
 };
 
+
+// ОТЛАДКА - Настройки ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 static const Page mspShowSettingsInfo =
 {
     Item_Page, &mpDebug, 0,

@@ -86,6 +86,7 @@ typedef enum
     Page_SB_MathFunction,       // СЕРВИС - МАТЕМАТИКА - ФУНКЦИЯ
     Page_SB_ServiceInformation, // СЕРВИС - ИНФОРМАЦИЯ
     Page_SB_DebugShowSetInfo,   // ОТЛАДКА - Настройи
+    Page_SB_SerialNumber,       // ОТЛАДКА - С/Н
     Page_NumPages,
     Page_NoPage
 } NamePage;             // При добавлении страниц нужно изменять инициализацию SettingsMenu в SSettings.c

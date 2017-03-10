@@ -6,7 +6,7 @@
 #include "Hardware/Timer.h"
 #include "Hardware/FSMC.h"
 #include "Hardware/RAM.h"
-#include "Menu/Pages/PageMemory.h"
+#include "Menu/Pages/Memory/PageMemory.h"
 #include "Settings/Settings.h"
 
 

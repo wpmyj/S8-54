@@ -4,7 +4,7 @@
 #include "Display/Painter.h"
 #include "FPGA/FPGA.h"
 #include "Menu/MenuFunctions.h"
-#include "PageMemory.h"
+#include "Memory/PageMemory.h"
 #include "PageHelp.h"
 #include "Panel/Panel.h"
 #include "Settings/Settings.h"

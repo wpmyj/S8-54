@@ -1,7 +1,7 @@
 #include "defines.h"
 #include "Settings/SettingsTypes.h"
 #include "PageMemory.h"
-#include "Definition.h"
+#include "Menu/Pages/Definition.h"
 #include "Menu/FileManager.h"
 #include "Menu/MenuFunctions.h"
 #include "FPGA/FPGA.h"
@@ -1110,7 +1110,7 @@ static const Page mspSetMask =
         (void*)&sbSetMaskBackspace, // ÏÀÌßÒÜ - ÂÍÅØÍ ÇÓ - ÌÀÑÊÀ - Backspace
         (void*)&sbSetMaskInsert     // ÏÀÌßÒÜ - ÂÍÅØÍ ÇÓ - ÌÀÑÊÀ - Âñòàâèòü
     },
-    EmptyFuncVV, OnPressMemoryExtMask, OnMemExtSetMaskRegSet
+    0, OnPressMemoryExtMask, OnMemExtSetMaskRegSet
 };
 
 static bool IsActiveMemoryExtSetMask(void)

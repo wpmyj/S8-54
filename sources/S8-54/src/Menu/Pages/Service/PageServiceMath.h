@@ -1,6 +1,6 @@
 #include "Utils/GlobalFunctions.h"
 #include "Display/Symbols.h"
-#include "Definition.h"
+#include "Menu/Pages/Definition.h"
 #include "Hardware/Sound.h"
 #include "Utils/Math.h"
 

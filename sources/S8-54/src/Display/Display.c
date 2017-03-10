@@ -26,7 +26,7 @@
 #include "Menu/MenuDrawing.h"
 #include "Menu/MenuFunctions.h"
 #include "Menu/Pages/PageCursors.h"
-#include "Menu/Pages/PageMemory.h"
+#include "Menu/Pages/Memory/PageMemory.h"
 #include "Menu/Pages/PageHelp.h"
 #include "Settings/Settings.h"
 #include "Utils/Measures.h"
