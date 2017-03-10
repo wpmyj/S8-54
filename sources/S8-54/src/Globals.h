@@ -14,6 +14,26 @@
 
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+#define RETURN_TO_MAIN_MENU     0
+#define RETURN_TO_LAST_MEM      1
+#define RETURN_TO_INT_MEM       2
+#define RETURN_TO_DISABLE_MENU  3
+
+// Макросы для доступа к членам DataSettings
+#define DS_INVERSE(ds, ch)  (((ch) == A) ? (ds)->inverseA : (ds)->inverseB)
+#define DS_INVERSE_A(ds)    ((ds)->inverseA)
+#define DS_INVERSE_B(ds)    ((ds)->inverseB)
+#define DS_COUPLE(ds, ch)   (((ch) == A) ? (ModeCouple)(ds)->modeCoupleA : (ModeCouple)(ds)->modeCoupleB)
+#define DS_DIVIDER(ds, ch)  (((ch) == A) ? (Divider)(ds)->multiplierA : (Divider)(ds)->multiplierB)
+#define DS_RANGE(ds, ch)    ((Range)(ds)->range[ch])
+#define DS_RSHIFT(ds, ch)   ((ds)->rShift[ch])
+#define DS_TSHIFT(ds)       ((ds)->tShift)
+#define DS_ENABLED(ds, ch)  (((ch) == A) ? (ds)->enableA : (ds)->enableB)
+#define DS_ENABLED_A(ds)    ((ds)->enableA)
+#define DS_ENABLED_B(ds)    ((ds)->enableB)
+
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 extern USBH_HandleTypeDef handleUSBH;
 extern HCD_HandleTypeDef handleHCD;
 extern SPI_HandleTypeDef handleSPI;
@@ -62,15 +82,6 @@ typedef struct
 
     uint consoleInPause             : 1;    // Если 1, то консоль находится в режиме паузы
 } BitField;
-
-extern volatile BitField gBF;               // Структура сделана volatile, потому что иначе при вклюённой оптимизации зависает во время выключения. Вероятно,
-                                            // это связано с переменной soundIsBeep (перед стиранием сектора в цикле происходит ожидание, когда эта переменная
-                                            // изменит своё состояние (каковое изменение происходит из прерывания, ясен перец))
-
-#define RETURN_TO_MAIN_MENU     0
-#define RETURN_TO_LAST_MEM      1
-#define RETURN_TO_INT_MEM       2
-#define RETURN_TO_DISABLE_MENU  3
 
 
 typedef struct 
@@ -147,19 +158,6 @@ typedef struct
     PackedTime  time;
 } DataSettings;
 
-// Макросы для доступа к членам DataSettings
-#define DS_INVERSE(ds, ch)  (((ch) == A) ? (ds)->inverseA : (ds)->inverseB)
-#define DS_INVERSE_A(ds)    ((ds)->inverseA)
-#define DS_INVERSE_B(ds)    ((ds)->inverseB)
-#define DS_COUPLE(ds, ch)   (((ch) == A) ? (ModeCouple)(ds)->modeCoupleA : (ModeCouple)(ds)->modeCoupleB)
-#define DS_DIVIDER(ds, ch)  (((ch) == A) ? (Divider)(ds)->multiplierA : (Divider)(ds)->multiplierB)
-#define DS_RANGE(ds, ch)    ((Range)(ds)->range[ch])
-#define DS_RSHIFT(ds, ch)   ((ds)->rShift[ch])
-#define DS_TSHIFT(ds)       ((ds)->tShift)
-#define DS_ENABLED(ds, ch)  (((ch) == A) ? (ds)->enableA : (ds)->enableB)
-#define DS_ENABLED_A(ds)    ((ds)->enableA)
-#define DS_ENABLED_B(ds)    ((ds)->enableB)
-
 
 int NumBytesInChannel(DataSettings *ds);    // Возвращает количество байт на канал
 int NumBytesInData(DataSettings *ds);       // Возвращает количество байт в обоих каналах
@@ -188,6 +186,11 @@ extern uint8        *gDataAmemLast;     // | Здесь данные из ОЗУ
 extern uint8        *gDataBmemLast;     //-/
 
 extern GMemory gMemory;
+
+extern volatile BitField gBF;               // Структура сделана volatile, потому что иначе при вклюённой оптимизации зависает во время выключения. Вероятно,
+                                            // это связано с переменной soundIsBeep (перед стиранием сектора в цикле происходит ожидание, когда эта переменная
+                                            // изменит своё состояние (каковое изменение происходит из прерывания, ясен перец))
+
 
 #define NUM_DATAS 999
 extern DataSettings gDatas[NUM_DATAS];                  // Используется только в DataStorage

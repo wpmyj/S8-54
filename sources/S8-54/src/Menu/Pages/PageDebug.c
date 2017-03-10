@@ -134,8 +134,8 @@ const Page mpDebug =
         (void*)&mcStats,                // ОТЛАДКА - Статистика
         (void*)&mcDisplayOrientation,   // ОТЛАДКА - Ориентация
         (void*)&mcEMS,                  // ОТЛАДКА - ЭМС
-        (void*)&mgPred,
-        (void*)&mgPost
+        (void*)&mgPred,                 // ОТЛАДКА - Предзапуск
+        (void*)&mgPost                  // ОТЛАДКА - Послезапуск
     }
 };
 

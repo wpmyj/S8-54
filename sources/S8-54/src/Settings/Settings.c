@@ -233,7 +233,7 @@ static const Settings defaultSettings =
     }
 };
 
-SettingsNonReset defaultSettingsNR =
+static const SettingsNonReset defaultSettingsNR =
 {
     // channel
     {{0}, {0}},             // rShiftAdd

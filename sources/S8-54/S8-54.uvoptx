@@ -191,34 +191,18 @@
         <Bp>
           <Number>0</Number>
           <Type>0</Type>
-          <LineNumber>1679</LineNumber>
+          <LineNumber>464</LineNumber>
           <EnabledFlag>1</EnabledFlag>
-          <Address>134515716</Address>
+          <Address>134420632</Address>
           <ByteObject>0</ByteObject>
           <HtxType>0</HtxType>
           <ManyObjects>0</ManyObjects>
           <SizeOfObject>0</SizeOfObject>
           <BreakByAccess>0</BreakByAccess>
           <BreakIfRCount>1</BreakIfRCount>
-          <Filename>&lt;1&gt;.\src\Display\Display.c</Filename>
+          <Filename>&lt;1&gt;.\src\Menu\Pages\PageDebug.c</Filename>
           <ExecCommand></ExecCommand>
-          <Expression>\\S8_54\src/Display/Display.c\1679</Expression>
-        </Bp>
-        <Bp>
-          <Number>1</Number>
-          <Type>0</Type>
-          <LineNumber>1712</LineNumber>
-          <EnabledFlag>1</EnabledFlag>
-          <Address>134515958</Address>
-          <ByteObject>0</ByteObject>
-          <HtxType>0</HtxType>
-          <ManyObjects>0</ManyObjects>
-          <SizeOfObject>0</SizeOfObject>
-          <BreakByAccess>0</BreakByAccess>
-          <BreakIfRCount>1</BreakIfRCount>
-          <Filename>&lt;1&gt;.\src\Display\Display.c</Filename>
-          <ExecCommand></ExecCommand>
-          <Expression>\\S8_54\src/Display/Display.c\1712</Expression>
+          <Expression>\\S8_54\src/Menu/Pages/PageDebug.c\464</Expression>
         </Bp>
       </Breakpoint>
       <WatchWindow1>
@@ -1470,7 +1454,7 @@
 
   <Group>
     <GroupName>src</GroupName>
-    <tvExp>1</tvExp>
+    <tvExp>0</tvExp>
     <tvExpOptDlg>0</tvExpOptDlg>
     <cbSel>0</cbSel>
     <RteFlg>0</RteFlg>
@@ -2558,7 +2542,7 @@
 
   <Group>
     <GroupName>Menu/Pages</GroupName>
-    <tvExp>0</tvExp>
+    <tvExp>1</tvExp>
     <tvExpOptDlg>0</tvExpOptDlg>
     <cbSel>0</cbSel>
     <RteFlg>0</RteFlg>

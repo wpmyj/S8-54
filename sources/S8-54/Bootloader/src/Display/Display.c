@@ -35,7 +35,7 @@ typedef struct
 int numPoints = 0;
 Vector array[7000] __attribute__ ((section("CCM_DATA")));
 
-static TypeWelcomeScreen typeScreen = TypeWelcomeScreen_VagueWave;
+static TypeWelcomeScreen typeScreen = TypeWelcomeScreen_Wave;
 
 #define VAGUE (typeScreen == TypeWelcomeScreen_Vague)
 #define WAVE (typeScreen == TypeWelcomeScreen_Wave)
@@ -230,7 +230,7 @@ static void DrawBigMNIPI(void)
     float frequency = 0.05f;
 
     float radius = 5000.0f * (TIME_WAIT) / 3000.0f / time;
-    LIMIT_BELOW(radius, 1);
+    LIMIT_BELOW(radius, 0);
 
     float shift[240];
 

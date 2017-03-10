@@ -242,7 +242,7 @@ static const Page mspInformation =
     OnPress_Information
 };
 
-static void PressSB_Information_Exit()
+static void PressSB_Information_Exit(void)
 {
     Display_SetDrawMode(DrawMode_Auto, 0);
 }
@@ -255,34 +255,32 @@ static const SmallButton sbExitInformation =
     DrawSB_Exit
 };
 
-static void OnPress_Information()
+static void OnPress_Information(void)
 {
     OpenPageAndSetItCurrent(Page_SB_ServiceInformation);
-    Display_SetDrawMode(DrawMode_Hand, Information_Draw);
+    Display_SetDrawMode(DrawMode_Auto, Information_Draw);
 }
 
-static void Information_Draw()
+static void Information_Draw(void)
 {
     Language lang = set.common.lang;
 
     Painter_BeginScene(gColorBack);
-    int x = 70;
-    int y = 40;
-    int width = SCREEN_WIDTH - 2 * x;
-    int height = 120;
-    Painter_FillRegionC(x, y, width, height, COLOR_GRID);
-    Painter_DrawRectangleC(x, y, width, height, gColorFill);
-    Painter_DrawStringInCenterRect(x, y, width, 30, lang == Russian ? "ИНФОРМАЦИЯ" : "INFORMATION");
-    Painter_DrawText(x + 20, y + 30, lang == Russian ? "Модель С8-53/1" : "Model S8-53/1");
+    int x = 0;
+    int dY = 30;
+    int y = 0;
+    int width = 320;
+    Painter_DrawStringInCenterRectC(x, y + dY, width, 30, lang == Russian ? "ИНФОРМАЦИЯ" : "INFORMATION", gColorFill);
+    Painter_DrawStringInCenterRect(x, y + 30 + dY, width, 30, lang == Russian ? "Модель     С8-54" : "Model     S8-54");
     char buffer[100];
-    sprintf(buffer, lang == Russian ? "c/н - %s" : "s/n - %s", SER_NUM);
+    //sprintf(buffer, lang == Russian ? "c/н - %s" : "s/n - %s", SER_NUM);
     //Painter_DrawText(x, y, buffer);
-    Painter_DrawStringInCenterRect(x, y + 50, width, 30, lang == Russian ? "Программное обеспечение:" : "Software:");
-    sprintf(buffer, lang == Russian ? "версия %s" : "version %s", NUM_VER);
-    Painter_DrawText(x + 20, y + 79, buffer);
-    Painter_DrawText(x + 20, y + 95, "CRC32 A1C8760F");
+    Painter_DrawStringInCenterRect(x, 60 + dY, width, 30, lang == Russian ? "Программное обеспечение:" : "Software:");
+    sprintf(buffer, (const char*)((lang == Russian) ? "версия %s" : "version %s"), NUM_VER);
+    Painter_DrawText(110, 90 + dY, buffer);
+    Painter_DrawText(110, 105 + dY, "CRC32 A1C8760F");
 
-    int dY = -10;
+    dY = -10;
     Painter_DrawStringInCenterRect(0, 190 + dY, 320, 20, "Для получения помощи нажмите и удерживайте кнопку ПОМОЩЬ");
     Painter_DrawStringInCenterRect(0, 205 + dY, 320, 20, "Отдел маркетинга: тел./факс. 8-017-262-57-50");
     Painter_DrawStringInCenterRect(0, 220 + dY, 320, 20, "Разработчики: e-mail: mnipi-24(@)tut.by, тел. 8-017-262-57-51");
