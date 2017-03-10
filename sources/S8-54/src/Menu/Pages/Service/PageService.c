@@ -3,7 +3,6 @@
 #include "Display/Painter.h"
 #include "Display/Colors.h"
 #include "FPGA/FPGA.h"
-#include "Hardware/RTC.h"
 #include "Hardware/Timer.h"
 #include "Menu/Menu.h"
 #include "Menu/MenuDrawing.h"
@@ -14,6 +13,8 @@
 #include "Settings/Settings.h"
 #include "Utils/GlobalFunctions.h"
 #include "ServiceInformation.h"
+#include "ServiceTime.h"
+#include "ServiceCalibrator.h"
 
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -31,20 +32,9 @@ static const Choice mcRecorder;
 static void  OnChange_Recorder(bool active);
 static const Choice mcLanguage;
 
-static const Page mspCalibrator;
-static const Choice mcCalibrator;
-static void  OnChange_Calibrator(bool active);
-static const Button mbCalibrator_Calibrate;
-static bool  IsActive_Calibrator_Calibrate(void);
-static void  OnPress_Calibrator_Calibrate(void);
-
 static const Page mspEthernet;
 static const Page mspSound;
-static const Page mspTime;
 
-static const Time mtTime;
-static const Governor mgTimeCorrection;
-static void  OnChange_Time_Correction(void);
 
 // СЕРВИС ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 const Page mpService =
@@ -161,141 +151,6 @@ static const Choice mcLanguage =
     },
     (int8*)&set.common.lang
 };
-
-// ВРЕМЯ /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-static const Page mspTime =
-{
-    Item_Page, &mpService, 0,
-    {
-        "ВРЕМЯ", "TIME",
-        "Установка и настройка времени",
-        "Set and setup time"
-    },
-    Page_ServiceTime,
-    {
-        (void*)&mtTime,             // СЕРВИС - ВРЕМЯ - Время
-        (void*)&mgTimeCorrection    // CЕРВИС - ВРЕМЯ - Коррекция
-    }
-};
-
-// СЕРВИС - ВРЕМЯ - Время ----------------------------------------------------------------------------------------------------------------------------
-static int8 dServicetime = 0;
-static int8 hours = 0, minutes = 0, secondes = 0, year = 0, month = 0, day = 0;
-static const Time mtTime =
-{
-    Item_Time, &mspTime, 0,
-    {
-        "Время", "Time"
-        ,
-        "Установка текущего времени.\nПорядок работы:\n"
-        "Нажать на элемент меню \"Время\". Откроется меню установки текущего времени. Короткими нажатиями кнопки на цифровой клавиатуре, соответсвующей "
-        "элементу управления \"Время\", выделить часы, минуты, секунды, год, месяц, или число. Выделенный элемент обозначается мигающей областью. "
-        "Вращением ручки УСТАНОВКА установить необходимое значение. Затем выделить пункт \"Сохранить\", нажать и удреживать более 0.5 сек кнопку на панели "
-        "управления. Меню установки текущего временя закроется с сохранением нового текущего времени. Нажатие длительное удержание кнопки на любом другом элементе "
-        "приведёт к закрытию меню установки текущего вре    мени без сохранения нового текущего времени"
-        ,
-        "Setting the current time. \nPoryadok work:\n"
-        "Click on the menu item \"Time\".The menu set the current time.By briefly pressing the button on the numeric keypad of conformity "
-        "Control \"Time\", highlight the hours, minutes, seconds, year, month, or a number.The selected item is indicated by a flashing area. "
-        "Turn the setting knob to set the desired value. Then highlight \"Save\", press and udrezhivat more than 0.5 seconds, the button on the panel "
-        "Control. Menu Setting the current time will be closed to the conservation of the new current time. Pressing a button on the prolonged retention of any other element "
-        "will lead to the closure of the current time setting menu without saving the new current time"
-    },
-    &dServicetime, &hours, &minutes, &secondes, &month, &day, &year
-};
-
-// СЕРВИС - Время - Коррекция ------------------------------------------------------------------------------------------------------------------------
-static const Governor mgTimeCorrection =
-{
-    Item_Governor, &mspTime, 0,
-    {
-        "Коррекция", "Correction",
-        "Установка корректирующего коэффициента для компенсации хода времени",
-        "Setting correction factor to compensate for time travel"
-    },
-    &setNR.correctionTime, -63, 63, OnChange_Time_Correction  
-};
-
-static void OnChange_Time_Correction(void)
-{
-    RTC_SetCorrection((int8)setNR.correctionTime);
-}
-
-// СЕРВИС - КАЛИБРАТОР ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-static const Page mspCalibrator =
-{
-    Item_Page, &mpService, 0,
-    {
-        "КАЛИБРАТОР", "CALIBRATOR",
-        "Управлением калибратором и калибровка осциллографа",
-        "Control of the calibrator and calibration of an oscillograph"
-    },
-    Page_ServiceCalibrator,
-    {
-        (void*)&mcCalibrator,           // СЕРВИС - КАЛИБРАТОР - Калибратор
-        (void*)&mbCalibrator_Calibrate  // СЕРВИС - КАЛИБРАТОР - Калибровать
-    }
-};
-
-// СЕРВИС - КАЛИБРАТОР - Калибратор ------------------------------------------------------------------------------------------------------------------
-static const Choice mcCalibrator =
-{
-    Item_Choice, &mspCalibrator, 0,
-    {
-        "Калибратор",   "Calibrator",
-        "Режим работы калибратора",
-        "Mode of operation of the calibrator"
-    },
-    {
-        {"Перем",       "DC"},
-        {"+4V",         "+4V"},
-        {"0V",          "0V"}
-    },
-    (int8*)&set.service.calibrator, OnChange_Calibrator
-};
-
-static void OnChange_Calibrator(bool active)
-{
-    FPGA_SetCalibratorMode(set.service.calibrator);
-}
-
-// СЕРВИС - КАЛИБРАТОР - Калибровать -----------------------------------------------------------------------------------------------------------------
-static const Button mbCalibrator_Calibrate =
-{
-    Item_Button, &mspCalibrator, IsActive_Calibrator_Calibrate,
-    {
-        "Калибровать", "Calibrate",
-        "Запуск процедуры калибровки",
-        "Running the calibration procedure"
-    },
-    OnPress_Calibrator_Calibrate, EmptyFuncVII
-};
-
-static bool IsActive_Calibrator_Calibrate(void)
-{
-    return !(CALIBR_MODE_A == CalibrationMode_Disable && CALIBR_MODE_B == CalibrationMode_Disable);
-}
-
-static void OnPress_Calibrator_Calibrate(void)
-{
-    gStateFPGA.needCalibration = true;
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
 void OnPressPrevSettings(void)
