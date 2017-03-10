@@ -12,6 +12,7 @@
 #include "Menu/MenuFunctions.h"
 #include "Log.h"
 #include "DebugSerialNumber.h"
+#include "DebugConsole.h"
 
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -20,19 +21,6 @@ extern void LoadTShift(void);
 
 static const Choice mcStats;
 
-static const Page mspConsole;
-static const Governor mgConsole_NumStrings;
-static const Choice mcConsole_SizeFont;
-static const Choice mcConsole_ModeStop;
-
-static const Page mspConsole_Registers;
-static const Choice mcConsole_Registers_ShowAll;
-static const Choice mcConsole_Registers_RD_FL;
-static const Choice mcConsole_Registers_RShiftA;
-static const Choice mcConsole_Registers_RShiftB;
-static const Choice mcConsole_Registers_TrigLev;
-static const Choice mcConsole_Registers_RangeA;
-static const Choice mcConsole_Registers_RangeB;
 static const Choice mcConsole_Registers_TrigParam;
 static const Choice mcConsole_Registers_ChanParamA;
 static const Choice mcConsole_Registers_ChanParamB;
@@ -104,8 +92,6 @@ static const Page mspShowSettingsInfo;
 static void OnPress_ShowInfo(void);
 static const SmallButton sbExitShowSetInfo;
 
-static bool IsActive_Registers(void);
-
 static void OnChange_ADC_Balance_Mode(bool active);
 static void OnDraw_ADC_Balance_Mode(int x, int y);
 static bool IsActive_ADC_Balance(void);
@@ -162,213 +148,6 @@ static const Choice mcStats =
         {"Показывать",      "Show"}
     },
     (int8*)&SHOW_STAT
-};
-
-// ОТЛАДКА - КОНСОЛЬ /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-static const Page mspConsole =
-{
-    Item_Page, &mpDebug, 0,
-    {
-        "КОНСОЛЬ", "CONSOLE",
-        "",
-        ""
-    },
-    Page_DebugConsole,
-    {
-        (void*)&mgConsole_NumStrings,   // ОТЛАДКА - КОНСОЛЬ - Число строк
-        (void*)&mcConsole_SizeFont,     // ОТЛАДКА - КОНСОЛЬ - Размер шрифта
-        (void*)&mcConsole_ModeStop,     // ОТЛАДКА - КОНСОЛЬ - Реж. останова
-        (void*)&mspConsole_Registers,   // ОТЛАДКА - КОНСОЛЬ - РЕГИСТРЫ
-        (void*)&mbConsole_SizeSettings  // ОТЛАДКА - КОНСОЛЬ - Разм. настроек
-
-    }
-};
-
-// ОТЛАДКА - КОНСОЛЬ - Число строк -------------------------------------------------------------------------------------------------------------------
-static const Governor mgConsole_NumStrings =
-{
-    Item_Governor, &mspConsole, 0,
-    {
-        "Число строк", "Number strings",
-        "",
-        ""
-    },
-    &CONSOLE_NUM_STRINGS, 0, 33
-};
-
-// ОТЛАДКА - КОНСОЛЬ - Размер шрифта -----------------------------------------------------------------------------------------------------------------
-static const Choice mcConsole_SizeFont =
-{
-    Item_Choice, &mspConsole, 0,
-    {
-        "Размер шрифта", "Size font",
-        "",
-        ""
-    },
-    {
-        {"5", "5"},
-        {"8", "8"}
-    },
-    &set.debug.sizeFont
-};
-
-// ОТЛАДКА - КОНСОЛЬ - Реж. останова -----------------------------------------------------------------------------------------------------------------
-static const Choice mcConsole_ModeStop =
-{
-    Item_Choice, &mspConsole, 0,
-    {
-        "Реж. останова", "Mode stop",
-        "Предоставляет возможность приостановки вывода в консоль путём нажатия на кнопку ПУСК/СТОП",
-        "It provides the ability to pause the output to the console by pressing the ПУСК/СТОП button"
-    },
-    {
-        {DISABLE_RU, DISABLE_EN},
-        {ENABLE_RU, ENABLE_EN}
-    },
-    (int8*)&set.debug.modePauseConsole
-};
-
-// ОТЛАДКА - КОНСОЛЬ - РЕГИСТРЫ //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-static const Page mspConsole_Registers =
-{
-    Item_Page, &mspConsole, 0,
-    {
-        "РЕГИСТРЫ", "REGISTERS",
-        "",
-        ""
-    },
-    Page_DebugShowRegisters,
-    {
-        (void*)&mcConsole_Registers_ShowAll,      // ОТЛАДКА - КОНСОЛЬ - РЕГИСТРЫ - Показывать все
-        (void*)&mcConsole_Registers_RD_FL,        // ОТЛАДКА - КОНСОЛЬ - РЕГИСТРЫ - RD_FL
-        (void*)&mcConsole_Registers_RShiftA,      // ОТЛАДКА - КОНСОЛЬ - РЕГИСТРЫ - U см. 1к
-        (void*)&mcConsole_Registers_RShiftB,      // ОТЛАДКА - КОНСОЛЬ - РЕГИСТРЫ - U см. 2к
-        (void*)&mcConsole_Registers_TrigLev,      // ОТЛАДКА - КОНСОЛЬ - РЕГИСТРЫ - U синхр
-        (void*)&mcConsole_Registers_RangeA,       // ОТЛАДКА - КОНСОЛЬ - РЕГИСТРЫ - ВОЛЬТ/ДЕЛ 1
-        (void*)&mcConsole_Registers_RangeB,       // ОТЛАДКА - КОНСОЛЬ - РЕГИСТРЫ - ВОЛЬТ/ДЕЛ 2
-        (void*)&mcConsole_Registers_TrigParam,    // ОТЛАДКА - КОНСОЛЬ - РЕГИСТРЫ - Парам. синхр.
-        (void*)&mcConsole_Registers_ChanParamA,   // ОТЛАДКА - КОНСОЛЬ - РЕГИСТРЫ - Парам. кан. 1
-        (void*)&mcConsole_Registers_ChanParamB,   // ОТЛАДКА - КОНСОЛЬ - РЕГИСТРЫ - Парам. кан. 2
-        (void*)&mcConsole_Registers_TBase,        // ОТЛАДКА - КОНСОЛЬ - РЕГИСТРЫ - ВРЕМЯ/ДЕЛ
-        (void*)&mcConsole_Registers_TShift        // ОТЛАДКА - КОНСОЛЬ - РЕГИСТРЫ - Т см.
-    }
-};
-
-// ОТЛАДКА - КОНСОЛЬ - РЕГИСТРЫ - Показывать все -----------------------------------------------------------------------------------------------------
-static const Choice mcConsole_Registers_ShowAll =
-{
-    Item_Choice, &mspConsole_Registers, 0,
-    {
-        "Показывать все", "Show all",
-        "Показывать все значения, засылаемые в регистры",
-        "To show all values transferred in registers"
-    },
-    {
-        {"Нет", "No"},
-        {"Да", "Yes"}
-    },
-    (int8*)&set.debug.show.all
-};
-
-// ОТЛАДКА - КОНСОЛЬ - РЕГИСТРЫ - RD_FL --------------------------------------------------------------------------------------------------------------
-static const Choice mcConsole_Registers_RD_FL =
-{
-    Item_Choice, &mspConsole_Registers, IsActive_Registers,
-    {
-        "RD_FL", "RD_FL",
-        "",
-        ""
-    },
-    {
-        {DISABLE_RU, DISABLE_EN},
-        {ENABLE_RU, ENABLE_EN}
-    },
-    (int8*)&set.debug.show.flag
-};
-
-static bool IsActive_Registers(void)
-{
-    return set.debug.show.all;
-}
-
-// ОТЛАДКА - КОНСОЛЬ - РЕГИСТРЫ - U см. 1к -----------------------------------------------------------------------------------------------------------
-static const Choice mcConsole_Registers_RShiftA =
-{
-    Item_Choice, &mspConsole_Registers, IsActive_Registers,
-    {
-        "U см. 1к", "U shift 1ch",
-        "",
-        ""
-    },
-    {
-        {DISABLE_RU, DISABLE_EN},
-        {ENABLE_RU, ENABLE_EN}
-    },
-    (int8*)&set.debug.show.rShift[A]
-};
-
-// ОТЛАДКА - КОНСОЛЬ - РЕГИСТРЫ - U см. 2к -----------------------------------------------------------------------------------------------------------
-static const Choice mcConsole_Registers_RShiftB =
-{
-    Item_Choice, &mspConsole_Registers, IsActive_Registers,
-    {
-        "U см. 2к", "U shift 2ch",
-        "",
-        ""
-    },
-    {
-        {DISABLE_RU, DISABLE_EN},
-        {ENABLE_RU, ENABLE_EN}
-    },
-    (int8*)&set.debug.show.range[B]
-};
-
-// ОТЛАДКА - КОНСОЛЬ - РЕГИСТРЫ - U синхр. -----------------------------------------------------------------------------------------------------------
-static const Choice mcConsole_Registers_TrigLev =
-{
-    Item_Choice, &mspConsole_Registers, IsActive_Registers,
-    {
-        "U синхр.", "U trig.",
-        "",
-        ""
-    },
-    {
-        {DISABLE_RU, DISABLE_EN},
-        {ENABLE_RU, ENABLE_EN}
-    },
-    (int8*)&set.debug.show.trigLev
-};
-
-// ОТЛАДКА - КОНСОЛЬ - РЕГИСТРЫ - ВОЛЬТ/ДЕЛ 1 --------------------------------------------------------------------------------------------------------
-static const Choice mcConsole_Registers_RangeA =
-{
-    Item_Choice, &mspConsole_Registers, IsActive_Registers,
-    {
-        "ВОЛЬТ/ДЕЛ 1", "Range 1",
-        "",
-        ""
-    },
-    {
-        {DISABLE_RU, DISABLE_EN},
-        {ENABLE_RU, ENABLE_EN}
-    },
-    (int8*)&set.debug.show.range[A]
-};
-
-// ОТЛАДКА - КОНСОЛЬ - РЕГИСТРЫ - ВОЛЬТ/ДЕЛ 2 --------------------------------------------------------------------------------------------------------
-static const Choice mcConsole_Registers_RangeB =
-{
-    Item_Choice, &mspConsole_Registers, IsActive_Registers,
-    {
-        "ВОЛЬТ/ДЕЛ 2", "Range 2",
-        "",
-        ""
-    },
-    {
-        {DISABLE_RU, DISABLE_EN},
-        {ENABLE_RU, ENABLE_EN}
-    },
-    (int8*)&set.debug.show.range[B]
 };
 
 // ОТЛАДКА - КОНСОЛЬ - РЕГИСТРЫ - Парам. синхр. ------------------------------------------------------------------------------------------------------

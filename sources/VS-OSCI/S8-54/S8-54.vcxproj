@@ -394,6 +394,7 @@
     <ClInclude Include="..\..\S8-54\src\Menu\MenuItems.h" />
     <ClInclude Include="..\..\S8-54\src\Menu\MenuItemsGraphics.h" />
     <ClInclude Include="..\..\S8-54\src\Menu\MenuItemsLogic.h" />
+    <ClInclude Include="..\..\S8-54\src\Menu\Pages\Debug\DebugConsole.h" />
     <ClInclude Include="..\..\S8-54\src\Menu\Pages\Definition.h" />
     <ClInclude Include="..\..\S8-54\src\Menu\Pages\HelpContent.h" />
     <ClInclude Include="..\..\S8-54\src\Menu\Pages\HelpContentPages.h" />
