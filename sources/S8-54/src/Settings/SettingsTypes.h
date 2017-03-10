@@ -560,7 +560,7 @@ typedef enum
 typedef enum
 {
     StretchADC_Disable,
-    StretchADC_Real,
+    StretchADC_Settings,
     StretchADC_Hand
 } StretchADCtype;
 

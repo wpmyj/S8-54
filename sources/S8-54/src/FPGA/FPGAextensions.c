@@ -521,7 +521,7 @@ static void CalibrateStretch(Channel ch)
     else
     {
         cal->isCalculateStretch[ch] = true;
-        setNR.stretchADCtype = StretchADC_Real;
+        setNR.stretchADCtype = StretchADC_Settings;
         SetStretchADC(ch, kStretch);
     }
 }

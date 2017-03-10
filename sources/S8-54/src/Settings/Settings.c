@@ -243,7 +243,7 @@ static const SettingsNonReset defaultSettingsNR =
     {0, 0},                 // balanceADC
     1,                      // numAveForRand
     BalanceADC_Settings,    // balanceADCtype
-    StretchADC_Real,        // stretchADCtype
+    StretchADC_Settings,        // stretchADCtype
     {{0, 0, 0}, {0, 0, 0}}, // stretchADC
     {0, 0},                 // addStretch20mV
     {0, 0},                 // addStretch50mV

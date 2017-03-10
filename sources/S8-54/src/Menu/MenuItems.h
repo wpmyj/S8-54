@@ -85,6 +85,7 @@ typedef enum
     Page_SB_MathCursorsFFT,     // Открыта страница СЕРВИС - Математика - Курсоры
     Page_SB_MathFunction,       // СЕРВИС - МАТЕМАТИКА - ФУНКЦИЯ
     Page_SB_ServiceInformation, // СЕРВИС - ИНФОРМАЦИЯ
+    Page_SB_DebugShowSetInfo,   // ОТЛАДКА - Настройи
     Page_NumPages,
     Page_NoPage
 } NamePage;             // При добавлении страниц нужно изменять инициализацию SettingsMenu в SSettings.c

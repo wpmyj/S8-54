@@ -270,6 +270,7 @@ static void Information_Draw(void)
     int dY = 30;
     int y = 0;
     int width = 320;
+    Painter_DrawRectangleC(0, 0, 319, 239, gColorFill);
     Painter_DrawStringInCenterRectC(x, y + dY, width, 30, lang == Russian ? "»Õ‘Œ–Ã¿÷»ﬂ" : "INFORMATION", gColorFill);
     Painter_DrawStringInCenterRect(x, y + 30 + dY, width, 30, lang == Russian ? "ÃÓ‰ÂÎ¸     —8-54" : "Model     S8-54");
     char buffer[100];

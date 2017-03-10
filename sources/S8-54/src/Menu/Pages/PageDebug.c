@@ -1,4 +1,5 @@
 #include "defines.h"
+#include "Definition.h"
 #include "Settings/SettingsTypes.h"
 #include "Settings/Settings.h"
 #include "Display/Display.h"
@@ -7,6 +8,8 @@
 #include "FPGA/FPGAtypes.h"
 #include "Hardware/FSMC.h"
 #include "Hardware/Sound.h"
+#include "Menu/MenuDrawing.h"
+#include "Menu/MenuFunctions.h"
 #include "Log.h"
 
 
@@ -96,6 +99,9 @@ static const Governor mgPred;
 static void OnChange_Pred(void);
 static const Governor mgPost;
 static void OnChange_Post(void);
+static const Page mspShowSettingsInfo;
+static void OnPress_ShowInfo(void);
+static const SmallButton sbExitShowSetInfo;
 
 static bool IsActive_Registers(void);
 
@@ -135,7 +141,8 @@ const Page mpDebug =
         (void*)&mcDisplayOrientation,   // ОТЛАДКА - Ориентация
         (void*)&mcEMS,                  // ОТЛАДКА - ЭМС
         (void*)&mgPred,                 // ОТЛАДКА - Предзапуск
-        (void*)&mgPost                  // ОТЛАДКА - Послезапуск
+        (void*)&mgPost,                 // ОТЛАДКА - Послезапуск
+        (void*)&mspShowSettingsInfo     // ОТЛАДКА - Настройки
     }
 };
 
@@ -1119,6 +1126,111 @@ static const Governor mgPost =
     },
     &post, 0, 15000, OnChange_Post
 };
+
+static const Page mspShowSettingsInfo =
+{
+    Item_Page, &mpDebug, 0,
+    {
+        "Настройки", "Settings",
+        "Показать информацию о настройках",
+        "Show settings information"
+    },
+    Page_SB_DebugShowSetInfo,
+    {
+        (void*)&sbExitShowSetInfo
+    },
+    OnPress_ShowInfo
+};
+
+static void PressSB_ShowSetInfo_Exit(void)
+{
+    Display_SetDrawMode(DrawMode_Auto, 0);
+}
+
+static const SmallButton sbExitShowSetInfo =
+{
+    Item_SmallButton, &mspShowSettingsInfo,
+    COMMON_BEGIN_SB_EXIT,
+    PressSB_ShowSetInfo_Exit,
+    DrawSB_Exit
+};
+
+static void DebugShowSetInfo_Draw(void)
+{
+    Painter_BeginScene(gColorBack);
+    Painter_DrawRectangleC(0, 0, 319, 239, gColorFill);
+
+    int x0 = 30;
+    int y0 = 25;
+    int dY = 10;
+    int y = y0 - dY;
+
+#define Y_AND_INCREASE (y += dY, y)
+#define DRAW_TEXT(str)                  Painter_DrawText(x0, Y_AND_INCREASE, str);
+#define DRAW_FORMAT(str, value)         Painter_DrawFormatText(x0, Y_AND_INCREASE, str, value)
+#define DRAW_FORMAT2(str, val1, val2)   Painter_DrawFormatText(x0, Y_AND_INCREASE, str, val1, val2);
+
+    //Painter_DrawFormatText(x0, Y_AND_INCREASE, "Размер основной структуры %d", sizeof(set));
+    //Painter_DrawFormatText(x0, Y_AND_INCREASE, "Размер несбрасываемой структуры %d", sizeof(setNR));
+    DRAW_FORMAT("Размер основной структуры : %d", sizeof(set));
+    DRAW_FORMAT("Размер несбрасываемой структуры : %d", sizeof(setNR));
+    Painter_DrawText(x0, Y_AND_INCREASE, "Несбрасываемая структура:");
+    int x = Painter_DrawText(x0, Y_AND_INCREASE, "rShiftAdd :") + 5;
+
+    int ddY = 0;
+
+    for (int type = 0; type < 2; type++)
+    {
+        for (int ch = 0; ch < 2; ch++)
+        {
+            for (int range = 0; range < RangeSize; range++)
+            {
+                Painter_DrawFormatText(x + range * 20, y + dY * ddY, "%d", setNR.rShiftAdd[ch][range][type]);
+            }
+            ddY++;
+        }
+    }
+
+    y += dY * 3;
+
+    DRAW_FORMAT("correctionTime : %d", setNR.correctionTime);
+    DRAW_FORMAT2("balanceADC : %d %d", setNR.balanceADC[0], setNR.balanceADC[1]);
+    DRAW_FORMAT("numAveForRand : %d", setNR.numAveForRand);
+
+    const char *s[3] = {"выключено", "настроено автоматически", "задано вручную"};
+    DRAW_FORMAT("balanceADCtype : %s", (setNR.balanceADCtype < 3 ? s[setNR.balanceADCtype] : "!!! неправильное значение !!!"));
+    DRAW_FORMAT("stretchADCtype : %s", (setNR.stretchADCtype < 3 ? s[setNR.stretchADCtype] : "!!! неправильное значение !!!"));
+  
+    x = Painter_DrawText(x0, Y_AND_INCREASE, "stretchADC :") + 5;
+
+    for (int ch = 0; ch < 2; ch++)
+    {
+        for (int num = 0; num < 3; num++)
+        {
+            Painter_DrawFormatText(x + num * 20, y + dY * ch, "%d", setNR.stretchADC[ch][num]);
+        }
+    }
+
+    y += dY;
+
+#define DRAW_STRETCH(name) DRAW_FORMAT2(#name " : %d %d", setNR.##name[0], setNR.##name[1])
+
+    DRAW_STRETCH(addStretch20mV);
+    DRAW_STRETCH(addStretch50mV);
+    DRAW_STRETCH(addStretch100mV);
+    DRAW_STRETCH(addStretch2V);
+
+    DRAW_FORMAT("numSmoothForRand : %d", setNR.numSmoothForRand);
+
+    Menu_Draw();
+    Painter_EndScene();
+}
+
+static void OnPress_ShowInfo(void)
+{
+    OpenPageAndSetItCurrent(Page_SB_DebugShowSetInfo);
+    Display_SetDrawMode(DrawMode_Auto, DebugShowSetInfo_Draw);
+}
 
 static void OnChange_Pred(void)
 {
