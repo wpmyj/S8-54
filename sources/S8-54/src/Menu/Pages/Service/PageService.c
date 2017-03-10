@@ -15,6 +15,7 @@
 #include "ServiceInformation.h"
 #include "ServiceTime.h"
 #include "ServiceCalibrator.h"
+#include "ServiceSound.h"
 
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -33,7 +34,6 @@ static void  OnChange_Recorder(bool active);
 static const Choice mcLanguage;
 
 static const Page mspEthernet;
-static const Page mspSound;
 
 
 // СЕРВИС ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -280,54 +280,6 @@ static const MACaddress macMAC =
     },
     &set.eth.mac0, &set.eth.mac1, &set.eth.mac2, &set.eth.mac3, &set.eth.mac4, &set.eth.mac5,
     FuncOfChangedEthernetSettings
-};
-
-//----------------------------------------------------------------------------------------------------------------------------------------------------
-// СЕРВИС - ЗВУК - Звук
-const Page mspSound;
-
-const Choice mcServiceSoundEnable =
-{
-    Item_Choice, &mspSound, 0,
-    {
-        "Звук", "Sound",
-        "Включение/выключение звука",
-        "Inclusion/switching off of a sound"
-    },
-    {
-        {DISABLE_RU, DISABLE_EN},
-        {ENABLE_RU, ENABLE_EN}
-    },
-    (int8*)&set.service.soundEnable
-};
-
-//----------------------------------------------------------------------------------------------------------------------------------------------------
-const Governor mgServiceSoundVolume =
-{
-    Item_Governor, &mspSound, 0,
-    {
-        "Громкость", "Volume",
-        "Установка громкости звука",
-        "Set the volume"
-    },
-    &set.service.soundVolume, 0, 100, EmptyFuncVV
-};
-
-// СЕРВИС - ЗВУК /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-const Page mspSound =
-{
-    Item_Page, &mpService, 0,
-    {
-        "ЗВУК", "SOUND",
-        "В этом меню можно настроить громкость звука",
-        "In this menu, you can adjust the volume"
-    },
-    Page_ServiceSound,
-    {
-        (void*)&mcServiceSoundEnable,
-        (void*)&mgServiceSoundVolume
-    }
-
 };
 
 // СЕРВИС - ETHERNET  ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

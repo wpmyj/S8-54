@@ -1889,6 +1889,21 @@
               <FileType>5</FileType>
               <FilePath>.\src\Menu\Pages\Service\ServiceCalibrator.h</FilePath>
             </File>
+            <File>
+              <FileName>ServiceInformation.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\src\Menu\Pages\Service\ServiceInformation.h</FilePath>
+            </File>
+            <File>
+              <FileName>ServiceSound.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\src\Menu\Pages\Service\ServiceSound.h</FilePath>
+            </File>
+            <File>
+              <FileName>ServiceTime.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\src\Menu\Pages\Service\ServiceTime.h</FilePath>
+            </File>
           </Files>
         </Group>
       </Groups>

@@ -404,6 +404,7 @@
     <ClInclude Include="..\..\S8-54\src\Menu\Pages\Service\PageServiceMath.h" />
     <ClInclude Include="..\..\S8-54\src\Menu\Pages\Service\ServiceCalibrator.h" />
     <ClInclude Include="..\..\S8-54\src\Menu\Pages\Service\ServiceInformation.h" />
+    <ClInclude Include="..\..\S8-54\src\Menu\Pages\Service\ServiceSound.h" />
     <ClInclude Include="..\..\S8-54\src\Menu\Pages\Service\ServiceTime.h" />
     <ClInclude Include="..\..\S8-54\src\Panel\Controls.h" />
     <ClInclude Include="..\..\S8-54\src\Panel\Panel.h" />
