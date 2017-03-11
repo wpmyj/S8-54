@@ -55,4 +55,4 @@ int     DS_GetLastFrameP2P_RAM(DataSettings **ds, uint8 **dataA, uint8 **dataB);
 
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////
-bool DataSettings_IsEquals(DataSettings *ds1, DataSettings *ds2);
+bool DataSettings_IsEquals(const DataSettings *ds1, const DataSettings *ds2);

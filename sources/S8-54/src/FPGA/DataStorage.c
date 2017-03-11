@@ -61,8 +61,8 @@ void DS_Clear(void)
 {
     SIZE_POOL = RAM(DS_POOL_END) - RAM(DS_POOL_BEGIN);
 
-    sumA_RAM = (uint*)RAM(DS_SUM_A);
-    sumB_RAM = (uint*)RAM(DS_SUM_B);
+    sumA_RAM = (uint*)RAM(DS_SUM_A); //-V206
+    sumB_RAM = (uint*)RAM(DS_SUM_B); //-V206
 
     limitUpA_RAM = RAM(DS_LIMIT_UP_A);
     limitUpB_RAM = RAM(DS_LIMIT_UP_B);
@@ -119,8 +119,10 @@ static void CalculateAroundAverage(uint8 *dataA, uint8 *dataB, DataSettings *dss
 
         do 
         {
-            *aDataA++ = ((*aDataA) * numAveDataFless + (float)(*dA++)) * numAveDataInv;
-            *aDataB++ = ((*aDataB) * numAveDataFless + (float)(*dB++)) * numAveDataInv;
+            *aDataA = ((*aDataA) * numAveDataFless + (float)(*dA++)) * numAveDataInv;
+            aDataA++;
+            *aDataB = ((*aDataB) * numAveDataFless + (float)(*dB++)) * numAveDataInv;
+            aDataB++;
         } while (aDataA != endData);
     }
 }
@@ -204,7 +206,7 @@ static void PrepareLastElemForWrite(DataSettings *ds)
 
     // Сначала найдём свободное место в ОЗУ
 
-    bool run = true;
+    volatile bool run = true;
     while(run)
     {
         uint8 *addrFirst = gDatas[iFirst].addrData;
@@ -864,7 +866,7 @@ int DS_GetLastFrameP2P_RAM(DataSettings **ds, uint8 **dataA, uint8 **dataB)
 
 
 //------------------------------------------------------------------------------------------------------------------------------------------------------
-bool DataSettings_IsEquals(DataSettings *ds1, DataSettings *ds2)
+bool DataSettings_IsEquals(const DataSettings *ds1, const DataSettings *ds2)
 {
     bool equals = (DS_ENABLED_A(ds1) == DS_ENABLED_A(ds2)) &&
         (DS_ENABLED_B(ds1) == DS_ENABLED_B(ds2)) &&
