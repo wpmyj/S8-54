@@ -133,6 +133,6 @@ void CoordTrigLevel(int *left, int *top, int width)
     else
     {
         *left = NUM_MEASURES_6_1 ? 100 : 130;
-        *top = GridFullBottom() - 32;
+        *top = GridFullBottom() - 32; //-V112
     }
 }

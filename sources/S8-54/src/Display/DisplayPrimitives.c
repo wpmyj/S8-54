@@ -6,13 +6,13 @@
 
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-void ProgressBar_Draw(ProgressBar *bar)
+void ProgressBar_Draw(const ProgressBar *bar)
 {
     int x = bar->x;
     int y = bar->y;
     const int SIZE = 100;
     char buffer[SIZE] = {0};
-    float passedPercents = bar->fullTime == 0 ? 0 : bar->passedTime / bar->fullTime * 100;
+    float passedPercents = bar->fullTime == 0 ? 0 : bar->passedTime / bar->fullTime * 100; //-V550
     snprintf(buffer, 100, "Завершено %.1f %%", passedPercents);
     Painter_DrawStringInCenterRectC(x, y - 15, bar->width, bar->height, buffer, gColorFill);
     Painter_DrawRectangle(bar->x, bar->y, bar->width, bar->height);
