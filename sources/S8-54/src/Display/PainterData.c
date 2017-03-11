@@ -407,11 +407,11 @@ static void DrawDataInRect(int x, int width, const uint8 *data, int numBytes, bo
 
         for (int col = 0; col < width; col++, iMin++, iMax++)
         {
-            int firstElem = (int)(col * elemsInColumn);
-            int lastElem = firstElem + (int)elemsInColumn - 1;
+            uint firstElem = (uint)(col * elemsInColumn);
+            uint lastElem = (uint)firstElem + elemsInColumn - 1;
             *iMin = data[firstElem];
             *iMax = data[firstElem];
-            for (int elem = firstElem + 1; elem <= lastElem; elem++)
+            for (uint elem = firstElem + 1; elem <= lastElem; elem++)
             {
                 SET_MIN_IF_LESS(data[elem], *iMin);
                 SET_MAX_IF_LARGER(data[elem], *iMax);
@@ -422,11 +422,11 @@ static void DrawDataInRect(int x, int width, const uint8 *data, int numBytes, bo
     {
         for (int col = 0; col < width; col++)
         {
-            float firstElem = col * elemsInColumn;
-            float lastElem = firstElem + elemsInColumn - 1;
-            min[col] = data[(int)firstElem];
-            max[col] = data[(int)firstElem];
-            for (int elem = (int)firstElem + 1; elem <= (int)lastElem; elem++)
+            uint firstElem = (uint)col * elemsInColumn;
+            uint lastElem = (uint)firstElem + elemsInColumn - 1;
+            min[col] = data[firstElem];
+            max[col] = data[firstElem];
+            for (uint elem = firstElem + 1; elem <= lastElem; elem++)
             {
                 SET_MIN_IF_LESS(data[elem], min[col]);
                 SET_MAX_IF_LARGER(data[elem], max[col]);
