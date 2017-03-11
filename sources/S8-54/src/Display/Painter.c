@@ -123,7 +123,7 @@ void Painter_SetColor(Color color)
             CalculateColor((uint8*)(&(color)));
         }
         uint8 command[4] = {SET_COLOR};
-        command[1] = color;
+        command[1] = color; //-V2006
         Painter_SendToDisplay(command, 4);
         Painter_SendToInterfaces(command, 2);
     }
@@ -157,7 +157,7 @@ void Painter_SetPalette(Color color)
 {
     uint8 command[4];
     command[0] = SET_PALETTE;
-    *(command + 1) = color;
+    *(command + 1) = color; //-V2006
     *((uint16*)(command + 2)) = COLOR(color);
     Painter_SendToDisplay(command, 4);
     Painter_SendToInterfaces(command, 4);

@@ -1030,20 +1030,20 @@ void FPGA_FillDataPointer(DataSettings *ds)
     ds->enableB = sChannel_Enabled(B) ? 1 : 0;
     ds->inverseA = INVERSE(A) ? 1 : 0;
     ds->inverseB = INVERSE(B) ? 1 : 0;
-    ds->range[A] = RANGE_A;
-    ds->range[B] = RANGE_B;
+    ds->range[A] = RANGE_A; //-V2006
+    ds->range[B] = RANGE_B; //-V2006
     ds->rShift[A] = RSHIFT_A;
     ds->rShift[B] = RSHIFT_B;
-    ds->tBase = TBASE;
+    ds->tBase = TBASE; //-V2006
     ds->tShift = TSHIFT;
-    ds->modeCoupleA = COUPLE_A;
-    ds->modeCoupleB = COUPLE_B;
-    ds->indexLength = NumPoints_2_FPGA_NUM_POINTS(sMemory_NumBytesInChannel(false));
+    ds->modeCoupleA = COUPLE_A; //-V2006
+    ds->modeCoupleB = COUPLE_B; //-V2006
+    ds->indexLength = NumPoints_2_FPGA_NUM_POINTS(sMemory_NumBytesInChannel(false)); //-V2006
     ds->trigLev[A] = TRIGLEV(A);
     ds->trigLev[B] = TRIGLEV(B);
     ds->peackDet = (uint)PEACKDET;
-    ds->multiplierA = DIVIDER_A;
-    ds->multiplierB = DIVIDER_B;
+    ds->multiplierA = DIVIDER_A; //-V2006
+    ds->multiplierB = DIVIDER_B; //-V2006
     ds->time.timeMS = 0;                        // Ёто важно дл€ режима поточеного вывода. ќзначает, что полный сигнал ещЄ не считан
 }
 

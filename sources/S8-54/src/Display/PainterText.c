@@ -53,7 +53,7 @@ void Painter_LoadFont(TypeFont typeFont)
     }
     uint8 command[3084];
     command[0] = LOAD_FONT;
-    command[1] = typeFont;
+    command[1] = typeFont; //-V2006
     for (int i = 0; i < 3080; i++)
     {
         command[2 + i] = bytes[i];

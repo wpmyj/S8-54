@@ -560,7 +560,7 @@ void FPGA_TBaseIncrease(void)
 {
     if (TBASE < (TBaseSize - 1))
     {
-        TBase base = (TBase)(TBASE + 1);
+        TBase base = (TBase)(TBASE + 1); //-V2006
         FPGA_SetTBase(base);
     }
     else
@@ -742,7 +742,7 @@ bool FPGA_RangeIncrease(Channel ch)
     bool retValue = false;
     if (RANGE(ch) < RangeSize - 1)
     {
-        FPGA_SetRange(ch, (Range)(RANGE(ch) + 1));
+        FPGA_SetRange(ch, (Range)(RANGE(ch) + 1)); //-V2006
         retValue = true;
     }
     else
@@ -760,7 +760,7 @@ bool FPGA_RangeDecrease(Channel ch)
     bool retValue = false;
     if (RANGE(ch) > 0)
     {
-        FPGA_SetRange(ch, (Range)(RANGE(ch) - 1));
+        FPGA_SetRange(ch, (Range)(RANGE(ch) - 1)); //-V2006
         retValue = true;
     }
     else

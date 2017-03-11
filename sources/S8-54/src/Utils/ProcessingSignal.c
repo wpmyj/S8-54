@@ -922,7 +922,7 @@ float CalculatePicRel(Channel ch)
 
 
 //------------------------------------------------------------------------------------------------------------------------------------------------------
-float CalculateDelayPlus(Channel ch)
+float CalculateDelayPlus(Channel ch) //-V2008
 {
     float period0 = CalculatePeriod(A);
     float period1 = CalculatePeriod(B);
@@ -962,7 +962,7 @@ float CalculateDelayPlus(Channel ch)
 
 
 //------------------------------------------------------------------------------------------------------------------------------------------------------
-float CalculateDelayMinus(Channel ch)
+float CalculateDelayMinus(Channel ch) //-V2008
 {
     float period0 = CalculatePeriod(A);
     float period1 = CalculatePeriod(B);
