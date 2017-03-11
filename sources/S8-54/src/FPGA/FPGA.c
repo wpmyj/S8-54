@@ -1135,7 +1135,7 @@ void FPGA_Write(TypeRecord type, uint16 *address, uint data, bool restart)
 static uint16 PinSelect(uint16 *addrAnalog)
 {
     const uint16 pins[4] = {GPIO_PIN_3, GPIO_PIN_6, GPIO_PIN_10, GPIO_PIN_15};
-    return pins[(int)addrAnalog];
+    return pins[(int)addrAnalog]; //-V205
 }
 
 
@@ -1143,7 +1143,7 @@ static uint16 PinSelect(uint16 *addrAnalog)
 static GPIO_TypeDef* AddrGPIO(uint16 *addrAnalog)
 {
     GPIO_TypeDef *gpio[4] = {GPIOD, GPIOD, GPIOG, GPIOG};
-    return gpio[(int)addrAnalog];
+    return gpio[(int)addrAnalog]; //-V205
 }
 
 
@@ -1168,7 +1168,7 @@ static void Write(TypeRecord type, uint16 *address, uint data)
     {
         uint16 *addrAnalog = address;
         CHIP_SELECT_IN_LOW
-        for (int i = ((int)addrAnalog <= (int)CS2 ? 15 : 23); i >= 0; i--)    // Хотя данных всего 16 бит, но передаём 24 - первые восемь нули - первый из них указывает на то, что производится запись
+        for (int i = ((int)addrAnalog <= (int)CS2 ? 15 : 23); i >= 0; i--)    // Хотя данных всего 16 бит, но передаём 24 - первые восемь нули - первый из них указывает на то, что производится запись //-V205
         {
             DATA_SET((data & (1 << i)) ? GPIO_PIN_SET : GPIO_PIN_RESET);
             CLC_HI
