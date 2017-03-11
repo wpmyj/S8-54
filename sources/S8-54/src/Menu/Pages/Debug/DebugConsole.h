@@ -170,6 +170,86 @@ static const Choice mcConsole_Registers_RangeB =
 };
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
+static const Choice mcConsole_Registers_TrigParam =
+{
+    Item_Choice, &mspConsole_Registers, IsActive_Registers,
+    {
+        "Парам. синхр.", "Trig param",
+        "",
+        ""
+    },
+    {
+        {DISABLE_RU, DISABLE_EN},
+        {ENABLE_RU, ENABLE_EN}
+    },
+    (int8*)&set.debug.show.trigParam
+};
+
+//----------------------------------------------------------------------------------------------------------------------------------------------------
+static const Choice mcConsole_Registers_ChanParamA =
+{
+    Item_Choice, &mspConsole_Registers, IsActive_Registers,
+    {
+        "Парам. кан. 1", "Chan 1 param",
+        "",
+        ""
+    },
+    {
+        {DISABLE_RU, DISABLE_EN},
+        {ENABLE_RU, ENABLE_EN}
+    },
+    (int8*)&set.debug.show.chanParam[A]
+};
+
+//----------------------------------------------------------------------------------------------------------------------------------------------------
+static const Choice mcConsole_Registers_ChanParamB =
+{
+    Item_Choice, &mspConsole_Registers, IsActive_Registers,
+    {
+        "Парам. кан. 2", "Chan 2 param",
+        "",
+        ""
+    },
+    {
+        {DISABLE_RU, DISABLE_EN},
+        {ENABLE_RU, ENABLE_EN}
+    },
+    (int8*)&set.debug.show.chanParam[B]
+};
+
+//----------------------------------------------------------------------------------------------------------------------------------------------------
+static const Choice mcConsole_Registers_TBase =
+{
+    Item_Choice, &mspConsole_Registers, IsActive_Registers,
+    {
+        "ВРЕМЯ/ДЕЛ", "TBase",
+        "",
+        ""
+    },
+    {
+        {DISABLE_RU, DISABLE_EN},
+        {ENABLE_RU, ENABLE_EN}
+    },
+    (int8*)&set.debug.show.tBase
+};
+
+//----------------------------------------------------------------------------------------------------------------------------------------------------
+static const Choice mcConsole_Registers_TShift =
+{
+    Item_Choice, &mspConsole_Registers, IsActive_Registers,
+    {
+        "Т см.", "tShift",
+        "",
+        ""
+    },
+    {
+        {DISABLE_RU, DISABLE_EN},
+        {ENABLE_RU, ENABLE_EN}
+    },
+    (int8*)&set.debug.show.tShift
+};
+
+//----------------------------------------------------------------------------------------------------------------------------------------------------
 static const Page mspConsole_Registers =
 {
     Item_Page, &mspConsole, 0,
@@ -193,6 +273,27 @@ static const Page mspConsole_Registers =
         (void*)&mcConsole_Registers_TBase,        // ОТЛАДКА - КОНСОЛЬ - РЕГИСТРЫ - ВРЕМЯ/ДЕЛ
         (void*)&mcConsole_Registers_TShift        // ОТЛАДКА - КОНСОЛЬ - РЕГИСТРЫ - Т см.
     }
+};
+
+//----------------------------------------------------------------------------------------------------------------------------------------------------
+static void FuncDrawSizeSettings(int x, int y)
+{
+    char buffer[30];
+    sprintf(buffer, "Разм.настр. %d", sizeof(Settings));
+    Painter_DrawTextC(x + 6, y + 13, buffer, gColorBack);
+    LOG_WRITE(buffer);
+}
+
+//----------------------------------------------------------------------------------------------------------------------------------------------------
+static const Button mbConsole_SizeSettings =
+{
+    Item_Button, &mspConsole, 0,
+    {
+        "", "",
+        "Показывает текущий размер структуры для сохранения настроек",
+        "Displays the current size of the structure to save settings"
+    },
+    0, FuncDrawSizeSettings
 };
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------

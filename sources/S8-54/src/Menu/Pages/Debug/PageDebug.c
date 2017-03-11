@@ -21,15 +21,6 @@ extern void LoadTShift(void);
 
 static const Choice mcStats;
 
-static const Choice mcConsole_Registers_TrigParam;
-static const Choice mcConsole_Registers_ChanParamA;
-static const Choice mcConsole_Registers_ChanParamB;
-static const Choice mcConsole_Registers_TBase;
-static const Choice mcConsole_Registers_TShift;
-
-static const Button mbConsole_SizeSettings;
-static void FuncDrawSizeSettings(int, int);
-
 static const Page mspADC;
 
 static const Page mspADC_Balance;
@@ -149,108 +140,6 @@ static const Choice mcStats =
     },
     (int8*)&SHOW_STAT
 };
-
-// ОТЛАДКА - КОНСОЛЬ - РЕГИСТРЫ - Парам. синхр. ------------------------------------------------------------------------------------------------------
-static const Choice mcConsole_Registers_TrigParam =
-{
-    Item_Choice, &mspConsole_Registers, IsActive_Registers,
-    {
-        "Парам. синхр.", "Trig param",
-        "",
-        ""
-    },
-    {
-        {DISABLE_RU, DISABLE_EN},
-        {ENABLE_RU, ENABLE_EN}
-    },
-    (int8*)&set.debug.show.trigParam
-};
-
-// ОТЛАДКА - КОНСОЛЬ - РЕГИСТРЫ - Парам. кан. 1 ------------------------------------------------------------------------------------------------------
-static const Choice mcConsole_Registers_ChanParamA =
-{
-    Item_Choice, &mspConsole_Registers, IsActive_Registers,
-    {
-        "Парам. кан. 1", "Chan 1 param",
-        "",
-        ""
-    },
-    {
-        {DISABLE_RU, DISABLE_EN},
-        {ENABLE_RU, ENABLE_EN}
-    },
-    (int8*)&set.debug.show.chanParam[A]
-};
-
-// ОТЛАДКА - КОНСОЛЬ - РЕГИСТРЫ - Парам. кан. 2 ------------------------------------------------------------------------------------------------------
-static const Choice mcConsole_Registers_ChanParamB =
-{
-    Item_Choice, &mspConsole_Registers, IsActive_Registers,
-    {
-        "Парам. кан. 2", "Chan 2 param",
-        "",
-        ""
-    },
-    {
-        {DISABLE_RU, DISABLE_EN},
-        {ENABLE_RU, ENABLE_EN}
-    },
-    (int8*)&set.debug.show.chanParam[B]
-};
-
-// ОТЛАДКА - КОНСОЛЬ - РЕГИСТРЫ - ВРЕМЯ/ДЕЛ ----------------------------------------------------------------------------------------------------------
-static const Choice mcConsole_Registers_TBase =
-{
-    Item_Choice, &mspConsole_Registers, IsActive_Registers,
-    {
-        "ВРЕМЯ/ДЕЛ", "TBase",
-        "",
-        ""
-    },
-    {
-        {DISABLE_RU, DISABLE_EN},
-        {ENABLE_RU, ENABLE_EN}
-    },
-    (int8*)&set.debug.show.tBase
-};
-
-
-// ОТЛАДКА - КОНСОЛЬ - РЕГИСТРЫ - Т см. --------------------------------------------------------------------------------------------------------------
-static const Choice mcConsole_Registers_TShift =
-{
-    Item_Choice, &mspConsole_Registers, IsActive_Registers,
-    {
-        "Т см.", "tShift",
-        "",
-        ""
-    },
-    {
-        {DISABLE_RU, DISABLE_EN},
-        {ENABLE_RU, ENABLE_EN}
-    },
-    (int8*)&set.debug.show.tShift
-};
-
-
-// ОТЛАДКА - КОНСОЛЬ - Разм.настроек -----------------------------------------------------------------------------------------------------------------
-static const Button mbConsole_SizeSettings =
-{
-    Item_Button, &mspConsole, 0,
-    {
-        "", "",
-        "Показывает текущий размер структуры для сохранения настроек",
-        "Displays the current size of the structure to save settings"
-    },
-    0, FuncDrawSizeSettings
-};
-
-static void FuncDrawSizeSettings(int x, int y)
-{
-    char buffer[30];
-    sprintf(buffer, "Разм.настр. %d", sizeof(Settings));
-    Painter_DrawTextC(x + 6, y + 13, buffer, gColorBack);
-    LOG_WRITE(buffer);
-}
 
 // ОТЛАДКА - АЦП /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 static const Page mspADC =
