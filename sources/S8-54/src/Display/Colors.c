@@ -17,7 +17,7 @@ Color gColorChan[4];
 
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-static void SetColor(ColorType *colorType)
+static void SetColor(const ColorType *colorType)
 {
     COLOR(colorType->color) = MAKE_COLOR((int)colorType->red, (int)colorType->green, (int)colorType->blue);
     Painter_SetPalette(colorType->color);
@@ -79,7 +79,7 @@ Color LightShadingTextColor(void)
 void Color_Log(Color color)
 {
     uint16 colorValue = COLOR(color);
-    LOG_WRITE("%s   r=%d, g=%d, b=%d", NameColor(color), R_FROM_COLOR(colorValue), G_FROM_COLOR(colorValue), B_FROM_COLOR(colorValue));
+    LOG_WRITE("%s   r=%d, g=%d, b=%d", NameColor(color), R_FROM_COLOR(colorValue), G_FROM_COLOR(colorValue), B_FROM_COLOR(colorValue)); //-V111
 }
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
@@ -134,7 +134,7 @@ void Color_SetBrightness(ColorType *colorType, float brightness)
 //----------------------------------------------------------------------------------------------------------------------------------------------------
 void Color_BrightnessChange(ColorType *colorType, int delta)
 {
-    if ((delta > 0 && colorType->brightness == 1.0f) || (delta < 0 && colorType->brightness == 0.0f))
+    if ((delta > 0 && colorType->brightness == 1.0f) || (delta < 0 && colorType->brightness == 0.0f)) //-V550
     {
         return;
     }
@@ -177,7 +177,7 @@ void Color_Init(ColorType *colorType, bool forced)
 
         ColorType_SetBrightness(colorType);
 
-        if (colorType->red == 0.0f && colorType->green == 0.0f && colorType->blue == 0.0f)
+        if (colorType->red == 0.0f && colorType->green == 0.0f && colorType->blue == 0.0f) //-V550
         {
             colorType->stepRed = 0.31f;
             colorType->stepGreen = 0.63f;
