@@ -27,6 +27,7 @@ Makefile
 NMakefile
 _old_for_delete_
 *.dbgconf
+*.i-*
 Archiv
 sources/S8-53/Objects
 sources/S8-53/out

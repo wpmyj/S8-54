@@ -1,7 +1,7 @@
+// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
+// PVS-Studio Static Code Analyzer for C, C++ and C#: http://www.viva64.com
 #pragma once
-
 #include <stm32f4xx_hal.h>
-
 #include <stdio.h>
 #include <math.h>
 #include <limits.h>
@@ -27,7 +27,7 @@ typedef unsigned long long int  uint64;
 typedef unsigned    int         uint32;
 typedef unsigned    int         uint32_t;
 typedef unsigned    char        uchar;
-typedef uint8                   BYTE;
+typedef uint8                   BYTE; //-V677
 
 
 #ifndef bool
@@ -112,7 +112,7 @@ typedef union
         uint16 halfWord0;
         uint16 halfWord1;
     };
-    uint8   byte[4];
+    uint8   byte[4]; //-V112
     struct
     {
         uint8 byte0;

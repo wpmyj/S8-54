@@ -1,8 +1,7 @@
+// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
+// PVS-Studio Static Code Analyzer for C, C++ and C#: http://www.viva64.com
 #include "defines.h"
-
 #include <stm32f4xx_hal.h>
-
-
 #include "usbd_core.h"
 #include "VCP/VCP.h"
 #include "Hardware/Timer.h"
@@ -10,7 +9,6 @@
 #include "Display/Display.h"
 #include "Log.h"
 #include "Settings/Settings.h"
-
 
 
 extern PCD_HandleTypeDef handlePCD;

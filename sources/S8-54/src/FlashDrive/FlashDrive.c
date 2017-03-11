@@ -1,9 +1,9 @@
+// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
+// PVS-Studio Static Code Analyzer for C, C++ and C#: http://www.viva64.com
 #include "defines.h"
 #include "Log.h"
 #include "Menu/FileManager.h"
 #include "Display/Display.h"
-
-
 #include <usbh_def.h>
 #include <ff_gen_drv.h>
 #include <usbh_diskio.h>

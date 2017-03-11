@@ -1,9 +1,9 @@
+// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
+// PVS-Studio Static Code Analyzer for C, C++ and C#: http://www.viva64.com
 #include "defines.h"
-
 #include <stm32f4xx_hal.h>
 #include <stm32f4xx_hal_hcd.h>
 #include <stm32f437xx.h>
-
 #include <usbh_core.h>
 
 

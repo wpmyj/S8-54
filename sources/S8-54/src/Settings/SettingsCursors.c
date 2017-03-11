@@ -1,3 +1,5 @@
+// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
+// PVS-Studio Static Code Analyzer for C, C++ and C#: http://www.viva64.com
 #include "Settings.h"
 #include "Display/Grid.h"
 #include "SettingsCursors.h"
@@ -5,8 +7,6 @@
 #include "Utils/GlobalFunctions.h"
 #include "Menu/MenuFunctions.h"
 #include "FPGA/FPGAtypes.h"
-
-
 #include <math.h>
 
 

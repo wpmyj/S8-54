@@ -1,10 +1,11 @@
+// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
+// PVS-Studio Static Code Analyzer for C, C++ and C#: http://www.viva64.com
 #include "defines.h"
 #include "Sound.h"
 #include "Log.h"
 #include "Settings/Settings.h"
 #include "Utils/Math.h"
 #include "Hardware/Timer.h"
-
 #include <stm32f437xx.h>
 #include <stm32f4xx_hal.h>
 #include <stm32f4xx_hal_tim.h>
@@ -12,8 +13,6 @@
 #include <stm32f4xx_hal_gpio.h>
 #include <stm32f4xx_hal_dma.h>
 #include <stm32f4xx_hal_dma_ex.h>
-
-
 #include <math.h>
 
 

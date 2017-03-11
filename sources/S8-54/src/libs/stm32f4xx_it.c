@@ -1,11 +1,10 @@
+// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
+// PVS-Studio Static Code Analyzer for C, C++ and C#: http://www.viva64.com
 #include "defines.h"
-
 #include "Hardware/FSMC.h"
 #include "FPGA/FPGA.h"
 #include "Hardware/Timer.h"
-
 #include <stm32f4xx_hal.h>
-
 #include "stm32f4xx_it.h"
 
 

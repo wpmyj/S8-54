@@ -1,3 +1,5 @@
+// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
+// PVS-Studio Static Code Analyzer for C, C++ and C#: http://www.viva64.com
 #include "Panel.h"
 #include "Controls.h"
 #include "Log.h"
@@ -12,9 +14,7 @@
 #include "Hardware/Sound.h"
 #include "Hardware/Hardware.h"
 #include "Hardware/FSMC.h"
-
 #include <string.h>
-
 #include "PanelFunctions.c"
 
 

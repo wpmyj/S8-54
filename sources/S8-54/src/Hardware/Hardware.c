@@ -1,3 +1,5 @@
+// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
+// PVS-Studio Static Code Analyzer for C, C++ and C#: http://www.viva64.com
 #include "defines.h"
 #include "Log.h"
 #include "Display/Display.h"
@@ -12,7 +14,6 @@
 #include "FPGA/FPGA.h"
 #include "Panel/Panel.h"
 #include "Utils/GlobalFunctions.h"
-
 #include <stm32f437xx.h>
 #include <stm32f4xx_hal.h>
 #include <stm32f4xx_hal_tim.h>
