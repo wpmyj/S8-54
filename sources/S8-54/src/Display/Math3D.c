@@ -64,7 +64,7 @@ void FillMatriceMov(Mat4x4 *mat, float movX, float movY, float movZ)
 }
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
-void SetMatriceTransform(Mat4x4 *matTransform, Mat4x4 *matScale, Mat4x4 *matRotate, Mat4x4 *matMove)
+void SetMatriceTransform(Mat4x4 *matTransform, const Mat4x4 *matScale, const Mat4x4 *matRotate, const Mat4x4 *matMove)
 {
     Mat4x4 matTemp = {0};
     MatrixMul(matScale, matRotate, &matTemp);
@@ -72,26 +72,26 @@ void SetMatriceTransform(Mat4x4 *matTransform, Mat4x4 *matScale, Mat4x4 *matRota
 }
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
-void TransformPoint(Mat4x4 *mat, Point *pointIn, Point *pointOut)
+void TransformPoint(const Mat4x4 *mat, const  Point *pointIn, Point *pointOut)
 {
-    pointOut->x = pointIn->x * mat->n[0][0] + pointIn->y * mat->n[1][0] + pointIn->z * mat->n[2][0] + mat->n[3][0];
+    pointOut->x = pointIn->x * mat->n[0][0] + pointIn->y * mat->n[1][0] + pointIn->z * mat->n[2][0] + mat->n[3][0]; //-V525
     pointOut->y = pointIn->x * mat->n[0][1] + pointIn->y * mat->n[1][1] + pointIn->z * mat->n[2][1] + mat->n[3][1];
     pointOut->z = pointIn->z * mat->n[0][2] + pointIn->y * mat->n[1][2] + pointIn->z * mat->n[2][2] + mat->n[3][2];
 }
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
-void PresentPointToScreen(Point *point, float *x, float *y)
+void PresentPointToScreen(const Point *point, float *x, float *y)
 {
     *x = point->x * (500.0f / point->z);
     *y = point->y * (500.0f / point->z);
 }
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
-void MatrixMul(Mat4x4 *mat0, Mat4x4 *mat1, Mat4x4 *matOut)
+void MatrixMul(const Mat4x4 *mat0, const Mat4x4 *mat1, Mat4x4 *matOut)
 {
-    for (int i = 0; i < 4; i++)
+    for (int i = 0; i < 4; i++) //-V112
     {
-        for (int j = 0; j < 4; j++)
+        for (int j = 0; j < 4; j++) //-V112
         {
             matOut->n[i][j] =   mat0->n[i][0] * mat1->n[0][j] +
                 mat0->n[i][1] * mat1->n[1][j] +
