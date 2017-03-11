@@ -15,7 +15,7 @@ int GetNumWordsInString(const uint8 *string)
 {
     ChooseSpaces(&string);
 
-    bool run = true;
+    volatile bool run = true;
     while (run)
     {
         int numWords = 0;
@@ -42,7 +42,7 @@ bool GetWord(const uint8 *string, Word *word, const int numWord)
 
     int currentWord = 0;
 
-    bool run = true;
+    volatile bool run = true;
     while (run)
     {
         if (currentWord == numWord)

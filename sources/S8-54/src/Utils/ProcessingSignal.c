@@ -161,10 +161,6 @@ void Processing_CalculateMeasures(void)
         for(int elem = 0; elem < Measure_NumCols(); elem++)
         {
             Measure meas = Measure_Type(str, elem);
-            if (meas == Measure_TimeNarastaniya)
-            {
-                meas = meas;
-            }
             pFuncFU8 func = measures[meas].FuncCalculate;
             if(func)
             {

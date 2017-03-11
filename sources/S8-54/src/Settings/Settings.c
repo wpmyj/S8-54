@@ -93,13 +93,13 @@ static const Settings defaultSettings =
     },
     // trig
     {
-        StartMode_Auto,
-        TrigSource_A,
-        TrigPolarity_Front,
-        TrigInput_AC,
-        {TrigLevZero, TrigLevZero, TrigLevZero},
-        TrigModeFind_Hand,
-        45
+        {TrigLevZero, TrigLevZero, TrigLevZero},    // levelRel[3]
+        45,                                         // timeDelay
+        StartMode_Auto,                             // startMode
+        TrigSource_A,                               // trigSource
+        TrigPolarity_Front,                         // trigPolarity
+        TrigInput_AC,                               // trigInput
+        TrigModeFind_Hand                           // modeFind
     },
     // time
     {
@@ -185,15 +185,16 @@ static const Settings defaultSettings =
     },
     // service
     {
-        true,                       // soundEnable
-        15,                         // soundVolume
-        Calibrator_Freq,            // calibrator
-        0,                          // IP-адрес (временно)  WARN
-        ColorScheme_WhiteLetters,   // colorScheme
-        {false},                    // freqMeter
-        false,                      // recorder
-        FunctionPressRShift_ResetPosition,  // funcRShift
-        1                           // speedRShift
+        {false},                            // freqMeter
+        15,                                 // soundVolume
+        1,                                  // speedRShift
+        true,                               // soundEnable
+        false,                              // recorder
+        0,                                  // IP-адрес (временно)  WARN
+        Calibrator_Freq,                    // calibrator
+        ColorScheme_WhiteLetters,           // colorScheme
+        FunctionPressRShift_ResetPosition   // funcRShift
+        
     },
     {
         0x8b, 0x2e, 0xaf, 0x8f, 0x13, 0x00, // mac
@@ -377,7 +378,7 @@ void Settings_SaveState(Settings *set_)
 
 
 //---------------------------------------------------------------------------------------------------------------------------------------------------
-void Settings_RestoreState(Settings *set_)
+void Settings_RestoreState(const Settings *set_)
 {
     int16 rShiftAdd[2][RangeSize][2];
     for (int ch = 0; ch < 2; ch++)

@@ -65,13 +65,13 @@ typedef struct
 // Настройки синхронизации
 typedef struct
 {
+    uint16              levelRel[3];        // Уровень синхронизации для трёх источников.
+    uint16              timeDelay;
     StartMode           startMode;          // Режим запуска.
     TrigSource          source;             // Источник.
     TrigPolarity        polarity;           // Тип синхронизации.
     TrigInput           input;              // Вход синхронизации.
-    uint16              levelRel[3];        // Уровень синхронизации для трёх источников.
     TrigModeFind        modeFind;           // Поиск синхронизации - вручную или автоматически.
-    uint16              timeDelay;
 } SettingsTrig;
 
 
@@ -188,15 +188,15 @@ typedef struct
 // Эти настройки меняются через МЕНЮ -> СЕРВИС
 typedef struct
 {
-    bool                soundEnable;            // Включены ли звуки.
-    int16               soundVolume;            // Громкость звука [0...100]
-    CalibratorMode      calibrator;             // Режим работы калибратора.
-    int8                IPaddress;              // IP-адрес (временно)
-    ColorScheme         colorScheme;            //
     SettingsFreqMeter   freqMeter;              // Настройки частотомера
-    bool                recorder;               // Включен ли режим регистратора.
-    FunctionPressRShift funcRShift;             // Функция, выполняемая по нажатию на ручку RShift
+    int16               soundVolume;            // Громкость звука [0...100]
     int16               speedRShift;            // Относительная скорость смещения по вращению ручки RShift
+    bool                soundEnable;            // Включены ли звуки.
+    bool                recorder;               // Включен ли режим регистратора.
+    int8                IPaddress;              // IP-адрес (временно)
+    CalibratorMode      calibrator;             // Режим работы калибратора.
+    ColorScheme         colorScheme;            //
+    FunctionPressRShift funcRShift;             // Функция, выполняемая по нажатию на ручку RShift
 } SettingsService;
 
 
@@ -361,4 +361,4 @@ void Settings_Load(bool _default);          // Загрузить настрой
 void Settings_Save(void);                   // Сохранить настройки во флеш-память.
 bool Settings_DebugModeEnable(void);        // Возвращает true, если включён режим отладки.
 void Settings_SaveState(Settings *set_);    // Сохраняет текущие настройки в set_.
-void Settings_RestoreState(Settings *set_); // Восстанавливает ранее записанные настройки в set_.
+void Settings_RestoreState(const Settings *set_); // Восстанавливает ранее записанные настройки в set_.
