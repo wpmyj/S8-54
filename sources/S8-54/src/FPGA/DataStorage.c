@@ -51,8 +51,8 @@ void ClearLimitsAndSums(void)
     RAM_MemClear(limitUpB_RAM, numBytesB);
     RAM_MemClear(limitDownA_RAM, numBytesA);
     RAM_MemClear(limitDownB_RAM, numBytesB);
-    RAM_MemClear(sumA_RAM, numBytesA * 4);
-    RAM_MemClear(sumB_RAM, numBytesB * 4);
+    RAM_MemClear(sumA_RAM, numBytesA * 4); //-V112
+    RAM_MemClear(sumB_RAM, numBytesB * 4); //-V112
 }
 
 
@@ -98,8 +98,8 @@ static void CalculateAroundAverage(uint8 *dataA, uint8 *dataB, DataSettings *dss
     {
         for (int i = 0; i < size; i++)
         {
-            aveDataA_RAM[i] = dataA[i];
-            aveDataB_RAM[i] = dataB[i];
+            aveDataA_RAM[i] = dataA[i]; //-V108
+            aveDataB_RAM[i] = dataB[i]; //-V108
         }
     }
     else
@@ -115,7 +115,7 @@ static void CalculateAroundAverage(uint8 *dataA, uint8 *dataB, DataSettings *dss
         float* aDataB = &aveDataB_RAM[0];
         uint8* dA = &dataA[0];
         uint8* dB = &dataB[0];
-        float* endData = &aveDataA_RAM[size];
+        float* endData = &aveDataA_RAM[size]; //-V108
 
         do 
         {
@@ -342,8 +342,8 @@ static void BeginLimits(uint8 *dataA, uint8 *dataB, int numElements)
 
     for(int i = 0; i < numElements / 2; i++)
     {
-        limitUpA[i] = limitDownA[i] = datA[i];
-        limitUpB[i] = limitDownB[i] = datB[i];
+        limitUpA[i] = limitDownA[i] = datA[i]; //-V108
+        limitUpB[i] = limitDownB[i] = datB[i]; //-V108
     }
 }
 
@@ -455,13 +455,13 @@ void CalculateSums(void)
 
     for(int i = 0; i < iMax; i++)
     {
-        uint16 data16 = dataA[i];
+        uint16 data16 = dataA[i]; //-V108
         *sumA16 = (uint8)data16;
         sumA16 += 2;
         *sumA16 = (uint8)(data16 >> 8);
         sumA16 += 2;
 
-        data16 = dataB[i];
+        data16 = dataB[i]; //-V108
         *sumB16 = (uint8)data16;
         sumB16 += 2;
         *sumB16 = (uint8)(data16 >> 8);
@@ -618,7 +618,7 @@ static bool CopyData(DataSettings *ds, Channel ch, uint8 *dataImportRel)
 
     if(ch == B && DS_ENABLED_B(ds) && DS_ENABLED_A(ds))
     {
-        address += length;
+        address += length; //-V102
     }
 
     RAM_MemCpy16(address, dataImportRel, length);
@@ -703,7 +703,7 @@ uint8* DS_GetAverageData(Channel ch)
         
         for (int i = 0; i < numPoints; i++)
         {
-            gDataAve[ch][i] = (uint8)(floatAveData[i] + 0.5f);
+            gDataAve[ch][i] = (uint8)(floatAveData[i] + 0.5f); //-V108
         }
         return &gDataAve[ch][0];
     }
@@ -798,7 +798,7 @@ void DS_AddPointsP2P(uint16 dataA, uint16 dataB)
         {
             RAM_MemShiftLeft(address + 2, length - 2, 2);
 
-            address += length;
+            address += length; //-V102
         }
         if (DS_ENABLED_B(ds))
         {
@@ -821,7 +821,7 @@ void DS_AddPointsP2P(uint16 dataA, uint16 dataB)
     if (DS_ENABLED_A(ds))
     {
         *((uint16*)addrWrite) = dataA;
-        addrWrite += length;
+        addrWrite += length; //-V102
     }
 
     if (DS_ENABLED_B(ds))
