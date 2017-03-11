@@ -378,7 +378,7 @@ void WriteChipSelect4(void)
 void PrepareAndWriteDataToAnalogSPI(uint16 *addrAnalog)
 {
     static pFuncVV funcs[4] = {WriteChipSelect1, WriteChipSelect2, WriteChipSelect3, WriteChipSelect4};
-    funcs[(int)addrAnalog]();
+    funcs[(int)addrAnalog](); //-V205
 }
 
 

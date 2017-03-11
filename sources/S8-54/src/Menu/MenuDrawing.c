@@ -326,16 +326,10 @@ void DrawItemsPage(Page *page, int layer, int yTop)
     int posLastItem = posFirstItem + MENU_ITEMS_ON_DISPLAY - 1;
     LIMITATION(posLastItem, posLastItem, 0, NumItemsInPage(page) - 1);
     int count = 0;
-    Page *p = 0;
     for(int posItem = posFirstItem; posItem <= posLastItem; posItem++)
     {
         void *item = Item(page, posItem);
         TypeItem type = TypeMenuItem(item);
-        if(type == Item_Page)
-        {
-            p = item;
-            p = p;
-        }
         int top = yTop + MI_HEIGHT * count;
         funcOfDraw[type](item, CalculateX(layer), top);
         count++;

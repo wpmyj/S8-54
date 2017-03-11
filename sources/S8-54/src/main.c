@@ -38,7 +38,7 @@ static void Disable_IfNessessary(void)
         Settings_Save();
         Log_DisconnectLoggerUSB();
         Panel_TransmitData(0x04);
-        bool run = true;
+        volatile bool run = true;
         while (run)
         {
         };
@@ -66,7 +66,7 @@ int main(void)
     Ethernet_Init();
     Menu_Init();
 
-    bool run = true;
+    volatile bool run = true;
     while(run)
     {
         Timer_StartMultiMeasurement();      // —брос таймера дл€ замера длительности временных интервалов в течение одной итерации цикла.
