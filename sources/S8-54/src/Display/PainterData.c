@@ -44,13 +44,13 @@ static void  DrawDataInModeNormal(void);
 static void  DrawDataInModeWorkLatest(void);
 static void  DrawDataMinMax(void);
 static void  DrawDataChannel(uint8 *dataIn, int minY, int maxY);
-static void  DrawDataInRect(int x, int width, const uint8 *data, int numElems, bool peackDet);
+static void  DrawDataInRect(int x, uint width, const uint8 *data, int numElems, bool peackDet);
 static void  DrawTPos(int leftX, int rightX);
 static void  DrawTShift(int leftX, int rightX, int numPoints);
 static void  DrawBothChannels(uint8 *dataA, uint8 *dataB);                       // Нарисовать оба канала. Если data == 0, то данные берутся из Processing_GetData
 static int   FillDataP2P(uint8 *data, DataSettings **ds);
 static void  DrawMarkersForMeasure(float scale);
-static bool  DataBeyondTheBorders(uint8 *data, int firstPoint, int lastPoint);   // Возвращает true, если изогражение сигнала выходит за пределы экрана
+static bool  DataBeyondTheBorders(const uint8 *data, int firstPoint, int lastPoint);   // Возвращает true, если изогражение сигнала выходит за пределы экрана
 static void  DrawSignalLined(const uint8 *data, int startPoint, int endPoint, int minY, int maxY, float scaleY, float scaleX, bool calculateFiltr);
 static void  DrawSignalPointed(const uint8 *data, int startPoint, int endPoint, int minY, int maxY, float scaleY, float scaleX);
 static int   Ordinate(uint8 x, float scale);                                    // Возвращает точку в экранной координате. Если точка не считана (NONE_VALUE), возвращает -1
@@ -58,7 +58,7 @@ static int   FillDataP2PforRecorder(int numPoints, int numPointsDS, int pointsIn
 static int   FillDataP2PforNormal(int numPoints, int numPointsDS, int pointsInScreen, uint8 *src, uint8 *dest);
 static void  DrawLimitLabel(int delta);  // Выоводит сообщение на экране о выходе сигнала за границы экрана. 
                                          // delta - расстояние от края сетки, на котором находится сообщение. Если delta < 0 - выводится внизу сетки
-static void  SendToDisplayDataInRect(int x, int *min, int *max, int width);
+static void  SendToDisplayDataInRect(int x, const int *min, const int *max, uint width);
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 void PainterData_DrawData(void)
@@ -191,7 +191,7 @@ void PainterData_DrawMemoryWindow(void)
     int leftX = 3;
     int top = 0;
     int height = GRID_TOP - 3;
-    int bottom = top + height;
+    int bottom = top + height; //-V2007
 
     static const int rightXses[3] = {276, 285, 247};
     int rightX = rightXses[MODE_WORK];
@@ -229,7 +229,7 @@ void PainterData_DrawMemoryWindow(void)
         }
     }
 
-    Painter_DrawRectangleC(xVert0, top, width - (FPGA_NUM_POINTS_8k ? 1 : 0), bottom - top + 1, gColorFill);
+    Painter_DrawRectangleC(xVert0, top, width - (FPGA_NUM_POINTS_8k ? 1 : 0), bottom - top + 1, gColorFill); //-V2007
 
     DrawTPos(leftX, rightX);
 
@@ -388,7 +388,7 @@ static void DrawDataChannel(uint8 *dataIn, int minY, int maxY)
 }
 
 //------------------------------------------------------------------------------------------------------------------------------------------------------
-static void DrawDataInRect(int x, int width, const uint8 *data, int numBytes, bool peackDet)
+static void DrawDataInRect(int x, uint width, const uint8 *data, int numBytes, bool peackDet)
 {
     if (numBytes == 0)
     {
@@ -405,7 +405,7 @@ static void DrawDataInRect(int x, int width, const uint8 *data, int numBytes, bo
         uint8 *iMin = &min[0];
         uint8 *iMax = &max[0];
 
-        for (int col = 0; col < width; col++, iMin++, iMax++)
+        for (uint col = 0; col < width; col++, iMin++, iMax++)
         {
             uint firstElem = (uint)(col * elemsInColumn);
             uint lastElem = (uint)firstElem + elemsInColumn - 1;
@@ -454,7 +454,7 @@ static void DrawDataInRect(int x, int width, const uint8 *data, int numBytes, bo
     // Теперь уточним количество точек, которые нужно нарисовать (исходим из того, что в реальном режиме и рандомизаторе рисуем все точки,
     // а в поточечном только начальные до определённой позиции
 
-    int numPoints = 0;
+    uint numPoints = 0;
     for (int i = 0; i < width; i++)
     {
         if (maxes[i] == -1 && mines[i] == -1)   { break; }          // Если обе точки не были считаны, то выходим
@@ -499,19 +499,19 @@ static int Ordinate(uint8 x, float scale)
 //----------------------------------------------------------------------------------------------------------------------------------------------------
 // Процедура ограничивает width числом 255
 //----------------------------------------------------------------------------------------------------------------------------------------------------
-static void SendToDisplayDataInRect(int x, int *min, int *max, int width)
+static void SendToDisplayDataInRect(int x, const int *min, const int *max, uint width)
 {
     LIMIT_ABOVE(width, 255);
 
     uint8 points[width * 2];
 
-    for (int i = 0; i < width; i++)
+    for (uint i = 0; i < width; i++)
     {
         points[i * 2] = max[i];
         points[i * 2 + 1] = min[i];
     }
 
-    Painter_DrawVLineArray(x, width, points, gColorChan[curCh]);
+    Painter_DrawVLineArray(x, (int)width, points, gColorChan[curCh]); //-V202
 }
 
 //------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -559,9 +559,9 @@ static void DrawTShift(int leftX, int rightX, int numBytes)
     }
 
     Painter_FillRegionC((int)xShift - 1, 1, 6, 6, gColorBack);
-    Painter_FillRegionC((int)xShift, 2, 4, 4, gColorFill);
+    Painter_FillRegionC((int)xShift, 2, 4, 4, gColorFill); //-V112
     Painter_DrawLineC((int)xShift + dX01, 3, (int)xShift + dX11, dY11 - 2, gColorBack);
-    Painter_DrawLine((int)xShift + dX02, 4, (int)xShift + 2, dY12 - 2);
+    Painter_DrawLine((int)xShift + dX02, 4, (int)xShift + 2, dY12 - 2); //-V112
 }
 
 //------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -570,12 +570,12 @@ static void DrawBothChannels(uint8 *dataA, uint8 *dataB)
     curDS = gDSet;
     if (LAST_AFFECTED_CH == B)
     {
-        if (DS_ENABLED(gDSet, A))
+        if (DS_ENABLED_A(gDSet))
         {
             curCh = A;
             DrawDataChannel(dataA, GRID_TOP, GridChannelBottom());
         }
-        if (DS_ENABLED(gDSet, B))
+        if (DS_ENABLED_B(gDSet))
         {
             curCh = B;
             DrawDataChannel(dataB, GRID_TOP, GridChannelBottom());
@@ -583,12 +583,12 @@ static void DrawBothChannels(uint8 *dataA, uint8 *dataB)
     }
     else
     {
-        if (DS_ENABLED(gDSet, B))
+        if (DS_ENABLED_B(gDSet))
         {
             curCh = B;
             DrawDataChannel(dataB, GRID_TOP, GridChannelBottom());
         }
-        if (DS_ENABLED(gDSet, A))
+        if (DS_ENABLED_A(gDSet))
         {
             curCh = A;
             DrawDataChannel(dataA, GRID_TOP, GridChannelBottom());
@@ -645,18 +645,18 @@ static void DrawMarkersForMeasure(float scale)
 }
 
 //------------------------------------------------------------------------------------------------------------------------------------------------------
-static bool DataBeyondTheBorders(uint8 *data, int firstPoint, int lastPoint)
+static bool DataBeyondTheBorders(const uint8 *data, int firstPoint, int lastPoint)
 {
     int numMin = 0; // Здесь количество отсчётов, меньших или равных MIN_VALUE
     int numMax = 0; // Здесь количество отсчётов, больших или равных MAX_VALUE
     int numPoints = lastPoint - firstPoint;
     for (int i = firstPoint; i < lastPoint; i++)
     {
-        if (data[i] <= MIN_VALUE)
+        if (data[i] <= MIN_VALUE) //-V108
         {
             numMin++;
         }
-        if (data[i] >= MAX_VALUE)
+        if (data[i] >= MAX_VALUE) //-V108
         {
             numMax++;
         }
@@ -699,7 +699,7 @@ static void DrawSignalLined(const uint8 *data, int startPoint, int endPoint, int
             if (x0 >= gridLeft && x0 <= gridRight)
             {
                 int index = i - startPoint;
-                int y = calculateFiltr ? Math_CalculateFiltr(data, i, numPoints, numSmoothing) : data[i];
+                int y = calculateFiltr ? Math_CalculateFiltr(data, i, numPoints, numSmoothing) : data[i]; //-V108
                 int newY = 0;
                 CONVERT_DATA_TO_DISPLAY(newY, y);
                 dataCD[index] = (uint8)newY;
@@ -710,13 +710,13 @@ static void DrawSignalLined(const uint8 *data, int startPoint, int endPoint, int
     {
         for (int i = 1; i < 280 * 2; i += 2)
         {
-            float x = gridLeft + i / 2 * scaleX;
+            float x = gridLeft + i / 2.0f * scaleX;
 
             int index = i + startPoint * 2;
 
             int y0 = 0, y1 = 0;
-            { CONVERT_DATA_TO_DISPLAY(y0, data[index++]); }
-            { CONVERT_DATA_TO_DISPLAY(y1, data[index++]); }
+            { CONVERT_DATA_TO_DISPLAY(y0, data[index++]); } //-V108
+            { CONVERT_DATA_TO_DISPLAY(y1, data[index++]); } //-V108
 
             PLACE_2_ASCENDING(y0, y1);
 
@@ -724,8 +724,8 @@ static void DrawSignalLined(const uint8 *data, int startPoint, int endPoint, int
 
             int z0 = 0;
             int z1 = 0;
-            { CONVERT_DATA_TO_DISPLAY(z0, data[index++]); }
-            { CONVERT_DATA_TO_DISPLAY(z1, data[index]); }
+            { CONVERT_DATA_TO_DISPLAY(z0, data[index++]); } //-V108
+            { CONVERT_DATA_TO_DISPLAY(z1, data[index]); } //-V108
 
             PLACE_2_ASCENDING(z0, z1);
 
@@ -752,7 +752,7 @@ static void DrawSignalLined(const uint8 *data, int startPoint, int endPoint, int
 
     if (curDS->peackDet == PeackDet_Disable)
     {
-        CONVERT_DATA_TO_DISPLAY(dataCD[280], data[endPoint]);
+        CONVERT_DATA_TO_DISPLAY(dataCD[280], data[endPoint]); //-V108
         Painter_DrawSignal(GridLeft(), dataCD, true);
     }
 }
@@ -763,7 +763,7 @@ static void DrawSignalPointed(const uint8 *data, int startPoint, int endPoint, i
     int numPoints = sMemory_NumBytesInChannel(false);
     int numSmoothing = sDisplay_NumPointSmoothing();
 
-    if (scaleX == 1.0f)
+    if (scaleX == 1.0f) //-V550
     {
         uint8 dataCD[281];
         for (int i = startPoint; i < endPoint; i++)
