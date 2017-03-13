@@ -279,4 +279,340 @@
     <CodeCurrent>177444333</CodeCurrent>
     <CodeNext>0</CodeNext>
   </s8-54>
+  <s8-54>
+    <FileName>painter.c</FileName>
+    <ErrorCode>V112</ErrorCode>
+    <Message>Dangerous magic number _ used: uint_ command[_];.</Message>
+    <CodePrev>125</CodePrev>
+    <CodeCurrent>2791625</CodeCurrent>
+    <CodeNext>73629745</CodeNext>
+  </s8-54>
+  <s8-54>
+    <FileName>painter.c</FileName>
+    <ErrorCode>V112</ErrorCode>
+    <Message>Dangerous magic number _ used: ...ay(command, _);.</Message>
+    <CodePrev>73629745</CodePrev>
+    <CodeCurrent>1864494059</CodeCurrent>
+    <CodeNext>2023065630</CodeNext>
+  </s8-54>
+  <s8-54>
+    <FileName>painter.c</FileName>
+    <ErrorCode>V112</ErrorCode>
+    <Message>Dangerous magic number _ used: uint_ command[_] = {SET_COL...</Message>
+    <CodePrev>125</CodePrev>
+    <CodeCurrent>2844691347</CodeCurrent>
+    <CodeNext>4603475</CodeNext>
+  </s8-54>
+  <s8-54>
+    <FileName>painter.c</FileName>
+    <ErrorCode>V112</ErrorCode>
+    <Message>Dangerous magic number _ used: ...ay(command, _);.</Message>
+    <CodePrev>4603475</CodePrev>
+    <CodeCurrent>1864494059</CodeCurrent>
+    <CodeNext>2023065618</CodeNext>
+  </s8-54>
+  <s8-54>
+    <FileName>painter.c</FileName>
+    <ErrorCode>V112</ErrorCode>
+    <Message>Dangerous magic number _ used: uint_ command[_];.</Message>
+    <CodePrev>123</CodePrev>
+    <CodeCurrent>2791625</CodeCurrent>
+    <CodeNext>294567377</CodeNext>
+  </s8-54>
+  <s8-54>
+    <FileName>painter.c</FileName>
+    <ErrorCode>V112</ErrorCode>
+    <Message>Dangerous magic number _ used: ...ay(command, _);.</Message>
+    <CodePrev>2733298388</CodePrev>
+    <CodeCurrent>1864494059</CodeCurrent>
+    <CodeNext>2023065610</CodeNext>
+  </s8-54>
+  <s8-54>
+    <FileName>painter.c</FileName>
+    <ErrorCode>V112</ErrorCode>
+    <Message>Dangerous magic number _ used: ...es(command, _);.</Message>
+    <CodePrev>1864494059</CodePrev>
+    <CodeCurrent>2023065610</CodeCurrent>
+    <CodeNext>125</CodeNext>
+  </s8-54>
+  <s8-54>
+    <FileName>painter.c</FileName>
+    <ErrorCode>V112</ErrorCode>
+    <Message>Dangerous magic number _ used: uint_ command[_];.</Message>
+    <CodePrev>123</CodePrev>
+    <CodeCurrent>2791625</CodeCurrent>
+    <CodeNext>73641939</CodeNext>
+  </s8-54>
+  <s8-54>
+    <FileName>painter.c</FileName>
+    <ErrorCode>V112</ErrorCode>
+    <Message>Dangerous magic number _ used: ...ay(command, _);.</Message>
+    <CodePrev>50052717</CodePrev>
+    <CodeCurrent>1864494059</CodeCurrent>
+    <CodeNext>2023065610</CodeNext>
+  </s8-54>
+  <s8-54>
+    <FileName>painter.c</FileName>
+    <ErrorCode>V112</ErrorCode>
+    <Message>Dangerous magic number _ used: ...)(command + _)) = (int_)x_;.</Message>
+    <CodePrev>4099783311</CodePrev>
+    <CodeCurrent>4099766925</CodeCurrent>
+    <CodeNext>1864494043</CodeNext>
+  </s8-54>
+  <s8-54>
+    <FileName>painter.c</FileName>
+    <ErrorCode>V112</ErrorCode>
+    <Message>Dangerous magic number _ used: *(command + _) = (int_)y_;.</Message>
+    <CodePrev>100105463</CodePrev>
+    <CodeCurrent>100091125</CodeCurrent>
+    <CodeNext>1864494043</CodeNext>
+  </s8-54>
+  <s8-54>
+    <FileName>painter.c</FileName>
+    <ErrorCode>V112</ErrorCode>
+    <Message>Dangerous magic number _ used: *(command + _) = (uint_)d...</Message>
+    <CodePrev>200207351</CodePrev>
+    <CodeCurrent>1601493721</CodeCurrent>
+    <CodeNext>200150669</CodeNext>
+  </s8-54>
+  <s8-54>
+    <FileName>painter.c</FileName>
+    <ErrorCode>V112</ErrorCode>
+    <Message>Dangerous magic number _ used: *(command + _) = (uint_)d...</Message>
+    <CodePrev>1601657363</CodePrev>
+    <CodeCurrent>1601493721</CodeCurrent>
+    <CodeNext>782039</CodeNext>
+  </s8-54>
+  <s8-54>
+    <FileName>painter.c</FileName>
+    <ErrorCode>V108</ErrorCode>
+    <Message>Incorrect index type: x[not a memsize-type]. Use memsize type instead.</Message>
+    <CodePrev>123</CodePrev>
+    <CodeCurrent>1053949341</CodeCurrent>
+    <CodeNext>87923</CodeNext>
+  </s8-54>
+  <s8-54>
+    <FileName>painter.c</FileName>
+    <ErrorCode>V112</ErrorCode>
+    <Message>Dangerous magic number _ used: ...(numBytes % _).</Message>
+    <CodePrev>1561213894</CodePrev>
+    <CodeCurrent>5430237</CodeCurrent>
+    <CodeNext>123</CodeNext>
+  </s8-54>
+  <s8-54>
+    <FileName>painter.c</FileName>
+    <ErrorCode>V112</ErrorCode>
+    <Message>Dangerous magic number _ used: *(command + _) = (uint_)c...</Message>
+    <CodePrev>3026037298</CodePrev>
+    <CodeCurrent>1601493523</CodeCurrent>
+    <CodeNext>1601460953</CodeNext>
+  </s8-54>
+  <s8-54>
+    <FileName>painter.c</FileName>
+    <ErrorCode>V108</ErrorCode>
+    <Message>Incorrect index type: y[not a memsize-type]. Use memsize type instead.</Message>
+    <CodePrev>123</CodePrev>
+    <CodeCurrent>6605</CodeCurrent>
+    <CodeNext>43905</CodeNext>
+  </s8-54>
+  <s8-54>
+    <FileName>painter.c</FileName>
+    <ErrorCode>V112</ErrorCode>
+    <Message>Dangerous magic number _ used: ...(numBytes % _).</Message>
+    <CodePrev>89</CodePrev>
+    <CodeCurrent>5430237</CodeCurrent>
+    <CodeNext>123</CodeNext>
+  </s8-54>
+  <s8-54>
+    <FileName>painter.c</FileName>
+    <ErrorCode>V112</ErrorCode>
+    <Message>Dangerous magic number _ used: ...)(command + _)) = (int_)...</Message>
+    <CodePrev>50052717</CodePrev>
+    <CodeCurrent>2733364172</CodeCurrent>
+    <CodeNext>1601521403</CodeNext>
+  </s8-54>
+  <s8-54>
+    <FileName>painter.c</FileName>
+    <ErrorCode>V112</ErrorCode>
+    <Message>Dangerous magic number _ used: uint_ command[_];.</Message>
+    <CodePrev>125</CodePrev>
+    <CodeCurrent>2791625</CodeCurrent>
+    <CodeNext>2356511001</CodeNext>
+  </s8-54>
+  <s8-54>
+    <FileName>painter.c</FileName>
+    <ErrorCode>V112</ErrorCode>
+    <Message>Dangerous magic number _ used: ...ay(command, _);.</Message>
+    <CodePrev>786770447</CodePrev>
+    <CodeCurrent>1864494059</CodeCurrent>
+    <CodeNext>125</CodeNext>
+  </s8-54>
+  <s8-54>
+    <FileName>painter.c</FileName>
+    <ErrorCode>V112</ErrorCode>
+    <Message>Dangerous magic number _ used: ...d[_ * _ + _ + _];.</Message>
+    <CodePrev>959910201</CodePrev>
+    <CodeCurrent>714609065</CodeCurrent>
+    <CodeNext>1671327065</CodeNext>
+  </s8-54>
+  <s8-54>
+    <FileName>painter.c</FileName>
+    <ErrorCode>V112</ErrorCode>
+    <Message>Dangerous magic number _ used: *(command + _ + i * _) =...</Message>
+    <CodePrev>123</CodePrev>
+    <CodeCurrent>4226379971</CodeCurrent>
+    <CodeNext>3197158266</CodeNext>
+  </s8-54>
+  <s8-54>
+    <FileName>painter.c</FileName>
+    <ErrorCode>V104</ErrorCode>
+    <Message>Implicit conversion of 'i * _' to memsize type in an arithmetic expression: y_y_ + i * _</Message>
+    <CodePrev>123</CodePrev>
+    <CodeCurrent>4226379971</CodeCurrent>
+    <CodeNext>3197158266</CodeNext>
+  </s8-54>
+  <s8-54>
+    <FileName>painter.c</FileName>
+    <ErrorCode>V112</ErrorCode>
+    <Message>Dangerous magic number _ used: *(command + _ + i * _ + _...</Message>
+    <CodePrev>4226379971</CodePrev>
+    <CodeCurrent>3197158266</CodeCurrent>
+    <CodeNext>125</CodeNext>
+  </s8-54>
+  <s8-54>
+    <FileName>painter.c</FileName>
+    <ErrorCode>V104</ErrorCode>
+    <Message>Implicit conversion of 'i * _' to memsize type in an arithmetic expression: y_y_ + i * _</Message>
+    <CodePrev>4226379971</CodePrev>
+    <CodeCurrent>3197158266</CodeCurrent>
+    <CodeNext>125</CodeNext>
+  </s8-54>
+  <s8-54>
+    <FileName>painter.c</FileName>
+    <ErrorCode>V112</ErrorCode>
+    <Message>Dangerous magic number _ used: ...Lines * _ + _;.</Message>
+    <CodePrev>125</CodePrev>
+    <CodeCurrent>1264307951</CodeCurrent>
+    <CodeNext>5430237</CodeNext>
+  </s8-54>
+  <s8-54>
+    <FileName>painter.c</FileName>
+    <ErrorCode>V112</ErrorCode>
+    <Message>Dangerous magic number _ used: ...(numBytes % _).</Message>
+    <CodePrev>1264307951</CodePrev>
+    <CodeCurrent>5430237</CodeCurrent>
+    <CodeNext>123</CodeNext>
+  </s8-54>
+  <s8-54>
+    <FileName>painter.c</FileName>
+    <ErrorCode>V112</ErrorCode>
+    <Message>Dangerous magic number _ used: uint_ command[_];.</Message>
+    <CodePrev>123</CodePrev>
+    <CodeCurrent>2791625</CodeCurrent>
+    <CodeNext>147270805</CodeNext>
+  </s8-54>
+  <s8-54>
+    <FileName>painter.c</FileName>
+    <ErrorCode>V112</ErrorCode>
+    <Message>Dangerous magic number _ used: ...ay(command, _);.</Message>
+    <CodePrev>100103661</CodePrev>
+    <CodeCurrent>1864494059</CodeCurrent>
+    <CodeNext>3514475485</CodeNext>
+  </s8-54>
+  <s8-54>
+    <FileName>painter.c</FileName>
+    <ErrorCode>V112</ErrorCode>
+    <Message>Dangerous magic number _ used: ...ay(command, _);.</Message>
+    <CodePrev>782007</CodePrev>
+    <CodeCurrent>1864494059</CodeCurrent>
+    <CodeNext>2339339250</CodeNext>
+  </s8-54>
+  <s8-54>
+    <FileName>painter.c</FileName>
+    <ErrorCode>V112</ErrorCode>
+    <Message>Dangerous magic number _ used: ...eight / _ / _; i++).</Message>
+    <CodePrev>1864494059</CodePrev>
+    <CodeCurrent>2339339250</CodeCurrent>
+    <CodeNext>123</CodeNext>
+  </s8-54>
+  <s8-54>
+    <FileName>painter.c</FileName>
+    <ErrorCode>V112</ErrorCode>
+    <Message>Dangerous magic number _ used: ...ay(command, _);.</Message>
+    <CodePrev>400420937</CodePrev>
+    <CodeCurrent>1864494059</CodeCurrent>
+    <CodeNext>125</CodeNext>
+  </s8-54>
+  <s8-54>
+    <FileName>painter.c</FileName>
+    <ErrorCode>V112</ErrorCode>
+    <Message>Dangerous magic number _ used: ...i = _; i &lt; _; i++).</Message>
+    <CodePrev>0</CodePrev>
+    <CodeCurrent>20126251</CodeCurrent>
+    <CodeNext>123</CodeNext>
+  </s8-54>
+  <s8-54>
+    <FileName>painter.c</FileName>
+    <ErrorCode>V112</ErrorCode>
+    <Message>Dangerous magic number _ used: ...Bytes; i += _).</Message>
+    <CodePrev>123</CodePrev>
+    <CodeCurrent>857004124</CodeCurrent>
+    <CodeNext>123</CodeNext>
+  </s8-54>
+  <s8-54>
+    <FileName>painter.c</FileName>
+    <ErrorCode>V112</ErrorCode>
+    <Message>Dangerous magic number _ used: uint_ command[_];.</Message>
+    <CodePrev>123</CodePrev>
+    <CodeCurrent>2791625</CodeCurrent>
+    <CodeNext>147285627</CodeNext>
+  </s8-54>
+  <s8-54>
+    <FileName>painter.c</FileName>
+    <ErrorCode>V112</ErrorCode>
+    <Message>Dangerous magic number _ used: ...ay(command, _);.</Message>
+    <CodePrev>147285627</CodePrev>
+    <CodeCurrent>1864494059</CodeCurrent>
+    <CodeNext>125</CodeNext>
+  </s8-54>
+  <s8-54>
+    <FileName>painterdata.c</FileName>
+    <ErrorCode>V104</ErrorCode>
+    <Message>Implicit conversion of 'numScreens * pointsInScreen' to memsize type in an arithmetic expression: dest + numScreens * pointsInScreen</Message>
+    <CodePrev>0</CodePrev>
+    <CodeCurrent>4071109893</CodeCurrent>
+    <CodeNext>0</CodeNext>
+  </s8-54>
+  <s8-54>
+    <FileName>painterdata.c</FileName>
+    <ErrorCode>V104</ErrorCode>
+    <Message>Implicit conversion of 'deltaNumPoints' to memsize type in an arithmetic expression.</Message>
+    <CodePrev>0</CodePrev>
+    <CodeCurrent>4071109893</CodeCurrent>
+    <CodeNext>0</CodeNext>
+  </s8-54>
+  <s8-54>
+    <FileName>fpga.c</FileName>
+    <ErrorCode>V809</ErrorCode>
+    <Message>Verifying that a pointer value is not NULL is not required. The 'if (dataRandA)' check can be removed.</Message>
+    <CodePrev>0</CodePrev>
+    <CodeCurrent>114178701</CodeCurrent>
+    <CodeNext>114178689</CodeNext>
+  </s8-54>
+  <s8-54>
+    <FileName>fpga.c</FileName>
+    <ErrorCode>V809</ErrorCode>
+    <Message>Verifying that a pointer value is not NULL is not required. The 'if (dataRandB)' check can be removed.</Message>
+    <CodePrev>114178701</CodePrev>
+    <CodeCurrent>114178689</CodeCurrent>
+    <CodeNext>0</CodeNext>
+  </s8-54>
+  <s8-54>
+    <FileName>flash.c</FileName>
+    <ErrorCode>V206</ErrorCode>
+    <Message>Explicit conversion from 'void *' to 'unsigned int *'.</Message>
+    <CodePrev>123</CodePrev>
+    <CodeCurrent>3156176493</CodeCurrent>
+    <CodeNext>123</CodeNext>
+  </s8-54>
 </NewDataSet>

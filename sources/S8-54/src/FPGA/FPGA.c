@@ -284,7 +284,7 @@ static bool CalculateGate(uint16 rand, uint16 *eMin, uint16 *eMax)
 
     static int stat[281];
 
-    if (gScaleRandStat != 0.0f)
+    if (gScaleRandStat != 0.0f) //-V550
     {
         if (rand <= minGate)
         {
@@ -301,7 +301,7 @@ static bool CalculateGate(uint16 rand, uint16 *eMin, uint16 *eMax)
         }
     }
 
-    if (minGate == 0)
+    if (minGate == 0.0f) //-V550
     {
         *eMin = min;
         *eMax = max;
@@ -843,7 +843,7 @@ TBase CalculateTBase(float freq)
 
 
     const STR *str = &structs[0];
-    while (str->freq != 0.0f)
+    while (str->freq != 0.0f) //-V550
     {
         if (freq >= str->freq)
         {
