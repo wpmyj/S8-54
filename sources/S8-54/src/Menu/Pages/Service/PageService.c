@@ -30,12 +30,27 @@ extern void FuncBtnStart(int key);
 static const Button mbResetSettings;
         void OnPress_ResetSettings(void);
 static void  FuncDraw_ResetSettings(void);
-static const Button mbAutoSearch;
-static void  OnPress_AutoSearch(void);
 static const Choice mcRecorder;
 static void  OnChange_Recorder(bool active);
 static const Choice mcLanguage;
 
+
+// СЕРВИС - Поиск сигнала ----------------------------------------------------------------------------------------------------------------------------
+static void OnPress_AutoSearch(void)
+{
+    gBF.FPGAneedAutoFind = 1;
+};
+
+static const Button mbAutoSearch =
+{
+    Item_Button, &mpService, 0,
+    {
+        "Поиск сигнала", "Find signal",
+        "Устанавливает оптимальные установки осциллографа для сигнала в канале 1",
+        "Sets optimal settings for the oscilloscope signal on channel 1"
+    },
+    OnPress_AutoSearch
+};
 
 // СЕРВИС ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 const Page mpService =
@@ -98,23 +113,6 @@ static void FuncDraw_ResetSettings(void)
 
     Painter_EndScene();
 }
-
-// СЕРВИС - Поиск сигнала ----------------------------------------------------------------------------------------------------------------------------
-static const Button mbAutoSearch =
-{
-    Item_Button, &mpService, 0,
-    {
-        "Поиск сигнала", "Find signal",
-        "Устанавливает оптимальные установки осциллографа для сигнала в канале 1",
-        "Sets optimal settings for the oscilloscope signal on channel 1"
-    },
-    OnPress_AutoSearch
-};
-
-static void OnPress_AutoSearch(void)
-{
-    FPGA_StartAutoFind();
-};
 
 // СЕРВИС - Регистратор ------------------------------------------------------------------------------------------------------------------------------
 static const Choice mcRecorder =

@@ -31,13 +31,9 @@ bool FPGA_IsRunning(void);                      // Возвращает true, е
 
 void FPGA_ClearData(void);                      // Удаляет данные. Нужно для режима рандомизаотра, где информация каждого цикла не является самостоятельной.
 
-bool FPGA_AllPointsRandomizer(void);            // Возвращает true,если все точки получены в режиме рандомизатора.
-
 void FPGA_SetNumberMeasuresForGates(int number);// Установить количество измерений, по которым будут рассчитываться ворота в режиме рандомизатора.
 
 void FPGA_SwitchingTrig(void);                  // Принудительно запустить синхронизацию.
-
-void FPGA_StartAutoFind(void);				    // Запустить процесс поиска сигнала.
 
 void FPGA_TemporaryPause(void);                  // Установить временную паузу после изменения ручек - чтобы смещённый сигнал зафиксировать на некоторое время
 
