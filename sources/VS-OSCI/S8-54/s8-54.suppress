@@ -1239,4 +1239,164 @@
     <CodeCurrent>34979</CodeCurrent>
     <CodeNext>2285</CodeNext>
   </s8-54>
+  <s8-54>
+    <FileName>helpcontent.c</FileName>
+    <ErrorCode>V2006</ErrorCode>
+    <Message>Implicit type conversion from enum type to integer type.</Message>
+    <CodePrev>10103</CodePrev>
+    <CodeCurrent>1937733358</CodeCurrent>
+    <CodeNext>0</CodeNext>
+  </s8-54>
+  <s8-54>
+    <FileName>helpcontent.c</FileName>
+    <ErrorCode>V2006</ErrorCode>
+    <Message>Implicit type conversion from enum type to integer type.</Message>
+    <CodePrev>1795103915</CodePrev>
+    <CodeCurrent>389193272</CodeCurrent>
+    <CodeNext>2662553490</CodeNext>
+  </s8-54>
+  <s8-54>
+    <FileName>helpcontent.c</FileName>
+    <ErrorCode>V2006</ErrorCode>
+    <Message>Implicit type conversion from enum type to integer type.</Message>
+    <CodePrev>123</CodePrev>
+    <CodeCurrent>1937732174</CodeCurrent>
+    <CodeNext>3689425767</CodeNext>
+  </s8-54>
+  <s8-54>
+    <FileName>helpcontent.c</FileName>
+    <ErrorCode>V2006</ErrorCode>
+    <Message>Implicit type conversion from enum type to integer type.</Message>
+    <CodePrev>1937732174</CodePrev>
+    <CodeCurrent>3689425767</CodeCurrent>
+    <CodeNext>125</CodeNext>
+  </s8-54>
+  <s8-54>
+    <FileName>fpgasettings.c</FileName>
+    <ErrorCode>V2006</ErrorCode>
+    <Message>Implicit type conversion from enum type to integer type.</Message>
+    <CodePrev>6773141</CodePrev>
+    <CodeCurrent>3436765525</CodeCurrent>
+    <CodeNext>2399158661</CodeNext>
+  </s8-54>
+  <s8-54>
+    <FileName>fpgasettings.c</FileName>
+    <ErrorCode>V2006</ErrorCode>
+    <Message>Implicit type conversion from enum type to integer type.</Message>
+    <CodePrev>2399158661</CodePrev>
+    <CodeCurrent>1570579161</CodeCurrent>
+    <CodeNext>125</CodeNext>
+  </s8-54>
+  <s8-54>
+    <FileName>fpgasettings.c</FileName>
+    <ErrorCode>V2006</ErrorCode>
+    <Message>Implicit type conversion from enum type to integer type.</Message>
+    <CodePrev>6773141</CodePrev>
+    <CodeCurrent>2587343803</CodeCurrent>
+    <CodeNext>0</CodeNext>
+  </s8-54>
+  <s8-54>
+    <FileName>fpgasettings.c</FileName>
+    <ErrorCode>V2006</ErrorCode>
+    <Message>Implicit type conversion from enum type to integer type.</Message>
+    <CodePrev>123</CodePrev>
+    <CodeCurrent>3660849299</CodeCurrent>
+    <CodeNext>125</CodeNext>
+  </s8-54>
+  <s8-54>
+    <FileName>fpgasettings.c</FileName>
+    <ErrorCode>V108</ErrorCode>
+    <Message>Incorrect index type: Kr[not a memsize-type]. Use memsize type instead.</Message>
+    <CodePrev>123</CodePrev>
+    <CodeCurrent>3660849299</CodeCurrent>
+    <CodeNext>125</CodeNext>
+  </s8-54>
+  <s8-54>
+    <FileName>fpgasettings.c</FileName>
+    <ErrorCode>V108</ErrorCode>
+    <Message>Incorrect index type: Kr[not a memsize-type]. Use memsize type instead.</Message>
+    <CodePrev>123</CodePrev>
+    <CodeCurrent>3516986923</CodeCurrent>
+    <CodeNext>125</CodeNext>
+  </s8-54>
+  <s8-54>
+    <FileName>fpgasettings.c</FileName>
+    <ErrorCode>V108</ErrorCode>
+    <Message>Incorrect index type: Kr[not a memsize-type]. Use memsize type instead.</Message>
+    <CodePrev>0</CodePrev>
+    <CodeCurrent>3104535333</CodeCurrent>
+    <CodeNext>0</CodeNext>
+  </s8-54>
+  <s8-54>
+    <FileName>fpgasettings.c</FileName>
+    <ErrorCode>V108</ErrorCode>
+    <Message>Incorrect index type: Kr[not a memsize-type]. Use memsize type instead.</Message>
+    <CodePrev>0</CodePrev>
+    <CodeCurrent>3118751766</CodeCurrent>
+    <CodeNext>92895041</CodeNext>
+  </s8-54>
+  <s8-54>
+    <FileName>fpgasettings.c</FileName>
+    <ErrorCode>V108</ErrorCode>
+    <Message>Incorrect index type: Kr[not a memsize-type]. Use memsize type instead.</Message>
+    <CodePrev>123</CodePrev>
+    <CodeCurrent>3564098738</CodeCurrent>
+    <CodeNext>125</CodeNext>
+  </s8-54>
+  <s8-54>
+    <FileName>fpgasettings.c</FileName>
+    <ErrorCode>V2003</ErrorCode>
+    <Message>Explicit conversion from 'float' type to signed integer type.</Message>
+    <CodePrev>0</CodePrev>
+    <CodeCurrent>1353947412</CodeCurrent>
+    <CodeNext>183636939</CodeNext>
+  </s8-54>
+  <s8-54>
+    <FileName>fpgasettings.c</FileName>
+    <ErrorCode>V108</ErrorCode>
+    <Message>Incorrect index type: absStepRShift[not a memsize-type]. Use memsize type instead.</Message>
+    <CodePrev>123</CodePrev>
+    <CodeCurrent>1942637369</CodeCurrent>
+    <CodeNext>3843413237</CodeNext>
+  </s8-54>
+  <s8-54>
+    <FileName>fpgasettings.c</FileName>
+    <ErrorCode>V108</ErrorCode>
+    <Message>Incorrect index type: absStepRShift[not a memsize-type]. Use memsize type instead.</Message>
+    <CodePrev>1942637369</CodePrev>
+    <CodeCurrent>3843413237</CodeCurrent>
+    <CodeNext>13882503</CodeNext>
+  </s8-54>
+  <s8-54>
+    <FileName>fpgasettings.c</FileName>
+    <ErrorCode>V108</ErrorCode>
+    <Message>Incorrect index type: absStepTShift[not a memsize-type]. Use memsize type instead.</Message>
+    <CodePrev>123</CodePrev>
+    <CodeCurrent>3967266244</CodeCurrent>
+    <CodeNext>158405173</CodeNext>
+  </s8-54>
+  <s8-54>
+    <FileName>fpgasettings.c</FileName>
+    <ErrorCode>V108</ErrorCode>
+    <Message>Incorrect index type: absStepTShift[not a memsize-type]. Use memsize type instead.</Message>
+    <CodePrev>215153</CodePrev>
+    <CodeCurrent>131383694</CodeCurrent>
+    <CodeNext>6725793</CodeNext>
+  </s8-54>
+  <s8-54>
+    <FileName>fpgasettings.c</FileName>
+    <ErrorCode>V2003</ErrorCode>
+    <Message>Explicit conversion from 'float' type to signed integer type.</Message>
+    <CodePrev>215153</CodePrev>
+    <CodeCurrent>131383694</CodeCurrent>
+    <CodeNext>6725793</CodeNext>
+  </s8-54>
+  <s8-54>
+    <FileName>fpgasettings.c</FileName>
+    <ErrorCode>V108</ErrorCode>
+    <Message>Incorrect index type: absStepTShift[not a memsize-type]. Use memsize type instead.</Message>
+    <CodePrev>123</CodePrev>
+    <CodeCurrent>1672916989</CodeCurrent>
+    <CodeNext>2829422791</CodeNext>
+  </s8-54>
 </NewDataSet>

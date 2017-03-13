@@ -60,7 +60,8 @@ void HelpContent_Draw(void)
     Painter_FillRegionC(GridRight(), 0, 319 - GridRight(), 20, gColorBack);
     Painter_FillRegion(GridRight(), 219, 319 - GridRight(), 21);
     Painter_FillRegion(1, 1, WIDTH, 237);
-    Painter_DrawRectangleC(0, 0, WIDTH + 2, 239, gColorFill);
+    Painter_DrawRectangleC(1, 0, WIDTH + 1, 239, gColorFill);   // WARN Здесь непонятно, почему так. Координаты верхнего левого угла должны быть 0, 0,
+                                                                // но в таком случае левой вертикальной полосы не видно
 
     /*
     uint16 *addr1 = (uint16*)(0x08000000 + (rand() % 65535));
