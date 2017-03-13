@@ -84,7 +84,7 @@ def CalcNormPeriod(period, label, numPers):
 
 volts =    [5e-3,  40e-3, 80e-3, 160e-3, 400e-3, 800e-3, 1,      4,      8,     16,    40,    8]
 dividers = [False, False, False, False,  False,  False,  False,  False,  False, False, False, True]
-ranges =   [2e-3,  5e-3,  10e-3, 20e-3,  40e-3,  100e-3, 200e-3, 500e-3, 1,     2,     5,     1]
+ranges =   [2e-3,  5e-3,  10e-3, 20e-3,  50e-3,  100e-3, 200e-3, 500e-3, 1.0,   2.0,   5.0,   1.0]
 
 count = 0;
 
@@ -108,7 +108,12 @@ for volt in volts:
     WriteAbsVoltage(volt, minPercents)
     WriteAbsVoltage(volt, maxPercents)
     
-    file.write('\n                                 ')
+    file.write('\n')
+
+    normPercents = CalcNormal(volt * 0.707, ranges[count], dividers[count])
+    WriteToFile(normPercents)
+    maxPercents = CalcMaxPercents(normPercents)
+    WriteToFile(maxPercents)
 
     WriteAbsVoltage(volt * 0.707, normPercents)
     #WriteAbsVoltage(volt * 0.707, minPercents)

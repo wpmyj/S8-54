@@ -779,7 +779,7 @@ static void DrawLowPart(void)
         char mesFreq[20] = "\x7c=";
         char buffer[20];
         float freq = FreqMeter_GetFreq();
-        if(freq == -1.0f)
+        if(freq == -1.0f) //-V550
         {
             strcat(mesFreq, "******");
         }

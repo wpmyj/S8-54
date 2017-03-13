@@ -23,10 +23,10 @@ typedef unsigned    char        uint8_t;
 typedef unsigned    short   int uint16;
 typedef unsigned    short   int uint16_t;
 typedef unsigned long long int  uint64;
+typedef unsigned    int         uint;
 typedef unsigned    int         uint32;
 typedef unsigned    int         uint32_t;
 typedef unsigned    char        uchar;
-#define uint                    size_t
 typedef uint8                   BYTE; //-V677
 
 
