@@ -1,4 +1,4 @@
-﻿#pragma once
+#pragma once
 #include "SettingsTypes.h"
 #include "Utils/Measures.h"
 #include "Menu/MenuItems.h"
@@ -350,7 +350,7 @@ typedef struct
     SettingsCommon      common;                 // системные настройки
     SettingsMenu        menu;                   // состояние меню
     SettingsDebug       debug;
-    //int temp[4];
+    int temp[4];
 } Settings;
 
 

@@ -30,6 +30,7 @@ _old_for_delete_
 *.i*
 *.cfg
 *.cmd*
+*.plog
 Archiv
 sources/S8-53/Objects
 sources/S8-53/out
