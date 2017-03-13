@@ -24,7 +24,7 @@ static const int WIDTH = 295;
 static void DrawPageContent(void)
 {
     int y = 50;
-    Painter_DrawStringInCenterRect(0, y, WIDTH, 10, currentPage->title[LANG]);
+    Painter_DrawStringInCenterRect(0, y, WIDTH, 10, currentPage->titleHint[LANG]);
 
     int numPage = 0;
 
@@ -50,8 +50,8 @@ static void DrawPageContent(void)
 //------------------------------------------------------------------------------------------------------------------------------------------------------
 static void DrawPageDescription(void)
 {
-    Painter_DrawStringInCenterRect(0, 3, WIDTH, 10, currentPage->title[LANG]);
-    Painter_DrawTextInRectWithTransfers(2, 15, WIDTH - 5, 240, currentPage->content[LANG]);
+    Painter_DrawStringInCenterRect(0, 3, WIDTH, 10, currentPage->titleHint[LANG]);
+    Painter_DrawTextInRectWithTransfers(2, 15, WIDTH - 5, 240, currentPage->titleHint[2 + LANG]);
 }
 
 //------------------------------------------------------------------------------------------------------------------------------------------------------
