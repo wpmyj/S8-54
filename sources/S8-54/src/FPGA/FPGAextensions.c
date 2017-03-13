@@ -16,8 +16,6 @@
 #include "Log.h"
 #include "structures.h"
 #include "DataStorage.h"
-
-
 #include <limits.h>
 
 
@@ -80,13 +78,11 @@ static void CreateCalibrationStruct(void)
     memset(cal, 0, sizeof(CalibrationStruct)); //-V575
 }
 
-
 //---------------------------------------------------------------------------------------------------------------------------------------------------
 static void DeleteCalibrationStruct(void)
 {
     free(cal);
 }
-
 
 //---------------------------------------------------------------------------------------------------------------------------------------------------
 void LoadSettingsCalcAddRShift(Channel ch)
@@ -99,7 +95,6 @@ void LoadSettingsCalcAddRShift(Channel ch)
 
     FPGA_SetCalibratorMode(Calibrator_GND);                 // Устанавливаем выход калибратора в ноль
 }
-
 
 //---------------------------------------------------------------------------------------------------------------------------------------------------
 static bool RunFuncAndWaitFlag(pFuncVV func, uint8 flag)
@@ -184,7 +179,6 @@ int16 CalculateAdditionRShift(Channel ch, Range range)
     return retValue;
 }
 
-
 //------------------------------------------------------------------------------------------------------------------------------------------------------
 // Измерить коэффициент калибровки канала по напряжению.
 float CalculateStretchADC(Channel ch)
@@ -261,7 +255,6 @@ float CalculateStretchADC(Channel ch)
     return retValue;
 }
 
-
 //------------------------------------------------------------------------------------------------------------------------------------------------------
 void AlignmentADC(void)
 {
@@ -270,7 +263,6 @@ void AlignmentADC(void)
     cal->shiftADCB = (cal->deltaADCold[1] > 0) ? (int8)(cal->deltaADCold[1] + 0.5f) : (int8)(cal->deltaADCold[1] - 0.5f);
     BALANCE_ADC_B = cal->shiftADCB;
 }
-
 
 //------------------------------------------------------------------------------------------------------------------------------------------------------
 void DrawParametersChannel(Channel ch, int eX, int eY, bool inProgress)
@@ -308,7 +300,6 @@ void DrawParametersChannel(Channel ch, int eX, int eY, bool inProgress)
     }
 }
 
-
 //---------------------------------------------------------------------------------------------------------------------------------------------------
 void FuncDrawAdditionRShift(int x, int y, const int16 *addRShift)
 {
@@ -334,7 +325,6 @@ static void WriteStretch(Channel ch, int x, int y)
     }
 }
 
-
 //---------------------------------------------------------------------------------------------------------------------------------------------------
 static void DrawMessageErrorCalibrate(Channel ch)
 {
@@ -348,7 +338,6 @@ static void DrawMessageErrorCalibrate(Channel ch)
 
     Painter_DrawStringInCenterRectC(0, 200, 319, 40, "Для продолжения нажмите кнопку ПУСК/СТОП", gColorFill);
 }
-
 
 //------------------------------------------------------------------------------------------------------------------------------------------------------
 // Функция обновления экрана в режиме калибровки.
@@ -465,7 +454,6 @@ void FuncAttScreen(void)
     Painter_EndScene();
 }
 
-
 //------------------------------------------------------------------------------------------------------------------------------------------------------
 float CalculateDeltaADC(Channel ch, float *avgADC1, float *avgADC2, float *delta)
 {
@@ -509,7 +497,6 @@ float CalculateDeltaADC(Channel ch, float *avgADC1, float *avgADC2, float *delta
     return ((*avgADC1) - (*avgADC2)) / 255.0f * 100;
 }
 
-
 //---------------------------------------------------------------------------------------------------------------------------------------------------
 static void CalibrateStretch(Channel ch)
 {
@@ -527,7 +514,6 @@ static void CalibrateStretch(Channel ch)
         SetStretchADC(ch, kStretch);
     }
 }
-
 
 //---------------------------------------------------------------------------------------------------------------------------------------------------
 static void CalibrateAddRShift(Channel ch)
@@ -555,7 +541,6 @@ static void CalibrateAddRShift(Channel ch)
     }
 }
 
-
 //---------------------------------------------------------------------------------------------------------------------------------------------------
 static void CalibrateChannel(Channel ch)
 {
@@ -571,7 +556,6 @@ static void CalibrateChannel(Channel ch)
         }
     }
 }
-
 
 //---------------------------------------------------------------------------------------------------------------------------------------------------
 static void WriteAdditionRShifts(Channel ch)
@@ -622,7 +606,6 @@ static void RestoreSettings(const Settings *savedSettings)
 
     OnChange_ADC_Stretch_Mode(true);
 }
-
 
 //------------------------------------------------------------------------------------------------------------------------------------------------------
 void FPGA_ProcedureCalibration(void)
@@ -705,7 +688,6 @@ void FPGA_ProcedureCalibration(void)
     FPGA_OnPressStartStop();
 }
 
-
 //---------------------------------------------------------------------------------------------------------------------------------------------------
 void FPGA_BalanceChannel(Channel ch)
 {
@@ -741,7 +723,6 @@ void FPGA_BalanceChannel(Channel ch)
     FPGA_OnPressStartStop();
 }
 
-
 //------------------------------------------------------------------------------------------------------------------------------------------------------
 static void FuncDrawAutoFind(void)
 {
@@ -775,13 +756,11 @@ static void FuncDrawAutoFind(void)
     Painter_EndScene();
 }
 
-
 //----------------------------------------------------------------------------------------------------------------------------------------------------
 static bool FindTBase(Channel ch)
 {
     return true;
 }
-
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
 static bool FindRange2(Channel ch)
@@ -803,7 +782,6 @@ static bool FindRange2(Channel ch)
     return false;
 }
 
-
 //----------------------------------------------------------------------------------------------------------------------------------------------------
 static bool FindWave2(Channel ch)
 {
@@ -819,7 +797,6 @@ static bool FindWave2(Channel ch)
 
     return true;
 }
-
 
 //------------------------------------------------------------------------------------------------------------------------------------------------------
 void FPGA_AutoFind(void)
@@ -842,18 +819,6 @@ void FPGA_AutoFind(void)
     gBF.FPGAneedAutoFind = 0;
     FPGA_Start();
 }
-
-
-
-
-
-
-
-
-
-
-
-
 
 //------------------------------------------------------------------------------------------------------------------------------------------------------
 static Range FindRange(Channel ch)
@@ -905,7 +870,6 @@ static Range FindRange(Channel ch)
     return (Range)(RangeSize - 1);
 }
 
-
 //------------------------------------------------------------------------------------------------------------------------------------------------------
 static bool FindParams(Channel ch, TBase *tBase)
 {
@@ -952,7 +916,6 @@ static bool FindParams(Channel ch, TBase *tBase)
     return false;
 }
 
-
 #undef NUM_MEASURES
 #define NUM_MEASURES 3
 
@@ -981,7 +944,6 @@ static bool AccurateFindParams(Channel ch)
 }
 
 #undef NUM_MEASURES
-
 
 //------------------------------------------------------------------------------------------------------------------------------------------------------
 static bool FindWave(Channel ch)
@@ -1024,7 +986,6 @@ static bool FindWave(Channel ch)
     return false;
 }
 
-
 //----------------------------------------------------------------------------------------------------------------------------------------------------
 bool FreqMeter_Init(void)
 {
@@ -1066,14 +1027,12 @@ bool FreqMeter_Init(void)
     return false;
 }
 
-
 //------------------------------------------------------------------------------------------------------------------------------------------------------
 static float FreqSetToFreq(const BitSet32 *freq)
 {
     const float k[3] = {10.0f, 1.0f, 0.1f};
     return set.service.freqMeter.enable ? (freq->word * k[set.service.freqMeter.timeCounting]) : (freq->word * 10.0f);
 }
-
 
 //------------------------------------------------------------------------------------------------------------------------------------------------------
 static float PeriodSetToFreq(const BitSet32 *period)
@@ -1088,7 +1047,6 @@ static float PeriodSetToFreq(const BitSet32 *period)
 
     return set.service.freqMeter.enable ? (k[set.service.freqMeter.freqClc] * kP[set.service.freqMeter.numberPeriods] / (float)period->word) : (10e5f / (float)period->word);
 }
-
 
 //------------------------------------------------------------------------------------------------------------------------------------------------------
 void FreqMeter_Draw(int x, int y)
@@ -1126,13 +1084,11 @@ void FreqMeter_Draw(int x, int y)
     Painter_DrawText(x + 71, y + 10, "");   // TODO Эта строка оставлена, потому что без неё артефакт изображения
 }
 
-
 //------------------------------------------------------------------------------------------------------------------------------------------------------
 float FreqMeter_GetFreq(void)
 {
     return freq;
 }
-
 
 //------------------------------------------------------------------------------------------------------------------------------------------------------
 void FreqMeter_ReadFreq(void)
@@ -1140,13 +1096,11 @@ void FreqMeter_ReadFreq(void)
 
 }
 
-
 //------------------------------------------------------------------------------------------------------------------------------------------------------
 void FreqMeter_ReadPeriod(void)
 {
 
 }
-
 
 //------------------------------------------------------------------------------------------------------------------------------------------------------
 static void ReadFreq(void)             // Чтение счётчика частоты производится после того, как бит 4 флага RD_FL установится в едицину
@@ -1173,7 +1127,6 @@ static void ReadFreq(void)             // Чтение счётчика частоты производится п
     }
 }
 
-
 //------------------------------------------------------------------------------------------------------------------------------------------------------
 void ReadPeriod(void)
 {
@@ -1192,7 +1145,6 @@ void ReadPeriod(void)
     prevFreq = fr;
     readPeriod = false;
 }
-
 
 //------------------------------------------------------------------------------------------------------------------------------------------------------
 void FreqMeter_Update(uint16 flag_)
