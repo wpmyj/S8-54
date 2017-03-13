@@ -615,4 +615,132 @@
     <CodeCurrent>3156176493</CodeCurrent>
     <CodeNext>123</CodeNext>
   </s8-54>
+  <s8-54>
+    <FileName>pageservicemath.h</FileName>
+    <ErrorCode>V206</ErrorCode>
+    <Message>Explicit conversion from 'enum *' to 'char *'.</Message>
+    <CodePrev>123</CodePrev>
+    <CodeCurrent>3337827320</CodeCurrent>
+    <CodeNext>125</CodeNext>
+  </s8-54>
+  <s8-54>
+    <FileName>pageservicemath.h</FileName>
+    <ErrorCode>V206</ErrorCode>
+    <Message>Explicit conversion from 'enum *' to 'char *'.</Message>
+    <CodePrev>123</CodePrev>
+    <CodeCurrent>3729855161</CodeCurrent>
+    <CodeNext>125</CodeNext>
+  </s8-54>
+  <s8-54>
+    <FileName>pageservicemath.h</FileName>
+    <ErrorCode>V206</ErrorCode>
+    <Message>Explicit conversion from 'enum *' to 'char *'.</Message>
+    <CodePrev>123</CodePrev>
+    <CodeCurrent>3867932374</CodeCurrent>
+    <CodeNext>125</CodeNext>
+  </s8-54>
+  <s8-54>
+    <FileName>pageservicemath.h</FileName>
+    <ErrorCode>V206</ErrorCode>
+    <Message>Explicit conversion from 'enum *' to 'char *'.</Message>
+    <CodePrev>214</CodePrev>
+    <CodeCurrent>875563680</CodeCurrent>
+    <CodeNext>193</CodeNext>
+  </s8-54>
+  <s8-54>
+    <FileName>pageservicemath.h</FileName>
+    <ErrorCode>V206</ErrorCode>
+    <Message>Explicit conversion from 'enum *' to 'char *'.</Message>
+    <CodePrev>214</CodePrev>
+    <CodeCurrent>775208</CodeCurrent>
+    <CodeNext>193</CodeNext>
+  </s8-54>
+  <s8-54>
+    <FileName>pageservicemath.h</FileName>
+    <ErrorCode>V206</ErrorCode>
+    <Message>Explicit conversion from 'enum *' to 'char *'.</Message>
+    <CodePrev>214</CodePrev>
+    <CodeCurrent>1550344</CodeCurrent>
+    <CodeNext>193</CodeNext>
+  </s8-54>
+  <s8-54>
+    <FileName>pageservicemath.h</FileName>
+    <ErrorCode>V206</ErrorCode>
+    <Message>Explicit conversion from 'enum *' to 'char *'.</Message>
+    <CodePrev>214</CodePrev>
+    <CodeCurrent>1552040</CodeCurrent>
+    <CodeNext>193</CodeNext>
+  </s8-54>
+  <s8-54>
+    <FileName>pageservicemath.h</FileName>
+    <ErrorCode>V206</ErrorCode>
+    <Message>Explicit conversion from 'enum *' to 'char *'.</Message>
+    <CodePrev>214</CodePrev>
+    <CodeCurrent>1548120</CodeCurrent>
+    <CodeNext>193</CodeNext>
+  </s8-54>
+  <s8-54>
+    <FileName>pageservicemath.h</FileName>
+    <ErrorCode>V112</ErrorCode>
+    <Message>Dangerous magic number _ used: ...(y + _, x + _, x + _);.</Message>
+    <CodePrev>123</CodePrev>
+    <CodeCurrent>958967480</CodeCurrent>
+    <CodeNext>970493080</CodeNext>
+  </s8-54>
+  <s8-54>
+    <FileName>pageservicemath.h</FileName>
+    <ErrorCode>V112</ErrorCode>
+    <Message>Dangerous magic number _ used: ...(x + _, y + _, y + _);.</Message>
+    <CodePrev>958967480</CodePrev>
+    <CodeCurrent>970493080</CodeCurrent>
+    <CodeNext>125</CodeNext>
+  </s8-54>
+  <s8-54>
+    <FileName>pageservicemath.h</FileName>
+    <ErrorCode>V112</ErrorCode>
+    <Message>Dangerous magic number _ used: ...sInRect(x + _, y + _, SYM...</Message>
+    <CodePrev>2609873365</CodePrev>
+    <CodeCurrent>361070300</CodeCurrent>
+    <CodeNext>2473718066</CodeNext>
+  </s8-54>
+  <s8-54>
+    <FileName>pageservicemath.h</FileName>
+    <ErrorCode>V112</ErrorCode>
+    <Message>Dangerous magic number _ used: rShift += _ * STEP_RSHIFT;.</Message>
+    <CodePrev>123</CodePrev>
+    <CodeCurrent>154256419</CodeCurrent>
+    <CodeNext>2509898719</CodeNext>
+  </s8-54>
+  <s8-54>
+    <FileName>pageservicemath.h</FileName>
+    <ErrorCode>V112</ErrorCode>
+    <Message>Dangerous magic number _ used: rShift -= _ * STEP_RSHIFT;.</Message>
+    <CodePrev>123</CodePrev>
+    <CodeCurrent>154321955</CodeCurrent>
+    <CodeNext>2495218631</CodeNext>
+  </s8-54>
+  <s8-54>
+    <FileName>pageservicemath.h</FileName>
+    <ErrorCode>V108</ErrorCode>
+    <Message>Incorrect index type: absStepRShift[not a memsize-type]. Use memsize type instead.</Message>
+    <CodePrev>0</CodePrev>
+    <CodeCurrent>3488153864</CodeCurrent>
+    <CodeNext>0</CodeNext>
+  </s8-54>
+  <s8-54>
+    <FileName>servicecalibrator.h</FileName>
+    <ErrorCode>V206</ErrorCode>
+    <Message>Explicit conversion from 'enum *' to 'char *'.</Message>
+    <CodePrev>214</CodePrev>
+    <CodeCurrent>632401452</CodeCurrent>
+    <CodeNext>193</CodeNext>
+  </s8-54>
+  <s8-54>
+    <FileName>pageservice.c</FileName>
+    <ErrorCode>V206</ErrorCode>
+    <Message>Explicit conversion from 'enum *' to 'char *'.</Message>
+    <CodePrev>214</CodePrev>
+    <CodeCurrent>49893183</CodeCurrent>
+    <CodeNext>193</CodeNext>
+  </s8-54>
 </NewDataSet>

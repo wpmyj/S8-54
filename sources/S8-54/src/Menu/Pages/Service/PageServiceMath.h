@@ -251,12 +251,6 @@ const Formula mfMathFormula =
     (int8*)&MATH_FUNC, (int8*)&set.math.koeff1add, (int8*)&set.math.koeff2add, (int8*)&set.math.koeff1mul, (int8*)&set.math.koeff2mul, &curDigit, ChangeF_MathFormula
 };
 
-/// СЕРВИС - Математика - ФУНКЦИЯ - Масштаб
-static bool ActiveF_Math_Scale(void)
-{
-    return MATH_FUNC_MUL || MATH_FUNC_SUM;
-}
-
 // СЕРВИС - МАТЕМАТИКА - СПЕКТР - Отображение
 const Choice mcFFTenable =
 {
