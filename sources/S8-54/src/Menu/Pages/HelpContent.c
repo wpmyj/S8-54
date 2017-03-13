@@ -57,7 +57,6 @@ static void DrawPageDescription(void)
 //------------------------------------------------------------------------------------------------------------------------------------------------------
 void HelpContent_Draw(void)
 {
-    uint startTime = gTimerMS;
     Painter_FillRegionC(GridRight(), 0, 319 - GridRight(), 20, gColorBack);
     Painter_FillRegion(GridRight(), 219, 319 - GridRight(), 21);
     Painter_FillRegion(1, 1, WIDTH, 237);
@@ -84,7 +83,6 @@ void HelpContent_Draw(void)
     {
         DrawPageDescription();
     }
-    Painter_DrawFormText(2, 230, gColorFill, "%d", gTimerMS - startTime);
 }
 
 //------------------------------------------------------------------------------------------------------------------------------------------------------
