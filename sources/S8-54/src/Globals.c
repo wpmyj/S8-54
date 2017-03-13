@@ -96,7 +96,9 @@ volatile BitField gBF =
     0,  // needToMountFlash
 
     0,  // soundIsBeep
-    0   // consoleInPause
+
+    0,  // consoleInPause
+    0   // needStopAfterReadFrameP2P
 };
 
 
@@ -142,21 +144,21 @@ DataSettings    *gDSmemLast = 0;
 
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-int NumBytesInChannel(DataSettings *ds)
+int NumBytesInChannel(const DataSettings *ds)
 {
     return FPGA_NUM_POINTS_2_NumPoints((NumPoinstFPGA)ds->indexLength);
 }
 
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
-int NumBytesInData(DataSettings *ds)
+int NumBytesInData(const DataSettings *ds)
 {
     return NumBytesInChannel(ds) * ( ds->enableA + ds->enableB);
 }
 
 
 //---------------------------------------------------------------------------------------------------------------------------------------------------
-int NumPointsInChannel(DataSettings *ds)
+int NumPointsInChannel(const DataSettings *ds)
 {
     if (ds->peackDet == 0)
     {

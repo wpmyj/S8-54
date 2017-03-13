@@ -1399,4 +1399,708 @@
     <CodeCurrent>1672916989</CodeCurrent>
     <CodeNext>2829422791</CodeNext>
   </s8-54>
+  <s8-54>
+    <FileName>controls.c</FileName>
+    <ErrorCode>V2006</ErrorCode>
+    <Message>Implicit type conversion from enum type to integer type.</Message>
+    <CodePrev>123</CodePrev>
+    <CodeCurrent>1494407872</CodeCurrent>
+    <CodeNext>125</CodeNext>
+  </s8-54>
+  <s8-54>
+    <FileName>controls.c</FileName>
+    <ErrorCode>V2006</ErrorCode>
+    <Message>Implicit type conversion from enum type to integer type.</Message>
+    <CodePrev>123</CodePrev>
+    <CodeCurrent>1447577041</CodeCurrent>
+    <CodeNext>125</CodeNext>
+  </s8-54>
+  <s8-54>
+    <FileName>panelfunctions.c</FileName>
+    <ErrorCode>V112</ErrorCode>
+    <Message>Dangerous magic number _ used: return _;.</Message>
+    <CodePrev>125</CodePrev>
+    <CodeCurrent>11243</CodeCurrent>
+    <CodeNext>125</CodeNext>
+  </s8-54>
+  <s8-54>
+    <FileName>panelfunctions.c</FileName>
+    <ErrorCode>V2006</ErrorCode>
+    <Message>Implicit type conversion from enum type to integer type.</Message>
+    <CodePrev>123</CodePrev>
+    <CodeCurrent>339255433</CodeCurrent>
+    <CodeNext>88117</CodeNext>
+  </s8-54>
+  <s8-54>
+    <FileName>panelfunctions.c</FileName>
+    <ErrorCode>V2006</ErrorCode>
+    <Message>Implicit type conversion from enum type to integer type.</Message>
+    <CodePrev>125</CodePrev>
+    <CodeCurrent>593552197</CodeCurrent>
+    <CodeNext>123</CodeNext>
+  </s8-54>
+  <s8-54>
+    <FileName>panelfunctions.c</FileName>
+    <ErrorCode>V2006</ErrorCode>
+    <Message>Implicit type conversion from enum type to integer type.</Message>
+    <CodePrev>125</CodePrev>
+    <CodeCurrent>1538825928</CodeCurrent>
+    <CodeNext>123</CodeNext>
+  </s8-54>
+  <s8-54>
+    <FileName>panelfunctions.c</FileName>
+    <ErrorCode>V2006</ErrorCode>
+    <Message>Implicit type conversion from enum type to integer type.</Message>
+    <CodePrev>123</CodePrev>
+    <CodeCurrent>2650535</CodeCurrent>
+    <CodeNext>88117</CodeNext>
+  </s8-54>
+  <s8-54>
+    <FileName>panelfunctions.c</FileName>
+    <ErrorCode>V2006</ErrorCode>
+    <Message>Implicit type conversion from enum type to integer type.</Message>
+    <CodePrev>3421025043</CodePrev>
+    <CodeCurrent>621703633</CodeCurrent>
+    <CodeNext>2893728507</CodeNext>
+  </s8-54>
+  <s8-54>
+    <FileName>panelfunctions.c</FileName>
+    <ErrorCode>V2006</ErrorCode>
+    <Message>Implicit type conversion from enum type to integer type.</Message>
+    <CodePrev>621703633</CodePrev>
+    <CodeCurrent>2893728507</CodeCurrent>
+    <CodeNext>2742252991</CodeNext>
+  </s8-54>
+  <s8-54>
+    <FileName>panelfunctions.c</FileName>
+    <ErrorCode>V2006</ErrorCode>
+    <Message>Implicit type conversion from enum type to integer type.</Message>
+    <CodePrev>3421025043</CodePrev>
+    <CodeCurrent>1422976180</CodeCurrent>
+    <CodeNext>956514503</CodeNext>
+  </s8-54>
+  <s8-54>
+    <FileName>panelfunctions.c</FileName>
+    <ErrorCode>V2006</ErrorCode>
+    <Message>Implicit type conversion from enum type to integer type.</Message>
+    <CodePrev>1422976180</CodePrev>
+    <CodeCurrent>956514503</CodeCurrent>
+    <CodeNext>244229353</CodeNext>
+  </s8-54>
+  <s8-54>
+    <FileName>panel.c</FileName>
+    <ErrorCode>V122</ErrorCode>
+    <Message>Memsize type is used in the struct/class.</Message>
+    <CodePrev>123</CodePrev>
+    <CodeCurrent>1341993702</CodeCurrent>
+    <CodeNext>967849203</CodeNext>
+  </s8-54>
+  <s8-54>
+    <FileName>panel.c</FileName>
+    <ErrorCode>V122</ErrorCode>
+    <Message>Memsize type is used in the struct/class.</Message>
+    <CodePrev>1341993702</CodePrev>
+    <CodeCurrent>967849203</CodeCurrent>
+    <CodeNext>544923</CodeNext>
+  </s8-54>
+  <s8-54>
+    <FileName>panel.c</FileName>
+    <ErrorCode>V122</ErrorCode>
+    <Message>Memsize type is used in the struct/class.</Message>
+    <CodePrev>123</CodePrev>
+    <CodeCurrent>2057532836</CodeCurrent>
+    <CodeNext>3975607653</CodeNext>
+  </s8-54>
+  <s8-54>
+    <FileName>panel.c</FileName>
+    <ErrorCode>V122</ErrorCode>
+    <Message>Memsize type is used in the struct/class.</Message>
+    <CodePrev>2057532836</CodePrev>
+    <CodeCurrent>3975607653</CodeCurrent>
+    <CodeNext>2206949502</CodeNext>
+  </s8-54>
+  <s8-54>
+    <FileName>panel.c</FileName>
+    <ErrorCode>V122</ErrorCode>
+    <Message>Memsize type is used in the struct/class.</Message>
+    <CodePrev>3975607653</CodePrev>
+    <CodeCurrent>2206949502</CodeCurrent>
+    <CodeNext>68241</CodeNext>
+  </s8-54>
+  <s8-54>
+    <FileName>panel.c</FileName>
+    <ErrorCode>V768</ErrorCode>
+    <Message>The variable 'relButton' is of enum type. It is odd that it is used as a variable of a Boolean-type.</Message>
+    <CodePrev>1430219040</CodePrev>
+    <CodeCurrent>371849</CodeCurrent>
+    <CodeNext>123</CodeNext>
+  </s8-54>
+  <s8-54>
+    <FileName>panel.c</FileName>
+    <ErrorCode>V768</ErrorCode>
+    <Message>The variable 'prButton' is of enum type. It is odd that it is used as a variable of a Boolean-type.</Message>
+    <CodePrev>1431247488</CodePrev>
+    <CodeCurrent>184969</CodeCurrent>
+    <CodeNext>123</CodeNext>
+  </s8-54>
+  <s8-54>
+    <FileName>panel.c</FileName>
+    <ErrorCode>V768</ErrorCode>
+    <Message>The variable 'rLeft' is of enum type. It is odd that it is used as a variable of a Boolean-type.</Message>
+    <CodePrev>3998754967</CodePrev>
+    <CodeCurrent>22769</CodeCurrent>
+    <CodeNext>123</CodeNext>
+  </s8-54>
+  <s8-54>
+    <FileName>panel.c</FileName>
+    <ErrorCode>V768</ErrorCode>
+    <Message>The variable 'rRight' is of enum type. It is odd that it is used as a variable of a Boolean-type.</Message>
+    <CodePrev>616001345</CodePrev>
+    <CodeCurrent>45577</CodeCurrent>
+    <CodeNext>123</CodeNext>
+  </s8-54>
+  <s8-54>
+    <FileName>panel.c</FileName>
+    <ErrorCode>V768</ErrorCode>
+    <Message>The variable 'rPress' is of enum type. It is odd that it is used as a variable of a Boolean-type.</Message>
+    <CodePrev>2796841792</CodePrev>
+    <CodeCurrent>45963</CodeCurrent>
+    <CodeNext>123</CodeNext>
+  </s8-54>
+  <s8-54>
+    <FileName>panel.c</FileName>
+    <ErrorCode>V768</ErrorCode>
+    <Message>The variable 'rRelease' is of enum type. It is odd that it is used as a variable of a Boolean-type.</Message>
+    <CodePrev>1792586103</CodePrev>
+    <CodeCurrent>183223</CodeCurrent>
+    <CodeNext>123</CodeNext>
+  </s8-54>
+  <s8-54>
+    <FileName>panel.c</FileName>
+    <ErrorCode>V768</ErrorCode>
+    <Message>The variable 'pressButton' is of enum type. It is odd that it is used as a variable of a Boolean-type.</Message>
+    <CodePrev>123</CodePrev>
+    <CodeCurrent>1495817</CodeCurrent>
+    <CodeNext>123</CodeNext>
+  </s8-54>
+  <s8-54>
+    <FileName>panel.c</FileName>
+    <ErrorCode>V768</ErrorCode>
+    <Message>The variable 'releaseButton' is of enum type. It is odd that it is used as a variable of a Boolean-type.</Message>
+    <CodePrev>123</CodePrev>
+    <CodeCurrent>5929993</CodeCurrent>
+    <CodeNext>123</CodeNext>
+  </s8-54>
+  <s8-54>
+    <FileName>panel.c</FileName>
+    <ErrorCode>V768</ErrorCode>
+    <Message>The variable 'pressButton' is of enum type. It is odd that it is used as a variable of a Boolean-type.</Message>
+    <CodePrev>125</CodePrev>
+    <CodeCurrent>18567945</CodeCurrent>
+    <CodeNext>123</CodeNext>
+  </s8-54>
+  <s8-54>
+    <FileName>panel.c</FileName>
+    <ErrorCode>V768</ErrorCode>
+    <Message>The variable 'regLeft' is of enum type. It is odd that it is used as a variable of a Boolean-type.</Message>
+    <CodePrev>125</CodePrev>
+    <CodeCurrent>1159697</CodeCurrent>
+    <CodeNext>123</CodeNext>
+  </s8-54>
+  <s8-54>
+    <FileName>panel.c</FileName>
+    <ErrorCode>V768</ErrorCode>
+    <Message>The variable 'regRight' is of enum type. It is odd that it is used as a variable of a Boolean-type.</Message>
+    <CodePrev>125</CodePrev>
+    <CodeCurrent>2320329</CodeCurrent>
+    <CodeNext>123</CodeNext>
+  </s8-54>
+  <s8-54>
+    <FileName>panel.c</FileName>
+    <ErrorCode>V768</ErrorCode>
+    <Message>The variable 'regPress' is of enum type. It is odd that it is used as a variable of a Boolean-type.</Message>
+    <CodePrev>125</CodePrev>
+    <CodeCurrent>2319947</CodeCurrent>
+    <CodeNext>123</CodeNext>
+  </s8-54>
+  <s8-54>
+    <FileName>panel.c</FileName>
+    <ErrorCode>V768</ErrorCode>
+    <Message>The variable 'regRelease' is of enum type. It is odd that it is used as a variable of a Boolean-type.</Message>
+    <CodePrev>125</CodePrev>
+    <CodeCurrent>9280695</CodeCurrent>
+    <CodeNext>123</CodeNext>
+  </s8-54>
+  <s8-54>
+    <FileName>panel.c</FileName>
+    <ErrorCode>V2006</ErrorCode>
+    <Message>Implicit type conversion from enum type to integer type.</Message>
+    <CodePrev>123</CodePrev>
+    <CodeCurrent>2087908427</CodeCurrent>
+    <CodeNext>868375374</CodeNext>
+  </s8-54>
+  <s8-54>
+    <FileName>panel.c</FileName>
+    <ErrorCode>V111</ErrorCode>
+    <Message>Call of function 'Log_Trace' with variable number of arguments. Sixth argument has memsize type.</Message>
+    <CodePrev>24217193</CodePrev>
+    <CodeCurrent>1183386092</CodeCurrent>
+    <CodeNext>125</CodeNext>
+  </s8-54>
+  <s8-54>
+    <FileName>panel.c</FileName>
+    <ErrorCode>V2006</ErrorCode>
+    <Message>Implicit type conversion from enum type to integer type.</Message>
+    <CodePrev>2651912432</CodePrev>
+    <CodeCurrent>1581025903</CodeCurrent>
+    <CodeNext>383482171</CodeNext>
+  </s8-54>
+  <s8-54>
+    <FileName>panel.c</FileName>
+    <ErrorCode>V2006</ErrorCode>
+    <Message>Implicit type conversion from enum type to integer type.</Message>
+    <CodePrev>123</CodePrev>
+    <CodeCurrent>1490965188</CodeCurrent>
+    <CodeNext>2422515236</CodeNext>
+  </s8-54>
+  <s8-54>
+    <FileName>panel.c</FileName>
+    <ErrorCode>V2006</ErrorCode>
+    <Message>Implicit type conversion from enum type to integer type.</Message>
+    <CodePrev>123</CodePrev>
+    <CodeCurrent>4021707001</CodeCurrent>
+    <CodeNext>125</CodeNext>
+  </s8-54>
+  <s8-54>
+    <FileName>panel.c</FileName>
+    <ErrorCode>V2006</ErrorCode>
+    <Message>Implicit type conversion from enum type to integer type.</Message>
+    <CodePrev>123</CodePrev>
+    <CodeCurrent>4021154017</CodeCurrent>
+    <CodeNext>125</CodeNext>
+  </s8-54>
+  <s8-54>
+    <FileName>panel.c</FileName>
+    <ErrorCode>V2006</ErrorCode>
+    <Message>Implicit type conversion from enum type to integer type.</Message>
+    <CodePrev>59255873</CodePrev>
+    <CodeCurrent>2010183859</CodeCurrent>
+    <CodeNext>5664041</CodeNext>
+  </s8-54>
+  <s8-54>
+    <FileName>panel.c</FileName>
+    <ErrorCode>V2006</ErrorCode>
+    <Message>Implicit type conversion from enum type to integer type.</Message>
+    <CodePrev>237020849</CodePrev>
+    <CodeCurrent>3198554902</CodeCurrent>
+    <CodeNext>22843689</CodeNext>
+  </s8-54>
+  <s8-54>
+    <FileName>flash.c</FileName>
+    <ErrorCode>V205</ErrorCode>
+    <Message>Explicit conversion of pointer type to _-bit integer type: (uint) &amp; array-&gt;datas[num].address</Message>
+    <CodePrev>0</CodePrev>
+    <CodeCurrent>2276064551</CodeCurrent>
+    <CodeNext>3471139948</CodeNext>
+  </s8-54>
+  <s8-54>
+    <FileName>flash.c</FileName>
+    <ErrorCode>V205</ErrorCode>
+    <Message>Explicit conversion of pointer type to _-bit integer type: (uint) &amp; array-&gt;datas[num].ds</Message>
+    <CodePrev>2276064551</CodePrev>
+    <CodeCurrent>3471139948</CodeCurrent>
+    <CodeNext>125</CodeNext>
+  </s8-54>
+  <s8-54>
+    <FileName>flash.c</FileName>
+    <ErrorCode>V204</ErrorCode>
+    <Message>Explicit conversion from _-bit integer type to pointer type: (uint_ *) addrData</Message>
+    <CodePrev>123</CodePrev>
+    <CodeCurrent>85276705</CodeCurrent>
+    <CodeNext>925461223</CodeNext>
+  </s8-54>
+  <s8-54>
+    <FileName>flash.c</FileName>
+    <ErrorCode>V204</ErrorCode>
+    <Message>Explicit conversion from _-bit integer type to pointer type: (uint_ *) addrData</Message>
+    <CodePrev>123</CodePrev>
+    <CodeCurrent>85538849</CodeCurrent>
+    <CodeNext>125</CodeNext>
+  </s8-54>
+  <s8-54>
+    <FileName>ram.c</FileName>
+    <ErrorCode>V205</ErrorCode>
+    <Message>Explicit conversion of pointer type to _-bit integer type: (uint) addrRAM</Message>
+    <CodePrev>0</CodePrev>
+    <CodeCurrent>84148395</CodeCurrent>
+    <CodeNext>123</CodeNext>
+  </s8-54>
+  <s8-54>
+    <FileName>ram.c</FileName>
+    <ErrorCode>V205</ErrorCode>
+    <Message>Explicit conversion of pointer type to _-bit integer type: (uint) src</Message>
+    <CodePrev>0</CodePrev>
+    <CodeCurrent>3384750940</CodeCurrent>
+    <CodeNext>0</CodeNext>
+  </s8-54>
+  <s8-54>
+    <FileName>ram.c</FileName>
+    <ErrorCode>V205</ErrorCode>
+    <Message>Explicit conversion of pointer type to _-bit integer type: (uint) dest</Message>
+    <CodePrev>0</CodePrev>
+    <CodeCurrent>3384750940</CodeCurrent>
+    <CodeNext>0</CodeNext>
+  </s8-54>
+  <s8-54>
+    <FileName>pageservicemath.h</FileName>
+    <ErrorCode>V2006</ErrorCode>
+    <Message>Implicit type conversion from enum type to integer type.</Message>
+    <CodePrev>447595567</CodePrev>
+    <CodeCurrent>166391981</CodeCurrent>
+    <CodeNext>125</CodeNext>
+  </s8-54>
+  <s8-54>
+    <FileName>pageservicemath.h</FileName>
+    <ErrorCode>V2006</ErrorCode>
+    <Message>Implicit type conversion from enum type to integer type.</Message>
+    <CodePrev>193</CodePrev>
+    <CodeCurrent>1026794412</CodeCurrent>
+    <CodeNext>125</CodeNext>
+  </s8-54>
+  <s8-54>
+    <FileName>pageservicemath.h</FileName>
+    <ErrorCode>V2006</ErrorCode>
+    <Message>Implicit type conversion from enum type to integer type.</Message>
+    <CodePrev>2402234749</CodePrev>
+    <CodeCurrent>4280571914</CodeCurrent>
+    <CodeNext>125</CodeNext>
+  </s8-54>
+  <s8-54>
+    <FileName>pageservicemath.h</FileName>
+    <ErrorCode>V2006</ErrorCode>
+    <Message>Implicit type conversion from enum type to integer type.</Message>
+    <CodePrev>0</CodePrev>
+    <CodeCurrent>3488153864</CodeCurrent>
+    <CodeNext>0</CodeNext>
+  </s8-54>
+  <s8-54>
+    <FileName>pageservicemath.h</FileName>
+    <ErrorCode>V2006</ErrorCode>
+    <Message>Implicit type conversion from enum type to integer type.</Message>
+    <CodePrev>123</CodePrev>
+    <CodeCurrent>3148070935</CodeCurrent>
+    <CodeNext>123</CodeNext>
+  </s8-54>
+  <s8-54>
+    <FileName>pageservicemath.h</FileName>
+    <ErrorCode>V2006</ErrorCode>
+    <Message>Implicit type conversion from enum type to integer type.</Message>
+    <CodePrev>123</CodePrev>
+    <CodeCurrent>3074129</CodeCurrent>
+    <CodeNext>123</CodeNext>
+  </s8-54>
+  <s8-54>
+    <FileName>menu.c</FileName>
+    <ErrorCode>V2006</ErrorCode>
+    <Message>Implicit type conversion from enum type to integer type.</Message>
+    <CodePrev>0</CodePrev>
+    <CodeCurrent>1724334536</CodeCurrent>
+    <CodeNext>125</CodeNext>
+  </s8-54>
+  <s8-54>
+    <FileName>menu.c</FileName>
+    <ErrorCode>V2006</ErrorCode>
+    <Message>Implicit type conversion from enum type to integer type.</Message>
+    <CodePrev>0</CodePrev>
+    <CodeCurrent>2245052978</CodeCurrent>
+    <CodeNext>125</CodeNext>
+  </s8-54>
+  <s8-54>
+    <FileName>serviceinformation.h</FileName>
+    <ErrorCode>V2007</ErrorCode>
+    <Message>The 'y + dY' expression can be simplified. One of the operands in the '+' operation equals _. Probably it is a mistake.</Message>
+    <CodePrev>3167493451</CodePrev>
+    <CodeCurrent>1923040256</CodeCurrent>
+    <CodeNext>1871257120</CodeNext>
+  </s8-54>
+  <s8-54>
+    <FileName>serviceinformation.h</FileName>
+    <ErrorCode>V2007</ErrorCode>
+    <Message>The 'y + _' expression can be simplified. One of the operands in the '+' operation equals _. Probably it is a mistake.</Message>
+    <CodePrev>1923040256</CodePrev>
+    <CodeCurrent>1871257120</CodeCurrent>
+    <CodeNext>2279857</CodeNext>
+  </s8-54>
+  <s8-54>
+    <FileName>menu.c</FileName>
+    <ErrorCode>V2009</ErrorCode>
+    <Message>Consider rendering the 'item' pointer as a constant one.</Message>
+    <CodePrev>444596251</CodePrev>
+    <CodeCurrent>34662290</CodeCurrent>
+    <CodeNext>123</CodeNext>
+  </s8-54>
+  <s8-54>
+    <FileName>menu.c</FileName>
+    <ErrorCode>V2009</ErrorCode>
+    <Message>Consider rendering the 'item' pointer as a constant one.</Message>
+    <CodePrev>444596251</CodePrev>
+    <CodeCurrent>3091430293</CodeCurrent>
+    <CodeNext>123</CodeNext>
+  </s8-54>
+  <s8-54>
+    <FileName>definition.c</FileName>
+    <ErrorCode>V112</ErrorCode>
+    <Message>Dangerous magic number _ used: ...EIGHT / _ + _ : y + MI_HE...</Message>
+    <CodePrev>123</CodePrev>
+    <CodeCurrent>3572088813</CodeCurrent>
+    <CodeNext>125</CodeNext>
+  </s8-54>
+  <s8-54>
+    <FileName>definition.c</FileName>
+    <ErrorCode>V2006</ErrorCode>
+    <Message>Implicit type conversion from enum type to integer type.</Message>
+    <CodePrev>0</CodePrev>
+    <CodeCurrent>45196993</CodeCurrent>
+    <CodeNext>125</CodeNext>
+  </s8-54>
+  <s8-54>
+    <FileName>fpga.c</FileName>
+    <ErrorCode>V102</ErrorCode>
+    <Message>Usage of non memsize type for pointer arithmetic.</Message>
+    <CodePrev>4170420243</CodePrev>
+    <CodeCurrent>73279</CodeCurrent>
+    <CodeNext>125</CodeNext>
+  </s8-54>
+  <s8-54>
+    <FileName>fpga.c</FileName>
+    <ErrorCode>V102</ErrorCode>
+    <Message>Usage of non memsize type for pointer arithmetic.</Message>
+    <CodePrev>9658209</CodePrev>
+    <CodeCurrent>73279</CodeCurrent>
+    <CodeNext>125</CodeNext>
+  </s8-54>
+  <s8-54>
+    <FileName>globals.c</FileName>
+    <ErrorCode>V104</ErrorCode>
+    <Message>Implicit conversion of 'NumBytesInChannel(ds)' to memsize type in an arithmetic expression: ds-&gt;addrData + NumBytesInChannel(ds)</Message>
+    <CodePrev>123</CodePrev>
+    <CodeCurrent>148304021</CodeCurrent>
+    <CodeNext>125</CodeNext>
+  </s8-54>
+  <s8-54>
+    <FileName>fpga.c</FileName>
+    <ErrorCode>V106</ErrorCode>
+    <Message>Implicit type conversion third argument 'bytesInChannel' of function 'memset' to memsize type.</Message>
+    <CodePrev>123</CodePrev>
+    <CodeCurrent>3574699948</CodeCurrent>
+    <CodeNext>3574175660</CodeNext>
+  </s8-54>
+  <s8-54>
+    <FileName>fpga.c</FileName>
+    <ErrorCode>V106</ErrorCode>
+    <Message>Implicit type conversion third argument 'bytesInChannel' of function 'memset' to memsize type.</Message>
+    <CodePrev>3574699948</CodePrev>
+    <CodeCurrent>3574175660</CodeCurrent>
+    <CodeNext>125</CodeNext>
+  </s8-54>
+  <s8-54>
+    <FileName>fpga.c</FileName>
+    <ErrorCode>V106</ErrorCode>
+    <Message>Implicit type conversion third argument 'bytesInChannel' of function 'memset' to memsize type.</Message>
+    <CodePrev>4209528001</CodePrev>
+    <CodeCurrent>3574699948</CodeCurrent>
+    <CodeNext>3574175660</CodeNext>
+  </s8-54>
+  <s8-54>
+    <FileName>fpga.c</FileName>
+    <ErrorCode>V108</ErrorCode>
+    <Message>Incorrect index type: dataRandB[not a memsize-type]. Use memsize type instead.</Message>
+    <CodePrev>0</CodePrev>
+    <CodeCurrent>1269355601</CodeCurrent>
+    <CodeNext>1244386353</CodeNext>
+  </s8-54>
+  <s8-54>
+    <FileName>fpga.c</FileName>
+    <ErrorCode>V108</ErrorCode>
+    <Message>Incorrect index type: dataRandA[not a memsize-type]. Use memsize type instead.</Message>
+    <CodePrev>1269355601</CodePrev>
+    <CodeCurrent>1244386353</CodeCurrent>
+    <CodeNext>0</CodeNext>
+  </s8-54>
+  <s8-54>
+    <FileName>fpga.c</FileName>
+    <ErrorCode>V108</ErrorCode>
+    <Message>Incorrect index type: data[not a memsize-type]. Use memsize type instead.</Message>
+    <CodePrev>362097089</CodePrev>
+    <CodeCurrent>911975977</CodeCurrent>
+    <CodeNext>0</CodeNext>
+  </s8-54>
+  <s8-54>
+    <FileName>fpga.c</FileName>
+    <ErrorCode>V108</ErrorCode>
+    <Message>Incorrect index type: data[not a memsize-type]. Use memsize type instead.</Message>
+    <CodePrev>123</CodePrev>
+    <CodeCurrent>1483742712</CodeCurrent>
+    <CodeNext>367441</CodeNext>
+  </s8-54>
+  <s8-54>
+    <FileName>fpga.c</FileName>
+    <ErrorCode>V108</ErrorCode>
+    <Message>Incorrect index type: data[not a memsize-type]. Use memsize type instead.</Message>
+    <CodePrev>125</CodePrev>
+    <CodeCurrent>278228929</CodeCurrent>
+    <CodeNext>125</CodeNext>
+  </s8-54>
+  <s8-54>
+    <FileName>fpga.c</FileName>
+    <ErrorCode>V108</ErrorCode>
+    <Message>Incorrect index type: absStepTShift[not a memsize-type]. Use memsize type instead.</Message>
+    <CodePrev>123</CodePrev>
+    <CodeCurrent>624337481</CodeCurrent>
+    <CodeNext>123</CodeNext>
+  </s8-54>
+  <s8-54>
+    <FileName>fpga.c</FileName>
+    <ErrorCode>V118</ErrorCode>
+    <Message>malloc() function accepts a dangerous expression in the capacity of an argument.</Message>
+    <CodePrev>123</CodePrev>
+    <CodeCurrent>2891293759</CodeCurrent>
+    <CodeNext>2857739327</CodeNext>
+  </s8-54>
+  <s8-54>
+    <FileName>fpga.c</FileName>
+    <ErrorCode>V118</ErrorCode>
+    <Message>malloc() function accepts a dangerous expression in the capacity of an argument.</Message>
+    <CodePrev>2891293759</CodePrev>
+    <CodeCurrent>2857739327</CodeCurrent>
+    <CodeNext>0</CodeNext>
+  </s8-54>
+  <s8-54>
+    <FileName>fpga.c</FileName>
+    <ErrorCode>V2003</ErrorCode>
+    <Message>Explicit conversion from 'float' type to signed integer type.</Message>
+    <CodePrev>2130763801</CodePrev>
+    <CodeCurrent>550583211</CodeCurrent>
+    <CodeNext>187973181</CodeNext>
+  </s8-54>
+  <s8-54>
+    <FileName>fpga.c</FileName>
+    <ErrorCode>V2003</ErrorCode>
+    <Message>Explicit conversion from 'float' type to signed integer type.</Message>
+    <CodePrev>4162968572</CodePrev>
+    <CodeCurrent>550583075</CodeCurrent>
+    <CodeNext>187989533</CodeNext>
+  </s8-54>
+  <s8-54>
+    <FileName>fpga.c</FileName>
+    <ErrorCode>V2003</ErrorCode>
+    <Message>Explicit conversion from 'float' type to signed integer type: (int)(_.f / numSigInSec)</Message>
+    <CodePrev>123</CodePrev>
+    <CodeCurrent>2088574219</CodeCurrent>
+    <CodeNext>125</CodeNext>
+  </s8-54>
+  <s8-54>
+    <FileName>fpga.c</FileName>
+    <ErrorCode>V2003</ErrorCode>
+    <Message>Explicit conversion from 'float' type to signed integer type: (int)((rand - minGate) / gScaleRandStat)</Message>
+    <CodePrev>123</CodePrev>
+    <CodeCurrent>2761075476</CodeCurrent>
+    <CodeNext>363017</CodeNext>
+  </s8-54>
+  <s8-54>
+    <FileName>fpga.c</FileName>
+    <ErrorCode>V2003</ErrorCode>
+    <Message>Explicit conversion from 'float' type to signed integer type.</Message>
+    <CodePrev>1717648111</CodePrev>
+    <CodeCurrent>1765167892</CodeCurrent>
+    <CodeNext>1412885</CodeNext>
+  </s8-54>
+  <s8-54>
+    <FileName>fpga.c</FileName>
+    <ErrorCode>V2003</ErrorCode>
+    <Message>Explicit conversion from 'float' type to signed integer type.</Message>
+    <CodePrev>0</CodePrev>
+    <CodeCurrent>3825860315</CodeCurrent>
+    <CodeNext>0</CodeNext>
+  </s8-54>
+  <s8-54>
+    <FileName>fpga.c</FileName>
+    <ErrorCode>V2004</ErrorCode>
+    <Message>Explicit conversion from 'float' type to unsigned integer type: (uint_) minGate</Message>
+    <CodePrev>125</CodePrev>
+    <CodeCurrent>3966553</CodeCurrent>
+    <CodeNext>3180185</CodeNext>
+  </s8-54>
+  <s8-54>
+    <FileName>fpga.c</FileName>
+    <ErrorCode>V2004</ErrorCode>
+    <Message>Explicit conversion from 'float' type to unsigned integer type: (uint_) maxGate</Message>
+    <CodePrev>3966553</CodePrev>
+    <CodeCurrent>3180185</CodeCurrent>
+    <CodeNext>0</CodeNext>
+  </s8-54>
+  <s8-54>
+    <FileName>fpga.c</FileName>
+    <ErrorCode>V2006</ErrorCode>
+    <Message>Implicit type conversion from enum type to integer type.</Message>
+    <CodePrev>123</CodePrev>
+    <CodeCurrent>2591597956</CodeCurrent>
+    <CodeNext>1651185</CodeNext>
+  </s8-54>
+  <s8-54>
+    <FileName>fpga.c</FileName>
+    <ErrorCode>V2006</ErrorCode>
+    <Message>Implicit type conversion from enum type to integer type.</Message>
+    <CodePrev>1717648111</CodePrev>
+    <CodeCurrent>1765167892</CodeCurrent>
+    <CodeNext>1412885</CodeNext>
+  </s8-54>
+  <s8-54>
+    <FileName>fpga.c</FileName>
+    <ErrorCode>V2006</ErrorCode>
+    <Message>Implicit type conversion from enum type to integer type.</Message>
+    <CodePrev>0</CodePrev>
+    <CodeCurrent>1551395</CodeCurrent>
+    <CodeNext>123</CodeNext>
+  </s8-54>
+  <s8-54>
+    <FileName>fpga.c</FileName>
+    <ErrorCode>V2006</ErrorCode>
+    <Message>Implicit type conversion from enum type to integer type.</Message>
+    <CodePrev>6773141</CodePrev>
+    <CodeCurrent>9550941</CodeCurrent>
+    <CodeNext>1306418629</CodeNext>
+  </s8-54>
+  <s8-54>
+    <FileName>fpga.c</FileName>
+    <ErrorCode>V2006</ErrorCode>
+    <Message>Implicit type conversion from enum type to integer type.</Message>
+    <CodePrev>123</CodePrev>
+    <CodeCurrent>1551395</CodeCurrent>
+    <CodeNext>123</CodeNext>
+  </s8-54>
+  <s8-54>
+    <FileName>fpga.c</FileName>
+    <ErrorCode>V2006</ErrorCode>
+    <Message>Implicit type conversion from enum type to integer type.</Message>
+    <CodePrev>0</CodePrev>
+    <CodeCurrent>544085845</CodeCurrent>
+    <CodeNext>0</CodeNext>
+  </s8-54>
+  <s8-54>
+    <FileName>fpga.c</FileName>
+    <ErrorCode>V2006</ErrorCode>
+    <Message>Implicit type conversion from enum type to integer type.</Message>
+    <CodePrev>123</CodePrev>
+    <CodeCurrent>624337481</CodeCurrent>
+    <CodeNext>123</CodeNext>
+  </s8-54>
+  <s8-54>
+    <FileName>fpga.c</FileName>
+    <ErrorCode>V2006</ErrorCode>
+    <Message>Implicit type conversion from enum type to integer type.</Message>
+    <CodePrev>0</CodePrev>
+    <CodeCurrent>3825860315</CodeCurrent>
+    <CodeNext>0</CodeNext>
+  </s8-54>
 </NewDataSet>

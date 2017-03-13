@@ -80,7 +80,8 @@ typedef struct
 
     uint soundIsBeep                : 1;    // Устанавливается в 1, когда идёт воспроизведение звука. Нужно как временный костыль - иначе зависает, когда сттирается флеш
 
-    uint consoleInPause             : 1;    // Если 1, то консоль находится в режиме паузы
+    uint consoleInPause,            : 1;    // Если 1, то консоль находится в режиме паузы
+    uint needStopAfterReadFrameP2P  : 1;    // Если 1, то после считывания очередного фрейма нужно остановить вывод на экран
 } BitField;
 
 
@@ -159,9 +160,9 @@ typedef struct
 } DataSettings;
 
 
-int NumBytesInChannel(DataSettings *ds);    // Возвращает количество байт на канал
-int NumBytesInData(DataSettings *ds);       // Возвращает количество байт в обоих каналах
-int NumPointsInChannel(DataSettings *ds);   // Возвращает количество точек на канал
+int NumBytesInChannel(const DataSettings *ds);  // Возвращает количество байт на канал
+int NumBytesInData(const DataSettings *ds);     // Возвращает количество байт в обоих каналах
+int NumPointsInChannel(const DataSettings *ds); // Возвращает количество точек на канал
 
 // Возвращает 0, если канал выключен
 uint8 *AddressChannel(DataSettings *ds, Channel ch);

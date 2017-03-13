@@ -53,7 +53,7 @@ static void Write(TypeRecord type, uint16 *address, uint data);     // Запись в 
 static void InitADC(void);
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-uint16 READ_DATA_ADC_16(uint16 *address, Channel ch   )
+static uint16 READ_DATA_ADC_16(const uint16 *address, Channel ch   )
 {
     float delta = AVE_VALUE - (RShiftZero - RSHIFT(ch)) / (RSHIFT_IN_CELL / 20.0f);
     BitSet16 _data_;
@@ -331,8 +331,8 @@ static bool CalculateGate(uint16 rand, uint16 *eMin, uint16 *eMax)
             stat[i] = 0;
         }
     }
-    *eMin = (uint16)minGate;
-    *eMax = (uint16)maxGate;
+    *eMin = (uint16)minGate; //-V519
+    *eMax = (uint16)maxGate; //-V519
 
     if ((rand - 5) < minGate || (rand + 5) > maxGate)
     {
@@ -662,8 +662,8 @@ static void DataReadSave(bool necessaryShift, bool first, bool saveToStorage, bo
 
     for (int i = 0; i < numBytes; i++)
     {
-        LIMITATION(dataA[i], dataA[i], MIN_VALUE, MAX_VALUE);
-        LIMITATION(dataB[i], dataB[i], MIN_VALUE, MAX_VALUE);
+        LIMITATION(dataA[i], dataA[i], MIN_VALUE, MAX_VALUE); //-V522
+        LIMITATION(dataB[i], dataB[i], MIN_VALUE, MAX_VALUE); //-V522
     }
 
     if (!IN_RANDOM_MODE)
@@ -968,36 +968,6 @@ void FPGA_ClearData(void)
 void FPGA_SetNumberMeasuresForGates(int number)
 {
     numberMeasuresForGates = number;
-}
-
-
-//------------------------------------------------------------------------------------------------------------------------------------------------------
-uint8 CalculateMin(uint8 buffer[100])
-{
-    uint8 min = buffer[0];
-    for (int i = 1; i < 100; i++)
-    {
-        if (buffer[i] < min)
-        {
-            min = buffer[i];
-        }
-    }
-    return min;
-}
-
-
-//------------------------------------------------------------------------------------------------------------------------------------------------------
-uint8 CalculateMax(uint8 buffer[100])
-{
-    uint8 max = buffer[0];
-    for(int i = 1; i < 100; i++)
-    {
-        if(buffer[i] > max)
-        {
-            max = buffer[i];
-        }
-    }
-    return max;
 }
 
 

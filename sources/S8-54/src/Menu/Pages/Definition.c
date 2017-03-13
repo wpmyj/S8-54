@@ -176,7 +176,7 @@ const void *PageForButton(PanelButton button)
 }
 
 //------------------------------------------------------------------------------------------------------------------------------------------------------
-bool IsMainPage(void *item)
+bool IsMainPage(const void *item)
 {
     return item == &mainPage;
 }

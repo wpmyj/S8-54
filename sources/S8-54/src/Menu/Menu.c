@@ -242,11 +242,7 @@ void Menu_PressButton(PanelButton button)
         return;
     }
 
-    if (pressButton == B_Start)
-    {
-        pressButton = button;
-    } 
-    else if (!MENU_IS_SHOWN)
+    if (!MENU_IS_SHOWN)
     {
         for (int i = SIZE_BUFFER_FOR_BUTTONS - 1; i > 0; i--)
         {
