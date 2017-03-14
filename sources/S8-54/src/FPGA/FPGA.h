@@ -1,15 +1,15 @@
-﻿#pragma once
-
-
+#pragma once
 #include "defines.h"
 #include "FPGA/FPGAtypes.h"
+#include "Globals.h"
 #include "Panel/Controls.h"
 #include "Settings/Settings.h"
 
+
 extern uint16 gPost;
 extern int16 gPred;
-
 extern StateWorkFPGA fpgaStateWork;
+
 
 void FPGA_Init(void);
 

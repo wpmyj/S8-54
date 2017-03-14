@@ -1355,6 +1355,16 @@
           <GroupName>Settings</GroupName>
           <Files>
             <File>
+              <FileName>DataSettings.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\src\Settings\DataSettings.c</FilePath>
+            </File>
+            <File>
+              <FileName>DataSettings.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\src\Settings\DataSettings.h</FilePath>
+            </File>
+            <File>
               <FileName>Settings.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\src\Settings\Settings.c</FilePath>

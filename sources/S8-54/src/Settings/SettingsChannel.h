@@ -1,7 +1,6 @@
-﻿#pragma once
-
-
+#pragma once
 #include "SettingsTypes.h"
+#include "DataSettings.h"
 
 
 #define INVERSE(ch)         (set.chan[ch].inverse)

@@ -192,5 +192,3 @@ typedef struct
 void HardwareErrorHandler(const char *file, const char *function, int line);
 
 #define SAFE_FREE(x) if(x) free(x); (x) = 0;
-
-#include "Globals.h"

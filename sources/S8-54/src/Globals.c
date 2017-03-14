@@ -142,56 +142,6 @@ uint8           *gDataAmemLast = 0;
 uint8           *gDataBmemLast = 0;
 DataSettings    *gDSmemLast = 0;
 
-
-/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-int NumBytesInChannel(const DataSettings *ds)
-{
-    return FPGA_NUM_POINTS_2_NumPoints((NumPoinstFPGA)ds->indexLength);
-}
-
-
-//----------------------------------------------------------------------------------------------------------------------------------------------------
-int NumBytesInData(const DataSettings *ds)
-{
-    return NumBytesInChannel(ds) * ( ds->enableA + ds->enableB);
-}
-
-
-//---------------------------------------------------------------------------------------------------------------------------------------------------
-int NumPointsInChannel(const DataSettings *ds)
-{
-    if (ds->peackDet == 0)
-    {
-        return NumBytesInChannel(ds);
-    }
-    
-    return NumBytesInChannel(ds) * 2;
-}
-
-
-//------------------------------------------------------------------------------------------------------------------------------------------------------
-uint8 *AddressChannel(DataSettings *ds, Channel ch)
-{
-    if (ch == A && ds->enableA)
-    {
-        return ds->addrData;
-    }
-
-    if (ch == B && ds->enableB)
-    {
-        return ds->enableA ? (ds->addrData + NumBytesInChannel(ds)) : ds->addrData;
-    }
-
-    return 0;
-}
-
-DataSettings gDatas[NUM_DATAS];
-uint8 gDataAve[NumChannels][FPGA_MAX_POINTS]; 
-
-int gAddNStop = 0;
-
-void *extraMEM = 0;
-
 //----------------------------------------------------------------------------------------------------------------------------------------------------
 /*
 DataSettings *GetDSforMainSignal(void)

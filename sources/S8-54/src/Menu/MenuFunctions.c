@@ -1,12 +1,13 @@
 // This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++ and C#: http://www.viva64.com
 #include "defines.h"
+#include "MenuFunctions.h"
+#include "Globals.h"
+#include "Log.h"
 #include "Display/Display.h"
 #include "Display/DisplayTypes.h"
 #include "Hardware/Sound.h"
-#include "Log.h"
 #include "MenuItems.h"
-#include "MenuFunctions.h"
 #include "MenuItemsLogic.h"
 #include "Menu.h"
 #include "Panel/Controls.h"

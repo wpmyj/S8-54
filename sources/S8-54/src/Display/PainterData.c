@@ -2,6 +2,7 @@
 // PVS-Studio Static Code Analyzer for C, C++ and C#: http://www.viva64.com
 #include "PainterData.h"
 #include "DisplayTypes.h"
+#include "Globals.h"
 #include "Settings/SettingsDisplay.h"
 #include "FPGA/DataStorage.h"
 #include "Settings/Settings.h"
@@ -68,8 +69,8 @@ void PainterData_DrawData(void)
 {
     xP2P = 0;
 
-	if (DS_NumElementsInStorage() < 2)  // WARN Это сделано для того, чтобы не было артефактов при включении
-                                        // Но не факт, что причина в этом. И в поточечном режиме однозначно долго ждать
+	if (!IN_P2P_MODE && (DS_NumElementsInStorage() < 2))    // WARN Это сделано для того, чтобы не было артефактов при включении
+                                                            // Но не факт, что причина в этом. И в поточечном режиме однозначно долго ждать
 	{
         Painter_DrawRectangleC(GridLeft(), GRID_TOP, GridWidth(), GridFullHeight(), gColorFill);
 		return;
@@ -163,6 +164,11 @@ void PainterData_DrawMemoryWindow(void)
     uint8 *datA = gDataAmemInt;
     uint8 *datB = gDataBmemInt;
     DataSettings *ds = gDSmemInt;
+
+    if (IN_P2P_MODE && !DS_GetLastFrameP2P_RAM(&ds, &datA, &datB))      // Страхуемся от глюков
+    {
+        return;
+    }
 
     uint8 *dA = 0;  // Сюда считаем данные каналов из RAM
     uint8 *dB = 0;

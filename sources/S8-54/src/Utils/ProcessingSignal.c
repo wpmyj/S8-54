@@ -2,6 +2,7 @@
 // PVS-Studio Static Code Analyzer for C, C++ and C#: http://www.viva64.com
 #include "defines.h"
 #include "ProcessingSignal.h"
+#include "Globals.h"
 #include "Math.h"
 #include "GlobalFunctions.h"
 #include "Log.h"
@@ -13,6 +14,7 @@
 #include <math.h>
 #include <string.h>
 #include <limits.h>
+#include <stdlib.h>
 
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

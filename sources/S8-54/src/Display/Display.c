@@ -251,13 +251,7 @@ void Display_Update(void)
         PainterData_DrawMath();
         DrawSpectrum();
         DrawCursors();
-        DrawHiPart();
-        
-        if(DS_COUPLE(gDSmemInt, B) > 2)
-        {
-            LOG_WRITE_TRACE("modeCouple %d", DS_COUPLE(gDSmemInt, B));
-        }
-        
+        DrawHiPart();       
         DrawLowPart();
         DrawCursorsWindow();
         DrawCursorTrigLevel();
@@ -661,19 +655,9 @@ static void DrawLowPart(void)
     Painter_DrawHLineC(GridChannelBottom(), 1, GridLeft() - Measure_GetDeltaGridLeft() - 2, gColorFill);
     Painter_DrawHLine(GridFullBottom(), 1, GridLeft() - Measure_GetDeltaGridLeft() - 2);
     
-    if (DS_COUPLE(gDSmemInt, B) > 2)
-    {
-        LOG_WRITE_TRACE("modeCouple %d", DS_COUPLE(gDSmemInt, B));
-    }
-
     WriteTextVoltage(A, x + 2, y0);
 
     WriteTextVoltage(B, x + 2, y1);
-
-    if (DS_COUPLE(gDSmemInt, B) > 2)
-    {
-        LOG_WRITE_TRACE("modeCouple %d", DS_COUPLE(gDSmemInt, B));
-    }
 
     Painter_DrawVLineC(x + 95, GRID_BOTTOM + 2, SCREEN_HEIGHT - 2, gColorFill);
 
@@ -684,7 +668,10 @@ static void DrawLowPart(void)
     TBase tBase = TBASE;
     int16 tShift = TSHIFT;
 
-    if(!WORK_DIRECT)
+    if((WORK_INT && set.memory.modeShowIntMem == ModeShowIntMem_Direct))
+    { 
+    }
+    else if(!WORK_DIRECT)
     {
         DataSettings *ds = WORK_LAST ? gDSmemLast : gDSmemInt;
         if(ds != 0)

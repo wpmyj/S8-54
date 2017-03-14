@@ -1,4 +1,6 @@
-﻿#pragma once
+#pragma once
+#include "Settings/DataSettings.h"
+#include "Settings/SettingsTypes.h"
 
 
 // Выделяет память из кучи для канала. Настройки длины памяти берёт из ds или set (если ds == 0)

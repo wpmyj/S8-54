@@ -1,6 +1,7 @@
 // This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++ and C#: http://www.viva64.com
 #include "Grid.h"
+#include "Globals.h"
 #include "Settings/Settings.h"
 #include "Menu/Menu.h"
 

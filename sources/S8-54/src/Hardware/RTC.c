@@ -1,13 +1,13 @@
 // This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++ and C#: http://www.viva64.com
 #include "RTC.h"
+#include "Globals.h"
 #include "Log.h"
 #include "Display/Display.h"
 #include "Hardware/Hardware.h"
 #include "Hardware/Timer.h"
 #include "Menu/Menu.h"
 #include "Settings/Settings.h"
-
 #include <stm32f4xx_hal.h>
 #include <stm32f4xx_hal_rtc.h>
 
