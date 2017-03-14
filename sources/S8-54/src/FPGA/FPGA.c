@@ -25,33 +25,30 @@
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 #define NULL_TSHIFT 1000000
 
-
 #define N_KR 100
 const int Kr[] = {N_KR / 1, N_KR / 2, N_KR / 5, N_KR / 10, N_KR / 20};
 
-
 StateWorkFPGA fpgaStateWork = StateWorkFPGA_Stop;
 volatile static int numberMeasuresForGates = 1000;
-
 static DataSettings ds;
-
 static uint timeCompletePredTrig = 0;   // Здесь окончание счёта предзапуска. Если == 0, то предзапуск не завершён.
-
 static uint8* dataRandA = 0;
 static uint8* dataRandB = 0;
-
 static uint timeStart = 0;
 static uint timeSwitchingTrig = 0;
-
 static bool readingPointP2P = false;    // Признак того, что точка и последнего прерывания поточечного вывода прочитана.
-
 uint16 adcValueFPGA = 0;                // Здесь хранится значение считанное с АЦП для правильной расстановки точек
+
+int gRandStat[281];                     // Здесь будут храниться статистики
+float gScaleRandStat = 0.0f;
+
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 static bool ReadPoint(void);                                        // Чтение точки в поточечном режиме
 static void Write(TypeRecord type, uint16 *address, uint data);     // Запись в регистры и альтеру
 static void InitADC(void);
 static void ProcessingAfterReadData(void);                          // Действия, которые нужно предпринять после успешного считывания данных
+
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 static uint16 READ_DATA_ADC_16(const uint16 *address, Channel ch   )
@@ -96,13 +93,11 @@ void FPGA_Init(void)
     InitADC();
 }
 
-
 //---------------------------------------------------------------------------------------------------------------------------------------------------
 uint16* AddressRead(Channel ch)
 {
     return ((ch == A) ? RD_ADC_A : RD_ADC_B);
 }
-
 
 //------------------------------------------------------------------------------------------------------------------------------------------------------
 // Функция вызывается, когда можно считывать очередной сигнал.
@@ -111,13 +106,11 @@ static void OnTimerCanReadData(void)
     gBF.FPGAcanReadData = 1;
 }
 
-
 //------------------------------------------------------------------------------------------------------------------------------------------------------
 void FPGA_SetNumSignalsInSec(int numSigInSec) 
 {
     Timer_SetAndEnable(kNumSignalsInSec, OnTimerCanReadData, (int)(1000.f / numSigInSec));
 }
-
 
 //------------------------------------------------------------------------------------------------------------------------------------------------------
 void FPGA_SwitchingTrig(void)
@@ -135,7 +128,6 @@ void FPGA_SwitchingTrig(void)
     timeSwitchingTrig = gTimerMS;
     Panel_EnableLEDTrig(false);
 }
-
 
 //------------------------------------------------------------------------------------------------------------------------------------------------------
 uint16 ReadFlag(void)
@@ -155,14 +147,12 @@ uint16 ReadFlag(void)
     return flag;
 }
 
-
 //------------------------------------------------------------------------------------------------------------------------------------------------------
 void FPGA_ReadPoint(void)
 {
     readingPointP2P = false;
     ReadPoint();
 }
-
 
 //------------------------------------------------------------------------------------------------------------------------------------------------------
 static bool ReadPoint(void)
@@ -210,7 +200,6 @@ static bool ReadPoint(void)
     return readingPointP2P;
 }
 
-
 //---------------------------------------------------------------------------------------------------------------------------------------------------
 void FPGA_WriteStartToHardware(void)
 {
@@ -245,11 +234,6 @@ void FPGA_Start(void)
 
     fpgaStateWork = StateWorkFPGA_Work;
 }
-
-
-int gRandStat[281];          // Здесь будут храниться статистики
-float gScaleRandStat = 0.0f;
-
 
 //------------------------------------------------------------------------------------------------------------------------------------------------------
 static bool CalculateGate(uint16 rand, uint16 *eMin, uint16 *eMax)
@@ -345,7 +329,6 @@ static bool CalculateGate(uint16 rand, uint16 *eMin, uint16 *eMax)
     return true;
 }
 
-
 //------------------------------------------------------------------------------------------------------------------------------------------------------
 static int CalculateShift(void)            // WARN Не забыть восстановить функцию
 {
@@ -377,7 +360,6 @@ static int CalculateShift(void)            // WARN Не забыть восстановить функци
     return -1;  // set.debug.altShift;      WARN Остановились на жёстком задании дополнительного смещения. На PageDebug выбор закомментирован, можно раскомментировать при необходимости
 }
 
-
 //------------------------------------------------------------------------------------------------------------------------------------------------------
 #define WRITE_AND_OR_INVERSE(addr, data, ch)                                              \
     if(INVERSE(ch))                                                           \
@@ -385,7 +367,6 @@ static int CalculateShift(void)            // WARN Не забыть восстановить функци
         data = (uint8)((int)(2 * AVE_VALUE) - LimitationUInt8(data, MIN_VALUE, MAX_VALUE)); \
     }                                                                                       \
     *(addr) = data;
-
 
 //---------------------------------------------------------------------------------------------------------------------------------------------------
 #define BALANCE_DATA(pData, balance)        \
@@ -403,7 +384,6 @@ static int CalculateShift(void)            // WARN Не забыть восстановить функци
         *pData = (uint8)n;                  \
      }                                      \
     nowBalance = !nowBalance;
-
 
 static void ReadRandomizeChannel(Channel ch, uint16 addrFirstRead, uint8 *data, const uint8 *last, int step, int numSkipped)
 {
@@ -530,7 +510,6 @@ static bool ReadRandomizeModeSave(bool first, bool last, bool onlySave)
     return true;
 }
 
-
 //------------------------------------------------------------------------------------------------------------------------------------------------------
 // balance - свдиг точки вверх/вниз для балансировки
 static void ReadChannel(uint8 *data, Channel ch, int length, uint16 nStop, bool shift, int balance)
@@ -586,14 +565,12 @@ static void ReadChannel(uint8 *data, Channel ch, int length, uint16 nStop, bool 
     }
 }
 
-
 //---------------------------------------------------------------------------------------------------------------------------------------------------
 // Кажется, рассчитываем адрес последней записи
 uint16 ReadNStop(void)
 {
     return *RD_ADDR_NSTOP + 16384 - (uint16)sMemory_NumBytesInChannel(false) / 2 - 1 - (uint16)gAddNStop;
 }
-
 
 //------------------------------------------------------------------------------------------------------------------------------------------------------
 static void ReadRealMode(uint8 *dataA, uint8 *dataB, bool necessaryShift)
@@ -623,7 +600,6 @@ static void ReadRealMode(uint8 *dataA, uint8 *dataB, bool necessaryShift)
     gBF.FPGAinProcessingOfRead = 0;
 }
 
-
 //------------------------------------------------------------------------------------------------------------------------------------------------------
 static void InverseDataIsNecessary(Channel ch, uint8 *data)
 {
@@ -635,7 +611,6 @@ static void InverseDataIsNecessary(Channel ch, uint8 *data)
         }
     }
 }
-
 
 //------------------------------------------------------------------------------------------------------------------------------------------------------
 // Прочитать данные.
@@ -863,7 +838,6 @@ TBase CalculateTBase(float freq)
     return TBase_200ms;
 }
 
-
 //------------------------------------------------------------------------------------------------------------------------------------------------------
 void FPGA_Update(void)
 {
@@ -903,7 +877,6 @@ void FPGA_Update(void)
     gBF.FPGAcanReadData = 0;
 }
 
-
 //----------------------------------------------------------------------------------------------------------------------------------------------------
 static void OnPressStartStopInP2P(void)
 {
@@ -923,7 +896,6 @@ static void OnPressStartStopInP2P(void)
         }
     }
 }
-
 
 //------------------------------------------------------------------------------------------------------------------------------------------------------
 void FPGA_OnPressStartStop(void)
@@ -949,7 +921,6 @@ void FPGA_OnPressStartStop(void)
     } 
 }
 
-
 //------------------------------------------------------------------------------------------------------------------------------------------------------
 void FPGA_Stop(bool pause) 
 {
@@ -957,7 +928,6 @@ void FPGA_Stop(bool pause)
     HAL_NVIC_DisableIRQ(EXTI2_IRQn);        // Выключаем прерывание на чтение считанной точки
     fpgaStateWork = pause ? StateWorkFPGA_Pause : StateWorkFPGA_Stop;
 }
-
 
 //------------------------------------------------------------------------------------------------------------------------------------------------------
 void FPGA_Reset(void)
@@ -970,13 +940,11 @@ void FPGA_Reset(void)
     }
 }
 
-
 //------------------------------------------------------------------------------------------------------------------------------------------------------
 bool FPGA_IsRunning(void)
 {
     return fpgaStateWork != StateWorkFPGA_Stop;
 }
-
 
 //------------------------------------------------------------------------------------------------------------------------------------------------------
 void FPGA_ClearData(void)
@@ -985,13 +953,11 @@ void FPGA_ClearData(void)
     RAM_MemClear(RAM(FPGA_DATA_B), FPGA_MAX_POINTS);
 }
 
-
 //------------------------------------------------------------------------------------------------------------------------------------------------------
 void FPGA_SetNumberMeasuresForGates(int number)
 {
     numberMeasuresForGates = number;
 }
-
 
 //------------------------------------------------------------------------------------------------------------------------------------------------------
 void StopTemporaryPause(void)
@@ -999,14 +965,12 @@ void StopTemporaryPause(void)
     gBF.FPGAtemporaryPause = 0;
 }
 
-
 //------------------------------------------------------------------------------------------------------------------------------------------------------
 void FPGA_TemporaryPause(void)
 {
     gBF.FPGAtemporaryPause = 1;
     Timer_SetAndStartOnce(kTemporaryPauseFPGA, StopTemporaryPause, 100);
 }
-
 
 //------------------------------------------------------------------------------------------------------------------------------------------------------
 void FPGA_FillDataPointer(DataSettings *ds)
@@ -1031,7 +995,6 @@ void FPGA_FillDataPointer(DataSettings *ds)
     ds->multiplierB = DIVIDER_B; //-V2006
     ds->time.timeMS = 0;                        // Это важно для режима поточеного вывода. Означает, что полный сигнал ещё не считан
 }
-
 
 //------------------------------------------------------------------------------------------------------------------------------------------------------
 void FPGA_FindAndSetTrigLevel(void)
@@ -1062,7 +1025,6 @@ void FPGA_FindAndSetTrigLevel(void)
 
     FPGA_SetTrigLev(TRIGSOURCE, (int16)trigLev);
 }
-
 
 //------------------------------------------------------------------------------------------------------------------------------------------------------
 void FPGA_Write(TypeRecord type, uint16 *address, uint data, bool restart)
@@ -1115,7 +1077,6 @@ void FPGA_Write(TypeRecord type, uint16 *address, uint data, bool restart)
     Panel_EnableLEDTrig(false); // После каждой засылки выключаем лампочку синхронизации
 }
 
-
 //------------------------------------------------------------------------------------------------------------------------------------------------------
 static uint16 PinSelect(uint16 *addrAnalog)
 {
@@ -1123,14 +1084,12 @@ static uint16 PinSelect(uint16 *addrAnalog)
     return pins[(int)addrAnalog]; //-V205
 }
 
-
 //------------------------------------------------------------------------------------------------------------------------------------------------------
 static GPIO_TypeDef* AddrGPIO(uint16 *addrAnalog)
 {
     GPIO_TypeDef *gpio[4] = {GPIOD, GPIOD, GPIOG, GPIOG};
     return gpio[(int)addrAnalog]; //-V205
 }
-
 
 //------------------------------------------------------------------------------------------------------------------------------------------------------
 #define pinCLC      GPIO_PIN_10
@@ -1140,7 +1099,6 @@ static GPIO_TypeDef* AddrGPIO(uint16 *addrAnalog)
 #define CLC_HI              HAL_GPIO_WritePin(GPIOC, pinCLC, GPIO_PIN_SET);
 #define CLC_LOW             HAL_GPIO_WritePin(GPIOC, pinCLC, GPIO_PIN_RESET);
 #define DATA_SET(x)         HAL_GPIO_WritePin(GPIOC, pinData, x);
-
 
 //---------------------------------------------------------------------------------------------------------------------------------------------------
 static void Write(TypeRecord type, uint16 *address, uint data)
@@ -1178,7 +1136,6 @@ static void Write(TypeRecord type, uint16 *address, uint data)
         CHIP_SELECT_IN_HI;
     }
 }
-
 
 //------------------------------------------------------------------------------------------------------------------------------------------------------
 static void InitADC(void)
