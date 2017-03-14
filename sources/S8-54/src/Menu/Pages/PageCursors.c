@@ -542,7 +542,7 @@ static void SetShiftCursPosU(Channel ch, int numCur, float delta)
         CURsU_POS(ch, numCur) = LimitationFloat(CURsU_POS(ch, numCur) - delta, 0, MAX_POS_U);   // WARN одинаковые ветки
     }
     else
-    {
+    { //-V523
         CURsU_POS(ch, numCur) = LimitationFloat(CURsU_POS(ch, numCur) - delta, 0, MAX_POS_U);
     }
 }
@@ -554,7 +554,7 @@ static void SetCursPosU(Channel ch, int numCur, float pos)
         CURsU_POS(ch, numCur) = LimitationFloat(pos, 0, MAX_POS_U);                             // WARN одинаковые ветки
     }
     else
-    {
+    { //-V523
         CURsU_POS(ch, numCur) = LimitationFloat(pos, 0, MAX_POS_U);
     }
 }
@@ -566,7 +566,7 @@ void SetShiftCursPosT(Channel ch, int numCur, float delta)
         CURsT_POS(ch, numCur) = LimitationFloat(CURsT_POS(ch, numCur) + delta, 0, MAX_POS_T);   // WARN одинаковые ветки
     }
     else
-    {
+    { //-V523
         CURsT_POS(ch, numCur) = LimitationFloat(CURsT_POS(ch, numCur) + delta, 0, MAX_POS_T);
     }
 }
@@ -578,7 +578,7 @@ void SetCursPosT(Channel ch, int numCur, float pos)
         CURsT_POS(ch, numCur) = LimitationFloat(pos, 0, MAX_POS_T);                             // WARN одинаковые ветки
     }
     else
-    {
+    { //-V523
         CURsT_POS(ch, numCur) = LimitationFloat(pos, 0, MAX_POS_T);
     }
 }

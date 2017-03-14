@@ -3463,4 +3463,100 @@
     <CodeCurrent>49502873</CodeCurrent>
     <CodeNext>193</CodeNext>
   </s8-54>
+  <s8-54>
+    <FileName>ethernetif.c</FileName>
+    <ErrorCode>V204</ErrorCode>
+    <Message>Explicit conversion from _-bit integer type to pointer type.</Message>
+    <CodePrev>393041</CodePrev>
+    <CodeCurrent>1168535802</CodeCurrent>
+    <CodeNext>821674421</CodeNext>
+  </s8-54>
+  <s8-54>
+    <FileName>ethernetif.c</FileName>
+    <ErrorCode>V204</ErrorCode>
+    <Message>Explicit conversion from _-bit integer type to pointer type.</Message>
+    <CodePrev>661854667</CodePrev>
+    <CodeCurrent>122763731</CodeCurrent>
+    <CodeNext>0</CodeNext>
+  </s8-54>
+  <s8-54>
+    <FileName>ethernetif.c</FileName>
+    <ErrorCode>V204</ErrorCode>
+    <Message>Explicit conversion from _-bit integer type to pointer type: (uint__t *)(DmaTxDesc-&gt;Buffer_Addr)</Message>
+    <CodePrev>0</CodePrev>
+    <CodeCurrent>2960265537</CodeCurrent>
+    <CodeNext>0</CodeNext>
+  </s8-54>
+  <s8-54>
+    <FileName>ethernetif.c</FileName>
+    <ErrorCode>V204</ErrorCode>
+    <Message>Explicit conversion from _-bit integer type to pointer type.</Message>
+    <CodePrev>1223533993</CodePrev>
+    <CodeCurrent>1224576035</CodeCurrent>
+    <CodeNext>0</CodeNext>
+  </s8-54>
+  <s8-54>
+    <FileName>ethernetif.c</FileName>
+    <ErrorCode>V204</ErrorCode>
+    <Message>Explicit conversion from _-bit integer type to pointer type.</Message>
+    <CodePrev>661854667</CodePrev>
+    <CodeCurrent>122763731</CodeCurrent>
+    <CodeNext>2727481665</CodeNext>
+  </s8-54>
+  <s8-54>
+    <FileName>ethernetif.c</FileName>
+    <ErrorCode>V204</ErrorCode>
+    <Message>Explicit conversion from _-bit integer type to pointer type: (uint__t *)(dmarxdesc-&gt;Buffer_Addr)</Message>
+    <CodePrev>122763731</CodePrev>
+    <CodeCurrent>2727481665</CodeCurrent>
+    <CodeNext>0</CodeNext>
+  </s8-54>
+  <s8-54>
+    <FileName>ethernetif.c</FileName>
+    <ErrorCode>V204</ErrorCode>
+    <Message>Explicit conversion from _-bit integer type to pointer type.</Message>
+    <CodePrev>1978013761</CodePrev>
+    <CodeCurrent>122763731</CodeCurrent>
+    <CodeNext>125</CodeNext>
+  </s8-54>
+  <s8-54>
+    <FileName>usbd_desc.c</FileName>
+    <ErrorCode>V523</ErrorCode>
+    <Message>The 'then' statement is equivalent to the 'else' statement.</Message>
+    <CodePrev>539</CodePrev>
+    <CodeCurrent>123</CodeCurrent>
+    <CodeNext>4059778888</CodeNext>
+  </s8-54>
+  <s8-54>
+    <FileName>usbd_desc.c</FileName>
+    <ErrorCode>V523</ErrorCode>
+    <Message>The 'then' statement is equivalent to the 'else' statement.</Message>
+    <CodePrev>539</CodePrev>
+    <CodeCurrent>123</CodeCurrent>
+    <CodeNext>4151487310</CodeNext>
+  </s8-54>
+  <s8-54>
+    <FileName>stm32f4xx_it.c</FileName>
+    <ErrorCode>V654</ErrorCode>
+    <Message>The condition 'run' of loop is always true.</Message>
+    <CodePrev>290133</CodePrev>
+    <CodeCurrent>42257</CodeCurrent>
+    <CodeNext>123</CodeNext>
+  </s8-54>
+  <s8-54>
+    <FileName>stm32f4xx_it.c</FileName>
+    <ErrorCode>V712</ErrorCode>
+    <Message>Be advised that compiler may delete this cycle or make it infinity. Use volatile variable(s) or synchronization primitives to avoid this.</Message>
+    <CodePrev>290133</CodePrev>
+    <CodeCurrent>42257</CodeCurrent>
+    <CodeNext>123</CodeNext>
+  </s8-54>
+  <s8-54>
+    <FileName>system_stm32f4xx.c</FileName>
+    <ErrorCode>V204</ErrorCode>
+    <Message>Explicit conversion from _-bit integer type to pointer type: (SCB_Type *)((_xE_E_UL) + _x_D_UL)</Message>
+    <CodePrev>43</CodePrev>
+    <CodeCurrent>3866177219</CodeCurrent>
+    <CodeNext>100</CodeNext>
+  </s8-54>
 </NewDataSet>
