@@ -126,7 +126,7 @@ static void DrawGridSpectrum(void);
 
 static void DrawSpectrum(void);
 static void DRAW_SPECTRUM(const uint8 *dataIn, int numPoints, Channel ch);
-static void DrawSpectrumChannel(float *spectrum, Color color);
+static void DrawSpectrumChannel(const float *spectrum, Color color);
 static void WriteParametersFFT(Channel ch, float freq0, float density0, float freq1, float density1);
 
 static void DrawCursors(void);                          // Ќарисовать курсоры курсорных измерений
@@ -163,7 +163,7 @@ static int  FirstEmptyString(void);
 static void DeleteFirstString(void);
 static void AddString(const char *string);
 static void ShowWarn(const char *message);
-static void WriteStringAndNumber(char *text, int16 x, int16 y, int number);
+static void WriteStringAndNumber(const char *text, int16 x, int16 y, int number);
 static void DrawStringInRectangle(int x, int y, char const *text);
 static int  CalculateFreeSize(void);
 static void OnTimerShowWarning(void);
@@ -1664,11 +1664,6 @@ static void WriteTextVoltage(Channel ch, int x, int y)
 
     if(enable)
     {
-        if (WORK_INT)
-        {
-            int i = 0;
-        }
-
         const int widthField = 91;
         const int heightField = 8;
 
@@ -1691,7 +1686,7 @@ static void WriteTextVoltage(Channel ch, int x, int y)
 }
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
-static void WriteStringAndNumber(char *text, int16 x, int16 y, int number)
+static void WriteStringAndNumber(const char *text, int16 x, int16 y, int number)
 {
     const int SIZE = 100;
     char buffer[SIZE];
@@ -1929,7 +1924,7 @@ static void DrawGridType3(int left, int top, int right, int bottom, int centerX,
 }
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
-static void DrawSpectrumChannel(float *spectrum, Color color)
+static void DrawSpectrumChannel(const float *spectrum, Color color)
 {
     Painter_SetColor(color);
     int gridLeft = GridLeft();
