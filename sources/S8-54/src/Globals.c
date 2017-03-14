@@ -191,3 +191,11 @@ uint8 gDataAve[NumChannels][FPGA_MAX_POINTS];
 int gAddNStop = 0;
 
 void *extraMEM = 0;
+
+//----------------------------------------------------------------------------------------------------------------------------------------------------
+/*
+DataSettings *GetDSforMainSignal(void)
+{
+
+}
+*/

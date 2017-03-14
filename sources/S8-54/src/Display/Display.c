@@ -1637,9 +1637,8 @@ static void WriteTextVoltage(Channel ch, int x, int y)
     Divider divider = Multiplier_1;
     Range range = Range_2mV;
     uint rShift = 0;
-    int tShift = TSHIFT;
 
-    if (WORK_DIRECT)
+    if (WORK_DIRECT || (WORK_INT && set.memory.modeShowIntMem == ModeShowIntMem_Direct))
     {
         inverse = INVERSE(ch);
         modeCouple = COUPLE(ch);
@@ -1651,26 +1650,25 @@ static void WriteTextVoltage(Channel ch, int x, int y)
     else 
     {
         DataSettings *ds = WORK_LAST ? gDSmemLast : gDSmemInt;
+
         if(ds != 0)
         {
             inverse = DS_INVERSE(ds, ch);
             modeCouple = DS_COUPLE(ds, ch);
-
-            if (modeCouple > 2)
-            {
-                LOG_WRITE_TRACE("modeCouple %d", modeCouple);
-            }
-
             divider = DS_DIVIDER(ds, ch);
             range = DS_RANGE(ds, ch);
             rShift = DS_RSHIFT(ds, ch);            
             enable = DS_ENABLED(ds, ch);
-            tShift = DS_TSHIFT(ds);
         }
     }
 
     if(enable)
     {
+        if (WORK_INT)
+        {
+            int i = 0;
+        }
+
         const int widthField = 91;
         const int heightField = 8;
 
@@ -1682,26 +1680,8 @@ static void WriteTextVoltage(Channel ch, int x, int y)
 
         const int SIZE = 100;
         char buffer[SIZE];
-
         snprintf(buffer, SIZE, "%s\xa5%s\xa5%s", (ch == A) ? (LANG_RU ? "1ê" : "1c") : (LANG_RU ? "2ê" : "2c"), couple[modeCouple], sChannel_Range2String(range, divider));
         
-        if (tShift != 0)
-        {
-            LOG_WRITE_TRACE("tShift %d", tShift);
-            if (DS_COUPLE(gDSmemInt, B) > 2)
-            {
-                LOG_WRITE_TRACE("modeCouple %d", DS_COUPLE(gDSmemInt, B));
-            }
-            if(modeCouple > 2)
-            {
-                LOG_WRITE_TRACE("modeCouple %d", modeCouple);
-            }
-        }
-        else
-        {
-            LOG_WRITE_TRACE("tShift is OK!");
-        }
-
         Painter_DrawTextC(x + 1, y, buffer, colorDraw);
 
         char bufferTemp[SIZE];

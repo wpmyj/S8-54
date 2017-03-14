@@ -47,18 +47,20 @@ static void  DrawDataChannel(uint8 *dataIn, int minY, int maxY);
 static void  DrawDataInRect(int x, uint width, const uint8 *data, int numElems, bool peackDet);
 static void  DrawTPos(int leftX, int rightX);
 static void  DrawTShift(int leftX, int rightX, int numPoints);
-static void  DrawBothChannels(uint8 *dataA, uint8 *dataB);                       // Нарисовать оба канала. Если data == 0, то данные берутся из Processing_GetData
+static void  DrawBothChannels(uint8 *dataA, uint8 *dataB);                              // Нарисовать оба канала. Если data == 0, то данные берутся из Processing_GetData
 static int   FillDataP2P(uint8 *data, DataSettings **ds);
 static void  DrawMarkersForMeasure(float scale);
-static bool  DataBeyondTheBorders(const uint8 *data, int firstPoint, int lastPoint);   // Возвращает true, если изогражение сигнала выходит за пределы экрана
+static bool  DataBeyondTheBorders(const uint8 *data, int firstPoint, int lastPoint);    // Возвращает true, если изогражение сигнала выходит за пределы экрана
 static void  DrawSignalLined(const uint8 *data, int startPoint, int endPoint, int minY, int maxY, float scaleY, float scaleX, bool calculateFiltr);
 static void  DrawSignalPointed(const uint8 *data, int startPoint, int endPoint, int minY, int maxY, float scaleY, float scaleX);
-static int   Ordinate(uint8 x, float scale);                                    // Возвращает точку в экранной координате. Если точка не считана (NONE_VALUE), возвращает -1
+static int   Ordinate(uint8 x, float scale);                                            // Возвращает точку в экранной координате. Если точка не считана (NONE_VALUE), возвращает -1
 static int   FillDataP2PforRecorder(int numPoints, int numPointsDS, int pointsInScreen, uint8 *src, uint8 *dest);
 static int   FillDataP2PforNormal(int numPoints, int numPointsDS, int pointsInScreen, uint8 *src, uint8 *dest);
-static void  DrawLimitLabel(int delta);  // Выоводит сообщение на экране о выходе сигнала за границы экрана. 
-                                         // delta - расстояние от края сетки, на котором находится сообщение. Если delta < 0 - выводится внизу сетки
+static void  DrawLimitLabel(int delta); // Выоводит сообщение на экране о выходе сигнала за границы экрана. 
+                                        // delta - расстояние от края сетки, на котором находится сообщение. Если delta < 0 - выводится внизу сетки
 static void  SendToDisplayDataInRect(int x, const int *min, const int *max, uint width);
+static DataSettings *pCurDS(void);      // Возвращает указатель на настройки рисуемого сигнала
+static DataSettings **ppCurDS(void);     // Возвращает указатель на указатель на настройки рисуемого сигнала
 
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -123,15 +125,15 @@ void PainterData_DrawMath(void)
 
     uint8 *dataRel0 = 0;
     uint8 *dataRel1 = 0;
-    Processing_GetData(&dataRel0, &dataRel1, &curDS);
+    Processing_GetData(&dataRel0, &dataRel1, ppCurDS());
 
     float *dataAbsA = (float*)RAM(DRAW_MATH_DATA_REL_A);
     float *dataAbsB = (float*)RAM(DRAW_MATH_DATA_REL_B);
 
-    int numPoints = NumBytesInChannel(curDS);
+    int numPoints = NumBytesInChannel(pCurDS());
 
-    Math_PointsRelToVoltage(dataRel0, numPoints, (Range)curDS->range[A], curDS->rShift[A], dataAbsA);
-    Math_PointsRelToVoltage(dataRel1, numPoints, (Range)curDS->range[B], curDS->rShift[B], dataAbsB);
+    Math_PointsRelToVoltage(dataRel0, numPoints, (Range)pCurDS()->range[A], pCurDS()->rShift[A], dataAbsA);
+    Math_PointsRelToVoltage(dataRel1, numPoints, (Range)pCurDS()->range[B], pCurDS()->rShift[B], dataAbsB);
 
     Math_CalculateMathFunction(dataAbsA, dataAbsB, numPoints);
 
@@ -323,22 +325,22 @@ static void DrawDataMinMax(void)
 static void DrawDataChannel(uint8 *dataIn, int minY, int maxY)
 {
     bool calculateFiltr = true;
-    int sizeBuffer = NumBytesInChannel(curDS);
+    int sizeBuffer = NumBytesInChannel(pCurDS());
     uint8 data[sizeBuffer];                                 // пїЅпїЅпїЅпїЅпїЅ, пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ
 
     int firstPoint = 0;
     int lastPoint = 280;
 
     if (!IN_P2P_MODE ||                                     // Если не находимся в режиме медленных поточечных развёрток
-        (IN_P2P_MODE && curDS->time.timeMS))                   // Или в поточечном, но данные уже считаны
+        (IN_P2P_MODE && pCurDS()->time.timeMS))                   // Или в поточечном, но данные уже считаны
     {
         sDisplay_PointsOnDisplay(&firstPoint, &lastPoint);  // то находим первую и последнюю точки, выводимые на экран
     }
 
     if (IN_P2P_MODE &&                                      // Если находимся в режиме медленных поточечных развёрток
-        curDS->time.timeMS == 0)                               // и считывание полного набора данных ещё не произошло
+        pCurDS()->time.timeMS == 0)                               // и считывание полного набора данных ещё не произошло
     {
-        lastPoint = FillDataP2P(data, &curDS);
+        lastPoint = FillDataP2P(data, ppCurDS());
         if (lastPoint < 2)                                  // Если готово меньше двух точек - выход
         {
             return;
@@ -350,17 +352,17 @@ static void DrawDataChannel(uint8 *dataIn, int minY, int maxY)
         calculateFiltr = false;
         if (curCh == A)
         {
-            Processing_GetData(&dataIn, 0, &curDS);
+            Processing_GetData(&dataIn, 0, ppCurDS());
         }
         else
         {
-            Processing_GetData(0, &dataIn, &curDS);
+            Processing_GetData(0, &dataIn, ppCurDS());
         }
         RAM_MemCpy16(dataIn, data, sizeBuffer);
         dataIn = data;
     }
 
-    if (!sChannel_NeedForDraw(dataIn, curCh, curDS))
+    if (!sChannel_NeedForDraw(dataIn, curCh, pCurDS()))
     {
         return;
     }
@@ -691,7 +693,7 @@ static void DrawSignalLined(const uint8 *data, int startPoint, int endPoint, int
     int numPoints = sMemory_NumBytesInChannel(false);
     int numSmoothing = sDisplay_NumPointSmoothing();
 
-    if (curDS->peackDet == PeackDet_Disable)
+    if (pCurDS()->peackDet == PeackDet_Disable)
     {
         for (int i = startPoint; i < endPoint; i++)
         {
@@ -751,7 +753,7 @@ static void DrawSignalLined(const uint8 *data, int startPoint, int endPoint, int
         }
     }
 
-    if (curDS->peackDet == PeackDet_Disable)
+    if (pCurDS()->peackDet == PeackDet_Disable)
     {
         CONVERT_DATA_TO_DISPLAY(dataCD[280], data[endPoint]); //-V108
         Painter_DrawSignal(GridLeft(), dataCD, true);
@@ -862,4 +864,16 @@ static void DrawLimitLabel(int delta)
     Painter_FillRegionC(x, y, width, height, gColorBack);
     Painter_DrawRectangleC(x, y, width, height, color);
     Painter_DrawStringInCenterRect(x, y, width, height, "Сигнал за пределами экрана");
+}
+
+//----------------------------------------------------------------------------------------------------------------------------------------------------
+static inline DataSettings* pCurDS(void)
+{
+    return curDS;
+}
+
+//----------------------------------------------------------------------------------------------------------------------------------------------------
+static inline DataSettings** ppCurDS(void)
+{
+    return &curDS;
 }

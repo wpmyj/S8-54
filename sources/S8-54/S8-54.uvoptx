@@ -191,34 +191,18 @@
         <Bp>
           <Number>0</Number>
           <Type>0</Type>
-          <LineNumber>464</LineNumber>
+          <LineNumber>1677</LineNumber>
           <EnabledFlag>1</EnabledFlag>
-          <Address>134420692</Address>
+          <Address>134518334</Address>
           <ByteObject>0</ByteObject>
           <HtxType>0</HtxType>
           <ManyObjects>0</ManyObjects>
           <SizeOfObject>0</SizeOfObject>
           <BreakByAccess>0</BreakByAccess>
           <BreakIfRCount>1</BreakIfRCount>
-          <Filename>D:\Projects\S8-54\sources\S8-54\src\Menu\Pages\PageDebug.c</Filename>
+          <Filename>&lt;1&gt;.\src\Display\Display.c</Filename>
           <ExecCommand></ExecCommand>
-          <Expression>\\S8_54\src/Menu/Pages/PageDebug.c\464</Expression>
-        </Bp>
-        <Bp>
-          <Number>1</Number>
-          <Type>0</Type>
-          <LineNumber>161</LineNumber>
-          <EnabledFlag>1</EnabledFlag>
-          <Address>134410472</Address>
-          <ByteObject>0</ByteObject>
-          <HtxType>0</HtxType>
-          <ManyObjects>0</ManyObjects>
-          <SizeOfObject>0</SizeOfObject>
-          <BreakByAccess>0</BreakByAccess>
-          <BreakIfRCount>1</BreakIfRCount>
-          <Filename>&lt;1&gt;.\src\Hardware\FLASH.c</Filename>
-          <ExecCommand></ExecCommand>
-          <Expression>\\S8_54\src/Hardware/FLASH.c\161</Expression>
+          <Expression>\\\src/Display/Display.c\1677</Expression>
         </Bp>
       </Breakpoint>
       <WatchWindow1>
@@ -1642,7 +1626,7 @@
 
   <Group>
     <GroupName>Display</GroupName>
-    <tvExp>0</tvExp>
+    <tvExp>1</tvExp>
     <tvExpOptDlg>0</tvExpOptDlg>
     <cbSel>0</cbSel>
     <RteFlg>0</RteFlg>

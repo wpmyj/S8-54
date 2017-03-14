@@ -546,8 +546,8 @@ static const Page mspInt =
         (void*)&sbInt_Exit,                 // ПАМЯТЬ - ВНУТР ЗУ - Выход
         (void*)&sbInt_ShowSignalsAlways,    // ПАМЯТЬ - ВНУТР ЗУ - Показывать всегда
         (void*)&sbInt_ModeShow,             // ПАМЯТЬ - ВНУТР ЗУ - Вид сигнала
-        //(void*)0,
-        (void*)&sbInt_EraseAll,
+        (void*)0,
+        //(void*)&sbInt_EraseAll,
         (void*)&sbInt_SaveToMemory,         // ПАМЯТЬ - ВНУТР ЗУ - Сохранить
         (void*)&sbInt_SaveToDrive           // ПАМЯТЬ - ВНУТР ЗУ - Сохранить на флешку
     },

@@ -207,3 +207,11 @@ extern void *extraMEM;      // Это специальный указатель.
                                             NameStruct *name = (NameStruct*)extraMEM
 #define ACCESS_EXTRAMEM(NameStruct, name)   NameStruct *name = (NameStruct*)extraMEM
 #define FREE_EXTRAMEM()                     free(extraMEM)
+
+/*
+// Указатель на настройки главного отрисовываемого сигнала. В случае одного отрисовываемого на экране сигнала этими настройками будут, ясное дело, его настройки.
+// В остальных случаях:
+// - в основном режиме с отрисовкой поверх сигнала из ППЗУ - настройки реального сигнала
+// - в режиме просмотра записанных / ОБА - настройки записанного сигнала
+DataSettings *GetDSforMainSignal(void);
+*/
