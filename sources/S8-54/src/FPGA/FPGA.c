@@ -51,6 +51,7 @@ uint16 adcValueFPGA = 0;                // Здесь хранится значение считанное с А
 static bool ReadPoint(void);                                        // Чтение точки в поточечном режиме
 static void Write(TypeRecord type, uint16 *address, uint data);     // Запись в регистры и альтеру
 static void InitADC(void);
+static void ProcessingAfterReadData(void);                          // Действия, которые нужно предпринять после успешного считывания данных
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 static uint16 READ_DATA_ADC_16(const uint16 *address, Channel ch   )
@@ -222,6 +223,8 @@ void FPGA_WriteStartToHardware(void)
 //------------------------------------------------------------------------------------------------------------------------------------------------------
 void FPGA_Start(void)
 {
+    gBF.needStopAfterReadFrameP2P = 0;
+
     FPGA_WriteStartToHardware();
 
     timeCompletePredTrig = 0;
@@ -688,7 +691,6 @@ static void DataReadSave(bool necessaryShift, bool first, bool saveToStorage, bo
     free(dataB);
 }
 
-
 //------------------------------------------------------------------------------------------------------------------------------------------------------
 // Возвращает true, если считаны данные
 bool ProcessingData(void)
@@ -744,25 +746,9 @@ bool ProcessingData(void)
             {
                 fpgaStateWork = StateWorkFPGA_Stop;                         // И считываем, если данные готовы
                 HAL_NVIC_DisableIRQ(EXTI2_IRQn);                            // Отключаем чтение точек
-
                 DataReadSave(false, i == 0, i == num - 1, false);
-
+                ProcessingAfterReadData();
                 retValue = true;
-                if (!START_MODE_SINGLE)
-                {
-                    if(IN_P2P_MODE && START_MODE_AUTO)  // Если находимся в режиме поточечного вывода при автоматической синхронизации
-                    {
-                        Timer_SetAndStartOnce(kTimerStartP2P, FPGA_Start, 1000);                 // то откладываем следующий запуск, чтобы зафиксировать сигнал на экране
-                    }
-                    else
-                    {
-                        FPGA_Start();
-                    }
-                }
-                else
-                {
-                    Panel_EnableLEDTrig(false);
-                }
             }
         }
         else if (START_MODE_AUTO)  // Если имупльса синхронизации нету, а включён автоматический режим синхронизации
@@ -801,6 +787,28 @@ bool ProcessingData(void)
     return retValue;
 }
 
+//----------------------------------------------------------------------------------------------------------------------------------------------------
+static void ProcessingAfterReadData(void)
+{
+    if(!START_MODE_SINGLE)
+    {
+        if(IN_P2P_MODE && START_MODE_AUTO)                               // Если находимся в режиме поточечного вывода при автоматической синхронизации
+        {
+            if(gBF.needStopAfterReadFrameP2P == 0)
+            {
+                Timer_SetAndStartOnce(kTimerStartP2P, FPGA_Start, 1000); // то откладываем следующий запуск, чтобы зафиксировать сигнал на экране
+            }
+        }
+        else
+        {
+            FPGA_Start();
+        }
+    }
+    else
+    {
+        Panel_EnableLEDTrig(false);
+    }
+}
 
 //------------------------------------------------------------------------------------------------------------------------------------------------------
 TBase CalculateTBase(float freq)
@@ -896,24 +904,38 @@ void FPGA_Update(void)
 }
 
 
+//----------------------------------------------------------------------------------------------------------------------------------------------------
+static void OnPressStartStopInP2P(void)
+{
+    if(Timer_IsRun(kTimerStartP2P))            // Если находимся в режиме поточечного вывода и в данный момент пауза после считывания очередного полного сигнала
+    {
+        Timer_Disable(kTimerStartP2P);          // то останавливаем таймер, чтобы просмотреть сигнал
+    }
+    else                                        // Если идёт процесс сбора информации
+    {
+        if(fpgaStateWork == StateWorkFPGA_Stop)
+        {
+            FPGA_Start();
+        }
+        else
+        {
+            gBF.needStopAfterReadFrameP2P = !gBF.needStopAfterReadFrameP2P;   // то устанавливаем признак того, что после окончания не надо запускать следующий цикл
+        }
+    }
+}
+
+
 //------------------------------------------------------------------------------------------------------------------------------------------------------
 void FPGA_OnPressStartStop(void)
 {
-    if (!WORK_DIRECT || CONSOLE_IN_PAUSE)       // Если находимся не в режиме непосредственного считывания сигнала
+    if (!WORK_DIRECT || CONSOLE_IN_PAUSE)           // Если находимся не в режиме непосредственного считывания сигнала
     {
         return;
     }
 
     if (IN_P2P_MODE)
     {
-        if (Timer_IsRun(kTimerStartP2P))        // Если находимся в режиме поточечного вывода и в данный момент пауза после считывания очередного полного сигнала
-        {
-            Timer_Disable(kTimerStartP2P);      // То останавливаем таймер, чтобы просмотреть сигнал
-        }
-        else
-        {
-            FPGA_Start();
-        }
+        OnPressStartStopInP2P();
     }
     else if(fpgaStateWork == StateWorkFPGA_Stop) 
     {
