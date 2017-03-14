@@ -1288,7 +1288,7 @@ static void AddString(const char *string)
     {
         char *addressLastString = strings[FirstEmptyString() - 1];
         char *address = addressLastString + strlen(addressLastString) + 1;
-        strings[FirstEmptyString()] = address;
+        strings[FirstEmptyString()] = address; //-V557
         strcpy(address, buffer);
     }
 }

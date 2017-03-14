@@ -2103,4 +2103,660 @@
     <CodeCurrent>3825860315</CodeCurrent>
     <CodeNext>0</CodeNext>
   </s8-54>
+  <s8-54>
+    <FileName>painterdata.c</FileName>
+    <ErrorCode>V2003</ErrorCode>
+    <Message>Explicit conversion from 'float' type to signed integer type.</Message>
+    <CodePrev>1243198339</CodePrev>
+    <CodeCurrent>1277477563</CodeCurrent>
+    <CodeNext>0</CodeNext>
+  </s8-54>
+  <s8-54>
+    <FileName>display.c</FileName>
+    <ErrorCode>V103</ErrorCode>
+    <Message>Implicit type conversion from memsize to _-bit type.</Message>
+    <CodePrev>125</CodePrev>
+    <CodeCurrent>1983087140</CodeCurrent>
+    <CodeNext>178794490</CodeNext>
+  </s8-54>
+  <s8-54>
+    <FileName>pagememory.c</FileName>
+    <ErrorCode>V112</ErrorCode>
+    <Message>Dangerous magic number _ used: ...(symbols) / _)).</Message>
+    <CodePrev>85135</CodePrev>
+    <CodeCurrent>1937892746</CodeCurrent>
+    <CodeNext>123</CodeNext>
+  </s8-54>
+  <s8-54>
+    <FileName>pagememory.c</FileName>
+    <ErrorCode>V112</ErrorCode>
+    <Message>Dangerous magic number _ used: ...(strings) / _; i++).</Message>
+    <CodePrev>652386798</CodePrev>
+    <CodeCurrent>378484184</CodeCurrent>
+    <CodeNext>123</CodeNext>
+  </s8-54>
+  <s8-54>
+    <FileName>pagememory.c</FileName>
+    <ErrorCode>V112</ErrorCode>
+    <Message>Dangerous magic number _ used: ...(symbols) / _);.</Message>
+    <CodePrev>123</CodePrev>
+    <CodeCurrent>2109235921</CodeCurrent>
+    <CodeNext>125</CodeNext>
+  </s8-54>
+  <s8-54>
+    <FileName>pagememory.c</FileName>
+    <ErrorCode>V112</ErrorCode>
+    <Message>Dangerous magic number _ used: ...(symbols) / _ - _);.</Message>
+    <CodePrev>123</CodePrev>
+    <CodeCurrent>4141976380</CodeCurrent>
+    <CodeNext>125</CodeNext>
+  </s8-54>
+  <s8-54>
+    <FileName>display.c</FileName>
+    <ErrorCode>V112</ErrorCode>
+    <Message>Dangerous magic number _ used: uint_ command[_] ={SET_ORIE...</Message>
+    <CodePrev>123</CodePrev>
+    <CodeCurrent>2605372470</CodeCurrent>
+    <CodeNext>1864494059</CodeNext>
+  </s8-54>
+  <s8-54>
+    <FileName>display.c</FileName>
+    <ErrorCode>V112</ErrorCode>
+    <Message>Dangerous magic number _ used: ...ay(command, _);.</Message>
+    <CodePrev>2605372470</CodePrev>
+    <CodeCurrent>1864494059</CodeCurrent>
+    <CodeNext>2023065618</CodeNext>
+  </s8-54>
+  <s8-54>
+    <FileName>display.c</FileName>
+    <ErrorCode>V112</ErrorCode>
+    <Message>Dangerous magic number _ used: ..._, y_ - _, _, _);.</Message>
+    <CodePrev>0</CodePrev>
+    <CodeCurrent>680405054</CodeCurrent>
+    <CodeNext>680397118</CodeNext>
+  </s8-54>
+  <s8-54>
+    <FileName>display.c</FileName>
+    <ErrorCode>V112</ErrorCode>
+    <Message>Dangerous magic number _ used: ..._, y_ - _, _, _);.</Message>
+    <CodePrev>680405054</CodePrev>
+    <CodeCurrent>680397118</CodeCurrent>
+    <CodeNext>125</CodeNext>
+  </s8-54>
+  <s8-54>
+    <FileName>display.c</FileName>
+    <ErrorCode>V112</ErrorCode>
+    <Message>Dangerous magic number _ used: ...(x + _, y - _, SYMBOL_TRI...</Message>
+    <CodePrev>123</CodePrev>
+    <CodeCurrent>698719656</CodeCurrent>
+    <CodeNext>125</CodeNext>
+  </s8-54>
+  <s8-54>
+    <FileName>display.c</FileName>
+    <ErrorCode>V112</ErrorCode>
+    <Message>Dangerous magic number _ used: ...yFull + _, _, _, ColorTr...</Message>
+    <CodePrev>605814756</CodePrev>
+    <CodeCurrent>1182498854</CodeCurrent>
+    <CodeNext>2473718022</CodeNext>
+  </s8-54>
+  <s8-54>
+    <FileName>display.c</FileName>
+    <ErrorCode>V112</ErrorCode>
+    <Message>Dangerous magic number _ used: ...y + _, dX - _, dY - _, gC...</Message>
+    <CodePrev>123</CodePrev>
+    <CodeCurrent>3544308722</CodeCurrent>
+    <CodeNext>125</CodeNext>
+  </s8-54>
+  <s8-54>
+    <FileName>display.c</FileName>
+    <ErrorCode>V112</ErrorCode>
+    <Message>Dangerous magic number _ used: ...awTextC(x + _, y + _, Mea...</Message>
+    <CodePrev>0</CodePrev>
+    <CodeCurrent>3176208351</CodeCurrent>
+    <CodeNext>93621267</CodeNext>
+  </s8-54>
+  <s8-54>
+    <FileName>display.c</FileName>
+    <ErrorCode>V112</ErrorCode>
+    <Message>Dangerous magic number _ used: ...awTextC(x + _, y + _, Mea...</Message>
+    <CodePrev>1787020472</CodePrev>
+    <CodeCurrent>3839076614</CodeCurrent>
+    <CodeNext>125</CodeNext>
+  </s8-54>
+  <s8-54>
+    <FileName>display.c</FileName>
+    <ErrorCode>V112</ErrorCode>
+    <Message>Dangerous magic number _ used: ...ight + _) - _;.</Message>
+    <CodePrev>393044702</CodePrev>
+    <CodeCurrent>2279640814</CodeCurrent>
+    <CodeNext>96765327</CodeNext>
+  </s8-54>
+  <s8-54>
+    <FileName>display.c</FileName>
+    <ErrorCode>V112</ErrorCode>
+    <Message>Dangerous magic number _ used: ...Text(_, y - _, strs[i]);.</Message>
+    <CodePrev>652386798</CodePrev>
+    <CodeCurrent>964389948</CodeCurrent>
+    <CodeNext>125</CodeNext>
+  </s8-54>
+  <s8-54>
+    <FileName>display.c</FileName>
+    <ErrorCode>V112</ErrorCode>
+    <Message>Dangerous magic number _ used: ...extC(_, y - _, strs[i], g...</Message>
+    <CodePrev>123</CodePrev>
+    <CodeCurrent>3479212669</CodeCurrent>
+    <CodeNext>125</CodeNext>
+  </s8-54>
+  <s8-54>
+    <FileName>display.c</FileName>
+    <ErrorCode>V112</ErrorCode>
+    <Message>Dangerous magic number _ used: int w = _;.</Message>
+    <CodePrev>123</CodePrev>
+    <CodeCurrent>5087</CodeCurrent>
+    <CodeNext>9855</CodeNext>
+  </s8-54>
+  <s8-54>
+    <FileName>display.c</FileName>
+    <ErrorCode>V112</ErrorCode>
+    <Message>Dangerous magic number _ used: int delta = _;.</Message>
+    <CodePrev>9855</CodePrev>
+    <CodeCurrent>77359</CodeCurrent>
+    <CodeNext>4067</CodeNext>
+  </s8-54>
+  <s8-54>
+    <FileName>display.c</FileName>
+    <ErrorCode>V112</ErrorCode>
+    <Message>Dangerous magic number _ used: ..._, false, _, buffer));.</Message>
+    <CodePrev>270447754</CodePrev>
+    <CodeCurrent>2074980736</CodeCurrent>
+    <CodeNext>1653</CodeNext>
+  </s8-54>
+  <s8-54>
+    <FileName>display.c</FileName>
+    <ErrorCode>V112</ErrorCode>
+    <Message>Dangerous magic number _ used: ...y, width + _, height + _...</Message>
+    <CodePrev>151999</CodePrev>
+    <CodeCurrent>3366282445</CodeCurrent>
+    <CodeNext>3817386730</CodeNext>
+  </s8-54>
+  <s8-54>
+    <FileName>display.c</FileName>
+    <ErrorCode>V112</ErrorCode>
+    <Message>Dangerous magic number _ used: y += dY * _ + _;.</Message>
+    <CodePrev>123</CodePrev>
+    <CodeCurrent>54887</CodeCurrent>
+    <CodeNext>125</CodeNext>
+  </s8-54>
+  <s8-54>
+    <FileName>display.c</FileName>
+    <ErrorCode>V112</ErrorCode>
+    <Message>Dangerous magic number _ used: ...b(density_, _, buffer) :...</Message>
+    <CodePrev>1848253055</CodePrev>
+    <CodeCurrent>2990811097</CodeCurrent>
+    <CodeNext>3425</CodeNext>
+  </s8-54>
+  <s8-54>
+    <FileName>display.c</FileName>
+    <ErrorCode>V112</ErrorCode>
+    <Message>Dangerous magic number _ used: ...b(density_, _, buffer) :...</Message>
+    <CodePrev>3425</CodePrev>
+    <CodeCurrent>2990811097</CodeCurrent>
+    <CodeNext>125</CodeNext>
+  </s8-54>
+  <s8-54>
+    <FileName>display.c</FileName>
+    <ErrorCode>V112</ErrorCode>
+    <Message>Dangerous magic number _ used: ..._, yFull - _, SYMBOL_RSH...</Message>
+    <CodePrev>3046886022</CodePrev>
+    <CodeCurrent>1057814646</CodeCurrent>
+    <CodeNext>4008710130</CodeNext>
+  </s8-54>
+  <s8-54>
+    <FileName>display.c</FileName>
+    <ErrorCode>V112</ErrorCode>
+    <Message>Dangerous magic number _ used: ...(x - _, y - _, SYMBOL_RSH...</Message>
+    <CodePrev>123</CodePrev>
+    <CodeCurrent>2748181291</CodeCurrent>
+    <CodeNext>2319055670</CodeNext>
+  </s8-54>
+  <s8-54>
+    <FileName>display.c</FileName>
+    <ErrorCode>V112</ErrorCode>
+    <Message>Dangerous magic number _ used: ...FillRegionC(_, yFull - _,...</Message>
+    <CodePrev>123</CodePrev>
+    <CodeCurrent>2927550492</CodeCurrent>
+    <CodeNext>1609591444</CodeNext>
+  </s8-54>
+  <s8-54>
+    <FileName>painterdata.c</FileName>
+    <ErrorCode>V2004</ErrorCode>
+    <Message>Explicit conversion from 'float' type to unsigned integer type: (uint)(col * elemsInColumn)</Message>
+    <CodePrev>123</CodePrev>
+    <CodeCurrent>174838345</CodeCurrent>
+    <CodeNext>204600559</CodeNext>
+  </s8-54>
+  <s8-54>
+    <FileName>display.c</FileName>
+    <ErrorCode>V2004</ErrorCode>
+    <Message>Explicit conversion from 'float' type to unsigned integer type: (uint_)(centerX + deltaX * (i - _))</Message>
+    <CodePrev>123</CodePrev>
+    <CodeCurrent>1384528024</CodeCurrent>
+    <CodeNext>125</CodeNext>
+  </s8-54>
+  <s8-54>
+    <FileName>painterdata.c</FileName>
+    <ErrorCode>V2003</ErrorCode>
+    <Message>Explicit conversion from 'float' type to signed integer type: (int)(shiftInMemory * scaleX)</Message>
+    <CodePrev>0</CodePrev>
+    <CodeCurrent>3900246831</CodeCurrent>
+    <CodeNext>0</CodeNext>
+  </s8-54>
+  <s8-54>
+    <FileName>painterdata.c</FileName>
+    <ErrorCode>V2003</ErrorCode>
+    <Message>Explicit conversion from 'float' type to signed integer type.</Message>
+    <CodePrev>3272277100</CodePrev>
+    <CodeCurrent>919493776</CodeCurrent>
+    <CodeNext>1535801</CodeNext>
+  </s8-54>
+  <s8-54>
+    <FileName>painterdata.c</FileName>
+    <ErrorCode>V2003</ErrorCode>
+    <Message>Explicit conversion from 'float' type to signed integer type: (int)(pos * scale)</Message>
+    <CodePrev>123</CodePrev>
+    <CodeCurrent>1960228303</CodeCurrent>
+    <CodeNext>125</CodeNext>
+  </s8-54>
+  <s8-54>
+    <FileName>painterdata.c</FileName>
+    <ErrorCode>V2003</ErrorCode>
+    <Message>Explicit conversion from 'float' type to signed integer type: (int)(pos * scale)</Message>
+    <CodePrev>123</CodePrev>
+    <CodeCurrent>3067407131</CodeCurrent>
+    <CodeNext>125</CodeNext>
+  </s8-54>
+  <s8-54>
+    <FileName>painterdata.c</FileName>
+    <ErrorCode>V2003</ErrorCode>
+    <Message>Explicit conversion from 'float' type to signed integer type: (int)(((in) - (_ - _)) * scaleY)</Message>
+    <CodePrev>37943</CodePrev>
+    <CodeCurrent>1216740320</CodeCurrent>
+    <CodeNext>2223041981</CodeNext>
+  </s8-54>
+  <s8-54>
+    <FileName>painterdata.c</FileName>
+    <ErrorCode>V2003</ErrorCode>
+    <Message>Explicit conversion from 'float' type to signed integer type: (int)(((in) - (_ - _)) * scaleY)</Message>
+    <CodePrev>320439</CodePrev>
+    <CodeCurrent>796594003</CodeCurrent>
+    <CodeNext>796462931</CodeNext>
+  </s8-54>
+  <s8-54>
+    <FileName>painterdata.c</FileName>
+    <ErrorCode>V2003</ErrorCode>
+    <Message>Explicit conversion from 'float' type to signed integer type: (int)(((in) - (_ - _)) * scaleY)</Message>
+    <CodePrev>796594003</CodePrev>
+    <CodeCurrent>796462931</CodeCurrent>
+    <CodeNext>0</CodeNext>
+  </s8-54>
+  <s8-54>
+    <FileName>painterdata.c</FileName>
+    <ErrorCode>V2003</ErrorCode>
+    <Message>Explicit conversion from 'float' type to signed integer type: (int) x</Message>
+    <CodePrev>0</CodePrev>
+    <CodeCurrent>970298844</CodeCurrent>
+    <CodeNext>0</CodeNext>
+  </s8-54>
+  <s8-54>
+    <FileName>painterdata.c</FileName>
+    <ErrorCode>V2003</ErrorCode>
+    <Message>Explicit conversion from 'float' type to signed integer type: (int)(((in) - (_ - _)) * scaleY)</Message>
+    <CodePrev>9991</CodePrev>
+    <CodeCurrent>796331859</CodeCurrent>
+    <CodeNext>199049462</CodeNext>
+  </s8-54>
+  <s8-54>
+    <FileName>painterdata.c</FileName>
+    <ErrorCode>V2003</ErrorCode>
+    <Message>Explicit conversion from 'float' type to signed integer type: (int)(((in) - (_ - _)) * scaleY)</Message>
+    <CodePrev>796331859</CodePrev>
+    <CodeCurrent>199049462</CodeCurrent>
+    <CodeNext>0</CodeNext>
+  </s8-54>
+  <s8-54>
+    <FileName>painterdata.c</FileName>
+    <ErrorCode>V2003</ErrorCode>
+    <Message>Explicit conversion from 'float' type to signed integer type: (int) x</Message>
+    <CodePrev>123</CodePrev>
+    <CodeCurrent>970298848</CodeCurrent>
+    <CodeNext>125</CodeNext>
+  </s8-54>
+  <s8-54>
+    <FileName>painterdata.c</FileName>
+    <ErrorCode>V2003</ErrorCode>
+    <Message>Explicit conversion from 'float' type to signed integer type: (int)(x + _)</Message>
+    <CodePrev>123</CodePrev>
+    <CodeCurrent>2640284562</CodeCurrent>
+    <CodeNext>125</CodeNext>
+  </s8-54>
+  <s8-54>
+    <FileName>painterdata.c</FileName>
+    <ErrorCode>V2003</ErrorCode>
+    <Message>Explicit conversion from 'float' type to signed integer type: (int)(((in) - (_ - _)) * scaleY)</Message>
+    <CodePrev>2801606647</CodePrev>
+    <CodeCurrent>201210568</CodeCurrent>
+    <CodeNext>125</CodeNext>
+  </s8-54>
+  <s8-54>
+    <FileName>painterdata.c</FileName>
+    <ErrorCode>V2003</ErrorCode>
+    <Message>Explicit conversion from 'float' type to signed integer type: (int)(((in) - (_ - _)) * scaleY)</Message>
+    <CodePrev>123</CodePrev>
+    <CodeCurrent>4154693346</CodeCurrent>
+    <CodeNext>590492222</CodeNext>
+  </s8-54>
+  <s8-54>
+    <FileName>painterdata.c</FileName>
+    <ErrorCode>V2003</ErrorCode>
+    <Message>Explicit conversion from 'float' type to signed integer type: (int)(((in) - (_ - _)) * scaleY)</Message>
+    <CodePrev>156350419</CodePrev>
+    <CodeCurrent>2059708551</CodeCurrent>
+    <CodeNext>125</CodeNext>
+  </s8-54>
+  <s8-54>
+    <FileName>painterdata.c</FileName>
+    <ErrorCode>V2003</ErrorCode>
+    <Message>Explicit conversion from 'float' type to signed integer type: (int)(((in) - (_ - _)) * scaleY)</Message>
+    <CodePrev>19103</CodePrev>
+    <CodeCurrent>4131125246</CodeCurrent>
+    <CodeNext>2118529346</CodeNext>
+  </s8-54>
+  <s8-54>
+    <FileName>painterdata.c</FileName>
+    <ErrorCode>V2003</ErrorCode>
+    <Message>Explicit conversion from 'float' type to signed integer type: (int)(index * scaleX)</Message>
+    <CodePrev>4131125246</CodePrev>
+    <CodeCurrent>2118529346</CodeCurrent>
+    <CodeNext>125</CodeNext>
+  </s8-54>
+  <s8-54>
+    <FileName>display.c</FileName>
+    <ErrorCode>V2003</ErrorCode>
+    <Message>Explicit conversion from 'float' type to signed integer type: (int)(set.cursors.posCurT[source][_])</Message>
+    <CodePrev>123</CodePrev>
+    <CodeCurrent>2059056218</CodeCurrent>
+    <CodeNext>2059056254</CodeNext>
+  </s8-54>
+  <s8-54>
+    <FileName>display.c</FileName>
+    <ErrorCode>V2003</ErrorCode>
+    <Message>Explicit conversion from 'float' type to signed integer type: (int)(set.cursors.posCurT[source][_])</Message>
+    <CodePrev>2059056218</CodePrev>
+    <CodeCurrent>2059056254</CodeCurrent>
+    <CodeNext>2731671232</CodeNext>
+  </s8-54>
+  <s8-54>
+    <FileName>display.c</FileName>
+    <ErrorCode>V2003</ErrorCode>
+    <Message>Explicit conversion from 'float' type to signed integer type: (int) sCursors_GetCursPosU(source, _)</Message>
+    <CodePrev>2059056254</CodePrev>
+    <CodeCurrent>2731671232</CodeCurrent>
+    <CodeNext>2731654852</CodeNext>
+  </s8-54>
+  <s8-54>
+    <FileName>display.c</FileName>
+    <ErrorCode>V2003</ErrorCode>
+    <Message>Explicit conversion from 'float' type to signed integer type: (int) sCursors_GetCursPosU(source, _)</Message>
+    <CodePrev>2731671232</CodePrev>
+    <CodeCurrent>2731654852</CodeCurrent>
+    <CodeNext>0</CodeNext>
+  </s8-54>
+  <s8-54>
+    <FileName>display.c</FileName>
+    <ErrorCode>V2003</ErrorCode>
+    <Message>Explicit conversion from 'float' type to signed integer type: (int)(set.cursors.posCurT[source][_])</Message>
+    <CodePrev>123</CodePrev>
+    <CodeCurrent>2342292564</CodeCurrent>
+    <CodeNext>2342292496</CodeNext>
+  </s8-54>
+  <s8-54>
+    <FileName>display.c</FileName>
+    <ErrorCode>V2003</ErrorCode>
+    <Message>Explicit conversion from 'float' type to signed integer type: (int)(set.cursors.posCurT[source][_])</Message>
+    <CodePrev>2342292564</CodePrev>
+    <CodeCurrent>2342292496</CodeCurrent>
+    <CodeNext>125</CodeNext>
+  </s8-54>
+  <s8-54>
+    <FileName>display.c</FileName>
+    <ErrorCode>V2003</ErrorCode>
+    <Message>Explicit conversion from 'float' type to signed integer type: (int) sCursors_GetCursPosU(source, _)</Message>
+    <CodePrev>123</CodePrev>
+    <CodeCurrent>4294664469</CodeCurrent>
+    <CodeNext>4294664529</CodeNext>
+  </s8-54>
+  <s8-54>
+    <FileName>display.c</FileName>
+    <ErrorCode>V2003</ErrorCode>
+    <Message>Explicit conversion from 'float' type to signed integer type: (int) sCursors_GetCursPosU(source, _)</Message>
+    <CodePrev>4294664469</CodePrev>
+    <CodeCurrent>4294664529</CodeCurrent>
+    <CodeNext>125</CodeNext>
+  </s8-54>
+  <s8-54>
+    <FileName>display.c</FileName>
+    <ErrorCode>V2003</ErrorCode>
+    <Message>Explicit conversion from 'float' type to signed integer type: (int)(scale * (_ - _))</Message>
+    <CodePrev>3005184366</CodePrev>
+    <CodeCurrent>123463405</CodeCurrent>
+    <CodeNext>584838367</CodeNext>
+  </s8-54>
+  <s8-54>
+    <FileName>display.c</FileName>
+    <ErrorCode>V2003</ErrorCode>
+    <Message>Explicit conversion from 'float' type to signed integer type: (int)(scale * (trigLev - _))</Message>
+    <CodePrev>123463405</CodePrev>
+    <CodeCurrent>584838367</CodeCurrent>
+    <CodeNext>0</CodeNext>
+  </s8-54>
+  <s8-54>
+    <FileName>display.c</FileName>
+    <ErrorCode>V2003</ErrorCode>
+    <Message>Explicit conversion from 'float' type to signed integer type.</Message>
+    <CodePrev>983634241</CodePrev>
+    <CodeCurrent>605814756</CodeCurrent>
+    <CodeNext>1182498854</CodeNext>
+  </s8-54>
+  <s8-54>
+    <FileName>display.c</FileName>
+    <ErrorCode>V2003</ErrorCode>
+    <Message>Explicit conversion from 'float' type to signed integer type: (int)(shiftTPos * scale)</Message>
+    <CodePrev>313692585</CodePrev>
+    <CodeCurrent>3976602585</CodeCurrent>
+    <CodeNext>3777059233</CodeNext>
+  </s8-54>
+  <s8-54>
+    <FileName>display.c</FileName>
+    <ErrorCode>V2003</ErrorCode>
+    <Message>Explicit conversion from 'float' type to signed integer type: (int)(scale * gRandStat[i])</Message>
+    <CodePrev>123</CodePrev>
+    <CodeCurrent>868072156</CodeCurrent>
+    <CodeNext>125</CodeNext>
+  </s8-54>
+  <s8-54>
+    <FileName>display.c</FileName>
+    <ErrorCode>V2003</ErrorCode>
+    <Message>Explicit conversion from 'float' type to signed integer type: (int) deltaX</Message>
+    <CodePrev>123</CodePrev>
+    <CodeCurrent>94574946</CodeCurrent>
+    <CodeNext>125</CodeNext>
+  </s8-54>
+  <s8-54>
+    <FileName>display.c</FileName>
+    <ErrorCode>V2003</ErrorCode>
+    <Message>Explicit conversion from 'float' type to signed integer type: (int) deltaY</Message>
+    <CodePrev>123</CodePrev>
+    <CodeCurrent>94574946</CodeCurrent>
+    <CodeNext>125</CodeNext>
+  </s8-54>
+  <s8-54>
+    <FileName>display.c</FileName>
+    <ErrorCode>V2003</ErrorCode>
+    <Message>Explicit conversion from 'float' type to signed integer type: (int) stepX</Message>
+    <CodePrev>123</CodePrev>
+    <CodeCurrent>94574946</CodeCurrent>
+    <CodeNext>125</CodeNext>
+  </s8-54>
+  <s8-54>
+    <FileName>display.c</FileName>
+    <ErrorCode>V2003</ErrorCode>
+    <Message>Explicit conversion from 'float' type to signed integer type: (int) stepY</Message>
+    <CodePrev>123</CodePrev>
+    <CodeCurrent>94574946</CodeCurrent>
+    <CodeNext>125</CodeNext>
+  </s8-54>
+  <s8-54>
+    <FileName>display.c</FileName>
+    <ErrorCode>V2003</ErrorCode>
+    <Message>Explicit conversion from 'float' type to signed integer type: (int) centerX</Message>
+    <CodePrev>123</CodePrev>
+    <CodeCurrent>1342777561</CodeCurrent>
+    <CodeNext>125</CodeNext>
+  </s8-54>
+  <s8-54>
+    <FileName>display.c</FileName>
+    <ErrorCode>V2003</ErrorCode>
+    <Message>Explicit conversion from 'float' type to signed integer type: (int) centerY</Message>
+    <CodePrev>123</CodePrev>
+    <CodeCurrent>1342777561</CodeCurrent>
+    <CodeNext>125</CodeNext>
+  </s8-54>
+  <s8-54>
+    <FileName>display.c</FileName>
+    <ErrorCode>V2003</ErrorCode>
+    <Message>Explicit conversion from 'float' type to signed integer type: (int) deltaX</Message>
+    <CodePrev>123</CodePrev>
+    <CodeCurrent>1342777561</CodeCurrent>
+    <CodeNext>125</CodeNext>
+  </s8-54>
+  <s8-54>
+    <FileName>display.c</FileName>
+    <ErrorCode>V2003</ErrorCode>
+    <Message>Explicit conversion from 'float' type to signed integer type: (int) deltaY</Message>
+    <CodePrev>123</CodePrev>
+    <CodeCurrent>1342777561</CodeCurrent>
+    <CodeNext>125</CodeNext>
+  </s8-54>
+  <s8-54>
+    <FileName>display.c</FileName>
+    <ErrorCode>V2003</ErrorCode>
+    <Message>Explicit conversion from 'float' type to signed integer type: (int) stepX</Message>
+    <CodePrev>123</CodePrev>
+    <CodeCurrent>1342777561</CodeCurrent>
+    <CodeNext>125</CodeNext>
+  </s8-54>
+  <s8-54>
+    <FileName>display.c</FileName>
+    <ErrorCode>V2003</ErrorCode>
+    <Message>Explicit conversion from 'float' type to signed integer type: (int)(i * scale)</Message>
+    <CodePrev>123</CodePrev>
+    <CodeCurrent>102137012</CodeCurrent>
+    <CodeNext>2153906236</CodeNext>
+  </s8-54>
+  <s8-54>
+    <FileName>display.c</FileName>
+    <ErrorCode>V2003</ErrorCode>
+    <Message>Explicit conversion from 'float' type to signed integer type: (int)(deltaX * i)</Message>
+    <CodePrev>123</CodePrev>
+    <CodeCurrent>1408064776</CodeCurrent>
+    <CodeNext>125</CodeNext>
+  </s8-54>
+  <s8-54>
+    <FileName>display.c</FileName>
+    <ErrorCode>V2003</ErrorCode>
+    <Message>Explicit conversion from 'float' type to signed integer type: (int) centerX</Message>
+    <CodePrev>123</CodePrev>
+    <CodeCurrent>3585746307</CodeCurrent>
+    <CodeNext>125</CodeNext>
+  </s8-54>
+  <s8-54>
+    <FileName>display.c</FileName>
+    <ErrorCode>V2003</ErrorCode>
+    <Message>Explicit conversion from 'float' type to signed integer type: (int) stepY</Message>
+    <CodePrev>0</CodePrev>
+    <CodeCurrent>1231167996</CodeCurrent>
+    <CodeNext>0</CodeNext>
+  </s8-54>
+  <s8-54>
+    <FileName>display.c</FileName>
+    <ErrorCode>V2003</ErrorCode>
+    <Message>Explicit conversion from 'float' type to signed integer type: (int)(deltaY * i)</Message>
+    <CodePrev>123</CodePrev>
+    <CodeCurrent>1390758960</CodeCurrent>
+    <CodeNext>125</CodeNext>
+  </s8-54>
+  <s8-54>
+    <FileName>display.c</FileName>
+    <ErrorCode>V2003</ErrorCode>
+    <Message>Explicit conversion from 'float' type to signed integer type: (int)(centerY)</Message>
+    <CodePrev>123</CodePrev>
+    <CodeCurrent>2885323183</CodeCurrent>
+    <CodeNext>125</CodeNext>
+  </s8-54>
+  <s8-54>
+    <FileName>display.c</FileName>
+    <ErrorCode>V2003</ErrorCode>
+    <Message>Explicit conversion from 'float' type to signed integer type: (int) centerY</Message>
+    <CodePrev>123</CodePrev>
+    <CodeCurrent>668631023</CodeCurrent>
+    <CodeNext>125</CodeNext>
+  </s8-54>
+  <s8-54>
+    <FileName>display.c</FileName>
+    <ErrorCode>V2003</ErrorCode>
+    <Message>Explicit conversion from 'float' type to signed integer type: (int)(deltaY * (i - _))</Message>
+    <CodePrev>123</CodePrev>
+    <CodeCurrent>668631023</CodeCurrent>
+    <CodeNext>125</CodeNext>
+  </s8-54>
+  <s8-54>
+    <FileName>display.c</FileName>
+    <ErrorCode>V2003</ErrorCode>
+    <Message>Explicit conversion from 'float' type to signed integer type: (int) stepX</Message>
+    <CodePrev>0</CodePrev>
+    <CodeCurrent>3645310460</CodeCurrent>
+    <CodeNext>125</CodeNext>
+  </s8-54>
+  <s8-54>
+    <FileName>display.c</FileName>
+    <ErrorCode>V2003</ErrorCode>
+    <Message>Explicit conversion from 'float' type to signed integer type: (int)(gridHeight * spectrum[i])</Message>
+    <CodePrev>123</CodePrev>
+    <CodeCurrent>2015011463</CodeCurrent>
+    <CodeNext>125</CodeNext>
+  </s8-54>
+  <s8-54>
+    <FileName>display.c</FileName>
+    <ErrorCode>V2003</ErrorCode>
+    <Message>Explicit conversion from 'float' type to signed integer type.</Message>
+    <CodePrev>1474326225</CodePrev>
+    <CodeCurrent>3046886022</CodeCurrent>
+    <CodeNext>1057814646</CodeNext>
+  </s8-54>
+  <s8-54>
+    <FileName>display.c</FileName>
+    <ErrorCode>V2003</ErrorCode>
+    <Message>Explicit conversion from 'float' type to signed integer type: (int)(scaleFull * (rShift - _))</Message>
+    <CodePrev>3593206563</CodePrev>
+    <CodeCurrent>3178182305</CodeCurrent>
+    <CodeNext>0</CodeNext>
+  </s8-54>
+  <s8-54>
+    <FileName>display.c</FileName>
+    <ErrorCode>V110</ErrorCode>
+    <Message>Implicit type conversion of return value from memsize type to _-bit type.</Message>
+    <CodePrev>125</CodePrev>
+    <CodeCurrent>698272235</CodeCurrent>
+    <CodeNext>125</CodeNext>
+  </s8-54>
 </NewDataSet>
