@@ -225,7 +225,7 @@ static void DrawBigMNIPI(void)
     LIMITATION(numColor, time / (float)TIME_WAIT * 13.0f, 0, 13);
     Painter_SetColor((Color)(numColor + 2));
 
-    float amplitude = 10.0f - (time / (TIME_WAIT / 2.0f)) * 10;
+    float amplitude = 3.0f - (time / (TIME_WAIT / 2.0f)) * 3;
     LIMIT_BELOW(amplitude, 0.0f);
     float frequency = 0.05f;
 
