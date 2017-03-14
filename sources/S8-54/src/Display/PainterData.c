@@ -60,6 +60,7 @@ static void  DrawLimitLabel(int delta);  // Выоводит сообщение на экране о выход
                                          // delta - расстояние от края сетки, на котором находится сообщение. Если delta < 0 - выводится внизу сетки
 static void  SendToDisplayDataInRect(int x, const int *min, const int *max, uint width);
 
+
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 void PainterData_DrawData(void)
 {
@@ -283,7 +284,7 @@ static void DrawDataInModeWorkLatest(void)
 {
     if (gDSmemLast != 0)
     {
-        curDS = gDSmemInt;
+        curDS = gDSmemLast;
         curCh = A;
         DrawDataChannel(gDataAmemLast, GRID_TOP, GridChannelBottom());
         curCh = B;
