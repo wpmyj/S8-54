@@ -135,7 +135,7 @@ void ProcessingSignal(void)
     {
         dataA = &gDataAmemInt;
         dataB = &gDataBmemInt;
-        ds = &gDSmemInt;
+        ds = Data_pDSMemInt();
         Data_GetFromIntMemory();
     }
 

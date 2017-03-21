@@ -1194,6 +1194,16 @@
               <FileType>5</FileType>
               <FilePath>.\src\FPGA\fpgaTypes.h</FilePath>
             </File>
+            <File>
+              <FileName>Data.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\src\FPGA\Data.c</FilePath>
+            </File>
+            <File>
+              <FileName>Data.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\src\FPGA\Data.h</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>

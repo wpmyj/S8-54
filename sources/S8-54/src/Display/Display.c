@@ -13,6 +13,7 @@
 #include "PainterData.h"
 #include "Ethernet/Ethernet.h"
 #include "Ethernet/TcpSocket.h"
+#include "FPGA/Data.h"
 #include "FPGA/fpga.h"
 #include "FPGA/fpgaExtensions.h"
 #include "FPGA/DataStorage.h"
@@ -673,7 +674,7 @@ static void DrawLowPart(void)
     }
     else if(!WORK_DIRECT)
     {
-        DataSettings *ds = WORK_LAST ? gDSmemLast : gDSmemInt;
+        DataSettings *ds = WORK_LAST ? gDSmemLast : DS_MEM_INT;
         if(ds != 0)
         {
             tBase = (TBase)ds->tBase;
@@ -1636,7 +1637,7 @@ static void WriteTextVoltage(Channel ch, int x, int y)
     }
     else 
     {
-        DataSettings *ds = WORK_LAST ? gDSmemLast : gDSmemInt;
+        DataSettings *ds = WORK_LAST ? gDSmemLast : DS_MEM_INT;
 
         if(ds != 0)
         {
@@ -1703,7 +1704,7 @@ static void DrawTime(int x, int y)
 
     if(WORK_INT || WORK_LAST)
     {
-        DataSettings *ds = WORK_INT ? gDSmemInt : gDSmemLast;
+        DataSettings *ds = WORK_INT ? DS_MEM_INT : gDSmemLast;
 
         if(ds != 0)
         {

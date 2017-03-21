@@ -134,10 +134,6 @@ uint8           *gDataA = 0;
 uint8           *gDataB = 0;
 DataSettings    *gDSet = 0;
 
-uint8           *gDataAmemInt = 0;
-uint8           *gDataBmemInt = 0;
-DataSettings    *gDSmemInt = 0;
-
 uint8           *gDataAmemLast = 0;
 uint8           *gDataBmemLast = 0;
 DataSettings    *gDSmemLast = 0;

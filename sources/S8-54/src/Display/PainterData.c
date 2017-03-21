@@ -4,6 +4,7 @@
 #include "DisplayTypes.h"
 #include "Globals.h"
 #include "Settings/SettingsDisplay.h"
+#include "FPGA/Data.h"
 #include "FPGA/DataStorage.h"
 #include "Settings/Settings.h"
 #include "Grid.h"
@@ -163,7 +164,7 @@ void PainterData_DrawMemoryWindow(void)
 {
     uint8 *datA = gDataAmemInt;
     uint8 *datB = gDataBmemInt;
-    DataSettings *ds = gDSmemInt;
+    DataSettings *ds = DS_MEM_INT;
 
     if (IN_P2P_MODE && !DS_GetLastFrameP2P_RAM(&ds, &datA, &datB))      // Страхуемся от глюков
     {
@@ -251,9 +252,9 @@ void PainterData_DrawMemoryWindow(void)
 //---------------------------------------------------------------------------------------------------------------------------------------------------
 static void DrawDataMemInt(void)
 {
-    if (gDSmemInt != 0)
+    if (DS_MEM_INT != 0)
     {
-        curDS = gDSmemInt;
+        curDS = DS_MEM_INT;
         curCh = A;
         DrawDataChannel(gDataAmemInt, GRID_TOP, GridChannelBottom());
         curCh = B;

@@ -139,10 +139,6 @@ extern uint8        *gDataA;            // Указатель на данные 
 extern uint8        *gDataB;            // Указатель на данные второго канала, который надо рисовать на экране
 extern DataSettings *gDSet;             // Указатель на параметры рисуемых сигналов
 
-extern DataSettings *gDSmemInt;         //--
-extern uint8        *gDataAmemInt;      // | Здесь данные из ППЗУ, которые должны выводиться на экран
-extern uint8        *gDataBmemInt;      //-/
-
 extern DataSettings *gDSmemLast;        //--
 extern uint8        *gDataAmemLast;     // | Здесь данные из ОЗУ, которые должны выводиться на экран
 extern uint8        *gDataBmemLast;     //-/
