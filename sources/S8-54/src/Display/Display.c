@@ -573,23 +573,23 @@ static void DrawSpectrum(void)
 
         if(SOURCE_FFT_A)
         {
-            DRAW_SPECTRUM(gDataA, numPoints, A);
+            DRAW_SPECTRUM(DATAA, numPoints, A);
         }
         else if(SOURCE_FFT_B)
         {
-            DRAW_SPECTRUM(gDataB, numPoints, B);
+            DRAW_SPECTRUM(DATAB, numPoints, B);
         }
         else
         {
             if(LAST_AFFECTED_CH == A)
             {
-                DRAW_SPECTRUM(gDataB, numPoints, B);
-                DRAW_SPECTRUM(gDataA, numPoints, A);
+                DRAW_SPECTRUM(DATAB, numPoints, B);
+                DRAW_SPECTRUM(DATAA, numPoints, A);
             }
             else
             {
-                DRAW_SPECTRUM(gDataA, numPoints, A);
-                DRAW_SPECTRUM(gDataB, numPoints, B);
+                DRAW_SPECTRUM(DATAA, numPoints, A);
+                DRAW_SPECTRUM(DATAB, numPoints, B);
             }
         }
 
@@ -1413,7 +1413,7 @@ static void DRAW_SPECTRUM(const uint8 *dataIn, int numPoints, Channel ch)
 
     RAM_MemCpy16((void*)dataIn, data, numPoints);
 
-    Math_PointsRelToVoltage(data, numPoints, (Range)gDSet->range[ch], gDSet->rShift[ch], dataR);
+    Math_PointsRelToVoltage(data, numPoints, (Range)DS->range[ch], DS->rShift[ch], dataR);
     Math_CalculateFFT(dataR, numPoints, spectrum, &freq0, &density0, &freq1, &density1, &y0, &y1);
     DrawSpectrumChannel(spectrum, gColorChan[ch]);
     if(!MENU_IS_SHOWN || MenuIsMinimize())

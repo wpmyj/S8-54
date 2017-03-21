@@ -135,14 +135,6 @@ void SetItemForHint(void *item);
 
 extern StateFPGA gStateFPGA; 
 
-extern uint8        *gDataA;            // Указатель на данные первого канала, который надо рисовать на экране
-extern uint8        *gDataB;            // Указатель на данные второго канала, который надо рисовать на экране
-extern DataSettings *gDSet;             // Указатель на параметры рисуемых сигналов
-
-extern DataSettings *gDSmemLast;        //--
-extern uint8        *gDataAmemLast;     // | Здесь данные из ОЗУ, которые должны выводиться на экран
-extern uint8        *gDataBmemLast;     //-/
-
 extern GMemory gMemory;
 
 extern volatile BitField gBF;               // Структура сделана volatile, потому что иначе при вклюённой оптимизации зависает во время выключения. Вероятно,

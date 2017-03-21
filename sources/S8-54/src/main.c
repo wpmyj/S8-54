@@ -86,9 +86,9 @@ int main(void)
 //------------------------------------------------------------------------------------------------------------------------------------------------------
 void ProcessingSignal(void)
 {
-    uint8 **dataA = &gDataA;
-    uint8 **dataB = &gDataB;
-    DataSettings **ds = &gDSet;
+    uint8 **dataA = P_DATAA;
+    uint8 **dataB = P_DATAB;
+    DataSettings **ds = P_DS;
 
     if (DS_NumElementsInStorage() == 0)
     {
@@ -108,19 +108,18 @@ void ProcessingSignal(void)
             DS_NumElementsWithCurrentSettings() > 1 // и в хранилище уже есть считанные сигналы с такими настройками
             )
         {
-            DS_GetDataFromEnd_RAM(1, &gDSet, (uint16**)&gDataA, (uint16**)&gDataB);
+            DS_GetDataFromEnd_RAM(1, P_DS, (uint16**)P_DATAA, (uint16**)P_DATAB);
         }
         else
         {
-            DS_GetDataFromEnd_RAM(0, &gDSet, (uint16**)&gDataA, (uint16**)&gDataB);
+            DS_GetDataFromEnd_RAM(0, P_DS, (uint16**)P_DATAA, (uint16**)P_DATAB);
         }
 
         if (sDisplay_NumAverage() != 1 || IN_RANDOM_MODE)
         {
             ModeFSMC mode = FSMC_GetMode();
             FSMC_SetMode(ModeFSMC_RAM);
-            gDataA = DS_GetAverageData(A);
-            gDataB = DS_GetAverageData(B);
+            Data_GetAverageFromDataStorage();
             FSMC_SetMode(mode);
         }
     }
@@ -143,7 +142,7 @@ void ProcessingSignal(void)
     { 
         if (SHOW_IN_INT_BOTH || SHOW_IN_INT_DIRECT)
         {
-            Processing_SetSignal(gDataA, gDataB, gDSet, first, last);
+            Processing_SetSignal(DATAA, DATAB, DS, first, last);
         }
     }
     else

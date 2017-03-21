@@ -176,9 +176,9 @@ void PainterData_DrawMemoryWindow(void)
 
     if (WORK_DIRECT || WORK_LAST)
     {
-        datA = gDataA;
-        datB = gDataB;
-        ds = gDSet;
+        datA = DATAA;
+        datB = DATAB;
+        ds = DS;
 
         if (DS_DataSettingsFromEnd(0)->tBase >= MIN_TBASE_P2P)          // Если находимся в режиме поточечного вывода
         {
@@ -218,7 +218,7 @@ void PainterData_DrawMemoryWindow(void)
     const int xVert0 = leftX + (int)(shiftInMemory * scaleX);
 
     Channel lastAffectedChannel = LAST_AFFECTED_CH;
-    if (((uint)NumPoints_2_FPGA_NUM_POINTS(sMemory_NumBytesInChannel(false)) == gDSet->indexLength) && (gDataA || gDataB))
+    if (((uint)NumPoints_2_FPGA_NUM_POINTS(sMemory_NumBytesInChannel(false)) == DS->indexLength) && (DATAA || DATAB))
     {
         Channel chanFirst = lastAffectedChannel == A ? B : A;
         Channel chanSecond = lastAffectedChannel == A ? A : B;
@@ -265,7 +265,7 @@ static void DrawDataMemInt(void)
 //------------------------------------------------------------------------------------------------------------------------------------------------------
 static void DrawDataInModeNormal(void)
 {
-    if ((uint)NumPoints_2_FPGA_NUM_POINTS(sMemory_NumBytesInChannel(false)) != gDSet->indexLength) // Если количество точек в данных не соответствует установленному в настройках - просто выходим
+    if ((uint)NumPoints_2_FPGA_NUM_POINTS(sMemory_NumBytesInChannel(false)) != DS->indexLength) // Если количество точек в данных не соответствует установленному в настройках - просто выходим
     {
         return;     // WARN Это временно. По хорошему нужно преобразовывать так же, как мы преобразуем tShift, rShift, Range, TBase
     }
@@ -306,7 +306,7 @@ static void DrawDataMinMax(void)
 {
     ModeDrawSignal modeDrawSignalOld = MODE_DRAW_SIGNAL;
     MODE_DRAW_SIGNAL = ModeDrawSignal_Lines;
-    curDS = gDSet;
+    curDS = DS;
     if (LAST_AFFECTED_CH == B)
     {
         curCh = A;
@@ -577,15 +577,15 @@ static void DrawTShift(int leftX, int rightX, int numBytes)
 //------------------------------------------------------------------------------------------------------------------------------------------------------
 static void DrawBothChannels(uint8 *dataA, uint8 *dataB)
 {
-    curDS = gDSet;
+    curDS = DS;
     if (LAST_AFFECTED_CH == B)
     {
-        if (DS_ENABLED_A(gDSet))
+        if (DS_ENABLED_A(DS))
         {
             curCh = A;
             DrawDataChannel(dataA, GRID_TOP, GridChannelBottom());
         }
-        if (DS_ENABLED_B(gDSet))
+        if (DS_ENABLED_B(DS))
         {
             curCh = B;
             DrawDataChannel(dataB, GRID_TOP, GridChannelBottom());
@@ -593,12 +593,12 @@ static void DrawBothChannels(uint8 *dataA, uint8 *dataB)
     }
     else
     {
-        if (DS_ENABLED_B(gDSet))
+        if (DS_ENABLED_B(DS))
         {
             curCh = B;
             DrawDataChannel(dataB, GRID_TOP, GridChannelBottom());
         }
-        if (DS_ENABLED_A(gDSet))
+        if (DS_ENABLED_A(DS))
         {
             curCh = A;
             DrawDataChannel(dataA, GRID_TOP, GridChannelBottom());
