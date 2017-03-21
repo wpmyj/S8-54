@@ -124,10 +124,10 @@ void ProcessingSignal(void)
     }
     else if (WORK_LAST)
     {
-        dataA = &gDataAmemLast;
-        dataB = &gDataBmemLast;
-        ds = &gDSmemLast;
-        DS_GetDataFromEnd_RAM(gMemory.currentNumLatestSignal, &gDSmemLast, (uint16**)&gDataAmemLast, (uint16**)&gDataBmemLast);
+        dataA = Data_pChLast(A);
+        dataB = Data_pChLast(B);
+        ds = P_DS_MEM_LAST;
+        DS_GetDataFromEnd_RAM(gMemory.currentNumLatestSignal, P_DS_MEM_LAST, (uint16**)Data_pChLast(A), (uint16**)Data_pChLast(B));
     }
     else if (WORK_INT)
     {

@@ -291,13 +291,13 @@ static void DrawDataInModeNormal(void)
 //------------------------------------------------------------------------------------------------------------------------------------------------------
 static void DrawDataInModeWorkLatest(void)
 {
-    if (gDSmemLast != 0)
+    if (DS_MEM_LAST != 0)
     {
-        curDS = gDSmemLast;
+        curDS = DS_MEM_LAST;
         curCh = A;
-        DrawDataChannel(gDataAmemLast, GRID_TOP, GridChannelBottom());
+        DrawDataChannel(CHA_MEM_LAST, GRID_TOP, GridChannelBottom());
         curCh = B;
-        DrawDataChannel(gDataBmemLast, GRID_TOP, GridChannelBottom());
+        DrawDataChannel(CHB_MEM_LAST, GRID_TOP, GridChannelBottom());
     }
 }
 

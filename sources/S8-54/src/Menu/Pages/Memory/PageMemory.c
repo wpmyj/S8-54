@@ -827,9 +827,9 @@ static void SaveSignalToIntMemory(void)
 {
     if (gMemory.exitFromIntToLast == 1)
     {
-        if (gDSmemLast != 0)
+        if (DS_MEM_LAST != 0)
         {
-            FLASH_SaveData(gMemory.currentNumIntSignal, gDSmemLast, gDataAmemLast, gDataBmemLast);
+            FLASH_SaveData(gMemory.currentNumIntSignal, DS_MEM_LAST, CHA_MEM_LAST, CHB_MEM_LAST);
             Data_GetFromIntMemory();
             Display_ShowWarning(SignalIsSaved);
         }

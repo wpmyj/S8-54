@@ -371,7 +371,7 @@ static bool CompareArrays(const bool *array1, const bool *array2, int numElems)
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
 // Находит следующий перенос. C letters начинается часть слово, где нужно найти перенос, в lettersInSyllable будет записано число букв в найденном слоге. Если слово закончилось, функция возвращает false
-static bool FindNextTransfer(char *letters, int8 *lettersInSyllable)
+static bool FindNextTransfer(const char *letters, int8 *lettersInSyllable)
 {
 
 #define VOWEL       0   // Гласная

@@ -674,7 +674,7 @@ static void DrawLowPart(void)
     }
     else if(!WORK_DIRECT)
     {
-        DataSettings *ds = WORK_LAST ? gDSmemLast : DS_MEM_INT;
+        DataSettings *ds = WORK_LAST ? DS_MEM_LAST : DS_MEM_INT;
         if(ds != 0)
         {
             tBase = (TBase)ds->tBase;
@@ -1637,7 +1637,7 @@ static void WriteTextVoltage(Channel ch, int x, int y)
     }
     else 
     {
-        DataSettings *ds = WORK_LAST ? gDSmemLast : DS_MEM_INT;
+        DataSettings *ds = WORK_LAST ? DS_MEM_LAST : DS_MEM_INT;
 
         if(ds != 0)
         {
@@ -1704,7 +1704,7 @@ static void DrawTime(int x, int y)
 
     if(WORK_INT || WORK_LAST)
     {
-        DataSettings *ds = WORK_INT ? DS_MEM_INT : gDSmemLast;
+        DataSettings *ds = WORK_INT ? DS_MEM_INT : DS_MEM_LAST;
 
         if(ds != 0)
         {

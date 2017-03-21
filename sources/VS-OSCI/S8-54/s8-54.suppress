@@ -3559,4 +3559,1204 @@
     <CodeCurrent>3866177219</CodeCurrent>
     <CodeNext>100</CodeNext>
   </s8-54>
+  <s8-54>
+    <FileName>colors.c</FileName>
+    <ErrorCode>V2006</ErrorCode>
+    <Message>Implicit type conversion from enum type to integer type.</Message>
+    <CodePrev>123</CodePrev>
+    <CodeCurrent>2573395737</CodeCurrent>
+    <CodeNext>3431278111</CodeNext>
+  </s8-54>
+  <s8-54>
+    <FileName>colors.c</FileName>
+    <ErrorCode>V2006</ErrorCode>
+    <Message>Implicit type conversion from enum type to integer type.</Message>
+    <CodePrev>123</CodePrev>
+    <CodeCurrent>90311945</CodeCurrent>
+    <CodeNext>125</CodeNext>
+  </s8-54>
+  <s8-54>
+    <FileName>colors.c</FileName>
+    <ErrorCode>V2006</ErrorCode>
+    <Message>Implicit type conversion from enum type to integer type.</Message>
+    <CodePrev>0</CodePrev>
+    <CodeCurrent>534139273</CodeCurrent>
+    <CodeNext>125</CodeNext>
+  </s8-54>
+  <s8-54>
+    <FileName>colors.c</FileName>
+    <ErrorCode>V2006</ErrorCode>
+    <Message>Implicit type conversion from enum type to integer type.</Message>
+    <CodePrev>123</CodePrev>
+    <CodeCurrent>3883258163</CodeCurrent>
+    <CodeNext>1256835274</CodeNext>
+  </s8-54>
+  <s8-54>
+    <FileName>colors.c</FileName>
+    <ErrorCode>V2006</ErrorCode>
+    <Message>Implicit type conversion from enum type to integer type.</Message>
+    <CodePrev>123</CodePrev>
+    <CodeCurrent>3883258163</CodeCurrent>
+    <CodeNext>3462294166</CodeNext>
+  </s8-54>
+  <s8-54>
+    <FileName>colors.c</FileName>
+    <ErrorCode>V2006</ErrorCode>
+    <Message>Implicit type conversion from enum type to integer type.</Message>
+    <CodePrev>0</CodePrev>
+    <CodeCurrent>2928506370</CodeCurrent>
+    <CodeNext>0</CodeNext>
+  </s8-54>
+  <s8-54>
+    <FileName>colors.c</FileName>
+    <ErrorCode>V2006</ErrorCode>
+    <Message>Implicit type conversion from enum type to integer type.</Message>
+    <CodePrev>123</CodePrev>
+    <CodeCurrent>3546071952</CodeCurrent>
+    <CodeNext>123</CodeNext>
+  </s8-54>
+  <s8-54>
+    <FileName>colors.c</FileName>
+    <ErrorCode>V2006</ErrorCode>
+    <Message>Implicit type conversion from enum type to integer type.</Message>
+    <CodePrev>123</CodePrev>
+    <CodeCurrent>724851025</CodeCurrent>
+    <CodeNext>125</CodeNext>
+  </s8-54>
+  <s8-54>
+    <FileName>paintertext.c</FileName>
+    <ErrorCode>V2006</ErrorCode>
+    <Message>Implicit type conversion from enum type to integer type.</Message>
+    <CodePrev>125</CodePrev>
+    <CodeCurrent>72681553</CodeCurrent>
+    <CodeNext>2791625</CodeNext>
+  </s8-54>
+  <s8-54>
+    <FileName>paintertext.c</FileName>
+    <ErrorCode>V2006</ErrorCode>
+    <Message>Implicit type conversion from enum type to integer type.</Message>
+    <CodePrev>2023065618</CodePrev>
+    <CodeCurrent>1798443558</CodeCurrent>
+    <CodeNext>125</CodeNext>
+  </s8-54>
+  <s8-54>
+    <FileName>paintertext.c</FileName>
+    <ErrorCode>V2006</ErrorCode>
+    <Message>Implicit type conversion from enum type to integer type.</Message>
+    <CodePrev>4033199400</CodePrev>
+    <CodeCurrent>115769515</CodeCurrent>
+    <CodeNext>1612808354</CodeNext>
+  </s8-54>
+  <s8-54>
+    <FileName>painter.c</FileName>
+    <ErrorCode>V2006</ErrorCode>
+    <Message>Implicit type conversion from enum type to integer type.</Message>
+    <CodePrev>12510291</CodePrev>
+    <CodeCurrent>2733298388</CodeCurrent>
+    <CodeNext>1864494059</CodeNext>
+  </s8-54>
+  <s8-54>
+    <FileName>painter.c</FileName>
+    <ErrorCode>V2006</ErrorCode>
+    <Message>Implicit type conversion from enum type to integer type.</Message>
+    <CodePrev>123</CodePrev>
+    <CodeCurrent>532931909</CodeCurrent>
+    <CodeNext>125</CodeNext>
+  </s8-54>
+  <s8-54>
+    <FileName>painter.c</FileName>
+    <ErrorCode>V2006</ErrorCode>
+    <Message>Implicit type conversion from enum type to integer type.</Message>
+    <CodePrev>123</CodePrev>
+    <CodeCurrent>532727073</CodeCurrent>
+    <CodeNext>125</CodeNext>
+  </s8-54>
+  <s8-54>
+    <FileName>display.c</FileName>
+    <ErrorCode>V2006</ErrorCode>
+    <Message>Implicit type conversion from enum type to integer type.</Message>
+    <CodePrev>0</CodePrev>
+    <CodeCurrent>1630681348</CodeCurrent>
+    <CodeNext>3222707117</CodeNext>
+  </s8-54>
+  <s8-54>
+    <FileName>fpgaextensions.c</FileName>
+    <ErrorCode>V2006</ErrorCode>
+    <Message>Implicit type conversion from enum type to integer type.</Message>
+    <CodePrev>123</CodePrev>
+    <CodeCurrent>3683630571</CodeCurrent>
+    <CodeNext>125</CodeNext>
+  </s8-54>
+  <s8-54>
+    <FileName>fpgaextensions.c</FileName>
+    <ErrorCode>V2006</ErrorCode>
+    <Message>Implicit type conversion from enum type to integer type.</Message>
+    <CodePrev>0</CodePrev>
+    <CodeCurrent>1766192634</CodeCurrent>
+    <CodeNext>1169030830</CodeNext>
+  </s8-54>
+  <s8-54>
+    <FileName>fpgaextensions.c</FileName>
+    <ErrorCode>V2006</ErrorCode>
+    <Message>Implicit type conversion from enum type to integer type.</Message>
+    <CodePrev>123</CodePrev>
+    <CodeCurrent>3000794651</CodeCurrent>
+    <CodeNext>3829509220</CodeNext>
+  </s8-54>
+  <s8-54>
+    <FileName>fpgaextensions.c</FileName>
+    <ErrorCode>V2006</ErrorCode>
+    <Message>Implicit type conversion from enum type to integer type.</Message>
+    <CodePrev>72987881</CodePrev>
+    <CodeCurrent>3069299903</CodeCurrent>
+    <CodeNext>1855841411</CodeNext>
+  </s8-54>
+  <s8-54>
+    <FileName>fpgaextensions.c</FileName>
+    <ErrorCode>V2006</ErrorCode>
+    <Message>Implicit type conversion from enum type to integer type.</Message>
+    <CodePrev>3069299903</CodePrev>
+    <CodeCurrent>1855841411</CodeCurrent>
+    <CodeNext>96729270</CodeNext>
+  </s8-54>
+  <s8-54>
+    <FileName>fpgaextensions.c</FileName>
+    <ErrorCode>V2006</ErrorCode>
+    <Message>Implicit type conversion from enum type to integer type.</Message>
+    <CodePrev>1855841411</CodePrev>
+    <CodeCurrent>96729270</CodeCurrent>
+    <CodeNext>3303</CodeNext>
+  </s8-54>
+  <s8-54>
+    <FileName>fpgaextensions.c</FileName>
+    <ErrorCode>V2006</ErrorCode>
+    <Message>Implicit type conversion from enum type to integer type.</Message>
+    <CodePrev>150055</CodePrev>
+    <CodeCurrent>1269704635</CodeCurrent>
+    <CodeNext>963241552</CodeNext>
+  </s8-54>
+  <s8-54>
+    <FileName>fpgaextensions.c</FileName>
+    <ErrorCode>V2006</ErrorCode>
+    <Message>Implicit type conversion from enum type to integer type.</Message>
+    <CodePrev>150055</CodePrev>
+    <CodeCurrent>1830044107</CodeCurrent>
+    <CodeNext>963245648</CodeNext>
+  </s8-54>
+  <s8-54>
+    <FileName>fpgaextensions.c</FileName>
+    <ErrorCode>V2006</ErrorCode>
+    <Message>Implicit type conversion from enum type to integer type.</Message>
+    <CodePrev>123</CodePrev>
+    <CodeCurrent>1681813837</CodeCurrent>
+    <CodeNext>123</CodeNext>
+  </s8-54>
+  <s8-54>
+    <FileName>fpgaextensions.c</FileName>
+    <ErrorCode>V2006</ErrorCode>
+    <Message>Implicit type conversion from enum type to integer type.</Message>
+    <CodePrev>123</CodePrev>
+    <CodeCurrent>261905364</CodeCurrent>
+    <CodeNext>4102509752</CodeNext>
+  </s8-54>
+  <s8-54>
+    <FileName>fpgaextensions.c</FileName>
+    <ErrorCode>V2006</ErrorCode>
+    <Message>Implicit type conversion from enum type to integer type.</Message>
+    <CodePrev>123</CodePrev>
+    <CodeCurrent>2278435929</CodeCurrent>
+    <CodeNext>2786157761</CodeNext>
+  </s8-54>
+  <s8-54>
+    <FileName>fpgaextensions.c</FileName>
+    <ErrorCode>V2006</ErrorCode>
+    <Message>Implicit type conversion from enum type to integer type.</Message>
+    <CodePrev>123</CodePrev>
+    <CodeCurrent>434902367</CodeCurrent>
+    <CodeNext>125</CodeNext>
+  </s8-54>
+  <s8-54>
+    <FileName>fpgaextensions.c</FileName>
+    <ErrorCode>V2006</ErrorCode>
+    <Message>Implicit type conversion from enum type to integer type.</Message>
+    <CodePrev>123</CodePrev>
+    <CodeCurrent>2699738250</CodeCurrent>
+    <CodeNext>2357073830</CodeNext>
+  </s8-54>
+  <s8-54>
+    <FileName>fpgaextensions.c</FileName>
+    <ErrorCode>V2006</ErrorCode>
+    <Message>Implicit type conversion from enum type to integer type.</Message>
+    <CodePrev>123</CodePrev>
+    <CodeCurrent>2663470012</CodeCurrent>
+    <CodeNext>125</CodeNext>
+  </s8-54>
+  <s8-54>
+    <FileName>fpgaextensions.c</FileName>
+    <ErrorCode>V2006</ErrorCode>
+    <Message>Implicit type conversion from enum type to integer type.</Message>
+    <CodePrev>123</CodePrev>
+    <CodeCurrent>1199811936</CodeCurrent>
+    <CodeNext>123</CodeNext>
+  </s8-54>
+  <s8-54>
+    <FileName>fpgaextensions.c</FileName>
+    <ErrorCode>V2006</ErrorCode>
+    <Message>Implicit type conversion from enum type to integer type.</Message>
+    <CodePrev>123</CodePrev>
+    <CodeCurrent>3479218583</CodeCurrent>
+    <CodeNext>125</CodeNext>
+  </s8-54>
+  <s8-54>
+    <FileName>fpgaextensions.c</FileName>
+    <ErrorCode>V2006</ErrorCode>
+    <Message>Implicit type conversion from enum type to integer type.</Message>
+    <CodePrev>0</CodePrev>
+    <CodeCurrent>2748335736</CodeCurrent>
+    <CodeNext>708628779</CodeNext>
+  </s8-54>
+  <s8-54>
+    <FileName>fpgaextensions.c</FileName>
+    <ErrorCode>V2006</ErrorCode>
+    <Message>Implicit type conversion from enum type to integer type.</Message>
+    <CodePrev>2748335736</CodePrev>
+    <CodeCurrent>708628779</CodeCurrent>
+    <CodeNext>0</CodeNext>
+  </s8-54>
+  <s8-54>
+    <FileName>fpgaextensions.c</FileName>
+    <ErrorCode>V2006</ErrorCode>
+    <Message>Implicit type conversion from enum type to integer type.</Message>
+    <CodePrev>0</CodePrev>
+    <CodeCurrent>132688425</CodeCurrent>
+    <CodeNext>0</CodeNext>
+  </s8-54>
+  <s8-54>
+    <FileName>fpgaextensions.c</FileName>
+    <ErrorCode>V2006</ErrorCode>
+    <Message>Implicit type conversion from enum type to integer type.</Message>
+    <CodePrev>3810745293</CodePrev>
+    <CodeCurrent>4094741</CodeCurrent>
+    <CodeNext>570762215</CodeNext>
+  </s8-54>
+  <s8-54>
+    <FileName>fpgaextensions.c</FileName>
+    <ErrorCode>V2006</ErrorCode>
+    <Message>Implicit type conversion from enum type to integer type.</Message>
+    <CodePrev>0</CodePrev>
+    <CodeCurrent>3866311756</CodeCurrent>
+    <CodeNext>2407100712</CodeNext>
+  </s8-54>
+  <s8-54>
+    <FileName>fpgaextensions.c</FileName>
+    <ErrorCode>V2006</ErrorCode>
+    <Message>Implicit type conversion from enum type to integer type.</Message>
+    <CodePrev>3866311756</CodePrev>
+    <CodeCurrent>2407100712</CodeCurrent>
+    <CodeNext>3730815710</CodeNext>
+  </s8-54>
+  <s8-54>
+    <FileName>fpgaextensions.c</FileName>
+    <ErrorCode>V2006</ErrorCode>
+    <Message>Implicit type conversion from enum type to integer type.</Message>
+    <CodePrev>2407100712</CodePrev>
+    <CodeCurrent>3730815710</CodeCurrent>
+    <CodeNext>125</CodeNext>
+  </s8-54>
+  <s8-54>
+    <FileName>fpgaextensions.c</FileName>
+    <ErrorCode>V2006</ErrorCode>
+    <Message>Implicit type conversion from enum type to integer type.</Message>
+    <CodePrev>895030389</CodePrev>
+    <CodeCurrent>1069009067</CodeCurrent>
+    <CodeNext>125</CodeNext>
+  </s8-54>
+  <s8-54>
+    <FileName>fpgaextensions.c</FileName>
+    <ErrorCode>V2006</ErrorCode>
+    <Message>Implicit type conversion from enum type to integer type.</Message>
+    <CodePrev>0</CodePrev>
+    <CodeCurrent>628639826</CodeCurrent>
+    <CodeNext>125</CodeNext>
+  </s8-54>
+  <s8-54>
+    <FileName>usbd_desc.c</FileName>
+    <ErrorCode>V2006</ErrorCode>
+    <Message>Implicit type conversion from enum type to integer type.</Message>
+    <CodePrev>123</CodePrev>
+    <CodeCurrent>186869</CodeCurrent>
+    <CodeNext>123</CodeNext>
+  </s8-54>
+  <s8-54>
+    <FileName>menudrawing.c</FileName>
+    <ErrorCode>V2006</ErrorCode>
+    <Message>Implicit type conversion from enum type to integer type.</Message>
+    <CodePrev>2238965</CodePrev>
+    <CodeCurrent>3794364106</CodeCurrent>
+    <CodeNext>0</CodeNext>
+  </s8-54>
+  <s8-54>
+    <FileName>menudrawing.c</FileName>
+    <ErrorCode>V2006</ErrorCode>
+    <Message>Implicit type conversion from enum type to integer type.</Message>
+    <CodePrev>1685973872</CodePrev>
+    <CodeCurrent>1978789752</CodeCurrent>
+    <CodeNext>1525137317</CodeNext>
+  </s8-54>
+  <s8-54>
+    <FileName>menudrawing.c</FileName>
+    <ErrorCode>V2006</ErrorCode>
+    <Message>Implicit type conversion from enum type to integer type.</Message>
+    <CodePrev>1575833921</CodePrev>
+    <CodeCurrent>2958204284</CodeCurrent>
+    <CodeNext>2628910748</CodeNext>
+  </s8-54>
+  <s8-54>
+    <FileName>menudrawing.c</FileName>
+    <ErrorCode>V2006</ErrorCode>
+    <Message>Implicit type conversion from enum type to integer type.</Message>
+    <CodePrev>0</CodePrev>
+    <CodeCurrent>3431555297</CodeCurrent>
+    <CodeNext>0</CodeNext>
+  </s8-54>
+  <s8-54>
+    <FileName>menudrawing.c</FileName>
+    <ErrorCode>V2006</ErrorCode>
+    <Message>Implicit type conversion from enum type to integer type.</Message>
+    <CodePrev>1147093713</CodePrev>
+    <CodeCurrent>1366905198</CodeCurrent>
+    <CodeNext>8545</CodeNext>
+  </s8-54>
+  <s8-54>
+    <FileName>menudrawing.c</FileName>
+    <ErrorCode>V2006</ErrorCode>
+    <Message>Implicit type conversion from enum type to integer type.</Message>
+    <CodePrev>8545</CodePrev>
+    <CodeCurrent>1715787223</CodeCurrent>
+    <CodeNext>125</CodeNext>
+  </s8-54>
+  <s8-54>
+    <FileName>menudrawing.c</FileName>
+    <ErrorCode>V2006</ErrorCode>
+    <Message>Implicit type conversion from enum type to integer type.</Message>
+    <CodePrev>123</CodePrev>
+    <CodeCurrent>3463437515</CodeCurrent>
+    <CodeNext>125</CodeNext>
+  </s8-54>
+  <s8-54>
+    <FileName>menuitemsgraphics.c</FileName>
+    <ErrorCode>V2006</ErrorCode>
+    <Message>Implicit type conversion from enum type to integer type.</Message>
+    <CodePrev>0</CodePrev>
+    <CodeCurrent>543848398</CodeCurrent>
+    <CodeNext>125</CodeNext>
+  </s8-54>
+  <s8-54>
+    <FileName>menuitemsgraphics.c</FileName>
+    <ErrorCode>V2006</ErrorCode>
+    <Message>Implicit type conversion from enum type to integer type.</Message>
+    <CodePrev>0</CodePrev>
+    <CodeCurrent>1934706492</CodeCurrent>
+    <CodeNext>538612024</CodeNext>
+  </s8-54>
+  <s8-54>
+    <FileName>menuitemsgraphics.c</FileName>
+    <ErrorCode>V2006</ErrorCode>
+    <Message>Implicit type conversion from enum type to integer type.</Message>
+    <CodePrev>2654719802</CodePrev>
+    <CodeCurrent>353632023</CodeCurrent>
+    <CodeNext>2473663402</CodeNext>
+  </s8-54>
+  <s8-54>
+    <FileName>menuitemsgraphics.c</FileName>
+    <ErrorCode>V2006</ErrorCode>
+    <Message>Implicit type conversion from enum type to integer type.</Message>
+    <CodePrev>0</CodePrev>
+    <CodeCurrent>179927319</CodeCurrent>
+    <CodeNext>77351</CodeNext>
+  </s8-54>
+  <s8-54>
+    <FileName>pagedebug.c</FileName>
+    <ErrorCode>V2006</ErrorCode>
+    <Message>Implicit type conversion from enum type to integer type.</Message>
+    <CodePrev>0</CodePrev>
+    <CodeCurrent>4114795345</CodeCurrent>
+    <CodeNext>4131572562</CodeNext>
+  </s8-54>
+  <s8-54>
+    <FileName>pagedebug.c</FileName>
+    <ErrorCode>V2006</ErrorCode>
+    <Message>Implicit type conversion from enum type to integer type.</Message>
+    <CodePrev>4114795345</CodePrev>
+    <CodeCurrent>4131572562</CodeCurrent>
+    <CodeNext>125</CodeNext>
+  </s8-54>
+  <s8-54>
+    <FileName>pagedebug.c</FileName>
+    <ErrorCode>V2006</ErrorCode>
+    <Message>Implicit type conversion from enum type to integer type.</Message>
+    <CodePrev>123</CodePrev>
+    <CodeCurrent>943532164</CodeCurrent>
+    <CodeNext>993865860</CodeNext>
+  </s8-54>
+  <s8-54>
+    <FileName>pagedebug.c</FileName>
+    <ErrorCode>V2006</ErrorCode>
+    <Message>Implicit type conversion from enum type to integer type.</Message>
+    <CodePrev>943532164</CodePrev>
+    <CodeCurrent>993865860</CodeCurrent>
+    <CodeNext>125</CodeNext>
+  </s8-54>
+  <s8-54>
+    <FileName>pagedebug.c</FileName>
+    <ErrorCode>V2006</ErrorCode>
+    <Message>Implicit type conversion from enum type to integer type.</Message>
+    <CodePrev>123</CodePrev>
+    <CodeCurrent>2573817875</CodeCurrent>
+    <CodeNext>125</CodeNext>
+  </s8-54>
+  <s8-54>
+    <FileName>pagedebug.c</FileName>
+    <ErrorCode>V2006</ErrorCode>
+    <Message>Implicit type conversion from enum type to integer type.</Message>
+    <CodePrev>1859800813</CodePrev>
+    <CodeCurrent>926447595</CodeCurrent>
+    <CodeNext>524237915</CodeNext>
+  </s8-54>
+  <s8-54>
+    <FileName>pagedebug.c</FileName>
+    <ErrorCode>V2006</ErrorCode>
+    <Message>Implicit type conversion from enum type to integer type.</Message>
+    <CodePrev>926447595</CodePrev>
+    <CodeCurrent>524237915</CodeCurrent>
+    <CodeNext>0</CodeNext>
+  </s8-54>
+  <s8-54>
+    <FileName>tables.c</FileName>
+    <ErrorCode>V2006</ErrorCode>
+    <Message>Implicit type conversion from enum type to integer type.</Message>
+    <CodePrev>123</CodePrev>
+    <CodeCurrent>1494957844</CodeCurrent>
+    <CodeNext>125</CodeNext>
+  </s8-54>
+  <s8-54>
+    <FileName>tables.c</FileName>
+    <ErrorCode>V2006</ErrorCode>
+    <Message>Implicit type conversion from enum type to integer type.</Message>
+    <CodePrev>123</CodePrev>
+    <CodeCurrent>2601221416</CodeCurrent>
+    <CodeNext>125</CodeNext>
+  </s8-54>
+  <s8-54>
+    <FileName>tables.c</FileName>
+    <ErrorCode>V2006</ErrorCode>
+    <Message>Implicit type conversion from enum type to integer type.</Message>
+    <CodePrev>123</CodePrev>
+    <CodeCurrent>3629906117</CodeCurrent>
+    <CodeNext>125</CodeNext>
+  </s8-54>
+  <s8-54>
+    <FileName>tables.c</FileName>
+    <ErrorCode>V2006</ErrorCode>
+    <Message>Implicit type conversion from enum type to integer type.</Message>
+    <CodePrev>193</CodePrev>
+    <CodeCurrent>22617325</CodeCurrent>
+    <CodeNext>125</CodeNext>
+  </s8-54>
+  <s8-54>
+    <FileName>processingsignal.c</FileName>
+    <ErrorCode>V2006</ErrorCode>
+    <Message>Implicit type conversion from enum type to integer type.</Message>
+    <CodePrev>2559344932</CodePrev>
+    <CodeCurrent>2801082964</CodeCurrent>
+    <CodeNext>11423</CodeNext>
+  </s8-54>
+  <s8-54>
+    <FileName>processingsignal.c</FileName>
+    <ErrorCode>V2006</ErrorCode>
+    <Message>Implicit type conversion from enum type to integer type.</Message>
+    <CodePrev>123</CodePrev>
+    <CodeCurrent>3818262167</CodeCurrent>
+    <CodeNext>125</CodeNext>
+  </s8-54>
+  <s8-54>
+    <FileName>processingsignal.c</FileName>
+    <ErrorCode>V2006</ErrorCode>
+    <Message>Implicit type conversion from enum type to integer type.</Message>
+    <CodePrev>123</CodePrev>
+    <CodeCurrent>3818259099</CodeCurrent>
+    <CodeNext>125</CodeNext>
+  </s8-54>
+  <s8-54>
+    <FileName>processingsignal.c</FileName>
+    <ErrorCode>V2006</ErrorCode>
+    <Message>Implicit type conversion from enum type to integer type.</Message>
+    <CodePrev>123</CodePrev>
+    <CodeCurrent>265383667</CodeCurrent>
+    <CodeNext>125</CodeNext>
+  </s8-54>
+  <s8-54>
+    <FileName>processingsignal.c</FileName>
+    <ErrorCode>V2006</ErrorCode>
+    <Message>Implicit type conversion from enum type to integer type.</Message>
+    <CodePrev>0</CodePrev>
+    <CodeCurrent>3937604762</CodeCurrent>
+    <CodeNext>125</CodeNext>
+  </s8-54>
+  <s8-54>
+    <FileName>processingsignal.c</FileName>
+    <ErrorCode>V2006</ErrorCode>
+    <Message>Implicit type conversion from enum type to integer type.</Message>
+    <CodePrev>0</CodePrev>
+    <CodeCurrent>716379290</CodeCurrent>
+    <CodeNext>125</CodeNext>
+  </s8-54>
+  <s8-54>
+    <FileName>processingsignal.c</FileName>
+    <ErrorCode>V2006</ErrorCode>
+    <Message>Implicit type conversion from enum type to integer type.</Message>
+    <CodePrev>123</CodePrev>
+    <CodeCurrent>371190711</CodeCurrent>
+    <CodeNext>505408951</CodeNext>
+  </s8-54>
+  <s8-54>
+    <FileName>processingsignal.c</FileName>
+    <ErrorCode>V2006</ErrorCode>
+    <Message>Implicit type conversion from enum type to integer type.</Message>
+    <CodePrev>371190711</CodePrev>
+    <CodeCurrent>505408951</CodeCurrent>
+    <CodeNext>125</CodeNext>
+  </s8-54>
+  <s8-54>
+    <FileName>processingsignal.c</FileName>
+    <ErrorCode>V2006</ErrorCode>
+    <Message>Implicit type conversion from enum type to integer type.</Message>
+    <CodePrev>123</CodePrev>
+    <CodeCurrent>319503361</CodeCurrent>
+    <CodeNext>125</CodeNext>
+  </s8-54>
+  <s8-54>
+    <FileName>processingsignal.c</FileName>
+    <ErrorCode>V2006</ErrorCode>
+    <Message>Implicit type conversion from enum type to integer type.</Message>
+    <CodePrev>123</CodePrev>
+    <CodeCurrent>2418415415</CodeCurrent>
+    <CodeNext>125</CodeNext>
+  </s8-54>
+  <s8-54>
+    <FileName>processingsignal.c</FileName>
+    <ErrorCode>V2006</ErrorCode>
+    <Message>Implicit type conversion from enum type to integer type.</Message>
+    <CodePrev>123</CodePrev>
+    <CodeCurrent>2418415415</CodeCurrent>
+    <CodeNext>159898981</CodeNext>
+  </s8-54>
+  <s8-54>
+    <FileName>processingsignal.c</FileName>
+    <ErrorCode>V2006</ErrorCode>
+    <Message>Implicit type conversion from enum type to integer type.</Message>
+    <CodePrev>2418415415</CodePrev>
+    <CodeCurrent>159898981</CodeCurrent>
+    <CodeNext>125</CodeNext>
+  </s8-54>
+  <s8-54>
+    <FileName>processingsignal.c</FileName>
+    <ErrorCode>V2006</ErrorCode>
+    <Message>Implicit type conversion from enum type to integer type.</Message>
+    <CodePrev>0</CodePrev>
+    <CodeCurrent>1343398409</CodeCurrent>
+    <CodeNext>3880483637</CodeNext>
+  </s8-54>
+  <s8-54>
+    <FileName>processingsignal.c</FileName>
+    <ErrorCode>V2006</ErrorCode>
+    <Message>Implicit type conversion from enum type to integer type.</Message>
+    <CodePrev>1343398409</CodePrev>
+    <CodeCurrent>3880483637</CodeCurrent>
+    <CodeNext>125</CodeNext>
+  </s8-54>
+  <s8-54>
+    <FileName>processingsignal.c</FileName>
+    <ErrorCode>V2006</ErrorCode>
+    <Message>Implicit type conversion from enum type to integer type.</Message>
+    <CodePrev>123</CodePrev>
+    <CodeCurrent>2418415419</CodeCurrent>
+    <CodeNext>159899237</CodeNext>
+  </s8-54>
+  <s8-54>
+    <FileName>processingsignal.c</FileName>
+    <ErrorCode>V2006</ErrorCode>
+    <Message>Implicit type conversion from enum type to integer type.</Message>
+    <CodePrev>2418415419</CodePrev>
+    <CodeCurrent>159899237</CodeCurrent>
+    <CodeNext>125</CodeNext>
+  </s8-54>
+  <s8-54>
+    <FileName>processingsignal.c</FileName>
+    <ErrorCode>V2006</ErrorCode>
+    <Message>Implicit type conversion from enum type to integer type.</Message>
+    <CodePrev>0</CodePrev>
+    <CodeCurrent>1544725000</CodeCurrent>
+    <CodeNext>3830151861</CodeNext>
+  </s8-54>
+  <s8-54>
+    <FileName>processingsignal.c</FileName>
+    <ErrorCode>V2006</ErrorCode>
+    <Message>Implicit type conversion from enum type to integer type.</Message>
+    <CodePrev>1544725000</CodePrev>
+    <CodeCurrent>3830151861</CodeCurrent>
+    <CodeNext>125</CodeNext>
+  </s8-54>
+  <s8-54>
+    <FileName>processingsignal.c</FileName>
+    <ErrorCode>V2006</ErrorCode>
+    <Message>Implicit type conversion from enum type to integer type.</Message>
+    <CodePrev>123</CodePrev>
+    <CodeCurrent>2281343252</CodeCurrent>
+    <CodeNext>2281376022</CodeNext>
+  </s8-54>
+  <s8-54>
+    <FileName>processingsignal.c</FileName>
+    <ErrorCode>V2006</ErrorCode>
+    <Message>Implicit type conversion from enum type to integer type.</Message>
+    <CodePrev>2281343252</CodePrev>
+    <CodeCurrent>2281376022</CodeCurrent>
+    <CodeNext>125</CodeNext>
+  </s8-54>
+  <s8-54>
+    <FileName>processingsignal.c</FileName>
+    <ErrorCode>V2006</ErrorCode>
+    <Message>Implicit type conversion from enum type to integer type.</Message>
+    <CodePrev>123</CodePrev>
+    <CodeCurrent>604607671</CodeCurrent>
+    <CodeNext>125</CodeNext>
+  </s8-54>
+  <s8-54>
+    <FileName>processingsignal.c</FileName>
+    <ErrorCode>V2006</ErrorCode>
+    <Message>Implicit type conversion from enum type to integer type.</Message>
+    <CodePrev>0</CodePrev>
+    <CodeCurrent>3065397389</CodeCurrent>
+    <CodeNext>125</CodeNext>
+  </s8-54>
+  <s8-54>
+    <FileName>processingsignal.c</FileName>
+    <ErrorCode>V2006</ErrorCode>
+    <Message>Implicit type conversion from enum type to integer type.</Message>
+    <CodePrev>543143</CodePrev>
+    <CodeCurrent>1544725000</CodeCurrent>
+    <CodeNext>0</CodeNext>
+  </s8-54>
+  <s8-54>
+    <FileName>processingsignal.c</FileName>
+    <ErrorCode>V2006</ErrorCode>
+    <Message>Implicit type conversion from enum type to integer type.</Message>
+    <CodePrev>123</CodePrev>
+    <CodeCurrent>1828172434</CodeCurrent>
+    <CodeNext>6056285</CodeNext>
+  </s8-54>
+  <s8-54>
+    <FileName>processingsignal.c</FileName>
+    <ErrorCode>V2006</ErrorCode>
+    <Message>Implicit type conversion from enum type to integer type.</Message>
+    <CodePrev>123</CodePrev>
+    <CodeCurrent>185298514</CodeCurrent>
+    <CodeNext>125</CodeNext>
+  </s8-54>
+  <s8-54>
+    <FileName>processingsignal.c</FileName>
+    <ErrorCode>V2006</ErrorCode>
+    <Message>Implicit type conversion from enum type to integer type.</Message>
+    <CodePrev>0</CodePrev>
+    <CodeCurrent>2326325881</CodeCurrent>
+    <CodeNext>123</CodeNext>
+  </s8-54>
+  <s8-54>
+    <FileName>processingsignal.c</FileName>
+    <ErrorCode>V2006</ErrorCode>
+    <Message>Implicit type conversion from enum type to integer type.</Message>
+    <CodePrev>123</CodePrev>
+    <CodeCurrent>1909601194</CodeCurrent>
+    <CodeNext>125</CodeNext>
+  </s8-54>
+  <s8-54>
+    <FileName>processingsignal.c</FileName>
+    <ErrorCode>V2006</ErrorCode>
+    <Message>Implicit type conversion from enum type to integer type.</Message>
+    <CodePrev>0</CodePrev>
+    <CodeCurrent>1427003</CodeCurrent>
+    <CodeNext>1964853264</CodeNext>
+  </s8-54>
+  <s8-54>
+    <FileName>processingsignal.c</FileName>
+    <ErrorCode>V2006</ErrorCode>
+    <Message>Implicit type conversion from enum type to integer type.</Message>
+    <CodePrev>1427003</CodePrev>
+    <CodeCurrent>1964853264</CodeCurrent>
+    <CodeNext>125</CodeNext>
+  </s8-54>
+  <s8-54>
+    <FileName>processingsignal.c</FileName>
+    <ErrorCode>V2006</ErrorCode>
+    <Message>Implicit type conversion from enum type to integer type.</Message>
+    <CodePrev>0</CodePrev>
+    <CodeCurrent>5647433</CodeCurrent>
+    <CodeNext>125</CodeNext>
+  </s8-54>
+  <s8-54>
+    <FileName>processingsignal.c</FileName>
+    <ErrorCode>V2006</ErrorCode>
+    <Message>Implicit type conversion from enum type to integer type.</Message>
+    <CodePrev>0</CodePrev>
+    <CodeCurrent>3212179697</CodeCurrent>
+    <CodeNext>123</CodeNext>
+  </s8-54>
+  <s8-54>
+    <FileName>processingsignal.c</FileName>
+    <ErrorCode>V2006</ErrorCode>
+    <Message>Implicit type conversion from enum type to integer type.</Message>
+    <CodePrev>123</CodePrev>
+    <CodeCurrent>356711</CodeCurrent>
+    <CodeNext>620692629</CodeNext>
+  </s8-54>
+  <s8-54>
+    <FileName>processingsignal.c</FileName>
+    <ErrorCode>V2006</ErrorCode>
+    <Message>Implicit type conversion from enum type to integer type.</Message>
+    <CodePrev>123</CodePrev>
+    <CodeCurrent>2007932219</CodeCurrent>
+    <CodeNext>125</CodeNext>
+  </s8-54>
+  <s8-54>
+    <FileName>processingsignal.c</FileName>
+    <ErrorCode>V2006</ErrorCode>
+    <Message>Implicit type conversion from enum type to integer type.</Message>
+    <CodePrev>1143065</CodePrev>
+    <CodeCurrent>182670727</CodeCurrent>
+    <CodeNext>125</CodeNext>
+  </s8-54>
+  <s8-54>
+    <FileName>processingsignal.c</FileName>
+    <ErrorCode>V2006</ErrorCode>
+    <Message>Implicit type conversion from enum type to integer type.</Message>
+    <CodePrev>0</CodePrev>
+    <CodeCurrent>5956293</CodeCurrent>
+    <CodeNext>123</CodeNext>
+  </s8-54>
+  <s8-54>
+    <FileName>processingsignal.c</FileName>
+    <ErrorCode>V2006</ErrorCode>
+    <Message>Implicit type conversion from enum type to integer type.</Message>
+    <CodePrev>123</CodePrev>
+    <CodeCurrent>1551142130</CodeCurrent>
+    <CodeNext>125</CodeNext>
+  </s8-54>
+  <s8-54>
+    <FileName>processingsignal.c</FileName>
+    <ErrorCode>V2006</ErrorCode>
+    <Message>Implicit type conversion from enum type to integer type.</Message>
+    <CodePrev>125</CodePrev>
+    <CodeCurrent>4005514594</CodeCurrent>
+    <CodeNext>125</CodeNext>
+  </s8-54>
+  <s8-54>
+    <FileName>processingsignal.c</FileName>
+    <ErrorCode>V2006</ErrorCode>
+    <Message>Implicit type conversion from enum type to integer type.</Message>
+    <CodePrev>123</CodePrev>
+    <CodeCurrent>1083727035</CodeCurrent>
+    <CodeNext>1083735195</CodeNext>
+  </s8-54>
+  <s8-54>
+    <FileName>processingsignal.c</FileName>
+    <ErrorCode>V2006</ErrorCode>
+    <Message>Implicit type conversion from enum type to integer type.</Message>
+    <CodePrev>1083727035</CodePrev>
+    <CodeCurrent>1083735195</CodeCurrent>
+    <CodeNext>145479812</CodeNext>
+  </s8-54>
+  <s8-54>
+    <FileName>processingsignal.c</FileName>
+    <ErrorCode>V2006</ErrorCode>
+    <Message>Implicit type conversion from enum type to integer type.</Message>
+    <CodePrev>1083735195</CodePrev>
+    <CodeCurrent>145479812</CodeCurrent>
+    <CodeNext>3585973178</CodeNext>
+  </s8-54>
+  <s8-54>
+    <FileName>processingsignal.c</FileName>
+    <ErrorCode>V2006</ErrorCode>
+    <Message>Implicit type conversion from enum type to integer type.</Message>
+    <CodePrev>145479812</CodePrev>
+    <CodeCurrent>3585973178</CodeCurrent>
+    <CodeNext>125</CodeNext>
+  </s8-54>
+  <s8-54>
+    <FileName>processingsignal.c</FileName>
+    <ErrorCode>V2006</ErrorCode>
+    <Message>Implicit type conversion from enum type to integer type.</Message>
+    <CodePrev>0</CodePrev>
+    <CodeCurrent>1009121903</CodeCurrent>
+    <CodeNext>123</CodeNext>
+  </s8-54>
+  <s8-54>
+    <FileName>processingsignal.c</FileName>
+    <ErrorCode>V2006</ErrorCode>
+    <Message>Implicit type conversion from enum type to integer type.</Message>
+    <CodePrev>123</CodePrev>
+    <CodeCurrent>2597467055</CodeCurrent>
+    <CodeNext>125</CodeNext>
+  </s8-54>
+  <s8-54>
+    <FileName>processingsignal.c</FileName>
+    <ErrorCode>V2006</ErrorCode>
+    <Message>Implicit type conversion from enum type to integer type.</Message>
+    <CodePrev>125</CodePrev>
+    <CodeCurrent>878266640</CodeCurrent>
+    <CodeNext>9895185</CodeNext>
+  </s8-54>
+  <s8-54>
+    <FileName>processingsignal.c</FileName>
+    <ErrorCode>V2006</ErrorCode>
+    <Message>Implicit type conversion from enum type to integer type.</Message>
+    <CodePrev>1179554897</CodePrev>
+    <CodeCurrent>8829833</CodeCurrent>
+    <CodeNext>2712929</CodeNext>
+  </s8-54>
+  <s8-54>
+    <FileName>processingsignal.c</FileName>
+    <ErrorCode>V2006</ErrorCode>
+    <Message>Implicit type conversion from enum type to integer type.</Message>
+    <CodePrev>125</CodePrev>
+    <CodeCurrent>1000013153</CodeCurrent>
+    <CodeNext>125</CodeNext>
+  </s8-54>
+  <s8-54>
+    <FileName>processingsignal.c</FileName>
+    <ErrorCode>V2006</ErrorCode>
+    <Message>Implicit type conversion from enum type to integer type.</Message>
+    <CodePrev>125</CodePrev>
+    <CodeCurrent>2227128371</CodeCurrent>
+    <CodeNext>125</CodeNext>
+  </s8-54>
+  <s8-54>
+    <FileName>processingsignal.c</FileName>
+    <ErrorCode>V2006</ErrorCode>
+    <Message>Implicit type conversion from enum type to integer type.</Message>
+    <CodePrev>0</CodePrev>
+    <CodeCurrent>706697</CodeCurrent>
+    <CodeNext>125</CodeNext>
+  </s8-54>
+  <s8-54>
+    <FileName>processingsignal.c</FileName>
+    <ErrorCode>V2006</ErrorCode>
+    <Message>Implicit type conversion from enum type to integer type.</Message>
+    <CodePrev>0</CodePrev>
+    <CodeCurrent>975567471</CodeCurrent>
+    <CodeNext>123</CodeNext>
+  </s8-54>
+  <s8-54>
+    <FileName>processingsignal.c</FileName>
+    <ErrorCode>V2006</ErrorCode>
+    <Message>Implicit type conversion from enum type to integer type.</Message>
+    <CodePrev>123</CodePrev>
+    <CodeCurrent>2580689839</CodeCurrent>
+    <CodeNext>125</CodeNext>
+  </s8-54>
+  <s8-54>
+    <FileName>processingsignal.c</FileName>
+    <ErrorCode>V2006</ErrorCode>
+    <Message>Implicit type conversion from enum type to integer type.</Message>
+    <CodePrev>125</CodePrev>
+    <CodeCurrent>844712208</CodeCurrent>
+    <CodeNext>9892113</CodeNext>
+  </s8-54>
+  <s8-54>
+    <FileName>processingsignal.c</FileName>
+    <ErrorCode>V2006</ErrorCode>
+    <Message>Implicit type conversion from enum type to integer type.</Message>
+    <CodePrev>1179554897</CodePrev>
+    <CodeCurrent>1424518985</CodeCurrent>
+    <CodeNext>2712929</CodeNext>
+  </s8-54>
+  <s8-54>
+    <FileName>processingsignal.c</FileName>
+    <ErrorCode>V2006</ErrorCode>
+    <Message>Implicit type conversion from enum type to integer type.</Message>
+    <CodePrev>125</CodePrev>
+    <CodeCurrent>2789608227</CodeCurrent>
+    <CodeNext>125</CodeNext>
+  </s8-54>
+  <s8-54>
+    <FileName>processingsignal.c</FileName>
+    <ErrorCode>V2006</ErrorCode>
+    <Message>Implicit type conversion from enum type to integer type.</Message>
+    <CodePrev>125</CodePrev>
+    <CodeCurrent>1153386547</CodeCurrent>
+    <CodeNext>125</CodeNext>
+  </s8-54>
+  <s8-54>
+    <FileName>processingsignal.c</FileName>
+    <ErrorCode>V2006</ErrorCode>
+    <Message>Implicit type conversion from enum type to integer type.</Message>
+    <CodePrev>0</CodePrev>
+    <CodeCurrent>706633</CodeCurrent>
+    <CodeNext>125</CodeNext>
+  </s8-54>
+  <s8-54>
+    <FileName>processingsignal.c</FileName>
+    <ErrorCode>V2006</ErrorCode>
+    <Message>Implicit type conversion from enum type to integer type.</Message>
+    <CodePrev>0</CodePrev>
+    <CodeCurrent>1355414139</CodeCurrent>
+    <CodeNext>123</CodeNext>
+  </s8-54>
+  <s8-54>
+    <FileName>processingsignal.c</FileName>
+    <ErrorCode>V2006</ErrorCode>
+    <Message>Implicit type conversion from enum type to integer type.</Message>
+    <CodePrev>488658913</CodePrev>
+    <CodeCurrent>1307540667</CodeCurrent>
+    <CodeNext>2638170133</CodeNext>
+  </s8-54>
+  <s8-54>
+    <FileName>processingsignal.c</FileName>
+    <ErrorCode>V2006</ErrorCode>
+    <Message>Implicit type conversion from enum type to integer type.</Message>
+    <CodePrev>1307540667</CodePrev>
+    <CodeCurrent>2638170133</CodeCurrent>
+    <CodeNext>125</CodeNext>
+  </s8-54>
+  <s8-54>
+    <FileName>processingsignal.c</FileName>
+    <ErrorCode>V2006</ErrorCode>
+    <Message>Implicit type conversion from enum type to integer type.</Message>
+    <CodePrev>0</CodePrev>
+    <CodeCurrent>1355938427</CodeCurrent>
+    <CodeNext>123</CodeNext>
+  </s8-54>
+  <s8-54>
+    <FileName>processingsignal.c</FileName>
+    <ErrorCode>V2006</ErrorCode>
+    <Message>Implicit type conversion from enum type to integer type.</Message>
+    <CodePrev>757094369</CodePrev>
+    <CodeCurrent>1308064955</CodeCurrent>
+    <CodeNext>2654947349</CodeNext>
+  </s8-54>
+  <s8-54>
+    <FileName>processingsignal.c</FileName>
+    <ErrorCode>V2006</ErrorCode>
+    <Message>Implicit type conversion from enum type to integer type.</Message>
+    <CodePrev>1308064955</CodePrev>
+    <CodeCurrent>2654947349</CodeCurrent>
+    <CodeNext>125</CodeNext>
+  </s8-54>
+  <s8-54>
+    <FileName>processingsignal.c</FileName>
+    <ErrorCode>V2006</ErrorCode>
+    <Message>Implicit type conversion from enum type to integer type.</Message>
+    <CodePrev>0</CodePrev>
+    <CodeCurrent>1355151995</CodeCurrent>
+    <CodeNext>123</CodeNext>
+  </s8-54>
+  <s8-54>
+    <FileName>processingsignal.c</FileName>
+    <ErrorCode>V2006</ErrorCode>
+    <Message>Implicit type conversion from enum type to integer type.</Message>
+    <CodePrev>723483541</CodePrev>
+    <CodeCurrent>2637455605</CodeCurrent>
+    <CodeNext>2629781525</CodeNext>
+  </s8-54>
+  <s8-54>
+    <FileName>processingsignal.c</FileName>
+    <ErrorCode>V2006</ErrorCode>
+    <Message>Implicit type conversion from enum type to integer type.</Message>
+    <CodePrev>2637455605</CodePrev>
+    <CodeCurrent>2629781525</CodeCurrent>
+    <CodeNext>125</CodeNext>
+  </s8-54>
+  <s8-54>
+    <FileName>processingsignal.c</FileName>
+    <ErrorCode>V2006</ErrorCode>
+    <Message>Implicit type conversion from enum type to integer type.</Message>
+    <CodePrev>125</CodePrev>
+    <CodeCurrent>706601</CodeCurrent>
+    <CodeNext>125</CodeNext>
+  </s8-54>
+  <s8-54>
+    <FileName>processingsignal.c</FileName>
+    <ErrorCode>V2006</ErrorCode>
+    <Message>Implicit type conversion from enum type to integer type.</Message>
+    <CodePrev>0</CodePrev>
+    <CodeCurrent>1362492027</CodeCurrent>
+    <CodeNext>123</CodeNext>
+  </s8-54>
+  <s8-54>
+    <FileName>processingsignal.c</FileName>
+    <ErrorCode>V2006</ErrorCode>
+    <Message>Implicit type conversion from enum type to integer type.</Message>
+    <CodePrev>723483541</CodePrev>
+    <CodeCurrent>1699106103</CodeCurrent>
+    <CodeNext>2730444821</CodeNext>
+  </s8-54>
+  <s8-54>
+    <FileName>processingsignal.c</FileName>
+    <ErrorCode>V2006</ErrorCode>
+    <Message>Implicit type conversion from enum type to integer type.</Message>
+    <CodePrev>1699106103</CodePrev>
+    <CodeCurrent>2730444821</CodeCurrent>
+    <CodeNext>125</CodeNext>
+  </s8-54>
+  <s8-54>
+    <FileName>processingsignal.c</FileName>
+    <ErrorCode>V2006</ErrorCode>
+    <Message>Implicit type conversion from enum type to integer type.</Message>
+    <CodePrev>125</CodePrev>
+    <CodeCurrent>706473</CodeCurrent>
+    <CodeNext>125</CodeNext>
+  </s8-54>
+  <s8-54>
+    <FileName>processingsignal.c</FileName>
+    <ErrorCode>V2006</ErrorCode>
+    <Message>Implicit type conversion from enum type to integer type.</Message>
+    <CodePrev>4284222988</CodePrev>
+    <CodeCurrent>317664605</CodeCurrent>
+    <CodeNext>0</CodeNext>
+  </s8-54>
+  <s8-54>
+    <FileName>processingsignal.c</FileName>
+    <ErrorCode>V2006</ErrorCode>
+    <Message>Implicit type conversion from enum type to integer type.</Message>
+    <CodePrev>2207433540</CodePrev>
+    <CodeCurrent>1125827188</CodeCurrent>
+    <CodeNext>123</CodeNext>
+  </s8-54>
+  <s8-54>
+    <FileName>processingsignal.c</FileName>
+    <ErrorCode>V2006</ErrorCode>
+    <Message>Implicit type conversion from enum type to integer type.</Message>
+    <CodePrev>125</CodePrev>
+    <CodeCurrent>932560421</CodeCurrent>
+    <CodeNext>123</CodeNext>
+  </s8-54>
+  <s8-54>
+    <FileName>processingsignal.c</FileName>
+    <ErrorCode>V2006</ErrorCode>
+    <Message>Implicit type conversion from enum type to integer type.</Message>
+    <CodePrev>145950465</CodePrev>
+    <CodeCurrent>1866097139</CodeCurrent>
+    <CodeNext>3795396937</CodeNext>
+  </s8-54>
+  <s8-54>
+    <FileName>processingsignal.c</FileName>
+    <ErrorCode>V2006</ErrorCode>
+    <Message>Implicit type conversion from enum type to integer type.</Message>
+    <CodePrev>1866097139</CodePrev>
+    <CodeCurrent>3795396937</CodeCurrent>
+    <CodeNext>1665763022</CodeNext>
+  </s8-54>
+  <s8-54>
+    <FileName>processingsignal.c</FileName>
+    <ErrorCode>V2006</ErrorCode>
+    <Message>Implicit type conversion from enum type to integer type.</Message>
+    <CodePrev>3795396937</CodePrev>
+    <CodeCurrent>1665763022</CodeCurrent>
+    <CodeNext>123</CodeNext>
+  </s8-54>
+  <s8-54>
+    <FileName>processingsignal.c</FileName>
+    <ErrorCode>V2006</ErrorCode>
+    <Message>Implicit type conversion from enum type to integer type.</Message>
+    <CodePrev>125</CodePrev>
+    <CodeCurrent>228389067</CodeCurrent>
+    <CodeNext>3845068035</CodeNext>
+  </s8-54>
+  <s8-54>
+    <FileName>processingsignal.c</FileName>
+    <ErrorCode>V2006</ErrorCode>
+    <Message>Implicit type conversion from enum type to integer type.</Message>
+    <CodePrev>123</CodePrev>
+    <CodeCurrent>1225630917</CodeCurrent>
+    <CodeNext>125</CodeNext>
+  </s8-54>
+  <s8-54>
+    <FileName>processingsignal.c</FileName>
+    <ErrorCode>V2006</ErrorCode>
+    <Message>Implicit type conversion from enum type to integer type.</Message>
+    <CodePrev>123</CodePrev>
+    <CodeCurrent>684344186</CodeCurrent>
+    <CodeNext>125</CodeNext>
+  </s8-54>
+  <s8-54>
+    <FileName>processingsignal.c</FileName>
+    <ErrorCode>V2006</ErrorCode>
+    <Message>Implicit type conversion from enum type to integer type.</Message>
+    <CodePrev>0</CodePrev>
+    <CodeCurrent>786551039</CodeCurrent>
+    <CodeNext>123</CodeNext>
+  </s8-54>
+  <s8-54>
+    <FileName>processingsignal.c</FileName>
+    <ErrorCode>V2006</ErrorCode>
+    <Message>Implicit type conversion from enum type to integer type.</Message>
+    <CodePrev>125</CodePrev>
+    <CodeCurrent>903942385</CodeCurrent>
+    <CodeNext>123</CodeNext>
+  </s8-54>
+  <s8-54>
+    <FileName>processingsignal.c</FileName>
+    <ErrorCode>V2006</ErrorCode>
+    <Message>Implicit type conversion from enum type to integer type.</Message>
+    <CodePrev>719874093</CodePrev>
+    <CodeCurrent>1113746194</CodeCurrent>
+    <CodeNext>125</CodeNext>
+  </s8-54>
+  <s8-54>
+    <FileName>processingsignal.c</FileName>
+    <ErrorCode>V2006</ErrorCode>
+    <Message>Implicit type conversion from enum type to integer type.</Message>
+    <CodePrev>352575</CodePrev>
+    <CodeCurrent>828252312</CodeCurrent>
+    <CodeNext>949747505</CodeNext>
+  </s8-54>
+  <s8-54>
+    <FileName>processingsignal.c</FileName>
+    <ErrorCode>V2006</ErrorCode>
+    <Message>Implicit type conversion from enum type to integer type.</Message>
+    <CodePrev>828252312</CodePrev>
+    <CodeCurrent>949747505</CodeCurrent>
+    <CodeNext>2485297673</CodeNext>
+  </s8-54>
+  <s8-54>
+    <FileName>processingsignal.c</FileName>
+    <ErrorCode>V2006</ErrorCode>
+    <Message>Implicit type conversion from enum type to integer type.</Message>
+    <CodePrev>949747505</CodePrev>
+    <CodeCurrent>2485297673</CodeCurrent>
+    <CodeNext>621564369</CodeNext>
+  </s8-54>
+  <s8-54>
+    <FileName>processingsignal.c</FileName>
+    <ErrorCode>V2006</ErrorCode>
+    <Message>Implicit type conversion from enum type to integer type.</Message>
+    <CodePrev>2485297673</CodePrev>
+    <CodeCurrent>621564369</CodeCurrent>
+    <CodeNext>0</CodeNext>
+  </s8-54>
+  <s8-54>
+    <FileName>processingsignal.c</FileName>
+    <ErrorCode>V2006</ErrorCode>
+    <Message>Implicit type conversion from enum type to integer type.</Message>
+    <CodePrev>156541</CodePrev>
+    <CodeCurrent>285220291</CodeCurrent>
+    <CodeNext>3117615915</CodeNext>
+  </s8-54>
+  <s8-54>
+    <FileName>processingsignal.c</FileName>
+    <ErrorCode>V2006</ErrorCode>
+    <Message>Implicit type conversion from enum type to integer type.</Message>
+    <CodePrev>625901</CodePrev>
+    <CodeCurrent>285744515</CodeCurrent>
+    <CodeNext>2576550699</CodeNext>
+  </s8-54>
 </NewDataSet>
