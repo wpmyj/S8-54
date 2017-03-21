@@ -22,25 +22,25 @@ void Data_GetFromIntMemory(void)
 }
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
-DataSettings* Data_DSMemInt(void)
+DataSettings* Data_DSInt(void)
 {
     return pDSmemInt;
 }
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
-DataSettings** Data_pDSMemInt(void)
+DataSettings** Data_pDSInt(void)
 {
     return &pDSmemInt;
 }
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
-uint8* Data_ChMemInt(Channel ch)
+uint8* Data_ChInt(Channel ch)
 {
     return dataChanMemInt[ch];
 }
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
-uint8** Data_pChMemInt(Channel ch)
+uint8** Data_pChInt(Channel ch)
 {
     return &(dataChanMemInt[ch]);
 }

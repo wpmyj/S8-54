@@ -2,7 +2,6 @@
 // PVS-Studio Static Code Analyzer for C, C++ and C#: http://www.viva64.com
 #include "defines.h"
 #include "FPGA/Data.h"
-#include "FPGA/DataStorage.h"
 #include "Settings/Settings.h"
 #include "Hardware/FSMC.h"
 #include "Hardware/Timer.h"
@@ -132,9 +131,9 @@ void ProcessingSignal(void)
     }
     else if (WORK_INT)
     {
-        dataA = Data_pChMemInt(A);
-        dataB = Data_pChMemInt(B);
-        ds = Data_pDSMemInt();
+        dataA = Data_pChInt(A);
+        dataB = Data_pChInt(B);
+        ds = Data_pDSInt();
         Data_GetFromIntMemory();
     }
 

@@ -9,9 +9,9 @@ extern uint8        *gDataBmemLast;     //-/
 
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-#define DS_MEM_INT  (Data_DSMemInt())
-#define CHA_MEM_INT (Data_ChMemInt(A))
-#define CHB_MEM_INT (Data_ChMemInt(B))
+#define DS_MEM_INT  (Data_DSInt())
+#define CHA_MEM_INT (Data_ChInt(A))
+#define CHB_MEM_INT (Data_ChInt(B))
 
 #define DS      (Data_DS())
 #define P_DS    (Data_pDS())
@@ -23,10 +23,11 @@ extern uint8        *gDataBmemLast;     //-/
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 void Data_GetFromIntMemory(void);       // Считать из ППЗУ информацию о настройках и указатели на данные
-DataSettings*  Data_DSMemInt(void);     // Возвращает указатель на настройки сигнала из ППЗУ
-DataSettings** Data_pDSMemInt(void);    // Возвращает указатель на указатель на настройки сигнала из ППЗУ   TODO Отрефакторить - этой функции не должно быть
-uint8*  Data_ChMemInt(Channel ch);      // Получить указатель на канал данных из ППЗУ
-uint8** Data_pChMemInt(Channel ch);     // Возвращает указатель на указатель на канал данных на ППЗУ TODO Этой функции не должно остаться после рефакторинга
+
+DataSettings*  Data_DSInt(void);        // Возвращает указатель на настройки сигнала из ППЗУ
+DataSettings** Data_pDSInt(void);       // Возвращает указатель на указатель на настройки сигнала из ППЗУ   TODO Отрефакторить - этой функции не должно быть
+uint8*  Data_ChInt(Channel ch);         // Получить указатель на канал данных из ППЗУ
+uint8** Data_pChInt(Channel ch);        // Возвращает указатель на указатель на канал данных на ППЗУ TODO Этой функции не должно остаться после рефакторинга
 
 DataSettings*  Data_DS(void);           // Указатель на настройки рисуемых сигналов
 DataSettings** Data_pDS(void);          // Указатель на указатель на настройки рисуемых сигналов    TODO после рефакторинга этого не должно быть
