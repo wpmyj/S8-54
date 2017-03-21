@@ -169,6 +169,7 @@
     <ClCompile Include="..\..\S8-54\src\FlashDrive\FlashDrive.c">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</ExcludedFromBuild>
     </ClCompile>
+    <ClCompile Include="..\..\S8-54\src\FPGA\Data.c" />
     <ClCompile Include="..\..\S8-54\src\FPGA\DataStorage.c" />
     <ClCompile Include="..\..\S8-54\src\FPGA\fpga.c" />
     <ClCompile Include="..\..\S8-54\src\FPGA\fpgaExtensions.c" />
@@ -364,6 +365,7 @@
     <ClInclude Include="..\..\S8-54\src\FlashDrive\FlashDrive.h">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</ExcludedFromBuild>
     </ClInclude>
+    <ClInclude Include="..\..\S8-54\src\FPGA\Data.h" />
     <ClInclude Include="..\..\S8-54\src\FPGA\DataStorage.h" />
     <ClInclude Include="..\..\S8-54\src\FPGA\fpga.h" />
     <ClInclude Include="..\..\S8-54\src\FPGA\fpgaExtensions.h" />

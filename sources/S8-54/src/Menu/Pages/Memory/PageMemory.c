@@ -8,6 +8,7 @@
 #include "Menu/MenuFunctions.h"
 #include "FPGA/FPGA.h"
 #include "FPGA/FPGAtypes.h"
+#include "FPGA/Data.h"
 #include "FPGA/DataStorage.h"
 #include "Display/Colors.h"
 #include "Display/Display.h"
@@ -416,7 +417,7 @@ static void OnPress_Last_IntEnter(void)
 {
     OpenPageAndSetItCurrent(Page_SB_MemInt);
     MODE_WORK = ModeWork_MemInt;
-    FLASH_GetData(gMemory.currentNumIntSignal, &gDSmemInt, &gDataAmemInt, &gDataBmemInt);
+    Data_GetFromIntMemory();
     gMemory.exitFromIntToLast = 1;
 }
 
@@ -558,7 +559,7 @@ static void OnPress_Int(void)
 {
     OpenPageAndSetItCurrent(Page_SB_MemInt);
     MODE_WORK = ModeWork_MemInt;
-    FLASH_GetData(gMemory.currentNumIntSignal, &gDSmemInt, &gDataAmemInt, &gDataBmemInt);
+    Data_GetFromIntMemory();
 }
 
 static void OnDraw_Int(void)
@@ -606,7 +607,7 @@ static void OnReg_Int(int delta)
     {
         CircleIncreaseInt8(&gMemory.currentNumIntSignal, 0, MAX_NUM_SAVED_WAVES - 1);
     }
-    FLASH_GetData(gMemory.currentNumIntSignal, &gDSmemInt, &gDataAmemInt, &gDataBmemInt);
+    Data_GetFromIntMemory();
     Painter_ResetFlash();
 }
 
@@ -625,7 +626,7 @@ static const SmallButton sbInt_Exit =
 
 static void OnPress_Int_Exit(void)
 {
-    FLASH_GetData(gMemory.currentNumIntSignal, &gDSmemInt, &gDataAmemInt, &gDataBmemInt);
+    Data_GetFromIntMemory();
     if (gMemory.exitFromIntToLast == 1)
     {
         OpenPageAndSetItCurrent(Page_SB_MemLatest);
@@ -829,7 +830,7 @@ static void SaveSignalToIntMemory(void)
         if (gDSmemLast != 0)
         {
             FLASH_SaveData(gMemory.currentNumIntSignal, gDSmemLast, gDataAmemLast, gDataBmemLast);
-            FLASH_GetData(gMemory.currentNumIntSignal, &gDSmemInt, &gDataAmemInt, &gDataBmemInt);
+            Data_GetFromIntMemory();
             Display_ShowWarning(SignalIsSaved);
         }
     }

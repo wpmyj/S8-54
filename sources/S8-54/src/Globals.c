@@ -141,11 +141,3 @@ DataSettings    *gDSmemInt = 0;
 uint8           *gDataAmemLast = 0;
 uint8           *gDataBmemLast = 0;
 DataSettings    *gDSmemLast = 0;
-
-//----------------------------------------------------------------------------------------------------------------------------------------------------
-/*
-DataSettings *GetDSforMainSignal(void)
-{
-
-}
-*/

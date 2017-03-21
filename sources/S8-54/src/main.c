@@ -1,6 +1,7 @@
 // This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++ and C#: http://www.viva64.com
 #include "defines.h"
+#include "FPGA/Data.h"
 #include "FPGA/DataStorage.h"
 #include "Settings/Settings.h"
 #include "Hardware/FSMC.h"
@@ -135,7 +136,7 @@ void ProcessingSignal(void)
         dataA = &gDataAmemInt;
         dataB = &gDataBmemInt;
         ds = &gDSmemInt;
-        FLASH_GetData(gMemory.currentNumIntSignal, &gDSmemInt, &gDataAmemInt, &gDataBmemInt);
+        Data_GetFromIntMemory();
     }
 
     if (WORK_INT)

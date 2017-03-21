@@ -1625,7 +1625,7 @@ static void WriteTextVoltage(Channel ch, int x, int y)
     Range range = Range_2mV;
     uint rShift = 0;
 
-    if (WORK_DIRECT || (WORK_INT && set.memory.modeShowIntMem == ModeShowIntMem_Direct))
+    if (WORK_DIRECT || (WORK_INT && SHOW_DIRECT_IN_MEM_INT))
     {
         inverse = INVERSE(ch);
         modeCouple = COUPLE(ch);

@@ -36,6 +36,8 @@
 #define MODE_SAVE_BMP           (MODE_SAVE == ModeSaveSignal_BMP)
 #define MODE_SAVE_TXT           (MODE_SAVE == ModeSaveSignal_TXT)
 
+#define SHOW_DIRECT_IN_MEM_INT  (set.memory.modeShowIntMem == ModeShowIntMem_Direct)
+
 
 int sMemory_NumBytesInChannel(bool forCalculate);
 int sMemory_NumPointsInChannel(void);

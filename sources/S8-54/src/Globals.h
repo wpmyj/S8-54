@@ -154,25 +154,7 @@ extern volatile BitField gBF;               // Структура сделана
                                             // изменит своё состояние (каковое изменение происходит из прерывания, ясен перец))
 
 
-#define NUM_DATAS 999
-extern DataSettings gDatas[NUM_DATAS];                  // Используется только в DataStorage
-extern uint8 gDataAve[NumChannels][FPGA_MAX_POINTS];    // Используется только в DataStorage
-
-extern int gAddNStop;
-
-extern void *extraMEM;      // Это специальный указатель. Используется для выделения памяти переменным, которые не нужны всё время выполения программы,
-                            // но нужны болеее чем в одной функции. Перед использованием с помощью вызова malloc() выделяется необходимое количество
-                            // памяти, которая затем освобождается вызвом free()
-
 #define MALLOC_EXTRAMEM(NameStruct, name)   extraMEM = malloc(sizeof(NameStruct));    \
                                             NameStruct *name = (NameStruct*)extraMEM
 #define ACCESS_EXTRAMEM(NameStruct, name)   NameStruct *name = (NameStruct*)extraMEM
 #define FREE_EXTRAMEM()                     free(extraMEM)
-
-/*
-// Указатель на настройки главного отрисовываемого сигнала. В случае одного отрисовываемого на экране сигнала этими настройками будут, ясное дело, его настройки.
-// В остальных случаях:
-// - в основном режиме с отрисовкой поверх сигнала из ППЗУ - настройки реального сигнала
-// - в режиме просмотра записанных / ОБА - настройки записанного сигнала
-DataSettings *GetDSforMainSignal(void);
-*/

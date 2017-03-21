@@ -2,8 +2,14 @@
 // PVS-Studio Static Code Analyzer for C, C++ and C#: http://www.viva64.com
 #include "DataSettings.h"
 #include "Globals.h"
+#include "Hardware/FLASH.h"
 #include "Settings/SettingsMemory.h"
 
+DataSettings gDatas[NUM_DATAS];
+uint8 gDataAve[NumChannels][FPGA_MAX_POINTS];
+int gAddNStop = 0;
+void *extraMEM = 0;
+StateOSCI gState = StateOSCI_Start;
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 int NumBytesInChannel(const DataSettings *ds)
@@ -46,9 +52,25 @@ uint8 *AddressChannel(DataSettings *ds, Channel ch)
     return 0;
 }
 
-DataSettings gDatas[NUM_DATAS];
-uint8 gDataAve[NumChannels][FPGA_MAX_POINTS];
 
-int gAddNStop = 0;
+//----------------------------------------------------------------------------------------------------------------------------------------------------
+bool GetInverse(Channel ch)
+{
+    if (gState == StateOSCI_Start)
+    {
 
-void *extraMEM = 0;
+    }
+    else if (gState == StateOSCI_DrawLoPart)
+    {
+        if (WORK_DIRECT || (WORK_INT && SHOW_DIRECT_IN_MEM_INT))
+        {
+            return INVERSE(ch);
+        }
+        else
+        {
+            //return DS_INVERSE(ds)
+        }
+    }
+
+    return false;
+}
