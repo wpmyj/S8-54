@@ -133,8 +133,8 @@ void ProcessingSignal(void)
     }
     else if (WORK_INT)
     {
-        dataA = &gDataAmemInt;
-        dataB = &gDataBmemInt;
+        dataA = Data_pChMemInt(A);
+        dataB = Data_pChMemInt(B);
         ds = Data_pDSMemInt();
         Data_GetFromIntMemory();
     }

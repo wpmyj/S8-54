@@ -162,8 +162,8 @@ void PainterData_DrawMath(void)
 // Нарисовать окно памяти
 void PainterData_DrawMemoryWindow(void)
 {
-    uint8 *datA = gDataAmemInt;
-    uint8 *datB = gDataBmemInt;
+    uint8 *datA = CHA_MEM_INT;
+    uint8 *datB = CHB_MEM_INT;
     DataSettings *ds = DS_MEM_INT;
 
     if (IN_P2P_MODE && !DS_GetLastFrameP2P_RAM(&ds, &datA, &datB))      // Страхуемся от глюков
@@ -256,9 +256,9 @@ static void DrawDataMemInt(void)
     {
         curDS = DS_MEM_INT;
         curCh = A;
-        DrawDataChannel(gDataAmemInt, GRID_TOP, GridChannelBottom());
+        DrawDataChannel(CHA_MEM_INT, GRID_TOP, GridChannelBottom());
         curCh = B;
-        DrawDataChannel(gDataBmemInt, GRID_TOP, GridChannelBottom());
+        DrawDataChannel(CHB_MEM_INT, GRID_TOP, GridChannelBottom());
     }
 }
 

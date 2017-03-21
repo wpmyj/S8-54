@@ -839,7 +839,7 @@ static void SaveSignalToIntMemory(void)
         if (gDSet != 0)
         {
             FLASH_SaveData(gMemory.currentNumIntSignal, gDSet, gDataA, gDataB);
-            FLASH_GetData(gMemory.currentNumIntSignal, &gDSet, &gDataAmemInt, &gDataBmemInt);
+            FLASH_GetData(gMemory.currentNumIntSignal, &gDSet, Data_pChMemInt(A), Data_pChMemInt(B));
             Display_ShowWarning(SignalIsSaved);
         }
     }
