@@ -85,9 +85,9 @@ int main(void)
 //------------------------------------------------------------------------------------------------------------------------------------------------------
 void ProcessingSignal(void)
 {
-    uint8 **dataA = P_DATAA;
-    uint8 **dataB = P_DATAB;
-    DataSettings **ds = P_DS;
+    uint8 **dataA = &DATA(A);
+    uint8 **dataB = &DATA(B);
+    DataSettings **ds = &DS;
 
     if (DS_NumElementsInStorage() == 0)
     {
@@ -107,11 +107,11 @@ void ProcessingSignal(void)
             DS_NumElementsWithCurrentSettings() > 1 // и в хранилище уже есть считанные сигналы с такими настройками
             )
         {
-            DS_GetDataFromEnd_RAM(1, P_DS, (uint16**)P_DATAA, (uint16**)P_DATAB);
+            DS_GetDataFromEnd_RAM(1, &DS, (uint16**)&DATA(A), (uint16**)&DATA(B));
         }
         else
         {
-            DS_GetDataFromEnd_RAM(0, P_DS, (uint16**)P_DATAA, (uint16**)P_DATAB);
+            DS_GetDataFromEnd_RAM(0, &DS, (uint16**)&DATA(A), (uint16**)&DATA(B));
         }
 
         if (sDisplay_NumAverage() != 1 || IN_RANDOM_MODE)
@@ -124,16 +124,16 @@ void ProcessingSignal(void)
     }
     else if (WORK_LAST)
     {
-        dataA = Data_pChLast(A);
-        dataB = Data_pChLast(B);
-        ds = P_DS_MEM_LAST;
-        DS_GetDataFromEnd_RAM(gMemory.currentNumLatestSignal, P_DS_MEM_LAST, (uint16**)Data_pChLast(A), (uint16**)Data_pChLast(B));
+        dataA = &DATA_LAST(A);
+        dataB = &DATA_LAST(B);
+        ds = &DS_LAST;
+        DS_GetDataFromEnd_RAM(gMemory.currentNumLatestSignal, &DS_LAST, (uint16**)&DATA_LAST(A), (uint16**)&DATA_LAST(B));
     }
     else if (WORK_INT)
     {
-        dataA = Data_pChInt(A);
-        dataB = Data_pChInt(B);
-        ds = Data_pDSInt();
+        dataA = &DATA_INT(A);
+        dataB = &DATA_INT(B);
+        ds = &DS_INT;
         Data_GetFromIntMemory();
     }
 
@@ -141,7 +141,7 @@ void ProcessingSignal(void)
     { 
         if (SHOW_IN_INT_BOTH || SHOW_IN_INT_DIRECT)
         {
-            Processing_SetSignal(DATAA, DATAB, DS, first, last);
+            Processing_SetSignal(DATA(A), DATA(B), DS, first, last);
         }
     }
     else

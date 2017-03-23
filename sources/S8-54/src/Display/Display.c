@@ -573,23 +573,23 @@ static void DrawSpectrum(void)
 
         if(SOURCE_FFT_A)
         {
-            DRAW_SPECTRUM(DATAA, numPoints, A);
+            DRAW_SPECTRUM(DATA(A), numPoints, A);
         }
         else if(SOURCE_FFT_B)
         {
-            DRAW_SPECTRUM(DATAB, numPoints, B);
+            DRAW_SPECTRUM(DATA(B), numPoints, B);
         }
         else
         {
             if(LAST_AFFECTED_CH == A)
             {
-                DRAW_SPECTRUM(DATAB, numPoints, B);
-                DRAW_SPECTRUM(DATAA, numPoints, A);
+                DRAW_SPECTRUM(DATA(B), numPoints, B);
+                DRAW_SPECTRUM(DATA(A), numPoints, A);
             }
             else
             {
-                DRAW_SPECTRUM(DATAA, numPoints, A);
-                DRAW_SPECTRUM(DATAB, numPoints, B);
+                DRAW_SPECTRUM(DATA(A), numPoints, A);
+                DRAW_SPECTRUM(DATA(B), numPoints, B);
             }
         }
 
@@ -674,7 +674,7 @@ static void DrawLowPart(void)
     }
     else if(!WORK_DIRECT)
     {
-        DataSettings *ds = WORK_LAST ? DS_MEM_LAST : DS_MEM_INT;
+        DataSettings *ds = WORK_LAST ? DS_LAST : DS_INT;
         if(ds != 0)
         {
             tBase = (TBase)ds->tBase;
@@ -1637,7 +1637,7 @@ static void WriteTextVoltage(Channel ch, int x, int y)
     }
     else 
     {
-        DataSettings *ds = WORK_LAST ? DS_MEM_LAST : DS_MEM_INT;
+        DataSettings *ds = WORK_LAST ? DS_LAST : DS_INT;
 
         if(ds != 0)
         {
@@ -1704,7 +1704,7 @@ static void DrawTime(int x, int y)
 
     if(WORK_INT || WORK_LAST)
     {
-        DataSettings *ds = WORK_INT ? DS_MEM_INT : DS_MEM_LAST;
+        DataSettings *ds = WORK_INT ? DS_INT : DS_LAST;
 
         if(ds != 0)
         {

@@ -162,9 +162,9 @@ void PainterData_DrawMath(void)
 // Нарисовать окно памяти
 void PainterData_DrawMemoryWindow(void)
 {
-    uint8 *datA = CHA_MEM_INT;
-    uint8 *datB = CHB_MEM_INT;
-    DataSettings *ds = DS_MEM_INT;
+    uint8 *datA = DATA_INT(A);
+    uint8 *datB = DATA_INT(B);
+    DataSettings *ds = DS_INT;
 
     if (IN_P2P_MODE && !DS_GetLastFrameP2P_RAM(&ds, &datA, &datB))      // Страхуемся от глюков
     {
@@ -176,8 +176,8 @@ void PainterData_DrawMemoryWindow(void)
 
     if (WORK_DIRECT || WORK_LAST)
     {
-        datA = DATAA;
-        datB = DATAB;
+        datA = DATA(A);
+        datB = DATA(B);
         ds = DS;
 
         if (DS_DataSettingsFromEnd(0)->tBase >= MIN_TBASE_P2P)          // Если находимся в режиме поточечного вывода
@@ -218,7 +218,7 @@ void PainterData_DrawMemoryWindow(void)
     const int xVert0 = leftX + (int)(shiftInMemory * scaleX);
 
     Channel lastAffectedChannel = LAST_AFFECTED_CH;
-    if (((uint)NumPoints_2_FPGA_NUM_POINTS(sMemory_NumBytesInChannel(false)) == DS->indexLength) && (DATAA || DATAB))
+    if (((uint)NumPoints_2_FPGA_NUM_POINTS(sMemory_NumBytesInChannel(false)) == DS->indexLength) && (DATA(A) || DATA(B)))
     {
         Channel chanFirst = lastAffectedChannel == A ? B : A;
         Channel chanSecond = lastAffectedChannel == A ? A : B;
@@ -252,13 +252,13 @@ void PainterData_DrawMemoryWindow(void)
 //---------------------------------------------------------------------------------------------------------------------------------------------------
 static void DrawDataMemInt(void)
 {
-    if (DS_MEM_INT != 0)
+    if (DS_INT != 0)
     {
-        curDS = DS_MEM_INT;
+        curDS = DS_INT;
         curCh = A;
-        DrawDataChannel(CHA_MEM_INT, GRID_TOP, GridChannelBottom());
+        DrawDataChannel(DATA_INT(A), GRID_TOP, GridChannelBottom());
         curCh = B;
-        DrawDataChannel(CHB_MEM_INT, GRID_TOP, GridChannelBottom());
+        DrawDataChannel(DATA_INT(B), GRID_TOP, GridChannelBottom());
     }
 }
 
@@ -291,13 +291,13 @@ static void DrawDataInModeNormal(void)
 //------------------------------------------------------------------------------------------------------------------------------------------------------
 static void DrawDataInModeWorkLatest(void)
 {
-    if (DS_MEM_LAST != 0)
+    if (DS_LAST != 0)
     {
-        curDS = DS_MEM_LAST;
+        curDS = DS_LAST;
         curCh = A;
-        DrawDataChannel(CHA_MEM_LAST, GRID_TOP, GridChannelBottom());
+        DrawDataChannel(DATA_LAST(A), GRID_TOP, GridChannelBottom());
         curCh = B;
-        DrawDataChannel(CHB_MEM_LAST, GRID_TOP, GridChannelBottom());
+        DrawDataChannel(DATA_LAST(B), GRID_TOP, GridChannelBottom());
     }
 }
 
