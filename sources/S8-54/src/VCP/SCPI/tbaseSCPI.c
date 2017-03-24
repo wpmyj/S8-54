@@ -81,7 +81,7 @@ void Process_RANGE(uint8 *buffer)
         if (TBaseSize > value) { FPGA_SetTBase((TBase)value); }
         else if (255 == value)
         {
-            SCPI_SEND(":TBASE:RANGE %s", Tables_GetTBaseStringEN(TBASE));
+            SCPI_SEND(":TBASE:RANGE %s", Tables_GetTBaseStringEN(SET_TBASE));
         }
     LEAVE_ANALYSIS
 }

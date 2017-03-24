@@ -5,15 +5,15 @@
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 #define SET_TSHIFT          (set.time.tShiftRel)
-#define TBASE               (set.time.tBase)
+#define SET_TBASE           (set.time.tBase)
 #define TIME_DIVXPOS        (set.time.timeDivXPos)
 
 #define SET_PEACKDET        (set.time.peackDet)
 #define SET_PEACKDET_EN     (SET_PEACKDET == PeackDet_Enable)
 #define SET_PEACKDET_DIS    (SET_PEACKDET == PeackDet_Disable)
 
-#define IN_RANDOM_MODE      (TBASE < TBase_50ns)
-#define IN_P2P_MODE         (TBASE >= MIN_TBASE_P2P)
+#define IN_RANDOM_MODE      (SET_TBASE < TBase_50ns)
+#define IN_P2P_MODE         (SET_TBASE >= MIN_TBASE_P2P)
 
 #define TPOS                (set.time.tPos)
 #define TPOS_RIGHT          (TPOS == TPos_Right)

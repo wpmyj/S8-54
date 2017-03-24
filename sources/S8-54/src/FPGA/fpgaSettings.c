@@ -107,7 +107,7 @@ static void SetTShift(int tShift, bool needFPGApause);  // WARN временный костыл
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 static void LoadTBase(void)
 {
-    TBase tBase = TBASE;
+    TBase tBase = SET_TBASE;
     uint8 mask = SET_PEACKDET ? masksTBase[tBase].maskPeackDet : masksTBase[tBase].maskNorm;
     FPGA_Write(RecordFPGA, WR_RAZV, mask, true);
     TIME_COMPENSATION = timeCompensation[tBase];
@@ -131,7 +131,7 @@ int addShiftForFPGA = 0;
 //------------------------------------------------------------------------------------------------------------------------------------------------------
 void LoadTShift(void)
 {
-    TBase tBase = TBASE;
+    TBase tBase = SET_TBASE;
     int tShift = SET_TSHIFT - sTime_TShiftMin() + timeCompensation[tBase];
 
     gPost = (uint16)tShift;
@@ -507,10 +507,10 @@ void FPGA_SetTBase(TBase tBase)
     }
     if (tBase < TBaseSize && (int)tBase >= 0)
     {
-        float tShiftAbsOld = TSHIFT_2_ABS(SET_TSHIFT, TBASE);
+        float tShiftAbsOld = TSHIFT_2_ABS(SET_TSHIFT, SET_TBASE);
         sTime_SetTBase(tBase);
         LoadTBase();
-        SetTShift((int)TSHIFT_2_REL(tShiftAbsOld, TBASE), false);
+        SetTShift((int)TSHIFT_2_REL(tShiftAbsOld, SET_TBASE), false);
         Display_Redraw();
     }
     else
@@ -523,22 +523,22 @@ void FPGA_SetTBase(TBase tBase)
 //------------------------------------------------------------------------------------------------------------------------------------------------------
 void FPGA_TBaseDecrease(void)
 {
-    if (SET_PEACKDET && TBASE <= MIN_TBASE_PEC_DEAT)
+    if (SET_PEACKDET && SET_TBASE <= MIN_TBASE_PEC_DEAT)
     {
         Display_ShowWarning(LimitSweep_Time);
         Display_ShowWarning(EnabledPeakDet);
         return;
     }
 
-    if ((int)TBASE > 0)
+    if ((int)SET_TBASE > 0)
     {
-        if (RECORDER_MODE && TBASE == MIN_TBASE_P2P)
+        if (RECORDER_MODE && SET_TBASE == MIN_TBASE_P2P)
         {
             Display_ShowWarning(TooFastScanForRecorder);
         }
         else
         {
-            TBase base = (TBase)((int)TBASE - 1);
+            TBase base = (TBase)((int)SET_TBASE - 1);
             FPGA_SetTBase(base);
         }
     }
@@ -547,7 +547,7 @@ void FPGA_TBaseDecrease(void)
         Display_ShowWarning(LimitSweep_Time);
     }
 
-    if (TBASE == TBase_20ns &&                 // Если перешли в режим эквавалентного времени
+    if (SET_TBASE == TBase_20ns &&                 // Если перешли в режим эквавалентного времени
         !START_MODE_SINGLE)         // И не находимся в режиме однократного запуска
     {
         SAMPLE = SAMPLE_OLD;
@@ -558,9 +558,9 @@ void FPGA_TBaseDecrease(void)
 //------------------------------------------------------------------------------------------------------------------------------------------------------
 void FPGA_TBaseIncrease(void)
 {
-    if (TBASE < (TBaseSize - 1))
+    if (SET_TBASE < (TBaseSize - 1))
     {
-        TBase base = (TBase)(TBASE + 1); //-V2006
+        TBase base = (TBase)(SET_TBASE + 1); //-V2006
         FPGA_SetTBase(base);
     }
     else
@@ -568,7 +568,7 @@ void FPGA_TBaseIncrease(void)
         Display_ShowWarning(LimitSweep_Time);
     }
     
-    if (TBASE == TBase_50ns &&                 // Если перешли в режим реального времени
+    if (SET_TBASE == TBase_50ns &&                 // Если перешли в режим реального времени
         !START_MODE_SINGLE)         // И не находимся в режиме однократного запуска
     {
         SAMPLE = SampleType_Real;          // И установим реальный, потому что в реальном режиме эквивалентный глупо смотрится
@@ -683,7 +683,7 @@ static void SetTShift(int tShift, bool needFPGApause)
 //------------------------------------------------------------------------------------------------------------------------------------------------------
 void FPGA_SetDeltaTShift(int16 shift)
 {
-    timeCompensation[TBASE] = shift;
+    timeCompensation[SET_TBASE] = shift;
     LoadTShift();
 }
 
@@ -713,7 +713,7 @@ void FPGA_EnableRecorderMode(bool enable)
 
     if (RECORDER_MODE)
     {
-        if (TBASE < TBase_100ms)
+        if (SET_TBASE < TBase_100ms)
         {
             FPGA_SetTBase(TBase_100ms);
         }
@@ -731,7 +731,7 @@ void FPGA_EnableRecorderMode(bool enable)
 //------------------------------------------------------------------------------------------------------------------------------------------------------
 const char *FPGA_GetTShiftString(int16 tShiftRel, char buffer[20])
 {
-    float tShiftVal = TSHIFT_2_ABS(tShiftRel, TBASE);
+    float tShiftVal = TSHIFT_2_ABS(tShiftRel, SET_TBASE);
     return Time2String(tShiftVal, true, buffer);
 }
 

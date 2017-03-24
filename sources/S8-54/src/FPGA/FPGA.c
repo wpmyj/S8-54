@@ -348,11 +348,11 @@ static int CalculateShift(void)            // WARN Не забыть восстановить функци
     if (IN_RANDOM_MODE)
     {
         float tin = (float)(adcValueFPGA - min) / (max - min) * 10e-9f;
-        int retValue = (int)(tin / 10e-9f * Kr[TBASE]);
+        int retValue = (int)(tin / 10e-9f * Kr[SET_TBASE]);
         return retValue;
     }
 
-    if (TBASE == TBase_100ns && adcValueFPGA < (min + max) / 2)
+    if (SET_TBASE == TBase_100ns && adcValueFPGA < (min + max) / 2)
     {
         return 0;
     }
@@ -469,7 +469,7 @@ static bool ReadRandomizeModeSave(bool first, bool last, bool onlySave)
         }
 
         // Теперь считаем данные
-        TBase tBase = TBASE;
+        TBase tBase = SET_TBASE;
         int step = Kr[tBase];
         extern int addShiftForFPGA;
 #define NUM_ADD_STEPS 2
@@ -674,7 +674,7 @@ bool ProcessingData(void)
 
     static const int numRead[] = {100, 50, 20, 10, 5};
 
-    int num = IN_RANDOM_MODE ? numRead[TBASE] / 2 : 1;
+    int num = IN_RANDOM_MODE ? numRead[SET_TBASE] / 2 : 1;
 
     if (num > 1)
     {
@@ -728,7 +728,7 @@ bool ProcessingData(void)
         }
         else if (START_MODE_AUTO)  // Если имупльса синхронизации нету, а включён автоматический режим синхронизации
         {
-            if (gTimerMS - timeCompletePredTrig > TSHIFT_2_ABS(2, TBASE) * 1000)  // Если прошло больше времени, чем помещается в десяти клетках
+            if (gTimerMS - timeCompletePredTrig > TSHIFT_2_ABS(2, SET_TBASE) * 1000)  // Если прошло больше времени, чем помещается в десяти клетках
             {
                 if (IN_P2P_MODE)
                 {
@@ -983,7 +983,7 @@ void FPGA_FillDataPointer(DataSettings *ds)
     ds->range[B] = RANGE_B; //-V2006
     ds->rShift[A] = RSHIFT_A;
     ds->rShift[B] = RSHIFT_B;
-    ds->tBase = TBASE; //-V2006
+    ds->tBase = SET_TBASE; //-V2006
     ds->tShift = SET_TSHIFT;
     ds->coupleA = COUPLE_A; //-V2006
     ds->coupleB = COUPLE_B; //-V2006

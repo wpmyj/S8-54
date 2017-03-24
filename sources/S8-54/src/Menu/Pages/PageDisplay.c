@@ -130,7 +130,7 @@ static const Choice mcMinMax =
 
 static bool IsActive_MinMax(void)
 {
-    return TBASE > TBase_20ns;
+    return SET_TBASE > TBase_20ns;
 }
 
 static void OnChange_MinMax(bool active)
@@ -229,7 +229,7 @@ static const Page mspAccum =
 
 static bool IsActive_Accum(void)
 {
-    return TBASE > TBase_20ns;
+    return SET_TBASE > TBase_20ns;
 }
 
 // ДИСПЛЕЙ - НАКОПЛЕНИЕ - Количество ---------------------------------------------------------------------------------------------------------------

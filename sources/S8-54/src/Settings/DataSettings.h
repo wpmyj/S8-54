@@ -47,6 +47,7 @@ typedef struct
 #define INVERSE(ds, ch) ((ch == A) ? INVERSE_A(ds) : INVERSE_B(ds))
 
 #define TSHIFT(ds)      ((ds)->tShift)
+#define TBASE(ds)       ((TBase)(ds)->tBase)
 
 
 int NumBytesInChannel(const DataSettings *ds);  // Возвращает количество байт на канал

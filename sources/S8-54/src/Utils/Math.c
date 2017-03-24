@@ -406,7 +406,7 @@ static void MultiplyToWindow(float *data, int numPoints)
 //------------------------------------------------------------------------------------------------------------------------------------------------------
 void Math_CalculateFFT(float *dataR, int numPoints, float *result, float *freq0, float *density0, float *freq1, float *density1, int *y0, int *y1)
 {
-    float scale = 1.0f / absStepTShift[TBASE] / 1024.0f;
+    float scale = 1.0f / absStepTShift[SET_TBASE] / 1024.0f;
 
     float k = 1024.0f / numPoints;
 

@@ -1,5 +1,6 @@
 ﻿#pragma once
 #include "Settings/DataSettings.h"
+#include "Settings/SettingsTime.h"
 
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -24,7 +25,7 @@ EXTERN uint8 *dataChanInt[2];
 #undef EXTERN
 
 #define DS_TSHIFT       (TSHIFT(DS))
-#define DS_TBASE        ((TBase)(DS->tBase))
+#define DS_TBASE        (TBASE(DS))
 #define DS_INVERSE(ch)  (INVERSE(DS, ch))
 #define DS_COUPLE(ch)   ((ModeCouple)((ch == A) ? DS->coupleA : DS->coupleB))
 #define DS_DIVIDER(ch)  ((Divider)((ch == A) ? DS->multiplierA : DS->multiplierB))

@@ -99,7 +99,7 @@ static bool IsActiveChoiceTimePicDeat(void)
         return false;
     }
 
-    return (TBASE >= MIN_TBASE_PEC_DEAT);
+    return (SET_TBASE >= MIN_TBASE_PEC_DEAT);
 }
 
 void OnPeacDetChanged(bool active)
@@ -107,7 +107,7 @@ void OnPeacDetChanged(bool active)
     if(active)
     {
         FPGA_SetPeackDetMode(SET_PEACKDET);
-        FPGA_SetTBase(TBASE);
+        FPGA_SetTBase(SET_TBASE);
         OnChange_MemoryLength(true);
     }
     else

@@ -666,7 +666,7 @@ static void DrawLowPart(void)
     const int SIZE = 100;
     char buffer[SIZE] ={0};
 
-    TBase tBase = TBASE;
+    TBase tBase = SET_TBASE;
     int16 tShift = SET_TSHIFT;
 
     if((WORK_INT && set.memory.modeShowIntMem == ModeShowIntMem_Direct))
@@ -1514,8 +1514,8 @@ static void WriteCursors(void)
             Painter_DrawText(x, y1, sCursors_GetCursorTime(source, 0, buffer));
             Painter_DrawText(x, y2, sCursors_GetCursorTime(source, 1, buffer));
             x = startX + 153;
-            float pos0 = Math_TimeCursor(CURsT_POS(source, 0), TBASE);
-            float pos1 = Math_TimeCursor(CURsT_POS(source, 1), TBASE);
+            float pos0 = Math_TimeCursor(CURsT_POS(source, 0), SET_TBASE);
+            float pos1 = Math_TimeCursor(CURsT_POS(source, 1), SET_TBASE);
             float delta = fabsf(pos1 - pos0);
             Painter_DrawText(x, y1, ":dT=");
             char buffer[20];
