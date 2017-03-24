@@ -650,7 +650,7 @@ static void DataReadSave(bool necessaryShift, bool first, bool saveToStorage, bo
         InverseDataIsNecessary(B, dataB);
     }
     
-    if (saveToStorage && ((NumPoinstFPGA)ds.indexLength == (NumPoinstFPGA)NumPoints_2_FPGA_NUM_POINTS(sMemory_NumBytesInChannel(false))))
+    if (saveToStorage && (INDEXLENGTH(&ds) == (NumPoinstFPGA)NumPoints_2_FPGA_NUM_POINTS(sMemory_NumBytesInChannel(false))))
     {
         DS_AddData(dataA, dataB, ds);
     }
@@ -975,9 +975,9 @@ void FPGA_TemporaryPause(void)
 //------------------------------------------------------------------------------------------------------------------------------------------------------
 void FPGA_FillDataPointer(DataSettings *ds)
 {
-    ds->enableA = sChannel_Enabled(A) ? 1 : 0;
-    ds->enableB = sChannel_Enabled(B) ? 1 : 0;
-    ds->inverseA = SET_INVERSE_A ? 1 : 0;
+    ENABLED_A(ds) = sChannel_Enabled(A) ? 1 : 0;
+    ENABLED_B(ds) = sChannel_Enabled(B) ? 1 : 0;
+    INVERSE_A(ds) = SET_INVERSE_A ? 1 : 0;
     ds->inverseB = SET_INVERSE_B ? 1 : 0;
     ds->range[A] = SET_RANGE_A; //-V2006
     ds->range[B] = SET_RANGE_B; //-V2006
@@ -987,7 +987,7 @@ void FPGA_FillDataPointer(DataSettings *ds)
     ds->tShift = SET_TSHIFT;
     ds->coupleA = SET_COUPLE_A; //-V2006
     ds->coupleB = SET_COUPLE_B; //-V2006
-    ds->indexLength = NumPoints_2_FPGA_NUM_POINTS(sMemory_NumBytesInChannel(false)); //-V2006
+    INDEXLENGTH(ds) = NumPoints_2_FPGA_NUM_POINTS(sMemory_NumBytesInChannel(false)); //-V2006
     ds->trigLev[A] = SET_TRIGLEV_A;
     ds->trigLev[B] = SET_TRIGLEV_A;
     ds->peackDet = (uint)SET_PEACKDET;

@@ -216,7 +216,7 @@ void PainterData_DrawMemoryWindow(void)
     const int xVert0 = leftX + (int)(shiftInMemory * scaleX);
 
     Channel lastAffectedChannel = LAST_AFFECTED_CH;
-    if (((uint)NumPoints_2_FPGA_NUM_POINTS(sMemory_NumBytesInChannel(false)) == DS->indexLength) && (DATA(A) || DATA(B)))
+    if (((uint)NumPoints_2_FPGA_NUM_POINTS(sMemory_NumBytesInChannel(false)) == G_INDEXLENGHT) && (DATA(A) || DATA(B)))
     {
         Channel chanFirst = lastAffectedChannel == A ? B : A;
         Channel chanSecond = lastAffectedChannel == A ? A : B;
@@ -263,7 +263,7 @@ static void DrawDataMemInt(void)
 //------------------------------------------------------------------------------------------------------------------------------------------------------
 static void DrawDataInModeNormal(void)
 {
-    if ((uint)NumPoints_2_FPGA_NUM_POINTS(sMemory_NumBytesInChannel(false)) != DS->indexLength) // Если количество точек в данных не соответствует установленному в настройках - просто выходим
+    if ((uint)NumPoints_2_FPGA_NUM_POINTS(sMemory_NumBytesInChannel(false)) != G_INDEXLENGHT) // Если количество точек в данных не соответствует установленному в настройках - просто выходим
     {
         return;     // WARN Это временно. По хорошему нужно преобразовывать так же, как мы преобразуем tShift, rShift, Range, TBase
     }

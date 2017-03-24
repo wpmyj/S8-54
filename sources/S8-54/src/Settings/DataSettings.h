@@ -37,14 +37,17 @@ typedef struct
     PackedTime  time;
 } DataSettings;
 
+
+#define INDEXLENGTH(ds)     ((ds)->indexLength)
+
 #define TRIGLEV(ds, ch)     ((ds)->trigLev[ch])
 
-#define ENABLED_A(ds)       ((bool)((ds)->enableA))
-#define ENABLED_B(ds)       ((bool)((ds)->enableB))
+#define ENABLED_A(ds)       ((ds)->enableA)
+#define ENABLED_B(ds)       ((ds)->enableB)
 #define ENABLED(ds, ch)     ((ch == A) ? ENABLED_A(ds) : ENABLED_B(ds))
 
-#define INVERSE_A(ds)       ((bool)((ds)->inverseA))
-#define INVERSE_B(ds)       ((bool)((ds)->inverseB))
+#define INVERSE_A(ds)       ((ds)->inverseA)
+#define INVERSE_B(ds)       ((ds)->inverseB)
 #define INVERSE(ds, ch)     ((ch == A) ? INVERSE_A(ds) : INVERSE_B(ds))
 
 #define TSHIFT(ds)          ((ds)->tShift)
