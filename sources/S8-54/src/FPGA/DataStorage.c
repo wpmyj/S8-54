@@ -74,11 +74,11 @@ void DS_Clear(void)
 
     iFirst = 0;
     iLast = 0;
-    gDatas[iFirst].addrData = gDatas[iLast].addrData = 0;
+    ADDRESS_DATA(&gDatas[iFirst]) = ADDRESS_DATA(&gDatas[iLast]) = 0;
 
     for(int i = 0; i < NUM_DATAS; i++)
     {
-        gDatas[i].addrData = 0;  // Пишем признак того, что ячейка свободна
+        ADDRESS_DATA(&gDatas[i]) = 0;  // Пишем признак того, что ячейка свободна
     }
 
     numElementsInStorage = 0;
@@ -160,7 +160,7 @@ static int SizeData(DataSettings *ds)
 //------------------------------------------------------------------------------------------------------------------------------------------------------
 static void DeleteFirst(void)
 {
-    gDatas[iFirst].addrData = 0;
+    ADDRESS_DATA(&gDatas[iFirst]) = 0;
     iFirst++;
     if(iFirst == NUM_DATAS)
     {
@@ -177,10 +177,10 @@ static void DeleteFirst(void)
 static void PrepareLastElemForWrite(DataSettings *ds)
 {
     // Если хранилище пустое
-    if(gDatas[iFirst].addrData == 0)
+    if(ADDRESS_DATA(&gDatas[iFirst]) == 0)
     {
         iFirst = iLast = 0;
-        ds->addrData = RAM(DS_POOL_BEGIN);
+        ADDRESS_DATA(ds) = RAM(DS_POOL_BEGIN);
         gDatas[iFirst] = *ds;
         return;
     }
@@ -189,7 +189,7 @@ static void PrepareLastElemForWrite(DataSettings *ds)
     if(iFirst == iLast)
     {
         iLast = iFirst + 1;
-        ds->addrData = gDatas[iFirst].addrData + SizeData(&gDatas[iFirst]);
+        ADDRESS_DATA(ds) = ADDRESS_DATA(&gDatas[iFirst]) + SizeData(&gDatas[iFirst]);
         gDatas[iLast] = *ds;
         return;
     }
@@ -209,8 +209,8 @@ static void PrepareLastElemForWrite(DataSettings *ds)
     volatile bool run = true;
     while(run)
     {
-        uint8 *addrFirst = gDatas[iFirst].addrData;
-        uint8 *addrLast = gDatas[iLast].addrData;
+        uint8 *addrFirst = ADDRESS_DATA(&gDatas[iFirst]);
+        uint8 *addrLast = ADDRESS_DATA(&gDatas[iLast]);
 
         if(addrLast > addrFirst)                                                   // Данные в памяти сохранены в порядке возрастания
         {
@@ -251,7 +251,7 @@ static void PrepareLastElemForWrite(DataSettings *ds)
                 }
                 else
                 {
-                    addrWrite = gDatas[iLast].addrData + SizeData(&gDatas[iLast]);
+                    addrWrite = ADDRESS_DATA(&gDatas[iLast]) + SizeData(&gDatas[iLast]);
                     break;
                 }
             }
@@ -264,7 +264,7 @@ static void PrepareLastElemForWrite(DataSettings *ds)
     {
         iLast = 0;
     }
-    ds->addrData = addrWrite;
+    ADDRESS_DATA(ds) = addrWrite;
     gDatas[iLast] = *ds;
 }
 
@@ -612,7 +612,7 @@ static bool CopyData(DataSettings *ds, Channel ch, uint8 *dataImportRel)
         return false;
     }
 
-    uint8* address = ds->addrData;
+    uint8* address = ADDRESS_DATA(ds);
 
     int length = NumBytesInChannel(ds);
 
@@ -750,7 +750,7 @@ uint8* DS_GetLimitation(Channel ch, int direction)
 //------------------------------------------------------------------------------------------------------------------------------------------------------
 int DS_NumberAvailableEntries(void)
 {
-    if(gDatas[iFirst].addrData == 0)
+    if(ADDRESS_DATA(&gDatas[iFirst]) == 0)
     {
         return 0;
     }
@@ -792,7 +792,7 @@ void DS_AddPointsP2P(uint16 dataA, uint16 dataB)
 
     if (numPointsP2P >= length)                         // Если место во фрейме заполнено полностью
     {
-        uint8 *address = ds->addrData;
+        uint8 *address = ADDRESS_DATA(ds);
 
         if (ENABLED_A(ds))                           // То сдвинем все точки во фрейме влево
         {
@@ -816,7 +816,7 @@ void DS_AddPointsP2P(uint16 dataA, uint16 dataB)
         dNumPoints += 2;
     }
 
-    uint8 *addrWrite = ds->addrData + numPointsP2P - dNumPoints;
+    uint8 *addrWrite = ADDRESS_DATA(ds) + numPointsP2P - dNumPoints;
 
     if (ENABLED_A(ds))
     {

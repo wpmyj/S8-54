@@ -41,12 +41,12 @@ uint8 *AddressChannel(DataSettings *ds, Channel ch)
 {
     if (ch == A && ds->enableA)
     {
-        return ds->addrData;
+        return ADDRESS_DATA(ds);
     }
 
     if (ch == B && ds->enableB)
     {
-        return ds->enableA ? (ds->addrData + NumBytesInChannel(ds)) : ds->addrData;
+        return ADDRESS_DATA(ds) + (ds->enableA ? NumBytesInChannel(ds) : 0);
     }
 
     return 0;

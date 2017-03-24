@@ -18,7 +18,7 @@ typedef struct
 
 typedef struct
 {
-    uint8*      addrData;           // Адрес данных во внешнем ОЗУ
+    uint8*      addr;               // Адрес данных во внешнем ОЗУ
     uint16      rShift[2];
     uint16      trigLev[2];
     int16       tShift;             // Смещение по времени
@@ -96,6 +96,8 @@ typedef struct
 #define TIME_MONTH(ds)          ((ds)->time.month)
 #define TIME_YEAR(ds)           ((ds)->time.year)
 #define TIME_MS(ds)             ((ds)->time.timeMS)
+
+#define ADDRESS_DATA(ds)        ((ds)->addr)
 
 
 int NumBytesInChannel(const DataSettings *ds);  // Возвращает количество байт на канал
