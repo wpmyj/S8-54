@@ -1492,7 +1492,7 @@ static void WriteCursors(void)
             float pos0 = Math_VoltageCursor(sCursors_GetCursPosU(source, 0), RANGE(source), RSHIFT(source));
             float pos1 = Math_VoltageCursor(sCursors_GetCursPosU(source, 1), RANGE(source), RSHIFT(source));
             float delta = fabsf(pos1 - pos0);
-            if(DIVIDER_10(source))
+            if(SET_DIVIDER_10(source))
             {
                 delta *= 10;
             }

@@ -1293,7 +1293,7 @@ char* Processing_GetStringMeasure(Measure measure, Channel ch, char* buffer, int
         char bufferForFunc[20];
         pFuncCFBC func = measures[measure].FucnConvertate;
         float value = values[measure].value[ch];
-        if (DIVIDER_10(ch) && func == Voltage2String)
+        if (SET_DIVIDER_10(ch) && func == Voltage2String)
         {
             value *= 10.0f;                         // Домножаем, если включён делитель
         }

@@ -29,7 +29,7 @@ bool sCursors_NecessaryDrawCursors(void)
 const char* sCursors_GetCursVoltage(Channel source, int numCur, char buffer[20])
 {
     float voltage = Math_VoltageCursor(sCursors_GetCursPosU(source, numCur), RANGE(source), RSHIFT(source));
-    if (DIVIDER_10(source))
+    if (SET_DIVIDER_10(source))
     {
         voltage *= 10.0f;
     }

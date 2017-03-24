@@ -53,6 +53,10 @@ typedef struct
 #define COUPLE_B(ds)    ((ModeCouple)(ds)->coupleB)
 #define COUPLE(ds, ch)  ((ch == A) ? COUPLE_A(ds) : COUPLE_B(ds))
 
+#define DIVIDER_A(ds)   ((Divider)(ds)->multiplierA)
+#define DIVIDER_B(ds)   ((Divider)(ds)->multiplierB)
+#define DIVIDER(ds, ch) ((ch == A) ? DIVIDER_A(ds) : DIVIDER_B(ds))
+
 
 int NumBytesInChannel(const DataSettings *ds);  // Возвращает количество байт на канал
 int NumBytesInData(const DataSettings *ds);     // Возвращает количество байт в обоих каналах

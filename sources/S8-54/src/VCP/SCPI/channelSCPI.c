@@ -199,11 +199,11 @@ void Process_PROBE(uint8 *buffer)
         {0}
     };
     ENTER_ANALYSIS
-        if (value == 0)         { DIVIDER(ch) = Multiplier_1; }
-        else if (value == 1)    { DIVIDER(ch) = Multiplier_10; }
+        if (value == 0)         { SET_DIVIDER(ch) = Multiplier_1; }
+        else if (value == 1)    { SET_DIVIDER(ch) = Multiplier_10; }
         else if (value == 2)
         {
-            SCPI_SEND(":CHANNEL%d:PROBE %s", Tables_GetNumChannel(ch), map[DIVIDER(ch)].key);
+            SCPI_SEND(":CHANNEL%d:PROBE %s", Tables_GetNumChannel(ch), map[SET_DIVIDER(ch)].key);
         }
     LEAVE_ANALYSIS
 }
