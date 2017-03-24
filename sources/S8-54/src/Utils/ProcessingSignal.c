@@ -1335,7 +1335,7 @@ static void CountedToCurrentSettings(void)
 {
     int numPoints = NumBytesInChannel(&ds);
 
-    int16 dTShift = TSHIFT - ds.tShift;
+    int16 dTShift = SET_TSHIFT - ds.tShift;
 
     if (dTShift)
     {

@@ -732,7 +732,7 @@ static const Governor mgRand_AddTimeShift =
 
 static void OnChange_Rand_AddTimeShift(void)
 {
-    FPGA_SetTShift(TSHIFT);
+    FPGA_SetTShift(SET_TSHIFT);
 }
 
 // ОТЛАДКА - РАНД-ТОР - Предзапуск -------------------------------------------------------------------------------------------------------------------

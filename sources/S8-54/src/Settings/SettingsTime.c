@@ -18,7 +18,7 @@ void sTime_SetTBase(TBase tBase)
 //------------------------------------------------------------------------------------------------------------------------------------------------------
 void sTime_SetTShift(int16 shift)
 {
-    TSHIFT = shift;
+    SET_TSHIFT = shift;
     //FPGA_ClearData();
 }
 
@@ -60,7 +60,7 @@ int sTime_TPosInPoints(void)
 //------------------------------------------------------------------------------------------------------------------------------------------------------
 int sTime_TShiftInPoints(void)
 {
-    return SET_PEACKDET_EN ? TSHIFT : (TSHIFT * 2); 
+    return SET_PEACKDET_EN ? SET_TSHIFT : (SET_TSHIFT * 2); 
 }
 
 #define k 0

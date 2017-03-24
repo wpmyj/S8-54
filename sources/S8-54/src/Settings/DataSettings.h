@@ -7,7 +7,7 @@
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 typedef struct
 {
-    uint timeMS;    // Время в миллисекундах от старта системы. Т.к. структура заполняется во время сохранения данных в хранилище, то timeMS == 0 означает, что полный сигнал в режиме поточеного вывода ещё не считан
+    uint timeMS : 32;    // Время в миллисекундах от старта системы. Т.к. структура заполняется во время сохранения данных в хранилище, то timeMS == 0 означает, что полный сигнал в режиме поточеного вывода ещё не считан
     uint hours : 5;
     uint minutes : 6;
     uint seconds : 6;
@@ -18,32 +18,35 @@ typedef struct
 
 typedef struct
 {
+    uint8*      addrData;           // Адрес данных во внешнем ОЗУ
     uint16      rShift[2];
     uint16      trigLev[2];
     int16       tShift;             // Смещение по времени
     uint8       range[2];           // Масштаб по напряжению обоих каналов.
-    uint8*      addrData;           // Адрес данных во внешнем ОЗУ
     uint        tBase : 5;          // Масштаб по времени
+    uint        enableA : 1;        // Включён ли канал A
     uint        enableB : 1;        // Включен ли канал B
-    uint        indexLength : 3;    // Сколько байт в канале (при включённом пиковом детекторе байт в два раза больше, чем точек)
     uint        coupleA : 2;        // Режим канала по входу
     uint        coupleB : 2;
     uint        peackDet : 2;       // Включен ли пиковый детектор
-    uint        enableA : 1;        // Включён ли канал A
     uint        inverseA : 1;
     uint        inverseB : 1;
     uint        multiplierA : 1;
     uint        multiplierB : 1;
+    uint        indexLength : 3;    // Сколько байт в канале (при включённом пиковом детекторе байт в два раза больше, чем точек)
     PackedTime  time;
 } DataSettings;
 
 
-#define ENABLED_A(ds)   ((ds)->enableA)
-#define ENABLED_B(ds)   ((ds)->enableB)
+#define ENABLED_A(ds)   ((bool)((ds)->enableA))
+#define ENABLED_B(ds)   ((bool)((ds)->enableB))
 #define ENABLED(ds, ch) ((ch == A) ? ENABLED_A(ds) : ENABLED_B(ds))
 
-#define INVERSE_A(ds)   ((ds)->inverseA)
-#define INVERSE_B(ds)   ((ds)->inverseB)
+#define INVERSE_A(ds)   ((bool)((ds)->inverseA))
+#define INVERSE_B(ds)   ((bool)((ds)->inverseB))
+#define INVERSE(ds, ch) ((ch == A) ? INVERSE_A(ds) : INVERSE_B(ds))
+
+#define TSHIFT(ds)      ((ds)->tShift)
 
 
 int NumBytesInChannel(const DataSettings *ds);  // Возвращает количество байт на канал

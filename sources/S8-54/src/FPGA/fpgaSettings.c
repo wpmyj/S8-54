@@ -132,7 +132,7 @@ int addShiftForFPGA = 0;
 void LoadTShift(void)
 {
     TBase tBase = TBASE;
-    int tShift = TSHIFT - sTime_TShiftMin() + timeCompensation[tBase];
+    int tShift = SET_TSHIFT - sTime_TShiftMin() + timeCompensation[tBase];
 
     gPost = (uint16)tShift;
 
@@ -151,7 +151,7 @@ void LoadTShift(void)
 
         gPost = (uint16)((2 * gPost - k) / Kr[tBase]);
 
-        addShiftForFPGA = (TSHIFT * 2) % Kr[tBase];
+        addShiftForFPGA = (SET_TSHIFT * 2) % Kr[tBase];
         if (addShiftForFPGA < 0)
         {
             addShiftForFPGA = Kr[tBase] + addShiftForFPGA;
@@ -507,7 +507,7 @@ void FPGA_SetTBase(TBase tBase)
     }
     if (tBase < TBaseSize && (int)tBase >= 0)
     {
-        float tShiftAbsOld = TSHIFT_2_ABS(TSHIFT, TBASE);
+        float tShiftAbsOld = TSHIFT_2_ABS(SET_TSHIFT, TBASE);
         sTime_SetTBase(tBase);
         LoadTBase();
         SetTShift((int)TSHIFT_2_REL(tShiftAbsOld, TBASE), false);
@@ -667,7 +667,7 @@ static void SetTShift(int tShift, bool needFPGApause)
         Display_ShowWarning(LimitSweep_TShift);
     }
 
-    int16 oldTShift = TSHIFT;
+    int16 oldTShift = SET_TSHIFT;
 
     sTime_SetTShift((int16)tShift);
     LoadTShift();       // WARN temp for s8-54

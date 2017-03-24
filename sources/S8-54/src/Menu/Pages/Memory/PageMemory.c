@@ -267,7 +267,7 @@ void OnChange_MemoryLength(bool active)
         }
     }
     FPGA_Reset();
-    FPGA_SetTShift(TSHIFT);
+    FPGA_SetTShift(SET_TSHIFT);
     FPGA_Reset();
     //LOG_WRITE("shift %d, num %d, width %d", SHIFT_IN_MEMORY, sMemory_NumBytesInChannel(false), width);
 }

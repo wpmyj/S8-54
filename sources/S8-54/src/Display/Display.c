@@ -667,7 +667,7 @@ static void DrawLowPart(void)
     char buffer[SIZE] ={0};
 
     TBase tBase = TBASE;
-    int16 tShift = TSHIFT;
+    int16 tShift = SET_TSHIFT;
 
     if((WORK_INT && set.memory.modeShowIntMem == ModeShowIntMem_Direct))
     { 

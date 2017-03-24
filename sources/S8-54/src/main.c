@@ -70,6 +70,7 @@ int main(void)
     while(run)
     {
         Timer_StartMultiMeasurement();      // Сброс таймера для замера длительности временных интервалов в течение одной итерации цикла.
+        LOG_WRITE("%d %d", sizeof(DataSettings), sizeof(PackedTime));
         Ethernet_Update(0);
         FDrive_Update();
         FPGA_Update();                      // Обновляем аппаратную часть.

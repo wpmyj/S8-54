@@ -147,7 +147,7 @@ static const Choice mcTimeTPos =
 void OnTPosChanged(bool active)
 {
     OnChange_MemoryLength(active);
-    FPGA_SetTShift(TSHIFT);
+    FPGA_SetTShift(SET_TSHIFT);
 }
 
 //---------------------------------------------------------------------------------------------------------------------------------------------------

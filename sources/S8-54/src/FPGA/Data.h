@@ -23,13 +23,13 @@ EXTERN uint8 *dataChanInt[2];
 
 #undef EXTERN
 
-#define DS_TSHIFT       (DS->tShift)
+#define DS_TSHIFT       (TSHIFT(DS))
 #define DS_TBASE        ((TBase)(DS->tBase))
-#define DS_INVERSE(ch)  ((bool)((ch == A) ? DS->inverseA : DS->inverseB))
+#define DS_INVERSE(ch)  (INVERSE(DS, ch))
 #define DS_COUPLE(ch)   ((ModeCouple)((ch == A) ? DS->coupleA : DS->coupleB))
 #define DS_DIVIDER(ch)  ((Divider)((ch == A) ? DS->multiplierA : DS->multiplierB))
 #define DS_RANGE(ch)    ((Range)(DS->range[ch]))
-#define DS_ENABLED(ch)  ((bool)((ch == A) ? DS->enableA : DS->enableB))
+#define DS_ENABLED(ch)  (ENABLED(DS, ch))
 #define DS_RSHIFT(ch)   (DS->rShift[ch])
 #define DS_PEACKDET     (DS->peackDet)
 
