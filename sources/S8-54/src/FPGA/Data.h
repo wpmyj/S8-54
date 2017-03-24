@@ -24,6 +24,7 @@ EXTERN uint8 *dataChanInt[2];
 
 #undef EXTERN
 
+// Настройки, действующие для отображаемого в данный момент сигнала
 #define G_TSHIFT        (TSHIFT(DS))
 #define G_TBASE         (TBASE(DS))
 #define G_INVERSE(ch)   (INVERSE(DS, ch))
@@ -32,14 +33,14 @@ EXTERN uint8 *dataChanInt[2];
 #define G_RANGE(ch)     (RANGE(DS, ch))
 #define G_ENABLED(ch)   (ENABLED(DS, ch))
 #define G_RSHIFT(ch)    (RSHIFT(DS, ch))
-#define G_PEACKDET      (DS->peackDet)
+#define G_PEACKDET      (PEACKDET(DS))
 
-#define G_TIME_DAY      (DS->time.day)
-#define G_TIME_HOURS    (DS->time.hours)
-#define G_TIME_MINUTES  (DS->time.minutes)
-#define G_TIME_SECONDS  (DS->time.seconds)
-#define G_TIME_MONTH    (DS->time.month)
-#define G_TIME_YEAR     (DS->time.year)
+#define G_TIME_DAY      (TIME_DAY(DS))
+#define G_TIME_HOURS    (TIME_HOURS(DS))
+#define G_TIME_MINUTES  (TIME_MINUTES(DS))
+#define G_TIME_SECONDS  (TIME_SECONDS(DS))
+#define G_TIME_MONTH    (TIME_MONTH(DS))
+#define G_TIME_YEAR     (TIME_YEAR(DS))
 
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

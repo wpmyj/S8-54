@@ -38,32 +38,41 @@ typedef struct
 } DataSettings;
 
 
-#define ENABLED_A(ds)   ((bool)((ds)->enableA))
-#define ENABLED_B(ds)   ((bool)((ds)->enableB))
-#define ENABLED(ds, ch) ((ch == A) ? ENABLED_A(ds) : ENABLED_B(ds))
+#define ENABLED_A(ds)       ((bool)((ds)->enableA))
+#define ENABLED_B(ds)       ((bool)((ds)->enableB))
+#define ENABLED(ds, ch)     ((ch == A) ? ENABLED_A(ds) : ENABLED_B(ds))
 
-#define INVERSE_A(ds)   ((bool)((ds)->inverseA))
-#define INVERSE_B(ds)   ((bool)((ds)->inverseB))
-#define INVERSE(ds, ch) ((ch == A) ? INVERSE_A(ds) : INVERSE_B(ds))
+#define INVERSE_A(ds)       ((bool)((ds)->inverseA))
+#define INVERSE_B(ds)       ((bool)((ds)->inverseB))
+#define INVERSE(ds, ch)     ((ch == A) ? INVERSE_A(ds) : INVERSE_B(ds))
 
-#define TSHIFT(ds)      ((ds)->tShift)
-#define TBASE(ds)       ((TBase)(ds)->tBase)
+#define TSHIFT(ds)          ((ds)->tShift)
+#define TBASE(ds)           ((TBase)(ds)->tBase)
 
-#define COUPLE_A(ds)    ((ModeCouple)(ds)->coupleA)
-#define COUPLE_B(ds)    ((ModeCouple)(ds)->coupleB)
-#define COUPLE(ds, ch)  ((ch == A) ? COUPLE_A(ds) : COUPLE_B(ds))
+#define COUPLE_A(ds)        ((ModeCouple)(ds)->coupleA)
+#define COUPLE_B(ds)        ((ModeCouple)(ds)->coupleB)
+#define COUPLE(ds, ch)      ((ch == A) ? COUPLE_A(ds) : COUPLE_B(ds))
 
-#define DIVIDER_A(ds)   ((Divider)(ds)->multiplierA)
-#define DIVIDER_B(ds)   ((Divider)(ds)->multiplierB)
-#define DIVIDER(ds, ch) ((ch == A) ? DIVIDER_A(ds) : DIVIDER_B(ds))
+#define DIVIDER_A(ds)       ((Divider)(ds)->multiplierA)
+#define DIVIDER_B(ds)       ((Divider)(ds)->multiplierB)
+#define DIVIDER(ds, ch)     ((ch == A) ? DIVIDER_A(ds) : DIVIDER_B(ds))
 
-#define RANGE(ds, ch)   ((Range)(ds)->range[ch])
-#define RANGE_A(ds)     (RANGE(ds, A))
-#define RANGE_B(ds)     (RANGE(ds, B))
+#define RANGE(ds, ch)       ((Range)(ds)->range[ch])
+#define RANGE_A(ds)         (RANGE(ds, A))
+#define RANGE_B(ds)         (RANGE(ds, B))
 
-#define RSHIFT(ds, ch)  ((ds)->rShift[ch])
-#define RSHIFT_A(ds)    (RSHIFT(ds, A))
-#define RSHIFT_B(ds)    (RSHIFT(ds, B))
+#define RSHIFT(ds, ch)      ((ds)->rShift[ch])
+#define RSHIFT_A(ds)        (RSHIFT(ds, A))
+#define RSHIFT_B(ds)        (RSHIFT(ds, B))
+
+#define PEACKDET(ds)        ((bool)(ds)->peackDet)
+
+#define TIME_DAY(ds)        ((ds)->time.day)
+#define TIME_HOURS(ds)      ((ds)->time.hours)
+#define TIME_MINUTES(ds)    ((ds)->time.minutes)
+#define TIME_SECONDS(ds)    ((ds)->time.seconds)
+#define TIME_MONTH(ds)      ((ds)->time.month)
+#define TIME_YEAR(ds)       ((ds)->time.year)
 
 
 int NumBytesInChannel(const DataSettings *ds);  // Возвращает количество байт на канал
