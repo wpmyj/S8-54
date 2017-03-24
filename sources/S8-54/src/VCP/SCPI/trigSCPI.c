@@ -185,7 +185,7 @@ void Process_OFFSET(uint8 *buffer)
     ENTER_ANALYSIS
         if (value == 0)
         {
-            int retValue = (TRIGLEV(TRIGSOURCE) - RShiftZero) / 2;
+            int retValue = (SET_TRIGLEV(TRIGSOURCE) - RShiftZero) / 2;
             SCPI_SEND(":TRIGGER:OFFSET %d", retValue);
         }
     LEAVE_ANALYSIS

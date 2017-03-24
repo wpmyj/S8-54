@@ -988,8 +988,8 @@ void FPGA_FillDataPointer(DataSettings *ds)
     ds->coupleA = SET_COUPLE_A; //-V2006
     ds->coupleB = SET_COUPLE_B; //-V2006
     ds->indexLength = NumPoints_2_FPGA_NUM_POINTS(sMemory_NumBytesInChannel(false)); //-V2006
-    ds->trigLev[A] = TRIGLEV(A);
-    ds->trigLev[B] = TRIGLEV(B);
+    ds->trigLev[A] = SET_TRIGLEV_A;
+    ds->trigLev[B] = SET_TRIGLEV_A;
     ds->peackDet = (uint)SET_PEACKDET;
     ds->multiplierA = SET_DIVIDER_A; //-V2006
     ds->multiplierB = SET_DIVIDER_B; //-V2006

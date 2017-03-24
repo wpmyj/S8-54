@@ -833,7 +833,7 @@ static void DrawCursorTrigLevel(void)
         return;
     }
     TrigSource ch = TRIGSOURCE;
-    int trigLev = TRIGLEV(ch) + (TRIGSOURCE_EXT ? 0 : SET_RSHIFT(ch) - RShiftZero);
+    int trigLev = SET_TRIGLEV(ch) + (TRIGSOURCE_EXT ? 0 : SET_RSHIFT(ch) - RShiftZero);
     float scale = 1.0f / ((TrigLevMax - TrigLevMin) / 2.4f / GridChannelHeight());
     int y0 = (GRID_TOP + GridChannelBottom()) / 2 + (int)(scale * (TrigLevZero - TrigLevMin));
     int y = y0 - (int)(scale * (trigLev - TrigLevMin));
@@ -879,7 +879,7 @@ static void DrawCursorTrigLevel(void)
         int shiftFullMin = RShiftMin + TrigLevMin;
         int shiftFullMax = RShiftMax + TrigLevMax;
         scale = (float)height / (shiftFullMax - shiftFullMin);
-        int shiftFull = TRIGLEV(TRIGSOURCE) + (TRIGSOURCE_EXT ? 0 : SET_RSHIFT(ch));
+        int shiftFull = SET_TRIGLEV(TRIGSOURCE) + (TRIGSOURCE_EXT ? 0 : SET_RSHIFT(ch));
         int yFull = GRID_TOP + DELTA + height - (int)(scale * (shiftFull - RShiftMin - TrigLevMin) + 4);
         Painter_FillRegionC(left + 2, yFull + 1, 4, 6, ColorTrig());
         Painter_SetFont(TypeFont_5);
@@ -1121,7 +1121,7 @@ static void WriteValueTrigLevel(void)
     if(showLevelTrigLev && WORK_DIRECT)
     {
         TrigSource trigSource = TRIGSOURCE;
-        float trigLev = RSHIFT_2_ABS(TRIGLEV(trigSource), TRIGSOURCE_EXT ? Range_500mV : SET_RANGE(trigSource));
+        float trigLev = RSHIFT_2_ABS(SET_TRIGLEV(trigSource), TRIGSOURCE_EXT ? Range_500mV : SET_RANGE(trigSource));
         if(TRIG_INPUT_AC && !TRIGSOURCE_EXT)
         {
             uint16 rShift = SET_RSHIFT(trigSource);

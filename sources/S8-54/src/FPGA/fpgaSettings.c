@@ -244,7 +244,7 @@ static void LoadRShift(Channel ch)
 static void LoadTrigLev(void)
 {
     uint data = 0x3200000;
-    uint trigLev = TRIGLEV(TRIGSOURCE);
+    uint trigLev = SET_TRIGLEV(TRIGSOURCE);
 
     trigLev = TrigLevMax + TrigLevMin - trigLev;
 
@@ -481,12 +481,12 @@ void FPGA_SetRange(Channel ch, Range range)
     if (range < RangeSize && (int)range >= 0)
     {
         float rShiftAbs = RSHIFT_2_ABS(SET_RSHIFT(ch), SET_RANGE(ch));
-        float trigLevAbs = RSHIFT_2_ABS(TRIGLEV(ch), SET_RANGE(ch));
+        float trigLevAbs = RSHIFT_2_ABS(SET_TRIGLEV(ch), SET_RANGE(ch));
         sChannel_SetRange(ch, range);
         if (set.display.linkingRShift == LinkingRShift_Voltage)
         {
             SET_RSHIFT(ch) = (int16)Math_RShift2Rel(rShiftAbs, range);
-            TRIGLEV(ch) = (int16)Math_RShift2Rel(trigLevAbs, range);
+            SET_TRIGLEV(ch) = (int16)Math_RShift2Rel(trigLevAbs, range);
         }
         LoadRange(ch);
         LoadTrigLev();
@@ -616,9 +616,9 @@ void FPGA_SetTrigLev(TrigSource ch, uint16 trigLev)
 
     Display_RotateTrigLev();
 
-    if (TRIGLEV(ch) != trigLev)
+    if (SET_TRIGLEV(ch) != trigLev)
     {
-        TRIGLEV(ch) = trigLev;
+        SET_TRIGLEV(ch) = trigLev;
         LoadTrigLev();
     }
 };
@@ -779,7 +779,7 @@ void FPGA_SetTrigSource(TrigSource trigSource)
     PrepareAndWriteDataToAnalogSPI(CS2);
     if (!TRIGSOURCE_EXT)
     {
-        FPGA_SetTrigLev(TRIGSOURCE, TRIGLEV(TRIGSOURCE));
+        FPGA_SetTrigLev(TRIGSOURCE, SET_TRIGLEV(TRIGSOURCE));
     }
 }
 

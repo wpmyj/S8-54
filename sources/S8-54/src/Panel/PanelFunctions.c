@@ -239,8 +239,8 @@ void ChangeRShift(int *prevTime, void(*f)(Channel, uint16), Channel ch, int relS
 void ChangeTrigLev(int *prevTime, void(*f)(TrigSource, uint16), TrigSource trigSource, int16 relStep)
 {
     int count = CalculateCount(prevTime);
-    int trigLevOld = TRIGLEV(trigSource);
-    int trigLev = TRIGLEV(trigSource) + relStep * count;
+    int trigLevOld = SET_TRIGLEV(trigSource);
+    int trigLev = SET_TRIGLEV(trigSource) + relStep * count;
     if ((trigLevOld > TrigLevZero && trigLev < TrigLevZero) || (trigLevOld < TrigLevZero && trigLev > TrigLevZero))
     {
         trigLev = TrigLevZero;

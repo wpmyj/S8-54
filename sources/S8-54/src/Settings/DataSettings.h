@@ -37,6 +37,7 @@ typedef struct
     PackedTime  time;
 } DataSettings;
 
+#define TRIGLEV(ds, ch)     ((ds)->trigLev[ch])
 
 #define ENABLED_A(ds)       ((bool)((ds)->enableA))
 #define ENABLED_B(ds)       ((bool)((ds)->enableB))

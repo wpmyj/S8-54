@@ -3,7 +3,9 @@
 
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-#define TRIGLEV(ch)         (set.trig.levelRel[ch])
+#define SET_TRIGLEV(ch)     (set.trig.levelRel[ch])
+#define SET_TRIGLEV_A       (SET_TRIGLEV(A))
+#define SET_TRIGLEV_B       (SET_TRIGLEV(B))
 
 #define TRIG_MODE_FIND      (set.trig.modeFind)
 #define TRIG_MODE_FIND_HAND (TRIG_MODE_FIND == TrigModeFind_Hand)
