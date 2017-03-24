@@ -38,45 +38,64 @@ typedef struct
 } DataSettings;
 
 
-#define INDEXLENGTH(ds)     ((ds)->indexLength)
+#define INDEXLENGTH(ds)         ((ds)->indexLength)
 
-#define TRIGLEV(ds, ch)     ((ds)->trigLev[ch])
+#define TRIGLEV(ds, ch)         ((ds)->trigLev[ch])
+#define TRIGLEV_A(ds)           (TRIGLEV(ds, A))
+#define TRIGLEV_B(ds)           (TRIGLEV(ds, B))
 
-#define ENABLED_A(ds)       ((ds)->enableA)
-#define ENABLED_B(ds)       ((ds)->enableB)
-#define ENABLED(ds, ch)     ((ch == A) ? ENABLED_A(ds) : ENABLED_B(ds))
+#define ENABLED_A(ds)           ((bool)(ds)->enableA)
+#define ENABLED_B(ds)           ((bool)(ds)->enableB)
+#define ENABLED(ds, ch)         ((ch == A) ? ENABLED_A(ds) : ENABLED_B(ds))
 
-#define INVERSE_A(ds)       ((ds)->inverseA)
-#define INVERSE_B(ds)       ((ds)->inverseB)
-#define INVERSE(ds, ch)     ((ch == A) ? INVERSE_A(ds) : INVERSE_B(ds))
+#define Lval_ENABLED_A(ds)      ((ds)->enableA)
+#define Lval_ENABLED_B(ds)      ((ds)->enableB)
+#define Lval_ENABLED(ds, ch)    ((ch == A) ? Lval_ENABLED_A(ds) : Lval_ENABLED_B(ds))
 
-#define TSHIFT(ds)          ((ds)->tShift)
-#define TBASE(ds)           ((TBase)(ds)->tBase)
+#define INVERSE_A(ds)           ((ds)->inverseA)
+#define INVERSE_B(ds)           ((ds)->inverseB)
+#define INVERSE(ds, ch)         ((ch == A) ? INVERSE_A(ds) : INVERSE_B(ds))
 
-#define COUPLE_A(ds)        ((ModeCouple)(ds)->coupleA)
-#define COUPLE_B(ds)        ((ModeCouple)(ds)->coupleB)
-#define COUPLE(ds, ch)      ((ch == A) ? COUPLE_A(ds) : COUPLE_B(ds))
+#define TSHIFT(ds)              ((ds)->tShift)
+#define TBASE(ds)               ((TBase)(ds)->tBase)
+#define Lval_TBASE(ds)          ((ds)->tBase)
 
-#define DIVIDER_A(ds)       ((Divider)(ds)->multiplierA)
-#define DIVIDER_B(ds)       ((Divider)(ds)->multiplierB)
-#define DIVIDER(ds, ch)     ((ch == A) ? DIVIDER_A(ds) : DIVIDER_B(ds))
+#define COUPLE_A(ds)            ((ModeCouple)(ds)->coupleA)
+#define COUPLE_B(ds)            ((ModeCouple)(ds)->coupleB)
+#define COUPLE(ds, ch)          ((ch == A) ? COUPLE_A(ds) : COUPLE_B(ds))
 
-#define RANGE(ds, ch)       ((Range)(ds)->range[ch])
-#define RANGE_A(ds)         (RANGE(ds, A))
-#define RANGE_B(ds)         (RANGE(ds, B))
+#define Lval_COUPLE_A(ds)       ((ds)->coupleA)
+#define Lval_COUPLE_B(ds)       ((ds)->coupleB)
 
-#define RSHIFT(ds, ch)      ((ds)->rShift[ch])
-#define RSHIFT_A(ds)        (RSHIFT(ds, A))
-#define RSHIFT_B(ds)        (RSHIFT(ds, B))
+#define DIVIDER_A(ds)           ((Divider)(ds)->multiplierA)
+#define DIVIDER_B(ds)           ((Divider)(ds)->multiplierB)
+#define DIVIDER(ds, ch)         ((ch == A) ? DIVIDER_A(ds) : DIVIDER_B(ds))
 
-#define PEACKDET(ds)        ((bool)(ds)->peackDet)
+#define Lval_DIVIDER_A(ds)      ((ds)->multiplierA)
+#define Lval_DIVIDER_B(ds)      ((ds)->multiplierB)
 
-#define TIME_DAY(ds)        ((ds)->time.day)
-#define TIME_HOURS(ds)      ((ds)->time.hours)
-#define TIME_MINUTES(ds)    ((ds)->time.minutes)
-#define TIME_SECONDS(ds)    ((ds)->time.seconds)
-#define TIME_MONTH(ds)      ((ds)->time.month)
-#define TIME_YEAR(ds)       ((ds)->time.year)
+#define RANGE(ds, ch)           ((Range)(ds)->range[ch])
+#define RANGE_A(ds)             (RANGE(ds, A))
+#define RANGE_B(ds)             (RANGE(ds, B))
+
+#define Lval_RANGE(ds, ch)      ((ds)->range[ch])
+#define Lval_RANGE_A(ds)        (Lval_RANGE(ds, A))
+#define Lval_RANGE_B(ds)        (Lval_RANGE(ds, B))
+
+#define RSHIFT(ds, ch)          ((ds)->rShift[ch])
+#define RSHIFT_A(ds)            (RSHIFT(ds, A))
+#define RSHIFT_B(ds)            (RSHIFT(ds, B))
+
+#define PEACKDET(ds)            ((bool)(ds)->peackDet)
+#define Lval_PEACKDET(ds)       ((ds)->peackDet)
+
+#define TIME_DAY(ds)            ((ds)->time.day)
+#define TIME_HOURS(ds)          ((ds)->time.hours)
+#define TIME_MINUTES(ds)        ((ds)->time.minutes)
+#define TIME_SECONDS(ds)        ((ds)->time.seconds)
+#define TIME_MONTH(ds)          ((ds)->time.month)
+#define TIME_YEAR(ds)           ((ds)->time.year)
+#define TIME_MS(ds)             ((ds)->time.timeMS)
 
 
 int NumBytesInChannel(const DataSettings *ds);  // Возвращает количество байт на канал
