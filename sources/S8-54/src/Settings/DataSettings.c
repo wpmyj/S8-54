@@ -64,7 +64,7 @@ bool GetInverse(Channel ch)
     {
         if (WORK_DIRECT || (WORK_INT && SHOW_DIRECT_IN_MEM_INT))
         {
-            return INVERSE(ch);
+            return SET_INVERSE(ch);
         }
         else
         {

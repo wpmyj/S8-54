@@ -84,7 +84,7 @@ static const Choice mcTimePicDet =
         {ENABLE_RU,     ENABLE_EN}
     /* , {"Среднее",   "Average"} */
     },
-    (int8*)&PEACKDET, OnPeacDetChanged
+    (int8*)&SET_PEACKDET, OnPeacDetChanged
 };
 
 static bool IsActiveChoiceTimePicDeat(void)
@@ -106,7 +106,7 @@ void OnPeacDetChanged(bool active)
 {
     if(active)
     {
-        FPGA_SetPeackDetMode(PEACKDET);
+        FPGA_SetPeackDetMode(SET_PEACKDET);
         FPGA_SetTBase(TBASE);
         OnChange_MemoryLength(true);
     }

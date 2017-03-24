@@ -190,7 +190,7 @@ static const Choice mcChanA_Inverse =
         {DISABLE_RU, DISABLE_EN},
         {ENABLE_RU, ENABLE_EN}
     },
-    (int8*)&INVERSE(A), OnChange_ChanA_Inverse
+    (int8*)&SET_INVERSE_A, OnChange_ChanA_Inverse
 };
 
 static void OnChange_ChanA_Inverse(bool active)
@@ -368,7 +368,7 @@ static const Choice mcChanB_Inverse =
         {DISABLE_RU, DISABLE_EN},
         {ENABLE_RU, ENABLE_EN}
     },
-    (int8*)&INVERSE(B), OnChange_ChanB_Inverse
+    (int8*)&SET_INVERSE_B, OnChange_ChanB_Inverse
 };
 
 static void OnChange_ChanB_Inverse(bool active)

@@ -36,7 +36,7 @@ int sTime_TPosInBytes(void)
         {{0, 8192, 16382}, {0, 8192, 16382}},
         {{0, 16384, 32766}, {0, 16384, 32766}}
     };
-    return m[FPGA_NUM_POINTS][PEACKDET][TPOS];
+    return m[FPGA_NUM_POINTS][SET_PEACKDET][TPOS];
 }
 
 
@@ -53,14 +53,14 @@ int sTime_TPosInPoints(void)
         {{0, 8192, 16382}, {0, 4096, 8190}},
         {{0, 16384, 32766}, {0, 8192, 16382}}
     };
-    return m[FPGA_NUM_POINTS][PEACKDET][TPOS];
+    return m[FPGA_NUM_POINTS][SET_PEACKDET][TPOS];
 }
 
 
 //------------------------------------------------------------------------------------------------------------------------------------------------------
 int sTime_TShiftInPoints(void)
 {
-    return PEACKDET_EN ? TSHIFT : (TSHIFT * 2); 
+    return SET_PEACKDET_EN ? TSHIFT : (TSHIFT * 2); 
 }
 
 #define k 0
@@ -79,7 +79,7 @@ int16 sTime_TShiftMin(void)
         {-16384 + k, -8192 + k, 0 + k}  // 32758
     };
 
-    if (PEACKDET_DIS)
+    if (SET_PEACKDET_DIS)
     {
         return m[FPGA_NUM_POINTS][TPOS];
     }

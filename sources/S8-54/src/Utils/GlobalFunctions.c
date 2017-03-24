@@ -39,7 +39,7 @@ int RequestBytesForChannel(Channel ch, DataSettings *ds)
     else
     {
         numBytes = NumPoints_2_FPGA_NUM_POINTS(sMemory_NumBytesInChannel(false));
-        peakDet = PEACKDET;
+        peakDet = SET_PEACKDET;
     }
 
     if((numBytes == FNP_32k) || (numBytes == FNP_16k && peakDet == PeackDet_Enable))

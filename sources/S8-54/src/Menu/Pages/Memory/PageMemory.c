@@ -221,13 +221,13 @@ static const Choice mcLengthMemory =
 
 static bool IsActive_MemoryLength(void)
 {
-    return PEACKDET_DIS;
+    return SET_PEACKDET_DIS;
 }
 
 void OnChange_MemoryLength(bool active)
 {
     // Если включен пиковый детектор, то не можем переключать память
-    if (PEACKDET_EN && !active)
+    if (SET_PEACKDET_EN && !active)
     {
         Display_ShowWarning(WrongModePeackDet);
         return;
@@ -249,7 +249,7 @@ void OnChange_MemoryLength(bool active)
     }
     else
     {
-        if (PEACKDET_EN)
+        if (SET_PEACKDET_EN)
         {
             width *= 2;
         }
@@ -827,9 +827,9 @@ static void SaveSignalToIntMemory(void)
 {
     if (gMemory.exitFromIntToLast == 1)
     {
-        if (DS_LAST != 0)
+        if (DS)
         {
-            FLASH_SaveData(gMemory.currentNumIntSignal, DS_LAST, DATA_LAST(A), DATA_LAST(B));
+            FLASH_SaveData(gMemory.currentNumIntSignal, DS, DATA_LAST(A), DATA_LAST(B));
             Data_GetFromIntMemory();
             Display_ShowWarning(SignalIsSaved);
         }

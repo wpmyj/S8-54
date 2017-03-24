@@ -165,7 +165,7 @@ void PainterData_DrawMemoryWindow(void)
     uint8 *datA = DATA_INT(A);
     uint8 *datB = DATA_INT(B);
 
-    if (IN_P2P_MODE && !DS_GetLastFrameP2P_RAM(&ds, &datA, &datB))      // Страхуемся от глюков
+    if (IN_P2P_MODE && !DS_GetLastFrameP2P_RAM(&DS, &datA, &datB))      // Страхуемся от глюков
     {
         return;
     }
@@ -177,18 +177,17 @@ void PainterData_DrawMemoryWindow(void)
     {
         datA = DATA(A);
         datB = DATA(B);
-        ds = DS;
 
         if (DS_DataSettingsFromEnd(0)->tBase >= MIN_TBASE_P2P)          // Если находимся в режиме поточечного вывода
         {
-            DS_GetLastFrameP2P_RAM(&ds, &datA, &datB);
+            DS_GetLastFrameP2P_RAM(&DS, &datA, &datB);
         }
 
         // Нужно переписать из внешнего ОЗУ в стек, потому чт
-        dA = AllocMemForChannelFromHeap(A, ds);
-        dB = AllocMemForChannelFromHeap(B, ds);
+        dA = AllocMemForChannelFromHeap(A, DS);
+        dB = AllocMemForChannelFromHeap(B, DS);
 
-        int numBytes = NumBytesInChannel(ds);
+        int numBytes = NumBytesInChannel(DS);
 
         RAM_MemCpy16(datA, dA, numBytes);
         RAM_MemCpy16(datB, dB, numBytes);
@@ -224,14 +223,14 @@ void PainterData_DrawMemoryWindow(void)
         const uint8 *dataFirst = lastAffectedChannel == A ? datB : datA;
         const uint8 *dataSecond = lastAffectedChannel == A ? datA : datB;
 
-        bool peackDet = ds->peackDet != PeackDet_Disable;
+        bool peackDet = DS_PEACKDET != PeackDet_Disable;
 
-        if (sChannel_NeedForDraw(dataFirst, chanFirst, ds))
+        if (sChannel_NeedForDraw(dataFirst, chanFirst, DS))
         {
             curCh = chanFirst;
             DrawDataInRect(1, rightX + 3, dataFirst, sMemory_NumBytesInChannel(false), peackDet);
         }
-        if (sChannel_NeedForDraw(dataSecond, chanSecond, ds))
+        if (sChannel_NeedForDraw(dataSecond, chanSecond, DS))
         {
             curCh = chanSecond;
             DrawDataInRect(1, rightX + 3, dataSecond, sMemory_NumBytesInChannel(false), peackDet);
@@ -251,9 +250,9 @@ void PainterData_DrawMemoryWindow(void)
 //---------------------------------------------------------------------------------------------------------------------------------------------------
 static void DrawDataMemInt(void)
 {
-    if (DS_INT != 0)
+    if (DS)
     {
-        curDS = DS_INT;
+        curDS = DS;
         curCh = A;
         DrawDataChannel(DATA_INT(A), GRID_TOP, GridChannelBottom());
         curCh = B;
@@ -290,9 +289,9 @@ static void DrawDataInModeNormal(void)
 //------------------------------------------------------------------------------------------------------------------------------------------------------
 static void DrawDataInModeWorkLatest(void)
 {
-    if (DS_LAST != 0)
+    if (DS)
     {
-        curDS = DS_LAST;
+        curDS = DS;
         curCh = A;
         DrawDataChannel(DATA_LAST(A), GRID_TOP, GridChannelBottom());
         curCh = B;
@@ -409,7 +408,7 @@ static void DrawDataInRect(int x, uint width, const uint8 *data, int numBytes, b
     uint8 min[width + 1];
     uint8 max[width + 1];
 
-    if (PEACKDET_EN)                                                    // Если пик. дет. выключен
+    if (SET_PEACKDET_EN)                                                    // Если пик. дет. выключен
     {
         uint8 *iMin = &min[0];
         uint8 *iMax = &max[0];
@@ -537,7 +536,7 @@ static void DrawTShift(int leftX, int rightX, int numBytes)
 {
     float scale = (float)(rightX - leftX + 1) / ((float)numBytes - (numBytes == 281 ? 1 : 0));
     int xShift = (int)(1.5f + (sTime_TPosInBytes() - sTime_TShiftInPoints()) * scale) - 1;
-    if (PEACKDET_EN)
+    if (SET_PEACKDET_EN)
     {
         if (TPOS_RIGHT)
         {
@@ -579,12 +578,12 @@ static void DrawBothChannels(uint8 *dataA, uint8 *dataB)
     curDS = DS;
     if (LAST_AFFECTED_CH == B)
     {
-        if (DS_ENABLED_A(DS))
+        if (ENABLED_A(DS))
         {
             curCh = A;
             DrawDataChannel(dataA, GRID_TOP, GridChannelBottom());
         }
-        if (DS_ENABLED_B(DS))
+        if (ENABLED_B(DS))
         {
             curCh = B;
             DrawDataChannel(dataB, GRID_TOP, GridChannelBottom());
@@ -592,12 +591,12 @@ static void DrawBothChannels(uint8 *dataA, uint8 *dataB)
     }
     else
     {
-        if (DS_ENABLED_B(DS))
+        if (ENABLED_B(DS))
         {
             curCh = B;
             DrawDataChannel(dataB, GRID_TOP, GridChannelBottom());
         }
-        if (DS_ENABLED_A(DS))
+        if (ENABLED_A(DS))
         {
             curCh = A;
             DrawDataChannel(dataA, GRID_TOP, GridChannelBottom());
@@ -609,7 +608,7 @@ static void DrawBothChannels(uint8 *dataA, uint8 *dataB)
 static int FillDataP2P(uint8 *data, DataSettings **ds)
 {
     int pointsInScreen = 281;
-    if (PEACKDET_EN)
+    if (SET_PEACKDET_EN)
     {
         pointsInScreen *= 2;
     }
@@ -825,7 +824,7 @@ static int FillDataP2PforNormal(int numPoints, int numPointsDS, int pointsInScre
         RAM_MemCpy16(src, dest, numPoints < numPointsDS ? numPoints : numPointsDS);
     }
 
-    int kP2P = PEACKDET_EN ? 2 : 1;
+    int kP2P = SET_PEACKDET_EN ? 2 : 1;
 
     if (numPoints > pointsInScreen)
     {

@@ -124,11 +124,11 @@ void Process_INVERSE(uint8 *buffer)
         {0}
     };
     ENTER_ANALYSIS
-        if (0 == value)         { INVERSE(ch) = true; }
-        else if (1 == value)    { INVERSE(ch) = false; }
+        if (0 == value)         { SET_INVERSE(ch) = true; }
+        else if (1 == value)    { SET_INVERSE(ch) = false; }
         else if (2 == value)
         {
-            SCPI_SEND(":CHANNEL%d:INVERSE %s", Tables_GetNumChannel(ch), INVERSE(ch) ? "ON" : "OFF");
+            SCPI_SEND(":CHANNEL%d:INVERSE %s", Tables_GetNumChannel(ch), SET_INVERSE(ch) ? "ON" : "OFF");
         }
     LEAVE_ANALYSIS
 }

@@ -23,7 +23,7 @@ int sMemory_NumBytesInChannel(bool forCalculate)
         return FPGA_MAX_POINTS_FOR_CALCULATE;
     }
 
-    return numPoints[FPGA_NUM_POINTS][PEACKDET];
+    return numPoints[FPGA_NUM_POINTS][SET_PEACKDET];
 }
 
 

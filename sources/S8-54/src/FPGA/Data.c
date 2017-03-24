@@ -5,6 +5,9 @@
 #undef _INCLUDE_DATA_
 #include "Globals.h"
 #include "Hardware/FLASH.h"
+#include "Hardware/FSMC.h"
+#include "Settings/SettingsMemory.h"
+#include "Utils/ProcessingSignal.h"
 
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -39,6 +42,34 @@ void Data_Load(void)
     {
         return;
     }
+
+    if (WORK_DIRECT)
+    {
+        int fromEnd = 0;
+
+        if (IN_P2P_MODE &&                              // Ќаходимс€ в режиме поточечного вывода
+            START_MODE_WAIT &&                          // в режиме ждущей синхронизации
+            DS_NumElementsWithCurrentSettings() > 1)    // и в хранилище уже есть считанные сигналы с такими настройками
+        {
+            fromEnd = 1;
+        }
+
+        DS_GetDataFromEnd_RAM(fromEnd, &DS, (uint16**)&DATA_A, (uint16**)&DATA_B);
+
+        if (sDisplay_NumAverage() != 1 || IN_RANDOM_MODE)
+        {
+            ModeFSMC mode = FSMC_GetMode();
+            FSMC_SetMode(ModeFSMC_RAM);
+            Data_GetAverageFromDataStorage();
+            FSMC_SetMode(mode);
+        }
+    }
+
+    int first = 0;
+    int last = 0;
+    sDisplay_PointsOnDisplay(&first, &last);
+
+    Processing_SetSignal(DATA_A, DATA_B, DS, first, last);
 }
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------

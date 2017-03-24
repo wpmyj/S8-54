@@ -3,7 +3,9 @@
 #include "DataSettings.h"
 
 
-#define INVERSE(ch)         (set.chan[ch].inverse)
+#define SET_INVERSE(ch)     (set.chan[ch].inverse)
+#define SET_INVERSE_A       (SET_INVERSE(A))
+#define SET_INVERSE_B       (SET_INVERSE(B))
 #define RSHIFT_MATH         (set.math.rShift)
 #define RANGE_MATH          (set.math.range)
 
@@ -27,8 +29,8 @@
 #define DIVIDER_1(ch)       (DIVIDER(ch) == Multiplier_1)
 
 #define SET_ENABLED(ch)     (set.chan[ch].enable)
-#define SET_ENABLED_A       (SET_ENABLE(A))
-#define SET_ENABLED_B       (SET_ENABLE(B))
+#define SET_ENABLED_A       (SET_ENABLED(A))
+#define SET_ENABLED_B       (SET_ENABLED(B))
 
 #define BALANCE_ADC(ch)     (set.chan[ch].balanceShiftADC)
 #define BALANCE_ADC_A       (BALANCE_ADC(A))

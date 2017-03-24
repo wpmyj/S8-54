@@ -362,7 +362,7 @@ static int CalculateShift(void)            // WARN Не забыть восстановить функци
 
 //------------------------------------------------------------------------------------------------------------------------------------------------------
 #define WRITE_AND_OR_INVERSE(addr, data, ch)                                              \
-    if(INVERSE(ch))                                                           \
+    if(SET_INVERSE(ch))                                                           \
     {                                                                                       \
         data = (uint8)((int)(2 * AVE_VALUE) - LimitationUInt8(data, MIN_VALUE, MAX_VALUE)); \
     }                                                                                       \
@@ -399,7 +399,7 @@ static void ReadRandomizeChannel(Channel ch, uint16 addrFirstRead, uint8 *data, 
         newData = *addr;
     }
 
-    if (INVERSE(ch))
+    if (SET_INVERSE(ch))
     {
         while (data <= last)
         {
@@ -585,7 +585,7 @@ static void ReadRealMode(uint8 *dataA, uint8 *dataB, bool necessaryShift)
     int balanceB = 0;
 
     if (setNR.balanceADCtype == BalanceADC_Hand && 
-        PEACKDET_DIS)               // При включённом пиковом детекторе балансировка не нужна
+        SET_PEACKDET_DIS)               // При включённом пиковом детекторе балансировка не нужна
     {
         balanceA = setNR.balanceADC[A];
         balanceB = setNR.balanceADC[B];
@@ -603,7 +603,7 @@ static void ReadRealMode(uint8 *dataA, uint8 *dataB, bool necessaryShift)
 //------------------------------------------------------------------------------------------------------------------------------------------------------
 static void InverseDataIsNecessary(Channel ch, uint8 *data)
 {
-    if (INVERSE(ch))
+    if (SET_INVERSE(ch))
     {
         for (int i = 0; i < FPGA_MAX_POINTS; i++)
         {
@@ -977,20 +977,20 @@ void FPGA_FillDataPointer(DataSettings *ds)
 {
     ds->enableA = sChannel_Enabled(A) ? 1 : 0;
     ds->enableB = sChannel_Enabled(B) ? 1 : 0;
-    ds->inverseA = INVERSE(A) ? 1 : 0;
-    ds->inverseB = INVERSE(B) ? 1 : 0;
+    ds->inverseA = SET_INVERSE_A ? 1 : 0;
+    ds->inverseB = SET_INVERSE_B ? 1 : 0;
     ds->range[A] = RANGE_A; //-V2006
     ds->range[B] = RANGE_B; //-V2006
     ds->rShift[A] = RSHIFT_A;
     ds->rShift[B] = RSHIFT_B;
     ds->tBase = TBASE; //-V2006
     ds->tShift = TSHIFT;
-    ds->modeCoupleA = COUPLE_A; //-V2006
-    ds->modeCoupleB = COUPLE_B; //-V2006
+    ds->coupleA = COUPLE_A; //-V2006
+    ds->coupleB = COUPLE_B; //-V2006
     ds->indexLength = NumPoints_2_FPGA_NUM_POINTS(sMemory_NumBytesInChannel(false)); //-V2006
     ds->trigLev[A] = TRIGLEV(A);
     ds->trigLev[B] = TRIGLEV(B);
-    ds->peackDet = (uint)PEACKDET;
+    ds->peackDet = (uint)SET_PEACKDET;
     ds->multiplierA = DIVIDER_A; //-V2006
     ds->multiplierB = DIVIDER_B; //-V2006
     ds->time.timeMS = 0;                        // Это важно для режима поточеного вывода. Означает, что полный сигнал ещё не считан

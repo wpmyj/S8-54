@@ -108,7 +108,7 @@ static void SetTShift(int tShift, bool needFPGApause);  // WARN временный костыл
 static void LoadTBase(void)
 {
     TBase tBase = TBASE;
-    uint8 mask = PEACKDET ? masksTBase[tBase].maskPeackDet : masksTBase[tBase].maskNorm;
+    uint8 mask = SET_PEACKDET ? masksTBase[tBase].maskPeackDet : masksTBase[tBase].maskNorm;
     FPGA_Write(RecordFPGA, WR_RAZV, mask, true);
     TIME_COMPENSATION = timeCompensation[tBase];
 }
@@ -200,7 +200,7 @@ static int CalculateDeltaRShift(Channel ch)
     ModeCouple mode = COUPLE(ch);
     static const int index[3] = {0, 1, 1};
 
-    int addRShift = -(INVERSE(ch) ? -1 : 1) * (int)setNR.rShiftAdd[ch][range][index[mode]];
+    int addRShift = -(SET_INVERSE(ch) ? -1 : 1) * (int)setNR.rShiftAdd[ch][range][index[mode]];
     int addRShiftFull = addRShift * (RSHIFT_IN_CELL / 20);
 
     uint16 rShiftRel = (uint16)((int)RSHIFT(ch) + addRShiftFull);
@@ -209,7 +209,7 @@ static int CalculateDeltaRShift(Channel ch)
     rShiftRel = (uint16)(RShiftZero + dShift);
 
     int delta = -(rShiftRel - RShiftZero);
-    if (INVERSE(ch))
+    if (SET_INVERSE(ch))
     {
         delta = -delta;
     }
@@ -427,7 +427,7 @@ void LoadRegUPR(void)
         data |= (1 << UPR_BIT_RECORDER);
     }
 
-    if (PEACKDET_EN)
+    if (SET_PEACKDET_EN)
     {
         data |= (1 << UPR_BIT_PEACKDET);
     }
@@ -523,7 +523,7 @@ void FPGA_SetTBase(TBase tBase)
 //------------------------------------------------------------------------------------------------------------------------------------------------------
 void FPGA_TBaseDecrease(void)
 {
-    if (PEACKDET && TBASE <= MIN_TBASE_PEC_DEAT)
+    if (SET_PEACKDET && TBASE <= MIN_TBASE_PEC_DEAT)
     {
         Display_ShowWarning(LimitSweep_Time);
         Display_ShowWarning(EnabledPeakDet);
@@ -691,7 +691,7 @@ void FPGA_SetDeltaTShift(int16 shift)
 //------------------------------------------------------------------------------------------------------------------------------------------------------
 void FPGA_SetPeackDetMode(PeackDetMode peackDetMode)
 {
-    PEACKDET = peackDetMode;
+    SET_PEACKDET = peackDetMode;
     LoadRegUPR();
     LoadTBase();
     LoadTShift();

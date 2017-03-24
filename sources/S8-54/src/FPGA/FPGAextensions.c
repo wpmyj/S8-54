@@ -823,7 +823,7 @@ void FPGA_AutoFind(void)
 //------------------------------------------------------------------------------------------------------------------------------------------------------
 static Range FindRange(Channel ch)
 {
-    PeackDetMode peackDet = PEACKDET;
+    PeackDetMode peackDet = SET_PEACKDET;
 
     FPGA_SetPeackDetMode(PeackDet_Enable);
 

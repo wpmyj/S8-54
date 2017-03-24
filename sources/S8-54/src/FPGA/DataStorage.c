@@ -870,16 +870,16 @@ bool DataSettings_IsEquals(const DataSettings *ds1, const DataSettings *ds2)
 {
     bool equals = (ENABLED_A(ds1) == ENABLED_A(ds2)) &&
         (ENABLED_B(ds1) == ENABLED_B(ds2)) &&
-        (DS_INVERSE_A(ds1) == DS_INVERSE_A(ds2)) &&
-        (DS_INVERSE_B(ds1) == DS_INVERSE_B(ds2)) &&
+        (INVERSE_A(ds1) == INVERSE_A(ds2)) &&
+        (INVERSE_B(ds1) == INVERSE_B(ds2)) &&
         (ds1->range[A] == ds2->range[A]) &&
         (ds1->range[B] == ds2->range[B]) &&
         (ds1->rShift[A] == ds2->rShift[A]) &&
         (ds1->rShift[B] == ds2->rShift[B]) &&
         (ds1->tBase == ds2->tBase) &&
         (ds1->tShift == ds2->tShift) &&
-        (ds1->modeCoupleA == ds2->modeCoupleA) &&
-        (ds1->modeCoupleB == ds2->modeCoupleB) &&
+        (ds1->coupleA == ds2->coupleA) &&
+        (ds1->coupleB == ds2->coupleB) &&
         (ds1->trigLev[A] == ds2->trigLev[A]) &&
         (ds1->trigLev[B] == ds2->trigLev[B]) &&
         (ds1->multiplierA == ds2->multiplierA) &&

@@ -65,7 +65,7 @@ int sDisplay_NumAverage(void)
 void sDisplay_PointsOnDisplay(int *firstPoint, int *lastPoint)
 {
     *firstPoint = SHIFT_IN_MEMORY;
-    if (PEACKDET_EN)
+    if (SET_PEACKDET_EN)
     {
         *firstPoint /= 2;
     }
@@ -76,7 +76,7 @@ void sDisplay_PointsOnDisplay(int *firstPoint, int *lastPoint)
 //------------------------------------------------------------------------------------------------------------------------------------------------------
 int sDisplay_ShiftInMemoryInPoints(void)
 {
-    if (PEACKDET_DIS)
+    if (SET_PEACKDET_DIS)
     {
         return SHIFT_IN_MEMORY;
     }

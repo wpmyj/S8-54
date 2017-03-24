@@ -42,6 +42,9 @@ typedef struct
 #define ENABLED_B(ds)   ((ds)->enableB)
 #define ENABLED(ds, ch) ((ch == A) ? ENABLED_A(ds) : ENABLED_B(ds))
 
+#define INVERSE_A(ds)   ((ds)->inverseA)
+#define INVERSE_B(ds)   ((ds)->inverseB)
+
 
 int NumBytesInChannel(const DataSettings *ds);  // Возвращает количество байт на канал
 int NumBytesInData(const DataSettings *ds);     // Возвращает количество байт в обоих каналах

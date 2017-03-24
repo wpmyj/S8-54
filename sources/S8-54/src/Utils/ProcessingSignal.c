@@ -1046,8 +1046,8 @@ void Processing_SetSignal(uint8 *dataA, uint8 *dataB, DataSettings *_ds, int _fi
 
     int length = NumBytesInChannel(&ds);
 
-    bool enableA = DS_ENABLED_A(&ds) == 1;
-    bool enableB = DS_ENABLED_B(&ds) == 1;
+    bool enableA = ENABLED_A(&ds) == 1;
+    bool enableB = ENABLED_B(&ds) == 1;
 
     // Выделим память для данных
     if (enableA) { dataInA = malloc(FPGA_MAX_POINTS); };
@@ -1075,11 +1075,11 @@ void Processing_GetData(uint8 **dataA, uint8 **dataB, DataSettings **_ds)
 {
     if (dataA)
     {
-        *dataA = (isSet && DS_ENABLED_A(&ds)) ? (uint8*)dataOutA_RAM : 0;
+        *dataA = (isSet && ENABLED_A(&ds)) ? (uint8*)dataOutA_RAM : 0;
     }
     if (dataB)
     {
-        *dataB = (isSet && DS_ENABLED_B(&ds)) ? (uint8*)dataOutB_RAM : 0;
+        *dataB = (isSet && ENABLED_B(&ds)) ? (uint8*)dataOutB_RAM : 0;
     }
     if (_ds)
     {
@@ -1285,7 +1285,7 @@ char* Processing_GetStringMeasure(Measure measure, Channel ch, char* buffer, int
     {
         strcat(buffer, "-.-");
     }
-    else if((ch == A && !DS_ENABLED_A(&ds)) || (ch == B && !DS_ENABLED_B(&ds)))
+    else if((ch == A && !ENABLED_A(&ds)) || (ch == B && !ENABLED_B(&ds)))
     {
     }
     else if(measures[measure].FuncCalculate)

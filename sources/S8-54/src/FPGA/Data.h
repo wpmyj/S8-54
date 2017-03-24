@@ -3,9 +3,10 @@
 
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-#define DS              pDS             
-
-#define DATA(ch)        (dataChan[ch])  
+#define DS              pDS                 // Указатель на настройки текущего рисуемого сигнала
+#define DATA(ch)        (dataChan[ch])      // Указатель на данные отображаемого сигнала
+#define DATA_A          (DATA(A))           // Указатель на данные отображаемого канала 1
+#define DATA_B          (DATA(B))           // Указатель на данные отображаемого канала 2
 #define DATA_INT(ch)    (dataChanInt[ch])
 #define DATA_LAST(ch)   (dataChanLast[ch])
 
@@ -16,7 +17,6 @@
 #endif
 
 EXTERN DataSettings *pDS;
-
 EXTERN uint8* dataChan[2];
 EXTERN uint8 *dataChanLast[2];
 EXTERN uint8 *dataChanInt[2];
@@ -31,6 +31,7 @@ EXTERN uint8 *dataChanInt[2];
 #define DS_RANGE(ch)    ((Range)(DS->range[ch]))
 #define DS_ENABLED(ch)  ((bool)((ch == A) ? DS->enableA : DS->enableB))
 #define DS_RSHIFT(ch)   (DS->rShift[ch])
+#define DS_PEACKDET     (DS->peackDet)
 
 #define DS_TIME_DAY     (DS->time.day)
 #define DS_TIME_HOURS   (DS->time.hours)
