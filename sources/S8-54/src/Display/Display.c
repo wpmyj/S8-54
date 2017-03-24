@@ -674,11 +674,10 @@ static void DrawLowPart(void)
     }
     else if(!WORK_DIRECT)
     {
-        DataSettings *ds = WORK_LAST ? DS_LAST : DS_INT;
-        if(ds != 0)
+        if(DS)
         {
-            tBase = (TBase)ds->tBase;
-            tShift = ds->tShift;
+            tBase = DS_TBASE;
+            tShift = DS_TSHIFT;
         }
     }
     snprintf(buffer, SIZE, "ð\xa5%s", Tables_GetTBaseString(tBase));
@@ -1611,66 +1610,36 @@ static void DrawHiRightPart(void)
 //----------------------------------------------------------------------------------------------------------------------------------------------------
 static void WriteTextVoltage(Channel ch, int x, int y)
 {
-    static const char *couple[] =
+    if(!DS || !DS_ENABLED(ch))
     {
-        "\x92",
-        "\x91",
-        "\x90"
-    };
+        return;
+    }
+    static const char *couple[] = {"\x92", "\x91", "\x90" };
+
     Color color = gColorChan[ch];
 
-    bool inverse = false;
-    bool enable = true;
-    ModeCouple modeCouple = ModeCouple_DC;
-    Divider divider = Multiplier_1;
-    Range range = Range_2mV;
-    uint rShift = 0;
+    bool inverse = DS_INVERSE(ch);
+    Divider divider = DS_DIVIDER(ch);
+    Range range = DS_RANGE(ch);
 
-    if (WORK_DIRECT || (WORK_INT && SHOW_DIRECT_IN_MEM_INT))
-    {
-        inverse = INVERSE(ch);
-        modeCouple = COUPLE(ch);
-        divider = DIVIDER(ch);
-        range = RANGE(ch);
-        rShift = RSHIFT(ch);
-        enable = sChannel_Enabled(ch);
-    }
-    else 
-    {
-        DataSettings *ds = WORK_LAST ? DS_LAST : DS_INT;
+    const int widthField = 91;
+    const int heightField = 8;
 
-        if(ds != 0)
-        {
-            inverse = DS_INVERSE(ds, ch);
-            modeCouple = DS_COUPLE(ds, ch);
-            divider = DS_DIVIDER(ds, ch);
-            range = DS_RANGE(ds, ch);
-            rShift = DS_RSHIFT(ds, ch);            
-            enable = DS_ENABLED(ds, ch);
-        }
+    Color colorDraw = inverse ? COLOR_WHITE : color;
+    if(inverse)
+    {
+        Painter_FillRegionC(x, y, widthField, heightField, color);
     }
 
-    if(enable)
-    {
-        const int widthField = 91;
-        const int heightField = 8;
+    const int SIZE = 100;
+    char buffer[SIZE];
+    snprintf(buffer, SIZE, "%s\xa5%s\xa5%s", (ch == A) ? (LANG_RU ? "1ê" : "1c") : (LANG_RU ? "2ê" : "2c"), couple[DS_COUPLE(ch)], sChannel_Range2String(range, divider));
+    
+    Painter_DrawTextC(x + 1, y, buffer, colorDraw);
 
-        Color colorDraw = inverse ? COLOR_WHITE : color;
-        if(inverse)
-        {
-            Painter_FillRegionC(x, y, widthField, heightField, color);
-        }
-
-        const int SIZE = 100;
-        char buffer[SIZE];
-        snprintf(buffer, SIZE, "%s\xa5%s\xa5%s", (ch == A) ? (LANG_RU ? "1ê" : "1c") : (LANG_RU ? "2ê" : "2c"), couple[modeCouple], sChannel_Range2String(range, divider));
-        
-        Painter_DrawTextC(x + 1, y, buffer, colorDraw);
-
-        char bufferTemp[SIZE];
-        snprintf(buffer, SIZE, "\xa5%s", sChannel_RShift2String((int16)rShift, range, divider, bufferTemp));
-        Painter_DrawText(x + 46, y, buffer);
-    }
+    char bufferTemp[SIZE];
+    snprintf(buffer, SIZE, "\xa5%s", sChannel_RShift2String((int16)DS_RSHIFT(ch), range, divider, bufferTemp));
+    Painter_DrawText(x + 46, y, buffer);
 }
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
@@ -1704,17 +1673,15 @@ static void DrawTime(int x, int y)
 
     if(WORK_INT || WORK_LAST)
     {
-        DataSettings *ds = WORK_INT ? DS_INT : DS_LAST;
-
-        if(ds != 0)
+        if(DS)
         {
             y -= 9;
-            time.day = ds->time.day;
-            time.hours = ds->time.hours;
-            time.minutes = ds->time.minutes;
-            time.seconds = ds->time.seconds;
-            time.month = ds->time.month;
-            time.year = ds->time.year;
+            time.day = DS_TIME_DAY;
+            time.hours = DS_TIME_HOURS;
+            time.minutes = DS_TIME_MINUTES;
+            time.seconds = DS_TIME_SECONDS;
+            time.month = DS_TIME_MONTH;
+            time.year = DS_TIME_YEAR;
             Painter_DrawText(x, y, Int2String(time.day, false, 2, buffer));
             Painter_DrawText(x + dField, y, ":");
             Painter_DrawText(x + dField + dSeparator, y, Int2String(time.month, false, 2, buffer));

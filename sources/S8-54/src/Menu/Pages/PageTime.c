@@ -94,7 +94,7 @@ static bool IsActiveChoiceTimePicDeat(void)
         return false;
     }
 
-    if (FPGA_NUM_POINTS_16k && ENABLE_B) // При 16к точках на канал мы можем работать только с одним каналом
+    if (FPGA_NUM_POINTS_16k && SET_ENABLED_B) // При 16к точках на канал мы можем работать только с одним каналом
     {
         return false;
     }
@@ -116,7 +116,7 @@ void OnPeacDetChanged(bool active)
         {
             Display_ShowWarning(NoPeakDet32k);
         }
-        else if (FPGA_NUM_POINTS_16k && ENABLE_B)
+        else if (FPGA_NUM_POINTS_16k && SET_ENABLED_B)
         {
             Display_ShowWarning(NoPeakDet16k);
         }

@@ -28,7 +28,7 @@ extern void main3(void);
 
 #define TICS ((gTimerTics - time) / 120.0f)
 
-static void ProcessingSignal(void);
+//static void ProcessingSignal(void);
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 static void Disable_IfNessessary(void)
@@ -73,7 +73,8 @@ int main(void)
         Ethernet_Update(0);
         FDrive_Update();
         FPGA_Update();                      // Обновляем аппаратную часть.
-        ProcessingSignal();
+        Data_Load();
+        //ProcessingSignal();
         Panel_Update();
         Menu_UpdateInput();                 // Обновляем состояние меню
         Display_Update();                   // Рисуем экран.
@@ -83,6 +84,7 @@ int main(void)
 
 
 //------------------------------------------------------------------------------------------------------------------------------------------------------
+/*
 void ProcessingSignal(void)
 {
     uint8 **dataA = &DATA(A);
@@ -97,9 +99,6 @@ void ProcessingSignal(void)
         return;
     }
 
-    int first = 0;
-    int last = 0;
-    sDisplay_PointsOnDisplay(&first, &last);
     if (WORK_DIRECT)
     {
         if (IN_P2P_MODE         &&                  // Находимся в режиме поточечного вывода
@@ -137,6 +136,10 @@ void ProcessingSignal(void)
         Data_GetFromIntMemory();
     }
 
+    int first = 0;
+    int last = 0;
+    sDisplay_PointsOnDisplay(&first, &last);
+
     if (WORK_INT)
     { 
         if (SHOW_IN_INT_BOTH || SHOW_IN_INT_DIRECT)
@@ -151,3 +154,4 @@ void ProcessingSignal(void)
 
     CursorsUpdate();    // В случае, если находимся в режиме курсорных измерений, обновляем их положение, если нужно.
 }
+*/

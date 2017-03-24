@@ -26,8 +26,8 @@ typedef struct
     uint        tBase : 5;          // Масштаб по времени
     uint        enableB : 1;        // Включен ли канал B
     uint        indexLength : 3;    // Сколько байт в канале (при включённом пиковом детекторе байт в два раза больше, чем точек)
-    uint        modeCoupleA : 2;    // Режим канала по входу
-    uint        modeCoupleB : 2;
+    uint        coupleA : 2;        // Режим канала по входу
+    uint        coupleB : 2;
     uint        peackDet : 2;       // Включен ли пиковый детектор
     uint        enableA : 1;        // Включён ли канал A
     uint        inverseA : 1;
@@ -36,6 +36,12 @@ typedef struct
     uint        multiplierB : 1;
     PackedTime  time;
 } DataSettings;
+
+
+#define ENABLED_A(ds)   ((ds)->enableA)
+#define ENABLED_B(ds)   ((ds)->enableB)
+#define ENABLED(ds, ch) ((ch == A) ? ENABLED_A(ds) : ENABLED_B(ds))
+
 
 int NumBytesInChannel(const DataSettings *ds);  // Возвращает количество байт на канал
 int NumBytesInData(const DataSettings *ds);     // Возвращает количество байт в обоих каналах

@@ -617,7 +617,7 @@ void FPGA_ProcedureCalibration(void)
     bool chanAenable = sChannel_Enabled(A);
     bool chanBenable = sChannel_Enabled(B);
 
-    ENABLE_A = ENABLE_B = true;
+    SET_ENABLED_A = SET_ENABLED_B = true;
     
     Display_SetDrawMode(DrawMode_Hand, FuncAttScreen);
     
@@ -680,8 +680,8 @@ void FPGA_ProcedureCalibration(void)
     Panel_Enable();
     Display_SetDrawMode(DrawMode_Auto, 0);
     
-    ENABLE_A = chanAenable;
-    ENABLE_B = chanBenable;
+    SET_ENABLED_A = chanAenable;
+    SET_ENABLED_B = chanBenable;
     
     DeleteCalibrationStruct();
     
@@ -774,7 +774,7 @@ static bool FindRange2(Channel ch)
 //    Settings settings = set;
 
     FPGA_SetTBase(TBase_20ms);
-    ENABLE(ch) = true;
+    SET_ENABLED(ch) = true;
     FPGA_SetTrigSource((TrigSource)ch);
     FPGA_SetTrigLev((TrigSource)ch, TrigLevZero);
     FPGA_SetRShift(ch, RShiftZero);
@@ -953,7 +953,7 @@ static bool FindWave(Channel ch)
     Settings settings = set;    // Сохраняем предыдущие настройки
 
     FPGA_SetTBase(TBase_20ms);
-    ENABLE(ch) = true;
+    SET_ENABLED(ch) = true;
     FPGA_SetTrigSource((TrigSource)ch);
     FPGA_SetTrigLev((TrigSource)ch, TrigLevZero);
     FPGA_SetRShift(ch, RShiftZero);

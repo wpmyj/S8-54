@@ -5095,4 +5095,12 @@
     <CodeCurrent>4127366387</CodeCurrent>
     <CodeNext>0</CodeNext>
   </s8-54>
+  <s8-54>
+    <FileName>datasettings.h</FileName>
+    <ErrorCode>V122</ErrorCode>
+    <Message>Memsize type is used in the struct/class.</Message>
+    <CodePrev>2890591060</CodePrev>
+    <CodeCurrent>2747633158</CodeCurrent>
+    <CodeNext>3743578810</CodeNext>
+  </s8-54>
 </NewDataSet>

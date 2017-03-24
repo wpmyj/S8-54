@@ -164,7 +164,6 @@ void PainterData_DrawMemoryWindow(void)
 {
     uint8 *datA = DATA_INT(A);
     uint8 *datB = DATA_INT(B);
-    DataSettings *ds = DS_INT;
 
     if (IN_P2P_MODE && !DS_GetLastFrameP2P_RAM(&ds, &datA, &datB))      // Страхуемся от глюков
     {

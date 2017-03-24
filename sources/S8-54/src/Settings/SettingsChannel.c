@@ -58,7 +58,7 @@ bool sChannel_Enabled(Channel ch)
     {
         return true;
     }
-    return ENABLE(ch);
+    return SET_ENABLED(ch);
 }
 
 

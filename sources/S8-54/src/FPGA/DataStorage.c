@@ -136,7 +136,7 @@ static int SizeData(DataSettings *ds)
 
     int numBytesInChannel = NumBytesInChannel(ds);
 
-    if(DS_ENABLED_A(ds))
+    if(ENABLED_A(ds))
     {
         size += numBytesInChannel;
         if(ds->peackDet != PeackDet_Disable)
@@ -145,7 +145,7 @@ static int SizeData(DataSettings *ds)
         }
     }
 
-    if(DS_ENABLED_B(ds))
+    if(ENABLED_B(ds))
     {
         size += numBytesInChannel;
         if(ds->peackDet != PeackDet_Disable)
@@ -278,7 +278,7 @@ static void PushData(DataSettings *ds, uint8 *dataA, uint8 *dataB)
 
     if(dataA)
     {
-        if (DS_ENABLED_A(ds))
+        if (ENABLED_A(ds))
         {
             RAM_MemCpy16(dataA, AddressChannel(ds, A), numPoints);
         }
@@ -290,7 +290,7 @@ static void PushData(DataSettings *ds, uint8 *dataA, uint8 *dataB)
 
     if(dataB)
     {
-        if (DS_ENABLED_B(ds))
+        if (ENABLED_B(ds))
         {
             RAM_MemCpy16(dataB, AddressChannel(ds, B), numPoints);
         }
@@ -314,12 +314,12 @@ static void ReplaceLastFrame(DataSettings *ds, uint8 *dataA, uint8 *dataB)
 
     FSMC_SET_MODE(ModeFSMC_RAM);
 
-    if (DS_ENABLED_A(ds))
+    if (ENABLED_A(ds))
     {
         RAM_MemCpy16(dataA, AddressChannel(lastDS, A), numBytes);
     }
 
-    if (DS_ENABLED_B(ds))
+    if (ENABLED_B(ds))
     {
         RAM_MemCpy16(dataB, AddressChannel(lastDS, B), numBytes);
     }
@@ -525,7 +525,7 @@ void CalculateSums(void)
 //------------------------------------------------------------------------------------------------------------------------------------------------------
 void DS_AddData(uint8 *dataA, uint8 *dataB, DataSettings dss)
 {
-    if (!DS_ENABLED_A(&dss) && !DS_ENABLED_B(&dss))
+    if (!ENABLED_A(&dss) && !ENABLED_B(&dss))
     {
         return;
     }
@@ -607,7 +607,7 @@ int DS_NumElementsInStorage(void)
 // Копирует данные канала ch из, определяемые ds, в одну из двух строк массива dataImportRel. Возвращаемое значение false означает, что данный канал выключен.
 static bool CopyData(DataSettings *ds, Channel ch, uint8 *dataImportRel)
 {
-    if((ch == A && !DS_ENABLED_A(ds)) || (ch == B && !DS_ENABLED_B(ds)))
+    if((ch == A && !ENABLED_A(ds)) || (ch == B && !ENABLED_B(ds)))
     {
         return false;
     }
@@ -616,7 +616,7 @@ static bool CopyData(DataSettings *ds, Channel ch, uint8 *dataImportRel)
 
     int length = NumBytesInChannel(ds);
 
-    if(ch == B && DS_ENABLED_B(ds) && DS_ENABLED_A(ds))
+    if(ch == B && ENABLED_B(ds) && ENABLED_A(ds))
     {
         address += length; //-V102
     }
@@ -765,7 +765,7 @@ int DS_NumberAvailableEntries(void)
 //------------------------------------------------------------------------------------------------------------------------------------------------------
 void DS_NewFrameP2P(DataSettings dss)
 {
-    if (!DS_ENABLED_A(&dss) && !DS_ENABLED_B(&dss))
+    if (!ENABLED_A(&dss) && !ENABLED_B(&dss))
     {
         return;
     }
@@ -783,7 +783,7 @@ void DS_AddPointsP2P(uint16 dataA, uint16 dataB)
 
     int length = NumBytesInChannel(ds);
 
-    if (!DS_ENABLED_A(ds) && !DS_ENABLED_B(ds))
+    if (!ENABLED_A(ds) && !ENABLED_B(ds))
     {
         return;
     }
@@ -794,13 +794,13 @@ void DS_AddPointsP2P(uint16 dataA, uint16 dataB)
     {
         uint8 *address = ds->addrData;
 
-        if (DS_ENABLED_A(ds))                           // То сдвинем все точки во фрейме влево
+        if (ENABLED_A(ds))                           // То сдвинем все точки во фрейме влево
         {
             RAM_MemShiftLeft(address + 2, length - 2, 2);
 
             address += length; //-V102
         }
-        if (DS_ENABLED_B(ds))
+        if (ENABLED_B(ds))
         {
             RAM_MemShiftLeft(address + 2, length - 2, 2);
         }
@@ -818,13 +818,13 @@ void DS_AddPointsP2P(uint16 dataA, uint16 dataB)
 
     uint8 *addrWrite = ds->addrData + numPointsP2P - dNumPoints;
 
-    if (DS_ENABLED_A(ds))
+    if (ENABLED_A(ds))
     {
         *((uint16*)addrWrite) = dataA;
         addrWrite += length; //-V102
     }
 
-    if (DS_ENABLED_B(ds))
+    if (ENABLED_B(ds))
     {
         *((uint16*)addrWrite) = dataB;
     }
@@ -868,8 +868,8 @@ int DS_GetLastFrameP2P_RAM(DataSettings **ds, uint8 **dataA, uint8 **dataB)
 //------------------------------------------------------------------------------------------------------------------------------------------------------
 bool DataSettings_IsEquals(const DataSettings *ds1, const DataSettings *ds2)
 {
-    bool equals = (DS_ENABLED_A(ds1) == DS_ENABLED_A(ds2)) &&
-        (DS_ENABLED_B(ds1) == DS_ENABLED_B(ds2)) &&
+    bool equals = (ENABLED_A(ds1) == ENABLED_A(ds2)) &&
+        (ENABLED_B(ds1) == ENABLED_B(ds2)) &&
         (DS_INVERSE_A(ds1) == DS_INVERSE_A(ds2)) &&
         (DS_INVERSE_B(ds1) == DS_INVERSE_B(ds2)) &&
         (ds1->range[A] == ds2->range[A]) &&

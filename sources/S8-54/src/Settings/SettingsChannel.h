@@ -26,9 +26,9 @@
 #define DIVIDER_10(ch)      (DIVIDER(ch) == Multiplier_10)
 #define DIVIDER_1(ch)       (DIVIDER(ch) == Multiplier_1)
 
-#define ENABLE(ch)          (set.chan[ch].enable)
-#define ENABLE_A            (ENABLE(A))
-#define ENABLE_B            (ENABLE(B))
+#define SET_ENABLED(ch)     (set.chan[ch].enable)
+#define SET_ENABLED_A       (SET_ENABLE(A))
+#define SET_ENABLED_B       (SET_ENABLE(B))
 
 #define BALANCE_ADC(ch)     (set.chan[ch].balanceShiftADC)
 #define BALANCE_ADC_A       (BALANCE_ADC(A))

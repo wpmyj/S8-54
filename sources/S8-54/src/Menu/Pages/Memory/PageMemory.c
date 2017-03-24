@@ -234,7 +234,7 @@ void OnChange_MemoryLength(bool active)
     }
 
     // Блокируем включение 32к длины записи, если включен второй канал
-    if (FPGA_NUM_POINTS_32k && ENABLE_B)
+    if (FPGA_NUM_POINTS_32k && SET_ENABLED_B)
     {
         Display_ShowWarning(DisableChannel2);
         FPGA_NUM_POINTS = FNP_16k;
