@@ -18,11 +18,11 @@ typedef struct
 
 typedef struct
 {
-    uint8*      addr;               // Адрес данных во внешнем ОЗУ
-    uint16      rShift[2];
-    uint16      trigLev[2];
-    int16       tShift;             // Смещение по времени
-    uint8       range[2];           // Масштаб по напряжению обоих каналов.
+    uint8*      addr_1;               // Адрес данных во внешнем ОЗУ
+    uint16      rShift_1[2];
+    uint16      trigLev_1[2];
+    int16       tShift_1;             // Смещение по времени
+    uint8       range_1[2];           // Масштаб по напряжению обоих каналов.
     uint        tBase : 5;          // Масштаб по времени
     uint        enableA : 1;        // Включён ли канал A
     uint        enableB : 1;        // Включен ли канал B
@@ -40,7 +40,7 @@ typedef struct
 
 #define INDEXLENGTH(ds)         ((ds)->indexLength)
 
-#define TRIGLEV(ds, ch)         ((ds)->trigLev[ch])
+#define TRIGLEV(ds, ch)         ((ds)->trigLev_1[ch])
 #define TRIGLEV_A(ds)           (TRIGLEV(ds, A))
 #define TRIGLEV_B(ds)           (TRIGLEV(ds, B))
 
@@ -56,9 +56,10 @@ typedef struct
 #define INVERSE_B(ds)           ((ds)->inverseB)
 #define INVERSE(ds, ch)         ((ch == A) ? INVERSE_A(ds) : INVERSE_B(ds))
 
-#define TSHIFT(ds)              ((ds)->tShift)
-#define TBASE(ds)               ((TBase)(ds)->tBase)
+#define TSHIFT(ds)              ((ds)->tShift_1)
 #define Lval_TBASE(ds)          ((ds)->tBase)
+#define TBASE(ds)               ((TBase)Lval_TBASE(ds))
+
 
 #define COUPLE_A(ds)            ((ModeCouple)(ds)->coupleA)
 #define COUPLE_B(ds)            ((ModeCouple)(ds)->coupleB)
@@ -74,15 +75,16 @@ typedef struct
 #define Lval_DIVIDER_A(ds)      ((ds)->multiplierA)
 #define Lval_DIVIDER_B(ds)      ((ds)->multiplierB)
 
-#define RANGE(ds, ch)           ((Range)(ds)->range[ch])
-#define RANGE_A(ds)             (RANGE(ds, A))
-#define RANGE_B(ds)             (RANGE(ds, B))
-
-#define Lval_RANGE(ds, ch)      ((ds)->range[ch])
+#define Lval_RANGE(ds, ch)      ((ds)->range_1[ch])
 #define Lval_RANGE_A(ds)        (Lval_RANGE(ds, A))
 #define Lval_RANGE_B(ds)        (Lval_RANGE(ds, B))
 
-#define RSHIFT(ds, ch)          ((ds)->rShift[ch])
+#define RANGE(ds, ch)           ((Range)Lval_RANGE(ds, ch))
+#define RANGE_A(ds)             (RANGE(ds, A))
+#define RANGE_B(ds)             (RANGE(ds, B))
+
+
+#define RSHIFT(ds, ch)          ((ds)->rShift_1[ch])
 #define RSHIFT_A(ds)            (RSHIFT(ds, A))
 #define RSHIFT_B(ds)            (RSHIFT(ds, B))
 
@@ -97,7 +99,7 @@ typedef struct
 #define TIME_YEAR(ds)           ((ds)->time.year)
 #define TIME_MS(ds)             ((ds)->time.timeMS)
 
-#define ADDRESS_DATA(ds)        ((ds)->addr)
+#define ADDRESS_DATA(ds)        ((ds)->addr_1)
 
 
 int NumBytesInChannel(const DataSettings *ds);  // Возвращает количество байт на канал

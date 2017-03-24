@@ -134,8 +134,8 @@ void PainterData_DrawMath(void)
 
     int numPoints = NumBytesInChannel(pCurDS());
 
-    Math_PointsRelToVoltage(dataRel0, numPoints, (Range)pCurDS()->range[A], pCurDS()->rShift[A], dataAbsA);
-    Math_PointsRelToVoltage(dataRel1, numPoints, (Range)pCurDS()->range[B], pCurDS()->rShift[B], dataAbsB);
+    Math_PointsRelToVoltage(dataRel0, numPoints, RANGE_A(pCurDS()), RSHIFT_A(pCurDS()), dataAbsA);
+    Math_PointsRelToVoltage(dataRel1, numPoints, RANGE_B(pCurDS()), RSHIFT_B(pCurDS()), dataAbsB);
 
     Math_CalculateMathFunction(dataAbsA, dataAbsB, numPoints);
 

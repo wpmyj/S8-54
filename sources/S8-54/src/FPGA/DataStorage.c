@@ -868,23 +868,23 @@ int DS_GetLastFrameP2P_RAM(DataSettings **ds, uint8 **dataA, uint8 **dataB)
 //------------------------------------------------------------------------------------------------------------------------------------------------------
 bool DataSettings_IsEquals(const DataSettings *ds1, const DataSettings *ds2)
 {
-    bool equals = (ENABLED_A(ds1) == ENABLED_A(ds2)) &&
+    bool equals = (ENABLED_A(ds1) == ENABLED_A(ds2)) &&         // TODO оптимизировать
         (ENABLED_B(ds1) == ENABLED_B(ds2)) &&
         (INVERSE_A(ds1) == INVERSE_A(ds2)) &&
         (INVERSE_B(ds1) == INVERSE_B(ds2)) &&
-        (ds1->range[A] == ds2->range[A]) &&
-        (ds1->range[B] == ds2->range[B]) &&
-        (ds1->rShift[A] == ds2->rShift[A]) &&
-        (ds1->rShift[B] == ds2->rShift[B]) &&
-        (ds1->tBase == ds2->tBase) &&
-        (ds1->tShift == ds2->tShift) &&
-        (ds1->coupleA == ds2->coupleA) &&
-        (ds1->coupleB == ds2->coupleB) &&
-        (ds1->trigLev[A] == ds2->trigLev[A]) &&
-        (ds1->trigLev[B] == ds2->trigLev[B]) &&
-        (ds1->multiplierA == ds2->multiplierA) &&
-        (ds1->multiplierB == ds2->multiplierB) &&
-        (ds1->peackDet == ds2->peackDet);
+        (RANGE_A(ds1)   == RANGE_A(ds2)) &&
+        (RANGE_B(ds1)   == RANGE_B(ds2)) &&
+        (RSHIFT_A(ds1)  == RSHIFT_A(ds2)) &&
+        (RSHIFT_B(ds1)  == RSHIFT_B(ds2)) &&
+        (TBASE(ds1)     == TBASE(ds2)) &&
+        (TSHIFT(ds1)    == TSHIFT(ds2)) &&
+        (COUPLE_A(ds1)  == COUPLE_A(ds2)) &&
+        (COUPLE_B(ds1)  == COUPLE_B(ds2)) &&
+        (TRIGLEV_A(ds1) == TRIGLEV_A(ds2)) &&
+        (TRIGLEV_B(ds1) == TRIGLEV_B(ds2)) &&
+        (DIVIDER_A(ds1) == DIVIDER_A(ds2)) &&
+        (DIVIDER_B(ds1) == DIVIDER_B(ds2)) &&
+        (PEACKDET(ds1)  == PEACKDET(ds2));
 
     return equals;
 }

@@ -199,7 +199,7 @@ float CalculateVoltageMax(Channel ch)
         markerHor[ch][0] = (int)max;                           // Здесь не округляем, потому что max может быть только целым
     }
 
-    return POINT_2_VOLTAGE(max, ds.range[ch], ds.rShift[ch]);
+    return POINT_2_VOLTAGE(max, RANGE(&ds, ch), RSHIFT(&ds, ch));
 }
 
 
@@ -213,7 +213,7 @@ float CalculateVoltageMin(Channel ch)
         markerHor[ch][0] = (int)min;                           // Здесь не округляем, потому что min может быть только целым
     }
     
-    return POINT_2_VOLTAGE(min, ds.range[ch], ds.rShift[ch]);
+    return POINT_2_VOLTAGE(min, RANGE(&ds, ch), RSHIFT(&ds, ch));
 }
 
 
@@ -244,7 +244,7 @@ float CalculateVoltageMinSteady(Channel ch)
         markerHor[ch][0] = (int)ROUND(min);
     }
 
-    return POINT_2_VOLTAGE(min, ds.range[ch], ds.rShift[ch]);
+    return POINT_2_VOLTAGE(min, RANGE(&ds, ch), RSHIFT(&ds, ch));
 }
 
 
@@ -260,7 +260,7 @@ float CalculateVoltageMaxSteady(Channel ch)
         markerHor[ch][0] = (int)max;
     }
 
-    return POINT_2_VOLTAGE(max, ds.range[ch], ds.rShift[ch]);
+    return POINT_2_VOLTAGE(max, RANGE(&ds, ch), RSHIFT(&ds, ch));
 }
 
 
@@ -278,8 +278,8 @@ float CalculateVoltageVybrosPlus(Channel ch)
         markerHor[ch][1] = (int)maxSteady;
     }
 
-    uint rShift = ds.rShift[ch];
-    return fabsf(POINT_2_VOLTAGE(maxSteady, ds.range[ch], rShift) - POINT_2_VOLTAGE(max, ds.range[ch], rShift));
+    uint rShift = RSHIFT(&ds, ch);
+    return fabsf(POINT_2_VOLTAGE(maxSteady, RANGE(&ds, ch), rShift) - POINT_2_VOLTAGE(max, RANGE(&ds, ch), rShift));
 }
 
 
@@ -296,8 +296,8 @@ float CalculateVoltageVybrosMinus(Channel ch)
         markerHor[ch][1] = (int)minSteady;
     }
 
-    uint16 rShift = ds.rShift[ch];
-    return fabsf(POINT_2_VOLTAGE(minSteady, ds.range[ch], rShift) - POINT_2_VOLTAGE(min, ds.range[ch], rShift));
+    uint16 rShift = RSHIFT(&ds, ch);
+    return fabsf(POINT_2_VOLTAGE(minSteady, RANGE(&ds, ch), rShift) - POINT_2_VOLTAGE(min, RANGE(&ds, ch), rShift));
 }
 
 
@@ -345,7 +345,7 @@ float CalculateVoltageAverage(Channel ch)
         markerHor[ch][0] = aveRel;
     }
 
-    return POINT_2_VOLTAGE(aveRel, ds.range[ch], ds.rShift[ch]);
+    return POINT_2_VOLTAGE(aveRel, RANGE(&ds, ch), RSHIFT(&ds, ch));
 }
 
 
@@ -357,19 +357,19 @@ float CalculateVoltageRMS(Channel ch)
     EXIT_IF_ERROR_INT(period);
 
     float rms = 0.0f;
-    uint16 rShift = ds.rShift[ch];
+    uint16 rShift = RSHIFT(&ds, ch);
 
     uint8 *dataIn = CHOICE_BUFFER;
 
     for(int i = firstPoint; i < firstPoint + period; i++)
     {
-        float volts = POINT_2_VOLTAGE(dataIn[i], ds.range[ch], rShift);
+        float volts = POINT_2_VOLTAGE(dataIn[i], RANGE(&ds, ch), rShift);
         rms +=  volts * volts;
     }
 
     if(MARKED_MEAS == Measure_VoltageRMS)
     {
-        markerHor[ch][0] = Math_VoltageToPoint(sqrtf(rms / period), (Range)ds.range[ch], rShift);
+        markerHor[ch][0] = Math_VoltageToPoint(sqrtf(rms / period), RANGE(&ds, ch), rShift);
     }
 
     return sqrtf(rms / period);
@@ -1335,32 +1335,32 @@ static void CountedToCurrentSettings(void)
 {
     int numPoints = NumBytesInChannel(&ds);
 
-    int16 dTShift = SET_TSHIFT - ds.tShift;
+    int16 dTShift = SET_TSHIFT - TSHIFT(&ds);
 
     if (dTShift)
     {
         CountedTShift();
     }
 
-    int rShiftA = ((int)SET_RSHIFT_A - (int)ds.rShift[A]) / STEP_RSHIFT;
+    int rShiftA = ((int)SET_RSHIFT_A - (int)RSHIFT_A(&ds)) / STEP_RSHIFT;
 
     if (rShiftA)
     {
         CountedRShift(A);
     }
 
-    int rShiftB = ((int)SET_RSHIFT_B - (int)ds.rShift[B]) / STEP_RSHIFT;
+    int rShiftB = ((int)SET_RSHIFT_B - (int)RSHIFT_B(&ds)) / STEP_RSHIFT;
 
     if (rShiftB)
     {
         CountedRShift(B);
     }
 
-    if (SET_RANGE_A != ds.range[A])
+    if (SET_RANGE_A !=  RANGE_A(&ds))
     {
         CountedRange(A);
     }
-    else if (SET_RANGE_B != ds.range[B])
+    else if (SET_RANGE_B != RANGE_B(&ds))
     {
         CountedRange(B);
     }
@@ -1453,9 +1453,9 @@ static void CountedRange(Channel ch)
 {
     uint8 *in = 0;
     uint16 *out = 0;
-    Range rangeIn = (Range)ds.range[ch];
+    Range rangeIn = RANGE(&ds, ch);
     Range rangeOut = SET_RANGE(ch);
-    int rShiftIn = ds.rShift[ch];
+    int rShiftIn = RSHIFT(&ds, ch);
     int rShiftOut = SET_RSHIFT(ch);
 
     if (ch == A)

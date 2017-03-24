@@ -21,7 +21,7 @@ int NumBytesInChannel(const DataSettings *ds)
 //----------------------------------------------------------------------------------------------------------------------------------------------------
 int NumBytesInData(const DataSettings *ds)
 {
-    return NumBytesInChannel(ds) * (ds->enableA + ds->enableB);
+    return NumBytesInChannel(ds) * (ENABLED_A(ds) + ENABLED_B(ds));
 }
 
 
@@ -39,14 +39,14 @@ int NumPointsInChannel(const DataSettings *ds)
 //------------------------------------------------------------------------------------------------------------------------------------------------------
 uint8 *AddressChannel(DataSettings *ds, Channel ch)
 {
-    if (ch == A && ds->enableA)
+    if (ch == A && ENABLED_A(ds))
     {
         return ADDRESS_DATA(ds);
     }
 
     if (ch == B && ds->enableB)
     {
-        return ADDRESS_DATA(ds) + (ds->enableA ? NumBytesInChannel(ds) : 0);
+        return ADDRESS_DATA(ds) + (ENABLED_A(ds) ? NumBytesInChannel(ds) : 0);
     }
 
     return 0;

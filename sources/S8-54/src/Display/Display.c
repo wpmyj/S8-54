@@ -1412,7 +1412,7 @@ static void DRAW_SPECTRUM(const uint8 *dataIn, int numPoints, Channel ch)
 
     RAM_MemCpy16((void*)dataIn, data, numPoints);
 
-    Math_PointsRelToVoltage(data, numPoints, (Range)DS->range[ch], DS->rShift[ch], dataR);
+    Math_PointsRelToVoltage(data, numPoints, G_RANGE(ch), G_RSHIFT(ch), dataR);
     Math_CalculateFFT(dataR, numPoints, spectrum, &freq0, &density0, &freq1, &density1, &y0, &y1);
     DrawSpectrumChannel(spectrum, gColorChan[ch]);
     if(!MENU_IS_SHOWN || MenuIsMinimize())
