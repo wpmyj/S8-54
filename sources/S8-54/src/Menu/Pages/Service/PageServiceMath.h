@@ -147,7 +147,7 @@ static const SmallButton sbMathFunctionModeDraw =
 
 static void PressSB_MathFunction_RangeA(void)
 {
-    RANGE_MATH = RANGE_A;
+    RANGE_MATH = SET_RANGE_A;
     set.math.divider = SET_DIVIDER_A;
 }
 
@@ -170,7 +170,7 @@ static const SmallButton sbMathFunctionRangeA =
 
 static void PressSB_MathFunction_RangeB(void)
 {
-    RANGE_MATH = RANGE_B;
+    RANGE_MATH = SET_RANGE_B;
     set.math.divider = SET_DIVIDER_B;
 }
 

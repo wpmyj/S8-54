@@ -22,7 +22,7 @@ float GetStretchADC(Channel ch)
         {&setNR.addStretch100mV[A], &setNR.addStretch100mV[B]}  // 5V
     };
     
-    const int16 *address = addStretch[RANGE(ch)][ch];
+    const int16 *address = addStretch[SET_RANGE(ch)][ch];
 
     int16 stretch = setNR.stretchADC[ch][setNR.stretchADCtype];
 

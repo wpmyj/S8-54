@@ -1356,11 +1356,11 @@ static void CountedToCurrentSettings(void)
         CountedRShift(B);
     }
 
-    if (RANGE_A != ds.range[A])
+    if (SET_RANGE_A != ds.range[A])
     {
         CountedRange(A);
     }
-    else if (RANGE_B != ds.range[B])
+    else if (SET_RANGE_B != ds.range[B])
     {
         CountedRange(B);
     }
@@ -1454,7 +1454,7 @@ static void CountedRange(Channel ch)
     uint8 *in = 0;
     uint16 *out = 0;
     Range rangeIn = (Range)ds.range[ch];
-    Range rangeOut = RANGE(ch);
+    Range rangeOut = SET_RANGE(ch);
     int rShiftIn = ds.rShift[ch];
     int rShiftOut = RSHIFT(ch);
 

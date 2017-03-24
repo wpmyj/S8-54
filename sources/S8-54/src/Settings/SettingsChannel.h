@@ -8,10 +8,10 @@
 #define RSHIFT_MATH         (set.math.rShift)
 #define RANGE_MATH          (set.math.range)
 
-#define RANGE(ch)           (set.chan[ch].range)
-#define RANGE_A             (RANGE(A))
-#define RANGE_B             (RANGE(B))
-#define RANGE_2mV(ch)       (RANGE(ch) == Range_2mV)
+#define SET_RANGE(ch)       (set.chan[ch].range)
+#define SET_RANGE_A         (SET_RANGE(A))
+#define SET_RANGE_B         (SET_RANGE(B))
+#define SET_RANGE_2mV(ch)   (SET_RANGE(ch) == Range_2mV)
 
 #define RSHIFT(ch)          (set.chan[ch].rShiftRel)
 #define RSHIFT_A            (RSHIFT(A))

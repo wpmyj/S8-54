@@ -65,7 +65,7 @@ uint8 GetSampleSinusWave(Channel ch, int numSample)
 {
     float dT = numSample * TSHIFT_2_ABS(1, SET_TBASE);
     float voltage = ampl[ch] * sinf(2.0f * M_PI * freq[ch] * dT + angle[ch]) + NewNoiseValue(ch);
-    return Math_VoltageToPoint(voltage, RANGE(ch), RSHIFT(ch));
+    return Math_VoltageToPoint(voltage, SET_RANGE(ch), RSHIFT(ch));
 }
 
 

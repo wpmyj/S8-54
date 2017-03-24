@@ -979,8 +979,8 @@ void FPGA_FillDataPointer(DataSettings *ds)
     ds->enableB = sChannel_Enabled(B) ? 1 : 0;
     ds->inverseA = SET_INVERSE_A ? 1 : 0;
     ds->inverseB = SET_INVERSE_B ? 1 : 0;
-    ds->range[A] = RANGE_A; //-V2006
-    ds->range[B] = RANGE_B; //-V2006
+    ds->range[A] = SET_RANGE_A; //-V2006
+    ds->range[B] = SET_RANGE_B; //-V2006
     ds->rShift[A] = RSHIFT_A;
     ds->rShift[B] = RSHIFT_B;
     ds->tBase = SET_TBASE; //-V2006

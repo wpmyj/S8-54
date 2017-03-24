@@ -29,7 +29,7 @@ EXTERN uint8 *dataChanInt[2];
 #define G_INVERSE(ch)   (INVERSE(DS, ch))
 #define G_COUPLE(ch)    (COUPLE(DS, ch))
 #define G_DIVIDER(ch)   (DIVIDER(DS, ch))
-#define G_RANGE(ch)     ((Range)(DS->range[ch]))
+#define G_RANGE(ch)     (RANGE(DS, ch))
 #define G_ENABLED(ch)   (ENABLED(DS, ch))
 #define G_RSHIFT(ch)    (DS->rShift[ch])
 #define G_PEACKDET      (DS->peackDet)

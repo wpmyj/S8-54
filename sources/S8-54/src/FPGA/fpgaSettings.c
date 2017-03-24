@@ -196,7 +196,7 @@ static const float divR[RangeSize] = {50.0f, 20.0f, 10.0f, 5.0f, 2.0f, 1.0f, 25.
 // –ассчитывает смещение канала отностиельно нул€
 static int CalculateDeltaRShift(Channel ch)
 {
-    Range range = RANGE(ch);
+    Range range = SET_RANGE(ch);
     ModeCouple mode = SET_COUPLE(ch);
     static const int index[3] = {0, 1, 1};
 
@@ -205,7 +205,7 @@ static int CalculateDeltaRShift(Channel ch)
 
     uint16 rShiftRel = (uint16)((int)RSHIFT(ch) + addRShiftFull);
 
-    int dShift = (int)((RShiftZero - rShiftRel) / divR[RANGE(ch)]);
+    int dShift = (int)((RShiftZero - rShiftRel) / divR[SET_RANGE(ch)]);
     rShiftRel = (uint16)(RShiftZero + dShift);
 
     int delta = -(rShiftRel - RShiftZero);
@@ -250,7 +250,7 @@ static void LoadTrigLev(void)
 
     if (TRIG_INPUT_LPF || TRIG_INPUT_FULL)
     {
-        int delta = (CalculateDeltaRShift((Channel)TRIGSOURCE) * divR[RANGE(TRIGSOURCE)]);
+        int delta = (CalculateDeltaRShift((Channel)TRIGSOURCE) * divR[SET_RANGE(TRIGSOURCE)]);
         trigLev = (int)trigLev + delta;
         if (trigLev < TrigLevMin)
         {
@@ -300,12 +300,12 @@ void WriteChipSelect2(void)
         data |= maskCoupleB[SET_COUPLE_B];
     }
 
-    if(RANGE_A >= Range_200mV)
+    if(SET_RANGE_A >= Range_200mV)
     {
         data |= (1 << 1);
     }
 
-    if(RANGE_B >= Range_200mV)
+    if(SET_RANGE_B >= Range_200mV)
     {
         data |= (1 << 4);
     }
@@ -334,7 +334,7 @@ uint PrepareChannel(Channel ch)
 {
     uint data = 0;
 
-    data |= masksRange[RANGE(ch)];
+    data |= masksRange[SET_RANGE(ch)];
 
     const uint maskField[] =
     {
@@ -347,7 +347,7 @@ uint PrepareChannel(Channel ch)
         (1 << 7) + (1 << 8)     // 750
     };
 
-    if (MODE_EMS || RANGE_2mV(ch) || BANDWIDTH_20MHz(ch))
+    if (MODE_EMS || SET_RANGE_2mV(ch) || BANDWIDTH_20MHz(ch))
     {
         data |= maskField[Bandwidth_20MHz];
     }
@@ -480,8 +480,8 @@ void FPGA_SetRange(Channel ch, Range range)
     }
     if (range < RangeSize && (int)range >= 0)
     {
-        float rShiftAbs = RSHIFT_2_ABS(RSHIFT(ch), RANGE(ch));
-        float trigLevAbs = RSHIFT_2_ABS(TRIGLEV(ch), RANGE(ch));
+        float rShiftAbs = RSHIFT_2_ABS(RSHIFT(ch), SET_RANGE(ch));
+        float trigLevAbs = RSHIFT_2_ABS(TRIGLEV(ch), SET_RANGE(ch));
         sChannel_SetRange(ch, range);
         if (set.display.linkingRShift == LinkingRShift_Voltage)
         {
@@ -740,9 +740,9 @@ const char *FPGA_GetTShiftString(int16 tShiftRel, char buffer[20])
 bool FPGA_RangeIncrease(Channel ch)
 {
     bool retValue = false;
-    if (RANGE(ch) < RangeSize - 1)
+    if (SET_RANGE(ch) < RangeSize - 1)
     {
-        FPGA_SetRange(ch, (Range)(RANGE(ch) + 1)); //-V2006
+        FPGA_SetRange(ch, (Range)(SET_RANGE(ch) + 1)); //-V2006
         retValue = true;
     }
     else
@@ -758,9 +758,9 @@ bool FPGA_RangeIncrease(Channel ch)
 bool FPGA_RangeDecrease(Channel ch)
 {
     bool retValue = false;
-    if (RANGE(ch) > 0)
+    if (SET_RANGE(ch) > 0)
     {
-        FPGA_SetRange(ch, (Range)(RANGE(ch) - 1)); //-V2006
+        FPGA_SetRange(ch, (Range)(SET_RANGE(ch) - 1)); //-V2006
         retValue = true;
     }
     else

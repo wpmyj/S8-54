@@ -157,7 +157,7 @@ void Process_RANGE(uint8 *buffer)
         if (value < (uint8)RangeSize)      { FPGA_SetRange(ch, (Range)value); }
         else if (value == (uint8)RangeSize)
         {
-            SCPI_SEND(":CHANNEL%d:RANGE %s", Tables_GetNumChannel(ch), map[RANGE(ch)].key);
+            SCPI_SEND(":CHANNEL%d:RANGE %s", Tables_GetNumChannel(ch), map[SET_RANGE(ch)].key);
         }
     LEAVE_ANALYSIS
 }

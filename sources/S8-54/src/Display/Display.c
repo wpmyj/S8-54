@@ -1121,11 +1121,11 @@ static void WriteValueTrigLevel(void)
     if(showLevelTrigLev && WORK_DIRECT)
     {
         TrigSource trigSource = TRIGSOURCE;
-        float trigLev = RSHIFT_2_ABS(TRIGLEV(trigSource), TRIGSOURCE_EXT ? Range_500mV : RANGE(trigSource));
+        float trigLev = RSHIFT_2_ABS(TRIGLEV(trigSource), TRIGSOURCE_EXT ? Range_500mV : SET_RANGE(trigSource));
         if(TRIG_INPUT_AC && !TRIGSOURCE_EXT)
         {
             uint16 rShift = RSHIFT(trigSource);
-            float rShiftAbs = RSHIFT_2_ABS(rShift, RANGE(trigSource));
+            float rShiftAbs = RSHIFT_2_ABS(rShift, SET_RANGE(trigSource));
             trigLev += rShiftAbs;
         }
 
@@ -1489,8 +1489,8 @@ static void WriteCursors(void)
             Painter_DrawText(x, y1, sCursors_GetCursVoltage(source, 0, buffer));
             Painter_DrawText(x, y2, sCursors_GetCursVoltage(source, 1, buffer));
             x = startX + 49;
-            float pos0 = Math_VoltageCursor(sCursors_GetCursPosU(source, 0), RANGE(source), RSHIFT(source));
-            float pos1 = Math_VoltageCursor(sCursors_GetCursPosU(source, 1), RANGE(source), RSHIFT(source));
+            float pos0 = Math_VoltageCursor(sCursors_GetCursPosU(source, 0), SET_RANGE(source), RSHIFT(source));
+            float pos1 = Math_VoltageCursor(sCursors_GetCursPosU(source, 1), SET_RANGE(source), RSHIFT(source));
             float delta = fabsf(pos1 - pos0);
             if(SET_DIVIDER_10(source))
             {

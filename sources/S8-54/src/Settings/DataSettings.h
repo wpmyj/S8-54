@@ -57,6 +57,10 @@ typedef struct
 #define DIVIDER_B(ds)   ((Divider)(ds)->multiplierB)
 #define DIVIDER(ds, ch) ((ch == A) ? DIVIDER_A(ds) : DIVIDER_B(ds))
 
+#define RANGE(ds, ch)   ((Range)(ds)->range[ch])
+#define RANGE_A(ds)     (RANGE(ds, A))
+#define RANGE_B(ds)     (RANGE(ds, B))
+
 
 int NumBytesInChannel(const DataSettings *ds);  // Возвращает количество байт на канал
 int NumBytesInData(const DataSettings *ds);     // Возвращает количество байт в обоих каналах
