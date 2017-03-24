@@ -33,8 +33,8 @@ int RequestBytesForChannel(Channel ch, DataSettings *ds)
 
     if(ds)
     {
-        numBytes = (NumPoinstFPGA)ds->indexLength;
-        peakDet = (PeackDetMode)ds->peackDet;
+        numBytes = (NumPoinstFPGA)INDEXLENGTH(ds);
+        peakDet = PEACKDET(ds);
     }
     else
     {

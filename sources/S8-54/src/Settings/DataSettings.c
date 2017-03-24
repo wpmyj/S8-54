@@ -14,7 +14,7 @@ StateOSCI gState = StateOSCI_Start;
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 int NumBytesInChannel(const DataSettings *ds)
 {
-    return FPGA_NUM_POINTS_2_NumPoints((NumPoinstFPGA)ds->indexLength);
+    return FPGA_NUM_POINTS_2_NumPoints((NumPoinstFPGA)INDEXLENGTH(ds));
 }
 
 
@@ -28,7 +28,7 @@ int NumBytesInData(const DataSettings *ds)
 //---------------------------------------------------------------------------------------------------------------------------------------------------
 int NumPointsInChannel(const DataSettings *ds)
 {
-    if (ds->peackDet == 0)
+    if (PEACKDET(ds) == PeackDet_Disable)
     {
         return NumBytesInChannel(ds);
     }
@@ -44,7 +44,7 @@ uint8 *AddressChannel(DataSettings *ds, Channel ch)
         return ADDRESS_DATA(ds);
     }
 
-    if (ch == B && ds->enableB)
+    if (ch == B && ENABLED_B(ds))
     {
         return ADDRESS_DATA(ds) + (ENABLED_A(ds) ? NumBytesInChannel(ds) : 0);
     }

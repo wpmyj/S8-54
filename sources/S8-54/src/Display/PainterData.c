@@ -337,13 +337,13 @@ static void DrawDataChannel(uint8 *dataIn, int minY, int maxY)
     int lastPoint = 280;
 
     if (!IN_P2P_MODE ||                                     // Если не находимся в режиме медленных поточечных развёрток
-        (IN_P2P_MODE && pCurDS()->time.timeMS))                   // Или в поточечном, но данные уже считаны
+        (IN_P2P_MODE && TIME_MS(pCurDS())))                 // Или в поточечном, но данные уже считаны
     {
         sDisplay_PointsOnDisplay(&firstPoint, &lastPoint);  // то находим первую и последнюю точки, выводимые на экран
     }
 
     if (IN_P2P_MODE &&                                      // Если находимся в режиме медленных поточечных развёрток
-        pCurDS()->time.timeMS == 0)                               // и считывание полного набора данных ещё не произошло
+        TIME_MS(pCurDS()) == 0)                               // и считывание полного набора данных ещё не произошло
     {
         lastPoint = FillDataP2P(data, ppCurDS());
         if (lastPoint < 2)                                  // Если готово меньше двух точек - выход
@@ -698,7 +698,7 @@ static void DrawSignalLined(const uint8 *data, int startPoint, int endPoint, int
     int numPoints = sMemory_NumBytesInChannel(false);
     int numSmoothing = sDisplay_NumPointSmoothing();
 
-    if (pCurDS()->peackDet == PeackDet_Disable)
+    if (PEACKDET(pCurDS()) == PeackDet_Disable)
     {
         for (int i = startPoint; i < endPoint; i++)
         {
@@ -758,7 +758,7 @@ static void DrawSignalLined(const uint8 *data, int startPoint, int endPoint, int
         }
     }
 
-    if (pCurDS()->peackDet == PeackDet_Disable)
+    if (PEACKDET(pCurDS()) == PeackDet_Disable)
     {
         CONVERT_DATA_TO_DISPLAY(dataCD[280], data[endPoint]); //-V108
         Painter_DrawSignal(GridLeft(), dataCD, true);

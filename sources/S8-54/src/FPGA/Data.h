@@ -37,6 +37,7 @@ EXTERN uint8 *dataChanInt[2];
 #define G_TRIGLEV(ch)   (TRIGLEV(DS))
 #define G_INDEXLENGHT   (INDEXLENGTH(DS))
 
+#define G_TIME_TIME     (TIME_TIME(DS))
 #define G_TIME_DAY      (TIME_DAY(DS))
 #define G_TIME_HOURS    (TIME_HOURS(DS))
 #define G_TIME_MINUTES  (TIME_MINUTES(DS))

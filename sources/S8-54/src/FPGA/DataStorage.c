@@ -139,7 +139,7 @@ static int SizeData(DataSettings *ds)
     if(ENABLED_A(ds))
     {
         size += numBytesInChannel;
-        if(ds->peackDet != PeackDet_Disable)
+        if(PEACKDET(ds) != PeackDet_Disable)
         {
             size += numBytesInChannel;
         }
@@ -148,7 +148,7 @@ static int SizeData(DataSettings *ds)
     if(ENABLED_B(ds))
     {
         size += numBytesInChannel;
-        if(ds->peackDet != PeackDet_Disable)
+        if(PEACKDET(ds) != PeackDet_Disable)
         {
             size += numBytesInChannel;
         }
@@ -308,7 +308,7 @@ static void PushData(DataSettings *ds, uint8 *dataA, uint8 *dataB)
 static void ReplaceLastFrame(DataSettings *ds, uint8 *dataA, uint8 *dataB)
 {
     DataSettings *lastDS = DS_DataSettingsFromEnd(0);
-    lastDS->time = ds->time;    // Нужно скопировать время, потому что во фрейме последних точек оно нулевое.
+    TIME_TIME(lastDS) = TIME_TIME(ds);    // Нужно скопировать время, потому что во фрейме последних точек оно нулевое.
 
     int numBytes = NumBytesInChannel(ds);
 
@@ -530,7 +530,7 @@ void DS_AddData(uint8 *dataA, uint8 *dataB, DataSettings dss)
         return;
     }
 
-    dss.time = RTC_GetPackedTime();
+    TIME_TIME(&dss) = RTC_GetPackedTime();
 
 
     CalculateLimits(dataA, dataB, &dss);
