@@ -833,7 +833,7 @@ static void DrawCursorTrigLevel(void)
         return;
     }
     TrigSource ch = TRIGSOURCE;
-    int trigLev = TRIGLEV(ch) + (TRIGSOURCE_EXT ? 0 : RSHIFT(ch) - RShiftZero);
+    int trigLev = TRIGLEV(ch) + (TRIGSOURCE_EXT ? 0 : SET_RSHIFT(ch) - RShiftZero);
     float scale = 1.0f / ((TrigLevMax - TrigLevMin) / 2.4f / GridChannelHeight());
     int y0 = (GRID_TOP + GridChannelBottom()) / 2 + (int)(scale * (TrigLevZero - TrigLevMin));
     int y = y0 - (int)(scale * (trigLev - TrigLevMin));
@@ -879,7 +879,7 @@ static void DrawCursorTrigLevel(void)
         int shiftFullMin = RShiftMin + TrigLevMin;
         int shiftFullMax = RShiftMax + TrigLevMax;
         scale = (float)height / (shiftFullMax - shiftFullMin);
-        int shiftFull = TRIGLEV(TRIGSOURCE) + (TRIGSOURCE_EXT ? 0 : RSHIFT(ch));
+        int shiftFull = TRIGLEV(TRIGSOURCE) + (TRIGSOURCE_EXT ? 0 : SET_RSHIFT(ch));
         int yFull = GRID_TOP + DELTA + height - (int)(scale * (shiftFull - RShiftMin - TrigLevMin) + 4);
         Painter_FillRegionC(left + 2, yFull + 1, 4, 6, ColorTrig());
         Painter_SetFont(TypeFont_5);
@@ -1124,7 +1124,7 @@ static void WriteValueTrigLevel(void)
         float trigLev = RSHIFT_2_ABS(TRIGLEV(trigSource), TRIGSOURCE_EXT ? Range_500mV : SET_RANGE(trigSource));
         if(TRIG_INPUT_AC && !TRIGSOURCE_EXT)
         {
-            uint16 rShift = RSHIFT(trigSource);
+            uint16 rShift = SET_RSHIFT(trigSource);
             float rShiftAbs = RSHIFT_2_ABS(rShift, SET_RANGE(trigSource));
             trigLev += rShiftAbs;
         }
@@ -1489,8 +1489,8 @@ static void WriteCursors(void)
             Painter_DrawText(x, y1, sCursors_GetCursVoltage(source, 0, buffer));
             Painter_DrawText(x, y2, sCursors_GetCursVoltage(source, 1, buffer));
             x = startX + 49;
-            float pos0 = Math_VoltageCursor(sCursors_GetCursPosU(source, 0), SET_RANGE(source), RSHIFT(source));
-            float pos1 = Math_VoltageCursor(sCursors_GetCursPosU(source, 1), SET_RANGE(source), RSHIFT(source));
+            float pos0 = Math_VoltageCursor(sCursors_GetCursPosU(source, 0), SET_RANGE(source), SET_RSHIFT(source));
+            float pos1 = Math_VoltageCursor(sCursors_GetCursPosU(source, 1), SET_RANGE(source), SET_RSHIFT(source));
             float delta = fabsf(pos1 - pos0);
             if(SET_DIVIDER_10(source))
             {
@@ -1937,7 +1937,7 @@ static void DrawCursorRShift(Channel ch)
         return;
     }
 
-    int rShift = RSHIFT(ch);
+    int rShift = SET_RSHIFT(ch);
 
     int y = GridChannelCenterHeight() - Math_RShift2Pixels((uint16)rShift, GridChannelHeight());
 

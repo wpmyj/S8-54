@@ -181,7 +181,7 @@ void Process_OFFSET(uint8 *buffer)
     ENTER_ANALYSIS
         if (value == 0)
         {
-            int retValue = (RSHIFT(ch) - RShiftZero) / 2;
+            int retValue = (SET_RSHIFT(ch) - RShiftZero) / 2;
             SCPI_SEND(":CHANNNEL%d:OFFSET %d", Tables_GetNumChannel(ch), retValue);
         }
     LEAVE_ANALYSIS

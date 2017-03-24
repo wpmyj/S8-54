@@ -506,8 +506,8 @@ static void OnPress_ADC_Shift_Reset(void)
             }
         }
     }
-    FPGA_SetRShift(A, RSHIFT_A);
-    FPGA_SetRShift(B, RSHIFT_B);
+    FPGA_SetRShift(A, SET_RSHIFT_A);
+    FPGA_SetRShift(B, SET_RSHIFT_B);
 }
 
 // нркюдйю - южо - дно ялеы - яЛ 1Й 2Лб ОНЯР ---------------------------------------------------------------------------------------------------------
@@ -524,7 +524,7 @@ static const Governor mgADC_Shift_A2mV =
 
 static void OnChange_ADC_Shift_A(void)
 {
-    FPGA_SetRShift(A, RSHIFT_A);
+    FPGA_SetRShift(A, SET_RSHIFT_A);
 }
 
 // нркюдйю - южо - дно ялеы - яЛ 2Й 2Лб ОНЯР ---------------------------------------------------------------------------------------------------------
@@ -541,7 +541,7 @@ static const Governor mgADC_Shift_B2mV =
 
 static void OnChange_ADC_Shift_B(void)
 {
-    FPGA_SetRShift(B, RSHIFT_B);
+    FPGA_SetRShift(B, SET_RSHIFT_B);
 }
 
 // нркюдйю - южо - дно ялеы - яЛ 1Й 5Лб ОНЯР ---------------------------------------------------------------------------------------------------------

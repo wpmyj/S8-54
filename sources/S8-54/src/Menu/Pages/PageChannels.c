@@ -195,7 +195,7 @@ static const Choice mcChanA_Inverse =
 
 static void OnChange_ChanA_Inverse(bool active)
 {
-    FPGA_SetRShift(A, RSHIFT_A);
+    FPGA_SetRShift(A, SET_RSHIFT_A);
 }
 
 // КАНАЛ 1 - Множитель -------------------------------------------------------------------------------------------------------------------------------
@@ -373,7 +373,7 @@ static const Choice mcChanB_Inverse =
 
 static void OnChange_ChanB_Inverse(bool active)
 {
-    FPGA_SetRShift(B, RSHIFT_B);
+    FPGA_SetRShift(B, SET_RSHIFT_B);
 }
 
 // КАНАЛ 2 - Множитель -------------------------------------------------------------------------------------------------------------------------------

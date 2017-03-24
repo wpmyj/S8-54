@@ -53,7 +53,7 @@ static void ProcessingAfterReadData(void);                          // Действия,
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 static uint16 READ_DATA_ADC_16(const uint16 *address, Channel ch   )
 {
-    float delta = AVE_VALUE - (RShiftZero - RSHIFT(ch)) / (RSHIFT_IN_CELL / 20.0f);
+    float delta = AVE_VALUE - (RShiftZero - SET_RSHIFT(ch)) / (RSHIFT_IN_CELL / 20.0f);
     BitSet16 _data_;
     _data_.halfWord = *address;
     int byte0 = (int)(((float)_data_.byte[0] - delta) * GetStretchADC(ch) + delta + 0.5f);
@@ -981,8 +981,8 @@ void FPGA_FillDataPointer(DataSettings *ds)
     ds->inverseB = SET_INVERSE_B ? 1 : 0;
     ds->range[A] = SET_RANGE_A; //-V2006
     ds->range[B] = SET_RANGE_B; //-V2006
-    ds->rShift[A] = RSHIFT_A;
-    ds->rShift[B] = RSHIFT_B;
+    ds->rShift[A] = SET_RSHIFT_A;
+    ds->rShift[B] = SET_RSHIFT_B;
     ds->tBase = SET_TBASE; //-V2006
     ds->tShift = SET_TSHIFT;
     ds->coupleA = SET_COUPLE_A; //-V2006
@@ -1021,7 +1021,7 @@ void FPGA_FindAndSetTrigLevel(void)
 
     static const float scale = (float)(TrigLevMax - TrigLevZero) / (float)(MAX_VALUE - AVE_VALUE) / 2.4f;
 
-    int trigLev = (int)(TrigLevZero + scale * ((int)aveValue - AVE_VALUE) - (RSHIFT(TRIGSOURCE) - RShiftZero));
+    int trigLev = (int)(TrigLevZero + scale * ((int)aveValue - AVE_VALUE) - (SET_RSHIFT(TRIGSOURCE) - RShiftZero));
 
     FPGA_SetTrigLev(TRIGSOURCE, (int16)trigLev);
 }

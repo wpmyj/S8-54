@@ -1342,14 +1342,14 @@ static void CountedToCurrentSettings(void)
         CountedTShift();
     }
 
-    int rShiftA = ((int)RSHIFT_A - (int)ds.rShift[A]) / STEP_RSHIFT;
+    int rShiftA = ((int)SET_RSHIFT_A - (int)ds.rShift[A]) / STEP_RSHIFT;
 
     if (rShiftA)
     {
         CountedRShift(A);
     }
 
-    int rShiftB = ((int)RSHIFT_B - (int)ds.rShift[B]) / STEP_RSHIFT;
+    int rShiftB = ((int)SET_RSHIFT_B - (int)ds.rShift[B]) / STEP_RSHIFT;
 
     if (rShiftB)
     {
@@ -1456,7 +1456,7 @@ static void CountedRange(Channel ch)
     Range rangeIn = (Range)ds.range[ch];
     Range rangeOut = SET_RANGE(ch);
     int rShiftIn = ds.rShift[ch];
-    int rShiftOut = RSHIFT(ch);
+    int rShiftOut = SET_RSHIFT(ch);
 
     if (ch == A)
     {

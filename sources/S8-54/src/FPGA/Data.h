@@ -31,7 +31,7 @@ EXTERN uint8 *dataChanInt[2];
 #define G_DIVIDER(ch)   (DIVIDER(DS, ch))
 #define G_RANGE(ch)     (RANGE(DS, ch))
 #define G_ENABLED(ch)   (ENABLED(DS, ch))
-#define G_RSHIFT(ch)    (DS->rShift[ch])
+#define G_RSHIFT(ch)    (RSHIFT(DS, ch))
 #define G_PEACKDET      (DS->peackDet)
 
 #define G_TIME_DAY      (DS->time.day)

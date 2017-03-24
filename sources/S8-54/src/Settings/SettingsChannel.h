@@ -13,9 +13,9 @@
 #define SET_RANGE_B         (SET_RANGE(B))
 #define SET_RANGE_2mV(ch)   (SET_RANGE(ch) == Range_2mV)
 
-#define RSHIFT(ch)          (set.chan[ch].rShiftRel)
-#define RSHIFT_A            (RSHIFT(A))
-#define RSHIFT_B            (RSHIFT(B))
+#define SET_RSHIFT(ch)      (set.chan[ch].rShiftRel)
+#define SET_RSHIFT_A        (SET_RSHIFT(A))
+#define SET_RSHIFT_B        (SET_RSHIFT(B))
 
 #define SET_COUPLE(ch)      (set.chan[ch].modeCouple)
 #define SET_COUPLE_A        (SET_COUPLE(A))

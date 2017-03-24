@@ -667,8 +667,8 @@ void FPGA_ProcedureCalibration(void)
     BALANCE_ADC_A = cal->shiftADCA;
     BALANCE_ADC_B = cal->shiftADCB;
     
-    FPGA_SetRShift(A, RSHIFT_A);
-    FPGA_SetRShift(B, RSHIFT_B);
+    FPGA_SetRShift(A, SET_RSHIFT_A);
+    FPGA_SetRShift(B, SET_RSHIFT_B);
     
     gStateFPGA.stateCalibration = StateCalibration_None;
     

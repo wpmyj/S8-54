@@ -203,7 +203,7 @@ static int CalculateDeltaRShift(Channel ch)
     int addRShift = -(SET_INVERSE(ch) ? -1 : 1) * (int)setNR.rShiftAdd[ch][range][index[mode]];
     int addRShiftFull = addRShift * (RSHIFT_IN_CELL / 20);
 
-    uint16 rShiftRel = (uint16)((int)RSHIFT(ch) + addRShiftFull);
+    uint16 rShiftRel = (uint16)((int)SET_RSHIFT(ch) + addRShiftFull);
 
     int dShift = (int)((RShiftZero - rShiftRel) / divR[SET_RANGE(ch)]);
     rShiftRel = (uint16)(RShiftZero + dShift);
@@ -480,12 +480,12 @@ void FPGA_SetRange(Channel ch, Range range)
     }
     if (range < RangeSize && (int)range >= 0)
     {
-        float rShiftAbs = RSHIFT_2_ABS(RSHIFT(ch), SET_RANGE(ch));
+        float rShiftAbs = RSHIFT_2_ABS(SET_RSHIFT(ch), SET_RANGE(ch));
         float trigLevAbs = RSHIFT_2_ABS(TRIGLEV(ch), SET_RANGE(ch));
         sChannel_SetRange(ch, range);
         if (set.display.linkingRShift == LinkingRShift_Voltage)
         {
-            RSHIFT(ch) = (int16)Math_RShift2Rel(rShiftAbs, range);
+            SET_RSHIFT(ch) = (int16)Math_RShift2Rel(rShiftAbs, range);
             TRIGLEV(ch) = (int16)Math_RShift2Rel(trigLevAbs, range);
         }
         LoadRange(ch);
@@ -592,8 +592,8 @@ void FPGA_SetRShift(Channel ch, uint16 rShift)
 
     LIMITATION(rShift, rShift, RShiftMin, RShiftMax);
 
-    uint16 oldRShift = RSHIFT(ch);
-    RSHIFT(ch) = rShift;
+    uint16 oldRShift = SET_RSHIFT(ch);
+    SET_RSHIFT(ch) = rShift;
     LoadRShift(ch);
     Display_RotateRShift(ch);
 
@@ -806,5 +806,5 @@ void FPGA_SetModeCouple(Channel ch, ModeCouple modeCoupe)
 {
     SET_COUPLE(ch) = modeCoupe;
     PrepareAndWriteDataToAnalogSPI(CS2);
-    FPGA_SetRShift(ch, RSHIFT(ch));
+    FPGA_SetRShift(ch, SET_RSHIFT(ch));
 }

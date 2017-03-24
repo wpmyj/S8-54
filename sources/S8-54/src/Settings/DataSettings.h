@@ -61,6 +61,10 @@ typedef struct
 #define RANGE_A(ds)     (RANGE(ds, A))
 #define RANGE_B(ds)     (RANGE(ds, B))
 
+#define RSHIFT(ds, ch)  ((ds)->rShift[ch])
+#define RSHIFT_A(ds)    (RSHIFT(ds, A))
+#define RSHIFT_B(ds)    (RSHIFT(ds, B))
+
 
 int NumBytesInChannel(const DataSettings *ds);  // Возвращает количество байт на канал
 int NumBytesInData(const DataSettings *ds);     // Возвращает количество байт в обоих каналах
