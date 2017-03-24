@@ -23,7 +23,7 @@ typedef struct
     uint16      trigLev_1[2];
     int16       tShift_1;             // Смещение по времени
     uint8       range_1[2];           // Масштаб по напряжению обоих каналов.
-    uint        tBase : 5;          // Масштаб по времени
+    uint        tBase_1 : 5;          // Масштаб по времени
     uint        enableA : 1;        // Включён ли канал A
     uint        enableB : 1;        // Включен ли канал B
     uint        coupleA : 2;        // Режим канала по входу
@@ -57,7 +57,7 @@ typedef struct
 #define INVERSE(ds, ch)         ((ch == A) ? INVERSE_A(ds) : INVERSE_B(ds))
 
 #define TSHIFT(ds)              ((ds)->tShift_1)
-#define Lval_TBASE(ds)          ((ds)->tBase)
+#define Lval_TBASE(ds)          ((ds)->tBase_1)
 #define TBASE(ds)               ((TBase)Lval_TBASE(ds))
 
 

@@ -842,7 +842,7 @@ int DS_GetLastFrameP2P_RAM(DataSettings **ds, uint8 **dataA, uint8 **dataB)
 
     *ds = dp;
 
-    if (dp->tBase < MIN_TBASE_P2P)
+    if (TBASE(dp) < MIN_TBASE_P2P)
     {
         *dataA = 0;
         *dataB = 0;

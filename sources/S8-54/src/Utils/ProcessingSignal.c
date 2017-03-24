@@ -400,7 +400,7 @@ float CalculatePeriod(Channel ch)
 
             EXIT_IF_ERRORS_FLOAT(firstIntersection, secondIntersection);
 
-            float per = TSHIFT_2_ABS((secondIntersection - firstIntersection) / 2.0f, ds.tBase);
+            float per = TSHIFT_2_ABS((secondIntersection - firstIntersection) / 2.0f, TBASE(&ds));
 
             period[ch] = per;
             periodIsCaclulating[ch] = true;
@@ -576,7 +576,7 @@ float CalculateDurationPlus(Channel ch)
 
     EXIT_IF_ERROR_FLOAT(secondIntersection);
 
-    return TSHIFT_2_ABS((secondIntersection - firstIntersection) / 2.0f, ds.tBase);
+    return TSHIFT_2_ABS((secondIntersection - firstIntersection) / 2.0f, TBASE(&ds));
 }
 
 
@@ -598,7 +598,7 @@ float CalculateDurationMinus(Channel ch)
 
     EXIT_IF_ERROR_FLOAT(secondIntersection);
 
-    return TSHIFT_2_ABS((secondIntersection - firstIntersection) / 2.0f, ds.tBase);
+    return TSHIFT_2_ABS((secondIntersection - firstIntersection) / 2.0f, TBASE(&ds));
 }
 
 
@@ -626,7 +626,7 @@ float CalculateTimeNarastaniya(Channel ch)                    // WARN Здесь, воз
 
     EXIT_IF_ERROR_FLOAT(secondIntersection);
 
-    float retValue = TSHIFT_2_ABS((secondIntersection - firstIntersection) / 2.0f, ds.tBase);
+    float retValue = TSHIFT_2_ABS((secondIntersection - firstIntersection) / 2.0f, TBASE(&ds));
 
     if (MARKED_MEAS == Measure_TimeNarastaniya)
     {
@@ -664,7 +664,7 @@ float CalculateTimeSpada(Channel ch)                          // WARN Аналогично
 
     EXIT_IF_ERROR_FLOAT(secondIntersection);
 
-    float retValue = TSHIFT_2_ABS((secondIntersection - firstIntersection) / 2.0f, ds.tBase);
+    float retValue = TSHIFT_2_ABS((secondIntersection - firstIntersection) / 2.0f, TBASE(&ds));
 
     if (MARKED_MEAS == Measure_TimeSpada)
     {
@@ -959,7 +959,7 @@ float CalculateDelayPlus(Channel ch) //-V2008
 
     EXIT_IF_ERROR_FLOAT(secondIntersection);
 
-    return TSHIFT_2_ABS((secondIntersection - firstIntersection) / 2.0f, ds.tBase);
+    return TSHIFT_2_ABS((secondIntersection - firstIntersection) / 2.0f, TBASE(&ds));
 }
 
 
@@ -1000,7 +1000,7 @@ float CalculateDelayMinus(Channel ch) //-V2008
 
     EXIT_IF_ERROR_FLOAT(secondIntersection);
 
-    return TSHIFT_2_ABS((secondIntersection - firstIntersection) / 2.0f, ds.tBase);
+    return TSHIFT_2_ABS((secondIntersection - firstIntersection) / 2.0f, TBASE(&ds));
 }
 
 

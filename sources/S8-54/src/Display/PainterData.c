@@ -178,7 +178,7 @@ void PainterData_DrawMemoryWindow(void)
         datA = DATA(A);
         datB = DATA(B);
 
-        if (DS_DataSettingsFromEnd(0)->tBase >= MIN_TBASE_P2P)          // ≈сли находимс€ в режиме поточечного вывода
+        if (TBASE(DS_DataSettingsFromEnd(0)) >= MIN_TBASE_P2P)          // ≈сли находимс€ в режиме поточечного вывода
         {
             DS_GetLastFrameP2P_RAM(&DS, &datA, &datB);
         }
