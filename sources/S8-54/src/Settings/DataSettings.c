@@ -68,7 +68,7 @@ bool GetInverse(Channel ch)
         }
         else
         {
-            //return DS_INVERSE(ds)
+            //return G_INVERSE(ds)
         }
     }
 

@@ -985,8 +985,8 @@ void FPGA_FillDataPointer(DataSettings *ds)
     ds->rShift[B] = RSHIFT_B;
     ds->tBase = SET_TBASE; //-V2006
     ds->tShift = SET_TSHIFT;
-    ds->coupleA = COUPLE_A; //-V2006
-    ds->coupleB = COUPLE_B; //-V2006
+    ds->coupleA = SET_COUPLE_A; //-V2006
+    ds->coupleB = SET_COUPLE_B; //-V2006
     ds->indexLength = NumPoints_2_FPGA_NUM_POINTS(sMemory_NumBytesInChannel(false)); //-V2006
     ds->trigLev[A] = TRIGLEV(A);
     ds->trigLev[B] = TRIGLEV(B);

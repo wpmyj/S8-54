@@ -79,12 +79,12 @@ void Process_COUPLE(uint8 *buffer)
         {0}
     };
     ENTER_ANALYSIS
-        if (0 == value)         { COUPLE(ch) = ModeCouple_DC; }
-        else if (1 == value)    { COUPLE(ch) = ModeCouple_AC; }
-        else if (2 == value)    { COUPLE(ch) = ModeCouple_GND; }
+        if (0 == value)         { SET_COUPLE(ch) = ModeCouple_DC; }
+        else if (1 == value)    { SET_COUPLE(ch) = ModeCouple_AC; }
+        else if (2 == value)    { SET_COUPLE(ch) = ModeCouple_GND; }
         else if (3 == value)
         {
-            SCPI_SEND(":CHANNEL%d:COUPLE %s", Tables_GetNumChannel(ch), map[COUPLE(ch)].key);
+            SCPI_SEND(":CHANNEL%d:COUPLE %s", Tables_GetNumChannel(ch), map[SET_COUPLE(ch)].key);
         }
     LEAVE_ANALYSIS
 }

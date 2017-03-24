@@ -676,8 +676,8 @@ static void DrawLowPart(void)
     {
         if(DS)
         {
-            tBase = DS_TBASE;
-            tShift = DS_TSHIFT;
+            tBase = G_TBASE;
+            tShift = G_TSHIFT;
         }
     }
     snprintf(buffer, SIZE, "ð\xa5%s", Tables_GetTBaseString(tBase));
@@ -1610,7 +1610,7 @@ static void DrawHiRightPart(void)
 //----------------------------------------------------------------------------------------------------------------------------------------------------
 static void WriteTextVoltage(Channel ch, int x, int y)
 {
-    if(!DS || !DS_ENABLED(ch))
+    if(!DS || !G_ENABLED(ch))
     {
         return;
     }
@@ -1618,9 +1618,9 @@ static void WriteTextVoltage(Channel ch, int x, int y)
 
     Color color = gColorChan[ch];
 
-    bool inverse = DS_INVERSE(ch);
-    Divider divider = DS_DIVIDER(ch);
-    Range range = DS_RANGE(ch);
+    bool inverse = G_INVERSE(ch);
+    Divider divider = G_DIVIDER(ch);
+    Range range = G_RANGE(ch);
 
     const int widthField = 91;
     const int heightField = 8;
@@ -1633,12 +1633,12 @@ static void WriteTextVoltage(Channel ch, int x, int y)
 
     const int SIZE = 100;
     char buffer[SIZE];
-    snprintf(buffer, SIZE, "%s\xa5%s\xa5%s", (ch == A) ? (LANG_RU ? "1ê" : "1c") : (LANG_RU ? "2ê" : "2c"), couple[DS_COUPLE(ch)], sChannel_Range2String(range, divider));
+    snprintf(buffer, SIZE, "%s\xa5%s\xa5%s", (ch == A) ? (LANG_RU ? "1ê" : "1c") : (LANG_RU ? "2ê" : "2c"), couple[G_COUPLE(ch)], sChannel_Range2String(range, divider));
     
     Painter_DrawTextC(x + 1, y, buffer, colorDraw);
 
     char bufferTemp[SIZE];
-    snprintf(buffer, SIZE, "\xa5%s", sChannel_RShift2String((int16)DS_RSHIFT(ch), range, divider, bufferTemp));
+    snprintf(buffer, SIZE, "\xa5%s", sChannel_RShift2String((int16)G_RSHIFT(ch), range, divider, bufferTemp));
     Painter_DrawText(x + 46, y, buffer);
 }
 
@@ -1676,12 +1676,12 @@ static void DrawTime(int x, int y)
         if(DS)
         {
             y -= 9;
-            time.day = DS_TIME_DAY;
-            time.hours = DS_TIME_HOURS;
-            time.minutes = DS_TIME_MINUTES;
-            time.seconds = DS_TIME_SECONDS;
-            time.month = DS_TIME_MONTH;
-            time.year = DS_TIME_YEAR;
+            time.day = G_TIME_DAY;
+            time.hours = G_TIME_HOURS;
+            time.minutes = G_TIME_MINUTES;
+            time.seconds = G_TIME_SECONDS;
+            time.month = G_TIME_MONTH;
+            time.year = G_TIME_YEAR;
             Painter_DrawText(x, y, Int2String(time.day, false, 2, buffer));
             Painter_DrawText(x + dField, y, ":");
             Painter_DrawText(x + dField + dSeparator, y, Int2String(time.month, false, 2, buffer));

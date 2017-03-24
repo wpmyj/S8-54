@@ -49,6 +49,10 @@ typedef struct
 #define TSHIFT(ds)      ((ds)->tShift)
 #define TBASE(ds)       ((TBase)(ds)->tBase)
 
+#define COUPLE_A(ds)    ((ModeCouple)(ds)->coupleA)
+#define COUPLE_B(ds)    ((ModeCouple)(ds)->coupleB)
+#define COUPLE(ds, ch)  ((ch == A) ? COUPLE_A(ds) : COUPLE_B(ds))
+
 
 int NumBytesInChannel(const DataSettings *ds);  // Возвращает количество байт на канал
 int NumBytesInData(const DataSettings *ds);     // Возвращает количество байт в обоих каналах

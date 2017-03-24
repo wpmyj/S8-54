@@ -125,12 +125,12 @@ static const Choice mcChanA_Couple =
         {"Перем", "DC"},
         {"Земля", "Ground"}
     },
-    (int8*)&COUPLE_A, OnChange_ChanA_Couple
+    (int8*)&SET_COUPLE_A, OnChange_ChanA_Couple
 };
 
 static void OnChange_ChanA_Couple(bool active)
 {
-    FPGA_SetModeCouple(A, COUPLE_A);
+    FPGA_SetModeCouple(A, SET_COUPLE_A);
 }
 
 // КАНАЛ 1 - Полоса ----------------------------------------------------------------------------------------------------------------------------------
@@ -302,12 +302,12 @@ static const Choice mcChanB_Couple =
         {"Перем", "DC"},
         {"Земля", "Ground"}
     },
-    (int8*)&COUPLE_B, OnChange_ChanB_Couple
+    (int8*)&SET_COUPLE_B, OnChange_ChanB_Couple
 };
 
 static void OnChange_ChanB_Couple(bool active)
 {
-    FPGA_SetModeCouple(B, COUPLE_B);
+    FPGA_SetModeCouple(B, SET_COUPLE_B);
 }
 
 // КАНАЛ 2 - Полоса ----------------------------------------------------------------------------------------------------------------------------------

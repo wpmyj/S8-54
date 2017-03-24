@@ -223,7 +223,7 @@ void PainterData_DrawMemoryWindow(void)
         const uint8 *dataFirst = lastAffectedChannel == A ? datB : datA;
         const uint8 *dataSecond = lastAffectedChannel == A ? datA : datB;
 
-        bool peackDet = DS_PEACKDET != PeackDet_Disable;
+        bool peackDet = G_PEACKDET != PeackDet_Disable;
 
         if (sChannel_NeedForDraw(dataFirst, chanFirst, DS))
         {

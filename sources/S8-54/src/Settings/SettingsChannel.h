@@ -1,5 +1,4 @@
 #pragma once
-#include "SettingsTypes.h"
 #include "DataSettings.h"
 
 
@@ -18,9 +17,9 @@
 #define RSHIFT_A            (RSHIFT(A))
 #define RSHIFT_B            (RSHIFT(B))
 
-#define COUPLE(ch)          (set.chan[ch].modeCouple)
-#define COUPLE_A            (COUPLE(A))
-#define COUPLE_B            (COUPLE(B))
+#define SET_COUPLE(ch)      (set.chan[ch].modeCouple)
+#define SET_COUPLE_A        (SET_COUPLE(A))
+#define SET_COUPLE_B        (SET_COUPLE(B))
 
 #define DIVIDER(ch)         (set.chan[ch].divider)
 #define DIVIDER_A           (DIVIDER(A))

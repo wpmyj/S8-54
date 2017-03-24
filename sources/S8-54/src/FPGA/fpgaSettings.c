@@ -197,7 +197,7 @@ static const float divR[RangeSize] = {50.0f, 20.0f, 10.0f, 5.0f, 2.0f, 1.0f, 25.
 static int CalculateDeltaRShift(Channel ch)
 {
     Range range = RANGE(ch);
-    ModeCouple mode = COUPLE(ch);
+    ModeCouple mode = SET_COUPLE(ch);
     static const int index[3] = {0, 1, 1};
 
     int addRShift = -(SET_INVERSE(ch) ? -1 : 1) * (int)setNR.rShiftAdd[ch][range][index[mode]];
@@ -287,7 +287,7 @@ void WriteChipSelect2(void)
     else if (!RECORDER_MODE)
     {               //                     D2        D3
         const uint maskCoupleA[3] = {0, (1 << 2), (1 << 3)};
-        data |= maskCoupleA[COUPLE_A];
+        data |= maskCoupleA[SET_COUPLE_A];
     }
 
     if(RESISTANCE_B == Resistance_50Om)
@@ -297,7 +297,7 @@ void WriteChipSelect2(void)
     else
     {
         const uint maskCoupleB[3] = {0, (1 << 5), (1 << 6)};
-        data |= maskCoupleB[COUPLE_B];
+        data |= maskCoupleB[SET_COUPLE_B];
     }
 
     if(RANGE_A >= Range_200mV)
@@ -719,8 +719,8 @@ void FPGA_EnableRecorderMode(bool enable)
         }
     }
 
-    FPGA_SetModeCouple(A, COUPLE_A);
-    FPGA_SetModeCouple(B, COUPLE_B);
+    FPGA_SetModeCouple(A, SET_COUPLE_A);
+    FPGA_SetModeCouple(B, SET_COUPLE_B);
     
     LoadRegUPR();
 
@@ -804,7 +804,7 @@ void FPGA_SetTrigInput(TrigInput trigInput)
 //------------------------------------------------------------------------------------------------------------------------------------------------------
 void FPGA_SetModeCouple(Channel ch, ModeCouple modeCoupe)
 {
-    COUPLE(ch) = modeCoupe;
+    SET_COUPLE(ch) = modeCoupe;
     PrepareAndWriteDataToAnalogSPI(CS2);
     FPGA_SetRShift(ch, RSHIFT(ch));
 }

@@ -24,22 +24,22 @@ EXTERN uint8 *dataChanInt[2];
 
 #undef EXTERN
 
-#define DS_TSHIFT       (TSHIFT(DS))
-#define DS_TBASE        (TBASE(DS))
-#define DS_INVERSE(ch)  (INVERSE(DS, ch))
-#define DS_COUPLE(ch)   ((ModeCouple)((ch == A) ? DS->coupleA : DS->coupleB))
-#define DS_DIVIDER(ch)  ((Divider)((ch == A) ? DS->multiplierA : DS->multiplierB))
-#define DS_RANGE(ch)    ((Range)(DS->range[ch]))
-#define DS_ENABLED(ch)  (ENABLED(DS, ch))
-#define DS_RSHIFT(ch)   (DS->rShift[ch])
-#define DS_PEACKDET     (DS->peackDet)
+#define G_TSHIFT        (TSHIFT(DS))
+#define G_TBASE         (TBASE(DS))
+#define G_INVERSE(ch)   (INVERSE(DS, ch))
+#define G_COUPLE(ch)    (COUPLE(DS, ch))
+#define G_DIVIDER(ch)   ((Divider)((ch == A) ? DS->multiplierA : DS->multiplierB))
+#define G_RANGE(ch)     ((Range)(DS->range[ch]))
+#define G_ENABLED(ch)   (ENABLED(DS, ch))
+#define G_RSHIFT(ch)    (DS->rShift[ch])
+#define G_PEACKDET      (DS->peackDet)
 
-#define DS_TIME_DAY     (DS->time.day)
-#define DS_TIME_HOURS   (DS->time.hours)
-#define DS_TIME_MINUTES (DS->time.minutes)
-#define DS_TIME_SECONDS (DS->time.seconds)
-#define DS_TIME_MONTH   (DS->time.month)
-#define DS_TIME_YEAR    (DS->time.year)
+#define G_TIME_DAY      (DS->time.day)
+#define G_TIME_HOURS    (DS->time.hours)
+#define G_TIME_MINUTES  (DS->time.minutes)
+#define G_TIME_SECONDS  (DS->time.seconds)
+#define G_TIME_MONTH    (DS->time.month)
+#define G_TIME_YEAR     (DS->time.year)
 
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
