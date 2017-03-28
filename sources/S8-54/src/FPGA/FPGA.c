@@ -979,20 +979,20 @@ void FPGA_FillDataPointer(DataSettings *ds)
     Lval_ENABLED_B(ds) = sChannel_Enabled(B) ? 1 : 0;
          INVERSE_A(ds) = SET_INVERSE_A ? 1 : 0;
          INVERSE_B(ds) = SET_INVERSE_B ? 1 : 0;
-    Lval_RANGE_A(ds) = SET_RANGE_A; //-V2006
-    Lval_RANGE_B(ds) = SET_RANGE_B; //-V2006
+    Lval_RANGE_A(ds) = SET_RANGE_A;
+    Lval_RANGE_B(ds) = SET_RANGE_B;
          RSHIFT_A(ds) = SET_RSHIFT_A;
          RSHIFT_B(ds) = SET_RSHIFT_B;
-    Lval_TBASE(ds) = SET_TBASE; //-V2006
+    Lval_TBASE(ds) = SET_TBASE;
          TSHIFT(ds) = SET_TSHIFT;
-    Lval_COUPLE_A(ds) = SET_COUPLE_A; //-V2006
-    Lval_COUPLE_B(ds) = SET_COUPLE_B; //-V2006
-         INDEXLENGTH(ds) = NumPoints_2_FPGA_NUM_POINTS(sMemory_NumBytesInChannel(false)); //-V2006
+    Lval_COUPLE_A(ds) = SET_COUPLE_A;
+    Lval_COUPLE_B(ds) = SET_COUPLE_B;
+         INDEXLENGTH(ds) = NumPoints_2_FPGA_NUM_POINTS(sMemory_NumBytesInChannel(false));
          TRIGLEV_A(ds) = SET_TRIGLEV_A;
          TRIGLEV_B(ds) = SET_TRIGLEV_A;
     Lval_PEACKDET(ds) = SET_PEACKDET;
-    Lval_DIVIDER_A(ds) = SET_DIVIDER_A; //-V2006
-    Lval_DIVIDER_B(ds) = SET_DIVIDER_B; //-V2006
+    Lval_DIVIDER_A(ds) = SET_DIVIDER_A;
+    Lval_DIVIDER_B(ds) = SET_DIVIDER_B;
          TIME_MS(ds) = 0;                        // Ёто важно дл€ режима поточеного вывода. ќзначает, что полный сигнал ещЄ не считан
 }
 
