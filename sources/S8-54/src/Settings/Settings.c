@@ -68,7 +68,7 @@ static const Settings defaultSettings =
         {
             RShiftZero,             // rShiftRel
             ModeCouple_AC,          // ModCouple
-            Multiplier_1,           // Divider
+            Divider_1,              // Divider
             Range_500mV,            // range
             true,                   // enable
             false,                  // inverse
@@ -80,7 +80,7 @@ static const Settings defaultSettings =
         {
             RShiftZero,             // rShiftRel
             ModeCouple_AC,          // ModCouple    
-            Multiplier_1,           // Divider
+            Divider_1,              // Divider
             Range_500mV,            // range
             true,                   // enable
             false,                  // inverse
@@ -180,7 +180,7 @@ static const Settings defaultSettings =
         ModeDrawMath_Disable,       // modeDrawMath
         ModeRegSet_Range,           // modeRegSet
         Range_50mV,
-        Multiplier_1,
+        Divider_1,
         RShiftZero                  // rShift
     },
     // service

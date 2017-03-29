@@ -211,8 +211,8 @@ typedef enum
 // Делитель
 typedef enum
 {
-    Multiplier_1,
-    Multiplier_10
+    Divider_1,
+    Divider_10
 } Divider;
 
 // Масштаб по напряжению
