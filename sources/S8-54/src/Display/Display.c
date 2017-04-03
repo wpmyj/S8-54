@@ -1925,9 +1925,9 @@ static void DrawCursorRShift(Channel ch)
     if(ch == Math)
     {
         int yCenter = (GridMathTop() + GridMathBottom()) / 2;
-//        int y = yCenter - Math_RShift2Pixels(RSHIFT_MATH, GridMathHeight());
+//        int y = yCenter - Math_RShift2Pixels(SET_RSHIFT_MATH, GridMathHeight());
         float scaleFull = (float)GridMathHeight() / (RShiftMax - RShiftMin);
-        int yFull = yCenter - (int)(scaleFull * (RSHIFT_MATH - RShiftZero));
+        int yFull = yCenter - (int)(scaleFull * (SET_RSHIFT_MATH - RShiftZero));
         Painter_DrawCharC(x - 9, yFull - 4, SYMBOL_RSHIFT_NORMAL, gColorFill);
         Painter_DrawCharC(x - 8, yFull - 5, 'm', gColorBack);
         return;

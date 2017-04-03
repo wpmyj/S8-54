@@ -206,8 +206,8 @@ static void OnDraw_ADC_Balance_Mode(int x, int y)
 {
     int8 shift[2][3] =
     {
-        {0, BALANCE_ADC_A, (int8)setNR.balanceADC[0]},
-        {0, BALANCE_ADC_B, (int8)setNR.balanceADC[1]}
+        {0, SET_BALANCE_ADC_A, (int8)setNR.balanceADC[0]},
+        {0, SET_BALANCE_ADC_B, (int8)setNR.balanceADC[1]}
     };
 
     shiftADCA = shift[A][setNR.balanceADCtype];

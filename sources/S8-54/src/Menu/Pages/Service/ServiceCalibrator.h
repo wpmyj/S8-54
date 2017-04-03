@@ -14,7 +14,7 @@ static void OnChange_Calibrator(bool active)
 //----------------------------------------------------------------------------------------------------------------------------------------------------
 static bool IsActive_Calibrator_Calibrate(void)
 {
-    return !(CALIBR_MODE_A == CalibrationMode_Disable && CALIBR_MODE_B == CalibrationMode_Disable);
+    return !(SET_CALIBR_MODE_A == CalibrationMode_Disable && CALIBR_MODE_B == CalibrationMode_Disable);
 }
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------

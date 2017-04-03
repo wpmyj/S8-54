@@ -145,7 +145,7 @@ static const Choice mcChanA_Bandwidth =
         {"Ïîëíàÿ", "Full"},
         {"20ÌÃö", "20MHz"}
     },
-    (int8*)&BANDWIDTH_A, OnChange_ChanA_Bandwidth
+    (int8*)&SET_BANDWIDTH_A, OnChange_ChanA_Bandwidth
 };
 
 static void OnChange_ChanA_Bandwidth(bool active)
@@ -165,13 +165,13 @@ static const Choice mcChanA_Resistance =
         {"1 ÌÎì", "1 Mohm"},
         {"50 Îì", "50 Ohm"}
     },
-    (int8*)&RESISTANCE_A, OnChange_ChanA_Resistance
+    (int8*)&SET_RESISTANCE_A, OnChange_ChanA_Resistance
 };
 
 static void OnChange_ChanA_Resistance(bool active)
 {
-    FPGA_SetResistance(A, RESISTANCE_A);
-    if (RESISTANCE_A == Resistance_50Om)
+    FPGA_SetResistance(A, SET_RESISTANCE_A);
+    if (SET_RESISTANCE_A == Resistance_50Om)
     {
         Display_ShowWarning(Warn50Ohms);
     }
@@ -323,7 +323,7 @@ static const Choice mcChanB_Bandwidth =
         {"Ïîëíàÿ", "Full"}, 
         {"20ÌÃö", "20MHz"}
     },
-    (int8*)&BANDWIDTH_B, OnChange_ChanB_Bandwidth
+    (int8*)&SET_BANDWIDTH_B, OnChange_ChanB_Bandwidth
 };
 
 static void OnChange_ChanB_Bandwidth(bool active)
@@ -343,13 +343,13 @@ static const Choice mcChanB_Resistance =
         {"1 ÌÎì", "1 Mohm"},
         {"50 Îì", "50 Ohm"}
     },
-    (int8*)&RESISTANCE_B, OnChange_ChanB_Resistance
+    (int8*)&SET_RESISTANCE_B, OnChange_ChanB_Resistance
 };
 
 static void OnChange_ChanB_Resistance(bool active)
 {
-    FPGA_SetResistance(B, RESISTANCE_B);
-    if (RESISTANCE_B == Resistance_50Om)
+    FPGA_SetResistance(B, SET_RESISTANCE_B);
+    if (SET_RESISTANCE_B == Resistance_50Om)
     {
         Display_ShowWarning(Warn50Ohms);
     }

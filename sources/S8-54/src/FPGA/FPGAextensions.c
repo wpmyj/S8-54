@@ -68,7 +68,7 @@ static bool drawPeriod = false;
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 static bool IsCalibrateChannel(Channel ch)
 {
-    return CALIBR_MODE(ch) != CalibrationMode_Disable;
+    return SET_CALIBR_MODE(ch) != CalibrationMode_Disable;
 }
 
 //---------------------------------------------------------------------------------------------------------------------------------------------------
@@ -185,7 +185,7 @@ float CalculateStretchADC(Channel ch)
 {
     FPGA_Write(RecordFPGA, WR_UPR, BINARY_U8(00000100), false);
 
-    FPGA_SetRange(ch, (CALIBR_MODE(ch) == CalibrationMode_x1) ? Range_500mV : Range_50mV);
+    FPGA_SetRange(ch, (SET_CALIBR_MODE(ch) == CalibrationMode_x1) ? Range_500mV : Range_50mV);
     FPGA_SetRShift(ch, RShiftZero - 2700 * 4);    // Смещаем сигнал на 4 клетки вниз //-V112
     FPGA_SetModeCouple(ch, ModeCouple_DC);
     FPGA_SetTrigSource((TrigSource)ch);
@@ -259,9 +259,9 @@ float CalculateStretchADC(Channel ch)
 void AlignmentADC(void)
 {
     cal->shiftADCA = (cal->deltaADCold[0] > 0) ? (int8)(cal->deltaADCold[0] + 0.5f) : (int8)(cal->deltaADCold[0] - 0.5f);
-    BALANCE_ADC_A = cal->shiftADCA;
+    SET_BALANCE_ADC_A = cal->shiftADCA;
     cal->shiftADCB = (cal->deltaADCold[1] > 0) ? (int8)(cal->deltaADCold[1] + 0.5f) : (int8)(cal->deltaADCold[1] - 0.5f);
-    BALANCE_ADC_B = cal->shiftADCB;
+    SET_BALANCE_ADC_B = cal->shiftADCB;
 }
 
 //------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -295,7 +295,7 @@ void DrawParametersChannel(Channel ch, int eX, int eY, bool inProgress)
         snprintf(buffer, SIZE, "Расхождение AЦП = %.2f/%.2f %%", cal->deltaADCPercentsOld[ch], cal->deltaADCPercents[ch]);
         Painter_DrawText(x, y + 11, buffer);
         buffer[0] = 0;
-        snprintf(buffer, SIZE, "Записано %d", BALANCE_ADC(ch));
+        snprintf(buffer, SIZE, "Записано %d", SET_BALANCE_ADC(ch));
         Painter_DrawText(x, y + 19, buffer);
     }
 }
@@ -664,8 +664,8 @@ void FPGA_ProcedureCalibration(void)
     
     RestoreSettings(&storedSettings);
 
-    BALANCE_ADC_A = cal->shiftADCA;
-    BALANCE_ADC_B = cal->shiftADCB;
+    SET_BALANCE_ADC_A = cal->shiftADCA;
+    SET_BALANCE_ADC_B = cal->shiftADCB;
     
     FPGA_SetRShift(A, SET_RSHIFT_A);
     FPGA_SetRShift(B, SET_RSHIFT_B);
@@ -709,12 +709,12 @@ void FPGA_BalanceChannel(Channel ch)
 
     RestoreSettings(&storedSettings);
 
-    CalibrationMode mode = CALIBR_MODE(ch);
-    CALIBR_MODE(ch) = CalibrationMode_x1;
+    CalibrationMode mode = SET_CALIBR_MODE(ch);
+    SET_CALIBR_MODE(ch) = CalibrationMode_x1;
 
     WriteAdditionRShifts(A);
     
-    CALIBR_MODE(ch) = mode;
+    SET_CALIBR_MODE(ch) = mode;
 
     Panel_Enable();
 

@@ -44,7 +44,7 @@ void Data_Load(void)
     }
 
     if (WORK_DIRECT)
-    {
+    {   
         int fromEnd = 0;
 
         if (IN_P2P_MODE &&                              // Ќаходимс€ в режиме поточечного вывода
