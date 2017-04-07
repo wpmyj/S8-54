@@ -62,3 +62,5 @@ sources/Display/Display.hex
 bins
 
 doc/doxygen/S8-54/**/*
+doc/doxygen/stm32f4/**/*
+sources/STM32Cube_FW_F4/Middlewares/Third_Party/LwIP/doc/doxygen/html/
