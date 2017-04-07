@@ -60,3 +60,5 @@ sources/S8-54/Bootloader/Objects
 sources/S8-54/Bootloader/Listings
 sources/Display/Display.hex
 bins
+
+doc/doxygen/S8-54/**/*

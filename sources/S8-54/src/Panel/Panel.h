@@ -7,12 +7,12 @@
 void    Panel_Init(void);
 void    Panel_Update(void);
 void    Panel_EnableLEDRegSet(bool enable);
-void    Panel_EnableLEDChannelA(bool enable);       // Р’РєР»СЋС‡РёС‚СЊ/РІС‹РєР»СЋС‡РёС‚СЊ СЃРІРµС‚РѕРґРёРѕРґ РљРђРќРђР› 1.
-void    Panel_EnableLEDChannelB(bool enable);       // Р’РєР»СЋС‡РёС‚СЊ/РІС‹РєР»СЋС‡РёС‚СЊ СЃРІРµС‚РѕРґРёРѕРґ РљРђРќРђР› 2.
-void    Panel_EnableLEDTrig(bool enable);           // Р’РєР»СЋС‡РёС‚СЊ/РІС‹РєР»СЋС‡РёС‚СЊ СЃРІРµС‚РѕРґРёРѕРґ РЎРРќРҐР 
-void    Panel_TransmitData(uint16 data);            // РџРµСЂРµРґР°С‚СЊ РґР°РЅРЅРЅС‹Рµ РІ РјРє РїР°РЅРµР»Рё СѓРїСЂР°РІР»РµРЅРёСЏ.
-void    Panel_Disable(void);                        // Р’ РѕС‚Р»СЋС‡РµРЅРЅРѕРј СЂРµР¶РёРјРµ РїР°РЅРµР»СЊ Р»РёС€СЊ РѕР±РЅРѕРІР»СЏРµС‚ СЃРѕСЃС‚РѕСЏРЅРёРµ РїРµСЂРµРјРµРЅРЅРѕР№ pressedButton, РЅРµ РІС‹РїРѕР»РЅСЏСЏ Р±РѕР»СЊС€Рµ РЅРёРєР°РєРёС… РґРµР№СЃС‚РІРёР№.
+void    Panel_EnableLEDChannelA(bool enable);       // Включить/выключить светодиод КАНАЛ 1.
+void    Panel_EnableLEDChannelB(bool enable);       // Включить/выключить светодиод КАНАЛ 2.
+void    Panel_EnableLEDTrig(bool enable);           // Включить/выключить светодиод СИНХР
+void    Panel_TransmitData(uint16 data);            // Передать даннные в мк панели управления.
+void    Panel_Disable(void);                        // В отлюченном режиме панель лишь обновляет состояние переменной pressedButton, не выполняя больше никаких действий.
 void    Panel_Enable(void);
-PanelButton   Panel_WaitPressingButton(void);       // РћР¶РёРґР°С‚СЊ РЅР°Р¶Р°С‚РёРµ РєР»Р°РІРёС€Рё.
+PanelButton   Panel_WaitPressingButton(void);       // Ожидать нажатие клавиши.
 bool    Panel_ProcessingCommandFromPIC(uint16 command);
 uint16  Panel_NextData(void);
