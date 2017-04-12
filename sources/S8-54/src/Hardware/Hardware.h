@@ -1,5 +1,12 @@
 ﻿#pragma once
 
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+/** @defgroup Hardware
+ *  @brief Аппаратные ресурсы
+ *  @{
+ */
+
 #define PRIORITY_SYS_TICK           0, 0
 #define PRIORITY_FPGA_ADC           1, 0
 #define PRIORITY_FPGA_P2P           1, 1
@@ -11,7 +18,11 @@
 #define PRIORITY_VCP_OTG            7, 0
 #define PRIORITY_RAM_DMA2_STREAM0   8, 0
 
+/// Инициализация аппаратных ресурсов
 void Hardware_Init(void);
 
 // #define HARDWARE_ERROR HardwareErrorHandler(__FILE__, __FUNCTION__, __LINE__);
 // void HardwareErrorHandler(const char *file, const char *function, int line) {};
+
+/** @}
+ */

@@ -11,7 +11,15 @@
 
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+/** @defgroup Display
+ *  @brief Функции дисплея
+ *  @{
+ */
+
+/// Инициализация
 void    Display_Init(void);
+/// Эту функцию нужно вызывать каждый кадры - отрисовка
 void    Display_Update(void);
 void    Display_RotateRShift(Channel ch);
 void    Display_RotateTrigLev(void);
@@ -77,3 +85,6 @@ void Display_ShowWarning(Warning warning);
 // Группа функций для вывода сообщения о занятом приборе
 void Display_FuncOnWaitStart(char *textRu, char *textEn);
 void Display_FuncOnWaitStop(void);
+
+/** @}
+ */

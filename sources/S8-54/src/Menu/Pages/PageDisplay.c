@@ -513,6 +513,7 @@ static const Choice mcSettings_StringNavigation =
 };
 
 // ДИСПЛЕЙ - НАСТРОЙКИ - ЦВЕТА ---------------------------------------------------------------------------------------------------------------------
+/** @todo Добавить дополнительные цвета 1-го и 2-го каналов */
 static const Page mspSettings_Colors =
 {
     Item_Page, &mspSettings, 0,
@@ -528,8 +529,8 @@ static const Page mspSettings_Colors =
         (void*)&mgcSettings_Colors_ChannelB,
         (void*)&mgcSettings_Colors_Grid,
         (void*)&mcSettings_Colors_Background
-        //(void*)&mgcColorChannel0alt,  // TODO Это для дополнительного цвета первого канала - для накопления, например.
-        //(void*)&mgcColorChannel1alt,  // TODO Это для доп. цвета второго канала - для накопления, например.
+        //(void*)&mgcColorChannel0alt,
+        //(void*)&mgcColorChannel1alt,
         //(void*)&mgcColorMenu1,
         //(void*)&mgcColorMenu2,
         //(void*)&mgcColorMenu3
