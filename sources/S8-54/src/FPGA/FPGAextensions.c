@@ -74,7 +74,8 @@ static bool IsCalibrateChannel(Channel ch)
 //---------------------------------------------------------------------------------------------------------------------------------------------------
 static void CreateCalibrationStruct(void)
 {
-    cal = malloc(sizeof(CalibrationStruct));        // TODO перенести в extraMEM
+    /** @todo перенести cal в extraMEM */
+    cal = malloc(sizeof(CalibrationStruct));
     memset(cal, 0, sizeof(CalibrationStruct)); //-V575
 }
 
@@ -1081,7 +1082,9 @@ void FreqMeter_Draw(int x, int y)
 
     Painter_SetColor(ColorTrig());
     Painter_DrawText(x + 17, y + 10, condPeriod ? EMPTY_STRING : Time2StringAccuracy(1.0f / freq, false, buffer, 6));
-    Painter_DrawText(x + 71, y + 10, "");   // TODO Эта строка оставлена, потому что без неё артефакт изображения
+
+    /** @todo Последняя страка оставлена, потому что без неё получается артефакт изображения */
+    Painter_DrawText(x + 71, y + 10, "");
 }
 
 //------------------------------------------------------------------------------------------------------------------------------------------------------

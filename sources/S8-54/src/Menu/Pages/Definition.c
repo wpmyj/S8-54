@@ -152,9 +152,9 @@ const void *PageForButton(PanelButton button)
 {
     static const void *pages[] = {  
         0,                  // B_Empty
-        (void*)&mpChanA,    // B_ChannelA
+        (void*)&mpChanA,    // B_Channel1
         (void*)&mpService,  // B_Service
-        (void*)&mpChanB,    // B_ChannelB
+        (void*)&mpChanB,    // B_Channel2
         (void*)&mpDisplay,  // B_Display
         (void*)&mpTime,     // B_Time
         (void*)&mpMemory,   // B_Memory

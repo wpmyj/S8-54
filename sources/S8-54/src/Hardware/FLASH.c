@@ -36,34 +36,35 @@
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Программа и константные данные
-#define ADDR_SECTOR_BOOT_0      ((uint)0x08000000)          // 16k +
-#define ADDR_SECTOR_BOOT_1      ((uint)0x08004000)          // 16k | Загрузчик
-#define ADDR_SECTOR_BOOT_2      ((uint)0x08008000)          // 16k /
-#define ADDR_FLASH_SECTOR_3     ((uint)0x0800C000)          // 16k  TODO Здесь будут храниться идентификационные данные прибора - серийный номер, версия ПО
-#define ADDR_SECTOR_NR_SETTINGS ((uint)0x08010000)          // 64k  Несбрасываемые настройки
-#define SIZE_SECTOR_NR_SETTINGS (64 * 1024)                 // Размер сектора для хранения несбрасываемых настроек
-#define SIZE_NR_SET_PARAGRAPH   (512)                       // Это размер одного параграфа, в котором, кроме настроек, сохранена ещё и его длина в первом слове
-                                                            // (Сначала сделал 128 байт, но оказалось мало - уже как раз 128, поэтому ввёл четырёхкратный запас)
-#define SIZE_NR_SETTINGS        (SIZE_NR_SET_PARAGRAPH - 4) // Размер структуры для хранения несбрасываемых настроек
-#define ADDR_SECTOR_PROGRAM_0   ((uint)0x08020000)          // 128k Основная программа
-#define ADDR_SECTOR_PROGRAM_1   ((uint)0x08040000)          // 128k Основная программа
-#define ADDR_SECTOR_PROGRAM_2   ((uint)0x08060000)          // 128k Основная программа
-#define ADDR_FLASH_SECTOR_8     ((uint)0x08080000)          // 128k
-#define ADDR_FLASH_SECTOR_9     ((uint)0x080A0000)          // 128k
-#define ADDR_SECTOR_RESOURCES   ((uint)0x080C0000)          // 128k Графические и звуковые ресурсы
-#define ADDR_SECTOR_SETTINGS    ((uint)0x080E0000)          // 128k Настройки
-#define ADDR_FLASH_SECTOR_12    ((uint)0x08100000)          // 16k
-#define ADDR_FLASH_SECTOR_13    ((uint)0x08104000)          // 16k
-#define ADDR_FLASH_SECTOR_14    ((uint)0x08108000)          // 16k
-#define ADDR_FLASH_SECTOR_15    ((uint)0x0810C000)          // 16k
-#define ADDR_DATA_DATA          ((uint)0x08110000)          // 64k  Здесь будем сохранять массивы адресов с нашими данными
-#define ADDR_DATA_0             ((uint)0x08120000)          // 128k +
-#define ADDR_DATA_1             ((uint)0x08140000)          // 128k |
-#define ADDR_DATA_2             ((uint)0x08160000)          // 128k |
-#define ADDR_DATA_3             ((uint)0x08180000)          // 128k | Здесь будут храниться собственно данные
-#define ADDR_DATA_4             ((uint)0x081A0000)          // 128k |
-#define ADDR_DATA_5             ((uint)0x081C0000)          // 128k |
-#define ADDR_DATA_TEMP          ((uint)0x081E0000)          // 128k /
+#define ADDR_SECTOR_BOOT_0      ((uint)0x08000000)          ///< 16k +
+#define ADDR_SECTOR_BOOT_1      ((uint)0x08004000)          ///< 16k | Загрузчик
+#define ADDR_SECTOR_BOOT_2      ((uint)0x08008000)          ///< 16k /
+/** @todo В ADDDR_FLASH_SECTOR_3 должны храниться идентификационные данные прибора - серийный номер, версия ПО */
+#define ADDR_FLASH_SECTOR_3     ((uint)0x0800C000)          ///< 16k
+#define ADDR_SECTOR_NR_SETTINGS ((uint)0x08010000)          ///< 64k  Несбрасываемые настройки
+#define SIZE_SECTOR_NR_SETTINGS (64 * 1024)                 ///< Размер сектора для хранения несбрасываемых настроек
+#define SIZE_NR_SET_PARAGRAPH   (512)                       ///< Это размер одного параграфа, в котором, кроме настроек, сохранена ещё и его длина в первом слове
+                                                            /// (Сначала сделал 128 байт, но оказалось мало - уже как раз 128, поэтому ввёл четырёхкратный запас)
+#define SIZE_NR_SETTINGS        (SIZE_NR_SET_PARAGRAPH - 4) ///< Размер структуры для хранения несбрасываемых настроек
+#define ADDR_SECTOR_PROGRAM_0   ((uint)0x08020000)          ///< 128k Основная программа
+#define ADDR_SECTOR_PROGRAM_1   ((uint)0x08040000)          ///< 128k Основная программа
+#define ADDR_SECTOR_PROGRAM_2   ((uint)0x08060000)          ///< 128k Основная программа
+#define ADDR_FLASH_SECTOR_8     ((uint)0x08080000)          ///< 128k
+#define ADDR_FLASH_SECTOR_9     ((uint)0x080A0000)          ///< 128k
+#define ADDR_SECTOR_RESOURCES   ((uint)0x080C0000)          ///< 128k Графические и звуковые ресурсы
+#define ADDR_SECTOR_SETTINGS    ((uint)0x080E0000)          ///< 128k Настройки
+#define ADDR_FLASH_SECTOR_12    ((uint)0x08100000)          ///< 16k
+#define ADDR_FLASH_SECTOR_13    ((uint)0x08104000)          ///< 16k
+#define ADDR_FLASH_SECTOR_14    ((uint)0x08108000)          ///< 16k
+#define ADDR_FLASH_SECTOR_15    ((uint)0x0810C000)          ///< 16k
+#define ADDR_DATA_DATA          ((uint)0x08110000)          ///< 64k  Здесь будем сохранять массивы адресов с нашими данными
+#define ADDR_DATA_0             ((uint)0x08120000)          ///< 128k +
+#define ADDR_DATA_1             ((uint)0x08140000)          ///< 128k |
+#define ADDR_DATA_2             ((uint)0x08160000)          ///< 128k |
+#define ADDR_DATA_3             ((uint)0x08180000)          ///< 128k | Здесь будут храниться собственно данные
+#define ADDR_DATA_4             ((uint)0x081A0000)          ///< 128k |
+#define ADDR_DATA_5             ((uint)0x081C0000)          ///< 128k |
+#define ADDR_DATA_TEMP          ((uint)0x081E0000)          ///< 128k /
 
 #define SIZE_SECTOR_SETTINGS    (128 * 1024)                // Размер сектора, куда сохраняются настройки, в байтах
 

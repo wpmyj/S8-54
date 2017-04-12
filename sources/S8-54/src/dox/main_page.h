@@ -1,5 +1,5 @@
-/*! \mainpage S8-54 Документация
+/*! \mainpage S8-54 Documentation
  *
- * \section intro_sec Введение
+ * \section intro_sec Introduction
  * Данная справка преднозанчена для ознакомления со встроенным программным обеспечением осциллографа цифрового С8-54
  */

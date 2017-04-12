@@ -1,10 +1,10 @@
-п»ї#pragma once
+#pragma once
 
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 typedef enum
 {
-    ExcessValues        // РџСЂРµРІС‹С€РµРЅРёРµ Р·РЅР°С‡РµРЅРёСЏ РєРѕР»РёС‡РµСЃС‚РІР° СЃРёРіРЅР°Р»РѕРІ РІ "РќРђРљРћРџР›Р•РќРР•", "РЈРЎР Р•Р”РќР•РќРР•", "РњРёРЅ РњР°РєСЃ"
+    ExcessValues        // Превышение значения количества сигналов в "НАКОПЛЕНИЕ", "УСРЕДНЕНИЕ", "Мин Макс"
 } WarningWithNumber;
 
 
@@ -14,4 +14,4 @@ int             Tables_ENUMtoNumSignalsInSec(NumSignalsInSec numSignalsInSec);
 const char*     Tables_GetTBaseString(TBase tBase);
 const char*     Tables_GetTBaseStringEN(TBase tBase);
 const char*     Tables_RangeNameFromValue(Range range);
-int             Tables_GetNumChannel(Channel ch);     // Р’РѕР·РІСЂР°С‰Р°РµС‚ РЅРѕРјРµСЂ РєР°РЅР°Р»Р° РѕС‚ 1 РґРѕ 2
+int             Tables_GetNumChannel(Channel ch);     // Возвращает номер канала от 1 до 2

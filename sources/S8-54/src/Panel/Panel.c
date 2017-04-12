@@ -65,13 +65,13 @@ typedef struct
 static const StructButton funcButton[B_NumButtons] =
 {
     {0, 0},
-    {EFB,           ChannelA_Long}, // B_ChannelA
+    {EFB,           ChannelA_Long}, // B_Channel1
     {EFB,           EmptyFuncVV},   // B_Service
-    {EFB,           ChannelB_Long}, // B_ChannelB
+    {EFB,           ChannelB_Long}, // B_Channel2
     {EFB,           EmptyFuncVV},   // B_Display
     {EFB,           TimeLong},      // B_Time
     {EFB,           EmptyFuncVV},   // B_Memory
-    {EFB,           BtnRegTrig},// B_Sinchro
+    {EFB,           BtnRegTrig},    // B_Sinchro
     {FuncBtnStart,  EmptyFuncVV},   // B_Start
     {EFB,           EmptyFuncVV},   // B_Cursors
     {EFB,           EmptyFuncVV},   // B_Measures
@@ -93,22 +93,22 @@ typedef struct
     void(*longPress)(void);     // Эта функция вызывается при длительном нажатии ручки
 } StructReg;
 
+/** @todo Убрать дублирование*/
 static const StructReg funculatorReg[] =
 {
     {0}, {0}, {0}, {0}, {0}, {0}, {0}, {0}, {0}, {0}, {0}, {0}, {0}, {0}, {0}, {0}, {0}, {0}, {0}, {0},
-    {FuncRangeA,    EFB,                EmptyFuncVV},   // R_RangeA
-    {FuncRShiftA,   FuncBtnRegChannelA, EmptyFuncVV},   // R_RShiftA
-    {FuncRangeB,    EFB,                EmptyFuncVV},   // R_RangeB
-    {FuncRShiftB,   FuncBtnRegChannelB, EmptyFuncVV},   // R_RShiftB
+    {FuncRange1,    EFB,                EmptyFuncVV},   // R_Range1
+    {FuncRShift1,   FuncBtnRegChannel1, EmptyFuncVV},   // R_RShift1
+    {FuncRange2,    EFB,                EmptyFuncVV},   // R_Range2
+    {FuncRShift2,   FuncBtnRegChannel2, EmptyFuncVV},   // R_RShift2
     {FuncTBase,     EFB,                EmptyFuncVV},   // R_TBase
     {FuncTShift,    FuncBtnRegTime,     EmptyFuncVV},   // R_TShift
     {FuncTrigLev,   FuncBtnRegTrig,     EmptyFuncVV},   // R_TrigLev
     {FuncRegSet,    FuncBtnRegSet,      EmptyFuncVV},   // R_Set
-    // WARN временно продублировано
-    {FuncRangeA,    EFB, EmptyFuncVV},
-    {FuncRShiftA,   FuncBtnRegChannelA, EmptyFuncVV},
-    {FuncRangeB,    EFB,                EmptyFuncVV},   // R_RangeB
-    {FuncRShiftB,   FuncBtnRegChannelB, EmptyFuncVV},
+    {FuncRange1,    EFB,                EmptyFuncVV},   // R_Range1
+    {FuncRShift1,   FuncBtnRegChannel1, EmptyFuncVV},   // R_RShift1
+    {FuncRange2,    EFB,                EmptyFuncVV},   // R_Range2
+    {FuncRShift2,   FuncBtnRegChannel2, EmptyFuncVV},   // R_RShift2
     {FuncTBase,     EFB,                EmptyFuncVV},   // R_TBase
     {FuncTShift,    FuncBtnRegTime,     EmptyFuncVV},   // R_TShift
     {FuncTrigLev,   FuncBtnRegTrig,     EmptyFuncVV},   // R_TrigLev

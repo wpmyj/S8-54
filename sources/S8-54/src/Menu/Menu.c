@@ -185,7 +185,7 @@ static void ProcessButtonForHint(PanelButton button)
             :
             "ПУСК/СTOП button starts and stops the process of gathering information.";
     }
-    else if (button == B_ChannelA)
+    else if (button == B_Channel1)
     {
         gStringForHint = LANG_RU ?
             "1. Кнопка КАНАЛ1 открывает меню настроек канала 1.\n"
@@ -194,7 +194,7 @@ static void ProcessButtonForHint(PanelButton button)
             "1. КАНАЛ1 button opens the settings menu of the channel 1.\n"
             "2. Pressing and holding the button КАНАЛ1 for 0.5c for the offset of the vertical channel 1 0V.";
     }
-    else if (button == B_ChannelB)
+    else if (button == B_Channel2)
     {
         gStringForHint = LANG_RU ?
             "1. Кнопка КАНАЛ2 открывает меню настроек канала 2.\n"
@@ -407,13 +407,13 @@ static void ProcessingShortPressureButton(void)
             else                                                        // Если меню не показано.
             {
                 NamePage name = GetNamePage(OpenedItem());
-                if(button == B_ChannelA && name == Page_ChannelA && MENU_IS_SHOWN)
+                if(button == B_Channel1 && name == Page_ChannelA && MENU_IS_SHOWN)
                 {
                     SET_ENABLED_A = !SET_ENABLED_A;
                     OnChange_ChanA_Input(true);
                     break;
                 }
-                if(button == B_ChannelB && name == Page_ChannelB && MENU_IS_SHOWN)
+                if(button == B_Channel2 && name == Page_ChannelB && MENU_IS_SHOWN)
                 {
                     SET_ENABLED_B = !SET_ENABLED_B;
                     OnChange_ChanB_Input(true);
@@ -453,11 +453,11 @@ void ProcessingLongPressureButton(void)
         {
             FPGA_SetTrigLev(TRIGSOURCE, TrigLevZero);
         }
-        else if(button == B_ChannelA)
+        else if(button == B_Channel1)
         {
             FPGA_SetRShift(A, RShiftZero);
         }
-        else if(button == B_ChannelB)
+        else if(button == B_Channel2)
         {
             FPGA_SetRShift(B, RShiftZero);
         }

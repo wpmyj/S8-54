@@ -868,7 +868,8 @@ int DS_GetLastFrameP2P_RAM(DataSettings **ds, uint8 **dataA, uint8 **dataB)
 //------------------------------------------------------------------------------------------------------------------------------------------------------
 bool DataSettings_IsEquals(const DataSettings *ds1, const DataSettings *ds2)
 {
-    bool equals = (ENABLED_A(ds1) == ENABLED_A(ds2)) &&         // TODO оптимизировать
+    /** @todo оптимизировать функцию сравнения */
+    bool equals = (ENABLED_A(ds1) == ENABLED_A(ds2)) &&
         (ENABLED_B(ds1) == ENABLED_B(ds2)) &&
         (INVERSE_A(ds1) == INVERSE_A(ds2)) &&
         (INVERSE_B(ds1) == INVERSE_B(ds2)) &&

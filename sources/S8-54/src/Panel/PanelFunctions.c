@@ -31,14 +31,14 @@ void Help_Long(void)
 //------------------------------------------------------------------------------------------------------------------------------------------------------
 void ChannelA_Long(void)
 {
-    Menu_LongPressureButton(B_ChannelA);
+    Menu_LongPressureButton(B_Channel1);
 }
 
 
 //------------------------------------------------------------------------------------------------------------------------------------------------------
 void ChannelB_Long(void)
 {
-    Menu_LongPressureButton(B_ChannelB);
+    Menu_LongPressureButton(B_Channel2);
 }
 
 
@@ -314,7 +314,7 @@ void ChangeShiftScreen(int *prevTime, void(*f)(int), int16 relStep)
 
 
 //------------------------------------------------------------------------------------------------------------------------------------------------------
-void FuncRShiftA(int delta)
+void FuncRShift1(int delta)
 {
     static int prevTime = 0;
     ChangeRShift(&prevTime, FPGA_SetRShift, A, delta * STEP_RSHIFT);
@@ -322,7 +322,7 @@ void FuncRShiftA(int delta)
 
 
 //------------------------------------------------------------------------------------------------------------------------------------------------------
-void FuncRShiftB(int delta)
+void FuncRShift2(int delta)
 {
     static int prevTime = 0;
     ChangeRShift(&prevTime, FPGA_SetRShift, B, delta * STEP_RSHIFT);
@@ -399,14 +399,14 @@ static void ChangeRange(Channel ch, int delta)    // delta == -1 - уменьшаем. de
 
 
 //------------------------------------------------------------------------------------------------------------------------------------------------------
-void FuncRangeA(int delta)
+void FuncRange1(int delta)
 {
     ChangeRange(A, -delta);
 }
 
 
 //------------------------------------------------------------------------------------------------------------------------------------------------------
-void FuncRangeB(int delta)
+void FuncRange2(int delta)
 {
     ChangeRange(B, -delta);
 }
@@ -420,7 +420,7 @@ void FuncRegSet(int delta)
 
 
 //------------------------------------------------------------------------------------------------------------------------------------------------------
-void FuncBtnRegChannelA(int key)
+void FuncBtnRegChannel1(int key)
 {
     if (key == 1)
     {
@@ -429,7 +429,7 @@ void FuncBtnRegChannelA(int key)
 }
 
 //------------------------------------------------------------------------------------------------------------------------------------------------------
-void FuncBtnRegChannelB(int key)
+void FuncBtnRegChannel2(int key)
 {
     if (key == 1)
     {
