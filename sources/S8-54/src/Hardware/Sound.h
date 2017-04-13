@@ -1,7 +1,15 @@
-п»ї#pragma once
-
-
+#pragma once
 #include "Settings/Settings.h"
+
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+/** @addtogroup Hardware
+ *  @{
+ *  @defgroup Sound
+ *  @brief Работа со звуковым динамиком
+ *  @{
+ */
 
 
 typedef enum
@@ -12,15 +20,21 @@ typedef enum
 } TypeWave;
 
 
-void    Sound_Init(void);
+void Sound_Init(void);
+/// Звук нажатия на кнопку
+void Sound_ButtonPress(void);
+/// Функция вызовет звук отпускаемой кнопки только если перед этим проигрывался звук нажатия кнопки
+void Sound_ButtonRelease(void);
 
-void    Sound_ButtonPress(void);
-void    Sound_ButtonRelease(void);              // Р¤СѓРЅРєС†РёСЏ РІС‹Р·РѕРІРµС‚ Р·РІСѓРє РѕС‚РїСѓСЃРєР°РµРјРѕР№ РєРЅРѕРїРєРё С‚РѕР»СЊРєРѕ РµСЃР»Рё РїРµСЂРµРґ СЌС‚РёРј РїСЂРѕРёРіСЂС‹РІР°Р»СЃСЏ Р·РІСѓРє РЅР°Р¶Р°С‚РёСЏ РєРЅРѕРїРєРё
+void Sound_GovernorChangedValue(void);
 
-void    Sound_GovernorChangedValue(void);
+void Sound_RegulatorShiftRotate(void);
 
-void    Sound_RegulatorShiftRotate(void);
-void    Sound_RegulatorSwitchRotate(void);
+void Sound_RegulatorSwitchRotate(void);
 
-void    Sound_WarnBeepBad(void);
-void    Sound_WarnBeepGood(void);
+void Sound_WarnBeepBad(void);
+
+void Sound_WarnBeepGood(void);
+
+/** @}  @}
+ */
