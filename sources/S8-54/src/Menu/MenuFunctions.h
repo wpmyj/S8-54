@@ -1,50 +1,95 @@
-п»ї#pragma once
+#pragma once
 #include "MenuItems.h"
 #include "Panel/Controls.h"
 
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-int Choice_NumSubItems(Choice *choice);                         // Р’РѕР·РІСЂР°С‰Р°РµС‚ РєРѕР»РёС‡РµСЃС‚РІРѕ РІР°СЂРёР°РЅС‚РѕРІ РІС‹Р±РѕСЂР° РІ СЌР»РµРјРµРЅС‚Рµ РїРѕ Р°РґСЂРµСЃСѓ choice.
 
-bool            ItemIsAcitve(void *item);                       // Р’РѕРІР·СЂР°С‰Р°РµС‚ true, РµСЃР»Рё СЌР»РµРјРµРЅС‚ РјРµРЅСЋ item СЏРІР»СЏРµС‚СЃСЏ Р°С‚РёРІРЅС‹Рј, С‚.Рµ. РјРѕР¶РµС‚ Р±С‹С‚СЊ РЅР°Р¶Р°С‚.
-int             NumItemsInPage(const Page * const page);        // Р’РѕР·РІСЂР°С‰Р°РµС‚ РєРѕР»РёС‡РµСЃС‚РІРѕ СЌР»РµРјРµРЅС‚РѕРІ РІ СЃС‚СЂР°РЅРёС†Рµ РїРѕ Р°РґСЂРµСЃСѓ page.
-int             NumCurrentSubPage(Page *page);                  // Р’РѕР·РІСЂР°С‰Р°РµС‚ РЅРѕРјРµСЂ С‚РµРєСѓС‰РµР№ РїРѕРґСЃС‚СЂР°РЅС†С‹ СЌР»РµРјРµРЅС‚Р° РїРѕ Р°РґСЂРµСЃСѓ page.
-int             NumSubPages(const Page *page);                  // DРѕР·РІСЂР°С‰Р°РµС‚ С‡РёСЃР»Рѕ РїРѕРґСЃС‚СЂР°РЅРёС† РІ СЃС‚СЂР°РЅРёС†Рµ РїРѕ Р°РґСЂРµСЃСѓ page.
-TypeItem        TypeMenuItem(const void *address);              // Р’РѕР·РІСЂР°С‰Р°РµС‚ С‚РёРї СЌР»РµРјРµРЅС‚Р° РјРµРЅСЋ РїРѕ Р°РґСЂРµСЃСѓ address.
-TypeItem        TypeOpenedItem(void);                           // Р’РѕР·РІСЂР°С‰Р°РµС‚ С‚РёРї РѕС‚РєСЂС‹С‚РѕРіРѕ СЌР»РµРјРµРЅС‚Р° РјРµРЅСЋ.
-void*           OpenedItem(void);                               // Р’РѕР·РІСЂР°С‰Р°РµС‚ Р°РґСЂРµСЃ РѕС‚РєСЂС‹С‚РѕРіРѕ СЌР»РµРјРµРЅС‚Р° РјРµРЅСЋ.
-void*           CurrentItem(void);                              // Р’РѕР·РІСЂР°С‰Р°РµС‚ Р°РґСЂРµСЃ С‚РµРєСѓС‰РµРіРѕ СЌР»РµРјРµРЅС‚Р° РјРµРЅСЋ (С‚РµРєСѓС‰РёРј, РєР°Рє РїСЂР°РІРёР»Рѕ, СЏРІР»СЏРµС‚СЃСЏ СЌР»РµРјРµРЅС‚, РєРЅРѕРїРєР° РєРѕС‚РѕСЂРѕРіРѕ Р±С‹Р»Р° РЅР°Р¶Р°С‚Р° РїРѕСЃР»РµРґРЅРµР№.
-void*           Item                                            // Р’РѕР·РІСЂР°С‰Р°РµС‚ Р°РґСЂРµСЃ СЌР»РµРјРµРЅС‚Р° РјРµРЅСЋ Р·Р°РґР°РЅРЅРѕР№ СЃС‚СЂР°РЅРёС†С‹.
-                     (const Page *page,                         // СЃС‚СЂР°РЅРёС†Р°, СЌР»РµРјРµРЅС‚ РєРѕС‚РѕСЂРѕР№ РЅСѓР¶РЅРѕ СѓР·РЅР°С‚СЊ
-                     int numElement                             // РїРѕСЂСЏРґРєРѕРІС‹Р№ РЅРѕРјРµСЂ СЌР»РµРјРµРЅС‚Р°, РєРѕС‚РѕСЂС‹Р№ РЅСѓР¶РЅРѕ СѓР·РЅР°С‚СЊ
-                     );
-bool            CurrentItemIsOpened(NamePage namePage);         // Р’РѕР·РІСЂР°С‰Р°РµС‚ true, РµСЃР»Рё С‚РµРєСѓС‰РёР№ СЌР»РµРјРµРЅС‚ СЃС‚СЂР°РЅРёС†С‹ СЃ РёРјРµРЅРµРј namePage РѕС‚РєСЂС‹С‚.
-int8            PosCurrentItem(const Page *page);               // Р’РѕР·РІСЂР°С‰Р°РµС‚ РїРѕР·РёС†РёСЋ С‚РµРєСѓС‰РµРіРѕ СЌР»РµРјРµРЅС‚Р° СЃС‚СЂР°РЅС†С‹ page.
-void            SetCurrentItem                                  // РЎРґРµР»Р°С‚СЊ/СЂР°Р·РґРµР»Р°С‚СЊ С‚РµРєСѓС‰РёРј РїСѓРЅРєС‚ СЃС‚СЂР°РЅРёС†С‹.
-                                (const void *item,              // Р°РґСЂРµСЃ СЌР»РµРјРµРЅС‚Р°, Р°РєС‚РёРІРЅРѕСЃС‚СЊ РєРѕС‚РѕСЂРѕРіРѕ РЅСѓР¶РЅРѕ СѓСЃС‚Р°РЅРѕРІРёС‚СЊ/СЃРЅСЏС‚СЊ
-                                bool active                     // true - СЃРґРµР»Р°С‚СЊ СЌР»РµРјРµРЅС‚ С‚РµРєСѓС‰РёРј, false - СЂР°СЃРґРµР»Р°С‚СЊ СЌР»РµРјРµРЅС‚ С‚РµРєСѓС‰РёРј. Р’ СЌС‚РѕРј СЃР»СѓС‡Р°Рµ С‚РµРєСѓС‰РёРј СЃС‚Р°РЅРѕРІРёС‚СЃСЏ Р·Р°РіРѕР»РѕРІРѕРє СЃС‚СЂР°РЅРёС†С‹
-                                );
-Page*           Keeper(const void *item);                       // Р’РѕР·РІСЂР°С‰Р°РµС‚ Р°РґСЂРµСЃ СЌР»РµРјРµРЅС‚Р°, РєРѕС‚РѕСЂРѕРјСѓ РїСЂРёРЅР°РґР»РµР¶РёС‚ СЌР»РµРјРµРЅС‚ РїРѕ Р°РґСЂРµСЃСѓ item.
-NamePage        GetNamePage(const Page *page);                  // Р’РѕР·РІСЂР°С‰Р°РµС‚ РёРјСЏ СЃС‚СЂР°РЅРёС†С‹ page.
-NamePage        GetNameOpenedPage(void);
-void            OpenPageAndSetItCurrent(NamePage namePage);
-bool            ChangeOpenedItem(void *item, int delta);
-void            ChangeItem(void *item, int delta);              // РЈРјРµРЅСЊС€Р°РµС‚ РёР»Рё СѓРІРµР»РёС‡РёРІР°РµС‚ Р·РЅР°С‡РµРЅРёРµ Governor, GovernorColor РёР»Рё Choice РїРѕ Р°РґСЂРµСЃСѓ item РІ Р·Р°РІРёСЃРёРјРѕСЃС‚Рё РѕС‚ Р·РЅР°РєР° delta
-const char*     NameCurrentSubItem(Choice *choice);             // Р’РѕР·РІСЂР°С‰Р°РµС‚ РёРјСЏ С‚РµРєСѓС‰РµРіРѕ РІР°СЂРёР°РЅС‚Р° РІС‹Р±РѕСЂР° СЌР»РµРјРµРЅС‚Р° choice, РєР°Рє РѕРЅРѕ Р·Р°РїРёСЃР°РЅРѕ РІ РёСЃС…РѕРґРЅРѕРј РєРѕРґРµ РїСЂРѕРіСЂР°РјРјС‹.
-const char*     NameSubItem(Choice *choice, int i);             // Р’РѕР·РІСЂР°С‰Р°РµС‚ РёРјСЏ РІР°СЂРёР°РЅС‚Р° РІС‹Р±РѕСЂР° СЌР»РµРјРµРЅС‚Р° choice РІ РїРѕР·РёС†РёРё i РєР°Рє РѕРЅРѕ Р·Р°РїРёСЃР°РЅРѕ РІ РёСЃС…РѕРґРЅРѕРј РєРѕРґРµ РїСЂРѕРіСЂР°РјРјС‹.
-const char*     NameNextSubItem(Choice *choice);                // Р’РѕР·РІСЂР°С‰Р°РµС‚ РёРјСЏ СЃР»РµРґСѓСЋС‰РµРіРѕ РІР°СЂРёР°РЅС‚Р° РІС‹Р±РѕСЂР° СЌР»РµРјРµРЅС‚Р° choice, РєР°Рє РѕРЅРѕ Р·Р°РїРёСЃР°РЅРѕ РІ РёСЃС…РѕРґРЅРѕРј РєРѕРґРµ РїСЂРѕРіСЂР°РјРјС‹.
-const char*     NamePrevSubItem(Choice *choice);
-int             HeightOpenedItem(void *item);                   // Р’РѕР·РІСЂР°С‰Р°РµС‚ РІС‹СЃРѕС‚Сѓ РІ РїРёРєСЃРµР»СЏС… РѕС‚РєСЂС‹С‚РѕРіРѕ СЌР»РµРјРµРЅС‚Р° Choice РёР»Рё NamePage РїРѕ Р°РґСЂРµСЃСѓ item.
-const char*     TitleItem(void *item);                          // Р’РѕР·РІСЂР°С‰Р°РµС‚ РЅР°Р·РІР°РЅРёРµ СЌР»РµРјРµРЅС‚Р° РїРѕ Р°РґСЂРµСЃСѓ item, РєР°Рє РѕРЅРѕ РІС‹РіР»СЏРґРёС‚ РЅР° РґРёСЃРїР»РµРµ РїСЂРёР±РѕСЂР°.
-int             PosItemOnTop(Page *page);                       // Р’РѕР·РІСЂР°С‰Р°РµС‚ РїРѕР·РёС†РёСЋ РїРµСЂРІРѕРіРѕ СЌР»РµРјРµРЅС‚Р° СЃС‚СЂР°РЅРёС†С‹ РїРѕ Р°РґСЂРµСЃСѓ page РЅР° СЌРєСЂР°РЅРµ. Р•СЃР»Рё С‚РµРєСѓС‰Р°СЏ РїРѕРґСЃС‚СЂР°РЅРёС†Р° 0, СЌС‚Рѕ Р±СѓРґРµС‚ 0, РµСЃР»Рё С‚РµРєСѓС‰Р°СЏ РїРѕРґСЃС‚СЂР°РЅРёС†Р° 1, СЌС‚Рѕ Р±СѓРґРµС‚ 5 Рё С‚.Рґ.
-bool            IsFunctionalButton(PanelButton button);         // Р’РѕР·РІСЂР°С‰Р°РµС‚ true, РµСЃР»Рё button - С„СѓРЅРєС†РёРѕРЅР°Р»СЊРЅР°СЏ РєР»Р°РІРёС€Р° [1..5].
-void            CloseOpenedItem(void);                          // Р—Р°РєСЂС‹С‚СЊ РѕС‚РєСЂС‹С‚С‹Р№ СЌР»РµРјРµРЅС‚ РјРµРЅСЋ.
-void            OpenItem(const void *item, bool open);          // РћС‚РєСЂС‹С‚СЊ/Р·Р°РєСЂС‹С‚СЊ СЌР»РµРјРµРЅС‚ РјРµРЅСЋ РїРѕ Р°РґСЂРµРјСѓ item.
-bool            ItemIsOpened(void *item);                       // Р’РѕР·РІСЂР°С‰Р°РµС‚ true, РµСЃР»Рё СЌР»РµРјРµРЅС‚ РјРµРЅСЋ РїРѕ Р°РґСЂРµРјСѓ item РѕС‚РєСЂС‹С‚.
-void            ChangeSubPage(const Page *page, int delta);
-void            ShortPressOnPageItem(Page *page, int numItem);  // Р’С‹Р·С‹РІР°РµС‚ С„СѓРЅРєС†РёСЋ РєРѕСЂРѕС‚РєРѕРіРѕ РЅР°Р¶Р°С‚РёСЏ РєРЅРѕРїРєРё РЅР°Рґ РёС‚РµРјРѕРј numItem СЃС‚СЂР°РЅРёС†С‹ page;
-Page*           PagePointerFromName(NamePage namePage);
-bool            IsPageSB(const void *item);
-SmallButton*    SmallButonFromPage(Page *page, int numButton);
-void            CallFuncOnPressButton(void *button);
-void            CallFuncOnDrawButton(Button *button, int x, int y);
+/** @addtogroup Menu
+ *  @{
+ *  @defgroup MenuFunctions Menu Functions
+ *  @brief Вспомогательные функции для работы с меню
+ *  @{
+ */
+
+/// Возвращает количество вариантов выбора в элементе по адресу choice
+int Choice_NumSubItems(Choice *choice);
+/// Вовзращает true, если элемент меню item является ативным, т.е. может быть нажат
+bool ItemIsAcitve(void *item);
+/// Возвращает количество элементов в странице по адресу page
+int NumItemsInPage(const Page * const page);
+/// Возвращает номер текущей подстранцы элемента по адресу page
+int NumCurrentSubPage(Page *page);
+/// Dозвращает число подстраниц в странице по адресу page
+int NumSubPages(const Page *page);
+/// Возвращает тип элемента меню по адресу address
+TypeItem TypeMenuItem(const void *address);
+/// Возвращает тип открытого элемента меню
+TypeItem TypeOpenedItem(void);
+/// Возвращает адрес открытого элемента меню
+void* OpenedItem(void);
+/// Возвращает адрес текущего элемента меню (текущим, как правило, является элемент, кнопка которого была нажата последней
+void* CurrentItem(void);
+/// Возвращает адрес элемента меню заданной страницы
+void* Item(const Page *page,                        ///< страница, элемент которой нужно узнать
+            int numElement                          ///< порядковый номер элемента, который нужно узнать
+            );
+/// Возвращает true, если текущий элемент страницы с именем namePage открыт
+bool CurrentItemIsOpened(NamePage namePage);
+/// Возвращает позицию текущего элемента странцы page
+int8 PosCurrentItem(const Page *page);
+/// Сделать/разделать текущим пункт страницы
+void SetCurrentItem(const void *item,               ///< адрес элемента, активность которого нужно установить/снять
+                    bool active                     ///< true - сделать элемент текущим, false - расделать элемент текущим. В этом случае текущим становится заголовок страницы
+                    );
+/// Возвращает адрес элемента, которому принадлежит элемент по адресу item
+Page* Keeper(const void *item);
+/// Возвращает имя страницы page
+NamePage GetNamePage(const Page *page);
+
+NamePage GetNameOpenedPage(void);
+
+void OpenPageAndSetItCurrent(NamePage namePage);
+
+bool ChangeOpenedItem(void *item, int delta);
+/// Уменьшает или увеличивает значение Governor, GovernorColor или Choice по адресу item в зависимости от знака delta
+void ChangeItem(void *item, int delta);
+/// Возвращает имя текущего варианта выбора элемента choice, как оно записано в исходном коде программы
+const char* NameCurrentSubItem(Choice *choice);
+/// Возвращает имя варианта выбора элемента choice в позиции i как оно записано в исходном коде программы
+const char* NameSubItem(Choice *choice, int i);
+/// Возвращает имя следующего варианта выбора элемента choice, как оно записано в исходном коде программы
+const char* NameNextSubItem(Choice *choice);
+
+const char* NamePrevSubItem(Choice *choice);
+/// Возвращает высоту в пикселях открытого элемента Choice или NamePage по адресу item
+int HeightOpenedItem(void *item);
+/// Возвращает название элемента по адресу item, как оно выглядит на дисплее прибора
+const char* TitleItem(void *item);
+/// Возвращает позицию первого элемента страницы по адресу page на экране. Если текущая подстраница 0, это будет 0, если текущая подстраница 1, это будет 5 и т.д.
+int PosItemOnTop(Page *page);
+/// Возвращает true, если button - функциональная клавиша [1..5]
+bool IsFunctionalButton(PanelButton button);
+/// Закрыть открытый элемент меню
+void CloseOpenedItem(void);
+/// Открыть/закрыть элемент меню по адрему item
+void OpenItem(const void *item, bool open);
+/// Возвращает true, если элемент меню по адрему item открыт
+bool ItemIsOpened(void *item);
+
+void ChangeSubPage(const Page *page, int delta);
+/// Вызывает функцию короткого нажатия кнопки над итемом numItem страницы page
+void ShortPressOnPageItem(Page *page, int numItem);
+
+Page* PagePointerFromName(NamePage namePage);
+
+bool IsPageSB(const void *item);
+
+SmallButton* SmallButonFromPage(Page *page, int numButton);
+
+void CallFuncOnPressButton(void *button);
+
+void CallFuncOnDrawButton(Button *button, int x, int y);
+
+/** @}
+ */
