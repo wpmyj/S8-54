@@ -627,7 +627,7 @@ static void OnChange_Settings_Colors_Background(bool active)
 }
 
 // ƒ»—œÀ≈… - Õ¿—“–Œ… » - ÷¬≈“¿ -  ‡Ì‡Î 1 ----------------------------------------------------------------------------------------------------------
-static ColorType colorT1 = { 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, COLOR_DATA_A };
+static ColorType colorT1 = { 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, COLOR_DATA_1 };
 static const GovernorColor mgcSettings_Colors_ChannelA =
 {
     Item_GovernorColor, &mspSettings_Colors, 0,
@@ -640,7 +640,7 @@ static const GovernorColor mgcSettings_Colors_ChannelA =
 };
 
 // ƒ»—œÀ≈… - Õ¿—“–Œ… » - ÷¬≈“¿ -  ‡Ì‡Î 2 ----------------------------------------------------------------------------------------------------------
-static ColorType colorT2 = { 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, COLOR_DATA_B };
+static ColorType colorT2 = { 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, COLOR_DATA_2 };
 static const GovernorColor mgcSettings_Colors_ChannelB =
 {
     Item_GovernorColor, &mspSettings_Colors, 0,
@@ -671,8 +671,8 @@ void PageService_InitGlobalColors(void)
     gColorBack = BACKGROUND_BLACK ? COLOR_BLACK : COLOR_WHITE;
     gColorFill = BACKGROUND_BLACK ? COLOR_WHITE : COLOR_BLACK;
     gColorGrid = BACKGROUND_BLACK ? COLOR_GRID : COLOR_GRID_WHITE;
-    gColorChan[A] = BACKGROUND_BLACK ? COLOR_DATA_A : COLOR_DATA_A_WHITE;
-    gColorChan[B] = BACKGROUND_BLACK ? COLOR_DATA_B : COLOR_DATA_B_WHITE;
+    gColorChan[A] = BACKGROUND_BLACK ? COLOR_DATA_1 : COLOR_DATA_A_WHITE;
+    gColorChan[B] = BACKGROUND_BLACK ? COLOR_DATA_2 : COLOR_DATA_B_WHITE;
     gColorChan[A_B] = gColorChan[Math] = BACKGROUND_BLACK ? COLOR_WHITE : COLOR_BLACK;
 }
 

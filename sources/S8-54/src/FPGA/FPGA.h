@@ -6,86 +6,95 @@
 #include "Settings/Settings.h"
 
 
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+/** @defgroup FPGA
+ *  @brief Работа с альтерой
+ *  @{
+ */
+
 extern uint16 gPost;
 extern int16 gPred;
 extern StateWorkFPGA fpgaStateWork;
 
 
+/// Инициализация
 void FPGA_Init(void);
-
-void FPGA_SetNumSignalsInSec(int numSigInSec);  // РЈСЃС‚Р°РЅРѕРІРёС‚СЊ РєРѕР»РёС‡РµСЃС‚РІРѕ СЃС‡РёС‚С‹РІР°РµРјС‹С… СЃРёРіРЅР°Р»РѕРІ РІ СЃРµРєСѓРЅРґСѓ.
-
+/// Установить количество считываемых сигналов в секунду
+void FPGA_SetNumSignalsInSec(int numSigInSec);
+/// Функция должна вызываться каждый кадр
 void FPGA_Update(void);
-
-void FPGA_OnPressStartStop(void);               // Р—Р°РїСѓСЃРєР°РµС‚ С†РёРєР» СЃР±РѕСЂР° РёРЅС„РѕСЂРјР°С†РёРё.
-
-void FPGA_Start(void);                          // Р—Р°РїСѓСЃРє РїСЂРѕС†РµСЃСЃР° СЃР±РѕСЂР° РёРЅС„РѕСЂРјР°С†РёРё.
+/// Запускает цикл сбора информации
+void FPGA_OnPressStartStop(void);
+/// Запуск процесса сбора информации
+void FPGA_Start(void);
 
 void FPGA_WriteStartToHardware(void);
-
-void FPGA_Stop(bool pause);                     // РџСЂРµСЂС‹РІР°РµС‚ РїСЂРѕС†РµСЃСЃ СЃР±РѕСЂР° РёРЅС„РѕСЂРјР°С†РёРё.
-
-void FPGA_Reset(void);                          // РњРѕР¶РЅРѕ РґРµР»Р°С‚СЊ РїСЂРё РёР·РјРµРЅРµРЅРёРё РєР°РєРёС…-С‚Рѕ РЅР°СЃС‚СЂРѕРµРє. РќР°РїСЂРёРјРµСЂ, РїСЂРё РёР·РјРµРЅРµРЅРёРё С‡РёСЃР»Р° С‚РѕС‡РµРє (РџРђРњРЇРўР¬-РўРѕС‡РєРё) РµСЃР»Рё РЅРµ РІС‹Р·РІР°С‚СЊ, С‚Рѕ Р±СѓРґСѓС‚ Р°СЂС‚РµС„Р°РєС‚С‹ РёР·РѕР±СЂР°Р¶РµРЅРёСЏ
-
-bool FPGA_IsRunning(void);                      // Р’РѕР·РІСЂР°С‰Р°РµС‚ true, РµСЃР»Рё РїСЂРёР±РѕСЂ РЅР°С…РѕРґРёС‚СЃСЏ РЅРµ РІ РїСЂРѕС†РµСЃСЃРµ СЃР±РѕСЂР° РёРЅС„РѕСЂРјР°С†РёРё.
-
-void FPGA_ClearData(void);                      // РЈРґР°Р»СЏРµС‚ РґР°РЅРЅС‹Рµ. РќСѓР¶РЅРѕ РґР»СЏ СЂРµР¶РёРјР° СЂР°РЅРґРѕРјРёР·Р°РѕС‚СЂР°, РіРґРµ РёРЅС„РѕСЂРјР°С†РёСЏ РєР°Р¶РґРѕРіРѕ С†РёРєР»Р° РЅРµ СЏРІР»СЏРµС‚СЃСЏ СЃР°РјРѕСЃС‚РѕСЏС‚РµР»СЊРЅРѕР№.
-
-void FPGA_SetNumberMeasuresForGates(int number);// РЈСЃС‚Р°РЅРѕРІРёС‚СЊ РєРѕР»РёС‡РµСЃС‚РІРѕ РёР·РјРµСЂРµРЅРёР№, РїРѕ РєРѕС‚РѕСЂС‹Рј Р±СѓРґСѓС‚ СЂР°СЃСЃС‡РёС‚С‹РІР°С‚СЊСЃСЏ РІРѕСЂРѕС‚Р° РІ СЂРµР¶РёРјРµ СЂР°РЅРґРѕРјРёР·Р°С‚РѕСЂР°.
-
-void FPGA_SwitchingTrig(void);                  // РџСЂРёРЅСѓРґРёС‚РµР»СЊРЅРѕ Р·Р°РїСѓСЃС‚РёС‚СЊ СЃРёРЅС…СЂРѕРЅРёР·Р°С†РёСЋ.
-
-void FPGA_TemporaryPause(void);                  // РЈСЃС‚Р°РЅРѕРІРёС‚СЊ РІСЂРµРјРµРЅРЅСѓСЋ РїР°СѓР·Сѓ РїРѕСЃР»Рµ РёР·РјРµРЅРµРЅРёСЏ СЂСѓС‡РµРє - С‡С‚РѕР±С‹ СЃРјРµС‰С‘РЅРЅС‹Р№ СЃРёРіРЅР°Р» Р·Р°С„РёРєСЃРёСЂРѕРІР°С‚СЊ РЅР° РЅРµРєРѕС‚РѕСЂРѕРµ РІСЂРµРјСЏ
+/// Прерывает процесс сбора информации
+void FPGA_Stop(bool pause);
+/// Можно делать при изменении каких-то настроек. Например, при изменении числа точек (ПАМЯТЬ-Точки) если не вызвать, то будут артефакты изображения
+void FPGA_Reset(void);
+/// Возвращает true, если прибор находится не в процессе сбора информации
+bool FPGA_IsRunning(void);
+/// Удаляет данные. Нужно для режима рандомизаотра, где информация каждого цикла не является самостоятельной
+void FPGA_ClearData(void);
+/// Установить количество измерений, по которым будут рассчитываться ворота в режиме рандомизатора
+void FPGA_SetNumberMeasuresForGates(int number);
+/// Принудительно запустить синхронизацию
+void FPGA_SwitchingTrig(void);
+/// Установить временную паузу после изменения ручек - чтобы смещённый сигнал зафиксировать на некоторое время
+void FPGA_TemporaryPause(void);
 
 void FPGA_FillDataPointer(DataSettings *dp);
-
-void FPGA_FindAndSetTrigLevel(void);            // РќР°Р№С‚Рё Рё СѓСЃС‚Р°РЅРѕРІРёС‚СЊ СѓСЂРѕРІРµРЅСЊ СЃРёРЅС…СЂРѕРЅРёР·Р°С†РёРё РїРѕ РїРѕСЃР»РµРґРЅРµРјСѓ СЃС‡РёС‚Р°РЅРЅРѕРјСѓ СЃРёРіРЅР°Р»Сѓ
-    
-void FPGA_LoadSettings(void);                                   // Р—Р°РіСЂСѓР·РёС‚СЊ РЅР°СЃС‚СЂРѕР№РєРё РІ Р°РїРїР°СЂР°С‚РЅСѓСЋ С‡Р°СЃС‚СЊ РёР· РіР»РѕР±Р°Р»СЊРЅРѕР№ СЃС‚СЂСѓРєС‚СѓСЂС‹ SSettings.
-
-void FPGA_SetModeCouple(Channel ch, ModeCouple modeCoupe);    // РЈСЃС‚Р°РЅРѕРІРёС‚СЊ СЂРµР¶РёРј РєР°РЅР°Р»Р° РїРѕ РІС…РѕРґСѓ.
-
-void FPGA_SetRange(Channel ch, Range range);                  // РЈСЃС‚Р°РЅРѕРІРёС‚СЊ РјР°СЃС€С‚Р°Р± РїРѕ РЅР°РїСЂСЏР¶РµРЅРёСЋ.
-
-bool FPGA_RangeIncrease(Channel ch);                          // РЈРІРµР»РёС‡РёС‚СЊ РјР°СЃС€С‚Р°Р± РїРѕ РЅР°РїСЂСЏР¶РµРЅРёСЋ.
-
-bool FPGA_RangeDecrease(Channel ch);                          // РЈРјРµРЅСЊС€РёС‚СЊ РјР°СЃС€С‚Р°Р± РїРѕ РЅР°РїСЂСЏР¶РµРЅРёСЋ.
-
-void FPGA_SetTBase(TBase tBase);                                // РЈСЃС‚Р°РЅРѕРІРёС‚СЊ РјР°СЃС€С‚Р°Р± РїРѕ РІСЂРµРјРµРЅРё.
-
-void FPGA_TBaseDecrease(void);                                  // РЈРјРµРЅСЊС€РёС‚СЊ РјР°СЃС€С‚Р°Р± РїРѕ РІСЂРµРјРµРЅРё.
-
-void FPGA_TBaseIncrease(void);                                  // РЈРІРµР»РёС‡РёС‚СЊ РјР°СЃС€С‚Р°Р± РїРѕ РІСЂРµРјРµРЅРё.
-
-void FPGA_SetRShift(Channel ch, uint16 rShift);               // РЈСЃС‚Р°РЅРѕРІРёС‚СЊ РѕС‚РЅРѕСЃРёС‚РµР»СЊРЅРѕРµ СЃРјРµС‰РµРЅРёРµ РїРѕ РЅР°РїСЂСЏР¶РµРЅРёСЋ.
-
-void FPGA_SetTShift(int tShift);                                // РЈСЃС‚Р°РЅРѕРІРёС‚СЊ РѕС‚РЅРѕСЃРёС‚РµР»СЊРЅРѕРµ СЃРјРµС‰РµРЅРёРµ РїРѕ РІСЂРµРјРµРЅРё.
+/// Найти и установить уровень синхронизации по последнему считанному сигналу
+void FPGA_FindAndSetTrigLevel(void);
+/// Загрузить настройки в аппаратную часть из глобальной структуры SSettings
+void FPGA_LoadSettings(void);
+/// Установить режим канала по входу
+void FPGA_SetModeCouple(Channel ch, ModeCouple modeCoupe);
+/// Установить масштаб по напряжению
+void FPGA_SetRange(Channel ch, Range range);
+/// Увеличить масштаб по напряжению
+bool FPGA_RangeIncrease(Channel ch);
+/// Уменьшить масштаб по напряжению
+bool FPGA_RangeDecrease(Channel ch);
+/// Установить масштаб по времени
+void FPGA_SetTBase(TBase tBase);
+/// Уменьшить масштаб по времени
+void FPGA_TBaseDecrease(void);
+/// Увеличить масштаб по времени
+void FPGA_TBaseIncrease(void);
+/// Установить относительное смещение по напряжению
+void FPGA_SetRShift(Channel ch, uint16 rShift);
+/// Установить относительное смещение по времени
+void FPGA_SetTShift(int tShift);
 
 void FPGA_ChangePostValue(int delta);
-
-void FPGA_SetDeltaTShift(int16 shift);                          // РЈСЃС‚Р°РЅРѕРІРёС‚СЊ РґРѕР±Р°РІРѕС‡РЅРѕРµ СЃРјРµС‰РµРЅРёРµ РїРѕ РІСЂРµРјРµРЅРё РґР»СЏ СЂРµР¶РёРјР° СЂР°РЅРґРѕРјРёР·Р°С‚РѕСЂР°. Р’ РєР°Р¶РґРѕР№ СЂР°Р·РІС‘СЂС‚РєРµ СЌС‚Рѕ СЃРјРµС‰РµРЅРёРµ РґРѕР»Р¶РЅРѕ Р±С‹С‚СЊ СЂР°Р·РЅРѕРµ.
-
-void FPGA_SetPeackDetMode(PeackDetMode peackDetMode);           // Р’РєР»СЋС‡РёС‚СЊ/РІС‹РєР»СЋС‡РёС‚СЊ СЂРµР¶РёРј РїРёРєРѕРІРѕРіРѕ РґРµС‚РµРєС‚РѕСЂР°.
-
-void FPGA_SetCalibratorMode(CalibratorMode calibratorMode);     // Р’РєР»СЋС‡РёС‚СЊ/РІС‹РєР»СЋС‡РёС‚СЊ РєР°Р»РёР±СЂР°С‚РѕСЂ.
+/// Установить добавочное смещение по времени для режима рандомизатора. В каждой развёртке это смещение должно быть разное
+void FPGA_SetDeltaTShift(int16 shift);
+/// Включить/выключить режим пикового детектора
+void FPGA_SetPeackDetMode(PeackDetMode peackDetMode);
+/// Включить/выключить калибратор.
+void FPGA_SetCalibratorMode(CalibratorMode calibratorMode);
 
 void FPGA_EnableRecorderMode(bool enable);
-
-void FPGA_SetTrigLev(TrigSource ch, uint16 trigLev);          // РЈСЃС‚Р°РЅРѕРІРёС‚СЊ РѕС‚РЅРѕСЃРёС‚РµР»СЊРЅС‹Р№ СѓСЂРѕРІРµРЅСЊ СЃРёРЅС…СЂРѕРЅРёР·Р°С†РёРё.
-
-void FPGA_SetTrigSource(TrigSource trigSource);                 // РЈСЃС‚Р°РЅРѕРІРёС‚СЊ РёСЃС‚РѕС‡РЅРёРє СЃРёРЅС…СЂРѕРЅРёР·Р°С†РёРё.
-
-void FPGA_SetTrigPolarity(TrigPolarity polarity);               // РЈСЃС‚Р°РЅРѕРІРёС‚СЊ РїРѕР»СЏСЂРЅРѕСЃС‚СЊ СЃРёРЅС…СЂРѕРЅРёР·Р°С†РёРё.
-
-void FPGA_SetTrigInput(TrigInput trigInput);                    // РЈСЃС‚Р°РЅРѕРІРёС‚СЊ СЂРµР¶РёРј РІС…РѕРґР° СЃРёРЅС…СЂРѕРЅРёР·Р°С†РёРё.
+/// Установить относительный уровень синхронизации
+void FPGA_SetTrigLev(TrigSource ch, uint16 trigLev);
+/// Установить источник синхронизации
+void FPGA_SetTrigSource(TrigSource trigSource);
+/// Установить полярность синхронизации
+void FPGA_SetTrigPolarity(TrigPolarity polarity);
+/// Установить режим входа синхронизации
+void FPGA_SetTrigInput(TrigInput trigInput);
 
 void FPGA_SetResistance(Channel ch, Resistance resistance);
 
 void FPGA_SetBandwidth(Channel ch);
-
-void FPGA_ReadPoint(void);                                      // Р¤СѓРЅРєС†РёСЏ С‡С‚РµРЅРёСЏ С‚РѕС‡РєРё РїСЂРё РїРѕС‚РѕС‡РµС‡РЅРѕРј РІС‹РІРѕРґРµ. Р’С‹Р·С‹РІР°РµС‚СЃСЏ РёР· РІРЅРµС€РЅРµРіРѕ РїСЂРµСЂС‹РІР°РЅРёСЏ.
-
-const char* FPGA_GetTShiftString(int16 tShiftRel, char buffer[20]); // Р’РѕР·РІСЂР°С‰Р°РµС‚ СѓСЃС‚Р°РЅРѕРІР»РµРЅРЅРѕРµ СЃРјРµС‰РµРЅРёРµ РїРѕ РІСЂРµРјРµРЅРё РІ С‚РµРєСЃС‚РѕРІРѕРј РІРёРґРµ, РїСЂРёРіРѕРґРЅРѕРј РґР»СЏ РІС‹РІРѕРґР° РЅР° СЌРєСЂР°РЅ.
+/// Функция чтения точки при поточечном выводе. Вызывается из внешнего прерывания
+void FPGA_ReadPoint(void);
+/// Возвращает установленное смещение по времени в текстовом виде, пригодном для вывода на экран
+const char* FPGA_GetTShiftString(int16 tShiftRel, char buffer[20]);
 
 typedef enum
 {
@@ -105,3 +114,6 @@ typedef enum
 
 
 void FPGA_Write(TypeRecord type, uint16 *address, uint data, bool restart);
+
+/** @}
+ */

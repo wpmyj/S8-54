@@ -44,8 +44,8 @@ static const Settings defaultSettings =
             MAKE_COLOR(0, 0, 0),        // COLOR_BLACK
             MAKE_COLOR(31, 63, 31),     // COLOR_WHITE
             MAKE_COLOR(15, 31, 15),     // COLOR_GRID
-            MAKE_COLOR(1, 50, 31),      // COLOR_DATA_A
-            MAKE_COLOR(0, 63, 0),       // COLOR_DATA_B
+            MAKE_COLOR(1, 50, 31),      // COLOR_DATA_1
+            MAKE_COLOR(0, 63, 0),       // COLOR_DATA_2
             MAKE_COLOR(26, 54, 26),     // COLOR_MENU_FIELD
             MAKE_COLOR(31, 44, 0),      // COLOR_MENU_TITLE
             MAKE_COLOR(15, 22, 0),      // COLOR_MENU_TITLE_DARK

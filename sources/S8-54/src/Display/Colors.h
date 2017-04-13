@@ -3,25 +3,32 @@
 
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+/** @addtogroup Painter
+ *  @{
+ *  @defgroup Colors
+ *  @{
+ */
+
 Color ColorCursors(Channel cnan);
-Color ColorTrig(void);                  // Возвращает цвет синхронизации.
-Color ColorMenuTitle(bool inShade);     // Цвет заголовка страницы. inShade == true, если страница затенена
-Color ColorMenuItem(bool inShade);      // Цвет элемента меню.
-Color ColorBorderMenu(bool inShade);    // Цвет окантовки меню.
-Color ColorContrast(Color color);       // Возвращает цвет, контрастный к color. Может быть белым или чёрным.
-Color LightShadingTextColor(void);      // Светлый цвет в тени.
+Color ColorTrig(void);                  ///< Возвращает цвет синхронизации.
+Color ColorMenuTitle(bool inShade);     ///< Цвет заголовка страницы. inShade == true, если страница затенена
+Color ColorMenuItem(bool inShade);      ///< Цвет элемента меню.
+Color ColorBorderMenu(bool inShade);    ///< Цвет окантовки меню.
+Color ColorContrast(Color color);       ///< Возвращает цвет, контрастный к color. Может быть белым или чёрным.
+Color LightShadingTextColor(void);      ///< Светлый цвет в тени.
 
 
 #define ColorMenuField() COLOR_MENU_FIELD
-// Чуть менее светлый цвет, чем цвет элемента меню. Используется для создания эффекта объёма.
+/// Чуть менее светлый цвет, чем цвет элемента меню. Используется для создания эффекта объёма.
 #define ColorMenuItemLessBright()   COLOR_MENU_ITEM_DARK
-// Чуть более светлый цвет, чем цвет заголовка страницы. Используется для создания эффекта объёма.
+/// Чуть более светлый цвет, чем цвет заголовка страницы. Используется для создания эффекта объёма.
 #define ColorMenuTitleBrighter()    COLOR_MENU_TITLE_BRIGHT
-// Чуть менее светлый цвет, чем цвет заголовка страницы. Используется для создания эффекта объёма.
+/// Чуть менее светлый цвет, чем цвет заголовка страницы. Используется для создания эффекта объёма.
 #define ColorMenuTitleLessBright()  COLOR_MENU_TITLE_DARK
-// Чуть более светлый цвет, чем цвет элемента меню. Используется для создания эффекта объёма.
+/// Чуть более светлый цвет, чем цвет элемента меню. Используется для создания эффекта объёма.
 #define ColorMenuItemBrighter()     COLOR_MENU_ITEM_BRIGHT
-// Тёмный цвет в тени.
+/// Тёмный цвет в тени.
 #define DarkShadingTextColor()      COLOR_MENU_TITLE_DARK
 
 typedef struct
@@ -55,3 +62,6 @@ extern Color gColorFill;
 extern Color gColorBack;
 extern Color gColorGrid;
 extern Color gColorChan[4];
+
+/** @}
+ */

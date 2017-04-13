@@ -45,11 +45,11 @@ typedef unsigned char bool;
 // Тип цвета
 typedef enum
 {
-    COLOR_BLACK             = 0x00,
-    COLOR_WHITE             = 0x01,
-    COLOR_GRID              = 0x02,
-    COLOR_DATA_A            = 0x03,
-    COLOR_DATA_B            = 0x04,
+    COLOR_BLACK             = 0x00,     ///< Чёрный
+    COLOR_WHITE             = 0x01,     ///< Белый
+    COLOR_GRID              = 0x02,     ///< Сетка
+    COLOR_DATA_1            = 0x03,     ///< Данные первого канала
+    COLOR_DATA_2            = 0x04,     ///< Данные второго канала
     COLOR_MENU_FIELD        = 0x05,
     COLOR_MENU_TITLE        = 0x06,
     COLOR_MENU_TITLE_DARK   = 0x07,
@@ -67,8 +67,8 @@ typedef enum
     INVERSE
 } Color;
 
-typedef void    (*pFuncVV)(void);               // Указатель на функцию, ничего не принимающую и ничего не возвращающую.
-typedef void    (*pFuncVpV)(void*);             // Указатель на функцию, принимающую указатель на void и ничего не возвращающую.
+typedef void    (*pFuncVV)(void);               ///< Указатель на функцию, ничего не принимающую и ничего не возвращающую.
+typedef void    (*pFuncVpV)(void*);             ///< Указатель на функцию, принимающую указатель на void и ничего не возвращающую.
 typedef bool    (*pFuncBV)(void);
 typedef void    (*pFuncVB)(bool);
 typedef void    (*pFuncVI)(int);
