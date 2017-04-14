@@ -2,6 +2,14 @@
 #include "defines.h"
 
 
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+/** @addtogroup Utils
+ *  @{
+ *  @defgroup Debug
+ *  @{
+ */
+
 void Sys_PrintSizeStack(void);
 
 #define PROFILER_INIT()   uint timeProfiler = gTimerTics; uint time_ = 0;
@@ -42,3 +50,6 @@ typedef struct
 //void DBG_Log_Start(void);
 //void DBG_Log_Point(char *point);
 //void DBG_Log_Out(void);
+
+/** @}  @}
+ */

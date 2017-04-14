@@ -3,6 +3,13 @@
 
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+/** @addtogroup Utils
+ *  @{
+ *  @defgroup Measures
+ *  @{
+ */
+
 // Виды измерений
 typedef enum
 {
@@ -34,18 +41,35 @@ typedef enum
 
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-char        Measure_GetChar(Measure measure);
-bool        Measure_IsActive(int row, int col); 
-void        Measure_GetActive(int *row, int *col);
-void        Measure_SetActive(int row, int col);
-int         Measure_GetDY(void);
-int         Measure_GetDX(void);
+char Measure_GetChar(Measure measure);
+
+bool Measure_IsActive(int row, int col); 
+
+void Measure_GetActive(int *row, int *col);
+
+void Measure_SetActive(int row, int col);
+
+int Measure_GetDY(void);
+
+int Measure_GetDX(void);
+
 const char* Measure_Name(int row, int col);
-Measure     Measure_Type(int row, int col);
-int         Measure_NumRows(void);
-int         Measure_NumCols(void);
-int         Measure_GetTopTable(void);
-int         Measure_GetDeltaGridLeft(void);
-int         Measure_GetDeltaGridBottom(void);
-void        Measure_ShortPressOnSmallButonMarker(void);
-void        Measure_DrawPageChoice(void);                   // Нарисовать страницу выбора измерений.
+
+Measure Measure_Type(int row, int col);
+
+int Measure_NumRows(void);
+
+int Measure_NumCols(void);
+
+int Measure_GetTopTable(void);
+
+int Measure_GetDeltaGridLeft(void);
+
+int Measure_GetDeltaGridBottom(void);
+
+void Measure_ShortPressOnSmallButonMarker(void);
+/// Нарисовать страницу выбора измерений
+void Measure_DrawPageChoice(void);
+
+/** @}  @}
+ */
