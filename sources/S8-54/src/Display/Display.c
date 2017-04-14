@@ -50,7 +50,7 @@ typedef struct
 
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-static const StructWarning warns[Warning_NumWarnings] =
+static const StructWarning warns[Warning_Count] =
 {
     {LimitChan1_Volts, false, {{"опедек йюмюк 1 - бнкэр/дек"}, {"LIMIT CHANNEL 1 - VOLTS/DIV"}}},
     {LimitChan2_Volts, false, {{"опедек йюмюк 2 - бнкэр/дек"}, {"LIMIT CHANNEL 2 - VOLTS/DIV"}}},
@@ -66,13 +66,11 @@ static const StructWarning warns[Warning_NumWarnings] =
     {SignalIsSaved, true, {{"яхцмюк янупюмем"}, {"SIGNAL IS SAVED"}}},
     {SignalIsDeleted, true, {{"яхцмкю сдюкем"}, {"SIGNAL IS DELETED"}}},
     {MenuDebugEnabled, true, {{"лемч нркюдйю бйкчвемн"}, {"MENU DEBUG IS ENABLED"}}},
-    {MovingData, true, {{"онднфдхре меяйнкэйн яейсмд, хдер оепелеыемхе дюммшу"}, {"WAIT A FEW SECONDS, GOES A MOVEMENT DATA"}}},
     {TimeNotSet, true, {{"бпелъ ме сярюмнбкемн. лнфере сярюмнбхрэ ецн яеивюя"}, {"TIME IS NOT SET. YOU CAN INSTALL IT NOW"}}},
     {SignalNotFound, true, {{"яхцмюк ме мюидем"}, {"SIGNAL IS NOT FOUND"}}},
     {SetTPosToLeft, true,
     {{"мю пюгбепрйюу ледкеммее 10ЛЯ/ДЕК фекюрекэмн сярюмюб-", "кхбюрэ \"пюгбепрйю - \x7b\" б онкнфемхе \"кЕБН\" дкъ сяйнпе-", "мхъ бшбндю яхцмюкю"},
     {"AT SCANNER SLOWLY 10ms/div DESIRABLY SET \"SCAN - \x7b\" IN", "SWITCH \"Left\" FOR TO ACCELERATE THE OUTPUT SIGNAL"}}},
-    {VerySmallMeasures, true, {{"нвемэ люкн хглепемхи"}, {"VERY SMALL MEASURES"}}},
     {NeedRebootDevice, true, {{"дКЪ БЯРСОКЕМХЪ ХГЛЕМЕМХИ Б ЯХКС", "БШЙКЧВХРЕ ОПХАНП"}, {"FOR THE INTRODUCTION OF CHANGES", "IN FORCE SWITCH OFF THE DEVICE"}}},
     {ImpossibleEnableMathFunction, true, {"нРЙКЧВХРЕ БШВХЯКЕМХЕ аот", "DISCONNECT CALCULATION OF FFT"}},
     {ImpossibleEnableFFT, true, {{"нРЙКЧВХРЕ ЛЮРЕЛЮРХВЕЯЙСЧ ТСМЙЖХЧ"}, {"DISCONNECT MATHEMATICAL FUNCTION"}}},

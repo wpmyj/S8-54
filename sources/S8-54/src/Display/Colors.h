@@ -7,6 +7,7 @@
 /** @addtogroup Painter
  *  @{
  *  @defgroup Colors
+ *  @brief Параметры цветов
  *  @{
  */
 
