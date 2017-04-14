@@ -1,10 +1,15 @@
-#pragma once
+﻿#pragma once
 #include "Globals.h"
 #include "VCP/VCP.h"
 #include "Ethernet/TcpSocket.h"
 
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+/** @defgroup SCPI
+ *  @{
+ */
+
 #define ENTER_ANALYSIS                                  \
     Word parameter;                                     \
     if (GetWord(buffer, &parameter, 0)) {               \
@@ -28,16 +33,25 @@
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 typedef struct 
 {
-    char        *name;
-    pFuncpU8    func;
+    char        *name;  ///< Название команды
+    pFuncpU8    func;   ///< Функция выполнения
 } StructCommand;
 
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 void SCPI_ParseNewCommand(uint8 *buffer);
+
 void SCPI_ProcessingCommand(const StructCommand *commands, uint8 *buffer);
+
 void Process_DISPLAY(uint8 *buffer);
+
 void Process_CHANNEL(uint8 *buffer);
+
 void Process_TRIG(uint8 *buffer);
+
 void Process_TBASE(uint8 *buffer);
+
 bool SCPI_FirstIsInt(uint8 *buffer, int *value, int min, int max);
+
+/** @}
+ */

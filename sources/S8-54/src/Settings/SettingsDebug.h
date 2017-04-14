@@ -1,10 +1,18 @@
-п»ї#pragma once
+#pragma once
 
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+/** @addtogroup Settings
+ *  @{
+ *  @defgroup SettingsDegug Settings Debug
+ *  @{
+ */
 
 #define CONSOLE_NUM_STRINGS     (set.debug.numStrings)
 #define CONSOLE_SIZE_FONT       (set.debug.sizeFont ? 8 : 5)
-#define MODE_PAUSE_CONSOLE      (set.debug.modePauseConsole && gBF.showDebugMenu)   // Р•СЃР»Рё truРµ, С‚Рѕ РІРєР»СЋС‡С‘РЅ СЂРµР¶РёРј РѕСЃС‚РЅРѕРІРєРё РєРѕРЅСЃРѕР»Рё, РІ РєРѕС‚РѕСЂРѕРј РЅР°Р¶Р°С‚РёРµ РџРЈРЎРљ/РЎРўРћРџ РїСЂРёРѕСЃС‚Р°РЅР°РІР»РёРІР°РµС‚ РІС‹РІРѕРґ РІ РєРѕРЅСЃРѕР»СЊ
-#define CONSOLE_IN_PAUSE        (gBF.consoleInPause)                                // Р•СЃР»Рё 1, С‚Рѕ РєРѕРЅСЃРѕР»СЊ РЅР°С…РѕРґРёС‚СЃСЏ РІ СЂРµР¶РёРјРµ РїР°СѓР·С‹
+#define MODE_PAUSE_CONSOLE      (set.debug.modePauseConsole && gBF.showDebugMenu)   // Если truе, то включён режим остновки консоли, в котором нажатие ПУСК/СТОП приостанавливает вывод в консоль
+#define CONSOLE_IN_PAUSE        (gBF.consoleInPause)                                // Если 1, то консоль находится в режиме паузы
 #define NUM_MEASURES_FOR_GATES  (set.debug.numMeasuresForGates)
 #define TIME_COMPENSATION       (set.debug.timeCompensation)
 #define SHOW_RAND_INFO          (set.debug.showRandInfo)
@@ -16,4 +24,8 @@
 
 
 float   GetStretchADC(Channel ch);
+
 void    SetStretchADC(Channel ch, float kStretch);
+
+/** @}  @}
+ */

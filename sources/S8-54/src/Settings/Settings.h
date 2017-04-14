@@ -15,6 +15,13 @@
 #include "SettingsMath.h"
 
 
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+/** @defgroup Settings
+ *  @{
+ */
+
+
 #define SIZE_NONRESET_SETTINGS 200
 
 
@@ -362,3 +369,6 @@ void Settings_Save(void);                   // Сохранить настройки во флеш-памят
 bool Settings_DebugModeEnable(void);        // Возвращает true, если включён режим отладки.
 void Settings_SaveState(Settings *set_);    // Сохраняет текущие настройки в set_.
 void Settings_RestoreState(const Settings *set_); // Восстанавливает ранее записанные настройки в set_.
+
+/** @}
+ */

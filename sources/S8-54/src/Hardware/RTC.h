@@ -1,4 +1,4 @@
-#pragma once
+п»ї#pragma once
 #include "defines.h"
 #include "Settings/DataSettings.h"
 
@@ -8,11 +8,11 @@
 /** @addtogroup Hardware
  *  @{
  *  @defgroup RTC
- *  @brief Работа с часами реального времени
+ *  @brief Р Р°Р±РѕС‚Р° СЃ С‡Р°СЃР°РјРё СЂРµР°Р»СЊРЅРѕРіРѕ РІСЂРµРјРµРЅРё
  *  @{
  */
 
-/// Инициализация
+/// РРЅРёС†РёР°Р»РёР·Р°С†РёСЏ
 void RTC_Init(void);
 
 bool RTC_SetTimeAndData(int8 day, int8 month, int8 year, int8 hours, int8 minutes, int8 seconds);

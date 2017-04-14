@@ -2,6 +2,14 @@
 #include "DataSettings.h"
 
 
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+/** @addtogroup Settings
+ *  @{
+ *  @defgroup SettingsChannel Settings Channel
+ *  @{
+ */
+
 #define SET_INVERSE(ch)         (set.chan[ch].inverse)
 #define SET_INVERSE_A           (SET_INVERSE(A))
 #define SET_INVERSE_B           (SET_INVERSE(B))
@@ -45,7 +53,7 @@
 #define SET_RESISTANCE_B        (SET_RESISTANCE(B))
 
 #define SET_CALIBR_MODE(ch)     (set.chan[ch].calibrationMode)
-#define SET_CALIBR_MODE_A           (SET_CALIBR_MODE(A))
+#define SET_CALIBR_MODE_A       (SET_CALIBR_MODE(A))
 #define CALIBR_MODE_B           (SET_CALIBR_MODE(B))
 
 
@@ -57,3 +65,6 @@ bool    sChannel_NeedForDraw(const uint8 *data, Channel ch, DataSettings *ds);
 const char *sChannel_Range2String(Range range, Divider divider);
 const char *sChannel_RShift2String(uint16 rShiftRel, Range range, Divider divider, char buffer[20]);
 const char *sChannel_TShift2String(int16 tShiftRel, TBase tBase);
+
+/** @}  @}
+ */

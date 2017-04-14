@@ -1,5 +1,13 @@
-п»ї#pragma once
+#pragma once
 
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+/** @addtogroup Settings
+ *  @{
+ *  @defgroup SettingsCursors Settings Cursors
+ *  @{
+ */
 
 #define CURSORS_SHOW_FREQ   (set.cursors.showFreq)
 #define CURS_MOVE_PERCENTS  (set.cursors.movement == CursMovement_Percents)
@@ -39,9 +47,18 @@
 #define CURS_LOOK_BOTH(numCur) (set.cursors.lookMode[numCur] == CursLookMode_Both)
 
 
-float       sCursors_GetCursPosU(Channel ch, int numCur);                         // РџРѕР»СѓС‡РёС‚СЊ РїРѕР·РёС†РёСЋ РєСѓСЂСЃРѕСЂР° РЅР°РїСЂСЏР¶РµРЅРёСЏ.
-bool        sCursors_NecessaryDrawCursors(void);                                    // Р’РѕР·РІСЂР°С‰Р°РµС‚ true,РµСЃР»Рё РЅСѓР¶РЅРѕ СЂРёСЃРѕРІР°С‚СЊ РєСѓСЂСЃРѕСЂС‹.
-const char* sCursors_GetCursVoltage(Channel source, int numCur, char buffer[20]);   // РџРѕР»СѓС‡РёС‚СЊ СЃС‚СЂРѕРєСѓ РєСѓСЂСЃРѕСЂР° РЅР°РїСЂСЏР¶РµРЅРёСЏ.
-const char* sCursors_GetCursorTime(Channel source, int numCur, char buffer[20]);    // РџРѕР»СѓС‡РёС‚СЊ СЃС‚СЂРѕРєСѓ РєСѓСЂСЃРѕСЂР° РІСЂРµРјРµРЅРё.
-const char* sCursors_GetCursorPercentsU(Channel source, char buffer[20]);           // РџРѕР»СѓС‡РёС‚СЊ СЃС‚СЂРѕРєСѓ РїСЂРѕС†РµРЅС‚РѕРІ РєСѓСЂСЃРѕСЂРѕРІ РЅР°РїСЂСЏР¶РµРЅРёСЏ.
-const char* sCursors_GetCursorPercentsT(Channel source, char buffer[20]);           // РџРѕР»СѓС‡РёС‚СЊ СЃС‚СЂРѕРєСѓ РїСЂРѕС†РµРЅС‚РѕРІ РєСѓСЂСЃРѕСЂРѕРІ РІСЂРµРјРµРЅРё.
+ /// Получить позицию курсора напряжения
+float sCursors_GetCursPosU(Channel ch, int numCur);
+/// Возвращает true,если нужно рисовать курсоры
+bool  sCursors_NecessaryDrawCursors(void);
+/// Получить строку курсора напряжения
+const char* sCursors_GetCursVoltage(Channel source, int numCur, char buffer[20]);
+/// Получить строку курсора времени
+const char* sCursors_GetCursorTime(Channel source, int numCur, char buffer[20]);
+/// Получить строку процентов курсоров напряжения
+const char* sCursors_GetCursorPercentsU(Channel source, char buffer[20]);
+/// Получить строку процентов курсоров времени
+const char* sCursors_GetCursorPercentsT(Channel source, char buffer[20]);
+
+/** @}  @}
+ */

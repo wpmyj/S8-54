@@ -1,8 +1,14 @@
 ﻿#pragma once
-
-
 #include "Settings.h"
 
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+/** @addtogroup Settings
+ *  @{
+ *  @defgroup SettingsMemory Settings Memory
+ *  @{
+ */
 
 #define FILE_NAME_MASK          (set.memory.fileNameMask)
 #define FILE_NAME               (set.memory.fileName)
@@ -39,7 +45,15 @@
 #define SHOW_DIRECT_IN_MEM_INT  (set.memory.modeShowIntMem == ModeShowIntMem_Direct)
 
 
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
 int sMemory_NumBytesInChannel(bool forCalculate);
+
 int sMemory_NumPointsInChannel(void);
+
 NumPoinstFPGA NumPoints_2_FPGA_NUM_POINTS(int numPoints);
+
 int FPGA_NUM_POINTS_2_NumPoints(NumPoinstFPGA numPoints);
+
+/** @}  @}
+ */

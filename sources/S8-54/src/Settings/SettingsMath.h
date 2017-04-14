@@ -1,6 +1,14 @@
 ﻿#pragma once
 
 
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+/** @addtogroup Settings
+ *  @{
+ *  @defgroup SettingsMath Settings Math
+ *  @{
+ */
+
 #define SOURCE_FFT              (set.math.sourceFFT)
 #define SOURCE_FFT_A            (SOURCE_FFT == SourceFFT_ChannelA)
 #define SOURCE_FFT_B            (SOURCE_FFT == SourceFFT_ChannelB)
@@ -26,3 +34,6 @@
 #define POS_MATH_CUR(num)       (set.math.posCur[num])
 #define POS_MATH_CUR_0          (POS_MATH_CUR(0))
 #define POS_MATH_CUR_1          (POS_MATH_CUR(1))
+
+/** @}  @}
+ */

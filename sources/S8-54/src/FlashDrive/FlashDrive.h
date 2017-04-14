@@ -1,11 +1,11 @@
-#pragma once
+п»ї#pragma once
 #include <ff.h>
 
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 /** @defgroup FlashDrive
- *  @brief Работа с флешкой
+ *  @brief Р Р°Р±РѕС‚Р° СЃ С„Р»РµС€РєРѕР№
  *  @{
  */
 
@@ -27,17 +27,29 @@ typedef struct
 
 
 void    FDrive_Init(void);
+
 void    FDrive_Update(void);
+
 void    FDrive_Mount(void);
+
 void    FDrive_GetNumDirsAndFiles(const char* fullPath, int *numDirs, int *numFiles);
+
 bool    FDrive_GetNameDir(const char* fuulPath, int numDir, char *nameDirOut, StructForReadDir *sfrd);
+
 bool    FDrive_GetNextNameDir(char *nameDirOut, StructForReadDir *sfrd);
+
 void    FDrive_CloseCurrentDir(StructForReadDir *sfrd);
+
 bool    FDrive_GetNameFile(const char *fullPath, int numFile, char *nameFileOut, StructForReadDir *sfrd);
+
 bool    FDrive_GetNextNameFile(char *nameFileOut, StructForReadDir *sfrd);
-bool    FDrive_OpenNewFileForWrite(const char* fullPathToFile, StructForWrite *structForWrite); // Функция создаст файл для записи. Если такой файл уже существует, сотрёт его, заменит новым нулевой длины и откроет его
+
+bool    FDrive_OpenNewFileForWrite(const char* fullPathToFile, StructForWrite *structForWrite); // Р¤СѓРЅРєС†РёСЏ СЃРѕР·РґР°СЃС‚ С„Р°Р№Р» РґР»СЏ Р·Р°РїРёСЃРё. Р•СЃР»Рё С‚Р°РєРѕР№ С„Р°Р№Р» СѓР¶Рµ СЃСѓС‰РµСЃС‚РІСѓРµС‚, СЃРѕС‚СЂС‘С‚ РµРіРѕ, Р·Р°РјРµРЅРёС‚ РЅРѕРІС‹Рј РЅСѓР»РµРІРѕР№ РґР»РёРЅС‹ Рё РѕС‚РєСЂРѕРµС‚ РµРіРѕ
+
 bool    FDrive_WriteToFile(uint8* data, int sizeData, StructForWrite *structForWrite);
+
 bool    FDrive_CloseFile(StructForWrite *structForWrite);
+
 bool    FDrive_AppendStringToFile(const char* string);
 
 

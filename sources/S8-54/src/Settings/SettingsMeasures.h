@@ -1,7 +1,15 @@
-п»ї#pragma once
+#pragma once
 
 
-#define MEAS_COMPRESS_GRID  (set.measures.modeViewSignals == ModeViewSignals_Compress)  // РЎР¶РёРјР°С‚СЊ Р»Рё СЃРµС‚РєСѓ РїСЂРё РІС‹РІРѕРґРµ РёР·РјРµСЂРµРЅРёР№
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+/** @addtogroup Settings
+ *  @{
+ *  @defgroup SettingsMeasures Settings Measures
+ *  @{
+ */
+
+#define MEAS_COMPRESS_GRID  (set.measures.modeViewSignals == ModeViewSignals_Compress)  // Сжимать ли сетку при выводе измерений
 #define MEASURE(n)          (set.measures.measures[n])
 #define SHOW_MEASURES       (set.measures.show)
 #define MARKED_MEAS         (set.measures.marked)
@@ -28,3 +36,6 @@
 #define POS_MEAS_CUR_T(n)   (set.measures.posCurT[n])
 #define POS_MEAS_CUR_T_0    (POS_MEAS_CUR_T(0))
 #define POS_MEAS_CUR_T_1    (POS_MEAS_CUR_T(1))
+
+/** @}  @}
+ */

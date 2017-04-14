@@ -1,4 +1,4 @@
-#pragma once
+ï»¿#pragma once
 #include "Settings/SettingsTypes.h"
 
 
@@ -11,24 +11,24 @@
  */
 
 Color ColorCursors(Channel cnan);
-Color ColorTrig(void);                  ///< Âîçâðàùàåò öâåò ñèíõðîíèçàöèè.
-Color ColorMenuTitle(bool inShade);     ///< Öâåò çàãîëîâêà ñòðàíèöû. inShade == true, åñëè ñòðàíèöà çàòåíåíà
-Color ColorMenuItem(bool inShade);      ///< Öâåò ýëåìåíòà ìåíþ.
-Color ColorBorderMenu(bool inShade);    ///< Öâåò îêàíòîâêè ìåíþ.
-Color ColorContrast(Color color);       ///< Âîçâðàùàåò öâåò, êîíòðàñòíûé ê color. Ìîæåò áûòü áåëûì èëè ÷¸ðíûì.
-Color LightShadingTextColor(void);      ///< Ñâåòëûé öâåò â òåíè.
+Color ColorTrig(void);                  ///< Ð’Ð¾Ð·Ð²Ñ€Ð°Ñ‰Ð°ÐµÑ‚ Ñ†Ð²ÐµÑ‚ ÑÐ¸Ð½Ñ…Ñ€Ð¾Ð½Ð¸Ð·Ð°Ñ†Ð¸Ð¸.
+Color ColorMenuTitle(bool inShade);     ///< Ð¦Ð²ÐµÑ‚ Ð·Ð°Ð³Ð¾Ð»Ð¾Ð²ÐºÐ° ÑÑ‚Ñ€Ð°Ð½Ð¸Ñ†Ñ‹. inShade == true, ÐµÑÐ»Ð¸ ÑÑ‚Ñ€Ð°Ð½Ð¸Ñ†Ð° Ð·Ð°Ñ‚ÐµÐ½ÐµÐ½Ð°
+Color ColorMenuItem(bool inShade);      ///< Ð¦Ð²ÐµÑ‚ ÑÐ»ÐµÐ¼ÐµÐ½Ñ‚Ð° Ð¼ÐµÐ½ÑŽ.
+Color ColorBorderMenu(bool inShade);    ///< Ð¦Ð²ÐµÑ‚ Ð¾ÐºÐ°Ð½Ñ‚Ð¾Ð²ÐºÐ¸ Ð¼ÐµÐ½ÑŽ.
+Color ColorContrast(Color color);       ///< Ð’Ð¾Ð·Ð²Ñ€Ð°Ñ‰Ð°ÐµÑ‚ Ñ†Ð²ÐµÑ‚, ÐºÐ¾Ð½Ñ‚Ñ€Ð°ÑÑ‚Ð½Ñ‹Ð¹ Ðº color. ÐœÐ¾Ð¶ÐµÑ‚ Ð±Ñ‹Ñ‚ÑŒ Ð±ÐµÐ»Ñ‹Ð¼ Ð¸Ð»Ð¸ Ñ‡Ñ‘Ñ€Ð½Ñ‹Ð¼.
+Color LightShadingTextColor(void);      ///< Ð¡Ð²ÐµÑ‚Ð»Ñ‹Ð¹ Ñ†Ð²ÐµÑ‚ Ð² Ñ‚ÐµÐ½Ð¸.
 
 
 #define ColorMenuField() COLOR_MENU_FIELD
-/// ×óòü ìåíåå ñâåòëûé öâåò, ÷åì öâåò ýëåìåíòà ìåíþ. Èñïîëüçóåòñÿ äëÿ ñîçäàíèÿ ýôôåêòà îáú¸ìà.
+/// Ð§ÑƒÑ‚ÑŒ Ð¼ÐµÐ½ÐµÐµ ÑÐ²ÐµÑ‚Ð»Ñ‹Ð¹ Ñ†Ð²ÐµÑ‚, Ñ‡ÐµÐ¼ Ñ†Ð²ÐµÑ‚ ÑÐ»ÐµÐ¼ÐµÐ½Ñ‚Ð° Ð¼ÐµÐ½ÑŽ. Ð˜ÑÐ¿Ð¾Ð»ÑŒÐ·ÑƒÐµÑ‚ÑÑ Ð´Ð»Ñ ÑÐ¾Ð·Ð´Ð°Ð½Ð¸Ñ ÑÑ„Ñ„ÐµÐºÑ‚Ð° Ð¾Ð±ÑŠÑ‘Ð¼Ð°.
 #define ColorMenuItemLessBright()   COLOR_MENU_ITEM_DARK
-/// ×óòü áîëåå ñâåòëûé öâåò, ÷åì öâåò çàãîëîâêà ñòðàíèöû. Èñïîëüçóåòñÿ äëÿ ñîçäàíèÿ ýôôåêòà îáú¸ìà.
+/// Ð§ÑƒÑ‚ÑŒ Ð±Ð¾Ð»ÐµÐµ ÑÐ²ÐµÑ‚Ð»Ñ‹Ð¹ Ñ†Ð²ÐµÑ‚, Ñ‡ÐµÐ¼ Ñ†Ð²ÐµÑ‚ Ð·Ð°Ð³Ð¾Ð»Ð¾Ð²ÐºÐ° ÑÑ‚Ñ€Ð°Ð½Ð¸Ñ†Ñ‹. Ð˜ÑÐ¿Ð¾Ð»ÑŒÐ·ÑƒÐµÑ‚ÑÑ Ð´Ð»Ñ ÑÐ¾Ð·Ð´Ð°Ð½Ð¸Ñ ÑÑ„Ñ„ÐµÐºÑ‚Ð° Ð¾Ð±ÑŠÑ‘Ð¼Ð°.
 #define ColorMenuTitleBrighter()    COLOR_MENU_TITLE_BRIGHT
-/// ×óòü ìåíåå ñâåòëûé öâåò, ÷åì öâåò çàãîëîâêà ñòðàíèöû. Èñïîëüçóåòñÿ äëÿ ñîçäàíèÿ ýôôåêòà îáú¸ìà.
+/// Ð§ÑƒÑ‚ÑŒ Ð¼ÐµÐ½ÐµÐµ ÑÐ²ÐµÑ‚Ð»Ñ‹Ð¹ Ñ†Ð²ÐµÑ‚, Ñ‡ÐµÐ¼ Ñ†Ð²ÐµÑ‚ Ð·Ð°Ð³Ð¾Ð»Ð¾Ð²ÐºÐ° ÑÑ‚Ñ€Ð°Ð½Ð¸Ñ†Ñ‹. Ð˜ÑÐ¿Ð¾Ð»ÑŒÐ·ÑƒÐµÑ‚ÑÑ Ð´Ð»Ñ ÑÐ¾Ð·Ð´Ð°Ð½Ð¸Ñ ÑÑ„Ñ„ÐµÐºÑ‚Ð° Ð¾Ð±ÑŠÑ‘Ð¼Ð°.
 #define ColorMenuTitleLessBright()  COLOR_MENU_TITLE_DARK
-/// ×óòü áîëåå ñâåòëûé öâåò, ÷åì öâåò ýëåìåíòà ìåíþ. Èñïîëüçóåòñÿ äëÿ ñîçäàíèÿ ýôôåêòà îáú¸ìà.
+/// Ð§ÑƒÑ‚ÑŒ Ð±Ð¾Ð»ÐµÐµ ÑÐ²ÐµÑ‚Ð»Ñ‹Ð¹ Ñ†Ð²ÐµÑ‚, Ñ‡ÐµÐ¼ Ñ†Ð²ÐµÑ‚ ÑÐ»ÐµÐ¼ÐµÐ½Ñ‚Ð° Ð¼ÐµÐ½ÑŽ. Ð˜ÑÐ¿Ð¾Ð»ÑŒÐ·ÑƒÐµÑ‚ÑÑ Ð´Ð»Ñ ÑÐ¾Ð·Ð´Ð°Ð½Ð¸Ñ ÑÑ„Ñ„ÐµÐºÑ‚Ð° Ð¾Ð±ÑŠÑ‘Ð¼Ð°.
 #define ColorMenuItemBrighter()     COLOR_MENU_ITEM_BRIGHT
-/// Ò¸ìíûé öâåò â òåíè.
+/// Ð¢Ñ‘Ð¼Ð½Ñ‹Ð¹ Ñ†Ð²ÐµÑ‚ Ð² Ñ‚ÐµÐ½Ð¸.
 #define DarkShadingTextColor()      COLOR_MENU_TITLE_DARK
 
 typedef struct
@@ -45,10 +45,10 @@ typedef struct
     bool    alreadyUsed;
 } ColorType;
 
-void Color_Log(Color color);           // Âûâåñòè â ëîã çíà÷åíèå öâåòà.
+void Color_Log(Color color);           // Ð’Ñ‹Ð²ÐµÑÑ‚Ð¸ Ð² Ð»Ð¾Ð³ Ð·Ð½Ð°Ñ‡ÐµÐ½Ð¸Ðµ Ñ†Ð²ÐµÑ‚Ð°.
 void Color_BrightnessChange(ColorType *colorType, int delta);
 void Color_SetBrightness(ColorType *colorType, float brightness);
-void Color_Init(ColorType *colorType, bool forced);                 // Åñëè forced == false, òî èíèöèàëèçàöèÿ ïðîèñõîäèò òîëüêî ïðè ïåðâîì âûçîâå ôóíêöèè
+void Color_Init(ColorType *colorType, bool forced);                 // Ð•ÑÐ»Ð¸ forced == false, Ñ‚Ð¾ Ð¸Ð½Ð¸Ñ†Ð¸Ð°Ð»Ð¸Ð·Ð°Ñ†Ð¸Ñ Ð¿Ñ€Ð¾Ð¸ÑÑ…Ð¾Ð´Ð¸Ñ‚ Ñ‚Ð¾Ð»ÑŒÐºÐ¾ Ð¿Ñ€Ð¸ Ð¿ÐµÑ€Ð²Ð¾Ð¼ Ð²Ñ‹Ð·Ð¾Ð²Ðµ Ñ„ÑƒÐ½ÐºÑ†Ð¸Ð¸
 void Color_ComponentChange(ColorType * const colorType, int delta);
 
 const char* NameColorFromValue(uint16 colorValue);

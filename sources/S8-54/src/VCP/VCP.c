@@ -40,7 +40,7 @@ static bool PrevSendingComplete(void)
 //------------------------------------------------------------------------------------------------------------------------------------------------------
 void VCP_SendDataAsinch(uint8 *buffer, int size)
 {
-#define SIZE_BUFFER  64
+#define SIZE_BUFFER 64
     static uint8 trBuf[SIZE_BUFFER];
 
     size = Math_MinInt(size, SIZE_BUFFER);
@@ -136,9 +136,7 @@ void VCP_SendFormatStringAsynch(char *format, ...)
         return;
     }
 
-#undef SIZE_BUFFER
-#define SIZE_BUFFER 200
-    static char buffer[SIZE_BUFFER];
+    static char buffer[200];
     __va_list args;
     va_start(args, format);
     vsprintf(buffer, format, args);
@@ -151,9 +149,7 @@ void VCP_SendFormatStringAsynch(char *format, ...)
 //------------------------------------------------------------------------------------------------------------------------------------------------------
 void VCP_SendFormatStringSynch(char *format, ...)
 {
-#undef SIZE_BUFFER
-#define SIZE_BUFFER 200
-    char buffer[SIZE_BUFFER];
+    char buffer[200];
     __va_list args;
     va_start(args, format);
     vsprintf(buffer, format, args);

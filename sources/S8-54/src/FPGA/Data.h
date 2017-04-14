@@ -1,4 +1,4 @@
-#pragma once
+п»ї#pragma once
 #include "Settings/DataSettings.h"
 #include "Settings/SettingsTime.h"
 
@@ -11,10 +11,10 @@
  *  @{
  */
 
-#define DS              pDS                 // Указатель на настройки текущего рисуемого сигнала
-#define DATA(ch)        (dataChan[ch])      // Указатель на данные отображаемого сигнала
-#define DATA_A          (DATA(A))           // Указатель на данные отображаемого канала 1
-#define DATA_B          (DATA(B))           // Указатель на данные отображаемого канала 2
+#define DS              pDS                 // РЈРєР°Р·Р°С‚РµР»СЊ РЅР° РЅР°СЃС‚СЂРѕР№РєРё С‚РµРєСѓС‰РµРіРѕ СЂРёСЃСѓРµРјРѕРіРѕ СЃРёРіРЅР°Р»Р°
+#define DATA(ch)        (dataChan[ch])      // РЈРєР°Р·Р°С‚РµР»СЊ РЅР° РґР°РЅРЅС‹Рµ РѕС‚РѕР±СЂР°Р¶Р°РµРјРѕРіРѕ СЃРёРіРЅР°Р»Р°
+#define DATA_A          (DATA(A))           // РЈРєР°Р·Р°С‚РµР»СЊ РЅР° РґР°РЅРЅС‹Рµ РѕС‚РѕР±СЂР°Р¶Р°РµРјРѕРіРѕ РєР°РЅР°Р»Р° 1
+#define DATA_B          (DATA(B))           // РЈРєР°Р·Р°С‚РµР»СЊ РЅР° РґР°РЅРЅС‹Рµ РѕС‚РѕР±СЂР°Р¶Р°РµРјРѕРіРѕ РєР°РЅР°Р»Р° 2
 #define DATA_INT(ch)    (dataChanInt[ch])
 #define DATA_LAST(ch)   (dataChanLast[ch])
 
@@ -31,7 +31,11 @@ EXTERN uint8 *dataChanInt[2];
 
 #undef EXTERN
 
-// Настройки, действующие для отображаемого в данный момент сигнала
+/** @defgroup GlobalData Global Data
+ *  @brief РќР°СЃС‚СЂРѕР№РєРё, РґРµР№СЃС‚РІСѓСЋС‰РёРµ РґР»СЏ РѕС‚РѕР±СЂР°Р¶Р°РµРјРѕРіРѕ РІ РґР°РЅРЅС‹Р№ РјРѕРјРµРЅС‚ СЃРёРіРЅР°Р»Р°
+ *  @{
+ */
+
 #define G_TSHIFT        (TSHIFT(DS))
 #define G_TBASE         (TBASE(DS))
 #define G_INVERSE(ch)   (INVERSE(DS, ch))
@@ -52,10 +56,16 @@ EXTERN uint8 *dataChanInt[2];
 #define G_TIME_MONTH    (TIME_MONTH(DS))
 #define G_TIME_YEAR     (TIME_YEAR(DS))
 
+/** @}
+ */
+
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-void Data_GetFromIntMemory(void);           // Считать из ППЗУ информацию о настройках и указатели на данные
+/// РЎС‡РёС‚Р°С‚СЊ РёР· РџРџР—РЈ РёРЅС„РѕСЂРјР°С†РёСЋ Рѕ РЅР°СЃС‚СЂРѕР№РєР°С… Рё СѓРєР°Р·Р°С‚РµР»Рё РЅР° РґР°РЅРЅС‹Рµ
+void Data_GetFromIntMemory(void);
+
 void Data_GetAverageFromDataStorage(void);
+
 void Data_Load(void);
 
 /** @}  @}

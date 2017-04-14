@@ -401,7 +401,6 @@ err_t ethernetif_init(struct netif *netif)
 /**
   * @brief  Returns the current time in milliseconds
   *         when LWIP_TIMERS == 1 and NO_SYS == 1
-  * @param  None
   * @retval Current Time value
   */
 u32_t sys_now(void)

@@ -1,4 +1,4 @@
-#pragma once
+п»ї#pragma once
 #include "defines.h"
 #include "Settings/SettingsTypes.h"
 
@@ -8,23 +8,23 @@
 /** @addtogroup FPGA
  *  @{
  *  @defgroup FPGA_Extensions FPGA Extensions
- *  @brief Дополнительные функции работы с альтерой
+ *  @brief Р”РѕРїРѕР»РЅРёС‚РµР»СЊРЅС‹Рµ С„СѓРЅРєС†РёРё СЂР°Р±РѕС‚С‹ СЃ Р°Р»СЊС‚РµСЂРѕР№
  *  @{
  */
 
-/// Запуск функции калибровки
+/// Р—Р°РїСѓСЃРє С„СѓРЅРєС†РёРё РєР°Р»РёР±СЂРѕРІРєРё
 void  FPGA_ProcedureCalibration(void);
-/// Провести процедуру балансировки
+/// РџСЂРѕРІРµСЃС‚Рё РїСЂРѕС†РµРґСѓСЂСѓ Р±Р°Р»Р°РЅСЃРёСЂРѕРІРєРё
 void  FPGA_BalanceChannel(Channel ch);
-/// Запуск процесса поиска сигнала
+/// Р—Р°РїСѓСЃРє РїСЂРѕС†РµСЃСЃР° РїРѕРёСЃРєР° СЃРёРіРЅР°Р»Р°
 void  FPGA_AutoFind(void);
 
 bool  FreqMeter_Init(void);
 
 void  FreqMeter_Draw(int x, int y);
-/// Получить значение частоты для вывода в нижней части экрана
+/// РџРѕР»СѓС‡РёС‚СЊ Р·РЅР°С‡РµРЅРёРµ С‡Р°СЃС‚РѕС‚С‹ РґР»СЏ РІС‹РІРѕРґР° РІ РЅРёР¶РЅРµР№ С‡Р°СЃС‚Рё СЌРєСЂР°РЅР°
 float FreqMeter_GetFreq(void);
-/// Функция вызывается из FPGA
+/// Р¤СѓРЅРєС†РёСЏ РІС‹Р·С‹РІР°РµС‚СЃСЏ РёР· FPGA
 void  FreqMeter_Update(uint16 flag);
 
 /** @}  @}
