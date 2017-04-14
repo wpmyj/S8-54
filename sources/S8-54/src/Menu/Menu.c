@@ -40,7 +40,7 @@ static PanelButton shortPressureButton = B_Empty;   // Если произошло короткое н
 static PanelButton longPressureButton = B_Empty;    // Если произошло длинное нажатие кнопки, то здесь хранится имя этой кнопки до обработки этого нажатия.
 static PanelButton pressButton = B_Empty;           // При нажатии кнопки её имя записывается в эту переменную и хранится там до обратоки события нажатия кнопки.
 static PanelButton releaseButton = B_Empty;         // При отпускании кнопки её имя записывается в эту переменную и хранится там до обработки события отпускания кнопки.
-static Regulator pressRegulator = R_Empty;
+static PanelRegulator pressRegulator = R_Empty;
 static int angleRegSet = 0;                         // Угол, на который нужно повернуть ручку УСТАНОВКА - величина означает количество щелчков, знак - направление - "-" - влево, "+" - вправо
 static void* itemUnderKey = 0;                      // Здесь хранится адрес элемента меню, соответствующего функциональной клавише [1..5], если она находится в нижнем положении, и 0, если ни одна кнопка не нажата.
                                                 
@@ -270,7 +270,7 @@ void Menu_ReleaseButton(PanelButton button)
 };
 
 //---------------------------------------------------------------------------------------------------------------------------------------------------
-void Menu_PressReg(Regulator reg)
+void Menu_PressReg(PanelRegulator reg)
 {
     if (gBF.showHelpHints == 0)
     {

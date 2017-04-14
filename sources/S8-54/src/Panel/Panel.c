@@ -43,11 +43,11 @@ static uint16 lastPos = 0;
 // В этих переменных сохраняем значения в прерывании
 static PanelButton releaseButton = B_Empty;
 static PanelButton pressButton = B_Empty;
-static Regulator regLeft = R_Empty;
-static Regulator regRight = R_Empty;
+static PanelRegulator regLeft = R_Empty;
+static PanelRegulator regRight = R_Empty;
 static int numReg = 0;                              // Число поворотов ручки
-static Regulator regPress = R_Empty;
-static Regulator regRelease = R_Empty;
+static PanelRegulator regPress = R_Empty;
+static PanelRegulator regRelease = R_Empty;
 static PanelCommand recvCommand = C_None;
 
 static int allRecData = 0;
@@ -115,7 +115,7 @@ static const StructReg funculatorReg[] =
     {FuncRegSet,    FuncBtnRegSet,      EmptyFuncVV}    // R_Set
 };
 
-uint16 RotateRegRight(Regulator reg);
+uint16 RotateRegRight(PanelRegulator reg);
 uint16 ButtonPress(PanelButton button);
 
 
@@ -159,22 +159,22 @@ static PanelButton ButtonIsPress(uint16 command)
 }
 
 //---------------------------------------------------------------------------------------------------------------------------------------------------
-static Regulator RegulatorPress(uint16 command)
+static PanelRegulator RegulatorPress(uint16 command)
 {
     if (command >= (0x1c | 0x80) && command <= (0x23 | 0x80))
     {
-        return (Regulator)(command & 0x7f);
+        return (PanelRegulator)(command & 0x7f);
     }
     return R_Empty;
 }
 
 
 //---------------------------------------------------------------------------------------------------------------------------------------------------
-static Regulator RegulatorRelease(uint16 command)
+static PanelRegulator RegulatorRelease(uint16 command)
 {
     if (command >= 0x1c && command <= 0x23)
     {
-        return (Regulator)command;
+        return (PanelRegulator)command;
     }
     return R_Empty;
 }
@@ -192,22 +192,22 @@ static PanelCommand ReceiveCommand(uint16 command)
 
 
 //------------------------------------------------------------------------------------------------------------------------------------------------------
-static Regulator RegulatorLeft(uint16 command)
+static PanelRegulator RegulatorLeft(uint16 command)
 {
     if(command >= 20 && command <= 27)
     {
-        return (Regulator)command;
+        return (PanelRegulator)command;
     }
     return R_Empty;
 }
 
 
 //------------------------------------------------------------------------------------------------------------------------------------------------------
-static Regulator RegulatorRight(uint16 command)
+static PanelRegulator RegulatorRight(uint16 command)
 {
     if(command >= (20 | 0x80)  && command <= (27 | 0x80))
     {
-        return (Regulator)(command & 0x7f);
+        return (PanelRegulator)(command & 0x7f);
     }
     return R_Empty;
 }
@@ -254,7 +254,7 @@ bool Panel_ProcessingCommandFromPIC(uint16 command)
             }
             else
             {
-                Regulator rLeft = RegulatorLeft(command);
+                PanelRegulator rLeft = RegulatorLeft(command);
                 if (rLeft)
                 {
                     regLeft = rLeft;
@@ -262,7 +262,7 @@ bool Panel_ProcessingCommandFromPIC(uint16 command)
                 }
                 else
                 {
-                    Regulator rRight = RegulatorRight(command);
+                    PanelRegulator rRight = RegulatorRight(command);
                     if (rRight)
                     {
                         regRight = rRight;
@@ -270,14 +270,14 @@ bool Panel_ProcessingCommandFromPIC(uint16 command)
                     }
                     else
                     {
-                        Regulator rPress = RegulatorPress(command);
+                        PanelRegulator rPress = RegulatorPress(command);
                         if (rPress)
                         {
                             regPress = rPress;
                         }
                         else
                         {
-                            Regulator rRelease = RegulatorRelease(command);
+                            PanelRegulator rRelease = RegulatorRelease(command);
                             if (rRelease)
                             {
                                 regRelease = rRelease;

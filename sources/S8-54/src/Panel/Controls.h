@@ -10,7 +10,7 @@
 /// Идентификаторы кнопок.
 typedef enum
 {
-    B_Empty     = 0x00,     ///< кнопка не нажата
+    B_Empty     = 0x00,
     B_Channel1  = 0x01,     ///< КАНАЛ 1
     B_Service   = 0x02,     ///< СЕРВИС
     B_Channel2  = 0x03,     ///< КАНАЛ 2
@@ -52,7 +52,7 @@ typedef enum
     R_TShift_BTN    = 0x21,     ///< Установка нуля
     R_TrigLev_BTN   = 0x22,     ///< Установка нуля синхронизации или автоматической синхронизации
     R_Set_BTN       = 0x23
-} Regulator;
+} PanelRegulator;
 
 /// Команды, принимаемые от панели
 typedef enum
@@ -67,7 +67,7 @@ typedef enum
     Direction_Left,     ///< вращение регулятора влево
     Direction_Right,    ///< вращение регулятора вправо
     Direction_None      ///< вращение отсутствует
-} RegulatorDirection;
+} PanelRegulatorDirection;
 
 /// Число ручек
 #define NUM_REGULATORS (R_Set - R_Range1 + 1)
@@ -75,7 +75,7 @@ typedef enum
 /// Возвращает имя кнопки
 const char* NameButton(PanelButton button);
 /// Возвращает имя ручки
-const char* NameRegulator(Regulator regulator);
+const char* NameRegulator(PanelRegulator regulator);
 
 /** @}
  */
