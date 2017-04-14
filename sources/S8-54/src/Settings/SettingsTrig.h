@@ -3,6 +3,13 @@
 
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+/** @addtogroup Settings
+ *  @{
+ *  @defgroup SettingsTrig Settings Trig
+ *  @{
+ */
+
 #define SET_TRIGLEV(ch)     (set.trig.levelRel[ch])
 #define SET_TRIGLEV_A       (SET_TRIGLEV(A))
 #define SET_TRIGLEV_B       (SET_TRIGLEV(B))
@@ -28,3 +35,6 @@
 #define TRIG_INPUT_AC       (TRIG_INPUT == TrigInput_AC)
 #define TRIG_INPUT_LPF      (TRIG_INPUT == TrigInput_LPF)
 #define TRIG_INPUT_FULL     (TRIG_INPUT == TrigInput_Full)
+
+/** @}  @}
+ */

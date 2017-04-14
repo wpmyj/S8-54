@@ -4,6 +4,13 @@
 
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+/** @addtogroup Settings
+ *  @{
+ *  @defgroup SettingsTime Settings Time
+ *  @{
+ */
+
 #define SET_TSHIFT          (set.time.tShiftRel)
 #define SET_TBASE           (set.time.tBase)
 #define TIME_DIVXPOS        (set.time.timeDivXPos)
@@ -26,10 +33,20 @@
 
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-void    sTime_SetTBase(TBase tBase);        // Сохранить масштаб по времени.
-void    sTime_SetTShift(int16 shift);       // Сохранить смещение по времени в относительных единицах.
-int     sTime_TPosInBytes(void);            // Узнать привязку отсительно уровня синхронизации в байтах.
-int16   sTime_TShiftMin(void);              // Минимальное смещение по времени, которое может быть записано в аппаратную часть.
-int16   sTime_TShiftZero(void);             // Смещение по времени, соответствующее позиции TPos.
-int     sTime_TShiftInPoints(void);
-int     sTime_TPosInPoints(void);
+/// Сохранить масштаб по времени
+void sTime_SetTBase(TBase tBase);
+/// Сохранить смещение по времени в относительных единицах
+void sTime_SetTShift(int16 shift);
+/// Узнать привязку отсительно уровня синхронизации в байтах
+int sTime_TPosInBytes(void);
+/// Минимальное смещение по времени, которое может быть записано в аппаратную часть
+int16 sTime_TShiftMin(void);
+/// Смещение по времени, соответствующее позиции TPos
+int16 sTime_TShiftZero(void);
+
+int sTime_TShiftInPoints(void);
+
+int sTime_TPosInPoints(void);
+
+/** @}  @}
+ */

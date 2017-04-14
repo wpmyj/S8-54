@@ -5,7 +5,7 @@
 
 /** @addtogroup Utils
  *  @{
- *  @defgroup String
+ *  @defgroup Strings
  *  @{
  */
 

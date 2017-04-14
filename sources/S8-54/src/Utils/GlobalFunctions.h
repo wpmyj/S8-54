@@ -13,7 +13,7 @@
 
 /// Выделяет память из кучи для канала. Настройки длины памяти берёт из ds или set (если ds == 0)
 void* AllocMemForChannelFromHeap(Channel ch, DataSettings *ds);
-
+/// Возвращает количество памяти, требуемой для сохранения данных одного канала
 int RequestBytesForChannel(Channel ch, DataSettings *ds);
 
 char* FloatFract2String(float value, bool alwaysSign, char bufferOut[20]);
@@ -56,12 +56,14 @@ char* Voltage2String(float voltage,             ///< значение напря
 /// @brief Преобразует time секунд в текстовую строку
 char* Time2String(float time,                   ///< время в секундах. Может быть отрицательным
                   bool alwaysSign,              ///< если true, знак показывается даже если time > 0
-                  char bufferOut[20]);          ///< сюда записывается возвращаемое значение
+                  char bufferOut[20]            ///< сюда записывается возвращаемое значение
+                  );
 /// @brief Преобразует time секунд в текстовую строку
 char* Time2StringAccuracy(float time,           ///< время в секундах. Может быть отрицательным
                           bool alwaysSign,      ///< если true, знак показывается даже если time > 0
                           char bufferOut[20],   ///< сюда записывается возвращаемое значение
-                          int numDigits);       ///< количество цифр в строке
+                          int numDigits         ///< количество цифр в строке
+                          );
 /// Преобразует freq герц в текстовую строку
 char* Freq2String(float freq, bool, char bufferOut[20]);
 /// Преобразует freq герц в текстовую строку. При этом число количество цифр в строке равно numDigits
