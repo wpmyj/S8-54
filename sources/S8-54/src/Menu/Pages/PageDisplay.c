@@ -298,7 +298,7 @@ static bool IsActive_Accum_Clear(void)
 
 void OnPress_Accum_Clear(void)
 {
-    Display_Redraw();
+    NEED_FINISH_DRAW = 1;
 }
 
 // дхяокеи - сяпедмемхе -----------------------------------------------------------------------------------------------------------------------------

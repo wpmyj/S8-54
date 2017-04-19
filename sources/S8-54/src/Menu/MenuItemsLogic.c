@@ -62,7 +62,7 @@ void Choice_ChangeIndex(Choice *choice, int delta)
     *choice->cell = (int8)index;
     CHOICE_RUN_FUNC_CHANGED(choice, ItemIsAcitve(choice));
     Sound_GovernorChangedValue();
-    Display_Redraw();
+    NEED_FINISH_DRAW = 1;
 }
 
 //------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -222,7 +222,7 @@ float Choice_Step(Choice *choice)
         *choice->cell = index;
         tsChoice.address = 0;
         CHOICE_RUN_FUNC_CHANGED(choice, ItemIsAcitve(choice));
-        Display_Redraw();
+        NEED_FINISH_DRAW = 1;
         tsChoice.dir = NONE;
         return 0.0f;
     }

@@ -511,7 +511,7 @@ void FPGA_SetTBase(TBase tBase)
         sTime_SetTBase(tBase);
         LoadTBase();
         SetTShift((int)TSHIFT_2_REL(tShiftAbsOld, SET_TBASE), false);
-        Display_Redraw();
+        NEED_FINISH_DRAW = 1;
     }
     else
     {
@@ -671,7 +671,7 @@ static void SetTShift(int tShift, bool needFPGApause)
 
     sTime_SetTShift((int16)tShift);
     LoadTShift();       // WARN temp for s8-54
-    Display_Redraw();
+    NEED_FINISH_DRAW = 1;
 
     if (needFPGApause && tShift != oldTShift)
     {
@@ -749,7 +749,7 @@ bool FPGA_RangeIncrease(Channel ch)
     {
        Display_ShowWarning(ch == A ? LimitChan1_Volts : LimitChan2_Volts);
     }
-    Display_Redraw();
+    NEED_FINISH_DRAW = 1;
     return retValue;
 };
 
@@ -767,7 +767,7 @@ bool FPGA_RangeDecrease(Channel ch)
     {
         Display_ShowWarning(ch == A ? LimitChan1_Volts : LimitChan2_Volts);
     }
-    Display_Redraw();
+    NEED_FINISH_DRAW = 1;
     return retValue;
 };
 

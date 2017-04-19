@@ -107,7 +107,6 @@ static bool showLevelTrigLev = false;   // Ќужно ли рисовать горизонтальную лини
 
 static bool trigEnable = false;
 static bool drawRShiftMarkers = false;
-static bool needFinishDraw = true;      // ≈сли true, то дисплей нуждаетс€ в перерисовке
 static uint numDrawingSignals = 0;      // „исло нарисованных сигналов дл€ режима накоплени€
 
 
@@ -316,7 +315,7 @@ void Display_RotateRShift(Channel ch)
         (ch == A) ? (showLevelRShiftA = true) : (showLevelRShiftB = true);
         Timer_SetAndStartOnce((ch == A) ? kShowLevelRShiftA : kShowLevelRShiftB, (ch == A) ? DisableShowLevelRShiftA : DisableShowLevelRShiftB, TIME_SHOW_LEVELS  * 1000);
     };
-    Display_Redraw();
+    NEED_FINISH_DRAW = 1;
 }
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
@@ -327,13 +326,7 @@ void Display_RotateTrigLev(void)
         showLevelTrigLev = true;
         Timer_SetAndStartOnce(kShowLevelTrigLev, DisableShowLevelTrigLev, TIME_SHOW_LEVELS * 1000);
     }
-    Display_Redraw();
-}
-
-//----------------------------------------------------------------------------------------------------------------------------------------------------
-void Display_Redraw(void)
-{
-    needFinishDraw = true;
+    NEED_FINISH_DRAW = 1;
 }
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
@@ -504,9 +497,9 @@ static bool NeedForClearScreen(void)
     {
         return true;
     }
-    if(needFinishDraw)
+    if(NEED_FINISH_DRAW)
     {
-        needFinishDraw = false;
+        NEED_FINISH_DRAW = 0;
         return true;
     }
     if(MODE_ACCUM_RESET && numDrawingSignals >= (uint)numAccum)

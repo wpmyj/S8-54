@@ -18,24 +18,24 @@ typedef enum
     Back
 } DisplayOrientation;
 
-// Тип привязки к смещению по вертикали
+/// Тип привязки к смещению по вертикали
 typedef enum
 {
-    LinkingRShift_Voltage,  // Смещение привязано к напряжению
-    LinkingRShift_Position  // Смещение привязано к позиции
+    LinkingRShift_Voltage,      ///< Смещение привязано к напряжению
+    LinkingRShift_Position      ///< Смещение привязано к позиции
 } LinkingRShift;
 
 typedef enum
 {
-    ColorScheme_WhiteLetters,       // В этом случае заголовки элементов меню пишутся белым - не очень хорошо видно снизу
-    ColorScheme_BlackLetters        // В этом случае заголовки элементов меню пишутся чёрным - не очень красиво выглядит
+    ColorScheme_WhiteLetters,   ///< В этом случае заголовки элементов меню пишутся белым - не очень хорошо видно снизу
+    ColorScheme_BlackLetters    ///< В этом случае заголовки элементов меню пишутся чёрным - не очень красиво выглядит
 } ColorScheme;
 
 // Режим отрисовки сигнала.
 typedef enum
 {
-    ModeDrawSignal_Lines = 0,   // линиями
-    ModeDrawSignal_Points = 1   // точками
+    ModeDrawSignal_Lines = 0,   ///< линиями
+    ModeDrawSignal_Points = 1   ///< точками
 } ModeDrawSignal;
 
 // Тип сетки на экране.
@@ -80,8 +80,8 @@ typedef enum
 // Тип усреднений по измерениям
 typedef enum
 {
-    Averaging_Accurately,   // Усреднять точно.
-    Averaging_Around        // Усреднять приблизительно.
+    Averaging_Accurately,   ///< Усреднять точно.
+    Averaging_Around        ///< Усреднять приблизительно.
 } ModeAveraging;
 
 // Количество измерений для расчёта минимального и максимального значений.

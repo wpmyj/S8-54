@@ -22,8 +22,6 @@ void Display_RotateRShift(Channel ch);
 /// Эту функцию нужно вызывать при вращении ручки уровня синхронизации для временной отрисовки вспомогательных маркеров
 void Display_RotateTrigLev(void);
 
-void Display_Redraw(void);
-
 void Display_EnableTrigLabel(bool enable);
 
 void Display_SetAddDrawFunction(pFuncVV func);

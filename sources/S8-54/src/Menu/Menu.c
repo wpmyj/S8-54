@@ -105,7 +105,7 @@ void Menu_LongPressureButton(PanelButton button)
     if (gBF.showHelpHints == 0)
     {
         longPressureButton = button;
-        Display_Redraw();
+        NEED_FINISH_DRAW = 1;
     }
 };
 
@@ -284,7 +284,7 @@ void Menu_RotateRegSetRight(void)
     if (gBF.showHelpHints == 0)
     {
         angleRegSet++;
-        Display_Redraw();
+        NEED_FINISH_DRAW = 1;
     }
 };
 
@@ -294,7 +294,7 @@ void Menu_RotateRegSetLeft(void)
     if (gBF.showHelpHints == 0)
     {
         angleRegSet--;
-        Display_Redraw();
+        NEED_FINISH_DRAW = 1;
     }
 };
 
@@ -369,7 +369,7 @@ static void ProcessingShortPressureButton(void)
             shortPressureButton = B_Empty;
             return;
         }
-        Display_Redraw();
+        NEED_FINISH_DRAW = 1;
         Menu_SetAutoHide(true);
 
         PanelButton button = shortPressureButton;
@@ -442,7 +442,7 @@ void ProcessingLongPressureButton(void)
 
     if(button != B_Empty)
     {
-        Display_Redraw();
+        NEED_FINISH_DRAW = 1;
         Menu_SetAutoHide(true);
 
         if(button == B_Time)
