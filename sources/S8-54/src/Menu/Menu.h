@@ -6,6 +6,9 @@
 
 /** @defgroup Menu
  *  @{
+ *  @defgroup Pages
+ *  @{
+ *  @}
  */
 
 #define MENU_IS_SHOWN (set.menu.isShown)
