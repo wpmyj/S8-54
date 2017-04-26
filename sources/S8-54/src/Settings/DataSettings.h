@@ -14,13 +14,13 @@
 
 typedef struct
 {
-    uint timeMS : 32;    // Время в миллисекундах от старта системы. Т.к. структура заполняется во время сохранения данных в хранилище, то timeMS == 0 означает, что полный сигнал в режиме поточеного вывода ещё не считан
-    uint hours : 5;
-    uint minutes : 6;
-    uint seconds : 6;
-    uint year : 7;
-    uint month : 4;
-    uint day : 5;
+    uint timeMS     : 32;   // Время в миллисекундах от старта системы. Т.к. структура заполняется во время сохранения данных в хранилище, то timeMS == 0 означает, что полный сигнал в режиме поточеного вывода ещё не считан
+    uint hours      : 5;
+    uint minutes    : 6;
+    uint seconds    : 6;
+    uint year       : 7;
+    uint month      : 4;
+    uint day        : 5;
 } PackedTime;
 
 typedef struct
@@ -30,14 +30,14 @@ typedef struct
     uint16      trigLev[2];
     int16       tShift;             // Смещение по времени
     uint8       range[2];           // Масштаб по напряжению обоих каналов.
-    uint        tBase : 5;          // Масштаб по времени
-    uint        enableA : 1;        // Включён ли канал A
-    uint        enableB : 1;        // Включен ли канал B
-    uint        coupleA : 2;        // Режим канала по входу
-    uint        coupleB : 2;
-    uint        peackDet : 2;       // Включен ли пиковый детектор
-    uint        inverseA : 1;
-    uint        inverseB : 1;
+    uint        tBase       : 5;    // Масштаб по времени
+    uint        enableA     : 1;    // Включён ли канал A
+    uint        enableB     : 1;    // Включен ли канал B
+    uint        coupleA     : 2;    // Режим канала по входу
+    uint        coupleB     : 2;
+    uint        peackDet    : 2;    // Включен ли пиковый детектор
+    uint        inverseA    : 1;
+    uint        inverseB    : 1;
     uint        multiplierA : 1;
     uint        multiplierB : 1;
     uint        indexLength : 3;    // Сколько байт в канале (при включённом пиковом детекторе байт в два раза больше, чем точек)
