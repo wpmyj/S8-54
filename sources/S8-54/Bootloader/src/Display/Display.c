@@ -4,8 +4,6 @@
 #include "main.h"
 #include "Utils/Math.h"
 #include "Settings/Settings.h"
-
-
 #include <math.h>
 
 
