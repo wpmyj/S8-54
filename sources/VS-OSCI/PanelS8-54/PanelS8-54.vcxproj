@@ -20,6 +20,7 @@
     <ProjectGuid>{BAE88726-7A1F-4871-9F23-0B4C52FF4754}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
     <RootNamespace>PanelVS</RootNamespace>
+    <ProjectName>Panel54</ProjectName>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
