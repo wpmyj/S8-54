@@ -40,7 +40,7 @@ static Channel curCh = A;           // Текущий ресуемый сигнал
 
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-static void  DrawDataInModeInt(void);
+static void  DrawDataInModeEEPROM(void);
 static void  DrawDataInModeDirect(void);
 static void  DrawDataInModeLatest(void);
 static void  DrawDataMinMax(void);
@@ -79,11 +79,13 @@ void PainterData_DrawData(void)
 	{
         if (SHOW_IN_INT_DIRECT || SHOW_IN_INT_BOTH)
         {
+            //Data_PreparePointersToUse(ModeWork_Direct);
             DrawDataInModeDirect();
         }
         if (SHOW_IN_INT_SAVED || SHOW_IN_INT_BOTH)
         {
-            //DrawDataInModeInt();
+            //Data_PreparePointersToUse(ModeWork_EEPROM);
+            DrawDataInModeEEPROM();
         }
 	}
 	// Режим просмотра сигналов ОЗУ
@@ -94,12 +96,14 @@ void PainterData_DrawData(void)
 	// Нормальный режим
 	else
 	{
-		if (ALWAYS_SHOW_MEM_INT_SIGNAL)     // Если нужно показывать сигннал из ППЗУ
+		if (ALWAYS_SHOW_MEM_INT_SIGNAL)                 // Если нужно показывать сигннал из ППЗУ
 		{
-            Data_PreparePointersToUse(ModeWork_EEPROM);
-			DrawDataInModeInt();            // то показываем
+            Data_PreparePointersToUse(ModeWork_EEPROM); // то показываем
+			DrawDataInModeEEPROM();
 		}
-		DrawDataInModeDirect();             // И рисуем последний сигнал    
+
+        Data_PreparePointersToUse(ModeWork_Direct);     // И рисуем последний сигнал
+		DrawDataInModeDirect();    
 	}
 
 	if (DISPLAY_NUM_MIN_MAX != 1)
@@ -246,7 +250,7 @@ void PainterData_DrawMemoryWindow(void)
 }
 
 //---------------------------------------------------------------------------------------------------------------------------------------------------
-static void DrawDataInModeInt(void)
+static void DrawDataInModeEEPROM(void)
 {
     if (DS)
     {
