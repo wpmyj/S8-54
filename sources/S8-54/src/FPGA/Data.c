@@ -11,19 +11,38 @@
 
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-static DataSettings *pDSCur;
-static DataSettings *pDSInt;
-static DataSettings *pDSLast;
-
-
-//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 static void Clear(void);
+/// Считать данные 
+static void GetDataFromStorage(void);
 
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 void Data_GetFromIntMemory(void)
 {
     FLASH_GetData(gMemory.currentNumIntSignal, &pDSInt, &dataChanInt[A], &dataChanInt[B]);
+}
+
+//----------------------------------------------------------------------------------------------------------------------------------------------------
+static void GetDataFromStorage(void)
+{
+    int fromEnd = 0;
+
+    if (IN_P2P_MODE &&                              // Находимся в режиме поточечного вывода
+        START_MODE_WAIT &&                          // в режиме ждущей синхронизации
+        DS_NumElementsWithCurrentSettings() > 1)    // и в хранилище уже есть считанные сигналы с такими настройками
+    {
+        fromEnd = 1;
+    }
+
+    DS_GetDataFromEnd_RAM(fromEnd, &DS, (uint16**)&DATA_A, (uint16**)&DATA_B);
+
+    if (sDisplay_NumAverage() != 1 || IN_RANDOM_MODE)
+    {
+        ModeFSMC mode = FSMC_GetMode();
+        FSMC_SetMode(ModeFSMC_RAM);
+        Data_GetAverageFromDataStorage();
+        FSMC_SetMode(mode);
+    }
 }
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
@@ -45,23 +64,24 @@ void Data_Load(void)
 
     if (WORK_DIRECT)
     {   
-        int fromEnd = 0;
+        GetDataFromStorage();                                   // Считываем данные из хранилища
 
-        if (IN_P2P_MODE &&                              // Находимся в режиме поточечного вывода
-            START_MODE_WAIT &&                          // в режиме ждущей синхронизации
-            DS_NumElementsWithCurrentSettings() > 1)    // и в хранилище уже есть считанные сигналы с такими настройками
+        if (ALWAYS_SHOW_MEM_INT_SIGNAL)                         // И, если нужно показывать сигнал из ППЗУ и в основном режиме
         {
-            fromEnd = 1;
+            Data_GetFromIntMemory();                            // то из хранилща
         }
+    }
+    else if (WORK_LAST)
+    {
 
-        DS_GetDataFromEnd_RAM(fromEnd, &DS, (uint16**)&DATA_A, (uint16**)&DATA_B);
+    }
+    else if (WORK_EEPROM)
+    {
+        Data_GetFromIntMemory();                                // Считываем данные из ППЗУ
 
-        if (sDisplay_NumAverage() != 1 || IN_RANDOM_MODE)
+        if (set.memory.modeShowIntMem != ModeShowIntMem_Saved)  // И, если нужно
         {
-            ModeFSMC mode = FSMC_GetMode();
-            FSMC_SetMode(ModeFSMC_RAM);
-            Data_GetAverageFromDataStorage();
-            FSMC_SetMode(mode);
+            GetDataFromStorage();                               // из хранилища
         }
     }
 
@@ -75,11 +95,26 @@ void Data_Load(void)
 //----------------------------------------------------------------------------------------------------------------------------------------------------
 static void Clear(void)
 {
-    pDS = 0;
-    pDSCur = 0;
+    DS = 0;
     pDSInt = 0;
-    pDSLast = 0;
     dataChan[A] = dataChan[B] = 0;
     dataChanLast[A] = dataChanLast[B] = 0;
     dataChanInt[A] = dataChanInt[B] = 0;
+}
+
+//----------------------------------------------------------------------------------------------------------------------------------------------------
+void Data_PreparePointersToUse(ModeWork mode)
+{
+    if (mode == ModeWork_Direct)
+    {
+        DS = pDSCur;
+    }
+    else if (mode == ModeWork_Latest)
+    {
+        DS = pDSLast;
+    }
+    else if (mode == ModeWork_EEPROM)
+    {
+        DS = pDSInt;
+    }
 }

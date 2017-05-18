@@ -75,7 +75,7 @@ void PainterData_DrawData(void)
 	}
 
 	// Режим просмотра сигналов, записанных в ППЗУ
-	if (WORK_INT)
+	if (WORK_EEPROM)
 	{
         if (SHOW_IN_INT_DIRECT || SHOW_IN_INT_BOTH)
         {
@@ -83,7 +83,7 @@ void PainterData_DrawData(void)
         }
         if (SHOW_IN_INT_SAVED || SHOW_IN_INT_BOTH)
         {
-            DrawDataInModeInt();
+            //DrawDataInModeInt();
         }
 	}
 	// Режим просмотра сигналов ОЗУ
@@ -96,7 +96,8 @@ void PainterData_DrawData(void)
 	{
 		if (ALWAYS_SHOW_MEM_INT_SIGNAL)     // Если нужно показывать сигннал из ППЗУ
 		{
-			DrawDataInModeInt();               // то показываем
+            Data_PreparePointersToUse(ModeWork_EEPROM);
+			DrawDataInModeInt();            // то показываем
 		}
 		DrawDataInModeDirect();             // И рисуем последний сигнал    
 	}
@@ -263,12 +264,9 @@ static void DrawDataInModeDirect(void)
     uint numBytesInChannel = sMemory_NumBytesInChannel(false);
     uint numPoints_2_FPGA_NUM_POINTS = (uint)NumPoints_2_FPGA_NUM_POINTS(numBytesInChannel);
 
-    if(numPoints_2_FPGA_NUM_POINTS != index)
-
-    //if ((uint)NumPoints_2_FPGA_NUM_POINTS(sMemory_NumBytesInChannel(false)) != G_INDEXLENGHT)   // Если количество точек в данных не соответствует 
-                                                                                                // установленному в настройках - просто выходим
+    if(numPoints_2_FPGA_NUM_POINTS != index)    // Если количество точек в данных не соответствует установленному в настройках - просто выходим
     {
-        return;                     // WARN Это временно. По хорошему нужно преобразовывать так же, как мы преобразуем tShift, rShift, Range, TBase
+        //return;                     // WARN Это временно. По хорошему нужно преобразовывать так же, как мы преобразуем tShift, rShift, Range, TBase
     }
 
     int16 numSignals = (int16)DS_NumElementsWithSameSettings();
@@ -576,30 +574,33 @@ static void DrawTShift(int leftX, int rightX, int numBytes)
 //------------------------------------------------------------------------------------------------------------------------------------------------------
 static void DrawBothChannels(uint8 *dataA, uint8 *dataB)
 {
+    int minY = GRID_TOP;
+    int maxY = GridChannelBottom();
+
     if (LAST_AFFECTED_CH == B)
     {
-        if (ENABLED_A(DS))
+        if (G_ENABLED_A)
         {
             curCh = A;
-            DrawDataChannel(dataA, GRID_TOP, GridChannelBottom());
+            DrawDataChannel(dataA, minY, maxY);
         }
-        if (ENABLED_B(DS))
+        if (G_ENABLED_B)
         {
             curCh = B;
-            DrawDataChannel(dataB, GRID_TOP, GridChannelBottom());
+            DrawDataChannel(dataB, minY, maxY);
         }
     }
     else
     {
-        if (ENABLED_B(DS))
+        if (G_ENABLED_B)
         {
             curCh = B;
-            DrawDataChannel(dataB, GRID_TOP, GridChannelBottom());
+            DrawDataChannel(dataB, minY, maxY);
         }
-        if (ENABLED_A(DS))
+        if (G_ENABLED_A)
         {
             curCh = A;
-            DrawDataChannel(dataA, GRID_TOP, GridChannelBottom());
+            DrawDataChannel(dataA, minY, maxY);
         }
     }
 }

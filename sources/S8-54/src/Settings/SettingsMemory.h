@@ -21,7 +21,7 @@
 
 #define MODE_WORK               (set.memory.modeWork)
 #define WORK_DIRECT             (MODE_WORK == ModeWork_Direct)
-#define WORK_INT                (MODE_WORK == ModeWork_MemInt)
+#define WORK_EEPROM             (MODE_WORK == ModeWork_EEPROM)
 #define WORK_LAST               (MODE_WORK == ModeWork_Latest)
 
 #define SHOW_IN_INT_SAVED       (set.memory.modeShowIntMem == ModeShowIntMem_Saved)

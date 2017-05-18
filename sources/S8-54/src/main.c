@@ -129,7 +129,7 @@ void ProcessingSignal(void)
         ds = &DS_LAST;
         DS_GetDataFromEnd_RAM(gMemory.currentNumLatestSignal, &DS_LAST, (uint16**)&DATA_LAST(A), (uint16**)&DATA_LAST(B));
     }
-    else if (WORK_INT)
+    else if (WORK_EEPROM)
     {
         dataA = &DATA_INT(A);
         dataB = &DATA_INT(B);
@@ -141,7 +141,7 @@ void ProcessingSignal(void)
     int last = 0;
     sDisplay_PointsOnDisplay(&first, &last);
 
-    if (WORK_INT)
+    if (WORK_EEPROM)
     { 
         if (SHOW_IN_INT_BOTH || SHOW_IN_INT_DIRECT)
         {

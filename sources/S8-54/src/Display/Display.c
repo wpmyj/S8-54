@@ -660,7 +660,7 @@ static void DrawLowPart(void)
     TBase tBase = SET_TBASE;
     int16 tShift = SET_TSHIFT;
 
-    if((WORK_INT && set.memory.modeShowIntMem == ModeShowIntMem_Direct))
+    if((WORK_EEPROM && set.memory.modeShowIntMem == ModeShowIntMem_Direct))
     { 
     }
     else if(!WORK_DIRECT)
@@ -1662,7 +1662,7 @@ static void DrawTime(int x, int y)
 
     Painter_SetColor(gColorFill);
 
-    if(WORK_INT || WORK_LAST)
+    if(WORK_EEPROM || WORK_LAST)
     {
         if(DS)
         {

@@ -1,4 +1,4 @@
-п»ї#pragma once
+#pragma once
 #include "Settings/DataSettings.h"
 #include "Settings/SettingsTime.h"
 
@@ -11,10 +11,10 @@
  *  @{
  */
 
-#define DS              pDS                 // РЈРєР°Р·Р°С‚РµР»СЊ РЅР° РЅР°СЃС‚СЂРѕР№РєРё С‚РµРєСѓС‰РµРіРѕ СЂРёСЃСѓРµРјРѕРіРѕ СЃРёРіРЅР°Р»Р°
-#define DATA(ch)        (dataChan[ch])      // РЈРєР°Р·Р°С‚РµР»СЊ РЅР° РґР°РЅРЅС‹Рµ РѕС‚РѕР±СЂР°Р¶Р°РµРјРѕРіРѕ СЃРёРіРЅР°Р»Р°
-#define DATA_A          (DATA(A))           // РЈРєР°Р·Р°С‚РµР»СЊ РЅР° РґР°РЅРЅС‹Рµ РѕС‚РѕР±СЂР°Р¶Р°РµРјРѕРіРѕ РєР°РЅР°Р»Р° 1
-#define DATA_B          (DATA(B))           // РЈРєР°Р·Р°С‚РµР»СЊ РЅР° РґР°РЅРЅС‹Рµ РѕС‚РѕР±СЂР°Р¶Р°РµРјРѕРіРѕ РєР°РЅР°Р»Р° 2
+#define DS              pDS                 // Указатель на настройки текущего рисуемого сигнала
+#define DATA(ch)        (dataChan[ch])      // Указатель на данные отображаемого сигнала
+#define DATA_A          (DATA(A))           // Указатель на данные отображаемого канала 1
+#define DATA_B          (DATA(B))           // Указатель на данные отображаемого канала 2
 #define DATA_INT(ch)    (dataChanInt[ch])
 #define DATA_LAST(ch)   (dataChanLast[ch])
 
@@ -25,14 +25,19 @@
 #endif
 
 EXTERN DataSettings *pDS;
-EXTERN uint8* dataChan[2];
+
+EXTERN uint8 *dataChan[2];
 EXTERN uint8 *dataChanLast[2];
 EXTERN uint8 *dataChanInt[2];
+
+EXTERN DataSettings *pDSCur;
+EXTERN DataSettings *pDSLast;
+EXTERN DataSettings *pDSInt;
 
 #undef EXTERN
 
 /** @defgroup GlobalData Global Data
- *  @brief РќР°СЃС‚СЂРѕР№РєРё, РґРµР№СЃС‚РІСѓСЋС‰РёРµ РґР»СЏ РѕС‚РѕР±СЂР°Р¶Р°РµРјРѕРіРѕ РІ РґР°РЅРЅС‹Р№ РјРѕРјРµРЅС‚ СЃРёРіРЅР°Р»Р°
+ *  @brief Настройки, действующие для отображаемого в данный момент сигнала
  *  @{
  */
 
@@ -45,6 +50,8 @@ EXTERN uint8 *dataChanInt[2];
 #define G_RANGE_A       (RANGE(DS, A))
 #define G_RANGE_B       (RANGE(DS, B))
 #define G_ENABLED(ch)   (ENABLED(DS, ch))
+#define G_ENABLED_A     (ENABLED(DS, A))
+#define G_ENABLED_B     (ENABLED(DS, B))
 #define G_RSHIFT(ch)    (RSHIFT(DS, ch))
 #define G_RSHIFT_A      (RSHIFT(DS, A))
 #define G_RSHIFT_B      (RSHIFT(DS, B))
@@ -65,12 +72,14 @@ EXTERN uint8 *dataChanInt[2];
 
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-/// РЎС‡РёС‚Р°С‚СЊ РёР· РџРџР—РЈ РёРЅС„РѕСЂРјР°С†РёСЋ Рѕ РЅР°СЃС‚СЂРѕР№РєР°С… Рё СѓРєР°Р·Р°С‚РµР»Рё РЅР° РґР°РЅРЅС‹Рµ
+/// Считать из ППЗУ информацию о настройках и указатели на данные
 void Data_GetFromIntMemory(void);
 
 void Data_GetAverageFromDataStorage(void);
-
+/// Здесь заполняем указатели на данные и их настройки в соответствии с текущими режимами отображения
 void Data_Load(void);
+/// Подготовить глобальные указатели на данные и их настройки для вывода данных на экран
+void Data_PreparePointersToUse(ModeWork mode);
 
 /** @}  @}
  */

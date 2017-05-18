@@ -416,7 +416,7 @@ static const SmallButton sbLast_IntEnter =
 static void OnPress_Last_IntEnter(void)
 {
     OpenPageAndSetItCurrent(Page_SB_MemInt);
-    MODE_WORK = ModeWork_MemInt;
+    MODE_WORK = ModeWork_EEPROM;
     Data_GetFromIntMemory();
     gMemory.exitFromIntToLast = 1;
 }
@@ -558,8 +558,7 @@ static const Page mspInt =
 static void OnPress_Int(void)
 {
     OpenPageAndSetItCurrent(Page_SB_MemInt);
-    MODE_WORK = ModeWork_MemInt;
-    Data_GetFromIntMemory();
+    MODE_WORK = ModeWork_EEPROM;
 }
 
 static void OnDraw_Int(void)
