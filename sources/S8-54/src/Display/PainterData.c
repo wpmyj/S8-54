@@ -37,13 +37,12 @@
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 static int xP2P = 0;                // Здесь хранится значение для отрисовки вертикальной линии
 static Channel curCh = A;           // Текущий ресуемый сигнал
-static DataSettings *curDS = 0;     // DataSettings для рисуемого сигнала
 
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-static void  DrawDataMemInt(void);
-static void  DrawDataInModeNormal(void);
-static void  DrawDataInModeWorkLatest(void);
+static void  DrawDataInModeInt(void);
+static void  DrawDataInModeDirect(void);
+static void  DrawDataInModeLatest(void);
 static void  DrawDataMinMax(void);
 static void  DrawDataChannel(uint8 *dataIn, int minY, int maxY);
 static void  DrawDataInRect(int x, uint width, const uint8 *data, int numElems, bool peackDet);
@@ -58,11 +57,9 @@ static void  DrawSignalPointed(const uint8 *data, int startPoint, int endPoint, 
 static int   Ordinate(uint8 x, float scale);                                            // Возвращает точку в экранной координате. Если точка не считана (NONE_VALUE), возвращает -1
 static int   FillDataP2PforRecorder(int numPoints, int numPointsDS, int pointsInScreen, uint8 *src, uint8 *dest);
 static int   FillDataP2PforNormal(int numPoints, int numPointsDS, int pointsInScreen, uint8 *src, uint8 *dest);
-static void  DrawLimitLabel(int delta); // Выоводит сообщение на экране о выходе сигнала за границы экрана. 
-                                        // delta - расстояние от края сетки, на котором находится сообщение. Если delta < 0 - выводится внизу сетки
+static void  DrawLimitLabel(int delta);     // Выоводит сообщение на экране о выходе сигнала за границы экрана. 
+                                            // delta - расстояние от края сетки, на котором находится сообщение. Если delta < 0 - выводится внизу сетки
 static void  SendToDisplayDataInRect(int x, const int *min, const int *max, uint width);
-static DataSettings *pCurDS(void);      // Возвращает указатель на настройки рисуемого сигнала
-static DataSettings **ppCurDS(void);     // Возвращает указатель на указатель на настройки рисуемого сигнала
 
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -80,28 +77,28 @@ void PainterData_DrawData(void)
 	// Режим просмотра сигналов, записанных в ППЗУ
 	if (WORK_INT)
 	{
-		if (SHOW_IN_INT_SAVED || SHOW_IN_INT_BOTH)
-		{
-			DrawDataMemInt();
-		}
-		if (SHOW_IN_INT_DIRECT || SHOW_IN_INT_BOTH)
-		{
-			DrawDataInModeNormal();
-		}
+        if (SHOW_IN_INT_DIRECT || SHOW_IN_INT_BOTH)
+        {
+            DrawDataInModeDirect();
+        }
+        if (SHOW_IN_INT_SAVED || SHOW_IN_INT_BOTH)
+        {
+            DrawDataInModeInt();
+        }
 	}
 	// Режим просмотра сигналов ОЗУ
 	else if (WORK_LAST)
 	{
-		DrawDataInModeWorkLatest();
+		DrawDataInModeLatest();
 	}
 	// Нормальный режим
 	else
 	{
-		if (ALWAYS_SHOW_MEM_INT_SIGNAL)    // Если нужно показывать сигннал из ППЗУ
+		if (ALWAYS_SHOW_MEM_INT_SIGNAL)     // Если нужно показывать сигннал из ППЗУ
 		{
-			DrawDataMemInt();                       // то показываем
+			DrawDataInModeInt();               // то показываем
 		}
-		DrawDataInModeNormal();                     // И рисуем последний сигнал    
+		DrawDataInModeDirect();             // И рисуем последний сигнал    
 	}
 
 	if (DISPLAY_NUM_MIN_MAX != 1)
@@ -127,15 +124,15 @@ void PainterData_DrawMath(void)
 
     uint8 *dataRel0 = 0;
     uint8 *dataRel1 = 0;
-    Processing_GetData(&dataRel0, &dataRel1, ppCurDS());
+    Processing_GetData(&dataRel0, &dataRel1, &DS);
 
     float *dataAbsA = (float*)RAM(DRAW_MATH_DATA_REL_A);
     float *dataAbsB = (float*)RAM(DRAW_MATH_DATA_REL_B);
 
-    int numPoints = NumBytesInChannel(pCurDS());
+    int numPoints = NumBytesInChannel(DS);
 
-    Math_PointsRelToVoltage(dataRel0, numPoints, RANGE_A(pCurDS()), RSHIFT_A(pCurDS()), dataAbsA);
-    Math_PointsRelToVoltage(dataRel1, numPoints, RANGE_B(pCurDS()), RSHIFT_B(pCurDS()), dataAbsB);
+    Math_PointsRelToVoltage(dataRel0, numPoints, G_RANGE_A, G_RSHIFT_A, dataAbsA);
+    Math_PointsRelToVoltage(dataRel1, numPoints, G_RANGE_B, G_RSHIFT_B, dataAbsB);
 
     Math_CalculateMathFunction(dataAbsA, dataAbsB, numPoints);
 
@@ -248,11 +245,10 @@ void PainterData_DrawMemoryWindow(void)
 }
 
 //---------------------------------------------------------------------------------------------------------------------------------------------------
-static void DrawDataMemInt(void)
+static void DrawDataInModeInt(void)
 {
     if (DS)
     {
-        curDS = DS;
         curCh = A;
         DrawDataChannel(DATA_INT(A), GRID_TOP, GridChannelBottom());
         curCh = B;
@@ -261,25 +257,32 @@ static void DrawDataMemInt(void)
 }
 
 //------------------------------------------------------------------------------------------------------------------------------------------------------
-static void DrawDataInModeNormal(void)
+static void DrawDataInModeDirect(void)
 {
-    if ((uint)NumPoints_2_FPGA_NUM_POINTS(sMemory_NumBytesInChannel(false)) != G_INDEXLENGHT) // Если количество точек в данных не соответствует установленному в настройках - просто выходим
+    uint index = G_INDEXLENGHT;
+    uint numBytesInChannel = sMemory_NumBytesInChannel(false);
+    uint numPoints_2_FPGA_NUM_POINTS = (uint)NumPoints_2_FPGA_NUM_POINTS(numBytesInChannel);
+
+    if(numPoints_2_FPGA_NUM_POINTS != index)
+
+    //if ((uint)NumPoints_2_FPGA_NUM_POINTS(sMemory_NumBytesInChannel(false)) != G_INDEXLENGHT)   // Если количество точек в данных не соответствует 
+                                                                                                // установленному в настройках - просто выходим
     {
-        return;     // WARN Это временно. По хорошему нужно преобразовывать так же, как мы преобразуем tShift, rShift, Range, TBase
+        return;                     // WARN Это временно. По хорошему нужно преобразовывать так же, как мы преобразуем tShift, rShift, Range, TBase
     }
 
     int16 numSignals = (int16)DS_NumElementsWithSameSettings();
     LIMITATION(numSignals, numSignals, 1, DISPLAY_NUM_ACCUM);
-    if (numSignals == 1 ||  // В хранилище только один сигнал с текущими настройками
-        NUM_ACCUM_INF ||  // или бесконечное накопление
-        MODE_ACCUM_RESET ||  // или автоматическая очистка экрана для накопления
-        IN_RANDOM_MODE)             // или в режиме рандомизатора
+    if (numSignals == 1 ||      // В хранилище только один сигнал с текущими настройками
+        NUM_ACCUM_INF ||        // или бесконечное накопление
+        MODE_ACCUM_RESET ||     // или автоматическая очистка экрана для накопления
+        IN_RANDOM_MODE)         // или в режиме рандомизатора
     {
-        DrawBothChannels(0, 0);                                     // когда 0, просто рисуем последний сигнал
+        DrawBothChannels(0, 0);                 // когда 0, просто рисуем последний сигнал
     }
     else
     {
-        for (int i = 0; i < numSignals; i++)                        // Иначе рисуем необходимое число последних сигналов
+        for (int i = 0; i < numSignals; i++)    // Иначе рисуем необходимое число последних сигналов
         {
             DrawBothChannels(DS_GetData_RAM(A, i), DS_GetData_RAM(B, i));
         }
@@ -287,11 +290,10 @@ static void DrawDataInModeNormal(void)
 }
 
 //------------------------------------------------------------------------------------------------------------------------------------------------------
-static void DrawDataInModeWorkLatest(void)
+static void DrawDataInModeLatest(void)
 {
     if (DS)
     {
-        curDS = DS;
         curCh = A;
         DrawDataChannel(DATA_LAST(A), GRID_TOP, GridChannelBottom());
         curCh = B;
@@ -304,7 +306,6 @@ static void DrawDataMinMax(void)
 {
     ModeDrawSignal modeDrawSignalOld = MODE_DRAW_SIGNAL;
     MODE_DRAW_SIGNAL = ModeDrawSignal_Lines;
-    curDS = DS;
     if (LAST_AFFECTED_CH == B)
     {
         curCh = A;
@@ -330,22 +331,22 @@ static void DrawDataMinMax(void)
 static void DrawDataChannel(uint8 *dataIn, int minY, int maxY)
 {
     bool calculateFiltr = true;
-    int sizeBuffer = NumBytesInChannel(pCurDS());
+    int sizeBuffer = NumBytesInChannel(DS);
     uint8 data[sizeBuffer];                                 // пїЅпїЅпїЅпїЅпїЅ, пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ
 
     int firstPoint = 0;
     int lastPoint = 280;
 
     if (!IN_P2P_MODE ||                                     // Если не находимся в режиме медленных поточечных развёрток
-        (IN_P2P_MODE && TIME_MS(pCurDS())))                 // Или в поточечном, но данные уже считаны
+        (IN_P2P_MODE && TIME_MS(DS)))                 // Или в поточечном, но данные уже считаны
     {
         sDisplay_PointsOnDisplay(&firstPoint, &lastPoint);  // то находим первую и последнюю точки, выводимые на экран
     }
 
     if (IN_P2P_MODE &&                                      // Если находимся в режиме медленных поточечных развёрток
-        TIME_MS(pCurDS()) == 0)                               // и считывание полного набора данных ещё не произошло
+        TIME_MS(DS) == 0)                               // и считывание полного набора данных ещё не произошло
     {
-        lastPoint = FillDataP2P(data, ppCurDS());
+        lastPoint = FillDataP2P(data, &DS);
         if (lastPoint < 2)                                  // Если готово меньше двух точек - выход
         {
             return;
@@ -357,17 +358,17 @@ static void DrawDataChannel(uint8 *dataIn, int minY, int maxY)
         calculateFiltr = false;
         if (curCh == A)
         {
-            Processing_GetData(&dataIn, 0, ppCurDS());
+            Processing_GetData(&dataIn, 0, &DS);
         }
         else
         {
-            Processing_GetData(0, &dataIn, ppCurDS());
+            Processing_GetData(0, &dataIn, &DS);
         }
         RAM_MemCpy16(dataIn, data, sizeBuffer);
         dataIn = data;
     }
 
-    if (!sChannel_NeedForDraw(dataIn, curCh, pCurDS()))
+    if (!sChannel_NeedForDraw(dataIn, curCh, DS))
     {
         return;
     }
@@ -575,7 +576,6 @@ static void DrawTShift(int leftX, int rightX, int numBytes)
 //------------------------------------------------------------------------------------------------------------------------------------------------------
 static void DrawBothChannels(uint8 *dataA, uint8 *dataB)
 {
-    curDS = DS;
     if (LAST_AFFECTED_CH == B)
     {
         if (ENABLED_A(DS))
@@ -698,7 +698,7 @@ static void DrawSignalLined(const uint8 *data, int startPoint, int endPoint, int
     int numPoints = sMemory_NumBytesInChannel(false);
     int numSmoothing = sDisplay_NumPointSmoothing();
 
-    if (PEACKDET(pCurDS()) == PeackDet_Disable)
+    if (G_PEACKDET == PeackDet_Disable)
     {
         for (int i = startPoint; i < endPoint; i++)
         {
@@ -758,7 +758,7 @@ static void DrawSignalLined(const uint8 *data, int startPoint, int endPoint, int
         }
     }
 
-    if (PEACKDET(pCurDS()) == PeackDet_Disable)
+    if (G_PEACKDET == PeackDet_Disable)
     {
         CONVERT_DATA_TO_DISPLAY(dataCD[280], data[endPoint]); //-V108
         Painter_DrawSignal(GridLeft(), dataCD, true);
@@ -869,16 +869,4 @@ static void DrawLimitLabel(int delta)
     Painter_FillRegionC(x, y, width, height, gColorBack);
     Painter_DrawRectangleC(x, y, width, height, color);
     Painter_DrawStringInCenterRect(x, y, width, height, "Сигнал за пределами экрана");
-}
-
-//----------------------------------------------------------------------------------------------------------------------------------------------------
-static inline DataSettings* pCurDS(void)
-{
-    return curDS;
-}
-
-//----------------------------------------------------------------------------------------------------------------------------------------------------
-static inline DataSettings** ppCurDS(void)
-{
-    return &curDS;
 }
