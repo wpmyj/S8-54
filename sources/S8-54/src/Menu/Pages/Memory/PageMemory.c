@@ -547,8 +547,8 @@ static const Page mspInt =
         (void*)&sbInt_Exit,                 // ѕјћя“№ - ¬Ќ”“– «” - ¬ыход
         (void*)&sbInt_ShowSignalsAlways,    // ѕјћя“№ - ¬Ќ”“– «” - ѕоказывать всегда
         (void*)&sbInt_ModeShow,             // ѕјћя“№ - ¬Ќ”“– «” - ¬ид сигнала
-        (void*)0,
-        //(void*)&sbInt_EraseAll,
+        //(void*)0,
+        (void*)&sbInt_EraseAll,
         (void*)&sbInt_SaveToMemory,         // ѕјћя“№ - ¬Ќ”“– «” - —охранить
         (void*)&sbInt_SaveToDrive           // ѕјћя“№ - ¬Ќ”“– «” - —охранить на флешку
     },
@@ -723,6 +723,11 @@ static const SmallButton sbInt_ModeShow =
             Draw_Int_ModeShow_Saved,
             "на дисплее сохранЄнный сигнал",
             "on the display the kept signal"
+        },
+        {
+            Draw_Int_ModeShow_Both,
+            "на дисплее оба сигнала",
+            "on the display both signals"
         }
     }
 };
