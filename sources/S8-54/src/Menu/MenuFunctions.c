@@ -266,6 +266,8 @@ bool ItemIsAcitve(void *item)
 {
     TypeItem type = TypeMenuItem(item);
 
+    /** @todo Здесь оптимизировать через битовую маску */
+
     if (type == Item_Choice || type == Item_Page || type == Item_Button || type == Item_Governor || type == Item_SmallButton)
     {
         pFuncBV func = ((Page*)(item))->funcOfActive;
