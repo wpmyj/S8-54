@@ -19,14 +19,14 @@
 #define LEAVE_ANALYSIS   }}
 
 
-#define SCPI_SEND(...)                              \
-    if(gConnectToHost)                              \
-    {                                               \
-        VCP_SendFormatStringAsynch(__VA_ARGS__);    \
-    };                                              \
-    if (gEthIsConnected)                            \
-    {                                               \
-        TCPSocket_SendFormatString(__VA_ARGS__);    \
+#define SCPI_SEND(...)                                  \
+    if(gConnectToHost)                                  \
+    {                                                   \
+        VCP_SendFormatStringAsynch(__VA_ARGS__);        \
+    };                                                  \
+    if (gEthIsConnected)                                \
+    {                                                   \
+        TCPSocket_SendFormatString(__VA_ARGS__);        \
     }
 
 
