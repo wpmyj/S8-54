@@ -79,13 +79,7 @@
 #define __CORTEX_M                (0x04U)                                      /*!< Cortex-M Core */
 
 
-#if defined(_MS_VS)
-
-#define __DSB()
-#define __NOP()
-#define __STATIC_INLINE
-
-#elif   defined ( __CC_ARM )
+#if   defined ( __CC_ARM )
   #define __ASM            __asm                                      /*!< asm keyword for ARM Compiler */
   #define __INLINE         __inline                                   /*!< inline keyword for ARM Compiler */
   #define __STATIC_INLINE  static __inline

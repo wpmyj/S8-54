@@ -279,11 +279,7 @@ typedef struct _USBD_HandleTypeDef
 /* In HS mode and when the DMA is used, all variables and data structures dealing
    with the DMA during the transaction process should be 4-bytes aligned */    
 
-#if defined _MS_VS
-
-
-
-#elif defined   (__GNUC__)        /* GNU Compiler */
+#if defined   (__GNUC__)        /* GNU Compiler */
   #define __ALIGN_END    __attribute__ ((aligned (4)))
   #define __ALIGN_BEGIN         
 #else                           
