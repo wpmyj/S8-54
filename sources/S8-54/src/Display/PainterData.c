@@ -85,7 +85,7 @@ void PainterData_DrawData(void)
         if (SHOW_IN_INT_SAVED || SHOW_IN_INT_BOTH)
         {
             //Data_PreparePointersToUse(ModeWork_EEPROM);
-            DrawDataInModeEEPROM();
+            //DrawDataInModeEEPROM();
         }
 	}
 	// Режим просмотра сигналов ОЗУ
@@ -102,7 +102,7 @@ void PainterData_DrawData(void)
 			DrawDataInModeEEPROM();
 		}
 
-        Data_PreparePointersToUse(ModeWork_Direct);     // И рисуем последний сигнал
+        //Data_PreparePointersToUse(ModeWork_Direct);     // И рисуем последний сигнал
 		DrawDataInModeDirect();    
 	}
 

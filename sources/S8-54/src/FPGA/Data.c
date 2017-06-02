@@ -34,7 +34,7 @@ static void GetDataFromStorage(void)
         fromEnd = 1;
     }
 
-    DS_GetDataFromEnd_RAM(fromEnd, &pDSCur, (uint16**)&DATA_A, (uint16**)&DATA_B);
+    DS_GetDataFromEnd_RAM(fromEnd, &pDS, (uint16**)&DATA_A, (uint16**)&DATA_B);
 
     if (sDisplay_NumAverage() != 1 || IN_RANDOM_MODE)
     {
