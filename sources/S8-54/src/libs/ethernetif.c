@@ -30,7 +30,6 @@
 
 #include "defines.h"
 #include "lwip/opt.h"
-#include "lwip/lwip_timers.h"
 #include "netif/etharp.h"
 #include "ethernetif.h"
 #include <string.h>

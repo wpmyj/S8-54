@@ -11,9 +11,9 @@
 
 
 #include <lwip/init.h>
-#include <lwip/lwip_timers.h>
 #include <lwip/ip_addr.h>
 #include <lwip/netif.h>
+#include <lwip/timeouts.h>
 #include <netif/etharp.h>
 
 
