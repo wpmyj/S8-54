@@ -13,21 +13,21 @@
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 extern const Page mainPage;
 
-static const Choice cMode;                  ///< ÑÈÍÕÐ - Ðåæèì
-       void OnChanged_TrigMode(bool active);
-static const Choice cSource;                ///< ÑÈÍÕÐ - Èñòî÷íèê
-static void OnChange_Source(bool active);
-static const Choice cPolarity;              ///< ÑÈÍÕÐ - Ïîëÿðíîñòü
-static void OnChange_Polarity(bool active);
-static const Choice cInput;                 ///< ÑÈÍÕÐ - Âõîä
-static void OnChange_Input(bool active);
-static const Governor gTimeDelay;           ///< ÑÈÍÕÐ - Óäåðæàíèå
+static const   Choice cMode;                    ///< ÑÈÍÕÐ - Ðåæèì
+       void  OnChanged_TrigMode(bool active);
+static const   Choice cSource;                  ///< ÑÈÍÕÐ - Èñòî÷íèê
+static void   OnChange_Source(bool active);
+static const   Choice cPolarity;                ///< ÑÈÍÕÐ - Ïîëÿðíîñòü
+static void   OnChange_Polarity(bool active);
+static const   Choice cInput;                   ///< ÑÈÍÕÐ - Âõîä
+static void   OnChange_Input(bool active);
+static const    Page ppSearch;                  ///< ÑÈÍÕÐ - ÏÎÈÑÊ
+static const   Choice cSearch_Mode;             ///< ÑÈÍÕÐ - ÏÎÈÑÊ - Ðåæèì
+static const   Button bSearch_Search;           ///< ÑÈÍÕÐ - ÏÎÈÑÊ - Íàéòè
+static bool   IsActive_Search_Search(void);
+static void    OnPress_Search_Search(void);
+static const Governor gTimeDelay;               ///< ÑÈÍÕÐ - Óäåðæàíèå
 
-static const Page ppSearch;                 ///< ÑÈÍÕÐ - ÏÎÈÑÊ
-static const Choice cSearch_Mode;
-static const Button bSearch_Search;
-static bool IsActive_Search_Search(void);
-static void OnPress_Search_Search(void);
 
 
 // ÑÈÍÕÐ /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -203,8 +203,8 @@ static const Page ppSearch =
     },
     Page_TrigAuto,
     {
-        (void*)&cSearch_Mode,
-        (void*)&bSearch_Search
+        (void*)&cSearch_Mode,       // ÑÈÍÕÐ - ÏÎÈÑÊ - Ðåæèì
+        (void*)&bSearch_Search      // ÑÈÍÕÐ - ÏÎÈÑÊ - Íàéòè
     }
 };
 

@@ -135,12 +135,10 @@ void Process_SAMPLING(uint8 *buffer)
 
 
 //------------------------------------------------------------------------------------------------------------------------------------------------------
-extern void OnPeacDetChanged(bool active);  // WARN Вообще-то это нехорошо, как нехорошо и дублировать. Надо бы подумать.
-
-
-//------------------------------------------------------------------------------------------------------------------------------------------------------
 void Process_PEACKDET(uint8 *buffer)
 {
+    extern void OnChanged_PeakDet(bool active);
+    
     static const MapElement map[] =
     {
         {"ON",  0},
@@ -149,7 +147,7 @@ void Process_PEACKDET(uint8 *buffer)
         {0}
     };
     ENTER_ANALYSIS
-        if (value < 2) { SET_PEACKDET = (value == 0) ? PeackDet_Disable : PeackDet_Enable; OnPeacDetChanged(true); } // WARN SCPI для пикового детектора переделать
+        if (value < 2) { SET_PEACKDET = (value == 0) ? PeackDet_Disable : PeackDet_Enable; OnChanged_PeakDet(true); } // WARN SCPI для пикового детектора переделать
         else if (2 == value)
         {
             SCPI_SEND(":TBASE:PEACKDET %s", SET_PEACKDET ? "ON" : "OFF");
@@ -159,12 +157,10 @@ void Process_PEACKDET(uint8 *buffer)
 
 
 //------------------------------------------------------------------------------------------------------------------------------------------------------
-extern void OnTPosChanged(bool active);
-
-
-//------------------------------------------------------------------------------------------------------------------------------------------------------
 void Process_TPOS(uint8 *buffer)
 {
+    extern void OnChanged_TPos(bool active);
+    
     static const MapElement map[] =
     {
         {"LEFT",   0},
@@ -174,7 +170,7 @@ void Process_TPOS(uint8 *buffer)
         {0}
     };
     ENTER_ANALYSIS
-        if (value < 3)      { TPOS = (TPos)value; OnTPosChanged(true); }
+        if (value < 3)      { TPOS = (TPos)value; OnChanged_TPos(true); }
         else if (4 == value)
         {
             SCPI_SEND(":TBASE:TPOS %s", map[TPOS].key);

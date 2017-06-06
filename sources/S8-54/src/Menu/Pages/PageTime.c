@@ -14,19 +14,19 @@
 #include "Display/Grid.h"
 
 
-///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 extern Page mainPage;
 
-static const Choice mcTimeSample;
-static bool FuncTimeSampleActive(void);
-static const Choice mcTimePicDet;
-static bool IsActiveChoiceTimePicDeat(void);
-       void OnPeacDetChanged(bool active);
-static const Choice mcTimeTPos;
-       void OnTPosChanged(bool active);
-static const Choice mcTimeDivRole;
+static const  Choice cSample;                ///< ÐÀÇÂÅÐÒÊÀ - Âûáîðêà
+static bool  IsActive_Sample(void);
+static const  Choice cPeakDet;               ///< ÐÀÇÂÅÐÒÊÀ - Ïèê äåò
+static bool  IsActive_PeakDet(void);
+       void OnChanged_PeakDet(bool active);
+static const  Choice cTPos;                  ///< ÐÀÇÂÅÐÒÊÀ - Òî
+       void OnChanged_TPos(bool active);
+static const  Choice cDivRole;               ///< ÐÀÇÂÅÐÒÊÀ - Ô-öèÿ ÂÐ/ÄÅË
 
-// ÐÀÇÂÅÐÒÊÀ ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// ÐÀÇÂÅÐÒÊÀ /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 const Page mpTime =
 {
     Item_Page, &mainPage, 0,
@@ -37,18 +37,18 @@ const Page mpTime =
     },
     Page_Time,
     {
-        (void*)&mcTimeSample,
-        (void*)&mcTimePicDet,
-        (void*)&mcTimeTPos,
+        (void*)&cSample,        // ÐÀÇÂÅÐÒÊÀ - Âûáîðêà
+        (void*)&cPeakDet,       // ÐÀÇÂÅÐÒÊÀ - Ïèê äåò
+        (void*)&cTPos,          // ÐÀÇÂÅÐÒÊÀ - Òî
+        (void*)&cDivRole        // ÐÀÇÂÅÐÒÊÀ - Ô-öèÿ ÂÐ/ÄÅË
         // (void*)&mcTimeSelfRecorder,
-        (void*)&mcTimeDivRole
     }
 };
 
-//---------------------------------------------------------------------------------------------------------------------------------------------------
-static const Choice mcTimeSample =
+// ÐÀÇÂÅÐÒÊÀ - Âûáîðêà -------------------------------------------------------------------------------------------------------------------------------
+static const Choice cSample =
 {
-    Item_Choice, &mpTime, FuncTimeSampleActive,
+    Item_Choice, &mpTime, IsActive_Sample,
     {
         "Âûáîðêà",          "Sampling"
         ,
@@ -65,15 +65,15 @@ static const Choice mcTimeSample =
     (int8*)&SAMPLE
 };
 
-static bool FuncTimeSampleActive(void)
+static bool IsActive_Sample(void)
 {
     return IN_RANDOM_MODE && !START_MODE_SINGLE;
 }
 
-//---------------------------------------------------------------------------------------------------------------------------------------------------
-static const Choice mcTimePicDet =
+// ÐÀÇÂÅÐÒÊÀ - Ïèê äåò -------------------------------------------------------------------------------------------------------------------------------
+static const Choice cPeakDet =
 {
-    Item_Choice, &mpTime, IsActiveChoiceTimePicDeat,
+    Item_Choice, &mpTime, IsActive_PeakDet,
     {
         "Ïèê äåò",      "Pic deat",
         "Âêëþ÷àåò/âûêëþ÷àåò ïèêîâûé äåòåêòîð.",
@@ -84,10 +84,10 @@ static const Choice mcTimePicDet =
         {ENABLE_RU,     ENABLE_EN}
     /* , {"Ñðåäíåå",   "Average"} */
     },
-    (int8*)&SET_PEACKDET, OnPeacDetChanged
+    (int8*)&SET_PEACKDET, OnChanged_PeakDet
 };
 
-static bool IsActiveChoiceTimePicDeat(void)
+static bool IsActive_PeakDet(void)
 {
     if (FPGA_NUM_POINTS_32k)                       // Ïðè 32ê òî÷åê íà êàíàë ìû íå ìîæåì âêëþ÷àòü ïèêîâûé äåòåêòîð
     {
@@ -102,7 +102,7 @@ static bool IsActiveChoiceTimePicDeat(void)
     return (SET_TBASE >= MIN_TBASE_PEC_DEAT);
 }
 
-void OnPeacDetChanged(bool active)
+void OnChanged_PeakDet(bool active)
 {
     if(active)
     {
@@ -127,8 +127,8 @@ void OnPeacDetChanged(bool active)
     }
 }
 
-//---------------------------------------------------------------------------------------------------------------------------------------------------
-static const Choice mcTimeTPos =
+// ÐÀÇÂÅÐÒÊÀ - Òî ------------------------------------------------------------------------------------------------------------------------------------
+static const Choice cTPos =
 {
     Item_Choice, &mpTime, 0,
     {
@@ -141,17 +141,17 @@ static const Choice mcTimeTPos =
         {"Öåíòð",   "Center"},
         {"Ïðàâî",   "Right"}
     },
-    (int8*)&TPOS, OnTPosChanged
+    (int8*)&TPOS, OnChanged_TPos
 };
 
-void OnTPosChanged(bool active)
+void OnChanged_TPos(bool active)
 {
     OnChange_MemoryLength(active);
     FPGA_SetTShift(SET_TSHIFT);
 }
 
-//---------------------------------------------------------------------------------------------------------------------------------------------------
-static const Choice mcTimeDivRole =
+// ÐÀÇÂÅÐÒÊÀ - Ô-öèÿ ÂÐ/ÄÅË --------------------------------------------------------------------------------------------------------------------------
+static const Choice cDivRole =
 {
     Item_Choice, &mpTime, 0,
     {
