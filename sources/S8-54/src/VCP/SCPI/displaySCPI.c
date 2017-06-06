@@ -77,12 +77,10 @@ static void Process_MAPPING(uint8 *buffer)
 
 
 //------------------------------------------------------------------------------------------------------------------------------------------------------
-extern void OnPress_Accum_Clear(void);
-
-
-//------------------------------------------------------------------------------------------------------------------------------------------------------
 static void Process_ACCUM(uint8 *buffer)
 {
+    extern void OnPress_Accum_Clear(void);
+    
     static const MapElement map[] =
     {
         {"1",   0},
@@ -224,12 +222,10 @@ static void Process_FPS(uint8 *buffer)
 
 
 //------------------------------------------------------------------------------------------------------------------------------------------------------
-extern void OnChange_Grid_Brightness(void);
-
-
-//------------------------------------------------------------------------------------------------------------------------------------------------------
 static void Process_GRID(uint8 *buffer)
 {
+    extern void OnChanged_Grid_Brightness(void);
+    
     static const MapElement map[] =
     {
         {"TYPE1", 0},
@@ -244,7 +240,7 @@ static void Process_GRID(uint8 *buffer)
     if (SCPI_FirstIsInt(buffer, &intVal, 0, 100))
     {
         BRIGHTNESS_GRID = (int16)intVal;
-        OnChange_Grid_Brightness();
+        OnChanged_Grid_Brightness();
         return;
     }
 

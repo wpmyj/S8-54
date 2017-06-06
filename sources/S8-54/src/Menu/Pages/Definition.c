@@ -112,7 +112,7 @@ extern const Page mainPage;
 #include "PageHelp.c"
 
 
-extern const Page mpDisplay;
+extern const Page pDisplay;
 extern const Page mpCursors;
 extern const Page mpChanA;
 extern const Page mpChanB;
@@ -133,7 +133,7 @@ const Page mainPage =
     },
     Page_MainPage,
     {
-        (void*)&mpDisplay,
+        (void*)&pDisplay,
         (void*)&mpChanA,
         (void*)&mpChanB,
         (void*)&pTrig,
@@ -155,7 +155,7 @@ const void *PageForButton(PanelButton button)
         (void*)&mpChanA,    // B_Channel1
         (void*)&mpService,  // B_Service
         (void*)&mpChanB,    // B_Channel2
-        (void*)&mpDisplay,  // B_Display
+        (void*)&pDisplay,  // B_Display
         (void*)&mpTime,     // B_Time
         (void*)&mpMemory,   // B_Memory
         (void*)&pTrig,     // B_Trig
