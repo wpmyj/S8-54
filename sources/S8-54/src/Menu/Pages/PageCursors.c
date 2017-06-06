@@ -21,63 +21,55 @@
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 extern const Page mainPage;
 
-static const Choice mcShow;
-static const Choice mcLookModeChanA;
-static const Choice mcLookModeChanB;
-static const Choice mcShowFreq;
-
-static const Page mspSet;
-static const SmallButton sbSet_Exit;
-static const SmallButton sbSet_Channel;
-static const SmallButton sbSet_U;
-static const SmallButton sbSet_T;
-static const SmallButton sbSet_100;
-static const SmallButton sbSet_Movement;
-
-static void OnRot_Set(int angle);
-
-static void OnPressSB_Set_Exit(void);
-
-static void OnPressSB_Set_Channel(void);
-static void FuncDrawSB_Set_Source(int x, int y);
-static void FuncDrawSB_Set_SourceA(int x, int y);
-static void FuncDrawSB_Set_SourceB(int x, int y);
-
-static void OnPressSB_Set_U(void);
-static void FuncDrawSB_Set_U(int x, int y);
-static void FuncDrawSB_Set_U_disable(int x, int y);
-static void FuncDrawSB_Set_U_disableBoth(int x, int y);
-static void FuncDrawSB_Set_U_enableUpper(int x, int y);
-static void FuncDrawSB_Set_U_enableLower(int x, int y);
-static void FuncDrawSB_Set_U_enableBoth(int x, int y);
-
-static void OnPressSB_Set_T(void);
-static void FuncDrawSB_Set_T(int x, int y);
-static void FuncDrawSB_Set_T_disable(int x, int y);
-static void FuncDrawSB_Set_T_disableBoth(int x, int y);
-static void FuncDrawSB_Set_T_enableLeft(int x, int y);
-static void FuncDrawSB_Set_T_enableRight(int x, int y);
-static void FuncDrawSB_Set_T_enableBoth(int x, int y);
-
-static void OnPressSB_Set_100(void);
-static void FuncDrawSB_Set_100(int x, int y);
-
-static void OnPressSB_Set_Movement(void);
-static void FuncDrawSB_Set_Movement(int x, int y);
-static void FuncDrawSB_Set_Movement_Percents(int x, int y);
-static void FuncDrawSB_Set_Movement_Points(int x, int y);
+static const      Choice cShow;                              ///< КУРСОРЫ - Показывать
+static const      Choice cLookModeChanA;                     ///< КУРСОРЫ - Слежение канал 1
+static const      Choice cLookModeChanB;                     ///< КУРСОРЫ - Слежение канал 2
+static const      Choice cShowFreq;                          ///< КУРОСРЫ - 1/dT
+static const       Page ppSet;                                ///< КУРСОРЫ - УСТАНОВИТЬ
+static void      OnRegSet_Set(int angle);
+static const SmallButton bSet_Exit;                     ///< КУРСОРЫ - УСТАНОВИТЬ - Выход
+static void       OnPress_Set_Exit(void);
+static const SmallButton bSet_Channel;                  ///< КУРСОРЫ - УСТАНОВИТЬ - Канал
+static void       OnPress_Set_Channel(void);
+static void      FuncDraw_Set_Channel(int x, int y);
+static void      FuncDraw_Set_ChannelA(int x, int y);
+static void      FuncDraw_Set_ChannelB(int x, int y);
+static const SmallButton bSet_U;                        ///< КУРСОРЫ - УСТАНОВИТЬ - Курсоры U
+static void       OnPress_Set_U(void);
+static void      FuncDraw_Set_U(int x, int y);
+static void      FuncDraw_Set_U_disable(int x, int y);
+static void      FuncDraw_Set_U_disableBoth(int x, int y);
+static void      FuncDraw_Set_U_enableUpper(int x, int y);
+static void      FuncDraw_Set_U_enableLower(int x, int y);
+static void      FuncDraw_Set_U_enableBoth(int x, int y);
+static const SmallButton bSet_T;                        ///< КУРСОРЫ - УСТАНОВИТЬ - Курсоры Т
+static void       OnPress_Set_T(void);
+static void      FuncDraw_Set_T(int x, int y);
+static void      FuncDraw_Set_T_disable(int x, int y);
+static void      FuncDraw_Set_T_disableBoth(int x, int y);
+static void      FuncDraw_Set_T_enableLeft(int x, int y);
+static void      FuncDraw_Set_T_enableRight(int x, int y);
+static void      FuncDraw_Set_T_enableBoth(int x, int y);
+static const SmallButton bSet_100;                      ///< КУРСОРЫ - УСТАНОВИТЬ - 100%
+static void       OnPress_Set_100(void);
+static void      FuncDraw_Set_100(int x, int y);
+static const SmallButton bSet_Movement;                 ///< КУРСОРЫ - УСТАНОВИТЬ - Перемещение
+static void       OnPress_Set_Movement(void);
+static void      FuncDraw_Set_Movement(int x, int y);
+static void      FuncDraw_Set_Movement_Percents(int x, int y);
+static void      FuncDraw_Set_Movement_Points(int x, int y);
 
 static void MoveCursUonPercentsOrPoints(int delta);
 static void MoveCursTonPercentsOrPoints(int delta);
 
-static void SetShiftCursPosU(Channel ch, int numCur, float delta);    // Изменить значение позиции курсора напряжения на delta точек
-static void SetShiftCursPosT(Channel ch, int numCurs, float delta);   // Изменить значение позиции курсора времени на delta точек
-static void SetCursPos100(Channel ch);                                // Запомнить позиции курсоров, соответствующие 100%.
-static void SetCursSource(Channel ch);                               // Установить источник курсорных измерений.
-static void IncCursCntrlU(Channel ch);                                // Выбрать следующий курсор.
-static void IncCursCntrlT(Channel ch);                                // Выбрать следующий курсор.
-static void SetCursPosU(Channel ch, int numCur, float pos);           // Установить позицию курсора напряжения.
-static void SetCursPosT(Channel ch, int numCur, float pos);           // Установить значение курсора по времени.
+static void SetShiftCursPosU(Channel ch, int numCur, float delta);      ///< Изменить значение позиции курсора напряжения на delta точек.
+static void SetShiftCursPosT(Channel ch, int numCurs, float delta);     ///< Изменить значение позиции курсора времени на delta точек.
+static void SetCursPos100(Channel ch);                                  ///< Запомнить позиции курсоров, соответствующие 100%.
+static void SetCursSource(Channel ch);                                  ///< Установить источник курсорных измерений.
+static void IncCursCntrlU(Channel ch);                                  ///< Выбрать следующий курсор.
+static void IncCursCntrlT(Channel ch);                                  ///< Выбрать следующий курсор.
+static void SetCursPosU(Channel ch, int numCur, float pos);             ///< Установить позицию курсора напряжения.
+static void SetCursPosT(Channel ch, int numCur, float pos);             ///< Установить значение курсора по времени.
 
 
 // КУРСОРЫ ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -91,16 +83,16 @@ const Page mpCursors =
     },
     Page_Cursors,
     {
-        (void*)&mcShow,             // КУРСОРЫ - Показывать
-        (void*)&mcLookModeChanA,    // КУРСОРЫ - Слежение канал 1
-        (void*)&mcLookModeChanB,    // КУРСОРЫ - Слежение канал 2
-        (void*)&mcShowFreq,         // КУРОСРЫ - 1/dT
-        (void*)&mspSet              // КУРСОРЫ - УСТАНОВИТЬ
+        (void*)&cShow,             // КУРСОРЫ - Показывать
+        (void*)&cLookModeChanA,    // КУРСОРЫ - Слежение канал 1
+        (void*)&cLookModeChanB,    // КУРСОРЫ - Слежение канал 2
+        (void*)&cShowFreq,         // КУРОСРЫ - 1/dT
+        (void*)&ppSet              // КУРСОРЫ - УСТАНОВИТЬ
     }
 };
 
 // КУРСОРЫ - Показывать ------------------------------------------------------------------------------------------------------------------------------
-static const Choice mcShow =
+static const Choice cShow =
 {
     Item_Choice, &mpCursors, 0,
     {
@@ -116,7 +108,7 @@ static const Choice mcShow =
 };
 
 // КУРСОРЫ - Слежение канал 1 -----------------------------------------------------------------------------------------------------------------------
-static const Choice mcLookModeChanA =
+static const Choice cLookModeChanA =
 {
     Item_Choice, &mpCursors, 0,
     {
@@ -144,7 +136,7 @@ static const Choice mcLookModeChanA =
 };
 
 // КУРСОРЫ - Слежение канал 2 -----------------------------------------------------------------------------------------------------------------------
-static const Choice mcLookModeChanB =
+static const Choice cLookModeChanB =
 {
     Item_Choice, &mpCursors, 0,
     {
@@ -172,13 +164,15 @@ static const Choice mcLookModeChanB =
 };
 
 // КУРОСРЫ - 1/dT -----------------------------------------------------------------------------------------------------------------------------------
-static const Choice mcShowFreq =
+static const Choice cShowFreq =
 {
     Item_Choice, &mpCursors, 0,
     {
         "1/dT", "1/dT",
-        "Если выбрано \"Вкл\", в правом верхнем углу выводится величина, обратная расстоянию между курсорами времени - частота сигнала, один период которого равен расстоянию между временными курсорами.",
-        "If you select \"Enable\" in the upper right corner displays the inverse of the distance between cursors time - frequency signal, a period equal to the distance between the time cursors."
+        "Если выбрано \"Вкл\", в правом верхнем углу выводится величина, обратная расстоянию между курсорами времени - частота сигнала, один период "
+        "которого равен расстоянию между временными курсорами.",
+        "If you select \"Enable\" in the upper right corner displays the inverse of the distance between cursors time - frequency signal, a period "
+        "equal to the distance between the time cursors."
     },
     {
         {DISABLE_RU,    DISABLE_EN},
@@ -188,7 +182,7 @@ static const Choice mcShowFreq =
 };
 
 // КУРСОРЫ - УСТАНОВИТЬ /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-static const Page mspSet =
+static const Page ppSet =
 {
     Item_Page, &mpCursors, 0,
     {
@@ -198,17 +192,17 @@ static const Page mspSet =
     },
     Page_SB_Curs,
     {
-        (void*)&sbSet_Exit,     // КУРСОРЫ - УСТАНОВИТЬ - Выход
-        (void*)&sbSet_Channel,  // КУРСОРЫ - УСТАНОВИТЬ - Канал
-        (void*)&sbSet_U,        // КУРСОРЫ - УСТАНОВИТЬ - Курсоры U
-        (void*)&sbSet_T,        // КУРСОРЫ - УСТАНОВИТЬ - Курсоры Т
-        (void*)&sbSet_100,      // КУРСОРЫ - УСТАНОВИТЬ - 100%
-        (void*)&sbSet_Movement  // КУРСОРЫ - УСТАНОВИТЬ - Перемещение
+        (void*)&bSet_Exit,     // КУРСОРЫ - УСТАНОВИТЬ - Выход
+        (void*)&bSet_Channel,  // КУРСОРЫ - УСТАНОВИТЬ - Канал
+        (void*)&bSet_U,        // КУРСОРЫ - УСТАНОВИТЬ - Курсоры U
+        (void*)&bSet_T,        // КУРСОРЫ - УСТАНОВИТЬ - Курсоры Т
+        (void*)&bSet_100,      // КУРСОРЫ - УСТАНОВИТЬ - 100%
+        (void*)&bSet_Movement  // КУРСОРЫ - УСТАНОВИТЬ - Перемещение
     },
-    EmptyFuncVV, EmptyFuncVV, OnRot_Set
+    EmptyFuncVV, EmptyFuncVV, OnRegSet_Set
 };
 
-static void OnRot_Set(int angle)
+static void OnRegSet_Set(int angle)
 {
     if (CURS_ACTIVE_U)
     {
@@ -222,91 +216,94 @@ static void OnRot_Set(int angle)
 }
 
 // КУРСОРЫ - УСТАНОВИТЬ - Выход --------------------------------------------------------------------------------------------------------------------
-static const SmallButton sbSet_Exit =
+static const SmallButton bSet_Exit =
 {
-    Item_SmallButton, &mspSet, 0,
+    Item_SmallButton, &ppSet, 0,
     {
         "Выход", "Exit",
         "Кнопка для выхода в предыдущее меню",
         "Button to return to the previous menu"
     },
-    OnPressSB_Set_Exit,
+    OnPress_Set_Exit,
     DrawSB_Exit
 };
 
-static void OnPressSB_Set_Exit(void)
+static void OnPress_Set_Exit(void)
 {
     Display_RemoveAddDrawFunction();
 }
 
 // КУРСОРЫ - УСТАНОВИТЬ - Канал --------------------------------------------------------------------------------------------------------------------
-static const SmallButton sbSet_Channel =
+static const SmallButton bSet_Channel =
 {
-    Item_SmallButton, &mspSet, 0,
+    Item_SmallButton, &ppSet, 0,
     {
         "Канал", "Channel",
         "Выбор канала для курсорных измерений",
         "Channel choice for measurements"
     },
-    OnPressSB_Set_Channel,
-    FuncDrawSB_Set_Source,
+    OnPress_Set_Channel,
+    FuncDraw_Set_Channel,
     {
         {
-            FuncDrawSB_Set_SourceA,
+            FuncDraw_Set_ChannelA,
             "канал 1",
             "channel 1"
         },
         {
-            FuncDrawSB_Set_SourceB,
+            FuncDraw_Set_ChannelB,
             "канал 2",
             "channel 2"
         }
     }
 };
 
-static void OnPressSB_Set_Channel(void)
+static void OnPress_Set_Channel(void)
 {
     Channel source = CURS_SOURCE_A ? B : A;
     SetCursSource(source);
 }
 
-static void FuncDrawSB_Set_Source(int x, int y)
+static void FuncDraw_Set_Channel(int x, int y)
 {
-    static const pFuncVII func[2] = {FuncDrawSB_Set_SourceA, FuncDrawSB_Set_SourceB};
+    static const pFuncVII func[2] = {FuncDraw_Set_ChannelA, FuncDraw_Set_ChannelB};
     func[CURS_SOURCE](x, y);
 }
 
-static void FuncDrawSB_Set_SourceA(int x, int y)
+static void FuncDraw_Set_ChannelA(int x, int y)
 {
     Painter_DrawText(x + 7, y + 5, "1");
 }
 
-static void FuncDrawSB_Set_SourceB(int x, int y)
+static void FuncDraw_Set_ChannelB(int x, int y)
 {
     Painter_DrawText(x + 7, y + 5, "2");
 }
 
 // КУРСОРЫ - УСТАНОВИТЬ - Курсоры U ----------------------------------------------------------------------------------------------------------------
-static const SmallButton sbSet_U =      // Выбор курсора напряжения - курсор 1, курсор 2, оба курсора или отключены.
+static const SmallButton bSet_U =      // Выбор курсора напряжения - курсор 1, курсор 2, оба курсора или отключены.
 {
-    Item_SmallButton, &mspSet, 0,
+    Item_SmallButton, &ppSet, 0,
     {
         "Курсоры U", "Cursors U",
         "Выбор курсоров напряжения для индикации и управления",
         "Choice of cursors of voltage for indication and management"
     },
-    OnPressSB_Set_U,
-    FuncDrawSB_Set_U,
+    OnPress_Set_U,
+    FuncDraw_Set_U,
     {
-        {FuncDrawSB_Set_U_disable, "курсоры напряжения выключены", "cursors of tension are switched off"},
-        {FuncDrawSB_Set_U_disableBoth, "курсоры напряжения включены", "cursors of tension are switched on"},
-        {FuncDrawSB_Set_U_enableUpper, "курсоры напряжения включены, управление верхним курсором", "cursors of tension are switched on, control of the top cursor"},
-        {FuncDrawSB_Set_U_enableLower, "курсоры напряжения включены, управление нижним курсором", "cursors of tension are switched on, control of the lower cursor"},
-        {FuncDrawSB_Set_U_enableBoth, "курсоры напряжения включены, управление обоими курсорами", "cursors of tension are switched on, control of both cursors"}
+        {FuncDraw_Set_U_disable, "курсоры напряжения выключены", "cursors of tension are switched off"},
+        {FuncDraw_Set_U_disableBoth, "курсоры напряжения включены", "cursors of tension are switched on"},
+        {FuncDraw_Set_U_enableUpper, "курсоры напряжения включены, управление верхним курсором", "cursors of tension are switched on, control of the "
+                                    "top cursor"},
+        {FuncDraw_Set_U_enableLower, "курсоры напряжения включены, управление нижним курсором", "cursors of tension are switched on, control of the "
+                                    "lower cursor"},
+        {FuncDraw_Set_U_enableBoth, "курсоры напряжения включены, управление обоими курсорами", "cursors of tension are switched on, control of both "
+                                    "cursors"}
     }
 };
 
-static void OnPressSB_Set_U(void)
+static void OnPress_Set_U(void)
 {
     if (CURS_ACTIVE_U || CURsU_DISABLED)
     {
@@ -315,18 +312,18 @@ static void OnPressSB_Set_U(void)
     CURS_ACTIVE = CursActive_U;
 }
 
-static void FuncDrawSB_Set_U(int x, int y)
+static void FuncDraw_Set_U(int x, int y)
 {
     Channel source = CURS_SOURCE;
     if (CURsU_DISABLED)
     {
-       FuncDrawSB_Set_U_disable(x, y);
+       FuncDraw_Set_U_disable(x, y);
     }
     else
     {
         if (!CURS_ACTIVE_U)
         {
-            FuncDrawSB_Set_U_disableBoth(x, y);
+            FuncDraw_Set_U_disableBoth(x, y);
         }
         else
         {
@@ -334,66 +331,66 @@ static void FuncDrawSB_Set_U(int x, int y)
             CalculateConditions((int16)sCursors_GetCursPosU(source, 0), (int16)sCursors_GetCursPosU(source, 1), CURsU_CNTRL, &condTop, &condDown);
             if (condTop && condDown)
             {
-                FuncDrawSB_Set_U_enableBoth(x, y);
+                FuncDraw_Set_U_enableBoth(x, y);
             }
             else if (condTop)
             {
-                FuncDrawSB_Set_U_enableUpper(x, y);
+                FuncDraw_Set_U_enableUpper(x, y);
             }
             else
             {
-                FuncDrawSB_Set_U_enableLower(x, y);
+                FuncDraw_Set_U_enableLower(x, y);
             }
         }
     }
 }
 
-static void FuncDrawSB_Set_U_disable(int x, int y)
+static void FuncDraw_Set_U_disable(int x, int y)
 {
     Painter_DrawText(x + 7, y + 5, "U");
 }
 
-static void FuncDrawSB_Set_U_disableBoth(int x, int y)
+static void FuncDraw_Set_U_disableBoth(int x, int y)
 {
     DrawMenuCursVoltage(x + 7, y + 5, false, false);
 }
 
-static void FuncDrawSB_Set_U_enableUpper(int x, int y)
+static void FuncDraw_Set_U_enableUpper(int x, int y)
 {
     DrawMenuCursVoltage(x + 7, y + 5, true, false);
 }
 
-static void FuncDrawSB_Set_U_enableLower(int x, int y)
+static void FuncDraw_Set_U_enableLower(int x, int y)
 {
     DrawMenuCursVoltage(x + 7, y + 5, false, true);
 }
 
-static void FuncDrawSB_Set_U_enableBoth(int x, int y)
+static void FuncDraw_Set_U_enableBoth(int x, int y)
 {
     DrawMenuCursVoltage(x + 7, y + 5, true, true);
 }
 
 // КУРСОРЫ - УСТАНОВИТЬ - Курсоры Т ----------------------------------------------------------------------------------------------------------------
-static const SmallButton sbSet_T =      // Выбор курсора времени - курсор 1, курсор 2, оба курсора или отключены.
+static const SmallButton bSet_T =      // Выбор курсора времени - курсор 1, курсор 2, оба курсора или отключены.
 {
-    Item_SmallButton, &mspSet, 0,
+    Item_SmallButton, &ppSet, 0,
     {
         "Курсоры T", "Cursors T",
         "Выбор курсоров времени для индикации и управления",
         "Choice of cursors of time for indication and management"
     },
-    OnPressSB_Set_T,
-    FuncDrawSB_Set_T,
+    OnPress_Set_T,
+    FuncDraw_Set_T,
     {
-        {FuncDrawSB_Set_T_disable, "курсоры времени выключены", "cursors of time are switched off"},
-        {FuncDrawSB_Set_T_disableBoth, "курсоры времени включены", "cursors of time are switched on"},
-        {FuncDrawSB_Set_T_enableLeft, "курсоры времени включены, управление левым курсором", "cursors of time are switched on, control of the left cursor"},
-        {FuncDrawSB_Set_T_enableRight, "курсоры времени включены, управление правым курсором", "cursors of time are switched on, control of the right cursor"},
-        {FuncDrawSB_Set_T_enableBoth, "курсоры времени включены, управление обоими курсорами", "cursors of time are switched on, control of both cursors"}
+        {FuncDraw_Set_T_disable, "курсоры времени выключены", "cursors of time are switched off"},
+        {FuncDraw_Set_T_disableBoth, "курсоры времени включены", "cursors of time are switched on"},
+        {FuncDraw_Set_T_enableLeft, "курсоры времени включены, управление левым курсором", "cursors of time are switched on, control of the left cursor"},
+        {FuncDraw_Set_T_enableRight, "курсоры времени включены, управление правым курсором", "cursors of time are switched on, control of the right cursor"},
+        {FuncDraw_Set_T_enableBoth, "курсоры времени включены, управление обоими курсорами", "cursors of time are switched on, control of both cursors"}
     }
 };
 
-static void OnPressSB_Set_T(void)
+static void OnPress_Set_T(void)
 {
     if (CURS_ACTIVE_T || CURsT_DISABLED)
     {
@@ -402,17 +399,17 @@ static void OnPressSB_Set_T(void)
     CURS_ACTIVE = CursActive_T;
 }
 
-static void FuncDrawSB_Set_T(int x, int y)
+static void FuncDraw_Set_T(int x, int y)
 {
     if (CURsT_DISABLED)
     {
-        FuncDrawSB_Set_T_disable(x, y);
+        FuncDraw_Set_T_disable(x, y);
     }
     else
     {
         if (!CURS_ACTIVE_T)
         {
-            FuncDrawSB_Set_T_disableBoth(x, y);
+            FuncDraw_Set_T_disableBoth(x, y);
         }
         else
         {
@@ -421,64 +418,64 @@ static void FuncDrawSB_Set_T(int x, int y)
             CalculateConditions((int16)CURsT_POS(source, 0), (int16)CURsT_POS(source, 1), CURsT_CNTRL, &condLeft, &condDown);
             if (condLeft && condDown)
             {
-                FuncDrawSB_Set_T_enableBoth(x, y);
+                FuncDraw_Set_T_enableBoth(x, y);
             }
             else if (condLeft)
             {
-                FuncDrawSB_Set_T_enableLeft(x, y);
+                FuncDraw_Set_T_enableLeft(x, y);
             }
             else
             {
-                FuncDrawSB_Set_T_enableRight(x, y);
+                FuncDraw_Set_T_enableRight(x, y);
             }
         }
     }
 }
 
-static void FuncDrawSB_Set_T_disable(int x, int y)
+static void FuncDraw_Set_T_disable(int x, int y)
 {
     Painter_DrawText(x + 7, y + 5, "T");
 }
 
-static void FuncDrawSB_Set_T_disableBoth(int x, int y)
+static void FuncDraw_Set_T_disableBoth(int x, int y)
 {
     DrawMenuCursTime(x, y, false, false);
 }
 
-static void FuncDrawSB_Set_T_enableLeft(int x, int y)
+static void FuncDraw_Set_T_enableLeft(int x, int y)
 {
     DrawMenuCursTime(x, y, true, false);
 }
 
-static void FuncDrawSB_Set_T_enableRight(int x, int y)
+static void FuncDraw_Set_T_enableRight(int x, int y)
 {
     DrawMenuCursTime(x, y, false, true);
 }
 
-static void FuncDrawSB_Set_T_enableBoth(int x, int y)
+static void FuncDraw_Set_T_enableBoth(int x, int y)
 {
     DrawMenuCursTime(x, y, true, true);
 }
 
 // КУРСОРЫ - УСТАНОВИТЬ - 100% ---------------------------------------------------------------------------------------------------------------------
-static const SmallButton sbSet_100 =    // Установка 100 процентов в текущие места курсоров.
+static const SmallButton bSet_100 =    // Установка 100 процентов в текущие места курсоров.
 {
-    Item_SmallButton, &mspSet, 0,
+    Item_SmallButton, &ppSet, 0,
     {
         "100%", "100%",
         "Используется для процентных измерений. Нажатие помечает расстояние между активными курсорами как 100%",
         "It is used for percentage measurements. Pressing marks distance between active cursors as 100%"
     },
-    OnPressSB_Set_100,
-    FuncDrawSB_Set_100
+    OnPress_Set_100,
+    FuncDraw_Set_100
 };
 
-static void OnPressSB_Set_100(void)
+static void OnPress_Set_100(void)
 {
     SetCursPos100(CURS_SOURCE);
 }
 
-static void FuncDrawSB_Set_100(int x, int y)
+static void FuncDraw_Set_100(int x, int y)
 {
     Painter_SetFont(TypeFont_5);
     Painter_DrawText(x + 2, y + 3, "100%");
@@ -486,45 +483,45 @@ static void FuncDrawSB_Set_100(int x, int y)
 }
 
 // КУРСОРЫ - УСТАНОВИТЬ - Перемещение --------------------------------------------------------------------------------------------------------------
-static const SmallButton sbSet_Movement =     // Переключение шага перемещения курсоров - по пикселям или по процентам.
+static const SmallButton bSet_Movement =     // Переключение шага перемещения курсоров - по пикселям или по процентам.
 {
-    Item_SmallButton, &mspSet, 0,
+    Item_SmallButton, &ppSet, 0,
     {
         "Перемещение", "Movement",
         "Выбор шага перемещения курсоров - проценты или точки",
         "Choice of a step of movement of cursors - percent or points"
     },
-    OnPressSB_Set_Movement,
-    FuncDrawSB_Set_Movement,
+    OnPress_Set_Movement,
+    FuncDraw_Set_Movement,
     {
-        {FuncDrawSB_Set_Movement_Percents, "шаг перемещения курсоров кратен одному проценту", "the step of movement of cursors is multiple to one percent"},
-        {FuncDrawSB_Set_Movement_Points, "шаг перемещения курсора кратен одному пикселю", "the step of movement of the cursor is multiple to one pixel"}
+        {FuncDraw_Set_Movement_Percents, "шаг перемещения курсоров кратен одному проценту", "the step of movement of cursors is multiple to one percent"},
+        {FuncDraw_Set_Movement_Points, "шаг перемещения курсора кратен одному пикселю", "the step of movement of the cursor is multiple to one pixel"}
     }
 };
 
-static void OnPressSB_Set_Movement(void)
+static void OnPress_Set_Movement(void)
 {
     CircleIncreaseInt8((int8*)&CURS_MOVEMENT, 0, 1);
 }
 
-static void FuncDrawSB_Set_Movement(int x, int y)
+static void FuncDraw_Set_Movement(int x, int y)
 {
     if (CURS_MOVEMENT_IS_PERCENTS)
     {
-        FuncDrawSB_Set_Movement_Percents(x, y);
+        FuncDraw_Set_Movement_Percents(x, y);
     }
     else
     {
-        FuncDrawSB_Set_Movement_Points(x, y);
+        FuncDraw_Set_Movement_Points(x, y);
     }
 }
 
-static void FuncDrawSB_Set_Movement_Percents(int x, int y)
+static void FuncDraw_Set_Movement_Percents(int x, int y)
 {
     Painter_DrawText(x + 6, y + 5, "\x83");
 }
 
-static void FuncDrawSB_Set_Movement_Points(int x, int y)
+static void FuncDraw_Set_Movement_Points(int x, int y)
 {
     Painter_SetFont(TypeFont_5);
     Painter_DrawText(x + 4, y + 3, "тчк");
