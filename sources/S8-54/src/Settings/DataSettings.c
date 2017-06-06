@@ -14,7 +14,7 @@ StateOSCI gState = StateOSCI_Start;
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 int NumBytesInChannel(const DataSettings *ds)
 {
-    return FPGA_NUM_POINTS_2_NumPoints((NumPoinstFPGA)INDEXLENGTH(ds));
+    return FPGA_NUM_POINTS_2_NumPoints((ENumPoinstFPGA)INDEXLENGTH(ds));
 }
 
 

@@ -21,7 +21,7 @@ extern StateWorkFPGA fpgaStateWork;
 /// Инициализация
 void FPGA_Init(void);
 /// Установить количество считываемых сигналов в секунду
-void FPGA_SetNumSignalsInSec(int numSigInSec);
+void FPGA_SetENumSignalsInSec(int numSigInSec);
 /// Функция должна вызываться каждый кадр
 void FPGA_Update(void);
 /// Запускает цикл сбора информации

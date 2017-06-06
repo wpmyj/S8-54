@@ -107,9 +107,9 @@ static void OnTimerCanReadData(void)
 }
 
 //------------------------------------------------------------------------------------------------------------------------------------------------------
-void FPGA_SetNumSignalsInSec(int numSigInSec) 
+void FPGA_SetENumSignalsInSec(int numSigInSec) 
 {
-    Timer_SetAndEnable(kNumSignalsInSec, OnTimerCanReadData, (int)(1000.f / numSigInSec));
+    Timer_SetAndEnable(kENumSignalsInSec, OnTimerCanReadData, (int)(1000.f / numSigInSec));
 }
 
 //------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -650,7 +650,7 @@ static void DataReadSave(bool necessaryShift, bool first, bool saveToStorage, bo
         InverseDataIsNecessary(B, dataB);
     }
     
-    if (saveToStorage && (INDEXLENGTH(&ds) == (NumPoinstFPGA)NumPoints_2_FPGA_NUM_POINTS(sMemory_NumBytesInChannel(false))))
+    if (saveToStorage && (INDEXLENGTH(&ds) == (ENumPoinstFPGA)NumPoints_2_FPGA_NUM_POINTS(sMemory_NumBytesInChannel(false))))
     {
         DS_AddData(dataA, dataB, ds);
     }

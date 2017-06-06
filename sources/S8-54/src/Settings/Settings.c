@@ -21,242 +21,201 @@ extern void OnChange_DisplayOrientation(bool);
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-static const Settings defaultSettings;
-
-/*
 static const Settings defaultSettings =
 {
-    // Display
+    // SettingsDisplay
+    5,                          // TimeShowLevels
+    512 - 240,                  // ShiftInMemory
+    5,                          // TimeMessages
+    100,                        // Brightness
+    20,                         // BrightnessGrid
     {
-        5,                          // timeShowLevels
-        512 - 140,                  // shiftInMemory
-        5,                          // timeMessages
-        100,                        // brightness
-        20,                         // brightnessGrid
-        {
-            MAKE_COLOR(0, 0, 0),        // COLOR_BLACK
-            MAKE_COLOR(31, 63, 31),     // COLOR_WHITE
-            MAKE_COLOR(15, 31, 15),     // COLOR_GRID
-            MAKE_COLOR(1, 50, 31),      // COLOR_DATA_1
-            MAKE_COLOR(0, 63, 0),       // COLOR_DATA_2
-            MAKE_COLOR(26, 54, 26),     // COLOR_MENU_FIELD
-            MAKE_COLOR(31, 44, 0),      // COLOR_MENU_TITLE
-            MAKE_COLOR(15, 22, 0),      // COLOR_MENU_TITLE_DARK
-            MAKE_COLOR(31, 63, 0),      // COLOR_MENU_TITLE_BRIGHT
-            MAKE_COLOR(26, 34, 0),      // COLOR_MENU_ITEM
-            MAKE_COLOR(13, 17, 0),      // COLOR_MENU_ITEM_DARK
-            MAKE_COLOR(31, 51, 0),      // COLOR_MENU_ITEM_BRIGHT
-            MAKE_COLOR(0, 25, 15),      // COLOR_DATA_A_WHITE
-            MAKE_COLOR(0, 31, 0),       // COLOR_DATA_B_WHITE
-            MAKE_COLOR(1, 40, 25),      
-            MAKE_COLOR(0, 51, 0)
-        },
-        ModeDrawSignal_Lines,       // modeDrawSignal
-        TypeGrid_1,                 // typeGrid
-        NumAccumulation_1,          // numAccumulation
-        NumAveraging_1,             // numAveraging
-        Averaging_Accurately,       // modeAveraging
-        NumMinMax_1,                // numMinMax
-        NumSmooth_Disable,          // smoothing
-        NumSignalsInSec_25,         // num signals in one second
-        A,                          // lastAffectedChannel
-        ModeAccumulation_NoReset,   // modeAccumulation
-        AM_Show,                    // altMarkers
-        MenuAutoHide_None,          // menuAutoHide
-        ShowStrNavi_Temp,           // showStringNavigation
-        LinkingRShift_Voltage,      // linkingRShift
-        Background_Black            // background
+        MAKE_COLOR(0, 0, 0),    // COLOR_BLACK
+        MAKE_COLOR(31, 63, 31), // COLOR_WHITE
+        MAKE_COLOR(15, 31, 15), // COLOR_GRID
+        MAKE_COLOR(1, 50, 31),  // COLOR_DATA_1
+        MAKE_COLOR(0, 63, 0),   // COLOR_DATA_2
+        MAKE_COLOR(26, 54, 26), // COLOR_MENU_FIELD
+        MAKE_COLOR(31, 44, 0),  // COLOR_MENU_TITLE
+        MAKE_COLOR(15, 22, 0),  // COLOR_MENU_TITLE_DARK
+        MAKE_COLOR(31, 63, 0),  // COLOR_MENU_TITLE_BRIGHT
+        MAKE_COLOR(26, 34, 0),  // COLOR_MENU_ITEM
+        MAKE_COLOR(13, 17, 0),  // COLOR_MENU_ITEM_DARK
+        MAKE_COLOR(31, 51, 0),  // COLOR_MENU_ITEM_BRIGHT
+        MAKE_COLOR(0, 25, 15),  // COLOR_DATA_A_WHITE
+        MAKE_COLOR(0, 31, 0),   // COLOR_DATA_B_WHITE
+        MAKE_COLOR(1, 40, 25),
+        MAKE_COLOR(0, 51, 0)
     },
-    // channels
+    ModeDrawSignal_Lines,       // ModeDrawSignal
+    TypeGrid_1,                 // TypeGrid
+    NumAccumulation_1,          // NumAccumulation
+    NumAveraging_1,             // NumAveraging
+    Averaging_Accurately,       // ModeAveraging
+    NumMinMax_1,                // ENumMinMax
+    NumSmooth_Disable,          // ENumSmoothing
+    ENumSignalsInSec_25,         // ENumSignalsInSec
+    A,                          // LastAffectedChannel
+    ModeAccumulation_NoReset,   // ModeAccumulation
+    AM_Show,                    // AltMarkers
+    MenuAutoHide_None,          // MenuAutoHide
+    ShowStrNavi_Temp,           // ShowStringNavigation
+    LinkingRShift_Voltage,      // LinkingRShift
+    Background_Black,           // Background
+    // SettingsChannels
+    {RShiftZero,            RShiftZero},            // RShiftRel[2]
+    {ModeCouple_AC,         ModeCouple_AC},         // ModeCouple[2]
+    {Divider_1,             Divider_1},             // Divider[2]
+    {Range_500mV,           Range_500mV},           // Range[2]
+    {true,                  true},                  // Enable[2]
+    {false,                 false},                 // Inverse[2]
+    {0,                     0},                     // BalanceShiftADC[2]
+    {Bandwidth_Full,        Bandwidth_Full},        // Bandwidth[2]
+    {Resistance_1Mom,       Resistance_1Mom},       // Resistance[2]
+    {CalibrationMode_x1,    CalibrationMode_x1},    // CalibrationMode[2]
+    // SettingsTrig
+    {TrigLevZero, TrigLevZero, TrigLevZero},        // LevelRel[3]
+    45,                                             // TimeDelay
+    StartMode_Auto,                                 // StartMode
+    TrigSource_A,                                   // Source
+    TrigPolarity_Front,                             // Polarity
+    TrigInput_AC,                                   // Input
+    TrigModeFind_Hand,                              // ModeFind
+    // SettingsTime
+    TBase_200us,                            // TBase
+    0,                                      // TShiftRel
+    FunctionTime_Time,                      // TimeDivXPos
+    TPos_Center,                            // TPos
+    SampleType_Equal,                       // SampleType
+    SampleType_Equal,                       // SampleTypeOld
+    PeackDet_Disable,                       // PeackDet
+    // SettingsCursors
+    {CursCntrl_Disable, CursCntrl_Disable}, // CntrlU[NumChannels]
+    {CursCntrl_Disable, CursCntrl_Disable}, // CntrlT[NumChannels]
+    A,                                      // Source
+    {60.0f, 140.0f, 60.0f, 140.0f},         // PosCurU[NumChannels][2]
+    {80.0f, 200.0f, 80.0f, 200.0f},         // PosCurT[NumChannels][2]
+    {80.0f, 80.0f},                         // DeltaU100percents[2]
+    {120.0f, 120.0f},                       // DeltaT100percents[2]
+    CursMovement_Points,                    // Movement
+    CursActive_None,                        // Active
+    {CursLookMode_None, CursLookMode_None}, // LookMode[2]
+    false,                                  // ShowFreq
+    false,                                  // ShowCursors
+    // SetttingsMemory
+    FNP_1k,                 // FpgaNumPoints
+    ModeWork_Direct,        // ModeWork
+    FileNamingMode_Mask,    // FileNamingMode
+    "Signal_\x07\x03",      // FileNameMask[MAX_SYMBOLS_IN_FILE_NAME]
+    "Signal01",             // FileName[MAX_SYMBOLS_IN_FILE_NAME]
+    0,                      // IndexCurSymbolNameMask
+    ModeShowIntMem_Direct,  // ModeShowIntMem
+    false,                  // FlashAutoConnect
+    ModeBtnMemory_Menu,     // ModeBtnMemory
+    ModeSaveSignal_BMP,     // ModeSaveSignal
+    // SettingsMeasures
+    MN_1,                   // Number
+    A_B,                    // Source
+    ModeViewSignals_AsIs,   // ModeViewSignals
     {
-        {
-            RShiftZero,             // rShiftRel
-            ModeCouple_AC,          // ModCouple
-            Divider_1,              // Divider
-            Range_500mV,            // range
-            true,                   // enable
-            false,                  // inverse
-			0,                      // balanceShiftADC
-            Bandwidth_Full,         //
-            Resistance_1Mom,        // resistance
-            CalibrationMode_x1
-        },
-        {
-            RShiftZero,             // rShiftRel
-            ModeCouple_AC,          // ModCouple    
-            Divider_1,              // Divider
-            Range_500mV,            // range
-            true,                   // enable
-            false,                  // inverse
-			5,                      // balanceShiftADC
-            Bandwidth_Full,         //
-            Resistance_1Mom,        // resistance
-            CalibrationMode_x1
-        }
-        
+        Measure_VoltageMax,     Measure_VoltageMin,     Measure_VoltagePic,         Measure_VoltageMaxSteady,   Measure_VoltageMinSteady,
+        Measure_VoltageAverage, Measure_VoltageAmpl,    Measure_VoltageRMS,         Measure_VoltageVybrosPlus,  Measure_VoltageVybrosMinus,
+        Measure_Period,         Measure_Freq,           Measure_TimeNarastaniya,    Measure_TimeSpada,          Measure_DurationPlus
     },
-    // trig
-    {
-        {TrigLevZero, TrigLevZero, TrigLevZero},    // levelRel[3]
-        45,                                         // timeDelay
-        StartMode_Auto,                             // startMode
-        TrigSource_A,                               // trigSource
-        TrigPolarity_Front,                         // trigPolarity
-        TrigInput_AC,                               // trigInput
-        TrigModeFind_Hand                           // modeFind
-    },
-    // time
-    {
-        TBase_200us,
-        0,                      // set.time.tShiftRel
-        FunctionTime_Time,
-        TPos_Center,
-        SampleType_Equal,        // sampleType
-        SampleType_Equal,
-        PeackDet_Disable
-    },
-    // cursors
-    {
-        { CursCntrl_Disable, CursCntrl_Disable },   // CursCntrl U
-        { CursCntrl_Disable, CursCntrl_Disable },   // CursCntrl T
-        A,                                          // source
-        { 60.0f,  140.0f, 60.0f, 140.0f },          // posCur U
-        { 80.0f,  200.0f, 80.0f, 200.0f },          // posCur T
-        { 80.0f,  80.0f },                          // расстояние между курсорами напряжения для 100%
-        { 120.0f, 120.0f },                         // расстояние между курсорами времени для 100%
-        CursMovement_Points,                        // CursMovement
-        CursActive_None,                            // CursActive
-        { CursLookMode_None, CursLookMode_None },   // Режим слежения курсоров.
-        false,                                      // showFreq
-        false                                       // showCursors
-    },
-    // memory
-    {
-        FNP_1k,
-        ModeWork_Direct,
-        FileNamingMode_Mask,
-        "Signal_\x07\x03",      // \x07 - означает, что здесь должен быть очередной номер, \x03 - минимум на три знакоместа
-        "Signal01",
-        0,
-        {
-            false
-        },
-        ModeShowIntMem_Direct,  // modeShowIntMem
-        false,                  // flashAutoConnect
-        ModeBtnMemory_Menu,
-        ModeSaveSignal_BMP
-    },
-    // measures
-    {
-        MN_1,                       // measures number
-        A_B,                        // source
-        ModeViewSignals_AsIs,       // mode view signal
-        {
-            Measure_VoltageMax,     Measure_VoltageMin,     Measure_VoltagePic,         Measure_VoltageMaxSteady,   Measure_VoltageMinSteady,
-            Measure_VoltageAverage, Measure_VoltageAmpl,    Measure_VoltageRMS,         Measure_VoltageVybrosPlus,  Measure_VoltageVybrosMinus,
-            Measure_Period,         Measure_Freq,           Measure_TimeNarastaniya,    Measure_TimeSpada,          Measure_DurationPlus
-        },
-        false,                      // show
-        MeasuresZone_Screen,        // брать для измерений значения, видимые на экране
-        //{0, 200},                 // начальные значения курсоров напряжения для зоны измерений
-        //{372, 652},               // начальные значения курсоров времени для зоны измерений
-        {50, 150},                  // начальные значения курсоров напряжения для зоны измерений
-        {422, 602},                 // начальные значения курсоров времени для зоны измерений
-        CursCntrl_1,                // Управляем первым курсором напряжения
-        CursCntrl_1,                // Управляем первым курсором времени
-        CursActive_T,               // Активны курсоры времени.
-        Measure_None                // marked Measure
-    },
-    // math
-    {
-        ScaleFFT_Log,
-        SourceFFT_ChannelA,
-        WindowFFT_Rectangle,
-        FFTmaxDB_60,
-        Function_Sum,
-        0,
-        {100, 256 - 100},
-        1,
-        1,
-        1,
-        1,
-        false,
-        ModeDrawMath_Disable,       // modeDrawMath
-        ModeRegSet_Range,           // modeRegSet
-        Range_50mV,
-        Divider_1,
-        RShiftZero                  // rShift
-    },
-    // service
-    {
-        {false},                            // freqMeter
-        15,                                 // soundVolume
-        1,                                  // speedRShift
-        true,                               // soundEnable
-        false,                              // recorder
-        0,                                  // IP-адрес (временно)  WARN
-        Calibrator_Freq,                    // calibrator
-        ColorScheme_WhiteLetters,           // colorScheme
-        FunctionPressRShift_ResetPosition   // funcRShift
-        
-    },
-    {
-        0x8b, 0x2e, 0xaf, 0x8f, 0x13, 0x00, // mac
-        192, 168, 1, 200,                   // ip
-        7,
-        255, 255, 255, 0,                   // netmask
-        192, 168, 1, 1                      // gateway
-    },
-    // common
-    {
-        0
-    },
-    // menu
-    {
-        {0x7f, 0x7f, 0x7f, 0x7f, 0x7f, 0x7f, 0x7f, 0x7f, 0x7f, 0x7f, 0x7f, 0x7f, 0x7f, 0x7f, 0x7f, 0x7f, 0x7f, 0x7f},
-        {   0,    0,    0,    0,    0,    0,    0,    0,    0,    0,    0,    0,    0,    0,    0,    0,    0,    0},
-        true,
-        0
-    },
-    // debug
-    {
-        false,      // showRandInfo
-        false,      // showRandStat
-        false,      // modeEMS
-        false,      // showStats
-        false,      // view altera writting data
-        false,      // view all altera writting data
-        false,      // modePauseConsole
-        0,          // размер шрифта - 5
-        Direct,     // orientation
-        0,          // numStrings
-        1000,       // numMeasuresForGates
-        0,          // timeCompensation
-        0,          // alt shift
-        200,        // pretriggered
-        {Bandwidth_Full, Bandwidth_Full}    // bandwidth[2]
-    }
+    false,                  // Show
+    MeasuresZone_Screen,    // Zone
+    {50, 150},              // PosCurU[2]
+    {422, 602},             // PosCurT[2]
+    CursCntrl_1,            // CntrlU
+    CursCntrl_1,            // CntrlT
+    CursActive_T,           // CursActive
+    Measure_None,           // Marked
+    // SettingsMath
+    ScaleFFT_Log,           // ScaleFFT
+    SourceFFT_ChannelA,     // SourceFFT
+    WindowFFT_Rectangle,    // WindowFFT
+    FFTmaxDB_60,            // FFTmaxDB
+    Function_Sum,           // Function
+    0,                      // CurrentCursor
+    {100, 256 - 100},       // PosCur[2]
+    1,                      // koeff1add
+    1,                      // koeff2add
+    1,                      // koeff1mul
+    1,                      // koeff2mul
+    false,                  // EnableFFT
+    ModeDrawMath_Disable,   // ModeDraw
+    ModeRegSet_Range,       // ModeRegSet
+    Range_50mV,             // Range
+    Divider_1,              // Divider
+    RShiftZero,             // RShift
+    // Частотомер
+    false,                  // Enable
+    TimeCounting_100ms,     // TimeCounting
+    FreqClc_100kHz,         // FreqClc
+    NumberPeriods_1,        // NumberPeriods
+    // SettingsService
+    15,                                 // SoundVolume;
+    1,                                  // SpeedRShift;
+    true,                               // SoundEnable;
+    false,                              // Recorder;
+    Calibrator_Freq,                    // CalibratorMode;
+    ColorScheme_WhiteLetters,           // ColorScheme;
+    FunctionPressRShift_ResetPosition,  // FuncRShift;
+    // SettingsEthernet
+    0x8b, 0x2e, 0xaf, 0x8f, 0x13, 0x00, // mac
+    192, 168, 1, 200,                   // ip
+    7,                                  // port
+    255, 255, 255, 0,                   // netmask
+    192, 168, 1, 1,                     // gateway
+    false,                              // enable
+    // SettingsCommon
+    0,                          // CountEnables;
+    0,                          // CountErasedFlashData;
+    0,                          // CountErasedFlashSettings;
+    0,                          // WorkingTimeInSecs;
+    Russian,                    // Lang
+    // SettingsDebug
+    false,                      // ShowRandInfo;
+    false,                      // ShowRandStat;
+    false,                      // ModeEMS;
+    false,                      // ShowStats;
+    false,                      // ModePauseConsole;
+    0,                          // SizeFont;
+    Direct,                     // Orientation;
+    0,                          // NumStrings;
+    1000,                       // NumMeasuresForGates;
+    0,                          // TimeCompensation;
+    0,                          // AltShift;
+    200,                        // Pretriggered;
+    {Bandwidth_Full, Bandwidth_Full},   // Bandwidth[2];
+    false,                      // ShowAll;
+    false,                      // ShowFlag;
+    {false, false},             // ShowRShift[2];
+    false,                      // ShowTrigLev;
+    {false, false},             // ShowRange[2];
+    {false, false},             // ShowChanParam[2];
+    false,                      // ShowTrigParam;
+    false,                      // ShowTShift;
+    false,                      // ShowTBase;
+    // SettingsMenu
+    {0x7f, 0x7f, 0x7f, 0x7f, 0x7f, 0x7f, 0x7f, 0x7f, 0x7f, 0x7f, 0x7f, 0x7f, 0x7f, 0x7f, 0x7f, 0x7f, 0x7f, 0x7f},   // PosActItem[Page_NumPages];
+    {0,    0,    0,    0,    0,    0,    0,    0,    0,    0,    0,    0,    0,    0,    0,    0,    0,    0},      // CurrentSubPage[Page_NumPages];
+    true,                                                                                                           // PageDebugActive;
+    0,                                                                                                              // IsShown;
+    // Settings non reset
+    {{0}, {0}},             // RShiftAdd[NumChannels][RangeSize][2];
+    0,                      // CorrectionTime;
+    {0, 0},                 // BalanceADC[NumChannels];
+    1,                      // NumAveForRand;
+    BalanceADC_Settings,    // BalanceADCtype;
+    StretchADC_Settings,    // StretchADCtype;
+    {{0, 0, 0}, {0, 0, 0}}, // StretchADC[NumChannels][3];
+    {0, 0},                 // AddStretch20mV[NumChannels];
+    {0, 0},                 // AddStretch50mV[NumChannels];
+    {0, 0},                 // AddStretch100mV[NumChannels];
+    {0, 0},                 // AddStretch2V[NumChannels];
+    1                       // NumSmoothForRand;
 };
-
-static const SettingsNonReset defaultSettingsNR =
-{
-    // channel
-    {{0}, {0}},             // rShiftAdd
-    // service
-    0,                      // correctionTime
-    // debug
-    {0, 0},                 // balanceADC
-    1,                      // numAveForRand
-    BalanceADC_Settings,    // balanceADCtype
-    StretchADC_Settings,        // stretchADCtype
-    {{0, 0, 0}, {0, 0, 0}}, // stretchADC
-    {0, 0},                 // addStretch20mV
-    {0, 0},                 // addStretch50mV
-    {0, 0},                 // addStretch100mV
-    {0, 0},                 // addStretch2V
-    1                       // numSmoothForRand
-};
-*/
 
 Settings set;
 
@@ -278,7 +237,7 @@ void Settings_Load(bool default_)
     FLASH_LoadSettings();
 
     FPGA_LoadSettings();
-    FPGA_SetNumSignalsInSec(sDisplay_NumSignalsInS());
+    FPGA_SetENumSignalsInSec(sDisplay_NumSignalsInS());
     Panel_EnableLEDChannelA(sChannel_Enabled(A));
     Panel_EnableLEDChannelB(sChannel_Enabled(B));
     FPGA_SetNumberMeasuresForGates(NUM_MEASURES_FOR_GATES);

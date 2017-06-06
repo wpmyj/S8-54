@@ -110,17 +110,17 @@ typedef enum
     NumSmooth_8points = 7,
     NumSmooth_9points = 8,
     NumSmooth_10points = 9
-} NumSmoothing;
+} ENumSmoothing;
 
 // Ограничение FPS.
 typedef enum
 {
-    NumSignalsInSec_25,
-    NumSignalsInSec_10,
-    NumSignalsInSec_5,
-    NumSignalsInSec_2,
-    NumSignalsInSec_1
-} NumSignalsInSec;
+    ENumSignalsInSec_25,
+    ENumSignalsInSec_10,
+    ENumSignalsInSec_5,
+    ENumSignalsInSec_2,
+    ENumSignalsInSec_1
+} ENumSignalsInSec;
 
 // Режим отображения пропущенных сигналов при ограничении частоты кадров.
 typedef enum
@@ -401,7 +401,7 @@ typedef enum
     FNP_16k,
     FNP_32k,  // WARN В этом режиме только один канал
     FPGA_NUM_POINTS_SIZE
-} NumPoinstFPGA;
+} ENumPoinstFPGA;
 
 // Режим работы.
 typedef enum

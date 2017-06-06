@@ -29,7 +29,7 @@
 #define SHOW_IN_INT_DIRECT      (SHOW_IN_INT == ModeShowIntMem_Direct)
 #define SHOW_IN_INT_BOTH        (SHOW_IN_INT == ModeShowIntMem_Both)
 
-#define FPGA_NUM_POINTS         (set.mem_FpgaNumPoints)
+#define FPGA_NUM_POINTS         (set.mem_ENumPointsFPGA)
 #define FPGA_NUM_POINTS_512     (FPGA_NUM_POINTS == FNP_512)
 #define FPGA_NUM_POINTS_8k      (FPGA_NUM_POINTS == FNP_8k)
 #define FPGA_NUM_POINTS_16k     (FPGA_NUM_POINTS == FNP_16k)
@@ -50,9 +50,9 @@ int sMemory_NumBytesInChannel(bool forCalculate);
 
 int sMemory_NumPointsInChannel(void);
 
-NumPoinstFPGA NumPoints_2_FPGA_NUM_POINTS(int numPoints);
+ENumPoinstFPGA NumPoints_2_FPGA_NUM_POINTS(int numPoints);
 
-int FPGA_NUM_POINTS_2_NumPoints(NumPoinstFPGA numPoints);
+int FPGA_NUM_POINTS_2_NumPoints(ENumPoinstFPGA numPoints);
 
 /** @}  @}
  */

@@ -46,7 +46,7 @@ int sMemory_NumPointsInChannel(void)
 
 
 //------------------------------------------------------------------------------------------------------------------------------------------------------
-NumPoinstFPGA NumPoints_2_FPGA_NUM_POINTS(int numPoints)
+ENumPoinstFPGA NumPoints_2_FPGA_NUM_POINTS(int numPoints)
 {
     if (numPoints == 32768)      { return FNP_32k; }
     else if (numPoints == 16384) { return FNP_16k; }
@@ -59,7 +59,7 @@ NumPoinstFPGA NumPoints_2_FPGA_NUM_POINTS(int numPoints)
 
 
 //------------------------------------------------------------------------------------------------------------------------------------------------------
-int FPGA_NUM_POINTS_2_NumPoints(NumPoinstFPGA numPoints)
+int FPGA_NUM_POINTS_2_NumPoints(ENumPoinstFPGA numPoints)
 {
     const int n[FPGA_NUM_POINTS_SIZE] =
     {

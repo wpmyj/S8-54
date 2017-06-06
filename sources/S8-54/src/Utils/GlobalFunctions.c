@@ -28,12 +28,12 @@ void* AllocMemForChannelFromHeap(Channel ch, DataSettings *ds)
 //---------------------------------------------------------------------------------------------------------------------------------------------------
 int RequestBytesForChannel(Channel ch, DataSettings *ds)
 {
-    NumPoinstFPGA numBytes;
+    ENumPoinstFPGA numBytes;
     PeackDetMode peakDet;
 
     if(ds)
     {
-        numBytes = (NumPoinstFPGA)INDEXLENGTH(ds);
+        numBytes = (ENumPoinstFPGA)INDEXLENGTH(ds);
         peakDet = PEACKDET(ds);
     }
     else

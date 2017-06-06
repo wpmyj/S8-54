@@ -191,7 +191,7 @@ static const Choice mcRefreshFPS =
 
 static void OnChange_RefreshFPS(bool active)
 {
-    FPGA_SetNumSignalsInSec(sDisplay_NumSignalsInS());
+    FPGA_SetENumSignalsInSec(sDisplay_NumSignalsInS());
 }
 
 // ДИСПЛЕЙ - Смещение -------------------------------------------------------------------------------------------------------------------------------

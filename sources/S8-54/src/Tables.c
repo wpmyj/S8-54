@@ -54,38 +54,38 @@ static const TBaseStruct tBases[TBaseSize] =
 
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-NumSignalsInSec Tables_NumSignalsInSecToENUM(int numSignalsInSec)
+ENumSignalsInSec Tables_ENumSignalsInSecToENUM(int numSignalsInSec)
 {
     if(numSignalsInSec == 1)
     {
-        return NumSignalsInSec_1;
+        return ENumSignalsInSec_1;
     }
     else if(numSignalsInSec == 2)
     {
-        return NumSignalsInSec_2;
+        return ENumSignalsInSec_2;
     }
     else if(numSignalsInSec == 5)
     {
-        return NumSignalsInSec_5;
+        return ENumSignalsInSec_5;
     }
     else if(numSignalsInSec == 10)
     {
-        return NumSignalsInSec_10;
+        return ENumSignalsInSec_10;
     }
     else if(numSignalsInSec == 25)
     {
-        return NumSignalsInSec_25;
+        return ENumSignalsInSec_25;
     }
     LOG_ERROR_TRACE("Число сигналов в секунду равно %d", numSignalsInSec);
-    return NumSignalsInSec_1;
+    return ENumSignalsInSec_1;
 }
 
 
 //------------------------------------------------------------------------------------------------------------------------------------------------------
-int Tables_ENUMtoNumSignalsInSec(NumSignalsInSec numSignalsInSec)
+int Tables_ENUMtoENumSignalsInSec(ENumSignalsInSec numSignalsInSec)
 {
     static const int fps[] = {25, 10, 5, 2, 1};
-    if(numSignalsInSec <= NumSignalsInSec_1)
+    if(numSignalsInSec <= ENumSignalsInSec_1)
     {
         return fps[numSignalsInSec];
     }
