@@ -14,7 +14,7 @@ const Governor mgServiceSoundVolume =
         "Установка громкости звука",
         "Set the volume"
     },
-    &set.service.soundVolume, 0, 100, EmptyFuncVV
+    &SOUND_VOLUME, 0, 100, EmptyFuncVV
 };
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
@@ -30,7 +30,7 @@ const Choice mcServiceSoundEnable =
         {DISABLE_RU, DISABLE_EN},
         {ENABLE_RU, ENABLE_EN}
     },
-    (int8*)&set.service.soundEnable
+    (int8*)&SOUND_ENABLED
 };
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------

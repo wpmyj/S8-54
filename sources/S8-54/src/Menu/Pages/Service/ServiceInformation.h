@@ -17,7 +17,7 @@ static void PressSB_Information_Exit(void)
 //----------------------------------------------------------------------------------------------------------------------------------------------------
 static void Information_Draw(void)
 {
-    Language lang = set.common.lang;
+    Language lang = LANG;
 
     Painter_BeginScene(gColorBack);
     int x = 0;

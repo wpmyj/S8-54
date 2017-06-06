@@ -10,13 +10,26 @@
  *  @{
  */
 
-#define RECORDER_MODE       (set.service.recorder)
+#define RECORDER_MODE                   (set.serv_Recorder)
 
-#define LANG                (set.common.lang)
-#define LANG_RU             (LANG == Russian)
-#define LANG_EN             (LANG == English)
+#define LANG                            (set.com_Lang)
+#define LANG_RU                         (LANG == Russian)
+#define LANG_EN                         (LANG == English)
 
-#define TIME_SHOW_LEVELS    (set.display.timeShowLevels)
+#define TIME_SHOW_LEVELS                (set.disp_TimeShowLevels)
+
+#define FREQ_METER_ENABLED              (set.freq_Enable)
+#define FREQ_METER_TIMECOUNTING         (set.freq_TimeCounting)
+#define FREQ_METER_FREQ_CLC             (set.freq_FreqClc)
+#define FREQ_METER_NUM_PERIODS          (set.freq_NumberPeriods)
+
+#define CALIBRATOR_MODE                 (set.serv_CalibratorMode)
+
+#define SOUND_ENABLED                   (set.serv_SoundEnable)
+#define SOUND_VOLUME                    (set.serv_SoundVolume)
+
+#define COLOR_SCHEME                    (set.serv_ColorScheme)
+#define COLOR_SCHEME_IS_WHITE_LETTERS   (COLOR_SCHEME == ColorScheme_WhiteLetters)
 
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

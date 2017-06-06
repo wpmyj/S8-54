@@ -11,25 +11,25 @@
  *  @{
  */
 
-#define SET_TSHIFT          (set.time.tShiftRel)
-#define SET_TBASE           (set.time.tBase)
-#define TIME_DIVXPOS        (set.time.timeDivXPos)
+#define SET_TSHIFT          (set.time_TShiftRel)
+#define SET_TBASE           (set.time_TBase)
+#define TIME_DIVXPOS        (set.time_TimeDivXPos)
 
-#define SET_PEACKDET        (set.time.peackDet)
+#define SET_PEACKDET        (set.time_PeackDet)
 #define SET_PEACKDET_EN     (SET_PEACKDET == PeackDet_Enable)
 #define SET_PEACKDET_DIS    (SET_PEACKDET == PeackDet_Disable)
 
 #define IN_RANDOM_MODE      (SET_TBASE < TBase_50ns)
 #define IN_P2P_MODE         (SET_TBASE >= MIN_TBASE_P2P)
 
-#define TPOS                (set.time.tPos)
+#define TPOS                (set.time_TPos)
 #define TPOS_RIGHT          (TPOS == TPos_Right)
 #define TPOS_LEFT           (TPOS == TPos_Left)
 #define TPOS_CENTER         (TPOS == TPos_Center)
 
-#define SAMPLE              (set.time.sampleType)
+#define SAMPLE              (set.time_SampleType)
 #define SAMPLE_REAL         (SAMPLE == SampleType_Real)
-#define SAMPLE_OLD          (set.time.sampleTypeOld)
+#define SAMPLE_OLD          (set.time_SampleTypeOld)
 
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

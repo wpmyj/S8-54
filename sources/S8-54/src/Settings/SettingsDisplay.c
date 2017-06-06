@@ -36,9 +36,9 @@ int sDisplay_NumPointSmoothing(void)
     if (IN_RANDOM_MODE)
     {
         int numRand = 0;
-        if (setNR.numSmoothForRand > 1)
+        if (NRST_NUM_SMOOTH_FOR_RAND > 1)
         {
-            numRand = setNR.numSmoothForRand;
+            numRand = NRST_NUM_SMOOTH_FOR_RAND;
         }
 
         LIMIT_BELOW(retValue, numRand);
@@ -52,12 +52,12 @@ int sDisplay_NumPointSmoothing(void)
 //---------------------------------------------------------------------------------------------------------------------------------------------------
 int sDisplay_NumAverage(void)
 {
-    if (MODE_EMS && (NUM_AVE < NumAveraging_8))
+    if (MODE_EMS && (ENUM_AVE < NumAveraging_8))
     {
         return 8;
     }
 
-    return (DISPLAY_NUM_AVE);
+    return (NUM_AVE);
 }
 
 
@@ -91,7 +91,7 @@ int sDisplay_TimeMenuAutoHide(void)
     {
         0, 5, 10, 15, 30, 60
     };
-    return times[set.display.menuAutoHide] * 1000;
+    return times[MENU_AUTO_HIDE] * 1000;
 }
 
 
@@ -105,7 +105,7 @@ bool sDisplay_IsSeparate(void)
 //------------------------------------------------------------------------------------------------------------------------------------------------------
 void sDisplay_SetBrightness(int16 brightness)
 {
-    set.display.brightness = brightness;
+    BRIGHTNESS_DISPLAY = brightness;
     Painter_SetBrightnessDisplay(brightness);
 }
 
@@ -116,5 +116,5 @@ ModeAveraging sDisplay_GetModeAveraging(void)
     {
         return Averaging_Accurately;
     }
-    return set.display.modeAveraging;
+    return MODE_AVERAGING;
 }

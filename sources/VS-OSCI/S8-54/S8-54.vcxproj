@@ -226,7 +226,7 @@
     <ClCompile Include="..\..\S8-54\src\Settings\SettingsDebug.c" />
     <ClCompile Include="..\..\S8-54\src\Settings\SettingsDisplay.c" />
     <ClCompile Include="..\..\S8-54\src\Settings\SettingsMemory.c" />
-    <ClCompile Include="..\..\S8-54\src\Settings\SettingsNew.c" />
+    <ClCompile Include="..\..\S8-54\src\Settings\SettingsNew_.c" />
     <ClCompile Include="..\..\S8-54\src\Settings\SettingsService.c" />
     <ClCompile Include="..\..\S8-54\src\Settings\SettingsTime.c" />
     <ClCompile Include="..\..\S8-54\src\Tables.c" />
@@ -425,7 +425,8 @@
     <ClInclude Include="..\..\S8-54\src\Settings\SettingsMath.h" />
     <ClInclude Include="..\..\S8-54\src\Settings\SettingsMeasures.h" />
     <ClInclude Include="..\..\S8-54\src\Settings\SettingsMemory.h" />
-    <ClInclude Include="..\..\S8-54\src\Settings\SettingsNew.h" />
+    <ClInclude Include="..\..\S8-54\src\Settings\SettingsNew_.h" />
+    <ClInclude Include="..\..\S8-54\src\Settings\SettingsNRST.h" />
     <ClInclude Include="..\..\S8-54\src\Settings\SettingsService.h" />
     <ClInclude Include="..\..\S8-54\src\Settings\SettingsTime.h" />
     <ClInclude Include="..\..\S8-54\src\Settings\SettingsTrig.h" />

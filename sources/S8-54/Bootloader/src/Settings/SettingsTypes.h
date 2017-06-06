@@ -86,7 +86,7 @@ typedef enum
     NumMinMax_32,
     NumMinMax_64,
     NumMinMax_128
-} NumMinMax;
+} ENumMinMax;
 
 // Количество точек для расчёта сглаживания.
 typedef enum

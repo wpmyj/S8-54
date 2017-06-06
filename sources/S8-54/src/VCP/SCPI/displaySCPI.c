@@ -135,12 +135,12 @@ static void Process_AVERAGE(uint8 *buffer)
         {0}
     };
     ENTER_ANALYSIS
-        if (value <= 9) {NUM_AVE = (NumAveraging)value; }
-        else if (10 == value) { set.display.modeAveraging = Averaging_Accurately; }
-        else if (11 == value) { set.display.modeAveraging = Averaging_Around; }
+        if (value <= 9) {ENUM_AVE = (NumAveraging)value; }
+        else if (10 == value) { MODE_AVERAGING = Averaging_Accurately; }
+        else if (11 == value) { MODE_AVERAGING = Averaging_Around; }
         else if (12 == value)
         {
-            SCPI_SEND(":DISPLAY:AVERAGE %s %s", map[NUM_AVE].key, map[set.display.modeAveraging + 10].key);
+            SCPI_SEND(":DISPLAY:AVERAGE %s %s", map[ENUM_AVE].key, map[MODE_AVERAGING + 10].key);
         }
     LEAVE_ANALYSIS
 }
@@ -163,10 +163,10 @@ static void Process_MINMAX(uint8 *buffer)
         {0}
     };
     ENTER_ANALYSIS
-        if (value <= 7) { set.display.numMinMax = (NumMinMax)value; }
+        if (value <= 7) { ENUM_MIN_MAX = (ENumMinMax)value; }
         else if (8 == value)
         {
-            SCPI_SEND(":DISPLAY:MINMAX %s", map[set.display.numMinMax].key);
+            SCPI_SEND(":DISPLAY:MINMAX %s", map[ENUM_MIN_MAX].key);
         }
     LEAVE_ANALYSIS
 }
@@ -243,7 +243,7 @@ static void Process_GRID(uint8 *buffer)
     int intVal = 0;
     if (SCPI_FirstIsInt(buffer, &intVal, 0, 100))
     {
-        set.display.brightnessGrid = (int16)intVal;
+        BRIGHTNESS_GRID = (int16)intVal;
         OnChange_Grid_Brightness();
         return;
     }

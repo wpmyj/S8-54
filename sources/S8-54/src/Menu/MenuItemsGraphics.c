@@ -28,7 +28,7 @@ void DrawGovernorChoiceColorFormulaHiPart(void *item, int x, int y, bool pressed
         width += MOI_WIDTH_D_IP;
     }
 
-    Color color = shade ? ColorMenuTitleLessBright() : (set.service.colorScheme == ColorScheme_WhiteLetters ? COLOR_WHITE :COLOR_BLACK);
+    Color color = shade ? ColorMenuTitleLessBright() : (COLOR_SCHEME_IS_WHITE_LETTERS ? COLOR_WHITE :COLOR_BLACK);
     Painter_DrawHLineC(y + 1, x, x + width + 3, ColorBorderMenu(false));
 
     Painter_DrawVolumeButton(x + 1, y + 2, width + 2, MI_HEIGHT_VALUE + 3, 1, ColorMenuItem(false), ColorMenuItemBrighter(), ColorMenuItemLessBright(), pressed, shade);

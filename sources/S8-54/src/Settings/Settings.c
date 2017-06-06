@@ -20,6 +20,10 @@ extern void OnChange_DisplayOrientation(bool);
 
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+static const Settings defaultSettings;
+
+/*
 static const Settings defaultSettings =
 {
     // Display
@@ -252,17 +256,16 @@ static const SettingsNonReset defaultSettingsNR =
     {0, 0},                 // addStretch2V
     1                       // numSmoothForRand
 };
+*/
 
 Settings set;
-SettingsNonReset setNR;
-
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 void LoadDefaultColors(void)
 {
     for(int color = 0; color < NUM_COLORS; color++) 
     {
-        COLOR(color) = defaultSettings.display.colors[color];
+        COLOR(color) = defaultSettings.disp_Colors[color];
     }
 }
 
@@ -270,10 +273,9 @@ void LoadDefaultColors(void)
 //------------------------------------------------------------------------------------------------------------------------------------------------------
 void Settings_Load(bool default_)
 {
-    setNR = defaultSettingsNR;
     set = defaultSettings;
 
-    FLASH_LoadSettings(default_);
+    FLASH_LoadSettings();
 
     FPGA_LoadSettings();
     FPGA_SetNumSignalsInSec(sDisplay_NumSignalsInS());
@@ -306,21 +308,21 @@ bool Settings_DebugModeEnable(void)
 //------------------------------------------------------------------------------------------------------------------------------------------------------
 void SetMenuPosActItem(NamePage namePage, int8 pos)
 {
-    set.menu.posActItem[namePage] = pos;
+    set.menu_PosActItem[namePage] = pos;
 }
 
 
 //------------------------------------------------------------------------------------------------------------------------------------------------------
 int8 MenuCurrentSubPage(NamePage namePage)
 {
-    return set.menu.currentSubPage[namePage];
+    return set.menu_CurrentSubPage[namePage];
 }
 
 
 //------------------------------------------------------------------------------------------------------------------------------------------------------
 void SetMenuCurrentSubPage(NamePage namePage, int8 posSubPage)
 {
-    set.menu.currentSubPage[namePage] = posSubPage;
+    set.menu_CurrentSubPage[namePage] = posSubPage;
 }
 
 
@@ -334,14 +336,14 @@ bool MenuIsMinimize(void)
 //------------------------------------------------------------------------------------------------------------------------------------------------------
 bool MenuPageDebugIsActive(void)
 {
-    return set.menu.pageDebugActive;
+    return set.menu_PageDebugActive;
 }
 
 
 //------------------------------------------------------------------------------------------------------------------------------------------------------
 void SetMenuPageDebugActive(bool active)
 {
-    set.menu.pageDebugActive = active;
+    set.menu_PageDebugActive = active;
 }
 
 
@@ -387,7 +389,7 @@ void Settings_RestoreState(const Settings *set_)
         {
             for (int range = 0; range < RangeSize; range++)
             {
-                rShiftAdd[ch][range][mode] = setNR.rShiftAdd[ch][range][mode];
+                rShiftAdd[ch][range][mode] = NRST_RSHIFT_ADD(ch, range, mode);
             }
         }
     }
@@ -398,7 +400,7 @@ void Settings_RestoreState(const Settings *set_)
         {
             for (int range = 0; range < RangeSize; range++)
             {
-                setNR.rShiftAdd[ch][range][mode] = rShiftAdd[ch][range][mode];
+                NRST_RSHIFT_ADD(ch, range, mode) = rShiftAdd[ch][range][mode];
             }
         }
     }

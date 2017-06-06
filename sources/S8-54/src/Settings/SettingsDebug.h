@@ -9,18 +9,21 @@
  *  @{
  */
 
-#define CONSOLE_NUM_STRINGS     (set.debug.numStrings)
-#define CONSOLE_SIZE_FONT       (set.debug.sizeFont ? 8 : 5)
-#define MODE_PAUSE_CONSOLE      (set.debug.modePauseConsole && gBF.showDebugMenu)   // Если truе, то включён режим остновки консоли, в котором нажатие ПУСК/СТОП приостанавливает вывод в консоль
+#define CONSOLE_NUM_STRINGS     (set.dbg_NumStrings)
+#define CONSOLE_SIZE_FONT       (set.dbg_SizeFont ? 8 : 5)
+#define MODE_PAUSE_CONSOLE      (set.dbg_ModePauseConsole && gBF.showDebugMenu)   // Если truе, то включён режим остновки консоли, в котором нажатие ПУСК/СТОП приостанавливает вывод в консоль
 #define CONSOLE_IN_PAUSE        (gBF.consoleInPause)                                // Если 1, то консоль находится в режиме паузы
-#define NUM_MEASURES_FOR_GATES  (set.debug.numMeasuresForGates)
-#define TIME_COMPENSATION       (set.debug.timeCompensation)
-#define SHOW_RAND_INFO          (set.debug.showRandInfo)
-#define SHOW_RAND_STAT          (set.debug.showRandStat)
-#define MODE_EMS                (set.debug.modeEMS)
-#define SHOW_STAT               (set.debug.showStats)
-#define PRETRIGGERED            (set.debug.pretriggered)
-#define BANDWIDTH_DEBUG(ch)     (set.debug.bandwidth[ch])
+#define NUM_MEASURES_FOR_GATES  (set.dbg_NumMeasuresForGates)
+#define TIME_COMPENSATION       (set.dbg_TimeCompensation)
+#define SHOW_RAND_INFO          (set.dbg_ShowRandInfo)
+#define SHOW_RAND_STAT          (set.dbg_ShowRandStat)
+#define MODE_EMS                (set.dbg_ModeEMS)
+#define SHOW_STAT               (set.dbg_ShowStats)
+#define PRETRIGGERED            (set.dbg_Pretriggered)
+#define BANDWIDTH_DEBUG(ch)     (set.dbg_Bandwidth[ch])
+
+#define DBG_SHOW_ALL            (set.dbg_ShowAll)
+#define DBG_SHOW_FLAG           (set.dbg_ShowFlag)
 
 
 float   GetStretchADC(Channel ch);

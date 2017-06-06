@@ -64,11 +64,11 @@ void Data_Load(void)
 
     if (WORK_DIRECT)
     {   
-        GetDataFromStorage();                                   // Считываем данные из хранилища
+        GetDataFromStorage();               // Считываем данные из хранилища
 
-        if (ALWAYS_SHOW_MEM_INT_SIGNAL)                         // И, если нужно показывать сигнал из ППЗУ и в основном режиме
+        if (ALWAYS_SHOW_MEM_INT_SIGNAL)     // И, если нужно показывать сигнал из ППЗУ и в основном режиме
         {
-            Data_GetFromIntMemory();                            // то из хранилща
+            Data_GetFromIntMemory();        // то из хранилща
         }
     }
     else if (WORK_LAST)
@@ -77,11 +77,11 @@ void Data_Load(void)
     }
     else if (WORK_EEPROM)
     {
-        Data_GetFromIntMemory();                                // Считываем данные из ППЗУ
+        Data_GetFromIntMemory();            // Считываем данные из ППЗУ
 
-        if (set.memory.modeShowIntMem != ModeShowIntMem_Saved)  // И, если нужно
+        if (!SHOW_IN_INT_SAVED)             // И, если нужно
         {
-            GetDataFromStorage();                               // из хранилища
+            GetDataFromStorage();           // из хранилища
         }
     }
 

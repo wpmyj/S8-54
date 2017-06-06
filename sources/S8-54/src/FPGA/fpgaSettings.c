@@ -200,7 +200,7 @@ static int CalculateDeltaRShift(Channel ch)
     ModeCouple mode = SET_COUPLE(ch);
     static const int index[3] = {0, 1, 1};
 
-    int addRShift = -(SET_INVERSE(ch) ? -1 : 1) * (int)setNR.rShiftAdd[ch][range][index[mode]];
+    int addRShift = -(SET_INVERSE(ch) ? -1 : 1) * (int)NRST_RSHIFT_ADD(ch, range, index[mode]);
     int addRShiftFull = addRShift * (RSHIFT_IN_CELL / 20);
 
     uint16 rShiftRel = (uint16)((int)SET_RSHIFT(ch) + addRShiftFull);
@@ -420,7 +420,7 @@ void LoadRegUPR(void)
         (0)
     };
 
-    data |= mask[set.service.calibrator];
+    data |= mask[CALIBRATOR_MODE];
 
     if (RECORDER_MODE)
     {
@@ -483,7 +483,7 @@ void FPGA_SetRange(Channel ch, Range range)
         float rShiftAbs = RSHIFT_2_ABS(SET_RSHIFT(ch), SET_RANGE(ch));
         float trigLevAbs = RSHIFT_2_ABS(SET_TRIGLEV(ch), SET_RANGE(ch));
         sChannel_SetRange(ch, range);
-        if (set.display.linkingRShift == LinkingRShift_Voltage)
+        if (LINKING_RSHIFT == LinkingRShift_Voltage)
         {
             SET_RSHIFT(ch) = (int16)Math_RShift2Rel(rShiftAbs, range);
             SET_TRIGLEV(ch) = (int16)Math_RShift2Rel(trigLevAbs, range);
@@ -701,7 +701,7 @@ void FPGA_SetPeackDetMode(PeackDetMode peackDetMode)
 //------------------------------------------------------------------------------------------------------------------------------------------------------
 void FPGA_SetCalibratorMode(CalibratorMode calibratorMode)
 {
-    set.service.calibrator = calibratorMode;
+    CALIBRATOR_MODE = calibratorMode;
     LoadRegUPR();
 }
 

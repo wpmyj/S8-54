@@ -8,7 +8,7 @@ const Page mspCalibrator;
 // —≈–¬»— -  ¿À»¡–¿“Œ– ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 static void OnChange_Calibrator(bool active)
 {
-    FPGA_SetCalibratorMode(set.service.calibrator);
+    FPGA_SetCalibratorMode(CALIBRATOR_MODE);
 }
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
@@ -38,7 +38,7 @@ static const Choice mcCalibrator =
         {"+4V",         "+4V"},
         {"0V",          "0V"}
     },
-    (int8*)&set.service.calibrator, OnChange_Calibrator
+    (int8*)&CALIBRATOR_MODE, OnChange_Calibrator
 };
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------

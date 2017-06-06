@@ -112,7 +112,7 @@ static const Choice mcShow =
         {"Нет", "No"},
         {"Да",  "Yes"}
     },
-    (int8*)&set.cursors.showCursors
+    (int8*)&CURS_SHOW
 };
 
 // КУРСОРЫ - Слежение канал 1 -----------------------------------------------------------------------------------------------------------------------
@@ -140,7 +140,7 @@ static const Choice mcLookModeChanA =
         {"Время",           "Time"},
         {"Напряж и время",  "Volt and time"}
     },
-    (int8*)&set.cursors.lookMode[A]
+    (int8*)&CURS_LOOK_MODE(A)
 };
 
 // КУРСОРЫ - Слежение канал 2 -----------------------------------------------------------------------------------------------------------------------
@@ -168,7 +168,7 @@ static const Choice mcLookModeChanB =
         {"Время",           "Time"},
         {"Напряж. и время", "Volt. and time"}
     },
-    (int8*)&set.cursors.lookMode[B]
+    (int8*)&CURS_LOOK_MODE(B)
 };
 
 // КУРОСРЫ - 1/dT -----------------------------------------------------------------------------------------------------------------------------------
@@ -504,12 +504,12 @@ static const SmallButton sbSet_Movement =     // Переключение шага перемещения к
 
 static void OnPressSB_Set_Movement(void)
 {
-    CircleIncreaseInt8((int8*)&set.cursors.movement, 0, 1);
+    CircleIncreaseInt8((int8*)&CURS_MOVEMENT, 0, 1);
 }
 
 static void FuncDrawSB_Set_Movement(int x, int y)
 {
-    if (CURS_MOVE_PERCENTS)
+    if (CURS_MOVEMENT_IS_PERCENTS)
     {
         FuncDrawSB_Set_Movement_Percents(x, y);
     }
@@ -537,7 +537,7 @@ static void FuncDrawSB_Set_Movement_Points(int x, int y)
 
 static void SetShiftCursPosU(Channel ch, int numCur, float delta)
 {
-    if (CURS_MOVE_PERCENTS)
+    if (CURS_MOVEMENT_IS_PERCENTS)
     {
         CURsU_POS(ch, numCur) = LimitationFloat(CURsU_POS(ch, numCur) - delta, 0, MAX_POS_U);   // WARN одинаковые ветки
     }
@@ -549,7 +549,7 @@ static void SetShiftCursPosU(Channel ch, int numCur, float delta)
 
 static void SetCursPosU(Channel ch, int numCur, float pos)
 {
-    if (CURS_MOVE_PERCENTS)
+    if (CURS_MOVEMENT_IS_PERCENTS)
     {
         CURsU_POS(ch, numCur) = LimitationFloat(pos, 0, MAX_POS_U);                             // WARN одинаковые ветки
     }
@@ -561,7 +561,7 @@ static void SetCursPosU(Channel ch, int numCur, float pos)
 
 void SetShiftCursPosT(Channel ch, int numCur, float delta)
 {
-    if (CURS_MOVE_PERCENTS)
+    if (CURS_MOVEMENT_IS_PERCENTS)
     {
         CURsT_POS(ch, numCur) = LimitationFloat(CURsT_POS(ch, numCur) + delta, 0, MAX_POS_T);   // WARN одинаковые ветки
     }
@@ -573,7 +573,7 @@ void SetShiftCursPosT(Channel ch, int numCur, float delta)
 
 void SetCursPosT(Channel ch, int numCur, float pos)
 {
-    if (CURS_MOVE_PERCENTS)
+    if (CURS_MOVEMENT_IS_PERCENTS)
     {
         CURsT_POS(ch, numCur) = LimitationFloat(pos, 0, MAX_POS_T);                             // WARN одинаковые ветки
     }
@@ -638,7 +638,7 @@ static void MoveCursUonPercentsOrPoints(int delta)
 {
     float value = (float)delta;
 
-    if (CURS_MOVE_PERCENTS)
+    if (CURS_MOVEMENT_IS_PERCENTS)
     {
         value *= dUperc(CURS_SOURCE) / 100.0f;
     }
@@ -658,7 +658,7 @@ static void MoveCursTonPercentsOrPoints(int delta)
 {
     float value = (float)delta;
 
-    if (CURS_MOVE_PERCENTS)
+    if (CURS_MOVEMENT_IS_PERCENTS)
     {
         value *= dTperc(CURS_SOURCE) / 100.0f;
     }

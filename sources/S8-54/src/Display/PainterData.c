@@ -106,7 +106,7 @@ void PainterData_DrawData(void)
 		DrawDataInModeDirect();    
 	}
 
-	if (DISPLAY_NUM_MIN_MAX != 1)
+	if (NUM_MIN_MAX != 1)
 	{
 		DrawDataMinMax();
 	}
@@ -153,7 +153,7 @@ void PainterData_DrawMath(void)
     int delta = (SHOW_STRING_NAVI_ALL && FUNC_MODE_DRAW_TOGETHER) ? 10 : 0;
     Painter_DrawRectangleC(GridLeft(), GridMathTop() + delta, WIDTH, HEIGHT, gColorFill);
     Painter_FillRegionC(GridLeft() + 1, GridMathTop() + 1 + delta, WIDTH - 2, HEIGHT - 2, gColorBack);
-    Divider divider = set.math.divider;
+    Divider divider = set.math_Divider;
     Painter_DrawTextC(GridLeft() + 2, GridMathTop() + 1 + delta, sChannel_Range2String(SET_RANGE_MATH, divider), gColorFill);
     Painter_DrawText(GridLeft() + 25, GridMathTop() + 1 + delta, ":");
     char buffer[20];

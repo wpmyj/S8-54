@@ -1484,16 +1484,6 @@
               <FileType>5</FileType>
               <FilePath>.\src\Settings\SettingsTypes.h</FilePath>
             </File>
-            <File>
-              <FileName>SettingsNew.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\src\Settings\SettingsNew.c</FilePath>
-            </File>
-            <File>
-              <FileName>SettingsNew.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\src\Settings\SettingsNew.h</FilePath>
-            </File>
           </Files>
         </Group>
         <Group>

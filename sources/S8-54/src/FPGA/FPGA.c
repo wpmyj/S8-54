@@ -172,8 +172,8 @@ static bool ReadPoint(void)
 
         FSMC_SET_MODE(ModeFSMC_FPGA);
 
-        int16 balanceA = setNR.balanceADC[A];
-        int16 balanceB = setNR.balanceADC[B];
+        int16 balanceA = set.nrst_BalanceADC[A];
+        int16 balanceB = set.nrst_BalanceADC[B];
 
         BitSet16 bsA;
         BitSet16 bsB;
@@ -584,11 +584,11 @@ static void ReadRealMode(uint8 *dataA, uint8 *dataB, bool necessaryShift)
     int balanceA = 0;
     int balanceB = 0;
 
-    if (setNR.balanceADCtype == BalanceADC_Hand && 
+    if (NRST_BALANCE_ADC_TYPE_IS_HAND && 
         SET_PEACKDET_DIS)               // При включённом пиковом детекторе балансировка не нужна
     {
-        balanceA = setNR.balanceADC[A];
-        balanceB = setNR.balanceADC[B];
+        balanceA = NRST_BALANCE_ADC_A;
+        balanceB = NRST_BALANCE_ADC_B;
     }
 
     ReadChannel(dataA, A, sMemory_NumBytesInChannel(false), nStop, shift, balanceA);

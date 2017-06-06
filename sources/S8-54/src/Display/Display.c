@@ -660,7 +660,7 @@ static void DrawLowPart(void)
     TBase tBase = SET_TBASE;
     int16 tShift = SET_TSHIFT;
 
-    if((WORK_EEPROM && set.memory.modeShowIntMem == ModeShowIntMem_Direct))
+    if(WORK_EEPROM && SHOW_IN_INT_DIRECT)
     { 
     }
     else if(!WORK_DIRECT)
@@ -743,8 +743,8 @@ static void DrawLowPart(void)
     if(WORK_DIRECT)
     {
         WriteStringAndNumber("накопл", (int16)x, (int16)y0, DISPLAY_NUM_ACCUM);
-        WriteStringAndNumber("усредн", (int16)x, (int16)y1, DISPLAY_NUM_AVE);
-        WriteStringAndNumber("мн\x93мкс", (int16)x, (int16)y2, DISPLAY_NUM_MIN_MAX);
+        WriteStringAndNumber("усредн", (int16)x, (int16)y1, NUM_AVE);
+        WriteStringAndNumber("мн\x93мкс", (int16)x, (int16)y2, NUM_MIN_MAX);
     }
 
     x += 42;
@@ -2043,7 +2043,7 @@ static void FuncOnWait(void)
 void Display_FuncOnWaitStart(char *textRu, char *textEn)
 {
     timeStart = gTimerMS;
-    textWait = (set.common.lang == Russian) ? textRu : textEn;
+    textWait = LANG_RU ? textRu : textEn;
     Display_SetDrawMode(DrawMode_Hand, FuncOnWait);
 }
 

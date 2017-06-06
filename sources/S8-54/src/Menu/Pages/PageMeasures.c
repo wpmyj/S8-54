@@ -97,7 +97,7 @@ static const Choice mcServiceFreqMeterEnable =
         {DISABLE_RU, DISABLE_EN},
         {ENABLE_RU, ENABLE_EN}
     },
-    (int8*)&set.service.freqMeter.enable, ChangeParameterFreqMeter
+    (int8*)&FREQ_METER_ENABLED, ChangeParameterFreqMeter
 };
 
 static void ChangeParameterFreqMeter(bool param)
@@ -118,7 +118,7 @@ static const Choice mcServiceFreqMeterTimeF =
         {"1с", "1s"},
         {"10с", "10ms"}
     },
-    (int8*)&set.service.freqMeter.timeCounting, ChangeParameterFreqMeter
+    (int8*)&FREQ_METER_TIMECOUNTING, ChangeParameterFreqMeter
 };
 
 static const Choice mcServiceFreqFreqClc =
@@ -135,7 +135,7 @@ static const Choice mcServiceFreqFreqClc =
         {"10МГц", "10MHz"},
         {"100МГц", "100MHz"}
     },
-    (int8*)&set.service.freqMeter.freqClc, ChangeParameterFreqMeter
+    (int8*)&FREQ_METER_FREQ_CLC, ChangeParameterFreqMeter
 };
 
 static const Choice mcServiceFreqMeterNumberPeriods =
@@ -151,7 +151,7 @@ static const Choice mcServiceFreqMeterNumberPeriods =
         {"10", "10"},
         {"100", "100"}
     },
-    (int8*)&set.service.freqMeter.numberPeriods, ChangeParameterFreqMeter
+    (int8*)&FREQ_METER_NUM_PERIODS, ChangeParameterFreqMeter
 };
 
 // ИЗМЕРЕНИЯ - Показывать ----------------------------------------------------------------------------------------------------------------------------
@@ -247,7 +247,7 @@ static const Choice mcMode =
         {"Как есть",    "As is"},
         {"Уменьшать",   "Reduce"}
     },
-    (int8*)&set.measures.modeViewSignals
+    (int8*)&set.meas_ModeViewSignals
 };
 
 static bool IsActive_Mode(void)

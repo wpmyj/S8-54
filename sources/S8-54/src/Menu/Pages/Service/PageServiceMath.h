@@ -15,20 +15,20 @@ const Page mpService;
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 void Reg_FFT_Cursors(int angle)
 {
-    POS_MATH_CUR(set.math.currentCursor) += (uint8)angle;
+    POS_MATH_CUR(MATH_CURRENT_CUR) += (uint8)angle;
     Sound_RegulatorShiftRotate();
 }
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
 void DrawSB_FFTcurs_Source(int x, int y)
 {
-    Painter_DrawText(x + 7, y + 5, set.math.currentCursor == 0 ? "1" : "2");
+    Painter_DrawText(x + 7, y + 5, MATH_CURRENT_CUR_IS_0 ? "1" : "2");
 }
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
 void PressSB_FFTcurs_Source(void)
 {
-    set.math.currentCursor = (set.math.currentCursor + 1) % 2;
+    MATH_CURRENT_CUR = (MATH_CURRENT_CUR + 1) % 2;
 }
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
@@ -148,7 +148,7 @@ static const SmallButton sbMathFunctionModeDraw =
 static void PressSB_MathFunction_RangeA(void)
 {
     SET_RANGE_MATH = SET_RANGE_A;
-    set.math.divider = SET_DIVIDER_A;
+    MATH_DIVIDER = SET_DIVIDER_A;
 }
 
 static void DrawSB_MathFunction_RangeA(int x, int y)
@@ -171,7 +171,7 @@ static const SmallButton sbMathFunctionRangeA =
 static void PressSB_MathFunction_RangeB(void)
 {
     SET_RANGE_MATH = SET_RANGE_B;
-    set.math.divider = SET_DIVIDER_B;
+    MATH_DIVIDER = SET_DIVIDER_B;
 }
 
 static void DrawSB_MathFunction_RangeB(int x, int y)
@@ -193,7 +193,7 @@ static const SmallButton sbMathFunctionRangeB =
 
 static void PressSB_MathFunction_ModeRegSet(void)
 {
-    CircleIncreaseInt8((int8*)&set.math.modeRegSet, 0, 1);
+    CircleIncreaseInt8((int8*)&MATH_MODE_REG_SET, 0, 1);
 }
 
 static void DrawSB_MathFunction_ModeRegSet_Range(int x, int y)
@@ -209,7 +209,7 @@ static void DrawSB_MathFunction_ModeRegSet_RShift(int x, int y)
 static void DrawSB_MathFunction_ModeRegSet(int x, int y)
 {
     const pFuncVII funcs[2] = {DrawSB_MathFunction_ModeRegSet_Range, DrawSB_MathFunction_ModeRegSet_RShift};
-    funcs[set.math.modeRegSet](x, y);
+    funcs[MATH_MODE_REG_SET](x, y);
 }
 
 static const SmallButton sbMathFunctionModeRegSet =
@@ -248,7 +248,7 @@ const Formula mfMathFormula =
         "Здесь задаются коэффициенты и знаки в математической формуле",
         "Here you can set the coefficients and signs in a mathematical formula"
     },
-    (int8*)&MATH_FUNC, (int8*)&set.math.koeff1add, (int8*)&set.math.koeff2add, (int8*)&set.math.koeff1mul, (int8*)&set.math.koeff2mul, &curDigit, ChangeF_MathFormula
+    (int8*)&MATH_FUNC, (int8*)&set.math_koeff1add, (int8*)&set.math_koeff2add, (int8*)&set.math_koeff1mul, (int8*)&set.math_koeff2mul, &curDigit, ChangeF_MathFormula
 };
 
 // СЕРВИС - МАТЕМАТИКА - СПЕКТР - Отображение
@@ -366,7 +366,7 @@ static void OnRegSetMathFunction(int delta)
         return;
     }
 
-    if (set.math.modeRegSet == ModeRegSet_RShift)
+    if (MATH_MODE_REG_SET_IS_RSHIFT)
     {
         uint16 prevRShift = SET_RSHIFT_MATH;
         uint16 rShift = prevRShift;
@@ -399,7 +399,7 @@ static void OnRegSetMathFunction(int delta)
             }
         }
     }
-    if (set.math.modeRegSet == ModeRegSet_Range)
+    if (MATH_MODE_REG_SET_IS_RANGE)
     {
         static int sum = 0;
         sum -= delta;

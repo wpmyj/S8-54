@@ -1,4 +1,5 @@
 #pragma once
+#include "main.h"
 
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -28,7 +29,7 @@ static const Choice mcServEthEnable =
         {"Включено",    "Included"},
         {"Отключено",   "Disconnected"}
     },
-    (int8*)&set.eth.enable, FuncOfChangedEthernetSettings
+    (int8*)&ETH_ENABLED, FuncOfChangedEthernetSettings
 };
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
@@ -40,9 +41,9 @@ static const IPaddress ipAddress =
         "Установка IP адреса",
         "Set of IP-address"
     },
-    &set.eth.ip0, &set.eth.ip1, &set.eth.ip2, &set.eth.ip3,
+    &IP_ADDR0, &IP_ADDR1, &IP_ADDR2, &IP_ADDR3,
     FuncOfChangedEthernetSettings,
-    &set.eth.port
+    &ETH_PORT
 };
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
@@ -54,7 +55,7 @@ static const IPaddress ipNetMask =
         "Установка маски подсети",
         "Set of network mask"
     },
-    &set.eth.mask0, &set.eth.mask1, &set.eth.mask2, &set.eth.mask3,
+    &NETMASK_ADDR0, &NETMASK_ADDR1, &NETMASK_ADDR2, &NETMASK_ADDR3,
     FuncOfChangedEthernetSettings
 };
 
@@ -67,7 +68,7 @@ static const IPaddress ipGateway =
         "Установка адреса основного шлюза",
         "Set of gateway address"
     },
-    &set.eth.gw0, &set.eth.gw1, &set.eth.gw2, &set.eth.gw3,
+    &GW_ADDR0, &GW_ADDR1, &GW_ADDR2, &GW_ADDR3,
     FuncOfChangedEthernetSettings
 };
 
@@ -80,7 +81,7 @@ static const MACaddress macMAC =
         "Установка физического адреса",
         "Set of MAC-address"
     },
-    &set.eth.mac0, &set.eth.mac1, &set.eth.mac2, &set.eth.mac3, &set.eth.mac4, &set.eth.mac5,
+    &set.eth_mac0, &set.eth_mac1, &set.eth_mac2, &set.eth_mac3, &set.eth_mac4, &set.eth_mac5,
     FuncOfChangedEthernetSettings
 };
 

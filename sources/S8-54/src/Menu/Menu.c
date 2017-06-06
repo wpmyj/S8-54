@@ -929,7 +929,7 @@ void SwitchSetLED(void)
 //------------------------------------------------------------------------------------------------------------------------------------------------------
 void Menu_Show(bool show)
 {
-    set.menu.isShown = show;
+    set.menu_IsShown = show;
     if (show)
     {
         TemporaryEnableStrNavi();

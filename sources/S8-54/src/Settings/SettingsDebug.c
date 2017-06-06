@@ -12,19 +12,19 @@ float GetStretchADC(Channel ch)
         {0, 0},  // 2mV
         {0, 0},  // 5mV
         {0, 0},  // 10mV
-        {&setNR.addStretch20mV[A], &setNR.addStretch20mV[B]},   // 20mV
-        {&setNR.addStretch50mV[A], &setNR.addStretch50mV[B]},   // 50mV
-        {&setNR.addStretch100mV[A], &setNR.addStretch100mV[B]}, // 100mV
+        {&NRST_ADD_STRETCH_20mV_A, &NRST_ADD_STRETCH_20mV_B},   // 20mV
+        {&NRST_ADD_STRETCH_50mV_A, &NRST_ADD_STRETCH_50mV_B},   // 50mV
+        {&NRST_ADD_STRETCH_100mV_A, &NRST_ADD_STRETCH_100mV_B}, // 100mV
         {0, 0}, // 200mV
         {0, 0}, // 500mV
-        {&setNR.addStretch20mV[A], &setNR.addStretch20mV[B]},   // 1V
-        {&setNR.addStretch2V[A], &setNR.addStretch2V[B]},       // 2V
-        {&setNR.addStretch100mV[A], &setNR.addStretch100mV[B]}  // 5V
+        {&NRST_ADD_STRETCH_20mV_A, &NRST_ADD_STRETCH_20mV_B},   // 1V
+        {&NRST_ADD_STRETCH_2V_A, &NRST_ADD_STRETCH_2V_B},       // 2V
+        {&NRST_ADD_STRETCH_100mV_A, &NRST_ADD_STRETCH_100mV_B}  // 5V
     };
     
     const int16 *address = addStretch[SET_RANGE(ch)][ch];
 
-    int16 stretch = setNR.stretchADC[ch][setNR.stretchADCtype];
+    int16 stretch = NRST_STRETCH_ADC(ch, NRST_STRETCH_ADC_TYPE);
 
     if (address)
     {
@@ -38,5 +38,5 @@ float GetStretchADC(Channel ch)
 //---------------------------------------------------------------------------------------------------------------------------------------------------
 void SetStretchADC(Channel ch, float kStretch)
 {
-    setNR.stretchADC[ch][setNR.stretchADCtype] = (int16)((kStretch - 1.0f) * 1e4f);
+    NRST_STRETCH_ADC(ch, NRST_STRETCH_ADC_TYPE) = (int16)((kStretch - 1.0f) * 1e4f);
 }

@@ -35,7 +35,7 @@ static const Time mtTime =
 //----------------------------------------------------------------------------------------------------------------------------------------------------
 static void OnChange_Time_Correction(void)
 {
-    RTC_SetCorrection((int8)setNR.correctionTime);
+    RTC_SetCorrection((int8)NRST_CORRECTION_TIME);
 }
 
 
@@ -48,7 +48,7 @@ static const Governor mgTimeCorrection =
         "Установка корректирующего коэффициента для компенсации хода времени",
         "Setting correction factor to compensate for time travel"
     },
-    &setNR.correctionTime, -63, 63, OnChange_Time_Correction
+    &NRST_CORRECTION_TIME, -63, 63, OnChange_Time_Correction
 };
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------

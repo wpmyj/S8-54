@@ -733,7 +733,7 @@ static const SmallButton sbInt_ModeShow =
 
 static void OnPress_Int_ModeShow(void)
 {
-    CircleIncreaseInt8((int8*)&set.memory.modeShowIntMem, 0, 2);
+    CircleIncreaseInt8((int8*)&SHOW_IN_INT, 0, 2);
 }
 
 static void Draw_Int_ModeShow(int x, int y)

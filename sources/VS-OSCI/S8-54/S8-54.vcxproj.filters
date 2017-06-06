@@ -570,7 +570,7 @@
     <ClCompile Include="..\..\S8-54\src\FPGA\Data.c">
       <Filter>FPGA</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\S8-54\src\Settings\SettingsNew.c">
+    <ClCompile Include="..\..\S8-54\src\Settings\SettingsNew_.c">
       <Filter>Settings</Filter>
     </ClCompile>
   </ItemGroup>
@@ -1085,7 +1085,10 @@
     <ClInclude Include="..\..\S8-54\src\dox\main_page.h">
       <Filter>_dox</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\S8-54\src\Settings\SettingsNew.h">
+    <ClInclude Include="..\..\S8-54\src\Settings\SettingsNew_.h">
+      <Filter>Settings</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\S8-54\src\Settings\SettingsNRST.h">
       <Filter>Settings</Filter>
     </ClInclude>
   </ItemGroup>

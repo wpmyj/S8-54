@@ -16,7 +16,7 @@
 
 #define MAX_NUM_SAVED_WAVES 23  ///< Число сохраняемых во внутреннем ППЗУ измерений. Пока ограничено количеством квадратиков, которые можно вывести в одну линию внизу сетки.
 
-void    FLASH_LoadSettings(bool onlyNonReset);                      // Если onlyNonReset == true, загружаются только несбрасываемые настройки
+void    FLASH_LoadSettings(void);                      // Если onlyNonReset == true, загружаются только несбрасываемые настройки
 void    FLASH_SaveSettings(void);
 
 void    FLASH_GetDataInfo(bool existData[MAX_NUM_SAVED_WAVES]);     // Если даннные есть, соответствующий элемент массива равен true

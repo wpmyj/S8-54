@@ -379,13 +379,13 @@ void FuncAttScreen(void)
             {
                 if (drawA)
                 {
-                    FuncDrawAdditionRShift(x, 55 + dY, &setNR.rShiftAdd[A][i][ModeCouple_DC]);
-                    FuncDrawAdditionRShift(x, 65 + dY, &setNR.rShiftAdd[A][i][ModeCouple_AC]);
+                    FuncDrawAdditionRShift(x, 55 + dY, &NRST_RSHIFT_ADD_A(i, ModeCouple_DC));
+                    FuncDrawAdditionRShift(x, 65 + dY, &NRST_RSHIFT_ADD_A(i, ModeCouple_AC));
                 }
                 if (drawB)
                 {
-                    FuncDrawAdditionRShift(x, 80 + dY, &setNR.rShiftAdd[B][i][ModeCouple_DC]);
-                    FuncDrawAdditionRShift(x, 90 + dY, &setNR.rShiftAdd[B][i][ModeCouple_AC]);
+                    FuncDrawAdditionRShift(x, 80 + dY, &NRST_RSHIFT_ADD_B(i, ModeCouple_DC));
+                    FuncDrawAdditionRShift(x, 90 + dY, &NRST_RSHIFT_ADD_B(i, ModeCouple_AC));
                 }
                 x += 16;
             }
@@ -511,7 +511,7 @@ static void CalibrateStretch(Channel ch)
     else
     {
         cal->isCalculateStretch[ch] = true;
-        setNR.stretchADCtype = StretchADC_Settings;
+        NRST_STRETCH_ADC_TYPE = StretchADC_Settings;
         SetStretchADC(ch, kStretch);
     }
 }
@@ -525,7 +525,7 @@ static void CalibrateAddRShift(Channel ch)
     {
         for (int i = 0; i < 2; i++)
         {
-            setNR.rShiftAdd[ch][range][i] = 0;
+            NRST_RSHIFT_ADD(ch, range, i) = 0;
         }
         for (int i = 0; i < 2; i++)
         {
@@ -533,10 +533,10 @@ static void CalibrateAddRShift(Channel ch)
         }
         for (int mode = 0; mode < 2; mode++)
         {
-            setNR.rShiftAdd[ch][range][mode] = CalculateAdditionRShift(ch, (Range)range);
+            NRST_RSHIFT_ADD(ch, range, mode) = CalculateAdditionRShift(ch, (Range)range);
             if (mode == ModeCouple_DC && range == Range_2mV)
             {
-                setNR.rShiftAdd[ch][range][mode] -= 5;
+                NRST_RSHIFT_ADD(ch, range, mode) -= 5;
             }
         }
     }
@@ -567,9 +567,9 @@ static void WriteAdditionRShifts(Channel ch)
         {
             for (int range = 0; range < RangeSize; range++)
             {
-                if (setNR.rShiftAdd[ch][range][mode] == ERROR_VALUE_INT16)
+                if (NRST_RSHIFT_ADD(ch, range, mode) == ERROR_VALUE_INT16)
                 {
-                    setNR.rShiftAdd[ch][range][mode] = 0;
+                    NRST_RSHIFT_ADD(ch, range, mode) = 0;
                 }
             }
         }
@@ -587,11 +587,11 @@ static void RestoreSettings(const Settings *savedSettings)
     {
         for(int type = 0; type < 3; type++)
         {
-            stretch[ch][type] = setNR.stretchADC[ch][type];
+            stretch[ch][type] = NRST_STRETCH_ADC(ch, type);
         }
     }
 
-    StretchADCtype type = setNR.stretchADCtype;
+    StretchADCtype type = NRST_STRETCH_ADC_TYPE;
     
     Settings_RestoreState(savedSettings);
 
@@ -599,11 +599,11 @@ static void RestoreSettings(const Settings *savedSettings)
     {
         for(int type = 0; type < 3; type++)
         {
-            setNR.stretchADC[ch][type] = stretch[ch][type];
+            NRST_STRETCH_ADC(ch, type) = stretch[ch][type];
         }
     }
 
-    setNR.stretchADCtype = type;
+    NRST_STRETCH_ADC_TYPE = type;
 
     OnChange_ADC_Stretch_Mode(true);
 }
@@ -1003,15 +1003,15 @@ bool FreqMeter_Init(void)
 
         uint16 data = 0;
 
-        if (set.service.freqMeter.enable)
+        if (FREQ_METER_ENABLED)
         {
             const uint16 maskTime[3] = {0, 1, 2};
             const uint16 maskFreqClc[4] = {0, (1 << 2), (1 << 3), ((1 << 3) + (1 << 2))};
             const uint16 maskPeriods[3] = {0, (1 << 4), (1 << 5)};
 
-            data |= maskTime[set.service.freqMeter.timeCounting];
-            data |= maskFreqClc[set.service.freqMeter.freqClc];
-            data |= maskPeriods[set.service.freqMeter.numberPeriods];
+            data |= maskTime[FREQ_METER_TIMECOUNTING];
+            data |= maskFreqClc[FREQ_METER_FREQ_CLC];
+            data |= maskPeriods[FREQ_METER_NUM_PERIODS];
         }
         else
         {
@@ -1032,7 +1032,7 @@ bool FreqMeter_Init(void)
 static float FreqSetToFreq(const BitSet32 *freq)
 {
     const float k[3] = {10.0f, 1.0f, 0.1f};
-    return set.service.freqMeter.enable ? (freq->word * k[set.service.freqMeter.timeCounting]) : (freq->word * 10.0f);
+    return FREQ_METER_ENABLED ? (freq->word * k[FREQ_METER_TIMECOUNTING]) : (freq->word * 10.0f);
 }
 
 //------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -1046,13 +1046,13 @@ static float PeriodSetToFreq(const BitSet32 *period)
     const float k[4] = {10e4f, 10e5f, 10e6f, 10e7f};
     const float kP[3] = {1.0f, 10.0f, 100.0f};
 
-    return set.service.freqMeter.enable ? (k[set.service.freqMeter.freqClc] * kP[set.service.freqMeter.numberPeriods] / (float)period->word) : (10e5f / (float)period->word);
+    return FREQ_METER_ENABLED ? (k[FREQ_METER_FREQ_CLC] * kP[FREQ_METER_NUM_PERIODS] / (float)period->word) : (10e5f / (float)period->word);
 }
 
 //------------------------------------------------------------------------------------------------------------------------------------------------------
 void FreqMeter_Draw(int x, int y)
 {
-    if (set.service.freqMeter.enable == 0)
+    if (!FREQ_METER_ENABLED)
     {
         return;
     }

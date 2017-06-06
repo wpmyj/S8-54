@@ -191,7 +191,7 @@ static const Choice mcADC_Balance_Mode =
         {"Реальный", "Real"},
         {"Ручной", "Manual"}
     },
-    (int8*)&setNR.balanceADCtype, OnChange_ADC_Balance_Mode, OnDraw_ADC_Balance_Mode
+    (int8*)&NRST_BALANCE_ADC_TYPE, OnChange_ADC_Balance_Mode, OnDraw_ADC_Balance_Mode
 };
 
 static void OnChange_ADC_Balance_Mode(bool active)
@@ -206,12 +206,12 @@ static void OnDraw_ADC_Balance_Mode(int x, int y)
 {
     int8 shift[2][3] =
     {
-        {0, SET_BALANCE_ADC_A, (int8)setNR.balanceADC[0]},
-        {0, SET_BALANCE_ADC_B, (int8)setNR.balanceADC[1]}
+        {0, SET_BALANCE_ADC_A, (int8)NRST_BALANCE_ADC_A},
+        {0, SET_BALANCE_ADC_B, (int8)NRST_BALANCE_ADC_B}
     };
 
-    shiftADCA = shift[A][setNR.balanceADCtype];
-    shiftADCB = shift[B][setNR.balanceADCtype];
+    shiftADCA = shift[A][NRST_BALANCE_ADC_TYPE];
+    shiftADCB = shift[B][NRST_BALANCE_ADC_TYPE];
 }
 
 // ОТЛАДКА - АЦП - БАЛАНС - Смещение 1 ---------------------------------------------------------------------------------------------------------------
@@ -228,12 +228,12 @@ static const Governor mgADC_Balance_ShiftA =
 
 static bool IsActive_ADC_Balance(void)
 {
-    return setNR.balanceADCtype == BalanceADC_Hand;
+    return NRST_BALANCE_ADC_TYPE_IS_HAND;
 }
 
 static void OnChange_ADC_BalanceA(void)
 {
-    setNR.balanceADC[A] = shiftADCA;
+    NRST_BALANCE_ADC_A = shiftADCA;
 }
 
 // ОТЛАДКА - АЦП - БАЛАНС - Смещение 2 ---------------------------------------------------------------------------------------------------------------
@@ -250,7 +250,7 @@ static const Governor mgADC_Balance_ShiftB =
 
 static void OnChange_ADC_BalanceB(void)
 {
-    setNR.balanceADC[B] = shiftADCB;
+    NRST_BALANCE_ADC_B = shiftADCB;
 }
 
 static const Choice emptyChoice;
@@ -298,7 +298,7 @@ static const Choice mcADC_Stretch_Mode =
         {"Реальный", "Real"},
         {"Ручной", "Manual"}
     },
-    (int8*)&setNR.stretchADCtype, OnChange_ADC_Stretch_Mode
+    (int8*)&NRST_STRETCH_ADC_TYPE, OnChange_ADC_Stretch_Mode
 };
 
 static int16 stretchA;
@@ -306,15 +306,15 @@ static int16 stretchB;
 
 void OnChange_ADC_Stretch_Mode(bool active)
 {
-    if (setNR.stretchADCtype == StretchADC_Disable)
+    if (NRST_STRETCH_ADC_TYPE_IS_DISABLE)
     {
-        stretchA = setNR.stretchADC[A][StretchADC_Disable] = 0;
-        stretchB = setNR.stretchADC[B][StretchADC_Disable] = 0;
+        stretchA = NRST_STRETCH_ADC_A(StretchADC_Disable) = 0;
+        stretchB = NRST_STRETCH_ADC_B(StretchADC_Disable) = 0;
     }
     else
     {
-        stretchA = setNR.stretchADC[A][setNR.stretchADCtype];
-        stretchB = setNR.stretchADC[B][setNR.stretchADCtype];
+        stretchA = NRST_STRETCH_ADC_A(NRST_STRETCH_ADC_TYPE);
+        stretchB = NRST_STRETCH_ADC_B(NRST_STRETCH_ADC_TYPE);
     }
 }
 
@@ -336,12 +336,12 @@ static const Governor mgADC_Stretch_A =
 
 static bool IsActive_ADC_StretchAB(void)
 {
-    return setNR.stretchADCtype == StretchADC_Hand;
+    return NRST_STRETCH_ADC_TYPE_IS_HAND;
 }
 
 static void OnChange_ADC_Stretch_A(void)
 {
-    setNR.stretchADC[A][setNR.stretchADCtype] = stretchA;
+    NRST_STRETCH_ADC_A(NRST_STRETCH_ADC_TYPE) = stretchA;
 }
 
 // ОТЛАДКА - АЦП - РАСТЯЖКА - Растяжка 2к ------------------------------------------------------------------------------------------------------------
@@ -362,7 +362,7 @@ static const Governor mgADC_Stretch_B =
 
 static void OnChange_ADC_Stretch_B(void)
 {
-    setNR.stretchADC[B][setNR.stretchADCtype] = stretchB;
+    NRST_STRETCH_ADC_B(NRST_STRETCH_ADC_TYPE) = stretchB;
 }
 
 // ОТЛАДКА - АЦП - РАСТЯЖКА - 20мВ/1В 1к -------------------------------------------------------------------------------------------------------------
@@ -374,7 +374,7 @@ static const Governor mgADC_Stretch_Ak20mV =
         "",
         ""
     },
-    &setNR.addStretch20mV[A], -10000, 10000
+    &NRST_ADD_STRETCH_20mV_A, -10000, 10000
 };
 
 // ОТЛАДКА - АЦП - РАСТЯЖКА - 50мВ 1к ----------------------------------------------------------------------------------------------------------------
@@ -386,7 +386,7 @@ static const Governor mgADC_Stretch_Ak50mV =
         "",
         ""
     },
-    &setNR.addStretch50mV[A], -10000, 10000
+    &NRST_ADD_STRETCH_50mV_A, -10000, 10000
 };
 
 // ОТЛАДКА - АЦП - РАСТЯЖКА - 100мВ/5В 1к ------------------------------------------------------------------------------------------------------------
@@ -398,7 +398,7 @@ static const Governor mgADC_Stretch_Ak100mV =
         "",
         ""
     },
-    &setNR.addStretch100mV[A], -10000, 10000
+    &NRST_ADD_STRETCH_100mV_A, -10000, 10000
 };
 
 // ОТЛАДКА - АЦП - РАСТЯЖКА - 2В 1к ------------------------------------------------------------------------------------------------------------------
@@ -410,7 +410,7 @@ static const Governor mgADC_Stretch_Ak2V =
         "",
         ""
     },
-    &setNR.addStretch2V[A], -10000, 10000
+    &NRST_ADD_STRETCH_2V_A, -10000, 10000
 };
 
 // ОТЛАДКА - АЦП - РАСТЯЖКА - 20мВ/1В 2к -------------------------------------------------------------------------------------------------------------
@@ -422,7 +422,7 @@ static const Governor mgADC_Stretch_Bk20mV =
         "",
         ""
     },
-    &setNR.addStretch20mV[B], -10000, 10000
+    &NRST_ADD_STRETCH_20mV_B, -10000, 10000
 };
 
 // ОТЛАДКА - АЦП - РАСТЯЖКА - Доп смещ 50мВ 2к -------------------------------------------------------------------------------------------------------
@@ -434,7 +434,7 @@ static const Governor mgADC_Stretch_Bk50mV =
         "",
         ""
     },
-    &setNR.addStretch50mV[B], -10000, 10000
+    &NRST_ADD_STRETCH_50mV_B, -10000, 10000
 };
 
 // ОТЛАДКА - АЦП - РАСТЯЖКА - 100мВ/5В 2к ------------------------------------------------------------------------------------------------------------
@@ -446,7 +446,7 @@ static const Governor mgADC_Stretch_Bk100mV =
         "",
         ""
     },
-    &setNR.addStretch100mV[B], -10000, 10000
+    &NRST_ADD_STRETCH_100mV_B, -10000, 10000
 };
 
 // ОТЛАДКА - АЦП - РАСТЯЖКА - 2В 2к ------------------------------------------------------------------------------------------------------------------
@@ -458,7 +458,7 @@ static const Governor mgADC_Stretch_Bk2V =
         "",
         ""
     },
-    &setNR.addStretch2V[B], -10000, 10000
+    &NRST_ADD_STRETCH_2V_B, -10000, 10000
 };
 
 // ОТЛАДКА - АЦП - ДОП СМЕЩ //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -502,7 +502,7 @@ static void OnPress_ADC_Shift_Reset(void)
         {
             for (int range = 0; range < RangeSize; range++)
             {
-                setNR.rShiftAdd[ch][range][mode] = 0;
+                NRST_RSHIFT_ADD(ch, range, mode) = 0;
             }
         }
     }
@@ -519,7 +519,7 @@ static const Governor mgADC_Shift_A2mV =
         "",
         ""
     },
-    (int16*)(&setNR.rShiftAdd[A][Range_2mV][ModeCouple_DC]), -100, 100, OnChange_ADC_Shift_A
+    (int16*)(&NRST_RSHIFT_ADD_A(Range_2mV, ModeCouple_DC)), -100, 100, OnChange_ADC_Shift_A
 };
 
 static void OnChange_ADC_Shift_A(void)
@@ -536,7 +536,7 @@ static const Governor mgADC_Shift_B2mV =
         "",
         ""
     },
-    (int16*)(&setNR.rShiftAdd[B][Range_2mV][ModeCouple_DC]), -100, 100, OnChange_ADC_Shift_B
+    (int16*)(&NRST_RSHIFT_ADD_B(Range_2mV, ModeCouple_DC)), -100, 100, OnChange_ADC_Shift_B
 };
 
 static void OnChange_ADC_Shift_B(void)
@@ -553,7 +553,7 @@ static const Governor mgADC_Shift_A5mV =
         "",
         ""
     },
-    (int16*)(&setNR.rShiftAdd[A][Range_5mV][ModeCouple_DC]), -100, 100, OnChange_ADC_Shift_A
+    (int16*)(&NRST_RSHIFT_ADD_A(Range_5mV, ModeCouple_DC)), -100, 100, OnChange_ADC_Shift_A
 };
 
 // ОТЛАДКА - АЦП - ДОП СМЕЩ - См 2к 5мВ пост ---------------------------------------------------------------------------------------------------------
@@ -565,7 +565,7 @@ static const Governor mgADC_Shift_B5mV =
         "",
         ""
     },
-    (int16*)(&setNR.rShiftAdd[B][Range_5mV][ModeCouple_DC]), -100, 100, OnChange_ADC_Shift_B
+    (int16*)(&NRST_RSHIFT_ADD_B(Range_5mV, ModeCouple_DC)), -100, 100, OnChange_ADC_Shift_B
 };
 
 // ОТЛАДКА - АЦП - ДОП СМЕЩ - См 1к 10мВ пост --------------------------------------------------------------------------------------------------------
@@ -577,7 +577,7 @@ static const Governor mgADC_Shift_A10mV =
         "",
         ""
     },
-    (int16*)(&setNR.rShiftAdd[A][Range_10mV][ModeCouple_DC]), -100, 100, OnChange_ADC_Shift_A
+    (int16*)(&NRST_RSHIFT_ADD_A(Range_10mV, ModeCouple_DC)), -100, 100, OnChange_ADC_Shift_A
 };
 
 // ОТЛАДКА - АЦП - ДОП СМЕЩ - См 2к 10мВ пост --------------------------------------------------------------------------------------------------------
@@ -589,7 +589,7 @@ static const Governor mgADC_Shift_B10mV =
         "",
         ""
     },
-    (int16*)(&setNR.rShiftAdd[B][Range_10mV][ModeCouple_DC]), -100, 100, OnChange_ADC_Shift_B
+    (int16*)(&NRST_RSHIFT_ADD_B(Range_10mV, ModeCouple_DC)), -100, 100, OnChange_ADC_Shift_B
 };
 
 // ОТЛАДКА - РАНД-ТОР ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -761,7 +761,7 @@ static const Governor mgRand_NumAverage =
         "",
         ""
     },
-    &setNR.numAveForRand, 1, 32
+    &NRST_NUM_AVE_FOR_RAND, 1, 32
 };
 
 // ОТЛАДКА - РАНД-ТОР - Сглаживание ------------------------------------------------------------------------------------------------------------------
@@ -773,7 +773,7 @@ static const Governor mgRand_NumSmooth =
         "",
         ""
     },
-    &setNR.numSmoothForRand, 1, 10
+    &NRST_NUM_SMOOTH_FOR_RAND, 1, 10
 };
 
 static int16 pred;
@@ -845,9 +845,7 @@ static void DebugShowSetInfo_Draw(void)
 #define DRAW_FORMAT2(str, val1, val2)   Painter_DrawFormatText(x0, Y_AND_INCREASE, str, val1, val2);
 
     //Painter_DrawFormatText(x0, Y_AND_INCREASE, "Размер основной структуры %d", sizeof(set));
-    //Painter_DrawFormatText(x0, Y_AND_INCREASE, "Размер несбрасываемой структуры %d", sizeof(setNR));
     DRAW_FORMAT("Размер основной структуры : %d", sizeof(set));
-    DRAW_FORMAT("Размер несбрасываемой структуры : %d", sizeof(setNR));
     Painter_DrawText(x0, Y_AND_INCREASE, "Несбрасываемая структура:");
     int x = Painter_DrawText(x0, Y_AND_INCREASE, "rShiftAdd :") + 5;
 
@@ -859,7 +857,7 @@ static void DebugShowSetInfo_Draw(void)
         {
             for (int range = 0; range < RangeSize; range++)
             {
-                Painter_DrawFormatText(x + range * 20, y + dY * ddY, "%d", setNR.rShiftAdd[ch][range][type]);
+                Painter_DrawFormatText(x + range * 20, y + dY * ddY, "%d", NRST_RSHIFT_ADD(ch, range, type));
             }
             ddY++;
         }
@@ -867,13 +865,13 @@ static void DebugShowSetInfo_Draw(void)
 
     y += dY * 3;
 
-    DRAW_FORMAT("correctionTime : %d", setNR.correctionTime);
-    DRAW_FORMAT2("balanceADC : %d %d", setNR.balanceADC[0], setNR.balanceADC[1]);
-    DRAW_FORMAT("numAveForRand : %d", setNR.numAveForRand);
+    DRAW_FORMAT("correctionTime : %d", NRST_CORRECTION_TIME);
+    DRAW_FORMAT2("balanceADC : %d %d", NRST_BALANCE_ADC_A, NRST_BALANCE_ADC_B);
+    DRAW_FORMAT("numAveForRand : %d", NRST_NUM_AVE_FOR_RAND);
 
     const char *s[3] = {"выключено", "настроено автоматически", "задано вручную"};
-    DRAW_FORMAT("balanceADCtype : %s", (setNR.balanceADCtype < 3 ? s[setNR.balanceADCtype] : "!!! неправильное значение !!!"));
-    DRAW_FORMAT("stretchADCtype : %s", (setNR.stretchADCtype < 3 ? s[setNR.stretchADCtype] : "!!! неправильное значение !!!"));
+    DRAW_FORMAT("balanceADCtype : %s", (NRST_BALANCE_ADC_TYPE < 3 ? s[NRST_BALANCE_ADC_TYPE] : "!!! неправильное значение !!!"));
+    DRAW_FORMAT("stretchADCtype : %s", (NRST_STRETCH_ADC_TYPE < 3 ? s[NRST_STRETCH_ADC_TYPE] : "!!! неправильное значение !!!"));
   
     x = Painter_DrawText(x0, Y_AND_INCREASE, "stretchADC :") + 5;
 
@@ -881,20 +879,20 @@ static void DebugShowSetInfo_Draw(void)
     {
         for (int num = 0; num < 3; num++)
         {
-            Painter_DrawFormatText(x + num * 20, y + dY * ch, "%d", setNR.stretchADC[ch][num]);
+            Painter_DrawFormatText(x + num * 20, y + dY * ch, "%d", NRST_STRETCH_ADC(ch, num));
         }
     }
 
     y += dY;
 
-#define DRAW_STRETCH(name) DRAW_FORMAT2(#name " : %d %d", setNR.##name[0], setNR.##name[1])
+#define DRAW_STRETCH(name) DRAW_FORMAT2(#name " : %d %d", set.nrst_##name[0], set.nrst_##name[1])
 
-    DRAW_STRETCH(addStretch20mV);
-    DRAW_STRETCH(addStretch50mV);
-    DRAW_STRETCH(addStretch100mV);
-    DRAW_STRETCH(addStretch2V);
+    DRAW_STRETCH(AddStretch20mV);
+    DRAW_STRETCH(AddStretch50mV);
+    DRAW_STRETCH(AddStretch100mV);
+    DRAW_STRETCH(AddStretch2V);
 
-    DRAW_FORMAT("numSmoothForRand : %d", setNR.numSmoothForRand);
+    DRAW_FORMAT("numSmoothForRand : %d", NRST_NUM_SMOOTH_FOR_RAND);
 
     Menu_Draw();
     Painter_EndScene();

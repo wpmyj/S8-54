@@ -125,7 +125,7 @@ static const Choice mcMinMax =
         {"64",  "64"},
         {"128", "128"}
     },
-    (int8*)&set.display.numMinMax, OnChange_MinMax
+    (int8*)&set.disp_ENumMinMax, OnChange_MinMax
 };
 
 static bool IsActive_MinMax(void)
@@ -207,7 +207,7 @@ static const Choice mcScaleYtype =
         {"Напряжение", "Voltage"},
         {"Деления", "Divisions"}
     },
-    (int8*)&set.display.linkingRShift
+    (int8*)&LINKING_RSHIFT
 };
 
 // ДИСПЛЕЙ - НАКОПЛЕНИЕ -----------------------------------------------------------------------------------------------------------------------------
@@ -343,7 +343,7 @@ static const Choice mcAverage_Num =
         {"256", "256"},
         {"512", "512"}
     },
-    (int8*)&NUM_AVE
+    (int8*)&ENUM_AVE
 };
 
 // ДИСПЛЕЙ - УСРЕДНЕНИЕ - Режим --------------------------------------------------------------------------------------------------------------------
@@ -363,7 +363,7 @@ static const Choice mcAverage_Mode =
         {"Точно",           "Accurately"},
         {"Приблизительно",  "Around"}
     },
-    (int8*)&set.display.modeAveraging
+    (int8*)&MODE_AVERAGING
 };
 
 // ДИСПЛЕЙ - СЕТКА ----------------------------------------------------------------------------------------------------------------------------------
@@ -409,19 +409,19 @@ static const Governor mgGrid_Brightness =
         "Устанавливает яркость сетки.",
         "Adjust the brightness of the grid."
     },
-    &set.display.brightnessGrid, 0, 100, OnChange_Grid_Brightness, BeforeDraw_Grid_Brightness
+    &set.disp_BrightnessGrid, 0, 100, OnChange_Grid_Brightness, BeforeDraw_Grid_Brightness
 };
 
 void OnChange_Grid_Brightness(void)
 {
-    Color_SetBrightness(&colorTypeGrid, set.display.brightnessGrid / 1e2f);
+    Color_SetBrightness(&colorTypeGrid, set.disp_BrightnessGrid / 1e2f);
 }
 
 
 static void BeforeDraw_Grid_Brightness(void)
 {
     Color_Init(&colorTypeGrid, false);
-    set.display.brightnessGrid = (int16)(colorTypeGrid.brightness * 100.0f);
+    set.disp_BrightnessGrid = (int16)(colorTypeGrid.brightness * 100.0f);
 }
 
 // ДИСПЛЕЙ - НАСТРОЙКИ //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -467,7 +467,7 @@ static const Choice mcSettings_AutoHide =
         { "Через 30 сек", "Through 30 s" },
         { "Через 60 сек", "Through 60 s" }
     },
-    (int8*)&set.display.menuAutoHide, Menu_AutoHide
+    (int8*)&MENU_AUTO_HIDE, Menu_AutoHide
 };
 
 // СЕРВИС - ДИСПЛЕЙ - Доп. маркеры -----------------------------------------------------------------------------------------------------------------
@@ -549,12 +549,12 @@ static const Governor mgSettings_Brightness =
         "Установка яркости свечения дисплея",
         "Setting the brightness of the display"
     },
-    &set.display.brightness, 0, 100, OnChange_Settings_Brightness
+    &BRIGHTNESS_DISPLAY, 0, 100, OnChange_Settings_Brightness
 };
 
 static void OnChange_Settings_Brightness(void)
 {
-    Painter_SetBrightnessDisplay(set.display.brightness);
+    Painter_SetBrightnessDisplay(BRIGHTNESS_DISPLAY);
 }
 
 // ДИСПЛЕЙ - НАСТРОЙКИ - Уровни --------------------------------------------------------------------------------------------------------------------
@@ -610,7 +610,7 @@ static const Choice mcSettings_Colors_Scheme =
         { "Схема 1", "Scheme 1" },
         { "Схема 2", "Scheme 2" }
     },
-    (int8*)&set.service.colorScheme
+    (int8*)&set.serv_ColorScheme
 };
 
 static void OnChange_Settings_Colors_Background(bool active)

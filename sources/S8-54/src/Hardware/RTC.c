@@ -63,7 +63,7 @@ void RTC_Init(void)
         gBF.tuneTime = 1;
     }
 
-    RTC_SetCorrection((int8)setNR.correctionTime);
+    RTC_SetCorrection((int8)NRST_CORRECTION_TIME);
 }
 
 
@@ -124,7 +124,7 @@ bool RTC_SetTimeAndData(int8 day, int8 month, int8 year, int8 hours, int8 minute
 
 void RTC_SetCorrection(int8 correction)
 {
-    setNR.correctionTime = correction;
+    NRST_CORRECTION_TIME = correction;
     
     HAL_RTCEx_SetCoarseCalib(&rtcHandle, correction < 0 ? RTC_CALIBSIGN_NEGATIVE : RTC_CALIBSIGN_POSITIVE, correction & 0x7f);
 }

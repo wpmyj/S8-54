@@ -23,7 +23,7 @@ typedef struct
     NumAccumulation     numAccumulation;            // Число накоплений сигнала на экране
     NumAveraging        numAveraging;               // Число усреднений сигнала
     ModeAveraging       modeAveraging;              // Тип усреднений по измерениям
-    NumMinMax           numMinMax;                  // Число измерений для определения минимумов и максимумов
+    ENumMinMax           numMinMax;                  // Число измерений для определения минимумов и максимумов
     NumSmoothing        smoothing;                  // Число точек для скользящего фильтра
     NumSignalsInSec     numSignalsInSec;            // Число считываний сигнала в секунду
     Channel             lastAffectedChannel;        // Здесь хранится номер последнего канала, которым управляли ручками. Нужно для того, чтобы знать, какой сигнал рисовать наверху.

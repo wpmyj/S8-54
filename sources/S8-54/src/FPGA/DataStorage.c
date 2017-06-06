@@ -379,16 +379,16 @@ void CalculateLimits(uint8 *dataA, uint8 *dataB, DataSettings *dss)
 {
     int numElements = NumBytesInChannel(dss);
 
-    if(DS_NumElementsInStorage() == 0 || DISPLAY_NUM_MIN_MAX == 1 || (!DataSettings_IsEquals(dss, GetSettingsDataFromEnd(0))))
+    if(DS_NumElementsInStorage() == 0 || NUM_MIN_MAX == 1 || (!DataSettings_IsEquals(dss, GetSettingsDataFromEnd(0))))
     {
         BeginLimits(dataA, dataB, numElements);
     }
     else
     {
         int allDatas = DS_NumElementsWithSameSettings();
-        LIMITATION(allDatas, allDatas, 1, DISPLAY_NUM_MIN_MAX);
+        LIMITATION(allDatas, allDatas, 1, NUM_MIN_MAX);
 
-        if(DS_NumElementsWithSameSettings() >= DISPLAY_NUM_MIN_MAX)
+        if(DS_NumElementsWithSameSettings() >= NUM_MIN_MAX)
         {
             BeginLimits(dataA, dataB, numElements);
             allDatas--;
@@ -440,7 +440,7 @@ void CalculateSums(void)
 
     if(IN_RANDOM_MODE)
     {
-        numAveragings = setNR.numAveForRand;
+        numAveragings = NRST_NUM_AVE_FOR_RAND;
     }
 
     if(sDisplay_NumAverage() > numAveragings)
@@ -711,7 +711,7 @@ uint8* DS_GetAverageData(Channel ch)
     int numAveraging = 0;
     if (IN_RANDOM_MODE)
     {
-        numAveraging = setNR.numAveForRand;
+        numAveraging = NRST_NUM_AVE_FOR_RAND;
     }
 
     if (sDisplay_NumAverage() > numAveraging)

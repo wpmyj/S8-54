@@ -62,7 +62,7 @@ bool GetInverse(Channel ch)
     }
     else if (gState == StateOSCI_DrawLoPart)
     {
-        if (WORK_DIRECT || (WORK_EEPROM && SHOW_DIRECT_IN_MEM_INT))
+        if (WORK_DIRECT || (WORK_EEPROM && SHOW_IN_INT_DIRECT))
         {
             return SET_INVERSE(ch);
         }

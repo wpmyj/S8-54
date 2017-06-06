@@ -30,7 +30,7 @@ static const Choice mcConsole_SizeFont =
         {"5", "5"},
         {"8", "8"}
     },
-    &set.debug.sizeFont
+    &set.dbg_SizeFont
 };
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
@@ -46,7 +46,7 @@ static const Choice mcConsole_ModeStop =
         {DISABLE_RU, DISABLE_EN},
         {ENABLE_RU, ENABLE_EN}
     },
-    (int8*)&set.debug.modePauseConsole
+    (int8*)&set.dbg_ModePauseConsole
 };
 
 const Page mspConsole_Registers;
@@ -64,13 +64,13 @@ static const Choice mcConsole_Registers_ShowAll =
         {"Нет", "No"},
         {"Да", "Yes"}
     },
-    (int8*)&set.debug.show.all
+    (int8*)&DBG_SHOW_ALL
 };
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
 static bool IsActive_Registers(void)
 {
-    return set.debug.show.all;
+    return DBG_SHOW_ALL;
 }
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
@@ -86,7 +86,7 @@ static const Choice mcConsole_Registers_RD_FL =
         {DISABLE_RU, DISABLE_EN},
         {ENABLE_RU, ENABLE_EN}
     },
-    (int8*)&set.debug.show.flag
+    (int8*)&DBG_SHOW_FLAG
 };
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
@@ -102,7 +102,7 @@ static const Choice mcConsole_Registers_RShiftA =
         {DISABLE_RU, DISABLE_EN},
         {ENABLE_RU, ENABLE_EN}
     },
-    (int8*)&set.debug.show.rShift[A]
+    (int8*)&set.dbg_ShowRShift[A]
 };
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
@@ -118,7 +118,7 @@ static const Choice mcConsole_Registers_RShiftB =
         {DISABLE_RU, DISABLE_EN},
         {ENABLE_RU, ENABLE_EN}
     },
-    (int8*)&set.debug.show.range[B]
+    (int8*)&set.dbg_ShowRShift[B]
 };
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
@@ -134,7 +134,7 @@ static const Choice mcConsole_Registers_TrigLev =
         {DISABLE_RU, DISABLE_EN},
         {ENABLE_RU, ENABLE_EN}
     },
-    (int8*)&set.debug.show.trigLev
+    (int8*)&set.dbg_ShowTrigLev
 };
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
@@ -150,7 +150,7 @@ static const Choice mcConsole_Registers_RangeA =
         {DISABLE_RU, DISABLE_EN},
         {ENABLE_RU, ENABLE_EN}
     },
-    (int8*)&set.debug.show.range[A]
+    (int8*)&set.dbg_ShowRange[A]
 };
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
@@ -166,7 +166,7 @@ static const Choice mcConsole_Registers_RangeB =
         {DISABLE_RU, DISABLE_EN},
         {ENABLE_RU, ENABLE_EN}
     },
-    (int8*)&set.debug.show.range[B]
+    (int8*)&set.dbg_ShowRange[B]
 };
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
@@ -182,7 +182,7 @@ static const Choice mcConsole_Registers_TrigParam =
         {DISABLE_RU, DISABLE_EN},
         {ENABLE_RU, ENABLE_EN}
     },
-    (int8*)&set.debug.show.trigParam
+    (int8*)&set.dbg_ShowTrigParam
 };
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
@@ -198,7 +198,7 @@ static const Choice mcConsole_Registers_ChanParamA =
         {DISABLE_RU, DISABLE_EN},
         {ENABLE_RU, ENABLE_EN}
     },
-    (int8*)&set.debug.show.chanParam[A]
+    (int8*)&set.dbg_ShowChanParam[A]
 };
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
@@ -214,7 +214,7 @@ static const Choice mcConsole_Registers_ChanParamB =
         {DISABLE_RU, DISABLE_EN},
         {ENABLE_RU, ENABLE_EN}
     },
-    (int8*)&set.debug.show.chanParam[B]
+    (int8*)&set.dbg_ShowChanParam[B]
 };
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
@@ -230,7 +230,7 @@ static const Choice mcConsole_Registers_TBase =
         {DISABLE_RU, DISABLE_EN},
         {ENABLE_RU, ENABLE_EN}
     },
-    (int8*)&set.debug.show.tBase
+    (int8*)&set.dbg_ShowTBase
 };
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
@@ -246,7 +246,7 @@ static const Choice mcConsole_Registers_TShift =
         {DISABLE_RU, DISABLE_EN},
         {ENABLE_RU, ENABLE_EN}
     },
-    (int8*)&set.debug.show.tShift
+    (int8*)&set.dbg_ShowTShift
 };
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
