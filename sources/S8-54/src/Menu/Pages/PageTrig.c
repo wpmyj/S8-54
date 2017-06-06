@@ -13,25 +13,25 @@
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 extern const Page mainPage;
 
-static const Choice mcMode;
-       void OnChange_Mode(bool active);
-static const Choice mcSource;
+static const Choice cMode;                  ///< ÑÈÍÕÐ - Ðåæèì
+       void OnChanged_TrigMode(bool active);
+static const Choice cSource;                ///< ÑÈÍÕÐ - Èñòî÷íèê
 static void OnChange_Source(bool active);
-static const Choice mcPolarity;
+static const Choice cPolarity;              ///< ÑÈÍÕÐ - Ïîëÿðíîñòü
 static void OnChange_Polarity(bool active);
-static const Choice mcInput;
+static const Choice cInput;                 ///< ÑÈÍÕÐ - Âõîä
 static void OnChange_Input(bool active);
-static const Governor mgTimeDelay;
+static const Governor gTimeDelay;           ///< ÑÈÍÕÐ - Óäåðæàíèå
 
-static const Page mspSearch;
-static const Choice mcSearch_Mode;
-static const Button mbSearch_Search;
+static const Page ppSearch;                 ///< ÑÈÍÕÐ - ÏÎÈÑÊ
+static const Choice cSearch_Mode;
+static const Button bSearch_Search;
 static bool IsActive_Search_Search(void);
 static void OnPress_Search_Search(void);
 
 
 // ÑÈÍÕÐ /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-const Page mpTrig =
+const Page pTrig =
 {
     Item_Page, &mainPage, 0,
     {
@@ -41,19 +41,19 @@ const Page mpTrig =
     },
     Page_Trig,
     {
-        (void*)&mcMode,         // ÑÈÍÕÐ - Ðåæèì
-        (void*)&mcSource,       // ÑÈÍÕÐ - Èñòî÷íèê
-        (void*)&mcPolarity,     // ÑÈÍÕÐ - Ïîëÿðíîñòü
-        (void*)&mcInput,        // ÑÈÍÕÐ - Âõîä
-        (void*)&mspSearch,      // ÑÈÍÕÐ - ÏÎÈÑÊ
-        (void*)&mgTimeDelay     // ÑÈÍÕÐ - Óäåðæàíèå
+        (void*)&cMode,         // ÑÈÍÕÐ - Ðåæèì
+        (void*)&cSource,       // ÑÈÍÕÐ - Èñòî÷íèê
+        (void*)&cPolarity,     // ÑÈÍÕÐ - Ïîëÿðíîñòü
+        (void*)&cInput,        // ÑÈÍÕÐ - Âõîä
+        (void*)&ppSearch,      // ÑÈÍÕÐ - ÏÎÈÑÊ
+        (void*)&gTimeDelay     // ÑÈÍÕÐ - Óäåðæàíèå
     }
 };
 
 // ÑÈÍÕÐ - Ðåæèì -------------------------------------------------------------------------------------------------------------------------------------
-static const Choice mcMode =
+static const Choice cMode =
 {
-    Item_Choice, &mpTrig, 0,
+    Item_Choice, &pTrig, 0,
     {
         "Ðåæèì",        "Mode"
         ,
@@ -72,10 +72,10 @@ static const Choice mcMode =
         {"Æäóùèé",      "Wait"},
         {"Îäíîêðàòíûé", "Single"}
     },
-    (int8*)&START_MODE, OnChange_Mode
+    (int8*)&START_MODE, OnChanged_TrigMode
 };
 
-void OnChange_Mode(bool active)
+void OnChanged_TrigMode(bool active)
 {
     FPGA_Stop(false);
     if(!START_MODE_SINGLE)
@@ -101,9 +101,9 @@ void OnChange_Mode(bool active)
 }
 
 // ÑÈÍÕÐ - Èñòî÷íèê ----------------------------------------------------------------------------------------------------------------------------------
-static const Choice mcSource =
+static const Choice cSource =
 {
-    Item_Choice, &mpTrig, 0,
+    Item_Choice, &pTrig, 0,
     {
         "Èñòî÷íèê", "Source",
         "Âûáîð èñòî÷íèêà ñèãíàëà ñèíõðîíèçàöèè.",
@@ -123,9 +123,9 @@ static void OnChange_Source(bool active)
 }
 
 // ÑÈÍÕÐ - Ïîëÿðíîñòü --------------------------------------------------------------------------------------------------------------------------------
-static const Choice mcPolarity =
+static const Choice cPolarity =
 {
-    Item_Choice, &mpTrig, 0,
+    Item_Choice, &pTrig, 0,
     {
         "Ïîëÿðíîñòü",   "Polarity"
         ,
@@ -148,9 +148,9 @@ static void OnChange_Polarity(bool active)
 }
 
 // ÑÈÍÕÐ - Âõîä --------------------------------------------------------------------------------------------------------------------------------------
-static const Choice mcInput =
+static const Choice cInput =
 {
-    Item_Choice, &mpTrig, 0,
+    Item_Choice, &pTrig, 0,
     {
         "Âõîä", "Input"
         ,
@@ -181,9 +181,9 @@ static void OnChange_Input(bool active)
 }
 
 // ÑÈÍÕÐ - Óäåðæàíèå ---------------------------------------------------------------------------------------------------------------------------------
-static const Governor mgTimeDelay =
+static const Governor gTimeDelay =
 {
-    Item_Governor, &mpTrig, 0,
+    Item_Governor, &pTrig, 0,
     {
         "Óäåðæàíèå, ìñ", "Holdoff, ms",
         "Óñòàíàâëèâàåò ìèíèìàëüíîå âðåìÿ ìåæäó çàïóñêàìè.",
@@ -193,9 +193,9 @@ static const Governor mgTimeDelay =
 };
 
 // ÑÈÍÕÐ - ÏÎÈÑÊ /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-static const Page mspSearch =
+static const Page ppSearch =
 {
-    Item_Page, &mpTrig, 0,
+    Item_Page, &pTrig, 0,
     {
         "ÏÎÈÑÊ", "SEARCH",
         "Óïðàâëåíèå àâòîìàòè÷åñêèì ïîèñêîì óðîâíÿ ñèíõðîíèçàöèè.",
@@ -203,15 +203,15 @@ static const Page mspSearch =
     },
     Page_TrigAuto,
     {
-        (void*)&mcSearch_Mode,
-        (void*)&mbSearch_Search
+        (void*)&cSearch_Mode,
+        (void*)&bSearch_Search
     }
 };
 
 // ÑÈÍÕÐ - ÏÎÈÑÊ - Ðåæèì -----------------------------------------------------------------------------------------------------------------------------
-static const Choice mcSearch_Mode =
+static const Choice cSearch_Mode =
 {
-    Item_Choice, &mspSearch, 0,
+    Item_Choice, &ppSearch, 0,
     {
         "Ðåæèì", "Mode"
         ,
@@ -234,9 +234,9 @@ static const Choice mcSearch_Mode =
 };
 
 // ÑÈÍÕÐ - ÏÎÈÑÊ - Íàéòè -----------------------------------------------------------------------------------------------------------------------------
-static const Button mbSearch_Search =
+static const Button bSearch_Search =
 {
-    Item_Button, &mspSearch, IsActive_Search_Search,
+    Item_Button, &ppSearch, IsActive_Search_Search,
     {
         "Íàéòè", "Search",
         "Ïðîèçâîäèò ïîèñê óðîâíÿ ñèíõðîíèçàöèè.",

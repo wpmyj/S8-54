@@ -1,12 +1,12 @@
 // This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++ and C#: http://www.viva64.com
-#include "../../defines.h"
+#include "defines.h"
 #include "SCPI.h"
-#include "../../Settings/Settings.h"
-#include "../../Utils/Map.h"
-#include "../../Utils/GlobalFunctions.h"
-#include "../../VCP/VCP.h"
-#include "../../FPGA/FPGA.h"
+#include "Settings/Settings.h"
+#include "Utils/Map.h"
+#include "Utils/GlobalFunctions.h"
+#include "VCP/VCP.h"
+#include "FPGA/FPGA.h"
 
 
 /*
@@ -47,12 +47,10 @@ void Process_TRIG(uint8 *buffer)
 
 
 //------------------------------------------------------------------------------------------------------------------------------------------------------
-extern void OnChange_Mode(bool active);
-
-
-//------------------------------------------------------------------------------------------------------------------------------------------------------
 void Process_MODE(uint8 *buffer)
 {
+    extern void OnChanged_TrigMode(bool active);
+    
     static const MapElement map[] =
     {
         {"AUTO",   0},
@@ -62,9 +60,9 @@ void Process_MODE(uint8 *buffer)
         {0}
     };
     ENTER_ANALYSIS
-        if (0 == value)         { START_MODE = StartMode_Auto; OnChange_Mode(true); }
-        else if (1 == value)    { START_MODE = StartMode_Wait; OnChange_Mode(true); }
-        else if (2 == value)    { START_MODE = StartMode_Single; OnChange_Mode(true); }
+        if (0 == value)         { START_MODE = StartMode_Auto; OnChanged_TrigMode(true); }
+        else if (1 == value)    { START_MODE = StartMode_Wait; OnChanged_TrigMode(true); }
+        else if (2 == value)    { START_MODE = StartMode_Single; OnChanged_TrigMode(true); }
         else if (3 == value)
         {
             SCPI_SEND(":TRIGGER:MODE %s", map[START_MODE].key);

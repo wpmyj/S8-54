@@ -121,7 +121,7 @@ extern const Page mpMeasures;
 extern const Page mpDebug;
 extern const Page mpService;
 extern const Page mpTime;
-extern const Page mpTrig;
+extern const Page pTrig;
 
 /// лемч 
 const Page mainPage =
@@ -136,7 +136,7 @@ const Page mainPage =
         (void*)&mpDisplay,
         (void*)&mpChanA,
         (void*)&mpChanB,
-        (void*)&mpTrig,
+        (void*)&pTrig,
         (void*)&mpTime,
         (void*)&mpCursors,
         (void*)&mpMemory,
@@ -158,7 +158,7 @@ const void *PageForButton(PanelButton button)
         (void*)&mpDisplay,  // B_Display
         (void*)&mpTime,     // B_Time
         (void*)&mpMemory,   // B_Memory
-        (void*)&mpTrig,     // B_Trig
+        (void*)&pTrig,     // B_Trig
         0,                  // B_Start
         (void*)&mpCursors,  // B_Cursors
         (void*)&mpMeasures, // B_Measures

@@ -17,7 +17,7 @@ extern const Page mainPage;
 static const Choice mcIsShow;
 static const Choice mcNumber;
 static const Choice mcChannels;
-static const Choice mcMode;
+static const Choice cMode;
 
 static const Page mspFreqMeter;
 static const Choice mcServiceFreqMeterEnable;
@@ -63,7 +63,7 @@ const Page mpMeasures =
         (void*)&mcNumber,       // »«Ã≈–≈Õ»ﬂ -  ÓÎË˜ÂÒÚ‚Ó
         (void*)&mcChannels,     // »«Ã≈–≈Õ»ﬂ -  ‡Ì‡Î˚
         (void*)&mspTune,        // »«Ã≈–≈Õ»ﬂ - Õ¿—“–Œ»“‹
-        (void*)&mcMode          // »«Ã≈–≈Õ»ﬂ - ¬Ë‰
+        (void*)&cMode          // »«Ã≈–≈Õ»ﬂ - ¬Ë‰
     }
 };
 
@@ -235,7 +235,7 @@ static bool IsActive_Channels(void)
 }
 
 // »«Ã≈–≈Õ»ﬂ - ¬Ë‰ -----------------------------------------------------------------------------------------------------------------------------------
-static const Choice mcMode =
+static const Choice cMode =
 {
     Item_Choice, &mpMeasures, IsActive_Mode,
     {
