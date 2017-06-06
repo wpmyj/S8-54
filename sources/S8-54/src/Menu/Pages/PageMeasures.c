@@ -11,44 +11,41 @@
 #include "FPGA/fpgaExtensions.h  "
 
 
-/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+static const       Page ppFreqMeter;                    ///< ÈÇÌÅÐÅÍÈß - ×ÀÑÒÎÒÎÌÅÐ
+static const      Choice cFreqMeter_Enable;             ///< ÈÇÌÅÐÅÍÈß - ×ÀÑÒÎÒÎÌÅÐ - ×àñòîòîìåð
+static void     OnChanged_FreqMeter_Enable(bool param);
+static const      Choice cFreqMeter_TimeF;              ///< ÈÇÌÅÐÅÍÈß - ×ÀÑÒÎÒÎÌÅÐ - Âðåìÿ ñ÷¸òà F
+static const      Choice cFreqMeter_FreqClc;            ///< ÈÇÌÅÐÅÍÈß - ×ÀÑÒÎÒÎÌÅÐ - Ìåòêè âðåìåíè
+static const      Choice cFreqMeter_NumPeriods;         ///< ÈÇÌÅÐÅÍÈß - ×ÀÑÒÎÒÎÌÅÐ - Êîë-âî ïåðèîäîâ
+static const      Choice cIsShow;                       ///< ÈÇÌÅÐÅÍÈß - Ïîêàçûâàòü
+static const      Choice cNumber;                       ///< ÈÇÌÅÐÅÍÈß - Êîëè÷åñòâî
+static bool      IsActive_Number(void);
+static const      Choice cChannels;                     ///< ÈÇÌÅÐÅÍÈß - Êàíàëû
+static bool      IsActive_Channels(void);
+static const       Page ppTune;                         ///< ÈÇÌÅÐÅÍÈß - ÍÀÑÒÐÎÈÒÜ
+static bool      IsActive_Tune(void);
+static void      OnRegSet_Tune(int angle);
+static const SmallButton bTune_Exit;                    ///< ÈÇÌÅÐÅÍÈß - ÍÀÑÒÐÎÈÒÜ - Âûõîä
+static void       OnPress_Tune_Exit(void);
+static const SmallButton bTune_Markers;                 ///< ÈÇÌÅÐÅÍÈß - ÍÀÑÒÐÎÈÒÜ - Ìàðêåðû
+static void       OnPress_Tune_Markers(void);
+static void          Draw_Tune_Markers(int x, int y);
+static const SmallButton bTune_Settings;                ///< ÈÇÌÅÐÅÍÈß - ÍÀÑÒÐÎÈÒÜ - Íàñòðîéêà
+static void       OnPress_Tune_Settings(void);
+static void     Draw_Tune_Settings(int x, int y);
+static const      Choice cMode;                         ///< ÈÇÌÅÐÅÍÈß - Âèä
+static bool      IsActive_Mode(void);
+
+int8 posActive = 0;                 // Ïîçèöèÿ àêòèâíîãî èçìåðåíèÿ (íà êîòîðîì êóðñîð)
+bool pageChoiceIsActive = false;    // Åñëè true - ðàñêðûòà ñòðàíèöà âûáîðà èçìåðåíèÿ
+int8 posOnPageChoice = 0;           // Ïîçèöèÿ êóðñîðà íà ñòðàíèöå âûáîðà èçìåðåíèÿ
+
 extern const Page mainPage;
 
-static const Choice mcIsShow;
-static const Choice mcNumber;
-static const Choice mcChannels;
-static const Choice cMode;
 
-static const Page mspFreqMeter;
-static const Choice mcServiceFreqMeterEnable;
-static const Choice mcServiceFreqMeterTimeF;
-static const Choice mcServiceFreqFreqClc;
-static const Choice mcServiceFreqMeterNumberPeriods;
-static void ChangeParameterFreqMeter(bool param);
-
-static const Page mspTune;
-static const SmallButton sbTune_Exit;
-static const SmallButton sbTune_Markers;
-static const SmallButton sbTune_Settings;
-
-static bool IsActive_Number(void);
-static bool IsActive_Channels(void);
-static bool IsActive_Mode(void);
-static bool IsActive_Tune(void);
-static void OnRot_Tune(int angle);
-static void OnPress_Tune_Exit(void);
-static void OnPress_Tune_Markers(void);
-static void DrawSB_Tune_Markers(int x, int y);
-static void OnPress_Tune_Settings(void);
-static void DrawSB_Tune_Settings(int x, int y);
-
-       int8 posActive = 0;                  // Ïîçèöèÿ àêòèâíîãî èçìåðåíèÿ (íà êîòîðîì êóðñîð)
-       bool pageChoiceIsActive = false;     // Åñëè true - ðàñêðûòà ñòðàíèöà âûáîðà èçìåðåíèÿ
-       int8 posOnPageChoice = 0;            // Ïîçèöèÿ êóðñîðà íà ñòðàíèöå âûáîðà èçìåðåíèÿ
-
-
-// ÈÇÌÅÐÅÍÈß ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-const Page mpMeasures =
+// ÈÇÌÅÐÅÍÈß /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+const Page pMeasures =
 {
     Item_Page, &mainPage, 0,
     {
@@ -58,19 +55,19 @@ const Page mpMeasures =
     },
     Page_Measures,
     {
-        (void*)&mspFreqMeter,   // ÈÇÌÅÐÅÍÈß - ×ÀÑÒÎÒÎÌÅÐ
-        (void*)&mcIsShow,       // ÈÇÌÅÐÅÍÈß - Ïîêàçûâàòü
-        (void*)&mcNumber,       // ÈÇÌÅÐÅÍÈß - Êîëè÷åñòâî
-        (void*)&mcChannels,     // ÈÇÌÅÐÅÍÈß - Êàíàëû
-        (void*)&mspTune,        // ÈÇÌÅÐÅÍÈß - ÍÀÑÒÐÎÈÒÜ
-        (void*)&cMode          // ÈÇÌÅÐÅÍÈß - Âèä
+        (void*)&ppFreqMeter,    // ÈÇÌÅÐÅÍÈß - ×ÀÑÒÎÒÎÌÅÐ
+        (void*)&cIsShow,        // ÈÇÌÅÐÅÍÈß - Ïîêàçûâàòü
+        (void*)&cNumber,        // ÈÇÌÅÐÅÍÈß - Êîëè÷åñòâî
+        (void*)&cChannels,      // ÈÇÌÅÐÅÍÈß - Êàíàëû
+        (void*)&ppTune,         // ÈÇÌÅÐÅÍÈß - ÍÀÑÒÐÎÈÒÜ
+        (void*)&cMode           // ÈÇÌÅÐÅÍÈß - Âèä
     }
 };
 
 // ÈÇÌÅÐÅÍÈß - ×ÀÑÒÎÒÎÌÅÐ ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-const Page mspFreqMeter =
+const Page ppFreqMeter =
 {
-    Item_Page, &mpMeasures, 0,
+    Item_Page, &pMeasures, 0,
     {
         "×ÀÑÒÎÒÎÌÅÐ", "FREQ METER",
         "",
@@ -78,16 +75,17 @@ const Page mspFreqMeter =
     },
     Page_ServiceFreqMeter,
     {
-        (void*)&mcServiceFreqMeterEnable,
-        (void*)&mcServiceFreqMeterTimeF,
-        (void*)&mcServiceFreqFreqClc,
-        (void*)&mcServiceFreqMeterNumberPeriods
+        (void*)&cFreqMeter_Enable,      // ÈÇÌÅÐÅÍÈß - ×ÀÑÒÎÒÎÌÅÐ - ×àñòîòîìåð
+        (void*)&cFreqMeter_TimeF,       // ÈÇÌÅÐÅÍÈß - ×ÀÑÒÎÒÎÌÅÐ - Âðåìÿ ñ÷¸òà F
+        (void*)&cFreqMeter_FreqClc,     // ÈÇÌÅÐÅÍÈß - ×ÀÑÒÎÒÎÌÅÐ - Ìåòêè âðåìåíè
+        (void*)&cFreqMeter_NumPeriods   // ÈÇÌÅÐÅÍÈß - ×ÀÑÒÎÒÎÌÅÐ - Êîë-âî ïåðèîäîâ
     }
 };
 
-static const Choice mcServiceFreqMeterEnable =
+// ÈÇÌÅÐÅÍÈß - ×ÀÑÒÎÒÎÌÅÐ - ×àñòîòîìåð ---------------------------------------------------------------------------------------------------------------
+static const Choice cFreqMeter_Enable =
 {
-    Item_Choice, &mspFreqMeter, 0,
+    Item_Choice, &ppFreqMeter, 0,
     {
         "×àñòîòîìåð", "Freq meter",
         "",
@@ -97,17 +95,18 @@ static const Choice mcServiceFreqMeterEnable =
         {DISABLE_RU, DISABLE_EN},
         {ENABLE_RU, ENABLE_EN}
     },
-    (int8*)&FREQ_METER_ENABLED, ChangeParameterFreqMeter
+    (int8*)&FREQ_METER_ENABLED, OnChanged_FreqMeter_Enable
 };
 
-static void ChangeParameterFreqMeter(bool param)
+static void OnChanged_FreqMeter_Enable(bool param)
 {
     FreqMeter_Init();
 }
 
-static const Choice mcServiceFreqMeterTimeF =
+// ÈÇÌÅÐÅÍÈß - ×ÀÑÒÎÒÎÌÅÐ - Âðåìÿ ñ÷¸òà F ------------------------------------------------------------------------------------------------------------
+static const Choice cFreqMeter_TimeF =
 {
-    Item_Choice, &mspFreqMeter, 0,
+    Item_Choice, &ppFreqMeter, 0,
     {
         "Âðåìÿ ñ÷¸òà F", "Time calc F",
         "Ïîçâîëÿåò âûáðàòü òî÷íîñòü èçìåðåíèÿ ÷àñòîòû - ÷åì áîëüøå âðåìÿ, òåì áîëüøå òî÷íîñòü è áîëüøå âðåìÿ èçìåðåíèÿ",
@@ -118,12 +117,13 @@ static const Choice mcServiceFreqMeterTimeF =
         {"1ñ", "1s"},
         {"10ñ", "10ms"}
     },
-    (int8*)&FREQ_METER_TIMECOUNTING, ChangeParameterFreqMeter
+    (int8*)&FREQ_METER_TIMECOUNTING, OnChanged_FreqMeter_Enable
 };
 
-static const Choice mcServiceFreqFreqClc =
+// ÈÇÌÅÐÅÍÈß - ×ÀÑÒÎÒÎÌÅÐ - Ìåòêè âðåìåíè ------------------------------------------------------------------------------------------------------------
+static const Choice cFreqMeter_FreqClc =
 {
-    Item_Choice, &mspFreqMeter, 0,
+    Item_Choice, &ppFreqMeter, 0,
     {
         "Ìåòêè âðåìåíè", "Timestamps",
         "Âûáîð ÷àñòîòû ñëåäîâàíèÿ ñ÷¸òíûõ èìïóëüñîâ",
@@ -135,12 +135,13 @@ static const Choice mcServiceFreqFreqClc =
         {"10ÌÃö", "10MHz"},
         {"100ÌÃö", "100MHz"}
     },
-    (int8*)&FREQ_METER_FREQ_CLC, ChangeParameterFreqMeter
+    (int8*)&FREQ_METER_FREQ_CLC, OnChanged_FreqMeter_Enable
 };
 
-static const Choice mcServiceFreqMeterNumberPeriods =
+// ÈÇÌÅÐÅÍÈß - ×ÀÑÒÎÒÎÌÅÐ - Êîë-âî ïåðèîäîâ ----------------------------------------------------------------------------------------------------------
+static const Choice cFreqMeter_NumPeriods =
 {
-    Item_Choice, &mspFreqMeter, 0,
+    Item_Choice, &ppFreqMeter, 0,
     {
         "Êîë-âî ïåðèîäîâ", "Num periods",
         "Ïîçâîëÿåò âûáðàòü òî÷íîñòü èçìåðåíèÿ ïåðèîäà - ÷åì áîëüøå âðåìÿ, òåì áîëüøå òî÷íîñòü è áîëüøå âðåìÿ èçìåðåíèÿ",
@@ -151,13 +152,13 @@ static const Choice mcServiceFreqMeterNumberPeriods =
         {"10", "10"},
         {"100", "100"}
     },
-    (int8*)&FREQ_METER_NUM_PERIODS, ChangeParameterFreqMeter
+    (int8*)&FREQ_METER_NUM_PERIODS, OnChanged_FreqMeter_Enable
 };
 
 // ÈÇÌÅÐÅÍÈß - Ïîêàçûâàòü ----------------------------------------------------------------------------------------------------------------------------
-static const Choice mcIsShow =
+static const Choice cIsShow =
 {
-    Item_Choice, &mpMeasures, 0,
+    Item_Choice, &pMeasures, 0,
     {
         "Ïîêàçûâàòü", "Show",
         "Âûâîäèòü èëè íå âûâîäèòü èçìåðåíèÿ íà ýêðàí",
@@ -171,9 +172,9 @@ static const Choice mcIsShow =
 };
 
 // ÈÇÌÅÐÅÍÈß - Êîëè÷åñòâî ----------------------------------------------------------------------------------------------------------------------------
-static const Choice mcNumber =
+static const Choice cNumber =
 {
-    Item_Choice, &mpMeasures, IsActive_Number,
+    Item_Choice, &pMeasures, IsActive_Number,
     {
         "Êîëè÷åñòâî", "Number"
         ,
@@ -213,9 +214,9 @@ static bool IsActive_Number(void)
 }
 
 // ÈÇÌÅÐÅÍÈß - Êàíàëû --------------------------------------------------------------------------------------------------------------------------------
-static const Choice mcChannels =
+static const Choice cChannels =
 {
-    Item_Choice, &mpMeasures, IsActive_Channels,
+    Item_Choice, &pMeasures, IsActive_Channels,
     {
         "Êàíàëû", "Channels",
         "Ïî êàêèì êàíàëàì âûâîäèòü èçìåðåíèÿ",
@@ -237,7 +238,7 @@ static bool IsActive_Channels(void)
 // ÈÇÌÅÐÅÍÈß - Âèä -----------------------------------------------------------------------------------------------------------------------------------
 static const Choice cMode =
 {
-    Item_Choice, &mpMeasures, IsActive_Mode,
+    Item_Choice, &pMeasures, IsActive_Mode,
     {
         "Âèä", "View",
         "Óìåíüøàòü èëè íåò çîíó âûâîäà ñèãíàëà äëÿ èñêëþ÷åíèÿ ïåðåêðûòèÿ åãî ðåçóëüòàìè èçìåðåíèé",
@@ -257,9 +258,9 @@ static bool IsActive_Mode(void)
 
 
 // ÈÇÌÅÐÅÍÈß - ÍÀÑÒÐÎÈÒÜ /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-static const Page mspTune =
+static const Page ppTune =
 {
-    Item_Page, &mpMeasures, IsActive_Tune,
+    Item_Page, &pMeasures, IsActive_Tune,
     {
         "ÍÀÑÒÐÎÈÒÜ", "CONFIGURE",
         "Ïåðåõîä â ðåæìè òî÷íîé íàñòðîéêè êîëè÷åñòâà è âèäîâ èçìåðåíèé",
@@ -267,16 +268,16 @@ static const Page mspTune =
     },
     Page_SB_MeasTuneMeas,
     {
-        (void*)&sbTune_Exit,     // ÈÇÌÅÐÅÍÈß - ÍÀÑÒÐÎÈÒÜ - Âûõîä
+        (void*)&bTune_Exit,     // ÈÇÌÅÐÅÍÈß - ÍÀÑÒÐÎÈÒÜ - Âûõîä
         (void*)0,
         (void*)0,
         (void*)0,
-        (void*)&sbTune_Markers,  // ÈÇÌÅÐÅÍÈß - ÍÀÑÒÐÎÈÒÜ - Ìàðêåðû
-        (void*)&sbTune_Settings  // ÈÇÌÅÐÅÍÈß - ÍÀÑÒÐÎÈÒÜ - Íàñòðîéêà
+        (void*)&bTune_Markers,  // ÈÇÌÅÐÅÍÈß - ÍÀÑÒÐÎÈÒÜ - Ìàðêåðû
+        (void*)&bTune_Settings  // ÈÇÌÅÐÅÍÈß - ÍÀÑÒÐÎÈÒÜ - Íàñòðîéêà
     },
     EmptyFuncVV,
     EmptyFuncVV,
-    OnRot_Tune
+    OnRegSet_Tune
 };
 
 static bool IsActive_Tune(void)
@@ -284,7 +285,7 @@ static bool IsActive_Tune(void)
     return SHOW_MEASURES;
 }
 
-static void OnRot_Tune(int angle)
+static void OnRegSet_Tune(int angle)
 {
     static const int8 step = 3;
     static int8 currentAngle = 0;
@@ -339,9 +340,9 @@ static void OnRot_Tune(int angle)
 }
 
 // ÈÇÌÅÐÅÍÈß - ÍÀÑÒÐÎÈÒÜ - Âûõîä ---------------------------------------------------------------------------------------------------------------------
-static const SmallButton sbTune_Exit =
+static const SmallButton bTune_Exit =
 {
-    Item_SmallButton, &mspTune,
+    Item_SmallButton, &ppTune,
     COMMON_BEGIN_SB_EXIT,
     OnPress_Tune_Exit,
     DrawSB_Exit
@@ -353,16 +354,16 @@ static void OnPress_Tune_Exit(void)
 }
 
 // ÈÇÌÅÐÅÍÈß - ÍÀÑÒÐÎÈÒÜ - Ìàðêåðû -------------------------------------------------------------------------------------------------------------------
-static const SmallButton sbTune_Markers =
+static const SmallButton bTune_Markers =
 {
-    Item_SmallButton, &mspTune, 0,
+    Item_SmallButton, &ppTune, 0,
     {
         "Ìàðêåð", "Marker",
         "Ïîçâîëÿåò óñòàíîâèòü ìàðêåðû äëÿ âèçóàëüíîãî êîíòðîëÿ èçìåðåíèé",
         "Allows to establish markers for visual control of measurements"
     },
     OnPress_Tune_Markers,
-    DrawSB_Tune_Markers
+    Draw_Tune_Markers
 };
 
 static void OnPress_Tune_Markers(void)
@@ -370,7 +371,7 @@ static void OnPress_Tune_Markers(void)
     Measure_ShortPressOnSmallButonMarker();
 }
 
-static void DrawSB_Tune_Markers(int x, int y)
+static void Draw_Tune_Markers(int x, int y)
 {
     Painter_SetFont(TypeFont_UGO2);
     Painter_Draw4SymbolsInRect(x + 2, y + 2, '\x60');
@@ -378,16 +379,16 @@ static void DrawSB_Tune_Markers(int x, int y)
 }
 
 // ÈÇÌÅÐÅÍÈß - ÍÀÑÒÐÎÈÒÜ - Íàñòðîéêà -----------------------------------------------------------------------------------------------------------------
-static const SmallButton sbTune_Settings =
+static const SmallButton bTune_Settings =
 {
-    Item_SmallButton, &mspTune, 0,
+    Item_SmallButton, &ppTune, 0,
     {
         "Íàñòðîéêà", "Setup",
         "Ïîçâîëÿåò âûáðàòü íåîáõîäèìûå èçìåðåíèÿ",
         "Allows to choose necessary measurements"
     },
     OnPress_Tune_Settings,
-    DrawSB_Tune_Settings
+    Draw_Tune_Settings
 };
 
 static void OnPress_Tune_Settings(void)
@@ -399,7 +400,7 @@ static void OnPress_Tune_Settings(void)
     }
 }
 
-static void DrawSB_Tune_Settings(int x, int y)
+static void Draw_Tune_Settings(int x, int y)
 {
     Painter_SetFont(TypeFont_UGO2);
     Painter_Draw4SymbolsInRect(x + 2, y + 1, '\x62');

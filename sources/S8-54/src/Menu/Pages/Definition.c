@@ -117,7 +117,7 @@ extern const Page mpCursors;
 extern const Page mpChanA;
 extern const Page mpChanB;
 extern const Page mpMemory;
-extern const Page mpMeasures;
+extern const Page pMeasures;
 extern const Page mpDebug;
 extern const Page mpService;
 extern const Page mpTime;
@@ -140,7 +140,7 @@ const Page mainPage =
         (void*)&mpTime,
         (void*)&mpCursors,
         (void*)&mpMemory,
-        (void*)&mpMeasures,
+        (void*)&pMeasures,
         (void*)&mpService,
         (void*)&mpHelp,
         (void*)&mpDebug
@@ -161,7 +161,7 @@ const void *PageForButton(PanelButton button)
         (void*)&pTrig,     // B_Trig
         0,                  // B_Start
         (void*)&mpCursors,  // B_Cursors
-        (void*)&mpMeasures, // B_Measures
+        (void*)&pMeasures, // B_Measures
         0,                  // B_Power
         (void*)&mpHelp,     // B_Help
         0,                  // B_Menu
