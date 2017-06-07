@@ -14,34 +14,61 @@
 #include "Menu/MenuFunctions.h"
 #include "Log.h"
 #include "DebugSerialNumber.h"
-#include "DebugConsole.h"
 
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 extern Page mainPage;
 extern void LoadTShift(void);
 
-static const Choice cStats;
+static const     Page ppConsole;                            ///< ÎÒËÀÄÊÀ - ÊÎÍÑÎËÜ
+static const  Governor gConsole_NumStrings;                 ///< ÎÒËÀÄÊÀ - ÊÎÍÑÎËÜ - Ðàçìåð øðèôòà
+static const    Choice cConsole_SizeFont;                   ///< ÎÒËÀÄÊÀ - ÊÎÍÑÎËÜ - Ðàçìåð øðèôòà
+static const    Choice cConsole_ModeStop;                   ///< ÎÒËÀÄÊÀ - ÊÎÍÑÎËÜ - Ðåæ. îñòàíîâà
+static const    Page pppConsole_Registers;                  ///< ÎÒËÀÄÊÀ - ÊÎÍÑÎËÜ - ÐÅÃÈÑÒÐÛ
+static const   Choice mcConsole_Registers_ShowAll;          ///< ÎÒËÀÄÊÀ - ÊÎÍÑÎËÜ - ÐÅÃÈÑÒÐÛ - Ïîêàçûâàòü âñå
+static const   Choice mcConsole_Registers_RD_FL;            ///< ÎÒËÀÄÊÀ - ÊÎÍÑÎËÜ - ÐÅÃÈÑÒÐÛ - RD_FL
+static bool    IsActive_Console_Registers(void);
+static const   Choice mcConsole_Registers_RShiftA;          ///< ÎÒËÀÄÊÀ - ÊÎÍÑÎËÜ - ÐÅÃÈÑÒÐÛ - U ñì. 1ê
+static const   Choice mcConsole_Registers_RShiftB;          ///< ÎÒËÀÄÊÀ - ÊÎÍÑÎËÜ - ÐÅÃÈÑÒÐÛ - U ñì. 2ê
+static const   Choice mcConsole_Registers_TrigLev;          ///< ÎÒËÀÄÊÀ - ÊÎÍÑÎËÜ - ÐÅÃÈÑÒÐÛ - U ñèíõð.
+static const   Choice mcConsole_Registers_RangeA;           ///< ÎÒËÀÄÊÀ - ÊÎÍÑÎËÜ - ÐÅÃÈÑÒÐÛ - ÂÎËÜÒ/ÄÅË 1
+static const   Choice mcConsole_Registers_RangeB;           ///< ÎÒËÀÄÊÀ - ÊÎÍÑÎËÜ - ÐÅÃÈÑÒÐÛ - ÂÎËÜÒ/ÄÅË 2
+static const   Choice mcConsole_Registers_TrigParam;        ///< ÎÒËÀÄÊÀ - ÊÎÍÑÎËÜ - ÐÅÃÈÑÒÐÛ - Ïàðàì. ñèíõð.
+static const   Choice mcConsole_Registers_ChanParamA;       ///< ÎÒËÀÄÊÀ - ÊÎÍÑÎËÜ - ÐÅÃÈÑÒÐÛ - Ïàðàì. êàí. 2
+static const   Choice mcConsole_Registers_ChanParamB;       ///< ÎÒËÀÄÊÀ - ÊÎÍÑÎËÜ - ÐÅÃÈÑÒÐÛ - Ïàðàì. êàí. 2
+static const   Choice mcConsole_Registers_TBase;            ///< ÎÒËÀÄÊÀ - ÊÎÍÑÎËÜ - ÐÅÃÈÑÒÐÛ - ÂÐÅÌß/ÄÅË
+static const   Choice mcConsole_Registers_TShift;           ///< ÎÒËÀÄÊÀ - ÊÎÍÑÎËÜ - ÐÅÃÈÑÒÐÛ - Ò ñì.
+static const    Button bConsole_SizeSettings;               ///< ÎÒËÀÄÊÀ - ÊÎÍÑÎËÜ - Ðàçìåð íàñòðîåê
+static void    FuncDraw_Console_SizeSettings(int x, int y);
+static const     Page ppADC;                                ///< ÎÒËÀÄÊÀ - ÀÖÏ
+static const    Page pppADC_Balance;                        ///< ÎÒËÀÄÊÀ - ÀÖÏ - ÁÀËÀÍÑ
+static const    Choice cADC_Balance_Mode;                   ///< ÎÒËÀÄÊÀ - ÀÖÏ - ÁÀËÀÍÑ - Ðåæèì
+static void    OnChange_ADC_Balance_Mode(bool active);
+static void    FuncDraw_ADC_Balance_Mode(int x, int y);
+static const  Governor gADC_Balance_ShiftA;                 ///< ÎÒËÀÄÊÀ - ÀÖÏ - ÁÀËÀÍÑ - Ñìåùåíèå 1
+static bool    IsActive_ADC_Balance_ShiftAB(void);
+static void    OnChange_ADC_Balance_ShiftA(void);
+static const  Governor gADC_Balance_ShiftB;                 ///< ÎÒËÀÄÊÀ - ÀÖÏ - ÁÀËÀÍÑ - Ñìåùåíèå 2 
+static void    OnChange_ADC_Balance_ShiftB(void);
+static const    Page pppADC_Stretch;                        ///< ÎÒËÀÄÊÀ - ÀÖÏ - ÐÀÑÒßÆÊÀ
+static const    Choice cADC_Stretch_Mode;                   ///< ÎÒËÀÄÊÀ - ÀÖÏ - ÐÀÑÒßÆÊÀ - Ðåæèì
+static const  Governor gADC_Stretch_A;                      ///< ÎÒËÀÄÊÀ - ÀÖÏ - ÐÀÑÒßÆÊÀ - Ðàñòÿæêà 1ê
+static const  Governor gADC_Stretch_B;                      ///< ÎÒËÀÄÊÀ - ÀÖÏ - ÐÀÑÒßÆÊÀ - Ðàñòÿæêà 2ê
+static const  Governor gADC_Stretch_Ak20mV;                 ///< ÎÒËÀÄÊÀ - ÀÖÏ - ÐÀÑÒßÆÊÀ - 20ìÂ/1Â 1ê
+static const  Governor gADC_Stretch_Ak50mV;                 ///< ÎÒËÀÄÊÀ - ÀÖÏ - ÐÀÑÒßÆÊÀ - 50ìÂ 1ê 
+static const  Governor gADC_Stretch_Ak100mV;                ///< ÎÒËÀÄÊÀ - ÀÖÏ - ÐÀÑÒßÆÊÀ - 100ìÂ/5Â 1ê
+static const  Governor gADC_Stretch_Ak2V;                   ///< ÎÒËÀÄÊÀ - AÖÏ - ÐÀÑÒßÆÊÀ - 2Â 1ê
+static const  Governor gADC_Stretch_Bk20mV;                 ///< ÎÒËÀÄÊÀ - ÀÖÏ - ÐÀÑÒßÆÊÀ - 20ìÂ/1Â 2ê
+static const  Governor gADC_Stretch_Bk50mV;                 ///< ÎÒËÀÄÊÀ - ÀÖÏ - ÐÀÑÒßÆÊÀ - 50ìÂ 2ê 
+static const  Governor gADC_Stretch_Bk100mV;                ///< ÎÒËÀÄÊÀ - ÀÖÏ - ÐÀÑÒßÆÊÀ - 100ìÂ/5Â 2ê
+static const  Governor gADC_Stretch_Bk2V;                   ///< ÎÒËÀÄÊÀ - ÀÖÏ - ÐÀÑÒßÆÊÀ - 2Â 2ê
 
-static const Page ppADC;
 
-static const Page pppADC_Balance;
-static const Choice cADC_Balance_Mode;
-static const Governor gADC_Balance_ShiftA;
-static const Governor gADC_Balance_ShiftB;
 
-static const Page pppADC_Stretch;
-static const Choice cADC_Stretch_Mode;
-static const Governor gADC_Stretch_A;
-static const Governor gADC_Stretch_B;
-static const Governor gADC_Stretch_Ak20mV;
-static const Governor gADC_Stretch_Ak50mV;
-static const Governor gADC_Stretch_Ak100mV;
-static const Governor gADC_Stretch_Ak2V;
-static const Governor gADC_Stretch_Bk20mV;
-static const Governor gADC_Stretch_Bk50mV;
-static const Governor gADC_Stretch_Bk100mV;
-static const Governor gADC_Stretch_Bk2V;
+
+
+
+
 
 static const Page pppADC_Shift;
 static const Button bADC_Shift_Reset;
@@ -85,11 +112,7 @@ static const Page ppShowSettingsInfo;
 static void OnPress_ShowInfo(void);
 static const SmallButton bExitShowSetInfo;
 
-static void OnChange_ADC_Balance_Mode(bool active);
-static void OnDraw_ADC_Balance_Mode(int x, int y);
-static bool IsActive_ADC_Balance(void);
-static void OnChange_ADC_BalanceA(void);
-static void OnChange_ADC_BalanceB(void);
+static const Choice cStats;
 
        void OnChange_ADC_Stretch_Mode(bool active);
 static bool IsActive_ADC_StretchAB(void);
@@ -127,21 +150,312 @@ const Page mpDebug =
     }
 };
 
-// ÎÒËÀÄÊÀ - Ñòàòèñòèêà ------------------------------------------------------------------------------------------------------------------------------
-static const Choice cStats =
+// ÎÒËÀÄÊÀ - ÊÎÍÑÎËÜ /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+static const Page ppConsole =
 {
-    Item_Choice, &mpDebug, 0,
+    Item_Page, &mpDebug, 0,
     {
-        "Ñòàòèñòèêà", "Statistics",
-        "Ïîêàçûâàòü/íå ïîêàçûâàòü âðåìÿ/êàäð, êàäðîâ â ñåêóíäó, êîëè÷åñòâî ñèãíàëîâ ñ ïîñëåäíèìè íàñòðîéêàìè â ïàìÿòè/êîëè÷åñòâî ñîõðàíÿåìûõ â ïàìÿòè ñèãíàëîâ",
-        "To show/not to show a time/shot, frames per second, quantity of signals with the last settings in memory/quantity of the signals kept in memory"
+        "ÊÎÍÑÎËÜ", "CONSOLE",
+        "",
+        ""
     },
+    Page_DebugConsole,
     {
-        {"Íå ïîêàçûâàòü",   "Hide"},
-        {"Ïîêàçûâàòü",      "Show"}
-    },
-    (int8*)&SHOW_STAT
+        (void*)&gConsole_NumStrings,    // ÎÒËÀÄÊÀ - ÊÎÍÑÎËÜ - ×èñëî ñòðîê
+        (void*)&cConsole_SizeFont,      // ÎÒËÀÄÊÀ - ÊÎÍÑÎËÜ - Ðàçìåð øðèôòà
+        (void*)&cConsole_ModeStop,      // ÎÒËÀÄÊÀ - ÊÎÍÑÎËÜ - Ðåæ. îñòàíîâà
+        (void*)&pppConsole_Registers,   // ÎÒËÀÄÊÀ - ÊÎÍÑÎËÜ - ÐÅÃÈÑÒÐÛ
+        (void*)&bConsole_SizeSettings   // ÎÒËÀÄÊÀ - ÊÎÍÑÎËÜ - Ðàçìåð íàñòðîåê
+
+    }
 };
+
+// ÎÒËÀÄÊÀ - ÊÎÍÑÎËÜ - ×èñëî ñòðîê -------------------------------------------------------------------------------------------------------------------
+static const Governor gConsole_NumStrings =
+{
+    Item_Governor, &ppConsole, 0,
+    {
+        "×èñëî ñòðîê", "Number strings",
+        "",
+        ""
+    },
+    &CONSOLE_NUM_STRINGS, 0, 33
+};
+
+// ÎÒËÀÄÊÀ - ÊÎÍÑÎËÜ - Ðàçìåð øðèôòà -----------------------------------------------------------------------------------------------------------------
+static const Choice cConsole_SizeFont =
+{
+    Item_Choice, &ppConsole, 0,
+    {
+        "Ðàçìåð øðèôòà", "Size font",
+        "",
+        ""
+    },
+    {
+        {"5", "5"},
+        {"8", "8"}
+    },
+    &set.dbg_SizeFont
+};
+
+// ÎÒËÀÄÊÀ - ÊÎÍÑÎËÜ - Ðåæ. îñòàíîâà -----------------------------------------------------------------------------------------------------------------
+static const Choice cConsole_ModeStop =
+{
+    Item_Choice, &ppConsole, 0,
+    {
+        "Ðåæ. îñòàíîâà", "Mode stop",
+        "Ïðåäîñòàâëÿåò âîçìîæíîñòü ïðèîñòàíîâêè âûâîäà â êîíñîëü ïóò¸ì íàæàòèÿ íà êíîïêó ÏÓÑÊ/ÑÒÎÏ",
+        "It provides the ability to pause the output to the console by pressing the ÏÓÑÊ/ÑÒÎÏ button"
+    },
+    {
+        {DISABLE_RU, DISABLE_EN},
+        {ENABLE_RU, ENABLE_EN}
+    },
+    (int8*)&set.dbg_ModePauseConsole
+};
+
+// ÎÒËÀÄÊÀ - ÊÎÍÑÎËÜ - ÐÅÃÈÑÒÐÛ //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+static const Page pppConsole_Registers =
+{
+    Item_Page, &ppConsole, 0,
+    {
+        "ÐÅÃÈÑÒÐÛ", "REGISTERS",
+        "",
+        ""
+    },
+    Page_DebugShowRegisters,
+    {
+        (void*)&mcConsole_Registers_ShowAll,      // ÎÒËÀÄÊÀ - ÊÎÍÑÎËÜ - ÐÅÃÈÑÒÐÛ - Ïîêàçûâàòü âñå
+        (void*)&mcConsole_Registers_RD_FL,        // ÎÒËÀÄÊÀ - ÊÎÍÑÎËÜ - ÐÅÃÈÑÒÐÛ - RD_FL
+        (void*)&mcConsole_Registers_RShiftA,      // ÎÒËÀÄÊÀ - ÊÎÍÑÎËÜ - ÐÅÃÈÑÒÐÛ - U ñì. 1ê
+        (void*)&mcConsole_Registers_RShiftB,      // ÎÒËÀÄÊÀ - ÊÎÍÑÎËÜ - ÐÅÃÈÑÒÐÛ - U ñì. 2ê
+        (void*)&mcConsole_Registers_TrigLev,      // ÎÒËÀÄÊÀ - ÊÎÍÑÎËÜ - ÐÅÃÈÑÒÐÛ - U ñèíõð
+        (void*)&mcConsole_Registers_RangeA,       // ÎÒËÀÄÊÀ - ÊÎÍÑÎËÜ - ÐÅÃÈÑÒÐÛ - ÂÎËÜÒ/ÄÅË 1
+        (void*)&mcConsole_Registers_RangeB,       // ÎÒËÀÄÊÀ - ÊÎÍÑÎËÜ - ÐÅÃÈÑÒÐÛ - ÂÎËÜÒ/ÄÅË 2
+        (void*)&mcConsole_Registers_TrigParam,    // ÎÒËÀÄÊÀ - ÊÎÍÑÎËÜ - ÐÅÃÈÑÒÐÛ - Ïàðàì. ñèíõð.
+        (void*)&mcConsole_Registers_ChanParamA,   // ÎÒËÀÄÊÀ - ÊÎÍÑÎËÜ - ÐÅÃÈÑÒÐÛ - Ïàðàì. êàí. 1
+        (void*)&mcConsole_Registers_ChanParamB,   // ÎÒËÀÄÊÀ - ÊÎÍÑÎËÜ - ÐÅÃÈÑÒÐÛ - Ïàðàì. êàí. 2
+        (void*)&mcConsole_Registers_TBase,        // ÎÒËÀÄÊÀ - ÊÎÍÑÎËÜ - ÐÅÃÈÑÒÐÛ - ÂÐÅÌß/ÄÅË
+        (void*)&mcConsole_Registers_TShift        // ÎÒËÀÄÊÀ - ÊÎÍÑÎËÜ - ÐÅÃÈÑÒÐÛ - Ò ñì.
+    }
+};
+
+// ÎÒËÀÄÊÀ - ÊÎÍÑÎËÜ - ÐÅÃÈÑÒÐÛ - Ïîêàçûâàòü âñå -----------------------------------------------------------------------------------------------------
+static const Choice mcConsole_Registers_ShowAll =
+{
+    Item_Choice, &pppConsole_Registers, 0,
+    {
+        "Ïîêàçûâàòü âñå", "Show all",
+        "Ïîêàçûâàòü âñå çíà÷åíèÿ, çàñûëàåìûå â ðåãèñòðû",
+        "To show all values transferred in registers"
+    },
+    {
+        {"Íåò", "No"},
+        {"Äà", "Yes"}
+    },
+    (int8*)&DBG_SHOW_ALL
+};
+
+// ÎÒËÀÄÊÀ - ÊÎÍÑÎËÜ - ÐÅÃÈÑÒÐÛ - RD_FL --------------------------------------------------------------------------------------------------------------
+static const Choice mcConsole_Registers_RD_FL =
+{
+    Item_Choice, &pppConsole_Registers, IsActive_Console_Registers,
+    {
+        "RD_FL", "RD_FL",
+        "",
+        ""
+    },
+    {
+        {DISABLE_RU, DISABLE_EN},
+        {ENABLE_RU, ENABLE_EN}
+    },
+    (int8*)&DBG_SHOW_FLAG
+};
+
+static bool IsActive_Console_Registers(void)
+{
+    return DBG_SHOW_ALL;
+}
+
+// ÎÒËÀÄÊÀ - ÊÎÍÑÎËÜ - ÐÅÃÈÑÒÐÛ - U ñì. 1ê -----------------------------------------------------------------------------------------------------------
+static const Choice mcConsole_Registers_RShiftA =
+{
+    Item_Choice, &pppConsole_Registers, IsActive_Console_Registers,
+    {
+        "U ñì. 1ê", "U shift 1ch",
+        "",
+        ""
+    },
+    {
+        {DISABLE_RU, DISABLE_EN},
+        {ENABLE_RU, ENABLE_EN}
+    },
+    (int8*)&set.dbg_ShowRShift[A]
+};
+
+// ÎÒËÀÄÊÀ - ÊÎÍÑÎËÜ - ÐÅÃÈÑÒÐÛ - U ñì. 2ê -----------------------------------------------------------------------------------------------------------
+static const Choice mcConsole_Registers_RShiftB =
+{
+    Item_Choice, &pppConsole_Registers, IsActive_Console_Registers,
+    {
+        "U ñì. 2ê", "U shift 2ch",
+        "",
+        ""
+    },
+    {
+        {DISABLE_RU, DISABLE_EN},
+        {ENABLE_RU, ENABLE_EN}
+    },
+    (int8*)&set.dbg_ShowRShift[B]
+};
+
+// ÎÒËÀÄÊÀ - ÊÎÍÑÎËÜ - ÐÅÃÈÑÒÐÛ - U ñèíõð. -----------------------------------------------------------------------------------------------------------
+static const Choice mcConsole_Registers_TrigLev =
+{
+    Item_Choice, &pppConsole_Registers, IsActive_Console_Registers,
+    {
+        "U ñèíõð.", "U trig.",
+        "",
+        ""
+    },
+    {
+        {DISABLE_RU, DISABLE_EN},
+        {ENABLE_RU, ENABLE_EN}
+    },
+    (int8*)&set.dbg_ShowTrigLev
+};
+
+// ÎÒËÀÄÊÀ - ÊÎÍÑÎËÜ - ÐÅÃÈÑÒÐÛ - ÂÎËÜÒ/ÄÅË 1 --------------------------------------------------------------------------------------------------------
+static const Choice mcConsole_Registers_RangeA =
+{
+    Item_Choice, &pppConsole_Registers, IsActive_Console_Registers,
+    {
+        "ÂÎËÜÒ/ÄÅË 1", "Range 1",
+        "",
+        ""
+    },
+    {
+        {DISABLE_RU, DISABLE_EN},
+        {ENABLE_RU, ENABLE_EN}
+    },
+    (int8*)&set.dbg_ShowRange[A]
+};
+
+// ÎÒËÀÄÊÀ - ÊÎÍÑÎËÜ - ÐÅÃÈÑÒÐÛ - ÂÎËÜÒ/ÄÅË 2 --------------------------------------------------------------------------------------------------------
+static const Choice mcConsole_Registers_RangeB =
+{
+    Item_Choice, &pppConsole_Registers, IsActive_Console_Registers,
+    {
+        "ÂÎËÜÒ/ÄÅË 2", "Range 2",
+        "",
+        ""
+    },
+    {
+        {DISABLE_RU, DISABLE_EN},
+        {ENABLE_RU, ENABLE_EN}
+    },
+    (int8*)&set.dbg_ShowRange[B]
+};
+
+// ÎÒËÀÄÊÀ - ÊÎÍÑÎËÜ - ÐÅÃÈÑÒÐÛ - Ïàðàì. ñèíõð. ------------------------------------------------------------------------------------------------------
+static const Choice mcConsole_Registers_TrigParam =
+{
+    Item_Choice, &pppConsole_Registers, IsActive_Console_Registers,
+    {
+        "Ïàðàì. ñèíõð.", "Trig param",
+        "",
+        ""
+    },
+    {
+        {DISABLE_RU, DISABLE_EN},
+        {ENABLE_RU, ENABLE_EN}
+    },
+    (int8*)&set.dbg_ShowTrigParam
+};
+
+// ÎÒËÀÄÊÀ - ÊÎÍÑÎËÜ - ÐÅÃÈÑÒÐÛ - Ïàðàì. êàí. 2 ------------------------------------------------------------------------------------------------------
+static const Choice mcConsole_Registers_ChanParamA =
+{
+    Item_Choice, &pppConsole_Registers, IsActive_Console_Registers,
+    {
+        "Ïàðàì. êàí. 1", "Chan 1 param",
+        "",
+        ""
+    },
+    {
+        {DISABLE_RU, DISABLE_EN},
+        {ENABLE_RU, ENABLE_EN}
+    },
+    (int8*)&set.dbg_ShowChanParam[A]
+};
+
+// ÎÒËÀÄÊÀ - ÊÎÍÑÎËÜ - ÐÅÃÈÑÒÐÛ - Ïàðàì. êàí. 2 ------------------------------------------------------------------------------------------------------
+static const Choice mcConsole_Registers_ChanParamB =
+{
+    Item_Choice, &pppConsole_Registers, IsActive_Console_Registers,
+    {
+        "Ïàðàì. êàí. 2", "Chan 2 param",
+        "",
+        ""
+    },
+    {
+        {DISABLE_RU, DISABLE_EN},
+        {ENABLE_RU, ENABLE_EN}
+    },
+    (int8*)&set.dbg_ShowChanParam[B]
+};
+
+// ÎÒËÀÄÊÀ - ÊÎÍÑÎËÜ - ÐÅÃÈÑÒÐÛ - ÂÐÅÌß/ÄÅË ----------------------------------------------------------------------------------------------------------
+static const Choice mcConsole_Registers_TBase =
+{
+    Item_Choice, &pppConsole_Registers, IsActive_Console_Registers,
+    {
+        "ÂÐÅÌß/ÄÅË", "TBase",
+        "",
+        ""
+    },
+    {
+        {DISABLE_RU, DISABLE_EN},
+        {ENABLE_RU, ENABLE_EN}
+    },
+    (int8*)&set.dbg_ShowTBase
+};
+
+// ÎÒËÀÄÊÀ - ÊÎÍÑÎËÜ - ÐÅÃÈÑÒÐÛ - Ò ñì. --------------------------------------------------------------------------------------------------------------
+static const Choice mcConsole_Registers_TShift =
+{
+    Item_Choice, &pppConsole_Registers, IsActive_Console_Registers,
+    {
+        "Ò ñì.", "tShift",
+        "",
+        ""
+    },
+    {
+        {DISABLE_RU, DISABLE_EN},
+        {ENABLE_RU, ENABLE_EN}
+    },
+    (int8*)&set.dbg_ShowTShift
+};
+
+// ÎÒËÀÄÊÀ - ÊÎÍÑÎËÜ - Ðàçìåð íàñòðîåê ---------------------------------------------------------------------------------------------------------------
+static const Button bConsole_SizeSettings =
+{
+    Item_Button, &ppConsole, 0,
+    {
+        "", "",
+        "Ïîêàçûâàåò òåêóùèé ðàçìåð ñòðóêòóðû äëÿ ñîõðàíåíèÿ íàñòðîåê",
+        "Displays the current size of the structure to save settings"
+    },
+    0, FuncDraw_Console_SizeSettings
+};
+
+static void FuncDraw_Console_SizeSettings(int x, int y)
+{
+    char buffer[30];
+    sprintf(buffer, "Ðàçì.íàñòð. %d", sizeof(Settings));
+    Painter_DrawTextC(x + 6, y + 13, buffer, gColorBack);
+    LOG_WRITE(buffer);
+}
 
 // ÎÒËÀÄÊÀ - ÀÖÏ /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 static const Page ppADC =
@@ -154,9 +468,9 @@ static const Page ppADC =
     },
     Page_DebugADC,
     {
-        (void*)&pppADC_Balance,   // ÎÒËÀÄÊÀ - ÀÖÏ - ÁÀËÀÍÑ
-        (void*)&pppADC_Stretch,   // ÎÒËÀÄÊÀ - ÀÖÏ - ÐÀÑÒßÆÊÀ
-        (void*)&pppADC_Shift      // ÎÒËÀÄÊÀ - ÀÖÏ - ÄÎÏ ÑÌÅÙ
+        (void*)&pppADC_Balance,     // ÎÒËÀÄÊÀ - ÀÖÏ - ÁÀËÀÍÑ
+        (void*)&pppADC_Stretch,     // ÎÒËÀÄÊÀ - ÀÖÏ - ÐÀÑÒßÆÊÀ
+        (void*)&pppADC_Shift        // ÎÒËÀÄÊÀ - ÀÖÏ - ÄÎÏ ÑÌÅÙ
     }
 };
 
@@ -191,18 +505,18 @@ static const Choice cADC_Balance_Mode =
         {"Ðåàëüíûé", "Real"},
         {"Ðó÷íîé", "Manual"}
     },
-    (int8*)&NRST_BALANCE_ADC_TYPE, OnChange_ADC_Balance_Mode, OnDraw_ADC_Balance_Mode
+    (int8*)&NRST_BALANCE_ADC_TYPE, OnChange_ADC_Balance_Mode, FuncDraw_ADC_Balance_Mode
 };
 
 static void OnChange_ADC_Balance_Mode(bool active)
 {
-    OnDraw_ADC_Balance_Mode(0, 0);
+    FuncDraw_ADC_Balance_Mode(0, 0);
 }
 
 static int16 shiftADCA;
 static int16 shiftADCB;
 
-static void OnDraw_ADC_Balance_Mode(int x, int y)
+static void FuncDraw_ADC_Balance_Mode(int x, int y)
 {
     int8 shift[2][3] =
     {
@@ -217,21 +531,21 @@ static void OnDraw_ADC_Balance_Mode(int x, int y)
 // ÎÒËÀÄÊÀ - ÀÖÏ - ÁÀËÀÍÑ - Ñìåùåíèå 1 ---------------------------------------------------------------------------------------------------------------
 static const Governor gADC_Balance_ShiftA =
 {
-    Item_Governor, &pppADC_Balance, IsActive_ADC_Balance,
+    Item_Governor, &pppADC_Balance, IsActive_ADC_Balance_ShiftAB,
     {
         "Ñìåùåíèå 1", "Offset 1",
         "",
         ""
     },
-    &shiftADCA, -125, 125, OnChange_ADC_BalanceA
+    &shiftADCA, -125, 125, OnChange_ADC_Balance_ShiftA
 };
 
-static bool IsActive_ADC_Balance(void)
+static bool IsActive_ADC_Balance_ShiftAB(void)
 {
     return NRST_BALANCE_ADC_TYPE_IS_HAND;
 }
 
-static void OnChange_ADC_BalanceA(void)
+static void OnChange_ADC_Balance_ShiftA(void)
 {
     NRST_BALANCE_ADC_A = shiftADCA;
 }
@@ -239,16 +553,16 @@ static void OnChange_ADC_BalanceA(void)
 // ÎÒËÀÄÊÀ - ÀÖÏ - ÁÀËÀÍÑ - Ñìåùåíèå 2 ---------------------------------------------------------------------------------------------------------------
 static const Governor gADC_Balance_ShiftB =
 {
-    Item_Governor, &pppADC_Balance, IsActive_ADC_Balance,
+    Item_Governor, &pppADC_Balance, IsActive_ADC_Balance_ShiftAB,
     {
         "Ñìåùåíèå 2", "Offset 2",
         "",
         ""
     },
-    &shiftADCB, -125, 125, OnChange_ADC_BalanceB
+    &shiftADCB, -125, 125, OnChange_ADC_Balance_ShiftB
 };
 
-static void OnChange_ADC_BalanceB(void)
+static void OnChange_ADC_Balance_ShiftB(void)
 {
     NRST_BALANCE_ADC_B = shiftADCB;
 }
@@ -266,23 +580,24 @@ static const Page pppADC_Stretch =
     },
     Page_DebugADCstretch,
     {
-        (void*)&cADC_Stretch_Mode,       // ÎÒËÀÄÊÀ - ÀÖÏ - ÐÀÑÒßÆÊÀ - Ðåæèì
-        (void*)&gADC_Stretch_A,          // ÎÒËÀÄÊÀ - ÀÖÏ - ÐÀÑÒßÆÊÀ - Ðàñòÿæêà 1ê
-        (void*)&gADC_Stretch_B,          // ÎÒËÀÄÊÀ - ÀÖÏ - ÐÀÑÒßÆÊÀ - Ðàñòÿæêà 2ê
+        (void*)&cADC_Stretch_Mode,      // ÎÒËÀÄÊÀ - ÀÖÏ - ÐÀÑÒßÆÊÀ - Ðåæèì
+        (void*)&gADC_Stretch_A,         // ÎÒËÀÄÊÀ - ÀÖÏ - ÐÀÑÒßÆÊÀ - Ðàñòÿæêà 1ê
+        (void*)&gADC_Stretch_B,         // ÎÒËÀÄÊÀ - ÀÖÏ - ÐÀÑÒßÆÊÀ - Ðàñòÿæêà 2ê
         (void*)&emptyChoice,
         (void*)&emptyChoice,
-        (void*)&gADC_Stretch_Ak20mV,     // ÎÒËÀÄÊÀ - ÀÖÏ - ÐÀÑÒßÆÊÀ - 20ìÂ/1Â 1ê
-        (void*)&gADC_Stretch_Ak50mV,     // ÎÒËÀÄÊÀ - ÀÖÏ - ÐÀÑÒßÆÊÀ - 50ìÂ 1ê 
-        (void*)&gADC_Stretch_Ak100mV,    // ÎÒËÀÄÊÀ - ÀÖÏ - ÐÀÑÒßÆÊÀ - 100ìÂ/5Â 1ê
-        (void*)&gADC_Stretch_Ak2V,       // ÎÒËÀÄÊÀ - AÖÏ - ÐÀÑÒßÆÊÀ - 2Â 1ê
+        (void*)&gADC_Stretch_Ak20mV,    // ÎÒËÀÄÊÀ - ÀÖÏ - ÐÀÑÒßÆÊÀ - 20ìÂ/1Â 1ê
+        (void*)&gADC_Stretch_Ak50mV,    // ÎÒËÀÄÊÀ - ÀÖÏ - ÐÀÑÒßÆÊÀ - 50ìÂ 1ê 
+        (void*)&gADC_Stretch_Ak100mV,   // ÎÒËÀÄÊÀ - ÀÖÏ - ÐÀÑÒßÆÊÀ - 100ìÂ/5Â 1ê
+        (void*)&gADC_Stretch_Ak2V,      // ÎÒËÀÄÊÀ - AÖÏ - ÐÀÑÒßÆÊÀ - 2Â 1ê
         (void*)&emptyChoice,
-        (void*)&gADC_Stretch_Bk20mV,     // ÎÒËÀÄÊÀ - ÀÖÏ - ÐÀÑÒßÆÊÀ - 20ìÂ/1Â 2ê
-        (void*)&gADC_Stretch_Bk50mV,     // ÎÒËÀÄÊÀ - ÀÖÏ - ÐÀÑÒßÆÊÀ - 50ìÂ 2ê 
-        (void*)&gADC_Stretch_Bk100mV,    // ÎÒËÀÄÊÀ - ÀÖÏ - ÐÀÑÒßÆÊÀ - 100ìÂ/5Â 2ê
-        (void*)&gADC_Stretch_Bk2V,       // ÎÒËÀÄÊÀ - ÀÖÏ - ÐÀÑÒßÆÊÀ - 2Â 2ê
+        (void*)&gADC_Stretch_Bk20mV,    // ÎÒËÀÄÊÀ - ÀÖÏ - ÐÀÑÒßÆÊÀ - 20ìÂ/1Â 2ê
+        (void*)&gADC_Stretch_Bk50mV,    // ÎÒËÀÄÊÀ - ÀÖÏ - ÐÀÑÒßÆÊÀ - 50ìÂ 2ê 
+        (void*)&gADC_Stretch_Bk100mV,   // ÎÒËÀÄÊÀ - ÀÖÏ - ÐÀÑÒßÆÊÀ - 100ìÂ/5Â 2ê
+        (void*)&gADC_Stretch_Bk2V,      // ÎÒËÀÄÊÀ - ÀÖÏ - ÐÀÑÒßÆÊÀ - 2Â 2ê
         (void*)&emptyChoice
     }
 };
+
 
 // ÎÒËÀÄÊÀ - ÀÖÏ - ÐÀÑÒßÆÊÀ - Ðåæèì ------------------------------------------------------------------------------------------------------------------
 static const Choice cADC_Stretch_Mode =
@@ -996,7 +1311,21 @@ void OnChange_DisplayOrientation(bool active)
 
 
 
-
+// ÎÒËÀÄÊÀ - Ñòàòèñòèêà ------------------------------------------------------------------------------------------------------------------------------
+static const Choice cStats =
+{
+    Item_Choice, &mpDebug, 0,
+    {
+        "Ñòàòèñòèêà", "Statistics",
+        "Ïîêàçûâàòü/íå ïîêàçûâàòü âðåìÿ/êàäð, êàäðîâ â ñåêóíäó, êîëè÷åñòâî ñèãíàëîâ ñ ïîñëåäíèìè íàñòðîéêàìè â ïàìÿòè/êîëè÷åñòâî ñîõðàíÿåìûõ â ïàìÿòè ñèãíàëîâ",
+        "To show/not to show a time/shot, frames per second, quantity of signals with the last settings in memory/quantity of the signals kept in memory"
+    },
+    {
+        {"Íå ïîêàçûâàòü",   "Hide"},
+        {"Ïîêàçûâàòü",      "Show"}
+    },
+    (int8*)&SHOW_STAT
+};
 
 
 
