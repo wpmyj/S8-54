@@ -1874,15 +1874,10 @@
               <FileType>1</FileType>
               <FilePath>.\src\Menu\Pages\PageTrig.c</FilePath>
             </File>
-          </Files>
-        </Group>
-        <Group>
-          <GroupName>Menu/Pages/Debug</GroupName>
-          <Files>
             <File>
               <FileName>PageDebug.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\src\Menu\Pages\Debug\PageDebug.c</FilePath>
+              <FilePath>.\src\Menu\Pages\PageDebug.c</FilePath>
             </File>
           </Files>
         </Group>

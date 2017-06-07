@@ -2234,7 +2234,7 @@
 
   <Group>
     <GroupName>Hardware</GroupName>
-    <tvExp>1</tvExp>
+    <tvExp>0</tvExp>
     <tvExpOptDlg>0</tvExpOptDlg>
     <cbSel>0</cbSel>
     <RteFlg>0</RteFlg>
@@ -3538,22 +3538,14 @@
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
     </File>
-  </Group>
-
-  <Group>
-    <GroupName>Menu/Pages/Debug</GroupName>
-    <tvExp>0</tvExp>
-    <tvExpOptDlg>0</tvExpOptDlg>
-    <cbSel>0</cbSel>
-    <RteFlg>0</RteFlg>
     <File>
-      <GroupNumber>21</GroupNumber>
+      <GroupNumber>20</GroupNumber>
       <FileNumber>261</FileNumber>
       <FileType>1</FileType>
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>.\src\Menu\Pages\Debug\PageDebug.c</PathWithFileName>
+      <PathWithFileName>.\src\Menu\Pages\PageDebug.c</PathWithFileName>
       <FilenameWithoutPath>PageDebug.c</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
@@ -3567,7 +3559,7 @@
     <cbSel>0</cbSel>
     <RteFlg>0</RteFlg>
     <File>
-      <GroupNumber>22</GroupNumber>
+      <GroupNumber>21</GroupNumber>
       <FileNumber>262</FileNumber>
       <FileType>1</FileType>
       <tvExp>0</tvExp>
@@ -3579,7 +3571,7 @@
       <bShared>0</bShared>
     </File>
     <File>
-      <GroupNumber>22</GroupNumber>
+      <GroupNumber>21</GroupNumber>
       <FileNumber>263</FileNumber>
       <FileType>5</FileType>
       <tvExp>0</tvExp>
@@ -3599,7 +3591,7 @@
     <cbSel>0</cbSel>
     <RteFlg>0</RteFlg>
     <File>
-      <GroupNumber>23</GroupNumber>
+      <GroupNumber>22</GroupNumber>
       <FileNumber>264</FileNumber>
       <FileType>1</FileType>
       <tvExp>0</tvExp>
@@ -3611,7 +3603,7 @@
       <bShared>0</bShared>
     </File>
     <File>
-      <GroupNumber>23</GroupNumber>
+      <GroupNumber>22</GroupNumber>
       <FileNumber>265</FileNumber>
       <FileType>5</FileType>
       <tvExp>0</tvExp>
@@ -3623,7 +3615,7 @@
       <bShared>0</bShared>
     </File>
     <File>
-      <GroupNumber>23</GroupNumber>
+      <GroupNumber>22</GroupNumber>
       <FileNumber>266</FileNumber>
       <FileType>5</FileType>
       <tvExp>0</tvExp>
@@ -3635,7 +3627,7 @@
       <bShared>0</bShared>
     </File>
     <File>
-      <GroupNumber>23</GroupNumber>
+      <GroupNumber>22</GroupNumber>
       <FileNumber>267</FileNumber>
       <FileType>5</FileType>
       <tvExp>0</tvExp>
@@ -3647,7 +3639,7 @@
       <bShared>0</bShared>
     </File>
     <File>
-      <GroupNumber>23</GroupNumber>
+      <GroupNumber>22</GroupNumber>
       <FileNumber>268</FileNumber>
       <FileType>5</FileType>
       <tvExp>0</tvExp>
@@ -3659,7 +3651,7 @@
       <bShared>0</bShared>
     </File>
     <File>
-      <GroupNumber>23</GroupNumber>
+      <GroupNumber>22</GroupNumber>
       <FileNumber>269</FileNumber>
       <FileType>5</FileType>
       <tvExp>0</tvExp>
@@ -3671,7 +3663,7 @@
       <bShared>0</bShared>
     </File>
     <File>
-      <GroupNumber>23</GroupNumber>
+      <GroupNumber>22</GroupNumber>
       <FileNumber>270</FileNumber>
       <FileType>5</FileType>
       <tvExp>0</tvExp>

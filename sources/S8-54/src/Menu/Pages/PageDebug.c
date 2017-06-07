@@ -13,117 +13,104 @@
 #include "Menu/MenuDrawing.h"
 #include "Menu/MenuFunctions.h"
 #include "Log.h"
-#include "DebugSerialNumber.h"
 
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 extern Page mainPage;
 extern void LoadTShift(void);
 
-static const     Page ppConsole;                            ///< ÎÒËÀÄÊÀ - ÊÎÍÑÎËÜ
-static const  Governor gConsole_NumStrings;                 ///< ÎÒËÀÄÊÀ - ÊÎÍÑÎËÜ - Ðàçìåð øðèôòà
-static const    Choice cConsole_SizeFont;                   ///< ÎÒËÀÄÊÀ - ÊÎÍÑÎËÜ - Ðàçìåð øðèôòà
-static const    Choice cConsole_ModeStop;                   ///< ÎÒËÀÄÊÀ - ÊÎÍÑÎËÜ - Ðåæ. îñòàíîâà
-static const    Page pppConsole_Registers;                  ///< ÎÒËÀÄÊÀ - ÊÎÍÑÎËÜ - ÐÅÃÈÑÒÐÛ
-static const   Choice mcConsole_Registers_ShowAll;          ///< ÎÒËÀÄÊÀ - ÊÎÍÑÎËÜ - ÐÅÃÈÑÒÐÛ - Ïîêàçûâàòü âñå
-static const   Choice mcConsole_Registers_RD_FL;            ///< ÎÒËÀÄÊÀ - ÊÎÍÑÎËÜ - ÐÅÃÈÑÒÐÛ - RD_FL
-static bool    IsActive_Console_Registers(void);
-static const   Choice mcConsole_Registers_RShiftA;          ///< ÎÒËÀÄÊÀ - ÊÎÍÑÎËÜ - ÐÅÃÈÑÒÐÛ - U ñì. 1ê
-static const   Choice mcConsole_Registers_RShiftB;          ///< ÎÒËÀÄÊÀ - ÊÎÍÑÎËÜ - ÐÅÃÈÑÒÐÛ - U ñì. 2ê
-static const   Choice mcConsole_Registers_TrigLev;          ///< ÎÒËÀÄÊÀ - ÊÎÍÑÎËÜ - ÐÅÃÈÑÒÐÛ - U ñèíõð.
-static const   Choice mcConsole_Registers_RangeA;           ///< ÎÒËÀÄÊÀ - ÊÎÍÑÎËÜ - ÐÅÃÈÑÒÐÛ - ÂÎËÜÒ/ÄÅË 1
-static const   Choice mcConsole_Registers_RangeB;           ///< ÎÒËÀÄÊÀ - ÊÎÍÑÎËÜ - ÐÅÃÈÑÒÐÛ - ÂÎËÜÒ/ÄÅË 2
-static const   Choice mcConsole_Registers_TrigParam;        ///< ÎÒËÀÄÊÀ - ÊÎÍÑÎËÜ - ÐÅÃÈÑÒÐÛ - Ïàðàì. ñèíõð.
-static const   Choice mcConsole_Registers_ChanParamA;       ///< ÎÒËÀÄÊÀ - ÊÎÍÑÎËÜ - ÐÅÃÈÑÒÐÛ - Ïàðàì. êàí. 2
-static const   Choice mcConsole_Registers_ChanParamB;       ///< ÎÒËÀÄÊÀ - ÊÎÍÑÎËÜ - ÐÅÃÈÑÒÐÛ - Ïàðàì. êàí. 2
-static const   Choice mcConsole_Registers_TBase;            ///< ÎÒËÀÄÊÀ - ÊÎÍÑÎËÜ - ÐÅÃÈÑÒÐÛ - ÂÐÅÌß/ÄÅË
-static const   Choice mcConsole_Registers_TShift;           ///< ÎÒËÀÄÊÀ - ÊÎÍÑÎËÜ - ÐÅÃÈÑÒÐÛ - Ò ñì.
-static const    Button bConsole_SizeSettings;               ///< ÎÒËÀÄÊÀ - ÊÎÍÑÎËÜ - Ðàçìåð íàñòðîåê
-static void    FuncDraw_Console_SizeSettings(int x, int y);
-static const     Page ppADC;                                ///< ÎÒËÀÄÊÀ - ÀÖÏ
-static const    Page pppADC_Balance;                        ///< ÎÒËÀÄÊÀ - ÀÖÏ - ÁÀËÀÍÑ
-static const    Choice cADC_Balance_Mode;                   ///< ÎÒËÀÄÊÀ - ÀÖÏ - ÁÀËÀÍÑ - Ðåæèì
-static void    OnChange_ADC_Balance_Mode(bool active);
-static void    FuncDraw_ADC_Balance_Mode(int x, int y);
-static const  Governor gADC_Balance_ShiftA;                 ///< ÎÒËÀÄÊÀ - ÀÖÏ - ÁÀËÀÍÑ - Ñìåùåíèå 1
-static bool    IsActive_ADC_Balance_ShiftAB(void);
-static void    OnChange_ADC_Balance_ShiftA(void);
-static const  Governor gADC_Balance_ShiftB;                 ///< ÎÒËÀÄÊÀ - ÀÖÏ - ÁÀËÀÍÑ - Ñìåùåíèå 2 
-static void    OnChange_ADC_Balance_ShiftB(void);
-static const    Page pppADC_Stretch;                        ///< ÎÒËÀÄÊÀ - ÀÖÏ - ÐÀÑÒßÆÊÀ
-static const    Choice cADC_Stretch_Mode;                   ///< ÎÒËÀÄÊÀ - ÀÖÏ - ÐÀÑÒßÆÊÀ - Ðåæèì
-static const  Governor gADC_Stretch_A;                      ///< ÎÒËÀÄÊÀ - ÀÖÏ - ÐÀÑÒßÆÊÀ - Ðàñòÿæêà 1ê
-static const  Governor gADC_Stretch_B;                      ///< ÎÒËÀÄÊÀ - ÀÖÏ - ÐÀÑÒßÆÊÀ - Ðàñòÿæêà 2ê
-static const  Governor gADC_Stretch_Ak20mV;                 ///< ÎÒËÀÄÊÀ - ÀÖÏ - ÐÀÑÒßÆÊÀ - 20ìÂ/1Â 1ê
-static const  Governor gADC_Stretch_Ak50mV;                 ///< ÎÒËÀÄÊÀ - ÀÖÏ - ÐÀÑÒßÆÊÀ - 50ìÂ 1ê 
-static const  Governor gADC_Stretch_Ak100mV;                ///< ÎÒËÀÄÊÀ - ÀÖÏ - ÐÀÑÒßÆÊÀ - 100ìÂ/5Â 1ê
-static const  Governor gADC_Stretch_Ak2V;                   ///< ÎÒËÀÄÊÀ - AÖÏ - ÐÀÑÒßÆÊÀ - 2Â 1ê
-static const  Governor gADC_Stretch_Bk20mV;                 ///< ÎÒËÀÄÊÀ - ÀÖÏ - ÐÀÑÒßÆÊÀ - 20ìÂ/1Â 2ê
-static const  Governor gADC_Stretch_Bk50mV;                 ///< ÎÒËÀÄÊÀ - ÀÖÏ - ÐÀÑÒßÆÊÀ - 50ìÂ 2ê 
-static const  Governor gADC_Stretch_Bk100mV;                ///< ÎÒËÀÄÊÀ - ÀÖÏ - ÐÀÑÒßÆÊÀ - 100ìÂ/5Â 2ê
-static const  Governor gADC_Stretch_Bk2V;                   ///< ÎÒËÀÄÊÀ - ÀÖÏ - ÐÀÑÒßÆÊÀ - 2Â 2ê
-
-
-
-
-
-
-
-
-static const Page pppADC_Shift;
-static const Button bADC_Shift_Reset;
-static const Governor gADC_Shift_A2mV;
-static const Governor gADC_Shift_B2mV;
-static const Governor gADC_Shift_A5mV;
-static const Governor gADC_Shift_B5mV;
-static const Governor gADC_Shift_A10mV;
-static const Governor gADC_Shift_B10mV;
-
-static const Page ppRand;
-static const Governor gRand_NumMeasures;
-static const Governor gRand_NumAverage;
-static const Governor gRand_NumSmooth;
-static const Choice cRand_ShowInfo;
-static const Choice gRand_ShowStat;
-static const Governor gRand_TimeCompensation;
-static void OnChange_Rand_TimeCompensation(void);
-static const Governor gRand_AddTimeShift;
-static void OnChange_Rand_AddTimeShift(void);
-static const Governor gRand_Pretriggered;
-static void OnChange_Rand_Pretriggered(void);
-
-static const Page ppChannels;
-static const Choice cChannels_BandwidthA;
-static const Choice cChannels_BandwidthB;
-static void OnChange_Channels_BandwidthA(bool active);
-static void OnChange_Channels_BandwidthB(bool active);
-
-static const Choice cEMS;
-static void OnChange_EMS(bool);
-
-static const Choice cDisplayOrientation;
-       void OnChange_DisplayOrientation(bool);
-
-static const Governor mgPred;
-static void OnChange_Pred(void);
-static const Governor mgPost;
-static void OnChange_Post(void);
-static const Page ppShowSettingsInfo;
-static void OnPress_ShowInfo(void);
-static const SmallButton bExitShowSetInfo;
-
-static const Choice cStats;
-
-       void OnChange_ADC_Stretch_Mode(bool active);
-static bool IsActive_ADC_StretchAB(void);
-static void OnChange_ADC_Stretch_A(void);
-static void OnChange_ADC_Stretch_B(void);
-
-static void OnPress_ADC_Shift_Reset(void);
-static void OnChange_ADC_Shift_A(void);
-static void OnChange_ADC_Shift_B(void);
-
-static void OnChange_Rand_NumMeasures(void);
+static const       Page ppConsole;                              ///< ÎÒËÀÄÊÀ - ÊÎÍÑÎËÜ
+static const    Governor gConsole_NumStrings;                   ///< ÎÒËÀÄÊÀ - ÊÎÍÑÎËÜ - Ðàçìåð øðèôòà
+static const      Choice cConsole_SizeFont;                     ///< ÎÒËÀÄÊÀ - ÊÎÍÑÎËÜ - Ðàçìåð øðèôòà
+static const      Choice cConsole_ModeStop;                     ///< ÎÒËÀÄÊÀ - ÊÎÍÑÎËÜ - Ðåæ. îñòàíîâà
+static const      Page pppConsole_Registers;                    ///< ÎÒËÀÄÊÀ - ÊÎÍÑÎËÜ - ÐÅÃÈÑÒÐÛ
+static const     Choice mcConsole_Registers_ShowAll;            ///< ÎÒËÀÄÊÀ - ÊÎÍÑÎËÜ - ÐÅÃÈÑÒÐÛ - Ïîêàçûâàòü âñå
+static const     Choice mcConsole_Registers_RD_FL;              ///< ÎÒËÀÄÊÀ - ÊÎÍÑÎËÜ - ÐÅÃÈÑÒÐÛ - RD_FL
+static bool      IsActive_Console_Registers(void);
+static const     Choice mcConsole_Registers_RShiftA;            ///< ÎÒËÀÄÊÀ - ÊÎÍÑÎËÜ - ÐÅÃÈÑÒÐÛ - U ñì. 1ê
+static const     Choice mcConsole_Registers_RShiftB;            ///< ÎÒËÀÄÊÀ - ÊÎÍÑÎËÜ - ÐÅÃÈÑÒÐÛ - U ñì. 2ê
+static const     Choice mcConsole_Registers_TrigLev;            ///< ÎÒËÀÄÊÀ - ÊÎÍÑÎËÜ - ÐÅÃÈÑÒÐÛ - U ñèíõð.
+static const     Choice mcConsole_Registers_RangeA;             ///< ÎÒËÀÄÊÀ - ÊÎÍÑÎËÜ - ÐÅÃÈÑÒÐÛ - ÂÎËÜÒ/ÄÅË 1
+static const     Choice mcConsole_Registers_RangeB;             ///< ÎÒËÀÄÊÀ - ÊÎÍÑÎËÜ - ÐÅÃÈÑÒÐÛ - ÂÎËÜÒ/ÄÅË 2
+static const     Choice mcConsole_Registers_TrigParam;          ///< ÎÒËÀÄÊÀ - ÊÎÍÑÎËÜ - ÐÅÃÈÑÒÐÛ - Ïàðàì. ñèíõð.
+static const     Choice mcConsole_Registers_ChanParamA;         ///< ÎÒËÀÄÊÀ - ÊÎÍÑÎËÜ - ÐÅÃÈÑÒÐÛ - Ïàðàì. êàí. 2
+static const     Choice mcConsole_Registers_ChanParamB;         ///< ÎÒËÀÄÊÀ - ÊÎÍÑÎËÜ - ÐÅÃÈÑÒÐÛ - Ïàðàì. êàí. 2
+static const     Choice mcConsole_Registers_TBase;              ///< ÎÒËÀÄÊÀ - ÊÎÍÑÎËÜ - ÐÅÃÈÑÒÐÛ - ÂÐÅÌß/ÄÅË
+static const     Choice mcConsole_Registers_TShift;             ///< ÎÒËÀÄÊÀ - ÊÎÍÑÎËÜ - ÐÅÃÈÑÒÐÛ - Ò ñì.
+static const      Button bConsole_SizeSettings;                 ///< ÎÒËÀÄÊÀ - ÊÎÍÑÎËÜ - Ðàçìåð íàñòðîåê
+static void      FuncDraw_Console_SizeSettings(int x, int y);   
+static const       Page ppADC;                                  ///< ÎÒËÀÄÊÀ - ÀÖÏ
+static const      Page pppADC_Balance;                          ///< ÎÒËÀÄÊÀ - ÀÖÏ - ÁÀËÀÍÑ
+static const      Choice cADC_Balance_Mode;                     ///< ÎÒËÀÄÊÀ - ÀÖÏ - ÁÀËÀÍÑ - Ðåæèì
+static void      OnChange_ADC_Balance_Mode(bool active);
+static void      FuncDraw_ADC_Balance_Mode(int x, int y);
+static const    Governor gADC_Balance_ShiftA;                   ///< ÎÒËÀÄÊÀ - ÀÖÏ - ÁÀËÀÍÑ - Ñìåùåíèå 1
+static bool      IsActive_ADC_Balance_ShiftAB(void);
+static void      OnChange_ADC_Balance_ShiftA(void);
+static const    Governor gADC_Balance_ShiftB;                   ///< ÎÒËÀÄÊÀ - ÀÖÏ - ÁÀËÀÍÑ - Ñìåùåíèå 2 
+static void      OnChange_ADC_Balance_ShiftB(void);
+static const      Page pppADC_Stretch;                          ///< ÎÒËÀÄÊÀ - ÀÖÏ - ÐÀÑÒßÆÊÀ
+static const      Choice cADC_Stretch_Mode;                     ///< ÎÒËÀÄÊÀ - ÀÖÏ - ÐÀÑÒßÆÊÀ - Ðåæèì
+       void      OnChange_ADC_Stretch_Mode(bool active);
+static const    Governor gADC_Stretch_A;                        ///< ÎÒËÀÄÊÀ - ÀÖÏ - ÐÀÑÒßÆÊÀ - Ðàñòÿæêà 1ê
+static bool      IsActive_ADC_StretchAB(void);
+static void      OnChange_ADC_Stretch_A(void);
+static const    Governor gADC_Stretch_B;                        ///< ÎÒËÀÄÊÀ - ÀÖÏ - ÐÀÑÒßÆÊÀ - Ðàñòÿæêà 2ê
+static void      OnChange_ADC_Stretch_B(void);
+static const    Governor gADC_Stretch_Ak20mV;                   ///< ÎÒËÀÄÊÀ - ÀÖÏ - ÐÀÑÒßÆÊÀ - 20ìÂ/1Â 1ê
+static const    Governor gADC_Stretch_Ak50mV;                   ///< ÎÒËÀÄÊÀ - ÀÖÏ - ÐÀÑÒßÆÊÀ - 50ìÂ 1ê 
+static const    Governor gADC_Stretch_Ak100mV;                  ///< ÎÒËÀÄÊÀ - ÀÖÏ - ÐÀÑÒßÆÊÀ - 100ìÂ/5Â 1ê
+static const    Governor gADC_Stretch_Ak2V;                     ///< ÎÒËÀÄÊÀ - AÖÏ - ÐÀÑÒßÆÊÀ - 2Â 1ê
+static const    Governor gADC_Stretch_Bk20mV;                   ///< ÎÒËÀÄÊÀ - ÀÖÏ - ÐÀÑÒßÆÊÀ - 20ìÂ/1Â 2ê
+static const    Governor gADC_Stretch_Bk50mV;                   ///< ÎÒËÀÄÊÀ - ÀÖÏ - ÐÀÑÒßÆÊÀ - 50ìÂ 2ê 
+static const    Governor gADC_Stretch_Bk100mV;                  ///< ÎÒËÀÄÊÀ - ÀÖÏ - ÐÀÑÒßÆÊÀ - 100ìÂ/5Â 2ê
+static const    Governor gADC_Stretch_Bk2V;                     ///< ÎÒËÀÄÊÀ - ÀÖÏ - ÐÀÑÒßÆÊÀ - 2Â 2ê
+static const      Page pppADC_Shift;                            ///< ÎÒËÀÄÊÀ - ÀÖÏ - ÄÎÏ ÑÌÅÙ
+static const      Button bADC_Shift_Reset;                      ///< ÎÒËÀÄÊÀ - ÀÖÏ - ÄÎÏ ÑÌÅÙ - Ñáðîñ
+static void       OnPress_ADC_Shift_Reset(void);
+static const    Governor gADC_Shift_A2mV;                       ///< ÎÒËÀÄÊÀ - ÀÖÏ - ÄÎÏ ÑÌÅÙ - Ñì 1ê 2ìÂ ïîñò
+static void      OnChange_ADC_Shift_A(void);
+static const    Governor gADC_Shift_B2mV;                       ///< ÎÒËÀÄÊÀ - ÀÖÏ - ÄÎÏ ÑÌÅÙ - Ñì 2ê 2ìÂ ïîñò
+static void      OnChange_ADC_Shift_B(void);
+static const    Governor gADC_Shift_A5mV;                       ///< ÎÒËÀÄÊÀ - ÀÖÏ - ÄÎÏ ÑÌÅÙ - Ñì 1ê 5ìÂ ïîñò
+static const    Governor gADC_Shift_B5mV;                       ///< ÎÒËÀÄÊÀ - ÀÖÏ - ÄÎÏ ÑÌÅÙ - Ñì 2ê 5ìÂ ïîñò
+static const    Governor gADC_Shift_A10mV;                      ///< ÎÒËÀÄÊÀ - ÀÖÏ - ÄÎÏ ÑÌÅÙ - Ñì 1ê 10ìÂ ïîñò
+static const    Governor gADC_Shift_B10mV;                      ///< ÎÒËÀÄÊÀ - ÀÖÏ - ÄÎÏ ÑÌÅÙ - Ñì 2ê 10ìÂ ïîñò
+static const       Page ppRand;                                 ///< ÎÒËÀÄÊÀ - ÐÀÍÄ-ÒÎÐ
+static const    Governor gRand_NumMeasures;                     ///< ÎÒËÀÄÊÀ - ÐÀÍÄ-ÒÎÐ - Âûá-ê/âîðîòà
+static void      OnChange_Rand_NumMeasures(void);
+static const    Governor gRand_NumAverage;                      ///< ÎÒËÀÄÊÀ - ÐÀÍÄ-ÒÎÐ - Óñðåäí.
+static const    Governor gRand_NumSmooth;                       ///< ÎÒËÀÄÊÀ - ÐÀÍÄ-ÒÎÐ - Ñãëàæèâàíèå
+static const      Choice cRand_ShowInfo;                        ///< ÎÒËÀÄÊÀ - ÐÀÍÄ-ÒÎÐ - Èíôîðìàöèÿ
+static const      Choice gRand_ShowStat;                        ///< ÎÒËÀÄÊÀ - ÐÀÍÄ-ÒÎÐ - Ñòàòèñòèêà
+static const    Governor gRand_TimeCompensation;                ///< ÎÒËÀÄÊÀ - ÐÀÍÄ-ÒÎÐ - Êîìïåíñàöèÿ çàäåðæêè
+static void      OnChange_Rand_TimeCompensation(void);
+static const    Governor gRand_AddTimeShift;                    ///< ÎÒËÀÄÊÀ - ÐÀÍÄ-ÒÎÐ - Ñìåùåíèå
+static void      OnChange_Rand_AddTimeShift(void);
+static const    Governor gRand_Pretriggered;                    ///< ÎÒËÀÄÊÀ - ÐÀÍÄ-ÒÎÐ - Ïðåäçàïóñê
+static void      OnChange_Rand_Pretriggered(void);
+static const       Page ppChannels;                             ///< ÎÒËÀÄÊÀ - ÊÀÍÀËÛ
+static const      Choice cChannels_BandwidthA;                  ///< ÎÒËÀÄÊÀ - ÊÀÍÀËÛ - Ïîëîñà 1
+static void      OnChange_Channels_BandwidthA(bool active);
+static const      Choice cChannels_BandwidthB;                  ///< ÎÒËÀÄÊÀ - ÊÀÍÀËÛ - Ïîëîñà 2
+static void      OnChange_Channels_BandwidthB(bool active);
+static const      Choice cStats;                                ///< ÎÒËÀÄÊÀ - Ñòàòèñòèêà
+static const      Choice cDisplayOrientation;                   ///< ÎÒËÀÄÊÀ - Îðèåíòàöèÿ
+       void      OnChange_DisplayOrientation(bool);
+static const      Choice cEMS;                                  ///< ÎÒËÀÄÊÀ - Ðåæèì ÝÌÑ
+static void      OnChange_EMS(bool);
+static const   Governor mgPred;                                 ///< ÎÒËÀÄÊÀ - Ïðåäçàïóñê
+static void      OnChange_Pred(void);
+static const   Governor mgPost;                                 ///< ÎÒËÀÄÊÀ - Ïîñëåçàïóñê
+static void      OnChange_Post(void);
+static const       Page ppSettings;                             ///< ÎÒËÀÄÊÀ - ÍÀÑÒÐÎÉÊÈ
+static void       OnPress_Settings(void);
+static const SmallButton bSettings_Exit;                        ///< ÎÒËÀÄÊÀ - ÍÀÑÒÐÎÉÊÈ - Âûõîä
+static void       OnPress_Settings_Exit(void);
+static const       Page ppSerialNumber;                         ///< ÎÒËÀÄÊÀ - Ñ/Í
+static void       OnPress_SerialNumber(void);
+static void      OnRegSet_SerialNumber(int delta);
+static void          Draw_SerialNumber(void);
 
 
 // ÎÒËÀÄÊÀ ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -142,10 +129,10 @@ const Page mpDebug =
         (void*)&ppChannels,            // ÎÒËÀÄÊÀ - ÊÀÍÀËÛ
         (void*)&cStats,                // ÎÒËÀÄÊÀ - Ñòàòèñòèêà
         (void*)&cDisplayOrientation,   // ÎÒËÀÄÊÀ - Îðèåíòàöèÿ
-        (void*)&cEMS,                  // ÎÒËÀÄÊÀ - ÝÌÑ
+        (void*)&cEMS,                  // ÎÒËÀÄÊÀ - Ðåæèì ÝÌÑ
         (void*)&mgPred,                // ÎÒËÀÄÊÀ - Ïðåäçàïóñê
         (void*)&mgPost,                // ÎÒËÀÄÊÀ - Ïîñëåçàïóñê
-        (void*)&ppShowSettingsInfo,    // ÎÒËÀÄÊÀ - Íàñòðîéêè
+        (void*)&ppSettings,    // ÎÒËÀÄÊÀ - ÍÀÑÒÐÎÉÊÈ
         (void*)&ppSerialNumber         // ÎÒËÀÄÊÀ - Ñ/Í
     }
 };
@@ -920,7 +907,7 @@ static const Page ppRand =
     {
         (void*)&gRand_NumAverage,          // ÎÒËÀÄÊÀ - ÐÀÍÄ-ÒÎÐ - Óñðåäí.
         (void*)&gRand_NumSmooth,           // ÎÒËÀÄÊÀ - ÐÀÍÄ-ÒÎÐ - Ñãëàæèâàíèå
-        (void*)&gRand_NumMeasures,         // ÎÒËÀÄÊÀ - ÐÀÍÄ-ÒÎÐ - Èçìåðåíèé
+        (void*)&gRand_NumMeasures,         // ÎÒËÀÄÊÀ - ÐÀÍÄ-ÒÎÐ - Âûá-ê/âîðîòà
         (void*)&cRand_ShowInfo,            // ÎÒËÀÄÊÀ - ÐÀÍÄ-ÒÎÐ - Èíôîðìàöèÿ
         (void*)&gRand_ShowStat,            // ÎÒËÀÄÊÀ - ÐÀÍÄ-ÒÎÐ - Ñòàòèñòèêà
         (void*)&gRand_TimeCompensation,    // ÎÒËÀÄÊÀ - ÐÀÍÄ-ÒÎÐ - Êîìïåíñàöèÿ çàäåðæêè
@@ -997,7 +984,7 @@ static void OnChange_Channels_BandwidthB(bool active)
     FPGA_SetBandwidth(B);
 }
 
-// ÎÒËÀÄÊÀ - ÐÀÍÄ-ÒÎÐ - Èçìåðåíèé --------------------------------------------------------------------------------------------------------------------
+// ÎÒËÀÄÊÀ - ÐÀÍÄ-ÒÎÐ - Âûá-ê/âîðîòà -----------------------------------------------------------------------------------------------------------------
 static const Governor gRand_NumMeasures =
 {
     Item_Governor, &ppRand, 0,
@@ -1094,6 +1081,7 @@ static const Governor gRand_NumSmooth =
 static int16 pred;
 static int16 post;
 
+// ÎÒËÀÄÊÀ - Ïðåäçàïóñê ------------------------------------------------------------------------------------------------------------------------------
 static const Governor mgPred =
 {
     Item_Governor, &mpDebug, 0,
@@ -1104,6 +1092,7 @@ static const Governor mgPred =
     &pred, 0, 15000, OnChange_Pred
 };
 
+// ÎÒËÀÄÊÀ - Ïîñëåçàïóñê -----------------------------------------------------------------------------------------------------------------------------
 static const Governor mgPost =
 {
     Item_Governor, &mpDebug, 0,
@@ -1115,34 +1104,35 @@ static const Governor mgPost =
 };
 
 
-// ÎÒËÀÄÊÀ - Íàñòðîéêè ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-static const Page ppShowSettingsInfo =
+// ÎÒËÀÄÊÀ - ÍÀÑÒÐÎÉÊÈ ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+static const Page ppSettings =
 {
     Item_Page, &mpDebug, 0,
     {
-        "Íàñòðîéêè", "Settings",
+        "ÍÀÑÒÐÎÉÊÈ", "SETTINGS",
         "Ïîêàçàòü èíôîðìàöèþ î íàñòðîéêàõ",
         "Show settings information"
     },
     Page_SB_DebugShowSetInfo,
     {
-        (void*)&bExitShowSetInfo
+        (void*)&bSettings_Exit        // ÎÒËÀÄÊÀ - ÍÀÑÒÐÎÉÊÈ - Âûõîä
     },
-    OnPress_ShowInfo
+    OnPress_Settings
 };
 
-static void PressSB_ShowSetInfo_Exit(void)
+// ÎÒËÀÄÊÀ - ÍÀÑÒÐÎÉÊÈ - Âûõîä -----------------------------------------------------------------------------------------------------------------------
+static const SmallButton bSettings_Exit =
+{
+    Item_SmallButton, &ppSettings,
+    COMMON_BEGIN_SB_EXIT,
+    OnPress_Settings_Exit,
+    DrawSB_Exit
+};
+
+static void OnPress_Settings_Exit(void)
 {
     Display_SetDrawMode(DrawMode_Auto, 0);
 }
-
-static const SmallButton bExitShowSetInfo =
-{
-    Item_SmallButton, &ppShowSettingsInfo,
-    COMMON_BEGIN_SB_EXIT,
-    PressSB_ShowSetInfo_Exit,
-    DrawSB_Exit
-};
 
 static void DebugShowSetInfo_Draw(void)
 {
@@ -1213,7 +1203,7 @@ static void DebugShowSetInfo_Draw(void)
     Painter_EndScene();
 }
 
-static void OnPress_ShowInfo(void)
+static void OnPress_Settings(void)
 {
     OpenPageAndSetItCurrent(Page_SB_DebugShowSetInfo);
     Display_SetDrawMode(DrawMode_Auto, DebugShowSetInfo_Draw);
@@ -1265,7 +1255,7 @@ static const Choice gRand_ShowStat =
     (int8*)&SHOW_RAND_STAT
 };
 
-// ÎÒËÀÄÊÀ - ÝÌÑ /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// ÎÒËÀÄÊÀ - Ðåæèì ÝÌÑ ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 static const Choice cEMS =
 {
     Item_Choice, &mpDebug, 0,
@@ -1308,9 +1298,6 @@ void OnChange_DisplayOrientation(bool active)
     Display_SetOrientation(DISPLAY_ORIENTATION);
 }
 
-
-
-
 // ÎÒËÀÄÊÀ - Ñòàòèñòèêà ------------------------------------------------------------------------------------------------------------------------------
 static const Choice cStats =
 {
@@ -1327,7 +1314,54 @@ static const Choice cStats =
     (int8*)&SHOW_STAT
 };
 
+static const Button sbExitSerialNumber;
 
+//----------------------------------------------------------------------------------------------------------------------------------------------------
+static const Button sbSerialNumberLeft;
+
+//----------------------------------------------------------------------------------------------------------------------------------------------------
+static const Button sbSerialNumberRight;
+
+//----------------------------------------------------------------------------------------------------------------------------------------------------
+static const Button sbSerialNumberWrite;
+
+// ÎÒËÀÄÊÀ - Ñ/Í -------------------------------------------------------------------------------------------------------------------------------------
+static const Page ppSerialNumber =
+{
+    Item_Page, &mpDebug, 0,
+    {
+        "Ñ/Í", "S/N",
+        "Çàïèñü ñåðèéíîãî íîìåðà â OTP-ïàìÿòü. ÂÍÈÌÀÍÈÅ!!! ÎÒP-ïàìÿòü - ïàìÿòü ñ îäíîêðàòíîé çàïèñüþ.",
+        "Serial number recording in OTP-memory. ATTENTION!!! OTP memory is a one-time programming memory."
+    },
+    Page_SB_SerialNumber,
+    {
+        (void*)&sbExitSerialNumber,
+        (void*)&sbSerialNumberLeft,
+        (void*)&sbSerialNumberRight,
+        (void*)0,
+        (void*)0,
+        (void*)&sbSerialNumberWrite
+    },
+    OnPress_SerialNumber, 0, OnRegSet_SerialNumber
+};
+
+static void OnPress_SerialNumber(void)
+{
+    OpenPageAndSetItCurrent(Page_SB_SerialNumber);
+    Display_SetAddDrawFunction(Draw_SerialNumber);
+}
+
+static void OnRegSet_SerialNumber(int delta)
+{
+
+}
+
+static void Draw_SerialNumber(void)
+{
+    Painter_BeginScene(gColorGrid);
+    Painter_EndScene();
+}
 
 
 

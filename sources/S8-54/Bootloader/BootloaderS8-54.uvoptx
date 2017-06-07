@@ -232,7 +232,7 @@
           <SizeOfObject>0</SizeOfObject>
           <BreakByAccess>0</BreakByAccess>
           <BreakIfRCount>0</BreakIfRCount>
-          <Filename>D:\Projects\S8-54\sources\S8-54\src\Menu\Pages\PageDebug.c</Filename>
+          <Filename>&lt;1&gt;.\src\Menu\Pages\PageDebug.c</Filename>
           <ExecCommand></ExecCommand>
           <Expression></Expression>
         </Bp>

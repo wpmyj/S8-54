@@ -64,9 +64,6 @@
     <Filter Include="Menu\Pages\Memory">
       <UniqueIdentifier>{44ef4089-f581-4ca6-ad7e-d2a9a9e7c4fd}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Menu\Pages\Debug">
-      <UniqueIdentifier>{9724ea5a-63ae-470d-8d12-077263f8d773}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Menu\Pages\Service">
       <UniqueIdentifier>{00025bce-807a-41e7-8de7-da8363fba756}</UniqueIdentifier>
     </Filter>
@@ -554,12 +551,6 @@
     </ClCompile>
     <ClCompile Include="..\..\S8-54\src\Menu\Pages\Memory\PageMemory.c">
       <Filter>Menu\Pages\Memory</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\S8-54\src\Menu\Pages\Debug\PageDebug.c">
-      <Filter>Menu\Pages\Debug</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\S8-54\src\Menu\Pages\Debug\DebugSerialNumber.h">
-      <Filter>Menu\Pages\Debug</Filter>
     </ClCompile>
     <ClCompile Include="..\..\S8-54\src\Menu\Pages\Service\PageService.c">
       <Filter>Menu\Pages\Service</Filter>

@@ -201,8 +201,6 @@
     <ClCompile Include="..\..\S8-54\src\Menu\MenuFunctions.c" />
     <ClCompile Include="..\..\S8-54\src\Menu\MenuItemsGraphics.c" />
     <ClCompile Include="..\..\S8-54\src\Menu\MenuItemsLogic.c" />
-    <ClCompile Include="..\..\S8-54\src\Menu\Pages\Debug\DebugSerialNumber.h" />
-    <ClCompile Include="..\..\S8-54\src\Menu\Pages\Debug\PageDebug.c" />
     <ClCompile Include="..\..\S8-54\src\Menu\Pages\Definition.c" />
     <ClCompile Include="..\..\S8-54\src\Menu\Pages\HelpContent.c" />
     <ClCompile Include="..\..\S8-54\src\Menu\Pages\Memory\PageMemory.c" />
