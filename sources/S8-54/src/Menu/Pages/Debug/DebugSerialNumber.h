@@ -41,7 +41,7 @@ static void OnRegSetSerialNumber(int delta)
 }
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
-const Page mspSerialNumber =
+const Page ppSerialNumber =
 {
     Item_Page, &mpDebug, 0,
     {

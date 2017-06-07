@@ -21,69 +21,69 @@
 extern Page mainPage;
 extern void LoadTShift(void);
 
-static const Choice mcStats;
+static const Choice cStats;
 
-static const Page mspADC;
+static const Page ppADC;
 
-static const Page mspADC_Balance;
-static const Choice mcADC_Balance_Mode;
-static const Governor mgADC_Balance_ShiftA;
-static const Governor mgADC_Balance_ShiftB;
+static const Page pppADC_Balance;
+static const Choice cADC_Balance_Mode;
+static const Governor gADC_Balance_ShiftA;
+static const Governor gADC_Balance_ShiftB;
 
-static const Page mspADC_Stretch;
-static const Choice mcADC_Stretch_Mode;
-static const Governor mgADC_Stretch_A;
-static const Governor mgADC_Stretch_B;
-static const Governor mgADC_Stretch_Ak20mV;
-static const Governor mgADC_Stretch_Ak50mV;
-static const Governor mgADC_Stretch_Ak100mV;
-static const Governor mgADC_Stretch_Ak2V;
-static const Governor mgADC_Stretch_Bk20mV;
-static const Governor mgADC_Stretch_Bk50mV;
-static const Governor mgADC_Stretch_Bk100mV;
-static const Governor mgADC_Stretch_Bk2V;
+static const Page pppADC_Stretch;
+static const Choice cADC_Stretch_Mode;
+static const Governor gADC_Stretch_A;
+static const Governor gADC_Stretch_B;
+static const Governor gADC_Stretch_Ak20mV;
+static const Governor gADC_Stretch_Ak50mV;
+static const Governor gADC_Stretch_Ak100mV;
+static const Governor gADC_Stretch_Ak2V;
+static const Governor gADC_Stretch_Bk20mV;
+static const Governor gADC_Stretch_Bk50mV;
+static const Governor gADC_Stretch_Bk100mV;
+static const Governor gADC_Stretch_Bk2V;
 
-static const Page mspADC_Shift;
-static const Button mbADC_Shift_Reset;
-static const Governor mgADC_Shift_A2mV;
-static const Governor mgADC_Shift_B2mV;
-static const Governor mgADC_Shift_A5mV;
-static const Governor mgADC_Shift_B5mV;
-static const Governor mgADC_Shift_A10mV;
-static const Governor mgADC_Shift_B10mV;
+static const Page pppADC_Shift;
+static const Button bADC_Shift_Reset;
+static const Governor gADC_Shift_A2mV;
+static const Governor gADC_Shift_B2mV;
+static const Governor gADC_Shift_A5mV;
+static const Governor gADC_Shift_B5mV;
+static const Governor gADC_Shift_A10mV;
+static const Governor gADC_Shift_B10mV;
 
-static const Page mspRand;
-static const Governor mgRand_NumMeasures;
-static const Governor mgRand_NumAverage;
-static const Governor mgRand_NumSmooth;
-static const Choice mcRand_ShowInfo;
-static const Choice mgRand_ShowStat;
-static const Governor mgRand_TimeCompensation;
+static const Page ppRand;
+static const Governor gRand_NumMeasures;
+static const Governor gRand_NumAverage;
+static const Governor gRand_NumSmooth;
+static const Choice cRand_ShowInfo;
+static const Choice gRand_ShowStat;
+static const Governor gRand_TimeCompensation;
 static void OnChange_Rand_TimeCompensation(void);
-static const Governor mgRand_AddTimeShift;
+static const Governor gRand_AddTimeShift;
 static void OnChange_Rand_AddTimeShift(void);
-static const Governor mgRand_Pretriggered;
+static const Governor gRand_Pretriggered;
 static void OnChange_Rand_Pretriggered(void);
 
-static const Page mspChannels;
-static const Choice mcChannels_BandwidthA;
-static const Choice mcChannels_BandwidthB;
+static const Page ppChannels;
+static const Choice cChannels_BandwidthA;
+static const Choice cChannels_BandwidthB;
 static void OnChange_Channels_BandwidthA(bool active);
 static void OnChange_Channels_BandwidthB(bool active);
 
-static const Choice mcEMS;
+static const Choice cEMS;
 static void OnChange_EMS(bool);
 
-static const Choice mcDisplayOrientation;
+static const Choice cDisplayOrientation;
        void OnChange_DisplayOrientation(bool);
 
 static const Governor mgPred;
 static void OnChange_Pred(void);
 static const Governor mgPost;
 static void OnChange_Post(void);
-static const Page mspShowSettingsInfo;
+static const Page ppShowSettingsInfo;
 static void OnPress_ShowInfo(void);
-static const SmallButton sbExitShowSetInfo;
+static const SmallButton bExitShowSetInfo;
 
 static void OnChange_ADC_Balance_Mode(bool active);
 static void OnDraw_ADC_Balance_Mode(int x, int y);
@@ -113,22 +113,22 @@ const Page mpDebug =
     },
     Page_Debug,
     {
-        (void*)&mspConsole,             // ОТЛАДКА - КОНСОЛЬ
-        (void*)&mspADC,                 // ОТЛАДКА - АЦП
-        (void*)&mspRand,                // ОТЛАДКА - РАНД-ТОР
-        (void*)&mspChannels,            // ОТЛАДКА - КАНАЛЫ
-        (void*)&mcStats,                // ОТЛАДКА - Статистика
-        (void*)&mcDisplayOrientation,   // ОТЛАДКА - Ориентация
-        (void*)&mcEMS,                  // ОТЛАДКА - ЭМС
-        (void*)&mgPred,                 // ОТЛАДКА - Предзапуск
-        (void*)&mgPost,                 // ОТЛАДКА - Послезапуск
-        (void*)&mspShowSettingsInfo,    // ОТЛАДКА - Настройки
-        (void*)&mspSerialNumber         // ОТЛАДКА - С/Н
+        (void*)&ppConsole,             // ОТЛАДКА - КОНСОЛЬ
+        (void*)&ppADC,                 // ОТЛАДКА - АЦП
+        (void*)&ppRand,                // ОТЛАДКА - РАНД-ТОР
+        (void*)&ppChannels,            // ОТЛАДКА - КАНАЛЫ
+        (void*)&cStats,                // ОТЛАДКА - Статистика
+        (void*)&cDisplayOrientation,   // ОТЛАДКА - Ориентация
+        (void*)&cEMS,                  // ОТЛАДКА - ЭМС
+        (void*)&mgPred,                // ОТЛАДКА - Предзапуск
+        (void*)&mgPost,                // ОТЛАДКА - Послезапуск
+        (void*)&ppShowSettingsInfo,    // ОТЛАДКА - Настройки
+        (void*)&ppSerialNumber         // ОТЛАДКА - С/Н
     }
 };
 
 // ОТЛАДКА - Статистика ------------------------------------------------------------------------------------------------------------------------------
-static const Choice mcStats =
+static const Choice cStats =
 {
     Item_Choice, &mpDebug, 0,
     {
@@ -144,7 +144,7 @@ static const Choice mcStats =
 };
 
 // ОТЛАДКА - АЦП /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-static const Page mspADC =
+static const Page ppADC =
 {
     Item_Page, &mpDebug, 0,
     {
@@ -154,16 +154,16 @@ static const Page mspADC =
     },
     Page_DebugADC,
     {
-        (void*)&mspADC_Balance,   // ОТЛАДКА - АЦП - БАЛАНС
-        (void*)&mspADC_Stretch,   // ОТЛАДКА - АЦП - РАСТЯЖКА
-        (void*)&mspADC_Shift      // ОТЛАДКА - АЦП - ДОП СМЕЩ
+        (void*)&pppADC_Balance,   // ОТЛАДКА - АЦП - БАЛАНС
+        (void*)&pppADC_Stretch,   // ОТЛАДКА - АЦП - РАСТЯЖКА
+        (void*)&pppADC_Shift      // ОТЛАДКА - АЦП - ДОП СМЕЩ
     }
 };
 
 // ОТЛАДКА - АЦП - БАЛАНС ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-static const Page mspADC_Balance =
+static const Page pppADC_Balance =
 {
-    Item_Page, &mspADC, 0,
+    Item_Page, &ppADC, 0,
     {
         "БАЛАНС", "BALANCE",
         "",
@@ -171,16 +171,16 @@ static const Page mspADC_Balance =
     },
     Page_DebugADCbalance,
     {
-        (void*)&mcADC_Balance_Mode,   // ОТЛАДКА - АЦП - БАЛАНС - Режим
-        (void*)&mgADC_Balance_ShiftA, // ОТЛАДКА - АЦП - БАЛАНС - Смещение 1
-        (void*)&mgADC_Balance_ShiftB  // ОТЛАДКА - АЦП - БАЛАНС - Смещение 2
+        (void*)&cADC_Balance_Mode,   // ОТЛАДКА - АЦП - БАЛАНС - Режим
+        (void*)&gADC_Balance_ShiftA, // ОТЛАДКА - АЦП - БАЛАНС - Смещение 1
+        (void*)&gADC_Balance_ShiftB  // ОТЛАДКА - АЦП - БАЛАНС - Смещение 2
     }
 };
 
 // ОТЛАДКА - АЦП - БАЛАНС - Режим --------------------------------------------------------------------------------------------------------------------
-static const Choice mcADC_Balance_Mode =
+static const Choice cADC_Balance_Mode =
 {
-    Item_Choice, &mspADC_Balance, 0,
+    Item_Choice, &pppADC_Balance, 0,
     {
         "Режим", "Mode",
         "",
@@ -215,9 +215,9 @@ static void OnDraw_ADC_Balance_Mode(int x, int y)
 }
 
 // ОТЛАДКА - АЦП - БАЛАНС - Смещение 1 ---------------------------------------------------------------------------------------------------------------
-static const Governor mgADC_Balance_ShiftA =
+static const Governor gADC_Balance_ShiftA =
 {
-    Item_Governor, &mspADC_Balance, IsActive_ADC_Balance,
+    Item_Governor, &pppADC_Balance, IsActive_ADC_Balance,
     {
         "Смещение 1", "Offset 1",
         "",
@@ -237,9 +237,9 @@ static void OnChange_ADC_BalanceA(void)
 }
 
 // ОТЛАДКА - АЦП - БАЛАНС - Смещение 2 ---------------------------------------------------------------------------------------------------------------
-static const Governor mgADC_Balance_ShiftB =
+static const Governor gADC_Balance_ShiftB =
 {
-    Item_Governor, &mspADC_Balance, IsActive_ADC_Balance,
+    Item_Governor, &pppADC_Balance, IsActive_ADC_Balance,
     {
         "Смещение 2", "Offset 2",
         "",
@@ -256,9 +256,9 @@ static void OnChange_ADC_BalanceB(void)
 static const Choice emptyChoice;
 
 // ОТЛАДКА - АЦП - РАСТЯЖКА //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-static const Page mspADC_Stretch =
+static const Page pppADC_Stretch =
 {
-    Item_Page, &mspADC, 0,
+    Item_Page, &ppADC, 0,
     {
         "РАСТЯЖКА", "STRETCH",
         "Устанавливает режим и величину растяжки (для ручного режима)",
@@ -266,28 +266,28 @@ static const Page mspADC_Stretch =
     },
     Page_DebugADCstretch,
     {
-        (void*)&mcADC_Stretch_Mode,       // ОТЛАДКА - АЦП - РАСТЯЖКА - Режим
-        (void*)&mgADC_Stretch_A,          // ОТЛАДКА - АЦП - РАСТЯЖКА - Растяжка 1к
-        (void*)&mgADC_Stretch_B,          // ОТЛАДКА - АЦП - РАСТЯЖКА - Растяжка 2к
+        (void*)&cADC_Stretch_Mode,       // ОТЛАДКА - АЦП - РАСТЯЖКА - Режим
+        (void*)&gADC_Stretch_A,          // ОТЛАДКА - АЦП - РАСТЯЖКА - Растяжка 1к
+        (void*)&gADC_Stretch_B,          // ОТЛАДКА - АЦП - РАСТЯЖКА - Растяжка 2к
         (void*)&emptyChoice,
         (void*)&emptyChoice,
-        (void*)&mgADC_Stretch_Ak20mV,     // ОТЛАДКА - АЦП - РАСТЯЖКА - 20мВ/1В 1к
-        (void*)&mgADC_Stretch_Ak50mV,     // ОТЛАДКА - АЦП - РАСТЯЖКА - 50мВ 1к 
-        (void*)&mgADC_Stretch_Ak100mV,    // ОТЛАДКА - АЦП - РАСТЯЖКА - 100мВ/5В 1к
-        (void*)&mgADC_Stretch_Ak2V,       // ОТЛАДКА - AЦП - РАСТЯЖКА - 2В 1к
+        (void*)&gADC_Stretch_Ak20mV,     // ОТЛАДКА - АЦП - РАСТЯЖКА - 20мВ/1В 1к
+        (void*)&gADC_Stretch_Ak50mV,     // ОТЛАДКА - АЦП - РАСТЯЖКА - 50мВ 1к 
+        (void*)&gADC_Stretch_Ak100mV,    // ОТЛАДКА - АЦП - РАСТЯЖКА - 100мВ/5В 1к
+        (void*)&gADC_Stretch_Ak2V,       // ОТЛАДКА - AЦП - РАСТЯЖКА - 2В 1к
         (void*)&emptyChoice,
-        (void*)&mgADC_Stretch_Bk20mV,     // ОТЛАДКА - АЦП - РАСТЯЖКА - 20мВ/1В 2к
-        (void*)&mgADC_Stretch_Bk50mV,     // ОТЛАДКА - АЦП - РАСТЯЖКА - 50мВ 2к 
-        (void*)&mgADC_Stretch_Bk100mV,    // ОТЛАДКА - АЦП - РАСТЯЖКА - 100мВ/5В 2к
-        (void*)&mgADC_Stretch_Bk2V,       // ОТЛАДКА - АЦП - РАСТЯЖКА - 2В 2к
+        (void*)&gADC_Stretch_Bk20mV,     // ОТЛАДКА - АЦП - РАСТЯЖКА - 20мВ/1В 2к
+        (void*)&gADC_Stretch_Bk50mV,     // ОТЛАДКА - АЦП - РАСТЯЖКА - 50мВ 2к 
+        (void*)&gADC_Stretch_Bk100mV,    // ОТЛАДКА - АЦП - РАСТЯЖКА - 100мВ/5В 2к
+        (void*)&gADC_Stretch_Bk2V,       // ОТЛАДКА - АЦП - РАСТЯЖКА - 2В 2к
         (void*)&emptyChoice
     }
 };
 
 // ОТЛАДКА - АЦП - РАСТЯЖКА - Режим ------------------------------------------------------------------------------------------------------------------
-static const Choice mcADC_Stretch_Mode =
+static const Choice cADC_Stretch_Mode =
 {
-    Item_Choice, &mspADC_Stretch, 0,
+    Item_Choice, &pppADC_Stretch, 0,
     {
         "Режим", "Mode",
         "",
@@ -319,9 +319,9 @@ void OnChange_ADC_Stretch_Mode(bool active)
 }
 
 // ОТЛАДКА - АЦП - РАСТЯЖКА - Растяжка 1к ------------------------------------------------------------------------------------------------------------
-static const Governor mgADC_Stretch_A =
+static const Governor gADC_Stretch_A =
 {
-    Item_Governor, &mspADC_Stretch, IsActive_ADC_StretchAB,
+    Item_Governor, &pppADC_Stretch, IsActive_ADC_StretchAB,
     {
         "Растяжка 1к", "Stretch 1ch"
         ,
@@ -345,9 +345,9 @@ static void OnChange_ADC_Stretch_A(void)
 }
 
 // ОТЛАДКА - АЦП - РАСТЯЖКА - Растяжка 2к ------------------------------------------------------------------------------------------------------------
-static const Governor mgADC_Stretch_B =
+static const Governor gADC_Stretch_B =
 {
-    Item_Governor, &mspADC_Stretch, IsActive_ADC_StretchAB,
+    Item_Governor, &pppADC_Stretch, IsActive_ADC_StretchAB,
     {
         "Растяжка 2к", "Stretch 2ch"
         ,
@@ -366,9 +366,9 @@ static void OnChange_ADC_Stretch_B(void)
 }
 
 // ОТЛАДКА - АЦП - РАСТЯЖКА - 20мВ/1В 1к -------------------------------------------------------------------------------------------------------------
-static const Governor mgADC_Stretch_Ak20mV =
+static const Governor gADC_Stretch_Ak20mV =
 {
-    Item_Governor, &mspADC_Stretch, 0,
+    Item_Governor, &pppADC_Stretch, 0,
     {
         "20мВ/1В 1к", "20mV/1V 1k",
         "",
@@ -378,9 +378,9 @@ static const Governor mgADC_Stretch_Ak20mV =
 };
 
 // ОТЛАДКА - АЦП - РАСТЯЖКА - 50мВ 1к ----------------------------------------------------------------------------------------------------------------
-static const Governor mgADC_Stretch_Ak50mV =
+static const Governor gADC_Stretch_Ak50mV =
 {
-    Item_Governor, &mspADC_Stretch, 0,
+    Item_Governor, &pppADC_Stretch, 0,
     {
         "50мВ 1к", "50mV 1k",
         "",
@@ -390,9 +390,9 @@ static const Governor mgADC_Stretch_Ak50mV =
 };
 
 // ОТЛАДКА - АЦП - РАСТЯЖКА - 100мВ/5В 1к ------------------------------------------------------------------------------------------------------------
-static const Governor mgADC_Stretch_Ak100mV =
+static const Governor gADC_Stretch_Ak100mV =
 {
-    Item_Governor, &mspADC_Stretch, 0,
+    Item_Governor, &pppADC_Stretch, 0,
     {
         "100мВ/5В 1к", "100mV/5V 1ch",
         "",
@@ -402,9 +402,9 @@ static const Governor mgADC_Stretch_Ak100mV =
 };
 
 // ОТЛАДКА - АЦП - РАСТЯЖКА - 2В 1к ------------------------------------------------------------------------------------------------------------------
-static const Governor mgADC_Stretch_Ak2V =
+static const Governor gADC_Stretch_Ak2V =
 {
-    Item_Governor, &mspADC_Stretch, 0,
+    Item_Governor, &pppADC_Stretch, 0,
     {
         "2В 1к", "2V 1ch",
         "",
@@ -414,9 +414,9 @@ static const Governor mgADC_Stretch_Ak2V =
 };
 
 // ОТЛАДКА - АЦП - РАСТЯЖКА - 20мВ/1В 2к -------------------------------------------------------------------------------------------------------------
-static const Governor mgADC_Stretch_Bk20mV =
+static const Governor gADC_Stretch_Bk20mV =
 {
-    Item_Governor, &mspADC_Stretch, 0,
+    Item_Governor, &pppADC_Stretch, 0,
     {
         "20мВ/1В 2к", "20mV/1V 2k",
         "",
@@ -426,9 +426,9 @@ static const Governor mgADC_Stretch_Bk20mV =
 };
 
 // ОТЛАДКА - АЦП - РАСТЯЖКА - Доп смещ 50мВ 2к -------------------------------------------------------------------------------------------------------
-static const Governor mgADC_Stretch_Bk50mV =
+static const Governor gADC_Stretch_Bk50mV =
 {
-    Item_Governor, &mspADC_Stretch, 0,
+    Item_Governor, &pppADC_Stretch, 0,
     {
         "50мВ 2к", "50mV 2k",
         "",
@@ -438,9 +438,9 @@ static const Governor mgADC_Stretch_Bk50mV =
 };
 
 // ОТЛАДКА - АЦП - РАСТЯЖКА - 100мВ/5В 2к ------------------------------------------------------------------------------------------------------------
-static const Governor mgADC_Stretch_Bk100mV =
+static const Governor gADC_Stretch_Bk100mV =
 {
-    Item_Governor, &mspADC_Stretch, 0,
+    Item_Governor, &pppADC_Stretch, 0,
     {
         "100мВ/5В 2к", "100mV/5V 2k",
         "",
@@ -450,9 +450,9 @@ static const Governor mgADC_Stretch_Bk100mV =
 };
 
 // ОТЛАДКА - АЦП - РАСТЯЖКА - 2В 2к ------------------------------------------------------------------------------------------------------------------
-static const Governor mgADC_Stretch_Bk2V =
+static const Governor gADC_Stretch_Bk2V =
 {
-    Item_Governor, &mspADC_Stretch, 0,
+    Item_Governor, &pppADC_Stretch, 0,
     {
         "2В 2к", "2V 2ch",
         "",
@@ -462,9 +462,9 @@ static const Governor mgADC_Stretch_Bk2V =
 };
 
 // ОТЛАДКА - АЦП - ДОП СМЕЩ //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-static const Page mspADC_Shift =
+static const Page pppADC_Shift =
 {
-    Item_Page, &mspADC, 0,
+    Item_Page, &ppADC, 0,
     {
         "ДОП СМЕЩ", "ADD RSHFIT",
         "",
@@ -472,20 +472,20 @@ static const Page mspADC_Shift =
     },
     Page_DebugADCrShift,
     {
-        (void*)&mbADC_Shift_Reset,    // ОТЛАДКА - АЦП - ДОП СМЕЩ - Сброс
-        (void*)&mgADC_Shift_A2mV,     // ОТЛАДКА - АЦП - ДОП СМЕЩ - См 1к 2мВ пост
-        (void*)&mgADC_Shift_B2mV,     // ОТЛАДКА - АЦП - ДОП СМЕЩ - См 2к 2мВ пост
-        (void*)&mgADC_Shift_A5mV,     // ОТЛАДКА - АЦП - ДОП СМЕЩ - См 1к 5мВ пост
-        (void*)&mgADC_Shift_B5mV,     // ОТЛАДКА - АЦП - ДОП СМЕЩ - См 2к 5мВ пост
-        (void*)&mgADC_Shift_A10mV,    // ОТЛАДКА - АЦП - ДОП СМЕЩ - См 1к 10мВ пост
-        (void*)&mgADC_Shift_B10mV     // ОТЛАДКА - АЦП - ДОП СМЕЩ - См 2к 10мВ пост
+        (void*)&bADC_Shift_Reset,    // ОТЛАДКА - АЦП - ДОП СМЕЩ - Сброс
+        (void*)&gADC_Shift_A2mV,     // ОТЛАДКА - АЦП - ДОП СМЕЩ - См 1к 2мВ пост
+        (void*)&gADC_Shift_B2mV,     // ОТЛАДКА - АЦП - ДОП СМЕЩ - См 2к 2мВ пост
+        (void*)&gADC_Shift_A5mV,     // ОТЛАДКА - АЦП - ДОП СМЕЩ - См 1к 5мВ пост
+        (void*)&gADC_Shift_B5mV,     // ОТЛАДКА - АЦП - ДОП СМЕЩ - См 2к 5мВ пост
+        (void*)&gADC_Shift_A10mV,    // ОТЛАДКА - АЦП - ДОП СМЕЩ - См 1к 10мВ пост
+        (void*)&gADC_Shift_B10mV     // ОТЛАДКА - АЦП - ДОП СМЕЩ - См 2к 10мВ пост
     }
 };
 
 // ОТЛАДКА - АЦП - ДОП СМЕЩ - Сброс ------------------------------------------------------------------------------------------------------------------
-static const Button mbADC_Shift_Reset =
+static const Button bADC_Shift_Reset =
 {
-    Item_Button, &mspADC_Shift, 0,
+    Item_Button, &pppADC_Shift, 0,
     {
         "Сброс", "Reset",
         "",
@@ -511,9 +511,9 @@ static void OnPress_ADC_Shift_Reset(void)
 }
 
 // ОТЛАДКА - АЦП - ДОП СМЕЩ - См 1к 2мВ пост ---------------------------------------------------------------------------------------------------------
-static const Governor mgADC_Shift_A2mV =
+static const Governor gADC_Shift_A2mV =
 {
-    Item_Governor, &mspADC_Shift, 0,
+    Item_Governor, &pppADC_Shift, 0,
     {
         "См 1к 2мВ пост", "Shift 1ch 2mV DC",
         "",
@@ -528,9 +528,9 @@ static void OnChange_ADC_Shift_A(void)
 }
 
 // ОТЛАДКА - АЦП - ДОП СМЕЩ - См 2к 2мВ пост ---------------------------------------------------------------------------------------------------------
-static const Governor mgADC_Shift_B2mV =
+static const Governor gADC_Shift_B2mV =
 {
-    Item_Governor, &mspADC_Shift, 0,
+    Item_Governor, &pppADC_Shift, 0,
     {
         "См 2к 2мВ пост", "Shift 2ch 2mV DC",
         "",
@@ -545,9 +545,9 @@ static void OnChange_ADC_Shift_B(void)
 }
 
 // ОТЛАДКА - АЦП - ДОП СМЕЩ - См 1к 5мВ пост ---------------------------------------------------------------------------------------------------------
-static const Governor mgADC_Shift_A5mV =
+static const Governor gADC_Shift_A5mV =
 {
-    Item_Governor, &mspADC_Shift, 0,
+    Item_Governor, &pppADC_Shift, 0,
     {
         "См 1к 5мВ пост", "Shift 1ch 5mV DC",
         "",
@@ -557,9 +557,9 @@ static const Governor mgADC_Shift_A5mV =
 };
 
 // ОТЛАДКА - АЦП - ДОП СМЕЩ - См 2к 5мВ пост ---------------------------------------------------------------------------------------------------------
-static const Governor mgADC_Shift_B5mV =
+static const Governor gADC_Shift_B5mV =
 {
-    Item_Governor, &mspADC_Shift, 0,
+    Item_Governor, &pppADC_Shift, 0,
     {
         "См 2к 5мВ пост", "Shift 2ch 5mV DC",
         "",
@@ -569,9 +569,9 @@ static const Governor mgADC_Shift_B5mV =
 };
 
 // ОТЛАДКА - АЦП - ДОП СМЕЩ - См 1к 10мВ пост --------------------------------------------------------------------------------------------------------
-static const Governor mgADC_Shift_A10mV =
+static const Governor gADC_Shift_A10mV =
 {
-    Item_Governor, &mspADC_Shift, 0,
+    Item_Governor, &pppADC_Shift, 0,
     {
         "См 1к 10мВ пост", "Shift 1ch 10mV DC",
         "",
@@ -581,9 +581,9 @@ static const Governor mgADC_Shift_A10mV =
 };
 
 // ОТЛАДКА - АЦП - ДОП СМЕЩ - См 2к 10мВ пост --------------------------------------------------------------------------------------------------------
-static const Governor mgADC_Shift_B10mV =
+static const Governor gADC_Shift_B10mV =
 {
-    Item_Governor, &mspADC_Shift, 0,
+    Item_Governor, &pppADC_Shift, 0,
     {
         "См 2к 10мВ пост", "Shift 2ch 10mV DC",
         "",
@@ -593,7 +593,7 @@ static const Governor mgADC_Shift_B10mV =
 };
 
 // ОТЛАДКА - РАНД-ТОР ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-static const Page mspRand =
+static const Page ppRand =
 {
     Item_Page, &mpDebug, 0,
     {
@@ -603,19 +603,19 @@ static const Page mspRand =
     },
     Page_DebugRandomizer,
     {
-        (void*)&mgRand_NumAverage,          // ОТЛАДКА - РАНД-ТОР - Усредн.
-        (void*)&mgRand_NumSmooth,           // ОТЛАДКА - РАНД-ТОР - Сглаживание
-        (void*)&mgRand_NumMeasures,         // ОТЛАДКА - РАНД-ТОР - Измерений
-        (void*)&mcRand_ShowInfo,            // ОТЛАДКА - РАНД-ТОР - Информация
-        (void*)&mgRand_ShowStat,            // ОТЛАДКА - РАНД-ТОР - Статистика
-        (void*)&mgRand_TimeCompensation,    // ОТЛАДКА - РАНД-ТОР - Компенсация задержки
-        (void*)&mgRand_AddTimeShift,        // ОТЛАДКА - РАНД-ТОР - Смещение
-        (void*)&mgRand_Pretriggered         // ОТЛАДКА - РAНД-ТОР - Предзапуск
+        (void*)&gRand_NumAverage,          // ОТЛАДКА - РАНД-ТОР - Усредн.
+        (void*)&gRand_NumSmooth,           // ОТЛАДКА - РАНД-ТОР - Сглаживание
+        (void*)&gRand_NumMeasures,         // ОТЛАДКА - РАНД-ТОР - Измерений
+        (void*)&cRand_ShowInfo,            // ОТЛАДКА - РАНД-ТОР - Информация
+        (void*)&gRand_ShowStat,            // ОТЛАДКА - РАНД-ТОР - Статистика
+        (void*)&gRand_TimeCompensation,    // ОТЛАДКА - РАНД-ТОР - Компенсация задержки
+        (void*)&gRand_AddTimeShift,        // ОТЛАДКА - РАНД-ТОР - Смещение
+        (void*)&gRand_Pretriggered         // ОТЛАДКА - РAНД-ТОР - Предзапуск
     }
 };
 
 // ОТЛАДКА - КАНАЛЫ //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-static const Page mspChannels =
+static const Page ppChannels =
 {
     Item_Page, &mpDebug, 0,
     {
@@ -625,15 +625,15 @@ static const Page mspChannels =
     },
     Page_DebugChannels,
     {
-        (void*)&mcChannels_BandwidthA,  // ОТЛАДКА - КАНАЛЫ - Полоса 1
-        (void*)&mcChannels_BandwidthB   // ОТЛАДКА - КАНАЛЫ - Полоса 2
+        (void*)&cChannels_BandwidthA,  // ОТЛАДКА - КАНАЛЫ - Полоса 1
+        (void*)&cChannels_BandwidthB   // ОТЛАДКА - КАНАЛЫ - Полоса 2
     }
 };
 
 // ОТЛАДКА - КАНЛАЫ - Полоса 1 -----------------------------------------------------------------------------------------------------------------------
-static const Choice mcChannels_BandwidthA =
+static const Choice cChannels_BandwidthA =
 {
-    Item_Choice, &mspChannels, 0,
+    Item_Choice, &ppChannels, 0,
     {
         "Полоса 1", "Bandwidth 1",
         "Здесь можно выбрать полосу, которая будет действовать в КАНАЛ1-Полоса при выборе значения Полная",
@@ -657,9 +657,9 @@ static void OnChange_Channels_BandwidthA(bool active)
 }
 
 // ОТЛАДКА - КАНЛАЫ - Полоса 1 -----------------------------------------------------------------------------------------------------------------------
-static const Choice mcChannels_BandwidthB =
+static const Choice cChannels_BandwidthB =
 {
-    Item_Choice, &mspChannels, 0,
+    Item_Choice, &ppChannels, 0,
     {
         "Полоса 2", "Bandwidth 2",
         "Здесь можно выбрать полосу, которая будет действовать в КАНАЛ2-Полоса при выборе значения Полная",
@@ -683,9 +683,9 @@ static void OnChange_Channels_BandwidthB(bool active)
 }
 
 // ОТЛАДКА - РАНД-ТОР - Измерений --------------------------------------------------------------------------------------------------------------------
-static const Governor mgRand_NumMeasures =
+static const Governor gRand_NumMeasures =
 {
-    Item_Governor, &mspRand, 0,
+    Item_Governor, &ppRand, 0,
     {
         "Выб-к/ворота", "Samples/gates",
         "",
@@ -700,9 +700,9 @@ static void OnChange_Rand_NumMeasures(void)
 }
 
 // ОТЛАДКА - РАНД-ТОР - Компенсация задержки ---------------------------------------------------------------------------------------------------------
-static const Governor mgRand_TimeCompensation =
+static const Governor gRand_TimeCompensation =
 {
-    Item_Governor, &mspRand, 0,
+    Item_Governor, &ppRand, 0,
     {
         "Компенсация задержки", "Compenstaion time",
         "Подстройка компенсации задержки АЦП 40 нс",
@@ -719,9 +719,9 @@ static void OnChange_Rand_TimeCompensation(void)
 // ОТЛАДКА - РАНД-ТОР - Смещение ---------------------------------------------------------------------------------------------------------------------
 int16 addShift = 0;
 
-static const Governor mgRand_AddTimeShift =
+static const Governor gRand_AddTimeShift =
 {
-    Item_Governor, &mspRand, 0,
+    Item_Governor, &ppRand, 0,
     {
         "Доп смещение", "Add shift",
         "Добавочное смщение при вращении tShift",
@@ -736,9 +736,9 @@ static void OnChange_Rand_AddTimeShift(void)
 }
 
 // ОТЛАДКА - РАНД-ТОР - Предзапуск -------------------------------------------------------------------------------------------------------------------
-static const Governor mgRand_Pretriggered =
+static const Governor gRand_Pretriggered =
 {
-    Item_Governor, &mspRand, 0,
+    Item_Governor, &ppRand, 0,
     {
         "Предзапуск", "Pretiggered",
         "Величина предзапуска, которая пишется в рандомизатор",
@@ -753,9 +753,9 @@ static void OnChange_Rand_Pretriggered(void)
 }
 
 // ОТЛАДКА - РАНД-ТОР - Усредн. ----------------------------------------------------------------------------------------------------------------------
-static const Governor mgRand_NumAverage =
+static const Governor gRand_NumAverage =
 {
-    Item_Governor, &mspRand, 0,
+    Item_Governor, &ppRand, 0,
     {
         "Усредн.", "Average",
         "",
@@ -765,9 +765,9 @@ static const Governor mgRand_NumAverage =
 };
 
 // ОТЛАДКА - РАНД-ТОР - Сглаживание ------------------------------------------------------------------------------------------------------------------
-static const Governor mgRand_NumSmooth =
+static const Governor gRand_NumSmooth =
 {
-    Item_Governor, &mspRand, 0,
+    Item_Governor, &ppRand, 0,
     {
         "Сглаживание", "Smoothing",
         "",
@@ -801,7 +801,7 @@ static const Governor mgPost =
 
 
 // ОТЛАДКА - Настройки ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-static const Page mspShowSettingsInfo =
+static const Page ppShowSettingsInfo =
 {
     Item_Page, &mpDebug, 0,
     {
@@ -811,7 +811,7 @@ static const Page mspShowSettingsInfo =
     },
     Page_SB_DebugShowSetInfo,
     {
-        (void*)&sbExitShowSetInfo
+        (void*)&bExitShowSetInfo
     },
     OnPress_ShowInfo
 };
@@ -821,9 +821,9 @@ static void PressSB_ShowSetInfo_Exit(void)
     Display_SetDrawMode(DrawMode_Auto, 0);
 }
 
-static const SmallButton sbExitShowSetInfo =
+static const SmallButton bExitShowSetInfo =
 {
-    Item_SmallButton, &mspShowSettingsInfo,
+    Item_SmallButton, &ppShowSettingsInfo,
     COMMON_BEGIN_SB_EXIT,
     PressSB_ShowSetInfo_Exit,
     DrawSB_Exit
@@ -919,9 +919,9 @@ static void OnChange_Post(void)
 }
 
 // ОТЛАДКА - РАНД-ТОР - Информация -------------------------------------------------------------------------------------------------------------------
-static const Choice mcRand_ShowInfo =
+static const Choice cRand_ShowInfo =
 {
-    Item_Choice, &mspRand, 0,
+    Item_Choice, &ppRand, 0,
     {
         "Информация", "Information",
         "Показывать информацию о воротах рандомизатора",
@@ -935,9 +935,9 @@ static const Choice mcRand_ShowInfo =
 };
 
 // ОТЛАДКА - РАНД-ТОР - Статистика -------------------------------------------------------------------------------------------------------------------
-static const Choice mgRand_ShowStat =
+static const Choice gRand_ShowStat =
 {
-    Item_Choice, &mspRand, 0,
+    Item_Choice, &ppRand, 0,
     {
         "Статистика", "Statistics",
         "Показывать график статистики",
@@ -951,7 +951,7 @@ static const Choice mgRand_ShowStat =
 };
 
 // ОТЛАДКА - ЭМС /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-static const Choice mcEMS =
+static const Choice cEMS =
 {
     Item_Choice, &mpDebug, 0,
     {
@@ -973,7 +973,7 @@ static void OnChange_EMS(bool active)
 }
 
 // ОТЛАДКА - Ориентация //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-static const Choice mcDisplayOrientation =
+static const Choice cDisplayOrientation =
 {
     Item_Choice, &mpDebug, 0,
     {
@@ -1107,7 +1107,7 @@ bool sIsShowReg_TBase(void)
 
 const Page mspDebugADCaltShift =    // ОТЛАДКА - АЦП - ДОП СМЕЩ ПАМ
 {
-    Item_Page, &mspADC,
+    Item_Page, &ppADC,
     {
         "ДОП СМЕЩ ПАМ", "ALT SHIFT MEM"
     },

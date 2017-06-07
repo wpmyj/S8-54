@@ -2,13 +2,13 @@
 
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-const Page mspConsole;
+const Page ppConsole;
 
 
 // ОТЛАДКА - КОНСОЛЬ /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 static const Governor mgConsole_NumStrings =
 {
-    Item_Governor, &mspConsole, 0,
+    Item_Governor, &ppConsole, 0,
     {
         "Число строк", "Number strings",
         "",
@@ -20,7 +20,7 @@ static const Governor mgConsole_NumStrings =
 //----------------------------------------------------------------------------------------------------------------------------------------------------
 static const Choice mcConsole_SizeFont =
 {
-    Item_Choice, &mspConsole, 0,
+    Item_Choice, &ppConsole, 0,
     {
         "Размер шрифта", "Size font",
         "",
@@ -36,7 +36,7 @@ static const Choice mcConsole_SizeFont =
 //----------------------------------------------------------------------------------------------------------------------------------------------------
 static const Choice mcConsole_ModeStop =
 {
-    Item_Choice, &mspConsole, 0,
+    Item_Choice, &ppConsole, 0,
     {
         "Реж. останова", "Mode stop",
         "Предоставляет возможность приостановки вывода в консоль путём нажатия на кнопку ПУСК/СТОП",
@@ -252,7 +252,7 @@ static const Choice mcConsole_Registers_TShift =
 //----------------------------------------------------------------------------------------------------------------------------------------------------
 static const Page mspConsole_Registers =
 {
-    Item_Page, &mspConsole, 0,
+    Item_Page, &ppConsole, 0,
     {
         "РЕГИСТРЫ", "REGISTERS",
         "",
@@ -287,7 +287,7 @@ static void FuncDrawSizeSettings(int x, int y)
 //----------------------------------------------------------------------------------------------------------------------------------------------------
 static const Button mbConsole_SizeSettings =
 {
-    Item_Button, &mspConsole, 0,
+    Item_Button, &ppConsole, 0,
     {
         "", "",
         "Показывает текущий размер структуры для сохранения настроек",
@@ -297,7 +297,7 @@ static const Button mbConsole_SizeSettings =
 };
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
-static const Page mspConsole =
+static const Page ppConsole =
 {
     Item_Page, &mpDebug, 0,
     {
