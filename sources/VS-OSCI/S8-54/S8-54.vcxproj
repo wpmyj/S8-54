@@ -363,6 +363,7 @@
     <ClInclude Include="..\..\S8-54\src\Display\Symbols.h" />
     <ClInclude Include="..\..\S8-54\src\Display\WelcomeScreen.h" />
     <ClInclude Include="..\..\S8-54\src\dox\main_page.h" />
+    <ClInclude Include="..\..\S8-54\src\dox\RelatedPages.h" />
     <ClInclude Include="..\..\S8-54\src\Ethernet\Ethernet.h" />
     <ClInclude Include="..\..\S8-54\src\Ethernet\TcpSocket.h" />
     <ClInclude Include="..\..\S8-54\src\FlashDrive\FlashDrive.h">

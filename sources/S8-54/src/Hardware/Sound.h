@@ -1,4 +1,4 @@
-п»ї#pragma once
+#pragma once
 #include "Settings/Settings.h"
 
 
@@ -7,7 +7,7 @@
 /** @addtogroup Hardware
  *  @{
  *  @defgroup Sound
- *  @brief Р Р°Р±РѕС‚Р° СЃРѕ Р·РІСѓРєРѕРІС‹Рј РґРёРЅР°РјРёРєРѕРј
+ *  @brief Работа со звуковым динамиком
  *  @{
  */
 
@@ -21,9 +21,9 @@ typedef enum
 
 
 void Sound_Init(void);
-/// Р—РІСѓРє РЅР°Р¶Р°С‚РёСЏ РЅР° РєРЅРѕРїРєСѓ
+/// Звук нажатия на кнопку.
 void Sound_ButtonPress(void);
-/// Р¤СѓРЅРєС†РёСЏ РІС‹Р·РѕРІРµС‚ Р·РІСѓРє РѕС‚РїСѓСЃРєР°РµРјРѕР№ РєРЅРѕРїРєРё С‚РѕР»СЊРєРѕ РµСЃР»Рё РїРµСЂРµРґ СЌС‚РёРј РїСЂРѕРёРіСЂС‹РІР°Р»СЃСЏ Р·РІСѓРє РЅР°Р¶Р°С‚РёСЏ РєРЅРѕРїРєРё
+/// Функция вызовет звук отпускаемой кнопки только если перед этим проигрывался звук нажатия кнопки.
 void Sound_ButtonRelease(void);
 
 void Sound_GovernorChangedValue(void);
@@ -35,6 +35,8 @@ void Sound_RegulatorSwitchRotate(void);
 void Sound_WarnBeepBad(void);
 
 void Sound_WarnBeepGood(void);
+/// Эту функцию надо вызывать перед записью/стиранием ППЗУ. Звук конфликтует с ППЗУ.
+void Sound_WaitCompletion(void);
 
 /** @}  @}
  */

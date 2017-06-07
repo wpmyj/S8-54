@@ -95,8 +95,6 @@ volatile BitField gBF =
     0,  // panelControlReceive
     0,  // needToMountFlash
 
-    0,  // soundIsBeep
-
     0,  // consoleInPause
     0   // needStopAfterReadFrameP2P
 };

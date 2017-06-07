@@ -1091,6 +1091,9 @@
     <ClInclude Include="..\..\S8-54\src\Settings\SettingsNRST.h">
       <Filter>Settings</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\S8-54\src\dox\RelatedPages.h">
+      <Filter>_dox</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\S8-54\src\Display\font\font5.inc">

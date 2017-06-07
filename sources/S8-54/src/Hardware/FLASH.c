@@ -5,6 +5,7 @@
 #include "Log.h"
 #include "Hardware/Hardware.h"
 #include "Hardware/Timer.h"
+#include "Hardware/Sound.h"
 #include "Settings/Settings.h"
 #include "Utils/GlobalFunctions.h"
 
@@ -22,17 +23,6 @@
     и т.д.
     Информация о состоянии хранилища хранится в ArrayDatas, который представляет собой массив.
 */
-/*
-    Принцип хранения несбрасываемых настроек.
-    У несбрасываемых настроек есть одна особенность - там хранятся достаточно важные настройки, которые нельзя терять.
-    В обычнх, сбрасываемых, настройках их хранить опасно. Если изменится размер структуры данных, стандартный алгоритм чтения не сможет прочитать их
-    и загрузит настройки по умолчанию. Поэтому в сбрасываемых настройках должно быть соблюдено следующиее условие:
-    порядок следования полей структуры не должен изменяться - новые настройки могут лишь добавляться в конец структуры.
-    Весь сектор, предназначенный для хранения несбрасываемых настроек, поделен на участки размером 64 байта (могут быть и другие значения, кратные 16.
-    пока достаточно 64. Для того, чтобы определить, сколько реально занимает участок, в его первом байте записан множитель, на который нужно умножить
-    16, чтобы получить размер участка - для 64 байт - 4, для 128 - 8, и т.д.
-    Располагая такой информацией, мы просто скачем по первым байтам участков и ищем тот, в который ничего ещё не было записано (в нём будет 0xff). 
-*/
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Программа и константные данные
@@ -40,7 +30,7 @@
 #define ADDR_SECTOR_BOOT_1      ((uint)0x08004000)          ///< 16k | Загрузчик
 #define ADDR_SECTOR_BOOT_2      ((uint)0x08008000)          ///< 16k /
 #define ADDR_FLASH_SECTOR_3     ((uint)0x0800C000)          ///< 16k
-#define ADDR_SECTOR_NR_SETTINGS ((uint)0x08010000)          ///< 64k
+#define ADDR_FLASH_SECTOR_4     ((uint)0x08010000)          ///< 64k
 #define ADDR_SECTOR_PROGRAM_0   ((uint)0x08020000)          ///< 128k Основная программа
 #define ADDR_SECTOR_PROGRAM_1   ((uint)0x08040000)          ///< 128k Основная программа
 #define ADDR_SECTOR_PROGRAM_2   ((uint)0x08060000)          ///< 128k Основная программа
@@ -76,6 +66,9 @@ typedef struct
     } datas[MAX_NUM_SAVED_WAVES];
 } ArrayDatas;
 
+static const uint startDataInfo = ADDR_DATA_1;
+
+
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 #undef CLEAR_FLASH_FLAGS
@@ -87,166 +80,94 @@ typedef struct
                             FLASH_FLAG_PGPERR |  /* programming parallelism error flag */   \
                             FLASH_FLAG_PGSERR);  /* programming sequence error flag    */
 
-#undef FIRST_RECORD
-#define FIRST_RECORD ((RecordConfig*)ADDR_ARRAY_RECORDS)
-
-#undef READ_WORD
-#define READ_WORD(address) (*((volatile uint*)address))
-
-#undef READ_BYTE
 #define READ_BYTE(address) (*((volatile uint8*)address))
 
-#undef RECORD_EXIST
-#define RECORD_EXIST (READ_WORD(ADDR_ARRAY_RECORDS) != MAX_UINT)   // true, если есть хоть одна заполненная запись (сохранённые данные)
+#define READ_HALF_WORD(address) (*((volatile uint16*)address))
 
-#undef MEMORY_FOR_SETTINGS
-#define MEMORY_FOR_SETTINGS ((ADDR_LAST_SET + 1) - ADDR_FIRST_SET)  // Это размер памяти, доступной для сохранения настроек. Это размер сектора за вычетом 4-х байт для записи маркера и буфера для хранения записей
-
-
-/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-typedef struct
-{
-    uint addr;  // Начиная с этого адреса записаны данные. Если addrData == MAX_UINT, то это пустая запись, сюда можно писать данные
-    int  size;  // Размер в байтах записанных данных
-} RecordConfig;
-
-
-#define ADDR_ARRAY_RECORDS          ((ADDR_SECTOR_SETTINGS) + 4)
-#define MAX_NUM_RECORDS             1024
-#define SIZE_ARRAY_RECORDS_IN_BYTES ((MAX_NUM_RECORDS) * sizeof(RecordConfig))
-static const uint ADDR_FIRST_SET    = ADDR_ARRAY_RECORDS + SIZE_ARRAY_RECORDS_IN_BYTES;     // Адрес первого байта буфера, где сохранены настройки
-static const uint ADDR_LAST_SET     = ((ADDR_SECTOR_SETTINGS + SIZE_SECTOR_SETTINGS) - 1);  // Адрес последнего байта буфера, где сохранены настройки
-
-
-// Признак того, что запись в этоу область флэш уже производилась. Если нулевое слово области (данных, ресурсов или настроек) имеет это значение, запись уже была произведена как минимум один раз
-static const uint MARK_OF_FILLED = 0x123456;
-static const uint startDataInfo = ADDR_DATA_1;
-
-
-static RecordConfig *records = (RecordConfig *)ADDR_ARRAY_RECORDS;     // Для упрощения операций с записями
+#define READ_WORD(address) (*((volatile uint*)address))
 
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Для настроек
-static int CalculateFreeMemory(void);
-static RecordConfig* FindRecordConfigForWrite(void);
-static void WriteWord(uint address, uint word);
-static void WriteBufferWords(uint address, void *buffer, int numWords);
-static void WriteBufferBytes(uint address, void *buffer, int numBytes);
-static void PrepareSectorForData(void);
-static void ReadBufferBytes(uint addressSrc, void *bufferDest, int size);
-static bool EraseSector(uint startAddress);
-static uint GetSector(uint startAddress);
-static RecordConfig* LastFilledRecord(void);        // Возвращает адрес последней записи с сохранёнными настройками или 0, если нет сохранённых настроек
 
 // Для данных
+static void PrepareSectorForData(void);
 static ArrayDatas* CurrentArray(void);              // Возвращает адрес актуального массива с адресами данных
 static uint AddressSectorForData(int num);          // Возвращает адрес сектора, в котором сохранены данные с номером num
 static uint AddressForData(int num);                // Возвращает адрес, по которому должны быть сохранены данные num
 static void SaveArrayDatas(ArrayDatas array);       // Перезаписать текущий ArrayDatas
-static void SaveData(int num, DataSettings *ds, uint8 *dataA, uint8 *dataB);        // Сохранение данных. Хранилище должно быть подготовлено - данные предварительно стёрты,
-                                                    // т.е. везде записано FF, стирать ничего не нужно, только записывать
+static void SaveData(int num, DataSettings *ds, uint8 *dataA, uint8 *dataB);        // Сохранение данных. Хранилище должно быть подготовлено - данные 
+                                                    // предварительно стёрты, т.е. везде записано FF, стирать ничего не нужно, только записывать
 
 static uint AddressSectorForAddress(uint address);  // Возвращает адрес сектора, которому принадлежить адрес address
+
+static void WriteWord(uint address, uint word);
+static void WriteBufferWords(uint address, void *buffer, int numWords);
+static void WriteBufferBytes(uint address, void *buffer, int numBytes);
+static void ReadBufferBytes(uint addressSrc, void *bufferDest, int size);
+static bool EraseSector(uint startAddress);
+static uint GetSector(uint startAddress);
 
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 void FLASH_LoadSettings(void)
 {
-    CLEAR_FLASH_FLAGS;
+    uint16 numBytes = READ_HALF_WORD(ADDR_SECTOR_SETTINGS);
 
-    uint value = READ_WORD(ADDR_SECTOR_SETTINGS);
-    
-    if (value != MARK_OF_FILLED)       // Если первый байт сектора не отмаркирован - первое включение прибора
+    if (numBytes == 0xffff)         // Если в первых байтах сектора для настроек записаны все единицы, значит, сохранение настроек ещё не 
+    {                               // производилось - первое сохранение настроек.
+        PrepareSectorForData();     // Поэтому подготавливаем сектор для сохранения сигналов
+        return;                     // и выходим
+    }
+
+    // Находим область сектора с сохранёнными настройками. Настройки записываются последовательно друг за другом по адресам, кратным 1024
+    int i = 0;
+    int address = ADDR_SECTOR_SETTINGS;
+    for (; i < 128; i++)
     {
-        set.com_CountErasedFlashSettings = 0;
-        set.com_CountEnables = 0;
-        set.com_CountErasedFlashData = 0;
-        set.com_WorkingTimeInSecs = 0;
-        EraseSector(ADDR_SECTOR_SETTINGS);                      // На всякий случай стираем сектор
-        EraseSector(ADDR_SECTOR_NR_SETTINGS);
-        WriteWord(ADDR_SECTOR_SETTINGS, MARK_OF_FILLED);        // И маркируем
-        PrepareSectorForData();                                 // Также готовим сектор для сохранения данных
-        return;
+        if (READ_HALF_WORD(address) == 0xffff)
+        {
+            break;
+        }
+        address += 1024;
     }
 
-    RecordConfig *record = LastFilledRecord();
-    if (record == 0)    // По какой-то причине сохранённых настроек может не оказаться. Например, сектор был промаркирован при предыдущем включении,
-    {                   // но прибор выключили выключателем на задней стенке, а не кнопкой на передней панели, вследствие чего настройки не сохранились
-        return;
-    }
+    // Если i == 128, то сектор заполнен полностью - нужно читать из последней области сектора.
+    // Уменьшаем i на один и читаем.
 
-    if (sizeof(set) == record->size)
-    {
-        ReadBufferBytes(record->addr, &set, record->size);
-    }
+    address = ADDR_SECTOR_SETTINGS + (i - 1) * 1024;
+
+    // Читаем в Settings set количество байт, указанное в (int16)*address
+
+    ReadBufferBytes(address, &set, READ_HALF_WORD(address));
 }
 
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
 void FLASH_SaveSettings(void)
 {
-    if(gBF.alreadyLoadSettings == 0)
+    // Записываем в Settings.size текущий размер структуры Settings
+    set.size = sizeof(Settings);
+
+    // Находим первый свободынй адрес записи.
+    int address = ADDR_SECTOR_SETTINGS;
+    while (READ_HALF_WORD(address) != 0xffff &&             // Пока по адресу, кратному 1024, не записаны настройки
+           address < (ADDR_SECTOR_SETTINGS + 1024 * 128))   // и мы не вышли за пределы сектора настроек
     {
-        return;
+        address += 1024;                                    // переходим на следующую предполагаемую область записи
     }
 
-    CLEAR_FLASH_FLAGS
-
-    RecordConfig *record = FindRecordConfigForWrite();
-    if(record == 0)                                                 // Если нет места для записи настроек
+    if (address == ADDR_SECTOR_SETTINGS + 1024 * 128)       // Если адрес указывает на следующий сектор
     {
-        set.com_CountErasedFlashSettings++;
-        EraseSector(ADDR_SECTOR_SETTINGS);                          // Стираем сектор
-        WriteWord(ADDR_SECTOR_SETTINGS, MARK_OF_FILLED);            // и маркируем
-        record = FIRST_RECORD;                                      // Теперь-то уж точно найдём место для записи
+        EraseSector(GetSector(ADDR_SECTOR_SETTINGS));       // То стираем к лешему заполненный сетор настроек
+        address = ADDR_SECTOR_SETTINGS;
     }
 
-    set.com_WorkingTimeInSecs += gTimerMS / 1000;
-
-    WriteWord((uint)(&record->addr), (record == FIRST_RECORD) ? ADDR_FIRST_SET : (record - 1)->addr + (record - 1)->size);
-
-    WriteWord((uint)(&record->size), sizeof(set));
-
-    WriteBufferWords(record->addr, &set, record->size / 4);
+    WriteBufferBytes(address, &set, sizeof(Settings));
 }
 
 
-//---------------------------------------------------------------------------------------------------------------------------------------------------
-static RecordConfig* LastFilledRecord(void)
-{
-    for(int i = MAX_NUM_RECORDS - 1; i >= 0; --i)           // Просматриваем массив записей от последнего элемента к первому
-    {                                                       // Никаких дополнительных проверок не требуется, потому что при стирании сектора все значения в нём равны 0xffffffff
-        if(records[i].addr != MAX_UINT)
-        {
-            return &records[i];
-        }
-    }
-
-    return 0;
-}
-
-
-//------------------------------------------------------------------------------------------------------------------------------------------------------
-static RecordConfig* FindRecordConfigForWrite(void)
-{
-    RecordConfig *record = LastFilledRecord();
-    if(record == &records[MAX_NUM_RECORDS - 1] ||   // Если все записи заняты
-       CalculateFreeMemory() < sizeof(set))         // или памяти осталось меньше, чем нужно для сохранения настроек
-    {
-        return 0;
-    }
-    
-    if(record == 0)
-    {
-        return &records[0];
-    }
-
-    return ++record;                                // Возвращаем адрес следующей за последней заполненной записи
-}
-
-
-//------------------------------------------------------------------------------------------------------------------------------------------------------
+//----------------------------------------------------------------------------------------------------------------------------------------------------
 static void WriteWord(uint address, uint word)
 {
     CLEAR_FLASH_FLAGS
@@ -260,7 +181,7 @@ static void WriteWord(uint address, uint word)
 }
 
 
-//------------------------------------------------------------------------------------------------------------------------------------------------------
+//----------------------------------------------------------------------------------------------------------------------------------------------------
 static void WriteBufferWords(uint address, void *buffer, int numWords)
 {
     HAL_FLASH_Unlock();
@@ -276,7 +197,7 @@ static void WriteBufferWords(uint address, void *buffer, int numWords)
 }
 
 
-//------------------------------------------------------------------------------------------------------------------------------------------------------
+//----------------------------------------------------------------------------------------------------------------------------------------------------
 static void PrepareSectorForData(void)
 {
     EraseSector(ADDR_DATA_1);
@@ -287,7 +208,7 @@ static void PrepareSectorForData(void)
 }
 
 
-//------------------------------------------------------------------------------------------------------------------------------------------------------
+//----------------------------------------------------------------------------------------------------------------------------------------------------
 static void ReadBufferBytes(uint addressSrc, void *bufferDest, int size)
 {
     uint8 *src = (uint8*)addressSrc;
@@ -300,7 +221,7 @@ static void ReadBufferBytes(uint addressSrc, void *bufferDest, int size)
 }
 
 
-//------------------------------------------------------------------------------------------------------------------------------------------------------
+//----------------------------------------------------------------------------------------------------------------------------------------------------
 static bool EraseSector(uint startAddress)
 {
     if (GetSector(startAddress) == MAX_UINT)    // если неизвестный сектор
@@ -320,9 +241,7 @@ static bool EraseSector(uint startAddress)
 
     uint32_t error = 0;
 
-    while(gBF.soundIsBeep) // WARN Здесь ждём, пока бикалка не закончит. Костыль, надо разобраться, почему они не могут вместе работать
-    {
-    };
+    Sound_WaitCompletion();
 
     HAL_FLASHEx_Erase(&flashITD, &error);
 
@@ -332,7 +251,7 @@ static bool EraseSector(uint startAddress)
 }
 
 
-//---------------------------------------------------------------------------------------------------------------------------------------------------
+//----------------------------------------------------------------------------------------------------------------------------------------------------
 static uint GetSector(uint startAddress)
 {
     typedef struct
@@ -343,7 +262,6 @@ static uint GetSector(uint startAddress)
 
     static const StructSector sectors[] =
     {
-        {FLASH_SECTOR_4, ADDR_SECTOR_NR_SETTINGS},  // Сюда сохраняются несбрасываемые настройки    64 кБ
         {FLASH_SECTOR_11, ADDR_SECTOR_SETTINGS},    // Сюда сохраняются сбрасываеме настройки       128 кБ
         {FLASH_SECTOR_16, ADDR_DATA_DATA},          // Массив адресов данных                        64 кБ
         {FLASH_SECTOR_17, ADDR_DATA_0},             // + 
@@ -372,28 +290,7 @@ static uint GetSector(uint startAddress)
 }
 
 
-//------------------------------------------------------------------------------------------------------------------------------------------------------
-int CalculateFreeMemory(void)
-{
-    RecordConfig *lastFilledRecord = LastFilledRecord();    // Находим запись с последними сохранёнными настройками
-
-    if(lastFilledRecord == 0)                               // Если все записи свободны
-    {
-        return MEMORY_FOR_SETTINGS;
-    }
-
-    if(lastFilledRecord == &records[MAX_NUM_RECORDS - 1])   // Если все записи заняты
-    {
-        return 0;                                           // то свободной памяти нет
-    }
-
-    int retValue = ADDR_LAST_SET - (lastFilledRecord->addr + lastFilledRecord->size);
-
-    return retValue < 0 ? 0 : retValue;     // Возвращаем 0, если размер получился отрицательный - каким-то образом последняя запись оказалась за пределами сектора
-}
-
-
-//------------------------------------------------------------------------------------------------------------------------------------------------------
+//----------------------------------------------------------------------------------------------------------------------------------------------------
 void FLASH_GetDataInfo(bool existData[MAX_NUM_SAVED_WAVES])
 {
     for (int i = 0; i < MAX_NUM_SAVED_WAVES; i++)
@@ -403,7 +300,7 @@ void FLASH_GetDataInfo(bool existData[MAX_NUM_SAVED_WAVES])
 }
 
 
-//------------------------------------------------------------------------------------------------------------------------------------------------------
+//----------------------------------------------------------------------------------------------------------------------------------------------------
 bool FLASH_ExistData(int num)
 {
     return (CurrentArray()->datas[num].address != MAX_UINT);
@@ -424,7 +321,7 @@ void FLASH_DeleteAllData(void)
 }
 
 
-//------------------------------------------------------------------------------------------------------------------------------------------------------
+//----------------------------------------------------------------------------------------------------------------------------------------------------
 void FLASH_DeleteData(int num)
 {
     if (!FLASH_ExistData(num))
@@ -446,8 +343,9 @@ void FLASH_DeleteData(int num)
 
     EraseSector(addressSector);
 
-    int numNotWritted = num % 4;                // Здесь мы находим четверть, которую не нужно переписывать, потому что в ней хранятся наши данные, которые
-                                                // нужно стереть. Это будет остаток от деления на 4, потому что в каждом секторе хранится ровно 4 набора данных
+    int numNotWritted = num % 4;                // Здесь мы находим четверть, которую не нужно переписывать, потому что в ней хранятся наши данные, 
+                                                // которые нужно стереть. Это будет остаток от деления на 4, потому что в каждом секторе хранится 
+                                                // ровно 4 набора данных
     uint sizeQuartPart = SIZE_SECTOR_128 / 4;   // Размер одной четвёртой части сектора в байтах
 
     for (int i = 0; i < 4; i++)
@@ -490,7 +388,7 @@ static uint AddressSectorForAddress(uint address)
         ADDR_SECTOR_BOOT_1,
         ADDR_SECTOR_BOOT_2,
         ADDR_FLASH_SECTOR_3,
-        ADDR_SECTOR_NR_SETTINGS,
+        ADDR_FLASH_SECTOR_4,
         ADDR_SECTOR_PROGRAM_0,
         ADDR_SECTOR_PROGRAM_1,
         ADDR_SECTOR_PROGRAM_2,
@@ -534,20 +432,25 @@ static uint AddressSectorForAddress(uint address)
 }
 
 
-//------------------------------------------------------------------------------------------------------------------------------------------------------
+//----------------------------------------------------------------------------------------------------------------------------------------------------
 static void WriteBufferBytes(uint address, void *buffer, int size)
 {
+    Sound_WaitCompletion();
+    
+    CLEAR_FLASH_FLAGS
+
     HAL_FLASH_Unlock();
     for(int i = 0; i < size; i++)
     {
-        HAL_FLASH_Program(TYPEPROGRAM_BYTE, address, (uint64_t)(((uint8*)buffer)[i]));
+        uint64_t data = ((uint8*)buffer)[i];
+        HAL_FLASH_Program(TYPEPROGRAM_BYTE, address, data);
         address++;
     }
     HAL_FLASH_Lock();
 }
 
 
-//------------------------------------------------------------------------------------------------------------------------------------------------------
+//----------------------------------------------------------------------------------------------------------------------------------------------------
 void FLASH_SaveData(int num, DataSettings *ds, uint8 *dataA, uint8 *dataB)
 {
     FLASH_DeleteData(num);              // Сначала сотрём данные по этому номеру
@@ -649,7 +552,5 @@ bool FLASH_GetData(int num, DataSettings **ds, uint8 **dataA, uint8 **dataB)
 }
 
 #undef CLEAR_FLASH_FLAGS
-#undef FIRST_RECORD
 #undef READ_WORD
-#undef RECORD_EXIST
-#undef MEMORY_FOR_SETTINGS
+#undef READ_HALF_WORD

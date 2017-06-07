@@ -1,4 +1,4 @@
-п»ї#pragma once
+#pragma once
 #include "defines.h"
 #include "Settings/SettingsTypes.h"
 #include "Display/Display.h"
@@ -10,21 +10,21 @@
 /** @addtogroup Hardware
  *  @{
  *  @defgroup FLASH
- *  @brief Р Р°Р±РѕС‚Р° СЃ РІРЅСѓС‚СЂРµРЅРЅРёРј РџРџР—РЈ
+ *  @brief Работа с внутренним ППЗУ
  *  @{
  */
 
-#define MAX_NUM_SAVED_WAVES 23  ///< Р§РёСЃР»Рѕ СЃРѕС…СЂР°РЅСЏРµРјС‹С… РІРѕ РІРЅСѓС‚СЂРµРЅРЅРµРј РџРџР—РЈ РёР·РјРµСЂРµРЅРёР№. РџРѕРєР° РѕРіСЂР°РЅРёС‡РµРЅРѕ РєРѕР»РёС‡РµСЃС‚РІРѕРј РєРІР°РґСЂР°С‚РёРєРѕРІ, РєРѕС‚РѕСЂС‹Рµ РјРѕР¶РЅРѕ РІС‹РІРµСЃС‚Рё РІ РѕРґРЅСѓ Р»РёРЅРёСЋ РІРЅРёР·Сѓ СЃРµС‚РєРё.
+#define MAX_NUM_SAVED_WAVES 23  ///< Число сохраняемых во внутреннем ППЗУ измерений. Пока ограничено количеством квадратиков, которые можно вывести в одну линию внизу сетки.
 
-void    FLASH_LoadSettings(void);                      // Р•СЃР»Рё onlyNonReset == true, Р·Р°РіСЂСѓР¶Р°СЋС‚СЃСЏ С‚РѕР»СЊРєРѕ РЅРµСЃР±СЂР°СЃС‹РІР°РµРјС‹Рµ РЅР°СЃС‚СЂРѕР№РєРё
-void    FLASH_SaveSettings(void);
+void FLASH_LoadSettings(void);                      // Если onlyNonReset == true, загружаются только несбрасываемые настройки
+void FLASH_SaveSettings(void);
 
-void    FLASH_GetDataInfo(bool existData[MAX_NUM_SAVED_WAVES]);     // Р•СЃР»Рё РґР°РЅРЅРЅС‹Рµ РµСЃС‚СЊ, СЃРѕРѕС‚РІРµС‚СЃС‚РІСѓСЋС‰РёР№ СЌР»РµРјРµРЅС‚ РјР°СЃСЃРёРІР° СЂР°РІРµРЅ true
-bool    FLASH_ExistData(int num);
-void    FLASH_SaveData(int num, DataSettings *ds, uint8 *dataA, uint8 *dataB);
-bool    FLASH_GetData(int num, DataSettings **ds, uint8 **dataA, uint8 **dataB);
-void    FLASH_DeleteData(int num);
-void    FLASH_DeleteAllData(void);
+void FLASH_GetDataInfo(bool existData[MAX_NUM_SAVED_WAVES]);     // Если даннные есть, соответствующий элемент массива равен true
+bool FLASH_ExistData(int num);
+void FLASH_SaveData(int num, DataSettings *ds, uint8 *dataA, uint8 *dataB);
+bool FLASH_GetData(int num, DataSettings **ds, uint8 **dataA, uint8 **dataB);
+void FLASH_DeleteData(int num);
+void FLASH_DeleteAllData(void);
 
 /** @} @}
  */
