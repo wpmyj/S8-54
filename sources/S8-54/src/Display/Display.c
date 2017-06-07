@@ -781,7 +781,7 @@ static void DrawLowPart(void)
     }
 
     // Ethernet
-    if(gEthIsConnected || gBF.cableEthIsConnected)
+    if((gEthIsConnected || gBF.cableEthIsConnected) && gTimerMS > 2000)
     {
         Painter_Draw4SymbolsInRectC(x + 87, GRID_BOTTOM + 2, SYMBOL_ETHERNET, gEthIsConnected ? COLOR_WHITE : COLOR_FLASH_01);
     }
