@@ -6,6 +6,7 @@
 #include "FlashDrive/FlashDrive.h"
 #include "FPGA/FPGA.h"
 #include "Hardware/FLASH.h"
+#include "Hardware/Sound.h"
 #include "Menu/MenuDrawing.h"
 #include "Menu/MenuFunctions.h"
 #include "Menu/Pages/Definition.h"
@@ -113,21 +114,21 @@ static void          Draw_EnterSerialNumber(void);
 static void      OnRegSet_SerialNumber(int);
 static const SmallButton bSerialNumber_Exit;                    ///< ОТЛАДКА - С/Н - Выход
 static void       OnPress_SerialNumber_Exit(void);
-static const SmallButton bSerialNumber_Delete;                  ///< ОТЛАДКА - С/Н - Удалить
-static void       OnPress_SerialNumber_Delete(void);
-static void          Draw_SerialNumber_Delete(int, int);
-static const SmallButton bSerialNumber_Backspace;               ///< ОТЛАДКА - С/Н - Backspace
-static void       OnPress_SerialNumber_Backspace(void);
-static void          Draw_SerialNumber_Backspace(int, int);     
-static const SmallButton bSerialNumber_Insert;                  ///< ОТЛАДКА - С/Н - Вставить
-static void       OnPress_SerialNumber_Insert(void);
-static void          Draw_SerialNumber_Insert(int, int);
+static const SmallButton bSerialNumber_Change;                  ///< ОТЛАДКА - С/Н - Перейти
+static void       OnPress_SerialNumber_Change(void);
+static void          Draw_SerialNumber_Change(int, int);
 static const SmallButton bSerialNumber_Save;                    ///< ОТЛАДКА - С/Н - Сохранить
 static void       OnPress_SerialNumber_Save(void);
 static void          Draw_SerialNumber_Save(int, int);
 
-#define LENGTH_SN 15
-static char stringSN[LENGTH_SN] = "";   ///< Серийный номер для записи в OTP.
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+/// В этой структуре будут храниться данные серийного номера при открытой странице ppSerialNumer
+typedef struct
+{
+    int number;     ///< Соответственно, порядковый номер.
+    int year;       ///< Соответственно, год.
+    int curDigt;    ///< Соответственно, номером (0) или годом (1) управляет ручка УСТАНОВКА.
+} StructForSN;
 
 
 // ОТЛАДКА ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -1387,9 +1388,9 @@ static const Page ppSerialNumber =
     Page_SB_SerialNumber,
     {
         (void*)&bSerialNumber_Exit,     // ОТЛАДКА - С/Н - Выход
-        (void*)&bSerialNumber_Delete,   // ОТЛАДКА - С/Н - Удалить 
-        (void*)&bSerialNumber_Backspace,// ОТЛАДКА - С/Н - Backspace
-        (void*)&bSerialNumber_Insert,   // ОТЛАДКА - С/Н - Вставить
+        (void*)&bSerialNumber_Change,   // ОТЛАДКА - С/Н - Перейти
+        (void*)0,
+        (void*)0,
         (void*)0,
         (void*)&bSerialNumber_Save      // ОТЛАДКА - С/Н - Сохранить
     },
@@ -1400,6 +1401,10 @@ static void OnPress_SerialNumber(void)
 {
     OpenPageAndSetItCurrent(Page_SB_SerialNumber);
     Display_SetAddDrawFunction(Draw_EnterSerialNumber);
+    MALLOC_EXTRAMEM(StructForSN, s);
+    s->number = 01;
+    s->year = 2017;
+    s->curDigt = 0;
 }
 
 static void Draw_EnterSerialNumber(void)
@@ -1412,35 +1417,44 @@ static void Draw_EnterSerialNumber(void)
     Painter_DrawRectangleC(x0, y0, width, height, gColorFill);
     Painter_FillRegionC(x0 + 1, y0 + 1, width - 2, height - 2, gColorBack);
 
-    int index = 0;
-    int position = 0;
     int deltaX = 10;
-    int deltaY0 = 5;
-    int deltaY = 12;
 
-    // Рисуем большие буквы английского алфавита
-    while (symbolsAlphaBet[index][0] != ' ')
-    {
-        DrawStr(index, x0 + deltaX + position * 7, y0 + deltaY0);
-        ++index;
-        ++position;
-    }
-
-    // Теперь рисуем цифры и пробел
-    position = 0;
-    while (symbolsAlphaBet[index][0] != 'a')
-    {
-        DrawStr(index, x0 + deltaX + 50 + position * 7, y0 + deltaY0 + deltaY);
-        ++index;
-        ++position;
-    }
-
-    int x = Painter_DrawTextC(x0 + deltaX, y0 + 65, stringSN, gColorFill);
-    Painter_FillRegionC(x, y0 + 65, 5, 8, COLOR_FLASH_10);
-
-    // Теперь выведем информацию об оставшемся месте в OTP-памяти для записи
+    ACCESS_EXTRAMEM(StructForSN, s);
+    
+    bool selNumber = s->curDigt == 0;
 
     char buffer[20];
+    snprintf(buffer, 19, "%02d", s->number);
+
+    Color colorText = gColorFill;
+    Color colorBackground = gColorBack;
+
+    if (selNumber)
+    {
+        colorText = COLOR_FLASH_01;
+        colorBackground = COLOR_FLASH_10;
+    }
+
+    int y = y0 + 50;
+
+    Painter_SetColor(colorText);
+    int x = Painter_DrawTextOnBackground(x0 + deltaX, y, buffer, colorBackground);
+
+    colorText = COLOR_FLASH_01;
+    colorBackground = COLOR_FLASH_10;
+
+    if (selNumber)
+    {
+        colorText = gColorFill;
+        colorBackground = gColorBack;
+    }
+
+    snprintf(buffer, 19, "%04d", s->year);
+
+    Painter_SetColor(colorText);
+    Painter_DrawTextOnBackground(x + 5, y, buffer, colorBackground);
+
+    // Теперь выведем информацию об оставшемся месте в OTP-памяти для записи
 
     int allShots = OTP_GetSerialNumber(buffer);
 
@@ -1451,9 +1465,21 @@ static void Draw_EnterSerialNumber(void)
 
 static void OnRegSet_SerialNumber(int angle)
 {
-    extern void OnMemExtSetMaskNameRegSet(int angle, int maxIndex);
+    typedef int (*pFunc)(int*, int, int);
 
-    OnMemExtSetMaskNameRegSet(angle, 0x27);
+    pFunc p = angle > 0 ? CircleIncreaseInt : CircleDecreaseInt;
+
+    ACCESS_EXTRAMEM(StructForSN, s);
+
+    if (s->curDigt == 0)
+    {
+        p(&s->number, 1, 99);
+    }
+    else
+    {
+        p(&s->year, 2016, 2050);
+    }
+    Sound_GovernorChangedValue();
 }
 
 // ОТЛАДКА - С/Н - Выход -----------------------------------------------------------------------------------------------------------------------------
@@ -1468,64 +1494,11 @@ static const SmallButton bSerialNumber_Exit =
 static void OnPress_SerialNumber_Exit(void)
 {
     Display_RemoveAddDrawFunction();
-}
-
-// ОТЛАДКА - С/Н - Удалить ---------------------------------------------------------------------------------------------------------------------------
-static const SmallButton bSerialNumber_Delete =
-{
-    Item_SmallButton, &ppSerialNumber, 0,
-    {
-        "Удалить", "Delete",
-        "Удаляет все введённые символы",
-        "Delete all entered symbols"
-    },
-    OnPress_SerialNumber_Delete,
-    Draw_SerialNumber_Delete
-};
-
-static void OnPress_SerialNumber_Delete(void)
-{
-    stringSN[0] = 0;
-}
-
-static void Draw_SerialNumber_Delete(int x, int y)
-{
-    Painter_SetFont(TypeFont_UGO2);
-    Painter_Draw4SymbolsInRect(x + 2, y + 1, SYMBOL_DELETE);
-    Painter_SetFont(TypeFont_8);
-}
-
-// ОТЛАДКА - С/Н - Backspace -------------------------------------------------------------------------------------------------------------------------
-static const SmallButton bSerialNumber_Backspace =
-{
-    Item_SmallButton, &ppSerialNumber, 0,
-    {
-        "Backspace", "Backspace",
-        "Удаляет последний введённый символ",
-        "Delete the last entered symbol"
-    },
-    OnPress_SerialNumber_Backspace,
-    Draw_SerialNumber_Backspace
-};
-
-static void OnPress_SerialNumber_Backspace(void)
-{
-    int index = strlen(stringSN);
-    if (index)
-    {
-        stringSN[index - 1] = 0;
-    }
-}
-
-static void Draw_SerialNumber_Backspace(int x, int y)
-{
-    Painter_SetFont(TypeFont_UGO2);
-    Painter_Draw4SymbolsInRect(x + 2, y + 1, SYMBOL_BACKSPACE);
-    Painter_SetFont(TypeFont_8);
+    FREE_EXTRAMEM();
 }
 
 // ОТЛАДКА - С/Н - Вставить --------------------------------------------------------------------------------------------------------------------------
-static const SmallButton bSerialNumber_Insert =
+static const SmallButton bSerialNumber_Change =
 {
     Item_SmallButton, &ppSerialNumber, 0,
     {
@@ -1533,24 +1506,22 @@ static const SmallButton bSerialNumber_Insert =
         "Вставляет выбраный символ",
         "Inserts the chosen symbol"
     },
-    OnPress_SerialNumber_Insert,
-    Draw_SerialNumber_Insert
+    OnPress_SerialNumber_Change,
+    Draw_SerialNumber_Change
 };
 
-static void OnPress_SerialNumber_Insert(void)
+static void OnPress_SerialNumber_Change(void)
 {
-    int size = strlen(stringSN);
-    if (size < LENGTH_SN - 1)
-    {
-        stringSN[size] = symbolsAlphaBet[INDEX_SYMBOL][0];
-        stringSN[size + 1] = '\0';
-    }
+    ACCESS_EXTRAMEM(StructForSN, s);
+    ++s->curDigt;
+    s->curDigt %= 2;
+    Painter_ResetFlash();
 }
 
-static void Draw_SerialNumber_Insert(int x, int y)
+static void Draw_SerialNumber_Change(int x, int y)
 {
     Painter_SetFont(TypeFont_UGO2);
-    Painter_Draw4SymbolsInRect(x + 2, y + 2, SYMBOL_INSERT);
+    Painter_Draw4SymbolsInRect(x + 2, y + 2, SYMBOL_TAB);
     Painter_SetFont(TypeFont_8);
 }
 
@@ -1569,6 +1540,12 @@ static const SmallButton bSerialNumber_Save =
 
 static void OnPress_SerialNumber_Save(void)
 {
+    ACCESS_EXTRAMEM(StructForSN, s);
+
+    char stringSN[20];
+
+    snprintf(stringSN, 19, "%02d %04d", s->number, s->year);
+
     if (!OTP_SaveSerialNumber(stringSN))
     {
         Display_ShowWarning(FullyCompletedOTP);

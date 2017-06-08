@@ -131,5 +131,6 @@ extern GMemory gMemory;
 #define ACCESS_EXTRAMEM(NameStruct, name)   NameStruct *name = (NameStruct*)extraMEM
 #define FREE_EXTRAMEM()                     free(extraMEM)
 
+
 /** @}
  */

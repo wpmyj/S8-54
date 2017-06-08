@@ -37,6 +37,7 @@
 #define SYMBOL_BACKSPACE        '\x20'
 #define SYMBOL_DELETE           '\x22'  ///< ВНЕШН ЗУ-МАСКА-УДАЛИТЬ
 #define SYMBOL_INSERT           '\x26'  ///< ВНЕШН ЗУ-ИМЯ-ВСТАВИТЬ
+#define SYMBOL_TAB              '\x6e'
 
 #define SYMBOL_SAVE_TO_MEM      '\x2c'
 

@@ -1035,7 +1035,7 @@ static const SmallButton sbFileManagerTab =
 static void DrawSB_FM_Tab(int x, int y)
 {
     Painter_SetFont(TypeFont_UGO2);
-    Painter_Draw4SymbolsInRect(x + 2, y + 1, '\x6e');
+    Painter_Draw4SymbolsInRect(x + 2, y + 1, SYMBOL_TAB);
     Painter_SetFont(TypeFont_8);
 }
 

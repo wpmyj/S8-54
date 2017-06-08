@@ -187,6 +187,19 @@ int Painter_DrawCharC(int x, int y, char symbol, Color color)
 }
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
+int Painter_DrawTextOnBackground(int x, int y, const char *text, Color colorBackground)
+{
+    int width = Font_GetLengthText(text);
+    int height = Font_GetSize();
+
+    Color colorText = Painter_GetColor();
+    Painter_FillRegionC(x - 1, y, width, height, colorBackground);
+    Painter_SetColor(colorText);
+
+    return Painter_DrawText(x, y, text);
+}
+
+//----------------------------------------------------------------------------------------------------------------------------------------------------
 int Painter_DrawText(int x, int y, const char *text)
 {
     if (*text == 0)

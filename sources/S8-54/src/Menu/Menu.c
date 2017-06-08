@@ -887,6 +887,7 @@ static bool NeedForFireSetLED(void)    // Возвращает true, если лампочка УСТАНОВ
 
     NamePage name = GetNameOpenedPage();
     if (
+            name == Page_SB_SerialNumber    ||
             name == Page_SB_MathCursorsFFT  || 
             name == Page_SB_MeasTuneMeas    || 
             name == Page_SB_MemLatest       || 

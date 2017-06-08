@@ -20,6 +20,8 @@ int Painter_DrawChar(int x, int y, char symbol);
 int Painter_DrawCharC(int x, int y, char symbol, Color color);
 
 int Painter_DrawText(int x, int y, const char *text);
+/// Выводит текст на прямоугольнике цвета colorBackgound
+int Painter_DrawTextOnBackground(int x, int y, const char *text, Color colorBackground);
 
 int Painter_DrawFormatText(int x, int y, char *format, ...);
 
