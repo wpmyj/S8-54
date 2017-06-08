@@ -551,6 +551,52 @@ bool FLASH_GetData(int num, DataSettings **ds, uint8 **dataA, uint8 **dataB)
     return true;
 }
 
+//----------------------------------------------------------------------------------------------------------------------------------------------------
+bool OTP_SaveSerialNumber(char *servialNumber)
+{
+    // Ќаходим первую пустую строку длиной 16 байт в области OTP, начина€ с начала
+    uint8 *address = (uint8*)FLASH_OTP_BASE;
+
+    while ((*address) != 0xff &&                    // *address != 0xff означает, что запись в эту строку уже производилась
+           address < (uint8*)FLASH_OTP_END - 16)
+    {
+        address += 16;
+    }
+
+    if (address < (uint8*)FLASH_OTP_END - 16)
+    {
+        WriteBufferBytes((uint)address, (uint8*)servialNumber, strlen(servialNumber) + 1);
+        return true;
+    }
+
+    return false;
+}
+
+//----------------------------------------------------------------------------------------------------------------------------------------------------
+int OTP_GetSerialNumber(char buffer[17])
+{
+    /// \todo улучшить - нельз€ разбрасыватьс€ байтами.  ажда€ запись должна занимать столько места, сколько в ней символов, а не 16, как сейчас.
+
+    const int allShotsMAX = 512 / 16;   // ћаксимальное число записей в OTP серийного номера.
+
+    uint8* address = (uint8*)FLASH_OTP_END - 15;
+
+    do
+    {
+        address -= 16;
+    } while(*address == 0xff && address > (uint8*)FLASH_OTP_BASE);
+
+    if (*address == 0xff)   // Ќе нашли строки с информацией, дойд€ до начального адреса OTP
+    {
+        buffer[0] = 0;
+        return allShotsMAX;
+    }
+
+    strcpy(buffer, (char*)address);
+
+    return allShotsMAX - (address - (uint8*)FLASH_OTP_BASE) / 16 - 1;
+}
+
 #undef CLEAR_FLASH_FLAGS
 #undef READ_WORD
 #undef READ_HALF_WORD

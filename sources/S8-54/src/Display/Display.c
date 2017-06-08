@@ -1,43 +1,25 @@
 // This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++ and C#: http://www.viva64.com
-#include "defines.h"
-#include "Globals.h"
-#include "Log.h"
-#include "PainterMem.h"
-#include "Symbols.h"
 #include "Display.h"
 #include "Grid.h"
-#include "Painter.h"
-#include "font/Font.h"
-#include "Colors.h"
 #include "PainterData.h"
-#include "Ethernet/Ethernet.h"
+#include "Symbols.h"
 #include "Ethernet/TcpSocket.h"
+#include "FlashDrive/FlashDrive.h"
+#include "font/Font.h"
 #include "FPGA/Data.h"
 #include "FPGA/fpga.h"
 #include "FPGA/fpgaExtensions.h"
-#include "FPGA/DataStorage.h"
-#include "FlashDrive/FlashDrive.h"
-#include "Hardware/Hardware.h"
 #include "Hardware/FSMC.h"
-#include "Hardware/FLASH.h" 
-#include "Hardware/Sound.h"
-#include "Hardware/RTC.h"
 #include "Hardware/RAM.h"
+#include "Hardware/Sound.h"
 #include "Hardware/Timer.h"
 #include "Menu/Menu.h"
 #include "Menu/MenuDrawing.h"
 #include "Menu/MenuFunctions.h"
-#include "Menu/Pages/PageCursors.h"
-#include "Menu/Pages/Memory/PageMemory.h"
-#include "Menu/Pages/PageHelp.h"
-#include "Settings/Settings.h"
-#include "Utils/Measures.h"
-#include "Utils/Math.h"
 #include "Utils/GlobalFunctions.h"
+#include "Utils/Math.h"
 #include "Utils/ProcessingSignal.h"
-#include "Utils/Debug.h"
-#include "VCP/VCP.h"
 
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -110,7 +92,9 @@ static const StructWarning warns[Warning_Count] =
     {WarnNeedForFlashDrive, true,       {{"Сначала подключите флеш-диск"},
         {"First connect the flash drive"}}},
     {FirmwareSaved, true,               {{"Прошивка сохранена"},
-        {"Firmware saved"}}}
+        {"Firmware saved"}}},
+    {FullyCompletedOTP, false,          {{"Память OTP полностью заполнена"},
+        {"OTP memory fully completed"}}}
 };
 
 #define  DELTA 5

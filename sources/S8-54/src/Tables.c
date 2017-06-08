@@ -1,11 +1,8 @@
 // This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++ and C#: http://www.viva64.com
-#include "defines.h"
-#include "Settings/SettingsTypes.h"
-#include "Settings/Settings.h"
 #include "Log.h"
-#include "Tables.h"
-#include "Utils/GlobalFunctions.h"
+#include "Display/font/Font.h"
+#include "Settings/Settings.h"
 
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -50,6 +47,17 @@ static const TBaseStruct tBases[TBaseSize] =
     {"2\x10с",      "2\x10s"},
     {"5\x10с",      "5\x10s"},
     {"10\x10с",     "10\x10s"}
+};
+
+/// Таблица символов алфавита и спецсимволов для ввода текста
+const char* symbolsAlphaBet[] =
+{
+    /* 0x00 */ "A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z", /* 0x19 */
+    /* 0x1a */ " ", "_", "-", "0", "1", "2", "3", "4", "5", "6", "7", "8", "9", /* 0x26 */
+    /* 0x27 */ "a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z", /* 0x40 */
+    //         0x41  0x42  0x43  0x44  0x45  0x46   0x47   - это порядковый номер элемента в этом массиве
+    /* 0x41 */ "%y", "%m", "%d", "%H", "%M", "%S", "%N" /* 0x47 */
+    //         0x01  0x02  0x03  0x04  0x05  0x06   0x07   - под этими значениями элементы хранятся в set.memory.fileNameMask
 };
 
 
@@ -133,4 +141,16 @@ const char* Tables_RangeNameFromValue(Range range)
 int Tables_GetNumChannel(Channel ch)
 {
     return ch == A ? 1 : 2;
+}
+
+
+//----------------------------------------------------------------------------------------------------------------------------------------------------
+void DrawStr(int index, int x, int y)
+{
+    const char *str = symbolsAlphaBet[index];
+    if (index == INDEX_SYMBOL)
+    {
+        Painter_FillRegionC(x - 1, y, Font_GetLengthText(str), 9, COLOR_FLASH_10);
+    }
+    Painter_DrawTextC(x, y, symbolsAlphaBet[index], index == INDEX_SYMBOL ? COLOR_FLASH_01 : gColorFill);
 }

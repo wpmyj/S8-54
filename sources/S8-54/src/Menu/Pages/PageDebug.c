@@ -1,19 +1,15 @@
 // This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++ and C#: http://www.viva64.com
-#include "defines.h"
-#include "Menu/Pages/Definition.h"
-#include "Settings/SettingsTypes.h"
-#include "Settings/Settings.h"
-#include "Display/Display.h"
-#include "Utils/GlobalFunctions.h"
+#include "Log.h"
+#include "Display/Grid.h"
+#include "Display/Symbols.h"
+#include "FlashDrive/FlashDrive.h"
 #include "FPGA/FPGA.h"
-#include "FPGA/FPGAtypes.h"
-#include "Hardware/FSMC.h"
-#include "Hardware/Sound.h"
+#include "Hardware/FLASH.h"
 #include "Menu/MenuDrawing.h"
 #include "Menu/MenuFunctions.h"
-#include "FlashDrive/FlashDrive.h"
-#include "Log.h"
+#include "Menu/Pages/Definition.h"
+#include "Utils/GlobalFunctions.h"
 
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -108,17 +104,34 @@ static const       Page ppSettings;                             ///< ОТЛАДКА - Н
 static void       OnPress_Settings(void);
 static const SmallButton bSettings_Exit;                        ///< ОТЛАДКА - НАСТРОЙКИ - Выход
 static void       OnPress_Settings_Exit(void);
+static const      Button bSaveFirmware;                         ///< ОТЛАДКА - Сохр. прошивку
+static bool      IsActive_SaveFirmware(void);
+static void       OnPress_SaveFirmware(void);
 static const       Page ppSerialNumber;                         ///< ОТЛАДКА - С/Н
 static void       OnPress_SerialNumber(void);
-static void      OnRegSet_SerialNumber(int delta);
-static void          Draw_SerialNumber(void);
-static const      Button bSaveFirmware;                         ///< ОТЛАДКА - Сохр. прошивку
-static bool     IsActive_SaveFirmware(void);
-static void      OnPress_SaveFirmware(void);
+static void          Draw_EnterSerialNumber(void);
+static void      OnRegSet_SerialNumber(int);
+static const SmallButton bSerialNumber_Exit;                    ///< ОТЛАДКА - С/Н - Выход
+static void       OnPress_SerialNumber_Exit(void);
+static const SmallButton bSerialNumber_Delete;                  ///< ОТЛАДКА - С/Н - Удалить
+static void       OnPress_SerialNumber_Delete(void);
+static void          Draw_SerialNumber_Delete(int, int);
+static const SmallButton bSerialNumber_Backspace;               ///< ОТЛАДКА - С/Н - Backspace
+static void       OnPress_SerialNumber_Backspace(void);
+static void          Draw_SerialNumber_Backspace(int, int);     
+static const SmallButton bSerialNumber_Insert;                  ///< ОТЛАДКА - С/Н - Вставить
+static void       OnPress_SerialNumber_Insert(void);
+static void          Draw_SerialNumber_Insert(int, int);
+static const SmallButton bSerialNumber_Save;                    ///< ОТЛАДКА - С/Н - Сохранить
+static void       OnPress_SerialNumber_Save(void);
+static void          Draw_SerialNumber_Save(int, int);
+
+#define LENGTH_SN 15
+static char stringSN[LENGTH_SN] = "";   ///< Серийный номер для записи в OTP.
 
 
 // ОТЛАДКА ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-const Page mpDebug =
+const Page pDebug =
 {
     Item_Page, &mainPage, 0,
     {
@@ -137,15 +150,15 @@ const Page mpDebug =
         (void*)&mgPred,                 // ОТЛАДКА - Предзапуск
         (void*)&mgPost,                 // ОТЛАДКА - Послезапуск
         (void*)&ppSettings,             // ОТЛАДКА - НАСТРОЙКИ
+        (void*)&bSaveFirmware,          // ОТЛАДКА - Сохр. прошивку
         (void*)&ppSerialNumber,         // ОТЛАДКА - С/Н
-        (void*)&bSaveFirmware           // ОТЛАДКА - Сохр. прошивку
     }
 };
 
 // ОТЛАДКА - КОНСОЛЬ /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 static const Page ppConsole =
 {
-    Item_Page, &mpDebug, 0,
+    Item_Page, &pDebug, 0,
     {
         "КОНСОЛЬ", "CONSOLE",
         "",
@@ -452,7 +465,7 @@ static void FuncDraw_Console_SizeSettings(int x, int y)
 // ОТЛАДКА - АЦП /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 static const Page ppADC =
 {
-    Item_Page, &mpDebug, 0,
+    Item_Page, &pDebug, 0,
     {
         "АЦП", "ADC",
         "",
@@ -902,7 +915,7 @@ static const Governor gADC_Shift_B10mV =
 // ОТЛАДКА - РАНД-ТОР ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 static const Page ppRand =
 {
-    Item_Page, &mpDebug, 0,
+    Item_Page, &pDebug, 0,
     {
         "РАНД-ТОР", "RANDOMIZER",
         "",
@@ -924,7 +937,7 @@ static const Page ppRand =
 // ОТЛАДКА - КАНАЛЫ //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 static const Page ppChannels =
 {
-    Item_Page, &mpDebug, 0,
+    Item_Page, &pDebug, 0,
     {
         "КАНЛАЫ", "CHANNELS",
         "",
@@ -1089,7 +1102,7 @@ static int16 post;
 // ОТЛАДКА - Предзапуск ------------------------------------------------------------------------------------------------------------------------------
 static const Governor mgPred =
 {
-    Item_Governor, &mpDebug, 0,
+    Item_Governor, &pDebug, 0,
     {
         "Предзапуск", "",
         "", ""
@@ -1100,7 +1113,7 @@ static const Governor mgPred =
 // ОТЛАДКА - Послезапуск -----------------------------------------------------------------------------------------------------------------------------
 static const Governor mgPost =
 {
-    Item_Governor, &mpDebug, 0,
+    Item_Governor, &pDebug, 0,
     {
         "Послезапуск", "",
         "", ""
@@ -1112,7 +1125,7 @@ static const Governor mgPost =
 // ОТЛАДКА - НАСТРОЙКИ ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 static const Page ppSettings =
 {
-    Item_Page, &mpDebug, 0,
+    Item_Page, &pDebug, 0,
     {
         "НАСТРОЙКИ", "SETTINGS",
         "Показать информацию о настройках",
@@ -1263,7 +1276,7 @@ static const Choice gRand_ShowStat =
 // ОТЛАДКА - Режим ЭМС ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 static const Choice cEMS =
 {
-    Item_Choice, &mpDebug, 0,
+    Item_Choice, &pDebug, 0,
     {
         "Режим ЭМС", "EMS mode",
         "Принудительно включает фильтр 20МГц, сглаживание по 4-м точкам, усреднение по 8-ми точкам",
@@ -1285,7 +1298,7 @@ static void OnChange_EMS(bool active)
 // ОТЛАДКА - Ориентация //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 static const Choice cDisplayOrientation =
 {
-    Item_Choice, &mpDebug, 0,
+    Item_Choice, &pDebug, 0,
     {
         "Ориентация", "DisplayOrientation",
         "Устанавливает ориентацию дисплея",
@@ -1306,7 +1319,7 @@ void OnChange_DisplayOrientation(bool active)
 // ОТЛАДКА - Статистика ------------------------------------------------------------------------------------------------------------------------------
 static const Choice cStats =
 {
-    Item_Choice, &mpDebug, 0,
+    Item_Choice, &pDebug, 0,
     {
         "Статистика", "Statistics",
         "Показывать/не показывать время/кадр, кадров в секунду, количество сигналов с последними настройками в памяти/количество сохраняемых в памяти сигналов",
@@ -1319,59 +1332,10 @@ static const Choice cStats =
     (int8*)&SHOW_STAT
 };
 
-static const Button sbExitSerialNumber;
-
-//----------------------------------------------------------------------------------------------------------------------------------------------------
-static const Button sbSerialNumberLeft;
-
-//----------------------------------------------------------------------------------------------------------------------------------------------------
-static const Button sbSerialNumberRight;
-
-//----------------------------------------------------------------------------------------------------------------------------------------------------
-static const Button sbSerialNumberWrite;
-
-// ОТЛАДКА - С/Н -------------------------------------------------------------------------------------------------------------------------------------
-static const Page ppSerialNumber =
-{
-    Item_Page, &mpDebug, 0,
-    {
-        "С/Н", "S/N",
-        "Запись серийного номера в OTP-память. ВНИМАНИЕ!!! ОТP-память - память с однократной записью.",
-        "Serial number recording in OTP-memory. ATTENTION!!! OTP memory is a one-time programming memory."
-    },
-    Page_SB_SerialNumber,
-    {
-        (void*)&sbExitSerialNumber,
-        (void*)&sbSerialNumberLeft,
-        (void*)&sbSerialNumberRight,
-        (void*)0,
-        (void*)0,
-        (void*)&sbSerialNumberWrite
-    },
-    OnPress_SerialNumber, 0, OnRegSet_SerialNumber
-};
-
-static void OnPress_SerialNumber(void)
-{
-    OpenPageAndSetItCurrent(Page_SB_SerialNumber);
-    Display_SetAddDrawFunction(Draw_SerialNumber);
-}
-
-static void OnRegSet_SerialNumber(int delta)
-{
-
-}
-
-static void Draw_SerialNumber(void)
-{
-    Painter_BeginScene(gColorGrid);
-    Painter_EndScene();
-}
-
 // ОТЛАДКА - Сохр. прошивку --------------------------------------------------------------------------------------------------------------------------
 static const Button bSaveFirmware =
 {
-    Item_Button, &mpDebug, IsActive_SaveFirmware,
+    Item_Button, &pDebug, IsActive_SaveFirmware,
     {
         "Сохр. прошивку", "Save firmware",
         "Сохранение прошивки - секторов 5, 6, 7 общим объёмом 3 х 128 кБ, где хранится программа",
@@ -1410,6 +1374,236 @@ static void OnPress_SaveFirmware(void)
 
     Display_ShowWarning(FirmwareSaved);
 }
+
+// ОТЛАДКА - С/Н -------------------------------------------------------------------------------------------------------------------------------------
+static const Page ppSerialNumber =
+{
+    Item_Page, &pDebug, 0,
+    {
+        "С/Н", "S/N",
+        "Запись серийного номера в OTP-память. ВНИМАНИЕ!!! ОТP-память - память с однократной записью.",
+        "Serial number recording in OTP-memory. ATTENTION!!! OTP memory is a one-time programming memory."
+    },
+    Page_SB_SerialNumber,
+    {
+        (void*)&bSerialNumber_Exit,     // ОТЛАДКА - С/Н - Выход
+        (void*)&bSerialNumber_Delete,   // ОТЛАДКА - С/Н - Удалить 
+        (void*)&bSerialNumber_Backspace,// ОТЛАДКА - С/Н - Backspace
+        (void*)&bSerialNumber_Insert,   // ОТЛАДКА - С/Н - Вставить
+        (void*)0,
+        (void*)&bSerialNumber_Save      // ОТЛАДКА - С/Н - Сохранить
+    },
+    OnPress_SerialNumber, 0, OnRegSet_SerialNumber
+};
+
+static void OnPress_SerialNumber(void)
+{
+    OpenPageAndSetItCurrent(Page_SB_SerialNumber);
+    Display_SetAddDrawFunction(Draw_EnterSerialNumber);
+}
+
+static void Draw_EnterSerialNumber(void)
+{
+    int x0 = GridLeft() + 40;
+    int y0 = GRID_TOP + 20;
+    int width = GridWidth() - 80;
+    int height = 160;
+
+    Painter_DrawRectangleC(x0, y0, width, height, gColorFill);
+    Painter_FillRegionC(x0 + 1, y0 + 1, width - 2, height - 2, gColorBack);
+
+    int index = 0;
+    int position = 0;
+    int deltaX = 10;
+    int deltaY0 = 5;
+    int deltaY = 12;
+
+    // Рисуем большие буквы английского алфавита
+    while (symbolsAlphaBet[index][0] != ' ')
+    {
+        DrawStr(index, x0 + deltaX + position * 7, y0 + deltaY0);
+        ++index;
+        ++position;
+    }
+
+    // Теперь рисуем цифры и пробел
+    position = 0;
+    while (symbolsAlphaBet[index][0] != 'a')
+    {
+        DrawStr(index, x0 + deltaX + 50 + position * 7, y0 + deltaY0 + deltaY);
+        ++index;
+        ++position;
+    }
+
+    int x = Painter_DrawTextC(x0 + deltaX, y0 + 65, stringSN, gColorFill);
+    Painter_FillRegionC(x, y0 + 65, 5, 8, COLOR_FLASH_10);
+
+    // Теперь выведем информацию об оставшемся месте в OTP-памяти для записи
+
+    char buffer[20];
+
+    int allShots = OTP_GetSerialNumber(buffer);
+
+    Painter_DrawFormText(x0 + deltaX, y0 + 130, gColorFill, "Текущий сохранённый номер %s", buffer[0] == 0 ? "-- ----" : buffer);
+
+    Painter_DrawFormText(x0 + deltaX, y0 + 100, gColorFill, "Осталось места для %d попыток", allShots);
+}
+
+static void OnRegSet_SerialNumber(int angle)
+{
+    extern void OnMemExtSetMaskNameRegSet(int angle, int maxIndex);
+
+    OnMemExtSetMaskNameRegSet(angle, 0x27);
+}
+
+// ОТЛАДКА - С/Н - Выход -----------------------------------------------------------------------------------------------------------------------------
+static const SmallButton bSerialNumber_Exit =
+{
+    Item_SmallButton, &ppSerialNumber,
+    COMMON_BEGIN_SB_EXIT,
+    OnPress_SerialNumber_Exit,
+    DrawSB_Exit
+};
+
+static void OnPress_SerialNumber_Exit(void)
+{
+    Display_RemoveAddDrawFunction();
+}
+
+// ОТЛАДКА - С/Н - Удалить ---------------------------------------------------------------------------------------------------------------------------
+static const SmallButton bSerialNumber_Delete =
+{
+    Item_SmallButton, &ppSerialNumber, 0,
+    {
+        "Удалить", "Delete",
+        "Удаляет все введённые символы",
+        "Delete all entered symbols"
+    },
+    OnPress_SerialNumber_Delete,
+    Draw_SerialNumber_Delete
+};
+
+static void OnPress_SerialNumber_Delete(void)
+{
+    stringSN[0] = 0;
+}
+
+static void Draw_SerialNumber_Delete(int x, int y)
+{
+    Painter_SetFont(TypeFont_UGO2);
+    Painter_Draw4SymbolsInRect(x + 2, y + 1, SYMBOL_DELETE);
+    Painter_SetFont(TypeFont_8);
+}
+
+// ОТЛАДКА - С/Н - Backspace -------------------------------------------------------------------------------------------------------------------------
+static const SmallButton bSerialNumber_Backspace =
+{
+    Item_SmallButton, &ppSerialNumber, 0,
+    {
+        "Backspace", "Backspace",
+        "Удаляет последний введённый символ",
+        "Delete the last entered symbol"
+    },
+    OnPress_SerialNumber_Backspace,
+    Draw_SerialNumber_Backspace
+};
+
+static void OnPress_SerialNumber_Backspace(void)
+{
+    int index = strlen(stringSN);
+    if (index)
+    {
+        stringSN[index - 1] = 0;
+    }
+}
+
+static void Draw_SerialNumber_Backspace(int x, int y)
+{
+    Painter_SetFont(TypeFont_UGO2);
+    Painter_Draw4SymbolsInRect(x + 2, y + 1, SYMBOL_BACKSPACE);
+    Painter_SetFont(TypeFont_8);
+}
+
+// ОТЛАДКА - С/Н - Вставить --------------------------------------------------------------------------------------------------------------------------
+static const SmallButton bSerialNumber_Insert =
+{
+    Item_SmallButton, &ppSerialNumber, 0,
+    {
+        "Вставить", "Insert",
+        "Вставляет выбраный символ",
+        "Inserts the chosen symbol"
+    },
+    OnPress_SerialNumber_Insert,
+    Draw_SerialNumber_Insert
+};
+
+static void OnPress_SerialNumber_Insert(void)
+{
+    int size = strlen(stringSN);
+    if (size < LENGTH_SN - 1)
+    {
+        stringSN[size] = symbolsAlphaBet[INDEX_SYMBOL][0];
+        stringSN[size + 1] = '\0';
+    }
+}
+
+static void Draw_SerialNumber_Insert(int x, int y)
+{
+    Painter_SetFont(TypeFont_UGO2);
+    Painter_Draw4SymbolsInRect(x + 2, y + 2, SYMBOL_INSERT);
+    Painter_SetFont(TypeFont_8);
+}
+
+// ОТЛАДКА - С/Н - Сохранить -------------------------------------------------------------------------------------------------------------------------
+static const SmallButton bSerialNumber_Save =
+{
+    Item_SmallButton, &ppSerialNumber, 0,
+    {
+        "Сохранить", "Save",
+        "Записывает серийный номер в OTP",
+        "Records the serial number in OTP"
+    },
+    OnPress_SerialNumber_Save,
+    Draw_SerialNumber_Save
+};
+
+static void OnPress_SerialNumber_Save(void)
+{
+    if (!OTP_SaveSerialNumber(stringSN))
+    {
+        Display_ShowWarning(FullyCompletedOTP);
+    }
+}
+
+static void Draw_SerialNumber_Save(int x, int y)
+{
+    Painter_SetFont(TypeFont_UGO2);
+    Painter_Draw4SymbolsInRect(x + 2, y + 1, SYMBOL_SAVE_TO_MEM);
+    Painter_SetFont(TypeFont_8);
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

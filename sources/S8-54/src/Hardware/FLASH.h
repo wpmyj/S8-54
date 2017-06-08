@@ -27,5 +27,8 @@ bool FLASH_GetData(int num, DataSettings **ds, uint8 **dataA, uint8 **dataB);
 void FLASH_DeleteData(int num);
 void FLASH_DeleteAllData(void);
 
+bool OTP_SaveSerialNumber(char *servialNumber);
+int OTP_GetSerialNumber(char buffer[17]);   ///< ¬озвращает число свободных мест дл€ записи. ≈сли 0, то места в OTP уже не осталось.
+
 /** @} @}
  */

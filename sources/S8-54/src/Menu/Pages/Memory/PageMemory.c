@@ -158,23 +158,13 @@ static void DrawSB_MemExtSetNameSave(int x, int y);
 
 
 static void DrawSetMask(void);  // Эта функция рисует, когда выбран режим задания маски.
-static void DrawStr(int index, int x, int y);
 static void DrawFileMask(int x, int y);
 static void DrawSetName(void);  // Эта функция рисует, когда нужно задать имя файла для сохранения
 
 static void DrawMemoryWave(int num, bool exist);
 static void SaveSignalToIntMemory(void);
-static void OnMemExtSetMaskNameRegSet(int angle, int maxIndex);
+       void OnMemExtSetMaskNameRegSet(int angle, int maxIndex);
 
-static const char* symbols[] =
-{
-    /* 0x00 */ "A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z", /* 0x19 */
-    /* 0x1a */ " ", "_", "-", "0", "1", "2", "3", "4", "5", "6", "7", "8", "9", /* 0x26 */
-    /* 0x27 */ "a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z", /* 0x40 */
-    //         0x41  0x42  0x43  0x44  0x45  0x46   0x47   - это порядковый номер элемента в этом массиве
-    /* 0x41 */ "%y", "%m", "%d", "%H", "%M", "%S", "%N" /* 0x47 */
-    //         0x01  0x02  0x03  0x04  0x05  0x06   0x07   - под этими значениями элементы хранятся в set.memory.fileNameMask
-};
 
 // ПЯМЯТЬ ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 const Page mpMemory =
@@ -484,7 +474,7 @@ static void DrawSetName(void)
     int deltaY = 12;
 
     // Рисуем большие буквы английского алфавита
-    while (symbols[index][0] != ' ')
+    while (symbolsAlphaBet[index][0] != ' ')
     {
         DrawStr(index, x0 + deltaX + position * 7, y0 + deltaY0);
         index++;
@@ -493,7 +483,7 @@ static void DrawSetName(void)
 
     // Теперь рисуем цифры и пробел
     position = 0;
-    while (symbols[index][0] != 'a')
+    while (symbolsAlphaBet[index][0] != 'a')
     {
         DrawStr(index, x0 + deltaX + 50 + position * 7, y0 + deltaY0 + deltaY);
         index++;
@@ -502,7 +492,7 @@ static void DrawSetName(void)
 
     // Теперь рисуем малые буквы алфавита
     position = 0;
-    while (symbols[index][0] != '%')
+    while (symbolsAlphaBet[index][0] != '%')
     {
         DrawStr(index, x0 + deltaX + position * 7, y0 + deltaY0 + deltaY * 2);
         index++;
@@ -511,16 +501,6 @@ static void DrawSetName(void)
 
     int x = Painter_DrawTextC(x0 + deltaX, y0 + 65, FILE_NAME, gColorFill);
     Painter_FillRegionC(x, y0 + 65, 5, 8, COLOR_FLASH_10);
-}
-
-static void DrawStr(int index, int x, int y)
-{
-    const char *str = symbols[index];
-    if (index == INDEX_SYMBOL)
-    {
-        Painter_FillRegionC(x - 1, y, Font_GetLengthText(str), 9, COLOR_FLASH_10);
-    }
-    Painter_DrawTextC(x, y, symbols[index], index == INDEX_SYMBOL ? COLOR_FLASH_01 : gColorFill);
 }
 
 static void Draw_Last_SaveToDrive(int x, int y)
@@ -1148,7 +1128,7 @@ static void DrawSetMask(void)
     int deltaY = 12;
 
     // Рисуем большие буквы английского алфавита
-    while (symbols[index][0] != ' ')
+    while (symbolsAlphaBet[index][0] != ' ')
     {
         DrawStr(index, x0 + deltaX + position * 7, y0 + deltaY0);
         index++;
@@ -1157,7 +1137,7 @@ static void DrawSetMask(void)
 
     // Теперь рисуем цифры и пробел
     position = 0;
-    while (symbols[index][0] != 'a')
+    while (symbolsAlphaBet[index][0] != 'a')
     {
         DrawStr(index, x0 + deltaX + 50 + position * 7, y0 + deltaY0 + deltaY);
         index++;
@@ -1166,7 +1146,7 @@ static void DrawSetMask(void)
 
     // Теперь рисуем малые буквы алфавита
     position = 0;
-    while (symbols[index][0] != '%')
+    while (symbolsAlphaBet[index][0] != '%')
     {
         DrawStr(index, x0 + deltaX + position * 7, y0 + deltaY0 + deltaY * 2);
         index++;
@@ -1175,7 +1155,7 @@ static void DrawSetMask(void)
 
     // Теперь рисуем спецсимволы
     position = 0;
-    while (index < (sizeof(symbols) / 4))
+    while (index < (sizeof(symbolsAlphaBet) / 4))
     {
         DrawStr(index, x0 + deltaX + 26 + position * 20, y0 + deltaY0 + deltaY * 3);
         index++;
@@ -1222,7 +1202,7 @@ static void DrawFileMask(int x, int y)
             }
             else
             {
-                x = Painter_DrawText(x, y, symbols[*ch + 0x40]);
+                x = Painter_DrawText(x, y, symbolsAlphaBet[*ch + 0x40]);
             }
         }
         ch++;
@@ -1232,7 +1212,7 @@ static void DrawFileMask(int x, int y)
 
 static void OnMemExtSetMaskRegSet(int angle)
 {
-    OnMemExtSetMaskNameRegSet(angle, sizeof(symbols) / 4);
+    OnMemExtSetMaskNameRegSet(angle, sizeof(symbolsAlphaBet) / 4);
 }
 
 // ПАМЯТЬ - ВНЕШН ЗУ - МАСКА - Выход --------------------------------------------------------------------------------------------------------------
@@ -1270,7 +1250,7 @@ static void PressSB_SetMask_Delete(void)
 static void DrawSB_SetMask_Delete(int x, int y)
 {
     Painter_SetFont(TypeFont_UGO2);
-    Painter_Draw4SymbolsInRect(x + 2, y + 1, SYMBOL_MEMORY_MASK_DELETE);
+    Painter_Draw4SymbolsInRect(x + 2, y + 1, SYMBOL_DELETE);
     Painter_SetFont(TypeFont_8);
 }
 
@@ -1333,7 +1313,7 @@ static void PressSB_SetMask_Insert(void)
     }
     if (index < 0x41)
     {
-        FILE_NAME_MASK[size] = symbols[index][0];
+        FILE_NAME_MASK[size] = symbolsAlphaBet[index][0];
         FILE_NAME_MASK[size + 1] = '\0';
     }
     else
@@ -1362,7 +1342,7 @@ static void PressSB_SetMask_Insert(void)
 static void DrawSB_SetMask_Insert(int x, int y)
 {
     Painter_SetFont(TypeFont_UGO2);
-    Painter_Draw4SymbolsInRect(x + 2, y + 2, SYMBOL_MEMORY_SET_NAME_INSERT);
+    Painter_Draw4SymbolsInRect(x + 2, y + 2, SYMBOL_INSERT);
     Painter_SetFont(TypeFont_8);
 }
 
@@ -1389,10 +1369,10 @@ const Page mpSetName =
 
 static void OnMemExtSetNameRegSet(int angle)
 {
-    OnMemExtSetMaskNameRegSet(angle, sizeof(symbols) / 4 - 7);
+    OnMemExtSetMaskNameRegSet(angle, sizeof(symbolsAlphaBet) / 4 - 7);
 }
 
-static void OnMemExtSetMaskNameRegSet(int angle, int maxIndex)
+void OnMemExtSetMaskNameRegSet(int angle, int maxIndex)
 {
     int8(*func[3])(int8 *, int8, int8) =
     {
@@ -1464,7 +1444,7 @@ static void PressSB_SetName_Delete(void)
 static void DrawSB_SetName_Delete(int x, int y) //-V524
 {
     Painter_SetFont(TypeFont_UGO2);
-    Painter_Draw4SymbolsInRect(x + 2, y + 1, SYMBOL_MEMORY_SET_NAME_DELETE);
+    Painter_Draw4SymbolsInRect(x + 2, y + 1, SYMBOL_DELETE);
     Painter_SetFont(TypeFont_8);
 }
 
@@ -1515,7 +1495,7 @@ static void PressSB_SetName_Insert(void)
     int size = strlen(FILE_NAME);
     if (size < MAX_SYMBOLS_IN_FILE_NAME - 1)
     {
-        FILE_NAME[size] = symbols[INDEX_SYMBOL][0];
+        FILE_NAME[size] = symbolsAlphaBet[INDEX_SYMBOL][0];
         FILE_NAME[size + 1] = '\0';
     }
 }

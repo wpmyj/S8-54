@@ -118,7 +118,7 @@ extern const Page mpChanA;
 extern const Page mpChanB;
 extern const Page mpMemory;
 extern const Page pMeasures;
-extern const Page mpDebug;
+extern const Page pDebug;
 extern const Page mpService;
 extern const Page mpTime;
 extern const Page pTrig;
@@ -143,7 +143,7 @@ const Page mainPage =
         (void*)&pMeasures,
         (void*)&mpService,
         (void*)&mpHelp,
-        (void*)&mpDebug
+        (void*)&pDebug
     }
 };
 

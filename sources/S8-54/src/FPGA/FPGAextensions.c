@@ -1,22 +1,15 @@
 // This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++ and C#: http://www.viva64.com
+#include "DataStorage.h"
 #include "fpgaExtensions.h"
-#include "FPGA/fpga.h" 
-#include "FPGA/fpgaTypes.h"
-#include "Display/Display.h"
-#include "Display/DisplayPrimitives.h"
-#include "Display/Colors.h"
-#include "Display/Painter.h"
-#include "Panel/Panel.h"
-#include "Hardware/FSMC.h"
-#include "Settings/SettingsTypes.h"
-#include "Settings/Settings.h"
-#include "Utils/GlobalFunctions.h"
-#include "Hardware/Timer.h"
 #include "Log.h"
 #include "structures.h"
-#include "DataStorage.h"
-#include <limits.h>
+#include "Display/DisplayPrimitives.h"
+#include "FPGA/fpga.h" 
+#include "Hardware/FSMC.h"
+#include "Hardware/Timer.h"
+#include "Panel/Panel.h"
+#include "Utils/GlobalFunctions.h"
 
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
