@@ -12,6 +12,7 @@
 #include "Hardware/Sound.h"
 #include "Menu/MenuDrawing.h"
 #include "Menu/MenuFunctions.h"
+#include "FlashDrive/FlashDrive.h"
 #include "Log.h"
 
 
@@ -111,6 +112,9 @@ static const       Page ppSerialNumber;                         ///< ÎÒËÀÄÊÀ - Ñ
 static void       OnPress_SerialNumber(void);
 static void      OnRegSet_SerialNumber(int delta);
 static void          Draw_SerialNumber(void);
+static const      Button bSaveFirmware;                         ///< ÎÒËÀÄÊÀ - Ñîõð. ïðîøèâêó
+static bool     IsActive_SaveFirmware(void);
+static void      OnPress_SaveFirmware(void);
 
 
 // ÎÒËÀÄÊÀ ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -123,17 +127,18 @@ const Page mpDebug =
     },
     Page_Debug,
     {
-        (void*)&ppConsole,             // ÎÒËÀÄÊÀ - ÊÎÍÑÎËÜ
-        (void*)&ppADC,                 // ÎÒËÀÄÊÀ - ÀÖÏ
-        (void*)&ppRand,                // ÎÒËÀÄÊÀ - ÐÀÍÄ-ÒÎÐ
-        (void*)&ppChannels,            // ÎÒËÀÄÊÀ - ÊÀÍÀËÛ
-        (void*)&cStats,                // ÎÒËÀÄÊÀ - Ñòàòèñòèêà
-        (void*)&cDisplayOrientation,   // ÎÒËÀÄÊÀ - Îðèåíòàöèÿ
-        (void*)&cEMS,                  // ÎÒËÀÄÊÀ - Ðåæèì ÝÌÑ
-        (void*)&mgPred,                // ÎÒËÀÄÊÀ - Ïðåäçàïóñê
-        (void*)&mgPost,                // ÎÒËÀÄÊÀ - Ïîñëåçàïóñê
-        (void*)&ppSettings,    // ÎÒËÀÄÊÀ - ÍÀÑÒÐÎÉÊÈ
-        (void*)&ppSerialNumber         // ÎÒËÀÄÊÀ - Ñ/Í
+        (void*)&ppConsole,              // ÎÒËÀÄÊÀ - ÊÎÍÑÎËÜ
+        (void*)&ppADC,                  // ÎÒËÀÄÊÀ - ÀÖÏ
+        (void*)&ppRand,                 // ÎÒËÀÄÊÀ - ÐÀÍÄ-ÒÎÐ
+        (void*)&ppChannels,             // ÎÒËÀÄÊÀ - ÊÀÍÀËÛ
+        (void*)&cStats,                 // ÎÒËÀÄÊÀ - Ñòàòèñòèêà
+        (void*)&cDisplayOrientation,    // ÎÒËÀÄÊÀ - Îðèåíòàöèÿ
+        (void*)&cEMS,                   // ÎÒËÀÄÊÀ - Ðåæèì ÝÌÑ
+        (void*)&mgPred,                 // ÎÒËÀÄÊÀ - Ïðåäçàïóñê
+        (void*)&mgPost,                 // ÎÒËÀÄÊÀ - Ïîñëåçàïóñê
+        (void*)&ppSettings,             // ÎÒËÀÄÊÀ - ÍÀÑÒÐÎÉÊÈ
+        (void*)&ppSerialNumber,         // ÎÒËÀÄÊÀ - Ñ/Í
+        (void*)&bSaveFirmware           // ÎÒËÀÄÊÀ - Ñîõð. ïðîøèâêó
     }
 };
 
@@ -1363,7 +1368,48 @@ static void Draw_SerialNumber(void)
     Painter_EndScene();
 }
 
+// ÎÒËÀÄÊÀ - Ñîõð. ïðîøèâêó --------------------------------------------------------------------------------------------------------------------------
+static const Button bSaveFirmware =
+{
+    Item_Button, &mpDebug, IsActive_SaveFirmware,
+    {
+        "Ñîõð. ïðîøèâêó", "Save firmware",
+        "Ñîõðàíåíèå ïðîøèâêè - ñåêòîðîâ 5, 6, 7 îáùèì îáú¸ìîì 3 õ 128 êÁ, ãäå õðàíèòñÿ ïðîãðàììà",
+        "Saving firmware - sectors 5, 6, 7 with a total size of 3 x 128 kB, where the program is stored"
+    },
+    OnPress_SaveFirmware
+};
 
+static bool IsActive_SaveFirmware(void)
+{
+    return gFlashDriveIsConnected;
+}
+
+static void OnPress_SaveFirmware(void)
+{
+    Display_FuncOnWaitStart("Ñîõðàíÿþ ïðîøèâêó", "Save the firmware");
+
+    StructForWrite structForWrite;
+
+    FDrive_OpenNewFileForWrite("S8-54.bin", &structForWrite);
+
+    uint8 *address = (uint8*)0x08020000;
+    uint8 *endAddress = address + 128 * 1024 * 3;
+
+    int sizeBlock = 512;
+
+    while (address < endAddress)
+    {
+        FDrive_WriteToFile(address, sizeBlock, &structForWrite);
+        address += sizeBlock;
+    }
+
+    FDrive_CloseFile(&structForWrite);
+
+    Display_FuncOnWaitStop();
+
+    Display_ShowWarning(FirmwareSaved);
+}
 
 
 

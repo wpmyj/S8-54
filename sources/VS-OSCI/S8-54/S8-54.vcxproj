@@ -206,6 +206,7 @@
     <ClCompile Include="..\..\S8-54\src\Menu\Pages\Memory\PageMemory.c" />
     <ClCompile Include="..\..\S8-54\src\Menu\Pages\PageChannels.c" />
     <ClCompile Include="..\..\S8-54\src\Menu\Pages\PageCursors.c" />
+    <ClCompile Include="..\..\S8-54\src\Menu\Pages\PageDebug.c" />
     <ClCompile Include="..\..\S8-54\src\Menu\Pages\PageDisplay.c" />
     <ClCompile Include="..\..\S8-54\src\Menu\Pages\PageHelp.c">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>

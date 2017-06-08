@@ -88,6 +88,7 @@ typedef enum
     NoPeakDet16k,                   ///< Пиковый детектор не работает при длине памяти 16к
     Warn50Ohms,                     ///< Предупреждение об ограничение входного уровня на 50 Омах
     WarnNeedForFlashDrive,          ///< Требуется подключенная флешка
+    FirmwareSaved,                  ///< Прошивка сохранена на флешку
     Warning_Count
 } Warning;
 

@@ -108,7 +108,9 @@ static const StructWarning warns[Warning_Count] =
     {Warn50Ohms, false,                 {{"При величине входного сопротивления 50 Ом", "запрещается подавать на вход более 5 В"},
         {"When the input impedance value of 50 ohms", "is prohibited to input more than 5 V"}}},
     {WarnNeedForFlashDrive, true,       {{"Сначала подключите флеш-диск"},
-        {"First connect the flash drive"}}}
+        {"First connect the flash drive"}}},
+    {FirmwareSaved, true,               {{"Прошивка сохранена"},
+        {"Firmware saved"}}}
 };
 
 #define  DELTA 5
