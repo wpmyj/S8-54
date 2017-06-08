@@ -1,4 +1,5 @@
 #pragma once
+#include "Hardware/FLASH.h"
 #include "Menu/Pages/Definition.h"
 #include "Menu/MenuFunctions.h"
 #include "Menu/MenuDrawing.h"
@@ -20,20 +21,30 @@ static void Information_Draw(void)
     Language lang = LANG;
 
     Painter_BeginScene(gColorBack);
-    int x = 0;
-    int dY = 30;
-    int y = 0;
-    int width = 320;
+    int x = 100;
+    int dY = 20;
+    int y = 20;
     Painter_DrawRectangleC(0, 0, 319, 239, gColorFill);
-    Painter_DrawStringInCenterRectC(x, y + dY, width, 30, lang == Russian ? "ИНФОРМАЦИЯ" : "INFORMATION", gColorFill);
-    Painter_DrawStringInCenterRect(x, y + 30 + dY, width, 30, lang == Russian ? "Модель     С8-54" : "Model     S8-54");
+    y += dY;
+    Painter_DrawText(x, y, lang == Russian ? "ИНФОРМАЦИЯ" : "INFORMATION");
+    y += dY;
+    Painter_DrawText(x, y, lang == Russian ? "Модель : С8-54" : "Model : S8-54");
+    y += dY;
+
     char buffer[100];
-    //sprintf(buffer, lang == Russian ? "c/н - %s" : "s/n - %s", SER_NUM);
-    //Painter_DrawText(x, y, buffer);
-    Painter_DrawStringInCenterRect(x, 60 + dY, width, 30, lang == Russian ? "Программное обеспечение:" : "Software:");
+    OTP_GetSerialNumber(buffer);
+    if (buffer[0])
+    {
+        Painter_DrawFormatText(x, y, lang == Russian ? "C/Н : %s" : "S/N : %s", buffer);
+        y += dY;
+    }
+
+    Painter_DrawText(x, y, lang == Russian ? "Программное обеспечение:" : "Software:");
+    y += dY;
     sprintf(buffer, (const char*)((lang == Russian) ? "версия %s" : "version %s"), NUM_VER);
-    Painter_DrawText(110, 90 + dY, buffer);
-    Painter_DrawText(110, 105 + dY, "CRC32 A1C8760F");
+    Painter_DrawText(x, y, buffer);
+    y += dY;
+    Painter_DrawText(x, y, "CRC32 : A1C8760F");
 
     dY = -10;
     Painter_DrawStringInCenterRect(0, 190 + dY, 320, 20, "Для получения помощи нажмите и удерживайте кнопку ПОМОЩЬ");
