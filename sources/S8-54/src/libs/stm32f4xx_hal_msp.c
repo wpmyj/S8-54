@@ -359,3 +359,16 @@ void HAL_ETH_MspDeInit(ETH_HandleTypeDef *heth)
 {
 
 }
+
+//----------------------------------------------------------------------------------------------------------------------------------------------------
+void HAL_CRC_MspInit(CRC_HandleTypeDef *hcrc)
+{
+    __HAL_RCC_CRC_CLK_ENABLE();
+}
+
+//----------------------------------------------------------------------------------------------------------------------------------------------------
+void HAL_CRC_MspDeInit(CRC_HandleTypeDef *hcrc)
+{
+    __HAL_RCC_CRC_FORCE_RESET();
+    __HAL_RCC_CRC_RELEASE_RESET();
+}

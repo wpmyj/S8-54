@@ -1,5 +1,6 @@
 #pragma once
 #include "Hardware/FLASH.h"
+#include "Hardware/Hardware.h"
 #include "Menu/Pages/Definition.h"
 #include "Menu/MenuFunctions.h"
 #include "Menu/MenuDrawing.h"
@@ -44,7 +45,8 @@ static void Information_Draw(void)
     sprintf(buffer, (const char*)((lang == Russian) ? "версия %s" : "version %s"), NUM_VER);
     Painter_DrawText(x, y, buffer);
     y += dY;
-    Painter_DrawText(x, y, "CRC32 : A1C8760F");
+
+    Painter_DrawFormText(x, y, gColorFill, "CRC32 : %X", Hardware_CalculateCRC32());
 
     dY = -10;
     Painter_DrawStringInCenterRect(0, 190 + dY, 320, 20, "Для получения помощи нажмите и удерживайте кнопку ПОМОЩЬ");

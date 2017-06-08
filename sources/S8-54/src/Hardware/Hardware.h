@@ -1,4 +1,5 @@
-﻿#pragma once
+#pragma once
+#include "defines.h"
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -28,6 +29,8 @@
 
 /// Инициализация аппаратных ресурсов
 void Hardware_Init(void);
+/// Возвращает контрольную сумму содержимого трёх секторов (5, 6, 7), в которых хранится основная программа.
+uint Hardware_CalculateCRC32(void);
 
 // #define HARDWARE_ERROR HardwareErrorHandler(__FILE__, __FUNCTION__, __LINE__);
 // void HardwareErrorHandler(const char *file, const char *function, int line) {};

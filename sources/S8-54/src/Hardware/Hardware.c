@@ -23,6 +23,10 @@
 
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+static CRC_HandleTypeDef crcHandle;
+
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 static void SystemClock_Config(void)
 {
     RCC_OscInitTypeDef RCC_OscInitStruct;
@@ -115,4 +119,17 @@ void Hardware_Init(void)
     HAL_GPIO_Init(GPIOG, &isGPIO);
 
     RTC_Init();
+
+    crcHandle.Instance = CRC;
+    if (HAL_CRC_Init(&crcHandle) != HAL_OK)
+    {
+        HARDWARE_ERROR;
+    }
+}
+
+
+//----------------------------------------------------------------------------------------------------------------------------------------------------
+uint Hardware_CalculateCRC32(void)
+{
+    return HAL_CRC_Calculate(&crcHandle, (uint*)0x08020000, 128 * 1024 * 3 / 4);
 }
