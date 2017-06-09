@@ -22,6 +22,7 @@
 #include <string.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include <math.h>
 
 //#define AUTORELOAD  // Перезагрузка при зависании
 
@@ -153,7 +154,8 @@ const StructCommand comArray[] =
     {(pFuncVV)PMP_GetPixel, -2},        // 21 Получть точку. Команда не заносится в буфер и выполняется непосредственно.
     {PMP_RunBuffer,         -2},        // 22 Выполнить команды, находящиеся в буфере. Команда не заносится с буфер и выполнятся непосредственно.
     {PMP_SetReInit,         2},         // 23 Установить режим перезагрузки монитора в случае зависания. 1 - перезагружать (режим по умолчанию) 2 - не перезагружать
-    {PMP_SetOrientation,    2}          // 24 Установить ориентацию дисплея. Параметр 0 или 1
+    {PMP_SetOrientation,    2},         // 24 Установить ориентацию дисплея. Параметр 0 или 1
+    {PMP_DrawLine,          5}          // 25 Нарисовать произвольную линию
 };
 
 BYTE *dataRun = 0;
@@ -507,6 +509,75 @@ void PMP_HorLineX(void)
     SHORT x2 = NextShort();
 
     HorLineN(x1, x2, y);
+}
+
+static int Sign(int x)
+{
+    if (x == 0)
+    {
+        return 0;
+    }
+    else if (x > 0)
+    {
+        return 1;
+    }
+    return -1;
+}
+
+//----------------------------------------------------------------------------------------------------------------------------------------------------
+void PMP_DrawLine(void)
+{
+    SHORT x1 = NextShort();
+    SHORT y1 = NextByte();
+    SHORT x2 = NextShort();
+    SHORT y2 = NextShort();
+
+    if ((x2 - x1) == 0 && (y2 - y1) == 0)
+    {
+        ++x1;
+    }
+    int x = x1;
+    int y = y1;
+    int dx = (int)fabsf((float)(x2 - x1));
+    int dy = (int)fabsf((float)(y2 - y1));
+    int s1 = Sign(x2 - x1);
+    int s2 = Sign(y2 - y1);
+    int temp;
+    int exchange = 0;
+    if (dy > dx)
+    {
+        temp = dx;
+        dx = dy;
+        dy = temp;
+        exchange = 1;
+    }
+    int e = 2 * dy - dx;
+    int i = 0;
+    for (; i <= dx; i++)
+    {
+        PutPixelN(x, y);
+        while (e >= 0)
+        {
+            if (exchange)
+            {
+                x += s1;
+            }
+            else
+            {
+                y += s2;
+            }
+            e = e - 2 * dx;
+        }
+        if (exchange)
+        {
+            y += s2;
+        }
+        else
+        {
+            x += s1;
+        }
+        e = e + 2 * dy;
+    }
 }
 
 

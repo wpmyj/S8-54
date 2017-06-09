@@ -3,13 +3,20 @@
 #include "DataStorage.h"
 #include "fpgaExtensions.h"
 #include "Log.h"
-#include "structures.h"
 #include "Display/DisplayPrimitives.h"
 #include "FPGA/fpga.h" 
 #include "Hardware/FSMC.h"
 #include "Hardware/Timer.h"
 #include "Panel/Panel.h"
 #include "Utils/GlobalFunctions.h"
+#include "Utils/Math.h"
+
+
+/** @addtogroup FPGA
+ *  @{
+ *  @addtogroup FPGA_Extensions
+ *  @{
+ */
 
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -49,7 +56,9 @@ static int16 CalculateAdditionRShift(Channel ch, Range range);
 static bool RunFuncAndWaitFlag(pFuncVV func, uint8 flag);
 
 
-/* Поиск сигнала */
+/** @addtogroup AutoFind
+ *  @{
+ */
 static bool FindWave(Channel ch);
 static bool AccurateFindParams(Channel ch);
 static bool FindParams(Channel ch, TBase *tBase);
@@ -57,11 +66,29 @@ static Range FindRange(Channel ch);
 static bool FindWave2(Channel ch);
 static bool FindRange2(Channel ch);
 static bool FindTBase(Channel ch);
-static void FuncDrawAutoFind(void);
+static void FuncDrawAutoFind(Channel ch);
 static void CalibrateStretch(Channel ch);
+/** @}
+ */
 
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+/** @addtogroup AutoFind
+ *  @{
+ */
+
+///  Структура используется для отрисовки прогресс-бара во время автоматического поиска сигнала
+typedef struct
+{
+    uint8 progress;     ///< Относительная величина прогресса.
+    int8 sign;          ///< Направление изменения прогресса.
+    bool readingData;   ///< Признак того, что как минимум одно считывание данных произошло и сигнал можно рисовать на экране.
+} StrForAutoFind;
+
+/** @}
+ */
+
 typedef struct
 {
     float deltaADC[2];
@@ -924,81 +951,27 @@ void FreqMeter_Update(uint16 flag_)
     }
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+/** @addtogroup AutoFind
+ *  @{
+ */
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
 void FPGA_AutoFind(void)
 {
-    // Подготовим структуру, использующуюся для отрисовки прогресс-бара
-    MALLOC_EXTRAMEM(StrForAutoFind, p);
+    Settings settings = set;                        // Сохраняем текущие настройки - если сигнал найти не удастся, придётся восстановить их потом
+
+    MALLOC_EXTRAMEM(StrForAutoFind, p);             // Подготовим структуру, использующуюся для отрисовки прогресс-бара
     p->progress = 0; //-V522
     p->sign = 1;
 
     if (!FindWave(A))
     {
-        if (!FindWave(B))
-        {
-            Display_ShowWarning(SignalNotFound);
-        }
+        //if (!FindWave(B))
+        //{                                         // Если не удалось найти сигнал, то:
+            Display_ShowWarning(SignalNotFound);    // выводим соотвествующее сообщение,
+            set = settings;                         // восстанавливаем предыдущие настройки
+            FPGA_LoadSettings();                    // и загружаем их в альтеру
+        //}
     }
 
     FREE_EXTRAMEM();
@@ -1011,11 +984,10 @@ void FPGA_AutoFind(void)
 //----------------------------------------------------------------------------------------------------------------------------------------------------
 static bool FindWave(Channel ch)
 {
-    return false;
+    ACCESS_EXTRAMEM(StrForAutoFind, s);
+    s->readingData = false;
 
-    FuncDrawAutoFind();
-
-    Settings settings = set;    // Сохраняем предыдущие настройки
+    FuncDrawAutoFind(ch);
 
     FPGA_SetTBase(TBase_20ms);
     SET_ENABLED(ch) = true;
@@ -1028,26 +1000,23 @@ static bool FindWave(Channel ch)
 
     while (range != FindRange(ch))
     {
-        LOG_WRITE("1");
-
-        FuncDrawAutoFind();
+        FuncDrawAutoFind(ch);
         FPGA_Start();
         while (!ProcessingData())
         {
-            FuncDrawAutoFind();
+            FuncDrawAutoFind(ch);
         };
+        s->readingData = true;          // Устанавливаем признак того, что данные считаны.
         range = FindRange(ch);
         FPGA_SetRange(ch, range);
     }
 
-    FuncDrawAutoFind();
+    FuncDrawAutoFind(ch);
     if (AccurateFindParams(ch))
     {
         return true;
     }
 
-    set = settings;
-    FPGA_LoadSettings();
     return false;
 }
 
@@ -1060,7 +1029,7 @@ static Range FindRange(Channel ch)
 
     for (int range = RangeSize - 1; range >= 0; --range)
     {
-        FuncDrawAutoFind();
+        FuncDrawAutoFind(ch);
         FPGA_Stop(false);
         FPGA_SetRange(ch, (Range)range);
         FPGA_Start();
@@ -1131,13 +1100,36 @@ static bool AccurateFindParams(Channel ch)
 #undef NUM_MEASURES
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
-static void FuncDrawAutoFind(void)
+static void FuncDrawAutoFind(Channel ch)
 {
     ACCESS_EXTRAMEM(StrForAutoFind, s);
 
     Painter_BeginScene(gColorBack);
+    Painter_SetColor(gColorFill);
 
-    Painter_DrawTextC(92, 50, "Идёт поиск сигнала. Подождите.", gColorFill);
+    if (s->readingData)                             // Если данные считаны, то будем рисовать сигнал
+    {
+        uint8 *data = DS_GetData_RAM(ch, 0);
+
+        float scale = 240.0f / (MAX_VALUE - MIN_VALUE);
+
+        for (int x = 0; x < 319; x++)
+        {
+            uint8 val0 = 0;
+            uint8 val1 = 0;
+            LIMITATION(val0, data[x], MIN_VALUE, MAX_VALUE);
+            LIMITATION(val1, data[x + 1], MIN_VALUE, MAX_VALUE);
+            float ordinate0 = scale * (val0 - MIN_VALUE);
+            float ordinate1 = scale * (val1 - MAX_VALUE);
+            Painter_DrawLine(x, ordinate0, x + 1, ordinate1);
+        }
+    }
+    else
+    {
+        Painter_DrawText(92, 200, "Нет сигнала");
+    }
+
+    Painter_DrawText(92, 50, "Идёт поиск сигнала. Подождите.");
 
     static const int height = 20;
     static const int width = 240;
@@ -1268,3 +1260,6 @@ static bool FindRange2(Channel ch)
     
     return false;
 }
+
+/** @}  @}  @}
+ */

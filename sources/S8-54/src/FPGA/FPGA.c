@@ -19,7 +19,11 @@
 #include "Utils/ProcessingSignal.h"
 #include "Utils/GlobalFunctions.h"
 #include "Utils/Debug.h"
-#include "structures.h"
+
+
+/** @addtogroup FPGA
+  * @{
+  */
 
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -48,7 +52,13 @@ static bool ReadPoint(void);                                        ///< Чтение 
 static void Write(TypeRecord type, uint16 *address, uint data);     ///< Запись в регистры и альтеру.
 static void InitADC(void);
 static void ProcessingAfterReadData(void);                          ///< Действия, которые нужно предпринять после успешного считывания данных.
-
+       bool ProcessingData(void);                                   ///< Возвращает true, если считаны данные.
+/// \brief Прочитать данные.
+/// \param necessaryShift Признак того, что сигнал нужно смещать.
+/// \param saveToStorage  Нужно в режиме рандомизатора для указания, что пора сохранять измерение.
+/// \param first          Нужно для режима рандомизматора - чтобы подготовить память.
+/// \param onlySave       Только сохранить в хранилище.
+static void DataReadSave(bool necessaryShift, bool first, bool saveToStorage, bool onlySave);
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 static uint16 READ_DATA_ADC_16(const uint16 *address, Channel ch   )
@@ -616,11 +626,6 @@ static void InverseDataIsNecessary(Channel ch, uint8 *data)
 }
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
-// Прочитать данные.
-// necessaryShift - признак того, что сигнал нужно смещать.
-// saveToStorage - нужно в режиме рандомизатора для указания, что пора сохранять измерение
-// first - нужно для режима рандомизматора - чтобы подготовить память.
-// onlySave - только сохранить в хранилище
 static void DataReadSave(bool necessaryShift, bool first, bool saveToStorage, bool onlySave)
 {
     uint8 *dataA = malloc(FPGA_MAX_POINTS);
@@ -670,10 +675,9 @@ static void DataReadSave(bool necessaryShift, bool first, bool saveToStorage, bo
 }
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
-// Возвращает true, если считаны данные
 bool ProcessingData(void)
 {
-    bool retValue = false;          // Здесь будет true, когда данные считаются
+    bool retValue = false;                          // Здесь будет true, когда данные считаются
 
     static const int numRead[] = {100, 50, 20, 10, 5};
 
@@ -686,7 +690,7 @@ bool ProcessingData(void)
 
         if (SAMPLE_REAL)
         {
-            num = 1;        // Для реальной выборки ограничим количество считываний - нам надо только одно измерение.
+            num = 1;                                // Для реальной выборки ограничим количество считываний - нам надо только одно измерение.
         }
     }
 
@@ -701,7 +705,7 @@ bool ProcessingData(void)
 
         if (timeCompletePredTrig == 0)              // Если окончание предзапуска ранее не было зафиксировано
         {
-            timeCompletePredTrig = gTimeMS;   // записываем время, когда оно произошло.
+            timeCompletePredTrig = gTimeMS;         // записываем время, когда оно произошло.
         }
 
         if (i > 0)
@@ -731,15 +735,15 @@ bool ProcessingData(void)
         }
         else if (START_MODE_AUTO)  // Если имупльса синхронизации нету, а включён автоматический режим синхронизации
         {
-            if (gTimeMS - timeCompletePredTrig > TSHIFT_2_ABS(2, SET_TBASE) * 1000)  // Если прошло больше времени, чем помещается в десяти клетках
+            if (gTimeMS - timeCompletePredTrig > TSHIFT_2_ABS(2, SET_TBASE) * 1000) // Если прошло больше времени, чем помещается в десяти клетках
             {
                 if (IN_P2P_MODE)
                 {
-                    Panel_EnableLEDTrig(false);     // В поточечном режиме просто тушим лампочку синхронизации
+                    Panel_EnableLEDTrig(false);                                     // В поточечном режиме просто тушим лампочку синхронизации
                 }
                 else
                 {
-                    FPGA_SwitchingTrig();           // В непоточечном даём принудительно даём синхронизацю
+                    FPGA_SwitchingTrig();                                           // В непоточечном даём принудительно даём синхронизацю
                 }
             }
         }
@@ -1211,3 +1215,6 @@ static void InitADC(void)
         HARDWARE_ERROR
     }
 }
+
+/** @}
+ */

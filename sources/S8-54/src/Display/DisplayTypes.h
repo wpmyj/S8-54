@@ -86,5 +86,6 @@ typedef enum
     RUN_BUFFER                  = 22,   //
     SET_REINIT                  = 23,   //
     SET_ORIENTATION             = 24,   // Установить ориентацию экрана. 0 - нормальная, 1 - обратная
+    DRAW_LINE                   = 25,   // Нарисовать линию
     NUM_COMMANDS
 } Command;

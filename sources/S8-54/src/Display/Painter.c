@@ -45,6 +45,10 @@ static uint8 Read2points(int x, int y);
 //static void Get8Points(int x, int y, uint8 buffer[4]);
 
 
+#define WRITE_BYTE(offset, value)   *(command + offset) = (uint8)value
+#define WRITE_SHORT(offset, value)  *((uint16*)(command + offset)) = (uint16)value
+
+
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 void Painter_BeginScene(Color color)
 {
@@ -289,16 +293,10 @@ void Painter_DrawMultiHPointLine(int numLines, int x, uint8 y[], int delta, int 
 }
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
-void Painter_DrawLine(int x0, int y0, int x1, int y1)
+void Painter_DrawLine(int x1, int y1, int x2, int y2)
 {
-    if (x0 == x1)
-    {
-        Painter_DrawVLine(x0, y0, y1);
-    }
-    else if (y0 == y1)
-    {
-        Painter_DrawHLine(y0, x0, x1);
-    }
+    uint8 command[5] = {DRAW_LINE};
+    
 }
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------

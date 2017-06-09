@@ -842,9 +842,6 @@
     <ClInclude Include="..\..\S8-54\src\Settings\SettingsMath.h">
       <Filter>Settings</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\S8-54\src\structures.h">
-      <Filter>src</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\STM32Cube_FW_F4\Middlewares\ST\STM32_USB_Host_Library\Class\CDC\Inc\usbh_cdc.h">
       <Filter>libs</Filter>
     </ClInclude>

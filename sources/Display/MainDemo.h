@@ -60,6 +60,8 @@ void PMP_VerLineX(void);
 
 void PMP_HorLineX(void);
 
+void PMP_DrawLine(void);
+
 void PMP_PutPixelX(void);
 
 void PMP_DrawSignalLines(void);
