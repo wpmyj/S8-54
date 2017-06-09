@@ -73,7 +73,7 @@ static void SetCursPosT(Channel ch, int numCur, float pos);             ///< Уст
 
 
 // КУРСОРЫ ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-const Page mpCursors =
+const Page pCursors =
 {
     Item_Page, &mainPage, 0,
     {
@@ -94,7 +94,7 @@ const Page mpCursors =
 // КУРСОРЫ - Показывать ------------------------------------------------------------------------------------------------------------------------------
 static const Choice cShow =
 {
-    Item_Choice, &mpCursors, 0,
+    Item_Choice, &pCursors, 0,
     {
         "Показывать", "Shown",
         "Включает/отключает курсоры.",
@@ -110,7 +110,7 @@ static const Choice cShow =
 // КУРСОРЫ - Слежение канал 1 -----------------------------------------------------------------------------------------------------------------------
 static const Choice cLookModeChanA =
 {
-    Item_Choice, &mpCursors, 0,
+    Item_Choice, &pCursors, 0,
     {
         "Слежение \x8e, \x9e", "Tracking \x8e, \x9e"
         ,
@@ -138,7 +138,7 @@ static const Choice cLookModeChanA =
 // КУРСОРЫ - Слежение канал 2 -----------------------------------------------------------------------------------------------------------------------
 static const Choice cLookModeChanB =
 {
-    Item_Choice, &mpCursors, 0,
+    Item_Choice, &pCursors, 0,
     {
         "Слежение \x8f, \x9f", "Tracking \x8f, \x9f"
         ,
@@ -166,7 +166,7 @@ static const Choice cLookModeChanB =
 // КУРОСРЫ - 1/dT -----------------------------------------------------------------------------------------------------------------------------------
 static const Choice cShowFreq =
 {
-    Item_Choice, &mpCursors, 0,
+    Item_Choice, &pCursors, 0,
     {
         "1/dT", "1/dT",
         "Если выбрано \"Вкл\", в правом верхнем углу выводится величина, обратная расстоянию между курсорами времени - частота сигнала, один период "
@@ -184,7 +184,7 @@ static const Choice cShowFreq =
 // КУРСОРЫ - УСТАНОВИТЬ /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 static const Page ppSet =
 {
-    Item_Page, &mpCursors, 0,
+    Item_Page, &pCursors, 0,
     {
         "УСТАНОВИТЬ", "SET",
         "Переход в режим курсорных измерений",

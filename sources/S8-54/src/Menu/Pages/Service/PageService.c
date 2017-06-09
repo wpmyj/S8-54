@@ -34,7 +34,7 @@ static void OnPress_AutoSearch(void)
 
 static const Button mbAutoSearch =
 {
-    Item_Button, &mpService, 0,
+    Item_Button, &pService, 0,
     {
         "Поиск сигнала", "Find signal",
         "Устанавливает оптимальные установки осциллографа для сигнала в канале 1",
@@ -44,7 +44,7 @@ static const Button mbAutoSearch =
 };
 
 // СЕРВИС ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-const Page mpService =
+const Page pService =
 {
     Item_Page, &mainPage, 0,
     {
@@ -71,7 +71,7 @@ const Page mpService =
 // СЕРВИС - Сброс настроек ---------------------------------------------------------------------------------------------------------------------------
 static const Button mbResetSettings =
 {
-    Item_Button, &mpService, 0,
+    Item_Button, &pService, 0,
     {
         "Сброс настроек", "Reset settings",
         "Сброс настроек на настройки по умолчанию",
@@ -108,7 +108,7 @@ static void FuncDraw_ResetSettings(void)
 // СЕРВИС - Регистратор ------------------------------------------------------------------------------------------------------------------------------
 static const Choice mcRecorder =
 {
-    Item_Choice, &mpService, 0,
+    Item_Choice, &pService, 0,
     {
         "Регистратор", "Recorder",
         "Включает/выключает режим регистратора. Этот режим доступен на развёртках 50 мс/дел и более медленных.",
@@ -129,7 +129,7 @@ static void OnChange_Recorder(bool active)
 // СЕРВИС - Язык -------------------------------------------------------------------------------------------------------------------------------------
 static const Choice mcLanguage =
 {
-    Item_Choice, &mpService, 0,
+    Item_Choice, &pService, 0,
     {
         "Язык",         "Language",
         "Позволяет выбрать язык меню",
@@ -174,12 +174,12 @@ void OnChangedColorMenu2Item(void)
 
 
 // СЕРВИС ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-extern const Page mpService;
+extern const Page pService;
 
 // СЕРВИС - Откат настроек
 const Button mbServicePreviousSettings =
 {
-    Item_Button, &mpService, 0,
+    Item_Button, &pService, 0,
     {
         "Откат настроек", "Return settings",
         "Возвращает настройки осциллографа, которые были в момент нажатия \"Поиск сигнала\"",

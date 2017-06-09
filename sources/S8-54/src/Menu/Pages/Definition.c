@@ -1,22 +1,13 @@
 // This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++ and C#: http://www.viva64.com
 #include "defines.h"
-#include "Display/Colors.h"
-#include "Display/Display.h"
-#include "Display/Painter.h"
-#include "FPGA/FPGA.h"
-#include "Menu/MenuFunctions.h"
-#include "Memory/PageMemory.h"
-#include "PageHelp.h"
-#include "Panel/Panel.h"
 #include "Settings/Settings.h"
-#include "Settings/SettingsTypes.h"
 
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-extern Choice mcCursorsSource;
-extern Choice mcCursorsU;
-extern Choice mcCursorsT;
+static void CalculateXY(int *x0, int *x1, int *y0, int *y1);
+static int CalculateXforCurs(int x, bool left);
+static int CalculateYforCurs(int y, bool top);
 
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -25,27 +16,6 @@ void CalculateConditions(int16 pos0, int16 pos1, CursCntrl cursCntrl, bool *cond
     bool zeroLessFirst = pos0 < pos1;
     *cond0 = cursCntrl == CursCntrl_1_2 || (cursCntrl == CursCntrl_1 && zeroLessFirst) || (cursCntrl == CursCntrl_2 && !zeroLessFirst);
     *cond1 = cursCntrl == CursCntrl_1_2 || (cursCntrl == CursCntrl_1 && !zeroLessFirst) || (cursCntrl == CursCntrl_2 && zeroLessFirst);
-}
-
-//----------------------------------------------------------------------------------------------------------------------------------------------------
-int CalculateYforCurs(int y, bool top)
-{
-    return top ? y + MI_HEIGHT / 2 + 4 : y + MI_HEIGHT - 2;
-}
-
-//----------------------------------------------------------------------------------------------------------------------------------------------------
-int CalculateXforCurs(int x, bool left)
-{
-    return left ? x + MI_WIDTH - 20 : x + MI_WIDTH - 5;
-}
-
-//----------------------------------------------------------------------------------------------------------------------------------------------------
-void CalculateXY(int *x0, int *x1, int *y0, int *y1)
-{
-    *x0 = CalculateXforCurs(*x0, true);
-    *x1 = CalculateXforCurs(*x1, false);
-    *y0 = CalculateYforCurs(*y0, true);
-    *y1 = CalculateYforCurs(*y1, false);
 }
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
@@ -66,6 +36,27 @@ void DrawMenuCursTime(int x, int y, bool left, bool right)
 }
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
+static void CalculateXY(int *x0, int *x1, int *y0, int *y1)
+{
+    *x0 = CalculateXforCurs(*x0, true);
+    *x1 = CalculateXforCurs(*x1, false);
+    *y0 = CalculateYforCurs(*y0, true);
+    *y1 = CalculateYforCurs(*y1, false);
+}
+
+//----------------------------------------------------------------------------------------------------------------------------------------------------
+static int CalculateXforCurs(int x, bool left)
+{
+    return left ? x + MI_WIDTH - 20 : x + MI_WIDTH - 5;
+}
+
+//----------------------------------------------------------------------------------------------------------------------------------------------------
+static int CalculateYforCurs(int y, bool top)
+{
+    return top ? y + MI_HEIGHT / 2 + 4 : y + MI_HEIGHT - 2;
+}
+
+//----------------------------------------------------------------------------------------------------------------------------------------------------
 void DrawMenuCursVoltage(int x, int y, bool top, bool bottom)
 {
     x -= 65;
@@ -82,29 +73,6 @@ void DrawMenuCursVoltage(int x, int y, bool top, bool bottom)
     }
 }
 
-//----------------------------------------------------------------------------------------------------------------------------------------------------
-/*
-void PressSmallButtonExit()
-{
-    NamePage namePage = GetNameOpenedPage();
-    if (namePage == Page_NoPage)
-    {
-        return;
-    }
-    if (namePage == Page_SB_MemInt)
-    {   // Для режимов работы с памятью выход из режима малых кнопок означает возвращение в режим нормальных измерений
-        set.memory.modeWork = ModeWork_Direct;
-        if (gMemory.runningFPGAbeforeSmallButtons == 1)
-        {
-            FPGA_Start();
-            gMemory.runningFPGAbeforeSmallButtons = 0;
-        }
-    }
-
-    Display_RemoveAddDrawFunction();
-    gBF.ledRegSetNeedEnabled = 0;
-}
-*/
 
 extern const Page mainPage;
 
@@ -113,14 +81,14 @@ extern const Page mainPage;
 
 
 extern const Page pDisplay;
-extern const Page mpCursors;
-extern const Page mpChanA;
-extern const Page mpChanB;
-extern const Page mpMemory;
+extern const Page pCursors;
+extern const Page pChanA;
+extern const Page pChanB;
+extern const Page pMemory;
 extern const Page pMeasures;
 extern const Page pDebug;
-extern const Page mpService;
-extern const Page mpTime;
+extern const Page pService;
+extern const Page pTime;
 extern const Page pTrig;
 
 /// МЕНЮ 
@@ -134,15 +102,15 @@ const Page mainPage =
     Page_MainPage,
     {
         (void*)&pDisplay,
-        (void*)&mpChanA,
-        (void*)&mpChanB,
+        (void*)&pChanA,
+        (void*)&pChanB,
         (void*)&pTrig,
-        (void*)&mpTime,
-        (void*)&mpCursors,
-        (void*)&mpMemory,
+        (void*)&pTime,
+        (void*)&pCursors,
+        (void*)&pMemory,
         (void*)&pMeasures,
-        (void*)&mpService,
-        (void*)&mpHelp,
+        (void*)&pService,
+        (void*)&pHelp,
         (void*)&pDebug
     }
 };
@@ -152,18 +120,18 @@ const void *PageForButton(PanelButton button)
 {
     static const void *pages[] = {  
         0,                  // B_Empty
-        (void*)&mpChanA,    // B_Channel1
-        (void*)&mpService,  // B_Service
-        (void*)&mpChanB,    // B_Channel2
-        (void*)&pDisplay,  // B_Display
-        (void*)&mpTime,     // B_Time
-        (void*)&mpMemory,   // B_Memory
-        (void*)&pTrig,     // B_Trig
+        (void*)&pChanA,     // B_Channel1
+        (void*)&pService,   // B_Service
+        (void*)&pChanB,     // B_Channel2
+        (void*)&pDisplay,   // B_Display
+        (void*)&pTime,      // B_Time
+        (void*)&pMemory,    // B_Memory
+        (void*)&pTrig,      // B_Trig
         0,                  // B_Start
-        (void*)&mpCursors,  // B_Cursors
-        (void*)&pMeasures, // B_Measures
+        (void*)&pCursors,   // B_Cursors
+        (void*)&pMeasures,  // B_Measures
         0,                  // B_Power
-        (void*)&mpHelp,     // B_Help
+        (void*)&pHelp,      // B_Help
         0,                  // B_Menu
         0,                  // B_F1
         0,                  // B_F2

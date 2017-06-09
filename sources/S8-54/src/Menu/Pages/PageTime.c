@@ -27,7 +27,7 @@ static const  Choice cTPos;                  ///< ÐÀÇÂÅÐÒÊÀ - Òî
 static const  Choice cDivRole;               ///< ÐÀÇÂÅÐÒÊÀ - Ô-öèÿ ÂÐ/ÄÅË
 
 // ÐÀÇÂÅÐÒÊÀ /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-const Page mpTime =
+const Page pTime =
 {
     Item_Page, &mainPage, 0,
     {
@@ -48,7 +48,7 @@ const Page mpTime =
 // ÐÀÇÂÅÐÒÊÀ - Âûáîðêà -------------------------------------------------------------------------------------------------------------------------------
 static const Choice cSample =
 {
-    Item_Choice, &mpTime, IsActive_Sample,
+    Item_Choice, &pTime, IsActive_Sample,
     {
         "Âûáîðêà",          "Sampling"
         ,
@@ -73,7 +73,7 @@ static bool IsActive_Sample(void)
 // ÐÀÇÂÅÐÒÊÀ - Ïèê äåò -------------------------------------------------------------------------------------------------------------------------------
 static const Choice cPeakDet =
 {
-    Item_Choice, &mpTime, IsActive_PeakDet,
+    Item_Choice, &pTime, IsActive_PeakDet,
     {
         "Ïèê äåò",      "Pic deat",
         "Âêëþ÷àåò/âûêëþ÷àåò ïèêîâûé äåòåêòîð.",
@@ -130,7 +130,7 @@ void OnChanged_PeakDet(bool active)
 // ÐÀÇÂÅÐÒÊÀ - Òî ------------------------------------------------------------------------------------------------------------------------------------
 static const Choice cTPos =
 {
-    Item_Choice, &mpTime, 0,
+    Item_Choice, &pTime, 0,
     {
         "\x7b",     "\x7b",
         "Çàäà¸ò òî÷êó ïðèâÿçêè íóëåâîãî ñìåùåíèÿ ïî âðåìåíè ê ýêðàíó - ëåâûé êðàé, öåíòð, ïðàâûé êðàé.", 
@@ -153,7 +153,7 @@ void OnChanged_TPos(bool active)
 // ÐÀÇÂÅÐÒÊÀ - Ô-öèÿ ÂÐ/ÄÅË --------------------------------------------------------------------------------------------------------------------------
 static const Choice cDivRole =
 {
-    Item_Choice, &mpTime, 0,
+    Item_Choice, &pTime, 0,
     {
         "Ô-öèÿ ÂÐ/ÄÅË", "Funct Time/DIV"
         ,

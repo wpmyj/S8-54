@@ -57,7 +57,7 @@ static const Button mbCalibrator_Calibrate =
 //----------------------------------------------------------------------------------------------------------------------------------------------------
 static const Page mspCalibrator =
 {
-    Item_Page, &mpService, 0,
+    Item_Page, &pService, 0,
     {
         "КАЛИБРАТОР", "CALIBRATOR",
         "Управлением калибратором и калибровка осциллографа",

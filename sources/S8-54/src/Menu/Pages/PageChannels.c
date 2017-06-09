@@ -70,7 +70,7 @@ static const char chanDividerEn[] = "Attenuation: \n\"Off\" - the signal is not 
 
 
 // КАНАЛ 1 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-const Page mpChanA =
+const Page pChanA =
 {
     Item_Page, &mainPage, 0,
     {
@@ -93,7 +93,7 @@ const Page mpChanA =
 // КАНАЛ 1 - Вход ------------------------------------------------------------------------------------------------------------------------------------
 static const Choice mcChanA_Input =
 {
-    Item_Choice, &mpChanA, 0,
+    Item_Choice, &pChanA, 0,
     {
         "Вход", "Input",
         chanInputRu,
@@ -114,7 +114,7 @@ void OnChange_ChanA_Input(bool active)
 // КАНАЛ 1 - Связь -----------------------------------------------------------------------------------------------------------------------------------
 static const Choice mcChanA_Couple =
 {
-    Item_Choice, &mpChanA, 0,
+    Item_Choice, &pChanA, 0,
     {
         "Связь", "Couple",
         chanCoupleRu,
@@ -136,7 +136,7 @@ static void OnChange_ChanA_Couple(bool active)
 // КАНАЛ 1 - Полоса ----------------------------------------------------------------------------------------------------------------------------------
 static const Choice mcChanA_Bandwidth =
 {
-    Item_Choice, &mpChanA, 0,
+    Item_Choice, &pChanA, 0,
     {
         "Полоса", "Bandwidth",
         "Задаёт полосу пропускания канала", "Sets the channel bandwidth"
@@ -156,7 +156,7 @@ static void OnChange_ChanA_Bandwidth(bool active)
 // КАНАЛ 1 - Сопротивление ---------------------------------------------------------------------------------------------------------------------------
 static const Choice mcChanA_Resistance =
 {
-    Item_Choice, &mpChanA, 0,
+    Item_Choice, &pChanA, 0,
     {
         "Вх сопр", "Resistance",
         "", ""
@@ -180,7 +180,7 @@ static void OnChange_ChanA_Resistance(bool active)
 // КАНАЛ 1 - Инверсия --------------------------------------------------------------------------------------------------------------------------------
 static const Choice mcChanA_Inverse =
 {
-    Item_Choice, &mpChanA, 0,
+    Item_Choice, &pChanA, 0,
     {
         "Инверсия", "Inverse",
         chanInverseRu,
@@ -201,7 +201,7 @@ static void OnChange_ChanA_Inverse(bool active)
 // КАНАЛ 1 - Множитель -------------------------------------------------------------------------------------------------------------------------------
 static const Choice mcChanA_Divider =
 {
-    Item_Choice, &mpChanA, 0,
+    Item_Choice, &pChanA, 0,
     {
         "Делитель", "Divider",
         chanDividerRu,
@@ -217,7 +217,7 @@ static const Choice mcChanA_Divider =
 // КАНАЛ 1 - Балансировать ---------------------------------------------------------------------------------------------------------------------------
 static const Button mbChanA_Balance =
 {
-    Item_Button, &mpChanA, 0,
+    Item_Button, &pChanA, 0,
     {
         "Балансировать", "Balance",
         "Балансировать канал",
@@ -232,7 +232,7 @@ static void OnPress_ChanA_Balance(void)
 }
 
 // КАНАЛ 2 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-const Page mpChanB =
+const Page pChanB =
 {
     Item_Page, &mainPage, 0,
     {
@@ -255,7 +255,7 @@ const Page mpChanB =
 // КАНАЛ 2 - Вход ------------------------------------------------------------------------------------------------------------------------------------
 static const Choice mcChanB_Input =
 {
-    Item_Choice, &mpChanB, IsActive_ChanB_Input,
+    Item_Choice, &pChanB, IsActive_ChanB_Input,
     {
         "Вход", "Input",
         chanInputRu,
@@ -291,7 +291,7 @@ void OnChange_ChanB_Input(bool active)
 // КАНАЛ 2 - Связь -----------------------------------------------------------------------------------------------------------------------------------
 static const Choice mcChanB_Couple =
 {
-    Item_Choice, &mpChanB, 0,
+    Item_Choice, &pChanB, 0,
     {
         "Связь", "Couple",
         chanCoupleRu,
@@ -313,7 +313,7 @@ static void OnChange_ChanB_Couple(bool active)
 // КАНАЛ 2 - Полоса ----------------------------------------------------------------------------------------------------------------------------------
 static const Choice mcChanB_Bandwidth =
 {
-    Item_Choice, &mpChanB, 0,
+    Item_Choice, &pChanB, 0,
     {
         "Полоса", "Bandwidth",
         "",
@@ -334,7 +334,7 @@ static void OnChange_ChanB_Bandwidth(bool active)
 // КАНАЛ 2 - Сопротивление ---------------------------------------------------------------------------------------------------------------------------
 static const Choice mcChanB_Resistance =
 {
-    Item_Choice, &mpChanB, 0,
+    Item_Choice, &pChanB, 0,
     {
         "Вх сопр", "Resistance",
         "", ""
@@ -358,7 +358,7 @@ static void OnChange_ChanB_Resistance(bool active)
 // КАНАЛ 2 - Инверсия --------------------------------------------------------------------------------------------------------------------------------
 static const Choice mcChanB_Inverse =
 {
-    Item_Choice, &mpChanB, 0,
+    Item_Choice, &pChanB, 0,
     {
         "Инверсия", "Inverse",
         chanInverseRu,
@@ -379,7 +379,7 @@ static void OnChange_ChanB_Inverse(bool active)
 // КАНАЛ 2 - Множитель -------------------------------------------------------------------------------------------------------------------------------
 static const Choice mcChanB_Divider =
 {
-    Item_Choice, &mpChanB, 0,
+    Item_Choice, &pChanB, 0,
     {
         "Делитель", "Divider",
         chanDividerRu,
@@ -395,7 +395,7 @@ static const Choice mcChanB_Divider =
 // КАНАЛ 2 - Балансировать ---------------------------------------------------------------------------------------------------------------------------
 static const Button mbChanB_Balance =
 {
-    Item_Button, &mpChanB, 0,
+    Item_Button, &pChanB, 0,
     {
         "Балансировать", "Balance",
         "Балансировать канал",

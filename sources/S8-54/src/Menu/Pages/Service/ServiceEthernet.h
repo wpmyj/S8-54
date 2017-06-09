@@ -88,7 +88,7 @@ static const MACaddress macMAC =
 //----------------------------------------------------------------------------------------------------------------------------------------------------
 const Page mspEthernet =
 {
-    Item_Page, &mpService, 0,
+    Item_Page, &pService, 0,
     {
         "ETHERNET", "ETHERNET",
         "Настройки ethernet",

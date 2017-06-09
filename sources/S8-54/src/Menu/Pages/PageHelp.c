@@ -7,7 +7,7 @@
 
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-extern const Page mpHelp;
+extern const Page pHelp;
 
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -51,7 +51,7 @@ void OnHelpRegSet(int angle)
 //----------------------------------------------------------------------------------------------------------------------------------------------------
 const SmallButton sbHelpParagraphEnter =
 {
-    Item_SmallButton, &mpHelp, HelpContent_EnterParagraphIsActive,
+    Item_SmallButton, &pHelp, HelpContent_EnterParagraphIsActive,
     {
         "Открыть",  "Open",
         "Открывает раздел справки",
@@ -64,7 +64,7 @@ const SmallButton sbHelpParagraphEnter =
 //----------------------------------------------------------------------------------------------------------------------------------------------------
 const SmallButton sbHelpParagraphLeave =
 {
-    Item_SmallButton, &mpHelp, HelpContent_LeaveParagraphIsActive,
+    Item_SmallButton, &pHelp, HelpContent_LeaveParagraphIsActive,
     {
         "Закрыть", "Close",
         "Закрывает раздел справки",
@@ -77,7 +77,7 @@ const SmallButton sbHelpParagraphLeave =
 //----------------------------------------------------------------------------------------------------------------------------------------------------
 const SmallButton sbHelpParagraphPrev =
 {
-    Item_SmallButton, &mpHelp, 0,
+    Item_SmallButton, &pHelp, 0,
     {
         "Предыдущий раздел", "Previous section",
         "Выбрать предыдущий раздел справки",
@@ -90,7 +90,7 @@ const SmallButton sbHelpParagraphPrev =
 //----------------------------------------------------------------------------------------------------------------------------------------------------
 const SmallButton sbHelpParagraphNext =
 {
-    Item_SmallButton, &mpHelp, 0,
+    Item_SmallButton, &pHelp, 0,
     {
         "", "",
         "", ""
@@ -108,14 +108,14 @@ static void PressSB_Help_Exit(void)
 //----------------------------------------------------------------------------------------------------------------------------------------------------
 const SmallButton sbExitHelp =
 {
-    Item_SmallButton, &mpHelp,
+    Item_SmallButton, &pHelp,
     COMMON_BEGIN_SB_EXIT,
     PressSB_Help_Exit,
     DrawSB_Exit
 };
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
-const Page mpHelp =
+const Page pHelp =
 {
     Item_Page, &mainPage, 0,
     {

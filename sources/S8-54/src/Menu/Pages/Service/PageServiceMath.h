@@ -9,7 +9,7 @@
 extern const Page mspCursFFT;
 extern const Page mspMathFunction;
 static const Page mspFFT;
-const Page mpService;
+const Page pService;
 
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -445,7 +445,7 @@ static void FuncOfPressServiceMathFunction(void)
 // СЕРВИС - ФУНКЦИЯ //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 const Page mspMathFunction =
 {
-    Item_Page, &mpService, FuncOfActiveServiceMathFunction,
+    Item_Page, &pService, FuncOfActiveServiceMathFunction,
     {
         "ФУНКЦИЯ", "FUNCTION",
         "Установка и выбор математической функции - сложения или умножения",
@@ -515,7 +515,7 @@ static void FuncOfPressFFT(void)
 // СЕРВИС - СПЕКТР ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 const Page mspFFT =
 {
-    Item_Page, &mpService, FuncOfActiveFFT,
+    Item_Page, &pService, FuncOfActiveFFT,
     {
         "СПЕКТР", "SPECTRUM",
         "Отображение спектра входного сигнала",

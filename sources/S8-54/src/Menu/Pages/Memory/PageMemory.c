@@ -167,7 +167,7 @@ static void SaveSignalToIntMemory(void);
 
 
 // ѕяћя“№ ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-const Page mpMemory =
+const Page pMemory =
 {
     Item_Page, &mainPage, 0,
     {
@@ -187,7 +187,7 @@ const Page mpMemory =
 // ѕјћя“№ - “очки ------------------------------------------------------------------------------------------------------------------------------------
 static const Choice mcLengthMemory =
 {
-    Item_Choice, &mpMemory, IsActive_MemoryLength,
+    Item_Choice, &pMemory, IsActive_MemoryLength,
     {
         "ƒлина пам€ти", "Mem length"
         ,
@@ -265,7 +265,7 @@ void OnChange_MemoryLength(bool active)
 // ѕјћя“№ - ѕоследние --------------------------------------------------------------------------------------------------------------------------------
 static const Page mspLast =
 {
-    Item_Page, &mpMemory, 0,
+    Item_Page, &pMemory, 0,
     {
         "ѕќ—Ћ≈ƒЌ»≈", "LATEST",
         "ѕереход в режим работы с последними полученными сигналами",
@@ -516,7 +516,7 @@ static void Draw_Last_SaveToDrive(int x, int y)
 // ѕјћя“№ - ¬Ќ”“– «” ---------------------------------------------------------------------------------------------------------------------------------
 static const Page mspInt =
 {
-    Item_Page, &mpMemory, 0,
+    Item_Page, &pMemory, 0,
     {
         "¬Ќ”“– «”", "INT STORAGE",
         "ѕереход в режим работы с внутренней пам€тью",
@@ -868,7 +868,7 @@ static void Draw_Int_SaveToDrive(int x, int y)
 // ѕјћя“№ - ¬Ќ≈ЎЌ «” ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 static const Page mspDrive =
 {
-    Item_Page, &mpMemory, 0,
+    Item_Page, &pMemory, 0,
     {
         "¬Ќ≈ЎЌ «”", "EXT STORAGE",
         "–абота с внешним запоминающим устройством.",
@@ -1561,7 +1561,7 @@ void DrawSB_MemExtNewFolder(int x, int y)
     Painter_SetFont(TypeFont_8);
 }
 
-extern const Page mpMemory;
+extern const Page pMemory;
 extern const Page mspDrive;
 
 */
