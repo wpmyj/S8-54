@@ -11,10 +11,11 @@
 #include "Utils/GlobalFunctions.h"
 
 
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 extern void OnPress_ResetSettings(void);
 
 
-//////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 #define MAX_DATA            20
 
 #define LED_CHAN0_ENABLE    129
@@ -27,7 +28,7 @@ extern void OnPress_ResetSettings(void);
 
 
 static PanelButton pressedKey = B_Empty;
-static volatile PanelButton pressedButton = B_Empty;         // Это используется для отслеживания нажатой кнопки при отключенной панели
+static volatile PanelButton pressedButton = B_Empty;    ///< Используется для отслеживания нажатой кнопки при отключенной панели.
 static uint16 dataTransmitted[MAX_DATA] = {0x00};
 static uint16 firstPos = 0;
 static uint16 lastPos = 0;
@@ -38,7 +39,7 @@ static PanelButton releaseButton = B_Empty;
 static PanelButton pressButton = B_Empty;
 static PanelRegulator regLeft = R_Empty;
 static PanelRegulator regRight = R_Empty;
-static int numReg = 0;                              // Число поворотов ручки
+static int numReg = 0;                                  ///< Число поворотов ручки.
 static PanelRegulator regPress = R_Empty;
 static PanelRegulator regRelease = R_Empty;
 static PanelCommand recvCommand = C_None;
@@ -50,66 +51,63 @@ static bool isRunning = true;
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 typedef struct
 {
-    void(*funcOnKey)(int);  // Функция вызывается при нажатии(1) / отпускании(-1) кнопки
-    void(*funcLongPressure)(void);  // Функция выывается при длительном удержании кнопки
+    void(*funcOnKey)(int);          ///< Функция вызывается при нажатии(1) / отпускании(-1) кнопки.
+    void(*funcLongPressure)(void);  ///< Функция выывается при длительном удержании кнопки.
 } StructButton;
 
 
 static const StructButton funcButton[B_NumButtons] =
 {
     {0, 0},
-    {EFB,           ChannelA_Long}, // B_Channel1
-    {EFB,           EmptyFuncVV},   // B_Service
-    {EFB,           ChannelB_Long}, // B_Channel2
-    {EFB,           EmptyFuncVV},   // B_Display
-    {EFB,           TimeLong},      // B_Time
-    {EFB,           EmptyFuncVV},   // B_Memory
-    {EFB,           BtnRegTrig},    // B_Sinchro
-    {FuncBtnStart,  EmptyFuncVV},   // B_Start
-    {EFB,           EmptyFuncVV},   // B_Cursors
-    {EFB,           EmptyFuncVV},   // B_Measures
-    {FuncBtnPower,  EmptyFuncVV},   // B_Power
-    {EFB,           Help_Long},     // B_Help
-    {EFB,           Menu_Long},     // B_Menu
-    {EFB,           F1_Long},       // B_F1
-    {EFB,           F2_Long},       // B_F2
-    {EFB,           F3_Long},       // B_F2
-    {EFB,           F4_Long},       // B_F3
-    {EFB,           F5_Long}        // B_F4
+    {EFB,           Long_ChannelA}, ///< B_Channel1
+    {EFB,           EmptyFuncVV},   ///< B_Service
+    {EFB,           Long_ChannelB}, ///< B_Channel2
+    {EFB,           EmptyFuncVV},   ///< B_Display
+    {EFB,           Long_Time},     ///< B_Time
+    {EFB,           EmptyFuncVV},   ///< B_Memory
+    {EFB,           Long_Trig},     ///< B_Sinchro
+    {Func_Start,    Long_Start},    ///< B_Start
+    {EFB,           EmptyFuncVV},   ///< B_Cursors
+    {EFB,           EmptyFuncVV},   ///< B_Measures
+    {Func_Power,    EmptyFuncVV},   ///< B_Power
+    {EFB,           Long_Help},     ///< B_Help
+    {EFB,           Long_Menu},     ///< B_Menu
+    {EFB,           F1_Long},       ///< B_F1
+    {EFB,           F2_Long},       ///< B_F2
+    {EFB,           F3_Long},       ///< B_F2
+    {EFB,           F4_Long},       ///< B_F3
+    {EFB,           F5_Long}        ///< B_F4
 };
 
 
 typedef struct
 {
-    void(*rotate)(int delta);   // Эта функция вызывается при повороте ручки
-    void(*press)(int delta);    // Функция вызывается при нажатии/отпускании ручки
-    void(*longPress)(void);     // Эта функция вызывается при длительном нажатии ручки
+    void(*rotate)(int delta);       ///< Эта функция вызывается при повороте ручки.
+    void(*press)(int delta);        ///< Функция вызывается при нажатии/отпускании ручки.
+    void(*longPress)(void);         ///< Эта функция вызывается при длительном нажатии ручки.
 } StructReg;
 
 /** @todo Убрать дублирование*/
 static const StructReg funculatorReg[] =
 {
     {0}, {0}, {0}, {0}, {0}, {0}, {0}, {0}, {0}, {0}, {0}, {0}, {0}, {0}, {0}, {0}, {0}, {0}, {0}, {0},
-    {FuncRange1,    EFB,                EmptyFuncVV},   // R_Range1
-    {FuncRShift1,   FuncBtnRegChannel1, EmptyFuncVV},   // R_RShift1
-    {FuncRange2,    EFB,                EmptyFuncVV},   // R_Range2
-    {FuncRShift2,   FuncBtnRegChannel2, EmptyFuncVV},   // R_RShift2
-    {FuncTBase,     EFB,                EmptyFuncVV},   // R_TBase
-    {FuncTShift,    FuncBtnRegTime,     EmptyFuncVV},   // R_TShift
-    {FuncTrigLev,   FuncBtnRegTrig,     EmptyFuncVV},   // R_TrigLev
-    {FuncRegSet,    FuncBtnRegSet,      EmptyFuncVV},   // R_Set
-    {FuncRange1,    EFB,                EmptyFuncVV},   // R_Range1
-    {FuncRShift1,   FuncBtnRegChannel1, EmptyFuncVV},   // R_RShift1
-    {FuncRange2,    EFB,                EmptyFuncVV},   // R_Range2
-    {FuncRShift2,   FuncBtnRegChannel2, EmptyFuncVV},   // R_RShift2
-    {FuncTBase,     EFB,                EmptyFuncVV},   // R_TBase
-    {FuncTShift,    FuncBtnRegTime,     EmptyFuncVV},   // R_TShift
-    {FuncTrigLev,   FuncBtnRegTrig,     EmptyFuncVV},   // R_TrigLev
-    {FuncRegSet,    FuncBtnRegSet,      EmptyFuncVV}    // R_Set
+    {FuncRange1,    EFB,                EmptyFuncVV},   ///< R_Range1
+    {FuncRShift1,   FuncBtnRegChannel1, EmptyFuncVV},   ///< R_RShift1
+    {FuncRange2,    EFB,                EmptyFuncVV},   ///< R_Range2
+    {FuncRShift2,   FuncBtnRegChannel2, EmptyFuncVV},   ///< R_RShift2
+    {FuncTBase,     EFB,                EmptyFuncVV},   ///< R_TBase
+    {FuncTShift,    FuncBtnRegTime,     EmptyFuncVV},   ///< R_TShift
+    {FuncTrigLev,   FuncBtnRegTrig,     EmptyFuncVV},   ///< R_TrigLev
+    {FuncRegSet,    FuncBtnRegSet,      EmptyFuncVV},   ///< R_Set
+    {FuncRange1,    EFB,                EmptyFuncVV},   ///< R_Range1
+    {FuncRShift1,   FuncBtnRegChannel1, EmptyFuncVV},   ///< R_RShift1
+    {FuncRange2,    EFB,                EmptyFuncVV},   ///< R_Range2
+    {FuncRShift2,   FuncBtnRegChannel2, EmptyFuncVV},   ///< R_RShift2
+    {FuncTBase,     EFB,                EmptyFuncVV},   ///< R_TBase
+    {FuncTShift,    FuncBtnRegTime,     EmptyFuncVV},   ///< R_TShift
+    {FuncTrigLev,   FuncBtnRegTrig,     EmptyFuncVV},   ///< R_TrigLev
+    {FuncRegSet,    FuncBtnRegSet,      EmptyFuncVV}    ///< R_Set
 };
-
-uint16 RotateRegRight(PanelRegulator reg);
-uint16 ButtonPress(PanelButton button);
 
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -212,14 +210,16 @@ void OnTimerPressedKey(void)
     if(pressedKey != B_Empty)
     {
         void (*func)(void) = funcButton[pressedKey].funcLongPressure;
-        Menu_ReleaseButton(pressedKey);
-        if(func != 0)
+        if(func)
         {
             func();
         }
+        else
+        {
+            Menu_ReleaseButton(pressedKey);
+        }
         pressedKey = B_Empty;
     }
-    //Timer_Disable(kPressKey);
 }
 
 
@@ -347,7 +347,6 @@ void Panel_Update(void)
             funcButton[pressButton].funcOnKey(1);
             Menu_PressButton(pressButton);
             pressedKey = pressButton;
-            //Timer_Enable(kPressKey, 500, OnTimerPressedKey);
             Timer_SetAndStartOnce(kPressKey, OnTimerPressedKey, 500);
         }
         else if (regLeft)

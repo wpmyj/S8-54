@@ -15,7 +15,7 @@ static const uint MIN_TIME = 500;
 
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-void Help_Long(void)
+void Long_Help(void)
 {
     gBF.showHelpHints++;
     gStringForHint = 0;
@@ -23,19 +23,19 @@ void Help_Long(void)
 }
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
-void ChannelA_Long(void)
+void Long_ChannelA(void)
 {
     Menu_LongPressureButton(B_Channel1);
 }
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
-void ChannelB_Long(void)
+void Long_ChannelB(void)
 {
     Menu_LongPressureButton(B_Channel2);
 }
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
-void TimeLong(void)
+void Long_Time(void)
 {
     Menu_LongPressureButton(B_Time);
 }
@@ -52,7 +52,7 @@ void FuncLongRegRShift(void)
 }
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
-void FuncBtnStart(int key)              // B_Start
+void Func_Start(int key)                // B_Start
 {
     if (key == 1)
     {
@@ -65,9 +65,15 @@ void FuncBtnStart(int key)              // B_Start
     {
         if (WORK_DIRECT)                // Если кнопка ПУСК/СТОП выполняет стнадартную функцию
         {
-            Menu_PressButton(B_Start);
+            Menu_ReleaseButton(B_Start);
         }
     }
+}
+
+//----------------------------------------------------------------------------------------------------------------------------------------------------
+void Long_Start(void)
+{
+    gBF.FPGAneedAutoFind = 1;
 }
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
@@ -77,7 +83,7 @@ void EFB(int delta)
 }
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
-void FuncBtnPower(int key)                        // B_Power
+void Func_Power(int key)                        // B_Power
 {
     if (key == 1)
     {
@@ -87,7 +93,7 @@ void FuncBtnPower(int key)                        // B_Power
 }
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
-void Menu_Long(void)
+void Long_Menu(void)
 {
     Menu_LongPressureButton(B_Menu);
 }
@@ -387,7 +393,7 @@ void FuncBtnRegChannel1(int key)
 {
     if (key == 1)
     {
-        ChannelA_Long();
+        Long_ChannelA();
     }
 }
 
@@ -396,7 +402,7 @@ void FuncBtnRegChannel2(int key)
 {
     if (key == 1)
     {
-        ChannelB_Long();
+        Long_ChannelB();
     }
 }
 
@@ -405,7 +411,7 @@ void FuncBtnRegTime(int key)
 {
     if (key == 1)
     {
-        TimeLong();
+        Long_Time();
     }
 }
 
@@ -419,7 +425,7 @@ void FuncBtnRegTrig(int key)
 }
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
-void BtnRegTrig(void)
+void Long_Trig(void)
 {
     FuncBtnRegTrig(1);
 }

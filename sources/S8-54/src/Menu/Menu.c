@@ -453,6 +453,7 @@ void ProcessingLongPressureButton(void)
 
     if(button != B_Empty)
     {
+        Sound_ButtonRelease();
         NEED_FINISH_DRAW = 1;
         Menu_SetAutoHide(true);
 
@@ -574,11 +575,7 @@ void ProcessingRegulatorSetRotate(void)
 //----------------------------------------------------------------------------------------------------------------------------------------------------
 void ProcessingPressButton(void)
 {
-    if (pressButton == B_Start && !WORK_LAST)
-    {
-        FPGA_OnPressStartStop();
-    } 
-    else if((pressButton >= B_F1 && pressButton <= B_F5) || pressButton == B_Menu)
+    if((pressButton >= B_F1 && pressButton <= B_F5) || pressButton == B_Menu)
     {
         if (pressButton != B_Menu)
         {
@@ -594,6 +591,12 @@ void ProcessingReleaseButton(void)
     if(releaseButton >= B_F1 && releaseButton <= B_F5 || pressButton == B_Menu)
     {
         itemUnderKey = 0;
+        releaseButton = B_Empty;
+    }
+    
+    if(releaseButton == B_Start && !WORK_LAST)
+    {
+        FPGA_OnPressStartStop();
         releaseButton = B_Empty;
     }
 }
