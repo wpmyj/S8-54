@@ -31,23 +31,23 @@ const int Kr[] = {N_KR / 1, N_KR / 2, N_KR / 5, N_KR / 10, N_KR / 20};
 StateWorkFPGA fpgaStateWork = StateWorkFPGA_Stop;
 volatile static int numberMeasuresForGates = 1000;
 static DataSettings ds;
-static uint timeCompletePredTrig = 0;   // Здесь окончание счёта предзапуска. Если == 0, то предзапуск не завершён.
+static uint timeCompletePredTrig = 0;   ///< Здесь окончание счёта предзапуска. Если == 0, то предзапуск не завершён.
 static uint8* dataRandA = 0;
 static uint8* dataRandB = 0;
 static uint timeStart = 0;
 static uint timeSwitchingTrig = 0;
-static bool readingPointP2P = false;    // Признак того, что точка и последнего прерывания поточечного вывода прочитана.
-uint16 adcValueFPGA = 0;                // Здесь хранится значение считанное с АЦП для правильной расстановки точек
+static bool readingPointP2P = false;    ///< Признак того, что точка и последнего прерывания поточечного вывода прочитана.
+uint16 adcValueFPGA = 0;                ///< Здесь хранится значение считанное с АЦП для правильной расстановки точек.
 
-int gRandStat[281];                     // Здесь будут храниться статистики
+int gRandStat[281];                     ///< Здесь будут храниться статистики.
 float gScaleRandStat = 0.0f;
 
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-static bool ReadPoint(void);                                        // Чтение точки в поточечном режиме
-static void Write(TypeRecord type, uint16 *address, uint data);     // Запись в регистры и альтеру
+static bool ReadPoint(void);                                        ///< Чтение точки в поточечном режиме.
+static void Write(TypeRecord type, uint16 *address, uint data);     ///< Запись в регистры и альтеру.
 static void InitADC(void);
-static void ProcessingAfterReadData(void);                          // Действия, которые нужно предпринять после успешного считывания данных
+static void ProcessingAfterReadData(void);                          ///< Действия, которые нужно предпринять после успешного считывания данных.
 
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -357,7 +357,9 @@ static int CalculateShift(void)            // WARN Не забыть восстановить функци
         return 0;
     }
 
-    return -1;  // set.debug.altShift;      WARN Остановились на жёстком задании дополнительного смещения. На PageDebug выбор закомментирован, можно раскомментировать при необходимости
+    /// \todo Остановились на жёстком задании дополнительного смещения. На PageDebug выбор закомментирован, можно раскомментировать при необходимости
+
+    return -1;  // set.debug.altShift;
 }
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
@@ -484,7 +486,8 @@ static bool ReadRandomizeModeSave(bool first, bool last, bool onlySave)
         }
 
         // addrFirstRead - адрес, который мы должны записать в альтеру. Это адрес, с которого альтера начнёт чтение данных
-        // Но считывать будем с адреса на 3 меньшего, чем расчётный. Лишние данные нужны, чтобы достроить те точки вначале, которые выпадают при программном сдвиге.
+        // Но считывать будем с адреса на 3 меньшего, чем расчётный. Лишние данные нужны, чтобы достроить те точки вначале, 
+        // которые выпадают при программном сдвиге.
         // Процедуре чтения мы укажем сколько первых точек выбросить через параметр numSkipped
         uint16 addrFirstRead = *RD_ADDR_NSTOP + 16384 - (uint16)(bytesInChannel / step) - 1 - NUM_ADD_STEPS;
 
@@ -706,7 +709,7 @@ bool ProcessingData(void)
             uint time = gTimeMS;
             // В рандомизаторных развёртках при повторных считываниях нужно подождать флага синхронизации
             while (GetBit(flag, FL_TRIG_READY) == 0 && GetBit(flag, FL_DATA_READY) == 0 && (gTimeMS - time) < 10)
-            {                                                                                   // Это нужно для низких частот импульсов на входе
+            {                                                       // Это нужно для низких частот импульсов на входе
                 flag = ReadFlag();
             }
             if (GetBit(flag, FL_DATA_READY) == 0) 
@@ -715,12 +718,12 @@ bool ProcessingData(void)
             }
         }
 
-        if (GetBit(flag, FL_TRIG_READY))                                    // Если прошёл импульс синхронизации
+        if (GetBit(flag, FL_TRIG_READY))                            // Если прошёл импульс синхронизации
         {
-            if (GetBit(flag, FL_DATA_READY) == 1)                           // Проверяем готовность данных
+            if (GetBit(flag, FL_DATA_READY) == 1)                   // Проверяем готовность данных
             {
-                fpgaStateWork = StateWorkFPGA_Stop;                         // И считываем, если данные готовы
-                HAL_NVIC_DisableIRQ(EXTI2_IRQn);                            // Отключаем чтение точек
+                fpgaStateWork = StateWorkFPGA_Stop;                 // И считываем, если данные готовы
+                HAL_NVIC_DisableIRQ(EXTI2_IRQn);                    // Отключаем чтение точек
                 DataReadSave(false, i == 0, i == num - 1, false);
                 ProcessingAfterReadData();
                 retValue = true;
@@ -767,11 +770,11 @@ static void ProcessingAfterReadData(void)
 {
     if(!START_MODE_SINGLE)
     {
-        if(IN_P2P_MODE && START_MODE_AUTO)                               // Если находимся в режиме поточечного вывода при автоматической синхронизации
+        if(IN_P2P_MODE && START_MODE_AUTO)                              // Если находимся в режиме поточечного вывода при автоматической синхронизации
         {
             if(gBF.needStopAfterReadFrameP2P == 0)
             {
-                Timer_SetAndStartOnce(kTimerStartP2P, FPGA_Start, 1000); // то откладываем следующий запуск, чтобы зафиксировать сигнал на экране
+                Timer_SetAndStartOnce(kTimerStartP2P, FPGA_Start, 1000);    // то откладываем следующий запуск, чтобы зафиксировать сигнал на экране
             }
         }
         else
@@ -880,8 +883,8 @@ void FPGA_Update(void)
 //----------------------------------------------------------------------------------------------------------------------------------------------------
 static void OnPressStartStopInP2P(void)
 {
-    if(Timer_IsRun(kTimerStartP2P))            // Если находимся в режиме поточечного вывода и в данный момент пауза после считывания очередного полного сигнала
-    {
+    if(Timer_IsRun(kTimerStartP2P))             // Если находимся в режиме поточечного вывода и в данный момент пауза после считывания очередного 
+    {                                           // полного сигнала
         Timer_Disable(kTimerStartP2P);          // то останавливаем таймер, чтобы просмотреть сигнал
     }
     else                                        // Если идёт процесс сбора информации
@@ -891,8 +894,8 @@ static void OnPressStartStopInP2P(void)
             FPGA_Start();
         }
         else
-        {
-            gBF.needStopAfterReadFrameP2P = !gBF.needStopAfterReadFrameP2P;   // то устанавливаем признак того, что после окончания не надо запускать следующий цикл
+        {   // то устанавливаем признак того, что после окончания не надо запускать следующий цикл
+            gBF.needStopAfterReadFrameP2P = !gBF.needStopAfterReadFrameP2P;
         }
     }
 }
@@ -1111,8 +1114,8 @@ static void Write(TypeRecord type, uint16 *address, uint data)
     {
         uint16 *addrAnalog = address;
         CHIP_SELECT_IN_LOW
-        for (int i = ((int)addrAnalog <= (int)CS2 ? 15 : 23); i >= 0; i--)    // Хотя данных всего 16 бит, но передаём 24 - первые восемь нули - первый из них указывает на то, что производится запись //-V205
-        {
+        for (int i = ((int)addrAnalog <= (int)CS2 ? 15 : 23); i >= 0; i--)      // Хотя данных всего 16 бит, но передаём 24 - первые восемь нули - 
+        {                                                                       // первый из них указывает на то, что производится запись
             DATA_SET((data & (1 << i)) ? GPIO_PIN_SET : GPIO_PIN_RESET);
             CLC_HI
             CLC_LOW
