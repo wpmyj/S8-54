@@ -1,6 +1,13 @@
 // This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++ and C#: http://www.viva64.com
+#include "Globals.h"
+#include "FPGA/FPGA.h"
+#include "Hardware/Sound.h"
+#include "Hardware/Timer.h"
+#include "Menu/Menu.h"
 #include "Menu/MenuFunctions.h"
+#include "Settings/Settings.h"
+#include "Settings/SettingsDebug.h"
 
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -42,7 +49,6 @@ void Set_Press(void)
 //----------------------------------------------------------------------------------------------------------------------------------------------------
 void FuncLongRegRShift(void)
 {
-    LOG_WRITE("ручка");
 }
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
@@ -55,7 +61,7 @@ void FuncBtnStart(int key)              // B_Start
             CONSOLE_IN_PAUSE = CONSOLE_IN_PAUSE ? 0 : 1;
         }
     }
-    if(key == 0)
+    if(key == -1)
     {
         if (WORK_DIRECT)                // Если кнопка ПУСК/СТОП выполняет стнадартную функцию
         {

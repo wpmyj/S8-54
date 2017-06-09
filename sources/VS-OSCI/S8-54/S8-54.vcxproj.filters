@@ -261,9 +261,6 @@
     <ClCompile Include="..\..\S8-54\src\Panel\Panel.c">
       <Filter>Panel</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\S8-54\src\Panel\PanelFunctions.c">
-      <Filter>Panel</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\S8-54\src\Utils\Debug.c">
       <Filter>Utils</Filter>
     </ClCompile>
@@ -566,6 +563,9 @@
     </ClCompile>
     <ClCompile Include="..\..\S8-54\src\Menu\Pages\PageDebug.c">
       <Filter>Menu\Pages</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\S8-54\src\Panel\PanelFunctions.h">
+      <Filter>Panel</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

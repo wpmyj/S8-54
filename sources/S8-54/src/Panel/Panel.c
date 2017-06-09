@@ -1,21 +1,14 @@
 // This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++ and C#: http://www.viva64.com
-#include "Panel.h"
-#include "Controls.h"
 #include "Log.h"
-#include "Display/Display.h"
+#include "Panel.h"
+#include "PanelFunctions.h"
 #include "FPGA/FPGA.h"
-#include "Menu/Menu.h"
-#include "Settings/Settings.h"
-#include "Utils/Math.h"
-#include "Utils/GlobalFunctions.h"
-#include "Utils/Debug.h"
-#include "Hardware/Timer.h"
-#include "Hardware/Sound.h"
 #include "Hardware/Hardware.h"
-#include "Hardware/FSMC.h"
-#include <string.h>
-#include "PanelFunctions.c"
+#include "Hardware/Sound.h"
+#include "Hardware/Timer.h"
+#include "Menu/Menu.h"
+#include "Utils/GlobalFunctions.h"
 
 
 extern void OnPress_ResetSettings(void);

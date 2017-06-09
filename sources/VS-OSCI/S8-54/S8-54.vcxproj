@@ -217,7 +217,7 @@
     <ClCompile Include="..\..\S8-54\src\Menu\Pages\Service\PageService.c" />
     <ClCompile Include="..\..\S8-54\src\Panel\Controls.c" />
     <ClCompile Include="..\..\S8-54\src\Panel\Panel.c" />
-    <ClCompile Include="..\..\S8-54\src\Panel\PanelFunctions.c" />
+    <ClCompile Include="..\..\S8-54\src\Panel\PanelFunctions.h" />
     <ClCompile Include="..\..\S8-54\src\Settings\DataSettings.c" />
     <ClCompile Include="..\..\S8-54\src\Settings\Settings.c" />
     <ClCompile Include="..\..\S8-54\src\Settings\SettingsChannel.c" />
