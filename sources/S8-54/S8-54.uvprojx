@@ -1180,36 +1180,6 @@
               <FilePath>.\src\FPGA\DataStorage.h</FilePath>
             </File>
             <File>
-              <FileName>fpga.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\src\FPGA\fpga.c</FilePath>
-            </File>
-            <File>
-              <FileName>fpga.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\src\FPGA\fpga.h</FilePath>
-            </File>
-            <File>
-              <FileName>fpgaExtensions.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\src\FPGA\fpgaExtensions.c</FilePath>
-            </File>
-            <File>
-              <FileName>fpgaExtensions.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\src\FPGA\fpgaExtensions.h</FilePath>
-            </File>
-            <File>
-              <FileName>fpgaSettings.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\src\FPGA\fpgaSettings.c</FilePath>
-            </File>
-            <File>
-              <FileName>fpgaTypes.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\src\FPGA\fpgaTypes.h</FilePath>
-            </File>
-            <File>
               <FileName>Data.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\src\FPGA\Data.c</FilePath>
@@ -1218,6 +1188,36 @@
               <FileName>Data.h</FileName>
               <FileType>5</FileType>
               <FilePath>.\src\FPGA\Data.h</FilePath>
+            </File>
+            <File>
+              <FileName>FPGA.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\src\FPGA\FPGA.c</FilePath>
+            </File>
+            <File>
+              <FileName>FPGA.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\src\FPGA\FPGA.h</FilePath>
+            </File>
+            <File>
+              <FileName>FPGAExtensions.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\src\FPGA\FPGAExtensions.c</FilePath>
+            </File>
+            <File>
+              <FileName>FPGAExtensions.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\src\FPGA\FPGAExtensions.h</FilePath>
+            </File>
+            <File>
+              <FileName>FPGASettings.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\src\FPGA\FPGASettings.c</FilePath>
+            </File>
+            <File>
+              <FileName>FPGATypes.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\src\FPGA\FPGATypes.h</FilePath>
             </File>
           </Files>
         </Group>
@@ -1318,61 +1318,6 @@
               <FileName>Panel.h</FileName>
               <FileType>5</FileType>
               <FilePath>.\src\Panel\Panel.h</FilePath>
-            </File>
-            <File>
-              <FileName>PanelFunctions.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\src\Panel\PanelFunctions.c</FilePath>
-              <FileOption>
-                <CommonProperty>
-                  <UseCPPCompiler>2</UseCPPCompiler>
-                  <RVCTCodeConst>0</RVCTCodeConst>
-                  <RVCTZI>0</RVCTZI>
-                  <RVCTOtherData>0</RVCTOtherData>
-                  <ModuleSelection>0</ModuleSelection>
-                  <IncludeInBuild>0</IncludeInBuild>
-                  <AlwaysBuild>0</AlwaysBuild>
-                  <GenerateAssemblyFile>0</GenerateAssemblyFile>
-                  <AssembleAssemblyFile>0</AssembleAssemblyFile>
-                  <PublicsOnly>2</PublicsOnly>
-                  <StopOnExitCode>11</StopOnExitCode>
-                  <CustomArgument></CustomArgument>
-                  <IncludeLibraryModules></IncludeLibraryModules>
-                  <ComprImg>1</ComprImg>
-                </CommonProperty>
-                <FileArmAds>
-                  <Cads>
-                    <interw>2</interw>
-                    <Optim>0</Optim>
-                    <oTime>2</oTime>
-                    <SplitLS>2</SplitLS>
-                    <OneElfS>2</OneElfS>
-                    <Strict>2</Strict>
-                    <EnumInt>2</EnumInt>
-                    <PlainCh>2</PlainCh>
-                    <Ropi>2</Ropi>
-                    <Rwpi>2</Rwpi>
-                    <wLevel>0</wLevel>
-                    <uThumb>2</uThumb>
-                    <uSurpInc>2</uSurpInc>
-                    <uC99>2</uC99>
-                    <useXO>2</useXO>
-                    <v6Lang>0</v6Lang>
-                    <v6LangP>0</v6LangP>
-                    <vShortEn>2</vShortEn>
-                    <vShortWch>2</vShortWch>
-                    <v6Lto>0</v6Lto>
-                    <v6WtE>2</v6WtE>
-                    <v6Rtti>2</v6Rtti>
-                    <VariousControls>
-                      <MiscControls></MiscControls>
-                      <Define></Define>
-                      <Undefine></Undefine>
-                      <IncludePath></IncludePath>
-                    </VariousControls>
-                  </Cads>
-                </FileArmAds>
-              </FileOption>
             </File>
           </Files>
         </Group>

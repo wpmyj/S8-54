@@ -207,9 +207,6 @@
     <ClCompile Include="..\..\S8-54\src\Menu\Pages\PageTrig.c">
       <Filter>Menu\Pages</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\S8-54\src\FPGA\DataStorage.c">
-      <Filter>FPGA</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\S8-54\src\Settings\Settings.c">
       <Filter>Settings</Filter>
     </ClCompile>
@@ -335,15 +332,6 @@
     </ClCompile>
     <ClCompile Include="..\..\S8-54\src\Hardware\Timer.c">
       <Filter>Hardware</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\S8-54\src\FPGA\fpga.c">
-      <Filter>FPGA</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\S8-54\src\FPGA\fpgaExtensions.c">
-      <Filter>FPGA</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\S8-54\src\FPGA\fpgaSettings.c">
-      <Filter>FPGA</Filter>
     </ClCompile>
     <ClCompile Include="..\..\STM32Cube_FW_F4\Middlewares\ST\STM32_USB_Host_Library\Class\CDC\Src\usbh_cdc.c">
       <Filter>libs</Filter>
@@ -555,9 +543,6 @@
     <ClCompile Include="..\..\S8-54\src\Settings\DataSettings.c">
       <Filter>Settings</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\S8-54\src\FPGA\Data.c">
-      <Filter>FPGA</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\S8-54\src\Settings\SettingsNew_.c">
       <Filter>Settings</Filter>
     </ClCompile>
@@ -566,6 +551,21 @@
     </ClCompile>
     <ClCompile Include="..\..\S8-54\src\Panel\PanelFunctions.h">
       <Filter>Panel</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\S8-54\src\FPGA\Data.c">
+      <Filter>FPGA</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\S8-54\src\FPGA\DataStorage.c">
+      <Filter>FPGA</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\S8-54\src\FPGA\FPGA.c">
+      <Filter>FPGA</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\S8-54\src\FPGA\FPGAExtensions.c">
+      <Filter>FPGA</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\S8-54\src\FPGA\FPGASettings.c">
+      <Filter>FPGA</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -691,9 +691,6 @@
     </ClInclude>
     <ClInclude Include="..\..\S8-54\src\Menu\Pages\PageHelp.h">
       <Filter>Menu\Pages</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\S8-54\src\FPGA\DataStorage.h">
-      <Filter>FPGA</Filter>
     </ClInclude>
     <ClInclude Include="..\..\S8-54\src\Settings\Settings.h">
       <Filter>Settings</Filter>
@@ -847,15 +844,6 @@
     </ClInclude>
     <ClInclude Include="..\..\S8-54\src\structures.h">
       <Filter>src</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\S8-54\src\FPGA\fpga.h">
-      <Filter>FPGA</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\S8-54\src\FPGA\fpgaExtensions.h">
-      <Filter>FPGA</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\S8-54\src\FPGA\fpgaTypes.h">
-      <Filter>FPGA</Filter>
     </ClInclude>
     <ClInclude Include="..\..\STM32Cube_FW_F4\Middlewares\ST\STM32_USB_Host_Library\Class\CDC\Inc\usbh_cdc.h">
       <Filter>libs</Filter>
@@ -1070,9 +1058,6 @@
     <ClInclude Include="..\..\S8-54\src\Settings\DataSettings.h">
       <Filter>Settings</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\S8-54\src\FPGA\Data.h">
-      <Filter>FPGA</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\S8-54\src\dox\main_page.h">
       <Filter>_dox</Filter>
     </ClInclude>
@@ -1084,6 +1069,21 @@
     </ClInclude>
     <ClInclude Include="..\..\S8-54\src\dox\RelatedPages.h">
       <Filter>_dox</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\S8-54\src\FPGA\Data.h">
+      <Filter>FPGA</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\S8-54\src\FPGA\DataStorage.h">
+      <Filter>FPGA</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\S8-54\src\FPGA\FPGA.h">
+      <Filter>FPGA</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\S8-54\src\FPGA\FPGAExtensions.h">
+      <Filter>FPGA</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\S8-54\src\FPGA\FPGATypes.h">
+      <Filter>FPGA</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
