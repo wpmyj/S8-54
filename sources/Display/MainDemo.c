@@ -1,9 +1,3 @@
-//MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-/****************************************************************************
- * Microchip Graphics Library Demo Application
- * This program shows how to use the Graphics Primitives Layer.
- *****************************************************************************/
-
 /*
 
     Для сборки испльзовать MPLAB IDE v8.92 и компилятор xc16-v1.26
@@ -24,16 +18,8 @@
 #include <stdlib.h>
 #include <math.h>
 
-//#define AUTORELOAD  // Перезагрузка при зависании
 
-
-_CONFIG1( WDTPS_PS128 & FWPSA_PR128 & ALTVREF_ALTVREDIS & ICS_PGx2 & GWRP_OFF & JTAGEN_OFF & 
-#ifdef AUTORELOAD
-    FWDTEN_ON
-#else
-    FWDTEN_OFF
-#endif
-& GCP_OFF) //// & WINDIS_OFF &JTAGEN_OFF
+_CONFIG1( WDTPS_PS128 & FWPSA_PR128 & ALTVREF_ALTVREDIS & ICS_PGx2 & GWRP_OFF & JTAGEN_OFF & FWDTEN_OFF & GCP_OFF) //// & WINDIS_OFF &JTAGEN_OFF
 _CONFIG2( POSCMOD_XT & IOL1WAY_OFF & OSCIOFNC_OFF & OSCIOFNC_OFF & FCKSM_CSDCMD & FNOSC_PRIPLL & PLL96MHZ_ON & PLLDIV_DIV2 & IESO_OFF)
 _CONFIG3( WPFP_WPFP255 & SOSCSEL_SOSC & WUTSEL_LEG & WPDIS_WPDIS & WPCFG_WPCFGDIS & WPEND_WPENDMEM) //ALTPMP_ALTPMPEN & 
 
@@ -198,9 +184,6 @@ int main(void)
             ReadNextCommand();
             PMSTATbits.IBOV = 0;    // Input buffer overflow
             PORTBbits.RB1 = 1;      // RB = 1 - дисплей освободился, можно слать следующую команду
-#ifdef AUTORELOAD
-            ClrWdt();
-#endif
         }
     }
 }
