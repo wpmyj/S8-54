@@ -45,10 +45,6 @@ static uint8 Read2points(int x, int y);
 //static void Get8Points(int x, int y, uint8 buffer[4]);
 
 
-#define WRITE_BYTE(offset, value)   *(command + offset) = (uint8)value
-#define WRITE_SHORT(offset, value)  *((uint16*)(command + offset)) = (uint16)value
-
-
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 void Painter_BeginScene(Color color)
 {
@@ -87,8 +83,7 @@ void Painter_EndScene(void)
         framesElapsed = true;
         return;
     }
-    uint8 command[4];
-    command[0] = END_SCENE;
+    uint8 command[4] = {END_SCENE};
     Painter_SendToDisplay(command, 4);
     Painter_SendToInterfaces(command, 1);
     if (stateTransmit == StateTransmit_InProcess)
@@ -126,8 +121,7 @@ void Painter_SetColor(Color color)
         {
             CalculateColor((uint8*)(&(color)));
         }
-        uint8 command[4] = {SET_COLOR};
-        command[1] = color; //-V2006
+        uint8 command[4] = {SET_COLOR, color};
         Painter_SendToDisplay(command, 4);
         Painter_SendToInterfaces(command, 2);
     }
@@ -159,10 +153,10 @@ void Painter_LoadPalette(int num)
 //----------------------------------------------------------------------------------------------------------------------------------------------------
 void Painter_SetPalette(Color color)
 {
-    uint8 command[4];
-    command[0] = SET_PALETTE;
-    *(command + 1) = color; //-V2006
-    *((uint16*)(command + 2)) = COLOR(color);
+    uint8 command[4] = {SET_PALETTE};
+    WRITE_BYTE(1, color);
+    WRITE_SHORT(2, COLOR(color));
+
     Painter_SendToDisplay(command, 4);
     Painter_SendToInterfaces(command, 4);
 }
@@ -170,10 +164,10 @@ void Painter_SetPalette(Color color)
 //----------------------------------------------------------------------------------------------------------------------------------------------------
 void Painter_SetPoint(int x, int y)
 {
-    uint8 command[4];
-    command[0] = SET_POINT;
-    *((int16*)(command + 1)) = (int16)x;
-    *(command + 3) = (int8)y;
+    uint8 command[4] = {SET_POINT};
+    WRITE_SHORT(1, x);
+    WRITE_BYTE(3, y);
+
     Painter_SendToDisplay(command, 4);
     Painter_SendToInterfaces(command, 4);
 }
@@ -182,11 +176,12 @@ void Painter_SetPoint(int x, int y)
 void Painter_DrawHLine(int y, int x0, int x1)
 {
     CalculateCurrentColor();
-    uint8 command[8];
-    command[0] = DRAW_HLINE;
-    *(command + 1) = (int8)y;
-    *((int16*)(command + 2)) = (int16)x0;
-    *((int16*)(command + 4)) = (int16)x1;
+
+    uint8 command[8] = {DRAW_HLINE};
+    WRITE_BYTE(1, y);
+    WRITE_SHORT(2, x0);
+    WRITE_SHORT(4, x1);
+
     Painter_SendToDisplay(command, 8);
     Painter_SendToInterfaces(command, 6);
 }
@@ -195,11 +190,12 @@ void Painter_DrawHLine(int y, int x0, int x1)
 void Painter_DrawVLine(int x, int y0, int y1)
 {
     CalculateCurrentColor();
-    uint8 command[8];
-    command[0] = DRAW_VLINE;
-    *((int16*)(command + 1)) = (int16)x;
-    *(command + 3) = (int8)y0;
-    *(command + 4) = (int8)y1;
+
+    uint8 command[8] = {DRAW_VLINE};
+    WRITE_SHORT(1, x);
+    WRITE_BYTE(3, y0);
+    WRITE_BYTE(4, y1);
+
     Painter_SendToDisplay(command, 8);
     Painter_SendToInterfaces(command, 5);
 }
@@ -209,12 +205,13 @@ void Painter_DrawVPointLine(int x, int y0, int y1, float delta, Color color)
 {
     Painter_SetColor(color);
     int8 numPoints = (int8)((y1 - y0) / delta);
-    uint8 command[6];
-    command[0] = DRAW_VPOINT_LINE;
-    *((int16*)(command + 1)) = (int16)x;
-    *(command + 3) = (uint8)y0;
-    *(command + 4) = (uint8)delta;
-    *(command + 5) = numPoints;
+
+    uint8 command[6] = {DRAW_VPOINT_LINE};
+    WRITE_SHORT(1, x);
+    WRITE_BYTE(3, y0);
+    WRITE_BYTE(4, delta);
+    WRITE_BYTE(5, numPoints);
+
     Painter_SendToDisplay(command, 6);
 }
 
@@ -233,13 +230,9 @@ void Painter_DrawMultiVPointLine(int numLines, int y, uint16 x[], int delta, int
     ASSERT_RET(numLines > 20, "Число линий слишком большое %d", numLines);
 
     Painter_SetColor(color);
-    uint8 command[60];
-    command[0] = DRAW_MULTI_VPOINT_LINES;
-    *(command + 1) = (uint8)numLines;
-    *(command + 2) = (uint8)y;
-    *(command + 3) = (uint8)count;
-    *(command + 4) = (uint8)delta;
-    *(command + 5) = 0;
+
+    uint8 command[60] = {DRAW_MULTI_VPOINT_LINES, numLines, y, count, delta, 0};
+
     uint8 *pointer = command + 6;
     for (int i = 0; i < numLines; i++)
     {
@@ -264,12 +257,13 @@ void Painter_DrawMultiHPointLine(int numLines, int x, uint8 y[], int delta, int 
         return;
     }
     Painter_SetColor(color);
-    uint8 command[30];
-    command[0] = DRAW_MULTI_HPOINT_LINES_2;
-    *(command + 1) = (uint8)numLines;
-    *((uint16*)(command + 2)) = (uint16)x;
-    *(command + 4) = (uint8)count;
-    *(command + 5) = (uint8)delta;
+
+    uint8 command[30] = {DRAW_MULTI_HPOINT_LINES_2};
+    WRITE_BYTE(1, numLines);
+    WRITE_SHORT(2, x);
+    WRITE_BYTE(4, count);
+    WRITE_BYTE(5, delta);
+
     uint8 *pointer = command + 6;
     for (int i = 0; i < numLines; i++)
     {
@@ -295,8 +289,25 @@ void Painter_DrawMultiHPointLine(int numLines, int x, uint8 y[], int delta, int 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
 void Painter_DrawLine(int x1, int y1, int x2, int y2)
 {
-    uint8 command[5] = {DRAW_LINE};
-    
+    if (x1 == x1)
+    {
+        Painter_DrawVLine(x1, y1, y2);
+    }
+    else if (y1 == y2)
+    {
+        Painter_DrawHLine(y1, x1, x2);
+    }
+    else
+    {
+        uint8 command[8] = {DRAW_LINE};
+        WRITE_SHORT(1, x1);
+        WRITE_BYTE(3, y1);
+        WRITE_SHORT(4, x2);
+        WRITE_BYTE(6, y2);
+
+        Painter_SendToDisplay(command, 8);
+        Painter_SendToInterfaces(command, 7);
+    }
 }
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
@@ -365,12 +376,13 @@ void Painter_DrawRectangle(int x, int y, int width, int height)
 void Painter_FillRegion(int x, int y, int width, int height)
 {
     CalculateCurrentColor();
-    uint8 command[8];
-    command[0] = FILL_REGION;
-    *((int16*)(command + 1)) = (int16)x;
-    *(command + 3) = (int8)y;
-    *((int16*)(command + 4)) = (int16)width;
-    *(command + 6) = (int8)height;
+
+    uint8 command[8] = {FILL_REGION};
+    WRITE_SHORT(1, x);
+    WRITE_BYTE(3, y);
+    WRITE_SHORT(4, width);
+    WRITE_BYTE(6, height);
+
     Painter_SendToDisplay(command, 8);
     Painter_SendToInterfaces(command, 7);
 }
@@ -409,9 +421,9 @@ void Painter_SetBrightnessDisplay(int16 brightness)
     {
         recValue = 64.0f + (600.0f - 63.0f) / 100.0f / 100.0f * brightness * brightness;
     }
-    uint8 command[4];
-    command[0] = SET_BRIGHTNESS;
-    *((uint16*)(command + 1)) = (uint16)recValue;
+    uint8 command[4] = {SET_BRIGHTNESS};
+    WRITE_SHORT(1, recValue);
+
     Painter_SendToDisplay(command, 4);
 }
 
@@ -431,18 +443,21 @@ uint16 Painter_ReduceBrightness(uint16 colorValue, float newBrightness)
 void Painter_DrawVLineArray(int x, int numLines, uint8 *y0y1, Color color)
 {
     Painter_SetColor(color);
-    uint8 command[255 * 2 + 4 + 4];
-    command[0] = DRAW_VLINES_ARRAY;
-    *((int16*)(command + 1)) = (int16)x;
+
+    uint8 command[255 * 2 + 4 + 4] = {DRAW_VLINES_ARRAY};
+    WRITE_SHORT(1, x);
+
     if (numLines > 255)
     {
         numLines = 255;
     }
-    *(command + 3) = (uint8)numLines;
+
+    WRITE_BYTE(3, numLines);
+
     for (int i = 0; i < numLines; i++)
     {
-        *(command + 4 + i * 2) = *(y0y1 + i * 2);
-        *(command + 4 + i * 2 + 1) = *(y0y1 + i * 2 + 1);
+        WRITE_BYTE(4 + i * 2,     *(y0y1 + i * 2));
+        WRITE_BYTE(4 + i * 2 + 1, *(y0y1 + i * 2 + 1));
     }
     int numBytes = numLines * 2 + 4;
     while (numBytes % 4)
@@ -456,13 +471,13 @@ void Painter_DrawVLineArray(int x, int numLines, uint8 *y0y1, Color color)
 //----------------------------------------------------------------------------------------------------------------------------------------------------
 void Painter_DrawSignal(int x, uint8 data[281], bool modeLines)
 {
-    uint8 command[284];
-    command[0] = modeLines ? DRAW_SIGNAL_LINES : DRAW_SIGNAL_POINTS;
-    *((int16*)(command + 1)) = (int16)x;
+    uint8 command[284] = {modeLines ? DRAW_SIGNAL_LINES : DRAW_SIGNAL_POINTS};
+    WRITE_SHORT(1, x);
     for (int i = 0; i < 281; i++)
     {
-        *(command + 3 + i) = data[i];
+        WRITE_BYTE(3 + i, data[i]);
     }
+
     Painter_SendToDisplay(command, 284);
     Painter_SendToInterfaces(command, 284);
 }
@@ -470,21 +485,25 @@ void Painter_DrawSignal(int x, uint8 data[281], bool modeLines)
 //----------------------------------------------------------------------------------------------------------------------------------------------------
 void Painter_DrawPicture(int x, int y, int width, int height, uint8 *address)
 {
-    uint8 command[4];
-    command[0] = LOAD_IMAGE;
-    *((uint16*)(command + 1)) = (uint16)x;
-    *(command + 3) = (uint8)y;
+    uint8 command[4] = {LOAD_IMAGE};
+    WRITE_SHORT(1, x);
+    WRITE_BYTE(3, y);
+
     Painter_SendToDisplay(command, 4);
-    *((uint16*)(command)) = (uint16)width;
-    *(command + 2) = (uint8)height;
-    *(command + 3) = 0;
+
+    WRITE_SHORT(0, width);
+    WRITE_BYTE(2, height);
+    WRITE_BYTE(3, 0);
+
     Painter_SendToDisplay(command, 4);
+
     for (int i = 0; i < width * height / 2 / 4; i++)
     {
-        *(command) = *address++;
-        *(command + 1) = *address++;
-        *(command + 2) = *address++;
-        *(command + 3) = *address++;
+        WRITE_BYTE(0, *address++);
+        WRITE_BYTE(1, *address++);
+        WRITE_BYTE(2, *address++);
+        WRITE_BYTE(3, *address++);
+
         Painter_SendToDisplay(command, 4);
     }
 }
@@ -644,8 +663,8 @@ void Painter_SendToInterfaces(uint8 *pointer, int size)
 //----------------------------------------------------------------------------------------------------------------------------------------------------
 static void RunDisplay(void)
 {
-    uint8 command[4];
-    command[0] = RUN_BUFFER;
+    uint8 command[4] = {RUN_BUFFER};
+
     Painter_SendToDisplay(command, 4);
 }
 

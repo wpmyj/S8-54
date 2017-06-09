@@ -24,9 +24,9 @@ void Painter_SetFont(TypeFont typeFont)
         return;
     }
     font = fonts[typeFont];
-    uint8 command[4]; //-V112
-    command[0] = SET_FONT;
-    command[1] = (uint8)typeFont;
+
+    uint8 command[4] = {SET_FONT, (uint8)typeFont};
+
     Painter_SendToDisplay(command, 4); //-V112
     Painter_SendToInterfaces(command, 2);
 }
@@ -51,12 +51,11 @@ void Painter_LoadFont(TypeFont typeFont)
     {
         bytes = fontUGO2display;
     }
-    uint8 command[3084];
-    command[0] = LOAD_FONT;
-    command[1] = typeFont; //-V2006
+
+    uint8 command[3084] = {LOAD_FONT, typeFont};
     for (int i = 0; i < 3080; i++)
     {
-        command[2 + i] = bytes[i];
+        WRITE_BYTE(2 + i, bytes[i]);
     }
     //Painter_SendToDisplay(command, 3084);     // WARN шрифты теперь зашиты в дисплей
     Painter_SendToInterfaces(command, 2);
@@ -211,10 +210,10 @@ int Painter_DrawText(int x, int y, const char *text)
     int retValue = x;
     y += (8 - Font_GetSize());
 #define SIZE_BUFFER 100
-    uint8 command[SIZE_BUFFER];
-    command[0] = DRAW_TEXT;
-    *((int16*)(command + 1)) = (int16)x;
-    *(command + 3) = (int8)(y + 1);
+    uint8 command[SIZE_BUFFER] = {DRAW_TEXT};
+    WRITE_SHORT(1, x);
+    WRITE_BYTE(3, y + 1);
+
     uint8 *pointer = command + 5;
     uint8 length = 0;
 
@@ -230,7 +229,7 @@ int Painter_DrawText(int x, int y, const char *text)
     }
 
     *pointer = 0;
-    *(command + 4) = length; //-V112
+    WRITE_BYTE(4, length);
     int numBytes = ((length + 4) / 4) * 4 + 4; //-V112
     Painter_SendToDisplay(command, numBytes);
     Painter_SendToInterfaces(command, 1 + 2 + 1 + 1 + length);
