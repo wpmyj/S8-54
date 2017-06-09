@@ -96,12 +96,12 @@ static bool RunFuncAndWaitFlag(pFuncVV func, uint8 flag)
     func();
 
     const uint timeWait = 1000;
-    uint startTime = gTimerMS; //-V101
+    uint startTime = gTimeMS; //-V101
 
-    while (GetBit(FSMC_READ(RD_FL), flag) == 0 && (gTimerMS - startTime > timeWait))
+    while (GetBit(FSMC_READ(RD_FL), flag) == 0 && (gTimeMS - startTime > timeWait))
     {
     };
-    if (gTimerMS - startTime > timeWait)
+    if (gTimeMS - startTime > timeWait)
     {
         return false;
     }
@@ -124,23 +124,23 @@ int16 CalculateAdditionRShift(Channel ch, Range range)
     
     for(int i = 0; i < numMeasures; i++)
     {
-        volatile uint startTime = gTimerMS; //-V101
+        volatile uint startTime = gTimeMS; //-V101
         const uint timeWait = 5000;
 
         FPGA_WriteStartToHardware();
 
-        while(GetBit(FSMC_READ(RD_FL), FL_PRED_READY) == 0 && (gTimerMS - startTime < timeWait)) {};
-        if(gTimerMS - startTime > timeWait)         // Если прошло слишком много времени -
+        while(GetBit(FSMC_READ(RD_FL), FL_PRED_READY) == 0 && (gTimeMS - startTime < timeWait)) {};
+        if(gTimeMS - startTime > timeWait)         // Если прошло слишком много времени -
         {
             return ERROR_VALUE_INT16;               // выход с ошибкой
         }
 
         FPGA_SwitchingTrig();
 
-        startTime = gTimerMS; //-V101
+        startTime = gTimeMS; //-V101
 
-        while(GetBit(FSMC_READ(RD_FL), FL_DATA_READY) == 0 && (gTimerMS - startTime < timeWait)) {};
-        if(gTimerMS - startTime > timeWait)         // Если прошло слишком много времени - 
+        while(GetBit(FSMC_READ(RD_FL), FL_DATA_READY) == 0 && (gTimeMS - startTime < timeWait)) {};
+        if(gTimeMS - startTime > timeWait)         // Если прошло слишком много времени - 
         {
             return ERROR_VALUE_INT16;               // выход с ошибкой.
         }
@@ -344,7 +344,7 @@ void FuncAttScreen(void)
     if(first)
     {
         first = false;
-        startTime = gTimerMS; //-V101
+        startTime = gTimeMS; //-V101
     }
     int16 y = 10;
     Display_Clear();
@@ -442,7 +442,7 @@ void FuncAttScreen(void)
     */
     const int SIZE = 100;
     char buffer[SIZE];
-    snprintf(buffer, SIZE, "%.1f", (gTimerMS - startTime) / 1000.0f);
+    snprintf(buffer, SIZE, "%.1f", (gTimeMS - startTime) / 1000.0f);
     Painter_DrawTextC(0, 0, buffer, COLOR_BLACK);
 
     Painter_EndScene();
@@ -452,7 +452,7 @@ void FuncAttScreen(void)
 float CalculateDeltaADC(Channel ch, float *avgADC1, float *avgADC2, float *delta)
 {
     uint *startTime = (ch == A) ? &cal->startTimeChanA : &cal->startTimeChanB;
-    *startTime = gTimerMS; //-V101
+    *startTime = gTimeMS; //-V101
 
     ProgressBar *bar = (ch == A) ? &cal->barA : &cal->barB;
     bar->passedTime = 0;
@@ -479,7 +479,7 @@ float CalculateDeltaADC(Channel ch, float *avgADC1, float *avgADC2, float *delta
             *avgADC2 += ((value >> 8) & 0x0f);
         }
 
-        bar->passedTime = (float)(gTimerMS - *startTime);
+        bar->passedTime = (float)(gTimeMS - *startTime);
         bar->fullTime = bar->passedTime * (float)numCicles / (cicle + 1);
     }
 

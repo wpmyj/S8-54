@@ -76,15 +76,15 @@ void Ethernet_Init(void)
 //----------------------------------------------------------------------------------------------------------------------------------------------------
 void Ethernet_Update(uint timeMS)
 {
-    uint time = gTimerMS;
+    uint time = gTimeMS;
 
     do 
     {
-        gBF.cableEthIsConnected = gTimerMS - gEthTimeLastEthifInput <= 1500;
+        gBF.cableEthIsConnected = gTimeMS - gEthTimeLastEthifInput <= 1500;
 
         ethernetif_input(&gnetif);
         sys_check_timeouts();
-    } while (gTimerMS - time < timeMS);
+    } while (gTimeMS - time < timeMS);
 }
 
 

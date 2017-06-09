@@ -878,7 +878,7 @@ void Menu_OpenItemTime(void)
 //----------------------------------------------------------------------------------------------------------------------------------------------------
 static bool NeedForFireSetLED(void)    // Возвращает true, если лампочка УСТАНОВКА должна гореть
 {
-    //uint timeStart = gTimerMS;
+    //uint timeStart = gTimeMS;
     if (!MENU_IS_SHOWN)
     {
         TypeItem type = TypeOpenedItem();

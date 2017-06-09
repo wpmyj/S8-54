@@ -42,13 +42,13 @@ void Sys_PrintSizeStack(void)
 //---------------------------------------------------------------------------------------------------------------------------------------------------
 void DBG_Log_Start(void)
 {
-    if (gTimerMS - timeStartLogMS < timePauseMS)
+    if (gTimeMS - timeStartLogMS < timePauseMS)
     {
         return;
     }
     running = true;
     timeStartLogTicks = gTimerTics;
-    timeStartLogMS = gTimerMS;
+    timeStartLogMS = gTimeMS;
 }
 
 

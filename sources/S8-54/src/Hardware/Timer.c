@@ -133,7 +133,7 @@ void Timer_Enable(TypeTimer2 type)
 static void TuneTIM(TypeTimer2 type)
 {
     TimerStruct *timer = &timers[type];
-    timer->timeFirstMS = gTimerMS;
+    timer->timeFirstMS = gTimeMS;
 
     uint timeNearest = NearestTime();
 
@@ -182,7 +182,7 @@ static void StartTIM(uint timeStopMS)
         return;
     }
 
-    uint dT = timeStopMS - gTimerMS;
+    uint dT = timeStopMS - gTimeMS;
 
     handleTIM3.Init.Period = (dT * 2) - 1;      // 10 соответствует 0.1мс. Т.е. если нам нужна 1мс, нужно засылать (100 - 1)
 
@@ -194,7 +194,7 @@ static void StartTIM(uint timeStopMS)
 //----------------------------------------------------------------------------------------------------------------------------------------------------
 void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
 {
-    uint time = gTimerMS;
+    uint time = gTimeMS;
     uint nearestTime = NearestTime();
 
     if (nearestTime > time)
@@ -235,8 +235,8 @@ static void StopTIM(void)
 //----------------------------------------------------------------------------------------------------------------------------------------------------
 void Timer_PauseOnTime(uint timeMS)
 {
-    uint time = gTimerMS;
-    while (gTimerMS - time < timeMS)
+    uint time = gTimeMS;
+    while (gTimeMS - time < timeMS)
     {
     };
 }

@@ -221,10 +221,10 @@ void Display_Update(void)
     static uint prevLoadPalette = 0;
     bool needReloadPalette = false;
 
-    if(gTimerMS - prevLoadPalette > 1000)
+    if(gTimeMS - prevLoadPalette > 1000)
     {
         needReloadPalette = true;
-        prevLoadPalette = gTimerMS;
+        prevLoadPalette = gTimeMS;
     }
 
     uint timeStart = gTimerTics;
@@ -797,7 +797,7 @@ static void DrawLowPart(void)
     }
 
     // Ethernet
-    if((gEthIsConnected || gBF.cableEthIsConnected) && gTimerMS > 2000)
+    if((gEthIsConnected || gBF.cableEthIsConnected) && gTimeMS > 2000)
     {
         Painter_Draw4SymbolsInRectC(x + 87, GRID_BOTTOM + 2, SYMBOL_ETHERNET, gEthIsConnected ? COLOR_WHITE : COLOR_FLASH_01);
     }
@@ -1169,16 +1169,16 @@ static void DrawTimeForFrame(uint timeTicks)
     static float numMS = 0.0f;
     if(first)
     {
-        timeMSstartCalculation = gTimerMS;
+        timeMSstartCalculation = gTimeMS;
         first = false;
     }
     numMS += timeTicks / 120000.0f;
     numFrames++;
 
-    if((gTimerMS - timeMSstartCalculation) >= 500)
+    if((gTimeMS - timeMSstartCalculation) >= 500)
     {
         snprintf(buffer, SIZE, "%.1fms/%d", numMS / numFrames, numFrames * 2);
-        timeMSstartCalculation = gTimerMS;
+        timeMSstartCalculation = gTimeMS;
         numMS = 0.0f;
         numFrames = 0;
     }
@@ -1300,12 +1300,12 @@ static void ShowWarn(const char *message)
         if(warnings[i] == 0 && !alreadyStored)
         {
             warnings[i] = message;
-            timeWarnings[i] = gTimerMS;
+            timeWarnings[i] = gTimeMS;
             alreadyStored = true;
         }
         else if(warnings[i] == message)
         {
-            timeWarnings[i] = gTimerMS;
+            timeWarnings[i] = gTimeMS;
             return;
         }
     }
@@ -1780,7 +1780,7 @@ static int CalculateFreeSize(void)
 //----------------------------------------------------------------------------------------------------------------------------------------------------
 static void OnTimerShowWarning(void)
 {
-    uint time = gTimerMS;
+    uint time = gTimeMS;
     for(int i = 0; i < NUM_WARNINGS; i++)
     {
         if(time - timeWarnings[i] >(uint)TIME_MESSAGES * 1000)
@@ -2031,7 +2031,7 @@ static char *textWait = 0;
 //----------------------------------------------------------------------------------------------------------------------------------------------------
 static void FuncOnWait(void)
 {
-    uint time = ((gTimerMS - timeStart) / 50) % 100;
+    uint time = ((gTimeMS - timeStart) / 50) % 100;
 
     if (time > 50)
     {
@@ -2058,7 +2058,7 @@ static void FuncOnWait(void)
 
 void Display_FuncOnWaitStart(char *textRu, char *textEn)
 {
-    timeStart = gTimerMS;
+    timeStart = gTimeMS;
     textWait = LANG_RU ? textRu : textEn;
     Display_SetDrawMode(DrawMode_Hand, FuncOnWait);
 }

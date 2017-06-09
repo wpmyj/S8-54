@@ -101,7 +101,7 @@ void FDrive_Update(void)
 {
     if (gBF.needToMountFlash == 1)      // Если обнаружено физическое подключение внешнего диска
     {
-        uint timeStart = gTimerMS;
+        uint timeStart = gTimeMS;
         gBF.needToMountFlash = 0;
 
         Display_FuncOnWaitStart("Обнаружено запоминающее устройство", "Detected flash drive");
@@ -116,7 +116,7 @@ void FDrive_Update(void)
             FM_Init();
             ChangeStateFlashDrive();
         }
-        while (gTimerMS - timeStart < 3000)
+        while (gTimeMS - timeStart < 3000)
         {
         };
 

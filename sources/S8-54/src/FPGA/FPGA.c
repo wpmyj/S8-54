@@ -125,7 +125,7 @@ void FPGA_SwitchingTrig(void)
         *WR_TRIG = 1;
         *WR_TRIG = 0;
     }
-    timeSwitchingTrig = gTimerMS;
+    timeSwitchingTrig = gTimeMS;
     Panel_EnableLEDTrig(false);
 }
 
@@ -219,7 +219,7 @@ void FPGA_Start(void)
     timeCompletePredTrig = 0;
 
     FPGA_FillDataPointer(&ds);
-    timeStart = gTimerMS;
+    timeStart = gTimeMS;
     gBF.FPGAcritiacalSituation = 0;
 
     if (!IN_P2P_MODE)
@@ -698,14 +698,14 @@ bool ProcessingData(void)
 
         if (timeCompletePredTrig == 0)              // Если окончание предзапуска ранее не было зафиксировано
         {
-            timeCompletePredTrig = gTimerMS;        // записываем время, когда оно произошло.
+            timeCompletePredTrig = gTimeMS;   // записываем время, когда оно произошло.
         }
 
         if (i > 0)
         {
-            uint time = gTimerMS;
+            uint time = gTimeMS;
             // В рандомизаторных развёртках при повторных считываниях нужно подождать флага синхронизации
-            while (GetBit(flag, FL_TRIG_READY) == 0 && GetBit(flag, FL_DATA_READY) == 0 && (gTimerMS - time) < 10)
+            while (GetBit(flag, FL_TRIG_READY) == 0 && GetBit(flag, FL_DATA_READY) == 0 && (gTimeMS - time) < 10)
             {                                                                                   // Это нужно для низких частот импульсов на входе
                 flag = ReadFlag();
             }
@@ -728,7 +728,7 @@ bool ProcessingData(void)
         }
         else if (START_MODE_AUTO)  // Если имупльса синхронизации нету, а включён автоматический режим синхронизации
         {
-            if (gTimerMS - timeCompletePredTrig > TSHIFT_2_ABS(2, SET_TBASE) * 1000)  // Если прошло больше времени, чем помещается в десяти клетках
+            if (gTimeMS - timeCompletePredTrig > TSHIFT_2_ABS(2, SET_TBASE) * 1000)  // Если прошло больше времени, чем помещается в десяти клетках
             {
                 if (IN_P2P_MODE)
                 {

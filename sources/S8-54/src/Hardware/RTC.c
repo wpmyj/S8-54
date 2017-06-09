@@ -86,7 +86,7 @@ PackedTime RTC_GetPackedTime(void)
     time.month = isDate.Month;
     time.day = isDate.Date;
 
-    time.timeMS = gTimerMS;
+    time.timeMS = gTimeMS;
 
     return time;
 }

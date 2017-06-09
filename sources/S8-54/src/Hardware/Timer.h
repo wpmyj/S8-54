@@ -67,8 +67,7 @@ uint Timer_LogPointMS(char *name);
 #define gTimerTics (TIM2->CNT)
 #define gTimerUS (TIM2->CNT / 90)
     
-/// Время, прошедшее с момента инициализации таймера, в миллисекундах
-#define gTimerMS (TIM5->CNT / 2)   
+#define gTimeMS HAL_GetTick()
 
 /** @}  @}
  */
