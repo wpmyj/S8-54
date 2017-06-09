@@ -1,24 +1,15 @@
 // This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++ and C#: http://www.viva64.com
-#include "defines.h"
-#include "Display/Display.h"
-#include "Display/Painter.h"
-#include "Display/Colors.h"
-#include "FPGA/FPGA.h"
-#include "Hardware/Timer.h"
-#include "Menu/Menu.h"
-#include "Menu/MenuDrawing.h"
-#include "Menu/MenuFunctions.h"
 #include "PageServiceMath.h"
-#include "Panel/Panel.h"
-#include "Settings/Settings.h"
-#include "Settings/Settings.h"
-#include "Utils/GlobalFunctions.h"
+#include "ServiceCalibrator.h"
+#include "ServiceEthernet.h"
 #include "ServiceInformation.h"
 #include "ServiceTime.h"
-#include "ServiceCalibrator.h"
 #include "ServiceSound.h"
-#include "ServiceEthernet.h"
+#include "Display/Display.h"
+#include "FPGA/FPGA.h"
+#include "Panel/Panel.h"
+
 
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
