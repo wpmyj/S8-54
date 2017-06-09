@@ -13,6 +13,55 @@
 
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+extern uint16* AddressRead(Channel ch);
+extern bool ProcessingData(void);
+extern uint8 ReadFlag(void);
+extern TBase CalculateTBase(float freq);
+
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+static bool IsCalibrateChannel(Channel ch);
+static void CreateCalibrationStruct(void);
+static void DeleteCalibrationStruct(void);
+static void LoadSettingsCalcAddRShift(Channel ch);
+static void ReadPeriod(void);
+/// \brief Чтение счётчика частоты производится после того, как бит 4 флага RD_FL установится в едицину. После чтения автоматически запускается 
+/// новый цикл счёта.
+static void ReadFreq(void);
+static float PeriodSetToFreq(const BitSet32 *period);
+static float FreqSetToFreq(const BitSet32 *freq);
+static void RestoreSettings(const Settings *savedSettings);
+static void WriteAdditionRShifts(Channel ch);
+static void CalibrateChannel(Channel ch);
+static void CalibrateAddRShift(Channel ch);
+static float CalculateDeltaADC(Channel ch, float *avgADC1, float *avgADC2, float *delta);
+/// Функция обновления экрана в режиме калибровки.
+static void FuncAttScreen(void);
+static void DrawMessageErrorCalibrate(Channel ch);
+static void WriteStretch(Channel ch, int x, int y);
+static void FuncDrawAdditionRShift(int x, int y, const int16 *addRShift);
+static void DrawParametersChannel(Channel ch, int eX, int eY, bool inProgress);
+static void AlignmentADC(void);
+/// Измерить коэффициент калибровки канала по напряжению.
+static float CalculateStretchADC(Channel ch);
+/// Измерить добавочное смещение канала по напряжению.
+static int16 CalculateAdditionRShift(Channel ch, Range range);
+static bool RunFuncAndWaitFlag(pFuncVV func, uint8 flag);
+
+
+/* Поиск сигнала */
+static bool FindWave(Channel ch);
+static bool AccurateFindParams(Channel ch);
+static bool FindParams(Channel ch, TBase *tBase);
+static Range FindRange(Channel ch);
+static bool FindWave2(Channel ch);
+static bool FindRange2(Channel ch);
+static bool FindTBase(Channel ch);
+static void FuncDrawAutoFind(void);
+static void CalibrateStretch(Channel ch);
+
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 typedef struct
 {
     float deltaADC[2];
@@ -39,19 +88,14 @@ typedef struct
 
 CalibrationStruct *cal;
 
-extern uint16* AddressRead(Channel ch);
-extern bool    ProcessingData(void);
-extern uint8   ReadFlag(void);
-extern TBase   CalculateTBase(float freq);
-
-static float freq = 0.0f;                   // Частота, намеренная альтерой.
+static float freq = 0.0f;                   ///< Частота, намеренная альтерой.
 static float prevFreq = 0.0f;
-static volatile bool readPeriod = false;    // Установленный в true флаг означает, что частоту нужно считать по счётчику периода
+static volatile bool readPeriod = false;    ///< Установленный в true флаг означает, что частоту нужно считать по счётчику периода.
 static BitSet32 freqSet;
 static BitSet32 periodSet;
 
-static BitSet32 freqActual;                 // Здесь хранятся последние действительные
-static BitSet32 periodActual;               // значения. Для вывода в режиме честотомера
+static BitSet32 freqActual;                 ///< Здесь хранятся последние действительные.
+static BitSet32 periodActual;               ///< значения. Для вывода в режиме честотомера.
 
 static uint16 flag = 0;
 static bool drawFreq = false;
@@ -79,7 +123,7 @@ static void DeleteCalibrationStruct(void)
 }
 
 //---------------------------------------------------------------------------------------------------------------------------------------------------
-void LoadSettingsCalcAddRShift(Channel ch)
+static void LoadSettingsCalcAddRShift(Channel ch)
 {
     FPGA_SetRShift(ch, RShiftZero);
     FPGA_SetTBase(TBase_200us);
@@ -112,8 +156,7 @@ static bool RunFuncAndWaitFlag(pFuncVV func, uint8 flag)
 extern uint16 ReadNStop(void);
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
-// Измерить добавочное смещение канала по напряжению.
-int16 CalculateAdditionRShift(Channel ch, Range range)
+static int16 CalculateAdditionRShift(Channel ch, Range range)
 {
     FPGA_SetModeCouple(ch, ModeCouple_GND);
     FPGA_SetRange(ch, range);
@@ -174,8 +217,7 @@ int16 CalculateAdditionRShift(Channel ch, Range range)
 }
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
-// Измерить коэффициент калибровки канала по напряжению.
-float CalculateStretchADC(Channel ch)
+static float CalculateStretchADC(Channel ch)
 {
     FPGA_Write(RecordFPGA, WR_UPR, BINARY_U8(00000100), false);
 
@@ -250,7 +292,7 @@ float CalculateStretchADC(Channel ch)
 }
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
-void AlignmentADC(void)
+static void AlignmentADC(void)
 {
     cal->shiftADCA = (cal->deltaADCold[0] > 0) ? (int8)(cal->deltaADCold[0] + 0.5f) : (int8)(cal->deltaADCold[0] - 0.5f);
     SET_BALANCE_ADC_A = cal->shiftADCA;
@@ -259,7 +301,7 @@ void AlignmentADC(void)
 }
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
-void DrawParametersChannel(Channel ch, int eX, int eY, bool inProgress)
+static void DrawParametersChannel(Channel ch, int eX, int eY, bool inProgress)
 {
     Painter_SetColor(gColorFill);
     if(inProgress)
@@ -295,7 +337,7 @@ void DrawParametersChannel(Channel ch, int eX, int eY, bool inProgress)
 }
 
 //---------------------------------------------------------------------------------------------------------------------------------------------------
-void FuncDrawAdditionRShift(int x, int y, const int16 *addRShift)
+static void FuncDrawAdditionRShift(int x, int y, const int16 *addRShift)
 {
     if (*addRShift == ERROR_VALUE_INT16)
     {
@@ -307,6 +349,7 @@ void FuncDrawAdditionRShift(int x, int y, const int16 *addRShift)
     }
 }
 
+//----------------------------------------------------------------------------------------------------------------------------------------------------
 static void WriteStretch(Channel ch, int x, int y)
 {
     if (cal->isCalculateStretch[ch])
@@ -334,8 +377,7 @@ static void DrawMessageErrorCalibrate(Channel ch)
 }
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
-// Функция обновления экрана в режиме калибровки.
-void FuncAttScreen(void)
+static void FuncAttScreen(void)
 {
     Painter_BeginScene(COLOR_BLACK);
 
@@ -449,7 +491,7 @@ void FuncAttScreen(void)
 }
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
-float CalculateDeltaADC(Channel ch, float *avgADC1, float *avgADC2, float *delta)
+static float CalculateDeltaADC(Channel ch, float *avgADC1, float *avgADC2, float *delta)
 {
     uint *startTime = (ch == A) ? &cal->startTimeChanA : &cal->startTimeChanB;
     *startTime = gTimeMS; //-V101
@@ -489,24 +531,6 @@ float CalculateDeltaADC(Channel ch, float *avgADC1, float *avgADC2, float *delta
     *delta = *avgADC1 - *avgADC2;
 
     return ((*avgADC1) - (*avgADC2)) / 255.0f * 100;
-}
-
-//---------------------------------------------------------------------------------------------------------------------------------------------------
-static void CalibrateStretch(Channel ch)
-{
-    float kStretch = CalculateStretchADC(ch);
-    if (kStretch == ERROR_VALUE_FLOAT) //-V550
-    {
-        cal->isCalculateStretch[ch] = false;
-        gStateFPGA.stateCalibration = (ch == A) ? StateCalibration_ErrorCalibrationA : StateCalibration_ErrorCalibrationB;
-        Panel_WaitPressingButton();
-    }
-    else
-    {
-        cal->isCalculateStretch[ch] = true;
-        NRST_STRETCH_ADC_TYPE = StretchADC_Settings;
-        SetStretchADC(ch, kStretch);
-    }
 }
 
 //---------------------------------------------------------------------------------------------------------------------------------------------------
@@ -718,269 +742,6 @@ void FPGA_BalanceChannel(Channel ch)
 }
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
-static void FuncDrawAutoFind(void)
-{
-    ACCESS_EXTRAMEM(StrForAutoFind, s);
-
-    Painter_BeginScene(gColorBack);
-
-    Painter_DrawTextC(92, 50, "Идёт поиск сигнала. Подождите.", gColorFill);
-
-    static const int height = 20;
-    static const int width = 240;
-
-    s->progress += s->sign;
-    if (s->sign > 0)
-    {
-        if (s->progress == 240)
-        {
-            s->sign = -1;
-        }
-    }
-    else if (s->progress == 1)
-    {
-        s->sign = 1;
-    }
-
-    Painter_DrawRectangle(40, 100, width, height);
-    Painter_DrawVLine(40 + s->progress, 100, 100 + height);
-
-    Display_DrawConsole();
-
-    Painter_EndScene();
-}
-
-//----------------------------------------------------------------------------------------------------------------------------------------------------
-static bool FindTBase(Channel ch)
-{
-    return true;
-}
-
-//----------------------------------------------------------------------------------------------------------------------------------------------------
-static bool FindRange2(Channel ch)
-{
-    /*
-        Включаем самую медленную реальную развёртку.
-        Ставим длину записи 512 точек.
-        Включаем пиковый детектор.
-    */
-
-//    Settings settings = set;
-
-    FPGA_SetTBase(TBase_20ms);
-    SET_ENABLED(ch) = true;
-    FPGA_SetTrigSource((TrigSource)ch);
-    FPGA_SetTrigLev((TrigSource)ch, TrigLevZero);
-    FPGA_SetRShift(ch, RShiftZero);
-    
-    return false;
-}
-
-//----------------------------------------------------------------------------------------------------------------------------------------------------
-static bool FindWave2(Channel ch)
-{
-    if (!FindRange2(ch))
-    {
-        return false;
-    }
-
-    if (!FindTBase(ch))
-    {
-        return false;
-    }
-
-    return true;
-}
-
-//----------------------------------------------------------------------------------------------------------------------------------------------------
-void FPGA_AutoFind(void)
-{
-    // Подготовим структуру, использующуюся для отрисовки прогресс-бара
-    MALLOC_EXTRAMEM(StrForAutoFind, p);
-    p->progress = 0; //-V522
-    p->sign = 1;
-
-    if (!FindWave2(A))
-    {
-        if (!FindWave2(B))
-        {
-            Display_ShowWarning(SignalNotFound);
-        }
-    }
-
-    FREE_EXTRAMEM();
-
-    gBF.FPGAneedAutoFind = 0;
-    FPGA_Start();
-}
-
-//----------------------------------------------------------------------------------------------------------------------------------------------------
-static Range FindRange(Channel ch)
-{
-    PeackDetMode peackDet = SET_PEACKDET;
-
-    FPGA_SetPeackDetMode(PeackDet_Enable);
-
-    for (int range = RangeSize - 1; range >= 0; --range)
-    {
-        FuncDrawAutoFind();
-        FPGA_Stop(false);
-        FPGA_SetRange(ch, (Range)range);
-        FPGA_Start();
-        FPGA_SetRange(ch, (Range)range);
-        while (!ProcessingData())
-        {
-        };
-        FPGA_Stop(false);
-        uint16 *dataChan = (uint16*)DS_GetData_RAM(ch, 0);
-
-        int i = 0;
-        int iMax = 256;
-
-        for (; i < iMax; i++)
-        {
-            BitSet16 data;
-            data.halfWord = *dataChan;
-            dataChan++;
-            if (data.byte0 > MAX_VALUE || data.byte0 < MIN_VALUE || data.byte1 > MAX_VALUE || data.byte1 < MIN_VALUE)
-            {
-                break;           // Если хоть одно значение вышло за пределы экрана - выходим из цикла чтобы перейти к следующему значению range
-            }
-        }
-
-        if (i != iMax)  // Если вышли за границы экрана
-        {
-            FPGA_SetPeackDetMode(peackDet);
-            if (range != RangeSize - 1)
-            {
-                ++range;
-            }
-            return (Range)range;
-        }
-    }
-
-    FPGA_SetPeackDetMode(peackDet);
-
-    return (Range)(RangeSize - 1);
-}
-
-//----------------------------------------------------------------------------------------------------------------------------------------------------
-static bool FindParams(Channel ch, TBase *tBase)
-{
-    FPGA_SetTrigInput(TrigInput_Full);
-
-    FPGA_Start();
-    while (GetBit(ReadFlag(), FL_FREQ_READY) == 0)
-    {
-    };
-    FPGA_Stop(false);
-    float freq = FreqMeter_GetFreq();
-
-    FPGA_SetTrigInput(freq < 1e6f ? TrigInput_LPF : TrigInput_Full);
-
-    FPGA_Start();
-    while (GetBit(ReadFlag(), FL_FREQ_READY) == 0)
-    {
-    };
-    FPGA_Stop(false);
-    freq = FreqMeter_GetFreq();
-
-    if (freq >= 50.0f)
-    {
-        *tBase = CalculateTBase(freq);
-        FPGA_SetTBase(*tBase);
-        FPGA_Start();
-        FPGA_SetTrigInput(freq < 500e3f ? TrigInput_LPF : TrigInput_HPF);
-        return true;
-    }
-    else
-    {
-        FPGA_SetTrigInput(TrigInput_LPF);
-        freq = FreqMeter_GetFreq();
-        if (freq > 0.0f)
-        {
-            *tBase = CalculateTBase(freq);
-            FPGA_SetTBase(*tBase);
-            Timer_PauseOnTime(10);
-            FPGA_Start();
-            return true;
-        }
-    }
-
-    return false;
-}
-
-#undef NUM_MEASURES
-#define NUM_MEASURES 3
-
-//----------------------------------------------------------------------------------------------------------------------------------------------------
-static bool AccurateFindParams(Channel ch)
-{
-    TBase tBase = TBaseSize;
-
-    int i = 0;
-    for (; i < 3; i++)
-    {
-        int numMeasures = 0;
-        FindParams(ch, &tBase);
-        TBase secondTBase = TBaseSize;
-        do
-        {
-            FindParams(ch, &secondTBase);
-            numMeasures++;
-        } while (numMeasures < NUM_MEASURES && tBase == secondTBase);
-        if (numMeasures == NUM_MEASURES)
-        {
-            return true;
-        }
-    }
-    return false;
-}
-
-#undef NUM_MEASURES
-
-//----------------------------------------------------------------------------------------------------------------------------------------------------
-static bool FindWave(Channel ch)
-{
-    FuncDrawAutoFind();
-
-    Settings settings = set;    // Сохраняем предыдущие настройки
-
-    FPGA_SetTBase(TBase_20ms);
-    SET_ENABLED(ch) = true;
-    FPGA_SetTrigSource((TrigSource)ch);
-    FPGA_SetTrigLev((TrigSource)ch, TrigLevZero);
-    FPGA_SetRShift(ch, RShiftZero);
-    FPGA_SetModeCouple(ch, ModeCouple_AC);
-
-    Range range = RangeSize;
-
-    while (range != FindRange(ch))
-    {
-        LOG_WRITE("1");
-
-        FuncDrawAutoFind();
-        FPGA_Start();
-        while (!ProcessingData())
-        {
-            FuncDrawAutoFind();
-        };
-        range = FindRange(ch);
-        FPGA_SetRange(ch, range);
-    }
-
-    FuncDrawAutoFind();
-    if (AccurateFindParams(ch))
-    {
-        return true;
-    }
-
-    set = settings;
-    FPGA_LoadSettings();
-    return false;
-}
-
-//----------------------------------------------------------------------------------------------------------------------------------------------------
 bool FreqMeter_Init(void)
 {
     drawFreq = false;
@@ -1087,20 +848,8 @@ float FreqMeter_GetFreq(void)
 }
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
-void FreqMeter_ReadFreq(void)
+static void ReadFreq(void)
 {
-
-}
-
-//----------------------------------------------------------------------------------------------------------------------------------------------------
-void FreqMeter_ReadPeriod(void)
-{
-
-}
-
-//----------------------------------------------------------------------------------------------------------------------------------------------------
-static void ReadFreq(void)             // Чтение счётчика частоты производится после того, как бит 4 флага RD_FL установится в едицину
-{                                      // После чтения автоматически запускается новый цикл счёта
     freqSet.halfWord[0] = *RD_FREQ_LOW;
     freqSet.halfWord[1] = *RD_FREQ_HI;
 
@@ -1124,7 +873,7 @@ static void ReadFreq(void)             // Чтение счётчика частоты производится п
 }
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
-void ReadPeriod(void)
+static void ReadPeriod(void)
 {
     periodSet.halfWord[0] = *RD_PERIOD_LOW;
     periodSet.halfWord[1] = *RD_PERIOD_HI;
@@ -1173,4 +922,349 @@ void FreqMeter_Update(uint16 flag_)
             ReadPeriod();
         }
     }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//----------------------------------------------------------------------------------------------------------------------------------------------------
+void FPGA_AutoFind(void)
+{
+    // Подготовим структуру, использующуюся для отрисовки прогресс-бара
+    MALLOC_EXTRAMEM(StrForAutoFind, p);
+    p->progress = 0; //-V522
+    p->sign = 1;
+
+    if (!FindWave(A))
+    {
+        if (!FindWave(B))
+        {
+            Display_ShowWarning(SignalNotFound);
+        }
+    }
+
+    FREE_EXTRAMEM();
+
+    gBF.FPGAneedAutoFind = 0;
+
+    FPGA_Start();
+}
+
+//----------------------------------------------------------------------------------------------------------------------------------------------------
+static bool FindWave(Channel ch)
+{
+    return false;
+
+    FuncDrawAutoFind();
+
+    Settings settings = set;    // Сохраняем предыдущие настройки
+
+    FPGA_SetTBase(TBase_20ms);
+    SET_ENABLED(ch) = true;
+    FPGA_SetTrigSource((TrigSource)ch);
+    FPGA_SetTrigLev((TrigSource)ch, TrigLevZero);
+    FPGA_SetRShift(ch, RShiftZero);
+    FPGA_SetModeCouple(ch, ModeCouple_AC);
+
+    Range range = RangeSize;
+
+    while (range != FindRange(ch))
+    {
+        LOG_WRITE("1");
+
+        FuncDrawAutoFind();
+        FPGA_Start();
+        while (!ProcessingData())
+        {
+            FuncDrawAutoFind();
+        };
+        range = FindRange(ch);
+        FPGA_SetRange(ch, range);
+    }
+
+    FuncDrawAutoFind();
+    if (AccurateFindParams(ch))
+    {
+        return true;
+    }
+
+    set = settings;
+    FPGA_LoadSettings();
+    return false;
+}
+
+//----------------------------------------------------------------------------------------------------------------------------------------------------
+static Range FindRange(Channel ch)
+{
+    PeackDetMode peackDet = SET_PEACKDET;
+
+    FPGA_SetPeackDetMode(PeackDet_Enable);
+
+    for (int range = RangeSize - 1; range >= 0; --range)
+    {
+        FuncDrawAutoFind();
+        FPGA_Stop(false);
+        FPGA_SetRange(ch, (Range)range);
+        FPGA_Start();
+        FPGA_SetRange(ch, (Range)range);
+        while (!ProcessingData())
+        {
+        };
+        FPGA_Stop(false);
+        uint16 *dataChan = (uint16*)DS_GetData_RAM(ch, 0);
+
+        int i = 0;
+        int iMax = 256;
+
+        for (; i < iMax; i++)
+        {
+            BitSet16 data;
+            data.halfWord = *dataChan;
+            dataChan++;
+            if (data.byte0 > MAX_VALUE || data.byte0 < MIN_VALUE || data.byte1 > MAX_VALUE || data.byte1 < MIN_VALUE)
+            {
+                break;           // Если хоть одно значение вышло за пределы экрана - выходим из цикла чтобы перейти к следующему значению range
+            }
+        }
+
+        if (i != iMax)  // Если вышли за границы экрана
+        {
+            FPGA_SetPeackDetMode(peackDet);
+            if (range != RangeSize - 1)
+            {
+                ++range;
+            }
+            return (Range)range;
+        }
+    }
+
+    FPGA_SetPeackDetMode(peackDet);
+
+    return (Range)(RangeSize - 1);
+}
+
+#undef NUM_MEASURES
+#define NUM_MEASURES 3
+
+//----------------------------------------------------------------------------------------------------------------------------------------------------
+static bool AccurateFindParams(Channel ch)
+{
+    TBase tBase = TBaseSize;
+
+    int i = 0;
+    for (; i < 3; i++)
+    {
+        int numMeasures = 0;
+        FindParams(ch, &tBase);
+        TBase secondTBase = TBaseSize;
+        do
+        {
+            FindParams(ch, &secondTBase);
+            numMeasures++;
+        } while (numMeasures < NUM_MEASURES && tBase == secondTBase);
+        if (numMeasures == NUM_MEASURES)
+        {
+            return true;
+        }
+    }
+    return false;
+}
+
+#undef NUM_MEASURES
+
+//----------------------------------------------------------------------------------------------------------------------------------------------------
+static void FuncDrawAutoFind(void)
+{
+    ACCESS_EXTRAMEM(StrForAutoFind, s);
+
+    Painter_BeginScene(gColorBack);
+
+    Painter_DrawTextC(92, 50, "Идёт поиск сигнала. Подождите.", gColorFill);
+
+    static const int height = 20;
+    static const int width = 240;
+
+    s->progress += s->sign;
+    if (s->sign > 0)
+    {
+        if (s->progress == 240)
+        {
+            s->sign = -1;
+        }
+    }
+    else if (s->progress == 1)
+    {
+        s->sign = 1;
+    }
+
+    Painter_DrawRectangle(40, 100, width, height);
+    Painter_DrawVLine(40 + s->progress, 100, 100 + height);
+
+    Display_DrawConsole();
+
+    Painter_EndScene();
+}
+
+//----------------------------------------------------------------------------------------------------------------------------------------------------
+static bool FindParams(Channel ch, TBase *tBase)
+{
+    FPGA_SetTrigInput(TrigInput_Full);
+
+    FPGA_Start();
+    while (GetBit(ReadFlag(), FL_FREQ_READY) == 0)
+    {
+    };
+    FPGA_Stop(false);
+    float freq = FreqMeter_GetFreq();
+
+    FPGA_SetTrigInput(freq < 1e6f ? TrigInput_LPF : TrigInput_Full);
+
+    FPGA_Start();
+    while (GetBit(ReadFlag(), FL_FREQ_READY) == 0)
+    {
+    };
+    FPGA_Stop(false);
+    freq = FreqMeter_GetFreq();
+
+    if (freq >= 50.0f)
+    {
+        *tBase = CalculateTBase(freq);
+        FPGA_SetTBase(*tBase);
+        FPGA_Start();
+        FPGA_SetTrigInput(freq < 500e3f ? TrigInput_LPF : TrigInput_HPF);
+        return true;
+    }
+    else
+    {
+        FPGA_SetTrigInput(TrigInput_LPF);
+        freq = FreqMeter_GetFreq();
+        if (freq > 0.0f)
+        {
+            *tBase = CalculateTBase(freq);
+            FPGA_SetTBase(*tBase);
+            Timer_PauseOnTime(10);
+            FPGA_Start();
+            return true;
+        }
+    }
+
+    return false;
+}
+
+//----------------------------------------------------------------------------------------------------------------------------------------------------
+static bool FindWave2(Channel ch)
+{
+    if (!FindRange2(ch))
+    {
+        return false;
+    }
+
+    if (!FindTBase(ch))
+    {
+        return false;
+    }
+
+    return true;
+}
+
+//---------------------------------------------------------------------------------------------------------------------------------------------------
+static void CalibrateStretch(Channel ch)
+{
+    float kStretch = CalculateStretchADC(ch);
+    if (kStretch == ERROR_VALUE_FLOAT) //-V550
+    {
+        cal->isCalculateStretch[ch] = false;
+        gStateFPGA.stateCalibration = (ch == A) ? StateCalibration_ErrorCalibrationA : StateCalibration_ErrorCalibrationB;
+        Panel_WaitPressingButton();
+    }
+    else
+    {
+        cal->isCalculateStretch[ch] = true;
+        NRST_STRETCH_ADC_TYPE = StretchADC_Settings;
+        SetStretchADC(ch, kStretch);
+    }
+}
+
+//----------------------------------------------------------------------------------------------------------------------------------------------------
+static bool FindTBase(Channel ch)
+{
+    return true;
+}
+
+//----------------------------------------------------------------------------------------------------------------------------------------------------
+static bool FindRange2(Channel ch)
+{
+    /*
+        Включаем самую медленную реальную развёртку.
+        Ставим длину записи 512 точек.
+        Включаем пиковый детектор.
+    */
+
+//    Settings settings = set;
+
+    FPGA_SetTBase(TBase_20ms);
+    SET_ENABLED(ch) = true;
+    FPGA_SetTrigSource((TrigSource)ch);
+    FPGA_SetTrigLev((TrigSource)ch, TrigLevZero);
+    FPGA_SetRShift(ch, RShiftZero);
+    
+    return false;
 }

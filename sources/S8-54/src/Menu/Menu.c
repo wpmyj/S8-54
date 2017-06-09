@@ -582,6 +582,10 @@ void ProcessingPressButton(void)
             itemUnderKey = ItemUnderButton(pressButton);
         }
     }
+    if (pressButton == B_Start && !WORK_LAST)
+    {
+        FPGA_OnPressStartStop();
+    }
     pressButton = B_Empty;
 }
 
@@ -591,12 +595,6 @@ void ProcessingReleaseButton(void)
     if(releaseButton >= B_F1 && releaseButton <= B_F5 || pressButton == B_Menu)
     {
         itemUnderKey = 0;
-        releaseButton = B_Empty;
-    }
-    
-    if(releaseButton == B_Start && !WORK_LAST)
-    {
-        FPGA_OnPressStartStop();
         releaseButton = B_Empty;
     }
 }
