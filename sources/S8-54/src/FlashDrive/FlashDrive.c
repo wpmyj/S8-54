@@ -104,7 +104,7 @@ void FDrive_Update(void)
         uint timeStart = gTimeMS;
         gBF.needToMountFlash = 0;
 
-        Display_FuncOnWaitStart("Обнаружено запоминающее устройство", "Detected flash drive");
+        Display_FuncOnWaitStart("Обнаружено запоминающее устройство", "Detected flash drive", false);
 
         if (f_mount(&USBDISKFatFs, (TCHAR const*)USBDISKPath, 1) != FR_OK)
         {

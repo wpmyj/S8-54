@@ -1358,7 +1358,7 @@ static bool IsActive_SaveFirmware(void)
 
 static void OnPress_SaveFirmware(void)
 {
-    Display_FuncOnWaitStart("Сохраняю прошивку", "Save the firmware");
+    Display_FuncOnWaitStart("Сохраняю прошивку", "Save the firmware", false);
 
     StructForWrite structForWrite;
 

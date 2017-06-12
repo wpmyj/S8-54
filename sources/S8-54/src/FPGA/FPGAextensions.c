@@ -738,11 +738,11 @@ void FPGA_BalanceChannel(Channel ch)
 {
     if (ch == A)
     {
-        Display_FuncOnWaitStart("Балансировка канала 1", "Balancde channel 1");
+        Display_FuncOnWaitStart("Балансировка канала 1", "Balancde channel 1", false);
     }
     else
     {
-        Display_FuncOnWaitStart("Балансировка канала 2", "Balance channel 2");
+        Display_FuncOnWaitStart("Балансировка канала 2", "Balance channel 2", false);
     }
 
     CreateCalibrationStruct();
@@ -962,7 +962,7 @@ void FPGA_AutoFind(void)
 
     if (!showAutoFind)
     {
-        Display_FuncOnWaitStart("Идёт поиск сигнала", "Searching for a signal");
+        Display_FuncOnWaitStart("Идёт поиск сигнала", "Searching for a signal", true);
     }
 
     Settings settings = set;                        // Сохраняем текущие настройки - если сигнал найти не удастся, придётся восстановить их потом
@@ -1070,7 +1070,7 @@ static Range FindRange(Channel ch)
 
     FPGA_SetPeackDetMode(peackDet);
 
-    return (Range)(RangeSize - 1);
+    return Range_2mV;
 }
 
 #undef NUM_MEASURES

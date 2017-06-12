@@ -777,7 +777,7 @@ static const SmallButton sbInt_EraseAll =
 
 static void OnPress_Int_EraseAll(void)
 {
-    Display_FuncOnWaitStart("Стираю. Подождите", "Erase. Wait");
+    Display_FuncOnWaitStart("Стираю. Подождите", "Erase. Wait", false);
     FLASH_DeleteAllData();
     Display_FuncOnWaitStop();
 }
@@ -802,7 +802,7 @@ static const SmallButton sbInt_SaveToMemory =
 
 static void OnPress_Int_SaveToMemory(void)
 {
-    Display_FuncOnWaitStart("Записываю в память", "I stored in memory");
+    Display_FuncOnWaitStart("Записываю в память", "I stored in memory", false);
     SaveSignalToIntMemory();
     Display_FuncOnWaitStop();
 }

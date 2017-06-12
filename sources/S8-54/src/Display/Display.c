@@ -2027,10 +2027,16 @@ static int CalculateCountH(void)
 
 static uint timeStart = 0;
 static char *textWait = 0;
+static bool clearBackground = false;
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
 static void FuncOnWait(void)
 {
+    if (clearBackground)
+    {
+        Painter_BeginScene(gColorBack);
+    }
+
     uint time = ((gTimeMS - timeStart) / 50) % 100;
 
     if (time > 50)
@@ -2056,13 +2062,16 @@ static void FuncOnWait(void)
     Painter_EndScene();
 }
 
-void Display_FuncOnWaitStart(char *textRu, char *textEn)
+//----------------------------------------------------------------------------------------------------------------------------------------------------
+void Display_FuncOnWaitStart(char *textRu, char *textEn, bool eraseBackground)
 {
     timeStart = gTimeMS;
     textWait = LANG_RU ? textRu : textEn;
+    clearBackground = eraseBackground;
     Display_SetDrawMode(DrawMode_Hand, FuncOnWait);
 }
 
+//----------------------------------------------------------------------------------------------------------------------------------------------------
 void Display_FuncOnWaitStop(void)
 {
     Display_SetDrawMode(DrawMode_Auto, 0);

@@ -98,7 +98,7 @@ void Display_ClearFromWarnings(void);
 void Display_ShowWarning(Warning warning);
 
 // Группа функций для вывода сообщения о занятом приборе
-void Display_FuncOnWaitStart(char *textRu, char *textEn);
+void Display_FuncOnWaitStart(char *textRu, char *textEn, bool eraseBackground);
 
 void Display_FuncOnWaitStop(void);
 
