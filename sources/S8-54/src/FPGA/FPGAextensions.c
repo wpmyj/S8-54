@@ -1113,7 +1113,7 @@ static void FuncDrawAutoFind(Channel ch)
 
         float scale = 240.0f / (MAX_VALUE - MIN_VALUE);
 
-        for (int x = 0; x < 319; x++)
+        for (int x = 0; x < 319; x += 2)
         {
             uint8 val0 = 0;
             uint8 val1 = 0;
@@ -1121,7 +1121,7 @@ static void FuncDrawAutoFind(Channel ch)
             LIMITATION(val1, data[x + 1], MIN_VALUE, MAX_VALUE);
             float ordinate0 = scale * (val0 - MIN_VALUE);
             float ordinate1 = scale * (val1 - MAX_VALUE);
-            Painter_DrawLine(x, ordinate0, x + 1, ordinate1);
+            Painter_DrawVLine(x / 2, ordinate0, ordinate1);
         }
     }
     else

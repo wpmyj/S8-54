@@ -187,21 +187,6 @@ void Painter_DrawVLine(int x, int y0, int y1)
 
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
-void Painter_DrawVPointLine(int x, int y0, int y1, float delta, Color color)
-{
-    Painter_SetColor(color);
-    int8 numPoints = (int8)((y1 - y0) / delta);
-    uint8 command[6];
-    command[0] = DRAW_VPOINT_LINE;
-    *((int16*)(command + 1)) = (int16)x;
-    *(command + 3) = (uint8)y0;
-    *(command + 4) = (uint8)delta;
-    *(command + 5) = numPoints;
-    //Painter_SendToDisplay(command, 6);
-}
-
-
-//----------------------------------------------------------------------------------------------------------------------------------------------------
 void Painter_DrawHPointLine(int y, int x0, int x1, float delta)
 {
     for (int x = x0; x <= x1; x += (int)delta)
@@ -227,16 +212,6 @@ void Painter_SetPoint(int x, int y)
 
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
-static void DrawMultiVPointLineColorEmulate(int numLines, int y, uint16 x[], int delta, int count, Color color)
-{
-    for (int i = 0; i < numLines; i++)
-    {
-        Painter_DrawVPointLine(x[i], y, y + count * delta, (float)delta, color);
-    }
-}
-
-
-//----------------------------------------------------------------------------------------------------------------------------------------------------
 void Painter_DrawMultiVPointLine(int numLines, int y, uint16 x[], int delta, int count, Color color) 
 {
     /*
@@ -251,8 +226,7 @@ void Painter_DrawMultiVPointLine(int numLines, int y, uint16 x[], int delta, int
 
     if (y > 66) 
     {
-        DrawMultiVPointLineColorEmulate(numLines, y, x, delta, count, color);
-        return;
+        //return;
     }
 
     Painter_SetColor(color);

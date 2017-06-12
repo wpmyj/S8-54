@@ -88,8 +88,6 @@ typedef enum
     DRAW_VLINE,                 // 20 x:2 y0:1 y1:1
     SET_REINIT,                 // 21
 
-    DRAW_HPOINT_LINE,           //
-    DRAW_VPOINT_LINE,           // 
     LOAD_FONT,                  // typeFont:1 height:4 symbols:9 * 256 . Описание symbols смотри в Font.h
     NUM_COMMANDS
 } Command;

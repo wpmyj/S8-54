@@ -201,21 +201,6 @@ void Painter_DrawVLine(int x, int y0, int y1)
 }
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
-void Painter_DrawVPointLine(int x, int y0, int y1, float delta, Color color)
-{
-    Painter_SetColor(color);
-    int8 numPoints = (int8)((y1 - y0) / delta);
-
-    uint8 command[6] = {DRAW_VPOINT_LINE};
-    WRITE_SHORT(1, x);
-    WRITE_BYTE(3, y0);
-    WRITE_BYTE(4, delta);
-    WRITE_BYTE(5, numPoints);
-
-    //Painter_SendToDisplay(command, 6);
-}
-
-//----------------------------------------------------------------------------------------------------------------------------------------------------
 void Painter_DrawHPointLine(int y, int x0, int x1, float delta)
 {
     for (int x = x0; x <= x1; x += (int)delta)
