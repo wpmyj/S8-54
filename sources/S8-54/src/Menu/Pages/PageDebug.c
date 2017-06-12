@@ -120,6 +120,7 @@ static void          Draw_SerialNumber_Change(int, int);
 static const SmallButton bSerialNumber_Save;                    ///< ОТЛАДКА - С/Н - Сохранить
 static void       OnPress_SerialNumber_Save(void);
 static void          Draw_SerialNumber_Save(int, int);
+static const      Choice cShowAutoFind;                         ///< ОТЛАДКА - Показывать поиск
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 /// В этой структуре будут храниться данные серийного номера при открытой странице ppSerialNumer
@@ -129,6 +130,10 @@ typedef struct
     int year;       ///< Соответственно, год.
     int curDigt;    ///< Соответственно, номером (0) или годом (1) управляет ручка УСТАНОВКА.
 } StructForSN;
+
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+int8 showAutoFind = false;   ///< Если true, то процесс поиска сигнала будет визуализироваться.
 
 
 // ОТЛАДКА ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -153,6 +158,7 @@ const Page pDebug =
         (void*)&ppSettings,             // ОТЛАДКА - НАСТРОЙКИ
         (void*)&bSaveFirmware,          // ОТЛАДКА - Сохр. прошивку
         (void*)&ppSerialNumber,         // ОТЛАДКА - С/Н
+        (void*)&cShowAutoFind           // ОТЛАДКА - Показывать поиск
     }
 };
 
@@ -1559,6 +1565,22 @@ static void Draw_SerialNumber_Save(int x, int y)
     Painter_SetFont(TypeFont_8);
 }
 
+
+// ОТЛАДКА - Показывать поиск ------------------------------------------------------------------------------------------------------------------------
+static const Choice cShowAutoFind =
+{
+    Item_Choice, &pDebug, 0,
+    {
+        "Показывать поиск", "Show autofind",
+        "Визуализировать процесс поиска сигнала",
+        "Visualize the signal search process"
+    },
+    {
+        {DISABLE_RU, DISABLE_EN},
+        {ENABLE_RU, ENABLE_EN}
+    },
+    &showAutoFind
+};
 
 
 
