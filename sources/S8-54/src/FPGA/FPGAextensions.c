@@ -78,12 +78,15 @@ static void CalibrateStretch(Channel ch);
  *  @{
  */
 
-///  Структура используется для отрисовки прогресс-бара во время автоматического поиска сигнала
+///  Структура используется для отрисовки прогресс-бара во время автоматического поиска сигнала.
 typedef struct
 {
     uint8 progress;     ///< Относительная величина прогресса.
     int8 sign;          ///< Направление изменения прогресса.
     bool readingData;   ///< Признак того, что как минимум одно считывание данных произошло и сигнал можно рисовать на экране.
+    Channel channel;    ///< Текущий канал, по которому производится поиск.
+    Range range;        ///< Текущий установленный Range.
+    TBase tBase;        ///< Текущий установленный TBase.
 } StrForAutoFind;
 
 /** @}
@@ -986,6 +989,7 @@ static bool FindWave(Channel ch)
 {
     ACCESS_EXTRAMEM(StrForAutoFind, s);
     s->readingData = false;
+    s->channel = ch;
 
     FuncDrawAutoFind(ch);
 
@@ -1009,6 +1013,7 @@ static bool FindWave(Channel ch)
         s->readingData = true;          // Устанавливаем признак того, что данные считаны.
         range = FindRange(ch);
         FPGA_SetRange(ch, range);
+        s->range = range;
     }
 
     FuncDrawAutoFind(ch);
@@ -1023,6 +1028,8 @@ static bool FindWave(Channel ch)
 //----------------------------------------------------------------------------------------------------------------------------------------------------
 static Range FindRange(Channel ch)
 {
+    ACCESS_EXTRAMEM(StrForAutoFind, s);
+
     PeackDetMode peackDet = SET_PEACKDET;
 
     FPGA_SetPeackDetMode(PeackDet_Enable);
@@ -1032,6 +1039,7 @@ static Range FindRange(Channel ch)
         FuncDrawAutoFind(ch);
         FPGA_Stop(false);
         FPGA_SetRange(ch, (Range)range);
+        s->range = (Range)range;
         FPGA_Start();
         FPGA_SetRange(ch, (Range)range);
         while (!ProcessingData())
@@ -1113,23 +1121,27 @@ static void FuncDrawAutoFind(Channel ch)
 
         float scale = 240.0f / (MAX_VALUE - MIN_VALUE);
 
-        for (int x = 0; x < 319; x += 2)
+        for (int x = 0; x < 319 * 2; x += 2)
         {
             uint8 val0 = 0;
             uint8 val1 = 0;
             LIMITATION(val0, data[x], MIN_VALUE, MAX_VALUE);
             LIMITATION(val1, data[x + 1], MIN_VALUE, MAX_VALUE);
             float ordinate0 = scale * (val0 - MIN_VALUE);
-            float ordinate1 = scale * (val1 - MAX_VALUE);
+            float ordinate1 = scale * (val1 - MIN_VALUE);
             Painter_DrawVLine(x / 2, ordinate0, ordinate1);
         }
     }
     else
     {
-        Painter_DrawText(92, 200, "Нет сигнала");
+        Painter_DrawText(92, 250, "Нет сигнала");
     }
 
     Painter_DrawText(92, 50, "Идёт поиск сигнала. Подождите.");
+
+    Painter_FillRegionC(5, 200, 100, 50, gColorBack);
+    Painter_DrawTextC(10, 210, s->channel == A ? "Канал 1" : "Канал 2", gColorFill);
+    Painter_DrawText(10, 220, sChannel_Range2String(s->range, Divider_1));
 
     static const int height = 20;
     static const int width = 240;
