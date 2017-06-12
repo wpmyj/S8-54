@@ -63,13 +63,8 @@ static bool FindWave(Channel ch);
 static bool AccurateFindParams(Channel ch);
 static bool FindParams(Channel ch, TBase *tBase);
 static Range FindRange(Channel ch);
-static bool FindWave2(Channel ch);
-static bool FindRange2(Channel ch);
-static bool FindTBase(Channel ch);
 static void FuncDrawAutoFind(Channel ch);
 static void CalibrateStretch(Channel ch);
-/// Функция восстанавливает те настройки, которые были изменены в поцессе поиска сигнала (в случае успешного поиска естественно).
-static void RestoreSettingsForAutoFind(Settings *source, Settings *dest);
 /** @}
  */
 
@@ -971,12 +966,12 @@ void FPGA_AutoFind(void)
 
     if (!FindWave(A))
     {
-        //if (!FindWave(B))
-        //{                                         // Если не удалось найти сигнал, то:
+        if (!FindWave(B))
+        {                                         // Если не удалось найти сигнал, то:
             Display_ShowWarning(SignalNotFound);    // выводим соотвествующее сообщение,
             set = settings;                         // восстанавливаем предыдущие настройки
             FPGA_LoadSettings();                    // и загружаем их в альтеру
-        //}
+        }
     }
 
     FREE_EXTRAMEM();
@@ -1014,14 +1009,9 @@ static bool FindWave(Channel ch)
 
     FPGA_SetRange(ch, range0);
 
-    return true;
+    return AccurateFindParams(ch);
 }
 
-//----------------------------------------------------------------------------------------------------------------------------------------------------
-static void RestoreSettingsForAutoFind(Settings *source, Settings *dest)
-{
-
-}
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
 static Range FindRange(Channel ch)
@@ -1212,22 +1202,6 @@ static bool FindParams(Channel ch, TBase *tBase)
     return false;
 }
 
-//----------------------------------------------------------------------------------------------------------------------------------------------------
-static bool FindWave2(Channel ch)
-{
-    if (!FindRange2(ch))
-    {
-        return false;
-    }
-
-    if (!FindTBase(ch))
-    {
-        return false;
-    }
-
-    return true;
-}
-
 //---------------------------------------------------------------------------------------------------------------------------------------------------
 static void CalibrateStretch(Channel ch)
 {
@@ -1246,31 +1220,6 @@ static void CalibrateStretch(Channel ch)
     }
 }
 
-//----------------------------------------------------------------------------------------------------------------------------------------------------
-static bool FindTBase(Channel ch)
-{
-    return true;
-}
-
-//----------------------------------------------------------------------------------------------------------------------------------------------------
-static bool FindRange2(Channel ch)
-{
-    /*
-        Включаем самую медленную реальную развёртку.
-        Ставим длину записи 512 точек.
-        Включаем пиковый детектор.
-    */
-
-//    Settings settings = set;
-
-    FPGA_SetTBase(TBase_20ms);
-    SET_ENABLED(ch) = true;
-    FPGA_SetTrigSource((TrigSource)ch);
-    FPGA_SetTrigLev((TrigSource)ch, TrigLevZero);
-    FPGA_SetRShift(ch, RShiftZero);
-    
-    return false;
-}
 
 /** @}  @}  @}
  */
