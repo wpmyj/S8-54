@@ -83,7 +83,7 @@ void Painter_EndScene(void)
         framesElapsed = true;
         return;
     }
-    uint8 command[4] = {END_SCENE};
+    uint8 command[4] = {INVALIDATE};
     Painter_SendToDisplay(command, 4);
     Painter_SendToInterfaces(command, 1);
     if (stateTransmit == StateTransmit_InProcess)
@@ -153,7 +153,7 @@ void Painter_LoadPalette(int num)
 //----------------------------------------------------------------------------------------------------------------------------------------------------
 void Painter_SetPalette(Color color)
 {
-    uint8 command[4] = {SET_PALETTE};
+    uint8 command[4] = {SET_PALETTE_COLOR};
     WRITE_BYTE(1, color);
     WRITE_SHORT(2, COLOR(color));
 
@@ -164,7 +164,7 @@ void Painter_SetPalette(Color color)
 //----------------------------------------------------------------------------------------------------------------------------------------------------
 void Painter_SetPoint(int x, int y)
 {
-    uint8 command[4] = {SET_POINT};
+    uint8 command[4] = {DRAW_PIXEL};
     WRITE_SHORT(1, x);
     WRITE_BYTE(3, y);
 
@@ -216,7 +216,7 @@ void Painter_DrawMultiVPointLine(int numLines, int y, uint16 x[], int delta, int
 
     Painter_SetColor(color);
 
-    uint8 command[60] = {DRAW_MULTI_VPOINT_LINES, numLines, y, count, delta, 0};
+    uint8 command[60] = {DRAW_MULTI_VPOINT_LINE, numLines, y, count, delta, 0};
 
     uint8 *pointer = command + 6;
     for (int i = 0; i < numLines; i++)
@@ -243,7 +243,7 @@ void Painter_DrawMultiHPointLine(int numLines, int x, uint8 y[], int delta, int 
     }
     Painter_SetColor(color);
 
-    uint8 command[30] = {DRAW_MULTI_HPOINT_LINES_2};
+    uint8 command[30] = {DRAW_MULTI_HPOINT_LINE};
     WRITE_BYTE(1, numLines);
     WRITE_SHORT(2, x);
     WRITE_BYTE(4, count);
@@ -694,7 +694,7 @@ static uint8 Read2points(int x, int y)
     };
     Timer_PauseOnTicks(12);               // WARN временно увеличено время ожидания - не читает флешку
 
-    *ADDR_CDISPLAY = GET_POINT;
+    *ADDR_CDISPLAY = GET_PIXEL;
     *ADDR_CDISPLAY = (uint8)x;
     *ADDR_CDISPLAY = (uint8)(x >> 8);
     *ADDR_CDISPLAY = (uint8)y;
@@ -727,7 +727,7 @@ static void Get4Bytes(uint8 bytes[4])
 static Color GetColor(int x, int y)
 {
     uint8 command[4];
-    command[0] = GET_POINT;
+    command[0] = GET_PIXEL;
     *((int16*)(command + 1)) = (int16)x;
     *(command + 3) = (int8)y;
     Painter_SendToDisplay(command, 4);
@@ -742,7 +742,7 @@ static Color GetColor(int x, int y)
 static void Get8Points(int x, int y, uint8 buffer[4])
 {
     uint8 command[4];
-    command[0] = GET_POINT;
+    command[0] = GET_PIXEL;
     *((int16*)(command + 1)) = (int16)x;
     *(command + 3) = (int8)y;
     Painter_SendToDisplay(command, 4);

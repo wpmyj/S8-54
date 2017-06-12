@@ -48,27 +48,27 @@
     #include "TimeDelay.h"
     #include <p24FJ256DA210.h>
 
-void PMP_SetColorX(void);
+void PMP_SetColor(void);
 
-void PMP_FillRectX(void);
+void PMP_FillRegion(void);
 
-void PMP_InvalidateX(void);
+void PMP_Invalidate(void);
 
 void PMP_SetReInit(void);
 
-void PMP_VerLineX(void);
+void PMP_DrawVLine(void);
 
-void PMP_HorLineX(void);
+void PMP_DrawHLine(void);
 
 void PMP_DrawLine(void);
 
-void PMP_PutPixelX(void);
+void PMP_DrawPixel(void);
 
 void PMP_DrawSignalLines(void);
 
 void PMP_DrawText(void);
 
-void PMP_SetPalColorL(void);
+void PMP_SetPaletteColor(void);
 
 void PMP_SetFont(void);
 
@@ -76,9 +76,9 @@ void PMP_VerDotLine(void);
 
 void PMP_DrawVLinesArray(void);
 
-void PMP_DrawSignalDot(void);
+void PMP_DrawSignalPoints(void);
 
-void PMP_Brightness(void);
+void PMP_SetBrightness(void);
 
 void PMP_DrawMultiHPointLine(void);
 

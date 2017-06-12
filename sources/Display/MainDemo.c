@@ -19,9 +19,9 @@
 #include <math.h>
 
 
-_CONFIG1( WDTPS_PS128 & FWPSA_PR128 & ALTVREF_ALTVREDIS & ICS_PGx2 & GWRP_OFF & JTAGEN_OFF & FWDTEN_OFF & GCP_OFF) //// & WINDIS_OFF &JTAGEN_OFF
+_CONFIG1( WDTPS_PS128 & FWPSA_PR128 & ALTVREF_ALTVREDIS & ICS_PGx2 & GWRP_OFF & JTAGEN_OFF & FWDTEN_OFF & GCP_OFF)
 _CONFIG2( POSCMOD_XT & IOL1WAY_OFF & OSCIOFNC_OFF & OSCIOFNC_OFF & FCKSM_CSDCMD & FNOSC_PRIPLL & PLL96MHZ_ON & PLLDIV_DIV2 & IESO_OFF)
-_CONFIG3( WPFP_WPFP255 & SOSCSEL_SOSC & WUTSEL_LEG & WPDIS_WPDIS & WPCFG_WPCFGDIS & WPEND_WPENDMEM) //ALTPMP_ALTPMPEN & 
+_CONFIG3( WPFP_WPFP255 & SOSCSEL_SOSC & WUTSEL_LEG & WPDIS_WPDIS & WPCFG_WPCFGDIS & WPEND_WPENDMEM)
 
 
 #define OUT_PIN_PPS_RP0				RPOR0bits.RP0R
@@ -117,27 +117,28 @@ const StructCommand comArray[] =
     // -1 - переменная длина команды
     // -2 - команда выполняется непосредственно, без занесения в буфер
     {0, 0},
-    {PMP_Brightness,        3},     // 1
-    {PMP_SetOrientation,    2},     // 2 Установить ориентацию дисплея. Параметр 0 или 1
-    {PMP_SetPalColorL,      4},     // 3
-    {PMP_SetColorX,         2},     // 4
-    {PMP_SetFont,           2},     // 5
-    {PMP_DrawText,          -1},    // 6
-    {PMP_PutPixelX,         4},     // 7
-    {PMP_DrawLine,          5},     // 8 Нарисовать произвольную линию
-    {PMP_FillRectX,         7},     // 9
-    {PMP_DrawMultiHPointLine, -1},  // 10
-    {PMP_DrawMultiVPointLine, -1},  // 11
-    {PMP_DrawSignalLines,   284},   // 12 Нарисовать сигнал линиями
-    {PMP_DrawSignalDot,     284},   // 13 Нарисовать сигнал точками
-    {PMP_DrawVLinesArray,   -1},    // 14
-    {PMP_InvalidateX,       1},     // 15
-    {PMP_RunBuffer,         -2},    // 16 Выполнить команды, находящиеся в буфере. Команда не заносится с буфер и выполнятся непосредственно.
-    {(pFuncVV)PMP_GetPixel, -2},    // 17 Получть точку. Команда не заносится в буфер и выполняется непосредственно.
-    {PMP_LoadImage,         0},     // 18
-    {PMP_HorLineX,          6},     // 19
-    {PMP_VerLineX,          5},     // 20
-    {PMP_SetReInit,         2},     // 21 Установить режим перезагрузки монитора в случае зависания. 1 - перезагружать (режим по умолчанию) 2 - не перезагружать
+    {PMP_SetBrightness,         3},     // 1
+    {PMP_SetOrientation,        2},     // 2 Установить ориентацию дисплея. Параметр 0 или 1
+    {PMP_SetPaletteColor,       4},     // 3
+    {PMP_SetColor,              2},     // 4
+    {PMP_SetFont,               2},     // 5
+    {PMP_DrawText,              -1},    // 6
+    {PMP_DrawPixel,             4},     // 7
+    {PMP_DrawLine,              5},     // 8 Нарисовать произвольную линию
+    {PMP_FillRegion,            7},     // 9
+    {PMP_DrawMultiHPointLine,   -1},    // 10
+    {PMP_DrawMultiVPointLine,   -1},    // 11
+    {PMP_DrawSignalLines,       284},   // 12 Нарисовать сигнал линиями
+    {PMP_DrawSignalPoints,      284},   // 13 Нарисовать сигнал точками
+    {PMP_DrawVLinesArray,       -1},    // 14
+    {PMP_Invalidate,            1},     // 15
+    {PMP_RunBuffer,             -2},    // 16 Выполнить команды, находящиеся в буфере. Команда не заносится с буфер и выполнятся непосредственно.
+    {(pFuncVV)PMP_GetPixel,     -2},    // 17 Получть точку. Команда не заносится в буфер и выполняется непосредственно.
+    {PMP_LoadImage,             0},     // 18
+    /// \todo Эти функции убрать. DrawHLine, DrawVLine не нужны (вместо них должна быть DrawLine), реинициализация дисплея тоже не используется.
+    {PMP_DrawHLine,             6},     // 19   
+    {PMP_DrawVLine,             5},     // 20
+    {PMP_SetReInit,             2},     // 21 Установить режим перезагрузки монитора в случае зависания. 1 - перезагружать (режим по умолчанию) 2 - не перезагружать
 };
 
 BYTE *dataRun = 0;
@@ -340,7 +341,7 @@ void InitializePMP_RAM(void)
 }
 
 
-//------------------------------------------------------------------------------------------------------------------------------------------------------
+//----------------------------------------------------------------------------------------------------------------------------------------------------
 #define READ_NEXT_4_BYTES    \
     PMSTATbits.IBOV = 0;    \
     PORTBbits.RB1 = 1;      \
@@ -426,7 +427,7 @@ void ReadNextCommand(void)
 
 
 //------------------------------------------------------------------------------------------------------------------------------------------------------
-void PMP_SetColorX(void)
+void PMP_SetColor(void)
 {
     BYTE color = NextByte();
     SetColor(color);
@@ -444,7 +445,7 @@ static void PMP_SetOrientation()
 
 
 //------------------------------------------------------------------------------------------------------------------------------------------------------
-void PMP_FillRectX(void)
+void PMP_FillRegion(void)
 {
     SHORT x = NextShort();
     SHORT y = NextByte();
@@ -456,7 +457,7 @@ void PMP_FillRectX(void)
 
 
 //------------------------------------------------------------------------------------------------------------------------------------------------------
-void PMP_InvalidateX(void)
+void PMP_Invalidate(void)
 {
     MemoryTrans();
 }
@@ -470,7 +471,7 @@ void PMP_SetReInit(void)
 
 
 //------------------------------------------------------------------------------------------------------------------------------------------------------
-void PMP_VerLineX(void)
+void PMP_DrawVLine(void)
 {
     SHORT x = NextShort();
     SHORT y1 = NextByte();
@@ -481,7 +482,7 @@ void PMP_VerLineX(void)
 
 
 //------------------------------------------------------------------------------------------------------------------------------------------------------
-void PMP_HorLineX(void)
+void PMP_DrawHLine(void)
 {
     SHORT y = NextByte();
     SHORT x1 = NextShort();
@@ -561,7 +562,7 @@ void PMP_DrawLine(void)
 
 
 //------------------------------------------------------------------------------------------------------------------------------------------------------
-void PMP_PutPixelX(void)
+void PMP_DrawPixel(void)
 {
     SHORT x = NextShort();
     SHORT y = NextByte();
@@ -602,7 +603,7 @@ void PMP_DrawSignalLines(void)
 
 
 //------------------------------------------------------------------------------------------------------------------------------------------------------
-void PMP_DrawSignalDot(void)
+void PMP_DrawSignalPoints(void)
 {
     SHORT x = NextShort();
 
@@ -643,7 +644,7 @@ void PMP_DrawText(void)
 
 
 //------------------------------------------------------------------------------------------------------------------------------------------------------
-void PMP_SetPalColorL(void)
+void PMP_SetPaletteColor(void)
 {
     BYTE number = NextByte();
 
@@ -691,7 +692,7 @@ void PMP_DrawVLinesArray(void)
 
 
 //------------------------------------------------------------------------------------------------------------------------------------------------------
-void PMP_Brightness(void) // функция обработки команды Invalidate();
+void PMP_SetBrightness(void) // функция обработки команды Invalidate();
 {  
     union PWM pwm;
    

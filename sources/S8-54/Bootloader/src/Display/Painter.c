@@ -136,7 +136,7 @@ static void Get4Bytes(uint8 bytes[4])
 void Painter_SetPalette(Color color)
 {
     uint8 command[4];
-    command[0] = SET_PALETTE;
+    command[0] = SET_PALETTE_COLOR;
     *(command + 1) = color;
     *((uint16*)(command + 2)) = set.display.colors[color];
     Painter_SendToDisplay(command, 4);
@@ -204,7 +204,7 @@ void Painter_SetPoint(int x, int y)
         return;
     }
     uint8 command[4];
-    command[0] = SET_POINT;
+    command[0] = DRAW_PIXEL;
     *((int16*)(command + 1)) = (int16)x;
     *(command + 3) = (int8)y;
     Painter_SendToDisplay(command, 4);
@@ -231,7 +231,7 @@ void Painter_DrawMultiVPointLine(int numLines, int y, uint16 x[], int delta, int
 
     Painter_SetColor(color);
     uint8 command[60];
-    command[0] = DRAW_MULTI_VPOINT_LINES;
+    command[0] = DRAW_MULTI_VPOINT_LINE;
     *(command + 1) = (uint8)numLines;
     *(command + 2) = (uint8)y;
     *(command + 3) = (uint8)count;
@@ -261,7 +261,7 @@ void Painter_DrawMultiHPointLine(int numLines, int x, uint8 y[], int delta, int 
     }
     Painter_SetColor(color);
     uint8 command[30];
-    command[0] = DRAW_MULTI_HPOINT_LINES_2;
+    command[0] = DRAW_MULTI_HPOINT_LINE;
     *(command + 1) = (uint8)numLines;
     *((uint16*)(command + 2)) = (uint16)x;
     *(command + 4) = (uint8)count;
@@ -466,7 +466,7 @@ void Painter_EndScene(void)
         return;
     }
     uint8 command[4];
-    command[0] = END_SCENE;
+    command[0] = INVALIDATE;
     Painter_SendToDisplay(command, 4);
     if (stateTransmit == StateTransmit_InProcess)
     {
@@ -481,7 +481,7 @@ void Painter_EndScene(void)
 Color GetColor(int x, int y)
 {
     uint8 command[4];
-    command[0] = GET_POINT;
+    command[0] = GET_PIXEL;
     *((int16*)(command + 1)) = (int16)x;
     *(command + 3) = (int8)y;
     Painter_SendToDisplay(command, 4);
@@ -496,7 +496,7 @@ Color GetColor(int x, int y)
 void Get8Points(int x, int y, uint8 buffer[4])
 {
     uint8 command[4];
-    command[0] = GET_POINT;
+    command[0] = GET_PIXEL;
     *((int16*)(command + 1)) = (int16)x; 
     *(command + 3) = (int8)y;
     Painter_SendToDisplay(command, 4);
