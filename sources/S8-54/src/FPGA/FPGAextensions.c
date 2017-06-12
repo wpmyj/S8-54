@@ -37,7 +37,7 @@ static void ReadPeriod(void);
 static void ReadFreq(void);
 static float PeriodSetToFreq(const BitSet32 *period);
 static float FreqSetToFreq(const BitSet32 *freq);
-static void RestoreSettings(const Settings *savedSettings);
+static void RestoreSettingsForCalibration(const Settings *savedSettings);
 static void WriteAdditionRShifts(Channel ch);
 static void CalibrateChannel(Channel ch);
 static void CalibrateAddRShift(Channel ch);
@@ -68,6 +68,8 @@ static bool FindRange2(Channel ch);
 static bool FindTBase(Channel ch);
 static void FuncDrawAutoFind(Channel ch);
 static void CalibrateStretch(Channel ch);
+/// Функция восстанавливает те настройки, которые были изменены в поцессе поиска сигнала (в случае успешного поиска естественно).
+static void RestoreSettingsForAutoFind(Settings *source, Settings *dest);
 /** @}
  */
 
@@ -626,7 +628,7 @@ static void WriteAdditionRShifts(Channel ch)
 extern void OnChange_ADC_Stretch_Mode(bool active);
 
 //---------------------------------------------------------------------------------------------------------------------------------------------------]
-static void RestoreSettings(const Settings *savedSettings)
+static void RestoreSettingsForCalibration(const Settings *savedSettings)
 {
     int16 stretch[2][3];
     
@@ -710,7 +712,7 @@ void FPGA_ProcedureCalibration(void)
         break;
     }
     
-    RestoreSettings(&storedSettings);
+    RestoreSettingsForCalibration(&storedSettings);
 
     SET_BALANCE_ADC_A = cal->shiftADCA;
     SET_BALANCE_ADC_B = cal->shiftADCB;
@@ -755,7 +757,7 @@ void FPGA_BalanceChannel(Channel ch)
 
     CalibrateAddRShift(ch);
 
-    RestoreSettings(&storedSettings);
+    RestoreSettingsForCalibration(&storedSettings);
 
     CalibrationMode mode = SET_CALIBR_MODE(ch);
     SET_CALIBR_MODE(ch) = CalibrationMode_x1;
@@ -999,30 +1001,26 @@ static bool FindWave(Channel ch)
     FPGA_SetTrigLev((TrigSource)ch, TrigLevZero);
     FPGA_SetRShift(ch, RShiftZero);
     FPGA_SetModeCouple(ch, ModeCouple_AC);
+    FPGA_SetTrigInput(TrigInput_Full);
 
-    Range range = RangeSize;
+    Range range0 = FindRange(ch);
+    Range range1 = FindRange(ch);
 
-    while (range != FindRange(ch))
+    while (range0 != range1)
     {
-        FuncDrawAutoFind(ch);
-        FPGA_Start();
-        while (!ProcessingData())
-        {
-            FuncDrawAutoFind(ch);
-        };
-        s->readingData = true;          // Устанавливаем признак того, что данные считаны.
-        range = FindRange(ch);
-        FPGA_SetRange(ch, range);
-        s->range = range;
+        range1 = range0;
+        range0 = FindRange(ch);
     }
 
-    FuncDrawAutoFind(ch);
-    if (AccurateFindParams(ch))
-    {
-        return true;
-    }
+    FPGA_SetRange(ch, range0);
 
-    return false;
+    return true;
+}
+
+//----------------------------------------------------------------------------------------------------------------------------------------------------
+static void RestoreSettingsForAutoFind(Settings *source, Settings *dest)
+{
+
 }
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
@@ -1041,35 +1039,30 @@ static Range FindRange(Channel ch)
         FPGA_SetRange(ch, (Range)range);
         s->range = (Range)range;
         FPGA_Start();
-        FPGA_SetRange(ch, (Range)range);
         while (!ProcessingData())
         {
         };
+        s->readingData = true;
+        FuncDrawAutoFind(ch);
         FPGA_Stop(false);
         uint16 *dataChan = (uint16*)DS_GetData_RAM(ch, 0);
 
-        int i = 0;
-        int iMax = 256;
-
-        for (; i < iMax; i++)
+        for (int i = 0; i < 256; i++)
         {
             BitSet16 data;
             data.halfWord = *dataChan;
             dataChan++;
-            if (data.byte0 > MAX_VALUE || data.byte0 < MIN_VALUE || data.byte1 > MAX_VALUE || data.byte1 < MIN_VALUE)
+            
+            // Если хотя бы одно значение вышло за пределы экрана
+            if (data.byte0 >= MAX_VALUE || data.byte0 <= MIN_VALUE || data.byte1 >= MAX_VALUE || data.byte1 <= MIN_VALUE)
             {
-                break;           // Если хоть одно значение вышло за пределы экрана - выходим из цикла чтобы перейти к следующему значению range
+                FPGA_SetPeackDetMode(peackDet);
+                if (range != RangeSize - 1)
+                {
+                    ++range;
+                }
+                return (Range)range;
             }
-        }
-
-        if (i != iMax)  // Если вышли за границы экрана
-        {
-            FPGA_SetPeackDetMode(peackDet);
-            if (range != RangeSize - 1)
-            {
-                ++range;
-            }
-            return (Range)range;
         }
     }
 
@@ -1119,7 +1112,13 @@ static void FuncDrawAutoFind(Channel ch)
     {
         uint8 *data = DS_GetData_RAM(ch, 0);
 
-        float scale = 240.0f / (MAX_VALUE - MIN_VALUE);
+        int yMIN = 10;
+        int yMAX = 230;
+
+        Painter_DrawHLine(yMIN, 0, 319);
+        Painter_DrawHLine(yMAX, 0, 319);
+
+        float scale = (float)(yMAX - yMIN) / (MAX_VALUE - MIN_VALUE);
 
         for (int x = 0; x < 319 * 2; x += 2)
         {
@@ -1127,14 +1126,14 @@ static void FuncDrawAutoFind(Channel ch)
             uint8 val1 = 0;
             LIMITATION(val0, data[x], MIN_VALUE, MAX_VALUE);
             LIMITATION(val1, data[x + 1], MIN_VALUE, MAX_VALUE);
-            float ordinate0 = scale * (val0 - MIN_VALUE);
-            float ordinate1 = scale * (val1 - MIN_VALUE);
+            float ordinate0 = yMIN + scale * (val0 - MIN_VALUE);
+            float ordinate1 = yMIN + scale * (val1 - MIN_VALUE);
             Painter_DrawVLine(x / 2, ordinate0, ordinate1);
         }
     }
     else
     {
-        Painter_DrawText(92, 250, "Нет сигнала");
+        Painter_DrawText(250, 200, "Нет сигнала");
     }
 
     Painter_DrawText(92, 50, "Идёт поиск сигнала. Подождите.");
