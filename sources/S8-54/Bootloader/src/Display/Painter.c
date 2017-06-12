@@ -197,7 +197,7 @@ void Painter_DrawVPointLine(int x, int y0, int y1, float delta, Color color)
     *(command + 3) = (uint8)y0;
     *(command + 4) = (uint8)delta;
     *(command + 5) = numPoints;
-    Painter_SendToDisplay(command, 6);
+    //Painter_SendToDisplay(command, 6);
 }
 
 

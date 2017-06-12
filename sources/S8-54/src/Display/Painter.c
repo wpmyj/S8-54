@@ -212,7 +212,7 @@ void Painter_DrawVPointLine(int x, int y0, int y1, float delta, Color color)
     WRITE_BYTE(4, delta);
     WRITE_BYTE(5, numPoints);
 
-    Painter_SendToDisplay(command, 6);
+    //Painter_SendToDisplay(command, 6);
 }
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------

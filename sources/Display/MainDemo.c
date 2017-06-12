@@ -117,31 +117,27 @@ const StructCommand comArray[] =
     // -1 - переменная длина команды
     // -2 - команда выполняется непосредственно, без занесения в буфер
     {0, 0},
-    {PMP_SetColorX,         2},         // 1
-    {PMP_FillRectX,         7},         // 2
-    {PMP_InvalidateX,       1},         // 3
-    {PMP_HorLineX,          6},         // 4
-    {PMP_VerLineX,          5},         // 5
-    {PMP_PutPixelX,         4},         // 6
-    {PMP_DrawSignalLines,   284},       // 7  Нарисовать сигнал линиями
-    {PMP_DrawText,          -1},        // 8
-    {PMP_SetPalColorL,      4},         // 9
-    {PMP_SetFont,           2},         // 10
-    {0, 0},                             // 11 Не используется
-    {0, 0},                             // 12 Не используется
-    {PMP_DrawVLinesArray,   -1},        // 13
-    {PMP_DrawSignalDot,     284},       // 14 Нарисовать сигнал точками
-    {PMP_Brightness,        3},         // 15
-    {0, 0},                             // 16 Не используется в С8-53 и С8-54. Возможно, в ней ошибка
-    {PMP_DrawMultiHPointLine, -1},      // 17
-    {PMP_DrawMultiVPointLine, -1},      // 18
-    {0, 0},                             // 19
-    {PMP_LoadImage,         0},         // 20
-    {(pFuncVV)PMP_GetPixel, -2},        // 21 Получть точку. Команда не заносится в буфер и выполняется непосредственно.
-    {PMP_RunBuffer,         -2},        // 22 Выполнить команды, находящиеся в буфере. Команда не заносится с буфер и выполнятся непосредственно.
-    {PMP_SetReInit,         2},         // 23 Установить режим перезагрузки монитора в случае зависания. 1 - перезагружать (режим по умолчанию) 2 - не перезагружать
-    {PMP_SetOrientation,    2},         // 24 Установить ориентацию дисплея. Параметр 0 или 1
-    {PMP_DrawLine,          5}          // 25 Нарисовать произвольную линию
+    {PMP_Brightness,        3},     // 1
+    {PMP_SetOrientation,    2},     // 2 Установить ориентацию дисплея. Параметр 0 или 1
+    {PMP_SetPalColorL,      4},     // 3
+    {PMP_SetColorX,         2},     // 4
+    {PMP_SetFont,           2},     // 5
+    {PMP_DrawText,          -1},    // 6
+    {PMP_PutPixelX,         4},     // 7
+    {PMP_DrawLine,          5},     // 8 Нарисовать произвольную линию
+    {PMP_FillRectX,         7},     // 9
+    {PMP_DrawMultiHPointLine, -1},  // 10
+    {PMP_DrawMultiVPointLine, -1},  // 11
+    {PMP_DrawSignalLines,   284},   // 12 Нарисовать сигнал линиями
+    {PMP_DrawSignalDot,     284},   // 13 Нарисовать сигнал точками
+    {PMP_DrawVLinesArray,   -1},    // 14
+    {PMP_InvalidateX,       1},     // 15
+    {PMP_RunBuffer,         -2},    // 16 Выполнить команды, находящиеся в буфере. Команда не заносится с буфер и выполнятся непосредственно.
+    {(pFuncVV)PMP_GetPixel, -2},    // 17 Получть точку. Команда не заносится в буфер и выполняется непосредственно.
+    {PMP_LoadImage,         0},     // 18
+    {PMP_HorLineX,          6},     // 19
+    {PMP_VerLineX,          5},     // 20
+    {PMP_SetReInit,         2},     // 21 Установить режим перезагрузки монитора в случае зависания. 1 - перезагружать (режим по умолчанию) 2 - не перезагружать
 };
 
 BYTE *dataRun = 0;
@@ -368,7 +364,7 @@ void ReadNextCommand(void)
 
     if (numBytes == -1)
     {
-        if (code == 8)          // DrawText
+        if (cmd.func == PMP_DrawText)
         {
             memcpy((void*)&codeBuffer[pc], (void*)&data, 4);
             pc += 4;
@@ -377,15 +373,15 @@ void ReadNextCommand(void)
 
             numBytes = data.b[0] + 1;
         }
-        else if (code == 13)    // DrawVlinesArray
+        else if (cmd.func == PMP_DrawVLinesArray)
         {
             numBytes = (SHORT)data.b[3] * 2 + 4;
         }
-        else if (code == 17)    // PMP_DrawMultiHPointLine
+        else if (cmd.func == PMP_DrawMultiHPointLine)
         {
             numBytes = 1 + data.b[1] + 5;
         }
-        else if (code == 18)    // PMP_DrawMultiVPointsLine
+        else if (cmd.func == PMP_DrawMultiVPointLine)
         {
             numBytes = 1 + data.b[1] * 2 + 5;
         }
@@ -416,13 +412,13 @@ void ReadNextCommand(void)
 
         pc += numBytes;
     }
-    else if (code == 21)    // GetPixel
+    else if (cmd.func == (pFuncVV)PMP_GetPixel)    // GetPixel
     {
         SHORT x = (SHORT)data.b[1] | ((SHORT)(data.b[2]) << 8);
         SHORT y = data.b[3];
         PMP_GetPixel(x, y);
     }
-    else if (code == 22)    // RunBuffer
+    else if (cmd.func == PMP_RunBuffer)
     {
         PMP_RunBuffer();
     }

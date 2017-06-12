@@ -65,29 +65,31 @@ typedef enum
 
 typedef enum
 {
-    SET_COLOR                   = 1,    // 1 numColor:1
-    FILL_REGION                 = 2,    // 2 x:2 y:1 width:2 height:1
-    END_SCENE                   = 3,    // 3
-    DRAW_HLINE                  = 4,    // 4 y:1 x0:2 x1:2
-    DRAW_VLINE                  = 5,    // 5 x:2 y0:1 y1:1
-    SET_POINT                   = 6,    // 6 x:2 y:1
-    DRAW_SIGNAL_LINES           = 7,    // 7 x:2 points:281
-    DRAW_TEXT                   = 8,    // 
-    SET_PALETTE                 = 9,    // 9 numColor:1 colorValue:2
-    SET_FONT                    = 10,   // 10 numFont:1
-    DRAW_HPOINT_LINE            = 11,   //
-    DRAW_VPOINT_LINE            = 12,   // 
-    DRAW_VLINES_ARRAY           = 13,   // 13 x0:2 numLines:1 lines:numLines * 2
-    DRAW_SIGNAL_POINTS          = 14,   // 14 x:2 points:281
-    SET_BRIGHTNESS              = 15,   //
-    DRAW_MULTI_HPOINT_LINES     = 16,   //
-    DRAW_MULTI_HPOINT_LINES_2   = 17,   // 17 numLines:1 x:2 numPoints:1 dx:1 lines:numLines
-    DRAW_MULTI_VPOINT_LINES     = 18,   // 18 numLines:1 y:1 numPoints:1 dy:1 empty:1 lines:numLines*2
-    LOAD_FONT                   = 19,   // 19 typeFont:1 height:4 symbols:9 * 256 . Описание symbols смотри в Font.h
-    LOAD_IMAGE                  = 20,   // 
-    GET_POINT                   = 21,   // 
-    RUN_BUFFER                  = 22,   //
-    SET_REINIT                  = 23,   //
-    SET_ORIENTATION             = 24,   // Установить ориентацию экрана. 0 - нормальная, 1 - обратная
+    EMPTY_FUCTION,
+    SET_BRIGHTNESS,             // 1
+    SET_ORIENTATION,            // 2 Установить ориентацию экрана. 0 - нормальная, 1 - обратная
+    SET_PALETTE,                // 3 numColor:1 colorValue:2
+    SET_COLOR,                  // 4 numColor:1
+    SET_FONT,                   // 5 numFont:1
+    DRAW_TEXT,                  // 6
+    SET_POINT,                  // 7 x:2 y:1
+    DRAW_LINE,                  // 8 Нарисовать линию
+    FILL_REGION,                // 9 x:2 y:1 width:2 height:1
+    DRAW_MULTI_HPOINT_LINES_2,  // 10 numLines:1 x:2 numPoints:1 dx:1 lines:numLines
+    DRAW_MULTI_VPOINT_LINES,    // 11 numLines:1 y:1 numPoints:1 dy:1 empty:1 lines:numLines*2
+    DRAW_SIGNAL_LINES,          // 12 x:2 points:281
+    DRAW_SIGNAL_POINTS,         // 13 x:2 points:281
+    DRAW_VLINES_ARRAY,          // 14 x0:2 numLines:1 lines:numLines * 2
+    END_SCENE,                  // 15
+    RUN_BUFFER,                 // 16
+    GET_POINT,                  // 17
+    LOAD_IMAGE,                 // 18
+    DRAW_HLINE,                 // 19 y:1 x0:2 x1:2
+    DRAW_VLINE,                 // 20 x:2 y0:1 y1:1
+    SET_REINIT,                 // 21
+
+    DRAW_HPOINT_LINE,           //
+    DRAW_VPOINT_LINE,           // 
+    LOAD_FONT,                  // typeFont:1 height:4 symbols:9 * 256 . Описание symbols смотри в Font.h
     NUM_COMMANDS
 } Command;
