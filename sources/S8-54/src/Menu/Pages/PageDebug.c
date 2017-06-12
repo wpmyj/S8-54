@@ -36,12 +36,12 @@ static const     Choice mcConsole_Registers_ChanParamB;         ///< ÎÒËÀÄÊÀ - Ê
 static const     Choice mcConsole_Registers_TBase;              ///< ÎÒËÀÄÊÀ - ÊÎÍÑÎËÜ - ÐÅÃÈÑÒÐÛ - ÂÐÅÌß/ÄÅË
 static const     Choice mcConsole_Registers_TShift;             ///< ÎÒËÀÄÊÀ - ÊÎÍÑÎËÜ - ÐÅÃÈÑÒÐÛ - Ò ñì.
 static const      Button bConsole_SizeSettings;                 ///< ÎÒËÀÄÊÀ - ÊÎÍÑÎËÜ - Ðàçìåð íàñòðîåê
-static void      FuncDraw_Console_SizeSettings(int x, int y);   
+static void      Draw_Console_SizeSettings(int x, int y);   
 static const       Page ppADC;                                  ///< ÎÒËÀÄÊÀ - ÀÖÏ
 static const      Page pppADC_Balance;                          ///< ÎÒËÀÄÊÀ - ÀÖÏ - ÁÀËÀÍÑ
 static const      Choice cADC_Balance_Mode;                     ///< ÎÒËÀÄÊÀ - ÀÖÏ - ÁÀËÀÍÑ - Ðåæèì
 static void      OnChange_ADC_Balance_Mode(bool active);
-static void      FuncDraw_ADC_Balance_Mode(int x, int y);
+static void      Draw_ADC_Balance_Mode(int x, int y);
 static const    Governor gADC_Balance_ShiftA;                   ///< ÎÒËÀÄÊÀ - ÀÖÏ - ÁÀËÀÍÑ - Ñìåùåíèå 1
 static bool      IsActive_ADC_Balance_ShiftAB(void);
 static void      OnChange_ADC_Balance_ShiftA(void);
@@ -458,10 +458,10 @@ static const Button bConsole_SizeSettings =
         "Ïîêàçûâàåò òåêóùèé ðàçìåð ñòðóêòóðû äëÿ ñîõðàíåíèÿ íàñòðîåê",
         "Displays the current size of the structure to save settings"
     },
-    0, FuncDraw_Console_SizeSettings
+    0, Draw_Console_SizeSettings
 };
 
-static void FuncDraw_Console_SizeSettings(int x, int y)
+static void Draw_Console_SizeSettings(int x, int y)
 {
     char buffer[30];
     sprintf(buffer, "Ðàçì.íàñòð. %d", sizeof(Settings));
@@ -517,18 +517,18 @@ static const Choice cADC_Balance_Mode =
         {"Ðåàëüíûé", "Real"},
         {"Ðó÷íîé", "Manual"}
     },
-    (int8*)&NRST_BALANCE_ADC_TYPE, OnChange_ADC_Balance_Mode, FuncDraw_ADC_Balance_Mode
+    (int8*)&NRST_BALANCE_ADC_TYPE, OnChange_ADC_Balance_Mode, Draw_ADC_Balance_Mode
 };
 
 static void OnChange_ADC_Balance_Mode(bool active)
 {
-    FuncDraw_ADC_Balance_Mode(0, 0);
+    Draw_ADC_Balance_Mode(0, 0);
 }
 
 static int16 shiftADCA;
 static int16 shiftADCB;
 
-static void FuncDraw_ADC_Balance_Mode(int x, int y)
+static void Draw_ADC_Balance_Mode(int x, int y)
 {
     int8 shift[2][3] =
     {

@@ -203,7 +203,6 @@
     <ClCompile Include="..\..\S8-54\src\Menu\MenuItemsLogic.c" />
     <ClCompile Include="..\..\S8-54\src\Menu\Pages\Definition.c" />
     <ClCompile Include="..\..\S8-54\src\Menu\Pages\HelpContent.c" />
-    <ClCompile Include="..\..\S8-54\src\Menu\Pages\Memory\PageMemory.c" />
     <ClCompile Include="..\..\S8-54\src\Menu\Pages\PageChannels.c" />
     <ClCompile Include="..\..\S8-54\src\Menu\Pages\PageCursors.c" />
     <ClCompile Include="..\..\S8-54\src\Menu\Pages\PageDebug.c" />
@@ -212,6 +211,7 @@
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
     </ClCompile>
     <ClCompile Include="..\..\S8-54\src\Menu\Pages\PageMeasures.c" />
+    <ClCompile Include="..\..\S8-54\src\Menu\Pages\PageMemory.c" />
     <ClCompile Include="..\..\S8-54\src\Menu\Pages\PageTime.c" />
     <ClCompile Include="..\..\S8-54\src\Menu\Pages\PageTrig.c" />
     <ClCompile Include="..\..\S8-54\src\Menu\Pages\Service\PageService.c" />
@@ -403,10 +403,10 @@
     <ClInclude Include="..\..\S8-54\src\Menu\Pages\Definition.h" />
     <ClInclude Include="..\..\S8-54\src\Menu\Pages\HelpContent.h" />
     <ClInclude Include="..\..\S8-54\src\Menu\Pages\HelpContentPages.h" />
-    <ClInclude Include="..\..\S8-54\src\Menu\Pages\Memory\PageMemory.h" />
     <ClInclude Include="..\..\S8-54\src\Menu\Pages\PageCursors.h" />
     <ClInclude Include="..\..\S8-54\src\Menu\Pages\PageDisplay.h" />
     <ClInclude Include="..\..\S8-54\src\Menu\Pages\PageHelp.h" />
+    <ClInclude Include="..\..\S8-54\src\Menu\Pages\PageMemory.h" />
     <ClInclude Include="..\..\S8-54\src\Menu\Pages\Service\PageServiceMath.h" />
     <ClInclude Include="..\..\S8-54\src\Menu\Pages\Service\ServiceCalibrator.h" />
     <ClInclude Include="..\..\S8-54\src\Menu\Pages\Service\ServiceEthernet.h" />

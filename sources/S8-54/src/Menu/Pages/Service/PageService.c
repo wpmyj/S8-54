@@ -20,7 +20,7 @@ extern void Func_Start(int key);          // 1 - нажатие, -1 - отпускание
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 static const Button mbResetSettings;
         void OnPress_ResetSettings(void);
-static void  FuncDraw_ResetSettings(void);
+static void  Draw_ResetSettings(void);
 static const Choice mcRecorder;
 static void  OnChange_Recorder(bool active);
 static const Choice mcLanguage;
@@ -83,7 +83,7 @@ static const Button mbResetSettings =
 void OnPress_ResetSettings(void)
 {
     Panel_Disable();
-    Display_SetDrawMode(DrawMode_Hand, FuncDraw_ResetSettings);
+    Display_SetDrawMode(DrawMode_Hand, Draw_ResetSettings);
 
     if (Panel_WaitPressingButton() == B_Start)
     {
@@ -95,7 +95,7 @@ void OnPress_ResetSettings(void)
     Func_Start(1);
 }
 
-static void FuncDraw_ResetSettings(void)
+static void Draw_ResetSettings(void)
 {
     Painter_BeginScene(gColorBack);
 

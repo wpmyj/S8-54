@@ -1,29 +1,18 @@
 // This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++ and C#: http://www.viva64.com
-#include "defines.h"
-#include "Settings/SettingsTypes.h"
 #include "PageMemory.h"
-#include "Menu/Pages/Definition.h"
-#include "Menu/FileManager.h"
-#include "Menu/MenuFunctions.h"
-#include "FPGA/FPGA.h"
-#include "FPGA/FPGAtypes.h"
-#include "FPGA/Data.h"
-#include "FPGA/DataStorage.h"
-#include "Display/Colors.h"
-#include "Display/Display.h"
-#include "Display/font/Font.h"
-#include "Display/Painter.h"
 #include "Display/Grid.h"
 #include "Display/Symbols.h"
-#include "Settings/Settings.h"
-#include "Utils/GlobalFunctions.h"
-#include "Utils/Math.h"
 #include "FlashDrive/FlashDrive.h"
+#include "FPGA/Data.h"
+#include "FPGA/FPGA.h"
 #include "Hardware/FLASH.h"
 #include "Hardware/Sound.h"
-#include "Hardware/Timer.h"
-#include "Log.h"
+#include "Menu/FileManager.h"
+#include "Menu/MenuFunctions.h"
+#include "Menu/Pages/Definition.h"
+#include "Utils/GlobalFunctions.h"
+#include "Utils/Math.h"
 
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -31,131 +20,100 @@ extern Page mainPage;
 
 extern void PressSB_FM_Tab(void);
 
-static const Choice mcLengthMemory;
-static bool IsActive_MemoryLength(void);
-       void OnChange_MemoryLength(bool active);
-
-
-static const Page mspLast;
-static void OnPress_Last(void);
-static void OnDraw_Last(void);
-static void OnRot_Last(int angle);
-
-static const SmallButton sbLast_Exit;
-static void OnPress_Last_Exit(void);
-
-static const SmallButton sbLast_Next;
-static void OnPress_Last_Next(void);
-static void Draw_Last_Next(int x, int y);
-
-static const SmallButton sbLast_Prev;
-static void OnPress_Last_Prev(void);
-static void Draw_Last_Prev(int x, int y);
-
-static const SmallButton sbLast_IntEnter;
-static void OnPress_Last_IntEnter(void);
-static void Draw_Last_IntEnter(int x, int y);
-
-static const SmallButton sbLast_SaveToDrive;
-static void OnPress_Last_SaveToDrive(void);
-static void Draw_Last_SaveToDrive(int x, int y);
-
-
-static const Page mspInt;
-static void OnPress_Int(void);
-static void OnDraw_Int(void);
-static void OnReg_Int(int delta);
-
-static const SmallButton sbInt_Exit;
-static void OnPress_Int_Exit(void);
-
-static const SmallButton sbInt_ShowSignalsAlways;
-static void OnPress_Int_ShowSignalAlways(void);
-static void Draw_Int_ShowSignalAlways(int x, int y);
-static void Draw_Int_ShowSignalAllways_Yes(int x, int y);
-static void Draw_Int_ShowSignalAllways_No(int x, int y);
-
-static const SmallButton sbInt_ModeShow;
-static void OnPress_Int_ModeShow(void);
-static void Draw_Int_ModeShow(int x, int y);
-static void Draw_Int_ModeShow_Direct(int x, int y);
-static void Draw_Int_ModeShow_Saved(int x, int y);
-static void Draw_Int_ModeShow_Both(int x, int y);
-
-static const SmallButton sbInt_EraseAll;
-static void OnPress_Int_EraseAll(void);
-static void Draw_Int_EraseAll(int x, int y);
-
-static const SmallButton sbInt_SaveToMemory;
-static void OnPress_Int_SaveToMemory(void);
-static void Draw_Int_SaveToMemory(int x, int y);
-
-static const SmallButton sbInt_SaveToDrive;
-static void OnPress_Int_SaveToDrive(void);
-static void Draw_Int_SaveToDrive(int x, int y);
-
-
-static const Page mspDrive;
-static const Choice mcDrive_Name;
-static const Choice mcDrive_ModeSave;
-static const Choice mcDrive_ModeBtnMemory;
-static const Choice mcDrive_Autoconnect;
-
-
-static const Page mspDrive_Manager;
-static bool FuncOfActiveExtMemFolder(void);
-       void OnPressMemoryExtFileManager(void);
-
-static const SmallButton sbExitFileManager;
-static void PressSB_FM_Exit(void);
-
-static const SmallButton sbFileManagerTab;
-static void DrawSB_FM_Tab(int x, int y);
-
-static const SmallButton sbFileManagerLevelUp;
-static void DrawSB_FM_LevelUp(int x, int y);
-
-static const SmallButton sbFileManagerLevelDown;
-static void DrawSB_FM_LevelDown(int x, int y);
-
-
-static const Page mspSetMask;
-static bool IsActiveMemoryExtSetMask(void);
-static void OnPressMemoryExtMask(void);
-static void OnMemExtSetMaskRegSet(int angle);
-
-static const SmallButton sbExitSetMask;
-static void PressSB_SetMask_Exit(void);
-
-static const SmallButton sbSetMaskDelete;
-static void PressSB_SetMask_Delete(void);
-static void DrawSB_SetMask_Delete(int x, int y);
-
-static const SmallButton sbSetMaskBackspace;
-static void PressSB_SetMask_Backspace(void);
-static void DrawSB_SetMask_Backspace(int x, int y);
-
-static const SmallButton sbSetMaskInsert;
-static void PressSB_SetMask_Insert(void);
-static void DrawSB_SetMask_Insert(int x, int y);
-
-    const Page mpSetName;
-static void OnMemExtSetNameRegSet(int angle);
-static const SmallButton sbExitSetName;
-static void PressSB_SetName_Exit(void);
-static const SmallButton sbSetNameDelete;
-static void PressSB_SetName_Delete(void);
-static void DrawSB_SetName_Delete(int x, int y);
-static const SmallButton sbSetNameBackspace;
-static void PressSB_SetName_Backspace(void);
-static void DrawSB_SetName_Backspace(int x, int y);
-static const SmallButton sbSetNameInsert;
-static void PressSB_SetName_Insert(void);
-static void DrawSB_SetName_Insert(int x, int y);
-static const SmallButton sbSetNameSave;
-static void PressSB_MemExtSetNameSave(void);
-static void DrawSB_MemExtSetNameSave(int x, int y);
-
+static const      Choice cPoints;                                   ///< ПАМЯТЬ - Точки
+static bool      IsActive_Points(void);
+       void     OnChanged_Points(bool active);
+static const       Page ppLast;                                     ///< ПАМЯТЬ - Последние
+static void       OnPress_Last(void);
+static void        OnDraw_Last(void);
+static void      OnRegSet_Last(int angle);
+static const SmallButton bLast_Exit;                                ///< ПАМЯТЬ - Последние - Выход
+static void       OnPress_Last_Exit(void);
+static const SmallButton bLast_Next;                                ///< ПАМЯТЬ - Последние - Следующий
+static void       OnPress_Last_Next(void);
+static void          Draw_Last_Next(int x, int y);
+static const SmallButton bLast_Prev;                                ///< ПАМЯТЬ - Последние - Предыдущий
+static void       OnPress_Last_Prev(void);
+static void          Draw_Last_Prev(int x, int y);
+static const SmallButton bLast_Internal;                            ///< ПАМЯТЬ - Последние - Внутр ЗУ
+static void       OnPress_Last_Internal(void);
+static void          Draw_Last_Internal(int x, int y);
+static const SmallButton bLast_SaveToDrive;                         ///< ПАМЯТЬ - Последние - Сохранить
+static void       OnPress_Last_SaveToDrive(void);
+static void          Draw_Last_SaveToDrive(int x, int y);
+static const       Page ppInternal;                                 ///< ПАМЯТЬ - ВНУТР ЗУ - 
+static void       OnPress_Internal(void);
+static void        OnDraw_Internal(void);
+static void      OnRegSet_Internal(int delta);
+static const SmallButton bInternal_Exit;                            ///< ПАМЯТЬ - ВНУТР ЗУ - Выход
+static void       OnPress_Internal_Exit(void);
+static const SmallButton bInternal_ShowAlways;                      ///< ПАМЯТЬ - ВНУТР ЗУ - Показывать всегда
+static void       OnPress_Internal_ShowAlways(void);
+static void          Draw_Internal_ShowAlways(int x, int y);
+static void          Draw_Internal_ShowAlways_Yes(int x, int y);
+static void          Draw_Internal_ShowAlways_No(int x, int y);
+static const SmallButton bInternal_ModeShow;                        ///< ПАМЯТЬ - ВНУТР ЗУ - Вид сигнала
+static void       OnPress_Internal_ModeShow(void);
+static void          Draw_Internal_ModeShow(int x, int y);
+static void          Draw_Internal_ModeShow_Direct(int x, int y);
+static void          Draw_Internal_ModeShow_Saved(int x, int y);
+static void          Draw_Internal_ModeShow_Both(int x, int y);
+static const SmallButton bInternal_EraseAll;                        ///< ПАМЯТЬ - ВНУТР ЗУ - Стереть все
+static void       OnPress_Internal_EraseAll(void);
+static void          Draw_Internal_EraseAll(int x, int y);
+static const SmallButton bInternal_SaveToMemory;                    ///< ПАМЯТЬ - ВНУТР ЗУ - Сохранить
+static void       OnPress_Internal_SaveToMemory(void);
+static void          Draw_Internal_SaveToMemory(int x, int y);
+static const SmallButton bInternal_SaveToDrive;                     ///< ПАМЯТЬ - ВНУТР ЗУ - Сохранить на флешку
+static void       OnPress_Internal_SaveToDrive(void);
+static void          Draw_Internal_SaveToDrive(int x, int y);
+static const       Page ppDrive;                                    ///< ПАМЯТЬ - ВНЕШН ЗУ
+static const      Choice cDrive_Name;                               ///< ПАМЯТЬ - ВНЕШН ЗУ - Имя файла
+static const      Choice cDrive_SaveAs;                             ///< ПАМЯТЬ - ВНЕШН ЗУ - Сохранять как
+static const      Choice cDrive_ModeBtnMemory;                      ///< ПАМЯТЬ - ВНЕШН ЗУ - Режим кн ПАМЯТЬ
+static const      Choice cDrive_Autoconnect;                        ///< ПАМЯТЬ - ВНЕШН ЗУ - Автоподлючение
+static const      Page pppDrive_Manager;                            ///< ПАМЯТЬ - ВНЕШН ЗУ - КАТАЛОГ
+static bool      IsActive_Drive_Manager(void);
+       void       OnPress_Drive_Manager(void);
+static const SmallButton bDrive_Manager_Exit;                       ///< ПАМЯТЬ - ВНЕШН ЗУ - КАТАЛОГ - Выход
+static void       OnPress_Drive_Manager_Exit(void);
+static const SmallButton bDrive_Manager_Tab;                        ///< ПАМЯТЬ - ВНЕШН ЗУ - КАТАЛОГ - Tab
+static void          Draw_Drive_Manager_Tab(int x, int y);
+static const SmallButton bDrive_Manager_LevelUp;                    ///< ПАМЯТЬ - ВНЕШН ЗУ - КАТАЛОГ - Выйти из каталога
+static void          Draw_Drive_Manager_LevelUp(int x, int y);
+static const SmallButton bDrive_Manager_LevelDown;                  ///< ПАМЯТЬ - ВНЕШН ЗУ - КАТАЛОГ - Войти в каталог
+static void          Draw_Drive_Manager_LevelDown(int x, int y);
+static const      Page pppDrive_Mask;                               ///< ПАМЯТЬ - ВНЕШН ЗУ - МАСКА
+static bool      IsActive_Drive_Mask(void);
+static void       OnPress_Drive_Mask(void);
+static void      OnRegSet_Drive_Mask(int angle);
+static const SmallButton bDrive_Mask_Exit;                          ///< ПАМЯТЬ - ВНЕШН ЗУ - МАСКА - Выход
+static void       OnPress_Drive_Mask_Exit(void);
+static const SmallButton bDrive_Mask_Delete;                        ///< ПАМЯТЬ - ВНЕШН ЗУ - МАСКА - Удалить
+static void       OnPress_Drive_Mask_Delete(void);
+static void          Draw_Drive_Mask_Delete(int x, int y);
+static const SmallButton bDrive_Mask_Backspace;                     ///< ПАМЯТЬ - ВНЕШН ЗУ - МАСКА - Backspace
+static void       OnPress_Drive_Mask_Backspace(void);
+static void          Draw_Drive_Mask_Backspace(int x, int y);
+static const SmallButton bDrive_Mask_Insert;                        ///< ПАМЯТЬ - ВНЕШН ЗУ - МАСКА - Вставить
+static void       OnPress_Drive_Mask_Insert(void);
+static void          Draw_Drive_Mask_Insert(int x, int y);
+              const Page pSetName;                                  ///< УСТАНОВКА ИМЕНИ
+static void      OnRegSet_SetName(int angle);
+static const SmallButton bSetName_Exit;                             ///< УСТАНОВКА ИМЕНИ - Выход
+static void       OnPress_SetName_Exit(void);
+static const SmallButton bSetName_Delete;                           ///< УСТАНОВКА ИМЕНИ - Удалить
+static void       OnPress_SetName_Delete(void);
+static void          Draw_SetName_Delete(int x, int y);
+static const SmallButton bSetName_Backspace;                        ///< УСТАНОВКА ИМЕНИ - Backspace
+static void       OnPress_SetName_Backspace(void);
+static void          Draw_SetName_Backspace(int x, int y);
+static const SmallButton bSetName_Insert;                           ///< УСТАНОВКА ИМЕНИ - Вставить
+static void       OnPress_SetName_Insert(void);
+static void          Draw_SetName_Insert(int x, int y);
+static const SmallButton bSetName_Save;                             ///< УСТАНОВКА ИМЕНИ - Сохранить
+static void       OnPress_SetName_Save(void);
+static void          Draw_SetName_Save(int x, int y);
 
 static void DrawSetMask(void);  // Эта функция рисует, когда выбран режим задания маски.
 static void DrawFileMask(int x, int y);
@@ -177,17 +135,17 @@ const Page pMemory =
     },
     Page_Memory,
     {
-        (void*)&mcLengthMemory, // ПАМЯТЬ - Точки
-        (void*)&mspLast,        // ПАМЯТЬ - Последние
-        (void*)&mspInt,         // ПАМЯТЬ - ВНУТР ЗУ
-        (void*)&mspDrive        // ПАМЯТЬ - ВНЕШН ЗУ
+        (void*)&cPoints,    // ПАМЯТЬ - Точки
+        (void*)&ppLast,     // ПАМЯТЬ - Последние
+        (void*)&ppInternal, // ПАМЯТЬ - ВНУТР ЗУ
+        (void*)&ppDrive     // ПАМЯТЬ - ВНЕШН ЗУ
     }
 };
 
 // ПАМЯТЬ - Точки ------------------------------------------------------------------------------------------------------------------------------------
-static const Choice mcLengthMemory =
+static const Choice cPoints =
 {
-    Item_Choice, &pMemory, IsActive_MemoryLength,
+    Item_Choice, &pMemory, IsActive_Points,
     {
         "Длина памяти", "Mem length"
         ,
@@ -206,15 +164,15 @@ static const Choice mcLengthMemory =
         {"16к", "16k"}
         //,{"32к", "32k"}
     },
-    (int8*)&FPGA_NUM_POINTS, OnChange_MemoryLength
+    (int8*)&FPGA_NUM_POINTS, OnChanged_Points
 };
 
-static bool IsActive_MemoryLength(void)
+static bool IsActive_Points(void)
 {
     return SET_PEACKDET_DIS;
 }
 
-void OnChange_MemoryLength(bool active)
+void OnChanged_Points(bool active)
 {
     // Если включен пиковый детектор, то не можем переключать память
     if (SET_PEACKDET_EN && !active)
@@ -263,7 +221,7 @@ void OnChange_MemoryLength(bool active)
 }
 
 // ПАМЯТЬ - Последние --------------------------------------------------------------------------------------------------------------------------------
-static const Page mspLast =
+static const Page ppLast =
 {
     Item_Page, &pMemory, 0,
     {
@@ -273,14 +231,14 @@ static const Page mspLast =
     },
     Page_SB_MemLatest,
     {
-        (void*)&sbLast_Exit,        // ПАМЯТЬ - ПОСЛЕДНИЕ - Выход
+        (void*)&bLast_Exit,         // ПАМЯТЬ - ПОСЛЕДНИЕ - Выход
         (void*)0,
-        (void*)&sbLast_Next,        // ПАМЯТЬ - ПОСЛЕДНИЕ - Следующий
-        (void*)&sbLast_Prev,        // ПАМЯТЬ - ПОСЛЕДНИЕ - Предыдущий
-        (void*)&sbLast_IntEnter,    // ПАМЯТЬ - ПОСЛЕДНИЕ - Внутр ЗУ
-        (void*)&sbLast_SaveToDrive  // ПАМЯТЬ - ПОСЛЕДНИЕ - Сохранить
+        (void*)&bLast_Next,         // ПАМЯТЬ - ПОСЛЕДНИЕ - Следующий
+        (void*)&bLast_Prev,         // ПАМЯТЬ - ПОСЛЕДНИЕ - Предыдущий
+        (void*)&bLast_Internal,     // ПАМЯТЬ - ПОСЛЕДНИЕ - Внутр ЗУ
+        (void*)&bLast_SaveToDrive   // ПАМЯТЬ - ПОСЛЕДНИЕ - Сохранить
     },
-    OnPress_Last, OnDraw_Last, OnRot_Last
+    OnPress_Last, OnDraw_Last, OnRegSet_Last
 };
 
 static void OnPress_Last(void)
@@ -304,7 +262,7 @@ static void OnDraw_Last(void)
     Painter_DrawText(GridRight() - width + 23, GRID_TOP + 1, Int2String(DS_NumElementsInStorage(), false, 3, buffer));
 }
 
-static void OnRot_Last(int angle)
+static void OnRegSet_Last(int angle)
 {
     if (DS_NumElementsInStorage() > 1)
     {
@@ -321,9 +279,9 @@ static void OnRot_Last(int angle)
 }
 
 // ПАМЯТЬ - ПОСЛЕДНИЕ - Выход ------------------------------------------------------------------------------------------------------------------------
-static const SmallButton sbLast_Exit =
+static const SmallButton bLast_Exit =
 {
-    Item_SmallButton, &mspLast,
+    Item_SmallButton, &ppLast,
     COMMON_BEGIN_SB_EXIT,
     OnPress_Last_Exit,
     DrawSB_Exit
@@ -341,9 +299,9 @@ static void OnPress_Last_Exit(void)
 }
 
 // ПАМЯТЬ - ПОСЛЕДНИЕ - Следующий --------------------------------------------------------------------------------------------------------------------
-static const SmallButton sbLast_Next =
+static const SmallButton bLast_Next =
 {
-    Item_SmallButton, &mspLast, 0,
+    Item_SmallButton, &ppLast, 0,
     {
         "Следующий", "Next",
         "Перейти к следующему сигналу",
@@ -366,9 +324,9 @@ static void Draw_Last_Next(int x, int y)
 }
 
 // ПАМЯТЬ - ПОСЛЕДНИЕ - Предыдущий -------------------------------------------------------------------------------------------------------------------
-static const SmallButton sbLast_Prev =
+static const SmallButton bLast_Prev =
 {
-    Item_SmallButton, &mspLast, 0,
+    Item_SmallButton, &ppLast, 0,
     {
         "Предыдущий", "Previous",
         "Перейти к предыдущему сигналу",
@@ -391,19 +349,19 @@ static void Draw_Last_Prev(int x, int y)
 }
 
 // ПАМЯТЬ - ПОСЛЕДНИЕ - Внутр ЗУ ---------------------------------------------------------------------------------------------------------------------
-static const SmallButton sbLast_IntEnter =
+static const SmallButton bLast_Internal =
 {
-    Item_SmallButton, &mspLast, 0,
+    Item_SmallButton, &ppLast, 0,
     {
         "Внутр ЗУ", "Internal storage",
         "Нажмите эту кнопку, чтобы сохранить сигнал во внутреннем запоминающем устройстве",
         "Press this button to keep a signal in an internal memory"
     },
-    OnPress_Last_IntEnter,
-    Draw_Last_IntEnter
+    OnPress_Last_Internal,
+    Draw_Last_Internal
 };
 
-static void OnPress_Last_IntEnter(void)
+static void OnPress_Last_Internal(void)
 {
     OpenPageAndSetItCurrent(Page_SB_MemInt);
     MODE_WORK = ModeWork_EEPROM;
@@ -411,7 +369,7 @@ static void OnPress_Last_IntEnter(void)
     gMemory.exitFromIntToLast = 1;
 }
 
-static void Draw_Last_IntEnter(int x, int y)
+static void Draw_Last_Internal(int x, int y)
 {
     Painter_SetFont(TypeFont_UGO2);
     Painter_Draw4SymbolsInRect(x + 2, y + 1, '\x40');
@@ -419,9 +377,9 @@ static void Draw_Last_IntEnter(int x, int y)
 }
 
 // ПАМЯТЬ - ПОСЛЕДНИЕ - Сохранить --------------------------------------------------------------------------------------------------------------------
-static const SmallButton sbLast_SaveToDrive =
+static const SmallButton bLast_SaveToDrive =
 {
-    Item_SmallButton, &mspLast, 0,
+    Item_SmallButton, &ppLast, 0,
     {
         "Сохранить", "Save",
         "Кнопка становится доступна при присоединённом внешнем ЗУ. Позволяет сохранить сигнал на внешем ЗУ",
@@ -514,7 +472,7 @@ static void Draw_Last_SaveToDrive(int x, int y)
 }
 
 // ПАМЯТЬ - ВНУТР ЗУ ---------------------------------------------------------------------------------------------------------------------------------
-static const Page mspInt =
+static const Page ppInternal =
 {
     Item_Page, &pMemory, 0,
     {
@@ -524,24 +482,24 @@ static const Page mspInt =
     },
     Page_SB_MemInt,
     {
-        (void*)&sbInt_Exit,                 // ПАМЯТЬ - ВНУТР ЗУ - Выход
-        (void*)&sbInt_ShowSignalsAlways,    // ПАМЯТЬ - ВНУТР ЗУ - Показывать всегда
-        (void*)&sbInt_ModeShow,             // ПАМЯТЬ - ВНУТР ЗУ - Вид сигнала
+        (void*)&bInternal_Exit,         // ПАМЯТЬ - ВНУТР ЗУ - Выход
+        (void*)&bInternal_ShowAlways,   // ПАМЯТЬ - ВНУТР ЗУ - Показывать всегда
+        (void*)&bInternal_ModeShow,     // ПАМЯТЬ - ВНУТР ЗУ - Вид сигнала
         //(void*)0,
-        (void*)&sbInt_EraseAll,
-        (void*)&sbInt_SaveToMemory,         // ПАМЯТЬ - ВНУТР ЗУ - Сохранить
-        (void*)&sbInt_SaveToDrive           // ПАМЯТЬ - ВНУТР ЗУ - Сохранить на флешку
+        (void*)&bInternal_EraseAll,
+        (void*)&bInternal_SaveToMemory, // ПАМЯТЬ - ВНУТР ЗУ - Сохранить
+        (void*)&bInternal_SaveToDrive   // ПАМЯТЬ - ВНУТР ЗУ - Сохранить на флешку
     },
-    OnPress_Int, OnDraw_Int, OnReg_Int
+    OnPress_Internal, OnDraw_Internal, OnRegSet_Internal
 };
 
-static void OnPress_Int(void)
+static void OnPress_Internal(void)
 {
     OpenPageAndSetItCurrent(Page_SB_MemInt);
     MODE_WORK = ModeWork_EEPROM;
 }
 
-static void OnDraw_Int(void)
+static void OnDraw_Internal(void)
 {
     // Теперь нарисуем состояние памяти
 
@@ -575,7 +533,7 @@ static void DrawMemoryWave(int num, bool exist)
     }
 }
 
-static void OnReg_Int(int delta)
+static void OnRegSet_Internal(int delta)
 {
     Sound_RegulatorSwitchRotate();
     if (delta < 0)
@@ -591,19 +549,19 @@ static void OnReg_Int(int delta)
 }
 
 // ПАМЯТЬ - ВНУТР ЗУ - Выход -------------------------------------------------------------------------------------------------------------------------
-static const SmallButton sbInt_Exit =
+static const SmallButton bInternal_Exit =
 {
-    Item_SmallButton, &mspInt, 0,
+    Item_SmallButton, &ppInternal, 0,
     {
         "Выход", "Exit",
         "Кнопка для выхода в предыдущее меню",
         "Button to return to the previous menu"
     },
-    OnPress_Int_Exit,
+    OnPress_Internal_Exit,
     DrawSB_Exit
 };
 
-static void OnPress_Int_Exit(void)
+static void OnPress_Internal_Exit(void)
 {
     Data_GetFromIntMemory();
     if (gMemory.exitFromIntToLast == 1)
@@ -626,55 +584,55 @@ static void OnPress_Int_Exit(void)
 }
 
 // ПАМЯТЬ - ВНУТР ЗУ - Показывать всегда -------------------------------------------------------------------------------------------------------------
-static const SmallButton sbInt_ShowSignalsAlways =
+static const SmallButton bInternal_ShowAlways =
 {
-    Item_SmallButton, &mspInt, 0,
+    Item_SmallButton, &ppInternal, 0,
     {
         "Показывать всегда", "To show always",
         "Позволяет всегда показывать выбранный сохранённый сигнал поверх текущего",
         "Allows to show always the chosen kept signal over the current"
     },
-    OnPress_Int_ShowSignalAlways,
-    Draw_Int_ShowSignalAlways,
+    OnPress_Internal_ShowAlways,
+    Draw_Internal_ShowAlways,
     {
         {
-            Draw_Int_ShowSignalAllways_Yes,
+            Draw_Internal_ShowAlways_Yes,
             "показывать выбранный сигнал из внутренней памяти поверх текущего",
             "to show the chosen signal from internal memory over the current"
         },
         {
-            Draw_Int_ShowSignalAllways_No,
+            Draw_Internal_ShowAlways_No,
             "сигнал из внутренней памяти виден только в режиме работы с внутренним запоминающим устройством",
             "the signal from internal memory is visible only in an operating mode with an internal memory"
         }
     }
 };
 
-static void OnPress_Int_ShowSignalAlways(void)
+static void OnPress_Internal_ShowAlways(void)
 {
     gMemory.alwaysShowMemIntSignal = (gMemory.alwaysShowMemIntSignal == 0) ? 1 : 0;
 }
 
-static void Draw_Int_ShowSignalAlways(int x, int y)
+static void Draw_Internal_ShowAlways(int x, int y)
 {
     if (gMemory.alwaysShowMemIntSignal == 0)
     {
-        Draw_Int_ShowSignalAllways_No(x, y);
+        Draw_Internal_ShowAlways_No(x, y);
     }
     else
     {
-        Draw_Int_ShowSignalAllways_Yes(x, y);
+        Draw_Internal_ShowAlways_Yes(x, y);
     }
 }
 
-static void Draw_Int_ShowSignalAllways_Yes(int x, int y)
+static void Draw_Internal_ShowAlways_Yes(int x, int y)
 {
     Painter_SetFont(TypeFont_UGO2);
     Painter_Draw4SymbolsInRect(x + 2, y + 1, '\x66');
     Painter_SetFont(TypeFont_8);
 }
 
-static void Draw_Int_ShowSignalAllways_No(int x, int y)
+static void Draw_Internal_ShowAlways_No(int x, int y)
 {
     Painter_SetFont(TypeFont_UGO2);
     Painter_Draw4SymbolsInRect(x + 2, y + 1, '\x68');
@@ -682,57 +640,57 @@ static void Draw_Int_ShowSignalAllways_No(int x, int y)
 }
 
 // ПАМЯТЬ - ВНУТР ЗУ - Вид сигнала -------------------------------------------------------------------------------------------------------------------
-static const SmallButton sbInt_ModeShow =
+static const SmallButton bInternal_ModeShow =
 {
-    Item_SmallButton, &mspInt, 0,
+    Item_SmallButton, &ppInternal, 0,
     {
         "Вид сигнала", "Type of a signal",
         "Показывать записанный или текущий сигнал в режиме ВНУТР ЗУ",
         "Show recorded or current signal in mode Internal Memory"
     },
-    OnPress_Int_ModeShow,
-    Draw_Int_ModeShow,
+    OnPress_Internal_ModeShow,
+    Draw_Internal_ModeShow,
     {
         {
-            Draw_Int_ModeShow_Direct,
+            Draw_Internal_ModeShow_Direct,
             "на дисплее текущий сигнал",
             "on the display current signal"
         },
         {
-            Draw_Int_ModeShow_Saved,
+            Draw_Internal_ModeShow_Saved,
             "на дисплее сохранённый сигнал",
             "on the display the kept signal"
         },
         {
-            Draw_Int_ModeShow_Both,
+            Draw_Internal_ModeShow_Both,
             "на дисплее оба сигнала",
             "on the display both signals"
         }
     }
 };
 
-static void OnPress_Int_ModeShow(void)
+static void OnPress_Internal_ModeShow(void)
 {
     CircleIncreaseInt8((int8*)&SHOW_IN_INT, 0, 2);
 }
 
-static void Draw_Int_ModeShow(int x, int y)
+static void Draw_Internal_ModeShow(int x, int y)
 {
     if (SHOW_IN_INT_DIRECT)
     {
-        Draw_Int_ModeShow_Direct(x, y);
+        Draw_Internal_ModeShow_Direct(x, y);
     }
     else if (SHOW_IN_INT_SAVED)
     {
-        Draw_Int_ModeShow_Saved(x, y);
+        Draw_Internal_ModeShow_Saved(x, y);
     }
     else
     {
-        Draw_Int_ModeShow_Both(x, y);
+        Draw_Internal_ModeShow_Both(x, y);
     }
 }
 
-static void Draw_Int_ModeShow_Direct(int x, int y)
+static void Draw_Internal_ModeShow_Direct(int x, int y)
 {
     Painter_SetFont(TypeFont_UGO2);
     Painter_Draw4SymbolsInRect(x + 2, y + 1, '\x6a');
@@ -740,7 +698,7 @@ static void Draw_Int_ModeShow_Direct(int x, int y)
 }
 
 
-static void Draw_Int_ModeShow_Saved(int x, int y)
+static void Draw_Internal_ModeShow_Saved(int x, int y)
 {
     Painter_SetFont(TypeFont_UGO2);
     Painter_Draw4SymbolsInRect(x + 2, y + 1, '\x6c');
@@ -748,7 +706,7 @@ static void Draw_Int_ModeShow_Saved(int x, int y)
 }
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
-static void Draw_Int_ModeShow_Both(int x, int y)
+static void Draw_Internal_ModeShow_Both(int x, int y)
 {
     Painter_DrawText(x + 1, y + 5, "ОБА");
     Painter_DrawVLineC(x + 1, y + 2, y + 14, gColorBack);
@@ -756,51 +714,51 @@ static void Draw_Int_ModeShow_Both(int x, int y)
 }
 
 // ПАМЯТЬ - ВНУТР ЗУ - Стереть всё -------------------------------------------------------------------------------------------------------------------
-static const SmallButton sbInt_EraseAll =
+static const SmallButton bInternal_EraseAll =
 {
-    Item_SmallButton, &mspInt, 0,
+    Item_SmallButton, &ppInternal, 0,
     {
         "Стереть всё", "Erase all",
         "Стирает все данные из области хранения данных, включая область иноформации. Тотальное форматирование",
         "It erases all data from the storage area, including the area inoformatsiya. The total format"
     },
-    OnPress_Int_EraseAll,
-    Draw_Int_EraseAll,
+    OnPress_Internal_EraseAll,
+    Draw_Internal_EraseAll,
     {
         {
-            Draw_Int_EraseAll,
+            Draw_Internal_EraseAll,
             "Стереть все данные",
             "Erase all data"
         }
     }
 };
 
-static void OnPress_Int_EraseAll(void)
+static void OnPress_Internal_EraseAll(void)
 {
     Display_FuncOnWaitStart("Стираю. Подождите", "Erase. Wait", false);
     FLASH_DeleteAllData();
     Display_FuncOnWaitStop();
 }
 
-static void Draw_Int_EraseAll(int x, int y)
+static void Draw_Internal_EraseAll(int x, int y)
 {
     Painter_DrawText(x + 5, y + 5, "E");
 }
 
 // ПАМЯТЬ - ВНУТР ЗУ - Сохранить в памяти ------------------------------------------------------------------------------------------------------------
-static const SmallButton sbInt_SaveToMemory =
+static const SmallButton bInternal_SaveToMemory =
 {
-    Item_SmallButton, &mspInt, 0,
+    Item_SmallButton, &ppInternal, 0,
     {
         "Сохранить в памяти", "Save to memory",
         "Сохранить сигнал во внутреннем запоминующем устройстве",
         "To keep a signal in an internal memory"
     },
-    OnPress_Int_SaveToMemory,
-    Draw_Int_SaveToMemory
+    OnPress_Internal_SaveToMemory,
+    Draw_Internal_SaveToMemory
 };
 
-static void OnPress_Int_SaveToMemory(void)
+static void OnPress_Internal_SaveToMemory(void)
 {
     Display_FuncOnWaitStart("Записываю в память", "I stored in memory", false);
     SaveSignalToIntMemory();
@@ -829,7 +787,7 @@ static void SaveSignalToIntMemory(void)
     }
 }
 
-static void Draw_Int_SaveToMemory(int x, int y)
+static void Draw_Internal_SaveToMemory(int x, int y)
 {
     Painter_SetFont(TypeFont_UGO2);
     Painter_Draw4SymbolsInRect(x + 2, y + 1, '\x2c');
@@ -837,25 +795,25 @@ static void Draw_Int_SaveToMemory(int x, int y)
 }
 
 // ПАМЯТЬ - ВНУТР ЗУ - Сохранить на флешку -----------------------------------------------------------------------------------------------------------
-static const SmallButton sbInt_SaveToDrive =
+static const SmallButton bInternal_SaveToDrive =
 {
-    Item_SmallButton, &mspInt, 0,
+    Item_SmallButton, &ppInternal, 0,
     {
         "Сохранить на флешку", "Save to disk",
         "Сохраняет сигнал на флешку",
         "Save signal to flash drive"
     },
-    OnPress_Int_SaveToDrive,
-    Draw_Int_SaveToDrive
+    OnPress_Internal_SaveToDrive,
+    Draw_Internal_SaveToDrive
 };
 
-static void OnPress_Int_SaveToDrive(void)
+static void OnPress_Internal_SaveToDrive(void)
 {
     gMemory.exitFromModeSetNameTo = RETURN_TO_INT_MEM;
     Memory_SaveSignalToFlashDrive();
 }
 
-static void Draw_Int_SaveToDrive(int x, int y)
+static void Draw_Internal_SaveToDrive(int x, int y)
 {
     if (gFlashDriveIsConnected)
     {
@@ -866,7 +824,7 @@ static void Draw_Int_SaveToDrive(int x, int y)
 }
 
 // ПАМЯТЬ - ВНЕШН ЗУ ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-static const Page mspDrive =
+static const Page ppDrive =
 {
     Item_Page, &pMemory, 0,
     {
@@ -876,19 +834,19 @@ static const Page mspDrive =
     },
     Page_MemoryExt,
     {
-        (void*)&mspDrive_Manager,       // ПАМЯТЬ - ВНЕШН ЗУ - КАТАЛОГ
-        (void*)&mcDrive_Name,           // ПАМЯТЬ - ВНЕШН ЗУ - Имя файла
-        (void*)&mspSetMask,             // Память - ВНЕШН ЗУ - МАСКА
-        (void*)&mcDrive_ModeSave,       // ПАМЯТЬ - ВНЕШН ЗУ - Сохранять как
-        (void*)&mcDrive_ModeBtnMemory,  // ПАМЯТЬ - ВНЕШН ЗУ - Реж кн ПАМЯТЬ
-        (void*)&mcDrive_Autoconnect     // ПАМЯТЬ - ВНЕШН ЗУ - Автоподключение
+        (void*)&pppDrive_Manager,       // ПАМЯТЬ - ВНЕШН ЗУ - КАТАЛОГ
+        (void*)&cDrive_Name,            // ПАМЯТЬ - ВНЕШН ЗУ - Имя файла
+        (void*)&pppDrive_Mask,          // Память - ВНЕШН ЗУ - МАСКА
+        (void*)&cDrive_SaveAs,          // ПАМЯТЬ - ВНЕШН ЗУ - Сохранять как
+        (void*)&cDrive_ModeBtnMemory,   // ПАМЯТЬ - ВНЕШН ЗУ - Реж кн ПАМЯТЬ
+        (void*)&cDrive_Autoconnect      // ПАМЯТЬ - ВНЕШН ЗУ - Автоподключение
     }
 };
 
 // ПАМЯТЬ - ВНЕШН ЗУ - Имя файла ---------------------------------------------------------------------------------------------------------------------
-static const Choice mcDrive_Name =
+static const Choice cDrive_Name =
 {
-    Item_Choice, &mspDrive, 0,
+    Item_Choice, &ppDrive, 0,
     {
         "Имя файла", "File name"
         ,
@@ -908,9 +866,9 @@ static const Choice mcDrive_Name =
 };
 
 // ПАМЯТЬ - ВНЕШН ЗУ - Сохранять как ---------------------------------------------------------------------------------------------------------------
-static const Choice mcDrive_ModeSave =
+static const Choice cDrive_SaveAs =
 {
-    Item_Choice, &mspDrive, 0,
+    Item_Choice, &ppDrive, 0,
     {
         "Сохранять как",    "Save as"
         ,
@@ -928,9 +886,9 @@ static const Choice mcDrive_ModeSave =
 };
 
 // ПАМЯТЬ - ВНЕШН ЗУ - Реж кн ПАМЯТЬ ---------------------------------------------------------------------------------------------------------------
-static const Choice mcDrive_ModeBtnMemory =
+static const Choice cDrive_ModeBtnMemory =
 {
-    Item_Choice, &mspDrive, 0,
+    Item_Choice, &ppDrive, 0,
     {
         "Реж кн ПАМЯТЬ",    "Mode btn MEMORY",
         "",
@@ -944,9 +902,9 @@ static const Choice mcDrive_ModeBtnMemory =
 };
 
 // ПАМЯТЬ - ВНЕШН ЗУ - Автоподключение -------------------------------------------------------------------------------------------------------------
-static const Choice mcDrive_Autoconnect =
+static const Choice cDrive_Autoconnect =
 {
-    Item_Choice, &mspDrive, 0,
+    Item_Choice, &ppDrive, 0,
     {
         "Автоподкл.",   "AutoConnect",
         "Eсли \"Вкл\", при подключении внешнего накопителя происходит автоматический переход на страницу ПАМЯТЬ - Внешн ЗУ",
@@ -960,9 +918,9 @@ static const Choice mcDrive_Autoconnect =
 };
 
 // ПАМЯТЬ - ВНЕШН ЗУ - КАТАЛОГ /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-static const Page mspDrive_Manager =
+static const Page pppDrive_Manager =
 {
-    Item_Page, &mspDrive, FuncOfActiveExtMemFolder,
+    Item_Page, &ppDrive, IsActive_Drive_Manager,
     {
         "КАТАЛОГ", "DIRECTORY",
         "Открывает доступ к файловой системе подключенного накопителя",
@@ -970,22 +928,22 @@ static const Page mspDrive_Manager =
     },
     Page_SB_FileManager,
     {
-        (void*)&sbExitFileManager,      // ПАМЯТЬ - ВНЕШН ЗУ - КАТАЛОГ - Выход
-        (void*)&sbFileManagerTab,       // ПАМЯТЬ - ВНЕШН ЗУ - КАТАЛОГ - Tab
+        (void*)&bDrive_Manager_Exit,        // ПАМЯТЬ - ВНЕШН ЗУ - КАТАЛОГ - Выход
+        (void*)&bDrive_Manager_Tab,         // ПАМЯТЬ - ВНЕШН ЗУ - КАТАЛОГ - Tab
         (void*)0,
         (void*)0,
-        (void*)&sbFileManagerLevelUp,   // ПАМЯТЬ - ВНЕШН ЗУ - КАТАЛОГ - Выйти из каталога
-        (void*)&sbFileManagerLevelDown  // ПАМЯТЬ - ВНЕШН ЗУ - КАТАЛОГ - Войти в каталог
+        (void*)&bDrive_Manager_LevelUp,     // ПАМЯТЬ - ВНЕШН ЗУ - КАТАЛОГ - Выйти из каталога
+        (void*)&bDrive_Manager_LevelDown    // ПАМЯТЬ - ВНЕШН ЗУ - КАТАЛОГ - Войти в каталог
     },
-    OnPressMemoryExtFileManager, 0, FM_RotateRegSet
+    OnPress_Drive_Manager, 0, FM_RotateRegSet
 };
 
-static bool FuncOfActiveExtMemFolder(void)
+static bool IsActive_Drive_Manager(void)
 {
     return gFlashDriveIsConnected;
 }
 
-void OnPressMemoryExtFileManager(void)
+void OnPress_Drive_Manager(void)
 {
     if (gFlashDriveIsConnected)
     {
@@ -1001,38 +959,38 @@ void OnPressMemoryExtFileManager(void)
 }
 
 // ПАМЯТЬ - ВНЕШН ЗУ - КАТАЛОГ - Выход ------------------------------------------------------------------------------------------------------------
-static const SmallButton sbExitFileManager =
+static const SmallButton bDrive_Manager_Exit =
 {
-    Item_SmallButton, &mspDrive_Manager, 0,
+    Item_SmallButton, &pppDrive_Manager, 0,
     {
         "Выход", "Exit",
         "Кнопка для выхода в предыдущее меню",
         "Button to return to the previous menu"
     },
-    PressSB_FM_Exit,
+    OnPress_Drive_Manager_Exit,
     DrawSB_Exit
 };
 
-static void PressSB_FM_Exit(void)
+static void OnPress_Drive_Manager_Exit(void)
 {
     Display_SetDrawMode(DrawMode_Auto, 0);
     Display_RemoveAddDrawFunction();
 }
 
 // ПАМЯТЬ - ВНЕШН ЗУ - КАТАЛОГ - Tab --------------------------------------------------------------------------------------------------------------
-static const SmallButton sbFileManagerTab =
+static const SmallButton bDrive_Manager_Tab =
 {
-    Item_SmallButton, &mspDrive_Manager, 0,
+    Item_SmallButton, &pppDrive_Manager, 0,
     {
         "Tab", "Tab",
         "Переход между каталогами и файлами",
         "The transition between the directories and files"
     },
     PressSB_FM_Tab,
-    DrawSB_FM_Tab
+    Draw_Drive_Manager_Tab
 };
 
-static void DrawSB_FM_Tab(int x, int y)
+static void Draw_Drive_Manager_Tab(int x, int y)
 {
     Painter_SetFont(TypeFont_UGO2);
     Painter_Draw4SymbolsInRect(x + 2, y + 1, SYMBOL_TAB);
@@ -1040,19 +998,19 @@ static void DrawSB_FM_Tab(int x, int y)
 }
 
 // ПАМЯТЬ - ВНЕШН ЗУ - КАТАЛОГ - Выйти из каталога ------------------------------------------------------------------------------------------------
-static const SmallButton sbFileManagerLevelUp =
+static const SmallButton bDrive_Manager_LevelUp =
 {
-    Item_SmallButton, &mspDrive_Manager, 0,
+    Item_SmallButton, &pppDrive_Manager, 0,
     {
         "Выйти из каталого", "Leave from directory",
         "Переход в родительский каталог",
         "Transition to the parental catalog"
     },
     PressSB_FM_LevelUp,
-    DrawSB_FM_LevelUp
+    Draw_Drive_Manager_LevelUp
 };
 
-static void DrawSB_FM_LevelUp(int x, int y)
+static void Draw_Drive_Manager_LevelUp(int x, int y)
 {
     Painter_SetFont(TypeFont_UGO2);
     Painter_Draw4SymbolsInRect(x + 2, y + 1, '\x48');
@@ -1060,19 +1018,19 @@ static void DrawSB_FM_LevelUp(int x, int y)
 }
 
 // ПАМЯТЬ - ВНЕШН ЗУ - КАТАЛОГ - Войти в каталог --------------------------------------------------------------------------------------------------
-static const SmallButton sbFileManagerLevelDown =
+static const SmallButton bDrive_Manager_LevelDown =
 {
-    Item_SmallButton, &mspDrive_Manager, 0,
+    Item_SmallButton, &pppDrive_Manager, 0,
     {
         "Войти в каталог", "Enter in directory",
         "Переход в выбранный каталог",
         "Transition to the chosen catalog"
     },
     PressSB_FM_LevelDown,
-    DrawSB_FM_LevelDown
+    Draw_Drive_Manager_LevelDown
 };
 
-static void DrawSB_FM_LevelDown(int x, int y)
+static void Draw_Drive_Manager_LevelDown(int x, int y)
 {
     Painter_SetFont(TypeFont_UGO2);
     Painter_Draw4SymbolsInRect(x + 2, y + 2, '\x4a');
@@ -1080,9 +1038,9 @@ static void DrawSB_FM_LevelDown(int x, int y)
 }
 
 // Память - ВНЕШН ЗУ - МАСКА ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-static const Page mspSetMask =
+static const Page pppDrive_Mask =
 {
-    Item_Page, &mspDrive, IsActiveMemoryExtSetMask,
+    Item_Page, &ppDrive, IsActive_Drive_Mask,
     {
         "МАСКА", "MASK",
         "Режим ввода маски для автоматического именования файлов",
@@ -1090,22 +1048,22 @@ static const Page mspSetMask =
     },
     Page_SB_MemExtSetMask,
     {
-        (void*)&sbExitSetMask,      // ПАМЯТЬ - ВНЕШН ЗУ - МАСКА - Выход
-        (void*)&sbSetMaskDelete,    // ПАМЯТЬ - ВНЕШН ЗУ - МАСКА - Удалить
+        (void*)&bDrive_Mask_Exit,       // ПАМЯТЬ - ВНЕШН ЗУ - МАСКА - Выход
+        (void*)&bDrive_Mask_Delete,     // ПАМЯТЬ - ВНЕШН ЗУ - МАСКА - Удалить
         (void*)0,
         (void*)0,
-        (void*)&sbSetMaskBackspace, // ПАМЯТЬ - ВНЕШН ЗУ - МАСКА - Backspace
-        (void*)&sbSetMaskInsert     // ПАМЯТЬ - ВНЕШН ЗУ - МАСКА - Вставить
+        (void*)&bDrive_Mask_Backspace,  // ПАМЯТЬ - ВНЕШН ЗУ - МАСКА - Backspace
+        (void*)&bDrive_Mask_Insert      // ПАМЯТЬ - ВНЕШН ЗУ - МАСКА - Вставить
     },
-    0, OnPressMemoryExtMask, OnMemExtSetMaskRegSet
+    0, OnPress_Drive_Mask, OnRegSet_Drive_Mask
 };
 
-static bool IsActiveMemoryExtSetMask(void)
+static bool IsActive_Drive_Mask(void)
 {
     return FILE_NAMING_MODE_MASK;
 }
 
-static void OnPressMemoryExtMask(void)
+static void OnPress_Drive_Mask(void)
 {
     OpenPageAndSetItCurrent(Page_SB_MemExtSetMask);
     Display_SetAddDrawFunction(DrawSetMask);
@@ -1210,44 +1168,44 @@ static void DrawFileMask(int x, int y)
     Painter_FillRegionC(x, y, 5, 8, COLOR_FLASH_10);
 }
 
-static void OnMemExtSetMaskRegSet(int angle)
+static void OnRegSet_Drive_Mask(int angle)
 {
     OnMemExtSetMaskNameRegSet(angle, sizeof(symbolsAlphaBet) / 4);
 }
 
 // ПАМЯТЬ - ВНЕШН ЗУ - МАСКА - Выход --------------------------------------------------------------------------------------------------------------
-static const SmallButton sbExitSetMask =
+static const SmallButton bDrive_Mask_Exit =
 {
-    Item_SmallButton, &mspSetMask,
+    Item_SmallButton, &pppDrive_Mask,
     COMMON_BEGIN_SB_EXIT,
-    PressSB_SetMask_Exit,
+    OnPress_Drive_Mask_Exit,
     DrawSB_Exit
 };
 
-static void PressSB_SetMask_Exit(void)
+static void OnPress_Drive_Mask_Exit(void)
 {
     Display_RemoveAddDrawFunction();
 }
 
 // ПАМЯТЬ - ВНЕШН ЗУ - МАСКА - Удалить ------------------------------------------------------------------------------------------------------------
-static const SmallButton sbSetMaskDelete =
+static const SmallButton bDrive_Mask_Delete =
 {
-    Item_SmallButton, &mspSetMask, 0,
+    Item_SmallButton, &pppDrive_Mask, 0,
     {
         "Удалить", "Delete",
         "Удаляет все введённые символы",
         "Deletes all entered symbols"
     },
-    PressSB_SetMask_Delete,
-    DrawSB_SetMask_Delete
+    OnPress_Drive_Mask_Delete,
+    Draw_Drive_Mask_Delete
 };
 
-static void PressSB_SetMask_Delete(void)
+static void OnPress_Drive_Mask_Delete(void)
 {
     FILE_NAME_MASK[0] = '\0';
 }
 
-static void DrawSB_SetMask_Delete(int x, int y)
+static void Draw_Drive_Mask_Delete(int x, int y)
 {
     Painter_SetFont(TypeFont_UGO2);
     Painter_Draw4SymbolsInRect(x + 2, y + 1, SYMBOL_DELETE);
@@ -1255,19 +1213,19 @@ static void DrawSB_SetMask_Delete(int x, int y)
 }
 
 // ПАМЯТЬ - ВНЕШН ЗУ - МАСКА - Backspace ----------------------------------------------------------------------------------------------------------
-static const SmallButton sbSetMaskBackspace =
+static const SmallButton bDrive_Mask_Backspace =
 {
-    Item_SmallButton, &mspSetMask, 0,
+    Item_SmallButton, &pppDrive_Mask, 0,
     {
         "Backspace", "Backspace",
         "Удаляет последний введённый символ",
         "Deletes the last entered symbol"
     },
-    PressSB_SetMask_Backspace,
-    DrawSB_SetMask_Backspace
+    OnPress_Drive_Mask_Backspace,
+    Draw_Drive_Mask_Backspace
 };
 
-static void PressSB_SetMask_Backspace(void)
+static void OnPress_Drive_Mask_Backspace(void)
 {
     int size = strlen(FILE_NAME_MASK);
     if (size > 0)
@@ -1283,7 +1241,7 @@ static void PressSB_SetMask_Backspace(void)
     }
 }
 
-static void DrawSB_SetMask_Backspace(int x, int y)
+static void Draw_Drive_Mask_Backspace(int x, int y)
 {
     Painter_SetFont(TypeFont_UGO2);
     Painter_Draw4SymbolsInRect(x + 2, y + 1, '\x20');
@@ -1291,19 +1249,19 @@ static void DrawSB_SetMask_Backspace(int x, int y)
 }
 
 // ПАМЯТЬ - ВНЕШН ЗУ - МАСКА - Вставить -----------------------------------------------------------------------------------------------------------
-static const SmallButton sbSetMaskInsert =
+static const SmallButton bDrive_Mask_Insert =
 {
-    Item_SmallButton, &mspSetMask, 0,
+    Item_SmallButton, &pppDrive_Mask, 0,
     {
         "Вставить", "Insert",
         "Вставляет выбранный символ",
         "Inserts the chosen symbol"
     },
-    PressSB_SetMask_Insert,
-    DrawSB_SetMask_Insert
+    OnPress_Drive_Mask_Insert,
+    Draw_Drive_Mask_Insert
 };
 
-static void PressSB_SetMask_Insert(void)
+static void OnPress_Drive_Mask_Insert(void)
 {
     int index = INDEX_SYMBOL;
     int size = strlen(FILE_NAME_MASK);
@@ -1339,7 +1297,7 @@ static void PressSB_SetMask_Insert(void)
     }
 }
 
-static void DrawSB_SetMask_Insert(int x, int y)
+static void Draw_Drive_Mask_Insert(int x, int y)
 {
     Painter_SetFont(TypeFont_UGO2);
     Painter_Draw4SymbolsInRect(x + 2, y + 2, SYMBOL_INSERT);
@@ -1347,7 +1305,7 @@ static void DrawSB_SetMask_Insert(int x, int y)
 }
 
 // Страница вызывается для ввода имени файла /////////////////////////////////////////////////////////////////////////////////////////////////////////
-const Page mpSetName =
+const Page pSetName =
 {
     Item_Page, 0, 0,
     {
@@ -1357,17 +1315,17 @@ const Page mpSetName =
     },
     Page_SB_MemExtSetName,
     {
-        (void*)&sbExitSetName,
-        (void*)&sbSetNameDelete,
+        (void*)&bSetName_Exit,          // ВВОД ИМЕНИ ФАЙЛА - Выход
+        (void*)&bSetName_Delete,        // ВВОД ИМЕНИ ФАЙЛА - Удалить
         (void*)0,
-        (void*)&sbSetNameBackspace,
-        (void*)&sbSetNameInsert,
-        (void*)&sbSetNameSave
+        (void*)&bSetName_Backspace,     // ВВОД ИМЕНИ ФАЙЛА - Backspace
+        (void*)&bSetName_Insert,        // ВВОД ИМЕНИ ФАЙЛА - Вставить
+        (void*)&bSetName_Save           // ВВОД ИМЕНИ ФАЙЛА - Сохранить
     },
-    0, 0, OnMemExtSetNameRegSet
+    0, 0, OnRegSet_SetName
 };
 
-static void OnMemExtSetNameRegSet(int angle)
+static void OnRegSet_SetName(int angle)
 {
     OnMemExtSetMaskNameRegSet(angle, sizeof(symbolsAlphaBet) / 4 - 7);
 }
@@ -1392,20 +1350,20 @@ void OnMemExtSetMaskNameRegSet(int angle, int maxIndex)
 }
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
-static const SmallButton sbExitSetName =   // Кнопк для выхода из режима задания имени сохраняемому сигналу. Одновременно кнопка отказа от сохранения
+static const SmallButton bSetName_Exit =   // Кнопк для выхода из режима задания имени сохраняемому сигналу. Одновременно кнопка отказа от сохранения
 {
-    Item_SmallButton, &mpSetName, 0,
+    Item_SmallButton, &pSetName, 0,
     {
         "Выход", "Exit",
         "Отказ от сохранения",
         "Failure to save"
     },
-    PressSB_SetName_Exit,
+    OnPress_SetName_Exit,
     DrawSB_Exit
 };
 
 
-static void PressSB_SetName_Exit(void)
+static void OnPress_SetName_Exit(void)
 {
     Display_RemoveAddDrawFunction();
     if (gMemory.exitFromModeSetNameTo == RETURN_TO_DISABLE_MENU)
@@ -1424,24 +1382,24 @@ static void PressSB_SetName_Exit(void)
 }
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
-static const SmallButton sbSetNameDelete =
+static const SmallButton bSetName_Delete =
 {
-    Item_SmallButton, &mpSetName, 0,
+    Item_SmallButton, &pSetName, 0,
     {
         "Удалить", "Delete",
         "Удаляет все введённые символы",
         "Deletes all entered characters"
     },
-    PressSB_SetName_Delete,
-    DrawSB_SetName_Delete
+    OnPress_SetName_Delete,
+    Draw_SetName_Delete
 };
 
-static void PressSB_SetName_Delete(void)
+static void OnPress_SetName_Delete(void)
 {
     FILE_NAME[0] = '\0';
 }
 
-static void DrawSB_SetName_Delete(int x, int y) //-V524
+static void Draw_SetName_Delete(int x, int y) //-V524
 {
     Painter_SetFont(TypeFont_UGO2);
     Painter_Draw4SymbolsInRect(x + 2, y + 1, SYMBOL_DELETE);
@@ -1449,19 +1407,19 @@ static void DrawSB_SetName_Delete(int x, int y) //-V524
 }
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
-static const SmallButton sbSetNameBackspace =
+static const SmallButton bSetName_Backspace =
 {
-    Item_SmallButton, &mpSetName, 0,
+    Item_SmallButton, &pSetName, 0,
     {
         "Backspace", "Backspace",
         "Удаляет последний символ",
         "Delete the last character"
     },
-    PressSB_SetName_Backspace,
-    DrawSB_SetName_Backspace
+    OnPress_SetName_Backspace,
+    Draw_SetName_Backspace
 };
 
-static void PressSB_SetName_Backspace(void)
+static void OnPress_SetName_Backspace(void)
 {
     int size = strlen(FILE_NAME);
     if (size > 0)
@@ -1470,7 +1428,7 @@ static void PressSB_SetName_Backspace(void)
     }
 }
 
-static void DrawSB_SetName_Backspace(int x, int y) //-V524
+static void Draw_SetName_Backspace(int x, int y) //-V524
 {
     Painter_SetFont(TypeFont_UGO2);
     Painter_Draw4SymbolsInRect(x + 2, y + 1, '\x20');
@@ -1478,19 +1436,19 @@ static void DrawSB_SetName_Backspace(int x, int y) //-V524
 }
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
-static const SmallButton sbSetNameInsert =
+static const SmallButton bSetName_Insert =
 {
-    Item_SmallButton, &mpSetName, 0,
+    Item_SmallButton, &pSetName, 0,
     {
         "Вставить", "Insert",
         "Вводит очередной символ",
         "Print the next character"
     },
-    PressSB_SetName_Insert,
-    DrawSB_SetName_Insert
+    OnPress_SetName_Insert,
+    Draw_SetName_Insert
 };
 
-static void PressSB_SetName_Insert(void)
+static void OnPress_SetName_Insert(void)
 {
     int size = strlen(FILE_NAME);
     if (size < MAX_SYMBOLS_IN_FILE_NAME - 1)
@@ -1500,7 +1458,7 @@ static void PressSB_SetName_Insert(void)
     }
 }
 
-static void DrawSB_SetName_Insert(int x, int y) //-V524
+static void Draw_SetName_Insert(int x, int y) //-V524
 {
     Painter_SetFont(TypeFont_UGO2);
     Painter_Draw4SymbolsInRect(x + 2, y + 2, '\x26');
@@ -1508,28 +1466,28 @@ static void DrawSB_SetName_Insert(int x, int y) //-V524
 }
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
-static const SmallButton sbSetNameSave =
+static const SmallButton bSetName_Save =
 {
-    Item_SmallButton, &mpSetName, 0,
+    Item_SmallButton, &pSetName, 0,
     {
         "Сохранить", "Save",
         "Сохранение на флеш под заданным именем",
         "Saving to flashdrive with the specified name"
     },
-    PressSB_MemExtSetNameSave,
-    DrawSB_MemExtSetNameSave
+    OnPress_SetName_Save,
+    Draw_SetName_Save
 };
 
-static void PressSB_MemExtSetNameSave(void)
+static void OnPress_SetName_Save(void)
 {
     if (gFlashDriveIsConnected)
     {
-        PressSB_SetName_Exit();
+        OnPress_SetName_Exit();
         gMemory.needForSaveToFlashDrive = 1;
     }
 }
 
-static void DrawSB_MemExtSetNameSave(int x, int y)
+static void Draw_SetName_Save(int x, int y)
 {
     if (gFlashDriveIsConnected)
     {
@@ -1562,6 +1520,6 @@ void DrawSB_MemExtNewFolder(int x, int y)
 }
 
 extern const Page pMemory;
-extern const Page mspDrive;
+extern const Page ppDrive;
 
 */

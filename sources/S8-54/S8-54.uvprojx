@@ -1834,20 +1834,15 @@
               <FileType>1</FileType>
               <FilePath>.\src\Menu\Pages\PageDebug.c</FilePath>
             </File>
-          </Files>
-        </Group>
-        <Group>
-          <GroupName>Menu/Pages/Memory</GroupName>
-          <Files>
             <File>
               <FileName>PageMemory.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\src\Menu\Pages\Memory\PageMemory.c</FilePath>
+              <FilePath>.\src\Menu\Pages\PageMemory.c</FilePath>
             </File>
             <File>
               <FileName>PageMemory.h</FileName>
               <FileType>5</FileType>
-              <FilePath>.\src\Menu\Pages\Memory\PageMemory.h</FilePath>
+              <FilePath>.\src\Menu\Pages\PageMemory.h</FilePath>
             </File>
           </Files>
         </Group>

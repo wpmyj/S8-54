@@ -854,7 +854,7 @@ void ChangeStateFlashDrive(void)
     }
     else if(FLASH_AUTO_CONNECT)
     {
-        OnPressMemoryExtFileManager();
+        OnPress_Drive_Manager();
     }
 }
 

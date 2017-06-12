@@ -108,7 +108,7 @@ void OnChanged_PeakDet(bool active)
     {
         FPGA_SetPeackDetMode(SET_PEACKDET);
         FPGA_SetTBase(SET_TBASE);
-        OnChange_MemoryLength(true);
+        OnChanged_Points(true);
     }
     else
     {
@@ -146,7 +146,7 @@ static const Choice cTPos =
 
 void OnChanged_TPos(bool active)
 {
-    OnChange_MemoryLength(active);
+    OnChanged_Points(active);
     FPGA_SetTShift(SET_TSHIFT);
 }
 

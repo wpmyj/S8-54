@@ -61,9 +61,6 @@
     <Filter Include="LwIP">
       <UniqueIdentifier>{201d540a-21fe-4408-9715-f4d10a7bf965}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Menu\Pages\Memory">
-      <UniqueIdentifier>{44ef4089-f581-4ca6-ad7e-d2a9a9e7c4fd}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Menu\Pages\Service">
       <UniqueIdentifier>{00025bce-807a-41e7-8de7-da8363fba756}</UniqueIdentifier>
     </Filter>
@@ -534,9 +531,6 @@
     <ClCompile Include="..\..\S8-54\src\Settings\SettingsMemory.c">
       <Filter>Settings</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\S8-54\src\Menu\Pages\Memory\PageMemory.c">
-      <Filter>Menu\Pages\Memory</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\S8-54\src\Menu\Pages\Service\PageService.c">
       <Filter>Menu\Pages\Service</Filter>
     </ClCompile>
@@ -566,6 +560,9 @@
     </ClCompile>
     <ClCompile Include="..\..\S8-54\src\FPGA\FPGASettings.c">
       <Filter>FPGA</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\S8-54\src\Menu\Pages\PageMemory.c">
+      <Filter>Menu\Pages</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -1031,9 +1028,6 @@
     <ClInclude Include="..\..\STM32Cube_FW_F4\Middlewares\Third_Party\LwIP\src\include\lwip\igmp.h">
       <Filter>LwIP</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\S8-54\src\Menu\Pages\Memory\PageMemory.h">
-      <Filter>Menu\Pages\Memory</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\S8-54\src\Menu\Pages\Service\PageServiceMath.h">
       <Filter>Menu\Pages\Service</Filter>
     </ClInclude>
@@ -1081,6 +1075,9 @@
     </ClInclude>
     <ClInclude Include="..\..\S8-54\src\FPGA\FPGATypes.h">
       <Filter>FPGA</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\S8-54\src\Menu\Pages\PageMemory.h">
+      <Filter>Menu\Pages</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -12,9 +12,9 @@
  *  @{
  */
 
-void    OnChange_MemoryLength(bool active);
-void    OnPressMemoryExtFileManager(void);
-void    Memory_SaveSignalToFlashDrive(void);
+void OnChanged_Points(bool active);
+void OnPress_Drive_Manager(void);
+void Memory_SaveSignalToFlashDrive(void);
 
 /** @}  @}  @}
  */
