@@ -62,7 +62,7 @@ void Data_Load(void)
         return;
     }
 
-    if (WORK_DIRECT)
+    if (WORK_DIRECT)                        // Если находимся в реальном режиме
     {   
         GetDataFromStorage();               // Считываем данные из хранилища
 
@@ -71,7 +71,7 @@ void Data_Load(void)
             Data_GetFromIntMemory();        // то из хранилща
         }
     }
-    else if (WORK_LAST)
+    else if (WORK_LAST)                     // Если находимся в режиме отображения последних
     {
 
     }
@@ -95,8 +95,7 @@ void Data_Load(void)
 //----------------------------------------------------------------------------------------------------------------------------------------------------
 static void Clear(void)
 {
-    DS = 0;
-    pDSInt = 0;
+    pDS = pDSCur = pDSLast = pDSInt = 0;
     dataChan[A] = dataChan[B] = 0;
     dataChanLast[A] = dataChanLast[B] = 0;
     dataChanInt[A] = dataChanInt[B] = 0;

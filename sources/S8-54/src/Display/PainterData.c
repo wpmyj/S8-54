@@ -91,6 +91,7 @@ void PainterData_DrawData(void)
 	// Режим просмотра сигналов ОЗУ
 	else if (WORK_LAST)
 	{
+        Data_PreparePointersToUse(ModeWork_Latest);
 		DrawDataInModeLatest();
 	}
 	// Нормальный режим
