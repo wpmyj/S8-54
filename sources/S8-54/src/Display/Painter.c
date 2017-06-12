@@ -274,7 +274,8 @@ void Painter_DrawMultiHPointLine(int numLines, int x, uint8 y[], int delta, int 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
 void Painter_DrawLine(int x1, int y1, int x2, int y2)
 {
-    if (x1 == x1)
+    /// \todo Сделать так, чтобы этот выбор происходил в прошивке дисплея.
+    if (x1 == x2)
     {
         Painter_DrawVLine(x1, y1, y2);
     }
