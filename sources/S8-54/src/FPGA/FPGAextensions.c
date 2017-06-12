@@ -958,6 +958,13 @@ void FreqMeter_Update(uint16 flag_)
 //----------------------------------------------------------------------------------------------------------------------------------------------------
 void FPGA_AutoFind(void)
 {
+    extern int8 showAutoFind;
+
+    if (!showAutoFind)
+    {
+        Display_FuncOnWaitStart("Идёт поиск сигнала", "Searching for a signal");
+    }
+
     Settings settings = set;                        // Сохраняем текущие настройки - если сигнал найти не удастся, придётся восстановить их потом
 
     MALLOC_EXTRAMEM(StrForAutoFind, p);             // Подготовим структуру, использующуюся для отрисовки прогресс-бара
@@ -975,6 +982,11 @@ void FPGA_AutoFind(void)
     }
 
     FREE_EXTRAMEM();
+
+    if (!showAutoFind)
+    {
+        Display_FuncOnWaitStop();
+    }
 
     gBF.FPGAneedAutoFind = 0;
 
@@ -1093,6 +1105,13 @@ static bool AccurateFindParams(Channel ch)
 //----------------------------------------------------------------------------------------------------------------------------------------------------
 static void FuncDrawAutoFind(Channel ch)
 {
+    extern int8 showAutoFind;
+
+    if (!showAutoFind)
+    {
+        return;
+    }
+
     ACCESS_EXTRAMEM(StrForAutoFind, s);
 
     Painter_BeginScene(gColorBack);
@@ -1119,42 +1138,37 @@ static void FuncDrawAutoFind(Channel ch)
     Painter_DrawRectangle(40, 100, width, height);
     Painter_DrawVLine(40 + s->progress, 100, 100 + height);
 
-    extern int8 showAutoFind;
-
-    if (showAutoFind)
+    if (s->readingData)                             // Если данные считаны, то будем рисовать сигнал
     {
-        if (s->readingData)                             // Если данные считаны, то будем рисовать сигнал
+        uint8 *data = DS_GetData_RAM(ch, 0);
+
+        int yMIN = 10;
+        int yMAX = 230;
+
+        Painter_DrawHLine(yMIN, 0, 319);
+        Painter_DrawHLine(yMAX, 0, 319);
+
+        float scale = (float)(yMAX - yMIN) / (MAX_VALUE - MIN_VALUE);
+
+        for (int x = 0; x < 319 * 2; x += 2)
         {
-            uint8 *data = DS_GetData_RAM(ch, 0);
-
-            int yMIN = 10;
-            int yMAX = 230;
-
-            Painter_DrawHLine(yMIN, 0, 319);
-            Painter_DrawHLine(yMAX, 0, 319);
-
-            float scale = (float)(yMAX - yMIN) / (MAX_VALUE - MIN_VALUE);
-
-            for (int x = 0; x < 319 * 2; x += 2)
-            {
-                uint8 val0 = 0;
-                uint8 val1 = 0;
-                LIMITATION(val0, data[x], MIN_VALUE, MAX_VALUE);
-                LIMITATION(val1, data[x + 1], MIN_VALUE, MAX_VALUE);
-                float ordinate0 = yMIN + scale * (val0 - MIN_VALUE);
-                float ordinate1 = yMIN + scale * (val1 - MIN_VALUE);
-                Painter_DrawVLine(x / 2, ordinate0, ordinate1);
-            }
+            uint8 val0 = 0;
+            uint8 val1 = 0;
+            LIMITATION(val0, data[x], MIN_VALUE, MAX_VALUE);
+            LIMITATION(val1, data[x + 1], MIN_VALUE, MAX_VALUE);
+            float ordinate0 = yMIN + scale * (val0 - MIN_VALUE);
+            float ordinate1 = yMIN + scale * (val1 - MIN_VALUE);
+            Painter_DrawVLine(x / 2, ordinate0, ordinate1);
         }
-        else
-        {
-            Painter_DrawText(250, 200, "Нет сигнала");
-        }
-
-        Painter_FillRegionC(5, 200, 100, 50, gColorBack);
-        Painter_DrawTextC(10, 210, s->channel == A ? "Канал 1" : "Канал 2", gColorFill);
-        Painter_DrawText(10, 220, sChannel_Range2String(s->range, Divider_1));
     }
+    else
+    {
+        Painter_DrawText(250, 200, "Нет сигнала");
+    }
+
+    Painter_FillRegionC(5, 200, 100, 50, gColorBack);
+    Painter_DrawTextC(10, 210, s->channel == A ? "Канал 1" : "Канал 2", gColorFill);
+    Painter_DrawText(10, 220, sChannel_Range2String(s->range, Divider_1));
 
     Display_DrawConsole();
 
