@@ -5,7 +5,7 @@
 #include "Menu.h" 
 #include "Settings/Settings.h"
 #include "Pages/Definition.h"
-#include "Pages/Memory/PageMemory.h"
+#include "Pages/PageMemory.h"
 #include "Pages/PageCursors.h"
 #include "Pages/PageDisplay.h"
 #include "Display/DisplayTypes.h"

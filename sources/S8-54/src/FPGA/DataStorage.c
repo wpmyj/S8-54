@@ -8,7 +8,7 @@
 #include "Hardware/RTC.h"
 #include "Hardware/FSMC.h"
 #include "Hardware/RAM.h"
-#include "Menu/Pages/Memory/PageMemory.h"
+#include "Menu/Pages/PageMemory.h"
 #include "Settings/Settings.h"
 #include "Settings/Settings.h"
 #include "Utils/Math.h"

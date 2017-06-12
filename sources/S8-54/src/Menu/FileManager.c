@@ -3,7 +3,7 @@
 #include "FileManager.h"
 #include "Globals.h"
 #include "MenuDrawing.h"
-#include "Pages/Memory/PageMemory.h"
+#include "Pages/PageMemory.h"
 #include "Settings/Settings.h"
 #include "Display/Colors.h"
 #include "Display/Display.h"

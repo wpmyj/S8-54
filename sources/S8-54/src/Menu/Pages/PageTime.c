@@ -3,7 +3,7 @@
 #include "defines.h"
 #include "Settings/Settings.h"
 #include "Settings/SettingsTypes.h"
-#include "Memory/PageMemory.h"
+#include "PageMemory.h"
 #include "FPGA/FPGAtypes.h"
 #include "FPGA/FPGA.h"
 #include "Log.h"

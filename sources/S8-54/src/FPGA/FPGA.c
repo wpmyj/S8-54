@@ -11,7 +11,7 @@
 #include "Hardware/RAM.h"
 #include "Hardware/Timer.h"
 #include "Hardware/RTC.h"
-#include "Menu/Pages/Memory/PageMemory.h"
+#include "Menu/Pages/PageMemory.h"
 #include "Panel/Panel.h"
 #include "Panel/Controls.h"
 #include "Settings/Settings.h"
