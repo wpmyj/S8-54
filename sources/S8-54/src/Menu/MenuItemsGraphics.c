@@ -734,7 +734,7 @@ void Button_Draw(Button *button, int x, int y)
 }
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
-void SmallButton_Draw(SmallButton *smallButton, int x, int y)
+void SmallButton_Draw(SButton *smallButton, int x, int y)
 {
     if (ItemIsAcitve(smallButton))
     {

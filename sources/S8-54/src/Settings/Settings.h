@@ -265,7 +265,7 @@ void SetMenuPageDebugActive(bool active);
 /// Повернуть ручку УСТАНОВКА на текущей странице малых кнопок.
 void CurrentPageSBregSet(int angle);
 /// Вернуть указатель на малую кнопку, соответствующую данной кнопки панели.
-const SmallButton*  GetSmallButton(PanelButton button);
+const SButton*  GetSmallButton(PanelButton button);
 
 /// Возвращает позицию активного пункта на странице namePage.
 #define MENU_POS_ACT_ITEM(namePage) (set.menu_PosActItem[namePage])

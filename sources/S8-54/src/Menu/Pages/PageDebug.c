@@ -103,7 +103,7 @@ static const   Governor mgPost;                                 ///< ÎÒËÀÄÊÀ - Ï
 static void      OnChange_Post(void);
 static const       Page ppSettings;                             ///< ÎÒËÀÄÊÀ - ÍÀÑÒÐÎÉÊÈ
 static void       OnPress_Settings(void);
-static const SmallButton bSettings_Exit;                        ///< ÎÒËÀÄÊÀ - ÍÀÑÒÐÎÉÊÈ - Âûõîä
+static const SButton bSettings_Exit;                        ///< ÎÒËÀÄÊÀ - ÍÀÑÒÐÎÉÊÈ - Âûõîä
 static void       OnPress_Settings_Exit(void);
 static const      Button bSaveFirmware;                         ///< ÎÒËÀÄÊÀ - Ñîõð. ïðîøèâêó
 static bool      IsActive_SaveFirmware(void);
@@ -112,12 +112,12 @@ static const       Page ppSerialNumber;                         ///< ÎÒËÀÄÊÀ - Ñ
 static void       OnPress_SerialNumber(void);
 static void          Draw_EnterSerialNumber(void);
 static void      OnRegSet_SerialNumber(int);
-static const SmallButton bSerialNumber_Exit;                    ///< ÎÒËÀÄÊÀ - Ñ/Í - Âûõîä
+static const SButton bSerialNumber_Exit;                    ///< ÎÒËÀÄÊÀ - Ñ/Í - Âûõîä
 static void       OnPress_SerialNumber_Exit(void);
-static const SmallButton bSerialNumber_Change;                  ///< ÎÒËÀÄÊÀ - Ñ/Í - Ïåðåéòè
+static const SButton bSerialNumber_Change;                  ///< ÎÒËÀÄÊÀ - Ñ/Í - Ïåðåéòè
 static void       OnPress_SerialNumber_Change(void);
 static void          Draw_SerialNumber_Change(int, int);
-static const SmallButton bSerialNumber_Save;                    ///< ÎÒËÀÄÊÀ - Ñ/Í - Ñîõðàíèòü
+static const SButton bSerialNumber_Save;                    ///< ÎÒËÀÄÊÀ - Ñ/Í - Ñîõðàíèòü
 static void       OnPress_SerialNumber_Save(void);
 static void          Draw_SerialNumber_Save(int, int);
 static const      Choice cShowAutoFind;                         ///< ÎÒËÀÄÊÀ - Ïîêàçûâàòü ïîèñê
@@ -1146,7 +1146,7 @@ static const Page ppSettings =
 };
 
 // ÎÒËÀÄÊÀ - ÍÀÑÒÐÎÉÊÈ - Âûõîä -----------------------------------------------------------------------------------------------------------------------
-static const SmallButton bSettings_Exit =
+static const SButton bSettings_Exit =
 {
     Item_SmallButton, &ppSettings,
     COMMON_BEGIN_SB_EXIT,
@@ -1489,7 +1489,7 @@ static void OnRegSet_SerialNumber(int angle)
 }
 
 // ÎÒËÀÄÊÀ - Ñ/Í - Âûõîä -----------------------------------------------------------------------------------------------------------------------------
-static const SmallButton bSerialNumber_Exit =
+static const SButton bSerialNumber_Exit =
 {
     Item_SmallButton, &ppSerialNumber,
     COMMON_BEGIN_SB_EXIT,
@@ -1504,7 +1504,7 @@ static void OnPress_SerialNumber_Exit(void)
 }
 
 // ÎÒËÀÄÊÀ - Ñ/Í - Âñòàâèòü --------------------------------------------------------------------------------------------------------------------------
-static const SmallButton bSerialNumber_Change =
+static const SButton bSerialNumber_Change =
 {
     Item_SmallButton, &ppSerialNumber, 0,
     {
@@ -1532,7 +1532,7 @@ static void Draw_SerialNumber_Change(int x, int y)
 }
 
 // ÎÒËÀÄÊÀ - Ñ/Í - Ñîõðàíèòü -------------------------------------------------------------------------------------------------------------------------
-static const SmallButton bSerialNumber_Save =
+static const SButton bSerialNumber_Save =
 {
     Item_SmallButton, &ppSerialNumber, 0,
     {

@@ -453,7 +453,7 @@ bool IsPageSB(const void *item)
 }
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
-SmallButton* SmallButonFromPage(Page *page, int numButton)
+SButton* SmallButonFromPage(Page *page, int numButton)
 {
     return page->items[numButton];
 }

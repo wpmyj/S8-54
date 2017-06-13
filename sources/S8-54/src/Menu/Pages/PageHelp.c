@@ -49,7 +49,7 @@ void OnHelpRegSet(int angle)
 }
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
-const SmallButton sbHelpParagraphEnter =
+const SButton sbHelpParagraphEnter =
 {
     Item_SmallButton, &pHelp, HelpContent_EnterParagraphIsActive,
     {
@@ -62,7 +62,7 @@ const SmallButton sbHelpParagraphEnter =
 };
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
-const SmallButton sbHelpParagraphLeave =
+const SButton sbHelpParagraphLeave =
 {
     Item_SmallButton, &pHelp, HelpContent_LeaveParagraphIsActive,
     {
@@ -75,7 +75,7 @@ const SmallButton sbHelpParagraphLeave =
 };
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
-const SmallButton sbHelpParagraphPrev =
+const SButton sbHelpParagraphPrev =
 {
     Item_SmallButton, &pHelp, 0,
     {
@@ -88,7 +88,7 @@ const SmallButton sbHelpParagraphPrev =
 };
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
-const SmallButton sbHelpParagraphNext =
+const SButton sbHelpParagraphNext =
 {
     Item_SmallButton, &pHelp, 0,
     {
@@ -106,7 +106,7 @@ static void PressSB_Help_Exit(void)
 }
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
-const SmallButton sbExitHelp =
+const SButton sbExitHelp =
 {
     Item_SmallButton, &pHelp,
     COMMON_BEGIN_SB_EXIT,

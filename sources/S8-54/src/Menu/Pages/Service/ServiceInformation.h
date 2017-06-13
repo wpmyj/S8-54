@@ -66,7 +66,7 @@ static void OnPress_Information(void)
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
 static const Page mspInformation;
-static const SmallButton sbExitInformation =
+static const SButton sbExitInformation =
 {
     Item_SmallButton, &mspInformation,
     COMMON_BEGIN_SB_EXIT,

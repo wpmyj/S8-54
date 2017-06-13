@@ -86,7 +86,7 @@ static void DrawHintItem(int x, int y, int width)
     y = Painter_DrawTextInBoundedRectWithTransfers(x, y + 15, width, item->titleHint[2 + lang], gColorBack, gColorFill);
     if (item->type == Item_SmallButton)
     {
-        Painter_DrawHintsForSmallButton(x, y, width, (SmallButton*)item);
+        Painter_DrawHintsForSmallButton(x, y, width, (SButton*)item);
     }
 }
 

@@ -26,12 +26,12 @@ static bool      IsActive_Channels(void);
 static const       Page ppTune;                         ///< ÈÇÌÅÐÅÍÈß - ÍÀÑÒÐÎÈÒÜ
 static bool      IsActive_Tune(void);
 static void      OnRegSet_Tune(int angle);
-static const SmallButton bTune_Exit;                    ///< ÈÇÌÅÐÅÍÈß - ÍÀÑÒÐÎÈÒÜ - Âûõîä
+static const SButton bTune_Exit;                    ///< ÈÇÌÅÐÅÍÈß - ÍÀÑÒÐÎÈÒÜ - Âûõîä
 static void       OnPress_Tune_Exit(void);
-static const SmallButton bTune_Markers;                 ///< ÈÇÌÅÐÅÍÈß - ÍÀÑÒÐÎÈÒÜ - Ìàðêåðû
+static const SButton bTune_Markers;                 ///< ÈÇÌÅÐÅÍÈß - ÍÀÑÒÐÎÈÒÜ - Ìàðêåðû
 static void       OnPress_Tune_Markers(void);
 static void          Draw_Tune_Markers(int x, int y);
-static const SmallButton bTune_Settings;                ///< ÈÇÌÅÐÅÍÈß - ÍÀÑÒÐÎÈÒÜ - Íàñòðîéêà
+static const SButton bTune_Settings;                ///< ÈÇÌÅÐÅÍÈß - ÍÀÑÒÐÎÈÒÜ - Íàñòðîéêà
 static void       OnPress_Tune_Settings(void);
 static void     Draw_Tune_Settings(int x, int y);
 static const      Choice cMode;                         ///< ÈÇÌÅÐÅÍÈß - Âèä
@@ -340,7 +340,7 @@ static void OnRegSet_Tune(int angle)
 }
 
 // ÈÇÌÅÐÅÍÈß - ÍÀÑÒÐÎÈÒÜ - Âûõîä ---------------------------------------------------------------------------------------------------------------------
-static const SmallButton bTune_Exit =
+static const SButton bTune_Exit =
 {
     Item_SmallButton, &ppTune,
     COMMON_BEGIN_SB_EXIT,
@@ -354,7 +354,7 @@ static void OnPress_Tune_Exit(void)
 }
 
 // ÈÇÌÅÐÅÍÈß - ÍÀÑÒÐÎÈÒÜ - Ìàðêåðû -------------------------------------------------------------------------------------------------------------------
-static const SmallButton bTune_Markers =
+static const SButton bTune_Markers =
 {
     Item_SmallButton, &ppTune, 0,
     {
@@ -379,7 +379,7 @@ static void Draw_Tune_Markers(int x, int y)
 }
 
 // ÈÇÌÅÐÅÍÈß - ÍÀÑÒÐÎÈÒÜ - Íàñòðîéêà -----------------------------------------------------------------------------------------------------------------
-static const SmallButton bTune_Settings =
+static const SButton bTune_Settings =
 {
     Item_SmallButton, &ppTune, 0,
     {

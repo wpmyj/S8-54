@@ -28,10 +28,25 @@ static void OnChanged_Calibrator_Calibrator(bool active);
 static const  Button bCalibrator_Calibrate;                 ///< ÑÅÐÂÈÑ - ÊÀËÈÁÐÀÒÎÐ - Êàëèáðîâàòü
 static bool  IsActive_Calibrator_Calibrate(void);
 static void   OnPress_Calibrator_Calibrate(void);
-
-
 static const  Choice cRecorder;
 static void OnChanged_Recorder(bool active);
+static const   Page ppFFT;                                  ///< ÑÅÐÂÈÑ - ÑÏÅÊÒÐ
+static bool  IsActive_FFT(void);
+static void   OnPress_FFT(void);
+static const  Choice cFFT_View;                             ///< ÑÅÐÂÈÑ - ÑÏÅÊÒÐ - Îòîáðàæåíèå
+static const  Choice cFFT_Scale;                            ///< ÑÅÐÂÈÑ - ÑÏÅÊÒÐ - Øêàëà
+static const  Choice cFFT_Source;                           ///< ÑÅÐÂÈÑ - ÑÏÅÊÒÐ - Èñòî÷íèê
+static const  Choice cFFT_Window;                           ///< ÑÅÐÂÈÑ - ÑÏÅÊÒÐ - Îêíî
+static const  Page pppFFT_Cursors;                          ///< ÑÅÐÂÈÑ - ÑÏÅÊÒÐ - ÊÓÐÑÎÐÛ
+static bool  IsActive_FFT_Cursors(void);
+static void  OnRegSet_FFT_Cursors(int angle);
+static const SButton bFFT_Cursors_Exit;                     ///< ÑÅÐÂÈÑ - ÑÏÅÊÒÐ - ÊÓÐÑÎÐÛ - Âûõîä
+static void   OnPress_FFT_Cursors_Exit(void);
+static const SButton bFFT_Cursors_Source;                   ///< ÑÅÐÂÈÑ - ÑÏÅÊÒÐ - ÊÓÐÑÎÐÛ - Èñòî÷íèê
+static void   OnPress_FFT_Cursors_Source(void);
+static void      Draw_FFT_Cursors_Source(int x, int y);
+
+
 static const  Choice cLanguage;
 
 
@@ -176,31 +191,6 @@ static void OnPress_Calibrator_Calibrate(void)
     gStateFPGA.needCalibration = true;
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 // ÑÅÐÂÈÑ - Ðåãèñòðàòîð ------------------------------------------------------------------------------------------------------------------------------
 static const Choice cRecorder =
 {
@@ -221,6 +211,208 @@ static void OnChanged_Recorder(bool active)
 {
     FPGA_EnableRecorderMode(RECORDER_MODE);
 }
+
+
+// ÑÅÐÂÈÑ - ÑÏÅÊÒÐ ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+static const Page ppFFT =
+{
+    Item_Page, &pService, IsActive_FFT,
+    {
+        "ÑÏÅÊÒÐ", "SPECTRUM",
+        "Îòîáðàæåíèå ñïåêòðà âõîäíîãî ñèãíàëà",
+        "Mapping the input signal spectrum"
+    },
+    Page_MathFFT,
+    {
+        (void*)&cFFT_View,      // ÑÅÐÂÈÑ - ÑÏÅÊÒÐ - Îòîáðàæåíèå
+        (void*)&cFFT_Scale,     // ÑÅÐÂÈÑ - ÑÏÅÊÒÐ - Øêàëà
+        (void*)&cFFT_Source,    // ÑÅÐÂÈÑ - ÑÏÅÊÒÐ - Èñòî÷íèê
+        (void*)&cFFT_Window,    // ÑÅÐÂÈÑ - ÑÏÅÊÒÐ - Îêíî 
+        (void*)&pppFFT_Cursors, // ÑÅÐÂÈÑ - ÑÏÅÊÒÐ - ÊÓÐÑÎÐÛ
+        (void*)&mcFFTrange
+    },
+    OnPress_FFT
+};
+
+static bool IsActive_FFT(void)
+{
+    return !FUNC_ENABLED;
+}
+
+static void OnPress_FFT(void)
+{
+    if (!IsActive_FFT())
+    {
+        Display_ShowWarning(ImpossibleEnableFFT);
+    }
+}
+
+// ÑÅÐÂÈÑ - ÑÏÅÊÒÐ - Îòîáðàæåíèå ---------------------------------------------------------------------------------------------------------------------
+static const Choice cFFT_View =
+{
+    Item_Choice, &ppFFT, 0,
+    {
+        "Îòîáðàæåíèå", "Display",
+        "Âêëþ÷àåò è âûêëþ÷àåò îòîáðàæåíèå ñïåêòðà",
+        "Enables or disables the display of the spectrum"
+    },
+    {
+        {DISABLE_RU,    DISABLE_EN},
+        {ENABLE_RU,     ENABLE_EN}
+    },
+    (int8*)&FFT_ENABLED
+};
+
+
+// ÑÅÐÂÈÑ - ÑÏÅÊÒÐ - Øêàëà ---------------------------------------------------------------------------------------------------------------------------
+static const Choice cFFT_Scale =
+{
+    Item_Choice, &ppFFT, 0,
+    {
+        "Øêàëà",        "Scale",
+        "Çàäà¸ò ìàñøòàá âûâîäà ñïåêòðà - ëèíåéíûé èëè ëîãàðèôìè÷åñêèé",
+        "Sets the scale of the output spectrum - linear or logarithmic"
+    },
+    {
+        {"Ëîãàðèôì",    "Log"},
+        {"Ëèíåéíàÿ",    "Linear"}
+    },
+    (int8*)&SCALE_FFT
+};
+
+// ÑÅÐÂÈÑ - ÑÏÅÊÒÐ - Èñòî÷íèê ------------------------------------------------------------------------------------------------------------------------
+static const Choice cFFT_Source =
+{
+    Item_Choice, &ppFFT, 0,
+    {
+        "Èñòî÷íèê",     "Source",
+        "Âûáîð èñòî÷íèêà äëÿ ðàñ÷¸òà ñïåêòðà",
+        "Selecting the source for the calculation of the spectrum"
+    },
+    {
+        {"Êàíàë 1",     "Channel 1"},
+        {"Êàíàë 2",     "Channel 2"},
+        {"Êàíàë 1 + 2", "Channel 1 + 2"}
+    },
+    (int8*)&SOURCE_FFT
+};
+
+// ÑÅÐÂÈÑ - ÑÏÅÊÒÐ - Îêíî ----------------------------------------------------------------------------------------------------------------------------
+static const Choice cFFT_Window =
+{
+    Item_Choice, &ppFFT, 0,
+    {
+        "Îêíî",         "Window",
+        "Çàäà¸ò îêíî äëÿ ðàñ÷¸òà ñïåêòðà",
+        "Sets the window to calculate the spectrum"
+    },
+    {
+        {"Ïðÿìîóãîëüí", "Rectangle"},
+        {"Õýììèíãà",    "Hamming"},
+        {"Áëýêìåíà",    "Blackman"},
+        {"Õàííà",       "Hann"}
+    },
+    (int8*)&WINDOW_FFT
+};
+
+// ÑÅÐÂÈÑ - ÑÏÅÊÒÐ - ÊÓÐÑÎÐÛ /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+static const Page pppFFT_Cursors =
+{
+    Item_Page, &ppFFT, IsActive_FFT_Cursors,
+    {
+        "ÊÓÐÑÎÐÛ", "CURSORS",
+        "Âêëþ÷àåò êóðñîðû äëÿ èçìåðåíèÿ ïàðàìåòðîâ ñïåêòðà",
+        "Includes cursors to measure the parameters of the spectrum"
+    },
+    Page_SB_MathCursorsFFT,
+    {
+        (void*)&bFFT_Cursors_Exit,      // ÑÅÐÂÈÑ - ÑÏÅÊÒÐ - ÊÓÐÑÎÐÛ - Âûõîä
+        (void*)&bFFT_Cursors_Source,    // ÑÅÐÂÈÑ - ÑÏÅÊÒÐ - ÊÓÐÑÎÐÛ - Èñòî÷íèê
+        (void*)0,
+        (void*)0,
+        (void*)0,
+        (void*)0
+    },
+    0, 0, OnRegSet_FFT_Cursors
+};
+
+static bool IsActive_FFT_Cursors(void)
+{
+    return FFT_ENABLED;
+}
+
+static void OnRegSet_FFT_Cursors(int angle)
+{
+    POS_MATH_CUR(MATH_CURRENT_CUR) += (uint8)angle;
+    Sound_RegulatorShiftRotate();
+}
+
+
+// ÑÅÐÂÈÑ - ÑÏÅÊÒÐ - ÊÓÐÑÎÐÛ - Âûõîä -----------------------------------------------------------------------------------------------------------------
+static const SButton bFFT_Cursors_Exit =
+{
+    Item_SmallButton, &pppFFT_Cursors,
+    COMMON_BEGIN_SB_EXIT,
+    OnPress_FFT_Cursors_Exit,
+    DrawSB_Exit
+};
+
+static void OnPress_FFT_Cursors_Exit(void)
+{
+    Display_RemoveAddDrawFunction();
+}
+
+// ÑÅÐÂÈÑ - ÑÏÅÊÒÐ - ÊÓÐÑÎÐÛ - Èñòî÷íèê --------------------------------------------------------------------------------------------------------------
+static const SButton bFFT_Cursors_Source =
+{
+    Item_SmallButton, &pppFFT_Cursors, 0,
+    {
+        "Èñòî÷íèê", "Source",
+        "Âûáîð èñòî÷íèêà äëÿ ðàñ÷¸òà ñïåêòðà",
+        "Source choice for calculation of a range"
+    },
+    OnPress_FFT_Cursors_Source,
+    Draw_FFT_Cursors_Source
+};
+
+static void OnPress_FFT_Cursors_Source(void)
+{
+    MATH_CURRENT_CUR = (MATH_CURRENT_CUR + 1) % 2;
+}
+
+static void Draw_FFT_Cursors_Source(int x, int y)
+{
+    Painter_DrawText(x + 7, y + 5, MATH_CURRENT_CUR_IS_0 ? "1" : "2");
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 // ÑÅÐÂÈÑ - ßçûê -------------------------------------------------------------------------------------------------------------------------------------
 static const Choice cLanguage =

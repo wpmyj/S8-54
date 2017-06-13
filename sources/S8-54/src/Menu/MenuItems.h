@@ -110,7 +110,7 @@ struct Page
     COMMON_PART_MENU_ITEM
     NamePage                name;                               // Имя из перечисления NamePage
     void*                   items[MAX_NUM_ITEMS_IN_PAGE];       // Здесь указатели на пункты этой страницы (в обычной странице)
-                                                                // для страницы малых кнопок  здесь хранятся 6 указателей на SmallButton : 0 - B_Menu, 1...5 - B_F1...B_F5
+                                                                // для страницы малых кнопок  здесь хранятся 6 указателей на SButton : 0 - B_Menu, 1...5 - B_F1...B_F5
     pFuncVV                 funcOnPress;                        // Будет вызываться при нажатии на свёрнутую страницу
     pFuncVV                 funcOnDraw;                         // Будет вызываться после отрисовки кнопок
     pFuncVI                 funcRegSetSB;                       // В странице малых кнопок вызывается при повороте ручки установка
@@ -145,7 +145,7 @@ typedef struct
     pFuncVV                 funcOnPress;        // Эта функция вызвается для обработки нажатия кнопки.
     pFuncVII                funcOnDraw;         // Эта функция вызывается для отрисовки кнопки в месте с координатами x, y.
     StructHelpSmallButton   hintUGO[MAX_NUM_CHOICE_SMALL_BUTTON]; 
-} SmallButton;
+} SButton;
 
 // Описывает регулятор.
 typedef struct

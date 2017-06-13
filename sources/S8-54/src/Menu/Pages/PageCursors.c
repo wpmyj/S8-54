@@ -27,14 +27,14 @@ static const      Choice cLookModeChanB;                     ///< ÊÓÐÑÎÐÛ - Ñëåæ
 static const      Choice cShowFreq;                          ///< ÊÓÐÎÑÐÛ - 1/dT
 static const       Page ppSet;                                ///< ÊÓÐÑÎÐÛ - ÓÑÒÀÍÎÂÈÒÜ
 static void      OnRegSet_Set(int angle);
-static const SmallButton bSet_Exit;                     ///< ÊÓÐÑÎÐÛ - ÓÑÒÀÍÎÂÈÒÜ - Âûõîä
+static const SButton bSet_Exit;                     ///< ÊÓÐÑÎÐÛ - ÓÑÒÀÍÎÂÈÒÜ - Âûõîä
 static void       OnPress_Set_Exit(void);
-static const SmallButton bSet_Channel;                  ///< ÊÓÐÑÎÐÛ - ÓÑÒÀÍÎÂÈÒÜ - Êàíàë
+static const SButton bSet_Channel;                  ///< ÊÓÐÑÎÐÛ - ÓÑÒÀÍÎÂÈÒÜ - Êàíàë
 static void       OnPress_Set_Channel(void);
 static void      Draw_Set_Channel(int x, int y);
 static void      Draw_Set_ChannelA(int x, int y);
 static void      Draw_Set_ChannelB(int x, int y);
-static const SmallButton bSet_U;                        ///< ÊÓÐÑÎÐÛ - ÓÑÒÀÍÎÂÈÒÜ - Êóðñîðû U
+static const SButton bSet_U;                        ///< ÊÓÐÑÎÐÛ - ÓÑÒÀÍÎÂÈÒÜ - Êóðñîðû U
 static void       OnPress_Set_U(void);
 static void      Draw_Set_U(int x, int y);
 static void      Draw_Set_U_disable(int x, int y);
@@ -42,7 +42,7 @@ static void      Draw_Set_U_disableBoth(int x, int y);
 static void      Draw_Set_U_enableUpper(int x, int y);
 static void      Draw_Set_U_enableLower(int x, int y);
 static void      Draw_Set_U_enableBoth(int x, int y);
-static const SmallButton bSet_T;                        ///< ÊÓÐÑÎÐÛ - ÓÑÒÀÍÎÂÈÒÜ - Êóðñîðû Ò
+static const SButton bSet_T;                        ///< ÊÓÐÑÎÐÛ - ÓÑÒÀÍÎÂÈÒÜ - Êóðñîðû Ò
 static void       OnPress_Set_T(void);
 static void      Draw_Set_T(int x, int y);
 static void      Draw_Set_T_disable(int x, int y);
@@ -50,10 +50,10 @@ static void      Draw_Set_T_disableBoth(int x, int y);
 static void      Draw_Set_T_enableLeft(int x, int y);
 static void      Draw_Set_T_enableRight(int x, int y);
 static void      Draw_Set_T_enableBoth(int x, int y);
-static const SmallButton bSet_100;                      ///< ÊÓÐÑÎÐÛ - ÓÑÒÀÍÎÂÈÒÜ - 100%
+static const SButton bSet_100;                      ///< ÊÓÐÑÎÐÛ - ÓÑÒÀÍÎÂÈÒÜ - 100%
 static void       OnPress_Set_100(void);
 static void      Draw_Set_100(int x, int y);
-static const SmallButton bSet_Movement;                 ///< ÊÓÐÑÎÐÛ - ÓÑÒÀÍÎÂÈÒÜ - Ïåðåìåùåíèå
+static const SButton bSet_Movement;                 ///< ÊÓÐÑÎÐÛ - ÓÑÒÀÍÎÂÈÒÜ - Ïåðåìåùåíèå
 static void       OnPress_Set_Movement(void);
 static void      Draw_Set_Movement(int x, int y);
 static void      Draw_Set_Movement_Percents(int x, int y);
@@ -217,7 +217,7 @@ static void OnRegSet_Set(int angle)
 }
 
 // ÊÓÐÑÎÐÛ - ÓÑÒÀÍÎÂÈÒÜ - Âûõîä --------------------------------------------------------------------------------------------------------------------
-static const SmallButton bSet_Exit =
+static const SButton bSet_Exit =
 {
     Item_SmallButton, &ppSet, 0,
     {
@@ -235,7 +235,7 @@ static void OnPress_Set_Exit(void)
 }
 
 // ÊÓÐÑÎÐÛ - ÓÑÒÀÍÎÂÈÒÜ - Êàíàë --------------------------------------------------------------------------------------------------------------------
-static const SmallButton bSet_Channel =
+static const SButton bSet_Channel =
 {
     Item_SmallButton, &ppSet, 0,
     {
@@ -282,7 +282,7 @@ static void Draw_Set_ChannelB(int x, int y)
 }
 
 // ÊÓÐÑÎÐÛ - ÓÑÒÀÍÎÂÈÒÜ - Êóðñîðû U ----------------------------------------------------------------------------------------------------------------
-static const SmallButton bSet_U =      // Âûáîð êóðñîðà íàïðÿæåíèÿ - êóðñîð 1, êóðñîð 2, îáà êóðñîðà èëè îòêëþ÷åíû.
+static const SButton bSet_U =      // Âûáîð êóðñîðà íàïðÿæåíèÿ - êóðñîð 1, êóðñîð 2, îáà êóðñîðà èëè îòêëþ÷åíû.
 {
     Item_SmallButton, &ppSet, 0,
     {
@@ -372,7 +372,7 @@ static void Draw_Set_U_enableBoth(int x, int y)
 }
 
 // ÊÓÐÑÎÐÛ - ÓÑÒÀÍÎÂÈÒÜ - Êóðñîðû Ò ----------------------------------------------------------------------------------------------------------------
-static const SmallButton bSet_T =      // Âûáîð êóðñîðà âðåìåíè - êóðñîð 1, êóðñîð 2, îáà êóðñîðà èëè îòêëþ÷åíû.
+static const SButton bSet_T =      // Âûáîð êóðñîðà âðåìåíè - êóðñîð 1, êóðñîð 2, îáà êóðñîðà èëè îòêëþ÷åíû.
 {
     Item_SmallButton, &ppSet, 0,
     {
@@ -459,7 +459,7 @@ static void Draw_Set_T_enableBoth(int x, int y)
 }
 
 // ÊÓÐÑÎÐÛ - ÓÑÒÀÍÎÂÈÒÜ - 100% ---------------------------------------------------------------------------------------------------------------------
-static const SmallButton bSet_100 =    // Óñòàíîâêà 100 ïðîöåíòîâ â òåêóùèå ìåñòà êóðñîðîâ.
+static const SButton bSet_100 =    // Óñòàíîâêà 100 ïðîöåíòîâ â òåêóùèå ìåñòà êóðñîðîâ.
 {
     Item_SmallButton, &ppSet, 0,
     {
@@ -484,7 +484,7 @@ static void Draw_Set_100(int x, int y)
 }
 
 // ÊÓÐÑÎÐÛ - ÓÑÒÀÍÎÂÈÒÜ - Ïåðåìåùåíèå --------------------------------------------------------------------------------------------------------------
-static const SmallButton bSet_Movement =     // Ïåðåêëþ÷åíèå øàãà ïåðåìåùåíèÿ êóðñîðîâ - ïî ïèêñåëÿì èëè ïî ïðîöåíòàì.
+static const SButton bSet_Movement =     // Ïåðåêëþ÷åíèå øàãà ïåðåìåùåíèÿ êóðñîðîâ - ïî ïèêñåëÿì èëè ïî ïðîöåíòàì.
 {
     Item_SmallButton, &ppSet, 0,
     {

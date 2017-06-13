@@ -784,7 +784,7 @@ void ShortPress_GovernorColor(void *governorColor)
 //----------------------------------------------------------------------------------------------------------------------------------------------------
 static void ShortPress_SmallButton(void *smallButton)
 {
-    SmallButton *sb = smallButton;
+    SButton *sb = smallButton;
     if (sb)
     {
         pFuncVV func = sb->funcOnPress;

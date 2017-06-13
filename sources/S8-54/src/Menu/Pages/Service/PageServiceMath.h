@@ -6,43 +6,15 @@
 
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-extern const Page mspCursFFT;
+extern const Page pppFFT_Cursors;
 extern const Page mspMathFunction;
 static const Page ppFFT;
 const Page pService;
 
 
-//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-void Reg_FFT_Cursors(int angle)
-{
-    POS_MATH_CUR(MATH_CURRENT_CUR) += (uint8)angle;
-    Sound_RegulatorShiftRotate();
-}
-
 //----------------------------------------------------------------------------------------------------------------------------------------------------
-void DrawSB_FFTcurs_Source(int x, int y)
-{
-    Painter_DrawText(x + 7, y + 5, MATH_CURRENT_CUR_IS_0 ? "1" : "2");
-}
 
-//----------------------------------------------------------------------------------------------------------------------------------------------------
-void PressSB_FFTcurs_Source(void)
-{
-    MATH_CURRENT_CUR = (MATH_CURRENT_CUR + 1) % 2;
-}
 
-//----------------------------------------------------------------------------------------------------------------------------------------------------
-static const SmallButton sbCursFFTSource =
-{
-    Item_SmallButton, &mspCursFFT, 0,
-    {
-        "Источник", "Source",
-        "Выбор источника для расчёта спектра",
-        "Source choice for calculation of a range"
-    },
-    PressSB_FFTcurs_Source,
-    DrawSB_FFTcurs_Source
-};
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
 static void PressSB_MathFunction_Type(void)
@@ -72,7 +44,7 @@ static void DrawSB_MathFunction_Type(int x, int y)
     funcs[MATH_FUNC](x, y);
 }
 
-static const SmallButton sbMathFunction =
+static const SButton sbMathFunction =
 {
     Item_SmallButton, &mspMathFunction, 0,
     {
@@ -128,7 +100,7 @@ static void DrawSB_MathFunction_ModeDraw(int x, int y)
     funcs[FUNC_MODE_DRAW](x, y);
 }
 
-static const SmallButton sbMathFunctionModeDraw =
+static const SButton sbMathFunctionModeDraw =
 {
     Item_SmallButton, &mspMathFunction, 0,
     {
@@ -156,7 +128,7 @@ static void DrawSB_MathFunction_RangeA(int x, int y)
     Painter_DrawChar(x + 8, y + 5, '1');
 }
 
-static const SmallButton sbMathFunctionRangeA =
+static const SButton sbMathFunctionRangeA =
 {
     Item_SmallButton, &mspMathFunction, 0,
     {
@@ -179,7 +151,7 @@ static void DrawSB_MathFunction_RangeB(int x, int y)
     Painter_DrawChar(x + 8, y + 5, '2');
 }
 
-static const SmallButton sbMathFunctionRangeB =
+static const SButton sbMathFunctionRangeB =
 {
     Item_SmallButton, &mspMathFunction, 0,
     {
@@ -212,7 +184,7 @@ static void DrawSB_MathFunction_ModeRegSet(int x, int y)
     funcs[MATH_MODE_REG_SET](x, y);
 }
 
-static const SmallButton sbMathFunctionModeRegSet =
+static const SButton sbMathFunctionModeRegSet =
 {
     Item_SmallButton, &mspMathFunction, 0,
     {
@@ -251,73 +223,6 @@ const Formula mfMathFormula =
     (int8*)&MATH_FUNC, (int8*)&set.math_koeff1add, (int8*)&set.math_koeff2add, (int8*)&set.math_koeff1mul, (int8*)&set.math_koeff2mul, &curDigit, ChangeF_MathFormula
 };
 
-// СЕРВИС - МАТЕМАТИКА - СПЕКТР - Отображение
-const Choice mcFFTenable =
-{
-    Item_Choice, &ppFFT, 0,
-    {
-        "Отображение", "Display",
-        "Включает и выключает отображение спектра",
-        "Enables or disables the display of the spectrum"
-    },
-    {
-        {DISABLE_RU,    DISABLE_EN},
-        {ENABLE_RU,     ENABLE_EN}
-    },
-    (int8*)&FFT_ENABLED
-};
-
-// СЕРВИС - МАТЕМАТИКА - СПЕКТР - Шкала
-const Choice mcFFTscale =
-{
-    Item_Choice, &ppFFT, 0,
-    {
-        "Шкала",        "Scale",
-        "Задаёт масштаб вывода спектра - линейный или логарифмический",
-        "Sets the scale of the output spectrum - linear or logarithmic"
-    },
-    {
-        {"Логарифм",    "Log"},
-        {"Линейная",    "Linear"}
-    },
-    (int8*)&SCALE_FFT
-};
-
-// СЕРВИС - МАТЕМАТИКА - СПЕКТР - Источник
-const Choice mcFFTsource =
-{
-    Item_Choice, &ppFFT, 0,
-    {
-        "Источник",     "Source",
-        "Выбор источника для расчёта спектра",
-        "Selecting the source for the calculation of the spectrum"
-    },
-    {
-        {"Канал 1",     "Channel 1"},
-        {"Канал 2",     "Channel 2"},
-        {"Канал 1 + 2", "Channel 1 + 2"}
-    },
-    (int8*)&SOURCE_FFT
-};
-
-// СЕРВИС - МАТЕМАТИКА - СПЕКТР - Окно
-const Choice mcFFTwindow =
-{
-    Item_Choice, &ppFFT, 0,
-    {
-        "Окно",         "Window",
-        "Задаёт окно для расчёта спектра",
-        "Sets the window to calculate the spectrum"
-    },
-    {                         
-        {"Прямоугольн", "Rectangle"},
-        {"Хэмминга",    "Hamming"},
-        {"Блэкмена",    "Blackman"},
-        {"Ханна",       "Hann"}
-    },
-    (int8*)&WINDOW_FFT
-};
-
 // СЕРВИС - МАТЕМАТИКА - СПЕКТР - Предел
 bool ActiveC_FFT_Limit(void)
 {
@@ -341,13 +246,8 @@ const Choice mcFFTrange =
     (int8*)&MAX_DB_FFT
 };
 
-// СЕРВИС - МАТЕМАТИКА - СПЕКТР - Курсоры
-bool ActiveP_FFT_Cursors(void)
-{
-    return FFT_ENABLED;
-}
 
-static const SmallButton sbExitMathFunction =
+static const SButton sbExitMathFunction =
 {
     Item_SmallButton, &mspMathFunction, 0,
     {
@@ -465,70 +365,12 @@ const Page mspMathFunction =
     OnRegSetMathFunction
 };
 
-static void PressSB_CursFFT_Exit(void)
-{
-    Display_RemoveAddDrawFunction();
-}
 
-const SmallButton sbExitCursFFT =
-{
-    Item_SmallButton, &mspCursFFT,
-    COMMON_BEGIN_SB_EXIT,
-    PressSB_CursFFT_Exit,
-    DrawSB_Exit
-};
 
-///////////////////////////////////////////////////////////////////////////////////
-const Page mspCursFFT =
-{
-    Item_Page, &ppFFT, ActiveP_FFT_Cursors,
-    {
-        "КУРСОРЫ", "CURSORS",
-        "Включает курсоры для измерения параметров спектра",
-        "Includes cursors to measure the parameters of the spectrum"
-    },
-    Page_SB_MathCursorsFFT,
-    {
-        (void*)&sbExitCursFFT,
-        (void*)&sbCursFFTSource,
-        (void*)0,
-        (void*)0,
-        (void*)0,
-        (void*)0
-    },
-    EmptyFuncVV, EmptyFuncVV, Reg_FFT_Cursors
-};
 
-static bool FuncOfActiveFFT(void)
-{
-    return !FUNC_ENABLED;
-}
 
-static void FuncOfPressFFT(void)
-{
-    if (!FuncOfActiveFFT())
-    {
-        Display_ShowWarning(ImpossibleEnableFFT);
-    }
-}
 
-// СЕРВИС - СПЕКТР ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-const Page ppFFT =
-{
-    Item_Page, &pService, FuncOfActiveFFT,
-    {
-        "СПЕКТР", "SPECTRUM",
-        "Отображение спектра входного сигнала",
-        "Mapping the input signal spectrum"
-    },
-    Page_MathFFT,
-    {
-        (void*)&mcFFTenable,
-        (void*)&mcFFTscale,
-        (void*)&mcFFTsource,
-        (void*)&mcFFTwindow,
-        (void*)&mspCursFFT,
-        (void*)&mcFFTrange
-    },
-    FuncOfPressFFT
-};
+
+
+
+
