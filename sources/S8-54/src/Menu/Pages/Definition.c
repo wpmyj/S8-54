@@ -6,11 +6,6 @@
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 extern const Page mainPage;
-
-
-#include "PageHelp.c"
-
-
 extern const Page pDisplay;
 extern const Page pCursors;
 extern const Page pChanA;
@@ -21,6 +16,7 @@ extern const Page pDebug;
 extern const Page pService;
 extern const Page pTime;
 extern const Page pTrig;
+extern const Page pHelp;
 
 /// лемч 
 const Page mainPage =
