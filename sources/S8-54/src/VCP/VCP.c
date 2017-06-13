@@ -53,7 +53,7 @@ void VCP_SendDataAsinch(uint8 *buffer, int size)
 
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
-#define SIZE_BUFFER_VCP 256     /* WARN если поставить размер буфера 512, то на ТЕ207 глюки */
+#define SIZE_BUFFER_VCP 256     /// \todo если поставить размер буфера 512, то на ТЕ207 глюки
 static uint8 buffSend[SIZE_BUFFER_VCP];
 static int sizeBuffer = 0;
 

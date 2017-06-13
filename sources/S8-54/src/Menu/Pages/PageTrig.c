@@ -85,9 +85,11 @@ void OnChanged_TrigMode(bool active)
     
     // Елси находимся в режиме рандомизатора
     if(IN_RANDOM_MODE)
-    //if (SET_TBASE < TBase_50ns)    // WARN Это вместо функции sTime_RandomizeModeEnabled() было сделано потому, что с функцией экран периодически отваливался
+    /// \todo Это вместо функции sTime_RandomizeModeEnabled() было сделано потому, что с функцией экран периодически отваливался
+    //if (SET_TBASE < TBase_50ns)
     {
-        // и переключаемся на одиночный режим запуска, то надо сохранить имеющийся тип выборки, чтобы восстановить при возвращении в режим рандомизатора автоматический или ждущий
+        // и переключаемся на одиночный режим запуска, то надо сохранить имеющийся тип выборки, чтобы восстановить при возвращении в режим 
+        // рандомизатора автоматический или ждущий
         if (START_MODE_SINGLE)
         {
             SAMPLE_OLD = SAMPLE;
@@ -216,13 +218,15 @@ static const Choice cSearch_Mode =
         "Режим", "Mode"
         ,
         "Выбор режима автоматического поиска синхронизации:\n"
-        "1. \"Ручной\" - поиск производится по нажатию кнопки \"Найти\" или по удержанию в течение 0.5с кнопки СИНХР, если установлено \"СЕРВИС\x99Реж длит СИНХР\x99Автоуровень\".\n"
+        "1. \"Ручной\" - поиск производится по нажатию кнопки \"Найти\" или по удержанию в течение 0.5с кнопки СИНХР, если установлено "
+        "\"СЕРВИС\x99Реж длит СИНХР\x99Автоуровень\".\n"
         "2. \"Автоматический\" - поиск производится автоматически."
         ,
         "Selecting the automatic search of synchronization:\n"
 #pragma push
 #pragma diag_suppress 192
-        "1. \"Hand\" - search is run on pressing of the button \"Find\" or on deduction during 0.5s the СИНХР button if it is established \"SERVICE\x99Mode long СИНХР\x99\Autolevel\".\n"
+        "1. \"Hand\" - search is run on pressing of the button \"Find\" or on deduction during 0.5s the СИНХР button if it is established "
+        "\"SERVICE\x99Mode long СИНХР\x99\Autolevel\".\n"
 #pragma pop
         "2. \"Auto\" - the search is automatically."
     },

@@ -112,7 +112,7 @@ void Painter_SendToDisplay(uint8 *bytes, int numBytes)
         while (HAL_GPIO_ReadPin(GPIOG, GPIO_PIN_11) == GPIO_PIN_RESET)
         {
         };
-        Timer_PauseOnTicks(75);    // WARN «десь врем€ ожидание увеличено по сравнению с —8-53 (там частота 120ћ√ц, здесь - 180ћ√ц)
+        Timer_PauseOnTicks(75);    /// \todo «десь врем€ ожидание увеличено по сравнению с —8-53 (там частота 120ћ√ц, здесь - 180ћ√ц)
         *ADDR_CDISPLAY = *bytes++;
         *ADDR_CDISPLAY = *bytes++;
         *ADDR_CDISPLAY = *bytes++;
@@ -214,19 +214,9 @@ void Painter_SetPoint(int x, int y)
 //----------------------------------------------------------------------------------------------------------------------------------------------------
 void Painter_DrawMultiVPointLine(int numLines, int y, uint16 x[], int delta, int count, Color color) 
 {
-    /*
-    BUG
-    √де-то в прошивке диспле€ пр€четс€ баг - при рисовании нижней сетки дл€ раздельного экрана
-    и y > 66 дисплей виснет с вертикальными полосами
-    */
     if(numLines > 20) 
     {
         return;
-    }
-
-    if (y > 66) 
-    {
-        //return;
     }
 
     Painter_SetColor(color);

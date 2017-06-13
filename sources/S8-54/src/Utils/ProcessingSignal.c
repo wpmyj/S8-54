@@ -644,7 +644,7 @@ float CalculateTimeNarastaniya(Channel ch)   /** \todo Здесь, возможно, нужно ув
 
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
-float CalculateTimeSpada(Channel ch)        /// \todo WARN Аналогично времени нарастания
+float CalculateTimeSpada(Channel ch)        /// \todo Аналогично времени нарастания
 {
     float maxSteady = CalculateMaxSteadyRel(ch);
     float minSteady = CalculateMinSteadyRel(ch);

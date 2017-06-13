@@ -323,7 +323,7 @@ void XShift(int delta)
     else
     {
         ChangeTShift(&prevTime, FPGA_SetTShift, (int16)delta);
-        FPGA_ChangePostValue(delta);                           // WARN temp for Ñ8_54
+        FPGA_ChangePostValue(delta);                           /// \todo temp for Ñ8_54
     }
 }
 

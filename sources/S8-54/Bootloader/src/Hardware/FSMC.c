@@ -52,7 +52,7 @@ ModeFSMC FSMC_GetMode(void)
 void FSMC_Init(void)
 {
     //int i = rand();
-    // WARN Это костыль для устранения глюка, что при некоторой величине программы (>206150) в рандомизаторе неправильно работает (см FPGA::DataReadSave())
+    /// \todo  Это костыль для устранения глюка, что при некоторой величине программы (>206150) в рандомизаторе неправильно работает (см FPGA::DataReadSave())
     /*
     i *= rand(); i *= rand(); i *= rand(); i *= rand(); i *= rand(); i *= rand(); i *= rand(); i *= rand(); i *= rand(); i *= rand(); i *= rand(); i *= rand(); i *= rand(); i *= rand(); i *= rand(); i *= rand();
 i *= rand(); i *= rand(); i *= rand(); i *= rand(); i *= rand(); i *= rand(); i *= rand(); i *= rand(); i *= rand(); i *= rand(); i *= rand(); i *= rand(); i *= rand(); i *= rand(); i *= rand(); i *= rand();
@@ -94,7 +94,8 @@ void FSMC_SetMode(ModeFSMC mode)
             };
             */
 
-            static const FMC_NORSRAM_TimingTypeDef sramTiming =         // WARN временно изменил - возможно, на флешку не пишет из-за неправильных таймингов
+            /// \todo временно изменил - возможно, на флешку не пишет из-за неправильных таймингов
+            static const FMC_NORSRAM_TimingTypeDef sramTiming =
             {
                 6,                  // FSMC_AddressSetupTime
                 8,                  // FSMC_AddressHoldTime

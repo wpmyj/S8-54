@@ -1079,6 +1079,12 @@
     <ClInclude Include="..\..\S8-54\src\Menu\Pages\PageMemory.h">
       <Filter>Menu\Pages</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\S8-54\src\dox\PageMenu.h">
+      <Filter>_dox</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\S8-54\src\dox\PageAlgorithm.h">
+      <Filter>_dox</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\S8-54\src\Display\font\font5.inc">

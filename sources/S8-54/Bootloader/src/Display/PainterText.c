@@ -78,7 +78,7 @@ bool ByteFontNotEmpty(int eChar, int byte)
 //----------------------------------------------------------------------------------------------------------------------------------------------------
 static bool BitInFontIsExist(int eChar, int numByte, int bit)
 {
-    static uint8 prevByte = 0;      // WARN здесь точно статики нужны?
+    static uint8 prevByte = 0;      /// \todo здесь точно статики нужны?
     static int prevChar = -1;
     static int prevNumByte = -1;
     if (prevNumByte != numByte || prevChar != eChar)

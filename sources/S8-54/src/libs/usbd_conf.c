@@ -44,8 +44,8 @@ void HAL_PCD_SetupStageCallback(PCD_HandleTypeDef *hpcd)
             else                                                    //
             {                                                       //
                 gConnectToHost = false;                             //
-                Settings_Save();                                    // При отконнекчивании сохраняем настройки // WARN Возможно, это не нужно делать
-            }                                                       //
+                Settings_Save();                                    // При отконнекчивании сохраняем настройки
+            }                                                       /// \todo Возможно, это не нужно делать
             gConnectToHost = prevLength != 0;                       // 
         }                                                           //
     }                                                               //
@@ -61,7 +61,7 @@ void HAL_PCD_DataInStageCallback(PCD_HandleTypeDef *hpcd, uint8_t epnum)
 {
     USBD_LL_DataInStage(hpcd->pData, epnum, hpcd->IN_ep[epnum].xfer_buff);
     
-    // WARN здесь оказываемя после каждой передачи пакета. Можно отловить момент, когда передача закончена.
+    /// \todo здесь оказываемя после каждой передачи пакета. Можно отловить момент, когда передача закончена.
 }
 
 void HAL_PCD_SOFCallback(PCD_HandleTypeDef *hpcd)

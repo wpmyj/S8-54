@@ -120,7 +120,8 @@ static const Choice cLookModeChanA =
         "3. \"Время\" - при ручном изменении положения курсора напряжения курсор времени автоматически отслеживают изменения сигнала.\n"
         "4. \"Напряж и время\" - действует как один из предыдущих режимов, в зависимости от того, на какой курсор производилось последнее воздействие."
         ,
-        "Sets the mode tracking for second cursor:\n"                   // WARN Перевод
+        /// \todo Перевод
+        "Sets the mode tracking for second cursor:\n"
         "1. \"Disable\" - all cursors are set manually.\n"
         "2. \"Voltage\" - when manually changing the position of the cursor time cursors voltage automatically track changes in the signal.\n"
         "3. \"Time\" - when manually changing the position of the cursor voltage cursors time automatically track changes in the signal.\n"
@@ -536,7 +537,7 @@ static void SetShiftCursPosU(Channel ch, int numCur, float delta)
 {
     if (CURS_MOVEMENT_IS_PERCENTS)
     {
-        CURsU_POS(ch, numCur) = LimitationFloat(CURsU_POS(ch, numCur) - delta, 0, MAX_POS_U);   // WARN одинаковые ветки
+        CURsU_POS(ch, numCur) = LimitationFloat(CURsU_POS(ch, numCur) - delta, 0, MAX_POS_U);   /// \todo одинаковые ветки
     }
     else
     { //-V523
@@ -548,7 +549,7 @@ static void SetCursPosU(Channel ch, int numCur, float pos)
 {
     if (CURS_MOVEMENT_IS_PERCENTS)
     {
-        CURsU_POS(ch, numCur) = LimitationFloat(pos, 0, MAX_POS_U);                             // WARN одинаковые ветки
+        CURsU_POS(ch, numCur) = LimitationFloat(pos, 0, MAX_POS_U);                             /// \todo одинаковые ветки
     }
     else
     { //-V523
@@ -560,7 +561,7 @@ void SetShiftCursPosT(Channel ch, int numCur, float delta)
 {
     if (CURS_MOVEMENT_IS_PERCENTS)
     {
-        CURsT_POS(ch, numCur) = LimitationFloat(CURsT_POS(ch, numCur) + delta, 0, MAX_POS_T);   // WARN одинаковые ветки
+        CURsT_POS(ch, numCur) = LimitationFloat(CURsT_POS(ch, numCur) + delta, 0, MAX_POS_T);   /// \todo одинаковые ветки
     }
     else
     { //-V523
@@ -572,7 +573,7 @@ void SetCursPosT(Channel ch, int numCur, float pos)
 {
     if (CURS_MOVEMENT_IS_PERCENTS)
     {
-        CURsT_POS(ch, numCur) = LimitationFloat(pos, 0, MAX_POS_T);                             // WARN одинаковые ветки
+        CURsT_POS(ch, numCur) = LimitationFloat(pos, 0, MAX_POS_T);                             /// \todo одинаковые ветки
     }
     else
     { //-V523

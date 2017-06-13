@@ -509,7 +509,7 @@ void Math_CalculateFFT(float *dataR, int numPoints, float *result, float *freq0,
         result[i] = sqrtf(dataR[i] * dataR[i] + result[i] * result[i]);
     }
 
-    result[0] = 0.0f;       // WARN нулева€ составл€юща€ мешает посто€нно. надо еЄ убрать
+    result[0] = 0.0f;       /// \todo нулева€ составл€юща€ мешает посто€нно. надо еЄ убрать
 
     Normalize(result, 256);
 

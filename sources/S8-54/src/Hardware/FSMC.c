@@ -101,7 +101,8 @@ void FSMC_SetMode(ModeFSMC mode)
             };
             */
 
-            static const FMC_NORSRAM_TimingTypeDef sramTiming =         // WARN временно изменил - возможно, на флешку не пишет из-за неправильных таймингов
+            /// \todo временно изменил - возможно, на флешку не пишет из-за неправильных таймингов
+            static const FMC_NORSRAM_TimingTypeDef sramTiming =
             {
                 6,                  // FSMC_AddressSetupTime
                 8,                  // FSMC_AddressHoldTime
@@ -133,7 +134,8 @@ void FSMC_SetMode(ModeFSMC mode)
                 }
             };
 
-            if (HAL_SRAM_Init((SRAM_HandleTypeDef*)(&sramHandle), (FMC_NORSRAM_TimingTypeDef*)(&sramTiming), (FMC_NORSRAM_TimingTypeDef*)(&sramTiming)) != HAL_OK)
+            if (HAL_SRAM_Init((SRAM_HandleTypeDef*)(&sramHandle), (FMC_NORSRAM_TimingTypeDef*)(&sramTiming), 
+                (FMC_NORSRAM_TimingTypeDef*)(&sramTiming)) != HAL_OK)
             {
                 HARDWARE_ERROR
             };
@@ -152,7 +154,8 @@ void FSMC_SetMode(ModeFSMC mode)
                 FMC_ACCESS_MODE_C   // FSMC_AccessMode
             };
 
-            if (HAL_SRAM_Init((SRAM_HandleTypeDef*)(&gSramHandle), (FMC_NORSRAM_TimingTypeDef*)(&sramTiming), (FMC_NORSRAM_TimingTypeDef*)(&sramTiming)) != HAL_OK)
+            if (HAL_SRAM_Init((SRAM_HandleTypeDef*)(&gSramHandle), (FMC_NORSRAM_TimingTypeDef*)(&sramTiming), 
+                (FMC_NORSRAM_TimingTypeDef*)(&sramTiming)) != HAL_OK)
             {
                 HARDWARE_ERROR
             };
@@ -183,7 +186,8 @@ void FSMC_SetMode(ModeFSMC mode)
 
             //HAL_SRAM_DeInit((SRAM_HandleTypeDef*)(&gSramHandle));
 
-            if (HAL_SRAM_Init((SRAM_HandleTypeDef*)(&gSramHandle), (FMC_NORSRAM_TimingTypeDef*)(&sramTimingWrite), (FMC_NORSRAM_TimingTypeDef*)(&sramTimingRead)) != HAL_OK)
+            if (HAL_SRAM_Init((SRAM_HandleTypeDef*)(&gSramHandle), (FMC_NORSRAM_TimingTypeDef*)(&sramTimingWrite), 
+                (FMC_NORSRAM_TimingTypeDef*)(&sramTimingRead)) != HAL_OK)
             {
                 HARDWARE_ERROR
             };
@@ -201,16 +205,19 @@ void FSMC_SetMode(ModeFSMC mode)
     }
 }
 
+//----------------------------------------------------------------------------------------------------------------------------------------------------
 bool FSMC_InSetStateMode(void)
 {
     return inSetStateMode;
 }
 
+//----------------------------------------------------------------------------------------------------------------------------------------------------
 void FSMC_SetFuncitonAfterSetMode(pFuncBV func)
 {
     funcAfterSetMode = func;
 }
 
+//----------------------------------------------------------------------------------------------------------------------------------------------------
 void FSMC_RemoveFunctionAfterSetMode(void)
 {
     funcAfterSetMode = 0;

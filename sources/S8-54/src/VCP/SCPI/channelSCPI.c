@@ -101,7 +101,8 @@ void Process_FILTR(uint8 *buffer)
         {0}
     };
     ENTER_ANALYSIS
-/*      // WARN это для C8-53, сделать для С8-54
+        /// \todo это для C8-53, сделать для С8-54
+/*      
         if (0 == value)         { set.chan[ch].filtr = true; }
         else if (1 == value)    { set.chan[ch].filtr = false; }
         else if (2 == value)

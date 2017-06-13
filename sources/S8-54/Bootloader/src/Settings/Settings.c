@@ -123,7 +123,8 @@ static const Settings defaultSettings =
         false,                      // soundEnable
         100,                        // soundVolume
         Calibrator_Freq,            // calibrator
-        0,                          // IP-адрес (временно)  WARN
+        /// \todo С IP-адресом нужно что-то делать
+        0,                          // IP-адрес (временно)
         ColorScheme_WhiteLetters,   // colorScheme
         {false},                    // freqMeter
         false                       // recorder

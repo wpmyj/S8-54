@@ -256,7 +256,7 @@ NamePage GetNameOpenedPage(void)
 }
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
-void OpenPageAndSetItCurrent(NamePage namePage) // WARN Пустая функция
+void OpenPageAndSetItCurrent(NamePage namePage) /// \todo Пустая функция
 {
 
 }
