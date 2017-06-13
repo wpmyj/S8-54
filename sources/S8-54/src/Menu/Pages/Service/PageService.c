@@ -1,7 +1,6 @@
 // This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++ and C#: http://www.viva64.com
 #include "PageServiceMath.h"
-#include "ServiceCalibrator.h"
 #include "ServiceEthernet.h"
 #include "ServiceInformation.h"
 #include "ServiceTime.h"
@@ -14,34 +13,27 @@
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 extern Page mainPage;
-extern void Func_Start(int key);          // 1 - нажатие, -1 - отпускание
+extern void Func_Start(int key);          // 1 - нажатие, 1 - отпускание
 
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-static const Button mbResetSettings;
-        void OnPress_ResetSettings(void);
-static void  Draw_ResetSettings(void);
-static const Choice mcRecorder;
-static void  OnChange_Recorder(bool active);
-static const Choice mcLanguage;
+static const  Button bResetSettings;                        ///< СЕРВИС - Сброс настроек
+        void  OnPress_ResetSettings(void);
+static void      Draw_ResetSettings(void);
+static const  Button bAutoSearch;                           ///< СЕРВИС - Поиск сигнала
+static void   OnPress_AutoSearch(void);
+static const   Page ppCalibrator;                           ///< СЕРВИС - КАЛИБРАТОР
+static const  Choice cCalibrator_Calibrator;                ///< СЕРВИС - КАЛИБРАТОР - Калибратор
+static void OnChanged_Calibrator_Calibrator(bool active);
+static const  Button bCalibrator_Calibrate;                 ///< СЕРВИС - КАЛИБРАТОР - Калибровать
+static bool  IsActive_Calibrator_Calibrate(void);
+static void   OnPress_Calibrator_Calibrate(void);
 
 
-// СЕРВИС - Поиск сигнала ----------------------------------------------------------------------------------------------------------------------------
-static void OnPress_AutoSearch(void)
-{
-    gBF.FPGAneedAutoFind = 1;
-};
+static const  Choice cRecorder;
+static void OnChanged_Recorder(bool active);
+static const  Choice cLanguage;
 
-static const Button mbAutoSearch =
-{
-    Item_Button, &pService, 0,
-    {
-        "Поиск сигнала", "Find signal",
-        "Устанавливает оптимальные установки осциллографа для сигнала в канале 1",
-        "Sets optimal settings for the oscilloscope signal on channel 1"
-    },
-    OnPress_AutoSearch
-};
 
 // СЕРВИС ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 const Page pService =
@@ -54,22 +46,22 @@ const Page pService =
     },
     Page_Service,
     {
-        (void*)&mbResetSettings,    // СЕРВИС - Сброс настроек
-        (void*)&mbAutoSearch,       // СЕРВИС - Поиск сигнала
-        (void*)&mspCalibrator,      // СЕРВИС - КАЛИБРАТОР
-        (void*)&mcRecorder,         // СЕРВИС - Регистратор
-        (void*)&mspFFT,             // СЕРВИС - СПЕКТР
+        (void*)&bResetSettings,     // СЕРВИС - Сброс настроек
+        (void*)&bAutoSearch,        // СЕРВИС - Поиск сигнала
+        (void*)&ppCalibrator,       // СЕРВИС - КАЛИБРАТОР
+        (void*)&cRecorder,          // СЕРВИС - Регистратор
+        (void*)&ppFFT,              // СЕРВИС - СПЕКТР
         (void*)&mspMathFunction,    // СЕРВИС - ФУНКЦИЯ
         (void*)&mspEthernet,        // СЕРВИС - ETHERNET
         (void*)&mspSound,           // СЕРВИС - ЗВУК
         (void*)&mspTime,            // СЕРВИС - ВРЕМЯ
-        (void*)&mcLanguage,         // СЕРВИС - Язык
+        (void*)&cLanguage,          // СЕРВИС - Язык
         (void*)&mspInformation      // СЕРВИС - ИНФОРМАЦИЯ
     }
 };
 
 // СЕРВИС - Сброс настроек ---------------------------------------------------------------------------------------------------------------------------
-static const Button mbResetSettings =
+static const Button bResetSettings =
 {
     Item_Button, &pService, 0,
     {
@@ -100,13 +92,117 @@ static void Draw_ResetSettings(void)
     Painter_BeginScene(gColorBack);
 
     Painter_DrawTextInRectWithTransfersC(30, 110, 300, 200, "Подтвердите сброс настроек нажатием кнопки ПУСК/СТОП.\n"
-                                         "Нажмите любую другую кнопку, если сброс не нужен.", gColorFill);
+                                                         "Нажмите любую другую кнопку, если сброс не нужен.", gColorFill);
 
     Painter_EndScene();
 }
 
+// СЕРВИС - Поиск сигнала ----------------------------------------------------------------------------------------------------------------------------
+static const Button bAutoSearch =
+{
+    Item_Button, &pService, 0,
+    {
+        "Поиск сигнала", "Find signal",
+        "Устанавливает оптимальные установки осциллографа для сигнала в канале 1",
+        "Sets optimal settings for the oscilloscope signal on channel 1"
+    },
+    OnPress_AutoSearch
+};
+
+static void OnPress_AutoSearch(void)
+{
+    gBF.FPGAneedAutoFind = 1;
+};
+
+
+// СЕРВИС - КАЛИБРАТОР ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+static const Page ppCalibrator =
+{
+    Item_Page, &pService, 0,
+    {
+        "КАЛИБРАТОР", "CALIBRATOR",
+        "Управлением калибратором и калибровка осциллографа",
+        "Control of the calibrator and calibration of an oscillograph"
+    },
+    Page_ServiceCalibrator,
+    {
+        (void*)&cCalibrator_Calibrator,     // СЕРВИС - КАЛИБРАТОР - Калибратор
+        (void*)&bCalibrator_Calibrate       // СЕРВИС - КАЛИБРАТОР - Калибровать
+    }
+};
+
+
+// СЕРВИС - КАЛИБРАТОР - Калибратор ------------------------------------------------------------------------------------------------------------------
+static const Choice cCalibrator_Calibrator =
+{
+    Item_Choice, &ppCalibrator, 0,
+    {
+        "Калибратор",   "Calibrator",
+        "Режим работы калибратора",
+        "Mode of operation of the calibrator"
+    },
+    {
+        {"Перем",       "DC"},
+        {"+4V",         "+4V"},
+        {"0V",          "0V"}
+    },
+    (int8*)&CALIBRATOR_MODE, OnChanged_Calibrator_Calibrator
+};
+
+static void OnChanged_Calibrator_Calibrator(bool active)
+{
+    FPGA_SetCalibratorMode(CALIBRATOR_MODE);
+}
+
+// СЕРВИС - КАЛИБРАТОР - Калибровать -----------------------------------------------------------------------------------------------------------------
+static const Button bCalibrator_Calibrate =
+{
+    Item_Button, &ppCalibrator, IsActive_Calibrator_Calibrate,
+    {
+        "Калибровать", "Calibrate",
+        "Запуск процедуры калибровки",
+        "Running the calibration procedure"
+    },
+    OnPress_Calibrator_Calibrate, EmptyFuncVII
+};
+
+static bool IsActive_Calibrator_Calibrate(void)
+{
+    return !(SET_CALIBR_MODE_A == CalibrationMode_Disable && CALIBR_MODE_B == CalibrationMode_Disable);
+}
+
+static void OnPress_Calibrator_Calibrate(void)
+{
+    gStateFPGA.needCalibration = true;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 // СЕРВИС - Регистратор ------------------------------------------------------------------------------------------------------------------------------
-static const Choice mcRecorder =
+static const Choice cRecorder =
 {
     Item_Choice, &pService, 0,
     {
@@ -118,16 +214,16 @@ static const Choice mcRecorder =
         {DISABLE_RU, DISABLE_EN},
         {ENABLE_RU, ENABLE_EN}
     },
-    (int8*)&RECORDER_MODE, OnChange_Recorder
+    (int8*)&RECORDER_MODE, OnChanged_Recorder
 };
 
-static void OnChange_Recorder(bool active)
+static void OnChanged_Recorder(bool active)
 {
     FPGA_EnableRecorderMode(RECORDER_MODE);
 }
 
 // СЕРВИС - Язык -------------------------------------------------------------------------------------------------------------------------------------
-static const Choice mcLanguage =
+static const Choice cLanguage =
 {
     Item_Choice, &pService, 0,
     {

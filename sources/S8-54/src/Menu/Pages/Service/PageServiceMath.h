@@ -8,7 +8,7 @@
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 extern const Page mspCursFFT;
 extern const Page mspMathFunction;
-static const Page mspFFT;
+static const Page ppFFT;
 const Page pService;
 
 
@@ -254,7 +254,7 @@ const Formula mfMathFormula =
 // СЕРВИС - МАТЕМАТИКА - СПЕКТР - Отображение
 const Choice mcFFTenable =
 {
-    Item_Choice, &mspFFT, 0,
+    Item_Choice, &ppFFT, 0,
     {
         "Отображение", "Display",
         "Включает и выключает отображение спектра",
@@ -270,7 +270,7 @@ const Choice mcFFTenable =
 // СЕРВИС - МАТЕМАТИКА - СПЕКТР - Шкала
 const Choice mcFFTscale =
 {
-    Item_Choice, &mspFFT, 0,
+    Item_Choice, &ppFFT, 0,
     {
         "Шкала",        "Scale",
         "Задаёт масштаб вывода спектра - линейный или логарифмический",
@@ -286,7 +286,7 @@ const Choice mcFFTscale =
 // СЕРВИС - МАТЕМАТИКА - СПЕКТР - Источник
 const Choice mcFFTsource =
 {
-    Item_Choice, &mspFFT, 0,
+    Item_Choice, &ppFFT, 0,
     {
         "Источник",     "Source",
         "Выбор источника для расчёта спектра",
@@ -303,7 +303,7 @@ const Choice mcFFTsource =
 // СЕРВИС - МАТЕМАТИКА - СПЕКТР - Окно
 const Choice mcFFTwindow =
 {
-    Item_Choice, &mspFFT, 0,
+    Item_Choice, &ppFFT, 0,
     {
         "Окно",         "Window",
         "Задаёт окно для расчёта спектра",
@@ -326,7 +326,7 @@ bool ActiveC_FFT_Limit(void)
 
 const Choice mcFFTrange =
 {
-    Item_Choice, &mspFFT, ActiveC_FFT_Limit,
+    Item_Choice, &ppFFT, ActiveC_FFT_Limit,
     {
         "Диапазон", "Range",
         "Здесь можно задать предел наблюдения за мощностью спектра",
@@ -481,7 +481,7 @@ const SmallButton sbExitCursFFT =
 ///////////////////////////////////////////////////////////////////////////////////
 const Page mspCursFFT =
 {
-    Item_Page, &mspFFT, ActiveP_FFT_Cursors,
+    Item_Page, &ppFFT, ActiveP_FFT_Cursors,
     {
         "КУРСОРЫ", "CURSORS",
         "Включает курсоры для измерения параметров спектра",
@@ -513,7 +513,7 @@ static void FuncOfPressFFT(void)
 }
 
 // СЕРВИС - СПЕКТР ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-const Page mspFFT =
+const Page ppFFT =
 {
     Item_Page, &pService, FuncOfActiveFFT,
     {
