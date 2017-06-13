@@ -3,7 +3,6 @@
 #include "main.h"
 #include "ServiceInformation.h"
 #include "ServiceTime.h"
-#include "ServiceSound.h"
 #include "Display/Display.h"
 #include "Display/Symbols.h"
 #include "FPGA/FPGA.h"
@@ -77,12 +76,15 @@ static const      SButton bFunction_RangeB;                         ///< ÑÅÐÂÈÑ 
 static void        OnPress_Function_RangeB(void);
 static void           Draw_Function_RangeB(int x, int y);
 static const        Page ppEthernet;                                ///< ÑÅÐÂÈÑ - ETHERNET
-static const      Choice cEthernet_Ethernet;
+static const      Choice cEthernet_Ethernet;                        ///< ÑÅÐÂÈÑ - ETHERNET - Ethernet
 static void     OnChanged_Ethernet_Settings(bool active);
-static const  IPaddress ipEthernet_IP;                              ///< ÑÅÐÂÈÑ - ETHERNET - Ethernet
-static const  IPaddress ipEthernet_NetMask;                         ///< ÑÅÐÂÈÑ - ETHERNET - IP àäðåñ
+static const  IPaddress ipEthernet_IP;                              ///< ÑÅÐÂÈÑ - ETHERNET - IP àäðåñ
+static const  IPaddress ipEthernet_NetMask;                         ///< ÑÅÐÂÈÑ - ETHERNET - Ìàñêà ïîäñåòè
 static const  IPaddress ipEthernet_Gateway;                         ///< ÑÅÐÂÈÑ - ETHERNET - Øëþç
 static const MACaddress ipEthernet_MAC;                             ///< ÑÅÐÂÈÑ - ETHERNET - MAC àäðåñ
+static const       Page ppSound;                                    ///< ÑÅÐÂÈÑ - ÇÂÓÊ
+static const      Choice cSound_Enable;                             ///< ÑÅÐÂÈÑ - ÇÂÓÊ - Çâóê
+static const    Governor gSound_Volume;                             ///< ÑÅÐÂÈÑ - ÇÂÓÊ - Ãðîìêîñòü
 
 
 
@@ -848,6 +850,53 @@ static const MACaddress ipEthernet_MAC =
     &set.eth_mac0, &set.eth_mac1, &set.eth_mac2, &set.eth_mac3, &set.eth_mac4, &set.eth_mac5,
     OnChanged_Ethernet_Settings
 };
+
+// ÑÅÐÂÈÑ - ÇÂÓÊ /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+static const Page ppSound =
+{
+    Item_Page, &pService, 0,
+    {
+        "ÇÂÓÊ", "SOUND",
+        "Â ýòîì ìåíþ ìîæíî íàñòðîèòü ãðîìêîñòü çâóêà",
+        "In this menu, you can adjust the volume"
+    },
+    Page_ServiceSound,
+    {
+        (void*)&cSound_Enable,  // ÑÅÐÂÈÑ - ÇÂÓÊ - Çâóê
+        (void*)&gSound_Volume   // ÑÅÐÂÈÑ - ÇÂÓÊ - Ãðîìêîñòü
+    }
+
+};
+
+// ÑÅÐÂÈÑ - ÇÂÓÊ - Çâóê ------------------------------------------------------------------------------------------------------------------------------
+static const Choice cSound_Enable =
+{
+    Item_Choice, &ppSound, 0,
+    {
+        "Çâóê", "Sound",
+        "Âêëþ÷åíèå/âûêëþ÷åíèå çâóêà",
+        "Inclusion/switching off of a sound"
+    },
+    {
+        {DISABLE_RU, DISABLE_EN},
+        {ENABLE_RU, ENABLE_EN}
+    },
+    (int8*)&SOUND_ENABLED
+};
+
+// ÑÅÐÂÈÑ - ÇÂÓÊ - Ãðîìêîñòü -------------------------------------------------------------------------------------------------------------------------
+static const Governor gSound_Volume =
+{
+    Item_Governor, &ppSound, 0,
+    {
+        "Ãðîìêîñòü", "Volume",
+        "Óñòàíîâêà ãðîìêîñòè çâóêà",
+        "Set the volume"
+    },
+    &SOUND_VOLUME, 0, 100
+};
+
+
 
 
 

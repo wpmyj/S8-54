@@ -409,9 +409,7 @@
     <ClInclude Include="..\..\S8-54\src\Menu\Pages\PageDisplay.h" />
     <ClInclude Include="..\..\S8-54\src\Menu\Pages\PageHelp.h" />
     <ClInclude Include="..\..\S8-54\src\Menu\Pages\PageMemory.h" />
-    <ClInclude Include="..\..\S8-54\src\Menu\Pages\Service\ServiceEthernet.h" />
     <ClInclude Include="..\..\S8-54\src\Menu\Pages\Service\ServiceInformation.h" />
-    <ClInclude Include="..\..\S8-54\src\Menu\Pages\Service\ServiceSound.h" />
     <ClInclude Include="..\..\S8-54\src\Menu\Pages\Service\ServiceTime.h" />
     <ClInclude Include="..\..\S8-54\src\Panel\Controls.h" />
     <ClInclude Include="..\..\S8-54\src\Panel\Panel.h" />

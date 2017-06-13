@@ -1034,12 +1034,6 @@
     <ClInclude Include="..\..\S8-54\src\Menu\Pages\Service\ServiceTime.h">
       <Filter>Menu\Pages\Service</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\S8-54\src\Menu\Pages\Service\ServiceSound.h">
-      <Filter>Menu\Pages\Service</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\S8-54\src\Menu\Pages\Service\ServiceEthernet.h">
-      <Filter>Menu\Pages\Service</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\S8-54\src\Settings\DataSettings.h">
       <Filter>Settings</Filter>
     </ClInclude>
