@@ -1855,16 +1855,6 @@
               <FilePath>.\src\Menu\Pages\Service\PageService.c</FilePath>
             </File>
             <File>
-              <FileName>PageServiceMath.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\src\Menu\Pages\Service\PageServiceMath.h</FilePath>
-            </File>
-            <File>
-              <FileName>ServiceCalibrator.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\src\Menu\Pages\Service\ServiceCalibrator.h</FilePath>
-            </File>
-            <File>
               <FileName>ServiceInformation.h</FileName>
               <FileType>5</FileType>
               <FilePath>.\src\Menu\Pages\Service\ServiceInformation.h</FilePath>

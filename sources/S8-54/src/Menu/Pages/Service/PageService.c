@@ -76,7 +76,9 @@ static void      Draw_Function_RangeA(int x, int y);
 static const SButton bFunction_RangeB;                      ///< ÑÅÐÂÈÑ - ÔÓÍÊÖÈß - Ìàñøòàá 2-ãî êàíàëà
 static void   OnPress_Function_RangeB(void);
 static void      Draw_Function_RangeB(int x, int y);
-
+static const   Page ppEthernet;                             ///< ÑÅÐÂÈÑ - ETHERNET
+static const Choice cEthernet_Ethernet;
+static void OnChanged_Ethernet_Settings(bool active);
 
 
 
@@ -101,7 +103,7 @@ const Page pService =
         (void*)&cRecorder,          // ÑÅÐÂÈÑ - Ðåãèñòðàòîð
         (void*)&ppFFT,              // ÑÅÐÂÈÑ - ÑÏÅÊÒÐ
         (void*)&ppFunction,         // ÑÅÐÂÈÑ - ÔÓÍÊÖÈß
-        (void*)&mspEthernet,        // ÑÅÐÂÈÑ - ETHERNET
+        (void*)&ppEthernet,         // ÑÅÐÂÈÑ - ETHERNET
         (void*)&mspSound,           // ÑÅÐÂÈÑ - ÇÂÓÊ
         (void*)&mspTime,            // ÑÅÐÂÈÑ - ÂÐÅÌß
         (void*)&cLanguage,          // ÑÅÐÂÈÑ - ßçûê
@@ -723,7 +725,6 @@ static void Draw_Function_RangeA(int x, int y)
     Painter_DrawChar(x + 8, y + 5, '1');
 }
 
-
 // ÑÅÐÂÈÑ - ÔÓÍÊÖÈß - Ìàñøòàá 2-ãî êàíàëà ------------------------------------------------------------------------------------------------------------
 static const SButton bFunction_RangeB =
 {
@@ -747,6 +748,63 @@ static void Draw_Function_RangeB(int x, int y)
 {
     Painter_DrawChar(x + 8, y + 5, '2');
 }
+
+// ÑÅÐÂÈÑ - ETHERNET /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+static const Page ppEthernet =
+{
+    Item_Page, &pService, 0,
+    {
+        "ETHERNET", "ETHERNET",
+        "Íàñòðîéêè ethernet",
+        "Settings of ethernet"
+    },
+    Page_ServiceEthernet,
+    {
+        (void*)&cEthernet_Ethernet, // ÑÅÐÂÈÑ - ETHERNET - Ethernet
+        (void*)&ipAddress,
+        (void*)&ipNetMask,
+        (void*)&ipGateway,
+        (void*)&macMAC
+    }
+};
+
+// ÑÅÐÂÈÑ - ETHERNET - Ethernet ----------------------------------------------------------------------------------------------------------------------
+static const Choice cEthernet_Ethernet =
+{
+    Item_Choice, &mspEthernet, 0,
+    {
+        "Ethernet",    "Ethernet"
+        ,
+    "×òîáû çàäåéñòâîâàòü ethernet, âûáåðèòå \"Âêëþ÷åíî\" è âûêëþ÷èòå ïðèáîð.\n"
+    "×òîáû îòêëþ÷èòü ethernet, âûáåðèòå \"Îòêëþ÷åíî\" è âûêëþ÷èòå ïðèáîð."
+    ,
+    "To involve ethernet, choose \"Included\" and switch off the device.\n"
+    "To disconnect ethernet, choose \"Disconnected\" and switch off the device."
+    },
+    {
+        {"Âêëþ÷åíî",    "Included"},
+        {"Îòêëþ÷åíî",   "Disconnected"}
+    },
+    (int8*)&ETH_ENABLED, OnChanged_Ethernet_Settings
+};
+
+static void OnChanged_Ethernet_Settings(bool active)
+{
+    Display_ShowWarning(NeedRebootDevice);
+}
+
+static const IPaddress ipAddress =
+{
+    Item_IP, &mspEthernet, 0,
+    {
+        "IP àäðåñ", "IP-address",
+        "Óñòàíîâêà IP àäðåñà",
+        "Set of IP-address"
+    },
+    &IP_ADDR0, &IP_ADDR1, &IP_ADDR2, &IP_ADDR3,
+    OnChanged_Ethernet_Settings,
+    &ETH_PORT
+};
 
 
 
