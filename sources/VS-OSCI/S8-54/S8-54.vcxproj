@@ -214,7 +214,6 @@
     <ClCompile Include="..\..\S8-54\src\Menu\Pages\PageMemory.c" />
     <ClCompile Include="..\..\S8-54\src\Menu\Pages\PageTime.c" />
     <ClCompile Include="..\..\S8-54\src\Menu\Pages\PageTrig.c" />
-    <ClCompile Include="..\..\S8-54\src\Menu\Pages\Service\PageService.c" />
     <ClCompile Include="..\..\S8-54\src\Panel\Controls.c" />
     <ClCompile Include="..\..\S8-54\src\Panel\Panel.c" />
     <ClCompile Include="..\..\S8-54\src\Panel\PanelFunctions.h" />
@@ -409,8 +408,6 @@
     <ClInclude Include="..\..\S8-54\src\Menu\Pages\PageDisplay.h" />
     <ClInclude Include="..\..\S8-54\src\Menu\Pages\PageHelp.h" />
     <ClInclude Include="..\..\S8-54\src\Menu\Pages\PageMemory.h" />
-    <ClInclude Include="..\..\S8-54\src\Menu\Pages\Service\ServiceInformation.h" />
-    <ClInclude Include="..\..\S8-54\src\Menu\Pages\Service\ServiceTime.h" />
     <ClInclude Include="..\..\S8-54\src\Panel\Controls.h" />
     <ClInclude Include="..\..\S8-54\src\Panel\Panel.h" />
     <ClInclude Include="..\..\S8-54\src\Settings\DataSettings.h" />

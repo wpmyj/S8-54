@@ -1,12 +1,16 @@
 // This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++ and C#: http://www.viva64.com
+#include "Definition.h"
 #include "main.h"
-#include "ServiceInformation.h"
-#include "ServiceTime.h"
 #include "Display/Display.h"
 #include "Display/Symbols.h"
 #include "FPGA/FPGA.h"
+#include "Hardware/FLASH.h"
+#include "Hardware/Hardware.h"
+#include "Hardware/RTC.h"
 #include "Hardware/Sound.h"
+#include "Menu/MenuDrawing.h"
+#include "Menu/MenuFunctions.h"
 #include "Panel/Panel.h"
 #include "Utils/GlobalFunctions.h"
 #include "Utils/Math.h"
@@ -85,10 +89,16 @@ static const MACaddress ipEthernet_MAC;                             ///< ÑÅÐÂÈÑ 
 static const       Page ppSound;                                    ///< ÑÅÐÂÈÑ - ÇÂÓÊ
 static const      Choice cSound_Enable;                             ///< ÑÅÐÂÈÑ - ÇÂÓÊ - Çâóê
 static const    Governor gSound_Volume;                             ///< ÑÅÐÂÈÑ - ÇÂÓÊ - Ãðîìêîñòü
-
-
-
-static const  Choice cLanguage;
+static const       Page ppTime;                                     ///< ÑÅÐÂÈÑ - ÂÐÅÌß
+static const        Time tTime_Time;                                ///< ÑÅÐÂÈÑ - ÂÐÅÌß - Âðåìÿ
+static const    Governor tTime_Correction;                          ///< ÑÅÐÂÈÑ - ÂÐÅÌß - Êîððåêöèÿ
+static void     OnChanged_Time_Correction(void);
+static const      Choice cLanguage;                                 ///< ÑÅÐÂÈÑ - ßÇÛÊ
+static const       Page ppInformation;                              ///< ÑÅÐÂÈÑ - ÈÍÔÎÐÌÀÖÈß
+static void       OnPress_Information(void);
+static void Information_Draw(void);
+static const     SButton bInformation_Exit;                         ///< ÑÅÐÂÈÑ - ÈÍÔÎÐÌÀÖÈß - Âûõîä
+static void       OnPress_Information_Exit(void);
 
 
 // ÑÅÐÂÈÑ ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -110,9 +120,9 @@ const Page pService =
         (void*)&ppFunction,         // ÑÅÐÂÈÑ - ÔÓÍÊÖÈß
         (void*)&ppEthernet,         // ÑÅÐÂÈÑ - ETHERNET
         (void*)&ppSound,            // ÑÅÐÂÈÑ - ÇÂÓÊ
-        (void*)&mspTime,            // ÑÅÐÂÈÑ - ÂÐÅÌß
+        (void*)&ppTime,             // ÑÅÐÂÈÑ - ÂÐÅÌß
         (void*)&cLanguage,          // ÑÅÐÂÈÑ - ßçûê
-        (void*)&mspInformation      // ÑÅÐÂÈÑ - ÈÍÔÎÐÌÀÖÈß
+        (void*)&ppInformation       // ÑÅÐÂÈÑ - ÈÍÔÎÐÌÀÖÈß
     }
 };
 
@@ -897,40 +907,64 @@ static const Governor gSound_Volume =
 };
 
 
+// ÑÅÐÂÈÑ - ÂÐÅÌß ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+static const Page ppTime =
+{
+    Item_Page, &pService, 0,
+    {
+        "ÂÐÅÌß", "TIME",
+        "Óñòàíîâêà è íàñòðîéêà âðåìåíè",
+        "Set and setup time"
+    },
+    Page_ServiceTime,
+    {
+        (void*)&tTime_Time,         // ÑÅÐÂÈÑ - ÂÐÅÌß - Âðåìÿ
+        (void*)&tTime_Correction    // CÅÐÂÈÑ - ÂÐÅÌß - Êîððåêöèÿ
+    }
+};
 
+// ÑÅÐÂÈÑ - ÂÐÅÌß - Âðåìÿ ----------------------------------------------------------------------------------------------------------------------------
+static int8 dServicetime = 0;
+static int8 hours = 0, minutes = 0, secondes = 0, year = 0, month = 0, day = 0;
+static const Time tTime_Time =
+{
+    Item_Time, &ppTime, 0,
+    {
+        "Âðåìÿ", "Time"
+        ,
+        "Óñòàíîâêà òåêóùåãî âðåìåíè.\nÏîðÿäîê ðàáîòû:\n"
+        "Íàæàòü íà ýëåìåíò ìåíþ \"Âðåìÿ\". Îòêðîåòñÿ ìåíþ óñòàíîâêè òåêóùåãî âðåìåíè. Êîðîòêèìè íàæàòèÿìè êíîïêè íà öèôðîâîé êëàâèàòóðå, ñîîòâåòñâóþùåé "
+        "ýëåìåíòó óïðàâëåíèÿ \"Âðåìÿ\", âûäåëèòü ÷àñû, ìèíóòû, ñåêóíäû, ãîä, ìåñÿö, èëè ÷èñëî. Âûäåëåííûé ýëåìåíò îáîçíà÷àåòñÿ ìèãàþùåé îáëàñòüþ. "
+        "Âðàùåíèåì ðó÷êè ÓÑÒÀÍÎÂÊÀ óñòàíîâèòü íåîáõîäèìîå çíà÷åíèå. Çàòåì âûäåëèòü ïóíêò \"Ñîõðàíèòü\", íàæàòü è óäðåæèâàòü áîëåå 0.5 ñåê êíîïêó íà ïàíåëè "
+        "óïðàâëåíèÿ. Ìåíþ óñòàíîâêè òåêóùåãî âðåìåíÿ çàêðîåòñÿ ñ ñîõðàíåíèåì íîâîãî òåêóùåãî âðåìåíè. Íàæàòèå äëèòåëüíîå óäåðæàíèå êíîïêè íà ëþáîì äðóãîì ýëåìåíòå "
+        "ïðèâåä¸ò ê çàêðûòèþ ìåíþ óñòàíîâêè òåêóùåãî âðå    ìåíè áåç ñîõðàíåíèÿ íîâîãî òåêóùåãî âðåìåíè"
+        ,
+        "Setting the current time. \nPoryadok work:\n"
+        "Click on the menu item \"Time\".The menu set the current time.By briefly pressing the button on the numeric keypad of conformity "
+        "Control \"Time\", highlight the hours, minutes, seconds, year, month, or a number.The selected item is indicated by a flashing area. "
+        "Turn the setting knob to set the desired value. Then highlight \"Save\", press and udrezhivat more than 0.5 seconds, the button on the panel "
+        "Control. Menu Setting the current time will be closed to the conservation of the new current time. Pressing a button on the prolonged retention of any other element "
+        "will lead to the closure of the current time setting menu without saving the new current time"
+    },
+    &dServicetime, &hours, &minutes, &secondes, &month, &day, &year
+};
 
+// ÑÅÐÂÈÑ - ÂÐÅÌß - Êîððåêöèÿ ------------------------------------------------------------------------------------------------------------------------
+static const Governor tTime_Correction =
+{
+    Item_Governor, &ppTime, 0,
+    {
+        "Êîððåêöèÿ", "Correction",
+        "Óñòàíîâêà êîððåêòèðóþùåãî êîýôôèöèåíòà äëÿ êîìïåíñàöèè õîäà âðåìåíè",
+        "Setting correction factor to compensate for time travel"
+    },
+    &NRST_CORRECTION_TIME, -63, 63, OnChanged_Time_Correction
+};
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+static void OnChanged_Time_Correction(void)
+{
+    RTC_SetCorrection((int8)NRST_CORRECTION_TIME);
+}
 
 // ÑÅÐÂÈÑ - ßçûê -------------------------------------------------------------------------------------------------------------------------------------
 static const Choice cLanguage =
@@ -947,6 +981,126 @@ static const Choice cLanguage =
     },
     (int8*)&LANG
 };
+
+
+// ÑÅÐÂÈÑ - ÈÍÔÎÐÌÀÖÈß ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+static const Page ppInformation =
+{
+    Item_Page, &pService, 0,
+    {
+        "ÈÍÔÎÐÌÀÖÈß", "INFORMATION",
+        "Ïîêàçûâàåò èíôîðìàöèþ î ïðèáîðå",
+        "Displays information about the device"
+    },
+    Page_SB_ServiceInformation,
+    {
+        (void*)&bInformation_Exit,  // ÑÅÐÂÈÑ - ÈÍÔÎÐÌÀÖÈß - Âûõîä
+        (void*)0,
+        (void*)0,
+        (void*)0,
+        (void*)0,
+        (void*)0
+    },
+    OnPress_Information
+};
+
+static void OnPress_Information(void)
+{
+    OpenPageAndSetItCurrent(Page_SB_ServiceInformation);
+    Display_SetDrawMode(DrawMode_Auto, Information_Draw);
+}
+
+static void Information_Draw(void)
+{
+    Language lang = LANG;
+
+    Painter_BeginScene(gColorBack);
+    int x = 100;
+    int dY = 20;
+    int y = 20;
+    Painter_DrawRectangleC(0, 0, 319, 239, gColorFill);
+    y += dY;
+    Painter_DrawText(x, y, lang == Russian ? "ÈÍÔÎÐÌÀÖÈß" : "INFORMATION");
+    y += dY;
+    Painter_DrawText(x, y, lang == Russian ? "Ìîäåëü : Ñ8-54" : "Model : S8-54");
+    y += dY;
+
+    char buffer[100];
+    OTP_GetSerialNumber(buffer);
+    if(buffer[0])
+    {
+        Painter_DrawFormatText(x, y, lang == Russian ? "C/Í : %s" : "S/N : %s", buffer);
+        y += dY;
+    }
+
+    Painter_DrawText(x, y, lang == Russian ? "Ïðîãðàììíîå îáåñïå÷åíèå:" : "Software:");
+    y += dY;
+    sprintf(buffer, (const char*)((lang == Russian) ? "âåðñèÿ %s" : "version %s"), NUM_VER);
+    Painter_DrawText(x, y, buffer);
+    y += dY;
+
+    Painter_DrawFormText(x, y, gColorFill, "CRC32 : %X", Hardware_CalculateCRC32());
+
+    dY = -10;
+    Painter_DrawStringInCenterRect(0, 190 + dY, 320, 20, "Äëÿ ïîëó÷åíèÿ ïîìîùè íàæìèòå è óäåðæèâàéòå êíîïêó ÏÎÌÎÙÜ");
+    Painter_DrawStringInCenterRect(0, 205 + dY, 320, 20, "Îòäåë ìàðêåòèíãà: òåë./ôàêñ. 8-017-262-57-50");
+    Painter_DrawStringInCenterRect(0, 220 + dY, 320, 20, "Ðàçðàáîò÷èêè: e-mail: mnipi-24(@)tut.by, òåë. 8-017-262-57-51");
+
+    Menu_Draw();
+    Painter_EndScene();
+}
+
+// ÑÅÐÂÈÑ - ÈÍÔÎÐÌÀÖÈß - Âûõîä -----------------------------------------------------------------------------------------------------------------------
+static const SButton bInformation_Exit =
+{
+    Item_SmallButton, &ppInformation,
+    COMMON_BEGIN_SB_EXIT,
+    OnPress_Information_Exit,
+    DrawSB_Exit
+};
+
+static void OnPress_Information_Exit(void)
+{
+    Display_SetDrawMode(DrawMode_Auto, 0);
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 /*
 //----------------------------------------------------------------------------------------------------------------------------------------------------
@@ -994,9 +1148,7 @@ const Button mbServicePreviousSettings =
     },
     OnPressPrevSettings
 };
-*/
 
-/*
 static bool ActiveF_MathFormula(void)
 {
     return MATH_FUNC_MUL || MATH_FUNC_SUM;

@@ -1844,35 +1844,10 @@
               <FileType>5</FileType>
               <FilePath>.\src\Menu\Pages\PageMemory.h</FilePath>
             </File>
-          </Files>
-        </Group>
-        <Group>
-          <GroupName>Menu/Pages/Service</GroupName>
-          <Files>
             <File>
               <FileName>PageService.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\src\Menu\Pages\Service\PageService.c</FilePath>
-            </File>
-            <File>
-              <FileName>ServiceInformation.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\src\Menu\Pages\Service\ServiceInformation.h</FilePath>
-            </File>
-            <File>
-              <FileName>ServiceSound.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\src\Menu\Pages\Service\ServiceSound.h</FilePath>
-            </File>
-            <File>
-              <FileName>ServiceTime.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\src\Menu\Pages\Service\ServiceTime.h</FilePath>
-            </File>
-            <File>
-              <FileName>ServiceEthernet.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\src\Menu\Pages\Service\ServiceEthernet.h</FilePath>
+              <FilePath>.\src\Menu\Pages\PageService.c</FilePath>
             </File>
           </Files>
         </Group>
