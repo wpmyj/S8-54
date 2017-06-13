@@ -59,7 +59,7 @@ void Painter_BeginScene(Color color)
             Painter_LoadPalette(2);
             Painter_LoadFont(TypeFont_5);
 #define dT 100
-            Ethernet_Update(dT);            // WARN Говнокод. Доработать метод посылки в TCPSocket
+            Ethernet_Update(dT);            /// \todo Говнокод. Доработать метод посылки в TCPSocket
 
             Painter_LoadFont(TypeFont_8);
             Ethernet_Update(dT);
@@ -693,7 +693,7 @@ static uint8 Read2points(int x, int y)
     while (HAL_GPIO_ReadPin(GPIOG, GPIO_PIN_11) == GPIO_PIN_RESET)
     {
     };
-    Timer_PauseOnTicks(12);               // WARN временно увеличено время ожидания - не читает флешку
+    Timer_PauseOnTicks(12);               /// \todo временно увеличено время ожидания - не читает флешку
 
     *ADDR_CDISPLAY = GET_PIXEL;
     *ADDR_CDISPLAY = (uint8)x;
@@ -703,7 +703,8 @@ static uint8 Read2points(int x, int y)
     while (HAL_GPIO_ReadPin(GPIOG, GPIO_PIN_11) == GPIO_PIN_RESET)
     {
     };
-    //Timer_PauseOnTicks(6);               // временно увеличено время ожидания - не читает флешку
+    /// \todo временно увеличено время ожидания - не читает флешку
+    //Timer_PauseOnTicks(6);
 
     return *ADDR_CDISPLAY;
 }

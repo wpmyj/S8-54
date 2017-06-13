@@ -67,8 +67,8 @@ void PainterData_DrawData(void)
 {
     xP2P = 0;
 
-	if (!IN_P2P_MODE && (DS_NumElementsInStorage() < 2))    // WARN Ёто сделано дл€ того, чтобы не было артефактов при включении
-                                                            // Ќо не факт, что причина в этом. » в поточечном режиме однозначно долго ждать
+	if (!IN_P2P_MODE && (DS_NumElementsInStorage() < 2))    /** \todo Ёто сделано дл€ того, чтобы не было артефактов при включении
+                                                             Ќо не факт, что причина в этом. » в поточечном режиме однозначно долго ждать */
 	{
         Painter_DrawRectangleC(GridLeft(), GRID_TOP, GridWidth(), GridFullHeight(), gColorFill);
 		return;
@@ -271,7 +271,8 @@ static void DrawDataInModeDirect(void)
 
     if(numPoints_2_FPGA_NUM_POINTS != index)    // ≈сли количество точек в данных не соответствует установленному в настройках - просто выходим
     {
-        //return;                     // WARN Ёто временно. ѕо хорошему нужно преобразовывать так же, как мы преобразуем tShift, rShift, Range, TBase
+        /// \todo Ёто временно. ѕо хорошему нужно преобразовывать так же, как мы преобразуем tShift, rShift, Range, TBase
+        //return;
     }
 
     int16 numSignals = (int16)DS_NumElementsWithSameSettings();
@@ -549,7 +550,7 @@ static void DrawTShift(int leftX, int rightX, int numBytes)
     }
     if (FPGA_NUM_POINTS_512)
     {
-        ++xShift;                           // WARN  остыль
+        ++xShift;                           /// \todo  остыль
     }
     LIMIT_ABOVE(xShift, rightX - 2);
 

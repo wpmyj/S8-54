@@ -38,63 +38,63 @@
 
 static const uint8 masksRange[RangeSize] =
 {         //  543210
-    BINARY_U8(010011),  // Range_2mV
-    BINARY_U8(010111),  // Range_5mV
-    BINARY_U8(011010),  // Range_10mV
-    BINARY_U8(000011),  // Range_20mV
-    BINARY_U8(000111),  // Range_50mV
-    BINARY_U8(001010),  // Range_100mV
-    BINARY_U8(010110),  // Range_200mV
-    BINARY_U8(011010),  // Range_500mV
-    BINARY_U8(000011),  // Range_1V
-    BINARY_U8(000110),  // Range_2V
-    BINARY_U8(001010)   // Range_5V
+    BINARY_U8(010011),  ///< Range_2mV
+    BINARY_U8(010111),  ///< Range_5mV
+    BINARY_U8(011010),  ///< Range_10mV
+    BINARY_U8(000011),  ///< Range_20mV
+    BINARY_U8(000111),  ///< Range_50mV
+    BINARY_U8(001010),  ///< Range_100mV
+    BINARY_U8(010110),  ///< Range_200mV
+    BINARY_U8(011010),  ///< Range_500mV
+    BINARY_U8(000011),  ///< Range_1V
+    BINARY_U8(000110),  ///< Range_2V
+    BINARY_U8(001010)   ///< Range_5V
 };
 
 
-// Добавочные смещения по времени для разверёток режима рандомизатора.
+/// Добавочные смещения по времени для разверёток режима рандомизатора.
 static int16 timeCompensation[TBaseSize] = {550, 275, 120, 55, 25, 9, 4, 1};
 
 typedef struct
 {
-    uint8 maskNorm;         // Маска. Требуется для записи в аппаратную часть при выключенном режиме пикового детектора.
-    uint8 maskPeackDet;     // Маска. Требуется для записи в аппаратную часть при включенном режиме пикового детектора.
+    uint8 maskNorm;         ///< Маска. Требуется для записи в аппаратную часть при выключенном режиме пикового детектора.
+    uint8 maskPeackDet;     ///< Маска. Требуется для записи в аппаратную часть при включенном режиме пикового детектора.
 } TBaseMaskStruct;
 
 
 static const TBaseMaskStruct masksTBase[TBaseSize] =
 {
-    {BINARY_U8(00000000), BINARY_U8(00000000)}, // TBase_1ns
-    {BINARY_U8(00000000), BINARY_U8(00000000)}, // TBase_2ns
-    {BINARY_U8(00000000), BINARY_U8(00000000)}, // TBase_5ns
-    {BINARY_U8(00000000), BINARY_U8(00000000)}, // TBase_10ns
-    {BINARY_U8(00000000), BINARY_U8(00000000)}, // TBase_20ns
-    {BINARY_U8(00000000), BINARY_U8(00000000)}, // TBase_50ns
-    {BINARY_U8(00100001), BINARY_U8(00100001)}, // TBase_100ns
-    {BINARY_U8(00100010), BINARY_U8(00100010)}, // TBase_200ns
-    {BINARY_U8(00100011), BINARY_U8(00100010)}, // TBase_500ns
-    {BINARY_U8(01000101), BINARY_U8(00100011)}, // TBase_1us
-    {BINARY_U8(01000110), BINARY_U8(01000101)}, // TBase_2us
-    {BINARY_U8(01000111), BINARY_U8(01000110)}, // TBase_5us
-    {BINARY_U8(01001001), BINARY_U8(01000111)}, // TBase_10us
-    {BINARY_U8(01001010), BINARY_U8(01001001)}, // TBase_20us
-    {BINARY_U8(01001011), BINARY_U8(01001010)}, // TBase_50us
-    {BINARY_U8(01001101), BINARY_U8(01001011)}, // TBase_100us
-    {BINARY_U8(01001110), BINARY_U8(01001101)}, // TBase_200us
-    {BINARY_U8(01001111), BINARY_U8(01001110)}, // TBase_500us
-    {BINARY_U8(01010001), BINARY_U8(01001111)}, // TBase_1ms
-    {BINARY_U8(01010010), BINARY_U8(01010001)}, // TBase_2ms
-    {BINARY_U8(01010011), BINARY_U8(01010010)}, // TBase_5ms
-    {BINARY_U8(01010101), BINARY_U8(01010011)}, // TBase_10ms
-    {BINARY_U8(01010110), BINARY_U8(01010101)}, // TBase_20ms
-    {BINARY_U8(01010111), BINARY_U8(01010110)}, // TBase_50ms
-    {BINARY_U8(01011001), BINARY_U8(01010111)}, // TBase_100ms
-    {BINARY_U8(01011010), BINARY_U8(01011001)}, // TBase_200ms
-    {BINARY_U8(01011011), BINARY_U8(01011010)}, // TBase_500ms
-    {BINARY_U8(01011101), BINARY_U8(01011011)}, // TBase_1s
-    {BINARY_U8(01011110), BINARY_U8(01011101)}, // TBase_2s
-    {BINARY_U8(01011111), BINARY_U8(01011110)}, // TBase_5s
-    {BINARY_U8(01111111), BINARY_U8(01011111)}  // TBase_10s
+    {BINARY_U8(00000000), BINARY_U8(00000000)}, ///< TBase_1ns
+    {BINARY_U8(00000000), BINARY_U8(00000000)}, ///< TBase_2ns
+    {BINARY_U8(00000000), BINARY_U8(00000000)}, ///< TBase_5ns
+    {BINARY_U8(00000000), BINARY_U8(00000000)}, ///< TBase_10ns
+    {BINARY_U8(00000000), BINARY_U8(00000000)}, ///< TBase_20ns
+    {BINARY_U8(00000000), BINARY_U8(00000000)}, ///< TBase_50ns
+    {BINARY_U8(00100001), BINARY_U8(00100001)}, ///< TBase_100ns
+    {BINARY_U8(00100010), BINARY_U8(00100010)}, ///< TBase_200ns
+    {BINARY_U8(00100011), BINARY_U8(00100010)}, ///< TBase_500ns
+    {BINARY_U8(01000101), BINARY_U8(00100011)}, ///< TBase_1us
+    {BINARY_U8(01000110), BINARY_U8(01000101)}, ///< TBase_2us
+    {BINARY_U8(01000111), BINARY_U8(01000110)}, ///< TBase_5us
+    {BINARY_U8(01001001), BINARY_U8(01000111)}, ///< TBase_10us
+    {BINARY_U8(01001010), BINARY_U8(01001001)}, ///< TBase_20us
+    {BINARY_U8(01001011), BINARY_U8(01001010)}, ///< TBase_50us
+    {BINARY_U8(01001101), BINARY_U8(01001011)}, ///< TBase_100us
+    {BINARY_U8(01001110), BINARY_U8(01001101)}, ///< TBase_200us
+    {BINARY_U8(01001111), BINARY_U8(01001110)}, ///< TBase_500us
+    {BINARY_U8(01010001), BINARY_U8(01001111)}, ///< TBase_1ms
+    {BINARY_U8(01010010), BINARY_U8(01010001)}, ///< TBase_2ms
+    {BINARY_U8(01010011), BINARY_U8(01010010)}, ///< TBase_5ms
+    {BINARY_U8(01010101), BINARY_U8(01010011)}, ///< TBase_10ms
+    {BINARY_U8(01010110), BINARY_U8(01010101)}, ///< TBase_20ms
+    {BINARY_U8(01010111), BINARY_U8(01010110)}, ///< TBase_50ms
+    {BINARY_U8(01011001), BINARY_U8(01010111)}, ///< TBase_100ms
+    {BINARY_U8(01011010), BINARY_U8(01011001)}, ///< TBase_200ms
+    {BINARY_U8(01011011), BINARY_U8(01011010)}, ///< TBase_500ms
+    {BINARY_U8(01011101), BINARY_U8(01011011)}, ///< TBase_1s
+    {BINARY_U8(01011110), BINARY_U8(01011101)}, ///< TBase_2s
+    {BINARY_U8(01011111), BINARY_U8(01011110)}, ///< TBase_5s
+    {BINARY_U8(01111111), BINARY_U8(01011111)}  ///< TBase_10s
 };
 
 
@@ -102,9 +102,10 @@ uint16 gPost = 1024;
 int16 gPred = 1024;
 
 static void LoadTrigLev(void);
-static void SetTShift(int tShift, bool needFPGApause);  // WARN временный костыль. При изменении tShift нужно временно останавливать альтеру, а при изменении развёртки не нужно
+/// \todo временный костыль. При изменении tShift нужно временно останавливать альтеру, а при изменении развёртки не нужно
+static void SetTShift(int tShift, bool needFPGApause);
 
-//////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 static void LoadTBase(void)
 {
     TBase tBase = SET_TBASE;
@@ -310,7 +311,7 @@ void WriteChipSelect2(void)
         data |= (1 << 4);
     }
 
-    if (RECORDER_MODE)       // В режмие регистратора страхуемся и делаем запуск от внешней синхронизации (чтобы случайно не отключилось считывание точек);
+    if (RECORDER_MODE)  // В режмие регистратора страхуемся и делаем запуск от внешней синхронизации (чтобы случайно не отключилось считывание точек);
     {
         data |= (1 << 14);
     }
@@ -547,8 +548,8 @@ void FPGA_TBaseDecrease(void)
         Display_ShowWarning(LimitSweep_Time);
     }
 
-    if (SET_TBASE == TBase_20ns &&                 // Если перешли в режим эквавалентного времени
-        !START_MODE_SINGLE)         // И не находимся в режиме однократного запуска
+    if (SET_TBASE == TBase_20ns &&      // Если перешли в режим эквавалентного времени
+        !START_MODE_SINGLE)             // И не находимся в режиме однократного запуска
     {
         SAMPLE = SAMPLE_OLD;
     }
@@ -568,10 +569,10 @@ void FPGA_TBaseIncrease(void)
         Display_ShowWarning(LimitSweep_Time);
     }
     
-    if (SET_TBASE == TBase_50ns &&                 // Если перешли в режим реального времени
-        !START_MODE_SINGLE)         // И не находимся в режиме однократного запуска
+    if (SET_TBASE == TBase_50ns &&      // Если перешли в режим реального времени
+        !START_MODE_SINGLE)             // И не находимся в режиме однократного запуска
     {
-        SAMPLE = SampleType_Real;          // И установим реальный, потому что в реальном режиме эквивалентный глупо смотрится
+        SAMPLE = SampleType_Real;       // И установим реальный, потому что в реальном режиме эквивалентный глупо смотрится
     }
 }
 
@@ -670,7 +671,7 @@ static void SetTShift(int tShift, bool needFPGApause)
     int16 oldTShift = SET_TSHIFT;
 
     sTime_SetTShift((int16)tShift);
-    LoadTShift();       // WARN temp for s8-54
+    LoadTShift();       /// \todo temp for s8-54
     NEED_FINISH_DRAW = 1;
 
     if (needFPGApause && tShift != oldTShift)

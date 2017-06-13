@@ -57,7 +57,8 @@ void Painter_LoadFont(TypeFont typeFont)
     {
         WRITE_BYTE(2 + i, bytes[i]);
     }
-    //Painter_SendToDisplay(command, 3084);     // WARN шрифты теперь зашиты в дисплей
+    /// \todo шрифты теперь зашиты в дисплей
+    //Painter_SendToDisplay(command, 3084);
     Painter_SendToInterfaces(command, 2);
     Painter_SendToInterfaces((uint8*)(fonts[typeFont]), sizeof(Font));
 }
@@ -78,7 +79,7 @@ bool ByteFontNotEmpty(int eChar, int byte)
 //----------------------------------------------------------------------------------------------------------------------------------------------------
 static bool BitInFontIsExist(int eChar, int numByte, int bit)
 {
-    static uint8 prevByte = 0;      // WARN здесь точно статики нужны?
+    static uint8 prevByte = 0;      /// \todo здесь точно статики нужны?
     static int prevChar = -1;
     static int prevNumByte = -1;
     if (prevNumByte != numByte || prevChar != eChar)

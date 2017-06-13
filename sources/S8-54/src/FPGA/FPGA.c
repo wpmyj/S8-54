@@ -98,7 +98,7 @@ static void HardwareInit(void)
 void FPGA_Init(void)
 {
     DS_Clear();
-    HardwareInit();  // WARN Пока не получается чтение флага сделать на прерывании
+    HardwareInit();     /// \todo Пока не получается чтение флага сделать на прерывании
     FreqMeter_Init();
     InitADC();
 }
@@ -340,7 +340,7 @@ static bool CalculateGate(uint16 rand, uint16 *eMin, uint16 *eMax)
 }
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
-static int CalculateShift(void)            // WARN Не забыть восстановить функцию
+static int CalculateShift(void)             /// \todo Не забыть восстановить функцию
 {
     uint16 min = 0;
     uint16 max = 0;
