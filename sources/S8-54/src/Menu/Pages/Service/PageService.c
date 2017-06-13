@@ -1,6 +1,6 @@
 // This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++ and C#: http://www.viva64.com
-#include "ServiceEthernet.h"
+#include "main.h"
 #include "ServiceInformation.h"
 #include "ServiceTime.h"
 #include "ServiceSound.h"
@@ -19,67 +19,70 @@ extern void Func_Start(int key);          // 1 - íàæàòèå, 1 - îòïóñêàíèå
 
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-static const  Button bResetSettings;                        ///< ÑÅĞÂÈÑ - Ñáğîñ íàñòğîåê
-        void  OnPress_ResetSettings(void);
-static void      Draw_ResetSettings(void);
-static const  Button bAutoSearch;                           ///< ÑÅĞÂÈÑ - Ïîèñê ñèãíàëà
-static void   OnPress_AutoSearch(void);
-static const   Page ppCalibrator;                           ///< ÑÅĞÂÈÑ - ÊÀËÈÁĞÀÒÎĞ
-static const  Choice cCalibrator_Calibrator;                ///< ÑÅĞÂÈÑ - ÊÀËÈÁĞÀÒÎĞ - Êàëèáğàòîğ
-static void OnChanged_Calibrator_Calibrator(bool active);
-static const  Button bCalibrator_Calibrate;                 ///< ÑÅĞÂÈÑ - ÊÀËÈÁĞÀÒÎĞ - Êàëèáğîâàòü
-static bool  IsActive_Calibrator_Calibrate(void);
-static void   OnPress_Calibrator_Calibrate(void);
-static const  Choice cRecorder;
-static void OnChanged_Recorder(bool active);
-static const   Page ppFFT;                                  ///< ÑÅĞÂÈÑ - ÑÏÅÊÒĞ
-static bool  IsActive_FFT(void);
-static void   OnPress_FFT(void);
-static const  Choice cFFT_View;                             ///< ÑÅĞÂÈÑ - ÑÏÅÊÒĞ - Îòîáğàæåíèå
-static const  Choice cFFT_Scale;                            ///< ÑÅĞÂÈÑ - ÑÏÅÊÒĞ - Øêàëà
-static const  Choice cFFT_Source;                           ///< ÑÅĞÂÈÑ - ÑÏÅÊÒĞ - Èñòî÷íèê
-static const  Choice cFFT_Window;                           ///< ÑÅĞÂÈÑ - ÑÏÅÊÒĞ - Îêíî
-static const  Page pppFFT_Cursors;                          ///< ÑÅĞÂÈÑ - ÑÏÅÊÒĞ - ÊÓĞÑÎĞÛ
-static bool  IsActive_FFT_Cursors(void);
-static void  OnRegSet_FFT_Cursors(int angle);
-static const SButton bFFT_Cursors_Exit;                     ///< ÑÅĞÂÈÑ - ÑÏÅÊÒĞ - ÊÓĞÑÎĞÛ - Âûõîä
-static void   OnPress_FFT_Cursors_Exit(void);
-static const SButton bFFT_Cursors_Source;                   ///< ÑÅĞÂÈÑ - ÑÏÅÊÒĞ - ÊÓĞÑÎĞÛ - Èñòî÷íèê
-static void   OnPress_FFT_Cursors_Source(void);
-static void      Draw_FFT_Cursors_Source(int x, int y);
-static const  Choice cFFT_Range;                            ///< ÑÅĞÂÈÑ - ÑÏÅÊÒĞ - Äèàïàçîí
-static bool  IsActive_FFT_Range(void);
-static const   Page ppFunction;                             ///< ÑÅĞÂÈÑ - ÔÓÍÊÖÈß
-static bool  IsActive_Function(void);
-static void   OnPress_Function(void);
-static void  OnRegSet_Function(int delta);
-static const SButton bFunction_Exit;                        ///< ÑÅĞÂÈÑ - ÔÓÍÊÖÈß - Âûõîä
-static const SButton bFunction_Screen;                      ///< ÑÅĞÂÈÑ - ÔÓÍÊÖÈß - İêğàí
-static void   OnPress_Function_Screen(void);
-static void      Draw_Function_Screen(int x, int y);
-static void      Draw_Function_Screen_Disable(int x, int y);
-static void      Draw_Function_Screen_Separate(int x, int y);
-static void      Draw_Function_Screen_Together(int x, int y);
-static const SButton bFunction_Type;                        ///< ÑÅĞÂÈÑ - ÔÓÍÊÖÈß - Âèä
-static void   OnPress_Function_Type(void);
-static void      Draw_Function_Type(int x, int y);
-static void      Draw_Function_Type_Sum(int x, int y);
-static void      Draw_Function_Type_Mul(int x, int y);
-static const SButton bFunction_ModeRegSet;                  ///< ÑÅĞÂÈÑ - ÔÓÍÊÖÈß - Ğåæèì ğó÷êè ÓÑÒÀÍÎÂÊÀ
-static void   OnPress_Function_ModeRegSet(void);
-static void      Draw_Function_ModeRegSet(int x, int y);
-static void      Draw_Function_ModeRegSet_Range(int x, int y);
-static void      Draw_Function_ModeRegSet_RShift(int x, int y);
-static const SButton bFunction_RangeA;                      ///< ÑÅĞÂÈÑ - ÔÓÍÊÖÈß - Ìàñøòàá 1-ãî êàíàëà
-static void   OnPress_Function_RangeA(void);
-static void      Draw_Function_RangeA(int x, int y);
-static const SButton bFunction_RangeB;                      ///< ÑÅĞÂÈÑ - ÔÓÍÊÖÈß - Ìàñøòàá 2-ãî êàíàëà
-static void   OnPress_Function_RangeB(void);
-static void      Draw_Function_RangeB(int x, int y);
-static const   Page ppEthernet;                             ///< ÑÅĞÂÈÑ - ETHERNET
-static const Choice cEthernet_Ethernet;
-static void OnChanged_Ethernet_Settings(bool active);
-
+static const       Button bResetSettings;                           ///< ÑÅĞÂÈÑ - Ñáğîñ íàñòğîåê
+        void       OnPress_ResetSettings(void);
+static void           Draw_ResetSettings(void);
+static const       Button bAutoSearch;                              ///< ÑÅĞÂÈÑ - Ïîèñê ñèãíàëà
+static void        OnPress_AutoSearch(void);
+static const        Page ppCalibrator;                              ///< ÑÅĞÂÈÑ - ÊÀËÈÁĞÀÒÎĞ
+static const       Choice cCalibrator_Calibrator;                   ///< ÑÅĞÂÈÑ - ÊÀËÈÁĞÀÒÎĞ - Êàëèáğàòîğ
+static void      OnChanged_Calibrator_Calibrator(bool active);
+static const       Button bCalibrator_Calibrate;                    ///< ÑÅĞÂÈÑ - ÊÀËÈÁĞÀÒÎĞ - Êàëèáğîâàòü
+static bool       IsActive_Calibrator_Calibrate(void);
+static void        OnPress_Calibrator_Calibrate(void);
+static const       Choice cRecorder;
+static void      OnChanged_Recorder(bool active);
+static const        Page ppFFT;                                     ///< ÑÅĞÂÈÑ - ÑÏÅÊÒĞ
+static bool       IsActive_FFT(void);
+static void        OnPress_FFT(void);
+static const       Choice cFFT_View;                                ///< ÑÅĞÂÈÑ - ÑÏÅÊÒĞ - Îòîáğàæåíèå
+static const       Choice cFFT_Scale;                               ///< ÑÅĞÂÈÑ - ÑÏÅÊÒĞ - Øêàëà
+static const       Choice cFFT_Source;                              ///< ÑÅĞÂÈÑ - ÑÏÅÊÒĞ - Èñòî÷íèê
+static const       Choice cFFT_Window;                              ///< ÑÅĞÂÈÑ - ÑÏÅÊÒĞ - Îêíî
+static const       Page pppFFT_Cursors;                             ///< ÑÅĞÂÈÑ - ÑÏÅÊÒĞ - ÊÓĞÑÎĞÛ
+static bool       IsActive_FFT_Cursors(void);
+static void       OnRegSet_FFT_Cursors(int angle);
+static const      SButton bFFT_Cursors_Exit;                        ///< ÑÅĞÂÈÑ - ÑÏÅÊÒĞ - ÊÓĞÑÎĞÛ - Âûõîä
+static void        OnPress_FFT_Cursors_Exit(void);
+static const      SButton bFFT_Cursors_Source;                      ///< ÑÅĞÂÈÑ - ÑÏÅÊÒĞ - ÊÓĞÑÎĞÛ - Èñòî÷íèê
+static void        OnPress_FFT_Cursors_Source(void);
+static void           Draw_FFT_Cursors_Source(int x, int y);
+static const       Choice cFFT_Range;                               ///< ÑÅĞÂÈÑ - ÑÏÅÊÒĞ - Äèàïàçîí
+static bool       IsActive_FFT_Range(void);
+static const        Page ppFunction;                                ///< ÑÅĞÂÈÑ - ÔÓÍÊÖÈß
+static bool       IsActive_Function(void);
+static void        OnPress_Function(void);
+static void       OnRegSet_Function(int delta);
+static const      SButton bFunction_Exit;                           ///< ÑÅĞÂÈÑ - ÔÓÍÊÖÈß - Âûõîä
+static const      SButton bFunction_Screen;                         ///< ÑÅĞÂÈÑ - ÔÓÍÊÖÈß - İêğàí
+static void        OnPress_Function_Screen(void);
+static void           Draw_Function_Screen(int x, int y);
+static void           Draw_Function_Screen_Disable(int x, int y);
+static void           Draw_Function_Screen_Separate(int x, int y);
+static void           Draw_Function_Screen_Together(int x, int y);
+static const      SButton bFunction_Type;                           ///< ÑÅĞÂÈÑ - ÔÓÍÊÖÈß - Âèä
+static void        OnPress_Function_Type(void);
+static void           Draw_Function_Type(int x, int y);
+static void           Draw_Function_Type_Sum(int x, int y);
+static void           Draw_Function_Type_Mul(int x, int y);
+static const      SButton bFunction_ModeRegSet;                     ///< ÑÅĞÂÈÑ - ÔÓÍÊÖÈß - Ğåæèì ğó÷êè ÓÑÒÀÍÎÂÊÀ
+static void        OnPress_Function_ModeRegSet(void);
+static void           Draw_Function_ModeRegSet(int x, int y);
+static void           Draw_Function_ModeRegSet_Range(int x, int y);
+static void           Draw_Function_ModeRegSet_RShift(int x, int y);
+static const      SButton bFunction_RangeA;                         ///< ÑÅĞÂÈÑ - ÔÓÍÊÖÈß - Ìàñøòàá 1-ãî êàíàëà
+static void        OnPress_Function_RangeA(void);
+static void           Draw_Function_RangeA(int x, int y);
+static const      SButton bFunction_RangeB;                         ///< ÑÅĞÂÈÑ - ÔÓÍÊÖÈß - Ìàñøòàá 2-ãî êàíàëà
+static void        OnPress_Function_RangeB(void);
+static void           Draw_Function_RangeB(int x, int y);
+static const        Page ppEthernet;                                ///< ÑÅĞÂÈÑ - ETHERNET
+static const      Choice cEthernet_Ethernet;
+static void     OnChanged_Ethernet_Settings(bool active);
+static const  IPaddress ipEthernet_IP;                              ///< ÑÅĞÂÈÑ - ETHERNET - Ethernet
+static const  IPaddress ipEthernet_NetMask;                         ///< ÑÅĞÂÈÑ - ETHERNET - IP àäğåñ
+static const  IPaddress ipEthernet_Gateway;                         ///< ÑÅĞÂÈÑ - ETHERNET - Øëşç
+static const MACaddress ipEthernet_MAC;                             ///< ÑÅĞÂÈÑ - ETHERNET - MAC àäğåñ
 
 
 
@@ -104,7 +107,7 @@ const Page pService =
         (void*)&ppFFT,              // ÑÅĞÂÈÑ - ÑÏÅÊÒĞ
         (void*)&ppFunction,         // ÑÅĞÂÈÑ - ÔÓÍÊÖÈß
         (void*)&ppEthernet,         // ÑÅĞÂÈÑ - ETHERNET
-        (void*)&mspSound,           // ÑÅĞÂÈÑ - ÇÂÓÊ
+        (void*)&ppSound,            // ÑÅĞÂÈÑ - ÇÂÓÊ
         (void*)&mspTime,            // ÑÅĞÂÈÑ - ÂĞÅÌß
         (void*)&cLanguage,          // ÑÅĞÂÈÑ - ßçûê
         (void*)&mspInformation      // ÑÅĞÂÈÑ - ÈÍÔÎĞÌÀÖÈß
@@ -761,17 +764,17 @@ static const Page ppEthernet =
     Page_ServiceEthernet,
     {
         (void*)&cEthernet_Ethernet, // ÑÅĞÂÈÑ - ETHERNET - Ethernet
-        (void*)&ipAddress,
-        (void*)&ipNetMask,
-        (void*)&ipGateway,
-        (void*)&macMAC
+        (void*)&ipEthernet_IP,      // ÑÅĞÂÈÑ - ETHERNET - IP àäğåñ
+        (void*)&ipEthernet_NetMask, // ÑÅĞÂÈÑ - ETHERNET - Ìàñêà ïîäñåòè
+        (void*)&ipEthernet_Gateway, // ÑÅĞÂÈÑ - ETHERNET - Øëşç
+        (void*)&ipEthernet_MAC      // ÑÅĞÂÈÑ - ETHERNET - MAC àäğåñ
     }
 };
 
 // ÑÅĞÂÈÑ - ETHERNET - Ethernet ----------------------------------------------------------------------------------------------------------------------
 static const Choice cEthernet_Ethernet =
 {
-    Item_Choice, &mspEthernet, 0,
+    Item_Choice, &ppEthernet, 0,
     {
         "Ethernet",    "Ethernet"
         ,
@@ -793,9 +796,10 @@ static void OnChanged_Ethernet_Settings(bool active)
     Display_ShowWarning(NeedRebootDevice);
 }
 
-static const IPaddress ipAddress =
+// ÑÅĞÂÈÑ - ETHERNET - IP àäğåñ ----------------------------------------------------------------------------------------------------------------------
+static const IPaddress ipEthernet_IP =
 {
-    Item_IP, &mspEthernet, 0,
+    Item_IP, &ppEthernet, 0,
     {
         "IP àäğåñ", "IP-address",
         "Óñòàíîâêà IP àäğåñà",
@@ -804,6 +808,45 @@ static const IPaddress ipAddress =
     &IP_ADDR0, &IP_ADDR1, &IP_ADDR2, &IP_ADDR3,
     OnChanged_Ethernet_Settings,
     &ETH_PORT
+};
+
+// ÑÅĞÂÈÑ - ETHERNET - Ìàñêà ïîäñåòè -----------------------------------------------------------------------------------------------------------------
+static const IPaddress ipEthernet_NetMask =
+{
+    Item_IP, &ppEthernet, 0,
+    {
+        "Ìàñêà ïîäñåòè", "Network mask",
+        "Óñòàíîâêà ìàñêè ïîäñåòè",
+        "Set of network mask"
+    },
+    &NETMASK_ADDR0, &NETMASK_ADDR1, &NETMASK_ADDR2, &NETMASK_ADDR3,
+    OnChanged_Ethernet_Settings
+};
+
+// ÑÅĞÂÈÑ - ETHERNET - Øëşç --------------------------------------------------------------------------------------------------------------------------
+static const IPaddress ipEthernet_Gateway =
+{
+    Item_IP, &ppEthernet, 0,
+    {
+        "Øëşç", "Gateway",
+        "Óñòàíîâêà àäğåñà îñíîâíîãî øëşçà",
+        "Set of gateway address"
+    },
+    &GW_ADDR0, &GW_ADDR1, &GW_ADDR2, &GW_ADDR3,
+    OnChanged_Ethernet_Settings
+};
+
+// ÑÅĞÂÈÑ - ETHERNET - MAC àäğåñ ---------------------------------------------------------------------------------------------------------------------
+static const MACaddress ipEthernet_MAC =
+{
+    Item_MAC, &ppEthernet, 0,
+    {
+        "MAC àäğåñ", "MAC-address",
+        "Óñòàíîâêà ôèçè÷åñêîãî àäğåñà",
+        "Set of MAC-address"
+    },
+    &set.eth_mac0, &set.eth_mac1, &set.eth_mac2, &set.eth_mac3, &set.eth_mac4, &set.eth_mac5,
+    OnChanged_Ethernet_Settings
 };
 
 

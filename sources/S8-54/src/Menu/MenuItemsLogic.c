@@ -313,9 +313,9 @@ int Governor_NumDigits(Governor *governor)
 }
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
-void IPaddress_NextPosition(IPaddress *ipAddress)
+void IPaddress_NextPosition(IPaddress *ipEthernet_IP)
 {
-    CircleIncreaseInt8(&gCurDigit, 0, ipAddress->port == 0 ? 11 : 16);
+    CircleIncreaseInt8(&gCurDigit, 0, ipEthernet_IP->port == 0 ? 11 : 16);
 }
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
