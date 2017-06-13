@@ -208,7 +208,7 @@
     <ClCompile Include="..\..\S8-54\src\Menu\Pages\PageDebug.c" />
     <ClCompile Include="..\..\S8-54\src\Menu\Pages\PageDisplay.c" />
     <ClCompile Include="..\..\S8-54\src\Menu\Pages\PageHelp.c">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</ExcludedFromBuild>
     </ClCompile>
     <ClCompile Include="..\..\S8-54\src\Menu\Pages\PageMeasures.c" />
     <ClCompile Include="..\..\S8-54\src\Menu\Pages\PageMemory.c" />

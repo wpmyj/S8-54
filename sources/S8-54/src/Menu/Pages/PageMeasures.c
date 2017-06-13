@@ -12,34 +12,34 @@
 
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-static const       Page ppFreqMeter;                    ///< ÈÇÌÅÐÅÍÈß - ×ÀÑÒÎÒÎÌÅÐ
-static const      Choice cFreqMeter_Enable;             ///< ÈÇÌÅÐÅÍÈß - ×ÀÑÒÎÒÎÌÅÐ - ×àñòîòîìåð
-static void     OnChanged_FreqMeter_Enable(bool param);
-static const      Choice cFreqMeter_TimeF;              ///< ÈÇÌÅÐÅÍÈß - ×ÀÑÒÎÒÎÌÅÐ - Âðåìÿ ñ÷¸òà F
-static const      Choice cFreqMeter_FreqClc;            ///< ÈÇÌÅÐÅÍÈß - ×ÀÑÒÎÒÎÌÅÐ - Ìåòêè âðåìåíè
-static const      Choice cFreqMeter_NumPeriods;         ///< ÈÇÌÅÐÅÍÈß - ×ÀÑÒÎÒÎÌÅÐ - Êîë-âî ïåðèîäîâ
-static const      Choice cIsShow;                       ///< ÈÇÌÅÐÅÍÈß - Ïîêàçûâàòü
-static const      Choice cNumber;                       ///< ÈÇÌÅÐÅÍÈß - Êîëè÷åñòâî
-static bool      IsActive_Number(void);
-static const      Choice cChannels;                     ///< ÈÇÌÅÐÅÍÈß - Êàíàëû
-static bool      IsActive_Channels(void);
-static const       Page ppTune;                         ///< ÈÇÌÅÐÅÍÈß - ÍÀÑÒÐÎÈÒÜ
-static bool      IsActive_Tune(void);
-static void      OnRegSet_Tune(int angle);
-static const SButton bTune_Exit;                    ///< ÈÇÌÅÐÅÍÈß - ÍÀÑÒÐÎÈÒÜ - Âûõîä
-static void       OnPress_Tune_Exit(void);
-static const SButton bTune_Markers;                 ///< ÈÇÌÅÐÅÍÈß - ÍÀÑÒÐÎÈÒÜ - Ìàðêåðû
-static void       OnPress_Tune_Markers(void);
-static void          Draw_Tune_Markers(int x, int y);
-static const SButton bTune_Settings;                ///< ÈÇÌÅÐÅÍÈß - ÍÀÑÒÐÎÈÒÜ - Íàñòðîéêà
-static void       OnPress_Tune_Settings(void);
-static void     Draw_Tune_Settings(int x, int y);
-static const      Choice cMode;                         ///< ÈÇÌÅÐÅÍÈß - Âèä
-static bool      IsActive_Mode(void);
+static const    Page ppFreqMeter;                       ///< ÈÇÌÅÐÅÍÈß - ×ÀÑÒÎÒÎÌÅÐ
+static const   Choice cFreqMeter_Enable;                ///< ÈÇÌÅÐÅÍÈß - ×ÀÑÒÎÒÎÌÅÐ - ×àñòîòîìåð
+static void  OnChanged_FreqMeter_Enable(bool param);    
+static const   Choice cFreqMeter_TimeF;                 ///< ÈÇÌÅÐÅÍÈß - ×ÀÑÒÎÒÎÌÅÐ - Âðåìÿ ñ÷¸òà F
+static const   Choice cFreqMeter_FreqClc;               ///< ÈÇÌÅÐÅÍÈß - ×ÀÑÒÎÒÎÌÅÐ - Ìåòêè âðåìåíè
+static const   Choice cFreqMeter_NumPeriods;            ///< ÈÇÌÅÐÅÍÈß - ×ÀÑÒÎÒÎÌÅÐ - Êîë-âî ïåðèîäîâ
+static const   Choice cIsShow;                          ///< ÈÇÌÅÐÅÍÈß - Ïîêàçûâàòü
+static const   Choice cNumber;                          ///< ÈÇÌÅÐÅÍÈß - Êîëè÷åñòâî
+static bool   IsActive_Number(void);
+static const   Choice cChannels;                        ///< ÈÇÌÅÐÅÍÈß - Êàíàëû
+static bool   IsActive_Channels(void);
+static const    Page ppTune;                            ///< ÈÇÌÅÐÅÍÈß - ÍÀÑÒÐÎÈÒÜ
+static bool   IsActive_Tune(void);
+static void   OnRegSet_Tune(int angle);
+static const  SButton bTune_Exit;                       ///< ÈÇÌÅÐÅÍÈß - ÍÀÑÒÐÎÈÒÜ - Âûõîä
+static void    OnPress_Tune_Exit(void);
+static const  SButton bTune_Markers;                    ///< ÈÇÌÅÐÅÍÈß - ÍÀÑÒÐÎÈÒÜ - Ìàðêåðû
+static void    OnPress_Tune_Markers(void);
+static void       Draw_Tune_Markers(int x, int y);
+static const  SButton bTune_Settings;                   ///< ÈÇÌÅÐÅÍÈß - ÍÀÑÒÐÎÈÒÜ - Íàñòðîéêà
+static void    OnPress_Tune_Settings(void);
+static void  Draw_Tune_Settings(int x, int y);
+static const   Choice cMode;                            ///< ÈÇÌÅÐÅÍÈß - Âèä
+static bool   IsActive_Mode(void);
 
-int8 posActive = 0;                 // Ïîçèöèÿ àêòèâíîãî èçìåðåíèÿ (íà êîòîðîì êóðñîð)
-bool pageChoiceIsActive = false;    // Åñëè true - ðàñêðûòà ñòðàíèöà âûáîðà èçìåðåíèÿ
-int8 posOnPageChoice = 0;           // Ïîçèöèÿ êóðñîðà íà ñòðàíèöå âûáîðà èçìåðåíèÿ
+int8 posActive = 0;                 ///< Ïîçèöèÿ àêòèâíîãî èçìåðåíèÿ (íà êîòîðîì êóðñîð)
+bool pageChoiceIsActive = false;    ///< Åñëè true - ðàñêðûòà ñòðàíèöà âûáîðà èçìåðåíèÿ
+int8 posOnPageChoice = 0;           ///< Ïîçèöèÿ êóðñîðà íà ñòðàíèöå âûáîðà èçìåðåíèÿ
 
 extern const Page mainPage;
 

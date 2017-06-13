@@ -11,16 +11,14 @@
 
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-extern const Page mainPage;
-
 static const   Choice cMode;                    ///< ÑÈÍÕÐ - Ðåæèì
-       void  OnChanged_TrigMode(bool active);
+       void  OnChanged_TrigMode(bool active);   
 static const   Choice cSource;                  ///< ÑÈÍÕÐ - Èñòî÷íèê
-static void   OnChanged_Source(bool active);
+static void  OnChanged_Source(bool active);
 static const   Choice cPolarity;                ///< ÑÈÍÕÐ - Ïîëÿðíîñòü
-static void   OnChanged_Polarity(bool active);
+static void  OnChanged_Polarity(bool active);   
 static const   Choice cInput;                   ///< ÑÈÍÕÐ - Âõîä
-static void   OnChanged_Input(bool active);
+static void  OnChanged_Input(bool active);
 static const    Page ppSearch;                  ///< ÑÈÍÕÐ - ÏÎÈÑÊ
 static const   Choice cSearch_Mode;             ///< ÑÈÍÕÐ - ÏÎÈÑÊ - Ðåæèì
 static const   Button bSearch_Search;           ///< ÑÈÍÕÐ - ÏÎÈÑÊ - Íàéòè
@@ -28,6 +26,8 @@ static bool   IsActive_Search_Search(void);
 static void    OnPress_Search_Search(void);
 static const Governor gTimeDelay;               ///< ÑÈÍÕÐ - Óäåðæàíèå
 
+
+extern const Page mainPage;
 
 
 // ÑÈÍÕÐ /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

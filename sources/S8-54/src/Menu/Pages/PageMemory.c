@@ -20,100 +20,100 @@ extern Page mainPage;
 
 extern void PressSB_FM_Tab(void);
 
-static const      Choice cPoints;                                   ///< ÏÀÌßÒÜ - Òî÷êè
-static bool      IsActive_Points(void);
-       void     OnChanged_Points(bool active);
-static const       Page ppLast;                                     ///< ÏÀÌßÒÜ - Ïîñëåäíèå
-static void       OnPress_Last(void);
-static void        OnDraw_Last(void);
-static void      OnRegSet_Last(int angle);
-static const SButton bLast_Exit;                                ///< ÏÀÌßÒÜ - Ïîñëåäíèå - Âûõîä
-static void       OnPress_Last_Exit(void);
-static const SButton bLast_Next;                                ///< ÏÀÌßÒÜ - Ïîñëåäíèå - Ñëåäóþùèé
-static void       OnPress_Last_Next(void);
-static void          Draw_Last_Next(int x, int y);
-static const SButton bLast_Prev;                                ///< ÏÀÌßÒÜ - Ïîñëåäíèå - Ïðåäûäóùèé
-static void       OnPress_Last_Prev(void);
-static void          Draw_Last_Prev(int x, int y);
-static const SButton bLast_Internal;                            ///< ÏÀÌßÒÜ - Ïîñëåäíèå - Âíóòð ÇÓ
-static void       OnPress_Last_Internal(void);
-static void          Draw_Last_Internal(int x, int y);
-static const SButton bLast_SaveToDrive;                         ///< ÏÀÌßÒÜ - Ïîñëåäíèå - Ñîõðàíèòü
-static void       OnPress_Last_SaveToDrive(void);
-static void          Draw_Last_SaveToDrive(int x, int y);
-static const       Page ppInternal;                                 ///< ÏÀÌßÒÜ - ÂÍÓÒÐ ÇÓ - 
-static void       OnPress_Internal(void);
-static void        OnDraw_Internal(void);
-static void      OnRegSet_Internal(int delta);
-static const SButton bInternal_Exit;                            ///< ÏÀÌßÒÜ - ÂÍÓÒÐ ÇÓ - Âûõîä
-static void       OnPress_Internal_Exit(void);
-static const SButton bInternal_ShowAlways;                      ///< ÏÀÌßÒÜ - ÂÍÓÒÐ ÇÓ - Ïîêàçûâàòü âñåãäà
-static void       OnPress_Internal_ShowAlways(void);
-static void          Draw_Internal_ShowAlways(int x, int y);
-static void          Draw_Internal_ShowAlways_Yes(int x, int y);
-static void          Draw_Internal_ShowAlways_No(int x, int y);
-static const SButton bInternal_ModeShow;                        ///< ÏÀÌßÒÜ - ÂÍÓÒÐ ÇÓ - Âèä ñèãíàëà
-static void       OnPress_Internal_ModeShow(void);
-static void          Draw_Internal_ModeShow(int x, int y);
-static void          Draw_Internal_ModeShow_Direct(int x, int y);
-static void          Draw_Internal_ModeShow_Saved(int x, int y);
-static void          Draw_Internal_ModeShow_Both(int x, int y);
-static const SButton bInternal_EraseAll;                        ///< ÏÀÌßÒÜ - ÂÍÓÒÐ ÇÓ - Ñòåðåòü âñå
-static void       OnPress_Internal_EraseAll(void);
-static void          Draw_Internal_EraseAll(int x, int y);
-static const SButton bInternal_SaveToMemory;                    ///< ÏÀÌßÒÜ - ÂÍÓÒÐ ÇÓ - Ñîõðàíèòü
-static void       OnPress_Internal_SaveToMemory(void);
-static void          Draw_Internal_SaveToMemory(int x, int y);
-static const SButton bInternal_SaveToDrive;                     ///< ÏÀÌßÒÜ - ÂÍÓÒÐ ÇÓ - Ñîõðàíèòü íà ôëåøêó
-static void       OnPress_Internal_SaveToDrive(void);
-static void          Draw_Internal_SaveToDrive(int x, int y);
-static const       Page ppDrive;                                    ///< ÏÀÌßÒÜ - ÂÍÅØÍ ÇÓ
-static const      Choice cDrive_Name;                               ///< ÏÀÌßÒÜ - ÂÍÅØÍ ÇÓ - Èìÿ ôàéëà
-static const      Choice cDrive_SaveAs;                             ///< ÏÀÌßÒÜ - ÂÍÅØÍ ÇÓ - Ñîõðàíÿòü êàê
-static const      Choice cDrive_ModeBtnMemory;                      ///< ÏÀÌßÒÜ - ÂÍÅØÍ ÇÓ - Ðåæèì êí ÏÀÌßÒÜ
-static const      Choice cDrive_Autoconnect;                        ///< ÏÀÌßÒÜ - ÂÍÅØÍ ÇÓ - Àâòîïîäëþ÷åíèå
-static const      Page pppDrive_Manager;                            ///< ÏÀÌßÒÜ - ÂÍÅØÍ ÇÓ - ÊÀÒÀËÎÃ
-static bool      IsActive_Drive_Manager(void);
-       void       OnPress_Drive_Manager(void);
-static const SButton bDrive_Manager_Exit;                       ///< ÏÀÌßÒÜ - ÂÍÅØÍ ÇÓ - ÊÀÒÀËÎÃ - Âûõîä
-static void       OnPress_Drive_Manager_Exit(void);
-static const SButton bDrive_Manager_Tab;                        ///< ÏÀÌßÒÜ - ÂÍÅØÍ ÇÓ - ÊÀÒÀËÎÃ - Tab
-static void          Draw_Drive_Manager_Tab(int x, int y);
-static const SButton bDrive_Manager_LevelUp;                    ///< ÏÀÌßÒÜ - ÂÍÅØÍ ÇÓ - ÊÀÒÀËÎÃ - Âûéòè èç êàòàëîãà
-static void          Draw_Drive_Manager_LevelUp(int x, int y);
-static const SButton bDrive_Manager_LevelDown;                  ///< ÏÀÌßÒÜ - ÂÍÅØÍ ÇÓ - ÊÀÒÀËÎÃ - Âîéòè â êàòàëîã
-static void          Draw_Drive_Manager_LevelDown(int x, int y);
-static const      Page pppDrive_Mask;                               ///< ÏÀÌßÒÜ - ÂÍÅØÍ ÇÓ - ÌÀÑÊÀ
-static bool      IsActive_Drive_Mask(void);
-static void       OnPress_Drive_Mask(void);
-static void      OnRegSet_Drive_Mask(int angle);
-static const SButton bDrive_Mask_Exit;                          ///< ÏÀÌßÒÜ - ÂÍÅØÍ ÇÓ - ÌÀÑÊÀ - Âûõîä
-static void       OnPress_Drive_Mask_Exit(void);
-static const SButton bDrive_Mask_Delete;                        ///< ÏÀÌßÒÜ - ÂÍÅØÍ ÇÓ - ÌÀÑÊÀ - Óäàëèòü
-static void       OnPress_Drive_Mask_Delete(void);
-static void          Draw_Drive_Mask_Delete(int x, int y);
-static const SButton bDrive_Mask_Backspace;                     ///< ÏÀÌßÒÜ - ÂÍÅØÍ ÇÓ - ÌÀÑÊÀ - Backspace
-static void       OnPress_Drive_Mask_Backspace(void);
-static void          Draw_Drive_Mask_Backspace(int x, int y);
-static const SButton bDrive_Mask_Insert;                        ///< ÏÀÌßÒÜ - ÂÍÅØÍ ÇÓ - ÌÀÑÊÀ - Âñòàâèòü
-static void       OnPress_Drive_Mask_Insert(void);
-static void          Draw_Drive_Mask_Insert(int x, int y);
-              const Page pSetName;                                  ///< ÓÑÒÀÍÎÂÊÀ ÈÌÅÍÈ
-static void      OnRegSet_SetName(int angle);
-static const SButton bSetName_Exit;                             ///< ÓÑÒÀÍÎÂÊÀ ÈÌÅÍÈ - Âûõîä
-static void       OnPress_SetName_Exit(void);
-static const SButton bSetName_Delete;                           ///< ÓÑÒÀÍÎÂÊÀ ÈÌÅÍÈ - Óäàëèòü
-static void       OnPress_SetName_Delete(void);
-static void          Draw_SetName_Delete(int x, int y);
-static const SButton bSetName_Backspace;                        ///< ÓÑÒÀÍÎÂÊÀ ÈÌÅÍÈ - Backspace
-static void       OnPress_SetName_Backspace(void);
-static void          Draw_SetName_Backspace(int x, int y);
-static const SButton bSetName_Insert;                           ///< ÓÑÒÀÍÎÂÊÀ ÈÌÅÍÈ - Âñòàâèòü
-static void       OnPress_SetName_Insert(void);
-static void          Draw_SetName_Insert(int x, int y);
-static const SButton bSetName_Save;                             ///< ÓÑÒÀÍÎÂÊÀ ÈÌÅÍÈ - Ñîõðàíèòü
-static void       OnPress_SetName_Save(void);
-static void          Draw_SetName_Save(int x, int y);
+static const    Choice cPoints;                                 ///< ÏÀÌßÒÜ - Òî÷êè
+static bool    IsActive_Points(void);
+       void   OnChanged_Points(bool active);
+static const     Page ppLast;                                   ///< ÏÀÌßÒÜ - Ïîñëåäíèå
+static void     OnPress_Last(void);
+static void      OnDraw_Last(void);
+static void    OnRegSet_Last(int angle);
+static const   SButton bLast_Exit;                              ///< ÏÀÌßÒÜ - Ïîñëåäíèå - Âûõîä
+static void     OnPress_Last_Exit(void);
+static const   SButton bLast_Next;                              ///< ÏÀÌßÒÜ - Ïîñëåäíèå - Ñëåäóþùèé
+static void     OnPress_Last_Next(void);
+static void        Draw_Last_Next(int x, int y);
+static const   SButton bLast_Prev;                              ///< ÏÀÌßÒÜ - Ïîñëåäíèå - Ïðåäûäóùèé
+static void     OnPress_Last_Prev(void);
+static void        Draw_Last_Prev(int x, int y);
+static const   SButton bLast_Internal;                          ///< ÏÀÌßÒÜ - Ïîñëåäíèå - Âíóòð ÇÓ
+static void     OnPress_Last_Internal(void);
+static void        Draw_Last_Internal(int x, int y);
+static const   SButton bLast_SaveToDrive;                       ///< ÏÀÌßÒÜ - Ïîñëåäíèå - Ñîõðàíèòü
+static void     OnPress_Last_SaveToDrive(void);
+static void        Draw_Last_SaveToDrive(int x, int y);
+static const     Page ppInternal;                               ///< ÏÀÌßÒÜ - ÂÍÓÒÐ ÇÓ - 
+static void     OnPress_Internal(void);
+static void      OnDraw_Internal(void);
+static void    OnRegSet_Internal(int delta);
+static const   SButton bInternal_Exit;                          ///< ÏÀÌßÒÜ - ÂÍÓÒÐ ÇÓ - Âûõîä
+static void     OnPress_Internal_Exit(void);
+static const   SButton bInternal_ShowAlways;                    ///< ÏÀÌßÒÜ - ÂÍÓÒÐ ÇÓ - Ïîêàçûâàòü âñåãäà
+static void     OnPress_Internal_ShowAlways(void);
+static void        Draw_Internal_ShowAlways(int x, int y);
+static void        Draw_Internal_ShowAlways_Yes(int x, int y);
+static void        Draw_Internal_ShowAlways_No(int x, int y);
+static const   SButton bInternal_ModeShow;                      ///< ÏÀÌßÒÜ - ÂÍÓÒÐ ÇÓ - Âèä ñèãíàëà
+static void     OnPress_Internal_ModeShow(void);
+static void        Draw_Internal_ModeShow(int x, int y);
+static void        Draw_Internal_ModeShow_Direct(int x, int y); 
+static void        Draw_Internal_ModeShow_Saved(int x, int y);
+static void        Draw_Internal_ModeShow_Both(int x, int y);
+static const   SButton bInternal_EraseAll;                      ///< ÏÀÌßÒÜ - ÂÍÓÒÐ ÇÓ - Ñòåðåòü âñå
+static void     OnPress_Internal_EraseAll(void);
+static void        Draw_Internal_EraseAll(int x, int y);
+static const   SButton bInternal_SaveToMemory;                  ///< ÏÀÌßÒÜ - ÂÍÓÒÐ ÇÓ - Ñîõðàíèòü
+static void     OnPress_Internal_SaveToMemory(void);
+static void        Draw_Internal_SaveToMemory(int x, int y);
+static const   SButton bInternal_SaveToDrive;                   ///< ÏÀÌßÒÜ - ÂÍÓÒÐ ÇÓ - Ñîõðàíèòü íà ôëåøêó
+static void     OnPress_Internal_SaveToDrive(void);
+static void        Draw_Internal_SaveToDrive(int x, int y);
+static const     Page ppDrive;                                  ///< ÏÀÌßÒÜ - ÂÍÅØÍ ÇÓ
+static const    Choice cDrive_Name;                             ///< ÏÀÌßÒÜ - ÂÍÅØÍ ÇÓ - Èìÿ ôàéëà
+static const    Choice cDrive_SaveAs;                           ///< ÏÀÌßÒÜ - ÂÍÅØÍ ÇÓ - Ñîõðàíÿòü êàê
+static const    Choice cDrive_ModeBtnMemory;                    ///< ÏÀÌßÒÜ - ÂÍÅØÍ ÇÓ - Ðåæèì êí ÏÀÌßÒÜ
+static const    Choice cDrive_Autoconnect;                      ///< ÏÀÌßÒÜ - ÂÍÅØÍ ÇÓ - Àâòîïîäëþ÷åíèå
+static const    Page pppDrive_Manager;                          ///< ÏÀÌßÒÜ - ÂÍÅØÍ ÇÓ - ÊÀÒÀËÎÃ
+static bool    IsActive_Drive_Manager(void);
+       void     OnPress_Drive_Manager(void);
+static const   SButton bDrive_Manager_Exit;                     ///< ÏÀÌßÒÜ - ÂÍÅØÍ ÇÓ - ÊÀÒÀËÎÃ - Âûõîä
+static void     OnPress_Drive_Manager_Exit(void);
+static const   SButton bDrive_Manager_Tab;                      ///< ÏÀÌßÒÜ - ÂÍÅØÍ ÇÓ - ÊÀÒÀËÎÃ - Tab
+static void        Draw_Drive_Manager_Tab(int x, int y);
+static const   SButton bDrive_Manager_LevelUp;                  ///< ÏÀÌßÒÜ - ÂÍÅØÍ ÇÓ - ÊÀÒÀËÎÃ - Âûéòè èç êàòàëîãà
+static void        Draw_Drive_Manager_LevelUp(int x, int y);
+static const   SButton bDrive_Manager_LevelDown;                ///< ÏÀÌßÒÜ - ÂÍÅØÍ ÇÓ - ÊÀÒÀËÎÃ - Âîéòè â êàòàëîã
+static void        Draw_Drive_Manager_LevelDown(int x, int y);
+static const    Page pppDrive_Mask;                             ///< ÏÀÌßÒÜ - ÂÍÅØÍ ÇÓ - ÌÀÑÊÀ
+static bool    IsActive_Drive_Mask(void);
+static void     OnPress_Drive_Mask(void);
+static void    OnRegSet_Drive_Mask(int angle);
+static const   SButton bDrive_Mask_Exit;                        ///< ÏÀÌßÒÜ - ÂÍÅØÍ ÇÓ - ÌÀÑÊÀ - Âûõîä
+static void     OnPress_Drive_Mask_Exit(void);
+static const   SButton bDrive_Mask_Delete;                      ///< ÏÀÌßÒÜ - ÂÍÅØÍ ÇÓ - ÌÀÑÊÀ - Óäàëèòü
+static void     OnPress_Drive_Mask_Delete(void);
+static void        Draw_Drive_Mask_Delete(int x, int y);
+static const   SButton bDrive_Mask_Backspace;                   ///< ÏÀÌßÒÜ - ÂÍÅØÍ ÇÓ - ÌÀÑÊÀ - Backspace
+static void     OnPress_Drive_Mask_Backspace(void);
+static void        Draw_Drive_Mask_Backspace(int x, int y);
+static const   SButton bDrive_Mask_Insert;                      ///< ÏÀÌßÒÜ - ÂÍÅØÍ ÇÓ - ÌÀÑÊÀ - Âñòàâèòü
+static void     OnPress_Drive_Mask_Insert(void);
+static void        Draw_Drive_Mask_Insert(int x, int y);
+            const Page pSetName;                                ///< ÓÑÒÀÍÎÂÊÀ ÈÌÅÍÈ
+static void    OnRegSet_SetName(int angle);
+static const   SButton bSetName_Exit;                           ///< ÓÑÒÀÍÎÂÊÀ ÈÌÅÍÈ - Âûõîä
+static void     OnPress_SetName_Exit(void);
+static const   SButton bSetName_Delete;                         ///< ÓÑÒÀÍÎÂÊÀ ÈÌÅÍÈ - Óäàëèòü
+static void     OnPress_SetName_Delete(void);
+static void        Draw_SetName_Delete(int x, int y);
+static const   SButton bSetName_Backspace;                      ///< ÓÑÒÀÍÎÂÊÀ ÈÌÅÍÈ - Backspace
+static void     OnPress_SetName_Backspace(void);
+static void        Draw_SetName_Backspace(int x, int y);
+static const   SButton bSetName_Insert;                         ///< ÓÑÒÀÍÎÂÊÀ ÈÌÅÍÈ - Âñòàâèòü
+static void     OnPress_SetName_Insert(void);
+static void        Draw_SetName_Insert(int x, int y);
+static const   SButton bSetName_Save;                           ///< ÓÑÒÀÍÎÂÊÀ ÈÌÅÍÈ - Ñîõðàíèòü
+static void     OnPress_SetName_Save(void);
+static void        Draw_SetName_Save(int x, int y);
 
 static void DrawSetMask(void);  // Ýòà ôóíêöèÿ ðèñóåò, êîãäà âûáðàí ðåæèì çàäàíèÿ ìàñêè.
 static void DrawFileMask(int x, int y);
