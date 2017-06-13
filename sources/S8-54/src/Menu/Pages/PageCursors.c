@@ -21,40 +21,40 @@
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 extern const Page mainPage;
 
-static const      Choice cShow;                              ///< ÊÓÐÑÎÐÛ - Ïîêàçûâàòü
-static const      Choice cLookModeChanA;                     ///< ÊÓÐÑÎÐÛ - Ñëåæåíèå êàíàë 1
-static const      Choice cLookModeChanB;                     ///< ÊÓÐÑÎÐÛ - Ñëåæåíèå êàíàë 2
-static const      Choice cShowFreq;                          ///< ÊÓÐÎÑÐÛ - 1/dT
-static const       Page ppSet;                                ///< ÊÓÐÑÎÐÛ - ÓÑÒÀÍÎÂÈÒÜ
-static void      OnRegSet_Set(int angle);
-static const SButton bSet_Exit;                     ///< ÊÓÐÑÎÐÛ - ÓÑÒÀÍÎÂÈÒÜ - Âûõîä
-static void       OnPress_Set_Exit(void);
-static const SButton bSet_Channel;                  ///< ÊÓÐÑÎÐÛ - ÓÑÒÀÍÎÂÈÒÜ - Êàíàë
-static void       OnPress_Set_Channel(void);
+static const  Choice cShow;                             ///< ÊÓÐÑÎÐÛ - Ïîêàçûâàòü
+static const  Choice cLookModeChanA;                    ///< ÊÓÐÑÎÐÛ - Ñëåæåíèå êàíàë 1
+static const  Choice cLookModeChanB;                    ///< ÊÓÐÑÎÐÛ - Ñëåæåíèå êàíàë 2
+static const  Choice cShowFreq;                         ///< ÊÓÐÎÑÐÛ - 1/dT
+static const   Page ppSet;                              ///< ÊÓÐÑÎÐÛ - ÓÑÒÀÍÎÂÈÒÜ
+static void  OnRegSet_Set(int angle);
+static const SButton bSet_Exit;                         ///< ÊÓÐÑÎÐÛ - ÓÑÒÀÍÎÂÈÒÜ - Âûõîä
+static void   OnPress_Set_Exit(void);
+static const SButton bSet_Channel;                      ///< ÊÓÐÑÎÐÛ - ÓÑÒÀÍÎÂÈÒÜ - Êàíàë
+static void   OnPress_Set_Channel(void);
 static void      Draw_Set_Channel(int x, int y);
 static void      Draw_Set_ChannelA(int x, int y);
 static void      Draw_Set_ChannelB(int x, int y);
-static const SButton bSet_U;                        ///< ÊÓÐÑÎÐÛ - ÓÑÒÀÍÎÂÈÒÜ - Êóðñîðû U
-static void       OnPress_Set_U(void);
+static const SButton bSet_U;                            ///< ÊÓÐÑÎÐÛ - ÓÑÒÀÍÎÂÈÒÜ - Êóðñîðû U
+static void   OnPress_Set_U(void);
 static void      Draw_Set_U(int x, int y);
 static void      Draw_Set_U_disable(int x, int y);
 static void      Draw_Set_U_disableBoth(int x, int y);
 static void      Draw_Set_U_enableUpper(int x, int y);
 static void      Draw_Set_U_enableLower(int x, int y);
 static void      Draw_Set_U_enableBoth(int x, int y);
-static const SButton bSet_T;                        ///< ÊÓÐÑÎÐÛ - ÓÑÒÀÍÎÂÈÒÜ - Êóðñîðû Ò
-static void       OnPress_Set_T(void);
+static const SButton bSet_T;                            ///< ÊÓÐÑÎÐÛ - ÓÑÒÀÍÎÂÈÒÜ - Êóðñîðû Ò
+static void   OnPress_Set_T(void);
 static void      Draw_Set_T(int x, int y);
 static void      Draw_Set_T_disable(int x, int y);
 static void      Draw_Set_T_disableBoth(int x, int y);
 static void      Draw_Set_T_enableLeft(int x, int y);
 static void      Draw_Set_T_enableRight(int x, int y);
 static void      Draw_Set_T_enableBoth(int x, int y);
-static const SButton bSet_100;                      ///< ÊÓÐÑÎÐÛ - ÓÑÒÀÍÎÂÈÒÜ - 100%
-static void       OnPress_Set_100(void);
+static const SButton bSet_100;                          ///< ÊÓÐÑÎÐÛ - ÓÑÒÀÍÎÂÈÒÜ - 100%
+static void   OnPress_Set_100(void);
 static void      Draw_Set_100(int x, int y);
-static const SButton bSet_Movement;                 ///< ÊÓÐÑÎÐÛ - ÓÑÒÀÍÎÂÈÒÜ - Ïåðåìåùåíèå
-static void       OnPress_Set_Movement(void);
+static const SButton bSet_Movement;                     ///< ÊÓÐÑÎÐÛ - ÓÑÒÀÍÎÂÈÒÜ - Ïåðåìåùåíèå
+static void   OnPress_Set_Movement(void);
 static void      Draw_Set_Movement(int x, int y);
 static void      Draw_Set_Movement_Percents(int x, int y);
 static void      Draw_Set_Movement_Points(int x, int y);
