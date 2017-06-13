@@ -15,8 +15,8 @@
 #include <string.h>
 
 
-extern void OnChange_ADC_Stretch_Mode(bool active);
-extern void OnChange_DisplayOrientation(bool);
+extern void OnChanged_ADC_Stretch_Mode(bool active);
+extern void OnChanged_DisplayOrientation(bool);
 
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -267,8 +267,8 @@ void Settings_Load(bool _default)
     FPGA_SetNumberMeasuresForGates(NUM_MEASURES_FOR_GATES);
     Menu_SetAutoHide(true);
     Display_ChangedRShiftMarkers(true);
-    OnChange_ADC_Stretch_Mode(true);
-    OnChange_DisplayOrientation(true);
+    OnChanged_ADC_Stretch_Mode(true);
+    OnChanged_DisplayOrientation(true);
 
     gBF.alreadyLoadSettings = 1;
 }

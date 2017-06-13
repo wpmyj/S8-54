@@ -16,11 +16,11 @@ extern const Page mainPage;
 static const   Choice cMode;                    ///< ÑÈÍÕÐ - Ðåæèì
        void  OnChanged_TrigMode(bool active);
 static const   Choice cSource;                  ///< ÑÈÍÕÐ - Èñòî÷íèê
-static void   OnChange_Source(bool active);
+static void   OnChanged_Source(bool active);
 static const   Choice cPolarity;                ///< ÑÈÍÕÐ - Ïîëÿðíîñòü
-static void   OnChange_Polarity(bool active);
+static void   OnChanged_Polarity(bool active);
 static const   Choice cInput;                   ///< ÑÈÍÕÐ - Âõîä
-static void   OnChange_Input(bool active);
+static void   OnChanged_Input(bool active);
 static const    Page ppSearch;                  ///< ÑÈÍÕÐ - ÏÎÈÑÊ
 static const   Choice cSearch_Mode;             ///< ÑÈÍÕÐ - ÏÎÈÑÊ - Ðåæèì
 static const   Button bSearch_Search;           ///< ÑÈÍÕÐ - ÏÎÈÑÊ - Íàéòè
@@ -116,10 +116,10 @@ static const Choice cSource =
         {"Êàíàë 2", "Channel 2"},
         {"Âíåøíèé", "External"}
     },
-    (int8*)&TRIGSOURCE, OnChange_Source
+    (int8*)&TRIGSOURCE, OnChanged_Source
 };
 
-static void OnChange_Source(bool active)
+static void OnChanged_Source(bool active)
 {
     FPGA_SetTrigSource(TRIGSOURCE);
 }
@@ -141,10 +141,10 @@ static const Choice cPolarity =
         {"Ôðîíò",       "Front"},
         {"Ñðåç",        "Back"}
     },
-    (int8*)&TRIG_POLARITY, OnChange_Polarity
+    (int8*)&TRIG_POLARITY, OnChanged_Polarity
 };
 
-static void OnChange_Polarity(bool active)
+static void OnChanged_Polarity(bool active)
 {
     FPGA_SetTrigPolarity(TRIG_POLARITY);
 }
@@ -174,10 +174,10 @@ static const Choice cInput =
         {"ÔÍ×", "LPF"},
         {"ÔÂ×", "HPF"}
     },
-    (int8*)&TRIG_INPUT, OnChange_Input
+    (int8*)&TRIG_INPUT, OnChanged_Input
 };
 
-static void OnChange_Input(bool active)
+static void OnChanged_Input(bool active)
 {
     FPGA_SetTrigInput(TRIG_INPUT);
 }

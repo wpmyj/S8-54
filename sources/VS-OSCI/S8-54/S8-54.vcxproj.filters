@@ -1098,8 +1098,8 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <Text Include="..\..\S8-54\src\Menu\Menu_reference.txt">
-      <Filter>Menu</Filter>
+    <Text Include="..\..\S8-54\src\dox\Menu_reference.txt">
+      <Filter>_dox</Filter>
     </Text>
   </ItemGroup>
 </Project>

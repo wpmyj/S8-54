@@ -13,37 +13,32 @@
 
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-extern const Page mainPage;
-
-static const Choice mcChanA_Input;
-static const Choice mcChanA_Couple;
-static const Choice mcChanA_Bandwidth;
-static const Choice mcChanA_Resistance;
-static const Choice mcChanA_Inverse;
-static const Choice mcChanA_Divider;
-static const Button mbChanA_Balance;
-
-static const Choice mcChanB_Input;
-static const Choice mcChanB_Couple;
-static const Choice mcChanB_Bandwidth;
-static const Choice mcChanB_Resistance;
-static const Choice mcChanB_Inverse;
-static const Choice mcChanB_Divider;
-static const Button mbChanB_Balance;
-
-       void OnChange_ChanA_Input(bool active);
-static void OnChange_ChanA_Couple(bool active);
-static void OnChange_ChanA_Bandwidth(bool active);
-static void OnChange_ChanA_Resistance(bool active);
-static void OnChange_ChanA_Inverse(bool active);
+static const  Choice cChanA_Input;                      ///< ÊÀÍÀË 1 - Âõîä
+       void OnChanged_ChanA_Input(bool active);
+static const  Choice cChanA_Couple;                     ///< ÊÀÍÀË 1 - Ñâÿçü
+static void OnChanged_ChanA_Couple(bool active);
+static const  Choice cChanA_Bandwidth;                  ///< ÊÀÍÀË 1 - Ïîëîñà
+static void OnChanged_ChanA_Bandwidth(bool active);
+static const  Choice cChanA_Resistance;                 ///< ÊÀÍÀË 1 - Âõ ñîïð
+static void OnChanged_ChanA_Resistance(bool active);
+static const  Choice cChanA_Inverse;                    ///< ÊÀÍÀË 1 - Èíâåðñèÿ
+static void OnChanged_ChanA_Inverse(bool active);
+static const Choice cChanA_Divider;                     ///< ÊÀÍÀË 1 - Äåëèòåëü
+static const Button bChanA_Balance;                     ///< ÊÀÍÀË 1 - Áàëàíñèðîâàòü
 static void OnPress_ChanA_Balance(void);
-
+static const Choice cChanB_Input;
 static bool IsActive_ChanB_Input(void);
-       void OnChange_ChanB_Input(bool active);
-static void OnChange_ChanB_Couple(bool active);
-static void OnChange_ChanB_Bandwidth(bool active);
-static void OnChange_ChanB_Resistance(bool active);
-static void OnChange_ChanB_Inverse(bool active);
+      void OnChanged_ChanB_Input(bool active);
+static const Choice cChanB_Couple;
+static void OnChanged_ChanB_Couple(bool active);
+static const Choice cChanB_Bandwidth;
+static void OnChanged_ChanB_Bandwidth(bool active);
+static const Choice cChanB_Resistance;
+static void OnChanged_ChanB_Resistance(bool active);
+static const Choice cChanB_Inverse;
+static void OnChanged_ChanB_Inverse(bool active);
+static const Choice cChanB_Divider;
+static const Button bChanB_Balance;
 static void OnPress_ChanB_Balance(void);
 
 
@@ -68,6 +63,7 @@ static const char chanInverseEn[] = "When \"Enable\" signal on the screen will b
 static const char chanDividerRu[] = "Îñëàáëåíèå ñèãíàëà:\n\"Âûêë\" - ñèãíàë íå îñëàáëÿåòñÿ.\n\"x10\" - ñèãíàë îñëàáëÿåòñÿ â 10 ðàç";
 static const char chanDividerEn[] = "Attenuation: \n\"Off\" - the signal is not attenuated.\n\"x10\" - the signal is attenuated by 10 times";
 
+extern const Page mainPage;
 
 // ÊÀÍÀË 1 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 const Page pChanA =
@@ -80,18 +76,18 @@ const Page pChanA =
     },
     Page_ChannelA,
     {
-        (void*)&mcChanA_Input,      // ÊÀÍÀË 1 - Âõîä
-        (void*)&mcChanA_Couple,     // ÊÀÍÀË 1 - Ñâÿçü
-        (void*)&mcChanA_Bandwidth,  // ÊÀÍÀË 1 - Ïîëîñà
-        (void*)&mcChanA_Resistance, // ÊÀÍÀË 1 - Âõ ñîïð
-        (void*)&mcChanA_Inverse,    // ÊÀÍÀË 1 - Èíâåðñèÿ
-        (void*)&mcChanA_Divider,    // ÊÀÍÀË 1 - Äåëèòåëü
-        (void*)&mbChanA_Balance     // ÊÀÍÀË 1 - Áàëàíñèðîâàòü
+        (void*)&cChanA_Input,       // ÊÀÍÀË 1 - Âõîä
+        (void*)&cChanA_Couple,      // ÊÀÍÀË 1 - Ñâÿçü
+        (void*)&cChanA_Bandwidth,   // ÊÀÍÀË 1 - Ïîëîñà
+        (void*)&cChanA_Resistance,  // ÊÀÍÀË 1 - Âõ ñîïð
+        (void*)&cChanA_Inverse,     // ÊÀÍÀË 1 - Èíâåðñèÿ
+        (void*)&cChanA_Divider,     // ÊÀÍÀË 1 - Äåëèòåëü
+        (void*)&bChanA_Balance      // ÊÀÍÀË 1 - Áàëàíñèðîâàòü
     }
 };
 
 // ÊÀÍÀË 1 - Âõîä ------------------------------------------------------------------------------------------------------------------------------------
-static const Choice mcChanA_Input =
+static const Choice cChanA_Input =
 {
     Item_Choice, &pChanA, 0,
     {
@@ -103,16 +99,16 @@ static const Choice mcChanA_Input =
         {DISABLE_RU, DISABLE_EN},
         {ENABLE_RU, ENABLE_EN}
     },
-    (int8*)&SET_ENABLED_A, OnChange_ChanA_Input
+    (int8*)&SET_ENABLED_A, OnChanged_ChanA_Input
 };
 
-void OnChange_ChanA_Input(bool active)
+void OnChanged_ChanA_Input(bool active)
 {
     Panel_EnableLEDChannelA(sChannel_Enabled(A));
 }
 
 // ÊÀÍÀË 1 - Ñâÿçü -----------------------------------------------------------------------------------------------------------------------------------
-static const Choice mcChanA_Couple =
+static const Choice cChanA_Couple =
 {
     Item_Choice, &pChanA, 0,
     {
@@ -125,16 +121,16 @@ static const Choice mcChanA_Couple =
         {"Ïåðåì", "DC"},
         {"Çåìëÿ", "Ground"}
     },
-    (int8*)&SET_COUPLE_A, OnChange_ChanA_Couple
+    (int8*)&SET_COUPLE_A, OnChanged_ChanA_Couple
 };
 
-static void OnChange_ChanA_Couple(bool active)
+static void OnChanged_ChanA_Couple(bool active)
 {
     FPGA_SetModeCouple(A, SET_COUPLE_A);
 }
 
 // ÊÀÍÀË 1 - Ïîëîñà ----------------------------------------------------------------------------------------------------------------------------------
-static const Choice mcChanA_Bandwidth =
+static const Choice cChanA_Bandwidth =
 {
     Item_Choice, &pChanA, 0,
     {
@@ -145,16 +141,16 @@ static const Choice mcChanA_Bandwidth =
         {"Ïîëíàÿ", "Full"},
         {"20ÌÃö", "20MHz"}
     },
-    (int8*)&SET_BANDWIDTH_A, OnChange_ChanA_Bandwidth
+    (int8*)&SET_BANDWIDTH_A, OnChanged_ChanA_Bandwidth
 };
 
-static void OnChange_ChanA_Bandwidth(bool active)
+static void OnChanged_ChanA_Bandwidth(bool active)
 {
     FPGA_SetBandwidth(A);
 }
 
 // ÊÀÍÀË 1 - Ñîïðîòèâëåíèå ---------------------------------------------------------------------------------------------------------------------------
-static const Choice mcChanA_Resistance =
+static const Choice cChanA_Resistance =
 {
     Item_Choice, &pChanA, 0,
     {
@@ -165,10 +161,10 @@ static const Choice mcChanA_Resistance =
         {"1 ÌÎì", "1 Mohm"},
         {"50 Îì", "50 Ohm"}
     },
-    (int8*)&SET_RESISTANCE_A, OnChange_ChanA_Resistance
+    (int8*)&SET_RESISTANCE_A, OnChanged_ChanA_Resistance
 };
 
-static void OnChange_ChanA_Resistance(bool active)
+static void OnChanged_ChanA_Resistance(bool active)
 {
     FPGA_SetResistance(A, SET_RESISTANCE_A);
     if (SET_RESISTANCE_A == Resistance_50Om)
@@ -178,7 +174,7 @@ static void OnChange_ChanA_Resistance(bool active)
 }
 
 // ÊÀÍÀË 1 - Èíâåðñèÿ --------------------------------------------------------------------------------------------------------------------------------
-static const Choice mcChanA_Inverse =
+static const Choice cChanA_Inverse =
 {
     Item_Choice, &pChanA, 0,
     {
@@ -190,16 +186,16 @@ static const Choice mcChanA_Inverse =
         {DISABLE_RU, DISABLE_EN},
         {ENABLE_RU, ENABLE_EN}
     },
-    (int8*)&SET_INVERSE_A, OnChange_ChanA_Inverse
+    (int8*)&SET_INVERSE_A, OnChanged_ChanA_Inverse
 };
 
-static void OnChange_ChanA_Inverse(bool active)
+static void OnChanged_ChanA_Inverse(bool active)
 {
     FPGA_SetRShift(A, SET_RSHIFT_A);
 }
 
-// ÊÀÍÀË 1 - Ìíîæèòåëü -------------------------------------------------------------------------------------------------------------------------------
-static const Choice mcChanA_Divider =
+// ÊÀÍÀË 1 - Äåëèòåëü --------------------------------------------------------------------------------------------------------------------------------
+static const Choice cChanA_Divider =
 {
     Item_Choice, &pChanA, 0,
     {
@@ -215,7 +211,7 @@ static const Choice mcChanA_Divider =
 };
 
 // ÊÀÍÀË 1 - Áàëàíñèðîâàòü ---------------------------------------------------------------------------------------------------------------------------
-static const Button mbChanA_Balance =
+static const Button bChanA_Balance =
 {
     Item_Button, &pChanA, 0,
     {
@@ -242,18 +238,18 @@ const Page pChanB =
     },
     Page_ChannelB,
     {
-        (void*)&mcChanB_Input,      // ÊÀÍÀË 2 - Âõîä
-        (void*)&mcChanB_Couple,     // ÊÀÍÀË 2 - Ñâÿçü
-        (void*)&mcChanB_Bandwidth,  // ÊÀÍÀË 2 - Ïîëîñà
-        (void*)&mcChanB_Resistance, // ÊÀÍÀË 2 - Ñîïðîòèâëåíèå
-        (void*)&mcChanB_Inverse,    // ÊÀÍÀË 2 - Èíâåðñèÿ
-        (void*)&mcChanB_Divider,    // ÊÀÍÀË 2 - Äåëèòåëü
-        (void*)&mbChanB_Balance     // ÊÀÍÀË 2 - Áàëàíñèðîâàòü
+        (void*)&cChanB_Input,      // ÊÀÍÀË 2 - Âõîä
+        (void*)&cChanB_Couple,     // ÊÀÍÀË 2 - Ñâÿçü
+        (void*)&cChanB_Bandwidth,  // ÊÀÍÀË 2 - Ïîëîñà
+        (void*)&cChanB_Resistance, // ÊÀÍÀË 2 - Ñîïðîòèâëåíèå
+        (void*)&cChanB_Inverse,    // ÊÀÍÀË 2 - Èíâåðñèÿ
+        (void*)&cChanB_Divider,    // ÊÀÍÀË 2 - Äåëèòåëü
+        (void*)&bChanB_Balance     // ÊÀÍÀË 2 - Áàëàíñèðîâàòü
     }
 };
 
 // ÊÀÍÀË 2 - Âõîä ------------------------------------------------------------------------------------------------------------------------------------
-static const Choice mcChanB_Input =
+static const Choice cChanB_Input =
 {
     Item_Choice, &pChanB, IsActive_ChanB_Input,
     {
@@ -265,7 +261,7 @@ static const Choice mcChanB_Input =
         {DISABLE_RU, DISABLE_EN},
         {ENABLE_RU, ENABLE_EN}
     },
-    (int8*)&SET_ENABLED_B, OnChange_ChanB_Input
+    (int8*)&SET_ENABLED_B, OnChanged_ChanB_Input
 };
 
 static bool IsActive_ChanB_Input(void)
@@ -273,7 +269,7 @@ static bool IsActive_ChanB_Input(void)
     return !FPGA_NUM_POINTS_32k;
 }
 
-void OnChange_ChanB_Input(bool active)
+void OnChanged_ChanB_Input(bool active)
 {
     if (!active)
     {
@@ -289,7 +285,7 @@ void OnChange_ChanB_Input(bool active)
 }
 
 // ÊÀÍÀË 2 - Ñâÿçü -----------------------------------------------------------------------------------------------------------------------------------
-static const Choice mcChanB_Couple =
+static const Choice cChanB_Couple =
 {
     Item_Choice, &pChanB, 0,
     {
@@ -302,16 +298,16 @@ static const Choice mcChanB_Couple =
         {"Ïåðåì", "DC"},
         {"Çåìëÿ", "Ground"}
     },
-    (int8*)&SET_COUPLE_B, OnChange_ChanB_Couple
+    (int8*)&SET_COUPLE_B, OnChanged_ChanB_Couple
 };
 
-static void OnChange_ChanB_Couple(bool active)
+static void OnChanged_ChanB_Couple(bool active)
 {
     FPGA_SetModeCouple(B, SET_COUPLE_B);
 }
 
 // ÊÀÍÀË 2 - Ïîëîñà ----------------------------------------------------------------------------------------------------------------------------------
-static const Choice mcChanB_Bandwidth =
+static const Choice cChanB_Bandwidth =
 {
     Item_Choice, &pChanB, 0,
     {
@@ -323,16 +319,16 @@ static const Choice mcChanB_Bandwidth =
         {"Ïîëíàÿ", "Full"}, 
         {"20ÌÃö", "20MHz"}
     },
-    (int8*)&SET_BANDWIDTH_B, OnChange_ChanB_Bandwidth
+    (int8*)&SET_BANDWIDTH_B, OnChanged_ChanB_Bandwidth
 };
 
-static void OnChange_ChanB_Bandwidth(bool active)
+static void OnChanged_ChanB_Bandwidth(bool active)
 {
     FPGA_SetBandwidth(B);
 }
 
 // ÊÀÍÀË 2 - Ñîïðîòèâëåíèå ---------------------------------------------------------------------------------------------------------------------------
-static const Choice mcChanB_Resistance =
+static const Choice cChanB_Resistance =
 {
     Item_Choice, &pChanB, 0,
     {
@@ -343,10 +339,10 @@ static const Choice mcChanB_Resistance =
         {"1 ÌÎì", "1 Mohm"},
         {"50 Îì", "50 Ohm"}
     },
-    (int8*)&SET_RESISTANCE_B, OnChange_ChanB_Resistance
+    (int8*)&SET_RESISTANCE_B, OnChanged_ChanB_Resistance
 };
 
-static void OnChange_ChanB_Resistance(bool active)
+static void OnChanged_ChanB_Resistance(bool active)
 {
     FPGA_SetResistance(B, SET_RESISTANCE_B);
     if (SET_RESISTANCE_B == Resistance_50Om)
@@ -356,7 +352,7 @@ static void OnChange_ChanB_Resistance(bool active)
 }
 
 // ÊÀÍÀË 2 - Èíâåðñèÿ --------------------------------------------------------------------------------------------------------------------------------
-static const Choice mcChanB_Inverse =
+static const Choice cChanB_Inverse =
 {
     Item_Choice, &pChanB, 0,
     {
@@ -368,16 +364,16 @@ static const Choice mcChanB_Inverse =
         {DISABLE_RU, DISABLE_EN},
         {ENABLE_RU, ENABLE_EN}
     },
-    (int8*)&SET_INVERSE_B, OnChange_ChanB_Inverse
+    (int8*)&SET_INVERSE_B, OnChanged_ChanB_Inverse
 };
 
-static void OnChange_ChanB_Inverse(bool active)
+static void OnChanged_ChanB_Inverse(bool active)
 {
     FPGA_SetRShift(B, SET_RSHIFT_B);
 }
 
-// ÊÀÍÀË 2 - Ìíîæèòåëü -------------------------------------------------------------------------------------------------------------------------------
-static const Choice mcChanB_Divider =
+// ÊÀÍÀË 2 - Äåëèòåëü --------------------------------------------------------------------------------------------------------------------------------
+static const Choice cChanB_Divider =
 {
     Item_Choice, &pChanB, 0,
     {
@@ -393,7 +389,7 @@ static const Choice mcChanB_Divider =
 };
 
 // ÊÀÍÀË 2 - Áàëàíñèðîâàòü ---------------------------------------------------------------------------------------------------------------------------
-static const Button mbChanB_Balance =
+static const Button bChanB_Balance =
 {
     Item_Button, &pChanB, 0,
     {

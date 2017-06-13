@@ -620,7 +620,7 @@ static void WriteAdditionRShifts(Channel ch)
     }
 }
 
-extern void OnChange_ADC_Stretch_Mode(bool active);
+extern void OnChanged_ADC_Stretch_Mode(bool active);
 
 //---------------------------------------------------------------------------------------------------------------------------------------------------]
 static void RestoreSettingsForCalibration(const Settings *savedSettings)
@@ -649,7 +649,7 @@ static void RestoreSettingsForCalibration(const Settings *savedSettings)
 
     NRST_STRETCH_ADC_TYPE = type;
 
-    OnChange_ADC_Stretch_Mode(true);
+    OnChanged_ADC_Stretch_Mode(true);
 }
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------

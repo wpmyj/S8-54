@@ -40,21 +40,21 @@ static void      Draw_Console_SizeSettings(int x, int y);
 static const       Page ppADC;                                  ///< ÎÒËÀÄÊÀ - ÀÖÏ
 static const      Page pppADC_Balance;                          ///< ÎÒËÀÄÊÀ - ÀÖÏ - ÁÀËÀÍÑ
 static const      Choice cADC_Balance_Mode;                     ///< ÎÒËÀÄÊÀ - ÀÖÏ - ÁÀËÀÍÑ - Ðåæèì
-static void      OnChange_ADC_Balance_Mode(bool active);
+static void      OnChanged_ADC_Balance_Mode(bool active);
 static void      Draw_ADC_Balance_Mode(int x, int y);
 static const    Governor gADC_Balance_ShiftA;                   ///< ÎÒËÀÄÊÀ - ÀÖÏ - ÁÀËÀÍÑ - Ñìåùåíèå 1
 static bool      IsActive_ADC_Balance_ShiftAB(void);
-static void      OnChange_ADC_Balance_ShiftA(void);
+static void      OnChanged_ADC_Balance_ShiftA(void);
 static const    Governor gADC_Balance_ShiftB;                   ///< ÎÒËÀÄÊÀ - ÀÖÏ - ÁÀËÀÍÑ - Ñìåùåíèå 2 
-static void      OnChange_ADC_Balance_ShiftB(void);
+static void      OnChanged_ADC_Balance_ShiftB(void);
 static const      Page pppADC_Stretch;                          ///< ÎÒËÀÄÊÀ - ÀÖÏ - ÐÀÑÒßÆÊÀ
 static const      Choice cADC_Stretch_Mode;                     ///< ÎÒËÀÄÊÀ - ÀÖÏ - ÐÀÑÒßÆÊÀ - Ðåæèì
-       void      OnChange_ADC_Stretch_Mode(bool active);
+       void      OnChanged_ADC_Stretch_Mode(bool active);
 static const    Governor gADC_Stretch_A;                        ///< ÎÒËÀÄÊÀ - ÀÖÏ - ÐÀÑÒßÆÊÀ - Ðàñòÿæêà 1ê
 static bool      IsActive_ADC_StretchAB(void);
-static void      OnChange_ADC_Stretch_A(void);
+static void      OnChanged_ADC_Stretch_A(void);
 static const    Governor gADC_Stretch_B;                        ///< ÎÒËÀÄÊÀ - ÀÖÏ - ÐÀÑÒßÆÊÀ - Ðàñòÿæêà 2ê
-static void      OnChange_ADC_Stretch_B(void);
+static void      OnChanged_ADC_Stretch_B(void);
 static const    Governor gADC_Stretch_Ak20mV;                   ///< ÎÒËÀÄÊÀ - ÀÖÏ - ÐÀÑÒßÆÊÀ - 20ìÂ/1Â 1ê
 static const    Governor gADC_Stretch_Ak50mV;                   ///< ÎÒËÀÄÊÀ - ÀÖÏ - ÐÀÑÒßÆÊÀ - 50ìÂ 1ê 
 static const    Governor gADC_Stretch_Ak100mV;                  ///< ÎÒËÀÄÊÀ - ÀÖÏ - ÐÀÑÒßÆÊÀ - 100ìÂ/5Â 1ê
@@ -67,40 +67,40 @@ static const      Page pppADC_Shift;                            ///< ÎÒËÀÄÊÀ - À
 static const      Button bADC_Shift_Reset;                      ///< ÎÒËÀÄÊÀ - ÀÖÏ - ÄÎÏ ÑÌÅÙ - Ñáðîñ
 static void       OnPress_ADC_Shift_Reset(void);
 static const    Governor gADC_Shift_A2mV;                       ///< ÎÒËÀÄÊÀ - ÀÖÏ - ÄÎÏ ÑÌÅÙ - Ñì 1ê 2ìÂ ïîñò
-static void      OnChange_ADC_Shift_A(void);
+static void      OnChanged_ADC_Shift_A(void);
 static const    Governor gADC_Shift_B2mV;                       ///< ÎÒËÀÄÊÀ - ÀÖÏ - ÄÎÏ ÑÌÅÙ - Ñì 2ê 2ìÂ ïîñò
-static void      OnChange_ADC_Shift_B(void);
+static void      OnChanged_ADC_Shift_B(void);
 static const    Governor gADC_Shift_A5mV;                       ///< ÎÒËÀÄÊÀ - ÀÖÏ - ÄÎÏ ÑÌÅÙ - Ñì 1ê 5ìÂ ïîñò
 static const    Governor gADC_Shift_B5mV;                       ///< ÎÒËÀÄÊÀ - ÀÖÏ - ÄÎÏ ÑÌÅÙ - Ñì 2ê 5ìÂ ïîñò
 static const    Governor gADC_Shift_A10mV;                      ///< ÎÒËÀÄÊÀ - ÀÖÏ - ÄÎÏ ÑÌÅÙ - Ñì 1ê 10ìÂ ïîñò
 static const    Governor gADC_Shift_B10mV;                      ///< ÎÒËÀÄÊÀ - ÀÖÏ - ÄÎÏ ÑÌÅÙ - Ñì 2ê 10ìÂ ïîñò
 static const       Page ppRand;                                 ///< ÎÒËÀÄÊÀ - ÐÀÍÄ-ÒÎÐ
 static const    Governor gRand_NumMeasures;                     ///< ÎÒËÀÄÊÀ - ÐÀÍÄ-ÒÎÐ - Âûá-ê/âîðîòà
-static void      OnChange_Rand_NumMeasures(void);
+static void      OnChanged_Rand_NumMeasures(void);
 static const    Governor gRand_NumAverage;                      ///< ÎÒËÀÄÊÀ - ÐÀÍÄ-ÒÎÐ - Óñðåäí.
 static const    Governor gRand_NumSmooth;                       ///< ÎÒËÀÄÊÀ - ÐÀÍÄ-ÒÎÐ - Ñãëàæèâàíèå
 static const      Choice cRand_ShowInfo;                        ///< ÎÒËÀÄÊÀ - ÐÀÍÄ-ÒÎÐ - Èíôîðìàöèÿ
 static const      Choice gRand_ShowStat;                        ///< ÎÒËÀÄÊÀ - ÐÀÍÄ-ÒÎÐ - Ñòàòèñòèêà
 static const    Governor gRand_TimeCompensation;                ///< ÎÒËÀÄÊÀ - ÐÀÍÄ-ÒÎÐ - Êîìïåíñàöèÿ çàäåðæêè
-static void      OnChange_Rand_TimeCompensation(void);
+static void      OnChanged_Rand_TimeCompensation(void);
 static const    Governor gRand_AddTimeShift;                    ///< ÎÒËÀÄÊÀ - ÐÀÍÄ-ÒÎÐ - Ñìåùåíèå
-static void      OnChange_Rand_AddTimeShift(void);
+static void      OnChanged_Rand_AddTimeShift(void);
 static const    Governor gRand_Pretriggered;                    ///< ÎÒËÀÄÊÀ - ÐÀÍÄ-ÒÎÐ - Ïðåäçàïóñê
-static void      OnChange_Rand_Pretriggered(void);
+static void      OnChanged_Rand_Pretriggered(void);
 static const       Page ppChannels;                             ///< ÎÒËÀÄÊÀ - ÊÀÍÀËÛ
 static const      Choice cChannels_BandwidthA;                  ///< ÎÒËÀÄÊÀ - ÊÀÍÀËÛ - Ïîëîñà 1
-static void      OnChange_Channels_BandwidthA(bool active);
+static void      OnChanged_Channels_BandwidthA(bool active);
 static const      Choice cChannels_BandwidthB;                  ///< ÎÒËÀÄÊÀ - ÊÀÍÀËÛ - Ïîëîñà 2
-static void      OnChange_Channels_BandwidthB(bool active);
+static void      OnChanged_Channels_BandwidthB(bool active);
 static const      Choice cStats;                                ///< ÎÒËÀÄÊÀ - Ñòàòèñòèêà
 static const      Choice cDisplayOrientation;                   ///< ÎÒËÀÄÊÀ - Îðèåíòàöèÿ
-       void      OnChange_DisplayOrientation(bool);
+       void      OnChanged_DisplayOrientation(bool);
 static const      Choice cEMS;                                  ///< ÎÒËÀÄÊÀ - Ðåæèì ÝÌÑ
-static void      OnChange_EMS(bool);
+static void      OnChanged_EMS(bool);
 static const   Governor mgPred;                                 ///< ÎÒËÀÄÊÀ - Ïðåäçàïóñê
-static void      OnChange_Pred(void);
+static void      OnChanged_Pred(void);
 static const   Governor mgPost;                                 ///< ÎÒËÀÄÊÀ - Ïîñëåçàïóñê
-static void      OnChange_Post(void);
+static void      OnChanged_Post(void);
 static const       Page ppSettings;                             ///< ÎÒËÀÄÊÀ - ÍÀÑÒÐÎÉÊÈ
 static void       OnPress_Settings(void);
 static const SButton bSettings_Exit;                        ///< ÎÒËÀÄÊÀ - ÍÀÑÒÐÎÉÊÈ - Âûõîä
@@ -517,10 +517,10 @@ static const Choice cADC_Balance_Mode =
         {"Ðåàëüíûé", "Real"},
         {"Ðó÷íîé", "Manual"}
     },
-    (int8*)&NRST_BALANCE_ADC_TYPE, OnChange_ADC_Balance_Mode, Draw_ADC_Balance_Mode
+    (int8*)&NRST_BALANCE_ADC_TYPE, OnChanged_ADC_Balance_Mode, Draw_ADC_Balance_Mode
 };
 
-static void OnChange_ADC_Balance_Mode(bool active)
+static void OnChanged_ADC_Balance_Mode(bool active)
 {
     Draw_ADC_Balance_Mode(0, 0);
 }
@@ -549,7 +549,7 @@ static const Governor gADC_Balance_ShiftA =
         "",
         ""
     },
-    &shiftADCA, -125, 125, OnChange_ADC_Balance_ShiftA
+    &shiftADCA, -125, 125, OnChanged_ADC_Balance_ShiftA
 };
 
 static bool IsActive_ADC_Balance_ShiftAB(void)
@@ -557,7 +557,7 @@ static bool IsActive_ADC_Balance_ShiftAB(void)
     return NRST_BALANCE_ADC_TYPE_IS_HAND;
 }
 
-static void OnChange_ADC_Balance_ShiftA(void)
+static void OnChanged_ADC_Balance_ShiftA(void)
 {
     NRST_BALANCE_ADC_A = shiftADCA;
 }
@@ -571,10 +571,10 @@ static const Governor gADC_Balance_ShiftB =
         "",
         ""
     },
-    &shiftADCB, -125, 125, OnChange_ADC_Balance_ShiftB
+    &shiftADCB, -125, 125, OnChanged_ADC_Balance_ShiftB
 };
 
-static void OnChange_ADC_Balance_ShiftB(void)
+static void OnChanged_ADC_Balance_ShiftB(void)
 {
     NRST_BALANCE_ADC_B = shiftADCB;
 }
@@ -625,13 +625,13 @@ static const Choice cADC_Stretch_Mode =
         {"Ðåàëüíûé", "Real"},
         {"Ðó÷íîé", "Manual"}
     },
-    (int8*)&NRST_STRETCH_ADC_TYPE, OnChange_ADC_Stretch_Mode
+    (int8*)&NRST_STRETCH_ADC_TYPE, OnChanged_ADC_Stretch_Mode
 };
 
 static int16 stretchA;
 static int16 stretchB;  
 
-void OnChange_ADC_Stretch_Mode(bool active)
+void OnChanged_ADC_Stretch_Mode(bool active)
 {
     if (NRST_STRETCH_ADC_TYPE_IS_DISABLE)
     {
@@ -658,7 +658,7 @@ static const Governor gADC_Stretch_A =
         "Sets the manual stretching of the first channel.\n"
         "1 = 0.0001"
     },
-    &stretchA, -10000, 10000, OnChange_ADC_Stretch_A
+    &stretchA, -10000, 10000, OnChanged_ADC_Stretch_A
 };
 
 static bool IsActive_ADC_StretchAB(void)
@@ -666,7 +666,7 @@ static bool IsActive_ADC_StretchAB(void)
     return NRST_STRETCH_ADC_TYPE_IS_HAND;
 }
 
-static void OnChange_ADC_Stretch_A(void)
+static void OnChanged_ADC_Stretch_A(void)
 {
     NRST_STRETCH_ADC_A(NRST_STRETCH_ADC_TYPE) = stretchA;
 }
@@ -684,10 +684,10 @@ static const Governor gADC_Stretch_B =
         "Sets the manual stretching of the second channel.\n"
         "1 = 0.0001"
     },
-    &stretchB, -10000, 10000, OnChange_ADC_Stretch_B
+    &stretchB, -10000, 10000, OnChanged_ADC_Stretch_B
 };
 
-static void OnChange_ADC_Stretch_B(void)
+static void OnChanged_ADC_Stretch_B(void)
 {
     NRST_STRETCH_ADC_B(NRST_STRETCH_ADC_TYPE) = stretchB;
 }
@@ -846,10 +846,10 @@ static const Governor gADC_Shift_A2mV =
         "",
         ""
     },
-    (int16*)(&NRST_RSHIFT_ADD_A(Range_2mV, ModeCouple_DC)), -100, 100, OnChange_ADC_Shift_A
+    (int16*)(&NRST_RSHIFT_ADD_A(Range_2mV, ModeCouple_DC)), -100, 100, OnChanged_ADC_Shift_A
 };
 
-static void OnChange_ADC_Shift_A(void)
+static void OnChanged_ADC_Shift_A(void)
 {
     FPGA_SetRShift(A, SET_RSHIFT_A);
 }
@@ -863,10 +863,10 @@ static const Governor gADC_Shift_B2mV =
         "",
         ""
     },
-    (int16*)(&NRST_RSHIFT_ADD_B(Range_2mV, ModeCouple_DC)), -100, 100, OnChange_ADC_Shift_B
+    (int16*)(&NRST_RSHIFT_ADD_B(Range_2mV, ModeCouple_DC)), -100, 100, OnChanged_ADC_Shift_B
 };
 
-static void OnChange_ADC_Shift_B(void)
+static void OnChanged_ADC_Shift_B(void)
 {
     FPGA_SetRShift(B, SET_RSHIFT_B);
 }
@@ -880,7 +880,7 @@ static const Governor gADC_Shift_A5mV =
         "",
         ""
     },
-    (int16*)(&NRST_RSHIFT_ADD_A(Range_5mV, ModeCouple_DC)), -100, 100, OnChange_ADC_Shift_A
+    (int16*)(&NRST_RSHIFT_ADD_A(Range_5mV, ModeCouple_DC)), -100, 100, OnChanged_ADC_Shift_A
 };
 
 // ÎÒËÀÄÊÀ - ÀÖÏ - ÄÎÏ ÑÌÅÙ - Ñì 2ê 5ìÂ ïîñò ---------------------------------------------------------------------------------------------------------
@@ -892,7 +892,7 @@ static const Governor gADC_Shift_B5mV =
         "",
         ""
     },
-    (int16*)(&NRST_RSHIFT_ADD_B(Range_5mV, ModeCouple_DC)), -100, 100, OnChange_ADC_Shift_B
+    (int16*)(&NRST_RSHIFT_ADD_B(Range_5mV, ModeCouple_DC)), -100, 100, OnChanged_ADC_Shift_B
 };
 
 // ÎÒËÀÄÊÀ - ÀÖÏ - ÄÎÏ ÑÌÅÙ - Ñì 1ê 10ìÂ ïîñò --------------------------------------------------------------------------------------------------------
@@ -904,7 +904,7 @@ static const Governor gADC_Shift_A10mV =
         "",
         ""
     },
-    (int16*)(&NRST_RSHIFT_ADD_A(Range_10mV, ModeCouple_DC)), -100, 100, OnChange_ADC_Shift_A
+    (int16*)(&NRST_RSHIFT_ADD_A(Range_10mV, ModeCouple_DC)), -100, 100, OnChanged_ADC_Shift_A
 };
 
 // ÎÒËÀÄÊÀ - ÀÖÏ - ÄÎÏ ÑÌÅÙ - Ñì 2ê 10ìÂ ïîñò --------------------------------------------------------------------------------------------------------
@@ -916,7 +916,7 @@ static const Governor gADC_Shift_B10mV =
         "",
         ""
     },
-    (int16*)(&NRST_RSHIFT_ADD_B(Range_10mV, ModeCouple_DC)), -100, 100, OnChange_ADC_Shift_B
+    (int16*)(&NRST_RSHIFT_ADD_B(Range_10mV, ModeCouple_DC)), -100, 100, OnChanged_ADC_Shift_B
 };
 
 // ÎÒËÀÄÊÀ - ÐÀÍÄ-ÒÎÐ ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -975,10 +975,10 @@ static const Choice cChannels_BandwidthA =
         {"650ÌÃö", "650MHz"},
         {"750ÌÃö", "750MHz"}
     },
-    (int8*)&BANDWIDTH_DEBUG(A), OnChange_Channels_BandwidthA
+    (int8*)&BANDWIDTH_DEBUG(A), OnChanged_Channels_BandwidthA
 };
 
-static void OnChange_Channels_BandwidthA(bool active)
+static void OnChanged_Channels_BandwidthA(bool active)
 {
     FPGA_SetBandwidth(A);
 }
@@ -1001,10 +1001,10 @@ static const Choice cChannels_BandwidthB =
         {"650ÌÃö", "650MHz"},
         {"750ÌÃö", "750MHz"}
     },
-    (int8*)&BANDWIDTH_DEBUG(B), OnChange_Channels_BandwidthB
+    (int8*)&BANDWIDTH_DEBUG(B), OnChanged_Channels_BandwidthB
 };
 
-static void OnChange_Channels_BandwidthB(bool active)
+static void OnChanged_Channels_BandwidthB(bool active)
 {
     FPGA_SetBandwidth(B);
 }
@@ -1018,10 +1018,10 @@ static const Governor gRand_NumMeasures =
         "",
         ""
     },
-    &NUM_MEASURES_FOR_GATES, 1, 2500, OnChange_Rand_NumMeasures
+    &NUM_MEASURES_FOR_GATES, 1, 2500, OnChanged_Rand_NumMeasures
 };
 
-static void OnChange_Rand_NumMeasures(void)
+static void OnChanged_Rand_NumMeasures(void)
 {
     FPGA_SetNumberMeasuresForGates(NUM_MEASURES_FOR_GATES);
 }
@@ -1035,10 +1035,10 @@ static const Governor gRand_TimeCompensation =
         "Ïîäñòðîéêà êîìïåíñàöèè çàäåðæêè ÀÖÏ 40 íñ",
         ""
     },
-    &TIME_COMPENSATION, 0, 510, OnChange_Rand_TimeCompensation
+    &TIME_COMPENSATION, 0, 510, OnChanged_Rand_TimeCompensation
 };
 
-static void OnChange_Rand_TimeCompensation(void)
+static void OnChanged_Rand_TimeCompensation(void)
 {
     FPGA_SetDeltaTShift(TIME_COMPENSATION);
 }
@@ -1054,10 +1054,10 @@ static const Governor gRand_AddTimeShift =
         "Äîáàâî÷íîå ñìùåíèå ïðè âðàùåíèè tShift",
         ""
     },
-    &addShift, -100, 100, OnChange_Rand_AddTimeShift
+    &addShift, -100, 100, OnChanged_Rand_AddTimeShift
 };
 
-static void OnChange_Rand_AddTimeShift(void)
+static void OnChanged_Rand_AddTimeShift(void)
 {
     FPGA_SetTShift(SET_TSHIFT);
 }
@@ -1071,10 +1071,10 @@ static const Governor gRand_Pretriggered =
         "Âåëè÷èíà ïðåäçàïóñêà, êîòîðàÿ ïèøåòñÿ â ðàíäîìèçàòîð",
         ""
     },
-    &PRETRIGGERED, 0, 30000, OnChange_Rand_Pretriggered
+    &PRETRIGGERED, 0, 30000, OnChanged_Rand_Pretriggered
 };
 
-static void OnChange_Rand_Pretriggered(void)
+static void OnChanged_Rand_Pretriggered(void)
 {
     LoadTShift();
 }
@@ -1114,7 +1114,7 @@ static const Governor mgPred =
         "Ïðåäçàïóñê", "",
         "", ""
     },
-    &pred, 0, 15000, OnChange_Pred
+    &pred, 0, 15000, OnChanged_Pred
 };
 
 // ÎÒËÀÄÊÀ - Ïîñëåçàïóñê -----------------------------------------------------------------------------------------------------------------------------
@@ -1125,7 +1125,7 @@ static const Governor mgPost =
         "Ïîñëåçàïóñê", "",
         "", ""
     },
-    &post, 0, 15000, OnChange_Post
+    &post, 0, 15000, OnChanged_Post
 };
 
 
@@ -1234,14 +1234,14 @@ static void OnPress_Settings(void)
     Display_SetDrawMode(DrawMode_Auto, DebugShowSetInfo_Draw);
 }
 
-static void OnChange_Pred(void)
+static void OnChanged_Pred(void)
 {
     gPred = ~pred;
     static char buffer[30];
     LOG_WRITE("pred %d %s", pred, Hex16toString(gPred, buffer, true));
 }
 
-static void OnChange_Post(void)
+static void OnChanged_Post(void)
 {
     gPost = ~post;
     static char buffer[30];
@@ -1293,10 +1293,10 @@ static const Choice cEMS =
         {DISABLE_RU,    DISABLE_EN},
         {ENABLE_RU,     ENABLE_EN}
     },
-    (int8*)&MODE_EMS, OnChange_EMS
+    (int8*)&MODE_EMS, OnChanged_EMS
 };
 
-static void OnChange_EMS(bool active)
+static void OnChanged_EMS(bool active)
 {
     FPGA_SetBandwidth(A);
     FPGA_SetBandwidth(B);
@@ -1315,10 +1315,10 @@ static const Choice cDisplayOrientation =
         { "Ïðÿìàÿ", "Direct" },
         { "Îáðàòíàÿ", "Back" }
     },
-    (int8*)&DISPLAY_ORIENTATION, OnChange_DisplayOrientation
+    (int8*)&DISPLAY_ORIENTATION, OnChanged_DisplayOrientation
 };
 
-void OnChange_DisplayOrientation(bool active)
+void OnChanged_DisplayOrientation(bool active)
 {
     Display_SetOrientation(DISPLAY_ORIENTATION);
 }

@@ -551,7 +551,7 @@
     <None Include="..\..\S8-54\src\Utils\CreateTables.py" />
   </ItemGroup>
   <ItemGroup>
-    <Text Include="..\..\S8-54\src\Menu\Menu_reference.txt" />
+    <Text Include="..\..\S8-54\src\dox\Menu_reference.txt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

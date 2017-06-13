@@ -7,16 +7,17 @@
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 extern const Page mainPage;
 extern const Page pDisplay;
-extern const Page pCursors;
 extern const Page pChanA;
 extern const Page pChanB;
+extern const Page pTrig;
+extern const Page pTime;
+extern const Page pCursors;
 extern const Page pMemory;
 extern const Page pMeasures;
-extern const Page pDebug;
 extern const Page pService;
-extern const Page pTime;
-extern const Page pTrig;
 extern const Page pHelp;
+extern const Page pDebug;
+
 
 /// лемч 
 const Page mainPage =
@@ -76,6 +77,7 @@ bool IsMainPage(const void *item)
     return item == &mainPage;
 }
 
+//----------------------------------------------------------------------------------------------------------------------------------------------------
 void DrawSB_Exit(int x, int y)
 {
     Painter_SetFont(TypeFont_UGO2);

@@ -33,8 +33,8 @@
 
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-extern void OnChange_ChanA_Input(bool active);
-extern void OnChange_ChanB_Input(bool active);
+extern void OnChanged_ChanA_Input(bool active);
+extern void OnChanged_ChanB_Input(bool active);
 
 /// Если произошло короткое нажатие кнопки, то здесь хранится имя этой кнопки до обработки  этого нажатия.
 static PanelButton shortPressureButton = B_Empty;
@@ -421,13 +421,13 @@ static void ProcessingShortPressureButton(void)
                 if(button == B_Channel1 && name == Page_ChannelA && MENU_IS_SHOWN)
                 {
                     SET_ENABLED_A = !SET_ENABLED_A;
-                    OnChange_ChanA_Input(true);
+                    OnChanged_ChanA_Input(true);
                     break;
                 }
                 if(button == B_Channel2 && name == Page_ChannelB && MENU_IS_SHOWN)
                 {
                     SET_ENABLED_B = !SET_ENABLED_B;
-                    OnChange_ChanB_Input(true);
+                    OnChanged_ChanB_Input(true);
                     break;
                 }
 
