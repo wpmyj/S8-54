@@ -1028,9 +1028,6 @@
     <ClInclude Include="..\..\STM32Cube_FW_F4\Middlewares\Third_Party\LwIP\src\include\lwip\igmp.h">
       <Filter>LwIP</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\S8-54\src\Menu\Pages\Service\PageServiceMath.h">
-      <Filter>Menu\Pages\Service</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\S8-54\src\Menu\Pages\Service\ServiceInformation.h">
       <Filter>Menu\Pages\Service</Filter>
     </ClInclude>

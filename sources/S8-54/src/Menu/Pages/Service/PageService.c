@@ -1,14 +1,16 @@
 // This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++ and C#: http://www.viva64.com
-#include "PageServiceMath.h"
 #include "ServiceEthernet.h"
 #include "ServiceInformation.h"
 #include "ServiceTime.h"
 #include "ServiceSound.h"
 #include "Display/Display.h"
+#include "Display/Symbols.h"
 #include "FPGA/FPGA.h"
+#include "Hardware/Sound.h"
 #include "Panel/Panel.h"
-
+#include "Utils/GlobalFunctions.h"
+#include "Utils/Math.h"
 
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -45,6 +47,38 @@ static void   OnPress_FFT_Cursors_Exit(void);
 static const SButton bFFT_Cursors_Source;                   ///< СЕРВИС - СПЕКТР - КУРСОРЫ - Источник
 static void   OnPress_FFT_Cursors_Source(void);
 static void      Draw_FFT_Cursors_Source(int x, int y);
+static const  Choice cFFT_Range;                            ///< СЕРВИС - СПЕКТР - Диапазон
+static bool  IsActive_FFT_Range(void);
+static const   Page ppFunction;                             ///< СЕРВИС - ФУНКЦИЯ
+static bool  IsActive_Function(void);
+static void   OnPress_Function(void);
+static void  OnRegSet_Function(int delta);
+static const SButton bFunction_Exit;                        ///< СЕРВИС - ФУНКЦИЯ - Выход
+static const SButton bFunction_Screen;                      ///< СЕРВИС - ФУНКЦИЯ - Экран
+static void   OnPress_Function_Screen(void);
+static void      Draw_Function_Screen(int x, int y);
+static void      Draw_Function_Screen_Disable(int x, int y);
+static void      Draw_Function_Screen_Separate(int x, int y);
+static void      Draw_Function_Screen_Together(int x, int y);
+static const SButton bFunction_Type;                        ///< СЕРВИС - ФУНКЦИЯ - Вид
+static void   OnPress_Function_Type(void);
+static void      Draw_Function_Type(int x, int y);
+static void      Draw_Function_Type_Sum(int x, int y);
+static void      Draw_Function_Type_Mul(int x, int y);
+static const SButton bFunction_ModeRegSet;                  ///< СЕРВИС - ФУНКЦИЯ - Режим ручки УСТАНОВКА
+static void   OnPress_Function_ModeRegSet(void);
+static void      Draw_Function_ModeRegSet(int x, int y);
+static void      Draw_Function_ModeRegSet_Range(int x, int y);
+static void      Draw_Function_ModeRegSet_RShift(int x, int y);
+static const SButton bFunction_RangeA;                      ///< СЕРВИС - ФУНКЦИЯ - Масштаб 1-го канала
+static void   OnPress_Function_RangeA(void);
+static void      Draw_Function_RangeA(int x, int y);
+static const SButton bFunction_RangeB;                      ///< СЕРВИС - ФУНКЦИЯ - Масштаб 2-го канала
+static void   OnPress_Function_RangeB(void);
+static void      Draw_Function_RangeB(int x, int y);
+
+
+
 
 
 static const  Choice cLanguage;
@@ -66,7 +100,7 @@ const Page pService =
         (void*)&ppCalibrator,       // СЕРВИС - КАЛИБРАТОР
         (void*)&cRecorder,          // СЕРВИС - Регистратор
         (void*)&ppFFT,              // СЕРВИС - СПЕКТР
-        (void*)&mspMathFunction,    // СЕРВИС - ФУНКЦИЯ
+        (void*)&ppFunction,         // СЕРВИС - ФУНКЦИЯ
         (void*)&mspEthernet,        // СЕРВИС - ETHERNET
         (void*)&mspSound,           // СЕРВИС - ЗВУК
         (void*)&mspTime,            // СЕРВИС - ВРЕМЯ
@@ -178,7 +212,7 @@ static const Button bCalibrator_Calibrate =
         "Запуск процедуры калибровки",
         "Running the calibration procedure"
     },
-    OnPress_Calibrator_Calibrate, EmptyFuncVII
+    OnPress_Calibrator_Calibrate
 };
 
 static bool IsActive_Calibrator_Calibrate(void)
@@ -229,7 +263,7 @@ static const Page ppFFT =
         (void*)&cFFT_Source,    // СЕРВИС - СПЕКТР - Источник
         (void*)&cFFT_Window,    // СЕРВИС - СПЕКТР - Окно 
         (void*)&pppFFT_Cursors, // СЕРВИС - СПЕКТР - КУРСОРЫ
-        (void*)&mcFFTrange
+        (void*)&cFFT_Range      // СЕРВИС - СПЕКТР - Диапазон
     },
     OnPress_FFT
 };
@@ -385,6 +419,340 @@ static void Draw_FFT_Cursors_Source(int x, int y)
     Painter_DrawText(x + 7, y + 5, MATH_CURRENT_CUR_IS_0 ? "1" : "2");
 }
 
+// СЕРВИС - СПЕКТР - Диапазон ------------------------------------------------------------------------------------------------------------------------
+static const Choice cFFT_Range =
+{
+    Item_Choice, &ppFFT, IsActive_FFT_Range,
+    {
+        "Диапазон", "Range",
+        "Здесь можно задать предел наблюдения за мощностью спектра",
+        "Here you can set the limit of monitoring the power spectrum"
+    },
+
+    {
+        {"-40дБ",   "-40dB"},
+        {"-60дБ",   "-60dB"},
+        {"-80дБ",   "-80dB"}
+    },
+    (int8*)&MAX_DB_FFT
+};
+
+static bool IsActive_FFT_Range(void)
+{
+    return SCALE_FFT_LOG;
+}
+
+// СЕРВИС - ФУНКЦИЯ //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+static const Page ppFunction =
+{
+    Item_Page, &pService, IsActive_Function,
+    {
+        "ФУНКЦИЯ", "FUNCTION",
+        "Установка и выбор математической функции - сложения или умножения",
+        "Installation and selection of mathematical functions - addition or multiplication"
+    },
+    Page_SB_MathFunction,
+    {
+        (void*)&bFunction_Exit,         // СЕРВИС - ФУНКЦИЯ - Выход
+        (void*)&bFunction_Screen,       // СЕРВИС - ФУНКЦИЯ - Экран
+        (void*)&bFunction_Type,         // СЕРВИС - ФУНКЦИЯ - Вид
+        (void*)&bFunction_ModeRegSet,   // СЕРВИС - ФУНКЦИЯ - Режим ручки УСТАНОВКА
+        (void*)&bFunction_RangeA,       // СЕРВИС - ФУНКЦИЯ - Масштаб 1-го канала
+        (void*)&bFunction_RangeB
+    },
+    OnPress_Function,
+    0,
+    OnRegSet_Function
+};
+
+static bool IsActive_Function(void)
+{
+    return !FFT_ENABLED;
+}
+
+static void OnPress_Function(void)
+{
+    if (FFT_ENABLED)
+    {
+        Display_ShowWarning(ImpossibleEnableMathFunction);
+    }
+}
+
+static void OnRegSet_Function(int delta)
+{
+    if (!FUNC_ENABLED)
+    {
+        return;
+    }
+
+    if (MATH_MODE_REG_SET_IS_RSHIFT)
+    {
+        uint16 prevRShift = SET_RSHIFT_MATH;
+        uint16 rShift = prevRShift;
+        if (delta > 0)
+        {
+            if (rShift < RShiftMax)
+            {
+                rShift += 4 * STEP_RSHIFT;
+                LIMIT_ABOVE(rShift, RShiftMax);
+                if (prevRShift < RShiftZero && rShift > RShiftZero)
+                {
+                    rShift = RShiftZero;
+                }
+                Sound_RegulatorShiftRotate();
+                SET_RSHIFT_MATH = rShift;
+            }
+        }
+        else if (delta < 0)
+        {
+            if (rShift > RShiftMin)
+            {
+                rShift -= 4 * STEP_RSHIFT;
+                LIMIT_BELOW(rShift, RShiftMin);
+                if (prevRShift > RShiftZero && rShift < RShiftZero)
+                {
+                    rShift = RShiftZero;
+                }
+                Sound_RegulatorShiftRotate();
+                SET_RSHIFT_MATH = rShift;
+            }
+        }
+    }
+    if (MATH_MODE_REG_SET_IS_RANGE)
+    {
+        static int sum = 0;
+        sum -= delta;
+
+        float rShiftAbs = RSHIFT_2_ABS(SET_RSHIFT_MATH, SET_RANGE_MATH);
+
+        if (sum > 2)
+        {
+            if (SET_RANGE_MATH < RangeSize - 1)
+            {
+                SET_RANGE_MATH++;
+                SET_RSHIFT_MATH = (int16)Math_RShift2Rel(rShiftAbs, SET_RANGE_MATH);
+                Sound_RegulatorSwitchRotate();
+            }
+            sum = 0;
+        }
+        else if (sum < -2)
+        {
+            if (SET_RANGE_MATH > 0)
+            {
+                SET_RANGE_MATH--;
+                SET_RSHIFT_MATH = (int16)Math_RShift2Rel(rShiftAbs, SET_RANGE_MATH);
+                Sound_RegulatorSwitchRotate();
+            }
+            sum = 0;
+        }
+    }
+}
+
+// СЕРВИС - ФУНКЦИЯ - Выход --------------------------------------------------------------------------------------------------------------------------
+static const SButton bFunction_Exit =
+{
+    Item_SmallButton, &ppFunction, 0,
+    {
+        "Выход", "Exit",
+        "Кнопка для выхода в предыдущее меню",
+        "Button to return to the previous menu"
+    },
+    0,
+    DrawSB_Exit
+};
+
+// СЕРВИС - ФУНКЦИЯ - Экран --------------------------------------------------------------------------------------------------------------------------
+static const SButton bFunction_Screen =
+{
+    Item_SmallButton, &ppFunction, 0,
+    {
+        "Экран", "Display",
+        "Выбирает режим отображения математического сигнала",
+        "Chooses the mode of display of a mathematical signal"
+    },
+    OnPress_Function_Screen,
+    Draw_Function_Screen,
+    {
+        {Draw_Function_Screen_Disable,  "Вывод математической функции отключён",                        "The conclusion of mathematical function is disconnected"},
+        {Draw_Function_Screen_Separate, "Сигналы и математическая функция выводятся в разных окнах",    "Signals and mathematical function are removed in different windows"},
+        {Draw_Function_Screen_Together, "Сигналы и математическая функция выводятся в одном окне",      "Signals and mathematical function are removed in one window"}
+    }
+};
+
+static void OnPress_Function_Screen(void)
+{
+    if (FFT_ENABLED)
+    {
+        Display_ShowWarning(ImpossibleEnableMathFunction);
+    }
+    else
+    {
+        CircleIncreaseInt8((int8*)&FUNC_MODE_DRAW, 0, 2);
+    }
+}
+
+static void Draw_Function_Screen(int x, int y)
+{
+    const pFuncVII funcs[3] =
+    {
+        Draw_Function_Screen_Disable,
+        Draw_Function_Screen_Separate,
+        Draw_Function_Screen_Together
+    };
+    funcs[FUNC_MODE_DRAW](x, y);
+}
+
+static void Draw_Function_Screen_Disable(int x, int y)
+{
+    Painter_DrawText(x + 2 + (LANG_EN ? 2 : 0), y + 5, LANG_RU ? "Вык" : "Dis");
+}
+
+static void Draw_Function_Screen_Separate(int x, int y)
+{
+    Painter_DrawRectangle(x + 3, y + 5, 13, 9);
+    Painter_DrawHLine(y + 9, x + 3, x + 16);
+    Painter_DrawHLine(y + 10, x + 3, x + 16);
+}
+
+static void Draw_Function_Screen_Together(int x, int y)
+{
+    Painter_DrawRectangle(x + 3, y + 5, 13, 9);
+}
+
+// СЕРВИС - ФУНКЦИЯ - Вид ----------------------------------------------------------------------------------------------------------------------------
+static const SButton bFunction_Type =
+{
+    Item_SmallButton, &ppFunction, 0,
+    {
+        "Вид", "Type",
+        "Выбор математической функции",
+        "Choice of mathematical function"
+    },
+    OnPress_Function_Type,
+    Draw_Function_Type,
+    {
+        { Draw_Function_Type_Sum,      "Сложение",     "Addition"       },
+        { Draw_Function_Type_Mul,      "Умножение",    "Multiplication" }
+    }
+};
+
+static void OnPress_Function_Type(void)
+{
+    CircleIncreaseInt8((int8*)&MATH_FUNC, 0, 1);
+}
+
+static void Draw_Function_Type(int x, int y)
+{
+    const pFuncVII funcs[2] = {Draw_Function_Type_Sum, Draw_Function_Type_Mul};
+    funcs[MATH_FUNC](x, y);
+}
+
+static void Draw_Function_Type_Sum(int x, int y)
+{
+    Painter_DrawHLine(y + 9, x + 4, x + 14);
+    Painter_DrawVLine(x + 9, y + 4, y + 14);
+}
+
+static void Draw_Function_Type_Mul(int x, int y)
+{
+    Painter_SetFont(TypeFont_UGO2);
+    Painter_Draw4SymbolsInRect(x + 4, y + 3, SYMBOL_MATH_FUNC_MUL);
+    Painter_SetFont(TypeFont_8);
+}
+
+
+// СЕРВИС - ФУНКЦИЯ - Режим ручки УСТАНОВКА ----------------------------------------------------------------------------------------------------------
+static const SButton bFunction_ModeRegSet =
+{
+    Item_SmallButton, &ppFunction, 0,
+    {
+        "Режим ручки УСТАНОВКА", "Mode regulator SET",
+        "Выбор режима ручки УСТАНОВКА - управление масштабом или смещением",
+        "Choice mode regulcator УСТАНОВКА - management of scale or shift"
+    },
+    OnPress_Function_ModeRegSet,
+    Draw_Function_ModeRegSet,
+    {
+        {Draw_Function_ModeRegSet_Range,  "Управление масштабом", "Management of scale"},
+        {Draw_Function_ModeRegSet_RShift, "Управление смещением", "Management of shift"}
+    }
+};
+
+static void OnPress_Function_ModeRegSet(void)
+{
+    CircleIncreaseInt8((int8*)&MATH_MODE_REG_SET, 0, 1);
+}
+
+static void Draw_Function_ModeRegSet(int x, int y)
+{
+    static const pFuncVII funcs[2] = {Draw_Function_ModeRegSet_Range, Draw_Function_ModeRegSet_RShift};
+    funcs[MATH_MODE_REG_SET](x, y);
+}
+
+static void Draw_Function_ModeRegSet_Range(int x, int y)
+{
+    Painter_DrawChar(x + 7, y + 5, LANG_RU ? 'M' : 'S');
+}
+
+static void Draw_Function_ModeRegSet_RShift(int x, int y)
+{
+    Painter_DrawText(x + 5 - (LANG_EN ? 3 : 0), y + 5, LANG_RU ? "См" : "Shif");
+}
+
+// СЕРВИС - ФУНКЦИЯ - Масштаб 1-го канала ------------------------------------------------------------------------------------------------------------
+static const SButton bFunction_RangeA =
+{
+    Item_SmallButton, &ppFunction, 0,
+    {
+        "Масштаб 1-го канала", "Scale of the 1st channel",
+        "Использует масштаб первого канала для отображения результата",
+        "Takes scale for a mathematical signal from the first channel"
+    },
+    OnPress_Function_RangeA,
+    Draw_Function_RangeA
+};
+
+static void OnPress_Function_RangeA(void)
+{
+    SET_RANGE_MATH = SET_RANGE_A;
+    MATH_DIVIDER = SET_DIVIDER_A;
+}
+
+static void Draw_Function_RangeA(int x, int y)
+{
+    Painter_DrawChar(x + 8, y + 5, '1');
+}
+
+
+// СЕРВИС - ФУНКЦИЯ - Масштаб 2-го канала ------------------------------------------------------------------------------------------------------------
+static const SButton bFunction_RangeB =
+{
+    Item_SmallButton, &ppFunction, 0,
+    {
+        "Масштаб 2-го канала", "Scale of the 2nd channel",
+        "Использует масштаб второго канала для отображения результата",
+        "Takes scale for a mathematical signal from the second channel"
+    },
+    OnPress_Function_RangeB,
+    Draw_Function_RangeB
+};
+
+static void OnPress_Function_RangeB(void)
+{
+    SET_RANGE_MATH = SET_RANGE_B;
+    MATH_DIVIDER = SET_DIVIDER_B;
+}
+
+static void Draw_Function_RangeB(int x, int y)
+{
+    Painter_DrawChar(x + 8, y + 5, '2');
+}
+
+
+
+
+
+
 
 
 
@@ -430,6 +798,7 @@ static const Choice cLanguage =
     (int8*)&LANG
 };
 
+/*
 //----------------------------------------------------------------------------------------------------------------------------------------------------
 void OnPressPrevSettings(void)
 {
@@ -475,3 +844,28 @@ const Button mbServicePreviousSettings =
     },
     OnPressPrevSettings
 };
+*/
+
+/*
+static bool ActiveF_MathFormula(void)
+{
+    return MATH_FUNC_MUL || MATH_FUNC_SUM;
+}
+
+static void ChangeF_MathFormula(void)
+{
+
+}
+
+static int8 curDigit = 0;
+const Formula mfMathFormula =
+{
+    Item_Formula, &ppFunction, ActiveF_MathFormula,
+    {
+        "Формула", "Formulf",
+        "Здесь задаются коэффициенты и знаки в математической формуле",
+        "Here you can set the coefficients and signs in a mathematical formula"
+    },
+    (int8*)&MATH_FUNC, (int8*)&set.math_koeff1add, (int8*)&set.math_koeff2add, (int8*)&set.math_koeff1mul, (int8*)&set.math_koeff2mul, &curDigit, ChangeF_MathFormula
+};
+*/
