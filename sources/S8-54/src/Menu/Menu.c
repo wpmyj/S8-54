@@ -360,7 +360,7 @@ static void ProcessingShortPressureButton(void)
     {
         if (shortPressureButton == B_Memory && MODE_BTN_MEMORY_SAVE && gFlashDriveIsConnected)
         {
-            gMemory.exitFromModeSetNameTo = MENU_IS_SHOWN ? RETURN_TO_MAIN_MENU : RETURN_TO_DISABLE_MENU;
+            EXIT_FROM_SETNAME_TO = MENU_IS_SHOWN ? RETURN_TO_MAIN_MENU : RETURN_TO_DISABLE_MENU;
             Memory_SaveSignalToFlashDrive();
             shortPressureButton = B_Empty;
             return;

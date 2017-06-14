@@ -243,8 +243,8 @@ static const Page ppLast =
 
 static void OnPress_Last(void)
 {
-    gMemory.currentNumLatestSignal = 0;
-    gMemory.runningFPGAbeforeSmallButtons = FPGA_IsRunning() ? 1 : 0;
+    NUM_RAM_SIGNAL = 0;
+    RUN_FPGA_BEFORE_SB = FPGA_IsRunning() ? 1 : 0;
     FPGA_Stop(false);
     MODE_WORK = ModeWork_Latest;
 }
@@ -257,7 +257,7 @@ static void OnDraw_Last(void)
     int height = 10;
     Painter_FillRegionC(GridRight() - width, GRID_TOP, width, height, gColorBack);
     Painter_DrawRectangleC(GridRight() - width, GRID_TOP, width, height, gColorFill);
-    Painter_DrawText(GridRight() - width + 2, GRID_TOP + 1, Int2String(gMemory.currentNumLatestSignal + 1, false, 3, buffer));
+    Painter_DrawText(GridRight() - width + 2, GRID_TOP + 1, Int2String(NUM_RAM_SIGNAL + 1, false, 3, buffer));
     Painter_DrawText(GridRight() - width + 17, GRID_TOP + 1, "/");
     Painter_DrawText(GridRight() - width + 23, GRID_TOP + 1, Int2String(DS_NumElementsInStorage(), false, 3, buffer));
 }
@@ -290,10 +290,10 @@ static const SButton bLast_Exit =
 static void OnPress_Last_Exit(void)
 {
     MODE_WORK = ModeWork_Direct;
-    if (gMemory.runningFPGAbeforeSmallButtons == 1)
+    if (RUN_FPGA_BEFORE_SB)
     {
         FPGA_Start();
-        gMemory.runningFPGAbeforeSmallButtons = 0;
+        RUN_FPGA_BEFORE_SB = 0;
     }
     Display_RemoveAddDrawFunction();
 }
@@ -313,7 +313,7 @@ static const SButton bLast_Next =
 
 static void OnPress_Last_Next(void)
 {
-    CircleIncreaseInt16(&gMemory.currentNumLatestSignal, 0, (int16)(DS_NumElementsInStorage() - 1));
+    CircleIncreaseInt16(&NUM_RAM_SIGNAL, 0, (int16)(DS_NumElementsInStorage() - 1));
 }
 
 static void Draw_Last_Next(int x, int y)
@@ -338,7 +338,7 @@ static const SButton bLast_Prev =
 
 static void OnPress_Last_Prev(void)
 {
-    CircleDecreaseInt16(&gMemory.currentNumLatestSignal, 0, (int16)(DS_NumElementsInStorage() - 1));
+    CircleDecreaseInt16(&NUM_RAM_SIGNAL, 0, (int16)(DS_NumElementsInStorage() - 1));
 }
 
 static void Draw_Last_Prev(int x, int y)
@@ -366,7 +366,7 @@ static void OnPress_Last_Internal(void)
     OpenPageAndSetItCurrent(Page_SB_MemInt);
     MODE_WORK = ModeWork_EEPROM;
     Data_GetFromIntMemory();
-    gMemory.exitFromIntToLast = 1;
+    EXIT_FROM_ROM_TO_RAM = 1;
 }
 
 static void Draw_Last_Internal(int x, int y)
@@ -391,7 +391,7 @@ static const SButton bLast_SaveToDrive =
 
 static void OnPress_Last_SaveToDrive(void)
 {
-    gMemory.exitFromModeSetNameTo = RETURN_TO_LAST_MEM;
+    EXIT_FROM_SETNAME_TO = RETURN_TO_LAST_MEM;
     Memory_SaveSignalToFlashDrive();
 }
 
@@ -406,12 +406,12 @@ void Memory_SaveSignalToFlashDrive(void)
         }
         else
         {
-            gMemory.needForSaveToFlashDrive = 1;
+            NEED_SAVE_TO_FLASHDRIVE = 1;
         }
     }
     else
     {
-        gMemory.exitFromModeSetNameTo = 0;
+        EXIT_FROM_SETNAME_TO = 0;
     }
 }
 
@@ -520,9 +520,9 @@ static void DrawMemoryWave(int num, bool exist)
     int x = GridLeft() + 2 + num * 12;
     int y = GridFullBottom() - 10;
     int width = 12;
-    Painter_FillRegionC(x, y, width, 10, num == gMemory.currentNumIntSignal ? COLOR_FLASH_10 : gColorBack);
+    Painter_FillRegionC(x, y, width, 10, num == NUM_ROM_SIGNAL ? COLOR_FLASH_10 : gColorBack);
     Painter_DrawRectangleC(x, y, width, 10, gColorFill);
-    Painter_SetColor(num == gMemory.currentNumIntSignal ? COLOR_FLASH_01 : gColorFill);
+    Painter_SetColor(num == NUM_ROM_SIGNAL ? COLOR_FLASH_01 : gColorFill);
     if (exist)
     {
         Painter_DrawText(x + 2, y + 1, Int2String(num + 1, false, 2, buffer));
@@ -538,11 +538,11 @@ static void OnRegSet_Internal(int delta)
     Sound_RegulatorSwitchRotate();
     if (delta < 0)
     {
-        CircleDecreaseInt8(&gMemory.currentNumIntSignal, 0, MAX_NUM_SAVED_WAVES - 1);
+        CircleDecreaseInt8(&NUM_ROM_SIGNAL, 0, MAX_NUM_SAVED_WAVES - 1);
     }
     else if (delta > 0)
     {
-        CircleIncreaseInt8(&gMemory.currentNumIntSignal, 0, MAX_NUM_SAVED_WAVES - 1);
+        CircleIncreaseInt8(&NUM_ROM_SIGNAL, 0, MAX_NUM_SAVED_WAVES - 1);
     }
     Data_GetFromIntMemory();
     Painter_ResetFlash();
@@ -564,19 +564,19 @@ static const SButton bInternal_Exit =
 static void OnPress_Internal_Exit(void)
 {
     Data_GetFromIntMemory();
-    if (gMemory.exitFromIntToLast == 1)
+    if (EXIT_FROM_ROM_TO_RAM)
     {
         OpenPageAndSetItCurrent(Page_SB_MemLatest);
         MODE_WORK = ModeWork_Latest;
-        gMemory.exitFromIntToLast = 0;
+        EXIT_FROM_ROM_TO_RAM = 0;
     }
     else
     {
         MODE_WORK = ModeWork_Direct;
-        if (gMemory.runningFPGAbeforeSmallButtons == 1)
+        if (RUN_FPGA_BEFORE_SB)
         {
             FPGA_Start();
-            gMemory.runningFPGAbeforeSmallButtons = 0;
+            RUN_FPGA_BEFORE_SB = 0;
         }
         Display_RemoveAddDrawFunction();
         //ShortPressOnPageItem(PagePointerFromName(Page_SB_MemInt), 0);
@@ -610,12 +610,12 @@ static const SButton bInternal_ShowAlways =
 
 static void OnPress_Internal_ShowAlways(void)
 {
-    gMemory.alwaysShowMemIntSignal = (gMemory.alwaysShowMemIntSignal == 0) ? 1 : 0;
+    ALWAYS_SHOW_ROM_SIGNAL = ALWAYS_SHOW_ROM_SIGNAL ? 0 : 1;
 }
 
 static void Draw_Internal_ShowAlways(int x, int y)
 {
-    if (gMemory.alwaysShowMemIntSignal == 0)
+    if (ALWAYS_SHOW_ROM_SIGNAL == 0)
     {
         Draw_Internal_ShowAlways_No(x, y);
     }
@@ -767,11 +767,11 @@ static void OnPress_Internal_SaveToMemory(void)
 
 static void SaveSignalToIntMemory(void)
 {
-    if (gMemory.exitFromIntToLast == 1)
+    if (EXIT_FROM_ROM_TO_RAM)
     {
         if (DS)
         {
-            FLASH_SaveData(gMemory.currentNumIntSignal, DS, DATA_A, DATA_B);
+            FLASH_SaveData(NUM_ROM_SIGNAL, DS, DATA_A, DATA_B);
             Data_GetFromIntMemory();
             Display_ShowWarning(SignalIsSaved);
         }
@@ -780,8 +780,8 @@ static void SaveSignalToIntMemory(void)
     {
         if (DS != 0)
         {
-            FLASH_SaveData(gMemory.currentNumIntSignal, DS, DATA_A, DATA_B);
-            FLASH_GetData(gMemory.currentNumIntSignal, &DS, &DATA_A, &DATA_B);
+            FLASH_SaveData(NUM_ROM_SIGNAL, DS, DATA_A, DATA_B);
+            FLASH_GetData(NUM_ROM_SIGNAL, &DS, &DATA_A, &DATA_B);
             Display_ShowWarning(SignalIsSaved);
         }
     }
@@ -809,7 +809,7 @@ static const SButton bInternal_SaveToDrive =
 
 static void OnPress_Internal_SaveToDrive(void)
 {
-    gMemory.exitFromModeSetNameTo = RETURN_TO_INT_MEM;
+    EXIT_FROM_SETNAME_TO = RETURN_TO_INT_MEM;
     Memory_SaveSignalToFlashDrive();
 }
 
@@ -1366,19 +1366,19 @@ static const SButton bSetName_Exit =   //  нопк дл€ выхода из режима задани€ име
 static void OnPress_SetName_Exit(void)
 {
     Display_RemoveAddDrawFunction();
-    if (gMemory.exitFromModeSetNameTo == RETURN_TO_DISABLE_MENU)
+    if (EXIT_FROM_SETNAME_TO == RETURN_TO_DISABLE_MENU)
     {
         ShortPressOnPageItem(PagePointerFromName(Page_SB_MemExtSetName), 0);
     }
-    else if (gMemory.exitFromModeSetNameTo == RETURN_TO_LAST_MEM)
+    else if (EXIT_FROM_SETNAME_TO == RETURN_TO_LAST_MEM)
     {
         OpenPageAndSetItCurrent(Page_SB_MemLatest);
     }
-    else if (gMemory.exitFromModeSetNameTo == RETURN_TO_INT_MEM)
+    else if (EXIT_FROM_SETNAME_TO == RETURN_TO_INT_MEM)
     {
         OpenPageAndSetItCurrent(Page_SB_MemInt);
     }
-    gMemory.exitFromModeSetNameTo = RETURN_TO_DISABLE_MENU;
+    EXIT_FROM_SETNAME_TO = RETURN_TO_DISABLE_MENU;
 }
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
@@ -1483,7 +1483,7 @@ static void OnPress_SetName_Save(void)
     if (gFlashDriveIsConnected)
     {
         OnPress_SetName_Exit();
-        gMemory.needForSaveToFlashDrive = 1;
+        NEED_SAVE_TO_FLASHDRIVE = 1;
     }
 }
 

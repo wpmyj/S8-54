@@ -73,20 +73,27 @@ extern volatile BitField gBF;   ///< @brief Структура сделана volatile, потому ч
 
 #define NEED_FINISH_DRAW    (gBF.needFinishDraw)
 
+#define NUM_RAM_SIGNAL          (gMemory.currentNumRAMSignal)
+#define NUM_ROM_SIGNAL          (gMemory.currentNumROMSignal)
+#define ALWAYS_SHOW_ROM_SIGNAL  (gMemory.alwaysShowROMSignal)
+#define RUN_FPGA_BEFORE_SB      (gMemory.runningFPGAbeforeSmallButtons)
+#define EXIT_FROM_ROM_TO_RAM    (gMemory.exitFromROMtoRAM)
+#define EXIT_FROM_SETNAME_TO    (gMemory.exitFromModeSetNameTo)
+#define NEED_SAVE_TO_FLASHDRIVE (gMemory.needForSaveToFlashDrive)
+
 
 typedef struct 
 {
-    int16   currentNumLatestSignal;                 ///< Текущий номер последнего сигнала в режиме ПАМЯТЬ - Последние.
-    int8    currentNumIntSignal;                    ///< Текущий номер сигнала, сохранённого в ППЗУ.
-    uint    alwaysShowMemIntSignal          : 1;    ///< Если 1, то показывать всегда выбранный в режиме "Внутр. ЗУ" сигнал.
+    int16   currentNumRAMSignal;                    ///< Текущий номер последнего сигнала в режиме ПАМЯТЬ - Последние.
+    int8    currentNumROMSignal;                    ///< Текущий номер сигнала, сохранённого в ППЗУ.
+    uint    alwaysShowROMSignal          : 1;       ///< Если 1, то показывать всегда выбранный в режиме "Внутр. ЗУ" сигнал.
     uint    runningFPGAbeforeSmallButtons   : 1;    ///< Здесь сохраняется информация о том, работала ли ПЛИС перед переходом в режим работы с памятью.
-    uint    exitFromIntToLast               : 1;    ///< Если 1, то выходить из страницы внутренней памяти нужно не стандартно, а в меню последних.
+    uint    exitFromROMtoRAM               : 1;     ///< Если 1, то выходить из страницы внутренней памяти нужно не стандартно, а в меню последних.
     uint    exitFromModeSetNameTo           : 2;    ///< \brief Куда возвращаться из окна установки имени при сохранении : 0 - в основное меню, 1 - 
                                                     ///< в окно последних, 2 - в окно Внутр ЗУ, 3 - в основно окно в выключенным меню.
     uint    needForSaveToFlashDrive         : 1;    ///< Если 1, то нужно сохранить после отрисовки на флешку.
 } GMemory;
 
-#define ALWAYS_SHOW_MEM_INT_SIGNAL (gMemory.alwaysShowMemIntSignal == 1)
 
 
 typedef enum

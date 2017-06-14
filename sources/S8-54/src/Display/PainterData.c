@@ -97,7 +97,7 @@ void PainterData_DrawData(void)
 	// Нормальный режим
 	else
 	{
-		if (ALWAYS_SHOW_MEM_INT_SIGNAL)                 // Если нужно показывать сигннал из ППЗУ
+		if (ALWAYS_SHOW_ROM_SIGNAL)                 // Если нужно показывать сигннал из ППЗУ
 		{
             Data_PrepareToUse(ModeWork_EEPROM); // то показываем
 			DrawDataInModeEEPROM();

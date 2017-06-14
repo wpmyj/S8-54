@@ -18,14 +18,14 @@
 
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-static uint8 *dataChanDir[2] = {0, 0};      ///< Последние считанные данные.
-static uint8 *dataChanLast[2] = {0, 0};     ///< Данные, которые должны выводиться в режиме "ПОСЛЕДНИЕ".
-static uint8 *dataChanInt[2] = {0, 0};      ///< \brief Данные, которые должны выводиться в режиме "ВНУТР ЗУ" или нормальном режиме при соотв. 
+static uint8 *dataDir[2] = {0, 0};      ///< Последние считанные данные.
+static uint8 *dataRAM[2] = {0, 0};     ///< Данные, которые должны выводиться в режиме "ПОСЛЕДНИЕ".
+static uint8 *dataROM[2] = {0, 0};      ///< \brief Данные, которые должны выводиться в режиме "ВНУТР ЗУ" или нормальном режиме при соотв. 
                                             ///< настройке "ПАМЯТЬ-ВНУТР ЗУ-Показывать всегда".
 
 static DataSettings *pDSDir = 0;
-static DataSettings *pDSLast = 0;
-static DataSettings *pDSInt = 0;
+static DataSettings *pDSRAM = 0;
+static DataSettings *pDSROM = 0;
 
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -37,7 +37,7 @@ static void GetDataFromStorage(void);
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 void Data_GetFromIntMemory(void)
 {
-    FLASH_GetData(gMemory.currentNumIntSignal, &pDSInt, &dataChanInt[A], &dataChanInt[B]);
+    FLASH_GetData(NUM_ROM_SIGNAL, &pDSROM, &dataROM[A], &dataROM[B]);
 }
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
@@ -84,7 +84,7 @@ void Data_Load(void)
     {   
         GetDataFromStorage();               // Считываем данные из хранилища
 
-        if (ALWAYS_SHOW_MEM_INT_SIGNAL)     // И, если нужно показывать сигнал из ППЗУ и в основном режиме
+        if (ALWAYS_SHOW_ROM_SIGNAL)     // И, если нужно показывать сигнал из ППЗУ и в основном режиме
         {
             Data_GetFromIntMemory();        // то из хранилща
         }
@@ -113,10 +113,10 @@ void Data_Load(void)
 //----------------------------------------------------------------------------------------------------------------------------------------------------
 static void Clear(void)
 {
-    pDS = pDSDir = pDSLast = pDSInt = 0;
+    pDS = pDSDir = pDSRAM = pDSROM = 0;
     dataChan[A] = dataChan[B] = 0;
-    dataChanLast[A] = dataChanLast[B] = 0;
-    dataChanInt[A] = dataChanInt[B] = 0;
+    dataRAM[A] = dataRAM[B] = 0;
+    dataROM[A] = dataROM[B] = 0;
 }
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
@@ -128,11 +128,11 @@ void Data_PrepareToUse(ModeWork mode)
     }
     else if (mode == ModeWork_Latest)
     {
-        DS = pDSLast;
+        DS = pDSRAM;
     }
     else if (mode == ModeWork_EEPROM)
     {
-        DS = pDSInt;
+        DS = pDSROM;
     }
 }
 

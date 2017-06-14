@@ -304,13 +304,13 @@ void Display_Update(void)
 
     Painter_EndScene();
 
-    if(gMemory.needForSaveToFlashDrive == 1)
+    if(NEED_SAVE_TO_FLASHDRIVE)
     {
         if(Painter_SaveScreenToFlashDrive())
         {
             Display_ShowWarning(FileIsSaved);
         }
-        gMemory.needForSaveToFlashDrive = 0;
+        NEED_SAVE_TO_FLASHDRIVE = 0;
     }
 
     if(needReloadPalette)
