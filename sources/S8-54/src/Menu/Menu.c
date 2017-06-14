@@ -876,8 +876,8 @@ static bool NeedForFireSetLED(void)    // Возвращает true, если лампочка УСТАНОВ
             name == Page_SB_SerialNumber    ||
             name == Page_SB_MathCursorsFFT  || 
             name == Page_SB_MeasTuneMeas    || 
-            name == Page_SB_MemLatest       || 
-            name == Page_SB_MemInt          ||
+            name == Page_SB_MemRAM       || 
+            name == Page_SB_MemROM          ||
             IsRegSetActiveOnCursors()       ||
             (name == Page_SB_MathFunction && FUNC_ENABLED)
         )

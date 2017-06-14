@@ -35,9 +35,9 @@ static void        Draw_Last_Next(int x, int y);
 static const   SButton bLast_Prev;                              ///< ÏÀÌßÒÜ - Ïîñëåäíèå - Ïðåäûäóùèé
 static void     OnPress_Last_Prev(void);
 static void        Draw_Last_Prev(int x, int y);
-static const   SButton bLast_Internal;                          ///< ÏÀÌßÒÜ - Ïîñëåäíèå - Âíóòð ÇÓ
-static void     OnPress_Last_Internal(void);
-static void        Draw_Last_Internal(int x, int y);
+static const   SButton bLast_SaveToROM;                          ///< ÏÀÌßÒÜ - Ïîñëåäíèå - Âíóòð ÇÓ
+static void     OnPress_Last_SaveToROM(void);
+static void        Draw_Last_SaveToROM(int x, int y);
 static const   SButton bLast_SaveToDrive;                       ///< ÏÀÌßÒÜ - Ïîñëåäíèå - Ñîõðàíèòü
 static void     OnPress_Last_SaveToDrive(void);
 static void        Draw_Last_SaveToDrive(int x, int y);
@@ -229,13 +229,13 @@ static const Page ppLast =
         "Ïåðåõîä â ðåæèì ðàáîòû ñ ïîñëåäíèìè ïîëó÷åííûìè ñèãíàëàìè",
         "Transition to an operating mode with the last received signals"
     },
-    Page_SB_MemLatest,
+    Page_SB_MemRAM,
     {
         (void*)&bLast_Exit,         // ÏÀÌßÒÜ - ÏÎÑËÅÄÍÈÅ - Âûõîä
         (void*)0,
         (void*)&bLast_Next,         // ÏÀÌßÒÜ - ÏÎÑËÅÄÍÈÅ - Ñëåäóþùèé
         (void*)&bLast_Prev,         // ÏÀÌßÒÜ - ÏÎÑËÅÄÍÈÅ - Ïðåäûäóùèé
-        (void*)&bLast_Internal,     // ÏÀÌßÒÜ - ÏÎÑËÅÄÍÈÅ - Âíóòð ÇÓ
+        (void*)&bLast_SaveToROM,    // ÏÀÌßÒÜ - ÏÎÑËÅÄÍÈÅ - Âíóòð ÇÓ
         (void*)&bLast_SaveToDrive   // ÏÀÌßÒÜ - ÏÎÑËÅÄÍÈÅ - Ñîõðàíèòü
     },
     OnPress_Last, OnDraw_Last, OnRegSet_Last
@@ -349,7 +349,7 @@ static void Draw_Last_Prev(int x, int y)
 }
 
 // ÏÀÌßÒÜ - ÏÎÑËÅÄÍÈÅ - Âíóòð ÇÓ ---------------------------------------------------------------------------------------------------------------------
-static const SButton bLast_Internal =
+static const SButton bLast_SaveToROM =
 {
     Item_SmallButton, &ppLast, 0,
     {
@@ -357,19 +357,18 @@ static const SButton bLast_Internal =
         "Íàæìèòå ýòó êíîïêó, ÷òîáû ñîõðàíèòü ñèãíàë âî âíóòðåííåì çàïîìèíàþùåì óñòðîéñòâå",
         "Press this button to keep a signal in an internal memory"
     },
-    OnPress_Last_Internal,
-    Draw_Last_Internal
+    OnPress_Last_SaveToROM,
+    Draw_Last_SaveToROM
 };
 
-static void OnPress_Last_Internal(void)
+static void OnPress_Last_SaveToROM(void)
 {
-    OpenPageAndSetItCurrent(Page_SB_MemInt);
+    OpenPageAndSetItCurrent(Page_SB_MemROM);
     MODE_WORK = ModeWork_ROM;
-    Data_GetFromIntMemory();
     EXIT_FROM_ROM_TO_RAM = 1;
 }
 
-static void Draw_Last_Internal(int x, int y)
+static void Draw_Last_SaveToROM(int x, int y)
 {
     Painter_SetFont(TypeFont_UGO2);
     Painter_Draw4SymbolsInRect(x + 2, y + 1, '\x40');
@@ -480,7 +479,7 @@ static const Page ppInternal =
         "Ïåðåõîä â ðåæèì ðàáîòû ñ âíóòðåííåé ïàìÿòüþ",
         "Transition to an operating mode with internal memory"
     },
-    Page_SB_MemInt,
+    Page_SB_MemROM,
     {
         (void*)&bInternal_Exit,         // ÏÀÌßÒÜ - ÂÍÓÒÐ ÇÓ - Âûõîä
         (void*)&bInternal_ShowAlways,   // ÏÀÌßÒÜ - ÂÍÓÒÐ ÇÓ - Ïîêàçûâàòü âñåãäà
@@ -495,7 +494,7 @@ static const Page ppInternal =
 
 static void OnPress_Internal(void)
 {
-    OpenPageAndSetItCurrent(Page_SB_MemInt);
+    OpenPageAndSetItCurrent(Page_SB_MemROM);
     MODE_WORK = ModeWork_ROM;
 }
 
@@ -566,7 +565,7 @@ static void OnPress_Internal_Exit(void)
     Data_GetFromIntMemory();
     if (EXIT_FROM_ROM_TO_RAM)
     {
-        OpenPageAndSetItCurrent(Page_SB_MemLatest);
+        OpenPageAndSetItCurrent(Page_SB_MemRAM);
         MODE_WORK = ModeWork_RAM;
         EXIT_FROM_ROM_TO_RAM = 0;
     }
@@ -579,7 +578,7 @@ static void OnPress_Internal_Exit(void)
             RUN_FPGA_BEFORE_SB = 0;
         }
         Display_RemoveAddDrawFunction();
-        //ShortPressOnPageItem(PagePointerFromName(Page_SB_MemInt), 0);
+        //ShortPressOnPageItem(PagePointerFromName(Page_SB_MemROM), 0);
     }
 }
 
@@ -1372,11 +1371,11 @@ static void OnPress_SetName_Exit(void)
     }
     else if (EXIT_FROM_SETNAME_TO == RETURN_TO_LAST_MEM)
     {
-        OpenPageAndSetItCurrent(Page_SB_MemLatest);
+        OpenPageAndSetItCurrent(Page_SB_MemRAM);
     }
     else if (EXIT_FROM_SETNAME_TO == RETURN_TO_INT_MEM)
     {
-        OpenPageAndSetItCurrent(Page_SB_MemInt);
+        OpenPageAndSetItCurrent(Page_SB_MemROM);
     }
     EXIT_FROM_SETNAME_TO = RETURN_TO_DISABLE_MENU;
 }
