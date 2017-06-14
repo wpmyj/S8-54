@@ -80,13 +80,13 @@ void Data_Load(void)
         return;
     }
 
-    if (MODE_WORK_DIR)                        // Если находимся в реальном режиме
+    if (MODE_WORK_DIR)                          // Если находимся в реальном режиме
     {   
-        GetDataFromStorage();               // Считываем данные из хранилища
+        GetDataFromStorage();                   // Считываем данные из хранилища
 
-        if (ALWAYS_SHOW_ROM_SIGNAL)     // И, если нужно показывать сигнал из ППЗУ и в основном режиме
+        if (ALWAYS_SHOW_ROM_SIGNAL)             // И, если нужно показывать сигнал из ППЗУ и в основном режиме
         {
-            Data_GetFromIntMemory();        // то из хранилща
+            Data_GetFromIntMemory();            // то из хранилща
         }
     }
     else if (MODE_WORK_RAM)                     // Если находимся в режиме отображения последних
@@ -95,11 +95,11 @@ void Data_Load(void)
     }
     else if (MODE_WORK_ROM)
     {
-        Data_GetFromIntMemory();            // Считываем данные из ППЗУ
+        Data_GetFromIntMemory();                // Считываем данные из ППЗУ
 
-        if (!SHOW_IN_INT_SAVED)             // И, если нужно
+        if (!SHOW_IN_INT_SAVED)                 // И, если нужно
         {
-            GetDataFromStorage();           // из хранилища
+            GetDataFromStorage();               // из хранилища
         }
     }
 
