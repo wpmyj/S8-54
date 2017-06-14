@@ -1,23 +1,14 @@
 // This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++ and C#: http://www.viva64.com
-#include "PainterData.h"
-#include "DisplayTypes.h"
 #include "Globals.h"
-#include "Settings/SettingsDisplay.h"
-#include "FPGA/Data.h"
-#include "FPGA/DataStorage.h"
-#include "Settings/Settings.h"
 #include "Grid.h"
-#include "Utils/ProcessingSignal.h"
-#include "Utils/Math.h"
-#include "Utils/Debug.h"
-#include "Hardware/RAM.h"
-#include "Hardware/FSMC.h"
-#include "Hardware/Timer.h"
 #include "Symbols.h"
-#include "Log.h"
-#include "Settings/SettingsDisplay.h"
+#include "FPGA/Data.h"
+#include "Hardware/RAM.h"
+#include "Settings/Settings.h"
 #include "Utils/GlobalFunctions.h"
+#include "Utils/Math.h"
+#include "Utils/ProcessingSignal.h"
 
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -30,7 +21,7 @@
     if(out > (uint8)maxY)   { out = (uint8)maxY; };
 
 
-// Размещает два значения по возрастанию : val1 - меньшее, val2 - большее
+/// Размещает два значения по возрастанию : val1 - меньшее, val2 - большее
 #define PLACE_2_ASCENDING(v1, v2) if((v1) > (v2)) { int qwerty = v1; v1 = v2; v2 = qwerty; }
 
 
@@ -40,28 +31,28 @@ static Channel curCh = A;           ///< Текущий ресуемый канал.
 
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-static void  DrawDataInModeDirect(void);
-static void  DrawDataMinMax(void);
+static void DrawDataInModeDirect(void);
+static void DrawDataMinMax(void);
 /// Нарисовать оба канала.
-static void  DrawDataChannels(uint8 *dataA, uint8 *dataB);
-static void  DrawDataChannel(Channel ch, uint8 *dataIn);
-static void  DrawDataInRect(int x, uint width, const uint8 *data, int numElems, bool peackDet);
-static void  DrawTPos(int leftX, int rightX);
-static void  DrawTShift(int leftX, int rightX, int numPoints);
-static int   FillDataP2P(uint8 *data, DataSettings **ds);
-static void  DrawMarkersForMeasure(float scale);
+static void DrawDataChannels(uint8 *dataA, uint8 *dataB);
+static void DrawDataChannel(Channel ch, uint8 *dataIn);
+static void DrawDataInRect(int x, uint width, const uint8 *data, int numElems, bool peackDet);
+static void DrawTPos(int leftX, int rightX);
+static void DrawTShift(int leftX, int rightX, int numPoints);
+static int FillDataP2P(uint8 *data, DataSettings **ds);
+static void DrawMarkersForMeasure(float scale);
 /// Возвращает true, если изогражение сигнала выходит за пределы экрана.
-static bool  DataBeyondTheBorders(const uint8 *data, int firstPoint, int lastPoint);
-static void  DrawSignalLined(const uint8 *data, int startPoint, int endPoint, int minY, int maxY, float scaleY, float scaleX, bool calculateFiltr);
-static void  DrawSignalPointed(const uint8 *data, int startPoint, int endPoint, int minY, int maxY, float scaleY, float scaleX);
+static bool DataBeyondTheBorders(const uint8 *data, int firstPoint, int lastPoint);
+static void DrawSignalLined(const uint8 *data, int startPoint, int endPoint, int minY, int maxY, float scaleY, float scaleX, bool calculateFiltr);
+static void DrawSignalPointed(const uint8 *data, int startPoint, int endPoint, int minY, int maxY, float scaleY, float scaleX);
 /// Возвращает точку в экранной координате. Если точка не считана (NONE_VALUE), возвращает -1.
-static int   Ordinate(uint8 x, float scale);
-static int   FillDataP2PforRecorder(int numPoints, int numPointsDS, int pointsInScreen, uint8 *src, uint8 *dest);
-static int   FillDataP2PforNormal(int numPoints, int numPointsDS, int pointsInScreen, uint8 *src, uint8 *dest);
+static int Ordinate(uint8 x, float scale);
+static int FillDataP2PforRecorder(int numPoints, int numPointsDS, int pointsInScreen, uint8 *src, uint8 *dest);
+static int FillDataP2PforNormal(int numPoints, int numPointsDS, int pointsInScreen, uint8 *src, uint8 *dest);
 /// \todo Выоводит сообщение на экране о выходе сигнала за границы экрана.
 /// delta - расстояние от края сетки, на котором находится сообщение. Если delta < 0 - выводится внизу сетки
-static void  DrawLimitLabel(int delta);
-static void  SendToDisplayDataInRect(int x, const int *min, const int *max, uint width);
+static void DrawLimitLabel(int delta);
+static void SendToDisplayDataInRect(int x, const int *min, const int *max, uint width);
 
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
