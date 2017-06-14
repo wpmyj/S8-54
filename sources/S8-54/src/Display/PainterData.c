@@ -79,19 +79,19 @@ void PainterData_DrawData(void)
 	{
         if (SHOW_IN_INT_DIRECT || SHOW_IN_INT_BOTH)
         {
-            //Data_PreparePointersToUse(ModeWork_Direct);
+            //Data_PrepareToUse(ModeWork_Direct);
             DrawDataInModeDirect();
         }
         if (SHOW_IN_INT_SAVED || SHOW_IN_INT_BOTH)
         {
-            //Data_PreparePointersToUse(ModeWork_EEPROM);
+            //Data_PrepareToUse(ModeWork_EEPROM);
             //DrawDataInModeEEPROM();
         }
 	}
 	// Режим просмотра сигналов ОЗУ
 	else if (WORK_LAST)
 	{
-        Data_PreparePointersToUse(ModeWork_Latest);
+        Data_PrepareToUse(ModeWork_Latest);
 		DrawDataInModeLatest();
 	}
 	// Нормальный режим
@@ -99,11 +99,11 @@ void PainterData_DrawData(void)
 	{
 		if (ALWAYS_SHOW_MEM_INT_SIGNAL)                 // Если нужно показывать сигннал из ППЗУ
 		{
-            Data_PreparePointersToUse(ModeWork_EEPROM); // то показываем
+            Data_PrepareToUse(ModeWork_EEPROM); // то показываем
 			DrawDataInModeEEPROM();
 		}
 
-        //Data_PreparePointersToUse(ModeWork_Direct);     // И рисуем последний сигнал
+        //Data_PrepareToUse(ModeWork_Direct);     // И рисуем последний сигнал
 		DrawDataInModeDirect();    
 	}
 
@@ -165,8 +165,8 @@ void PainterData_DrawMath(void)
 // Нарисовать окно памяти
 void PainterData_DrawMemoryWindow(void)
 {
-    uint8 *datA = DATA_INT(A);
-    uint8 *datB = DATA_INT(B);
+    uint8 *datA = DATA_A;
+    uint8 *datB = DATA_B;
 
     if (IN_P2P_MODE && !DS_GetLastFrameP2P_RAM(&DS, &datA, &datB))      // Страхуемся от глюков
     {
@@ -256,9 +256,9 @@ static void DrawDataInModeEEPROM(void)
     if (DS)
     {
         curCh = A;
-        DrawDataChannel(DATA_INT(A), GRID_TOP, GridChannelBottom());
+        DrawDataChannel(DATA_A, GRID_TOP, GridChannelBottom());
         curCh = B;
-        DrawDataChannel(DATA_INT(B), GRID_TOP, GridChannelBottom());
+        DrawDataChannel(DATA_B, GRID_TOP, GridChannelBottom());
     }
 }
 
@@ -299,9 +299,9 @@ static void DrawDataInModeLatest(void)
     if (DS)
     {
         curCh = A;
-        DrawDataChannel(DATA_LAST(A), GRID_TOP, GridChannelBottom());
+        DrawDataChannel(DATA_A, GRID_TOP, GridChannelBottom());
         curCh = B;
-        DrawDataChannel(DATA_LAST(B), GRID_TOP, GridChannelBottom());
+        DrawDataChannel(DATA_B, GRID_TOP, GridChannelBottom());
     }
 }
 

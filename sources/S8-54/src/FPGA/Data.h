@@ -8,30 +8,23 @@
  *  @{
  *  @defgroup Data
  *  @{
+ *  @defgroup Interface Интерфейс
+ *  @{
  */
 
-#define DS              pDS                 ///< Указатель на настройки текущего рисуемого сигнала.
-#define DATA(ch)        (dataChan[ch])      ///< Указатель на данные отображаемого сигнала.
-#define DATA_A          (DATA(A))           ///< Указатель на данные отображаемого канала 1.
-#define DATA_B          (DATA(B))           ///< Указатель на данные отображаемого канала 2.
-#define DATA_INT(ch)    (dataChanInt[ch])
-#define DATA_LAST(ch)   (dataChanLast[ch])
-
 #ifndef _INCLUDE_DATA_
-    #define EXTERN extern
+#define EXTERN extern
 #else
-    #define EXTERN
+#define EXTERN
 #endif
 
-EXTERN DataSettings *pDS;
+#define DS              pDS             ///< Указатель на настройки текущего рисуемого сигнала.
+#define DATA(ch)        (dataChan[ch])  ///< Указатель на данные отображаемого сигнала.
+#define DATA_A          (DATA(A))       ///< Указатель на данные отображаемого канала 1.
+#define DATA_B          (DATA(B))       ///< Указатель на данные отображаемого канала 2.
 
-EXTERN uint8 *dataChan[2];
-EXTERN uint8 *dataChanLast[2];
-EXTERN uint8 *dataChanInt[2];
-
-EXTERN DataSettings *pDSCur;
-EXTERN DataSettings *pDSLast;
-EXTERN DataSettings *pDSInt;
+EXTERN DataSettings *pDS;               ///< Указатель на настройки текущего рисуемого сигнала. Обращаться к нему следует через макрос DS.
+EXTERN uint8 *dataChan[2];              ///< Указатель на данные отображаемого сигнала. Обращаться к нему следует через макрос DATA(ch).
 
 #undef EXTERN
 
@@ -71,14 +64,14 @@ EXTERN DataSettings *pDSInt;
 
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-/// Считать из ППЗУ информацию о настройках и указатели на данные
+/// Считать из ППЗУ информацию о настройках и указатели на данные.
 void Data_GetFromIntMemory(void);
 
 void Data_GetAverageFromDataStorage(void);
-/// Здесь заполняем указатели на данные и их настройки в соответствии с текущими режимами отображения
+/// Здесь заполняем указатели на данные и их настройки в соответствии с текущими режимами отображения.
 void Data_Load(void);
-/// Подготовить глобальные указатели на данные и их настройки для вывода данных на экран
-void Data_PreparePointersToUse(ModeWork mode);
+/// Подготовить глобальные указатели на данные и их настройки для вывода данных на экран.
+void Data_PrepareToUse(ModeWork mode);
 
-/** @}  @}
+/** @}  @}  @}
  */

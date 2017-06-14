@@ -10,6 +10,24 @@
 #include "Utils/ProcessingSignal.h"
 
 
+/** @addtogroup FPGA
+ *  @{
+ *  @addtogroup Data
+ *  @{
+ */
+
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+static uint8 *dataChanDir[2] = {0, 0};      ///< Последние считанные данные.
+static uint8 *dataChanLast[2] = {0, 0};     ///< Данные, которые должны выводиться в режиме "ПОСЛЕДНИЕ".
+static uint8 *dataChanInt[2] = {0, 0};      ///< \brief Данные, которые должны выводиться в режиме "ВНУТР ЗУ" или нормальном режиме при соотв. 
+                                            ///< настройке "ПАМЯТЬ-ВНУТР ЗУ-Показывать всегда".
+
+static DataSettings *pDSDir = 0;
+static DataSettings *pDSLast = 0;
+static DataSettings *pDSInt = 0;
+
+
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 static void Clear(void);
 /// Считать данные 
@@ -95,18 +113,18 @@ void Data_Load(void)
 //----------------------------------------------------------------------------------------------------------------------------------------------------
 static void Clear(void)
 {
-    pDS = pDSCur = pDSLast = pDSInt = 0;
+    pDS = pDSDir = pDSLast = pDSInt = 0;
     dataChan[A] = dataChan[B] = 0;
     dataChanLast[A] = dataChanLast[B] = 0;
     dataChanInt[A] = dataChanInt[B] = 0;
 }
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
-void Data_PreparePointersToUse(ModeWork mode)
+void Data_PrepareToUse(ModeWork mode)
 {
     if (mode == ModeWork_Direct)
     {
-        DS = pDSCur;
+        DS = pDSDir;
     }
     else if (mode == ModeWork_Latest)
     {
@@ -117,3 +135,6 @@ void Data_PreparePointersToUse(ModeWork mode)
         DS = pDSInt;
     }
 }
+
+/** @}  @}
+ */

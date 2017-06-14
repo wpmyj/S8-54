@@ -212,6 +212,7 @@
     </ClCompile>
     <ClCompile Include="..\..\S8-54\src\Menu\Pages\PageMeasures.c" />
     <ClCompile Include="..\..\S8-54\src\Menu\Pages\PageMemory.c" />
+    <ClCompile Include="..\..\S8-54\src\Menu\Pages\PageService.c" />
     <ClCompile Include="..\..\S8-54\src\Menu\Pages\PageTime.c" />
     <ClCompile Include="..\..\S8-54\src\Menu\Pages\PageTrig.c" />
     <ClCompile Include="..\..\S8-54\src\Panel\Controls.c" />

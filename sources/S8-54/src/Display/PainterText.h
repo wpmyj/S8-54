@@ -24,6 +24,8 @@ int Painter_DrawText(int x, int y, const char *text);
 int Painter_DrawTextOnBackground(int x, int y, const char *text, Color colorBackground);
 
 int Painter_DrawFormatText(int x, int y, char *format, ...);
+/// Пишет строку в позиции x, y
+int Painter_DrawFormText(int x, int y, Color color, char *text, ...);
 
 int Painter_DrawTextC(int x, int y, const char *text, Color color);
 
@@ -32,8 +34,6 @@ int Painter_DrawTextWithLimitationC(int x, int y, const char* text, Color color,
 int Painter_DrawTextInBoundedRectWithTransfers(int x, int y, int width, const char *text, Color colorBackground, Color colorFill);
 
 int Painter_DrawTextInRectWithTransfersC(int x, int y, int width, int height, const char *text, Color color);
-/// Пишет строку в позиции x, y
-int Painter_DrawFormText(int x, int y, Color color, char *text, ...);
 
 int Painter_DrawStringInCenterRect(int x, int y, int width, int height, const char *text);
 

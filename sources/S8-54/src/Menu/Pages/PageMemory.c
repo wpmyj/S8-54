@@ -41,7 +41,7 @@ static void        Draw_Last_Internal(int x, int y);
 static const   SButton bLast_SaveToDrive;                       ///< ÏÀÌßÒÜ - Ïîñëåäíèå - Ñîõðàíèòü
 static void     OnPress_Last_SaveToDrive(void);
 static void        Draw_Last_SaveToDrive(int x, int y);
-static const     Page ppInternal;                               ///< ÏÀÌßÒÜ - ÂÍÓÒÐ ÇÓ - 
+static const     Page ppInternal;                               ///< ÏÀÌßÒÜ - ÂÍÓÒÐ ÇÓ
 static void     OnPress_Internal(void);
 static void      OnDraw_Internal(void);
 static void    OnRegSet_Internal(int delta);
@@ -771,7 +771,7 @@ static void SaveSignalToIntMemory(void)
     {
         if (DS)
         {
-            FLASH_SaveData(gMemory.currentNumIntSignal, DS, DATA_LAST(A), DATA_LAST(B));
+            FLASH_SaveData(gMemory.currentNumIntSignal, DS, DATA_A, DATA_B);
             Data_GetFromIntMemory();
             Display_ShowWarning(SignalIsSaved);
         }
@@ -780,8 +780,8 @@ static void SaveSignalToIntMemory(void)
     {
         if (DS != 0)
         {
-            FLASH_SaveData(gMemory.currentNumIntSignal, DS, DATA(A), DATA(B));
-            FLASH_GetData(gMemory.currentNumIntSignal, &DS, &DATA_INT(A), &DATA_INT(B));
+            FLASH_SaveData(gMemory.currentNumIntSignal, DS, DATA_A, DATA_B);
+            FLASH_GetData(gMemory.currentNumIntSignal, &DS, &DATA_A, &DATA_B);
             Display_ShowWarning(SignalIsSaved);
         }
     }
