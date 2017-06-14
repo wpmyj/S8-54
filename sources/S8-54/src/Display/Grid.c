@@ -112,7 +112,7 @@ int GridMathBottom(void)
 int BottomMessages(void)
 {
     int retValue = GridFullBottom();
-    if (WORK_EEPROM)
+    if (MODE_WORK_ROM)
     {
         retValue -= 12;
     }

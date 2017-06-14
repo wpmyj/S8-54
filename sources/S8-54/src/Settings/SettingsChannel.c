@@ -85,7 +85,7 @@ bool sChannel_NeedForDraw(const uint8 *data, Channel ch, DataSettings *ds)
         return false;
     }
 
-    if (WORK_DIRECT)
+    if (MODE_WORK_DIR)
     {
         if (!sChannel_Enabled(ch))
         {

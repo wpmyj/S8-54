@@ -75,23 +75,23 @@ void PainterData_DrawData(void)
 	}
 
 	// Режим просмотра сигналов, записанных в ППЗУ
-	if (WORK_EEPROM)
+	if (MODE_WORK_ROM)
 	{
         if (SHOW_IN_INT_DIRECT || SHOW_IN_INT_BOTH)
         {
-            //Data_PrepareToUse(ModeWork_Direct);
+            //Data_PrepareToUse(ModeWork_Dir);
             DrawDataInModeDirect();
         }
         if (SHOW_IN_INT_SAVED || SHOW_IN_INT_BOTH)
         {
-            //Data_PrepareToUse(ModeWork_EEPROM);
+            //Data_PrepareToUse(ModeWork_ROM);
             //DrawDataInModeEEPROM();
         }
 	}
 	// Режим просмотра сигналов ОЗУ
-	else if (WORK_LAST)
+	else if (MODE_WORK_RAM)
 	{
-        Data_PrepareToUse(ModeWork_Latest);
+        Data_PrepareToUse(ModeWork_RAM);
 		DrawDataInModeLatest();
 	}
 	// Нормальный режим
@@ -99,11 +99,11 @@ void PainterData_DrawData(void)
 	{
 		if (ALWAYS_SHOW_ROM_SIGNAL)                 // Если нужно показывать сигннал из ППЗУ
 		{
-            Data_PrepareToUse(ModeWork_EEPROM); // то показываем
+            Data_PrepareToUse(ModeWork_ROM); // то показываем
 			DrawDataInModeEEPROM();
 		}
 
-        //Data_PrepareToUse(ModeWork_Direct);     // И рисуем последний сигнал
+        //Data_PrepareToUse(ModeWork_Dir);     // И рисуем последний сигнал
 		DrawDataInModeDirect();    
 	}
 
@@ -176,7 +176,7 @@ void PainterData_DrawMemoryWindow(void)
     uint8 *dA = 0;  // Сюда считаем данные каналов из RAM
     uint8 *dB = 0;
 
-    if (WORK_DIRECT || WORK_LAST)
+    if (MODE_WORK_DIR || MODE_WORK_RAM)
     {
         datA = DATA(A);
         datB = DATA(B);

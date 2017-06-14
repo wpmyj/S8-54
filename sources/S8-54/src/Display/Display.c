@@ -570,7 +570,7 @@ static void DrawSpectrum(void)
 
     Painter_DrawVLineC(GridRight(), GridChannelBottom() + 1, GridMathBottom() - 1, gColorBack);
 
-    if(WORK_DIRECT)
+    if(MODE_WORK_DIR)
     {
         int numPoints = sMemory_NumBytesInChannel(false);
         if(numPoints < 512)
@@ -676,10 +676,10 @@ static void DrawLowPart(void)
     TBase tBase = SET_TBASE;
     int16 tShift = SET_TSHIFT;
 
-    if(WORK_EEPROM && SHOW_IN_INT_DIRECT)
+    if(MODE_WORK_ROM && SHOW_IN_INT_DIRECT)
     { 
     }
-    else if(!WORK_DIRECT)
+    else if(!MODE_WORK_DIR)
     {
         if(DS)
         {
@@ -697,7 +697,7 @@ static void DrawLowPart(void)
 
     buffer[0] = 0;
     const char *source[3] ={"1", "2", "\x82"};
-    if(WORK_DIRECT)
+    if(MODE_WORK_DIR)
     {
         snprintf(buffer, 100, "с\xa5\x10%s", source[TRIGSOURCE]);
     }
@@ -724,7 +724,7 @@ static void DrawLowPart(void)
         "\xb3\xb4",
         "\xb1\xb2"
     };
-    if(WORK_DIRECT)
+    if(MODE_WORK_DIR)
     {
         snprintf(buffer, SIZE, "\xa5\x10%s\x10\xa5\x10%s\x10\xa5\x10", couple[TRIG_INPUT], polar[TRIG_POLARITY]);
         Painter_DrawText(x + 18, y1, buffer);
@@ -739,7 +739,7 @@ static void DrawLowPart(void)
         '\xa0',
         '\xb0'
     };
-    if(WORK_DIRECT)
+    if(MODE_WORK_DIR)
     {
         snprintf(buffer, 100, "\xa5\x10%c", mode[START_MODE]);
         Painter_DrawText(x + 63, y1, buffer);
@@ -756,7 +756,7 @@ static void DrawLowPart(void)
     int y2 = y1 + 6;
     Painter_SetFont(TypeFont_5);
 
-    if(WORK_DIRECT)
+    if(MODE_WORK_DIR)
     {
         WriteStringAndNumber("накопл", (int16)x, (int16)y0, DISPLAY_NUM_ACCUM);
         WriteStringAndNumber("усредн", (int16)x, (int16)y1, NUM_AVE);
@@ -768,7 +768,7 @@ static void DrawLowPart(void)
 
     Painter_SetFont(TypeFont_8);
 
-    if(WORK_DIRECT)
+    if(MODE_WORK_DIR)
     {
         char mesFreq[20] = "\x7c=";
         char buffer[20];
@@ -815,7 +815,7 @@ static void DrawLowPart(void)
         Painter_DrawChar(x + 46, GRID_BOTTOM + 11, '\x13');
     }
 
-    if(WORK_DIRECT)
+    if(MODE_WORK_DIR)
     {
         Painter_SetFont(TypeFont_5);
         WriteStringAndNumber("СГЛАЖ.:", (int16)(x + 57), (int16)(GRID_BOTTOM + 10), (int)SMOOTHING + 1);
@@ -1125,7 +1125,7 @@ void Display_DrawConsole(void)
 // Вывести значение уровян синхронизации
 static void WriteValueTrigLevel(void)
 {
-    if(showLevelTrigLev && WORK_DIRECT)
+    if(showLevelTrigLev && MODE_WORK_DIR)
     {
         TrigSource trigSource = TRIGSOURCE;
         float trigLev = RSHIFT_2_ABS(SET_TRIGLEV(trigSource), TRIGSOURCE_EXT ? Range_500mV : SET_RANGE(trigSource));
@@ -1475,7 +1475,7 @@ static void WriteCursors(void)
 {
     char buffer[20];
     int startX = 43;
-    if(WORK_DIRECT)
+    if(MODE_WORK_DIR)
     {
         startX += 29;
     }
@@ -1553,7 +1553,7 @@ static void DrawHiRightPart(void)
     static const int xses[3] ={280, 271, 251};
     int x = xses[MODE_WORK];
 
-    if(!WORK_LAST)
+    if(!MODE_WORK_RAM)
     {
         Painter_DrawVLineC(x, 1, GRID_TOP - 2, gColorFill);
 
@@ -1574,7 +1574,7 @@ static void DrawHiRightPart(void)
         {"ВНТР", "INT"}
     };
 
-    if(!WORK_DIRECT)
+    if(!MODE_WORK_DIR)
     {
         x += 18;
         Painter_DrawVLineC(x, 1, GRID_TOP - 2, gColorFill);
@@ -1587,7 +1587,7 @@ static void DrawHiRightPart(void)
         x -= 9;
     }
 
-    if(!WORK_LAST)
+    if(!MODE_WORK_RAM)
     {
         x += 27;
         Painter_DrawVLineC(x, 1, GRID_TOP - 2, gColorFill);
@@ -1678,7 +1678,7 @@ static void DrawTime(int x, int y)
 
     Painter_SetColor(gColorFill);
 
-    if(WORK_EEPROM || WORK_LAST)
+    if(MODE_WORK_ROM || MODE_WORK_RAM)
     {
         if(DS)
         {
@@ -1968,7 +1968,7 @@ static void DrawCursorRShift(Channel ch)
     else
     {
         Painter_DrawCharC(x - 8, y - 4, SYMBOL_RSHIFT_NORMAL, gColorChan[ch]);
-        if(((ch == A) ? showLevelRShiftA : showLevelRShiftB) && WORK_DIRECT)
+        if(((ch == A) ? showLevelRShiftA : showLevelRShiftB) && MODE_WORK_DIR)
         {
             Painter_DrawDashedHLine(y, GridLeft(), GridRight(), 7, 3, 0);
         }

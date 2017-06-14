@@ -246,7 +246,7 @@ static void OnPress_Last(void)
     NUM_RAM_SIGNAL = 0;
     RUN_FPGA_BEFORE_SB = FPGA_IsRunning() ? 1 : 0;
     FPGA_Stop(false);
-    MODE_WORK = ModeWork_Latest;
+    MODE_WORK = ModeWork_RAM;
 }
 
 static void OnDraw_Last(void)
@@ -289,7 +289,7 @@ static const SButton bLast_Exit =
 
 static void OnPress_Last_Exit(void)
 {
-    MODE_WORK = ModeWork_Direct;
+    MODE_WORK = ModeWork_Dir;
     if (RUN_FPGA_BEFORE_SB)
     {
         FPGA_Start();
@@ -364,7 +364,7 @@ static const SButton bLast_Internal =
 static void OnPress_Last_Internal(void)
 {
     OpenPageAndSetItCurrent(Page_SB_MemInt);
-    MODE_WORK = ModeWork_EEPROM;
+    MODE_WORK = ModeWork_ROM;
     Data_GetFromIntMemory();
     EXIT_FROM_ROM_TO_RAM = 1;
 }
@@ -496,7 +496,7 @@ static const Page ppInternal =
 static void OnPress_Internal(void)
 {
     OpenPageAndSetItCurrent(Page_SB_MemInt);
-    MODE_WORK = ModeWork_EEPROM;
+    MODE_WORK = ModeWork_ROM;
 }
 
 static void OnDraw_Internal(void)
@@ -567,12 +567,12 @@ static void OnPress_Internal_Exit(void)
     if (EXIT_FROM_ROM_TO_RAM)
     {
         OpenPageAndSetItCurrent(Page_SB_MemLatest);
-        MODE_WORK = ModeWork_Latest;
+        MODE_WORK = ModeWork_RAM;
         EXIT_FROM_ROM_TO_RAM = 0;
     }
     else
     {
-        MODE_WORK = ModeWork_Direct;
+        MODE_WORK = ModeWork_Dir;
         if (RUN_FPGA_BEFORE_SB)
         {
             FPGA_Start();

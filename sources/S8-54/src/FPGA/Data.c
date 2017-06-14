@@ -52,7 +52,7 @@ static void GetDataFromStorage(void)
         fromEnd = 1;
     }
 
-    DS_GetDataFromEnd_RAM(fromEnd, &pDS, (uint16**)&DATA_A, (uint16**)&DATA_B);
+    DS_GetDataFromEnd_RAM(fromEnd, &pDSDir, (uint16**)&dataDir[A], (uint16**)&dataDir[B]);
 
     if (sDisplay_NumAverage() != 1 || IN_RANDOM_MODE)
     {
@@ -80,7 +80,7 @@ void Data_Load(void)
         return;
     }
 
-    if (WORK_DIRECT)                        // Если находимся в реальном режиме
+    if (MODE_WORK_DIR)                        // Если находимся в реальном режиме
     {   
         GetDataFromStorage();               // Считываем данные из хранилища
 
@@ -89,11 +89,11 @@ void Data_Load(void)
             Data_GetFromIntMemory();        // то из хранилща
         }
     }
-    else if (WORK_LAST)                     // Если находимся в режиме отображения последних
+    else if (MODE_WORK_RAM)                     // Если находимся в режиме отображения последних
     {
-
+        DS_GetDataFromEnd_RAM(NUM_RAM_SIGNAL, &pDSRAM, (uint16**)&dataRAM[A], (uint16**)&dataRAM[B]);
     }
-    else if (WORK_EEPROM)
+    else if (MODE_WORK_ROM)
     {
         Data_GetFromIntMemory();            // Считываем данные из ППЗУ
 
@@ -106,6 +106,8 @@ void Data_Load(void)
     int first = 0;
     int last = 0;
     sDisplay_PointsOnDisplay(&first, &last);
+    
+    Data_PrepareToUse(MODE_WORK);
 
     Processing_SetSignal(DATA_A, DATA_B, DS, first, last);
 }
@@ -122,17 +124,24 @@ static void Clear(void)
 //----------------------------------------------------------------------------------------------------------------------------------------------------
 void Data_PrepareToUse(ModeWork mode)
 {
-    if (mode == ModeWork_Direct)
+    /// \todo переделать цепочку условий на выбор из массива
+    if (MODE_WORK_DIR)
     {
         DS = pDSDir;
+        DATA_A = dataDir[A];
+        DATA_B = dataDir[B];
     }
-    else if (mode == ModeWork_Latest)
+    else if (MODE_WORK_RAM)
     {
         DS = pDSRAM;
+        DATA_A = dataRAM[A];
+        DATA_B = dataRAM[B];
     }
-    else if (mode == ModeWork_EEPROM)
+    else if (MODE_WORK_ROM)
     {
         DS = pDSROM;
+        DATA_A = dataROM[A];
+        DATA_B = dataROM[B];
     }
 }
 

@@ -60,7 +60,7 @@ void Func_Start(int key)                // B_Start
         {
             CONSOLE_IN_PAUSE = CONSOLE_IN_PAUSE ? 0 : 1;
         }
-        if (WORK_DIRECT)                // Если кнопка ПУСК/СТОП выполняет стнадартную функцию
+        if (MODE_WORK_DIR)                // Если кнопка ПУСК/СТОП выполняет стнадартную функцию
         {
             Menu_PressButton(B_Start);
         }

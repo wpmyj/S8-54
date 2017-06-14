@@ -567,7 +567,7 @@ void ProcessingPressButton(void)
             itemUnderKey = ItemUnderButton(pressButton);
         }
     }
-    if (pressButton == B_Start && !WORK_LAST)
+    if (pressButton == B_Start && !MODE_WORK_RAM)
     {
         FPGA_OnPressStartStop();
     }
