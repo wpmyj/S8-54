@@ -35,16 +35,14 @@
 
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-static int xP2P = 0;                // Здесь хранится значение для отрисовки вертикальной линии
-static Channel curCh = A;           // Текущий ресуемый сигнал
+static int xP2P = 0;                ///< Здесь хранится значение для отрисовки вертикальной линии.
+static Channel curCh = A;           ///< Текущий ресуемый канал.
 
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-static void  DrawDataInModeEEPROM(void);
 static void  DrawDataInModeDirect(void);
-static void  DrawDataInModeLatest(void);
 static void  DrawDataMinMax(void);
-static void  DrawDataChannel(uint8 *dataIn, int minY, int maxY);
+static void  DrawDataChannel(Channel ch, uint8 *dataIn);
 static void  DrawDataInRect(int x, uint width, const uint8 *data, int numElems, bool peackDet);
 static void  DrawTPos(int leftX, int rightX);
 static void  DrawTShift(int leftX, int rightX, int numPoints);
@@ -79,7 +77,7 @@ void PainterData_DrawData(void)
 	{
         if (SHOW_IN_INT_DIRECT || SHOW_IN_INT_BOTH)
         {
-            //Data_PrepareToUse(ModeWork_Dir);
+            Data_PrepareToUse(ModeWork_Dir);
             DrawDataInModeDirect();
         }
         if (SHOW_IN_INT_SAVED || SHOW_IN_INT_BOTH)
@@ -92,7 +90,7 @@ void PainterData_DrawData(void)
 	else if (MODE_WORK_RAM)
 	{
         Data_PrepareToUse(ModeWork_RAM);
-		DrawDataInModeLatest();
+		DrawBothChannels(DATA_A, DATA_B);
 	}
 	// Нормальный режим
 	else
@@ -100,7 +98,7 @@ void PainterData_DrawData(void)
 		if (ALWAYS_SHOW_ROM_SIGNAL)                 // Если нужно показывать сигннал из ППЗУ
 		{
             Data_PrepareToUse(ModeWork_ROM); // то показываем
-			DrawDataInModeEEPROM();
+			DrawBothChannels(DATA_A, DATA_B);
 		}
 
         //Data_PrepareToUse(ModeWork_Dir);     // И рисуем последний сигнал
@@ -146,8 +144,7 @@ void PainterData_DrawMath(void)
 
     Math_PointsVoltageToRel(dataAbsA, numPoints, SET_RANGE_MATH, SET_RSHIFT_MATH, points);
 
-    curCh = Math;
-    DrawDataChannel(points, GridMathTop(), GridMathBottom());
+    DrawDataChannel(Math, points);
 
     static const int WIDTH = 71;
     static const int HEIGHT = 10;
@@ -250,18 +247,6 @@ void PainterData_DrawMemoryWindow(void)
     free(dB);
 }
 
-//---------------------------------------------------------------------------------------------------------------------------------------------------
-static void DrawDataInModeEEPROM(void)
-{
-    if (DS)
-    {
-        curCh = A;
-        DrawDataChannel(DATA_A, GRID_TOP, GridChannelBottom());
-        curCh = B;
-        DrawDataChannel(DATA_B, GRID_TOP, GridChannelBottom());
-    }
-}
-
 //----------------------------------------------------------------------------------------------------------------------------------------------------
 static void DrawDataInModeDirect(void)
 {
@@ -277,12 +262,12 @@ static void DrawDataInModeDirect(void)
 
     int16 numSignals = (int16)DS_NumElementsWithSameSettings();
     LIMITATION(numSignals, numSignals, 1, DISPLAY_NUM_ACCUM);
-    if (numSignals == 1 ||      // В хранилище только один сигнал с текущими настройками
-        NUM_ACCUM_INF ||        // или бесконечное накопление
-        MODE_ACCUM_RESET ||     // или автоматическая очистка экрана для накопления
-        IN_RANDOM_MODE)         // или в режиме рандомизатора
+    if (numSignals == 1 ||              // В хранилище только один сигнал с текущими настройками
+        NUM_ACCUM_INF ||                // или бесконечное накопление
+        MODE_ACCUM_RESET ||             // или автоматическая очистка экрана для накопления
+        IN_RANDOM_MODE)                 // или в режиме рандомизатора
     {
-        DrawBothChannels(0, 0);                 // когда 0, просто рисуем последний сигнал
+        DrawBothChannels(DATA_A, DATA_B);         // когда 0, просто рисуем последний сигнал
     }
     else
     {
@@ -294,46 +279,35 @@ static void DrawDataInModeDirect(void)
 }
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
-static void DrawDataInModeLatest(void)
-{
-    if (DS)
-    {
-        curCh = A;
-        DrawDataChannel(DATA_A, GRID_TOP, GridChannelBottom());
-        curCh = B;
-        DrawDataChannel(DATA_B, GRID_TOP, GridChannelBottom());
-    }
-}
-
-//----------------------------------------------------------------------------------------------------------------------------------------------------
 static void DrawDataMinMax(void)
 {
     ModeDrawSignal modeDrawSignalOld = MODE_DRAW_SIGNAL;
     MODE_DRAW_SIGNAL = ModeDrawSignal_Lines;
     if (LAST_AFFECTED_CH == B)
     {
-        curCh = A;
-        DrawDataChannel(DS_GetLimitation(A, 0), GRID_TOP, GridChannelBottom());
-        DrawDataChannel(DS_GetLimitation(A, 1), GRID_TOP, GridChannelBottom());
-        curCh = B;
-        DrawDataChannel(DS_GetLimitation(B, 0), GRID_TOP, GridChannelBottom());
-        DrawDataChannel(DS_GetLimitation(B, 1), GRID_TOP, GridChannelBottom());
+        DrawDataChannel(A, DS_GetLimitation(A, 0));
+        DrawDataChannel(A, DS_GetLimitation(A, 1));
+        DrawDataChannel(B, DS_GetLimitation(B, 0));
+        DrawDataChannel(B, DS_GetLimitation(B, 1));
     }
     else
     {
-        curCh = B;
-        DrawDataChannel(DS_GetLimitation(B, 0), GRID_TOP, GridChannelBottom());
-        DrawDataChannel(DS_GetLimitation(B, 1), GRID_TOP, GridChannelBottom());
-        curCh = A;
-        DrawDataChannel(DS_GetLimitation(A, 0), GRID_TOP, GridChannelBottom());
-        DrawDataChannel(DS_GetLimitation(A, 1), GRID_TOP, GridChannelBottom());
+        DrawDataChannel(B, DS_GetLimitation(B, 0));
+        DrawDataChannel(B, DS_GetLimitation(B, 1));
+        DrawDataChannel(A, DS_GetLimitation(A, 0));
+        DrawDataChannel(A, DS_GetLimitation(A, 1));
     }
     MODE_DRAW_SIGNAL = modeDrawSignalOld;
 }
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
-static void DrawDataChannel(uint8 *dataIn, int minY, int maxY)
+static void DrawDataChannel(Channel ch, uint8 *dataIn)
 {
+    curCh = ch;
+
+    int minY = curCh == Math ? GridMathTop() : GRID_TOP;
+    int maxY = curCh == Math ? GridMathBottom() : GridChannelBottom();
+
     bool calculateFiltr = true;
     int sizeBuffer = NumBytesInChannel(DS);
     uint8 data[sizeBuffer];                                 // пїЅпїЅпїЅпїЅпїЅ, пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ
@@ -580,34 +554,24 @@ static void DrawTShift(int leftX, int rightX, int numBytes)
 //----------------------------------------------------------------------------------------------------------------------------------------------------
 static void DrawBothChannels(uint8 *dataA, uint8 *dataB)
 {
-    int minY = GRID_TOP;
-    int maxY = GridChannelBottom();
-
-    if (LAST_AFFECTED_CH == B)
+    if(!DS)
     {
-        if (G_ENABLED_A)
-        {
-            curCh = A;
-            DrawDataChannel(dataA, minY, maxY);
-        }
-        if (G_ENABLED_B)
-        {
-            curCh = B;
-            DrawDataChannel(dataB, minY, maxY);
-        }
+        return;
     }
-    else
+
+    Channel chanFirst = LAST_AFFECTED_CH_IS_A ? B : A;
+    uint8 *dataFirst = LAST_AFFECTED_CH_IS_A ? dataB : dataA;
+    
+    Channel chanSecond = chanFirst == A ? B : A;
+    uint8 *dataSecond = dataFirst == dataA ? dataB : dataA;
+    
+    if(ENABLED(DS, chanFirst))
     {
-        if (G_ENABLED_B)
-        {
-            curCh = B;
-            DrawDataChannel(dataB, minY, maxY);
-        }
-        if (G_ENABLED_A)
-        {
-            curCh = A;
-            DrawDataChannel(dataA, minY, maxY);
-        }
+        DrawDataChannel(chanFirst, dataFirst);
+    }
+    if(ENABLED(DS, chanSecond))
+    {
+        DrawDataChannel(chanSecond, dataSecond);
     }
 }
 

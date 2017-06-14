@@ -364,8 +364,12 @@ static const SButton bLast_SaveToROM =
 static void OnPress_Last_SaveToROM(void)
 {
     OpenPageAndSetItCurrent(Page_SB_MemROM);
-    MODE_WORK = ModeWork_ROM;
-    EXIT_FROM_ROM_TO_RAM = 1;
+    MODE_WORK = ModeWork_ROM;   // Находимся в режиме внутренного ЗУ
+    EXIT_FROM_ROM_TO_RAM = 1;   // Этот признак мы устанавливаем для того, чтобы:
+                                // 1 - по нажатии кнопки Выход со страницы "ВНУТР ЗУ" выходить в "Последние", а не в основное меню;
+                                // 2 - для того, чтобы на странице "ВНУТР ЗУ" выводить не последний считанный сигнал, а выбранный на странице 
+                                // "Последние";
+                                // 3 - чтобы в Data_Load() устанавливать соответствующие указатели.
 }
 
 static void Draw_Last_SaveToROM(int x, int y)

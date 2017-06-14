@@ -120,7 +120,7 @@ typedef struct
                 /// \endcode
     char            mem_FileName[MAX_SYMBOLS_IN_FILE_NAME]; ///< Имя файла для режима ручного задания.
     int8            mem_IndexCurSymbolNameMask; ///< Индекс текущего символа в режиме задания маски или выбора имени.
-    ModeShowIntMem  mem_ModeShowIntMem;
+    ModeShowIntMem  mem_ModeShowIntMem;         ///< Что показывать в режиме ВНУТР ЗУ - считанный или записанный сигнал.
     bool            mem_FlashAutoConnect;       ///< Если true, при подключении флешки автоматически выводится Файл-Менеджер.
     ModeBtnMemory   mem_ModeBtnMemory;
     ModeSaveSignal  mem_ModeSaveSignal;         ///< В каком виде сохранять сигнал.

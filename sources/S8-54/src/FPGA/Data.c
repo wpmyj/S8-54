@@ -27,6 +27,7 @@ static DataSettings *pDSDir = 0;
 static DataSettings *pDSRAM = 0;
 static DataSettings *pDSROM = 0;
 
+static ModeWork currentModeWork = ModeWork_Dir;
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 static void Clear(void);
@@ -102,14 +103,8 @@ void Data_Load(void)
             GetDataFromStorage();               // из хранилища
         }
     }
-
-    int first = 0;
-    int last = 0;
-    sDisplay_PointsOnDisplay(&first, &last);
     
     Data_PrepareToUse(MODE_WORK);
-
-    Processing_SetSignal(DATA_A, DATA_B, DS, first, last);
 }
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
@@ -124,26 +119,40 @@ static void Clear(void)
 //----------------------------------------------------------------------------------------------------------------------------------------------------
 void Data_PrepareToUse(ModeWork mode)
 {
+    currentModeWork = mode;
+
     /// \todo переделать цепочку условий на выбор из массива
-    if (MODE_WORK_DIR)
+    if (mode == ModeWork_Dir)
     {
         DS = pDSDir;
         DATA_A = dataDir[A];
         DATA_B = dataDir[B];
     }
-    else if (MODE_WORK_RAM)
+    else if (mode == ModeWork_RAM)
     {
         DS = pDSRAM;
         DATA_A = dataRAM[A];
         DATA_B = dataRAM[B];
     }
-    else if (MODE_WORK_ROM)
+    else if (mode == ModeWork_ROM)
     {
         DS = pDSROM;
         DATA_A = dataROM[A];
         DATA_B = dataROM[B];
     }
+
+    int first = 0;
+    int last = 0;
+    sDisplay_PointsOnDisplay(&first, &last);
+    Processing_SetSignal(DATA_A, DATA_B, DS, first, last);
 }
+
+//----------------------------------------------------------------------------------------------------------------------------------------------------
+ModeWork Data_GetUsedModeWork(void)
+{
+    return currentModeWork;
+}
+
 
 /** @}  @}
  */

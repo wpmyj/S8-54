@@ -17,6 +17,7 @@
 #define COLOR(x)                (set.disp_Colors[x])
 #define NUM_SIGNALS_IN_SEC      (set.disp_ENumSignalsInSec)
 #define LAST_AFFECTED_CH        (set.disp_LastAffectedChannel)
+#define LAST_AFFECTED_CH_IS_A   (LAST_AFFECTED_CH == A)
 #define DISPLAY_ORIENTATION     (set.dbg_Orientation)
 
 #define SHOW_STRING_NAVI        (set.disp_ShowStringNavigation)
