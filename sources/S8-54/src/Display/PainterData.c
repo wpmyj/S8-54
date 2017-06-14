@@ -42,21 +42,25 @@ static Channel curCh = A;           ///< Текущий ресуемый канал.
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 static void  DrawDataInModeDirect(void);
 static void  DrawDataMinMax(void);
+/// Нарисовать оба канала.
+static void  DrawDataChannels(uint8 *dataA, uint8 *dataB);
 static void  DrawDataChannel(Channel ch, uint8 *dataIn);
 static void  DrawDataInRect(int x, uint width, const uint8 *data, int numElems, bool peackDet);
 static void  DrawTPos(int leftX, int rightX);
 static void  DrawTShift(int leftX, int rightX, int numPoints);
-static void  DrawBothChannels(uint8 *dataA, uint8 *dataB);                              // Нарисовать оба канала. Если data == 0, то данные берутся из Processing_GetData
 static int   FillDataP2P(uint8 *data, DataSettings **ds);
 static void  DrawMarkersForMeasure(float scale);
-static bool  DataBeyondTheBorders(const uint8 *data, int firstPoint, int lastPoint);    // Возвращает true, если изогражение сигнала выходит за пределы экрана
+/// Возвращает true, если изогражение сигнала выходит за пределы экрана.
+static bool  DataBeyondTheBorders(const uint8 *data, int firstPoint, int lastPoint);
 static void  DrawSignalLined(const uint8 *data, int startPoint, int endPoint, int minY, int maxY, float scaleY, float scaleX, bool calculateFiltr);
 static void  DrawSignalPointed(const uint8 *data, int startPoint, int endPoint, int minY, int maxY, float scaleY, float scaleX);
-static int   Ordinate(uint8 x, float scale);                                            // Возвращает точку в экранной координате. Если точка не считана (NONE_VALUE), возвращает -1
+/// Возвращает точку в экранной координате. Если точка не считана (NONE_VALUE), возвращает -1.
+static int   Ordinate(uint8 x, float scale);
 static int   FillDataP2PforRecorder(int numPoints, int numPointsDS, int pointsInScreen, uint8 *src, uint8 *dest);
 static int   FillDataP2PforNormal(int numPoints, int numPointsDS, int pointsInScreen, uint8 *src, uint8 *dest);
-static void  DrawLimitLabel(int delta);     // Выоводит сообщение на экране о выходе сигнала за границы экрана. 
-                                            // delta - расстояние от края сетки, на котором находится сообщение. Если delta < 0 - выводится внизу сетки
+/// \todo Выоводит сообщение на экране о выходе сигнала за границы экрана.
+/// delta - расстояние от края сетки, на котором находится сообщение. Если delta < 0 - выводится внизу сетки
+static void  DrawLimitLabel(int delta);
 static void  SendToDisplayDataInRect(int x, const int *min, const int *max, uint width);
 
 
@@ -90,7 +94,7 @@ void PainterData_DrawData(void)
 	else if (MODE_WORK_RAM)
 	{
         Data_PrepareToUse(ModeWork_RAM);
-		DrawBothChannels(DATA_A, DATA_B);
+		DrawDataChannels(DATA_A, DATA_B);
 	}
 	// Нормальный режим
 	else
@@ -98,7 +102,7 @@ void PainterData_DrawData(void)
 		if (ALWAYS_SHOW_ROM_SIGNAL)                 // Если нужно показывать сигннал из ППЗУ
 		{
             Data_PrepareToUse(ModeWork_ROM); // то показываем
-			DrawBothChannels(DATA_A, DATA_B);
+			DrawDataChannels(DATA_A, DATA_B);
 		}
 
         //Data_PrepareToUse(ModeWork_Dir);     // И рисуем последний сигнал
@@ -267,13 +271,13 @@ static void DrawDataInModeDirect(void)
         MODE_ACCUM_RESET ||             // или автоматическая очистка экрана для накопления
         IN_RANDOM_MODE)                 // или в режиме рандомизатора
     {
-        DrawBothChannels(DATA_A, DATA_B);         // когда 0, просто рисуем последний сигнал
+        DrawDataChannels(DATA_A, DATA_B);         // когда 0, просто рисуем последний сигнал
     }
     else
     {
         for (int i = 0; i < numSignals; i++)    // Иначе рисуем необходимое число последних сигналов
         {
-            DrawBothChannels(DS_GetData_RAM(A, i), DS_GetData_RAM(B, i));
+            DrawDataChannels(DS_GetData_RAM(A, i), DS_GetData_RAM(B, i));
         }
     }
 }
@@ -552,7 +556,7 @@ static void DrawTShift(int leftX, int rightX, int numBytes)
 }
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
-static void DrawBothChannels(uint8 *dataA, uint8 *dataB)
+static void DrawDataChannels(uint8 *dataA, uint8 *dataB)
 {
     if(!DS)
     {
