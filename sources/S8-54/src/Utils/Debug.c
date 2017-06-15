@@ -2,8 +2,9 @@
 // PVS-Studio Static Code Analyzer for C, C++ and C#: http://www.viva64.com
 #include "Debug.h"
 #include "defines.h"
-#include "Hardware/Timer.h"
 #include "Log.h"
+#include "FPGA/Data.h"
+#include "Hardware/Timer.h"
 
 
 Debug debug;
