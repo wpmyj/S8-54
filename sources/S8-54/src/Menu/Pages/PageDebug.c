@@ -466,7 +466,6 @@ static void Draw_Console_SizeSettings(int x, int y)
     char buffer[30];
     sprintf(buffer, "Разм.настр. %d", sizeof(Settings));
     Painter_DrawTextC(x + 6, y + 13, buffer, gColorBack);
-    LOG_WRITE(buffer);
 }
 
 // ОТЛАДКА - АЦП /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
