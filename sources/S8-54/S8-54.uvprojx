@@ -950,11 +950,6 @@
               <FilePath>.\src\main2.s</FilePath>
             </File>
             <File>
-              <FileName>structures.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\src\structures.h</FilePath>
-            </File>
-            <File>
               <FileName>Tables.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\src\Tables.c</FilePath>

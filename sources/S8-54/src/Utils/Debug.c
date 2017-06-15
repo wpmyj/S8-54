@@ -5,6 +5,7 @@
 #include "Log.h"
 #include "FPGA/Data.h"
 #include "Hardware/Timer.h"
+#include "Settings/Settings.h"
 
 
 Debug debug;
@@ -86,4 +87,19 @@ void DBG_Log_Out(void)
         running = false;
         nextPoint = 0;
     }
+}
+
+//----------------------------------------------------------------------------------------------------------------------------------------------------
+int CheckOnZero(void)
+{
+    if (MODE_WORK_ROM)
+    {
+        Data_PrepareToUse(ModeWork_ROM);
+        if (ENABLED_A(DS) == 0)
+        {
+            return 1;
+        }
+    }
+
+    return 0;
 }

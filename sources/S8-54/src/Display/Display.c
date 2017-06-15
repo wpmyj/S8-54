@@ -22,6 +22,10 @@
 #include "Utils/ProcessingSignal.h"
 
 
+bool enter1 = false;
+bool enter2 = false;
+
+
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 typedef struct
 {
@@ -218,6 +222,8 @@ void Display_Init(void)
 //----------------------------------------------------------------------------------------------------------------------------------------------------
 void Display_Update(void)
 {
+    enter1 = enter2 = false;
+    
     static uint prevLoadPalette = 0;
     bool needReloadPalette = false;
 
@@ -248,7 +254,7 @@ void Display_Update(void)
     {
         Painter_BeginScene(gColorBack);
         SetOrientation();
-        PainterData_DrawMemoryWindow();
+        //PainterData_DrawMemoryWindow();
         DrawFullGrid();
     }
 
@@ -264,8 +270,9 @@ void Display_Update(void)
         PainterData_DrawMath();
         DrawSpectrum();
         DrawCursors();
-        DrawHiPart();       
-        DrawLowPart();
+        DrawHiPart();
+        Data_PrepareToDrawSettings();   // Перед выводом установок выводимого сигнала настроим DS на него
+        //DrawLowPart();
         DrawCursorsWindow();
         DrawCursorTrigLevel();
         DrawCursorsRShift();

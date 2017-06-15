@@ -136,5 +136,7 @@ extern void *extraMEM;      // Это специальный указатель. Используется для выдел
 
 bool GetInverse(Channel ch);
 
+bool DataSettings_IsEquals(const DataSettings *ds1, const DataSettings *ds2);
+
 /** @}  @}
  */

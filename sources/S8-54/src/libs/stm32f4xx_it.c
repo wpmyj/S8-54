@@ -2,8 +2,10 @@
 // PVS-Studio Static Code Analyzer for C, C++ and C#: http://www.viva64.com
 #include "defines.h"
 #include "Hardware/FSMC.h"
+#include "FPGA/Data.h"
 #include "FPGA/FPGA.h"
 #include "Hardware/Timer.h"
+#include "Display/Display.h"
 #include <stm32f4xx_hal.h>
 #include "stm32f4xx_it.h"
 
@@ -17,9 +19,17 @@ void NMI_Handler(void)
 //----------------------------------------------------------------------------------------------------------------------------------------------------
 void HardFault_Handler(void)
 {
+    bool val1 = enter1;
+    bool val2 = enter2;
+    
+    DataSettings *ds = DS;
+    
     bool run = true;
     while (run)
     {
+        val1 = val1;
+        val2 = val2;
+        ds = ds;
     }
 }
 

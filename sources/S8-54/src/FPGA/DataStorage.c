@@ -864,29 +864,3 @@ int DS_GetLastFrameP2P_RAM(DataSettings **ds, uint8 **dataA, uint8 **dataB)
 
     return numPointsP2P;
 }
-
-
-//----------------------------------------------------------------------------------------------------------------------------------------------------
-bool DataSettings_IsEquals(const DataSettings *ds1, const DataSettings *ds2)
-{
-    /** @todo оптимизировать функцию сравнения */
-    bool equals = (ENABLED_A(ds1) == ENABLED_A(ds2)) &&
-        (ENABLED_B(ds1) == ENABLED_B(ds2)) &&
-        (INVERSE_A(ds1) == INVERSE_A(ds2)) &&
-        (INVERSE_B(ds1) == INVERSE_B(ds2)) &&
-        (RANGE_A(ds1)   == RANGE_A(ds2)) &&
-        (RANGE_B(ds1)   == RANGE_B(ds2)) &&
-        (RSHIFT_A(ds1)  == RSHIFT_A(ds2)) &&
-        (RSHIFT_B(ds1)  == RSHIFT_B(ds2)) &&
-        (TBASE(ds1)     == TBASE(ds2)) &&
-        (TSHIFT(ds1)    == TSHIFT(ds2)) &&
-        (COUPLE_A(ds1)  == COUPLE_A(ds2)) &&
-        (COUPLE_B(ds1)  == COUPLE_B(ds2)) &&
-        (TRIGLEV_A(ds1) == TRIGLEV_A(ds2)) &&
-        (TRIGLEV_B(ds1) == TRIGLEV_B(ds2)) &&
-        (DIVIDER_A(ds1) == DIVIDER_A(ds2)) &&
-        (DIVIDER_B(ds1) == DIVIDER_B(ds2)) &&
-        (PEACKDET(ds1)  == PEACKDET(ds2));
-
-    return equals;
-}

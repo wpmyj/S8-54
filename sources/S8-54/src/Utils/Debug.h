@@ -41,6 +41,8 @@ typedef struct
     uint timeStartCopyMemory;
 } Debug;
 
+int CheckOnZero(void);
+
 
 //extern Debug debug;
 

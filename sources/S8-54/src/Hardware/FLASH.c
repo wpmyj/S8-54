@@ -439,11 +439,6 @@ void FLASH_SaveData(int num, DataSettings *ds, uint8 *dataA, uint8 *dataB)
 
     // Теперь сохраним данные этого номера
 
-    if (FLASH_ExistData(num))
-    {
-        LOG_ERROR_TRACE("Данные не стёрты");
-    }
-
     uint address = AddressForData(num);
     int sizeChannel = NumBytesInChannel(ds);
 
@@ -460,8 +455,15 @@ void FLASH_SaveData(int num, DataSettings *ds, uint8 *dataA, uint8 *dataB)
 
     ArrayDatas *array = CurrentArray();
 
-    WriteWord((uint)&array->datas[num].address, AddressForData(num));
-    WriteBufferBytes((uint)&array->datas[num].ds, (void*)ds, sizeof(DataSettings));
+    uint addrADDR = (uint)&array->datas[num].address;
+    WriteWord(addrADDR, AddressForData(num));
+
+    uint addrDS = (uint)&array->datas[num].ds;
+    WriteBufferBytes(addrDS, (void*)ds, sizeof(DataSettings));
+
+    DataSettings dataSettings = {0};
+
+    memcpy(&dataSettings, ds, sizeof(DataSettings));
 }
 
 
@@ -503,7 +505,8 @@ bool FLASH_GetData(int num, DataSettings **ds, uint8 **dataA, uint8 **dataB)
     *dataA = 0;
     *dataB = 0;
 
-    ArrayDatas array = *CurrentArray();
+    ArrayDatas *pArray = CurrentArray();
+    ArrayDatas array = *pArray;
 
     uint addrData = array.datas[num].address;
 

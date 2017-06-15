@@ -1036,6 +1036,15 @@ float CalculatePhazaMinus(Channel ch)
 //----------------------------------------------------------------------------------------------------------------------------------------------------
 void Processing_SetSignal(uint8 *dataA, uint8 *dataB, DataSettings *_ds, int _firstPoint, int _lastPoint)
 {
+    static DataSettings prev;
+
+    if (!DataSettings_IsEquals(&prev, _ds))
+    {
+        int i = 0;
+    }
+
+    prev = *_ds;
+
     isSet = true;
 
     dataOutA_RAM = (uint16*)RAM(PS_DATA_OUT_A);
