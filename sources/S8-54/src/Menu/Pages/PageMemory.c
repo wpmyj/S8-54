@@ -770,23 +770,14 @@ static void OnPress_Internal_SaveToMemory(void)
 
 static void SaveSignalToIntMemory(void)
 {
-    if (EXIT_FROM_ROM_TO_RAM)
+    // Заносим в указатели DS, DATA_A, DATA_B данные из ОЗУ или последний считанный сигнал, в зависимости от того, из какого режима зашли в 
+    // "ПАМЯТЬ-ВНУТР ЗУ"
+    Data_PrepareToUse(EXIT_FROM_ROM_TO_RAM ? ModeWork_RAM : ModeWork_Dir);
+
+    if (DS)                                                     // Если есть что сохранять
     {
-        if (DS)
-        {
-            FLASH_SaveData(NUM_ROM_SIGNAL, DS, DATA_A, DATA_B);
-            Data_GetFromIntMemory();
-            Display_ShowWarning(SignalIsSaved);
-        }
-    }
-    else
-    {
-        if (DS != 0)
-        {
-            FLASH_SaveData(NUM_ROM_SIGNAL, DS, DATA_A, DATA_B);
-            FLASH_GetData(NUM_ROM_SIGNAL, &DS, &DATA_A, &DATA_B);
-            Display_ShowWarning(SignalIsSaved);
-        }
+        FLASH_SaveData(NUM_ROM_SIGNAL, DS, DATA_A, DATA_B);     // То сохраняем данные из DS, DATA_A, DATA_B на место NUM_ROM_SIGNAL в ППЗУ
+        Display_ShowWarning(SignalIsSaved);
     }
 }
 

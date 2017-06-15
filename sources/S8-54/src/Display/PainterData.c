@@ -77,8 +77,8 @@ void PainterData_DrawData(void)
         }
         if (SHOW_IN_INT_SAVED || SHOW_IN_INT_BOTH)
         {
-            //Data_PrepareToUse(ModeWork_ROM);
-            //DrawDataInModeEEPROM();
+            Data_PrepareToUse(ModeWork_ROM);
+            DrawDataChannels(DATA_A, DATA_B);
         }
 	}
 	// Режим просмотра сигналов ОЗУ
