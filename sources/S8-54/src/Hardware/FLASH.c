@@ -66,9 +66,6 @@ typedef struct
     } datas[MAX_NUM_SAVED_WAVES];
 } ArrayDatas;
 
-static const uint startDataInfo = ADDR_DATA_1;
-
-
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 #undef CLEAR_FLASH_FLAGS
@@ -91,7 +88,6 @@ static const uint startDataInfo = ADDR_DATA_1;
 // Для настроек
 
 // Для данных
-static void PrepareSectorForData(void);
 static ArrayDatas* CurrentArray(void);              // Возвращает адрес актуального массива с адресами данных
 static uint AddressSectorForData(int num);          // Возвращает адрес сектора, в котором сохранены данные с номером num
 static uint AddressForData(int num);                // Возвращает адрес, по которому должны быть сохранены данные num
@@ -107,17 +103,16 @@ static void WriteBufferBytes(uint address, void *buffer, int numBytes);
 static void ReadBufferBytes(uint addressSrc, void *bufferDest, int size);
 static bool EraseSector(uint startAddress);
 static uint GetSector(uint startAddress);
-
+ 
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 void FLASH_LoadSettings(void)
 {
     uint16 numBytes = READ_HALF_WORD(ADDR_SECTOR_SETTINGS);
 
-    if (numBytes == 0xffff)         // Если в первых байтах сектора для настроек записаны все единицы, значит, сохранение настроек ещё не 
-    {                               // производилось - первое сохранение настроек.
-        PrepareSectorForData();     // Поэтому подготавливаем сектор для сохранения сигналов
-        return;                     // и выходим
+    if (numBytes == 0xffff)         // Если в первых байтах сектора для настроек записаны все единицы, значит, сохранение настроек ещё не производилось
+    {
+        return;                     // Просто выходим
     }
 
     // Находим область сектора с сохранёнными настройками. Настройки записываются последовательно друг за другом по адресам, кратным 1024
@@ -194,17 +189,6 @@ static void WriteBufferWords(uint address, void *buffer, int numWords)
         address += sizeof(uint);
     }
     HAL_FLASH_Lock();
-}
-
-
-//----------------------------------------------------------------------------------------------------------------------------------------------------
-static void PrepareSectorForData(void)
-{
-    EraseSector(ADDR_DATA_1);
-    for(int i = 0; i < MAX_NUM_SAVED_WAVES; i++)
-    {
-        WriteWord(startDataInfo + i * 4, 0);
-    }
 }
 
 

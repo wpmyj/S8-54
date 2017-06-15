@@ -566,7 +566,6 @@ static const SButton bInternal_Exit =
 
 static void OnPress_Internal_Exit(void)
 {
-    Data_GetFromIntMemory();
     if (EXIT_FROM_ROM_TO_RAM)
     {
         OpenPageAndSetItCurrent(Page_SB_MemRAM);
