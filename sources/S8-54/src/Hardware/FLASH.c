@@ -92,8 +92,6 @@ static ArrayDatas* CurrentArray(void);              // Возвращает адрес актуальн
 static uint AddressSectorForData(int num);          // Возвращает адрес сектора, в котором сохранены данные с номером num
 static uint AddressForData(int num);                // Возвращает адрес, по которому должны быть сохранены данные num
 static void SaveArrayDatas(ArrayDatas array);       // Перезаписать текущий ArrayDatas
-static void SaveData(int num, DataSettings *ds, uint8 *dataA, uint8 *dataB);        // Сохранение данных. Хранилище должно быть подготовлено - данные 
-                                                    // предварительно стёрты, т.е. везде записано FF, стирать ничего не нужно, только записывать
 
 static uint AddressSectorForAddress(uint address);  // Возвращает адрес сектора, которому принадлежить адрес address
 
@@ -439,7 +437,31 @@ void FLASH_SaveData(int num, DataSettings *ds, uint8 *dataA, uint8 *dataB)
 {
     FLASH_DeleteData(num);              // Сначала сотрём данные по этому номеру
 
-    SaveData(num, ds, dataA, dataB);    // Теперь сохраним данные этого номера
+    // Теперь сохраним данные этого номера
+
+    if (FLASH_ExistData(num))
+    {
+        LOG_ERROR_TRACE("Данные не стёрты");
+    }
+
+    uint address = AddressForData(num);
+    int sizeChannel = NumBytesInChannel(ds);
+
+    if (ENABLED_A(ds))
+    {
+        WriteBufferBytes(address, dataA, sizeChannel);
+        address += sizeChannel;
+    }
+
+    if (ENABLED_B(ds))
+    {
+        WriteBufferBytes(address, dataB, sizeChannel);
+    }
+
+    ArrayDatas *array = CurrentArray();
+
+    WriteWord((uint)&array->datas[num].address, AddressForData(num));
+    WriteBufferBytes((uint)&array->datas[num].ds, (void*)ds, sizeof(DataSettings));
 }
 
 
@@ -471,35 +493,6 @@ static void SaveArrayDatas(ArrayDatas array)
     }
 
     WriteBufferBytes(address, (void*)&array, sizeof(ArrayDatas));
-}
-
-
-//----------------------------------------------------------------------------------------------------------------------------------------------------
-static void SaveData(int num, DataSettings *ds, uint8 *dataA, uint8 *dataB)
-{
-    if (FLASH_ExistData(num))
-    {
-        LOG_ERROR_TRACE("Данные не стёрты");
-    }
-
-    uint address = AddressForData(num);
-    int sizeChannel = NumBytesInChannel(ds);
-
-    if (ENABLED_A(ds))
-    {
-        WriteBufferBytes(address, dataA, sizeChannel);
-        address += sizeChannel;
-    }
-
-    if (ENABLED_B(ds))
-    {
-        WriteBufferBytes(address, dataB, sizeChannel);
-    }
-
-    ArrayDatas *array = CurrentArray();
-    
-    WriteWord((uint)&array->datas[num].address, AddressForData(num));
-    WriteBufferBytes((uint)&array->datas[num].ds, (void*)ds, sizeof(DataSettings));
 }
 
 
