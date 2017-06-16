@@ -11,6 +11,7 @@
 #include "Hardware/RAM.h"
 #include "Menu/Pages/PageMemory.h"
 #include "Settings/Settings.h"
+#include "Utils/Debug.h"
 #include <math.h>
 #include <string.h>
 #include <limits.h>
@@ -186,8 +187,8 @@ void Processing_CalculateMeasures(void)
     }
 
     // Теперь удалим выделенную память
-    free(dataInA);
-    free(dataInB);
+    DEBUG_FREE(dataInA);
+    DEBUG_FREE(dataInB);
 }
 
 
@@ -414,10 +415,10 @@ float CalculatePeriod(Channel ch)
 
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
-#define EXIT_FROM_PERIOD_ACCURACY               \
-    period[ch] = ERROR_VALUE_INT;             \
-    periodAccurateIsCalculating[ch] = true;   \
-    free(sums);                                 \
+#define EXIT_FROM_PERIOD_ACCURACY           \
+    period[ch] = ERROR_VALUE_INT;           \
+    periodAccurateIsCalculating[ch] = true; \
+    DEBUG_FREE(sums);                       \
     return period[ch];
 
 
@@ -505,7 +506,7 @@ int CalculatePeriodAccurately(Channel ch)
         periodAccurateIsCalculating[ch] = true;
     }
 
-    free(sums);
+    DEBUG_FREE(sums);
 
     return period[ch];
 }
@@ -1036,15 +1037,6 @@ float CalculatePhazaMinus(Channel ch)
 //----------------------------------------------------------------------------------------------------------------------------------------------------
 void Processing_SetSignal(uint8 *dataA, uint8 *dataB, DataSettings *_ds, int _firstPoint, int _lastPoint)
 {
-    static DataSettings prev;
-
-    if (!DataSettings_IsEquals(&prev, _ds))
-    {
-        int i = 0;
-    }
-
-    prev = *_ds;
-
     isSet = true;
 
     dataOutA_RAM = (uint16*)RAM(PS_DATA_OUT_A);
@@ -1061,12 +1053,32 @@ void Processing_SetSignal(uint8 *dataA, uint8 *dataB, DataSettings *_ds, int _fi
     bool enableA = ENABLED_A(&ds) == 1;
     bool enableB = ENABLED_B(&ds) == 1;
 
+    dataInA = 0;
+    dataInB = 0;
+
     // Выделим память для данных
     if (enableA) { dataInA = malloc(FPGA_MAX_POINTS); };
     if (enableB) { dataInB = malloc(FPGA_MAX_POINTS); };
 
     if (enableA) { Math_CalculateFiltrArray(dataA, dataInA, length, numSmoothing); };
     if (enableB) { Math_CalculateFiltrArray(dataB, dataInB, length, numSmoothing); };
+
+    static bool first = true;
+
+    if (MODE_WORK_ROM)
+    {
+        if (first)
+        {
+            first = false;
+        }
+        else
+        {
+            if (!DataSettings_IsEquals(&ds, _ds))
+            {
+                first = false;
+            }
+        }
+    }
 
     ds = *_ds;
     
@@ -1077,8 +1089,8 @@ void Processing_SetSignal(uint8 *dataA, uint8 *dataB, DataSettings *_ds, int _fi
     if (enableB) { RAM_MemCpy16(dataInB, RAM(PS_DATA_IN_B), FPGA_MAX_POINTS); };
 
     // И вернём ранее запрошенную память
-    if (enableA) { free(dataInA); };
-    if (enableB) { free(dataInB); };
+    if (enableA) { SAFE_FREE(dataInA); };
+    if (enableB) { SAFE_FREE(dataInB); };
 }
 
 
@@ -1280,7 +1292,7 @@ void Processing_InterpolationSinX_X(uint8 *data, int numPoints, TBase tBase)
         pos--;
     }
 
-    free(signedData);
+    DEBUG_FREE(signedData);
 }
 
 

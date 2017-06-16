@@ -528,6 +528,22 @@ bool FLASH_GetData(int num, DataSettings **ds, uint8 **dataA, uint8 **dataB)
         *dataB = (uint8*)addrData;
     }
 
+    static DataSettings prev;
+    static bool first = true;
+
+    if (first)
+    {
+        prev = **ds;
+        first = false;
+    }
+    else if (!DataSettings_IsEquals(&prev, *ds))
+    {
+        int i = 0;
+    }
+
+    prev = **ds;
+
+
     return true;
 }
 

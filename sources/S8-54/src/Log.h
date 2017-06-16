@@ -39,3 +39,4 @@ void Log_Trace(TypeTrace type, const char *module, const char *func, int numLine
 void Log_Write(TypeTrace type, char *format, ...);
 void Log_DisconnectLoggerUSB(void);
 void Log_EnableLoggerUSB(bool enable);
+int Log_GetNumStrings(void);

@@ -102,8 +102,5 @@ void Display_FuncOnWaitStart(char *textRu, char *textEn, bool eraseBackground);
 
 void Display_FuncOnWaitStop(void);
 
-extern bool enter1;
-extern bool enter2;
-
 /** @}
  */

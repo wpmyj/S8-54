@@ -159,8 +159,6 @@ void PainterData_DrawMath(void)
 //----------------------------------------------------------------------------------------------------------------------------------------------------
 void PainterData_DrawMemoryWindow(void)
 {
-    CheckOnZero();
-
     bool needReleaseHeap = false;
 
     uint8 *datA = DATA_A;
@@ -199,8 +197,6 @@ void PainterData_DrawMemoryWindow(void)
         datB = dB;
     }
 
-    CheckOnZero();
-
     int leftX = 3;
     int top = 0;
     int height = GRID_TOP - 3;
@@ -220,8 +216,6 @@ void PainterData_DrawMemoryWindow(void)
 
     const int xVert0 = leftX + (int)(shiftInMemory * scaleX);
 
-    CheckOnZero();
-
     Channel lastAffectedChannel = LAST_AFFECTED_CH;
     if (((uint)NumPoints_2_FPGA_NUM_POINTS(sMemory_NumBytesInChannel(false)) == G_INDEXLENGHT) && (DATA(A) || DATA(B)))
     {
@@ -230,29 +224,19 @@ void PainterData_DrawMemoryWindow(void)
         const uint8 *dataFirst = lastAffectedChannel == A ? datB : datA;
         const uint8 *dataSecond = lastAffectedChannel == A ? datA : datB;
 
-        CheckOnZero();
-
         bool peackDet = G_PEACKDET != PeackDet_Disable;
-
-        CheckOnZero();
 
         if (sChannel_NeedForDraw(dataFirst, chanFirst, DS))
         {
-            CheckOnZero();
             curCh = chanFirst;
             DrawDataInRect(1, rightX + 3, dataFirst, sMemory_NumBytesInChannel(false), peackDet);
-            CheckOnZero();
         }
         if (sChannel_NeedForDraw(dataSecond, chanSecond, DS))
         {
-            CheckOnZero();
             curCh = chanSecond;
             DrawDataInRect(1, rightX + 3, dataSecond, sMemory_NumBytesInChannel(false), peackDet);
-            CheckOnZero();
         }
     }
-
-    CheckOnZero();
 
     Painter_DrawRectangleC(xVert0, top, width - (FPGA_NUM_POINTS_8k ? 1 : 0), bottom - top + 1, gColorFill); //-V2007
 
@@ -262,11 +246,9 @@ void PainterData_DrawMemoryWindow(void)
 
     if (needReleaseHeap)
     {
-        free(dA);
-        free(dB);
+        DEBUG_FREE(dA);
+        DEBUG_FREE(dB);
     }
-
-    CheckOnZero();
 }
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
@@ -409,8 +391,6 @@ static void DrawDataInRect(int x, uint width, const uint8 *data, int numBytes, b
     uint8 min[width + 1];
     uint8 max[width + 1];
 
-    CheckOnZero();
-
     if (SET_PEACKDET_EN)                                                    // ≈сли пик. дет. выключен
     {
         uint8 *iMin = &min[0];
@@ -462,8 +442,6 @@ static void DrawDataInRect(int x, uint width, const uint8 *data, int numBytes, b
         mines[i] = Ordinate((uint8)(min[i] > max[i - 1] ? max[i - 1] : min[i]), scale);
     }
 
-    CheckOnZero();
-
     // “еперь уточним количество точек, которые нужно нарисовать (исходим из того, что в реальном режиме и рандомизаторе рисуем все точки,
     // а в поточечном только начальные до определЄнной позиции
 
@@ -474,33 +452,25 @@ static void DrawDataInRect(int x, uint width, const uint8 *data, int numBytes, b
         numPoints++;
     }
     
-    CheckOnZero();
-
     if (numPoints != width)                     // ≈сли нужно выводить не все точки,
     {
         numPoints--;                            // то выводим на одну меньше - во избежание артефакта в конце вывода
     }
     
-    CheckOnZero();
-
     if (numPoints > 1)
     {
         if (numPoints < 256)
         {
             SendToDisplayDataInRect(x, mines, maxes, numPoints);
-            CheckOnZero();
         }
         else
         {
             SendToDisplayDataInRect(x, mines, maxes, 255);
-            CheckOnZero();
             numPoints -= 255;
             SendToDisplayDataInRect(x + 255, mines + 255, maxes + 255, numPoints);
-            CheckOnZero();
         }
     }
 
-    CheckOnZero();
 }
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
@@ -523,12 +493,9 @@ static int Ordinate(uint8 x, float scale)
 //----------------------------------------------------------------------------------------------------------------------------------------------------
 static void SendToDisplayDataInRect(int x, const int *min, const int *max, uint width)
 {
-    CheckOnZero();
     LIMIT_ABOVE(width, 255);
 
     uint8 points[width * 2];
-
-    CheckOnZero();
 
     for (uint i = 0; i < width; i++)
     {
@@ -536,16 +503,7 @@ static void SendToDisplayDataInRect(int x, const int *min, const int *max, uint 
         points[i * 2 + 1] = min[i];
     }
 
-    int zero1 = CheckOnZero();
-
     Painter_DrawVLineArray(x, (int)width, points, gColorChan[curCh]); //-V202
-
-    int zero2 = CheckOnZero();
-    
-    if(zero2 == 1 && zero1 == 0)
-    {
-        zero1 = zero1;
-    }
 }
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------

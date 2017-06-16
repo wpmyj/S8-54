@@ -10,6 +10,9 @@
 
 Debug debug;
 
+int numLine = 0;
+char* nameFile = 0;
+
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 #define MAX_NUM_POINTS 20
@@ -90,16 +93,16 @@ void DBG_Log_Out(void)
 }
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
-int CheckOnZero(void)
+void DBG_TestFunc(const char *function, int line)
 {
-    if (MODE_WORK_ROM)
+    ModeWork mode = Data_GetUsedModeWork();
+
+    int i = 0;
+
+    if (!G_ENABLED_A)
     {
-        Data_PrepareToUse(ModeWork_ROM);
-        if (ENABLED_A(DS) == 0)
-        {
-            return 1;
-        }
+        LOG_WRITE("%s : %d", function, line);
     }
 
-    return 0;
+    Data_PrepareToUse(mode);
 }

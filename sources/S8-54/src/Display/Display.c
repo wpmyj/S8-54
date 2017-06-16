@@ -17,13 +17,10 @@
 #include "Menu/Menu.h"
 #include "Menu/MenuDrawing.h"
 #include "Menu/MenuFunctions.h"
+#include "Utils/Debug.h"
 #include "Utils/GlobalFunctions.h"
 #include "Utils/Math.h"
 #include "Utils/ProcessingSignal.h"
-
-
-bool enter1 = false;
-bool enter2 = false;
 
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -222,8 +219,6 @@ void Display_Init(void)
 //----------------------------------------------------------------------------------------------------------------------------------------------------
 void Display_Update(void)
 {
-    enter1 = enter2 = false;
-    
     static uint prevLoadPalette = 0;
     bool needReloadPalette = false;
 
@@ -258,7 +253,11 @@ void Display_Update(void)
         DrawFullGrid();
     }
 
+    DBG_TEST_FUNC();
+
     PainterData_DrawData();
+
+    DBG_TEST_FUNC();
 
     if(needReloadPalette)
     {
@@ -271,7 +270,7 @@ void Display_Update(void)
         DrawSpectrum();
         DrawCursors();
         DrawHiPart();
-        Data_PrepareToDrawSettings();   // Перед выводом установок выводимого сигнала настроим DS на него
+        //Data_PrepareToDrawSettings();   // Перед выводом установок выводимого сигнала настроим DS на него
         //DrawLowPart();
         DrawCursorsWindow();
         DrawCursorTrigLevel();
@@ -1440,7 +1439,7 @@ static void DRAW_SPECTRUM(const uint8 *dataIn, int numPoints, Channel ch)
         Painter_DrawVLine(GridLeft() + POS_MATH_CUR_1, GridMathBottom(), y1 + s);
     }
 
-    free(data);
+    DEBUG_FREE(data);
 }
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------

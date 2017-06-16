@@ -1,7 +1,7 @@
 /* Define to prevent recursive inclusion -------------------------------------*/
 #ifndef __USBH_CONF_H
 #define __USBH_CONF_H
-
+#include "Utils/Debug.h"
 #include <stdlib.h>
 #include <string.h>
 
@@ -30,7 +30,7 @@
 
 /* Memory management macros */    
 #define USBH_malloc               malloc
-#define USBH_free                 free
+#define USBH_free                 DEBUG_FREE
 #define USBH_memset               memset
 #define USBH_memcpy               memcpy
 

@@ -10,6 +10,7 @@
 #include "Menu/MenuDrawing.h"
 #include "Menu/MenuFunctions.h"
 #include "Menu/Pages/Definition.h"
+#include "Utils/Debug.h"
 #include "Utils/GlobalFunctions.h"
 
 

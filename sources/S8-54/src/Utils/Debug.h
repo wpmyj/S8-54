@@ -41,14 +41,18 @@ typedef struct
     uint timeStartCopyMemory;
 } Debug;
 
-int CheckOnZero(void);
 
+extern int numLine;
+extern char* nameFile;
+
+
+#define DEBUG_FREE(x)   numLine = __LINE__ ; nameFile = __FILE__; free(x); numLine = 0; nameFile = 0;
+
+
+#define DBG_TEST_FUNC()  DBG_TestFunc(__FUNCTION__, __LINE__)
+void DBG_TestFunc(const char *function, int line);
 
 //extern Debug debug;
-
-
-
-
 //void DBG_Log_Start(void);
 //void DBG_Log_Point(char *point);
 //void DBG_Log_Out(void);

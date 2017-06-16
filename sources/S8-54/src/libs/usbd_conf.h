@@ -1,7 +1,6 @@
 #pragma once
-
+#include "Utils/Debug.h"
 #include <stm32f4xx_hal.h>
-
 #include <stdlib.h>
 #include <string.h>
 
@@ -17,7 +16,7 @@
 #define USBD_DEBUG_LEVEL                      0
  
 #define USBD_malloc               malloc
-#define USBD_free                 free
+#define USBD_free                 DEBUG_FREE
 #define USBD_memset               memset
 #define USBD_memcpy               memcpy
 

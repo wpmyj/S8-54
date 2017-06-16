@@ -8,6 +8,7 @@
 #include "Hardware/FSMC.h"
 #include "Hardware/Timer.h"
 #include "Panel/Panel.h"
+#include "Utils/Debug.h"
 #include "Utils/GlobalFunctions.h"
 #include "Utils/Math.h"
 
@@ -146,7 +147,7 @@ static void CreateCalibrationStruct(void)
 //---------------------------------------------------------------------------------------------------------------------------------------------------
 static void DeleteCalibrationStruct(void)
 {
-    free(cal);
+    DEBUG_FREE(cal);
 }
 
 //---------------------------------------------------------------------------------------------------------------------------------------------------

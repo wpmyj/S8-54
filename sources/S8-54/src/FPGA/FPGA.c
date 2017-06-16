@@ -670,8 +670,8 @@ static void DataReadSave(bool necessaryShift, bool first, bool saveToStorage, bo
 
     gBF.FPGAinProcessingOfRead = 0;
 
-    free(dataA);
-    free(dataB);
+    DEBUG_FREE(dataA);
+    DEBUG_FREE(dataB);
 }
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------

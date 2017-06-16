@@ -1,11 +1,12 @@
 // This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++ and C#: http://www.viva64.com
 #include "defines.h"
-#include "Hardware/FSMC.h"
+#include "Display/Display.h"
 #include "FPGA/Data.h"
 #include "FPGA/FPGA.h"
+#include "Hardware/FSMC.h"
 #include "Hardware/Timer.h"
-#include "Display/Display.h"
+#include "Utils/Debug.h"
 #include <stm32f4xx_hal.h>
 #include "stm32f4xx_it.h"
 
@@ -19,17 +20,13 @@ void NMI_Handler(void)
 //----------------------------------------------------------------------------------------------------------------------------------------------------
 void HardFault_Handler(void)
 {
-    bool val1 = enter1;
-    bool val2 = enter2;
+    int numLine_ = numLine;
+    char* nameFile_ = nameFile;
     
-    DataSettings *ds = DS;
-    
-    bool run = true;
-    while (run)
+    while (1)
     {
-        val1 = val1;
-        val2 = val2;
-        ds = ds;
+        numLine = numLine_;
+        nameFile = nameFile_;
     }
 }
 
@@ -37,8 +34,7 @@ void HardFault_Handler(void)
 //----------------------------------------------------------------------------------------------------------------------------------------------------
 void MemManage_Handler(void)
 {
-    bool run = true;
-    while (run)
+    while (1)
     {
     }
 }
@@ -47,8 +43,7 @@ void MemManage_Handler(void)
 //----------------------------------------------------------------------------------------------------------------------------------------------------
 void BusFault_Handler(void)
 {
-    bool run = true;
-    while (run)
+    while (1)
     {
     }
 }
@@ -57,8 +52,7 @@ void BusFault_Handler(void)
 //----------------------------------------------------------------------------------------------------------------------------------------------------
 void UsageFault_Handler(void)
 {
-    bool run = true;
-    while (run)
+    while (1)
     {
     }
 }
