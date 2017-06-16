@@ -121,6 +121,7 @@ static void Clear(void)
     dataChan[A] = dataChan[B] = 0;
     dataRAMA = dataRAMB = 0;
     dataROMA = dataROMB = 0;
+    dataDirA = dataDirB = 0;
 }
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
