@@ -56,11 +56,10 @@ static void InitADC(void);
 static void ProcessingAfterReadData(void);                          ///< Действия, которые нужно предпринять после успешного считывания данных.
        bool ProcessingData(void);                                   ///< Возвращает true, если считаны данные.
 /// \brief Прочитать данные.
-/// \param necessaryShift Признак того, что сигнал нужно смещать.
-/// \param saveToStorage  Нужно в режиме рандомизатора для указания, что пора сохранять измерение.
 /// \param first          Нужно для режима рандомизматора - чтобы подготовить память.
+/// \param saveToStorage  Нужно в режиме рандомизатора для указания, что пора сохранять измерение.
 /// \param onlySave       Только сохранить в хранилище.
-static void DataReadSave(bool necessaryShift, bool first, bool saveToStorage, bool onlySave);
+static void DataReadSave(bool first, bool saveToStorage, bool onlySave);
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 static uint16 READ_DATA_ADC_16(const uint16 *address, Channel ch   )
@@ -587,7 +586,7 @@ uint16 ReadNStop(void)
 }
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
-static void ReadRealMode(uint8 *dataA, uint8 *dataB, bool necessaryShift)
+static void ReadRealMode(uint8 *dataA, uint8 *dataB)
 {
     gBF.FPGAinProcessingOfRead = 1;
 
@@ -627,7 +626,7 @@ static void InverseDataIsNecessary(Channel ch, uint8 *data)
 }
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
-static void DataReadSave(bool necessaryShift, bool first, bool saveToStorage, bool onlySave)
+static void DataReadSave(bool first, bool saveToStorage, bool onlySave)
 {
     uint8 *dataA = malloc(FPGA_MAX_POINTS);
     uint8 *dataB = malloc(FPGA_MAX_POINTS);
@@ -639,7 +638,7 @@ static void DataReadSave(bool necessaryShift, bool first, bool saveToStorage, bo
     }
     else
     {
-        ReadRealMode(dataA, dataB, necessaryShift);
+        ReadRealMode(dataA, dataB);
     }
 
     int numBytes = BYTES_IN_CHANNEL(&ds);
@@ -659,7 +658,7 @@ static void DataReadSave(bool necessaryShift, bool first, bool saveToStorage, bo
         InverseDataIsNecessary(B, dataB);
     }
     
-    if (saveToStorage && (INDEXLENGTH(&ds) == (ENumPoinstFPGA)NumPoints_2_FPGA_NUM_POINTS(BYTES_IN_CHANNEL(&ds))))
+    if (saveToStorage)
     {
         DS_AddData(dataA, dataB, ds);
     }
@@ -684,7 +683,7 @@ bool ProcessingData(void)
 
     int num = IN_RANDOM_MODE ? numRead[SET_TBASE] / 2 : 1;
 
-    if (num > 1)
+    if (IN_RANDOM_MODE)
     {
         dataRandA = AllocMemForChannelFromHeap(A, 0);
         dataRandB = AllocMemForChannelFromHeap(B, 0);
@@ -729,7 +728,7 @@ bool ProcessingData(void)
             {
                 fpgaStateWork = StateWorkFPGA_Stop;                 // И считываем, если данные готовы
                 HAL_NVIC_DisableIRQ(EXTI2_IRQn);                    // Отключаем чтение точек
-                DataReadSave(false, i == 0, i == num - 1, false);
+                DataReadSave(i == 0, i == num - 1, false);
                 ProcessingAfterReadData();
                 retValue = true;
             }
@@ -751,14 +750,14 @@ bool ProcessingData(void)
 
         if (i == num)
         {
-                DataReadSave(false, false, true, true);
+            DataReadSave(false, true, true);
             retValue = true;
             break;
         }
 
         if (gBF.panelControlReceive && IN_RANDOM_MODE)
         {
-            DataReadSave(false, false, true, true);
+            DataReadSave(false, true, true);
             retValue = true;
             break;
         }

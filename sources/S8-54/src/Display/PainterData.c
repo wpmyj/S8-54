@@ -209,15 +209,16 @@ void PainterData_DrawMemoryWindow(void)
         rightX = 68;
     }
 
-    float scaleX = (float)(rightX - leftX + 1) / sMemory_NumPointsInChannel();
-    int width = (int)((rightX - leftX) * (282.0f / sMemory_NumPointsInChannel()));
+    float scaleX = (float)(rightX - leftX + 1) / SET_POINTS_IN_CHANNEL;
+    int width = (int)((rightX - leftX) * (282.0f / SET_POINTS_IN_CHANNEL));
 
     int16 shiftInMemory = (int16)sDisplay_ShiftInMemoryInPoints();
 
     const int xVert0 = leftX + (int)(shiftInMemory * scaleX);
 
     Channel lastAffectedChannel = LAST_AFFECTED_CH;
-    if (((uint)NumPoints_2_FPGA_NUM_POINTS(BYTES_IN_CHANNEL(DS)) == G_INDEXLENGHT) && DS)
+    //if (((uint)NumPoints_2_ENumPoints(BYTES_IN_CHANNEL(DS)) == G_ENUM_BYTES) && DS)
+    if(DS)
     {
         Channel chanFirst = lastAffectedChannel == A ? B : A;
         Channel chanSecond = lastAffectedChannel == A ? A : B;
@@ -254,15 +255,8 @@ void PainterData_DrawMemoryWindow(void)
 //----------------------------------------------------------------------------------------------------------------------------------------------------
 static void DrawDataInModeDirect(void)
 {
-    uint index = G_INDEXLENGHT;
     uint numBytesInChannel = G_BYTES_IN_CHANNEL;
-    uint numPoints_2_FPGA_NUM_POINTS = (uint)NumPoints_2_FPGA_NUM_POINTS(numBytesInChannel);
-
-    if(numPoints_2_FPGA_NUM_POINTS != index)    // Если количество точек в данных не соответствует установленному в настройках - просто выходим
-    {
-        /// \todo Это временно. По хорошему нужно преобразовывать так же, как мы преобразуем tShift, rShift, Range, TBase
-        //return;
-    }
+    uint numPoints_2_FPGA_NUM_POINTS = (uint)NumPoints_2_ENumPoints(numBytesInChannel);
 
     int16 numSignals = (int16)DS_NumElementsWithSameSettings();
     LIMITATION(numSignals, numSignals, 1, DISPLAY_NUM_ACCUM);
@@ -315,39 +309,25 @@ static void DrawDataChannel(Channel ch, uint8 *dataIn)
 
     bool calculateFiltr = true;
     int sizeBuffer = BYTES_IN_CHANNEL(DS);
-    uint8 data[sizeBuffer];                                 // пїЅпїЅпїЅпїЅпїЅ, пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ
+    uint8 data[sizeBuffer];
 
     int firstPoint = 0;
     int lastPoint = 280;
 
     if (!IN_P2P_MODE ||                                     // Если не находимся в режиме медленных поточечных развёрток
-        (IN_P2P_MODE && TIME_MS(DS)))                 // Или в поточечном, но данные уже считаны
+        (IN_P2P_MODE && TIME_MS(DS)))                       // Или в поточечном, но данные уже считаны
     {
         sDisplay_PointsOnDisplay(&firstPoint, &lastPoint);  // то находим первую и последнюю точки, выводимые на экран
     }
 
     if (IN_P2P_MODE &&                                      // Если находимся в режиме медленных поточечных развёрток
-        TIME_MS(DS) == 0)                               // и считывание полного набора данных ещё не произошло
+        TIME_MS(DS) == 0)                                   // и считывание полного набора данных ещё не произошло
     {
         lastPoint = FillDataP2P(data, &DS);
         if (lastPoint < 2)                                  // Если готово меньше двух точек - выход
         {
             return;
         }
-        dataIn = data;
-    }
-    else if (dataIn == 0)                                   // Значит, для вывода используем последние считаныые данные из Processing_GetData()
-    {
-        calculateFiltr = false;
-        if (curCh == A)
-        {
-            dataIn = outA;
-        }
-        else
-        {
-            dataIn = outB;
-        }
-        RAM_MemCpy16(dataIn, data, sizeBuffer);
         dataIn = data;
     }
 
@@ -697,8 +677,8 @@ static void DrawSignalLined(const uint8 *data, int startPoint, int endPoint, int
             int index = i + startPoint * 2;
 
             int y0 = 0, y1 = 0;
-            { CONVERT_DATA_TO_DISPLAY(y0, data[index++]); } //-V108
-            { CONVERT_DATA_TO_DISPLAY(y1, data[index++]); } //-V108
+            { CONVERT_DATA_TO_DISPLAY(y0, data[index++]); }
+            { CONVERT_DATA_TO_DISPLAY(y1, data[index++]); }
 
             PLACE_2_ASCENDING(y0, y1);
 
@@ -706,8 +686,8 @@ static void DrawSignalLined(const uint8 *data, int startPoint, int endPoint, int
 
             int z0 = 0;
             int z1 = 0;
-            { CONVERT_DATA_TO_DISPLAY(z0, data[index++]); } //-V108
-            { CONVERT_DATA_TO_DISPLAY(z1, data[index]); } //-V108
+            { CONVERT_DATA_TO_DISPLAY(z0, data[index++]); }
+            { CONVERT_DATA_TO_DISPLAY(z1, data[index]); }
 
             PLACE_2_ASCENDING(z0, z1);
 

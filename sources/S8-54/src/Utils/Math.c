@@ -426,7 +426,7 @@ void Math_CalculateFFT(float *dataR, int numPoints, float *result, float *freq0,
 
     const int logs[FPGA_NUM_POINTS_SIZE] = {9, 10, 11, 12, 13, 14, 15};
 
-    int logN = logs[NumPoints_2_FPGA_NUM_POINTS(numPoints)];
+    int logN = logs[NumPoints_2_ENumPoints(numPoints)];
 
     static const float Rcoef[14] =
     {

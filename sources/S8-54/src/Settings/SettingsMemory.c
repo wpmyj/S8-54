@@ -6,7 +6,7 @@
 
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-int sMemory_NumPointsInChannel(void)
+int sMemory_NumPointsInChannel_(void)
 {
     static const int numPoints[FPGA_NUM_POINTS_SIZE] =
     {
@@ -23,7 +23,7 @@ int sMemory_NumPointsInChannel(void)
 }
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
-int sMemory_NumBytesInChannel(void)
+int sMemory_NumBytesInChannel_(void)
 {
     DataSettings ds;
     DataSettings_Fill(&ds);
@@ -31,7 +31,7 @@ int sMemory_NumBytesInChannel(void)
 }
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
-ENumPoinstFPGA NumPoints_2_FPGA_NUM_POINTS(int numPoints)
+ENumPointsFPGA NumPoints_2_ENumPoints(int numPoints)
 {
     if (numPoints == 32768)      { return FNP_32k; }
     else if (numPoints == 16384) { return FNP_16k; }
@@ -44,9 +44,9 @@ ENumPoinstFPGA NumPoints_2_FPGA_NUM_POINTS(int numPoints)
 
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
-int FPGA_NUM_POINTS_2_NumPoints(ENumPoinstFPGA numPoints)
+int ENumPoints_2_NumPoints(ENumPointsFPGA numPoints)
 {
-    const int n[FPGA_NUM_POINTS_SIZE] =
+    static const int n[FPGA_NUM_POINTS_SIZE] =
     {
         512,
         1024,

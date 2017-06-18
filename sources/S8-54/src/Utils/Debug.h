@@ -41,6 +41,7 @@ typedef struct
     uint timeStartCopyMemory;
 } Debug;
 
+void DBG_LogFirstBytes(uint8 *buffer);
 
 //extern Debug debug;
 //void DBG_Log_Start(void);

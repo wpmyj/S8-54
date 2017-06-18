@@ -52,15 +52,15 @@ void FuncLongRegRShift(void)
 }
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
-void Func_Start(int key)                // B_Start
+void Func_Start(int key)                    // B_Start
 {
     if (key == 1)
     {
-        if (MODE_PAUSE_CONSOLE)         // Если кнопка ПУСК/СТОП управляет выводом на консоль
+        if (MODE_PAUSE_CONSOLE)             // Если кнопка ПУСК/СТОП управляет выводом на консоль
         {
             CONSOLE_IN_PAUSE = CONSOLE_IN_PAUSE ? 0 : 1;
         }
-        if (MODE_WORK_DIR)                // Если кнопка ПУСК/СТОП выполняет стнадартную функцию
+        else if (MODE_WORK_DIR)                  // Если кнопка ПУСК/СТОП выполняет стнадартную функцию
         {
             Menu_PressButton(B_Start);
         }

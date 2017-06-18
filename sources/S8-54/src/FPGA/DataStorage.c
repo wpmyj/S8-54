@@ -276,30 +276,30 @@ static void PushData(DataSettings *ds, uint8 *dataA, uint8 *dataB)
 {
     PrepareLastElemForWrite(ds);
 
-    int numPoints = BYTES_IN_CHANNEL(ds);
+    int numBytes = BYTES_IN_CHANNEL(ds);
 
     if(dataA)
     {
         if (ENABLED_A(ds))
         {
-            RAM_MemCpy16(dataA, AddressChannel(ds, A), numPoints);
+            RAM_MemCpy16(dataA, AddressChannel(ds, A), numBytes);
         }
     }
     else
     {
-        RAM_MemSet_Sinch(AddressChannel(ds, A), NONE_VALUE, numPoints);  // Для режима поточечного вывода - заполняем одним значением
+        RAM_MemSet_Sinch(AddressChannel(ds, A), NONE_VALUE, numBytes);  // Для режима поточечного вывода - заполняем одним значением
     }
 
     if(dataB)
     {
         if (ENABLED_B(ds))
         {
-            RAM_MemCpy16(dataB, AddressChannel(ds, B), numPoints);
+            RAM_MemCpy16(dataB, AddressChannel(ds, B), numBytes);
         }
     }
     else
     {
-        RAM_MemSet_Sinch(AddressChannel(ds, B), NONE_VALUE, numPoints);  // Для режима поточечного вывода - заполянем одним значением
+        RAM_MemSet_Sinch(AddressChannel(ds, B), NONE_VALUE, numBytes);  // Для режима поточечного вывода - заполянем одним значением
     }
 
     numElementsInStorage++;
@@ -528,6 +528,8 @@ void CalculateSums(void)
 //----------------------------------------------------------------------------------------------------------------------------------------------------
 void DS_AddData(uint8 *dataA, uint8 *dataB, DataSettings dss)
 {
+    DBG_LogFirstBytes(dataA);
+
     if (!ENABLED_A(&dss) && !ENABLED_B(&dss))
     {
         return;

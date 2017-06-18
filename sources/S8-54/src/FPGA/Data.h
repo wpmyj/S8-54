@@ -44,7 +44,7 @@ EXTERN DataSettings *pDS;               ///< ”казатель на настройки текущего рис
 #define G_RSHIFT_B          (RSHIFT(DS, B))
 #define G_PEACKDET          (PEACKDET(DS))
 #define G_TRIGLEV(ch)       (TRIGLEV(DS))
-#define G_INDEXLENGHT       (INDEXLENGTH(DS))
+#define G_ENUM_BYTES        (ENUM_BYTES(DS))
 #define G_BYTES_IN_CHANNEL  (BYTES_IN_CHANNEL(DS))
 
 #define G_TIME_TIME         (TIME_TIME(DS))

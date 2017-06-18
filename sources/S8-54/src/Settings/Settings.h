@@ -104,7 +104,7 @@ typedef struct
     bool            curs_ShowCursors;               ///< Показывать ли курсоры.
     // Memory
 #define MAX_SYMBOLS_IN_FILE_NAME 35
-    ENumPoinstFPGA  mem_ENumPointsFPGA;             ///< Число точек.
+    ENumPointsFPGA  mem_ENumPointsFPGA;             ///< Число точек.
     ModeWork        mem_ModeWork;                   ///< Режим работы.
     FileNamingMode  mem_FileNamingMode;             ///< Режим именования файлов.
     char            mem_FileNameMask[MAX_SYMBOLS_IN_FILE_NAME]; ///< \brief Здесь маска для автоматического именования файлов.

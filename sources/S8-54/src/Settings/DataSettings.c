@@ -12,7 +12,7 @@ void *extraMEM = 0;
 StateOSCI gState = StateOSCI_Start;
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-int NumBytesInChannel(DataSettings *ds, bool forCalculate)
+int NumBytesInChannel_(DataSettings *ds, bool forCalculate)
 {
     static const int numPoints[FPGA_NUM_POINTS_SIZE][3] =
     {
@@ -118,9 +118,5 @@ void DataSettings_Fill(DataSettings *ds)
     Lval_DIVIDER_A(ds) = SET_DIVIDER_A;
     Lval_DIVIDER_B(ds) = SET_DIVIDER_B;
     TIME_MS(ds) = 0;                        // Ёто важно дл€ режима поточеного вывода. ќзначает, что полный сигнал ещЄ не считан
-    
-    DataSettings _ds_;
-    Lval_PEACKDET(&_ds_) = PEACKDET(ds);
-    INDEXLENGTH(ds) = NumPoints_2_FPGA_NUM_POINTS(NumBytesInChannel(&_ds_, false));
-    
+    ENUM_POINTS(ds) = FPGA_NUM_POINTS;
 }

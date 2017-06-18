@@ -144,11 +144,11 @@ void LoadTShift(void)
         int k = 0;
         if (TPOS_LEFT)
         {
-            k = sMemory_NumPointsInChannel() % Kr[tBase];
+            k = SET_POINTS_IN_CHANNEL % Kr[tBase];
         }
         else if (TPOS_CENTER)
         {
-            k = (sMemory_NumPointsInChannel() / 2) % Kr[tBase];
+            k = (SET_POINTS_IN_CHANNEL / 2) % Kr[tBase];
         }
 
         gPost = (uint16)((2 * gPost - k) / Kr[tBase]);

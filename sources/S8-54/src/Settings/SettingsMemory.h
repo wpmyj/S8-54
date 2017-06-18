@@ -44,16 +44,17 @@
 #define MODE_SAVE_BMP           (MODE_SAVE == ModeSaveSignal_BMP)
 #define MODE_SAVE_TXT           (MODE_SAVE == ModeSaveSignal_TXT)
 
-#define SET_BYTES_IN_CHANNEL    sMemory_NumBytesInChannel()
+#define SET_BYTES_IN_CHANNEL    sMemory_NumBytesInChannel_()
+#define SET_POINTS_IN_CHANNEL   sMemory_NumPointsInChannel_()
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-int sMemory_NumPointsInChannel(void);
-int sMemory_NumBytesInChannel(void);
+int sMemory_NumPointsInChannel_(void);
+int sMemory_NumBytesInChannel_(void);
 
-ENumPoinstFPGA NumPoints_2_FPGA_NUM_POINTS(int numPoints);
+ENumPointsFPGA NumPoints_2_ENumPoints(int numPoints);
+int ENumPoints_2_NumPoints(ENumPointsFPGA numPoints);
 
-int FPGA_NUM_POINTS_2_NumPoints(ENumPoinstFPGA numPoints);
 
 /** @}  @}
  */

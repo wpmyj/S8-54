@@ -56,6 +56,8 @@ void Data_ReadDataRAM(int fromEnd)
         fromEndRAM = fromEnd;
         pDS = &dataSettings;
 
+        DBG_LogFirstBytes(inA);
+
         Processing_SetData();
     }
 }

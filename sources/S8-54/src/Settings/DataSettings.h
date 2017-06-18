@@ -40,7 +40,7 @@ typedef struct
     uint        inverseB    : 1;
     uint        multiplierA : 1;
     uint        multiplierB : 1;
-    uint        indexLength : 3;    // Сколько байт в канале (при включённом пиковом детекторе байт в два раза больше, чем точек)
+    uint        enumPoints  : 3;
     PackedTime  time;
 } DataSettings;
 
@@ -93,8 +93,6 @@ typedef struct
 #define DIVIDER_B(ds)           ((Divider)Lval_DIVIDER_B(ds))
 #define DIVIDER(ds, ch)         ((ch == A) ? DIVIDER_A(ds) : DIVIDER_B(ds))
 
-#define INDEXLENGTH(ds)         ((ds)->indexLength)
-
 #define TIME_TIME(ds)           ((ds)->time)
 #define TIME_DAY(ds)            ((ds)->time.day)
 #define TIME_HOURS(ds)          ((ds)->time.hours)
@@ -104,16 +102,15 @@ typedef struct
 #define TIME_YEAR(ds)           ((ds)->time.year)
 #define TIME_MS(ds)             ((ds)->time.timeMS)
 
+#define ENUM_POINTS(ds)         ((ds)->enumPoints)
+#define ENUM_BYTES(ds)          (ENUM_POINTS(ds) + ((PEACKDET(ds) ? 1 : 0)))
 
-int NumPointsInChannel(const DataSettings *ds);     // Возвращает количество точек на канал
+#define BYTES_IN_CHANNEL(ds)    NumBytesInChannel_(ds, false)
 
-#define BYTES_IN_CHANNEL(ds) NumBytesInChannel(ds, false)
-int NumBytesInChannel(DataSettings *ds, bool forCalculate);
-
+int NumBytesInChannel_(DataSettings *ds, bool forCalculate);
 
 // Возвращает 0, если канал выключен
 uint8 *AddressChannel(DataSettings *ds, Channel ch);
-
 
 typedef enum
 {

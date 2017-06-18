@@ -91,3 +91,14 @@ void DBG_Log_Out(void)
         nextPoint = 0;
     }
 }
+
+//----------------------------------------------------------------------------------------------------------------------------------------------------
+void DBG_LogFirstBytes(uint8 *buffer)
+{
+    LOG_WRITE("%d %d %d %d %d %d %d %d %d %d",
+              buffer[0], buffer[1], buffer[2], buffer[3], buffer[4],
+              buffer[5], buffer[6], buffer[7], buffer[8], buffer[9]);
+    LOG_WRITE("%d %d %d %d %d %d %d %d %d %d", 
+              buffer[10], buffer[11], buffer[12], buffer[13], buffer[14],
+              buffer[15], buffer[16], buffer[17], buffer[18], buffer[19]);
+}
