@@ -22,6 +22,13 @@ int sMemory_NumPointsInChannel(void)
     return numPoints[FPGA_NUM_POINTS];
 }
 
+//----------------------------------------------------------------------------------------------------------------------------------------------------
+int sMemory_NumBytesInChannel(void)
+{
+    DataSettings ds;
+    DataSettings_Fill(&ds);
+    return BYTES_IN_CHANNEL(&ds);
+}
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
 ENumPoinstFPGA NumPoints_2_FPGA_NUM_POINTS(int numPoints)

@@ -44,9 +44,12 @@
 #define MODE_SAVE_BMP           (MODE_SAVE == ModeSaveSignal_BMP)
 #define MODE_SAVE_TXT           (MODE_SAVE == ModeSaveSignal_TXT)
 
+#define SET_BYTES_IN_CHANNEL    sMemory_NumBytesInChannel()
+
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 int sMemory_NumPointsInChannel(void);
+int sMemory_NumBytesInChannel(void);
 
 ENumPoinstFPGA NumPoints_2_FPGA_NUM_POINTS(int numPoints);
 

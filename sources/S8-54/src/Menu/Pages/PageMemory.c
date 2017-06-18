@@ -203,17 +203,16 @@ void OnChanged_Points(bool active)
     }
     else if (TPOS_CENTER)
     {
-        SHIFT_IN_MEMORY = (int16)(BYTES_IN_CHANNEL(DS) / 2 - width / 2);
+        SHIFT_IN_MEMORY = (int16)(SET_BYTES_IN_CHANNEL / 2 - width / 2);
     }
     else if (TPOS_RIGHT)
     {
-        SHIFT_IN_MEMORY = (int16)(BYTES_IN_CHANNEL(DS) - width - 2);
+        SHIFT_IN_MEMORY = (int16)(SET_BYTES_IN_CHANNEL - width - 2);
     }
     
     FPGA_Reset();
     FPGA_SetTShift(SET_TSHIFT);
     FPGA_Reset();
-    //LOG_WRITE("shift %d, num %d, width %d", SHIFT_IN_MEMORY, sMemory_NumBytesInChannel(false), width);
 }
 
 // ПАМЯТЬ - Последние --------------------------------------------------------------------------------------------------------------------------------
