@@ -607,7 +607,8 @@ int DS_NumElementsInStorage(void)
 
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
-//  опирует данные канала ch из, определ€емые ds, в одну из двух строк массива dataImportRel. ¬озвращаемое значение false означает, что данный канал выключен.
+//  опирует данные канала ch из, определ€емые ds, в одну из двух строк массива dataImportRel. ¬озвращаемое значение false означает, что данный канал 
+// выключен.
 static bool CopyData(DataSettings *ds, Channel ch, uint8 *dataImportRel)
 {
     if((ch == A && !ENABLED_A(ds)) || (ch == B && !ENABLED_B(ds)))
@@ -652,12 +653,38 @@ uint8* DS_GetData_RAM(Channel ch, int fromEnd)
 
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
+bool DS_GetDataFromEnd(int fromEnd, DataSettings *ds, uint8 *dataA, uint8 *dataB)
+{
+    DataSettings *dataSettings = 0;
+    uint16 *dA = 0;
+    uint16 *dB = 0;
+    
+    if(DS_GetDataFromEnd_RAM(fromEnd, &dataSettings, &dA, &dB))
+    {
+        memcpy(ds, dataSettings, sizeof(DataSettings));
+        if(dA)
+        {
+            RAM_MemCpy16(dA, dataA, BYTES_IN_CHANNEL(ds));
+        }
+        if(dB)
+        {
+            RAM_MemCpy16(dB, dataB, BYTES_IN_CHANNEL(ds));
+        }
+
+        return true;
+    }
+
+    return false;
+}
+
+
+//----------------------------------------------------------------------------------------------------------------------------------------------------
 bool DS_GetDataFromEnd_RAM(int fromEnd, DataSettings **ds, uint16 **dataA, uint16 **dataB)
 {
     uint8 *dataImportRelA = RAM(DS_DATA_IMPORT_REL_A);
     uint8 *dataImportRelB = RAM(DS_DATA_IMPORT_REL_B);
 
-    DataSettings* dp = DS_DataSettingsFromEnd(fromEnd);
+    DataSettings *dp = DS_DataSettingsFromEnd(fromEnd);
 
     if(dp == 0)
     {
@@ -672,8 +699,9 @@ bool DS_GetDataFromEnd_RAM(int fromEnd, DataSettings **ds, uint16 **dataA, uint1
     {
         *dataB = CopyData(dp, B, dataImportRelB) ? (uint16*)dataImportRelB : 0;
     }
+
     *ds = dp;
-    
+
     return true;
 }
 

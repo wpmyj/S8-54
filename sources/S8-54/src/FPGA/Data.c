@@ -18,27 +18,15 @@
  */
 
 
-/** \todo Этот экземпляр введён потому, что при непосредсвенный ссылке через pDSROM на настройки в EPROM  происходят глюки.
-        Поэтому настройки просто копируются в эту структуру и потому берутся отсюда.
-        Разбораться и сделать как надо - без этой структуры. */
-static DataSettings dataSettingsROM;
+static DataSettings dataSettings;   ///< Здесь хранятся настройки для текущего рисуемого сигнала
 
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-static uint8 *dataDirA = 0;     ///< Последние считанные данные.
-static uint8 *dataDirB = 0;
+static bool readedRAM = false;      ///< Если true, то в inA(B) хранятся данные, считанные из ОЗУ.
+static bool fromEndRAM = 0;         ///< Номер текущего сигнала из ОЗУ, если readedRAM == true.
 
-static uint8 *dataRAMA = 0;     ///< Данные, которые должны выводиться в режиме "ПОСЛЕДНИЕ".
-static uint8 *dataRAMB = 0;
-
-static uint8 *dataROMA = 0;     ///< \brief Данные, которые должны выводиться в режиме "ВНУТР ЗУ" или нормальном режиме при соотв. 
-static uint8 *dataROMB = 0;     ///< настройке "ПАМЯТЬ-ВНУТР ЗУ-Показывать всегда".
-
-static DataSettings *pDSDir = 0;
-static DataSettings *pDSRAM = 0;
-static DataSettings *pDSROM = 0;
-
-static ModeWork currentModeWork = ModeWork_Dir;
+static bool readedROM = false;      ///< Если true, то в inA(B) хранятся данные, считанные из ППЗУ.
+static bool numFromROM = 0;         ///< Номер считанного из ППЗУ сигнала, если readedROM == true.
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 /// Считать данные 
@@ -46,35 +34,41 @@ static void GetDataFromStorage(void);
 
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-void Data_GetFromIntMemory(void)
+void Data_Clear(void)
 {
-    if(FLASH_GetData(NUM_ROM_SIGNAL, &pDSROM, &dataROMA, &dataROMB))
+    pDS = 0;
+    readedRAM = readedROM = false;
+}
+
+//----------------------------------------------------------------------------------------------------------------------------------------------------
+void Data_ReadDataRAM(int fromEnd)
+{
+    if(readedRAM && fromEnd == fromEndRAM)
     {
-        memcpy(&dataSettingsROM, (void*)pDSROM, sizeof(DataSettings));
+        return;
+    }
+
+    Data_Clear();
+
+    if(DS_GetDataFromEnd(fromEnd, &dataSettings, inA, inB))
+    {
+        readedRAM = true;
+        fromEndRAM = fromEnd;
+        pDS = &dataSettings;
+
+        Processing_SetData();
     }
 }
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
-static void GetDataFromStorage(void)
+void Data_ReadDataROM(void)
 {
-    int fromEnd = 0;
-
-    if (IN_P2P_MODE &&                              // Находимся в режиме поточечного вывода
-        START_MODE_WAIT &&                          // в режиме ждущей синхронизации
-        DS_NumElementsWithCurrentSettings() > 1)    // и в хранилище уже есть считанные сигналы с такими настройками
+    if(readedROM && numFromROM == NUM_ROM_SIGNAL)
     {
-        fromEnd = 1;
+        return;
     }
 
-    DS_GetDataFromEnd_RAM(fromEnd, &pDSDir, (uint16**)&dataDirA, (uint16**)&dataDirB);
-
-    if (sDisplay_NumAverage() != 1 || IN_RANDOM_MODE)
-    {
-        ModeFSMC mode = FSMC_GetMode();
-        FSMC_SetMode(ModeFSMC_RAM);
-        Data_GetAverageFromDataStorage();
-        FSMC_SetMode(mode);
-    }
+    Data_Clear();
 }
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
@@ -91,15 +85,6 @@ void Data_GetAverageFromDataStorage(void)
             memcpy(inB, DS_GetAverageData(B), BYTES_IN_CHANNEL(DS));
         }
     }
-}
-
-//----------------------------------------------------------------------------------------------------------------------------------------------------
-void Data_Clear(void)
-{
-    pDS = pDSDir = pDSRAM = pDSROM = 0;
-    dataRAMA = dataRAMB = 0;
-    dataROMA = dataROMB = 0;
-    dataDirA = dataDirB = 0;
 }
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
@@ -123,7 +108,7 @@ void Data_Load(void)
     }
     else if (MODE_WORK_RAM)                         // Если находимся в режиме отображения последних
     {
-        DS_GetDataFromEnd_RAM(NUM_RAM_SIGNAL, &pDSRAM, (uint16**)&dataRAMA, (uint16**)&dataRAMB);
+//        DS_GetDataFromEnd_RAM(NUM_RAM_SIGNAL, &pDSRAM, (uint16**)&dataRAMA, (uint16**)&dataRAMB);
     }
     else if (MODE_WORK_ROM)
     {
@@ -139,23 +124,6 @@ void Data_Load(void)
     }
     
     Data_PrepareToUse(MODE_WORK);
-}
-
-//----------------------------------------------------------------------------------------------------------------------------------------------------
-void Data_PrepareToUse(ModeWork mode)
-{
-    currentModeWork = mode;
-    
-    typedef DataSettings* pDataSettings;
-    static const pDataSettings *ds[3] = {&pDSDir, &pDSRAM, &pDSROM};
-   
-    DS = *ds[mode];
-    if(mode == ModeWork_ROM)
-    {
-        DS = pDSROM ? &dataSettingsROM : 0;
-    }
-
-    Processing_SetData();
 }
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
@@ -190,9 +158,56 @@ void Data_PrepareToDrawSettings(void)
 }
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
-ModeWork Data_GetUsedModeWork(void)
+void Data_PrepareToUse(ModeWork mode)
+{ 
+    /*
+    typedef DataSettings* pDataSettings;
+    static const pDataSettings *ds[3] = {&pDSDir, &pDSRAM, &pDSROM};
+   
+    DS = *ds[mode];
+    if(mode == ModeWork_ROM)
+    {
+        DS = pDSROM ? &dataSettingsROM : 0;
+    }
+    */
+
+    //Processing_SetData();
+}
+
+//----------------------------------------------------------------------------------------------------------------------------------------------------
+static void GetDataFromStorage(void)
 {
-    return currentModeWork;
+    /*
+    int fromEnd = 0;
+
+    if (IN_P2P_MODE &&                              // Находимся в режиме поточечного вывода
+        START_MODE_WAIT &&                          // в режиме ждущей синхронизации
+        DS_NumElementsWithCurrentSettings() > 1)    // и в хранилище уже есть считанные сигналы с такими настройками
+    {
+        fromEnd = 1;
+    }
+
+    DS_GetDataFromEnd_RAM(fromEnd, &pDSDir, (uint16**)&dataDirA, (uint16**)&dataDirB);
+
+    if (sDisplay_NumAverage() != 1 || IN_RANDOM_MODE)
+    {
+        ModeFSMC mode = FSMC_GetMode();
+        FSMC_SetMode(ModeFSMC_RAM);
+        Data_GetAverageFromDataStorage();
+        FSMC_SetMode(mode);
+    }
+    */
+}
+
+//----------------------------------------------------------------------------------------------------------------------------------------------------
+void Data_GetFromIntMemory(void)
+{
+    /*
+    if(FLASH_GetData(NUM_ROM_SIGNAL, &pDSROM, &dataROMA, &dataROMB))
+    {
+        memcpy(&dataSettingsROM, (void*)pDSROM, sizeof(DataSettings));
+    }
+    */
 }
 
 

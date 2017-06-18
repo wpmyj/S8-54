@@ -59,7 +59,6 @@ int main(void)
         Ethernet_Update(0);
         FDrive_Update();
         FPGA_Update();                  // Обновляем аппаратную часть.
-        Data_Load();
         Panel_Update();
         Menu_UpdateInput();             // Обновляем состояние меню
         Display_Update();               // Рисуем экран.

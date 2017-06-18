@@ -93,13 +93,12 @@ void PainterData_DrawData(void)
 	// Нормальный режим
 	else
 	{
-		if (ALWAYS_SHOW_ROM_SIGNAL)                 // Если нужно показывать сигннал из ППЗУ
+		if (ALWAYS_SHOW_ROM_SIGNAL)             // Если нужно показывать сигннал из ППЗУ
 		{
-            Data_PrepareToUse(ModeWork_ROM); // то показываем
-			DrawDataChannels(outA, outB);
+            //Data_PrepareToUse(ModeWork_ROM);    // то показываем
+			//DrawDataChannels(outA, outB);
 		}
 
-        Data_PrepareToUse(ModeWork_Dir);     // И рисуем последний сигнал
 		DrawDataInModeDirect();    
 	}
 
@@ -124,9 +123,8 @@ void PainterData_DrawMath(void)
         return;
     }
 
-    uint8 *dataRel0 = 0;
-    uint8 *dataRel1 = 0;
-    Processing_GetData(&dataRel0, &dataRel1, &DS);
+    uint8 *dataRel0 = outA;
+    uint8 *dataRel1 = outB;
 
     float *dataAbsA = (float*)RAM(DRAW_MATH_DATA_REL_A);
     float *dataAbsB = (float*)RAM(DRAW_MATH_DATA_REL_B);
@@ -255,7 +253,7 @@ void PainterData_DrawMemoryWindow(void)
 static void DrawDataInModeDirect(void)
 {
     uint index = G_INDEXLENGHT;
-    uint numBytesInChannel = BYTES_IN_CHANNEL(DS);
+    uint numBytesInChannel = G_BYTES_IN_CHANNEL;
     uint numPoints_2_FPGA_NUM_POINTS = (uint)NumPoints_2_FPGA_NUM_POINTS(numBytesInChannel);
 
     if(numPoints_2_FPGA_NUM_POINTS != index)    // Если количество точек в данных не соответствует установленному в настройках - просто выходим
@@ -271,6 +269,7 @@ static void DrawDataInModeDirect(void)
         MODE_ACCUM_RESET ||             // или автоматическая очистка экрана для накопления
         IN_RANDOM_MODE)                 // или в режиме рандомизатора
     {
+        Data_ReadDataRAM(0);
         DrawDataChannels(outA, outB);
     }
     else
@@ -340,11 +339,11 @@ static void DrawDataChannel(Channel ch, uint8 *dataIn)
         calculateFiltr = false;
         if (curCh == A)
         {
-            Processing_GetData(&dataIn, 0, &DS);
+            dataIn = outA;
         }
         else
         {
-            Processing_GetData(0, &dataIn, &DS);
+            dataIn = outB;
         }
         RAM_MemCpy16(dataIn, data, sizeBuffer);
         dataIn = data;

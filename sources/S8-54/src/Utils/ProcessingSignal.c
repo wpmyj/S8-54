@@ -6,6 +6,7 @@
 #include "Math.h"
 #include "GlobalFunctions.h"
 #include "Log.h"
+#include "FPGA/Data.h"
 #include "FPGA/DataBuffer.h"
 #include "Hardware/Timer.h"
 #include "Hardware/FSMC.h"
@@ -66,10 +67,6 @@ static void CountedTShift(void);
 static void CountedRShift(Channel ch);
 static void CountedRange(Channel ch);
 
-static uint16 *dataOutA_RAM = 0;
-static uint16 *dataOutB_RAM = 0;
-
-static DataSettings ds;
 static bool isSet = false;          ///< Если true, то сигнал назначен.
 
 static uint8 *dataInA = 0;
@@ -145,7 +142,7 @@ void Processing_CalculateMeasures(void)
         return;
     }
 
-    int length = BYTES_IN_CHANNEL(&ds);
+    int length = G_BYTES_IN_CHANNEL;
 
     // Вначале выделим память для данных из внешнего ОЗУ
     dataInA = malloc(length);
@@ -203,7 +200,7 @@ float CalculateVoltageMax(Channel ch)
         markerHor[ch][0] = (int)max;                           // Здесь не округляем, потому что max может быть только целым
     }
 
-    return POINT_2_VOLTAGE(max, RANGE(&ds, ch), RSHIFT(&ds, ch));
+    return POINT_2_VOLTAGE(max, G_RANGE(ch), G_RSHIFT(ch));
 }
 
 
@@ -217,7 +214,7 @@ float CalculateVoltageMin(Channel ch)
         markerHor[ch][0] = (int)min;                           // Здесь не округляем, потому что min может быть только целым
     }
     
-    return POINT_2_VOLTAGE(min, RANGE(&ds, ch), RSHIFT(&ds, ch));
+    return POINT_2_VOLTAGE(min, G_RANGE(ch),G_RSHIFT(ch));
 }
 
 
@@ -248,7 +245,7 @@ float CalculateVoltageMinSteady(Channel ch)
         markerHor[ch][0] = (int)ROUND(min);
     }
 
-    return POINT_2_VOLTAGE(min, RANGE(&ds, ch), RSHIFT(&ds, ch));
+    return POINT_2_VOLTAGE(min, G_RANGE(ch), G_RSHIFT(ch));
 }
 
 
@@ -264,7 +261,7 @@ float CalculateVoltageMaxSteady(Channel ch)
         markerHor[ch][0] = (int)max;
     }
 
-    return POINT_2_VOLTAGE(max, RANGE(&ds, ch), RSHIFT(&ds, ch));
+    return POINT_2_VOLTAGE(max, G_RANGE(ch), G_RSHIFT(ch));
 }
 
 
@@ -282,8 +279,8 @@ float CalculateVoltageVybrosPlus(Channel ch)
         markerHor[ch][1] = (int)maxSteady;
     }
 
-    uint rShift = RSHIFT(&ds, ch);
-    return fabsf(POINT_2_VOLTAGE(maxSteady, RANGE(&ds, ch), rShift) - POINT_2_VOLTAGE(max, RANGE(&ds, ch), rShift));
+    uint rShift = G_RSHIFT(ch);
+    return fabsf(POINT_2_VOLTAGE(maxSteady, G_RANGE(ch), rShift) - POINT_2_VOLTAGE(max, G_RANGE(ch), rShift));
 }
 
 
@@ -300,8 +297,8 @@ float CalculateVoltageVybrosMinus(Channel ch)
         markerHor[ch][1] = (int)minSteady;
     }
 
-    uint16 rShift = RSHIFT(&ds, ch);
-    return fabsf(POINT_2_VOLTAGE(minSteady, RANGE(&ds, ch), rShift) - POINT_2_VOLTAGE(min, RANGE(&ds, ch), rShift));
+    uint16 rShift = G_RSHIFT(ch);
+    return fabsf(POINT_2_VOLTAGE(minSteady, G_RANGE(ch), rShift) - POINT_2_VOLTAGE(min, G_RANGE(ch), rShift));
 }
 
 
@@ -349,7 +346,7 @@ float CalculateVoltageAverage(Channel ch)
         markerHor[ch][0] = aveRel;
     }
 
-    return POINT_2_VOLTAGE(aveRel, RANGE(&ds, ch), RSHIFT(&ds, ch));
+    return POINT_2_VOLTAGE(aveRel, G_RANGE(ch), G_RSHIFT(ch));
 }
 
 
@@ -361,19 +358,19 @@ float CalculateVoltageRMS(Channel ch)
     EXIT_IF_ERROR_INT(period);
 
     float rms = 0.0f;
-    uint16 rShift = RSHIFT(&ds, ch);
+    uint16 rShift = G_RSHIFT(ch);
 
     uint8 *dataIn = CHOICE_BUFFER;
 
     for(int i = firstPoint; i < firstPoint + period; i++)
     {
-        float volts = POINT_2_VOLTAGE(dataIn[i], RANGE(&ds, ch), rShift);
+        float volts = POINT_2_VOLTAGE(dataIn[i], G_RANGE(ch), rShift);
         rms +=  volts * volts;
     }
 
     if(MARKED_MEAS == Measure_VoltageRMS)
     {
-        markerHor[ch][0] = Math_VoltageToPoint(sqrtf(rms / period), RANGE(&ds, ch), rShift);
+        markerHor[ch][0] = Math_VoltageToPoint(sqrtf(rms / period), G_RANGE(ch), rShift);
     }
 
     return sqrtf(rms / period);
@@ -404,7 +401,7 @@ float CalculatePeriod(Channel ch)
 
             EXIT_IF_ERRORS_FLOAT(firstIntersection, secondIntersection);
 
-            float per = TSHIFT_2_ABS((secondIntersection - firstIntersection) / 2.0f, TBASE(&ds));
+            float per = TSHIFT_2_ABS((secondIntersection - firstIntersection) / 2.0f, G_TBASE);
 
             period[ch] = per;
             periodIsCaclulating[ch] = true;
@@ -580,7 +577,7 @@ float CalculateDurationPlus(Channel ch)
 
     EXIT_IF_ERROR_FLOAT(secondIntersection);
 
-    return TSHIFT_2_ABS((secondIntersection - firstIntersection) / 2.0f, TBASE(&ds));
+    return TSHIFT_2_ABS((secondIntersection - firstIntersection) / 2.0f, G_TBASE);
 }
 
 
@@ -602,7 +599,7 @@ float CalculateDurationMinus(Channel ch)
 
     EXIT_IF_ERROR_FLOAT(secondIntersection);
 
-    return TSHIFT_2_ABS((secondIntersection - firstIntersection) / 2.0f, TBASE(&ds));
+    return TSHIFT_2_ABS((secondIntersection - firstIntersection) / 2.0f, G_TBASE);
 }
 
 
@@ -631,7 +628,7 @@ float CalculateTimeNarastaniya(Channel ch)   /** \todo Здесь, возможно, нужно ув
 
     EXIT_IF_ERROR_FLOAT(secondIntersection);
 
-    float retValue = TSHIFT_2_ABS((secondIntersection - firstIntersection) / 2.0f, TBASE(&ds));
+    float retValue = TSHIFT_2_ABS((secondIntersection - firstIntersection) / 2.0f, G_TBASE);
 
     if (MARKED_MEAS == Measure_TimeNarastaniya)
     {
@@ -669,7 +666,7 @@ float CalculateTimeSpada(Channel ch)        /// \todo Аналогично времени нараста
 
     EXIT_IF_ERROR_FLOAT(secondIntersection);
 
-    float retValue = TSHIFT_2_ABS((secondIntersection - firstIntersection) / 2.0f, TBASE(&ds));
+    float retValue = TSHIFT_2_ABS((secondIntersection - firstIntersection) / 2.0f, G_TBASE);
 
     if (MARKED_MEAS == Measure_TimeSpada)
     {
@@ -964,7 +961,7 @@ float CalculateDelayPlus(Channel ch) //-V2008
 
     EXIT_IF_ERROR_FLOAT(secondIntersection);
 
-    return TSHIFT_2_ABS((secondIntersection - firstIntersection) / 2.0f, TBASE(&ds));
+    return TSHIFT_2_ABS((secondIntersection - firstIntersection) / 2.0f, G_TBASE);
 }
 
 
@@ -1005,7 +1002,7 @@ float CalculateDelayMinus(Channel ch) //-V2008
 
     EXIT_IF_ERROR_FLOAT(secondIntersection);
 
-    return TSHIFT_2_ABS((secondIntersection - firstIntersection) / 2.0f, TBASE(&ds));
+    return TSHIFT_2_ABS((secondIntersection - firstIntersection) / 2.0f, G_TBASE);
 }
 
 
@@ -1040,19 +1037,16 @@ void Processing_SetData(void)
 {
     isSet = true;
 
-    dataOutA_RAM = (uint16*)RAM(PS_DATA_OUT_A);
-    dataOutB_RAM = (uint16*)RAM(PS_DATA_OUT_B);
-
     sDisplay_PointsOnDisplay(&firstPoint, &lastPoint);
 
     numPoints = lastPoint - firstPoint;
     
     int numSmoothing = sDisplay_NumPointSmoothing();
 
-    int length = BYTES_IN_CHANNEL(&ds);
+    int length = G_BYTES_IN_CHANNEL;
 
-    bool enableA = ENABLED_A(&ds) == 1;
-    bool enableB = ENABLED_B(&ds) == 1;
+    bool enableA = G_ENABLED_A == 1;
+    bool enableB = G_ENABLED_B == 1;
 
     dataInA = 0;
     dataInB = 0;
@@ -1073,24 +1067,6 @@ void Processing_SetData(void)
     // И вернём ранее запрошенную память
     if (enableA) { SAFE_FREE(dataInA); };
     if (enableB) { SAFE_FREE(dataInB); };
-}
-
-
-//----------------------------------------------------------------------------------------------------------------------------------------------------
-void Processing_GetData(uint8 **dataA, uint8 **dataB, DataSettings **_ds)
-{
-    if (dataA)
-    {
-        *dataA = (isSet && ENABLED_A(&ds)) ? (uint8*)dataOutA_RAM : 0;
-    }
-    if (dataB)
-    {
-        *dataB = (isSet && ENABLED_B(&ds)) ? (uint8*)dataOutB_RAM : 0;
-    }
-    if (_ds)
-    {
-        *_ds = isSet ? &ds : 0;
-    }
 }
 
 
@@ -1291,7 +1267,7 @@ char* Processing_GetStringMeasure(Measure measure, Channel ch, char* buffer, int
     {
         strcat(buffer, "-.-");
     }
-    else if((ch == A && !ENABLED_A(&ds)) || (ch == B && !ENABLED_B(&ds)))
+    else if((ch == A && !G_ENABLED_A) || (ch == B && !G_ENABLED_B))
     {
     }
     else if(measures[measure].FuncCalculate)
@@ -1339,34 +1315,34 @@ int Processing_GetMarkerVertical(Channel ch, int numMarker)
 //----------------------------------------------------------------------------------------------------------------------------------------------------
 static void CountedToCurrentSettings(void)
 {
-    int numPoints = BYTES_IN_CHANNEL(&ds);
+    int numPoints = G_BYTES_IN_CHANNEL;
 
-    int16 dTShift = SET_TSHIFT - TSHIFT(&ds);
+    int16 dTShift = SET_TSHIFT - G_TSHIFT;
 
     if (dTShift)
     {
         CountedTShift();
     }
 
-    int rShiftA = ((int)SET_RSHIFT_A - (int)RSHIFT_A(&ds)) / STEP_RSHIFT;
+    int rShiftA = ((int)SET_RSHIFT_A - (int)G_RSHIFT_A) / STEP_RSHIFT;
 
     if (rShiftA)
     {
         CountedRShift(A);
     }
 
-    int rShiftB = ((int)SET_RSHIFT_B - (int)RSHIFT_B(&ds)) / STEP_RSHIFT;
+    int rShiftB = ((int)SET_RSHIFT_B - (int)G_RSHIFT_B) / STEP_RSHIFT;
 
     if (rShiftB)
     {
         CountedRShift(B);
     }
 
-    if (SET_RANGE_A !=  RANGE_A(&ds))
+    if (SET_RANGE_A !=  G_RANGE_A)
     {
         CountedRange(A);
     }
-    else if (SET_RANGE_B != RANGE_B(&ds))
+    else if (SET_RANGE_B != G_RANGE_B)
     {
         CountedRange(B);
     }
@@ -1375,8 +1351,8 @@ static void CountedToCurrentSettings(void)
         int startIndex = -dTShift;
         for (int i = 0; i <= startIndex; i++)
         {
-            dataOutA_RAM[i] = AVE_VALUE;
-            dataOutB_RAM[i] = AVE_VALUE;
+            outA[i] = AVE_VALUE;
+            outB[i] = AVE_VALUE;
         };
 
         int endIndex = numPoints / 2 - dTShift;
@@ -1384,8 +1360,8 @@ static void CountedToCurrentSettings(void)
         {
             for (int i = endIndex; i < numPoints / 2; i++)
             {
-                dataOutA_RAM[i] = AVE_VALUE;
-                dataOutB_RAM[i] = AVE_VALUE;
+                outA[i] = AVE_VALUE;
+                outB[i] = AVE_VALUE;
             }
         }
 
@@ -1403,7 +1379,7 @@ static void CountedToCurrentSettings(void)
                     dA1 += rShiftA;
                     LIMITATION(dA1, dA1, 0, 255);
                 }
-                ((uint16*)dataOutA_RAM)[index] = (uint16)((dA0 | (dA1 << 8)));
+                ((uint16*)outA)[index] = (uint16)((dA0 | (dA1 << 8)));
 
                 int dB0 = dataInB[i];
                 int dB1 = dataInB[i + 1];
@@ -1414,14 +1390,14 @@ static void CountedToCurrentSettings(void)
                     dB1 += rShiftB;
                     LIMITATION(dB1, dB1, 0, 255);
                 }
-                ((uint16*)dataOutB_RAM)[index] = (uint16)((dB0 | (dB1 << 8)));
+                ((uint16*)outB)[index] = (uint16)((dB0 | (dB1 << 8)));
             }
         }
     }
     else
-    {
-        RAM_MemCpy16(dataInA, dataOutA_RAM, numPoints);
-        RAM_MemCpy16(dataInB, dataOutB_RAM, numPoints);
+    {      
+        memcpy(outA, dataInA, numPoints);
+        memcpy(outB, dataInB, numPoints);
     }
 }
 
@@ -1459,23 +1435,23 @@ static void CountedRange(Channel ch)
 {
     uint8 *in = 0;
     uint16 *out = 0;
-    Range rangeIn = RANGE(&ds, ch);
+    Range rangeIn = G_RANGE(ch);
     Range rangeOut = SET_RANGE(ch);
-    int rShiftIn = RSHIFT(&ds, ch);
+    int rShiftIn = G_RSHIFT(ch);
     int rShiftOut = SET_RSHIFT(ch);
 
     if (ch == A)
     {
         in = dataInA;
-        out = dataOutA_RAM;
+        out = (uint16*)outA;
     }
     else
     {
         in = dataInB;
-        out = dataOutB_RAM;
+        out = (uint16*)outB;
     }
 
-    int numPoints = BYTES_IN_CHANNEL(&ds);
+    int numPoints = G_BYTES_IN_CHANNEL;
 
     for (int i = 0; i < numPoints; i += 2)
     {

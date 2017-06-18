@@ -1,5 +1,7 @@
 // This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++ and C#: http://www.viva64.com
+#include "Data.h"
+#include "DataBuffer.h"
 #include "FPGA.h"
 #include "Log.h"
 #include "Display/Display.h"
@@ -452,18 +454,16 @@ static bool ReadRandomizeModeSave(bool first, bool last, bool onlySave)
         // Ѕуфера dataRandA, dataRandB созданы заранее дл€ ускорени€, т.к. в режиме рандомизатора в FPGA_Update() выполн€етс€ несколько чтений
         if (first)
         {
-            uint8 *dA = 0;
-            uint8 *dB = 0;
+            uint8 *dA = outA;
+            uint8 *dB = outB;
 
-            Processing_GetData(&dA, &dB, 0);
-
-            if (dA)
+            if (G_ENABLED_A)
             {
-                RAM_MemCpy16(dA, dataRandA, bytesInChannel);
+                memcpy(dataRandA, dA, bytesInChannel);
             }
-            if (dB)
+            if (G_ENABLED_B)
             {
-                RAM_MemCpy16(dB, dataRandB, bytesInChannel);
+                memcpy(dataRandB, dB, bytesInChannel);
             }
         }
 

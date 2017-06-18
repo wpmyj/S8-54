@@ -17,8 +17,6 @@
 /// \brief Установить сигнал для обработки. Данные берутся из DS, inA, inB.
 /// Выходные данные, соответствующие текущим настройками set, рассчитываются сразу и записываются в outA, outB.
 void Processing_SetData(void);
-/// Получить данные ранее установленного сигнала
-void Processing_GetData(uint8 **dataA, uint8 **dataB, DataSettings **ds);
 /// Получить позицию курсора напряжения, соответствующю заданной позиции курсора posCurT
 float Processing_GetCursU(Channel ch, float posCurT);
 /// Получить позицию курсора времени, соответствующую заданной позиции курсора напряжения posCurU
