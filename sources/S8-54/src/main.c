@@ -1,20 +1,14 @@
 // This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++ and C#: http://www.viva64.com
-#include "defines.h"
-#include "FPGA/Data.h"
-#include "Settings/Settings.h"
-#include "Hardware/FSMC.h"
-#include "Hardware/Timer.h"
-#include "Hardware/FLASH.h"
 #include "Log.h"
+#include "Ethernet/Ethernet.h"
+#include "FlashDrive/FlashDrive.h"
+#include "FPGA/Data.h"
+#include "FPGA/FPGA.h"
+#include "Hardware/Timer.h"
+#include "Menu/Menu.h"
 #include "Panel/Panel.h"
 #include "VCP/VCP.h"
-#include "FPGA/FPGA.h"
-#include "Ethernet/Ethernet.h"
-#include "Menu/Menu.h"
-#include "Utils/ProcessingSignal.h"
-#include "Menu/Pages/PageCursors.h"
-#include "FlashDrive/FlashDrive.h"
 
 
 /// \todo ѕо идее c этим должно работать TODO("message")
@@ -58,7 +52,7 @@ int main(void)
     Display_Init();
     Ethernet_Init();
     Menu_Init();
-
+    
     while(1)
     {
         Timer_StartMultiMeasurement();  // —брос таймера дл€ замера длительности временных интервалов в течение одной итерации цикла.

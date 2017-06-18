@@ -173,6 +173,7 @@
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</ExcludedFromBuild>
     </ClCompile>
     <ClCompile Include="..\..\S8-54\src\FPGA\Data.c" />
+    <ClCompile Include="..\..\S8-54\src\FPGA\DataBuffer.c" />
     <ClCompile Include="..\..\S8-54\src\FPGA\DataStorage.c" />
     <ClCompile Include="..\..\S8-54\src\FPGA\FPGA.c" />
     <ClCompile Include="..\..\S8-54\src\FPGA\FPGAExtensions.c" />
@@ -365,6 +366,7 @@
     <ClInclude Include="..\..\S8-54\src\Display\WelcomeScreen.h" />
     <ClInclude Include="..\..\S8-54\src\dox\main_page.h" />
     <ClInclude Include="..\..\S8-54\src\dox\PageAlgorithm.h" />
+    <ClInclude Include="..\..\S8-54\src\dox\PageData.h" />
     <ClInclude Include="..\..\S8-54\src\dox\PageMenu.h" />
     <ClInclude Include="..\..\S8-54\src\dox\RelatedPages.h" />
     <ClInclude Include="..\..\S8-54\src\Ethernet\Ethernet.h" />
@@ -373,6 +375,7 @@
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</ExcludedFromBuild>
     </ClInclude>
     <ClInclude Include="..\..\S8-54\src\FPGA\Data.h" />
+    <ClInclude Include="..\..\S8-54\src\FPGA\DataBuffer.h" />
     <ClInclude Include="..\..\S8-54\src\FPGA\DataStorage.h" />
     <ClInclude Include="..\..\S8-54\src\FPGA\FPGA.h" />
     <ClInclude Include="..\..\S8-54\src\FPGA\FPGAExtensions.h" />
