@@ -10,7 +10,7 @@
  *  @{
  */
 
-void Sys_PrintSizeStack(void);
+void DBG_PrintSizeStack(void);
 
 #define PROFILER_INIT()   uint timeProfiler = gTimerTics; uint time_ = 0;
 
@@ -41,16 +41,6 @@ typedef struct
     uint timeStartCopyMemory;
 } Debug;
 
-
-extern int numLine;
-extern char* nameFile;
-
-
-#define DEBUG_FREE(x)   numLine = __LINE__ ; nameFile = __FILE__; free(x); numLine = 0; nameFile = 0;
-
-
-#define DBG_TEST_FUNC()  DBG_TestFunc(__FUNCTION__, __LINE__)
-void DBG_TestFunc(const char *function, int line);
 
 //extern Debug debug;
 //void DBG_Log_Start(void);

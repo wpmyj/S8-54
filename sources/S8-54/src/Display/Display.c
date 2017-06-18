@@ -2,6 +2,7 @@
 // PVS-Studio Static Code Analyzer for C, C++ and C#: http://www.viva64.com
 #include "Display.h"
 #include "Grid.h"
+#include "Log.h"
 #include "PainterData.h"
 #include "Symbols.h"
 #include "Ethernet/TcpSocket.h"
@@ -249,15 +250,11 @@ void Display_Update(void)
     {
         Painter_BeginScene(gColorBack);
         SetOrientation();
-        //PainterData_DrawMemoryWindow();
+        PainterData_DrawMemoryWindow();
         DrawFullGrid();
     }
 
-    DBG_TEST_FUNC();
-
     PainterData_DrawData();
-
-    DBG_TEST_FUNC();
 
     if(needReloadPalette)
     {
@@ -270,8 +267,8 @@ void Display_Update(void)
         DrawSpectrum();
         DrawCursors();
         DrawHiPart();
-        //Data_PrepareToDrawSettings();   // Перед выводом установок выводимого сигнала настроим DS на него
-        //DrawLowPart();
+        Data_PrepareToDrawSettings();   // Перед выводом установок выводимого сигнала настроим DS на него
+        DrawLowPart();
         DrawCursorsWindow();
         DrawCursorTrigLevel();
         DrawCursorsRShift();
@@ -668,11 +665,8 @@ static void DrawLowPart(void)
 
     Painter_DrawHLineC(GridChannelBottom(), 1, GridLeft() - Measure_GetDeltaGridLeft() - 2, gColorFill);
     Painter_DrawHLine(GridFullBottom(), 1, GridLeft() - Measure_GetDeltaGridLeft() - 2);
-    
     WriteTextVoltage(A, x + 2, y0);
-
     WriteTextVoltage(B, x + 2, y1);
-
     Painter_DrawVLineC(x + 95, GRID_BOTTOM + 2, SCREEN_HEIGHT - 2, gColorFill);
 
     x += 98;
@@ -1439,7 +1433,7 @@ static void DRAW_SPECTRUM(const uint8 *dataIn, int numPoints, Channel ch)
         Painter_DrawVLine(GridLeft() + POS_MATH_CUR_1, GridMathBottom(), y1 + s);
     }
 
-    DEBUG_FREE(data);
+    free(data);
 }
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
@@ -1627,6 +1621,7 @@ static void WriteTextVoltage(Channel ch, int x, int y)
     {
         return;
     }
+
     static const char *couple[] = {"\x92", "\x91", "\x90" };
 
     Color color = gColorChan[ch];
@@ -1637,22 +1632,18 @@ static void WriteTextVoltage(Channel ch, int x, int y)
 
     const int widthField = 91;
     const int heightField = 8;
-
     Color colorDraw = inverse ? COLOR_WHITE : color;
     if(inverse)
     {
         Painter_FillRegionC(x, y, widthField, heightField, color);
     }
-
     const int SIZE = 100;
     char buffer[SIZE];
     snprintf(buffer, SIZE, "%s\xa5%s\xa5%s", (ch == A) ? (LANG_RU ? "1к" : "1c") : (LANG_RU ? "2к" : "2c"), couple[G_COUPLE(ch)], sChannel_Range2String(range, divider));
-    
     Painter_DrawTextC(x + 1, y, buffer, colorDraw);
-
     char bufferTemp[SIZE];
-    snprintf(buffer, SIZE, "\xa5%s", sChannel_RShift2String((int16)G_RSHIFT(ch), range, divider, bufferTemp));
-    Painter_DrawText(x + 46, y, buffer);
+    snprintf(bufferTemp, SIZE, "\xa5%s", sChannel_RShift2String((int16)G_RSHIFT(ch), range, divider, buffer));
+    Painter_DrawText(x + 46, y, bufferTemp);
 }
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------

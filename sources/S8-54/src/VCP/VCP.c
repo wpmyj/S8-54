@@ -1,17 +1,9 @@
 // This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++ and C#: http://www.viva64.com
-#include "defines.h"
-#include "VCP.h"
-#include "Utils/Math.h"
-#include "SCPI/SCPI.h"
-#include "usbd_desc.h"
 #include "usbd_cdc_interface.h"
-#include "Hardware/Timer.h"
-#include <usbd_cdc.h>
-#include <usbd_def.h>
+#include "usbd_desc.h"
+#include "Utils/Math.h"
 #include <stdarg.h>
-#include <string.h>
-#include <stdio.h>
 
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

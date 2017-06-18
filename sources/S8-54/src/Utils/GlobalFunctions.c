@@ -6,10 +6,9 @@
 #include "Display/Symbols.h"
 #include "FPGA/fpgaTypes.h"
 #include "Settings/Settings.h"
+#include "Utils/Debug.h"
 #include "Utils/Math.h"
-#include <math.h>
 #include <string.h>
-#include <ctype.h>
 #include <stdlib.h>
 
 
@@ -104,7 +103,6 @@ char* Float2String(float value, bool alwaysSign, int numDigits, char bufferOut[2
         strcat(bufferOut, ERROR_STRING_VALUE);
         return bufferOut;
     }
-
     if(!alwaysSign)
     {
         if(value < 0)
@@ -118,7 +116,6 @@ char* Float2String(float value, bool alwaysSign, int numDigits, char bufferOut[2
         *pBuffer = value < 0 ? '-' : '+';
         pBuffer++;
     }
-
     char format[] = "%4.2f\0\0";
 
     format[1] = (char)numDigits + 0x30;
@@ -130,8 +127,8 @@ char* Float2String(float value, bool alwaysSign, int numDigits, char bufferOut[2
     {
         format[5] = '.';
     }
-    
-    snprintf(pBuffer, 20, format, fabsf(value));
+
+    snprintf(pBuffer, 15, format, fabsf(value));
 
     float val = (float)atof(pBuffer);
 
@@ -289,6 +286,7 @@ char*    Voltage2String(float voltage, bool alwaysSign, char buffer[20])
     char bufferOut[20];
 
     Float2String(voltage, alwaysSign, 4, bufferOut);
+    
     strcat(buffer, bufferOut);
     strcat(buffer, suffix);
     return buffer;

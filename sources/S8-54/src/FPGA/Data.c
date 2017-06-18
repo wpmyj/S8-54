@@ -17,7 +17,10 @@
  */
 
 
-DataSettings **ppDS = &pDS;
+/** \todo Этот экземпляр введён потому, что при непосредсвенный ссылке через pDSROM на настройки в EPROM  происходят глюки.
+        Поэтому настройки просто копируются в эту структуру и потому берутся отсюда.
+        Разбораться и сделать как надо - без этой структуры. */
+static DataSettings dataSettingsROM;
 
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -45,7 +48,10 @@ static void GetDataFromStorage(void);
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 void Data_GetFromIntMemory(void)
 {
-    FLASH_GetData(NUM_ROM_SIGNAL, &pDSROM, &dataROMA, &dataROMB);
+    if(FLASH_GetData(NUM_ROM_SIGNAL, &pDSROM, &dataROMA, &dataROMB))
+    {
+        memcpy(&dataSettingsROM, (void*)pDSROM, sizeof(DataSettings));
+    }
 }
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
@@ -140,17 +146,16 @@ void Data_PrepareToUse(ModeWork mode)
     static const pUINT8 *dB[3] = {&dataDirB, &dataRAMB, &dataROMB};
     
     DS = *ds[mode];
+    if(mode == ModeWork_ROM)
+    {
+        DS = pDSROM ? &dataSettingsROM : 0;
+    }
     DATA_A = *dA[mode];
     DATA_B = *dB[mode];
 
     int first = 0;
     int last = 0;
     sDisplay_PointsOnDisplay(&first, &last);
-
-    if (ENABLED_A(DS))
-    {
-        int i = 0;
-    }
 
     Processing_SetSignal(DATA_A, DATA_B, DS, first, last);
 }

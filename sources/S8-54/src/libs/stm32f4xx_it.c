@@ -20,13 +20,8 @@ void NMI_Handler(void)
 //----------------------------------------------------------------------------------------------------------------------------------------------------
 void HardFault_Handler(void)
 {
-    int numLine_ = numLine;
-    char* nameFile_ = nameFile;
-    
     while (1)
     {
-        numLine = numLine_;
-        nameFile = nameFile_;
     }
 }
 

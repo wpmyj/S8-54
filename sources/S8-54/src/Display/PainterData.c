@@ -68,7 +68,6 @@ void PainterData_DrawData(void)
         Painter_DrawRectangleC(GridLeft(), GRID_TOP, GridWidth(), GridFullHeight(), gColorFill);
 		return;
 	}
-
 	// Режим просмотра сигналов, записанных в ППЗУ
 	if (MODE_WORK_ROM)
 	{
@@ -77,7 +76,7 @@ void PainterData_DrawData(void)
             Data_PrepareToUse(ModeWork_Dir);
             DrawDataInModeDirect();
         }
-        
+    
         if (SHOW_IN_INT_SAVED || SHOW_IN_INT_BOTH)
         {
             Data_PrepareToUse(ModeWork_ROM);
@@ -99,7 +98,7 @@ void PainterData_DrawData(void)
 			DrawDataChannels(DATA_A, DATA_B);
 		}
 
-        //Data_PrepareToUse(ModeWork_Dir);     // И рисуем последний сигнал
+        Data_PrepareToUse(ModeWork_Dir);     // И рисуем последний сигнал
 		DrawDataInModeDirect();    
 	}
 
@@ -246,8 +245,8 @@ void PainterData_DrawMemoryWindow(void)
 
     if (needReleaseHeap)
     {
-        DEBUG_FREE(dA);
-        DEBUG_FREE(dB);
+        free(dA);
+        free(dB);
     }
 }
 
@@ -354,7 +353,6 @@ static void DrawDataChannel(Channel ch, uint8 *dataIn)
     {
         return;
     }
-
     float scaleY = (float)(maxY - minY) / (MAX_VALUE - MIN_VALUE);
     float scaleX = (float)GridWidth() / 280.0f;
 
@@ -661,19 +659,17 @@ static bool DataBeyondTheBorders(const uint8 *data, int firstPoint, int lastPoin
 //----------------------------------------------------------------------------------------------------------------------------------------------------
 static void DrawSignalLined(const uint8 *data, int startPoint, int endPoint, int minY, int maxY, float scaleY, float scaleX, bool calculateFiltr)
 {
+    uint8 dataCD[281];
+
     if (endPoint < startPoint)
     {
         return;
     }
 
-    uint8 dataCD[281];
-
     int gridLeft = GridLeft();
     int gridRight = GridRight();
-
     int numPoints = sMemory_NumBytesInChannel(false);
     int numSmoothing = sDisplay_NumPointSmoothing();
-
     if (G_PEACKDET == PeackDet_Disable)
     {
         for (int i = startPoint; i < endPoint; i++)
@@ -723,7 +719,6 @@ static void DrawSignalLined(const uint8 *data, int startPoint, int endPoint, int
             }
         }
     }
-
     if (endPoint - startPoint < 281)
     {
         int numPoints = 281 - (endPoint - startPoint);
@@ -733,7 +728,6 @@ static void DrawSignalLined(const uint8 *data, int startPoint, int endPoint, int
             CONVERT_DATA_TO_DISPLAY(dataCD[index], 0);
         }
     }
-
     if (G_PEACKDET == PeackDet_Disable)
     {
         CONVERT_DATA_TO_DISPLAY(dataCD[280], data[endPoint]); //-V108

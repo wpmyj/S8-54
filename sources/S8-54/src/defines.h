@@ -2,7 +2,7 @@
 // PVS-Studio Static Code Analyzer for C, C++ and C#: http://www.viva64.com
 #pragma once
 #include <stm32f4xx_hal.h>
-#include <stdio.h>
+//#include <stdio.h>
 #include <math.h>
 #include <limits.h>
 
@@ -191,4 +191,4 @@ typedef struct
 #define HARDWARE_ERROR HardwareErrorHandler(__FILE__, __FUNCTION__, __LINE__);
 void HardwareErrorHandler(const char *file, const char *function, int line);
 
-#define SAFE_FREE(x) if(x) DEBUG_FREE(x); (x) = 0;
+#define SAFE_FREE(x) if(x) free(x); (x) = 0;

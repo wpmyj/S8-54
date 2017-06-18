@@ -187,8 +187,8 @@ void Processing_CalculateMeasures(void)
     }
 
     // Теперь удалим выделенную память
-    DEBUG_FREE(dataInA);
-    DEBUG_FREE(dataInB);
+    free(dataInA);
+    free(dataInB);
 }
 
 
@@ -418,7 +418,7 @@ float CalculatePeriod(Channel ch)
 #define EXIT_FROM_PERIOD_ACCURACY           \
     period[ch] = ERROR_VALUE_INT;           \
     periodAccurateIsCalculating[ch] = true; \
-    DEBUG_FREE(sums);                       \
+    free(sums);                             \
     return period[ch];
 
 
@@ -506,7 +506,7 @@ int CalculatePeriodAccurately(Channel ch)
         periodAccurateIsCalculating[ch] = true;
     }
 
-    DEBUG_FREE(sums);
+    free(sums);
 
     return period[ch];
 }
@@ -1292,7 +1292,7 @@ void Processing_InterpolationSinX_X(uint8 *data, int numPoints, TBase tBase)
         pos--;
     }
 
-    DEBUG_FREE(signedData);
+    free(signedData);
 }
 
 

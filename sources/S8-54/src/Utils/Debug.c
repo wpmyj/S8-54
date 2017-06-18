@@ -32,7 +32,7 @@ static uint timePauseMS = 1000;
 static bool running = false;
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-void Sys_PrintSizeStack(void)
+void DBG_PrintSizeStack(void)
 {
     uint value = 0;
     __asm
@@ -90,19 +90,4 @@ void DBG_Log_Out(void)
         running = false;
         nextPoint = 0;
     }
-}
-
-//----------------------------------------------------------------------------------------------------------------------------------------------------
-void DBG_TestFunc(const char *function, int line)
-{
-    ModeWork mode = Data_GetUsedModeWork();
-
-    int i = 0;
-
-    if (!G_ENABLED_A)
-    {
-        LOG_WRITE("%s : %d", function, line);
-    }
-
-    Data_PrepareToUse(mode);
 }

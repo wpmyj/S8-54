@@ -27,7 +27,6 @@ EXTERN DataSettings *pDS;               ///< Указатель на настройки текущего рис
 EXTERN uint8 *dataChan[2];              ///< Указатель на данные отображаемого сигнала. Обращаться к нему следует через макрос DATA(ch).
 
 #undef EXTERN
-
 /** @defgroup GlobalData Global Data
  *  @brief Настройки, действующие для отображаемого в данный момент сигнала
  *  @{

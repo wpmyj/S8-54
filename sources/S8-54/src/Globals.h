@@ -136,7 +136,7 @@ extern GMemory gMemory;
 #define MALLOC_EXTRAMEM(NameStruct, name)   extraMEM = malloc(sizeof(NameStruct));    \
                                             NameStruct *name = (NameStruct*)extraMEM
 #define ACCESS_EXTRAMEM(NameStruct, name)   NameStruct *name = (NameStruct*)extraMEM
-#define FREE_EXTRAMEM()                     DEBUG_FREE(extraMEM);
+#define FREE_EXTRAMEM()                     free(extraMEM);
 
 /** @}
  */

@@ -16,7 +16,7 @@
 #define USBD_DEBUG_LEVEL                      0
  
 #define USBD_malloc               malloc
-#define USBD_free                 DEBUG_FREE
+#define USBD_free                 free
 #define USBD_memset               memset
 #define USBD_memcpy               memcpy
 
