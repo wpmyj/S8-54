@@ -228,7 +228,8 @@ void FPGA_Start(void)
 
     timeCompletePredTrig = 0;
 
-    FPGA_FillDataPointer(&ds);
+    DataSettings_Fill(&ds);
+
     timeStart = gTimeMS;
     gBF.FPGAcritiacalSituation = 0;
 
@@ -373,8 +374,8 @@ static int CalculateShift(void)             /// \todo Не забыть восстановить фун
 }
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
-#define WRITE_AND_OR_INVERSE(addr, data, ch)                                              \
-    if(SET_INVERSE(ch))                                                           \
+#define WRITE_AND_OR_INVERSE(addr, data, ch)                                                \
+    if(SET_INVERSE(ch))                                                                     \
     {                                                                                       \
         data = (uint8)((int)(2 * AVE_VALUE) - LimitationUInt8(data, MIN_VALUE, MAX_VALUE)); \
     }                                                                                       \
@@ -435,7 +436,7 @@ static void ReadRandomizeChannel(Channel ch, uint16 addrFirstRead, uint8 *data, 
 // last - если true, это последний вызов из последовательности, нужно записать результаты в память.
 static bool ReadRandomizeModeSave(bool first, bool last, bool onlySave)
 {
-    int bytesInChannel = sMemory_NumBytesInChannel(false);
+    int bytesInChannel = BYTES_IN_CHANNEL(&ds);
 
     if (first)
     {
@@ -582,7 +583,7 @@ static void ReadChannel(uint8 *data, Channel ch, int length, uint16 nStop, bool 
 // Кажется, рассчитываем адрес последней записи
 uint16 ReadNStop(void)
 {
-    return *RD_ADDR_NSTOP + 16384 - (uint16)sMemory_NumBytesInChannel(false) / 2 - 1 - (uint16)gAddNStop;
+    return *RD_ADDR_NSTOP + 16384 - (uint16)BYTES_IN_CHANNEL(&ds) / 2 - 1 - (uint16)gAddNStop;
 }
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
@@ -604,8 +605,8 @@ static void ReadRealMode(uint8 *dataA, uint8 *dataB, bool necessaryShift)
         balanceB = NRST_BALANCE_ADC_B;
     }
 
-    ReadChannel(dataA, A, sMemory_NumBytesInChannel(false), nStop, shift, balanceA);
-    ReadChannel(dataB, B, sMemory_NumBytesInChannel(false), nStop, shift, balanceB);
+    ReadChannel(dataA, A, BYTES_IN_CHANNEL(&ds), nStop, shift, balanceA);
+    ReadChannel(dataB, B, BYTES_IN_CHANNEL(&ds), nStop, shift, balanceB);
 
     RAM_MemCpy16(dataA, RAM(FPGA_DATA_A), FPGA_MAX_POINTS);
     RAM_MemCpy16(dataB, RAM(FPGA_DATA_B), FPGA_MAX_POINTS);
@@ -641,7 +642,7 @@ static void DataReadSave(bool necessaryShift, bool first, bool saveToStorage, bo
         ReadRealMode(dataA, dataB, necessaryShift);
     }
 
-    int numBytes = sMemory_NumBytesInChannel(false);
+    int numBytes = BYTES_IN_CHANNEL(&ds);
 
     RAM_MemCpy16(RAM(FPGA_DATA_A), dataA, numBytes);
     RAM_MemCpy16(RAM(FPGA_DATA_B), dataB, numBytes);
@@ -658,7 +659,7 @@ static void DataReadSave(bool necessaryShift, bool first, bool saveToStorage, bo
         InverseDataIsNecessary(B, dataB);
     }
     
-    if (saveToStorage && (INDEXLENGTH(&ds) == (ENumPoinstFPGA)NumPoints_2_FPGA_NUM_POINTS(sMemory_NumBytesInChannel(false))))
+    if (saveToStorage && (INDEXLENGTH(&ds) == (ENumPoinstFPGA)NumPoints_2_FPGA_NUM_POINTS(BYTES_IN_CHANNEL(&ds))))
     {
         DS_AddData(dataA, dataB, ds);
     }
@@ -980,30 +981,6 @@ void FPGA_TemporaryPause(void)
 }
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
-void FPGA_FillDataPointer(DataSettings *ds)
-{
-    Lval_ENABLED_A(ds) = sChannel_Enabled(A) ? 1 : 0;
-    Lval_ENABLED_B(ds) = sChannel_Enabled(B) ? 1 : 0;
-         INVERSE_A(ds) = SET_INVERSE_A ? 1 : 0;
-         INVERSE_B(ds) = SET_INVERSE_B ? 1 : 0;
-    Lval_RANGE_A(ds) = SET_RANGE_A;
-    Lval_RANGE_B(ds) = SET_RANGE_B;
-         RSHIFT_A(ds) = SET_RSHIFT_A;
-         RSHIFT_B(ds) = SET_RSHIFT_B;
-    Lval_TBASE(ds) = SET_TBASE;
-         TSHIFT(ds) = SET_TSHIFT;
-    Lval_COUPLE_A(ds) = SET_COUPLE_A;
-    Lval_COUPLE_B(ds) = SET_COUPLE_B;
-         INDEXLENGTH(ds) = NumPoints_2_FPGA_NUM_POINTS(sMemory_NumBytesInChannel(false));
-         TRIGLEV_A(ds) = SET_TRIGLEV_A;
-         TRIGLEV_B(ds) = SET_TRIGLEV_A;
-    Lval_PEACKDET(ds) = SET_PEACKDET;
-    Lval_DIVIDER_A(ds) = SET_DIVIDER_A;
-    Lval_DIVIDER_B(ds) = SET_DIVIDER_B;
-         TIME_MS(ds) = 0;                        // Это важно для режима поточеного вывода. Означает, что полный сигнал ещё не считан
-}
-
-//----------------------------------------------------------------------------------------------------------------------------------------------------
 void FPGA_FindAndSetTrigLevel(void)
 {
     if (DS_NumElementsInStorage() == 0 || TRIGSOURCE_EXT)
@@ -1019,7 +996,7 @@ void FPGA_FindAndSetTrigLevel(void)
 
     const uint16 *data = TRIGSOURCE_A ? dataA : dataB;
 
-    int lastPoint = NumBytesInChannel(ds_) - 1;
+    int lastPoint = BYTES_IN_CHANNEL(ds_) - 1;
 
     uint8 min = Math_GetMinFromArray_RAM(data, 0, lastPoint);
     uint8 max = Math_GetMaxFromArray_RAM(data, 0, lastPoint);

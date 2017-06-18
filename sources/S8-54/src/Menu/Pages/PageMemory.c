@@ -5,6 +5,7 @@
 #include "Display/Symbols.h"
 #include "FlashDrive/FlashDrive.h"
 #include "FPGA/Data.h"
+#include "FPGA/DataBuffer.h"
 #include "FPGA/FPGA.h"
 #include "Hardware/FLASH.h"
 #include "Hardware/Sound.h"
@@ -191,29 +192,24 @@ void OnChanged_Points(bool active)
     int width = GridWidth();
     
     FPGA_Reset();
-    if (sMemory_NumBytesInChannel(false) == 281)
+    
+    if (SET_PEACKDET_EN)
+    {
+        width *= 2;
+    }
+    if (TPOS_LEFT)
     {
         SHIFT_IN_MEMORY = 0;
     }
-    else
+    else if (TPOS_CENTER)
     {
-        if (SET_PEACKDET_EN)
-        {
-            width *= 2;
-        }
-        if (TPOS_LEFT)
-        {
-            SHIFT_IN_MEMORY = 0;
-        }
-        else if (TPOS_CENTER)
-        {
-            SHIFT_IN_MEMORY = (int16)(sMemory_NumBytesInChannel(false) / 2 - width / 2);
-        }
-        else if (TPOS_RIGHT)
-        {
-            SHIFT_IN_MEMORY = (int16)(sMemory_NumBytesInChannel(false) - width - 2);
-        }
+        SHIFT_IN_MEMORY = (int16)(BYTES_IN_CHANNEL(DS) / 2 - width / 2);
     }
+    else if (TPOS_RIGHT)
+    {
+        SHIFT_IN_MEMORY = (int16)(BYTES_IN_CHANNEL(DS) - width - 2);
+    }
+    
     FPGA_Reset();
     FPGA_SetTShift(SET_TSHIFT);
     FPGA_Reset();
@@ -775,7 +771,7 @@ static void SaveSignalToIntMemory(void)
 
     if (DS)                                                     // Если есть что сохранять
     {
-        FLASH_SaveData(NUM_ROM_SIGNAL, DS, DATA_A, DATA_B);     // То сохраняем данные из DS, DATA_A, DATA_B на место NUM_ROM_SIGNAL в ППЗУ
+        FLASH_SaveData(NUM_ROM_SIGNAL, DS, inA, inB);     // То сохраняем данные из DS, DATA_A, DATA_B на место NUM_ROM_SIGNAL в ППЗУ
         Display_ShowWarning(SignalIsSaved);
     }
 }

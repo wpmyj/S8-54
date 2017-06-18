@@ -37,7 +37,7 @@ int RequestBytesForChannel(Channel ch, DataSettings *ds)
     }
     else
     {
-        numBytes = NumPoints_2_FPGA_NUM_POINTS(sMemory_NumBytesInChannel(false));
+        numBytes = NumPoints_2_FPGA_NUM_POINTS(BYTES_IN_CHANNEL(ds));
         peakDet = SET_PEACKDET;
     }
 

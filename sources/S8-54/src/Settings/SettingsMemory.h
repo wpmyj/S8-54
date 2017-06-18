@@ -44,10 +44,7 @@
 #define MODE_SAVE_BMP           (MODE_SAVE == ModeSaveSignal_BMP)
 #define MODE_SAVE_TXT           (MODE_SAVE == ModeSaveSignal_TXT)
 
-
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-int sMemory_NumBytesInChannel(bool forCalculate);
 
 int sMemory_NumPointsInChannel(void);
 

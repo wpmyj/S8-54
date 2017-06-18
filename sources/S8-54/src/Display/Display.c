@@ -9,6 +9,7 @@
 #include "FlashDrive/FlashDrive.h"
 #include "font/Font.h"
 #include "FPGA/Data.h"
+#include "FPGA/DataBuffer.h"
 #include "FPGA/fpga.h"
 #include "FPGA/fpgaExtensions.h"
 #include "Hardware/FSMC.h"
@@ -406,13 +407,13 @@ void Display_Clear(void)
 //----------------------------------------------------------------------------------------------------------------------------------------------------
 void Display_ShiftScreen(int delta)
 {
-    if(SET_PEACKDET_EN)
+    if(G_PEACKDET)
     {
         delta *= 2;
     }
     int16 shift = SHIFT_IN_MEMORY;
     shift += (int16)delta;
-    int16 max = (int16)sMemory_NumBytesInChannel(false) - 282 * (SET_PEACKDET_EN ? 2 : 1);
+    int16 max = (int16)BYTES_IN_CHANNEL(DS) - 282 * (G_PEACKDET ? 2 : 1);
     if(shift < 0)
     {
         shift = 0;
@@ -575,7 +576,7 @@ static void DrawSpectrum(void)
 
     if(MODE_WORK_DIR)
     {
-        int numPoints = sMemory_NumBytesInChannel(false);
+        int numPoints = BYTES_IN_CHANNEL(DS);
         if(numPoints < 512)
         {
             numPoints = 256;
@@ -583,23 +584,23 @@ static void DrawSpectrum(void)
 
         if(SOURCE_FFT_A)
         {
-            DRAW_SPECTRUM(DATA(A), numPoints, A);
+            DRAW_SPECTRUM(outA, numPoints, A);
         }
         else if(SOURCE_FFT_B)
         {
-            DRAW_SPECTRUM(DATA(B), numPoints, B);
+            DRAW_SPECTRUM(outB, numPoints, B);
         }
         else
         {
             if(LAST_AFFECTED_CH == A)
             {
-                DRAW_SPECTRUM(DATA(B), numPoints, B);
-                DRAW_SPECTRUM(DATA(A), numPoints, A);
+                DRAW_SPECTRUM(outB, numPoints, B);
+                DRAW_SPECTRUM(outA, numPoints, A);
             }
             else
             {
-                DRAW_SPECTRUM(DATA(A), numPoints, A);
-                DRAW_SPECTRUM(DATA(B), numPoints, B);
+                DRAW_SPECTRUM(outA, numPoints, A);
+                DRAW_SPECTRUM(outB, numPoints, B);
             }
         }
 

@@ -1,33 +1,11 @@
 // This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++ and C#: http://www.viva64.com
 #include "SettingsMemory.h"
+#include "FPGA/Data.h"
 #include "FPGA/FPGAtypes.h"
 
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-int sMemory_NumBytesInChannel(bool forCalculate)
-{
-    static const int numPoints[FPGA_NUM_POINTS_SIZE][3] =
-    {
-        {512,   1024,  1024},
-        {1024,  2048,  2048},
-        {2048,  4096,  4096},
-        {4096,  8192,  8192},
-        {8192,  16384, 16384},
-        {16384, 32768, 16384},
-        {32768, 32768, 32768}
-    };
-
-    if (FPGA_NUM_POINTS >= FNP_1k && forCalculate)
-    {
-        return FPGA_MAX_POINTS_FOR_CALCULATE;
-    }
-
-    return numPoints[FPGA_NUM_POINTS][SET_PEACKDET];
-}
-
-
-//----------------------------------------------------------------------------------------------------------------------------------------------------
 int sMemory_NumPointsInChannel(void)
 {
     static const int numPoints[FPGA_NUM_POINTS_SIZE] =

@@ -12,28 +12,25 @@ void *extraMEM = 0;
 StateOSCI gState = StateOSCI_Start;
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-int NumBytesInChannel(const DataSettings *ds)
+int NumBytesInChannel(DataSettings *ds, bool forCalculate)
 {
-    return FPGA_NUM_POINTS_2_NumPoints((ENumPoinstFPGA)INDEXLENGTH(ds));
-}
-
-
-//----------------------------------------------------------------------------------------------------------------------------------------------------
-int NumBytesInData(const DataSettings *ds)
-{
-    return NumBytesInChannel(ds) * (ENABLED_A(ds) + ENABLED_B(ds));
-}
-
-
-//---------------------------------------------------------------------------------------------------------------------------------------------------
-int NumPointsInChannel(const DataSettings *ds)
-{
-    if (PEACKDET(ds) == PeackDet_Disable)
+    static const int numPoints[FPGA_NUM_POINTS_SIZE][3] =
     {
-        return NumBytesInChannel(ds);
+        {512,   1024,  1024},
+        {1024,  2048,  2048},
+        {2048,  4096,  4096},
+        {4096,  8192,  8192},
+        {8192,  16384, 16384},
+        {16384, 32768, 16384},
+        {32768, 32768, 32768}
+    };
+
+    if(FPGA_NUM_POINTS >= FNP_1k && forCalculate)
+    {
+        return FPGA_MAX_POINTS_FOR_CALCULATE;
     }
 
-    return NumBytesInChannel(ds) * 2;
+    return numPoints[FPGA_NUM_POINTS][PEACKDET(ds)];
 }
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
@@ -46,7 +43,7 @@ uint8 *AddressChannel(DataSettings *ds, Channel ch)
 
     if (ch == B && ENABLED_B(ds))
     {
-        return ADDRESS_DATA(ds) + (ENABLED_A(ds) ? NumBytesInChannel(ds) : 0);
+        return ADDRESS_DATA(ds) + (ENABLED_A(ds) ? BYTES_IN_CHANNEL(ds) : 0);
     }
 
     return 0;
@@ -98,4 +95,32 @@ bool DataSettings_IsEquals(const DataSettings *ds1, const DataSettings *ds2)
         (PEACKDET(ds1) == PEACKDET(ds2));
 
     return equals;
+}
+
+//----------------------------------------------------------------------------------------------------------------------------------------------------
+void DataSettings_Fill(DataSettings *ds)
+{
+    Lval_ENABLED_A(ds) = sChannel_Enabled(A) ? 1 : 0;
+    Lval_ENABLED_B(ds) = sChannel_Enabled(B) ? 1 : 0;
+    INVERSE_A(ds) = SET_INVERSE_A ? 1 : 0;
+    INVERSE_B(ds) = SET_INVERSE_B ? 1 : 0;
+    Lval_RANGE_A(ds) = SET_RANGE_A;
+    Lval_RANGE_B(ds) = SET_RANGE_B;
+    RSHIFT_A(ds) = SET_RSHIFT_A;
+    RSHIFT_B(ds) = SET_RSHIFT_B;
+    Lval_TBASE(ds) = SET_TBASE;
+    TSHIFT(ds) = SET_TSHIFT;
+    Lval_COUPLE_A(ds) = SET_COUPLE_A;
+    Lval_COUPLE_B(ds) = SET_COUPLE_B;
+    TRIGLEV_A(ds) = SET_TRIGLEV_A;
+    TRIGLEV_B(ds) = SET_TRIGLEV_A;
+    Lval_PEACKDET(ds) = SET_PEACKDET;
+    Lval_DIVIDER_A(ds) = SET_DIVIDER_A;
+    Lval_DIVIDER_B(ds) = SET_DIVIDER_B;
+    TIME_MS(ds) = 0;                        // Ёто важно дл€ режима поточеного вывода. ќзначает, что полный сигнал ещЄ не считан
+    
+    DataSettings _ds_;
+    Lval_PEACKDET(&_ds_) = PEACKDET(ds);
+    INDEXLENGTH(ds) = NumPoints_2_FPGA_NUM_POINTS(NumBytesInChannel(&_ds_, false));
+    
 }

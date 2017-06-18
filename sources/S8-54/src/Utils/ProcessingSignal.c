@@ -6,6 +6,7 @@
 #include "Math.h"
 #include "GlobalFunctions.h"
 #include "Log.h"
+#include "FPGA/DataBuffer.h"
 #include "Hardware/Timer.h"
 #include "Hardware/FSMC.h"
 #include "Hardware/RAM.h"
@@ -144,7 +145,7 @@ void Processing_CalculateMeasures(void)
         return;
     }
 
-    int length = NumBytesInChannel(&ds);
+    int length = BYTES_IN_CHANNEL(&ds);
 
     // Вначале выделим память для данных из внешнего ОЗУ
     dataInA = malloc(length);
@@ -1035,20 +1036,20 @@ float CalculatePhazaMinus(Channel ch)
 
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
-void Processing_SetSignal(uint8 *dataA, uint8 *dataB, DataSettings *_ds, int _firstPoint, int _lastPoint)
+void Processing_SetData(void)
 {
     isSet = true;
 
     dataOutA_RAM = (uint16*)RAM(PS_DATA_OUT_A);
     dataOutB_RAM = (uint16*)RAM(PS_DATA_OUT_B);
 
-    firstPoint = _firstPoint;
-    lastPoint = _lastPoint;
+    sDisplay_PointsOnDisplay(&firstPoint, &lastPoint);
+
     numPoints = lastPoint - firstPoint;
     
     int numSmoothing = sDisplay_NumPointSmoothing();
 
-    int length = NumBytesInChannel(&ds);
+    int length = BYTES_IN_CHANNEL(&ds);
 
     bool enableA = ENABLED_A(&ds) == 1;
     bool enableB = ENABLED_B(&ds) == 1;
@@ -1060,28 +1061,9 @@ void Processing_SetSignal(uint8 *dataA, uint8 *dataB, DataSettings *_ds, int _fi
     if (enableA) { dataInA = malloc(FPGA_MAX_POINTS); };
     if (enableB) { dataInB = malloc(FPGA_MAX_POINTS); };
 
-    if (enableA) { Math_CalculateFiltrArray(dataA, dataInA, length, numSmoothing); };
-    if (enableB) { Math_CalculateFiltrArray(dataB, dataInB, length, numSmoothing); };
-
-    static bool first = true;
-
-    if (MODE_WORK_ROM)
-    {
-        if (first)
-        {
-            first = false;
-        }
-        else
-        {
-            if (!DataSettings_IsEquals(&ds, _ds))
-            {
-                first = false;
-            }
-        }
-    }
-
-    ds = *_ds;
-    
+    if (enableA) { Math_CalculateFiltrArray(inA, dataInA, length, numSmoothing); };
+    if (enableB) { Math_CalculateFiltrArray(inB, dataInB, length, numSmoothing); };
+  
     CountedToCurrentSettings();
 
     // Теперь сохраним данные во внешнем ОЗУ
@@ -1357,7 +1339,7 @@ int Processing_GetMarkerVertical(Channel ch, int numMarker)
 //----------------------------------------------------------------------------------------------------------------------------------------------------
 static void CountedToCurrentSettings(void)
 {
-    int numPoints = NumBytesInChannel(&ds);
+    int numPoints = BYTES_IN_CHANNEL(&ds);
 
     int16 dTShift = SET_TSHIFT - TSHIFT(&ds);
 
@@ -1493,7 +1475,7 @@ static void CountedRange(Channel ch)
         out = dataOutB_RAM;
     }
 
-    int numPoints = NumBytesInChannel(&ds);
+    int numPoints = BYTES_IN_CHANNEL(&ds);
 
     for (int i = 0; i < numPoints; i += 2)
     {

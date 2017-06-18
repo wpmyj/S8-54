@@ -92,7 +92,7 @@ static void CalculateAroundAverage(uint8 *dataA, uint8 *dataB, DataSettings *dss
 {
     int numAveData = DS_NumElementsWithCurrentSettings();
 
-    int size = NumBytesInChannel(dss);
+    int size = BYTES_IN_CHANNEL(dss);
 
     if (numAveData == 1)
     {
@@ -132,9 +132,11 @@ static void CalculateAroundAverage(uint8 *dataA, uint8 *dataB, DataSettings *dss
 // Возвращает количество байт, требуемых для записи данных с настройками ds
 static int SizeData(DataSettings *ds)
 {
+    /// \todo должна быть глобальная функция для расчёта размера данных. Какжется, где-то она есть в функциях DataSettings.
+
     int size = 0;
 
-    int numBytesInChannel = NumBytesInChannel(ds);
+    int numBytesInChannel = BYTES_IN_CHANNEL(ds);
 
     if(ENABLED_A(ds))
     {
@@ -274,7 +276,7 @@ static void PushData(DataSettings *ds, uint8 *dataA, uint8 *dataB)
 {
     PrepareLastElemForWrite(ds);
 
-    int numPoints = NumBytesInChannel(ds);
+    int numPoints = BYTES_IN_CHANNEL(ds);
 
     if(dataA)
     {
@@ -310,7 +312,7 @@ static void ReplaceLastFrame(DataSettings *ds, uint8 *dataA, uint8 *dataB)
     DataSettings *lastDS = DS_DataSettingsFromEnd(0);
     TIME_TIME(lastDS) = TIME_TIME(ds);    // Нужно скопировать время, потому что во фрейме последних точек оно нулевое.
 
-    int numBytes = NumBytesInChannel(ds);
+    int numBytes = BYTES_IN_CHANNEL(ds);
 
     FSMC_SET_MODE(ModeFSMC_RAM);
 
@@ -377,7 +379,7 @@ DataSettings* GetSettingsDataFromEnd(int fromEnd)
 //----------------------------------------------------------------------------------------------------------------------------------------------------
 void CalculateLimits(uint8 *dataA, uint8 *dataB, DataSettings *dss)
 {
-    int numElements = NumBytesInChannel(dss);
+    int numElements = BYTES_IN_CHANNEL(dss);
 
     if(DS_NumElementsInStorage() == 0 || NUM_MIN_MAX == 1 || (!DataSettings_IsEquals(dss, GetSettingsDataFromEnd(0))))
     {
@@ -434,7 +436,7 @@ void CalculateSums(void)
 
     DS_GetDataFromEnd_RAM(0, &ds, &dataA, &dataB);
 
-    int numPoints = NumBytesInChannel(ds);
+    int numPoints = BYTES_IN_CHANNEL(ds);
 
     int numAveragings = 0;
 
@@ -581,7 +583,7 @@ int DS_NumElementsWithSameSettings(void)
 int DS_NumElementsWithCurrentSettings(void)
 {
     DataSettings dp;
-    FPGA_FillDataPointer(&dp);
+    DataSettings_Fill(&dp);
     int retValue = 0;
     int numElements = DS_NumElementsInStorage();
 
@@ -615,7 +617,7 @@ static bool CopyData(DataSettings *ds, Channel ch, uint8 *dataImportRel)
 
     uint8* address = ADDRESS_DATA(ds);
 
-    int length = NumBytesInChannel(ds);
+    int length = BYTES_IN_CHANNEL(ds);
 
     if(ch == B && ENABLED_B(ds) && ENABLED_A(ds))
     {
@@ -696,7 +698,7 @@ uint8* DS_GetAverageData(Channel ch)
         return 0;
     }
 
-    int numPoints = NumBytesInChannel(ds);
+    int numPoints = BYTES_IN_CHANNEL(ds);
 
     if (sDisplay_GetModeAveraging() == Averaging_Around)
     {
@@ -782,7 +784,7 @@ void DS_AddPointsP2P(uint16 dataA, uint16 dataB)
 {
     DataSettings* ds = DS_DataSettingsFromEnd(0);
 
-    int length = NumBytesInChannel(ds);
+    int length = BYTES_IN_CHANNEL(ds);
 
     if (!ENABLED_A(ds) && !ENABLED_B(ds))
     {

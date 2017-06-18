@@ -1,11 +1,12 @@
 // This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++ and C#: http://www.viva64.com
-#include "FPGA/FPGAtypes.h"
-#include "FPGA/FPGA.h"
 #include "Log.h"
 #include "Display/Display.h"
-#include "Hardware/Hardware.h"
+#include "FPGA/Data.h"
+#include "FPGA/FPGA.h"
+#include "FPGA/FPGAtypes.h"
 #include "Hardware/FSMC.h"
+#include "Hardware/Hardware.h"
 #include "Hardware/Timer.h"
 #include "Panel/Panel.h"
 #include "Settings/Settings.h"
@@ -161,7 +162,7 @@ void LoadTShift(void)
     }
     else
     {
-        gPred = (int16)sMemory_NumBytesInChannel(false) / 2 - (int16)gPost;
+        gPred = (int16)BYTES_IN_CHANNEL(DS) / 2 - (int16)gPost;
 
         if (gPred < 0)
         {

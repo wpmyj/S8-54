@@ -105,9 +105,11 @@ typedef struct
 #define TIME_MS(ds)             ((ds)->time.timeMS)
 
 
-int NumBytesInChannel(const DataSettings *ds);  // Возвращает количество байт на канал
-int NumBytesInData(const DataSettings *ds);     // Возвращает количество байт в обоих каналах
-int NumPointsInChannel(const DataSettings *ds); // Возвращает количество точек на канал
+int NumPointsInChannel(const DataSettings *ds);     // Возвращает количество точек на канал
+
+#define BYTES_IN_CHANNEL(ds) NumBytesInChannel(ds, false)
+int NumBytesInChannel(DataSettings *ds, bool forCalculate);
+
 
 // Возвращает 0, если канал выключен
 uint8 *AddressChannel(DataSettings *ds, Channel ch);
@@ -135,6 +137,8 @@ extern void *extraMEM;      // Это специальный указатель. Используется для выдел
 #define INVERSE_CH(ch) GetInverse(ch)
 
 bool GetInverse(Channel ch);
+
+void DataSettings_Fill(DataSettings *ds);
 
 bool DataSettings_IsEquals(const DataSettings *ds1, const DataSettings *ds2);
 

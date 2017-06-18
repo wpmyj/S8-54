@@ -19,12 +19,8 @@
 #endif
 
 #define DS              pDS             ///< Указатель на настройки текущего рисуемого сигнала.
-#define DATA(ch)        (dataChan[ch])  ///< Указатель на данные отображаемого сигнала.
-#define DATA_A          (DATA(A))       ///< Указатель на данные отображаемого канала 1.
-#define DATA_B          (DATA(B))       ///< Указатель на данные отображаемого канала 2.
 
 EXTERN DataSettings *pDS;               ///< Указатель на настройки текущего рисуемого сигнала. Обращаться к нему следует через макрос DS.
-EXTERN uint8 *dataChan[2];              ///< Указатель на данные отображаемого сигнала. Обращаться к нему следует через макрос DATA(ch).
 
 #undef EXTERN
 /** @defgroup GlobalData Global Data
@@ -67,6 +63,8 @@ EXTERN uint8 *dataChan[2];              ///< Указатель на данные отображаемого с
 void Data_GetFromIntMemory(void);
 
 void Data_GetAverageFromDataStorage(void);
+
+void Data_Clear(void);
 /// Здесь заполняем указатели на данные и их настройки в соответствии с текущими режимами отображения.
 void Data_Load(void);
 /// Подготовить глобальные указатели на данные и их настройки для вывода данных на экран.

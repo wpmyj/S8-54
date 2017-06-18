@@ -3,6 +3,7 @@
 #define _INCLUDE_DATA_
 #include "Data.h"
 #undef _INCLUDE_DATA_
+#include "DataBuffer.h"
 #include "Globals.h"
 #include "Hardware/FLASH.h"
 #include "Hardware/FSMC.h"
@@ -40,7 +41,6 @@ static DataSettings *pDSROM = 0;
 static ModeWork currentModeWork = ModeWork_Dir;
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-static void Clear(void);
 /// —читать данные 
 static void GetDataFromStorage(void);
 
@@ -80,14 +80,32 @@ static void GetDataFromStorage(void)
 //----------------------------------------------------------------------------------------------------------------------------------------------------
 void Data_GetAverageFromDataStorage(void)
 {
-    dataChan[A] = DS_GetAverageData(A);
-    dataChan[B] = DS_GetAverageData(B);
+    if(DS)
+    {
+        if(G_ENABLED_A)
+        {
+            memcpy(inA, DS_GetAverageData(A), BYTES_IN_CHANNEL(DS));
+        }
+        if(G_ENABLED_B)
+        {
+            memcpy(inB, DS_GetAverageData(B), BYTES_IN_CHANNEL(DS));
+        }
+    }
+}
+
+//----------------------------------------------------------------------------------------------------------------------------------------------------
+void Data_Clear(void)
+{
+    pDS = pDSDir = pDSRAM = pDSROM = 0;
+    dataRAMA = dataRAMB = 0;
+    dataROMA = dataROMB = 0;
+    dataDirA = dataDirB = 0;
 }
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
 void Data_Load(void)
 {
-    Clear();
+    Data_Clear();
 
     if (DS_NumElementsInStorage() == 0)
     {
@@ -124,40 +142,20 @@ void Data_Load(void)
 }
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
-static void Clear(void)
-{
-    pDS = pDSDir = pDSRAM = pDSROM = 0;
-    dataChan[A] = dataChan[B] = 0;
-    dataRAMA = dataRAMB = 0;
-    dataROMA = dataROMB = 0;
-    dataDirA = dataDirB = 0;
-}
-
-//----------------------------------------------------------------------------------------------------------------------------------------------------
 void Data_PrepareToUse(ModeWork mode)
 {
     currentModeWork = mode;
     
     typedef DataSettings* pDataSettings;
     static const pDataSettings *ds[3] = {&pDSDir, &pDSRAM, &pDSROM};
-
-    typedef uint8* pUINT8;
-    static const pUINT8 *dA[3] = {&dataDirA, &dataRAMA, &dataROMA};
-    static const pUINT8 *dB[3] = {&dataDirB, &dataRAMB, &dataROMB};
-    
+   
     DS = *ds[mode];
     if(mode == ModeWork_ROM)
     {
         DS = pDSROM ? &dataSettingsROM : 0;
     }
-    DATA_A = *dA[mode];
-    DATA_B = *dB[mode];
 
-    int first = 0;
-    int last = 0;
-    sDisplay_PointsOnDisplay(&first, &last);
-
-    Processing_SetSignal(DATA_A, DATA_B, DS, first, last);
+    Processing_SetData();
 }
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------

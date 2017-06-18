@@ -5,6 +5,7 @@
 #include "Log.h"
 #include "Symbols.h"
 #include "FPGA/Data.h"
+#include "FPGA/DataBuffer.h"
 #include "Hardware/RAM.h"
 #include "Settings/Settings.h"
 #include "Utils/Debug.h"
@@ -80,14 +81,14 @@ void PainterData_DrawData(void)
         if (SHOW_IN_INT_SAVED || SHOW_IN_INT_BOTH)
         {
             Data_PrepareToUse(ModeWork_ROM);
-            DrawDataChannels(DATA_A, DATA_B);
+            DrawDataChannels(outA, outB);
         }
 	}
 	// Режим просмотра сигналов ОЗУ
 	else if (MODE_WORK_RAM)
 	{
         Data_PrepareToUse(ModeWork_RAM);
-		DrawDataChannels(DATA_A, DATA_B);
+		DrawDataChannels(outA, outB);
 	}
 	// Нормальный режим
 	else
@@ -95,7 +96,7 @@ void PainterData_DrawData(void)
 		if (ALWAYS_SHOW_ROM_SIGNAL)                 // Если нужно показывать сигннал из ППЗУ
 		{
             Data_PrepareToUse(ModeWork_ROM); // то показываем
-			DrawDataChannels(DATA_A, DATA_B);
+			DrawDataChannels(outA, outB);
 		}
 
         Data_PrepareToUse(ModeWork_Dir);     // И рисуем последний сигнал
@@ -130,7 +131,7 @@ void PainterData_DrawMath(void)
     float *dataAbsA = (float*)RAM(DRAW_MATH_DATA_REL_A);
     float *dataAbsB = (float*)RAM(DRAW_MATH_DATA_REL_B);
 
-    int numPoints = NumBytesInChannel(DS);
+    int numPoints = BYTES_IN_CHANNEL(DS);
 
     Math_PointsRelToVoltage(dataRel0, numPoints, G_RANGE_A, G_RSHIFT_A, dataAbsA);
     Math_PointsRelToVoltage(dataRel1, numPoints, G_RANGE_B, G_RSHIFT_B, dataAbsB);
@@ -160,8 +161,8 @@ void PainterData_DrawMemoryWindow(void)
 {
     bool needReleaseHeap = false;
 
-    uint8 *datA = DATA_A;
-    uint8 *datB = DATA_B;
+    uint8 *datA = outA;
+    uint8 *datB = outB;
 
     if (IN_P2P_MODE && !DS_GetLastFrameP2P_RAM(&DS, &datA, &datB))      // Страхуемся от глюков
     {
@@ -175,8 +176,8 @@ void PainterData_DrawMemoryWindow(void)
     {
         needReleaseHeap = true;
 
-        datA = DATA(A);
-        datB = DATA(B);
+        datA = outA;
+        datB = outB;
 
         if (TBASE(DS_DataSettingsFromEnd(0)) >= MIN_TBASE_P2P)          // Если находимся в режиме поточечного вывода
         {
@@ -187,7 +188,7 @@ void PainterData_DrawMemoryWindow(void)
         dA = AllocMemForChannelFromHeap(A, DS);
         dB = AllocMemForChannelFromHeap(B, DS);
 
-        int numBytes = NumBytesInChannel(DS);
+        int numBytes = BYTES_IN_CHANNEL(DS);
 
         RAM_MemCpy16(datA, dA, numBytes);
         RAM_MemCpy16(datB, dB, numBytes);
@@ -216,7 +217,7 @@ void PainterData_DrawMemoryWindow(void)
     const int xVert0 = leftX + (int)(shiftInMemory * scaleX);
 
     Channel lastAffectedChannel = LAST_AFFECTED_CH;
-    if (((uint)NumPoints_2_FPGA_NUM_POINTS(sMemory_NumBytesInChannel(false)) == G_INDEXLENGHT) && (DATA(A) || DATA(B)))
+    if (((uint)NumPoints_2_FPGA_NUM_POINTS(BYTES_IN_CHANNEL(DS)) == G_INDEXLENGHT) && DS)
     {
         Channel chanFirst = lastAffectedChannel == A ? B : A;
         Channel chanSecond = lastAffectedChannel == A ? A : B;
@@ -228,12 +229,12 @@ void PainterData_DrawMemoryWindow(void)
         if (sChannel_NeedForDraw(dataFirst, chanFirst, DS))
         {
             curCh = chanFirst;
-            DrawDataInRect(1, rightX + 3, dataFirst, sMemory_NumBytesInChannel(false), peackDet);
+            DrawDataInRect(1, rightX + 3, dataFirst, BYTES_IN_CHANNEL(DS), peackDet);
         }
         if (sChannel_NeedForDraw(dataSecond, chanSecond, DS))
         {
             curCh = chanSecond;
-            DrawDataInRect(1, rightX + 3, dataSecond, sMemory_NumBytesInChannel(false), peackDet);
+            DrawDataInRect(1, rightX + 3, dataSecond, BYTES_IN_CHANNEL(DS), peackDet);
         }
     }
 
@@ -241,7 +242,7 @@ void PainterData_DrawMemoryWindow(void)
 
     DrawTPos(leftX, rightX);
 
-    DrawTShift(leftX, rightX, sMemory_NumBytesInChannel(false));
+    DrawTShift(leftX, rightX, BYTES_IN_CHANNEL(DS));
 
     if (needReleaseHeap)
     {
@@ -254,7 +255,7 @@ void PainterData_DrawMemoryWindow(void)
 static void DrawDataInModeDirect(void)
 {
     uint index = G_INDEXLENGHT;
-    uint numBytesInChannel = sMemory_NumBytesInChannel(false);
+    uint numBytesInChannel = BYTES_IN_CHANNEL(DS);
     uint numPoints_2_FPGA_NUM_POINTS = (uint)NumPoints_2_FPGA_NUM_POINTS(numBytesInChannel);
 
     if(numPoints_2_FPGA_NUM_POINTS != index)    // Если количество точек в данных не соответствует установленному в настройках - просто выходим
@@ -270,7 +271,7 @@ static void DrawDataInModeDirect(void)
         MODE_ACCUM_RESET ||             // или автоматическая очистка экрана для накопления
         IN_RANDOM_MODE)                 // или в режиме рандомизатора
     {
-        DrawDataChannels(DATA_A, DATA_B);         // когда 0, просто рисуем последний сигнал
+        DrawDataChannels(outA, outB);
     }
     else
     {
@@ -312,7 +313,7 @@ static void DrawDataChannel(Channel ch, uint8 *dataIn)
     int maxY = curCh == Math ? GridMathBottom() : GridChannelBottom();
 
     bool calculateFiltr = true;
-    int sizeBuffer = NumBytesInChannel(DS);
+    int sizeBuffer = BYTES_IN_CHANNEL(DS);
     uint8 data[sizeBuffer];                                 // пїЅпїЅпїЅпїЅпїЅ, пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ
 
     int firstPoint = 0;
@@ -592,7 +593,7 @@ static int FillDataP2P(uint8 *data, DataSettings **ds)
 
     int numPoints = DS_GetLastFrameP2P_RAM(ds, &dataA, &dataB); // Получаем фрейм поточечного вывода
 
-    int numPointsDS = NumBytesInChannel(*ds);
+    int numPointsDS = BYTES_IN_CHANNEL(*ds);
 
     uint8 *dat[] = {dataA, dataB};
 
@@ -668,7 +669,7 @@ static void DrawSignalLined(const uint8 *data, int startPoint, int endPoint, int
 
     int gridLeft = GridLeft();
     int gridRight = GridRight();
-    int numPoints = sMemory_NumBytesInChannel(false);
+    int numPoints = BYTES_IN_CHANNEL(DS);
     int numSmoothing = sDisplay_NumPointSmoothing();
     if (G_PEACKDET == PeackDet_Disable)
     {
@@ -738,7 +739,7 @@ static void DrawSignalLined(const uint8 *data, int startPoint, int endPoint, int
 //----------------------------------------------------------------------------------------------------------------------------------------------------
 static void DrawSignalPointed(const uint8 *data, int startPoint, int endPoint, int minY, int maxY, float scaleY, float scaleX)
 {
-    int numPoints = sMemory_NumBytesInChannel(false);
+    int numPoints = BYTES_IN_CHANNEL(DS);
     int numSmoothing = sDisplay_NumPointSmoothing();
 
     if (scaleX == 1.0f) //-V550

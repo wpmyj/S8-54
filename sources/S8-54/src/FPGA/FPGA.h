@@ -1,4 +1,4 @@
-﻿#pragma once
+#pragma once
 #include "defines.h"
 #include "FPGA/FPGAtypes.h"
 #include "Globals.h"
@@ -45,7 +45,6 @@ void FPGA_SwitchingTrig(void);
 /// Установить временную паузу после изменения ручек - чтобы смещённый сигнал зафиксировать на некоторое время
 void FPGA_TemporaryPause(void);
 
-void FPGA_FillDataPointer(DataSettings *dp);
 /// Найти и установить уровень синхронизации по последнему считанному сигналу
 void FPGA_FindAndSetTrigLevel(void);
 /// Загрузить настройки в аппаратную часть из глобальной структуры SSettings

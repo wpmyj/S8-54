@@ -440,7 +440,7 @@ void FLASH_SaveData(int num, DataSettings *ds, uint8 *dataA, uint8 *dataB)
     // “еперь сохраним данные этого номера
 
     uint address = AddressForData(num);
-    int sizeChannel = NumBytesInChannel(ds);
+    int sizeChannel = BYTES_IN_CHANNEL(ds);
 
     if (ENABLED_A(ds))
     {
@@ -521,7 +521,7 @@ bool FLASH_GetData(int num, DataSettings **ds, uint8 **dataA, uint8 **dataB)
     if (ENABLED_A(*ds))
     {
         *dataA = (uint8*)addrData;
-        addrData += NumBytesInChannel(*ds);
+        addrData += BYTES_IN_CHANNEL(*ds);
     }
 
     if (ENABLED_B(*ds))
