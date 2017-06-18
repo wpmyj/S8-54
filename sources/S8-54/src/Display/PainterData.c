@@ -157,6 +157,8 @@ void PainterData_DrawMath(void)
 //----------------------------------------------------------------------------------------------------------------------------------------------------
 void PainterData_DrawMemoryWindow(void)
 {
+    Data_ReadDataRAM(0);
+
     bool needReleaseHeap = false;
 
     uint8 *datA = outA;
