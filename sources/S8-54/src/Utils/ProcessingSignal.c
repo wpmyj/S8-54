@@ -63,8 +63,6 @@ static float CalculatePhazaMinus(Channel ch);
 static float FindIntersectionWithHorLine(Channel ch, int numIntersection, bool downToUp, uint8 yLine);
 
 static void CountedToCurrentSettings(void);
-static void CountedTShift(void);
-static void CountedRShift(Channel ch);
 static void CountedRange(Channel ch);
 
 static bool isSet = false;          ///< Если true, то сигнал назначен.
@@ -1319,24 +1317,9 @@ static void CountedToCurrentSettings(void)
 
     int16 dTShift = SET_TSHIFT - G_TSHIFT;
 
-    if (dTShift)
-    {
-        CountedTShift();
-    }
+    int rShiftA = ((int)SET_RSHIFT_A - (int)G_RSHIFT_A) / (float)STEP_RSHIFT * 1.25f;   /// \todo магические числа
 
-    int rShiftA = ((int)SET_RSHIFT_A - (int)G_RSHIFT_A) / STEP_RSHIFT;
-
-    if (rShiftA)
-    {
-        CountedRShift(A);
-    }
-
-    int rShiftB = ((int)SET_RSHIFT_B - (int)G_RSHIFT_B) / STEP_RSHIFT;
-
-    if (rShiftB)
-    {
-        CountedRShift(B);
-    }
+    int rShiftB = ((int)SET_RSHIFT_B - (int)G_RSHIFT_B) / (float)STEP_RSHIFT * 1.25f;   /// \todo избавиться от этого непонятного коэффициента
 
     if (SET_RANGE_A !=  G_RANGE_A)
     {
@@ -1401,21 +1384,7 @@ static void CountedToCurrentSettings(void)
     }
 }
 
-
 //----------------------------------------------------------------------------------------------------------------------------------------------------
-void CountedTShift(void)
-{
-
-}
-
-
-//----------------------------------------------------------------------------------------------------------------------------------------------------
-void CountedRShift(Channel ch)
-{
-
-}
-
-
 float CalcAve(uint16 *data, Range range, uint16 rShift)
 {
     float sum = 0.0;

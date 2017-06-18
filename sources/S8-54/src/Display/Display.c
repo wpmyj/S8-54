@@ -253,7 +253,7 @@ void Display_Update(void)
     {
         Painter_BeginScene(gColorBack);
         SetOrientation();
-        //PainterData_DrawMemoryWindow();
+        PainterData_DrawMemoryWindow();
         DrawFullGrid();
     }
 
@@ -270,8 +270,7 @@ void Display_Update(void)
         DrawSpectrum();
         DrawCursors();
         DrawHiPart();
-        Data_PrepareToDrawSettings();   // Перед выводом установок выводимого сигнала настроим DS на него
-        //DrawLowPart();
+        DrawLowPart();
         DrawCursorsWindow();
         DrawCursorTrigLevel();
         DrawCursorsRShift();
