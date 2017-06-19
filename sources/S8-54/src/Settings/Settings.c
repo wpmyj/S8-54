@@ -155,13 +155,13 @@ static const Settings defaultSettings =
     FreqClc_100kHz,         // FreqClc
     NumberPeriods_1,        // NumberPeriods
     // SettingsService
-    15,                                 // SoundVolume;
-    1,                                  // SpeedRShift;
-    true,                               // SoundEnable;
-    false,                              // Recorder;
-    Calibrator_Freq,                    // CalibratorMode;
-    ColorScheme_WhiteLetters,           // ColorScheme;
-    FunctionPressRShift_ResetPosition,  // FuncRShift;
+    15,                                 // SoundVolume
+    1,                                  // SpeedRShift
+    true,                               // SoundEnable
+    false,                              // Recorder
+    Calibrator_Freq,                    // CalibratorMode
+    ColorScheme_WhiteLetters,           // ColorScheme
+    FunctionPressRShift_ResetPosition,  // FuncRShift
     // SettingsEthernet
     0x8b, 0x2e, 0xaf, 0x8f, 0x13, 0x00, // mac
     192, 168, 1, 200,                   // ip
@@ -170,52 +170,53 @@ static const Settings defaultSettings =
     192, 168, 1, 1,                     // gateway
     false,                              // enable
     // SettingsCommon
-    0,                          // CountEnables;
-    0,                          // CountErasedFlashData;
-    0,                          // CountErasedFlashSettings;
-    0,                          // WorkingTimeInSecs;
+    0,                          // CountEnables
+    0,                          // CountErasedFlashData
+    0,                          // CountErasedFlashSettings
+    0,                          // WorkingTimeInSecs
     Russian,                    // Lang
     // SettingsDebug
-    false,                      // ShowRandInfo;
-    false,                      // ShowRandStat;
-    false,                      // ModeEMS;
-    false,                      // ShowStats;
-    false,                      // ModePauseConsole;
-    0,                          // SizeFont;
-    Direct,                     // Orientation;
-    0,                          // NumStrings;
-    1000,                       // NumMeasuresForGates;
-    0,                          // TimeCompensation;
-    0,                          // AltShift;
-    200,                        // Pretriggered;
-    {Bandwidth_Full, Bandwidth_Full},   // Bandwidth[2];
-    false,                      // ShowAll;
-    false,                      // ShowFlag;
-    {false, false},             // ShowRShift[2];
-    false,                      // ShowTrigLev;
-    {false, false},             // ShowRange[2];
-    {false, false},             // ShowChanParam[2];
-    false,                      // ShowTrigParam;
-    false,                      // ShowTShift;
-    false,                      // ShowTBase;
+    false,                      // ShowRandInfo
+    false,                      // ShowRandStat
+    false,                      // ModeEMS
+    false,                      // ShowStats
+    false,                      // ModePauseConsole
+    0,                          // SizeFont
+    Direct,                     // Orientation
+    0,                          // NumStrings
+    1000,                       // NumMeasuresForGates
+    0,                          // TimeCompensation
+    0,                          // AltShift
+    200,                        // Pretriggered
+    {Bandwidth_Full, Bandwidth_Full},   // Bandwidth[2]
+    false,                      // ShowAll
+    false,                      // ShowFlag
+    {false, false},             // ShowRShift[2]
+    false,                      // ShowTrigLev
+    {false, false},             // ShowRange[2]
+    {false, false},             // ShowChanParam[2]
+    false,                      // ShowTrigParam
+    false,                      // ShowTShift
+    false,                      // ShowTBase
     // SettingsMenu
-    {0x7f, 0x7f, 0x7f, 0x7f, 0x7f, 0x7f, 0x7f, 0x7f, 0x7f, 0x7f, 0x7f, 0x7f, 0x7f, 0x7f, 0x7f, 0x7f, 0x7f, 0x7f},   // PosActItem[Page_NumPages];
-    {0,    0,    0,    0,    0,    0,    0,    0,    0,    0,    0,    0,    0,    0,    0,    0,    0,    0},      // CurrentSubPage[Page_NumPages];
-    true,                                                                                                           // PageDebugActive;
-    0,                                                                                                              // IsShown;
+    {0x7f, 0x7f, 0x7f, 0x7f, 0x7f, 0x7f, 0x7f, 0x7f, 0x7f, 0x7f, 0x7f, 0x7f, 0x7f, 0x7f, 0x7f, 0x7f, 0x7f, 0x7f},   // PosActItem[Page_NumPages]
+    {0,    0,    0,    0,    0,    0,    0,    0,    0,    0,    0,    0,    0,    0,    0,    0,    0,    0},      // CurrentSubPage[Page_NumPages]
+    true,                                                                                                           // PageDebugActive
+    0,                                                                                                              // IsShown
     // Settings non reset
-    {{0}, {0}},             // RShiftAdd[NumChannels][RangeSize][2];
-    0,                      // CorrectionTime;
-    {0, 0},                 // BalanceADC[NumChannels];
-    1,                      // NumAveForRand;
-    BalanceADC_Settings,    // BalanceADCtype;
-    StretchADC_Settings,    // StretchADCtype;
-    {{0, 0, 0}, {0, 0, 0}}, // StretchADC[NumChannels][3];
-    {0, 0},                 // AddStretch20mV[NumChannels];
-    {0, 0},                 // AddStretch50mV[NumChannels];
-    {0, 0},                 // AddStretch100mV[NumChannels];
-    {0, 0},                 // AddStretch2V[NumChannels];
-    1                       // NumSmoothForRand;
+    {{0}, {0}},                 // RShiftAdd[NumChannels][RangeSize][2]
+    0,                          // CorrectionTime
+    {0, 0},                     // BalanceADC[NumChannels]
+    1,                          // NumAveForRand
+    BalanceADC_Settings,        // BalanceADCtype
+    StretchADC_Settings,        // StretchADCtype
+    {{0, 0, 0}, {0, 0, 0}},     // StretchADC[NumChannels][3]
+    {0, 0},                     // AddStretch20mV[NumChannels]
+    {0, 0},                     // AddStretch50mV[NumChannels]
+    {0, 0},                     // AddStretch100mV[NumChannels]
+    {0, 0},                     // AddStretch2V[NumChannels]
+    1,                          // NumSmoothForRand
+    MemDataScale_Recalculated   // mem_DataScale
 };
 
 Settings set;

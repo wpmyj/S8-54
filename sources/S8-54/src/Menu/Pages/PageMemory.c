@@ -62,6 +62,11 @@ static void        Draw_Internal_ModeShow_Both(int x, int y);
 static const   SButton bInternal_EraseAll;                      ///< ПАМЯТЬ - ВНУТР ЗУ - Стереть все
 static void     OnPress_Internal_EraseAll(void);
 static void        Draw_Internal_EraseAll(int x, int y);
+static const   SButton bInternal_Scale;
+static void     OnPress_Internal_Scale(void);
+static void        Draw_Internal_Scale(int x, int y);
+static void        Draw_Internal_Scale_Recalculated(int x, int y);
+static void        Draw_Internal_Scale_Original(int x, int y);
 static const   SButton bInternal_SaveToMemory;                  ///< ПАМЯТЬ - ВНУТР ЗУ - Сохранить
 static void     OnPress_Internal_SaveToMemory(void);
 static void        Draw_Internal_SaveToMemory(int x, int y);
@@ -484,7 +489,8 @@ static const Page ppInternal =
         (void*)&bInternal_ShowAlways,   // ПАМЯТЬ - ВНУТР ЗУ - Показывать всегда
         (void*)&bInternal_ModeShow,     // ПАМЯТЬ - ВНУТР ЗУ - Вид сигнала
         //(void*)0,
-        (void*)&bInternal_EraseAll,
+        //(void*)&bInternal_EraseAll,
+        (void*)&bInternal_Scale,        // ПАМЯТЬ - ВНУТР ЗУ - Масштаб
         (void*)&bInternal_SaveToMemory, // ПАМЯТЬ - ВНУТР ЗУ - Сохранить
         (void*)&bInternal_SaveToDrive   // ПАМЯТЬ - ВНУТР ЗУ - Сохранить на флешку
     },
@@ -742,6 +748,65 @@ static void Draw_Internal_EraseAll(int x, int y)
     Painter_DrawText(x + 5, y + 5, "E");
 }
 
+// ПАМЯТЬ - ВНУТР ЗУ - Масштаб -----------------------------------------------------------------------------------------------------------------------
+static const SButton bInternal_Scale =
+{
+    Item_SmallButton, &ppInternal, 0,
+    {
+        "Масштаб", "Scale",
+        "Приводить или нет записанный сигнал к текущим установкам",
+        "Whether or not to record the recorded signal to the current settings"
+    },
+    OnPress_Internal_Scale,
+    Draw_Internal_Scale,
+    {
+        {
+            Draw_Internal_Scale_Recalculated,
+            "Сигнал приведён к текущим установкам осциллографа",
+            "The signal is given to the current oscilloscope settings"
+        },
+        {
+            Draw_Internal_Scale_Original,
+            "Сигнал рисуется в таком виде, в котором считан",
+            "The signal is drawn in the form in which the readout"
+        }
+    }
+};
+
+void OnPress_Internal_Scale(void)
+{
+    CircleIncreaseInt8((int8*)&MEM_DATA_SCALE, 0, 1);
+}
+
+void Draw_Internal_Scale(int x, int y)
+{
+    if (MEM_DATA_SCALE_RECALC)
+    {
+        Draw_Internal_Scale_Recalculated(x, y);
+    }
+    else
+    {
+        Draw_Internal_Scale_Original(x, y);
+    }
+}
+
+void Draw_Internal_Scale_Recalculated(int x, int y)
+{
+    Painter_DrawText(x + 8, y + 2, "М");
+    Painter_SetFont(TypeFont_5);
+    Painter_DrawText(x + 5, y + 9, "АБС");
+    Painter_SetFont(TypeFont_8);
+}
+
+void Draw_Internal_Scale_Original(int x, int y)
+{
+    Painter_DrawText(x + 8, y + 2, "М");
+    Painter_SetFont(TypeFont_5);
+    Painter_DrawText(x + 5, y + 9, "ОТН");
+    Painter_SetFont(TypeFont_8);
+}
+
+
 // ПАМЯТЬ - ВНУТР ЗУ - Сохранить в памяти ------------------------------------------------------------------------------------------------------------
 static const SButton bInternal_SaveToMemory =
 {
@@ -766,11 +831,11 @@ static void SaveSignalToIntMemory(void)
 {
     // Заносим в указатели DS, DATA_A, DATA_B данные из ОЗУ или последний считанный сигнал, в зависимости от того, из какого режима зашли в 
     // "ПАМЯТЬ-ВНУТР ЗУ"
-    Data_PrepareToUse(EXIT_FROM_ROM_TO_RAM ? ModeWork_RAM : ModeWork_Dir);
+    Data_ReadDataRAM(EXIT_FROM_ROM_TO_RAM ? NUM_RAM_SIGNAL : 0);
 
-    if (DS)                                                     // Если есть что сохранять
+    if (DS)                                             // Если есть что сохранять
     {
-        FLASH_SaveData(NUM_ROM_SIGNAL, DS, inA, inB);     // То сохраняем данные из DS, DATA_A, DATA_B на место NUM_ROM_SIGNAL в ППЗУ
+        FLASH_SaveData(NUM_ROM_SIGNAL, DS, inA, inB);   // То сохраняем данные из DS, DATA_A, DATA_B на место NUM_ROM_SIGNAL в ППЗУ
         Display_ShowWarning(SignalIsSaved);
     }
 }

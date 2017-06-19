@@ -64,6 +64,16 @@ void Data_ReadDataRAM(int fromEnd)
     }
 }
 
+void Data_GetFromIntMemory(void)
+{
+    /*
+    if(FLASH_GetData(NUM_ROM_SIGNAL, &pDSROM, &dataROMA, &dataROMB))
+    {
+    memcpy(&dataSettingsROM, (void*)pDSROM, sizeof(DataSettings));
+    }
+    */
+}
+
 //----------------------------------------------------------------------------------------------------------------------------------------------------
 void Data_ReadDataROM(void)
 {
@@ -73,6 +83,15 @@ void Data_ReadDataROM(void)
     }
 
     Data_Clear();
+
+    if (FLASH_GetData(NUM_ROM_SIGNAL, &dataSettings, inA, inB))
+    {
+        readedROM = true;
+        numFromROM = NUM_ROM_SIGNAL;
+        pDS = &dataSettings;
+
+        Processing_SetData();
+    }
 }
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
@@ -127,7 +146,6 @@ void Data_Load(void)
         }
     }
     
-    Data_PrepareToUse(MODE_WORK);
 }
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
@@ -145,37 +163,17 @@ void Data_PrepareToDrawSettings(void)
     {
         if (SHOW_IN_INT_SAVED)                      // Если выводится только сохранённый сигнал
         {
-            Data_PrepareToUse(ModeWork_ROM);        // то его и рисуем
         }
         else                                        // А если на экране есть и другой сигнал
         {
             if (EXIT_FROM_ROM_TO_RAM)               // Если сигнал из ОЗУ
             {
-                Data_PrepareToUse(ModeWork_RAM);    
             }
             else                                    // Если непосредственный сигнал
             {
-                Data_PrepareToUse(ModeWork_Dir);
             }
         }
     }
-}
-
-//----------------------------------------------------------------------------------------------------------------------------------------------------
-void Data_PrepareToUse(ModeWork mode)
-{ 
-    /*
-    typedef DataSettings* pDataSettings;
-    static const pDataSettings *ds[3] = {&pDSDir, &pDSRAM, &pDSROM};
-   
-    DS = *ds[mode];
-    if(mode == ModeWork_ROM)
-    {
-        DS = pDSROM ? &dataSettingsROM : 0;
-    }
-    */
-
-    //Processing_SetData();
 }
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
@@ -185,31 +183,20 @@ static void GetDataFromStorage(void)
     int fromEnd = 0;
 
     if (IN_P2P_MODE &&                              // Находимся в режиме поточечного вывода
-        START_MODE_WAIT &&                          // в режиме ждущей синхронизации
-        DS_NumElementsWithCurrentSettings() > 1)    // и в хранилище уже есть считанные сигналы с такими настройками
+    START_MODE_WAIT &&                          // в режиме ждущей синхронизации
+    DS_NumElementsWithCurrentSettings() > 1)    // и в хранилище уже есть считанные сигналы с такими настройками
     {
-        fromEnd = 1;
+    fromEnd = 1;
     }
 
     DS_GetDataFromEnd_RAM(fromEnd, &pDSDir, (uint16**)&dataDirA, (uint16**)&dataDirB);
 
     if (sDisplay_NumAverage() != 1 || IN_RANDOM_MODE)
     {
-        ModeFSMC mode = FSMC_GetMode();
-        FSMC_SetMode(ModeFSMC_RAM);
-        Data_GetAverageFromDataStorage();
-        FSMC_SetMode(mode);
-    }
-    */
-}
-
-//----------------------------------------------------------------------------------------------------------------------------------------------------
-void Data_GetFromIntMemory(void)
-{
-    /*
-    if(FLASH_GetData(NUM_ROM_SIGNAL, &pDSROM, &dataROMA, &dataROMB))
-    {
-        memcpy(&dataSettingsROM, (void*)pDSROM, sizeof(DataSettings));
+    ModeFSMC mode = FSMC_GetMode();
+    FSMC_SetMode(ModeFSMC_RAM);
+    Data_GetAverageFromDataStorage();
+    FSMC_SetMode(mode);
     }
     */
 }

@@ -73,8 +73,6 @@ void Data_ReadDataRAM(int fromEnd);
 void Data_ReadDataROM(void);
 /// Здесь заполняем указатели на данные и их настройки в соответствии с текущими режимами отображения.
 void Data_Load(void);
-/// Подготовить глобальные указатели на данные и их настройки для вывода данных на экран.
-void Data_PrepareToUse(ModeWork mode);
 /// Устанавливает глобальные указатели в соответствии с сигналом, параметры которого нужно выводить на экран.
 void Data_PrepareToDrawSettings(void);
 

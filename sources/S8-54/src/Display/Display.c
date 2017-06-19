@@ -295,7 +295,7 @@ void Display_Update(void)
 
     if (needReloadPalette)
     {
-        Painter_LoadPalette();
+        //Painter_LoadPalette();
     }
 
     Painter_EndScene();

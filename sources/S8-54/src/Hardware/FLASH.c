@@ -499,12 +499,8 @@ static void SaveArrayDatas(ArrayDatas array)
 
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
-bool FLASH_GetData(int num, DataSettings **ds, uint8 **dataA, uint8 **dataB)
+bool FLASH_GetData(int num, DataSettings *ds, uint8 *dataA, uint8 *dataB)
 {
-    *ds = 0;
-    *dataA = 0;
-    *dataB = 0;
-
     ArrayDatas *pArray = CurrentArray();
     ArrayDatas array = *pArray;
 
@@ -512,21 +508,20 @@ bool FLASH_GetData(int num, DataSettings **ds, uint8 **dataA, uint8 **dataB)
 
     if (addrData == MAX_UINT)   // ≈сли данных нет
     {
-        *ds = 0;
         return false;           // сообщаем об этом пользователю
     }
 
-    *ds = &array.datas[num].ds;
+    *ds = array.datas[num].ds;
 
-    if (ENABLED_A(*ds))
+    if (ENABLED_A(ds))
     {
-        *dataA = (uint8*)addrData;
-        addrData += BYTES_IN_CHANNEL(*ds);
+        memcpy(dataA, (void*)addrData, BYTES_IN_CHANNEL(ds));
+        addrData += BYTES_IN_CHANNEL(ds);
     }
 
-    if (ENABLED_B(*ds))
+    if (ENABLED_B(ds))
     {
-        *dataB = (uint8*)addrData;
+        memcpy(dataB, (void*)addrData, BYTES_IN_CHANNEL(ds));
     }
 
     return true;

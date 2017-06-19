@@ -44,6 +44,9 @@
 #define MODE_SAVE_BMP           (MODE_SAVE == ModeSaveSignal_BMP)
 #define MODE_SAVE_TXT           (MODE_SAVE == ModeSaveSignal_TXT)
 
+#define MEM_DATA_SCALE          (set.mem_DataScale)
+#define MEM_DATA_SCALE_RECALC   (MEM_DATA_SCALE == MemDataScale_Recalculated)
+
 #define SET_BYTES_IN_CHANNEL    sMemory_NumBytesInChannel_()
 #define SET_POINTS_IN_CHANNEL   sMemory_NumPointsInChannel_()
 

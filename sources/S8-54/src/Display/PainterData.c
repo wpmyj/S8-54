@@ -74,20 +74,19 @@ void PainterData_DrawData(void)
 	{
         if (SHOW_IN_INT_DIRECT || SHOW_IN_INT_BOTH)
         {
-            Data_PrepareToUse(ModeWork_Dir);
+            Data_ReadDataRAM(0);
             DrawDataInModeDirect();
         }
     
         if (SHOW_IN_INT_SAVED || SHOW_IN_INT_BOTH)
         {
-            Data_PrepareToUse(ModeWork_ROM);
+            Data_ReadDataROM();
             DrawDataChannels(outA, outB);
         }
 	}
 	// Режим просмотра сигналов ОЗУ
 	else if (MODE_WORK_RAM)
 	{
-        Data_PrepareToUse(ModeWork_RAM);
 		DrawDataChannels(outA, outB);
 	}
 	// Нормальный режим
@@ -95,7 +94,6 @@ void PainterData_DrawData(void)
 	{
 		if (ALWAYS_SHOW_ROM_SIGNAL)             // Если нужно показывать сигннал из ППЗУ
 		{
-            //Data_PrepareToUse(ModeWork_ROM);    // то показываем
 			//DrawDataChannels(outA, outB);
 		}
 
