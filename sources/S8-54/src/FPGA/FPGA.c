@@ -628,8 +628,8 @@ static void InverseDataIsNecessary(Channel ch, uint8 *data)
 //----------------------------------------------------------------------------------------------------------------------------------------------------
 static void DataReadSave(bool first, bool saveToStorage, bool onlySave)
 {
-    uint8 *dataA = malloc(FPGA_MAX_POINTS);
-    uint8 *dataB = malloc(FPGA_MAX_POINTS);
+    uint8 *dataA = outA;        // Будем испльзовать память, предназначенную для хранения выходного сигнала, 
+    uint8 *dataB = outB;        // в качестве временного буфера.
 
     gBF.FPGAinProcessingOfRead = 1;
     if (IN_RANDOM_MODE)
@@ -669,9 +669,6 @@ static void DataReadSave(bool first, bool saveToStorage, bool onlySave)
     }
 
     gBF.FPGAinProcessingOfRead = 0;
-
-    free(dataA);
-    free(dataB);
 }
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
