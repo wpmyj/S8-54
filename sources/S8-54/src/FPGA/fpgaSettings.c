@@ -164,8 +164,6 @@ void LoadTShift(void)
     {
         gPred = (int16)SET_BYTES_IN_CHANNEL / 2 - (int16)gPost;
 
-        //LOG_WRITE_TRACE("bytes in channel %d", BYTES_IN_CHANNEL(DS));
-
         if (gPred < 0)
         {
             gPred = 0;
@@ -187,6 +185,11 @@ void LoadTShift(void)
 
     if(gBF.FPGAinProcessingOfRead == 0)
     {
+        if (SET_TBASE > 8)
+        {
+            ++gPost;
+            --gPred;
+        }
         FPGA_Write(RecordFPGA, WR_POST, gPost, true);
         FPGA_Write(RecordFPGA, WR_PRED, gPred, true);
     }
