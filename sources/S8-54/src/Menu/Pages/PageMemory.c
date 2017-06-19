@@ -36,7 +36,7 @@ static void        Draw_Last_Next(int x, int y);
 static const   SButton bLast_Prev;                              ///< ÏÀÌßÒÜ - Ïîñëåäíèå - Ïðåäûäóùèé
 static void     OnPress_Last_Prev(void);
 static void        Draw_Last_Prev(int x, int y);
-static const   SButton bLast_SaveToROM;                          ///< ÏÀÌßÒÜ - Ïîñëåäíèå - Âíóòð ÇÓ
+static const   SButton bLast_SaveToROM;                         ///< ÏÀÌßÒÜ - Ïîñëåäíèå - Âíóòð ÇÓ
 static void     OnPress_Last_SaveToROM(void);
 static void        Draw_Last_SaveToROM(int x, int y);
 static const   SButton bLast_SaveToDrive;                       ///< ÏÀÌßÒÜ - Ïîñëåäíèå - Ñîõðàíèòü
@@ -62,7 +62,7 @@ static void        Draw_Internal_ModeShow_Both(int x, int y);
 static const   SButton bInternal_EraseAll;                      ///< ÏÀÌßÒÜ - ÂÍÓÒÐ ÇÓ - Ñòåðåòü âñå
 static void     OnPress_Internal_EraseAll(void);
 static void        Draw_Internal_EraseAll(int x, int y);
-static const   SButton bInternal_Scale;
+static const   SButton bInternal_Scale;                         ///< ÏÀÌßÒÜ - ÂÍÓÒÐ ÇÓ - Ìåñøòàá
 static void     OnPress_Internal_Scale(void);
 static void        Draw_Internal_Scale(int x, int y);
 static void        Draw_Internal_Scale_Recalculated(int x, int y);
@@ -792,17 +792,17 @@ void Draw_Internal_Scale(int x, int y)
 
 void Draw_Internal_Scale_Recalculated(int x, int y)
 {
-    Painter_DrawText(x + 8, y + 2, "Ì");
+    Painter_DrawText(x + 8, y + 2, LANG_RU ? "Ì" : "M");
     Painter_SetFont(TypeFont_5);
-    Painter_DrawText(x + 5, y + 9, "ÀÁÑ");
+    Painter_DrawText(x + 5, y + 9, LANG_RU ? "ÀÁÑ" : "ABS");
     Painter_SetFont(TypeFont_8);
 }
 
 void Draw_Internal_Scale_Original(int x, int y)
 {
-    Painter_DrawText(x + 8, y + 2, "Ì");
+    Painter_DrawText(x + 8, y + 2, LANG_RU ? "Ì" : "M");
     Painter_SetFont(TypeFont_5);
-    Painter_DrawText(x + 5, y + 9, "ÎÒÍ");
+    Painter_DrawText(x + 5, y + 9, LANG_RU ? "ÎÒÍ" : "REL");
     Painter_SetFont(TypeFont_8);
 }
 

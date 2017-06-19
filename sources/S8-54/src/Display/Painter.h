@@ -15,41 +15,60 @@ extern void CalculateCurrentColor(void);
 /** @addtogroup Display
  *  @{
  *  @defgroup Painter
- *  @brief Ð¤ÑƒÐ½ÐºÑ†Ð¸Ð¸ Ñ€Ð¸ÑÐ¾Ð²Ð°Ð½Ð¸Ñ
+ *  @brief Ôóíêöèè ðèñîâàíèÿ
  *  @{
  */
 
-/// Ð’Ñ‹Ð·Ñ‹Ð²Ð°ÐµÑ‚ÑÑ Ð² Ð½Ð°Ñ‡Ð°Ð»Ðµ Ð¾Ñ‚Ñ€Ð¸ÑÐ¾Ð²ÐºÐ¸ ÐºÐ°Ð¶Ð´Ð¾Ð³Ð¾ ÐºÐ°Ð´Ñ€Ð°. Ð—Ð°Ð¿Ð¾Ð»Ð½ÑÐµÑ‚ Ð±ÑƒÑ„ÐµÑ€ Ñ†Ð²ÐµÑ‚Ð¾Ð¼ color
+/// Âûçûâàåòñÿ â íà÷àëå îòðèñîâêè êàæäîãî êàäðà. Çàïîëíÿåò áóôåð öâåòîì color
 void Painter_BeginScene(Color color);
-/// Ð’Ñ‹Ð·Ñ‹Ð²Ð°ÐµÑ‚ÑÑ Ð² ÐºÐ¾Ð½Ñ†Ðµ Ð¾Ñ‚Ñ€Ð¸ÑÐ¾Ð²ÐºÐ¸ ÐºÐ°Ð¶Ð´Ð¾Ð³Ð¾ ÐºÐ°Ð´Ñ€Ð°. ÐŸÐµÑ€ÐµÐ½Ð¾ÑÐ¸Ñ‚ ÑÐ¾Ð´ÐµÑ€Ð¶Ð¸Ð¼Ð¾Ðµ Ð±ÑƒÑ„ÐµÑ€Ð° Ð½Ð° ÑÐºÑ€Ð°Ð½
+/// Âûçûâàåòñÿ â êîíöå îòðèñîâêè êàæäîãî êàäðà. Ïåðåíîñèò ñîäåðæèìîå áóôåðà íà ýêðàí
 void Painter_EndScene(void);
-/// ÐŸÐ¾ÑÐ»Ð°Ñ‚ÑŒ Ð¸Ð·Ð¾Ð±Ñ€Ð°Ð¶ÐµÐ½Ð¸Ðµ Ð²Ð¾ Ð²Ð½ÐµÑˆÐ½ÐµÐµ ÑƒÑÑ‚Ñ€Ð¾Ð¹ÑÑ‚Ð²Ð¾ Ñ‡ÐµÑ€ÐµÐ· USB Ð¸Ð»Ð¸ LAN. Ð•ÑÐ»Ð¸ first == true, Ñ‚Ð¾ Ð¿Ð¾ÑÑ‹Ð»Ð°ÐµÑ‚ÑÑ ÑˆÑ€Ð¸Ñ„Ñ‚
+/// Ïîñëàòü èçîáðàæåíèå âî âíåøíåå óñòðîéñòâî ÷åðåç USB èëè LAN. Åñëè first == true, òî ïîñûëàåòñÿ øðèôò
 void Painter_SendFrame(bool first);
-/// Ð¡Ð±Ñ€Ð¾Ñ Ñ‚Ð°Ð¹Ð¼ÐµÑ€Ð° Ð¼Ð¸Ð³Ð°Ð½Ð¸Ñ. ÐÑƒÐ¶Ð½Ð¾ Ð´Ð»Ñ Ñ‚Ð¾Ð³Ð¾, Ñ‡Ñ‚Ð¾Ð±Ñ‹ Ð¼Ð¸Ð³Ð°ÑŽÑ‰Ð¸Ðµ Ð·Ð½Ð°Ñ‡ÐºÐ¸ Ð¿Ñ€Ð¸ Ð¿ÐµÑ€ÐµÐ¼ÐµÑ‰ÐµÐ½Ð¸Ð¸ Ð½Ðµ Ð¸ÑÑ‡ÐµÐ·Ð°Ð»Ð¸ Ñ ÑÐºÑ€Ð°Ð½Ð°
+/// Ñáðîñ òàéìåðà ìèãàíèÿ. Íóæíî äëÿ òîãî, ÷òîáû ìèãàþùèå çíà÷êè ïðè ïåðåìåùåíèè íå èñ÷åçàëè ñ ýêðàíà
 void Painter_ResetFlash(void);
-/// Ð£ÑÑ‚Ð°Ð½Ð¾Ð²Ð¸Ñ‚ÑŒ Ñ†Ð²ÐµÑ‚ Ñ€Ð¸ÑÐ¾Ð²Ð°Ð½Ð¸Ñ
-void    Painter_SetColor(Color color);
-/// Ð’Ð¾Ð·Ð²Ñ€Ð°Ñ‰Ð°ÐµÑ‚ Ñ‚ÐµÐºÑƒÑ‰Ð¸Ð¹ Ñ†Ð²ÐµÑ‚ Ñ€Ð¸ÑÐ¾Ð²Ð°Ð½Ð¸Ñ
-Color   Painter_GetColor(void);
+/// Óñòàíîâèòü öâåò ðèñîâàíèÿ
+void Painter_SetColor(Color color);
+/// Âîçâðàùàåò òåêóùèé öâåò ðèñîâàíèÿ
+Color Painter_GetColor(void);
 
 void Painter_LoadPalette(void);
+
 void Painter_SetPalette(Color color);
+
 void Painter_SetPoint(int x, int y);
+
 void Painter_DrawHLine(int y, int x0, int x1);
+
 void Painter_DrawVLine(int x, int y0, int y1);
+
 void Painter_DrawHPointLine(int y, int x0, int x1, float delta);
+
 void Painter_DrawMultiVPointLine(int numLines, int y, uint16 x[], int delta, int count, Color color);
+
 void Painter_DrawMultiHPointLine(int numLines, int x, uint8 y[], int delta, int count, Color color);
+
 void Painter_DrawLine(int x0, int y0, int x1, int y1);
-void Painter_DrawDashedHLine(int y, int x0, int x1, int dFill, int dEmpty, int dStart);  // Ð Ð¸ÑÑƒÐµÑ‚ Ð¿Ñ€ÐµÑ€Ñ‹Ð²Ð¸ÑÑ‚ÑƒÑŽ Ð³Ð¾Ñ€Ð¸Ð·Ð¾Ð½Ñ‚Ð°Ð»ÑŒÐ½ÑƒÑŽ Ð»Ð¸Ð½Ð¸ÑŽ. dFill - Ð´Ð»Ð¸Ð½Ð° ÑˆÑ‚Ñ€Ð¸Ñ…Ð°, dEmpty - Ñ€Ð°ÑÑÑ‚. Ð¼ÐµÐ¶Ð´Ñƒ ÑˆÑ‚Ñ€Ð¸Ñ…Ð°Ð¼Ð¸. Ð›Ð¸Ð½Ð¸Ñ Ð²ÑÐµÐ³Ð´Ð° Ð½Ð°Ñ‡Ð¸Ð½Ð°ÐµÑ‚ÑÑ ÑÐ¾ ÑˆÑ‚Ñ€Ð¸Ñ…Ð°. dStart ÑƒÐºÐ°Ð·Ñ‹Ð²Ð°ÐµÑ‚ ÑÐ¼ÐµÑ‰ÐµÐ½Ð¸Ðµ Ð¿ÐµÑ€Ð²Ð¾Ð¹ Ñ€Ð¸ÑÑƒÐµÐ¼Ð¾Ð¹ Ñ‚Ð¾Ñ‡ÐºÐ¸ Ð¾Ñ‚Ð½Ð¾ÑÐ¸Ñ‚ÐµÐ»ÑŒÐ½Ð¾ Ð½Ð°Ñ‡Ð°Ð»Ð° ÑˆÑ‚Ñ€Ð¸Ñ…Ð°.
-void Painter_DrawDashedVLine(int x, int y0, int y1, int dFill, int dEmpty, int dStart);  // Ð Ð¸ÑÑƒÐµÑ‚ Ð¿Ñ€ÐµÑ€Ñ‹Ð²Ð¸ÑÑ‚ÑƒÑŽ Ð²ÐµÑ€Ñ‚Ð¸ÐºÐ°Ð»ÑŒÐ½ÑƒÑŽ Ð»Ð¸Ð½Ð¸ÑŽ.
+/// \brief Ðèñóåò ïðåðûâèñòóþ ãîðèçîíòàëüíóþ ëèíèþ. dFill - äëèíà øòðèõà, dEmpty - ðàññò. ìåæäó øòðèõàìè. Ëèíèÿ âñåãäà íà÷èíàåòñÿ ñî øòðèõà. 
+/// dStart óêàçûâàåò ñìåùåíèå ïåðâîé ðèñóåìîé òî÷êè îòíîñèòåëüíî íà÷àëà øòðèõà.
+void Painter_DrawDashedHLine(int y, int x0, int x1, int dFill, int dEmpty, int dStart);
+/// Ðèñóåò ïðåðûâèñòóþ âåðòèêàëüíóþ ëèíèþ.
+void Painter_DrawDashedVLine(int x, int y0, int y1, int dFill, int dEmpty, int dStart);
+
 void Painter_DrawRectangle(int x, int y, int width, int height);
+
 void Painter_FillRegion(int x, int y, int width, int height);
+
 void Painter_DrawVolumeButton(int x, int y, int width, int height, int thickness, Color normal, Color bright, Color dark, bool isPressed, bool isShade);
-void Painter_SetBrightnessDisplay(int16 brightness);                                     // Ð£ÑÑ‚Ð°Ð½Ð¾Ð²Ð¸Ñ‚ÑŒ ÑÑ€ÐºÐ¾ÑÑ‚ÑŒ Ð´Ð¸ÑÐ¿Ð»ÐµÑ.
+/// Óñòàíîâèòü ÿðêîñòü äèñïëåÿ.
+void Painter_SetBrightnessDisplay(int16 brightness);
+
 uint16 Painter_ReduceBrightness(uint16 colorValue, float newBrightness);
-void Painter_DrawVLineArray(int x, int numLines, uint8 *y0y1, Color color);              // ÐÐ°Ñ€Ð¸ÑÐ¾Ð²Ð°Ñ‚ÑŒ Ð¼Ð°ÑÑÐ¸Ð² Ð²ÐµÑ€Ñ‚Ð¸ÐºÐ°Ð»ÑŒÐ½Ñ‹Ñ… Ð»Ð¸Ð½Ð¸Ð¹. Ð›Ð¸Ð½Ð¸Ð¸ Ñ€Ð¸ÑÑƒÑŽÑ‚ÑÑ Ð¾Ð´Ð½Ð° Ð·Ð° Ð´Ñ€ÑƒÐ³Ð¾Ð¹. y0y1 - Ð¼Ð°ÑÑÐ¸Ð² Ð²ÐµÑ€Ñ‚Ð¸ÐºÐ°Ð»ÑŒÐ½Ñ‹Ñ… ÐºÐ¾Ð¾Ñ€Ð´Ð¸Ð½Ð°Ñ‚
-void Painter_DrawSignal(int x, uint8 data[281], bool modeLines);                         // modeLines - true - Ñ‚Ð¾Ñ‡ÐºÐ°Ð¼Ð¸, false - Ñ‚Ð¾Ñ‡ÐºÐ°Ð¼Ð¸
+/// Íàðèñîâàòü ìàññèâ âåðòèêàëüíûõ ëèíèé. Ëèíèè ðèñóþòñÿ îäíà çà äðóãîé. y0y1 - ìàññèâ âåðòèêàëüíûõ êîîðäèíàò.
+void Painter_DrawVLineArray(int x, int numLines, uint8 *y0y1, Color color);
+/// modeLines - true - òî÷êàìè, false - òî÷êàìè.
+void Painter_DrawSignal(int x, uint8 data[281], bool modeLines);
+
 void Painter_DrawPicture(int x, int y, int width, int height, uint8 *address);
 
 #if _USE_LFN > 0
@@ -59,6 +78,7 @@ bool Painter_SaveScreenToFlashDrive(void);
 #endif
 
 void    Painter_SendToDisplay(uint8 *bytes, int numBytes);
+
 void    Painter_SendToInterfaces(uint8 *pointer, int size);
 
 #define WRITE_BYTE(offset, value)   *(command + offset) = (uint8)value

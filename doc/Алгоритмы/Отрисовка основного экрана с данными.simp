@@ -1,0 +1,513 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<sim-project version="10.65" multi-file="no">
+  <meta>
+    <name>Project</name>
+    <authors> </authors>
+    <description />
+  </meta>
+  <counters models="1">
+    <entity-names>
+      <counter>
+        <item-type type-id="flowchart-start-end" type="StartEndSymbol" />
+        <value>2</value>
+      </counter>
+      <counter>
+        <item-type type-id="flowchart-decision" type="Decision" />
+        <value>10</value>
+      </counter>
+      <counter>
+        <item-type type-id="flowchart-document" type="Document" />
+        <value>2</value>
+      </counter>
+      <counter>
+        <item-type type-id="flowchart-alternate-process" type="AlternateProcess" />
+        <value>8</value>
+      </counter>
+      <counter>
+        <item-type type-id="flowchart-process" type="Process" />
+        <value>2</value>
+      </counter>
+    </entity-names>
+    <entity-ids>
+      <counter>
+        <item-type type-id="flowchart-start-end" type="StartEndSymbol" />
+        <value>3</value>
+      </counter>
+      <counter>
+        <item-type type-id="flowchart-decision" type="Decision" />
+        <value>11</value>
+      </counter>
+      <counter>
+        <item-type type-id="flowchart-flow" type="Flow" />
+        <value>47</value>
+      </counter>
+      <counter>
+        <item-type type-id="flowchart-document" type="Document" />
+        <value>3</value>
+      </counter>
+      <counter>
+        <item-type type-id="flowchart-alternate-process" type="AlternateProcess" />
+        <value>10</value>
+      </counter>
+      <counter>
+        <item-type type-id="flowchart-process" type="Process" />
+        <value>3</value>
+      </counter>
+      <counter>
+        <item-type type-id="" type="AbstractElementGroup" />
+        <value>385</value>
+      </counter>
+      <counter>
+        <item-type type-id="" type="UniversalConnector" />
+        <value>11</value>
+      </counter>
+    </entity-ids>
+    <diagrams>
+      <counter>
+        <type>SoftwareIdeasModeler.Core.Diagrams.UmlDiagrams.UmlSequenceDiagram</type>
+        <value>1</value>
+      </counter>
+      <counter>
+        <type>SoftwareIdeasModeler.Core.Diagrams.Other.FlowchartDiagram</type>
+        <value>3</value>
+      </counter>
+    </diagrams>
+    <fields />
+  </counters>
+  <alias-groups />
+  <management>
+    <persons>
+      <person id="P7170e8236fb64710a7e9041cd753893c">
+        <first-name />
+        <last-name />
+        <role />
+        <e-mail />
+        <phone-number />
+        <description />
+        <color>#00000000</color>
+      </person>
+    </persons>
+    <tasks />
+    <requirements />
+    <issues />
+    <to-dos />
+  </management>
+  <glossary />
+  <types default="UML">
+    <type-sets>
+      <type-set file="UmlTypes.xml" />
+    </type-sets>
+    <custom-types />
+  </types>
+  <filters />
+  <macros />
+  <items />
+  <models>
+    <model id="p7bb5367f092343699433e9ad94b090c1_484467865" name="Model 1" namespace="" order-index="1">
+      <meta>
+        <authors>
+          <author> </author>
+        </authors>
+        <description />
+        <creation-date>06/19/2017 22:22:51</creation-date>
+        <change-date>01/01/0001 00:00:00</change-date>
+        <revision-count>0</revision-count>
+        <version />
+      </meta>
+      <abstract-items />
+      <sub-models />
+      <diagram type="uml-sequence" id="pe9554e693c92479b8af0972ff17a5fc2_792141567" name="SequenceDiagram1" order-index="1" show-id="false" show-name="true" show-parent-name="false" show-stereotypes="true" show-tagged-values="false" show-template-parameters="true" show-fields="true" show-empty-compartments="true" show-special-indicators="false" show-attributes="true" show-attribute-visibility="true" show-operations="true" show-operation-parameters="true" show-operation-visibility="true" show-nullability="true" show-sequence-number="false" show-extension-points="false" show-relationship-texts="true" show-description="false" show-field-description="false" auto-routed-paths="false">
+        <style>
+          <background-color index="1" color="#FFFFFFFF" />
+          <background-color index="2" color="#FFFFFFFF" />
+          <background-type type="solid" />
+        </style>
+        <meta>
+          <authors>
+            <author> </author>
+          </authors>
+          <description />
+          <creation-date>06/19/2017 22:22:51</creation-date>
+          <change-date>06/19/2017 22:22:51</change-date>
+          <revision-count>0</revision-count>
+          <version />
+        </meta>
+        <abstract-items />
+        <layer name="Default" visible="true" enabled="true" locked="false" />
+      </diagram>
+      <diagram type="flowchart" id="p11862350d7354f43849da3c120078ac7_608405962" name="Блок-схема" order-index="2" overview-order-index="0" show-id="false" show-name="true" show-parent-name="false" show-stereotypes="true" show-tagged-values="false" show-template-parameters="true" show-fields="true" show-empty-compartments="true" show-special-indicators="false" show-attributes="true" show-attribute-visibility="true" show-operations="true" show-operation-parameters="true" show-operation-visibility="true" show-nullability="true" show-sequence-number="false" show-extension-points="false" show-relationship-texts="true" show-description="false" show-field-description="false" auto-routed-paths="false" view-location="0,332" zoom="0.7">
+        <style>
+          <background-color index="1" color="#FFFFFFFF" />
+          <background-color index="2" color="#FFFFFFFF" />
+          <background-type type="solid" />
+        </style>
+        <meta>
+          <authors>
+            <author> </author>
+          </authors>
+          <description />
+          <creation-date>06/19/2017 22:23:18</creation-date>
+          <change-date>06/20/2017 00:27:59</change-date>
+          <revision-count>0</revision-count>
+          <version />
+        </meta>
+        <abstract-items>
+          <item id="di279155350638510245" cid="FCF013" type="flowchart-flow" name="" style-class="" visibility="package" change-tracking-state="added" creation-date="06/19/2017 23:17:30" from="di820905543546514050" to="di300844797237382426">
+            <style class="default" />
+          </item>
+          <item id="di820905543546514050" cid="ELEM002" type="flowchart-start-end" name="Начало" style-class="" visibility="package" change-tracking-state="added" creation-date="06/19/2017 23:16:26">
+            <style class="default" />
+          </item>
+          <item id="di300844797237382426" cid="ELEM003" type="flowchart-alternate-process" name="Находимся в режиме индикации &quot;Стандартный&quot; ?" style-class="" visibility="package" change-tracking-state="added" creation-date="06/19/2017 23:17:21">
+            <style class="default" />
+          </item>
+          <item id="di536920300387938443" cid="ELEM003" type="flowchart-alternate-process" name="Находимся в режиме индикации &quot;Последние&quot;?" style-class="" visibility="package" change-tracking-state="added" creation-date="06/19/2017 23:17:21">
+            <style class="default" />
+          </item>
+          <item id="di179975718610375989" cid="FCF015" type="flowchart-flow" name="" style-class="" visibility="package" change-tracking-state="added" creation-date="06/19/2017 23:18:40" from="di300844797237382426" to="di536920300387938443">
+            <style class="default" />
+          </item>
+          <item id="di723694134555415072" cid="FCF016" type="flowchart-flow" name="" style-class="" visibility="package" change-tracking-state="added" creation-date="06/19/2017 23:19:36" from="di536920300387938443" to="di930499915565260038">
+            <style class="default" />
+          </item>
+          <item id="di722174976425684716" cid="FCF019" type="flowchart-flow" name="" style-class="" visibility="package" change-tracking-state="added" creation-date="06/19/2017 23:30:38" from="di536920300387938443" to="di332841502135470947">
+            <style class="default" />
+          </item>
+          <item id="di930499915565260038" cid="ELEM003" type="flowchart-alternate-process" name="Находимся в режиме индикации &quot;Внутреннее ЗУ&quot;?" style-class="" visibility="package" change-tracking-state="added" creation-date="06/19/2017 23:17:21">
+            <style class="default" />
+          </item>
+          <item id="di332841502135470947" cid="ELEM004" type="flowchart-alternate-process" name="Считать из ОЗУ сигнал, на который указывает ручка УСТАНОВКА (в этом режиме мы можем видеть только статичный сигнал, сохранённый в ОЗУ. Неполный, сигнал в поточечном режиме индикации не подлежит)." style-class="" visibility="package" change-tracking-state="added" creation-date="06/19/2017 23:19:52">
+            <style class="default" />
+          </item>
+          <item id="di913856919635376541" cid="FCF043" type="flowchart-flow" name="Нет" style-class="" visibility="package" change-tracking-state="added" creation-date="06/20/2017 00:17:33" from="di791992623466430400" to="di549551552317323296">
+            <style class="default" />
+          </item>
+          <item id="di549551552317323296" cid="FCDC006" type="flowchart-decision" name="Режим АЦП &quot;Рандомизатор&quot;?" style-class="" visibility="package" change-tracking-state="added" creation-date="06/19/2017 23:48:25">
+            <style style-name="Emphasis" shadow-type="smooth" shadow-offset="1,1" shadow-visible="true" shadow-color="#32000000" gloss-effect="true" wrap-name-text="true" wrap-other-text="true" padding="1" margin="1" glow-color="#FFFFFFFF" accuracy="0.9">
+              <text-style type="name" use-defaults="false" color="#FF000000" font="Verdana;10;B" horizontal-alignment="center" vertical-alignment="center" shadow="false" />
+              <text-style type="part-header" use-defaults="false" color="#FF1E1E1E" font="Verdana;9;I" horizontal-alignment="center" vertical-alignment="center" shadow="false" />
+              <text-style type="text" use-defaults="false" color="#FF000000" font="Verdana;9;" horizontal-alignment="left" vertical-alignment="center" shadow="false" />
+              <text-style type="tagged-value" use-defaults="false" color="#FF1E1E1E" font="Verdana;9;I" horizontal-alignment="center" vertical-alignment="center" shadow="false" />
+              <text-style type="stereotype" use-defaults="false" color="#FF1E1E1E" font="Verdana;9;I" horizontal-alignment="center" vertical-alignment="center" shadow="false" />
+              <background type="forward-diagonal" color="#FFFFFFFF" color2="#FFEBEBEB" />
+              <border color="#FF000000" width="1" dash-style="Solid" />
+              <label-connector color="#80000000" width="1" dash-style="Dash" />
+              <alternate-styles>
+                <alternate-style style-name="Alternate" shadow-type="smooth" shadow-offset="1,1" shadow-color="#32000000" gloss-effect="true" wrap-name-text="true" padding="1" margin="1" glow-color="#FFFFFFFF" accuracy="0.9">
+                  <text-style type="name" use-defaults="false" color="#FF000000" font="Verdana;10;B" horizontal-alignment="center" vertical-alignment="center" shadow="false" />
+                  <text-style type="part-header" use-defaults="false" color="#FF1E1E1E" font="Verdana;9;I" horizontal-alignment="center" vertical-alignment="center" shadow="false" />
+                  <text-style type="text" use-defaults="false" color="#FF000000" font="Verdana;9;" horizontal-alignment="left" vertical-alignment="center" shadow="false" />
+                  <text-style type="tagged-value" use-defaults="false" color="#FF1E1E1E" font="Verdana;9;I" horizontal-alignment="center" vertical-alignment="center" shadow="false" />
+                  <text-style type="stereotype" use-defaults="false" color="#FF1E1E1E" font="Verdana;9;I" horizontal-alignment="center" vertical-alignment="center" shadow="false" />
+                  <background type="vertical-linear" color="#FF1E90FF" color2="#FF87CEFA" />
+                  <border color="#FF00008B" width="1" dash-style="Solid" />
+                  <label-connector color="#FF000000" width="1" dash-style="Solid" />
+                </alternate-style>
+              </alternate-styles>
+            </style>
+          </item>
+          <item id="di789877005465507037" cid="FCF035" type="flowchart-flow" name="" style-class="" visibility="package" change-tracking-state="added" creation-date="06/20/2017 00:11:39" from="di332841502135470947" to="di796795311852238538">
+            <style class="default" />
+          </item>
+          <item id="di290671042786925507" cid="FCF045" type="flowchart-flow" name="Да" style-class="" visibility="package" change-tracking-state="added" creation-date="06/20/2017 00:18:24" from="di549551552317323296" to="di796795311852238538">
+            <style class="default" />
+          </item>
+          <item id="di846945834980863714" cid="FCDC010" type="flowchart-decision" name="Decision10" style-class="" visibility="package" change-tracking-state="added" creation-date="06/20/2017 00:27:54">
+            <style class="default" />
+          </item>
+          <item id="di476472899126800730" cid="FCF046" type="flowchart-flow" name="Нет (поточечный режим)" style-class="" visibility="package" change-tracking-state="added" creation-date="06/20/2017 00:27:59" from="di549551552317323296" to="di846945834980863714">
+            <style class="default" />
+          </item>
+          <item id="di791992623466430400" cid="FCDC006" type="flowchart-decision" name="Режим АЦП &quot;Обычный&quot;?" style-class="" visibility="package" change-tracking-state="added" creation-date="06/19/2017 23:48:25">
+            <style style-name="Emphasis" shadow-type="smooth" shadow-offset="1,1" shadow-visible="true" shadow-color="#32000000" gloss-effect="true" wrap-name-text="true" wrap-other-text="true" padding="1" margin="1" glow-color="#FFFFFFFF" accuracy="0.9">
+              <text-style type="name" use-defaults="false" color="#FF000000" font="Verdana;10;B" horizontal-alignment="center" vertical-alignment="center" shadow="false" />
+              <text-style type="part-header" use-defaults="false" color="#FF1E1E1E" font="Verdana;9;I" horizontal-alignment="center" vertical-alignment="center" shadow="false" />
+              <text-style type="text" use-defaults="false" color="#FF000000" font="Verdana;9;" horizontal-alignment="left" vertical-alignment="center" shadow="false" />
+              <text-style type="tagged-value" use-defaults="false" color="#FF1E1E1E" font="Verdana;9;I" horizontal-alignment="center" vertical-alignment="center" shadow="false" />
+              <text-style type="stereotype" use-defaults="false" color="#FF1E1E1E" font="Verdana;9;I" horizontal-alignment="center" vertical-alignment="center" shadow="false" />
+              <background type="forward-diagonal" color="#FFFFFFFF" color2="#FFEBEBEB" />
+              <border color="#FF000000" width="1" dash-style="Solid" />
+              <label-connector color="#80000000" width="1" dash-style="Dash" />
+              <alternate-styles>
+                <alternate-style style-name="Alternate" shadow-type="smooth" shadow-offset="1,1" shadow-color="#32000000" gloss-effect="true" wrap-name-text="true" padding="1" margin="1" glow-color="#FFFFFFFF" accuracy="0.9">
+                  <text-style type="name" use-defaults="false" color="#FF000000" font="Verdana;10;B" horizontal-alignment="center" vertical-alignment="center" shadow="false" />
+                  <text-style type="part-header" use-defaults="false" color="#FF1E1E1E" font="Verdana;9;I" horizontal-alignment="center" vertical-alignment="center" shadow="false" />
+                  <text-style type="text" use-defaults="false" color="#FF000000" font="Verdana;9;" horizontal-alignment="left" vertical-alignment="center" shadow="false" />
+                  <text-style type="tagged-value" use-defaults="false" color="#FF1E1E1E" font="Verdana;9;I" horizontal-alignment="center" vertical-alignment="center" shadow="false" />
+                  <text-style type="stereotype" use-defaults="false" color="#FF1E1E1E" font="Verdana;9;I" horizontal-alignment="center" vertical-alignment="center" shadow="false" />
+                  <background type="vertical-linear" color="#FF1E90FF" color2="#FF87CEFA" />
+                  <border color="#FF00008B" width="1" dash-style="Solid" />
+                  <label-connector color="#FF000000" width="1" dash-style="Solid" />
+                </alternate-style>
+              </alternate-styles>
+            </style>
+          </item>
+          <item id="di280072196448901091" cid="FCF028" type="flowchart-flow" name="" style-class="" visibility="package" change-tracking-state="added" creation-date="06/19/2017 23:49:05" from="di300844797237382426" to="di791992623466430400">
+            <style class="default" />
+          </item>
+          <item id="di629070649186882678" cid="FCDC007" type="flowchart-decision" name="Находимся в режиме усреднения?" style-class="" visibility="package" change-tracking-state="added" creation-date="06/19/2017 23:51:24">
+            <style class="default" />
+          </item>
+          <item id="di390885085221454763" cid="FCF029" type="flowchart-flow" name="Да" style-class="" visibility="package" change-tracking-state="added" creation-date="06/19/2017 23:51:54" from="di791992623466430400" to="di629070649186882678">
+            <style class="default" />
+          </item>
+          <item id="di796795311852238538" cid="FCDC008" type="flowchart-decision" name="Сглаживание включено?" style-class="" visibility="package" change-tracking-state="added" creation-date="06/19/2017 23:52:33">
+            <style class="default" />
+          </item>
+          <item id="di933379427226634697" cid="FCF039" type="flowchart-flow" name="Нет" style-class="" visibility="package" change-tracking-state="added" creation-date="06/20/2017 00:14:24" from="di629070649186882678" to="di789877005465507037">
+            <style class="default" />
+          </item>
+          <item id="di479901045703740863" cid="ELEM008" type="flowchart-alternate-process" name="Отделить 281 точек для вывода" style-class="" visibility="package" change-tracking-state="added" creation-date="06/19/2017 23:53:50">
+            <style class="default" />
+          </item>
+          <item id="di947464328901835541" cid="ELEM009" type="flowchart-alternate-process" name="Нарисовать" style-class="" visibility="package" change-tracking-state="added" creation-date="06/19/2017 23:53:57">
+            <style class="default" />
+          </item>
+          <item id="di913444270849501180" cid="FCF031" type="flowchart-flow" name="Нет" style-class="" visibility="package" change-tracking-state="added" creation-date="06/19/2017 23:54:16" from="di796795311852238538" to="di479901045703740863">
+            <style class="default" />
+          </item>
+          <item id="di504338251990759846" cid="FCF032" type="flowchart-flow" name="" style-class="" visibility="package" change-tracking-state="added" creation-date="06/19/2017 23:54:25" from="di479901045703740863" to="di947464328901835541">
+            <style class="default" />
+          </item>
+          <item id="di636931820641369053" cid="ELEM005" type="flowchart-alternate-process" name="Сгладить" style-class="" visibility="package" change-tracking-state="added" creation-date="06/19/2017 23:42:48">
+            <style class="default" />
+          </item>
+          <item id="di621629432679854692" cid="FCF033" type="flowchart-flow" name="Да" style-class="" visibility="package" change-tracking-state="added" creation-date="06/19/2017 23:56:57" from="di796795311852238538" to="di636931820641369053">
+            <style class="default" />
+          </item>
+          <item id="di534162459695182877" cid="FCF042" type="flowchart-flow" name="" style-class="" visibility="package" change-tracking-state="added" creation-date="06/20/2017 00:15:37" from="di636931820641369053" to="di479901045703740863">
+            <style class="default" />
+          </item>
+        </abstract-items>
+        <layer name="Default" visible="true" enabled="true" locked="false">
+          <item id="di820905543546514050" iid="c58b0c27ba6f49e1b59072165c41094b" creation-date="06/19/2017 23:16:26" order-index="11" type="entity">
+            <layout ax="294.726" ay="158" awidth="150" aheight="60" x="294.726" y="158" width="150" height="60" />
+          </item>
+          <item id="di549551552317323296" iid="aff316bcb4674b6fbb88f992cab86ac8" creation-date="06/19/2017 23:48:25" order-index="27" type="entity">
+            <layout ax="583" ay="1222.5" awidth="172" aheight="115" x="583" y="1222.5" width="172" height="115" />
+          </item>
+          <item id="di913856919635376541" iid="93d822bf378e453db1cba4dda16106c2" creation-date="06/20/2017 00:17:33" order-index="43" type="relation">
+            <layout line-style="oblique" lock-start-point="false" lock-end-point="false" lock-to-fields="false" auto-path="" x1="669" y1="1031" x2="669" y2="1222" start-border-pos="0.625" end-border-pos="0.125" name-position="0,-69">
+              <points>
+                <point x="669" y="1031" />
+                <point x="669" y="1222" />
+              </points>
+            </layout>
+            <relation from="di791992623466430400" from-iid="9cc6cf9b318f439881d5670c31ff4bd4" to="di549551552317323296" to-iid="aff316bcb4674b6fbb88f992cab86ac8" />
+          </item>
+          <item id="di290671042786925507" iid="e8223b9716aa44df8f8b4fb3143b987b" creation-date="06/20/2017 00:18:24" order-index="44" type="relation">
+            <layout line-style="oblique" lock-start-point="true" lock-end-point="true" lock-to-fields="false" auto-path="" x1="755" y1="1280" x2="1159" y2="1280" start-border-pos="0.375" end-border-pos="0.875624999403954" name-position="-163,0">
+              <points>
+                <point x="755" y="1280" />
+                <point x="1159" y="1280" />
+              </points>
+            </layout>
+            <relation from="di549551552317323296" from-iid="aff316bcb4674b6fbb88f992cab86ac8" to="di796795311852238538" to-iid="6b2e86f2ed2c4a2da8204a450357d332" />
+          </item>
+          <item id="di846945834980863714" iid="179bcf080eaf4feb80b40a0425e3081a" creation-date="06/20/2017 00:27:54" order-index="45" type="entity">
+            <layout ax="610" ay="651" awidth="118" aheight="100" x="610" y="651" width="118" height="100" />
+          </item>
+          <item id="di476472899126800730" iid="4d8d8423f5c24320ac3670decd92adb0" creation-date="06/20/2017 00:27:59" order-index="46" type="relation">
+            <layout line-style="oblique" lock-start-point="true" lock-end-point="true" lock-to-fields="false" auto-path="" x1="583" y1="1280" x2="610" y2="701" start-border-pos="0.875" end-border-pos="0.875" name-position="-8,251">
+              <points>
+                <point x="583" y="1280" />
+                <point x="544" y="1276" />
+                <point x="546" y="702" />
+                <point x="610" y="701" />
+              </points>
+            </layout>
+            <relation from="di549551552317323296" from-iid="aff316bcb4674b6fbb88f992cab86ac8" to="di846945834980863714" to-iid="179bcf080eaf4feb80b40a0425e3081a" />
+          </item>
+          <item id="di791992623466430400" iid="9cc6cf9b318f439881d5670c31ff4bd4" creation-date="06/19/2017 23:48:25" order-index="27" type="entity">
+            <layout ax="583" ay="916.5" awidth="172" aheight="115" x="583" y="916.5" width="172" height="115" />
+          </item>
+          <item id="di280072196448901091" iid="d40492a97e0d48d09c6406a7d0dc8489" creation-date="06/19/2017 23:49:05" order-index="28" type="relation">
+            <layout line-style="oblique" lock-start-point="false" lock-end-point="false" lock-to-fields="false" auto-path="" x1="502" y1="974" x2="583" y2="974" start-border-pos="0.375" end-border-pos="0.875" name-position="0,0">
+              <points>
+                <point x="502" y="974" />
+                <point x="583" y="974" />
+              </points>
+            </layout>
+            <relation from="di300844797237382426" from-iid="b8222f610b0641389215ae3eb26e885f" to="di791992623466430400" to-iid="9cc6cf9b318f439881d5670c31ff4bd4" />
+          </item>
+          <item id="di629070649186882678" iid="51b58cf13c684c2eb9b0ce6aedcc97b6" creation-date="06/19/2017 23:51:24" order-index="29" type="entity">
+            <layout ax="987.5" ay="920.25" awidth="172" aheight="107.5" x="987.5" y="920.25" width="172" height="107.5" />
+          </item>
+          <item id="di390885085221454763" iid="c339695c882f4231b6df47f3f12314e4" creation-date="06/19/2017 23:51:54" order-index="30" type="relation">
+            <layout line-style="oblique" lock-start-point="false" lock-end-point="false" lock-to-fields="false" auto-path="" x1="755" y1="974" x2="987" y2="974" start-border-pos="0.375" end-border-pos="0.875" name-position="-35,0">
+              <points>
+                <point x="755" y="974" />
+                <point x="987" y="974" />
+              </points>
+            </layout>
+            <relation from="di791992623466430400" from-iid="9cc6cf9b318f439881d5670c31ff4bd4" to="di629070649186882678" to-iid="51b58cf13c684c2eb9b0ce6aedcc97b6" />
+          </item>
+          <item id="di933379427226634697" iid="0e029b8c801a4cd1b4a0f6e4f956b7a8" creation-date="06/20/2017 00:14:24" order-index="41" type="relation">
+            <layout line-style="straight" lock-start-point="true" lock-end-point="true" lock-to-fields="false" auto-path="" x1="1159" y1="974" x2="1158" y2="1283" start-border-pos="0.375" end-border-pos="0.990033235490028" name-position="-12,-152">
+              <points>
+                <point x="1159" y="974" />
+                <point x="1158" y="1283" />
+              </points>
+            </layout>
+            <relation from="di629070649186882678" from-iid="51b58cf13c684c2eb9b0ce6aedcc97b6" to="di789877005465507037" to-iid="35cca4c688364f9a87a97aa92503d6a2" />
+          </item>
+          <item id="di534162459695182877" iid="9f19d58087ec406ca649c433c3651f55" creation-date="06/20/2017 00:15:37" order-index="42" type="relation">
+            <layout line-style="oblique" lock-start-point="false" lock-end-point="false" lock-to-fields="false" auto-path="" x1="1414" y1="1441" x2="1516" y2="1310" start-border-pos="0.165100301106771" end-border-pos="0.663433634440104" name-position="0,0">
+              <points>
+                <point x="1414" y="1441" />
+                <point x="1516" y="1310" />
+              </points>
+            </layout>
+            <relation from="di636931820641369053" from-iid="102cb8ae48904c0793f91b608d0017be" to="di479901045703740863" to-iid="a8a72025b8f244548f0a2854f503cf95" />
+          </item>
+          <item id="di300844797237382426" iid="b8222f610b0641389215ae3eb26e885f" creation-date="06/19/2017 23:17:21" order-index="12" type="entity">
+            <layout ax="237.952" ay="944" awidth="263.548" aheight="60" x="237.952" y="944" width="263.548" height="60" />
+          </item>
+          <item id="di279155350638510245" iid="f7e562e4069342838dd8d8135f50094e" creation-date="06/19/2017 23:17:30" order-index="13" type="relation">
+            <layout line-style="oblique" lock-start-point="false" lock-end-point="false" lock-to-fields="false" auto-path="" x1="370" y1="218" x2="370" y2="944" start-border-pos="0.62454335530599" end-border-pos="0.125259887748178" name-position="0,0">
+              <points>
+                <point x="370" y="218" />
+                <point x="370" y="944" />
+              </points>
+            </layout>
+            <relation from="di820905543546514050" from-iid="c58b0c27ba6f49e1b59072165c41094b" to="di300844797237382426" to-iid="b8222f610b0641389215ae3eb26e885f" />
+          </item>
+          <item id="di536920300387938443" iid="39a607a5020d486b94a8a7cc1f29d42f" creation-date="06/19/2017 23:17:21" order-index="12" type="entity">
+            <layout ax="237.9521" ay="1551" awidth="263.5479" aheight="60" x="237.9521" y="1551" width="263.5479" height="60" />
+          </item>
+          <item id="di179975718610375989" iid="6c03bd840dcf400698357c1e0130af51" creation-date="06/19/2017 23:18:40" order-index="14" type="relation">
+            <layout line-style="oblique" lock-start-point="false" lock-end-point="false" lock-to-fields="false" auto-path="" x1="370" y1="1004" x2="370" y2="1551" start-border-pos="0.624740097777428" end-border-pos="0.125259887778272" name-position="0,0">
+              <points>
+                <point x="370" y="1004" />
+                <point x="370" y="1551" />
+              </points>
+            </layout>
+            <relation from="di300844797237382426" from-iid="b8222f610b0641389215ae3eb26e885f" to="di536920300387938443" to-iid="39a607a5020d486b94a8a7cc1f29d42f" />
+          </item>
+          <item id="di930499915565260038" iid="c266448f64cc4546987037399f5e7385" creation-date="06/19/2017 23:17:21" order-index="12" type="entity">
+            <layout ax="237.9521" ay="1694" awidth="263.5479" aheight="60" x="237.9521" y="1694" width="263.5479" height="60" />
+          </item>
+          <item id="di723694134555415072" iid="608203a565a34a7a8a9374cb893b6dee" creation-date="06/19/2017 23:19:36" order-index="15" type="relation">
+            <layout line-style="oblique" lock-start-point="false" lock-end-point="false" lock-to-fields="false" auto-path="" x1="370" y1="1611" x2="370" y2="1694" start-border-pos="0.624740112221728" end-border-pos="0.125259887778272" name-position="0,0">
+              <points>
+                <point x="370" y="1611" />
+                <point x="370" y="1694" />
+              </points>
+            </layout>
+            <relation from="di536920300387938443" from-iid="39a607a5020d486b94a8a7cc1f29d42f" to="di930499915565260038" to-iid="c266448f64cc4546987037399f5e7385" />
+          </item>
+          <item id="di332841502135470947" iid="bfec1ddd872f4fccb21f5cd24dae9488" creation-date="06/19/2017 23:19:52" order-index="16" type="entity">
+            <layout ax="732" ay="1515" awidth="312" aheight="132" x="732" y="1515" width="312" height="132" />
+          </item>
+          <item id="di722174976425684716" iid="a8d0d8bbb96749069589c790f58bb5ca" creation-date="06/19/2017 23:30:38" order-index="17" type="relation">
+            <layout line-style="oblique" lock-start-point="true" lock-end-point="true" lock-to-fields="false" auto-path="" x1="502" y1="1582" x2="732" y2="1580" start-border-pos="0.379166666666667" end-border-pos="0.876262620091438" name-position="0,0">
+              <points>
+                <point x="502" y="1582" />
+                <point x="732" y="1580" />
+              </points>
+            </layout>
+            <relation from="di536920300387938443" from-iid="39a607a5020d486b94a8a7cc1f29d42f" to="di332841502135470947" to-iid="bfec1ddd872f4fccb21f5cd24dae9488" />
+          </item>
+          <item id="di796795311852238538" iid="6b2e86f2ed2c4a2da8204a450357d332" creation-date="06/19/2017 23:52:33" order-index="31" type="entity">
+            <layout ax="1159.5" ay="1230" awidth="172" aheight="100" x="1159.5" y="1230" width="172" height="100" />
+          </item>
+          <item id="di479901045703740863" iid="a8a72025b8f244548f0a2854f503cf95" creation-date="06/19/2017 23:53:50" order-index="33" type="entity">
+            <layout ax="1464.5" ay="1250" awidth="150" aheight="60" x="1464.5" y="1250" width="150" height="60" />
+          </item>
+          <item id="di947464328901835541" iid="c059f33c664b49de82acc83c67d9b707" creation-date="06/19/2017 23:53:57" order-index="34" type="entity">
+            <layout ax="1689.5" ay="1250" awidth="150" aheight="60" x="1689.5" y="1250" width="150" height="60" />
+          </item>
+          <item id="di913444270849501180" iid="1fb0fd8792d04897b0ba2649d0c3423a" creation-date="06/19/2017 23:54:16" order-index="35" type="relation">
+            <layout line-style="oblique" lock-start-point="true" lock-end-point="false" lock-to-fields="false" auto-path="" x1="1331" y1="1280" x2="1464" y2="1280" start-border-pos="0.374375000596046" end-border-pos="0.875" name-position="-58,-27">
+              <points>
+                <point x="1331" y="1280" />
+                <point x="1464" y="1280" />
+              </points>
+            </layout>
+            <relation from="di796795311852238538" from-iid="6b2e86f2ed2c4a2da8204a450357d332" to="di479901045703740863" to-iid="a8a72025b8f244548f0a2854f503cf95" />
+          </item>
+          <item id="di789877005465507037" iid="35cca4c688364f9a87a97aa92503d6a2" creation-date="06/20/2017 00:11:39" order-index="39" type="relation">
+            <layout line-style="oblique" lock-start-point="true" lock-end-point="true" lock-to-fields="false" auto-path="" x1="1044" y1="1581" x2="1159" y2="1280" start-border-pos="0.375" end-border-pos="0.875" name-position="0,0">
+              <points>
+                <point x="1044" y="1581" />
+                <point x="1159" y="1280" />
+              </points>
+            </layout>
+            <relation from="di332841502135470947" from-iid="bfec1ddd872f4fccb21f5cd24dae9488" to="di796795311852238538" to-iid="6b2e86f2ed2c4a2da8204a450357d332" />
+          </item>
+          <item id="di504338251990759846" iid="52b0df0dbf9c47acbe704564afef1513" creation-date="06/19/2017 23:54:25" order-index="36" type="relation">
+            <layout line-style="oblique" lock-start-point="false" lock-end-point="false" lock-to-fields="false" auto-path="" x1="1614" y1="1280" x2="1690" y2="1280" start-border-pos="0.375" end-border-pos="0.875" name-position="0,0">
+              <points>
+                <point x="1614" y="1280" />
+                <point x="1690" y="1280" />
+              </points>
+            </layout>
+            <relation from="di479901045703740863" from-iid="a8a72025b8f244548f0a2854f503cf95" to="di947464328901835541" to-iid="c059f33c664b49de82acc83c67d9b707" />
+          </item>
+          <item id="di636931820641369053" iid="102cb8ae48904c0793f91b608d0017be" creation-date="06/19/2017 23:42:48" order-index="20" type="entity">
+            <layout ax="1314.5" ay="1441" awidth="150" aheight="60" x="1314.5" y="1441" width="150" height="60" />
+          </item>
+          <item id="di621629432679854692" iid="59cd5a587a5c40b9944bc4ec9eacf60a" creation-date="06/19/2017 23:56:57" order-index="37" type="relation">
+            <layout line-style="oblique" lock-start-point="true" lock-end-point="true" lock-to-fields="false" auto-path="" x1="1246" y1="1329" x2="1353" y2="1441" start-border-pos="0.625" end-border-pos="0.0641666650772095" name-position="-14,-51">
+              <points>
+                <point x="1246" y="1329" />
+                <point x="1353" y="1441" />
+              </points>
+            </layout>
+            <relation from="di796795311852238538" from-iid="6b2e86f2ed2c4a2da8204a450357d332" to="di636931820641369053" to-iid="102cb8ae48904c0793f91b608d0017be" />
+          </item>
+        </layer>
+      </diagram>
+      <diagram type="flowchart" id="p8a745467745f47c5be86d381643addbe_954252628" name="Текстовый алгоритм" order-index="3" overview-order-index="1" show-id="false" show-name="true" show-parent-name="false" show-stereotypes="true" show-tagged-values="false" show-template-parameters="true" show-fields="true" show-empty-compartments="true" show-special-indicators="false" show-attributes="true" show-attribute-visibility="true" show-operations="true" show-operation-parameters="true" show-operation-visibility="true" show-nullability="true" show-sequence-number="false" show-extension-points="false" show-relationship-texts="true" show-description="false" show-field-description="false" auto-routed-paths="false" view-location="-397,-533">
+        <style>
+          <background-color index="1" color="#FFFFFFFF" />
+          <background-color index="2" color="#FFFFFFFF" />
+          <background-type type="solid" />
+        </style>
+        <meta>
+          <authors>
+            <author> </author>
+          </authors>
+          <description />
+          <creation-date>06/19/2017 23:39:19</creation-date>
+          <change-date>06/19/2017 23:40:02</change-date>
+          <revision-count>0</revision-count>
+          <version />
+        </meta>
+        <abstract-items>
+          <item id="di736754707828829680" cid="FCP002" type="flowchart-process" name="Разнообразие режимов работы, для которых нужно реализовать индикацию данных.&#xD;&#xA;&#xD;&#xA;1 *** Режим работы АЦП *** :&#xD;&#xA;1.1 Рандомизатор&#xD;&#xA;1.2 Обычный&#xD;&#xA;1.3 Поточечный&#xD;&#xA;&#xD;&#xA;2 *** Режим запуска *** :&#xD;&#xA;2.1 Автоматичемский&#xD;&#xA;2.2 Ждущий&#xD;&#xA;2.3 Однократный&#xD;&#xA;&#xD;&#xA;3 *** Режим индикации *** :&#xD;&#xA;3.1 Стандартный&#xD;&#xA;3.2 Последние&#xD;&#xA;3.3 Внутреннее ЗУ&#xD;&#xA;&#xD;&#xA;4 *** Режим накопления *** :&#xD;&#xA;4.1 Выключен&#xD;&#xA;4.2 Включён&#xD;&#xA;&#xD;&#xA;5 *** Режим усреднения *** :&#xD;&#xA;2 ... 256&#xD;&#xA;&#xD;&#xA;6 *** Сглаживание *** :&#xD;&#xA;2 ... 10&#xD;&#xA;&#xD;&#xA;7 *** Режим мин-макс *** :&#xD;&#xA;2 ... 256&#xD;&#xA;" style-class="" visibility="package" change-tracking-state="added" creation-date="06/19/2017 23:36:18">
+            <style style-name="Default" shadow-type="smooth" shadow-offset="1,1" shadow-visible="true" shadow-color="#32000000" gloss-effect="true" wrap-name-text="true" wrap-other-text="true" padding="1" margin="1" glow-color="#FFFFFFFF" accuracy="0.9">
+              <text-style type="name" use-defaults="false" color="#FF000000" font="Verdana;10;B" horizontal-alignment="left" vertical-alignment="center" shadow="false" />
+              <text-style type="part-header" use-defaults="false" color="#FF1E1E1E" font="Verdana;9;I" horizontal-alignment="center" vertical-alignment="center" shadow="false" />
+              <text-style type="text" use-defaults="false" color="#FF000000" font="Verdana;9;" horizontal-alignment="left" vertical-alignment="center" shadow="false" />
+              <text-style type="tagged-value" use-defaults="false" color="#FF1E1E1E" font="Verdana;9;I" horizontal-alignment="center" vertical-alignment="center" shadow="false" />
+              <text-style type="stereotype" use-defaults="false" color="#FF1E1E1E" font="Verdana;9;I" horizontal-alignment="center" vertical-alignment="center" shadow="false" />
+              <background type="forward-diagonal" color="#FFFFFFFF" color2="#FFEBEBEB" />
+              <border color="#FF000000" width="1" dash-style="Solid" />
+              <label-connector color="#80000000" width="1" dash-style="Dash" />
+              <alternate-styles>
+                <alternate-style style-name="Alternate" shadow-type="smooth" shadow-offset="1,1" shadow-color="#32000000" gloss-effect="true" wrap-name-text="true" padding="1" margin="1" glow-color="#FFFFFFFF" accuracy="0.9">
+                  <text-style type="name" use-defaults="false" color="#FF000000" font="Verdana;10;B" horizontal-alignment="center" vertical-alignment="center" shadow="false" />
+                  <text-style type="part-header" use-defaults="false" color="#FF1E1E1E" font="Verdana;9;I" horizontal-alignment="center" vertical-alignment="center" shadow="false" />
+                  <text-style type="text" use-defaults="false" color="#FF000000" font="Verdana;9;" horizontal-alignment="left" vertical-alignment="center" shadow="false" />
+                  <text-style type="tagged-value" use-defaults="false" color="#FF1E1E1E" font="Verdana;9;I" horizontal-alignment="center" vertical-alignment="center" shadow="false" />
+                  <text-style type="stereotype" use-defaults="false" color="#FF1E1E1E" font="Verdana;9;I" horizontal-alignment="center" vertical-alignment="center" shadow="false" />
+                  <background type="vertical-linear" color="#FF1E90FF" color2="#FF87CEFA" />
+                  <border color="#FF00008B" width="1" dash-style="Solid" />
+                  <label-connector color="#FF000000" width="1" dash-style="Solid" />
+                </alternate-style>
+              </alternate-styles>
+            </style>
+          </item>
+        </abstract-items>
+        <layer name="Default" visible="true" enabled="true" locked="false">
+          <item id="di736754707828829680" iid="549f67be413e41ca854ecf442074bd04" creation-date="06/19/2017 23:36:18" order-index="18" type="entity">
+            <layout ax="-338" ay="-460.5" awidth="336" aheight="527" x="-338" y="-460.5" width="336" height="527" />
+          </item>
+        </layer>
+      </diagram>
+    </model>
+  </models>
+  <documents />
+  <document-templates />
+</sim-project>

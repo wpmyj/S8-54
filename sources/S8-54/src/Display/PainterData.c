@@ -416,8 +416,13 @@ static void DrawDataInRect(int x, uint width, const uint8 *data, int numBytes, b
 
     for (int i = 1; i < width; i++)
     {
-        maxes[i] = Ordinate((uint8)(max[i] < min[i - 1] ? min[i - 1] : max[i]), scale);
-        mines[i] = Ordinate((uint8)(min[i] > max[i - 1] ? max[i - 1] : min[i]), scale);
+        maxes[i] = Ordinate((uint8)((max[i] < min[i - 1]) ? min[i - 1] : max[i]), scale);
+        mines[i] = Ordinate((uint8)((min[i] > max[i - 1]) ? max[i - 1] : min[i]), scale);
+
+        if (mines[i] < 0)
+        {
+            mines[i] = 0;
+        }
     }
 
     // Теперь уточним количество точек, которые нужно нарисовать (исходим из того, что в реальном режиме и рандомизаторе рисуем все точки,
@@ -475,9 +480,16 @@ static void SendToDisplayDataInRect(int x, const int *min, const int *max, uint 
 
     uint8 points[width * 2];
 
+    uint8 _min = 255;
+    uint8 _max = 0;
+
     for (uint i = 0; i < width; i++)
     {
         points[i * 2] = max[i];
+        if (points[i * 2] > _max)
+        {
+            _max = points[i * 2]
+        }
         points[i * 2 + 1] = min[i];
     }
 
