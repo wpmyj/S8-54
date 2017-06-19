@@ -54,9 +54,7 @@ void Painter_BeginScene(Color color)
         stateTransmit = StateTransmit_InProcess;
         if (needForLoadFontsAndPalette)
         {
-            Painter_LoadPalette(0);
-            Painter_LoadPalette(1);
-            Painter_LoadPalette(2);
+            Painter_LoadPalette();
             Painter_LoadFont(TypeFont_5);
 #define dT 100
             Ethernet_Update(dT);            /// \todo Говнокод. Доработать метод посылки в TCPSocket
@@ -134,19 +132,11 @@ Color Painter_GetColor(void)
 }
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
-void Painter_LoadPalette(int num)
+void Painter_LoadPalette(void)
 {
-    const int min[] = {0, 5, 10};
-    const int max[] = {4, 9, 15};
-
-    int i = min[num];
-    int a = max[num];
-
-    for (; i <= a; i++)
+    for (int i = 0; i < NUM_COLORS; i++)
     {
         Painter_SetPalette((Color)i);
-        Timer_PauseOnTime(1);           /** \todo Эта задержака вставлена потому, что без неё при загрузке палитры иногда подмигивает экран.
-                                         А загрузка палитры достаточно хитрая - её надо делать по частям, иначе экран подмигивает. */
     }
 }
 

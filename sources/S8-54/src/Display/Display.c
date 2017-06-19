@@ -205,17 +205,13 @@ void Display_Init(void)
 
     Painter_ResetFlash();
 
-    //InitHardware();
-
-    Painter_LoadPalette(0);
-    Painter_LoadPalette(1);
-    Painter_LoadPalette(2);
-
     Painter_LoadFont(TypeFont_5);
     Painter_LoadFont(TypeFont_8);
     Painter_LoadFont(TypeFont_UGO);
     Painter_LoadFont(TypeFont_UGO2);
     Painter_SetFont(TypeFont_8);
+
+    Painter_LoadPalette();
 }
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
@@ -240,11 +236,6 @@ void Display_Update(void)
         return;
     }
 
-    if (needReloadPalette)
-    {
-        Painter_LoadPalette(2);
-    }
-
     ModeFSMC mode = FSMC_GetMode();
 
     bool needClear = NeedForClearScreen();
@@ -258,11 +249,6 @@ void Display_Update(void)
     }
 
     PainterData_DrawData();
-
-    if(needReloadPalette)
-    {
-        Painter_LoadPalette(1);
-    }
 
     if(needClear)
     {
@@ -307,6 +293,11 @@ void Display_Update(void)
 
     DrawTimeForFrame(gTimerTics - timeStart);
 
+    if (needReloadPalette)
+    {
+        Painter_LoadPalette();
+    }
+
     Painter_EndScene();
 
     if(NEED_SAVE_TO_FLASHDRIVE)
@@ -316,11 +307,6 @@ void Display_Update(void)
             Display_ShowWarning(FileIsSaved);
         }
         NEED_SAVE_TO_FLASHDRIVE = 0;
-    }
-
-    if(needReloadPalette)
-    {
-        Painter_LoadPalette(0);
     }
 
     FSMC_SetMode(mode);
