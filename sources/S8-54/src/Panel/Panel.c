@@ -345,7 +345,10 @@ void Panel_Update(void)
         else if (pressButton)
         {
             funcButton[pressButton].funcOnKey(1);
-            Menu_PressButton(pressButton);
+            if (funcButton[pressButton].funcOnKey == EFB)   /// \todo Тут вообще-то пустую функцию нужно заменить нулём...
+            {
+                Menu_PressButton(pressButton);
+            }
             pressedKey = pressButton;
             Timer_SetAndStartOnce(kPressKey, OnTimerPressedKey, 500);
         }

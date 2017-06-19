@@ -641,6 +641,11 @@ static bool DataBeyondTheBorders(const uint8 *data, int firstPoint, int lastPoin
 //----------------------------------------------------------------------------------------------------------------------------------------------------
 static void DrawSignalLined(const uint8 *data, int startPoint, int endPoint, int minY, int maxY, float scaleY, float scaleX, bool calculateFiltr)
 {
+    if (curCh == A)
+    {
+        DBG_CompareFirstBytes2((uint8*)data);
+    }
+
     uint8 dataCD[281];
 
     if (endPoint < startPoint)
@@ -649,11 +654,11 @@ static void DrawSignalLined(const uint8 *data, int startPoint, int endPoint, int
     }
 
     int gridLeft = GridLeft();
-    int gridRight = GridRight();
-    int numPoints = BYTES_IN_CHANNEL(DS);
-    int numSmoothing = sDisplay_NumPointSmoothing();
     if (G_PEACKDET == PeackDet_Disable)
     {
+        int gridRight = GridRight();
+        int numSmoothing = sDisplay_NumPointSmoothing();
+        int numPoints = BYTES_IN_CHANNEL(DS);
         for (int i = startPoint; i < endPoint; i++)
         {
 
@@ -674,7 +679,7 @@ static void DrawSignalLined(const uint8 *data, int startPoint, int endPoint, int
         {
             float x = gridLeft + i / 2.0f * scaleX;
 
-            int index = i + startPoint * 2;
+            int index = startPoint * 2 + i;
 
             int y0 = 0, y1 = 0;
             { CONVERT_DATA_TO_DISPLAY(y0, data[index++]); }

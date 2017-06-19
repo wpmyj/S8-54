@@ -528,7 +528,7 @@ void CalculateSums(void)
 //----------------------------------------------------------------------------------------------------------------------------------------------------
 void DS_AddData(uint8 *dataA, uint8 *dataB, DataSettings dss)
 {
-    DBG_LogFirstBytes(dataA);
+    DBG_CompareFirstBytes1(dataA);
 
     if (!ENABLED_A(&dss) && !ENABLED_B(&dss))
     {
