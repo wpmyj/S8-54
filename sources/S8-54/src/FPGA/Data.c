@@ -53,7 +53,8 @@ void Data_ReadDataRAM(int fromEnd)
     if(DS_GetDataFromEnd(fromEnd, &dataSettings, inA, inB))
     {
         if (ENUM_POINTS(&dataSettings) == FPGA_ENUM_POINTS) /** \todo Это временно. Нужно сделать пересчёт к установленной длине памяти в 
-        {                                                       в ProcessingSignal_SetData(), чтобы не мелькало на экране. */
+                                                               в ProcessingSignal_SetData(), чтобы не мелькало на экране. */
+        {
             readedRAM = true;
             fromEndRAM = fromEnd;
             pDS = &dataSettings;
