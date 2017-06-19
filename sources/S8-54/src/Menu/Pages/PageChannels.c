@@ -266,7 +266,7 @@ static const Choice cChanB_Input =
 
 static bool IsActive_ChanB_Input(void)
 {
-    return !FPGA_NUM_POINTS_32k;
+    return !FPGA_POINTS_32k;
 }
 
 void OnChanged_ChanB_Input(bool active)
@@ -277,7 +277,7 @@ void OnChanged_ChanB_Input(bool active)
         return;
     }
 
-    if (FPGA_NUM_POINTS_32k && SET_ENABLED_B)
+    if (FPGA_POINTS_32k && SET_ENABLED_B)
     {
         SET_ENABLED_B = false;
     }

@@ -55,7 +55,6 @@ int main(void)
     
     while(1)
     {
-        LOG_WRITE("");
         Timer_StartMultiMeasurement();  // —брос таймера дл€ замера длительности временных интервалов в течение одной итерации цикла.
         Ethernet_Update(0);
         FDrive_Update();

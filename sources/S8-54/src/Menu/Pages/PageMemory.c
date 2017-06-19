@@ -165,7 +165,7 @@ static const Choice cPoints =
         {"16к", "16k"}
         //,{"32к", "32k"}
     },
-    (int8*)&FPGA_NUM_POINTS, OnChanged_Points
+    (int8*)&FPGA_ENUM_POINTS, OnChanged_Points
 };
 
 static bool IsActive_Points(void)
@@ -183,10 +183,10 @@ void OnChanged_Points(bool active)
     }
 
     // Блокируем включение 32к длины записи, если включен второй канал
-    if (FPGA_NUM_POINTS_32k && SET_ENABLED_B)
+    if (FPGA_POINTS_32k && SET_ENABLED_B)
     {
         Display_ShowWarning(DisableChannel2);
-        FPGA_NUM_POINTS = FNP_16k;
+        FPGA_ENUM_POINTS = FNP_16k;
     }
 
     int width = GridWidth();

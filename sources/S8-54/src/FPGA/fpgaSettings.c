@@ -162,7 +162,9 @@ void LoadTShift(void)
     }
     else
     {
-        gPred = (int16)BYTES_IN_CHANNEL(DS) / 2 - (int16)gPost;
+        gPred = (int16)SET_BYTES_IN_CHANNEL / 2 - (int16)gPost;
+
+        //LOG_WRITE_TRACE("bytes in channel %d", BYTES_IN_CHANNEL(DS));
 
         if (gPred < 0)
         {

@@ -30,11 +30,11 @@
 #define SHOW_IN_INT_DIRECT      (SHOW_IN_INT == ModeShowIntMem_Direct)
 #define SHOW_IN_INT_BOTH        (SHOW_IN_INT == ModeShowIntMem_Both)
 
-#define FPGA_NUM_POINTS         (set.mem_ENumPointsFPGA)
-#define FPGA_NUM_POINTS_512     (FPGA_NUM_POINTS == FNP_512)
-#define FPGA_NUM_POINTS_8k      (FPGA_NUM_POINTS == FNP_8k)
-#define FPGA_NUM_POINTS_16k     (FPGA_NUM_POINTS == FNP_16k)
-#define FPGA_NUM_POINTS_32k     (FPGA_NUM_POINTS == FNP_32k)
+#define FPGA_ENUM_POINTS        (set.mem_ENumPointsFPGA)
+#define FPGA_POINTS_512         (FPGA_ENUM_POINTS == FNP_512)
+#define FPGA_POINTS_8k          (FPGA_ENUM_POINTS == FNP_8k)
+#define FPGA_POINTS_16k         (FPGA_ENUM_POINTS == FNP_16k)
+#define FPGA_POINTS_32k         (FPGA_ENUM_POINTS == FNP_32k)
 
 #define MODE_BTN_MEMORY         (set.mem_ModeBtnMemory)
 #define MODE_BTN_MEMORY_MENU    (MODE_BTN_MEMORY == ModeBtnMemory_Menu)

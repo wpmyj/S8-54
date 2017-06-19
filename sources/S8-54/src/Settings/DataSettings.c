@@ -14,7 +14,7 @@ StateOSCI gState = StateOSCI_Start;
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 int NumBytesInChannel_(DataSettings *ds, bool forCalculate)
 {
-    static const int numPoints[FPGA_NUM_POINTS_SIZE][3] =
+    static const int numPoints[FPGA_ENUM_POINTS_SIZE][3] =
     {
         {512,   1024,  1024},
         {1024,  2048,  2048},
@@ -25,12 +25,14 @@ int NumBytesInChannel_(DataSettings *ds, bool forCalculate)
         {32768, 32768, 32768}
     };
 
-    if(FPGA_NUM_POINTS >= FNP_1k && forCalculate)
+    if(FPGA_ENUM_POINTS >= FNP_1k && forCalculate)
     {
         return FPGA_MAX_POINTS_FOR_CALCULATE;
     }
 
-    return numPoints[FPGA_NUM_POINTS][PEACKDET(ds)];
+
+
+    return numPoints[FPGA_ENUM_POINTS][PEACKDET(ds)];
 }
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
@@ -118,5 +120,5 @@ void DataSettings_Fill(DataSettings *ds)
     Lval_DIVIDER_A(ds) = SET_DIVIDER_A;
     Lval_DIVIDER_B(ds) = SET_DIVIDER_B;
     TIME_MS(ds) = 0;                        // Ёто важно дл€ режима поточеного вывода. ќзначает, что полный сигнал ещЄ не считан
-    ENUM_POINTS(ds) = FPGA_NUM_POINTS;
+    ENUM_POINTS(ds) = FPGA_ENUM_POINTS;
 }

@@ -8,7 +8,7 @@
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 int sMemory_NumPointsInChannel_(void)
 {
-    static const int numPoints[FPGA_NUM_POINTS_SIZE] =
+    static const int numPoints[FPGA_ENUM_POINTS_SIZE] =
     {
         512,
         1024,
@@ -19,7 +19,7 @@ int sMemory_NumPointsInChannel_(void)
         32768
     };
 
-    return numPoints[FPGA_NUM_POINTS];
+    return numPoints[FPGA_ENUM_POINTS];
 }
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
@@ -46,7 +46,7 @@ ENumPointsFPGA NumPoints_2_ENumPoints(int numPoints)
 //----------------------------------------------------------------------------------------------------------------------------------------------------
 int ENumPoints_2_NumPoints(ENumPointsFPGA numPoints)
 {
-    static const int n[FPGA_NUM_POINTS_SIZE] =
+    static const int n[FPGA_ENUM_POINTS_SIZE] =
     {
         512,
         1024,

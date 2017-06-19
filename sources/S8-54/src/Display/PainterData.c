@@ -239,7 +239,7 @@ void PainterData_DrawMemoryWindow(void)
         }
     }
 
-    Painter_DrawRectangleC(xVert0, top, width - (FPGA_NUM_POINTS_8k ? 1 : 0), bottom - top + 1, gColorFill); //-V2007
+    Painter_DrawRectangleC(xVert0, top, width - (FPGA_POINTS_8k ? 1 : 0), bottom - top + 1, gColorFill); //-V2007
 
     DrawTPos(leftX, rightX);
 
@@ -507,7 +507,7 @@ static void DrawTShift(int leftX, int rightX, int numBytes)
             --xShift;
         }
     }
-    if (FPGA_NUM_POINTS_512)
+    if (FPGA_POINTS_512)
     {
         ++xShift;                           /// \todo Костыль
     }
@@ -641,11 +641,6 @@ static bool DataBeyondTheBorders(const uint8 *data, int firstPoint, int lastPoin
 //----------------------------------------------------------------------------------------------------------------------------------------------------
 static void DrawSignalLined(const uint8 *data, int startPoint, int endPoint, int minY, int maxY, float scaleY, float scaleX, bool calculateFiltr)
 {
-    if (curCh == A)
-    {
-        DBG_CompareFirstBytes2((uint8*)data);
-    }
-
     uint8 dataCD[281];
 
     if (endPoint < startPoint)
