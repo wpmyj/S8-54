@@ -47,7 +47,10 @@ void PainterDataNew_DrawData(void)
                 DrawData_ModeDir();                 // “о нарисуем сигнал нормального режима
             }
         }
-        DrawData_ModeROM();
+        if (SHOW_IN_INT_BOTH || SHOW_IN_INT_SAVED)
+        {
+            DrawData_ModeROM();
+        }
     }
     
 }
