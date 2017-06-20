@@ -143,5 +143,5 @@ static void DrawData_Out(Channel ch, uint8 *data)
         }
     }
 
-    //Painter_EndScene();
+    RunDisplay();
 }

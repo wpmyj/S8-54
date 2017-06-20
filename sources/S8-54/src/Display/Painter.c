@@ -34,7 +34,7 @@ static enum StateTransmit
 
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-static void RunDisplay(void);
+void RunDisplay(void);
 static void OnTimerFlashDisplay(void);
 static void CalculateColor(uint8 *color);
 static uint8 Read2points(int x, int y);
@@ -637,7 +637,7 @@ void Painter_SendToInterfaces(uint8 *pointer, int size)
 }
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
-static void RunDisplay(void)
+void RunDisplay(void)
 {
     uint8 command[4] = {RUN_BUFFER};
 

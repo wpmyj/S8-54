@@ -546,6 +546,7 @@ static void ReadChannel(uint8 *data, Channel ch, int length, uint16 nStop, bool 
         *((uint8*)p) = ((*address) >> 8);
 
         p = (uint16*)(((uint8*)p) + 1);
+        endP -= 8;                          // Это нужно, чтбы не выйти за границу буфера - ведь мы сдвигаем данные на один байт
     }
 
     while (p < endP && gBF.FPGAinProcessingOfRead == 1)
@@ -558,6 +559,14 @@ static void ReadChannel(uint8 *data, Channel ch, int length, uint16 nStop, bool 
         *p++ = READ_DATA_ADC_16(address, ch);
         *p++ = READ_DATA_ADC_16(address, ch);
         *p++ = READ_DATA_ADC_16(address, ch);
+    }
+
+    if (shift)                              ///  \todo Во-первых, теряется один байт. Во-вторых, не очень-то красиво выглядит
+    {
+        while (p < (uint16*)&data[length - 1])
+        {
+            *p++ = READ_DATA_ADC_16(address, ch);
+        }
     }
 
     if (balance != 0)
