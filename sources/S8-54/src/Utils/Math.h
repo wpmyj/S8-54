@@ -11,9 +11,9 @@
  *  @{
  */
 
-#define LIMIT_BELOW(x, min)         if(x < (min)) { (x) = (min); }
+#define LIMIT_BELOW(x, min)         if((x) < (min)) { (x) = (min); }
 
-#define LIMIT_ABOVE(x, max)         if(x > (max)) { (x) = (max); }
+#define LIMIT_ABOVE(x, max)         if((x) > (max)) { (x) = (max); }
 
 #define SET_MIN_IF_LESS(x, min)     if((x) < (min)) { (min) = (x); }
 

@@ -4,6 +4,7 @@
 #include "FPGA/Data.h"
 #include "FPGA/DataBuffer.h"
 #include "Settings/Settings.h"
+#include "Utils/Math.h"
 
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -17,6 +18,10 @@ static void DrawData_ModeROM(void);
 static void DrawData_OutAB(void);
 /// Нарисовать данные из outA или outB.
 static void DrawData_Out(Channel ch, uint8 *data);
+/// Нарисовать данные из outA или outB c выключенным пиковым детектором.
+static void DrawData_Out_Normal(Channel ch, uint8 data[281], int left, int bottom, float scaleY);
+/// Нарисовать данные из outA или outB с включённым пиковым детектором.
+static void DrawData_Out_PeakDet(Channel ch, uint8 data[281 * 2], int left, int bottom, float scaleY);
 
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -101,8 +106,6 @@ static void DrawData_Out(Channel ch, uint8 *data)
         return;
     }
 
-    //Painter_EndScene();
-
     Painter_SetColor(gColorChan[ch]);
 
     int pointFirst = 0;
@@ -115,33 +118,95 @@ static void DrawData_Out(Channel ch, uint8 *data)
 
     float scaleY = (bottom - top) / (float)(MAX_VALUE - MIN_VALUE);
 
-    uint8 *in = data + pointFirst;
-
-    for (int i = 0; i < 280; ++i)
+    /// \todo Переделать на массив функций.
+    if(G_PEACKDET)
     {
+        DrawData_Out_PeakDet(ch, data + pointFirst * 2, left, bottom, scaleY);  
+    }
+    else
+    {
+        DrawData_Out_Normal(ch, data + pointFirst, left, bottom, scaleY);
+    }
+
+    Painter_RunDisplay();
+}
+
+//----------------------------------------------------------------------------------------------------------------------------------------------------
+static void DrawData_Out_Normal(Channel ch, uint8 data[281], int left, int bottom, float scaleY)
+{
+    float k = bottom + MIN_VALUE * scaleY;
+
+    for(int i = 0; i < 280; ++i)                        /// \todo Последня точка не рисуется.
+    {
+        uint8 val = data[i];
+
+        if(val == 0)
+        {
+            continue;                                   // Если это значение отсутствует - переходим к следующей точке
+        }
+
+        LIMITATION(val, val, MIN_VALUE, MAX_VALUE);
+
+        int y = k - val * scaleY;                       //int y = bottom - (val - MIN_VALUE) * scaleY;
+
         int x = left + i;
 
-        uint8 val = in[i];
-
-        if (val == 0) { continue; }                     // Если это значение отсутствует - переходим к следующей точке
-
-        if (val < MIN_VALUE)  { val = MIN_VALUE; }      // Вписываем сигнал
-
-        if (val > MAX_VALUE)  { val = MAX_VALUE; }      // в допустимый диапазон
-
-        int y = bottom - (val - MIN_VALUE) * scaleY;    // Нашли положение нашей точки по оси Y
-
-        if (MODE_DRAW_SIGNAL_POINTS)
+        if(MODE_DRAW_SIGNAL_POINTS)
         {
             Painter_SetPoint(x, y);
         }
         else
         {
-            int yNext = bottom - (in[i + 1] - MIN_VALUE) * scaleY;
+            int yNext = k - data[i + 1] * scaleY;       //int yNext = bottom - (data[i + 1] - MIN_VALUE) * scaleY;
 
-            Painter_DrawLine(x, y, x, yNext);
+            if(yNext < y)
+            {
+                Painter_DrawVLine(x, y, yNext + 1);
+            }
+            else if(yNext > y)
+            {
+                Painter_DrawVLine(x, y, yNext - 1);
+            }
+            else
+            {
+                Painter_SetPoint(x, y);
+            }
+
         }
     }
+}
 
-    RunDisplay();
+//----------------------------------------------------------------------------------------------------------------------------------------------------
+static void DrawData_Out_PeakDet(Channel ch, uint8 data[281 * 2], int left, int bottom, float scaleY)
+{
+    float k = bottom + MIN_VALUE * scaleY;
+
+    for(int i = 0; i < 281; i++)
+    {
+        uint8 min = data[i * 2];
+        uint8 max = data[i * 2 + 1];
+
+        if(min == 0 || max == 0)
+        {
+            continue;
+        }
+
+        LIMITATION(min, min, MIN_VALUE, MAX_VALUE);
+        LIMITATION(max, max, MIN_VALUE, MAX_VALUE);
+
+        int yMin = k - min  * scaleY;
+        int yMax = k - max  * scaleY;
+
+        int x = left + i;
+
+        if(MODE_DRAW_SIGNAL_POINTS)
+        {
+            Painter_SetPoint(x, yMin);
+            Painter_SetPoint(x, yMax);
+        }
+        else
+        {
+            Painter_DrawVLine(x, yMin, yMax);
+        }
+    }
 }

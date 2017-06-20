@@ -29,15 +29,13 @@
 
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-static int xP2P = 0;                ///< Здесь хранится значение для отрисовки вертикальной линии.
+//static int xP2P = 0;                ///< Здесь хранится значение для отрисовки вертикальной линии.
 static Channel curCh = A;           ///< Текущий ресуемый канал.
 
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-static void DrawDataInModeDirect(void);
-static void DrawDataMinMax(void);
 /// Нарисовать оба канала.
-static void DrawDataChannels(uint8 *dataA, uint8 *dataB);
+//static void DrawDataChannels(uint8 *dataA, uint8 *dataB);
 static void DrawDataChannel(Channel ch, uint8 *dataIn);
 static void DrawDataInRect(int x, uint width, const uint8 *data, int numElems, bool peackDet);
 static void DrawTPos(int leftX, int rightX);
@@ -59,61 +57,6 @@ static void SendToDisplayDataInRect(int x, const int *min, const int *max, uint 
 
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-void PainterData_DrawData(void)
-{
-    xP2P = 0;
-
-	if (!IN_P2P_MODE && (DS_NumElementsInStorage() < 2))    /** \todo Это сделано для того, чтобы не было артефактов при включении
-                                                             Но не факт, что причина в этом. И в поточечном режиме однозначно долго ждать */
-	{
-        Painter_DrawRectangleC(GridLeft(), GRID_TOP, GridWidth(), GridFullHeight(), gColorFill);
-		return;
-	}
-	// Режим просмотра сигналов, записанных в ППЗУ
-	if (MODE_WORK_ROM)
-	{
-        if (SHOW_IN_INT_DIRECT || SHOW_IN_INT_BOTH)
-        {
-            Data_ReadDataRAM(0);
-            DrawDataInModeDirect();
-        }
-    
-        if (SHOW_IN_INT_SAVED || SHOW_IN_INT_BOTH)
-        {
-            Data_ReadDataROM();
-            DrawDataChannels(outA, outB);
-        }
-	}
-	// Режим просмотра сигналов ОЗУ
-	else if (MODE_WORK_RAM)
-	{
-		DrawDataChannels(outA, outB);
-	}
-	// Нормальный режим
-	else
-	{
-		if (ALWAYS_SHOW_ROM_SIGNAL)             // Если нужно показывать сигннал из ППЗУ
-		{
-			//DrawDataChannels(outA, outB);
-		}
-
-		DrawDataInModeDirect();    
-	}
-
-	if (NUM_MIN_MAX != 1)
-	{
-		DrawDataMinMax();
-	}
-
-    if (xP2P)
-    {
-        Painter_DrawVLineC(xP2P, GRID_TOP, GridFullBottom(), gColorGrid);
-    }
-
-    Painter_DrawRectangleC(GridLeft(), GRID_TOP, GridWidth(), GridFullHeight(), gColorFill);
-}
-
-//----------------------------------------------------------------------------------------------------------------------------------------------------
 void PainterData_DrawMath(void)
 {
     if (!FUNC_ENABLED || DS_GetData_RAM(A, 0) == 0 || DS_GetData_RAM(B, 0) == 0)
@@ -250,52 +193,6 @@ void PainterData_DrawMemoryWindow(void)
     }
 }
 
-//----------------------------------------------------------------------------------------------------------------------------------------------------
-static void DrawDataInModeDirect(void)
-{
-    uint numBytesInChannel = G_BYTES_IN_CHANNEL;
-    uint numPoints_2_FPGA_NUM_POINTS = (uint)NumPoints_2_ENumPoints(numBytesInChannel);
-
-    int16 numSignals = (int16)DS_NumElementsWithSameSettings();
-    LIMITATION(numSignals, numSignals, 1, DISPLAY_NUM_ACCUM);
-    if (numSignals == 1 ||              // В хранилище только один сигнал с текущими настройками
-        NUM_ACCUM_INF ||                // или бесконечное накопление
-        MODE_ACCUM_RESET ||             // или автоматическая очистка экрана для накопления
-        IN_RANDOM_MODE)                 // или в режиме рандомизатора
-    {
-        Data_ReadDataRAM(0);
-        DrawDataChannels(outA, outB);
-    }
-    else
-    {
-        for (int i = 0; i < numSignals; i++)    // Иначе рисуем необходимое число последних сигналов
-        {
-            DrawDataChannels(DS_GetData_RAM(A, i), DS_GetData_RAM(B, i));
-        }
-    }
-}
-
-//----------------------------------------------------------------------------------------------------------------------------------------------------
-static void DrawDataMinMax(void)
-{
-    ModeDrawSignal modeDrawSignalOld = MODE_DRAW_SIGNAL;
-    MODE_DRAW_SIGNAL = ModeDrawSignal_Lines;
-    if (LAST_AFFECTED_CH == B)
-    {
-        DrawDataChannel(A, DS_GetLimitation(A, 0));
-        DrawDataChannel(A, DS_GetLimitation(A, 1));
-        DrawDataChannel(B, DS_GetLimitation(B, 0));
-        DrawDataChannel(B, DS_GetLimitation(B, 1));
-    }
-    else
-    {
-        DrawDataChannel(B, DS_GetLimitation(B, 0));
-        DrawDataChannel(B, DS_GetLimitation(B, 1));
-        DrawDataChannel(A, DS_GetLimitation(A, 0));
-        DrawDataChannel(A, DS_GetLimitation(A, 1));
-    }
-    MODE_DRAW_SIGNAL = modeDrawSignalOld;
-}
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
 static void DrawDataChannel(Channel ch, uint8 *dataIn)
@@ -480,16 +377,18 @@ static void SendToDisplayDataInRect(int x, const int *min, const int *max, uint 
 
     uint8 points[width * 2];
 
-    uint8 _min = 255;
-    uint8 _max = 0;
+//    uint8 _min = 255;
+//    uint8 _max = 0;
 
     for (uint i = 0; i < width; i++)
     {
         points[i * 2] = max[i];
+        /*
         if (points[i * 2] > _max)
         {
             _max = points[i * 2];
         }
+        */
         points[i * 2 + 1] = min[i];
     }
 
@@ -546,29 +445,6 @@ static void DrawTShift(int leftX, int rightX, int numBytes)
     Painter_DrawLine((int)xShift + dX02, 4, (int)xShift + 2, dY12 - 2); //-V112
 }
 
-//----------------------------------------------------------------------------------------------------------------------------------------------------
-static void DrawDataChannels(uint8 *dataA, uint8 *dataB)
-{
-    if(!DS)
-    {
-        return;
-    }
-
-    Channel chanFirst = LAST_AFFECTED_CH_IS_A ? B : A;
-    uint8 *dataFirst = LAST_AFFECTED_CH_IS_A ? dataB : dataA;
-    
-    Channel chanSecond = chanFirst == A ? B : A;
-    uint8 *dataSecond = dataFirst == dataA ? dataB : dataA;
-    
-    if(ENABLED(DS, chanFirst))
-    {
-        DrawDataChannel(chanFirst, dataFirst);
-    }
-    if(ENABLED(DS, chanSecond))
-    {
-        DrawDataChannel(chanSecond, dataSecond);
-    }
-}
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
 static int FillDataP2P(uint8 *data, DataSettings **ds)
@@ -786,7 +662,7 @@ static int FillDataP2PforNormal(int numPoints, int numPointsDS, int pointsInScre
         RAM_MemCpy16(src, dest, numPoints < numPointsDS ? numPoints : numPointsDS);
     }
 
-    int kP2P = SET_PEACKDET_EN ? 2 : 1;
+//    int kP2P = SET_PEACKDET_EN ? 2 : 1;
 
     if (numPoints > pointsInScreen)
     {
@@ -797,13 +673,13 @@ static int FillDataP2PforNormal(int numPoints, int numPointsDS, int pointsInScre
 
         memcpy(dataTemp, dest + numScreens * pointsInScreen - deltaNumPoints, numPoints % pointsInScreen);  // Теперь скопируем остаток в начало буфера
 
-        xP2P = GridLeft() + ((numPoints  % pointsInScreen) / kP2P) - 1;
+//        xP2P = GridLeft() + ((numPoints  % pointsInScreen) / kP2P) - 1;
 
         memcpy(dest, dataTemp, pointsInScreen);                                                             // Теперь скопируем временный буфер в выходной
     }
     else
     {
-        xP2P = GridLeft() + numPoints / kP2P - 1;
+//        xP2P = GridLeft() + numPoints / kP2P - 1;
     }
 
     return numPoints > pointsInScreen ? pointsInScreen : numPoints;

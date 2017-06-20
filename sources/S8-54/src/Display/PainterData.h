@@ -1,4 +1,4 @@
-п»ї#pragma once
+#pragma once
 #include "defines.h"
 
 
@@ -7,15 +7,15 @@
 /** @addtogroup Painter
  *  @{
  *  @defgroup PainterData
- *  @brief Р¤СѓРЅРєС†РёРё РѕС‚СЂРёСЃРѕРІРєРё РґР°РЅРЅС‹С…
+ *  @brief Функции отрисовки данных
  *  @{
  */
 
-/// РќР°СЂРёСЃРѕРІР°С‚СЊ РґР°РЅРЅС‹Рµ РЅР° СЌРєСЂР°РЅРµ
-void PainterData_DrawData(void);
-/// РќР°СЂРёСЃРѕРІР°С‚СЊ СЂРµР·СѓР»СЊС‚Р°С‚ РјР°С‚РµРјР°С‚РёС‡РµСЃРєРѕР№ С„СѓРЅРєС†РёРё
+/// Нарисовать данные на экране
+//void PainterData_DrawData(void);
+/// Нарисовать результат математической функции
 void PainterData_DrawMath(void);
-/// РќР°СЂРёСЃРѕРІР°С‚СЊ РґР°РЅРЅС‹Рµ РІ РѕРєРЅРµ РїР°РјСЏС‚Рё
+/// Нарисовать данные в окне памяти
 void PainterData_DrawMemoryWindow(void);
 
 /** @}  @}
