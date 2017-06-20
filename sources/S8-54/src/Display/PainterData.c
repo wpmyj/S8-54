@@ -488,7 +488,7 @@ static void SendToDisplayDataInRect(int x, const int *min, const int *max, uint 
         points[i * 2] = max[i];
         if (points[i * 2] > _max)
         {
-            _max = points[i * 2]
+            _max = points[i * 2];
         }
         points[i * 2 + 1] = min[i];
     }

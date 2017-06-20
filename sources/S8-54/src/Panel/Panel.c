@@ -345,7 +345,7 @@ void Panel_Update(void)
         else if (pressButton)
         {
             funcButton[pressButton].funcOnKey(1);
-            if (funcButton[pressButton].funcOnKey == EFB)   /// \todo Тут вообще-то пустую функцию нужно заменить нулём...
+            //if (funcButton[pressButton].funcOnKey == EFB)   /// \todo Тут вообще-то пустую функцию нужно заменить нулём...
             {
                 Menu_PressButton(pressButton);
             }
