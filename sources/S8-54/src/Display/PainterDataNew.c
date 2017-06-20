@@ -22,6 +22,9 @@ static void DrawData_Out(Channel ch, uint8 *data);
 static void DrawData_Out_Normal(Channel ch, uint8 data[281], int left, int bottom, float scaleY);
 /// Ќарисовать данные из outA или outB с включЄнным пиковым детектором.
 static void DrawData_Out_PeakDet(Channel ch, uint8 data[281 * 2], int left, int bottom, float scaleY);
+/// \brief »спользуетс€ в режиме пикового детектора. ¬ in хран€тс€ два значени€, соответствующие максимальному и минимальному. 
+/// ќни перемещаютс€ в out в возрастающем пор€дке out[0] = min, out[1] = max. ¬озвращает false, если точка не считана - хот€ бы одно значение == 0.
+static bool CalcMinMax(uint8 in[2], uint8 out[2]);
 
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -181,32 +184,90 @@ static void DrawData_Out_PeakDet(Channel ch, uint8 data[281 * 2], int left, int 
 {
     float k = bottom + MIN_VALUE * scaleY;
 
-    for(int i = 0; i < 281; i++)
+    for(int i = 0; i < 280; i++)
     {
-        uint8 min = data[i * 2];
-        uint8 max = data[i * 2 + 1];
 
-        if(min == 0 || max == 0)
+#define Y_MIN in[0]
+#define Y_MAX in[1]
+#define Y_MIN_NEXT inNext[0]
+#define Y_MAX_NEXT inNext[1]
+
+        uint8 in[2];            // «десь будут хранитьс€ отсортированные по возрастанию значени€
+        if(!CalcMinMax(data + i * 2, in))
         {
             continue;
         }
+        
+        uint8 inNext[2];
+        if(!CalcMinMax(data + (i + 1) * 2, inNext))
+        {
+            Y_MIN_NEXT = Y_MIN;
+            Y_MAX_NEXT = Y_MAX;
+        }
 
-        LIMITATION(min, min, MIN_VALUE, MAX_VALUE);
-        LIMITATION(max, max, MIN_VALUE, MAX_VALUE);
-
-        int yMin = k - min  * scaleY;
-        int yMax = k - max  * scaleY;
+        int min = k - Y_MAX * scaleY;
+        int max = k - Y_MIN * scaleY;
+        int minNext = k - Y_MAX_NEXT * scaleY;
+        int maxNext = k - Y_MIN_NEXT * scaleY;
 
         int x = left + i;
 
+        if(maxNext < min)
+        {
+            min = maxNext + 1;
+        }
+        if(minNext > max)
+        {
+            max = minNext - 1;
+        }
+
         if(MODE_DRAW_SIGNAL_POINTS)
         {
-            Painter_SetPoint(x, yMin);
-            Painter_SetPoint(x, yMax);
+            Painter_SetPoint(x, min);
+            Painter_SetPoint(x, max);
         }
         else
         {
-            Painter_DrawVLine(x, yMin, yMax);
+            if(min == max)
+            {
+                Painter_SetPoint(x, min);
+            }
+            else
+            {
+                Painter_DrawVLine(x, min, max);
+            }
         }
     }
+
+#undef Y_MIN
+#undef Y_MAX
+#undef Y_MIN_NEXT
+#undef Y_MAX_NEXT
+}
+
+//----------------------------------------------------------------------------------------------------------------------------------------------------
+static bool CalcMinMax(uint8 in[2], uint8 out[2])
+{
+    uint8 val1 = in[0];
+    uint8 val2 = in[1];
+    if(val1 == 0 || val2 == 0)
+    {
+        return false;
+    }
+
+    LIMITATION(val1, val1, MIN_VALUE, MAX_VALUE);
+    LIMITATION(val2, val2, MIN_VALUE, MAX_VALUE);
+
+    if(val1 < val2)
+    {
+        out[0] = val1;
+        out[1] = val2;
+    }
+    else
+    {
+        out[0] = val2;
+        out[1] = val1;
+    }
+
+    return true;
 }

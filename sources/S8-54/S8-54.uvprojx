@@ -1079,6 +1079,16 @@
               <FileType>5</FileType>
               <FilePath>.\src\Display\WelcomeScreen.h</FilePath>
             </File>
+            <File>
+              <FileName>PainterDataNew.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\src\Display\PainterDataNew.c</FilePath>
+            </File>
+            <File>
+              <FileName>PainterDataNew.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\src\Display\PainterDataNew.h</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
