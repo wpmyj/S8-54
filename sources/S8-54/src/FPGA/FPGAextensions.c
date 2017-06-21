@@ -972,6 +972,12 @@ void FPGA_AutoFind(void)
     */
     extern int8 showAutoFind;
 
+    /** \todo Оптимизировать алгоритм в плане скорости.\n
+                1. Сначала находим время между флагами снихронизации.\n
+                2. Затем устанавливаем такую развёртку, чтобы на длину памяти приходилось не более двух импульсов синхронизации.\n
+                3. Это позволит быстрее считывать и обрабатывать данные.
+    */
+
     if (!showAutoFind)
     {
         Display_FuncOnWaitStart("Идёт поиск сигнала", "Searching for a signal", true);
@@ -1002,8 +1008,6 @@ void FPGA_AutoFind(void)
 
     NEED_AUTO_FIND = 0;
 
-    FPGA_SetTBase(settings.time_TBase);
-
     FPGA_Start();
 }
 
@@ -1032,8 +1036,6 @@ static bool FindWave(Channel ch)
     }
 
     FPGA_SetRange(ch, range);
-
-    return true;
 
     return AccurateFindParams(ch);
 }
