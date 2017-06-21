@@ -49,16 +49,6 @@ void Data_ReadDataRAM(int fromEnd)
     }
 }
 
-void Data_GetFromIntMemory(void)
-{
-    /*
-    if(FLASH_GetData(NUM_ROM_SIGNAL, &pDSROM, &dataROMA, &dataROMB))
-    {
-    memcpy(&dataSettingsROM, (void*)pDSROM, sizeof(DataSettings));
-    }
-    */
-}
-
 //----------------------------------------------------------------------------------------------------------------------------------------------------
 void Data_ReadDataROM(void)
 {
@@ -86,44 +76,6 @@ void Data_GetAverageFromDataStorage(void)
             memcpy(inB, DS_GetAverageData(B), BYTES_IN_CHANNEL(DS));
         }
     }
-}
-
-//----------------------------------------------------------------------------------------------------------------------------------------------------
-void Data_Load(void)
-{
-    Data_Clear();
-
-    if (DS_NumElementsInStorage() == 0)
-    {
-        return;
-    }
-
-    if (MODE_WORK_DIR)                              // Если находимся в реальном режиме
-    {   
-        GetDataFromStorage();                       // Считываем данные из хранилища
-
-        if (ALWAYS_SHOW_ROM_SIGNAL)                 // И, если нужно показывать сигнал из ППЗУ и в основном режиме
-        {
-            Data_GetFromIntMemory();                // то из хранилща
-        }
-    }
-    else if (MODE_WORK_RAM)                         // Если находимся в режиме отображения последних
-    {
-//        DS_GetDataFromEnd_RAM(NUM_RAM_SIGNAL, &pDSRAM, (uint16**)&dataRAMA, (uint16**)&dataRAMB);
-    }
-    else if (MODE_WORK_ROM)
-    {
-        if (!SHOW_IN_INT_DIRECT)                    // Есил покажывается не только непосредственный сигнал
-        {
-            Data_GetFromIntMemory();                // то читаем сохранённый из ППЗУ
-        }
-
-        if (SHOW_IN_INT_DIRECT || SHOW_IN_INT_BOTH) // И, если нужно
-        {
-            GetDataFromStorage();                   // из хранилища
-        }
-    }
-    
 }
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------

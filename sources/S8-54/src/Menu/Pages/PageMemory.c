@@ -548,7 +548,6 @@ static void OnRegSet_Internal(int delta)
     {
         CircleIncreaseInt8(&NUM_ROM_SIGNAL, 0, MAX_NUM_SAVED_WAVES - 1);
     }
-    Data_GetFromIntMemory();
     Painter_ResetFlash();
 }
 

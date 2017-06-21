@@ -60,9 +60,6 @@ EXTERN DataSettings *pDS;               ///< Указатель на настройки текущего рис
 
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-/// Считать из ППЗУ информацию о настройках и указатели на данные.
-void Data_GetFromIntMemory(void);
-
 void Data_GetAverageFromDataStorage(void);
 
 void Data_Clear(void);
@@ -71,8 +68,6 @@ void Data_Clear(void);
 void Data_ReadDataRAM(int fromEnd);
 /// Читает данные из EPROM. Номер сигнала - глобвльнй NUM_ROM_SIGNAL и заполняет данными inA(B), outA(B), DS.
 void Data_ReadDataROM(void);
-/// Здесь заполняем указатели на данные и их настройки в соответствии с текущими режимами отображения.
-void Data_Load(void);
 /// Устанавливает глобальные указатели в соответствии с сигналом, параметры которого нужно выводить на экран.
 void Data_PrepareToDrawSettings(void);
 

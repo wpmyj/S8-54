@@ -87,15 +87,18 @@ static void DrawData_ModeROM(void)
 //----------------------------------------------------------------------------------------------------------------------------------------------------
 static void DrawData_OutAB(void)
 {
-    if (LAST_AFFECTED_CH_IS_A)
+    if (DS)
     {
-        DrawData_Out(B, outB);
-        DrawData_Out(A, outA);
-    }
-    else
-    {
-        DrawData_Out(A, outA);
-        DrawData_Out(B, outB);
+        if (LAST_AFFECTED_CH_IS_A)
+        {
+            DrawData_Out(B, outB);
+            DrawData_Out(A, outA);
+        }
+        else
+        {
+            DrawData_Out(A, outA);
+            DrawData_Out(B, outB);
+        }
     }
 
     Painter_DrawRectangleC(GridLeft(), GRID_TOP, GridWidth(), GridFullHeight(), gColorFill);                                                                                                                         
