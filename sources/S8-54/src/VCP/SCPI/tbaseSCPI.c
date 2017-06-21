@@ -160,8 +160,6 @@ void Process_PEACKDET(uint8 *buffer)
 //----------------------------------------------------------------------------------------------------------------------------------------------------
 void Process_TPOS(uint8 *buffer)
 {
-    extern void OnChanged_TPos(bool active);
-    
     static const MapElement map[] =
     {
         {"LEFT",   0},
@@ -171,7 +169,7 @@ void Process_TPOS(uint8 *buffer)
         {0}
     };
     ENTER_ANALYSIS
-        if (value < 3)      { TPOS = (TPos)value; OnChanged_TPos(true); }
+        if (value < 3)      { FPGA_SetTPos((TPos)value); }
         else if (4 == value)
         {
             SCPI_SEND(":TBASE:TPOS %s", map[TPOS].key);

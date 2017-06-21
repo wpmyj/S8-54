@@ -63,7 +63,7 @@ static bool RunFuncAndWaitFlag(pFuncVV func, uint8 flag);
 static bool FindWave(Channel ch);
 static bool AccurateFindParams(Channel ch);
 static bool FindParams(Channel ch, TBase *tBase);
-static Range FindRange(Channel ch);
+static Range FindRange(Channel ch);                 ///< Возвращает RangeSize, если масштаб не найден.
 static void FuncDrawAutoFind(Channel ch);
 static void CalibrateStretch(Channel ch);
 /** @}
@@ -959,6 +959,17 @@ void FreqMeter_Update(uint16 flag_)
 //----------------------------------------------------------------------------------------------------------------------------------------------------
 void FPGA_AutoFind(void)
 {
+    /*
+        Алгоритм поиска.
+        1. Устанавливаем закрытый вход по каналу, синхронизация - ПС.
+        2. Устанавливаем развёртку 20мс/дел, растяжку - 2мВ/дел.
+        3. Запускаем АЦП.
+        4. Ждём синхронизацию. Если синхронизации нет - переходим на второй канал. Если есть:
+        5. Включаем пиковый детектр и считываем данные. Если считанные данные занимают по высоте меньше 2 клеток - переходим к поиску по второму 
+            каналу. Если занимают больше 2 клеток:
+        6. Устанавливаем вертикальный масштаб 5мВ, 10мВ, 20мВ и более, пока считанный сигнал полностью не впишется в экран.
+        7. Переходим к поиску TBase.
+    */
     extern int8 showAutoFind;
 
     if (!showAutoFind)
@@ -975,7 +986,7 @@ void FPGA_AutoFind(void)
     if (!FindWave(A))
     {
         if (!FindWave(B))
-        {                                         // Если не удалось найти сигнал, то:
+        {                                           // Если не удалось найти сигнал, то:
             Display_ShowWarning(SignalNotFound);    // выводим соотвествующее сообщение,
             set = settings;                         // восстанавливаем предыдущие настройки
             FPGA_LoadSettings();                    // и загружаем их в альтеру
@@ -990,6 +1001,8 @@ void FPGA_AutoFind(void)
     }
 
     NEED_AUTO_FIND = 0;
+
+    FPGA_SetTBase(settings.time_TBase);
 
     FPGA_Start();
 }
@@ -1011,67 +1024,112 @@ static bool FindWave(Channel ch)
     FPGA_SetModeCouple(ch, ModeCouple_AC);
     FPGA_SetTrigInput(TrigInput_Full);
 
-    Range range0 = FindRange(ch);
-    Range range1 = FindRange(ch);
+    Range range = FindRange(ch);
 
-    while (range0 != range1)
+    if (range == RangeSize)
     {
-        range1 = range0;
-        range0 = FindRange(ch);
+        return false;
     }
 
-    FPGA_SetRange(ch, range0);
+    FPGA_SetRange(ch, range);
+
+    return true;
 
     return AccurateFindParams(ch);
+}
+
+//----------------------------------------------------------------------------------------------------------------------------------------------------
+/// \brief Функция даёт старт АЦП и ждёт считывания информаии timeWait мс. Если данные получены, то функция возвращает true и их можно получить 
+/// DS_GetData_RAM(ch, 0). Если данные не получены, функция возвращает false.
+static bool ReadingCycle(uint timeWait)
+{
+    FPGA_Start();
+    uint timeStart = HAL_GetTick();
+    while(!ProcessingData())
+    { 
+        if ((HAL_GetTick() - timeStart) > timeWait)
+        {
+            FPGA_Stop(false);
+
+            return false;
+        }
+    };
+    FPGA_Stop(false);
+
+    return true;
+}
+
+//----------------------------------------------------------------------------------------------------------------------------------------------------
+/// Возвращает размах сигнала - разность между минимальным и максимальным значениями
+static uint8 GetBound(uint8 data[512], uint8 *_min, uint8 *_max)
+{
+    uint8 min = 255;
+    uint8 max = 0;
+    for (int i = 0; i < 512; i++)
+    {
+        SET_MIN_IF_LESS(data[i], min);
+        SET_MAX_IF_LARGER(data[i], max);
+    }
+
+    *_min = min;
+    *_max = max;
+
+    return max - min;
 }
 
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
 static Range FindRange(Channel ch)
 {
-    ACCESS_EXTRAMEM(StrForAutoFind, s);
-
     PeackDetMode peackDet = SET_PEACKDET;
+    TPos tPos = TPOS;
+    Range oldRange = SET_RANGE(ch);
 
+    START_MODE = StartMode_Wait;                // Устанавливаем ждущий режим синхронизации, чтоб понять, есть ли сигнал
+
+    FPGA_Stop(false);
     FPGA_SetPeackDetMode(PeackDet_Enable);
+    FPGA_SetRange(ch, Range_2mV);
+    FPGA_SetTPos(TPos_Left);
 
-    for (int range = RangeSize - 1; range >= 0; --range)
+    int range = RangeSize;
+    
+    ReadingCycle(1000);
+
+    if (ReadingCycle(2000))                                 // Если в течение 2 секунд не считан сигнал, то его нет на этом канале - выходим
     {
-        FuncDrawAutoFind(ch);
-        FPGA_Stop(false);
-        FPGA_SetRange(ch, (Range)range);
-        s->range = (Range)range;
-        FPGA_Start();
-        while (!ProcessingData())
-        {
-        };
-        s->readingData = true;
-        FuncDrawAutoFind(ch);
-        FPGA_Stop(false);
-        uint16 *dataChan = (uint16*)DS_GetData_RAM(ch, 0);
+        uint8 min = 0;
+        uint8 max = 0;
 
-        for (int i = 0; i < 256; i++)
+        uint8 bound = GetBound(DS_GetData_RAM(ch, 0), &min, &max);
+
+        if (bound > (MAX_VALUE - MIN_VALUE) / 10.0 * 2)      // Если размах сигнала меньше двух клеток - тоже выходим
         {
-            BitSet16 data;
-            data.halfWord = *dataChan;
-            dataChan++;
-            
-            // Если хотя бы одно значение вышло за пределы экрана
-            if (data.byte0 >= MAX_VALUE || data.byte0 <= MIN_VALUE || data.byte1 >= MAX_VALUE || data.byte1 <= MIN_VALUE)
+            START_MODE = StartMode_Auto;
+
+            for (range = 0; range < RangeSize; ++range)
             {
-                FPGA_SetPeackDetMode(peackDet);
-                if (range != RangeSize - 1)
+                /// \todo Этот алгоритм возвращает результат "Сигнал не найден", если при (range == RangeSize - 1) сигнал выходит за пределы экрана
+
+                FPGA_SetRange(ch, (Range)range);
+
+                ReadingCycle(10000);
+
+                GetBound(DS_GetData_RAM(ch, 0), &min, &max);
+
+                if (min > MIN_VALUE && max < MAX_VALUE)     // Если все значения внутри экрана
                 {
-                    ++range;
+                    break;                                  // То мы нашли наш Range - выходим из цикла
                 }
-                return (Range)range;
             }
         }
     }
 
+    FPGA_SetRange(ch, oldRange);
     FPGA_SetPeackDetMode(peackDet);
+    FPGA_SetTPos(tPos);
 
-    return Range_2mV;
+    return (Range)range;
 }
 
 #undef NUM_MEASURES

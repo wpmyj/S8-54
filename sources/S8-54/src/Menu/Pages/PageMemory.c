@@ -10,6 +10,7 @@
 #include "Hardware/FLASH.h"
 #include "Hardware/Sound.h"
 #include "Menu/FileManager.h"
+#include "Menu/Menu.h"
 #include "Menu/MenuFunctions.h"
 #include "Menu/MenuItemsLogic.h"
 #include "Menu/Pages/Definition.h"

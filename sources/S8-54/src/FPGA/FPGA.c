@@ -1198,5 +1198,14 @@ static void InitADC(void)
     }
 }
 
+//----------------------------------------------------------------------------------------------------------------------------------------------------
+void FPGA_SetTPos(TPos tPos)
+{
+extern void OnChanged_TPos(bool active);
+
+    TPOS = tPos;
+    OnChanged_TPos(true);
+}
+
 /** @}
  */
