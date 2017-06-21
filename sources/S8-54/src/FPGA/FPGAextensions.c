@@ -969,7 +969,7 @@ void FPGA_AutoFind(void)
     Settings settings = set;                        // Сохраняем текущие настройки - если сигнал найти не удастся, придётся восстановить их потом
 
     MALLOC_EXTRAMEM(StrForAutoFind, p);             // Подготовим структуру, использующуюся для отрисовки прогресс-бара
-    p->progress = 0; //-V522
+    p->progress = 0;
     p->sign = 1;
 
     if (!FindWave(A))
@@ -989,7 +989,7 @@ void FPGA_AutoFind(void)
         Display_FuncOnWaitStop();
     }
 
-    gBF.FPGAneedAutoFind = 0;
+    NEED_AUTO_FIND = 0;
 
     FPGA_Start();
 }

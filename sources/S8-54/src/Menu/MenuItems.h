@@ -142,8 +142,8 @@ typedef struct
 typedef struct
 {
     COMMON_PART_MENU_ITEM
-    pFuncVV                 funcOnPress;        // Эта функция вызвается для обработки нажатия кнопки.
-    pFuncVII                funcOnDraw;         // Эта функция вызывается для отрисовки кнопки в месте с координатами x, y.
+    pFuncVV                 funcOnPress;        ///< Эта функция вызвается для обработки нажатия кнопки.
+    pFuncVII                funcOnDraw;         ///< Эта функция вызывается для отрисовки кнопки в месте с координатами x, y.
     StructHelpSmallButton   hintUGO[MAX_NUM_CHOICE_SMALL_BUTTON]; 
 } SButton;
 

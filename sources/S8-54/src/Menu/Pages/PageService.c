@@ -177,7 +177,7 @@ static const Button bAutoSearch =
 
 static void OnPress_AutoSearch(void)
 {
-    gBF.FPGAneedAutoFind = 1;
+    NEED_AUTO_FIND = 1;
 };
 
 

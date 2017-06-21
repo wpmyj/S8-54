@@ -871,7 +871,7 @@ void FPGA_Update(void)
         return;
     }
 
-	if(gBF.FPGAneedAutoFind == 1)
+	if(NEED_AUTO_FIND)
     {
 		FPGA_AutoFind();
 		return;

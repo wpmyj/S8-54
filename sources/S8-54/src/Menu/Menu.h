@@ -46,7 +46,8 @@ void Menu_Show(bool show);
 void Menu_OpenItemTime(void);
 /// Функция временно включает отображение строки навигации меню, если задано настройками.
 void Menu_TemporaryEnableStrNavi(void);
-
+/// Ввыполнить эту функцию после Menu_UpdateInput().
+void Menu_RunAfterUpdate(pFuncVV func);
 
 /** @}
  */

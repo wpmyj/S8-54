@@ -563,12 +563,18 @@ static const SButton bInternal_Exit =
     DrawSB_Exit
 };
 
+static void FuncForInternalExit(void)
+{
+    SBPage_SetCurrent(&ppLast);
+}
+
 static void OnPress_Internal_Exit(void)
 {
     if (EXIT_FROM_ROM_TO_RAM)
     {
         MODE_WORK = ModeWork_RAM;
         EXIT_FROM_ROM_TO_RAM = 0;
+        Menu_RunAfterUpdate(FuncForInternalExit);
     }
     else
     {

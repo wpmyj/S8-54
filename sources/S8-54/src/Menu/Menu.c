@@ -35,6 +35,8 @@ static int angleRegSet = 0;
 ///\brief  Здесь хранится адрес элемента меню, соответствующего функциональной клавише [1..5], если она находится в нижнем положении, и 0, если ни одна 
 /// кнопка не нажата.
 static void* itemUnderKey = 0;
+/// Эта функция будет вызывана один раз после Menu_UpdateInput().
+static pFuncVV funcAterUpdate = 0;
                                                 
 static void ProcessingShortPressureButton(void);            ///< Обработка короткого нажатия кнопки.
 static void ProcessingLongPressureButton(void);             ///< Обработка длинного нажатия кнопки.
@@ -75,6 +77,12 @@ void Menu_UpdateInput(void)
     ProcessingReleaseButton();
     ProcessingRegulatorPress();
     SwitchSetLED();
+
+    if (funcAterUpdate)
+    {
+        funcAterUpdate();
+        funcAterUpdate = 0;
+    }
 };
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
@@ -930,4 +938,10 @@ void Menu_Show(bool show)
 void Menu_Init(void)
 {
     PageDisplay_Init();
+}
+
+//----------------------------------------------------------------------------------------------------------------------------------------------------
+void Menu_RunAfterUpdate(pFuncVV func)
+{
+    funcAterUpdate = func;
 }
