@@ -4,6 +4,7 @@
 #include "fpgaExtensions.h"
 #include "Log.h"
 #include "Display/DisplayPrimitives.h"
+#include "Display/PainterC.h"
 #include "FPGA/fpga.h" 
 #include "Hardware/FSMC.h"
 #include "Hardware/Timer.h"
@@ -64,7 +65,7 @@ static bool FindWave(Channel ch);
 static bool AccurateFindParams(Channel ch);
 static bool FindParams(Channel ch, TBase *tBase);
 static Range FindRange(Channel ch);                 ///< Возвращает RangeSize, если масштаб не найден.
-static void FuncDrawAutoFind(Channel ch);
+static void FuncDrawAutoFind(void);
 static void CalibrateStretch(Channel ch);
 /** @}
  */
@@ -79,12 +80,7 @@ static void CalibrateStretch(Channel ch);
 ///  Структура используется для отрисовки прогресс-бара во время автоматического поиска сигнала.
 typedef struct
 {
-    uint8 progress;     ///< Относительная величина прогресса.
-    int8 sign;          ///< Направление изменения прогресса.
-    bool readingData;   ///< Признак того, что как минимум одно считывание данных произошло и сигнал можно рисовать на экране.
-    Channel channel;    ///< Текущий канал, по которому производится поиск.
-    Range range;        ///< Текущий установленный Range.
-    TBase tBase;        ///< Текущий установленный TBase.
+    uint startTime;
 } StrForAutoFind;
 
 /** @}
@@ -970,7 +966,6 @@ void FPGA_AutoFind(void)
         6. Устанавливаем вертикальный масштаб 5мВ, 10мВ, 20мВ и более, пока считанный сигнал полностью не впишется в экран.
         7. Переходим к поиску TBase.
     */
-    extern int8 showAutoFind;
 
     /** \todo Оптимизировать алгоритм в плане скорости.\n
                 1. Сначала находим время между флагами снихронизации.\n
@@ -978,16 +973,14 @@ void FPGA_AutoFind(void)
                 3. Это позволит быстрее считывать и обрабатывать данные.
     */
 
-    if (!showAutoFind)
-    {
-        Display_FuncOnWaitStart("Идёт поиск сигнала", "Searching for a signal", true);
-    }
+    /// \todo Сделать динамическую индикацию процесса поиска. Временно отключена, потому что глючит изображение. Иногда даже зависает прибор.
 
     Settings settings = set;                        // Сохраняем текущие настройки - если сигнал найти не удастся, придётся восстановить их потом
 
     MALLOC_EXTRAMEM(StrForAutoFind, p);             // Подготовим структуру, использующуюся для отрисовки прогресс-бара
-    p->progress = 0;
-    p->sign = 1;
+    p->startTime = HAL_GetTick();
+
+    FuncDrawAutoFind();
 
     if (!FindWave(A))
     {
@@ -1001,11 +994,6 @@ void FPGA_AutoFind(void)
 
     FREE_EXTRAMEM();
 
-    if (!showAutoFind)
-    {
-        Display_FuncOnWaitStop();
-    }
-
     NEED_AUTO_FIND = 0;
 
     FPGA_Start();
@@ -1014,12 +1002,6 @@ void FPGA_AutoFind(void)
 //----------------------------------------------------------------------------------------------------------------------------------------------------
 static bool FindWave(Channel ch)
 {
-    ACCESS_EXTRAMEM(StrForAutoFind, s);
-    s->readingData = false;
-    s->channel = ch;
-
-    FuncDrawAutoFind(ch);
-
     FPGA_SetTBase(TBase_20ms);
     SET_ENABLED(ch) = true;
     FPGA_SetTrigSource((TrigSource)ch);
@@ -1049,6 +1031,7 @@ static bool ReadingCycle(uint timeWait)
     uint timeStart = HAL_GetTick();
     while(!ProcessingData())
     { 
+        FuncDrawAutoFind();
         if ((HAL_GetTick() - timeStart) > timeWait)
         {
             FPGA_Stop(false);
@@ -1141,95 +1124,34 @@ static Range FindRange(Channel ch)
 static bool AccurateFindParams(Channel ch)
 {
     TBase tBase = TBaseSize;
-
-    int i = 0;
-    for (; i < 3; i++)
-    {
-        int numMeasures = 0;
-        FindParams(ch, &tBase);
-        TBase secondTBase = TBaseSize;
-        do
-        {
-            FindParams(ch, &secondTBase);
-            numMeasures++;
-        } while (numMeasures < NUM_MEASURES && tBase == secondTBase);
-        if (numMeasures == NUM_MEASURES)
-        {
-            return true;
-        }
-    }
-    return false;
+    FindParams(ch, &tBase);
+    
+    return true;
 }
 
 #undef NUM_MEASURES
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
-static void FuncDrawAutoFind(Channel ch)
+static void FuncDrawAutoFind(void)
 {
-    extern int8 showAutoFind;
-
-    if (!showAutoFind)
-    {
-        return;
-    }
-
     ACCESS_EXTRAMEM(StrForAutoFind, s);
 
+    int width = 220;
+    int height = 60;
+    int x = 160 - width / 2;
+    int y = 120 - height / 2;
     Painter_BeginScene(gColorBack);
-    Painter_SetColor(gColorFill);
-
-    Painter_DrawText(92, 50, "Идёт поиск сигнала. Подождите.");
-
-    static const int height = 20;
-    static const int width = 240;
-
-    s->progress += s->sign;
-    if (s->sign > 0)
+    Painter_FillRegionC(x, y, width, height, gColorBack);
+    Painter_DrawRectangleC(x, y, width, height, gColorFill);
+    Painter_DrawStringInCenterRect(x, y, width, height - 20, "Идёт поиск сигнала. Подождите");
+    
+    char buffer[101] = "";
+    uint progress = ((HAL_GetTick() - s->startTime) / 20) % 80;
+    for(int i = 0; i < progress; i++)
     {
-        if (s->progress == 240)
-        {
-            s->sign = -1;
-        }
+        strcat(buffer, ".");
     }
-    else if (s->progress == 1)
-    {
-        s->sign = 1;
-    }
-
-    Painter_DrawRectangle(40, 100, width, height);
-    Painter_DrawVLine(40 + s->progress, 100, 100 + height);
-
-    if (s->readingData)                             // Если данные считаны, то будем рисовать сигнал
-    {
-        uint8 *data = DS_GetData_RAM(ch, 0);
-
-        int yMIN = 10;
-        int yMAX = 230;
-
-        Painter_DrawHLine(yMIN, 0, 319);
-        Painter_DrawHLine(yMAX, 0, 319);
-
-        float scale = (float)(yMAX - yMIN) / (MAX_VALUE - MIN_VALUE);
-
-        for (int x = 0; x < 319 * 2; x += 2)
-        {
-            uint8 val0 = 0;
-            uint8 val1 = 0;
-            LIMITATION(val0, data[x], MIN_VALUE, MAX_VALUE);
-            LIMITATION(val1, data[x + 1], MIN_VALUE, MAX_VALUE);
-            float ordinate0 = yMIN + scale * (val0 - MIN_VALUE);
-            float ordinate1 = yMIN + scale * (val1 - MIN_VALUE);
-            Painter_DrawVLine(x / 2, ordinate0, ordinate1);
-        }
-    }
-    else
-    {
-        Painter_DrawText(250, 200, "Нет сигнала");
-    }
-
-    Painter_FillRegionC(5, 200, 100, 50, gColorBack);
-    Painter_DrawTextC(10, 210, s->channel == A ? "Канал 1" : "Канал 2", gColorFill);
-    Painter_DrawText(10, 220, sChannel_Range2String(s->range, Divider_1));
+    Painter_DrawStringInCenterRect(x, y + (height - 30), width, 20, buffer);
 
     Display_DrawConsole();
 
@@ -1244,6 +1166,7 @@ static bool FindParams(Channel ch, TBase *tBase)
     FPGA_Start();
     while (GetBit(ReadFlag(), FL_FREQ_READY) == 0)
     {
+        FuncDrawAutoFind();
     };
     FPGA_Stop(false);
     float freq = FreqMeter_GetFreq();
@@ -1260,6 +1183,10 @@ static bool FindParams(Channel ch, TBase *tBase)
     if (freq >= 50.0f)
     {
         *tBase = CalculateTBase(freq);
+        if (*tBase >= MIN_TBASE_P2P)
+        {
+            *tBase = MIN_TBASE_P2P;
+        }
         FPGA_SetTBase(*tBase);
         FPGA_Start();
         FPGA_SetTrigInput(freq < 500e3f ? TrigInput_LPF : TrigInput_HPF);
@@ -1272,6 +1199,10 @@ static bool FindParams(Channel ch, TBase *tBase)
         if (freq > 0.0f)
         {
             *tBase = CalculateTBase(freq);
+            if (*tBase >= MIN_TBASE_P2P)
+            {
+                *tBase = MIN_TBASE_P2P;
+            }
             FPGA_SetTBase(*tBase);
             Timer_PauseOnTime(10);
             FPGA_Start();
