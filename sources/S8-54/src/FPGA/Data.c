@@ -22,13 +22,6 @@ static DataSettings dataSettings;   ///< Здесь хранятся настройки для текущего р
 
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-static bool readedRAM = false;      ///< Если true, то в inA(B) хранятся данные, считанные из ОЗУ.
-static bool fromEndRAM = 0;         ///< Номер текущего сигнала из ОЗУ, если readedRAM == true.
-
-static bool readedROM = false;      ///< Если true, то в inA(B) хранятся данные, считанные из ППЗУ.
-static bool numFromROM = 0;         ///< Номер считанного из ППЗУ сигнала, если readedROM == true.
-
-//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 /// Считать данные 
 static void GetDataFromStorage(void);
 
@@ -37,17 +30,11 @@ static void GetDataFromStorage(void);
 void Data_Clear(void)
 {
     pDS = 0;
-    readedRAM = readedROM = false;
 }
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
 void Data_ReadDataRAM(int fromEnd)
 {
-    if(readedRAM && fromEnd == fromEndRAM)
-    {
-        return;
-    }
-
     Data_Clear();
 
     if(DS_GetDataFromEnd(fromEnd, &dataSettings, inA, inB))
@@ -55,8 +42,6 @@ void Data_ReadDataRAM(int fromEnd)
         if (ENUM_POINTS(&dataSettings) == FPGA_ENUM_POINTS) /** \todo Это временно. Нужно сделать пересчёт к установленной длине памяти в 
                                                                в ProcessingSignal_SetData(), чтобы не мелькало на экране. */
         {
-            readedRAM = true;
-            fromEndRAM = fromEnd;
             pDS = &dataSettings;
 
             Processing_SetData();
@@ -77,17 +62,10 @@ void Data_GetFromIntMemory(void)
 //----------------------------------------------------------------------------------------------------------------------------------------------------
 void Data_ReadDataROM(void)
 {
-    if(readedROM && numFromROM == NUM_ROM_SIGNAL)
-    {
-        return;
-    }
-
     Data_Clear();
 
     if (FLASH_GetData(NUM_ROM_SIGNAL, &dataSettings, inA, inB))
     {
-        readedROM = true;
-        numFromROM = NUM_ROM_SIGNAL;
         pDS = &dataSettings;
 
         Processing_SetData();

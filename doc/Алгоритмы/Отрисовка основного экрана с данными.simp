@@ -71,7 +71,7 @@
       </counter>
       <counter>
         <item-type type-id="" type="AbstractElementGroup" />
-        <value>1125</value>
+        <value>1170</value>
       </counter>
       <counter>
         <item-type type-id="flowchart-predefined-process" type="PredefinedProcess" />
@@ -175,7 +175,7 @@
         <abstract-items />
         <layer name="Default" visible="true" enabled="true" locked="false" />
       </diagram>
-      <diagram type="flowchart" id="p11862350d7354f43849da3c120078ac7_608405962" name="Блок-схема" order-index="2" overview-order-index="0" show-id="false" show-name="true" show-parent-name="false" show-stereotypes="true" show-tagged-values="false" show-template-parameters="true" show-fields="true" show-empty-compartments="true" show-special-indicators="false" show-attributes="true" show-attribute-visibility="true" show-operations="true" show-operation-parameters="true" show-operation-visibility="true" show-nullability="true" show-sequence-number="false" show-extension-points="false" show-relationship-texts="true" show-description="false" show-field-description="false" auto-routed-paths="false" view-location="-250,95" zoom="0.6">
+      <diagram type="flowchart" id="p11862350d7354f43849da3c120078ac7_608405962" name="Блок-схема" order-index="2" overview-order-index="0" show-id="false" show-name="true" show-parent-name="false" show-stereotypes="true" show-tagged-values="false" show-template-parameters="true" show-fields="true" show-empty-compartments="true" show-special-indicators="false" show-attributes="true" show-attribute-visibility="true" show-operations="true" show-operation-parameters="true" show-operation-visibility="true" show-nullability="true" show-sequence-number="false" show-extension-points="false" show-relationship-texts="true" show-description="false" show-field-description="false" auto-routed-paths="false" view-location="110,248" zoom="0.8">
         <style>
           <background-color index="1" color="#FFFFFFFF" />
           <background-color index="2" color="#FFFFFFFF" />
@@ -552,10 +552,10 @@
             <layout ax="-314.5" ay="915.7371" awidth="455" aheight="59.01292" x="-314.5" y="915.7371" width="455" height="59.01292" />
           </item>
           <item id="di280072196448901091" iid="d40492a97e0d48d09c6406a7d0dc8489" creation-date="06/19/2017 23:49:05" order-index="28" type="relation">
-            <layout line-style="oblique" lock-start-point="true" lock-end-point="true" lock-to-fields="false" auto-path="" x1="1065" y1="292" x2="1425" y2="599" start-border-pos="0.372674418604651" end-border-pos="0.125" name-position="-170,-90">
+            <layout line-style="oblique" lock-start-point="true" lock-end-point="true" lock-to-fields="false" auto-path="" x1="1065" y1="292" x2="1425" y2="599" start-border-pos="0.372674418604651" end-border-pos="0.125" name-position="-264,-33">
               <points>
                 <point x="1065" y="292" />
-                <point x="1420" y="296" />
+                <point x="1420" y="291" />
                 <point x="1425" y="599" />
               </points>
             </layout>
@@ -611,7 +611,7 @@
           </item>
         </layer>
       </diagram>
-      <diagram type="flowchart" id="p5a398e11c240480b93fdc25a3b761514_332902189" name="Аглоритм собственно отрисовки" order-index="4" overview-order-index="2" show-id="false" show-name="true" show-parent-name="false" show-stereotypes="true" show-tagged-values="false" show-template-parameters="true" show-fields="true" show-empty-compartments="true" show-special-indicators="false" show-attributes="true" show-attribute-visibility="true" show-operations="true" show-operation-parameters="true" show-operation-visibility="true" show-nullability="true" show-sequence-number="false" show-extension-points="false" show-relationship-texts="true" show-description="false" show-field-description="false" auto-routed-paths="false" view-location="0,48" zoom="0.8">
+      <diagram type="flowchart" id="p5a398e11c240480b93fdc25a3b761514_332902189" name="Аглоритм собственно отрисовки" order-index="4" overview-order-index="2" show-id="false" show-name="true" show-parent-name="false" show-stereotypes="true" show-tagged-values="false" show-template-parameters="true" show-fields="true" show-empty-compartments="true" show-special-indicators="false" show-attributes="true" show-attribute-visibility="true" show-operations="true" show-operation-parameters="true" show-operation-visibility="true" show-nullability="true" show-sequence-number="false" show-extension-points="false" show-relationship-texts="true" show-description="false" show-field-description="false" auto-routed-paths="false" view-location="0,28" zoom="0.8">
         <style>
           <background-color index="1" color="#FFFFFFFF" />
           <background-color index="2" color="#FFFFFFFF" />
