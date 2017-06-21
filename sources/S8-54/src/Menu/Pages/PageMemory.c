@@ -61,9 +61,11 @@ static void        Draw_Internal_ModeShow(int x, int y);
 static void        Draw_Internal_ModeShow_Direct(int x, int y); 
 static void        Draw_Internal_ModeShow_Saved(int x, int y);
 static void        Draw_Internal_ModeShow_Both(int x, int y);
+/*
 static const   SButton bInternal_EraseAll;                      ///< ÏÀÌßÒÜ - ÂÍÓÒÐ ÇÓ - Ñòåðåòü âñå
 static void     OnPress_Internal_EraseAll(void);
 static void        Draw_Internal_EraseAll(int x, int y);
+*/
 static const   SButton bInternal_Scale;                         ///< ÏÀÌßÒÜ - ÂÍÓÒÐ ÇÓ - Ìåñøòàá
 static void     OnPress_Internal_Scale(void);
 static void        Draw_Internal_Scale(int x, int y);
@@ -720,6 +722,7 @@ static void Draw_Internal_ModeShow_Both(int x, int y)
     Painter_DrawVLineC(x + 2, y + 6, y + 11, gColorFill);
 }
 
+/*
 // ÏÀÌßÒÜ - ÂÍÓÒÐ ÇÓ - Ñòåðåòü âñ¸ -------------------------------------------------------------------------------------------------------------------
 static const SButton bInternal_EraseAll =
 {
@@ -751,6 +754,7 @@ static void Draw_Internal_EraseAll(int x, int y)
 {
     Painter_DrawText(x + 5, y + 5, "E");
 }
+*/
 
 // ÏÀÌßÒÜ - ÂÍÓÒÐ ÇÓ - Ìàñøòàá -----------------------------------------------------------------------------------------------------------------------
 static const SButton bInternal_Scale =
