@@ -1230,7 +1230,6 @@ static void DebugShowSetInfo_Draw(void)
 
 static void OnPress_Settings(void)
 {
-    OpenPageAndSetItCurrent(Page_SB_DebugShowSetInfo);
     Display_SetDrawMode(DrawMode_Auto, DebugShowSetInfo_Draw);
 }
 
@@ -1405,7 +1404,6 @@ static const Page ppSerialNumber =
 
 static void OnPress_SerialNumber(void)
 {
-    OpenPageAndSetItCurrent(Page_SB_SerialNumber);
     Display_SetAddDrawFunction(Draw_EnterSerialNumber);
     MALLOC_EXTRAMEM(StructForSN, s);
     s->number = 01;

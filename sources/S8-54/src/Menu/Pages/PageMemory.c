@@ -11,6 +11,7 @@
 #include "Hardware/Sound.h"
 #include "Menu/FileManager.h"
 #include "Menu/MenuFunctions.h"
+#include "Menu/MenuItemsLogic.h"
 #include "Menu/Pages/Definition.h"
 #include "Utils/GlobalFunctions.h"
 #include "Utils/Math.h"
@@ -363,7 +364,7 @@ static const SButton bLast_SaveToROM =
 
 static void OnPress_Last_SaveToROM(void)
 {
-    OpenPageAndSetItCurrent(Page_SB_MemROM);
+    SBPage_SetCurrent(&ppInternal);
     MODE_WORK = ModeWork_ROM;   // Находимся в режиме внутренного ЗУ
     EXIT_FROM_ROM_TO_RAM = 1;   // Этот признак мы устанавливаем для того, чтобы:
                                 // 1 - по нажатии кнопки Выход со страницы "ВНУТР ЗУ" выходить в "Последние", а не в основное меню;
@@ -404,7 +405,6 @@ void Memory_SaveSignalToFlashDrive(void)
     {
         if (FILE_NAMING_MODE_MANUAL)
         {
-            OpenPageAndSetItCurrent(Page_SB_MemExtSetName);
             Display_SetAddDrawFunction(DrawSetName);
         }
         else
@@ -499,7 +499,6 @@ static const Page ppInternal =
 
 static void OnPress_Internal(void)
 {
-    OpenPageAndSetItCurrent(Page_SB_MemROM);
     MODE_WORK = ModeWork_ROM;
 }
 
@@ -568,7 +567,6 @@ static void OnPress_Internal_Exit(void)
 {
     if (EXIT_FROM_ROM_TO_RAM)
     {
-        OpenPageAndSetItCurrent(Page_SB_MemRAM);
         MODE_WORK = ModeWork_RAM;
         EXIT_FROM_ROM_TO_RAM = 0;
     }
@@ -1000,7 +998,6 @@ void OnPress_Drive_Manager(void)
     if (gFlashDriveIsConnected)
     {
         FDrive_Mount();
-        OpenPageAndSetItCurrent(Page_SB_FileManager);
         Display_SetDrawMode(DrawMode_Auto, FM_Draw);
         gBF.needRedrawFileManager = 1;
     }
@@ -1117,7 +1114,6 @@ static bool IsActive_Drive_Mask(void)
 
 static void OnPress_Drive_Mask(void)
 {
-    OpenPageAndSetItCurrent(Page_SB_MemExtSetMask);
     Display_SetAddDrawFunction(DrawSetMask);
 }
 
@@ -1424,11 +1420,9 @@ static void OnPress_SetName_Exit(void)
     }
     else if (EXIT_FROM_SETNAME_TO == RETURN_TO_LAST_MEM)
     {
-        OpenPageAndSetItCurrent(Page_SB_MemRAM);
     }
     else if (EXIT_FROM_SETNAME_TO == RETURN_TO_INT_MEM)
     {
-        OpenPageAndSetItCurrent(Page_SB_MemROM);
     }
     EXIT_FROM_SETNAME_TO = RETURN_TO_DISABLE_MENU;
 }

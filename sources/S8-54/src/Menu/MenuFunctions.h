@@ -15,7 +15,7 @@
 /// Возвращает количество вариантов выбора в элементе по адресу choice
 int Choice_NumSubItems(Choice *choice);
 /// Вовзращает true, если элемент меню item является ативным, т.е. может быть нажат
-bool ItemIsAcitve(void *item);
+bool ItemIsAcitve(const void *item);
 /// Возвращает количество элементов в странице по адресу page
 int NumItemsInPage(const Page * const page);
 /// Возвращает номер текущей подстранцы элемента по адресу page
@@ -49,8 +49,6 @@ NamePage GetNamePage(const Page *page);
 
 NamePage GetNameOpenedPage(void);
 
-void OpenPageAndSetItCurrent(NamePage namePage);
-
 bool ChangeOpenedItem(void *item, int delta);
 /// Уменьшает или увеличивает значение Governor, GovernorColor или Choice по адресу item в зависимости от знака delta
 void ChangeItem(void *item, int delta);
@@ -75,7 +73,7 @@ void CloseOpenedItem(void);
 /// Открыть/закрыть элемент меню по адрему item
 void OpenItem(const void *item, bool open);
 /// Возвращает true, если элемент меню по адрему item открыт
-bool ItemIsOpened(void *item);
+bool ItemIsOpened(const void *item);
 
 void ChangeSubPage(const Page *page, int delta);
 /// Вызывает функцию короткого нажатия кнопки над итемом numItem страницы page

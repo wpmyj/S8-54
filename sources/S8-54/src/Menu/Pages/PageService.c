@@ -1006,7 +1006,6 @@ static const Page ppInformation =
 
 static void OnPress_Information(void)
 {
-    OpenPageAndSetItCurrent(Page_SB_ServiceInformation);
     Display_SetDrawMode(DrawMode_Auto, Information_Draw);
 }
 

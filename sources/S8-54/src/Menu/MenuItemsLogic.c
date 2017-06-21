@@ -1,5 +1,6 @@
 // This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++ and C#: http://www.viva64.com
+#include "Menu.h"
 #include "MenuItemsLogic.h"
 #include "Globals.h"
 #include "MenuFunctions.h"
@@ -393,4 +394,18 @@ void GovernorColor_ChangeValue(GovernorColor *governor, int delta)
     }
 
     PageService_InitGlobalColors();
+}
+
+//----------------------------------------------------------------------------------------------------------------------------------------------------
+void SBPage_SetCurrent(const Page *page)
+{
+    if (ItemIsAcitve(page))
+    {
+        if (SHOW_STRING_NAVI_TEMP)
+        {
+            Menu_TemporaryEnableStrNavi();
+        }
+        SetCurrentItem(page, true);
+        OpenItem(page, !ItemIsOpened(page));
+    }
 }

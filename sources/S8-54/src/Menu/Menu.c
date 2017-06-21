@@ -58,7 +58,6 @@ static  pFuncVpV    FuncForShortPressOnItem(void *item);    ///< Возвращает функ
 static  pFuncVpV    FuncForLongPressureOnItem(void *item);  ///< Возвращает функцию обработки длинного нажатия на элемент меню item.
 
 static void OnTimerStrNaviAutoHide(void);                   ///< Функция, которая отключит вывод строки навигации меню.
-static void TemporaryEnableStrNavi(void);                   ///< Функция временно включает отображение строки навигации меню, если задано настройками.
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 #define SIZE_BUFFER_FOR_BUTTONS 10
@@ -383,7 +382,7 @@ static void ProcessingShortPressureButton(void)
                 {
                     if (TypeOpenedItem() == Item_Page)
                     {
-                        TemporaryEnableStrNavi();
+                        Menu_TemporaryEnableStrNavi();
                     }
                     CloseOpenedItem();
                 }
@@ -421,7 +420,7 @@ static void ProcessingShortPressureButton(void)
                 {
                     SetCurrentItem(page, true);
                     OpenItem(page, true);
-                    TemporaryEnableStrNavi();
+                    Menu_TemporaryEnableStrNavi();
                     Menu_Show(true);
                 }
             }
@@ -469,7 +468,7 @@ void ProcessingLongPressureButton(void)
                 Menu_Show(!MENU_IS_SHOWN);
                 if (TypeOpenedItem() != Item_Page)
                 {
-                    TemporaryEnableStrNavi();
+                    Menu_TemporaryEnableStrNavi();
                 }
             }
         }
@@ -479,7 +478,7 @@ void ProcessingLongPressureButton(void)
             FuncForLongPressureOnItem(item)(item);
             if (TypeOpenedItem() != Item_Page)
             {
-                TemporaryEnableStrNavi();
+                Menu_TemporaryEnableStrNavi();
             }
         }
         longPressureButton = B_Empty;
@@ -497,7 +496,7 @@ void ProcessingRegulatorPress(void)
             Menu_Show(!MENU_IS_SHOWN);
             if (TypeOpenedItem() != Item_Page)
             {
-                TemporaryEnableStrNavi();
+                Menu_TemporaryEnableStrNavi();
             }
         }
 
@@ -592,20 +591,12 @@ void ShortPress_Page(void *item)
     {
         page->funcOnPress();
     }
-    if (!ItemIsAcitve(page))
-    {
-        return;
-    }
-    if (SHOW_STRING_NAVI_TEMP)       // Если нужно временно выводить строку навигации меню
-    {
-        TemporaryEnableStrNavi();
-    }
-    SetCurrentItem(page, true);
-    OpenItem((Page*)page, !ItemIsOpened((Page*)page));
+
+    SBPage_SetCurrent(page);
 }
 
 //---------------------------------------------------------------------------------------------------------------------------------------------------
-static void TemporaryEnableStrNavi(void)
+void Menu_TemporaryEnableStrNavi(void)
 {
     if (SHOW_STRING_NAVI_TEMP)
     {
@@ -930,7 +921,7 @@ void Menu_Show(bool show)
     set.menu_IsShown = show;
     if (show)
     {
-        TemporaryEnableStrNavi();
+        Menu_TemporaryEnableStrNavi();
     }
     Menu_SetAutoHide(true);
 }

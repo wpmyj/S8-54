@@ -221,7 +221,7 @@ void OpenItem(const void *item, bool open)
 }
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
-bool ItemIsOpened(void *item)
+bool ItemIsOpened(const void *item)
 {
     TypeItem type = TypeMenuItem(item);
     Page *page = Keeper(item);
@@ -256,17 +256,11 @@ NamePage GetNameOpenedPage(void)
 }
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
-void OpenPageAndSetItCurrent(NamePage namePage) /// \todo Пустая функция
-{
-
-}
-
-//----------------------------------------------------------------------------------------------------------------------------------------------------
-bool ItemIsAcitve(void *item) 
+bool ItemIsAcitve(const void *item) 
 {
     TypeItem type = TypeMenuItem(item);
 
-    /** @todo Здесь оптимизировать через битовую маску */
+    /// \todo Здесь оптимизировать через битовую маску
 
     if (type == Item_Choice || type == Item_Page || type == Item_Button || type == Item_Governor || type == Item_SmallButton)
     {
