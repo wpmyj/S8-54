@@ -1,19 +1,14 @@
 // This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++ and C#: http://www.viva64.com
-#include "defines.h"
-#include "Log.h"
-#include "Menu/FileManager.h"
-#include "Display/Display.h"
-#include <usbh_def.h>
-#include <ff_gen_drv.h>
-#include <usbh_diskio.h>
-#include <usbh_core.h>
-#include <usbh_msc.h>
-#include "ffconf.h"
-#include "Hardware/Hardware.h"
-#include "Hardware/Timer.h"
 #include "FlashDrive.h"
 #include "Globals.h"
+#include "Log.h"
+#include "Display/Display.h"
+#include "Menu/FileManager.h"
+#include "Hardware/RTC.h"
+#include "Hardware/Timer.h"
+#include <ff_gen_drv.h>
+#include <usbh_diskio.h>
 
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -23,6 +18,10 @@ bool gFlashDriveIsConnected = false;
 
 
 extern void ChangeStateFlashDrive(void);
+
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+static void SetTime(char *nameFile);
 
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -388,6 +387,7 @@ bool FDrive_OpenNewFileForWrite(const char* fullPathToFile, StructForWrite *stru
     {
         return false;
     }
+    strcpy(structForWrite->name, fullPathToFile);
     structForWrite->sizeData = 0;
     return true;
 }
@@ -435,5 +435,21 @@ bool FDrive_CloseFile(StructForWrite *structForWrite)
         }
     }
     f_close(&structForWrite->fileObj);
+
+    SetTime(structForWrite->name);
+
     return true;
+}
+
+//----------------------------------------------------------------------------------------------------------------------------------------------------
+static void SetTime(char *name)
+{
+    FILINFO info;
+
+    PackedTime time = RTC_GetPackedTime();
+
+    info.fdate = (WORD)(((time.year - 1980) * 512) | time.month * 32 | time.day);
+    info.ftime = (WORD)(time.hours * 2048 | time.minutes * 32 | time.seconds / 2);
+
+    f_utime(name, &info);
 }
