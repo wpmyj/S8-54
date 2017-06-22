@@ -1,7 +1,8 @@
 #pragma once
-
 #include <stm32f4xx_hal.h>
 #include "globals.h"
+
+#define VERSION "54-1.0"
 
 typedef unsigned char uint8;
 typedef unsigned int uint;
