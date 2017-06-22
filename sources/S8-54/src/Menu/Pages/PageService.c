@@ -100,6 +100,10 @@ static void Information_Draw(void);
 static const     SButton bInformation_Exit;                         ///< ÑÅÐÂÈÑ - ÈÍÔÎÐÌÀÖÈß - Âûõîä
 static void       OnPress_Information_Exit(void);
 
+static const       Page ppRecorder;
+static const     SButton bRecorder_Exit;
+static const     SButton bRecorder_Destination;
+
 
 // ÑÅÐÂÈÑ ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 const Page pService =
