@@ -67,71 +67,6 @@ ToolArgsString=-Wall -mlarge-code -mlarge-data -Os -fno-ivopts -mlarge-arrays
 TraceCmdString=
 DebugOptions=
 [File005]
-Location=C:\My\Work\S8-54\sources\Display\Objects - Display\MainDemo.o
-Folder=Intermediary
-DeviceName=PIC24FJ256DA210
-LanguageToolSuiteID={9BCCB495-CD65-480A-BA76-63D8E78B117F}
-LanguageToolID={B1442D91-FF1F-4E60-9714-C39C1BA9DB62}
-LanguageToolLocation=C:\Program Files (x86)\Microchip\xc16\v1.26\bin\xc16-gcc.exe
-PPAD=$(BINDIR)||$(TMPDIR)|Objects - Display||$(AINDIR)||$(INCDIR)|C:\Program Files\Microchip\xc16\v1.11\support\PIC24F\h;.;Microchip\Include||$(LIBDIR)||$(LKRDIR)||
-SOLK=<src>|MainDemo.c|Microchip\Graphics\Primitive.c|Microchip\Graphics\Palette.c|Microchip\Graphics\Drivers\mchpGfxDrv.c|Microchip\Common\TimeDelay.c||<obj>||<lib>||<lkr>||
-SuiteArgsString=
-ToolArgsString=-Wall -mlarge-code -mlarge-data -Os -fno-ivopts -mlarge-arrays
-TraceCmdString=
-DebugOptions=
-[File006]
-Location=C:\My\Work\S8-54\sources\Display\Objects - Display\Primitive.o
-Folder=Intermediary
-DeviceName=PIC24FJ256DA210
-LanguageToolSuiteID={9BCCB495-CD65-480A-BA76-63D8E78B117F}
-LanguageToolID={B1442D91-FF1F-4E60-9714-C39C1BA9DB62}
-LanguageToolLocation=C:\Program Files (x86)\Microchip\xc16\v1.26\bin\xc16-gcc.exe
-PPAD=$(BINDIR)||$(TMPDIR)|Objects - Display||$(AINDIR)||$(INCDIR)|C:\Program Files\Microchip\xc16\v1.11\support\PIC24F\h;.;Microchip\Include||$(LIBDIR)||$(LKRDIR)||
-SOLK=<src>|MainDemo.c|Microchip\Graphics\Primitive.c|Microchip\Graphics\Palette.c|Microchip\Graphics\Drivers\mchpGfxDrv.c|Microchip\Common\TimeDelay.c||<obj>||<lib>||<lkr>||
-SuiteArgsString=
-ToolArgsString=-Wall -mlarge-code -mlarge-data -Os -fno-ivopts -mlarge-arrays
-TraceCmdString=
-DebugOptions=
-[File007]
-Location=C:\My\Work\S8-54\sources\Display\Objects - Display\Palette.o
-Folder=Intermediary
-DeviceName=PIC24FJ256DA210
-LanguageToolSuiteID={9BCCB495-CD65-480A-BA76-63D8E78B117F}
-LanguageToolID={B1442D91-FF1F-4E60-9714-C39C1BA9DB62}
-LanguageToolLocation=C:\Program Files (x86)\Microchip\xc16\v1.26\bin\xc16-gcc.exe
-PPAD=$(BINDIR)||$(TMPDIR)|Objects - Display||$(AINDIR)||$(INCDIR)|C:\Program Files\Microchip\xc16\v1.11\support\PIC24F\h;.;Microchip\Include||$(LIBDIR)||$(LKRDIR)||
-SOLK=<src>|MainDemo.c|Microchip\Graphics\Primitive.c|Microchip\Graphics\Palette.c|Microchip\Graphics\Drivers\mchpGfxDrv.c|Microchip\Common\TimeDelay.c||<obj>||<lib>||<lkr>||
-SuiteArgsString=
-ToolArgsString=-Wall -mlarge-code -mlarge-data -Os -fno-ivopts -mlarge-arrays
-TraceCmdString=
-DebugOptions=
-[File008]
-Location=C:\My\Work\S8-54\sources\Display\Objects - Display\mchpGfxDrv.o
-Folder=Intermediary
-DeviceName=PIC24FJ256DA210
-LanguageToolSuiteID={9BCCB495-CD65-480A-BA76-63D8E78B117F}
-LanguageToolID={B1442D91-FF1F-4E60-9714-C39C1BA9DB62}
-LanguageToolLocation=C:\Program Files (x86)\Microchip\xc16\v1.26\bin\xc16-gcc.exe
-PPAD=$(BINDIR)||$(TMPDIR)|Objects - Display||$(AINDIR)||$(INCDIR)|C:\Program Files\Microchip\xc16\v1.11\support\PIC24F\h;.;Microchip\Include||$(LIBDIR)||$(LKRDIR)||
-SOLK=<src>|MainDemo.c|Microchip\Graphics\Primitive.c|Microchip\Graphics\Palette.c|Microchip\Graphics\Drivers\mchpGfxDrv.c|Microchip\Common\TimeDelay.c||<obj>||<lib>||<lkr>||
-SuiteArgsString=
-ToolArgsString=-Wall -mlarge-code -mlarge-data -Os -fno-ivopts -mlarge-arrays
-TraceCmdString=
-DebugOptions=
-[File009]
-Location=C:\My\Work\S8-54\sources\Display\Objects - Display\TimeDelay.o
-Folder=Intermediary
-DeviceName=PIC24FJ256DA210
-LanguageToolSuiteID={9BCCB495-CD65-480A-BA76-63D8E78B117F}
-LanguageToolID={B1442D91-FF1F-4E60-9714-C39C1BA9DB62}
-LanguageToolLocation=C:\Program Files (x86)\Microchip\xc16\v1.26\bin\xc16-gcc.exe
-PPAD=$(BINDIR)||$(TMPDIR)|Objects - Display||$(AINDIR)||$(INCDIR)|C:\Program Files\Microchip\xc16\v1.11\support\PIC24F\h;.;Microchip\Include||$(LIBDIR)||$(LKRDIR)||
-SOLK=<src>|MainDemo.c|Microchip\Graphics\Primitive.c|Microchip\Graphics\Palette.c|Microchip\Graphics\Drivers\mchpGfxDrv.c|Microchip\Common\TimeDelay.c||<obj>||<lib>||<lkr>||
-SuiteArgsString=
-ToolArgsString=-Wall -mlarge-code -mlarge-data -Os -fno-ivopts -mlarge-arrays
-TraceCmdString=
-DebugOptions=
-[File010]
 Location=D:\Projects\S8-54\sources\Display\Display.cof
 Folder=Output
 DeviceName=PIC24FJ256DA210
@@ -144,34 +79,8 @@ SuiteArgsString=
 ToolArgsString=--heap=1024 -o"$(BINDIR_)$(TARGETBASE).$(TARGETSUFFIX)"
 TraceCmdString=
 DebugOptions=
-[File011]
+[File006]
 Location=D:\Projects\S8-54\sources\Display\Display.hex
-Folder=Output
-DeviceName=PIC24FJ256DA210
-LanguageToolSuiteID={9BCCB495-CD65-480A-BA76-63D8E78B117F}
-LanguageToolID={6836D8CA-42BB-48FB-9E77-3F0AA8005073}
-LanguageToolLocation=C:\Program Files (x86)\Microchip\xc16\v1.26\bin\xc16-ld.exe
-PPAD=$(BINDIR)||$(TMPDIR)|Objects - Display||$(AINDIR)||$(INCDIR)|C:\Program Files\Microchip\xc16\v1.11\support\PIC24F\h;.;Microchip\Include||$(LIBDIR)||$(LKRDIR)||
-SOLK=<src>|MainDemo.c|Microchip\Graphics\Primitive.c|Microchip\Graphics\Palette.c|Microchip\Graphics\Drivers\mchpGfxDrv.c|Microchip\Common\TimeDelay.c||<obj>||<lib>||<lkr>||
-SuiteArgsString=
-ToolArgsString=--heap=1024 -o"$(BINDIR_)$(TARGETBASE).$(TARGETSUFFIX)"
-TraceCmdString=
-DebugOptions=
-[File012]
-Location=C:\My\Work\S8-54\sources\Display\Display.cof
-Folder=Output
-DeviceName=PIC24FJ256DA210
-LanguageToolSuiteID={9BCCB495-CD65-480A-BA76-63D8E78B117F}
-LanguageToolID={6836D8CA-42BB-48FB-9E77-3F0AA8005073}
-LanguageToolLocation=C:\Program Files (x86)\Microchip\xc16\v1.26\bin\xc16-ld.exe
-PPAD=$(BINDIR)||$(TMPDIR)|Objects - Display||$(AINDIR)||$(INCDIR)|C:\Program Files\Microchip\xc16\v1.11\support\PIC24F\h;.;Microchip\Include||$(LIBDIR)||$(LKRDIR)||
-SOLK=<src>|MainDemo.c|Microchip\Graphics\Primitive.c|Microchip\Graphics\Palette.c|Microchip\Graphics\Drivers\mchpGfxDrv.c|Microchip\Common\TimeDelay.c||<obj>||<lib>||<lkr>||
-SuiteArgsString=
-ToolArgsString=--heap=1024 -o"$(BINDIR_)$(TARGETBASE).$(TARGETSUFFIX)"
-TraceCmdString=
-DebugOptions=
-[File013]
-Location=C:\My\Work\S8-54\sources\Display\Display.hex
 Folder=Output
 DeviceName=PIC24FJ256DA210
 LanguageToolSuiteID={9BCCB495-CD65-480A-BA76-63D8E78B117F}
