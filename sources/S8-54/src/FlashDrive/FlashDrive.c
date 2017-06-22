@@ -448,7 +448,7 @@ static void SetTime(char *name)
 
     PackedTime time = RTC_GetPackedTime();
 
-    info.fdate = (WORD)(((time.year - 1980) * 512) | time.month * 32 | time.day);
+    info.fdate = (WORD)(((time.year + 2000 - 1980) * 512) | time.month * 32 | time.day);
     info.ftime = (WORD)(time.hours * 2048 | time.minutes * 32 | time.seconds / 2);
 
     f_utime(name, &info);
