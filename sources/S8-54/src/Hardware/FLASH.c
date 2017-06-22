@@ -125,14 +125,16 @@ void FLASH_LoadSettings(void)
         address += 1024;
     }
 
-    // ≈сли i == 128, то сектор заполнен полностью - нужно читать из последней области сектора.
-    // ”меньшаем i на один и читаем.
+    if (i)                  // ≈сли i == 0, то сохранение ещЄ не производилось, поэтому сразу выходим
+    {
+        LOG_WRITE("осталось дл€ %f", (ADDR_SECTOR_SETTINGS + 128 * 1024 - address) / 1024.f);
 
-    address = ADDR_SECTOR_SETTINGS + (i - 1) * 1024;
+        address -= 1024;
 
-    // „итаем в Settings set количество байт, указанное в (int16)*address
+        // „итаем в Settings set количество байт, указанное в (int16)*address
 
-    ReadBufferBytes(address, &set, READ_HALF_WORD(address));
+        ReadBufferBytes(address, &set, READ_HALF_WORD(address));
+    }
 }
 
 
@@ -150,9 +152,9 @@ void FLASH_SaveSettings(void)
         address += 1024;                                    // переходим на следующую предполагаемую область записи
     }
 
-    if (address == ADDR_SECTOR_SETTINGS + 1024 * 128)       // ≈сли адрес указывает на следующий сектор
+    if (address == ADDR_SECTOR_SETTINGS + 1024 * 128)       // ≈сли адрес указывает на последнюю область сектора дл€ записи настроек
     {
-        EraseSector(GetSector(ADDR_SECTOR_SETTINGS));       // “о стираем к лешему заполненный сетор настроек
+        EraseSector(ADDR_SECTOR_SETTINGS);                  // “о стираем к лешему заполненный сетор настроек
         address = ADDR_SECTOR_SETTINGS;
     }
 
