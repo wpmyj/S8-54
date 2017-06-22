@@ -102,7 +102,7 @@ static void ReadBufferBytes(uint addressSrc, void *bufferDest, int size);
 static bool EraseSector(uint startAddress);
 static uint GetSector(uint startAddress);
  
-#define NUM_RECORDS 16
+#define NUM_RECORDS (128 * 1024)    /* 128 штук по 1024 байта */
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 void FLASH_LoadSettings(void)
