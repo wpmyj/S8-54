@@ -116,9 +116,7 @@ void FLASH_LoadSettings(void)
         {
             address += 1024;
         } while (READ_HALF_WORD(address) != 0xffff && address < (ADDR_SECTOR_SETTINGS + 1024 * NUM_RECORDS));
-        
-        LOG_WRITE("%f", (ADDR_SECTOR_SETTINGS + NUM_RECORDS * 1024 - address) / 1024.0f);
-        
+
         address -= 1024;
 
         // Читаем в Settings set количество байт, указанное в (int16)*address
