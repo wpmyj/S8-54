@@ -11,8 +11,7 @@
  
 #include <stm32f4xx_hal.h>
 
-#define SER_NUM "2016 03"
-#define NUM_VER "1.2"
+#define NUM_VER "1.3"
 
 
 typedef signed      char        int8;
