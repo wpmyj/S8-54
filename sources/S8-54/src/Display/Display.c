@@ -249,7 +249,6 @@ void Display_Update(void)
         DrawFullGrid();
     }
 
-    //PainterData_DrawData();
     PainterDataNew_DrawData();
 
     if(needClear)
@@ -1607,7 +1606,7 @@ static void DrawHiRightPart(void)
 //----------------------------------------------------------------------------------------------------------------------------------------------------
 static void WriteTextVoltage(Channel ch, int x, int y)
 {
-    if(!DS || !G_ENABLED(ch))
+    if(!SET_ENABLED(ch))
     {
         return;
     }
@@ -1616,9 +1615,9 @@ static void WriteTextVoltage(Channel ch, int x, int y)
 
     Color color = gColorChan[ch];
 
-    bool inverse = G_INVERSE(ch);
-    Divider divider = G_DIVIDER(ch);
-    Range range = G_RANGE(ch);
+    bool inverse = SET_INVERSE(ch);
+    Divider divider = SET_DIVIDER(ch);
+    Range range = SET_RANGE(ch);
 
     const int widthField = 91;
     const int heightField = 8;
@@ -1629,10 +1628,10 @@ static void WriteTextVoltage(Channel ch, int x, int y)
     }
     const int SIZE = 100;
     char buffer[SIZE];
-    snprintf(buffer, SIZE, "%s\xa5%s\xa5%s", (ch == A) ? (LANG_RU ? "1ê" : "1c") : (LANG_RU ? "2ê" : "2c"), couple[G_COUPLE(ch)], sChannel_Range2String(range, divider));
+    snprintf(buffer, SIZE, "%s\xa5%s\xa5%s", (ch == A) ? (LANG_RU ? "1ê" : "1c") : (LANG_RU ? "2ê" : "2c"), couple[SET_COUPLE(ch)], sChannel_Range2String(range, divider));
     Painter_DrawTextC(x + 1, y, buffer, colorDraw);
     char bufferTemp[SIZE];
-    snprintf(bufferTemp, SIZE, "\xa5%s", sChannel_RShift2String((int16)G_RSHIFT(ch), range, divider, buffer));
+    snprintf(bufferTemp, SIZE, "\xa5%s", sChannel_RShift2String((int16)SET_RSHIFT(ch), range, divider, buffer));
     Painter_DrawText(x + 46, y, bufferTemp);
 }
 
