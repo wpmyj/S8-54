@@ -255,7 +255,7 @@ static void LoadTrigLev(void)
 
     trigLev = TrigLevMax + TrigLevMin - trigLev;
 
-    if (TRIG_INPUT_LPF || TRIG_INPUT_FULL)
+    if ((TRIG_INPUT_LPF || TRIG_INPUT_FULL) && !TRIGSOURCE_EXT)
     {
         int delta = (CalculateDeltaRShift((Channel)TRIGSOURCE) * divR[SET_RANGE(TRIGSOURCE)]);
         trigLev = (int)trigLev + delta;
@@ -270,6 +270,7 @@ static void LoadTrigLev(void)
     }
     
     data |= trigLev << 4;
+
     FPGA_Write(RecordDAC, dacTrigLev, data, true);
 }
 

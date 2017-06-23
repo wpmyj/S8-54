@@ -179,7 +179,13 @@ static void DrawData_Out(Channel ch, uint8 *data)
         {
             if (NEED_DRAW_DYNAMIC_P2P)
             {
-                Painter_DrawVLineC(left + pointer - 1, bottom, GRID_TOP, gColorGrid);
+                DataSettings *ds = 0;
+                uint8 *dA = 0;
+                uint8 *dB = 0;
+                if (DS_GetLastFrameP2P_RAM(&ds, &dA, &dB) < SET_POINTS_IN_CHANNEL)
+                {
+                    Painter_DrawVLineC(left + pointer - 1, bottom, GRID_TOP, gColorGrid);
+                }
             }
         }
     }
