@@ -45,8 +45,8 @@ const Page pTrig =
         (void*)&cSource,       // СИНХР - Источник
         (void*)&cPolarity,     // СИНХР - Полярность
         (void*)&cInput,        // СИНХР - Вход
-        (void*)&ppSearch,      // СИНХР - ПОИСК
-        (void*)&gTimeDelay     // СИНХР - Удержание
+        (void*)&ppSearch      // СИНХР - ПОИСК
+//        (void*)&gTimeDelay     // СИНХР - Удержание
     }
 };
 
