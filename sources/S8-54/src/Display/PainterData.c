@@ -115,7 +115,7 @@ void PainterData_DrawMemoryWindow(void)
     const int xVert0 = leftX + (int)(shiftInMemory * scaleX);
     int width = (int)((rightX - leftX) * (282.0f / SET_POINTS_IN_CHANNEL));
 
-    if (outA[0])                // На всякий случай убеждаемся, что данные есть. А то в поточечном режиме возможны глюки при переключении и запуске
+    if ((outA[0] && G_ENABLED_A) || (outB[0] && G_ENABLED_B))                // На всякий случай убеждаемся, что данные есть. А то в поточечном режиме возможны глюки при переключении и запуске
     {                           // новых циклов считывания.
         bool needReleaseHeap = false;
 

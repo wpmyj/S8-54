@@ -3,6 +3,7 @@
 #include "Display/Grid.h"
 #include "FPGA/Data.h"
 #include "FPGA/DataBuffer.h"
+#include "FPGA/DataStorage.h"
 #include "FPGA/FPGA.h"
 #include "Settings/Settings.h"
 #include "Utils/Math.h"
@@ -30,6 +31,9 @@ static bool CalcMinMax(uint8 in[2], uint8 out[2]);
 
 /// Признак того, что на основном экране нужно рисовать бегущий сигнал поточечного вывода
 #define NEED_DRAW_DYNAMIC_P2P (IN_P2P_MODE && FPGA_IsRunning())
+
+/// Условие того, что мы находимся в ждущем режиме поточечном и на основном экране должно быть статичное изображение
+#define STAND_P2P (START_MODE_WAIT && IN_P2P_MODE && DS_NumElementsWithCurrentSettings() > 1)
 
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -74,7 +78,14 @@ void PainterDataNew_DrawData(void)
 //----------------------------------------------------------------------------------------------------------------------------------------------------
 static void DrawData_ModeDir(void)
 {
-    Data_ReadDataRAM(0);
+    if (START_MODE_WAIT && IN_P2P_MODE && DS_NumElementsWithCurrentSettings() > 1)
+    {
+        Data_ReadDataRAM(1);
+    }
+    else
+    {
+        Data_ReadDataRAM(0);
+    }
     DrawData_OutAB();
 }
 
@@ -142,28 +153,34 @@ static void DrawData_Out(Channel ch, uint8 *data)
         uint8 *pData = data;
         int pointer = 0;
 
-        if (NEED_DRAW_DYNAMIC_P2P)
+        if (!STAND_P2P)
         {
-            uint8 d[281] = {0};
-
-            for (int i = 0; i < G_BYTES_IN_CHANNEL; i++)
+            if (NEED_DRAW_DYNAMIC_P2P)
             {
-                if (data[i])
-                {
-                    d[pointer] = data[i];
-                    pointer = (pointer + 1) % 281;
-                }
-            }
+                uint8 d[281] = {0};
 
-            pData = d;
-            pointFirst = 0;
+                for (int i = 0; i < G_BYTES_IN_CHANNEL; i++)
+                {
+                    if (data[i])
+                    {
+                        d[pointer] = data[i];
+                        pointer = (pointer + 1) % 281;
+                    }
+                }
+
+                pData = d;
+                pointFirst = 0;
+            }
         }
 
         DrawData_Out_Normal(ch, pData + pointFirst, left, bottom, scaleY);
 
-        if (NEED_DRAW_DYNAMIC_P2P)
+        if (!STAND_P2P)
         {
-            Painter_DrawVLineC(left + pointer - 1, bottom, GRID_TOP, gColorGrid);
+            if (NEED_DRAW_DYNAMIC_P2P)
+            {
+                Painter_DrawVLineC(left + pointer - 1, bottom, GRID_TOP, gColorGrid);
+            }
         }
     }
 

@@ -906,6 +906,7 @@ static void OnPressStartStopInP2P(void)
         else
         {   // то устанавливаем признак того, что после окончания не надо запускать следующий цикл
             gBF.needStopAfterReadFrameP2P = !gBF.needStopAfterReadFrameP2P;
+            FPGA_Stop(false);
         }
     }
 }
