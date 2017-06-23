@@ -119,6 +119,7 @@ void Display_Update(void)
     if (ms->state == State_Start || ms->state == State_Ok)
     {
         Painter_BeginScene(gColorBack);
+#ifdef S8_54
         Painter_SetColor(gColorFill);
         Painter_DrawRectangle(0, 0, 319, 239);
         DrawBigMNIPI();
@@ -126,6 +127,7 @@ void Display_Update(void)
         Painter_DrawStringInCenterRect(0, 180, 320, 20, "Для получения помощи нажмите и удерживайте кнопку ПОМОЩЬ");
         Painter_DrawStringInCenterRect(0, 205, 320, 20, "Отдел маркетинга: тел./факс. 8-017-262-57-50");
         Painter_DrawStringInCenterRect(0, 220, 320, 20, "Разработчики: e-mail: mnipi-24(@)tut.by, тел. 8-017-262-57-51");
+#endif
         Painter_EndScene();
     }
     else if (ms->state == State_Mount)

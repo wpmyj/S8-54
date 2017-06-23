@@ -1025,14 +1025,19 @@ static void Information_Draw(void)
     y += dY;
     Painter_DrawText(x, y, lang == Russian ? "ИНФОРМАЦИЯ" : "INFORMATION");
     y += dY;
+    
+#ifdef S8_54
     Painter_DrawText(x, y, lang == Russian ? "Модель : С8-54" : "Model : S8-54");
+#endif
     y += dY;
 
     char buffer[100];
     OTP_GetSerialNumber(buffer);
     if(buffer[0])
     {
+#ifdef S8_54
         Painter_DrawFormatText(x, y, lang == Russian ? "C/Н : %s" : "S/N : %s", buffer);
+#endif
         y += dY;
     }
 
@@ -1046,8 +1051,10 @@ static void Information_Draw(void)
 
     dY = -10;
     Painter_DrawStringInCenterRect(0, 190 + dY, 320, 20, "Для получения помощи нажмите и удерживайте кнопку ПОМОЩЬ");
+#ifdef S8_54
     Painter_DrawStringInCenterRect(0, 205 + dY, 320, 20, "Отдел маркетинга: тел./факс. 8-017-262-57-50");
     Painter_DrawStringInCenterRect(0, 220 + dY, 320, 20, "Разработчики: e-mail: mnipi-24(@)tut.by, тел. 8-017-262-57-51");
+#endif
 
     Menu_Draw();
     Painter_EndScene();

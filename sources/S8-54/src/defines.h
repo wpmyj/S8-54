@@ -6,6 +6,7 @@
 #include <math.h>
 #include <limits.h>
 
+//#define S8_54
 
 #define INTERRUPT_P2P   // Если определено, то для чтения точек используется прерывание
  
