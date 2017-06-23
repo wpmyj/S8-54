@@ -30,6 +30,7 @@ static bool CalcMinMax(uint8 in[2], uint8 out[2]);
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 void PainterDataNew_DrawData(void)
 {
+    // Ќормальный режим
     if (MODE_WORK_DIR)                              // ”становленный режим - непосредственный
     {
         if (ALWAYS_SHOW_ROM_SIGNAL)                 // ≈сли нужно показывать сигнал из ѕѕ«”
@@ -38,12 +39,18 @@ void PainterDataNew_DrawData(void)
         }
         DrawData_ModeDir();                         // –исуем данные нормального режима
     }
-    else if (MODE_WORK_RAM)                         // ”становленный режим индикации - ѕјћя“№ - ѕќ—Ћ≈ƒЌ»≈
+    // ѕјћя“№ - ѕќ—Ћ≈ƒЌ»≈
+    else if (MODE_WORK_RAM)
     {
         DrawData_ModeRAM();                         
     }
-    else                                            // ”становленный режим индикации - ѕјћя“№ - ¬Ќ”“– «”
+    // ѕјћя“№ - ¬Ќ”“– «”
+    else
     {
+        if (SHOW_IN_INT_BOTH || SHOW_IN_INT_SAVED)
+        {
+            DrawData_ModeROM();
+        }
         if (SHOW_IN_INT_BOTH || SHOW_IN_INT_DIRECT) // ≈сли нужно показывать не только сохранЄнный сигнал
         {
             if (EXIT_FROM_ROM_TO_RAM)               // и мы перешли на страницу "ѕјћя“№-¬Ќ”“– «”" со страницы "ѕјћя“№-ѕќ—Ћ≈ƒЌ»≈"
@@ -54,10 +61,6 @@ void PainterDataNew_DrawData(void)
             {
                 DrawData_ModeDir();                 // “о нарисуем сигнал нормального режима
             }
-        }
-        if (SHOW_IN_INT_BOTH || SHOW_IN_INT_SAVED)
-        {
-            DrawData_ModeROM();
         }
     }
     
