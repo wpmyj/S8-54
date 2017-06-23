@@ -1357,10 +1357,16 @@ static void CountedToCurrentSettings(void)
                 int dA1 = dataInA[i + 1];
                 if (rShiftA)
                 {
-                    dA0 += rShiftA;
-                    LIMITATION(dA0, dA0, 0, 255);
-                    dA1 += rShiftA;
-                    LIMITATION(dA1, dA1, 0, 255);
+                    if (dA0)                            // “олько если значение в этой точке есть
+                    {
+                        dA0 += rShiftA;
+                        LIMITATION(dA0, dA0, 1, 255);
+                    }
+                    if (dA1)                            // “олько если значение в этой точке есть
+                    {
+                        dA1 += rShiftA;
+                        LIMITATION(dA1, dA1, 1, 255);
+                    }
                 }
                 ((uint16*)outA)[index] = (uint16)((dA0 | (dA1 << 8)));
 
@@ -1368,10 +1374,16 @@ static void CountedToCurrentSettings(void)
                 int dB1 = dataInB[i + 1];
                 if (rShiftB)
                 {
-                    dB0 += rShiftB;
-                    LIMITATION(dB0, dB0, 0, 255);
-                    dB1 += rShiftB;
-                    LIMITATION(dB1, dB1, 0, 255);
+                    if (dB0)                            // “олько если значение в этой точке есть
+                    {
+                        dB0 += rShiftB;
+                        LIMITATION(dB0, dB0, 1, 255);
+                    }
+                    if (dB1)                            // “олько если значение в этой точке есть
+                    {
+                        dB1 += rShiftB;
+                        LIMITATION(dB1, dB1, 1, 255);
+                    }
                 }
                 ((uint16*)outB)[index] = (uint16)((dB0 | (dB1 << 8)));
             }
