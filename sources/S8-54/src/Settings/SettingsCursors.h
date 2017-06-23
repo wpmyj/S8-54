@@ -1,6 +1,5 @@
 #pragma once
 
-
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 /** @addtogroup Settings
@@ -34,7 +33,9 @@
 #define CURsT_ENABLED               (!CURsT_DISABLED)
 
 #define CURsU_POS(ch, num)          (set.curs_PosCurU[ch][num])
-#define CURsT_POS(ch, num)          (set.curs_PosCurT[ch][num])
+//#define CURsT_POS(ch, num)          (set.curs_PosCurT[ch][num])
+
+#define CURsT_POS(ch, num)          GetCursPosT(ch, num)
 
 #define dUperc(ch)                  (set.curs_DeltaU100percents[ch])
 #define dTperc(ch)                  (set.curs_DeltaT100percents[ch])
@@ -63,6 +64,9 @@ const char* sCursors_GetCursorTime(Channel source, int numCur, char buffer[20]);
 const char* sCursors_GetCursorPercentsU(Channel source, char buffer[20]);
 /// Получить строку процентов курсоров времени
 const char* sCursors_GetCursorPercentsT(Channel source, char buffer[20]);
+
+float GetCursPosT(Channel ch, int num);
+void SetCursPosT_temp(Channel ch, int num, float value);
 
 /** @}  @}
  */

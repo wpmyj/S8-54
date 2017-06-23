@@ -1510,6 +1510,16 @@ static void WriteCursors(void)
             Painter_DrawText(x, y1, sCursors_GetCursorTime(source, 0, buffer));
             Painter_DrawText(x, y2, sCursors_GetCursorTime(source, 1, buffer));
             x = startX + 153;
+
+            /// \todo Дичь.
+
+            /*
+            float p0 = 0.0f;
+            memcpy(&p0, &CURsT_POS(source, 0), sizeof(float));
+            float p1 = 0.0f;
+            memcpy(&p1, &CURsT_POS(source, 1), sizeof(float));
+            */
+
             float pos0 = Math_TimeCursor(CURsT_POS(source, 0), SET_TBASE);
             float pos1 = Math_TimeCursor(CURsT_POS(source, 1), SET_TBASE);
             float delta = fabsf(pos1 - pos0);

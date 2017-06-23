@@ -3,8 +3,8 @@
 #include "defines.h"
 #include "PageCursors.h"
 #include "Definition.h"
-#include "Settings/SettingsTypes.h"
 #include "Settings/Settings.h"
+#include "Settings/SettingsTypes.h"
 #include "Panel/Controls.h"
 #include "Display/Colors.h"
 #include "Display/Grid.h"
@@ -69,7 +69,7 @@ static void SetCursSource(Channel ch);                                  ///< Уст
 static void IncCursCntrlU(Channel ch);                                  ///< Выбрать следующий курсор.
 static void IncCursCntrlT(Channel ch);                                  ///< Выбрать следующий курсор.
 static void SetCursPosU(Channel ch, int numCur, float pos);             ///< Установить позицию курсора напряжения.
-static void SetCursPosT(Channel ch, int numCur, float pos);             ///< Установить значение курсора по времени.
+//static void SetCursPosT(Channel ch, int numCur, float pos);             ///< Установить значение курсора по времени.
 
 /// Рассчитывает условия отрисовки УГО малых кнопок управления выбором курсорами.
 static void CalculateConditions(int16 pos0, int16 pos1, CursCntrl cursCntrl, bool *cond0, bool *cond1);
@@ -627,11 +627,13 @@ void SetShiftCursPosT(Channel ch, int numCur, float delta)
 {
     if (CURS_MOVEMENT_IS_PERCENTS)
     {
-        CURsT_POS(ch, numCur) = LimitationFloat(CURsT_POS(ch, numCur) + delta, 0, MAX_POS_T);   /// \todo одинаковые ветки
+        // CURsT_POS(ch, numCur) = LimitationFloat(CURsT_POS(ch, numCur) + delta, 0, MAX_POS_T);   /// \todo одинаковые ветки
+        SetCursPosT_temp(ch, numCur, LimitationFloat(CURsT_POS(ch, numCur) + delta, 0, MAX_POS_T));
     }
     else
     { //-V523
-        CURsT_POS(ch, numCur) = LimitationFloat(CURsT_POS(ch, numCur) + delta, 0, MAX_POS_T);
+        // CURsT_POS(ch, numCur) = LimitationFloat(CURsT_POS(ch, numCur) + delta, 0, MAX_POS_T);
+        SetCursPosT_temp(ch, numCur, LimitationFloat(CURsT_POS(ch, numCur) + delta, 0, MAX_POS_T));
     }
 }
 
@@ -639,11 +641,13 @@ void SetCursPosT(Channel ch, int numCur, float pos)
 {
     if (CURS_MOVEMENT_IS_PERCENTS)
     {
-        CURsT_POS(ch, numCur) = LimitationFloat(pos, 0, MAX_POS_T);                             /// \todo одинаковые ветки
+        // CURsT_POS(ch, numCur) = LimitationFloat(pos, 0, MAX_POS_T);                             /// \todo одинаковые ветки
+        SetCursPosT_temp(ch, numCur, LimitationFloat(pos, 0, MAX_POS_T));
     }
     else
     { //-V523
-        CURsT_POS(ch, numCur) = LimitationFloat(pos, 0, MAX_POS_T);
+        // CURsT_POS(ch, numCur) = LimitationFloat(pos, 0, MAX_POS_T);
+        SetCursPosT_temp(ch, numCur, LimitationFloat(pos, 0, MAX_POS_T));
     }
 }
 
