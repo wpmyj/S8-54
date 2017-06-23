@@ -3,6 +3,7 @@
 #include "Display/Grid.h"
 #include "FPGA/Data.h"
 #include "FPGA/DataBuffer.h"
+#include "FPGA/FPGA.h"
 #include "Settings/Settings.h"
 #include "Utils/Math.h"
 
@@ -25,6 +26,10 @@ static void DrawData_Out_PeakDet(Channel ch, uint8 data[281 * 2], int left, int 
 /// \brief »спользуетс€ в режиме пикового детектора. ¬ in хран€тс€ два значени€, соответствующие максимальному и минимальному. 
 /// ќни перемещаютс€ в out в возрастающем пор€дке out[0] = min, out[1] = max. ¬озвращает false, если точка не считана - хот€ бы одно значение == 0.
 static bool CalcMinMax(uint8 in[2], uint8 out[2]);
+
+
+/// ѕризнак того, что на основном экране нужно рисовать бегущий сигнал поточечного вывода
+#define NEED_DRAW_DYNAMIC_P2P (IN_P2P_MODE && FPGA_IsRunning())
 
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -134,7 +139,32 @@ static void DrawData_Out(Channel ch, uint8 *data)
     }
     else
     {
-        DrawData_Out_Normal(ch, data + pointFirst, left, bottom, scaleY);
+        uint8 *pData = data;
+        int pointer = 0;
+
+        if (NEED_DRAW_DYNAMIC_P2P)
+        {
+            uint8 d[281] = {0};
+
+            for (int i = 0; i < G_BYTES_IN_CHANNEL; i++)
+            {
+                if (data[i])
+                {
+                    d[pointer] = data[i];
+                    pointer = (pointer + 1) % 281;
+                }
+            }
+
+            pData = d;
+            pointFirst = 0;
+        }
+
+        DrawData_Out_Normal(ch, pData + pointFirst, left, bottom, scaleY);
+
+        if (NEED_DRAW_DYNAMIC_P2P)
+        {
+            Painter_DrawVLineC(left + pointer - 1, bottom, GRID_TOP, gColorGrid);
+        }
     }
 
     Painter_RunDisplay();

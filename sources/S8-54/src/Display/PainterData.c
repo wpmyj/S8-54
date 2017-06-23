@@ -100,97 +100,91 @@ void PainterData_DrawMemoryWindow(void)
 {
     Data_ReadDataRAM(0);
 
-    bool needReleaseHeap = false;
-
-    uint8 *datA = outA;
-    uint8 *datB = outB;
-
-    if (IN_P2P_MODE && !DS_GetLastFrameP2P_RAM(&DS, &datA, &datB))      // Страхуемся от глюков
-    {
-        return;
-    }
-
-    uint8 *dA = 0;  // Сюда считаем данные каналов из RAM
-    uint8 *dB = 0;
-
-    if (MODE_WORK_DIR || MODE_WORK_RAM)
-    {
-        needReleaseHeap = true;
-
-        datA = outA;
-        datB = outB;
-
-        if (TBASE(DS_DataSettingsFromEnd(0)) >= MIN_TBASE_P2P)          // Если находимся в режиме поточечного вывода
-        {
-            DS_GetLastFrameP2P_RAM(&DS, &datA, &datB);
-        }
-
-        // Нужно переписать из внешнего ОЗУ в стек, потому чт
-        dA = AllocMemForChannelFromHeap(A, DS);
-        dB = AllocMemForChannelFromHeap(B, DS);
-
-        int numBytes = BYTES_IN_CHANNEL(DS);
-
-        RAM_MemCpy16(datA, dA, numBytes);
-        RAM_MemCpy16(datB, dB, numBytes);
-
-        datA = dA;
-        datB = dB;
-    }
-
     int leftX = 3;
     int top = 0;
     int height = GRID_TOP - 3;
-    int bottom = top + height; //-V2007
-
+    int bottom = top + height;
+    int16 shiftInMemory = (int16)sDisplay_ShiftInMemoryInPoints();
     static const int rightXses[3] = {276, 285, 247};
     int rightX = rightXses[MODE_WORK];
     if (sCursors_NecessaryDrawCursors())
     {
         rightX = 68;
     }
-
     float scaleX = (float)(rightX - leftX + 1) / SET_POINTS_IN_CHANNEL;
+    const int xVert0 = leftX + (int)(shiftInMemory * scaleX);
     int width = (int)((rightX - leftX) * (282.0f / SET_POINTS_IN_CHANNEL));
 
-    int16 shiftInMemory = (int16)sDisplay_ShiftInMemoryInPoints();
+    if (outA[0])                // На всякий случай убеждаемся, что данные есть. А то в поточечном режиме возможны глюки при переключении и запуске
+    {                           // новых циклов считывания.
+        bool needReleaseHeap = false;
 
-    const int xVert0 = leftX + (int)(shiftInMemory * scaleX);
+        uint8 *datA = outA;
+        uint8 *datB = outB;
+        uint8 *dA = 0;  // Сюда считаем данные каналов из RAM
+        uint8 *dB = 0;
 
-    Channel lastAffectedChannel = LAST_AFFECTED_CH;
-    //if (((uint)NumPoints_2_ENumPoints(BYTES_IN_CHANNEL(DS)) == G_ENUM_BYTES) && DS)
-    if(DS)
-    {
-        Channel chanFirst = lastAffectedChannel == A ? B : A;
-        Channel chanSecond = lastAffectedChannel == A ? A : B;
-        const uint8 *dataFirst = lastAffectedChannel == A ? datB : datA;
-        const uint8 *dataSecond = lastAffectedChannel == A ? datA : datB;
-
-        bool peackDet = G_PEACKDET != PeackDet_Disable;
-
-        if (sChannel_NeedForDraw(dataFirst, chanFirst, DS))
+        if (MODE_WORK_DIR || MODE_WORK_RAM)
         {
-            curCh = chanFirst;
-            DrawDataInRect(1, rightX + 3, dataFirst, BYTES_IN_CHANNEL(DS), peackDet);
+            needReleaseHeap = true;
+
+            datA = outA;
+            datB = outB;
+
+            if (TBASE(DS_DataSettingsFromEnd(0)) >= MIN_TBASE_P2P)          // Если находимся в режиме поточечного вывода
+            {
+                DS_GetLastFrameP2P_RAM(&DS, &datA, &datB);
+            }
+
+            // Нужно переписать из внешнего ОЗУ в стек, потому чт
+            dA = AllocMemForChannelFromHeap(A, DS);
+            dB = AllocMemForChannelFromHeap(B, DS);
+
+            int numBytes = BYTES_IN_CHANNEL(DS);
+
+            RAM_MemCpy16(datA, dA, numBytes);
+            RAM_MemCpy16(datB, dB, numBytes);
+
+            datA = dA;
+            datB = dB;
         }
-        if (sChannel_NeedForDraw(dataSecond, chanSecond, DS))
+
+        Channel lastAffectedChannel = LAST_AFFECTED_CH;
+        //if (((uint)NumPoints_2_ENumPoints(BYTES_IN_CHANNEL(DS)) == G_ENUM_BYTES) && DS)
+        if (DS)
         {
-            curCh = chanSecond;
-            DrawDataInRect(1, rightX + 3, dataSecond, BYTES_IN_CHANNEL(DS), peackDet);
+            Channel chanFirst = lastAffectedChannel == A ? B : A;
+            Channel chanSecond = lastAffectedChannel == A ? A : B;
+            const uint8 *dataFirst = lastAffectedChannel == A ? datB : datA;
+            const uint8 *dataSecond = lastAffectedChannel == A ? datA : datB;
+
+            bool peackDet = G_PEACKDET != PeackDet_Disable;
+
+            if (sChannel_NeedForDraw(dataFirst, chanFirst, DS))
+            {
+                curCh = chanFirst;
+                DrawDataInRect(1, rightX + 3, dataFirst, BYTES_IN_CHANNEL(DS), peackDet);
+            }
+            if (sChannel_NeedForDraw(dataSecond, chanSecond, DS))
+            {
+                curCh = chanSecond;
+                DrawDataInRect(1, rightX + 3, dataSecond, BYTES_IN_CHANNEL(DS), peackDet);
+            }
+        }
+        if (needReleaseHeap)
+        {
+            free(dA);
+            free(dB);
         }
     }
-
+    
     Painter_DrawRectangleC(xVert0, top, width - (FPGA_POINTS_8k ? 1 : 0), bottom - top + 1, gColorFill); //-V2007
 
     DrawTPos(leftX, rightX);
 
     DrawTShift(leftX, rightX, BYTES_IN_CHANNEL(DS));
 
-    if (needReleaseHeap)
-    {
-        free(dA);
-        free(dB);
-    }
+    
 }
 
 
