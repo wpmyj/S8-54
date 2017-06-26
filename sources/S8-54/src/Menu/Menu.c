@@ -90,6 +90,11 @@ void Menu_ShortPressureButton(PanelButton button)
 {
     if (gBF.showHelpHints == 0)
     {
+        if (button == B_Memory && gFlashDriveIsConnected && MODE_BTN_MEMORY_SAVE)
+        {
+            NEED_SAVE_TO_FLASHDRIVE = 1;
+        }
+
         shortPressureButton = button;
     }
 };

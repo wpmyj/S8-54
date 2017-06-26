@@ -1028,6 +1028,8 @@ static void Information_Draw(void)
     
 #ifdef S8_54
     Painter_DrawText(x, y, lang == Russian ? "Модель : С8-54" : "Model : S8-54");
+#else
+    Painter_DrawText(x, y, lang == Russian ? "Модель : С8-55" : "Model : S8-55");
 #endif
     y += dY;
 

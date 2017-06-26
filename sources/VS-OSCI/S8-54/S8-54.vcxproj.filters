@@ -531,9 +531,6 @@
     <ClCompile Include="..\..\S8-54\src\Settings\DataSettings.c">
       <Filter>Settings</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\S8-54\src\Settings\SettingsNew_.c">
-      <Filter>Settings</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\S8-54\src\Menu\Pages\PageDebug.c">
       <Filter>Menu\Pages</Filter>
     </ClCompile>
@@ -1036,9 +1033,6 @@
     </ClInclude>
     <ClInclude Include="..\..\S8-54\src\dox\main_page.h">
       <Filter>_dox</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\S8-54\src\Settings\SettingsNew_.h">
-      <Filter>Settings</Filter>
     </ClInclude>
     <ClInclude Include="..\..\S8-54\src\Settings\SettingsNRST.h">
       <Filter>Settings</Filter>
