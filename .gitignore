@@ -31,6 +31,8 @@ _old_for_delete_
 *.cfg
 *.cmd*
 *.plog
+*.db
+*.opendb
 Archiv
 sources/S8-53/Objects
 sources/S8-53/out
