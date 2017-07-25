@@ -96,13 +96,15 @@ static void     OnChanged_Time_Correction(void);
 static const      Choice cLanguage;                                 ///< ÑÅÐÂÈÑ - ßÇÛÊ
 static const       Page ppInformation;                              ///< ÑÅÐÂÈÑ - ÈÍÔÎÐÌÀÖÈß
 static void       OnPress_Information(void);
-static void Information_Draw(void);
+static void   Information_Draw(void);
 static const     SButton bInformation_Exit;                         ///< ÑÅÐÂÈÑ - ÈÍÔÎÐÌÀÖÈß - Âûõîä
 static void       OnPress_Information_Exit(void);
-
-static const       Page ppRecorder;
-static const     SButton bRecorder_Exit;
-static const     SButton bRecorder_Destination;
+static const       Page ppRecorder;                                 ///< ÑÅÐÂÈÑ - ÐÅÃÈÑÒÐÀÒÎÐ
+static const     SButton bRecorder_Exit;                            ///< ÑÅÐÂÈÑ - ÐÅÃÈÑÒÐÀÒÎÐ - Âûõîä
+static const     SButton bRecorder_SaveTo;                          ///< ÑÅÐÂÈÑ - ÐÅÃÈÑÒÐÀÒÎÐ - Ñîõðàíÿòü â...
+static const     SButton bRecorder_Start;                           ///< ÑÅÐÂÈÑ - ÐÅÃÈÑÒÐÀÒÎÐ - Ñòàðò/Ñòîï
+static const     SButton bRecorder_Choice;                          ///< ÑÅÐÂÈÑ - ÐÅÃÈÑÒÐÀÒÎÐ - Âûáîð
+static const     SButton bRecorder_Cursor;                          ///< ÑÅÐÂÈÑ - ÐÅÃÈÑÒÐÀÒÎÐ - Êóðñîð
 
 
 // ÑÅÐÂÈÑ ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -120,6 +122,7 @@ const Page pService =
         (void*)&bAutoSearch,        // ÑÅÐÂÈÑ - Ïîèñê ñèãíàëà
         (void*)&ppCalibrator,       // ÑÅÐÂÈÑ - ÊÀËÈÁÐÀÒÎÐ
         (void*)&cRecorder,          // ÑÅÐÂÈÑ - Ðåãèñòðàòîð
+//        (void*)&ppRecorder,         // ÑÅÐÂÈÑ - ÐÅÃÈÑÒÐÀÒÎÐ
         (void*)&ppFFT,              // ÑÅÐÂÈÑ - ÑÏÅÊÒÐ
         (void*)&ppFunction,         // ÑÅÐÂÈÑ - ÔÓÍÊÖÈß
         (void*)&ppEthernet,         // ÑÅÐÂÈÑ - ETHERNET
@@ -266,6 +269,13 @@ static void OnChanged_Recorder(bool active)
 {
     FPGA_EnableRecorderMode(RECORDER_MODE);
 }
+
+
+// CÅÐÂÈÑ - ÐÅÃÈÑÒÐÀÒÎÐ //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+static const Page ppRecorder =
+{
+    Item_Page, &pService
+};
 
 
 // ÑÅÐÂÈÑ - ÑÏÅÊÒÐ ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -1031,17 +1041,9 @@ static void Information_Draw(void)
 #else
     Painter_DrawText(x, y, lang == Russian ? "Ìîäåëü : Ñ8-55" : "Model : S8-55");
 #endif
-    y += dY;
+    y += 2 * dY;
 
     char buffer[100];
-    OTP_GetSerialNumber(buffer);
-    if(buffer[0])
-    {
-#ifdef S8_54
-        Painter_DrawFormatText(x, y, lang == Russian ? "C/Í : %s" : "S/N : %s", buffer);
-#endif
-        y += dY;
-    }
 
     Painter_DrawText(x, y, lang == Russian ? "Ïðîãðàììíîå îáåñïå÷åíèå:" : "Software:");
     y += dY;
