@@ -274,7 +274,11 @@ static void OnChanged_Recorder(bool active)
 // C≈–¬»— - –≈√»—“–¿“Œ– //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 static const Page ppRecorder =
 {
-    Item_Page, &pService
+    Item_Page, &pService, 0,
+    {
+        "–≈√»—“–¿“Œ–", ""
+    },
+
 };
 
 
