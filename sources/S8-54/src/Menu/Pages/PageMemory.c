@@ -224,7 +224,7 @@ void OnChanged_Points(bool active)
     FPGA_Reset();
 }
 
-// ПАМЯТЬ - Последние --------------------------------------------------------------------------------------------------------------------------------
+// ПАМЯТЬ - ПОСЛЕДНИЕ --------------------------------------------------------------------------------------------------------------------------------
 static const Page ppLast =
 {
     Item_Page, &pMemory, 0,
@@ -233,7 +233,7 @@ static const Page ppLast =
         "Переход в режим работы с последними полученными сигналами",
         "Transition to an operating mode with the last received signals"
     },
-    Page_SB_MemRAM,
+    PageSB_Memory_Last,
     {
         (void*)&bLast_Exit,         // ПАМЯТЬ - ПОСЛЕДНИЕ - Выход
         (void*)0,
@@ -486,7 +486,7 @@ static const Page ppInternal =
         "Переход в режим работы с внутренней памятью",
         "Transition to an operating mode with internal memory"
     },
-    Page_SB_MemROM,
+    PageSB_Memory_Internal,
     {
         (void*)&bInternal_Exit,         // ПАМЯТЬ - ВНУТР ЗУ - Выход
         (void*)&bInternal_ShowAlways,   // ПАМЯТЬ - ВНУТР ЗУ - Показывать всегда
@@ -588,7 +588,7 @@ static void OnPress_Internal_Exit(void)
             RUN_FPGA_BEFORE_SB = 0;
         }
         Display_RemoveAddDrawFunction();
-        //ShortPressOnPageItem(PagePointerFromName(Page_SB_MemROM), 0);
+        //ShortPressOnPageItem(PagePointerFromName(PageSB_Memory_Internal), 0);
     }
 }
 
@@ -893,7 +893,7 @@ static const Page ppDrive =
         "Работа с внешним запоминающим устройством.",
         "Work with external storage device."
     },
-    Page_MemoryExt,
+    Page_Memory_Drive,
     {
         (void*)&pppDrive_Manager,       // ПАМЯТЬ - ВНЕШН ЗУ - КАТАЛОГ
         (void*)&cDrive_Name,            // ПАМЯТЬ - ВНЕШН ЗУ - Имя файла
@@ -987,7 +987,7 @@ static const Page pppDrive_Manager =
         "Открывает доступ к файловой системе подключенного накопителя",
         "Provides access to the file system of the connected drive"
     },
-    Page_SB_FileManager,
+    PageSB_Memory_Drive_Manager,
     {
         (void*)&bDrive_Manager_Exit,        // ПАМЯТЬ - ВНЕШН ЗУ - КАТАЛОГ - Выход
         (void*)&bDrive_Manager_Tab,         // ПАМЯТЬ - ВНЕШН ЗУ - КАТАЛОГ - Tab
@@ -1106,7 +1106,7 @@ static const Page pppDrive_Mask =
         "Режим ввода маски для автоматического именования файлов",
         "Input mode mask for automatic file naming"
     },
-    Page_SB_MemExtSetMask,
+    PageSB_Memory_Drive_Mask,
     {
         (void*)&bDrive_Mask_Exit,       // ПАМЯТЬ - ВНЕШН ЗУ - МАСКА - Выход
         (void*)&bDrive_Mask_Delete,     // ПАМЯТЬ - ВНЕШН ЗУ - МАСКА - Удалить
@@ -1372,7 +1372,7 @@ const Page pSetName =
         "",
         ""
     },
-    Page_SB_MemExtSetName,
+    PageSB_Memory_SetName,
     {
         (void*)&bSetName_Exit,          // ВВОД ИМЕНИ ФАЙЛА - Выход
         (void*)&bSetName_Delete,        // ВВОД ИМЕНИ ФАЙЛА - Удалить
@@ -1427,7 +1427,7 @@ static void OnPress_SetName_Exit(void)
     Display_RemoveAddDrawFunction();
     if (EXIT_FROM_SETNAME_TO == RETURN_TO_DISABLE_MENU)
     {
-        ShortPressOnPageItem(PagePointerFromName(Page_SB_MemExtSetName), 0);
+        ShortPressOnPageItem(PagePointerFromName(PageSB_Memory_SetName), 0);
     }
     else if (EXIT_FROM_SETNAME_TO == RETURN_TO_LAST_MEM)
     {

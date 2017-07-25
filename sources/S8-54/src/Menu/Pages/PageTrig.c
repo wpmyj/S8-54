@@ -24,7 +24,7 @@ static const   Choice cSearch_Mode;             ///< ÑÈÍÕÐ - ÏÎÈÑÊ - Ðåæèì
 static const   Button bSearch_Search;           ///< ÑÈÍÕÐ - ÏÎÈÑÊ - Íàéòè
 static bool   IsActive_Search_Search(void);
 static void    OnPress_Search_Search(void);
-static const Governor gTimeDelay;               ///< ÑÈÍÕÐ - Óäåðæàíèå
+//static const Governor gTimeDelay;               ///< ÑÈÍÕÐ - Óäåðæàíèå
 
 
 extern const Page mainPage;
@@ -183,6 +183,7 @@ static void OnChanged_Input(bool active)
 }
 
 // ÑÈÍÕÐ - Óäåðæàíèå ---------------------------------------------------------------------------------------------------------------------------------
+/*
 static const Governor gTimeDelay =
 {
     Item_Governor, &pTrig, 0,
@@ -193,6 +194,7 @@ static const Governor gTimeDelay =
     },
     (int16*)&TRIG_TIME_DELAY, 45, 10000
 };
+*/
 
 // ÑÈÍÕÐ - ÏÎÈÑÊ /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 static const Page ppSearch =
@@ -203,7 +205,7 @@ static const Page ppSearch =
         "Óïðàâëåíèå àâòîìàòè÷åñêèì ïîèñêîì óðîâíÿ ñèíõðîíèçàöèè.",
         "Office of the automatic search the trigger level."
     },
-    Page_TrigAuto,
+    Page_Trig_Search,
     {
         (void*)&cSearch_Mode,       // ÑÈÍÕÐ - ÏÎÈÑÊ - Ðåæèì
         (void*)&bSearch_Search      // ÑÈÍÕÐ - ÏÎÈÑÊ - Íàéòè

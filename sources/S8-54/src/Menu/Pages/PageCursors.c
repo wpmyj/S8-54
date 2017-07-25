@@ -199,7 +199,7 @@ static const Page ppSet =
         "Переход в режим курсорных измерений",
         "Switch to cursor measures"
     },
-    Page_SB_Curs,
+    PageSB_Cursors_Set,
     {
         (void*)&bSet_Exit,     // КУРСОРЫ - УСТАНОВИТЬ - Выход
         (void*)&bSet_Channel,  // КУРСОРЫ - УСТАНОВИТЬ - Канал
@@ -744,6 +744,6 @@ static void MoveCursTonPercentsOrPoints(int delta)
 
 bool IsRegSetActiveOnCursors(void)
 {
-    return ((GetNameOpenedPage() == Page_SB_Curs) &&
+    return ((GetNameOpenedPage() == PageSB_Cursors_Set) &&
         ((CURS_ACTIVE_U && CURsU_ENABLED) || (CURS_ACTIVE_T && CURsT_ENABLED)));
 }

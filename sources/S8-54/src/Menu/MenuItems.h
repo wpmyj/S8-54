@@ -41,66 +41,60 @@ typedef enum
 // Здесь ID всех представленных в меню страниц
 typedef enum
 {
-    Page_Display,               // ДИСПЕЙ
-    Page_DisplayAccumulation,   // ДИСПЛЕЙ - НАКОПЛЕНИЕ
-    Page_DisplayAverage,        // ДИСПЛЕЙ - УСРЕДНЕНИЕ
-    Page_DisplayGrid,           // ДИСПЛЕЙ - СЕТКА
-    Page_DisplaySettings,       // ДИСПЛЕЙ - НАСТРОЙКИ
-    Page_MainPage,              // Главная страница меню. Из неё растут все остальные
-    Page_Debug,                 // ОТЛАДКА
-    Page_DebugConsole,          // ОТЛАДКА - КОНСОЛЬ
-    Page_DebugADC,              // ОТЛАДКА - АЦП
-    Page_DebugADCbalance,       // ОТЛАДКА - АЦП - БАЛАНС
-    Page_DebugADCstretch,       // ОТЛАДКА - АЦП - РАСТЯЖКА
-    Page_DebugADCrShift,        // ОТЛАДКА - АЦП - ДОП. СМЕЩЕНИЕ
-    Page_DebugADCaltShift,      // ОТЛАДКА - АЦП - ДОП. СМЕЩ. ПАМ.
-    Page_DebugShowRegisters,    // ОТЛАДКА - РЕГИСТРЫ
-    Page_DebugRandomizer,       // ОТЛАДКА - РАНД-ТОР
-    Page_DebugChannels,         // ОТЛАДКА - КАНАЛЫ
-    Page_DebugSound,            // ОТЛАДКА - ЗВУК
-    Page_DebugAltera,           // ОТЛАДКА - АЛЬТЕРА
-    Page_ChannelA,              // КАНАЛ 1
-    Page_ChannelB,              // КАНАЛ 2
-    Page_Cursors,               // КУРСОРЫ
-    Page_Trig,                  // СИНХР.
-    Page_Memory,                // ПАМЯТЬ
-    Page_MemoryExt,             // ПАМЯТЬ - ВНЕШН. ЗУ
-    Page_Measures,              // ИЗМЕРЕНИЯ
-    Page_MeasuresField,         // ИЗМЕРЕНИЯ - ЗОНА
-    Page_Service,               // СЕРВИС
-    Page_ServiceDisplayColors,  // СЕРВИС - ДИСПЛЕЙ - ЦВЕТА
-    Page_ServiceCalibrator,     // СЕРВИС - КАЛИБРАТОР
-    Page_ServiceCalibratorCalibration,  // СЕРВИС - КАЛИБРАТОР - КАЛИБРОВКА
-    Page_ServiceEthernet,       // СЕРВИС - ETHERNET
-    Page_ServiceFreqMeter,      // СЕРВИС - ЧАСТОТОМЕР
-    Page_ServiceSound,          // СЕРВИС - ЗВУК
-    Page_ServiceTime,           // СЕРВИС - ВРЕМЯ
-    Page_Help,                  // ПОМОЩЬ
-    Page_Time,                  // РАЗВЕРТКА
-    Page_Math,                  // СЕРВИС - МАТЕМАТИКА
-    Page_MathFFT,
-    Page_TrigAuto,              // СИНХР - АВТ ПОИСК
-    Page_SB_Curs,               // Открыта страница КУРСОРЫ - Измерения
-    Page_SB_MeasTuneMeas,       // Открыта страница ИЗМЕРЕНИЯ - Настроить
-    Page_SB_MeasTuneField,      // Открыта страница ИЗМЕРЕНИЯ - ЗОНА - Задать
-    Page_SB_MemRAM,             // Открыта страница ПАМЯТЬ - Последние
-    Page_SB_MemROM,             // Открыта страница ПАМЯТЬ - Внутр ЗУ
-    Page_SB_MemExtSetMask,      // Открыта страница ПАМЯТЬ - ВНЕШН ЗУ - Маска
-    Page_SB_MemExtSetName,      // Появляется перед сохранением файла на флешку для задания имени файла при соответствующей опции ВНЕШН ЗУ - Имя файла
-    Page_SB_FileManager,        // Открыта страница ПАМЯТЬ - ВНЕШН ЗУ - Обзор
-    Page_SB_Help,               // Открыта страница HELP
-    Page_SB_MathCursorsFFT,     // Открыта страница СЕРВИС - Математика - Курсоры
-    Page_SB_MathFunction,       // СЕРВИС - МАТЕМАТИКА - ФУНКЦИЯ
-    Page_SB_ServiceInformation, // СЕРВИС - ИНФОРМАЦИЯ
-    Page_SB_DebugShowSetInfo,   // ОТЛАДКА - Настройи
-    Page_SB_SerialNumber,       // ОТЛАДКА - С/Н
+    Page_Main,                      // Главная страница меню
+    Page_Display,                   // ДИСПЕЙ
+    Page_Display_Accum,             // ДИСПЛЕЙ - НАКОПЛЕНИЕ
+    Page_Display_Average,           // ДИСПЛЕЙ - УСРЕДНЕНИЕ
+    Page_Display_Grid,              // ДИСПЛЕЙ - СЕТКА
+    Page_Display_Settings,          // ДИСПЛЕЙ - НАСТРОЙКИ
+    Page_Display_Settings_Colors,   // ДИСПЛЕЙ - НАСТРОЙКИ - ЦВЕТА
+    Page_ChannelA,                  // КАНАЛ 1
+    Page_ChannelB,                  // КАНАЛ 2
+    Page_Trig,                      // СИНХР
+    Page_Trig_Search,               // СИНХР - ПОИСК
+    Page_Time,                      // РАЗВЕРТКА
+    Page_Cursors,                   // КУРСОРЫ
+    PageSB_Cursors_Set,             // КУРСОРЫ - УСТАНОВИТЬ
+    Page_Memory,                    // ПАМЯТЬ
+    PageSB_Memory_Last,             // ПАМЯТЬ - ПОСЛЕДНИЕ
+    PageSB_Memory_Internal,         // ПАМЯТЬ - ВНУТР ЗУ
+    Page_Memory_Drive,              // ПАМЯТЬ - ВНЕШН ЗУ
+    PageSB_Memory_Drive_Manager,    // ПАМЯТЬ - ВНЕШН ЗУ - КАТАЛОГ
+    PageSB_Memory_Drive_Mask,       // ПАМЯТЬ - ВНЕШН ЗУ - МАСКА
+    PageSB_Memory_SetName,          // Появляется перед сохранением файла на флешку для задания имени файла при соответствующей опции ВНЕШН ЗУ - Имя файла
+    Page_Measures,                  // ИЗМЕРЕНИЯ
+    PageSB_Measures_Tune,           // ИЗМЕРЕНИЯ - НАСТРОИТЬ
+    Page_Service,                   // СЕРВИС
+    Page_Service_Calibrator,        // СЕРВИС - КАЛИБРАТОР
+    Page_Service_Ethernet,          // СЕРВИС - ETHERNET
+    Page_Service_FreqMeter,         // СЕРВИС - ЧАСТОТОМЕР
+    Page_Service_Sound,             // СЕРВИС - ЗВУК
+    Page_Service_Time,              // СЕРВИС - ВРЕМЯ
+    Page_Service_FFT,               // СЕРВИС - СПЕКТР
+    PageSB_Service_FFT_Cursors,     // СЕРВИС - СПЕКТР - КУРСОРЫ
+    PageSB_Service_Function,        // СЕРВИС - ФУНКЦИЯ
+    PageSB_Service_Information,     // СЕРВИС - ИНФОРМАЦИЯ
+    PageSB_Service_Recorder,        // СЕРВИС - РЕГИСТРАТОР
+    PageSB_Help,                    // ПОМОЩЬ
+    Page_Debug,                     // ОТЛАДКА
+    Page_Debug_Console,             // ОТЛАДКА - КОНСОЛЬ
+    Page_Debug_Console_Registers,   // ОТЛАДКА - КОНСОЛЬ - РЕГИСТРЫ
+    Page_Debug_ADC,                 // ОТЛАДКА - АЦП
+    Page_Debug_ADC_Balance,         // ОТЛАДКА - АЦП - БАЛАНС
+    Page_Debug_ADC_Stretch,         // ОТЛАДКА - АЦП - РАСТЯЖКА
+    Page_Debug_ADC_Shift,           // ОТЛАДКА - АЦП - ДОП СМЕЩ
+    Page_Debug_ADC_AltShift,        // ОТЛАДКА - АЦП - ДОП СМЕЩ ПАМ
+    Page_Debug_Rand,                // ОТЛАДКА - РАНД-ТОР
+    Page_Debug_Channels,            // ОТЛАДКА - КАНАЛЫ
+    PageSB_Debug_Settings,          // ОТЛАДКА - НАСТРОЙКИ
+    PageSB_Debug_SerialNumber,      // ОТЛАДКА - С/Н
     Page_NumPages,
     Page_NoPage
 } NamePage;             // При добавлении страниц нужно изменять инициализацию SettingsMenu в SSettings.c
 
 #define COMMON_PART_MENU_ITEM                                                                                   \
     TypeItem                type;           /* Тип итема */                                                     \
-    const struct Page*      keeper;         /* Адрес страницы, которой принадлежит. Для Page_MainPage = 0 */    \
+    const struct Page*      keeper;         /* Адрес страницы, которой принадлежит. Для Page_Main = 0 */    \
     pFuncBV                 funcOfActive;   /* Активен ли данный элемент */                                     \
     const char*             titleHint[4];   /* Название страницы на русском и английском языках. Также подсказка для режима помощи */
 

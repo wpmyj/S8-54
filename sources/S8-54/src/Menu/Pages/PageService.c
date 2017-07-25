@@ -33,8 +33,8 @@ static void      OnChanged_Calibrator_Calibrator(bool active);
 static const       Button bCalibrator_Calibrate;                    ///< ÑÅÐÂÈÑ - ÊÀËÈÁÐÀÒÎÐ - Êàëèáðîâàòü
 static bool       IsActive_Calibrator_Calibrate(void);
 static void        OnPress_Calibrator_Calibrate(void);
-static const       Choice cRecorder;
-static void      OnChanged_Recorder(bool active);
+//static const       Choice cRecorder;
+//static void      OnChanged_Recorder(bool active);
 static const        Page ppFFT;                                     ///< ÑÅÐÂÈÑ - ÑÏÅÊÒÐ
 static bool       IsActive_FFT(void);
 static void        OnPress_FFT(void);
@@ -121,8 +121,8 @@ const Page pService =
         (void*)&bResetSettings,     // ÑÅÐÂÈÑ - Ñáðîñ íàñòðîåê
         (void*)&bAutoSearch,        // ÑÅÐÂÈÑ - Ïîèñê ñèãíàëà
         (void*)&ppCalibrator,       // ÑÅÐÂÈÑ - ÊÀËÈÁÐÀÒÎÐ
-        (void*)&cRecorder,          // ÑÅÐÂÈÑ - Ðåãèñòðàòîð
-//        (void*)&ppRecorder,         // ÑÅÐÂÈÑ - ÐÅÃÈÑÒÐÀÒÎÐ
+//        (void*)&cRecorder,          // ÑÅÐÂÈÑ - Ðåãèñòðàòîð
+        (void*)&ppRecorder,         // ÑÅÐÂÈÑ - ÐÅÃÈÑÒÐÀÒÎÐ
         (void*)&ppFFT,              // ÑÅÐÂÈÑ - ÑÏÅÊÒÐ
         (void*)&ppFunction,         // ÑÅÐÂÈÑ - ÔÓÍÊÖÈß
         (void*)&ppEthernet,         // ÑÅÐÂÈÑ - ETHERNET
@@ -197,7 +197,7 @@ static const Page ppCalibrator =
         "Óïðàâëåíèåì êàëèáðàòîðîì è êàëèáðîâêà îñöèëëîãðàôà",
         "Control of the calibrator and calibration of an oscillograph"
     },
-    Page_ServiceCalibrator,
+    Page_Service_Calibrator,
     {
         (void*)&cCalibrator_Calibrator,     // ÑÅÐÂÈÑ - ÊÀËÈÁÐÀÒÎÐ - Êàëèáðàòîð
         (void*)&bCalibrator_Calibrate       // ÑÅÐÂÈÑ - ÊÀËÈÁÐÀÒÎÐ - Êàëèáðîâàòü
@@ -250,6 +250,7 @@ static void OnPress_Calibrator_Calibrate(void)
 }
 
 // ÑÅÐÂÈÑ - Ðåãèñòðàòîð ------------------------------------------------------------------------------------------------------------------------------
+/*
 static const Choice cRecorder =
 {
     Item_Choice, &pService, 0,
@@ -269,6 +270,7 @@ static void OnChanged_Recorder(bool active)
 {
     FPGA_EnableRecorderMode(RECORDER_MODE);
 }
+*/
 
 
 // CÅÐÂÈÑ - ÐÅÃÈÑÒÐÀÒÎÐ //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -276,9 +278,11 @@ static const Page ppRecorder =
 {
     Item_Page, &pService, 0,
     {
-        "ÐÅÃÈÑÒÐÀÒÎÐ", ""
+        "ÐÅÃÈÑÒÐÀÒÎÐ", "RECORDER",
+        "Çàïèñü è âîñïðîèçâåäåíèå âõîäíûõ ñèãíàëîâ",
+        "Recording and playback of input signals"
     },
-
+    PageSB_Service_Recorder
 };
 
 
@@ -291,7 +295,7 @@ static const Page ppFFT =
         "Îòîáðàæåíèå ñïåêòðà âõîäíîãî ñèãíàëà",
         "Mapping the input signal spectrum"
     },
-    Page_MathFFT,
+    Page_Service_FFT,
     {
         (void*)&cFFT_View,      // ÑÅÐÂÈÑ - ÑÏÅÊÒÐ - Îòîáðàæåíèå
         (void*)&cFFT_Scale,     // ÑÅÐÂÈÑ - ÑÏÅÊÒÐ - Øêàëà
@@ -393,7 +397,7 @@ static const Page pppFFT_Cursors =
         "Âêëþ÷àåò êóðñîðû äëÿ èçìåðåíèÿ ïàðàìåòðîâ ñïåêòðà",
         "Includes cursors to measure the parameters of the spectrum"
     },
-    Page_SB_MathCursorsFFT,
+    PageSB_Service_FFT_Cursors,
     {
         (void*)&bFFT_Cursors_Exit,      // ÑÅÐÂÈÑ - ÑÏÅÊÒÐ - ÊÓÐÑÎÐÛ - Âûõîä
         (void*)&bFFT_Cursors_Source,    // ÑÅÐÂÈÑ - ÑÏÅÊÒÐ - ÊÓÐÑÎÐÛ - Èñòî÷íèê
@@ -486,7 +490,7 @@ static const Page ppFunction =
         "Óñòàíîâêà è âûáîð ìàòåìàòè÷åñêîé ôóíêöèè - ñëîæåíèÿ èëè óìíîæåíèÿ",
         "Installation and selection of mathematical functions - addition or multiplication"
     },
-    Page_SB_MathFunction,
+    PageSB_Service_Function,
     {
         (void*)&bFunction_Exit,         // ÑÅÐÂÈÑ - ÔÓÍÊÖÈß - Âûõîä
         (void*)&bFunction_Screen,       // ÑÅÐÂÈÑ - ÔÓÍÊÖÈß - Ýêðàí
@@ -791,7 +795,7 @@ static const Page ppEthernet =
         "Íàñòðîéêè ethernet",
         "Settings of ethernet"
     },
-    Page_ServiceEthernet,
+    Page_Service_Ethernet,
     {
         (void*)&cEthernet_Ethernet, // ÑÅÐÂÈÑ - ETHERNET - Ethernet
         (void*)&ipEthernet_IP,      // ÑÅÐÂÈÑ - ETHERNET - IP àäðåñ
@@ -888,7 +892,7 @@ static const Page ppSound =
         "Â ýòîì ìåíþ ìîæíî íàñòðîèòü ãðîìêîñòü çâóêà",
         "In this menu, you can adjust the volume"
     },
-    Page_ServiceSound,
+    Page_Service_Sound,
     {
         (void*)&cSound_Enable,  // ÑÅÐÂÈÑ - ÇÂÓÊ - Çâóê
         (void*)&gSound_Volume   // ÑÅÐÂÈÑ - ÇÂÓÊ - Ãðîìêîñòü
@@ -934,7 +938,7 @@ static const Page ppTime =
         "Óñòàíîâêà è íàñòðîéêà âðåìåíè",
         "Set and setup time"
     },
-    Page_ServiceTime,
+    Page_Service_Time,
     {
         (void*)&tTime_Time,         // ÑÅÐÂÈÑ - ÂÐÅÌß - Âðåìÿ
         (void*)&tTime_Correction    // CÅÐÂÈÑ - ÂÐÅÌß - Êîððåêöèÿ
@@ -1010,7 +1014,7 @@ static const Page ppInformation =
         "Ïîêàçûâàåò èíôîðìàöèþ î ïðèáîðå",
         "Displays information about the device"
     },
-    Page_SB_ServiceInformation,
+    PageSB_Service_Information,
     {
         (void*)&bInformation_Exit,  // ÑÅÐÂÈÑ - ÈÍÔÎÐÌÀÖÈß - Âûõîä
         (void*)0,

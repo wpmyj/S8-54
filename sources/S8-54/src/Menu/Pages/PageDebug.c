@@ -166,7 +166,7 @@ static const Page ppConsole =
         "",
         ""
     },
-    Page_DebugConsole,
+    Page_Debug_Console,
     {
         (void*)&gConsole_NumStrings,    // ОТЛАДКА - КОНСОЛЬ - Число строк
         (void*)&cConsole_SizeFont,      // ОТЛАДКА - КОНСОЛЬ - Размер шрифта
@@ -230,7 +230,7 @@ static const Page pppConsole_Registers =
         "",
         ""
     },
-    Page_DebugShowRegisters,
+    Page_Debug_Console_Registers,
     {
         (void*)&cConsole_Registers_ShowAll,      // ОТЛАДКА - КОНСОЛЬ - РЕГИСТРЫ - Показывать все
         (void*)&cConsole_Registers_RD_FL,        // ОТЛАДКА - КОНСОЛЬ - РЕГИСТРЫ - RD_FL
@@ -472,7 +472,7 @@ static const Page ppADC =
         "",
         ""
     },
-    Page_DebugADC,
+    Page_Debug_ADC,
     {
         (void*)&pppADC_Balance,     // ОТЛАДКА - АЦП - БАЛАНС
         (void*)&pppADC_Stretch,     // ОТЛАДКА - АЦП - РАСТЯЖКА
@@ -489,7 +489,7 @@ static const Page pppADC_Balance =
         "",
         ""
     },
-    Page_DebugADCbalance,
+    Page_Debug_ADC_Balance,
     {
         (void*)&cADC_Balance_Mode,   // ОТЛАДКА - АЦП - БАЛАНС - Режим
         (void*)&gADC_Balance_ShiftA, // ОТЛАДКА - АЦП - БАЛАНС - Смещение 1
@@ -584,7 +584,7 @@ static const Page pppADC_Stretch =
         "Устанавливает режим и величину растяжки (для ручного режима)",
         "Sets mode and the value of stretching (manual mode)"
     },
-    Page_DebugADCstretch,
+    Page_Debug_ADC_Stretch,
     {
         (void*)&cADC_Stretch_Mode,      // ОТЛАДКА - АЦП - РАСТЯЖКА - Режим
         (void*)&gADC_Stretch_A,         // ОТЛАДКА - АЦП - РАСТЯЖКА - Растяжка 1к
@@ -791,7 +791,7 @@ static const Page pppADC_Shift =
         "",
         ""
     },
-    Page_DebugADCrShift,
+    Page_Debug_ADC_Shift,
     {
         (void*)&bADC_Shift_Reset,    // ОТЛАДКА - АЦП - ДОП СМЕЩ - Сброс
         (void*)&gADC_Shift_A2mV,     // ОТЛАДКА - АЦП - ДОП СМЕЩ - См 1к 2мВ пост
@@ -922,7 +922,7 @@ static const Page ppRand =
         "",
         ""
     },
-    Page_DebugRandomizer,
+    Page_Debug_Rand,
     {
         (void*)&gRand_NumAverage,          // ОТЛАДКА - РАНД-ТОР - Усредн.
         (void*)&gRand_NumSmooth,           // ОТЛАДКА - РАНД-ТОР - Сглаживание
@@ -940,11 +940,11 @@ static const Page ppChannels =
 {
     Item_Page, &pDebug, 0,
     {
-        "КАНЛАЫ", "CHANNELS",
+        "КАНАЛЫ", "CHANNELS",
         "",
         ""
     },
-    Page_DebugChannels,
+    Page_Debug_Channels,
     {
         (void*)&cChannels_BandwidthA,  // ОТЛАДКА - КАНАЛЫ - Полоса 1
         (void*)&cChannels_BandwidthB   // ОТЛАДКА - КАНАЛЫ - Полоса 2
@@ -1132,7 +1132,7 @@ static const Page ppSettings =
         "Показать информацию о настройках",
         "Show settings information"
     },
-    Page_SB_DebugShowSetInfo,
+    PageSB_Debug_Settings,
     {
         (void*)&bSettings_Exit        // ОТЛАДКА - НАСТРОЙКИ - Выход
     },
@@ -1384,7 +1384,7 @@ static const Page ppSerialNumber =
         "Запись серийного номера в OTP-память. ВНИМАНИЕ!!! ОТP-память - память с однократной записью.",
         "Serial number recording in OTP-memory. ATTENTION!!! OTP memory is a one-time programming memory."
     },
-    Page_SB_SerialNumber,
+    PageSB_Debug_SerialNumber,
     {
         (void*)&bSerialNumber_Exit,     // ОТЛАДКА - С/Н - Выход
         (void*)&bSerialNumber_Change,   // ОТЛАДКА - С/Н - Перейти
@@ -1595,7 +1595,7 @@ void OnPressDebugDisable(void)
 {
     ShowMenu(false);
     SetMenuPageDebugActive(false);
-    SetMenuPosActItem(Page_MainPage, 0);
+    SetMenuPosActItem(Page_Main, 0);
 }
 
 
@@ -1692,7 +1692,7 @@ const Page mspDebugADCaltShift =    // ОТЛАДКА - АЦП - ДОП СМЕЩ ПАМ
         "",
         ""
     },
-    0, Page_DebugADCaltShift,
+    0, Page_Debug_ADC_AltShift,
     {
         (void*)&mgDebugADCaltShift
     }

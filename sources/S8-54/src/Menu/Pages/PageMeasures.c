@@ -73,7 +73,7 @@ const Page ppFreqMeter =
         "",
         ""
     },
-    Page_ServiceFreqMeter,
+    Page_Service_FreqMeter,
     {
         (void*)&cFreqMeter_Enable,      // ИЗМЕРЕНИЯ - ЧАСТОТОМЕР - Частотомер
         (void*)&cFreqMeter_TimeF,       // ИЗМЕРЕНИЯ - ЧАСТОТОМЕР - Время счёта F
@@ -266,7 +266,7 @@ static const Page ppTune =
         "Переход в режми точной настройки количества и видов измерений",
         "Transition to rezhm of exact control of quantity and types of measurements"
     },
-    Page_SB_MeasTuneMeas,
+    PageSB_Measures_Tune,
     {
         (void*)&bTune_Exit,     // ИЗМЕРЕНИЯ - НАСТРОИТЬ - Выход
         (void*)0,

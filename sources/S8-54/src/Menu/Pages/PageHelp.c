@@ -124,7 +124,7 @@ const Page pHelp =
         "Открыть разделы помощи",
         "To open sections of the help"
     },
-    Page_SB_Help, 
+    PageSB_Help, 
     {
         (void*)&sbExitHelp,
         (void*)&sbHelpParagraphEnter,

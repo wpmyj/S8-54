@@ -289,7 +289,7 @@ int Choice_NumSubItems(Choice *choice)
 //----------------------------------------------------------------------------------------------------------------------------------------------------
 int NumItemsInPage(const Page * const page) 
 {
-    if (page->name == Page_MainPage)
+    if (page->name == Page_Main)
     {
         return (gBF.showDebugMenu == 0) ? 10 : 11;
     }
@@ -419,12 +419,7 @@ void ChangeItem(void *item, int delta)
 //----------------------------------------------------------------------------------------------------------------------------------------------------
 void ShortPressOnPageItem(Page *page, int numItem)
 {
-    if (TypeMenuItem(page) != Item_Page)
-    {
-        return;
-    }
-    NamePage namePage = page->name;
-    if (namePage >= Page_SB_Curs)
+    if (TypeMenuItem(page) == Item_Page)
     {
         CallFuncOnPressButton(page->items[numItem]);
     }
@@ -443,7 +438,7 @@ bool IsPageSB(const void *item)
     {
         return false;
     }
-    return ((Page*)item)->name >= Page_SB_Curs;
+    return ((Page*)item)->name >= PageSB_Cursors_Set;
 }
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------

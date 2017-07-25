@@ -922,7 +922,7 @@ static void DrawMeasures(void)
         {
             int x = x0 + dX * elem;
             int y = y0 + str * dY;
-            bool active = Measure_IsActive(str, elem) && GetNameOpenedPage() == Page_SB_MeasTuneMeas;
+            bool active = Measure_IsActive(str, elem) && GetNameOpenedPage() == PageSB_Measures_Tune;
             Color color = active ? gColorBack : gColorFill;
             Measure meas = Measure_Type(str, elem);
             if(meas != Measure_None)
@@ -964,7 +964,7 @@ static void DrawMeasures(void)
         }
     }
 
-    if(GetNameOpenedPage() == Page_SB_MeasTuneMeas)
+    if(GetNameOpenedPage() == PageSB_Measures_Tune)
     {
         Measure_DrawPageChoice();
     }

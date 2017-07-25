@@ -836,7 +836,7 @@ void ChangeStateFlashDrive(void)
 {
     if(!gFlashDriveIsConnected)
     {
-        if(GetNameOpenedPage() == Page_SB_FileManager)
+        if(GetNameOpenedPage() == PageSB_Memory_Drive_Manager)
         {
             ShortPressOnPageItem(OpenedItem(), 0);
         }
@@ -877,13 +877,13 @@ static bool NeedForFireSetLED(void)    // Возвращает true, если лампочка УСТАНОВ
 
     NamePage name = GetNameOpenedPage();
     if (
-            name == Page_SB_SerialNumber    ||
-            name == Page_SB_MathCursorsFFT  || 
-            name == Page_SB_MeasTuneMeas    || 
-            name == Page_SB_MemRAM       || 
-            name == Page_SB_MemROM          ||
+            name == PageSB_Debug_SerialNumber    ||
+            name == PageSB_Service_FFT_Cursors     || 
+            name == PageSB_Measures_Tune    || 
+            name == PageSB_Memory_Last          || 
+            name == PageSB_Memory_Internal          ||
             IsRegSetActiveOnCursors()       ||
-            (name == Page_SB_MathFunction && FUNC_ENABLED)
+            (name == PageSB_Service_Function && FUNC_ENABLED)
         )
     {
         return true;

@@ -27,19 +27,19 @@ const Page mainPage =
         "Ã≈Õﬁ", "MENU",
         "", ""
     },
-    Page_MainPage,
+    Page_Main,
     {
-        (void*)&pDisplay,
-        (void*)&pChanA,
-        (void*)&pChanB,
-        (void*)&pTrig,
-        (void*)&pTime,
-        (void*)&pCursors,
-        (void*)&pMemory,
-        (void*)&pMeasures,
-        (void*)&pService,
-        (void*)&pHelp,
-        (void*)&pDebug
+        (void*)&pDisplay,   // ƒ»—œÀ≈…
+        (void*)&pChanA,     //  ¿Õ¿À 1
+        (void*)&pChanB,     //  ¿Õ¿À 2
+        (void*)&pTrig,      // —»Õ’–
+        (void*)&pTime,      // –¿«¬≈–“ ¿
+        (void*)&pCursors,   //  ”–—Œ–€
+        (void*)&pMemory,    // œ¿Ãﬂ“‹
+        (void*)&pMeasures,  // »«Ã≈–≈Õ»ﬂ
+        (void*)&pService,   // —≈–¬»—
+        (void*)&pHelp,      // œŒÃŒŸ‹
+        (void*)&pDebug      // Œ“À¿ƒ ¿
     }
 };
 

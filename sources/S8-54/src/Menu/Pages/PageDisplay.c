@@ -112,7 +112,7 @@ static const Page ppAccum =
         "Настройки режима отображения последних сигналов на экране.",
         "Mode setting signals to display the last screen."
     },
-    Page_DisplayAccumulation,
+    Page_Display_Accum,
     {
         (void*)&cAccum_Num,    // ДИСПЛЕЙ - НАКОПЛЕНИЕ - Количество
         (void*)&cAccum_Mode,   // ДИСПЛЕЙ - НАКОПЛЕНИЕ - Режим
@@ -209,7 +209,7 @@ static const Page ppAverage =
         "Настройки режима усреднения по последним измерениям.",
         "Settings of the mode of averaging on the last measurements."
     },
-    Page_DisplayAverage,
+    Page_Display_Average,
     {
         (void*)&cAverage_Num,  // ДИСПЛЕЙ - УСРЕДНЕНИЕ - Количество
         (void*)&cAverage_Mode  // ДИСПЛЕЙ - УСРЕДНЕНИЕ - Режим
@@ -365,7 +365,7 @@ static const Page ppGrid =
         "Содержит настройки отображения координатной сетки.",
         "Contains settings of display of a coordinate grid."
     },
-    Page_DisplayGrid,
+    Page_Display_Grid,
     {
         (void*)&cGrid_Type,        // ДИСПЛЕЙ - СЕТКА - Тип
         (void*)&gGrid_Brightness   // ДИСПЛЕЙ - СЕТКА - Яркость
@@ -441,7 +441,7 @@ const Page ppSettings =
         "Дополнительные настройки дисплея",
         "Additional display settings"
     },
-    Page_DisplaySettings,
+    Page_Display_Settings,
     {
         (void*)&pppSettings_Colors,             // ДИСПЛЕЙ - НАСТРОЙКИ - ЦВЕТА
         (void*)&gSettings_Brightness,           // ДИСПЛЕЙ - НАСТРОЙКИ - Яркость
@@ -463,7 +463,7 @@ static const Page pppSettings_Colors =
         "Выбор цветов дисплея",
         "The choice of colors display"
     },
-    Page_ServiceDisplayColors,
+    Page_Display_Settings_Colors,
     {
         (void*)&cSettings_Colors_Scheme,        // ДИСПЛЕЙ - НАСТРОЙКИ - ЦВЕТА - Цветовая схема
         (void*)&gcSettings_Colors_ChannelA,     // ДИСПЛЕЙ - НАСТРОЙКИ - ЦВЕТА - Канал 1
