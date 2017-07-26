@@ -35,6 +35,8 @@ bool Panel_ProcessingCommandFromPIC(uint16 command);
 uint16 Panel_NextData(void);
 /// Ожидание нажатия клавиши
 PanelButton Panel_WaitPressingButton(void);
+/// Отлкючает прибор, если была нажата кнопка ПИТАНИЕ
+void Panel_DisableIfNessessary(void);
 
 /**  @}
  */

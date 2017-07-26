@@ -547,6 +547,25 @@ PanelButton Panel_WaitPressingButton(void)
 
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
+void Panel_DisableIfNessessary(void)
+{
+    if (gBF.disablePower == 1)
+    {
+        if (IsPageSB(OpenedItem()))     // Если открата страница малых кнопок,
+        {
+            CloseOpenedItem();          // то закрываем её
+        }
+        Settings_Save();
+        Log_DisconnectLoggerUSB();
+        Panel_TransmitData(0x04);
+        while (1)
+        {
+        };
+    }
+}
+
+
+//----------------------------------------------------------------------------------------------------------------------------------------------------
 static uint8 dataSPIfromPanel;
 
 
@@ -578,3 +597,5 @@ void HAL_SPI_RxCpltCallback(SPI_HandleTypeDef* handleSPI)
 
     SPI1->DR = Panel_NextData();
 }
+
+

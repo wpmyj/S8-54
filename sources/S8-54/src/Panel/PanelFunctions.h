@@ -90,7 +90,6 @@ void Func_Power(int key)                        // B_Power
 {
     if (key == 1)
     {
-        ShortPressOnPageItem(OpenedItem(), 0);
         gBF.disablePower = 1;
     }
 }

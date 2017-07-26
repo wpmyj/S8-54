@@ -3,7 +3,6 @@
 #include "Log.h"
 #include "Ethernet/Ethernet.h"
 #include "FlashDrive/FlashDrive.h"
-#include "FPGA/Data.h"
 #include "FPGA/FPGA.h"
 #include "Hardware/Timer.h"
 #include "Menu/Menu.h"
@@ -20,27 +19,7 @@
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 extern void main3(void);
 
-#define TICS ((gTimerTics - time) / 120.0f)
-
-//static void ProcessingSignal(void);
-
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-static void Disable_IfNessessary(void)
-{
-    if (gBF.disablePower == 1)
-    {
-        Settings_Save();
-        Log_DisconnectLoggerUSB();
-        Panel_TransmitData(0x04);
-        volatile bool run = true;
-        while (run)
-        {
-        };
-    }
-}
-
-
-//----------------------------------------------------------------------------------------------------------------------------------------------------
 int main(void)
 {
     Log_EnableLoggerUSB(true);
@@ -62,6 +41,6 @@ int main(void)
         Panel_Update();
         Menu_UpdateInput();             // Обновляем состояние меню
         Display_Update();               // Рисуем экран.
-        Disable_IfNessessary();
+        Panel_DisableIfNessessary();
     }
 }
