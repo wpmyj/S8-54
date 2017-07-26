@@ -35,12 +35,12 @@ int main(void)
     while(1)
     {
         Timer_StartMultiMeasurement();  // Сброс таймера для замера длительности временных интервалов в течение одной итерации цикла.
-        Ethernet_Update(0);
-        FDrive_Update();
+        Ethernet_Update(0);             // Обрабатываем LAN
+        FDrive_Update();                // Обрабатываем флешку
         FPGA_Update();                  // Обновляем аппаратную часть.
-        Panel_Update();
+        Panel_Update();                 // Обрабатываем панель
         Menu_UpdateInput();             // Обновляем состояние меню
         Display_Update();               // Рисуем экран.
-        Panel_DisableIfNessessary();
+        Panel_DisableIfNessessary();    // Выключаем, если необходимо
     }
 }

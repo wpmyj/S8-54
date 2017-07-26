@@ -33,7 +33,8 @@ extern DMA_HandleTypeDef handleDMA_RAM;
 extern ADC_HandleTypeDef handleADC;
 extern DAC_HandleTypeDef handleDAC;
 
-#define NEED_AUTO_FIND  (gBF.FPGAneedAutoFind)
+#define NEED_AUTO_FIND      (gBF.FPGAneedAutoFind)
+#define NEED_DISABLE_POWER  (gBF.disablePower)
 
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

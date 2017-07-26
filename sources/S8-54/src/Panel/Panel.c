@@ -549,7 +549,7 @@ PanelButton Panel_WaitPressingButton(void)
 //----------------------------------------------------------------------------------------------------------------------------------------------------
 void Panel_DisableIfNessessary(void)
 {
-    if (gBF.disablePower == 1)
+    if (NEED_DISABLE_POWER)
     {
         if (IsPageSB(OpenedItem()))     // Если открата страница малых кнопок,
         {
