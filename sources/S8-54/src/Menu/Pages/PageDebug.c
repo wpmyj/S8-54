@@ -1136,7 +1136,7 @@ static const Page ppSettings =
     {
         (void*)&bSettings_Exit        // ÎÒËÀÄÊÀ - ÍÀÑÒĞÎÉÊÈ - Âûõîä
     },
-    OnPress_Settings
+    true, OnPress_Settings
 };
 
 // ÎÒËÀÄÊÀ - ÍÀÑÒĞÎÉÊÈ - Âûõîä -----------------------------------------------------------------------------------------------------------------------
@@ -1393,7 +1393,7 @@ static const Page ppSerialNumber =
         (void*)0,
         (void*)&bSerialNumber_Save      // ÎÒËÀÄÊÀ - Ñ/Í - Ñîõğàíèòü
     },
-    OnPress_SerialNumber, 0, OnRegSet_SerialNumber
+    true, OnPress_SerialNumber, 0, OnRegSet_SerialNumber
 };
 
 static void OnPress_SerialNumber(void)

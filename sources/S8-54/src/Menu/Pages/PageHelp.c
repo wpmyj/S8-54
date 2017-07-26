@@ -133,5 +133,5 @@ const Page pHelp =
         (void*)&sbHelpParagraphPrev,
         (void*)&sbHelpParagraphNext
     },  
-    0, HelpContent_Draw, OnHelpRegSet
+    true, 0, HelpContent_Draw, OnHelpRegSet
 };

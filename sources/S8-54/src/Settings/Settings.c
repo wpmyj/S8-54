@@ -313,7 +313,7 @@ void SetMenuCurrentSubPage(NamePage namePage, int8 posSubPage)
 //----------------------------------------------------------------------------------------------------------------------------------------------------
 bool MenuIsMinimize(void)
 {
-    return TypeOpenedItem() == Item_Page && GetNamePage(OpenedItem()) >= PageSB_Cursors_Set;
+    return IsPageSB(OpenedItem());
 }
 
 

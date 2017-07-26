@@ -208,7 +208,7 @@ static const Page ppSet =
         (void*)&bSet_100,      // йспянпш - сярюмнбхрэ - 100%
         (void*)&bSet_Movement  // йспянпш - сярюмнбхрэ - оЕПЕЛЕЫЕМХЕ
     },
-    EmptyFuncVV, EmptyFuncVV, OnRegSet_Set
+    true, 0, 0, OnRegSet_Set
 };
 
 static void OnRegSet_Set(int angle)

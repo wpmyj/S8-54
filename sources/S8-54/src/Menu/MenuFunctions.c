@@ -434,11 +434,11 @@ Page* PagePointerFromName(NamePage namePage)
 //----------------------------------------------------------------------------------------------------------------------------------------------------
 bool IsPageSB(const void *item)
 {
-    if (TypeMenuItem(item) != Item_Page)
+    if (TypeMenuItem(item) == Item_Page)
     {
-        return false;
+        return ((Page*)item)->isPageSB;
     }
-    return ((Page*)item)->name >= PageSB_Cursors_Set;
+    return false;
 }
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------

@@ -275,9 +275,7 @@ static const Page ppTune =
         (void*)&bTune_Markers,  // ИЗМЕРЕНИЯ - НАСТРОИТЬ - Маркеры
         (void*)&bTune_Settings  // ИЗМЕРЕНИЯ - НАСТРОИТЬ - Настройка
     },
-    EmptyFuncVV,
-    EmptyFuncVV,
-    OnRegSet_Tune
+    true, 0, 0, OnRegSet_Tune
 };
 
 static bool IsActive_Tune(void)

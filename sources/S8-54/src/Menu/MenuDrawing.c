@@ -63,7 +63,6 @@ static void DrawHintItem(int x, int y, int width)
         {"",            ""},        // Item_Governor
         {"",            ""},        // Item_Time
         {"",            ""},        // Item_IP
-        {"",            ""},        // Item_SwitchButton
         {"",            ""},        // Item_GovernorColor
         {"",            ""},        // Item_Formula
         {"",            ""},        // Item_MAC
@@ -316,7 +315,6 @@ void DrawItemsPage(Page *page, int layer, int yTop)
         DrawGovernor,       // Item_Governor
         DrawTime,           // Item_Time
         DrawIPaddress,      // Item_IP
-        EmptyFuncpVII,      // Item_SwitchButton
         DrawGovernorColor,  // Item_GovernorColor
         DrawFormula,        // Item_Formula
         DrawMACaddress,     // TypeItem_Mac

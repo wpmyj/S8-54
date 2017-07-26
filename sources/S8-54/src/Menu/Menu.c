@@ -797,7 +797,6 @@ pFuncVpV FuncForShortPressOnItem(void *item)
         ShortPress_Governor,        // Item_Governor
         ShortPress_Time,            // Item_Time
         ShortPress_IP,              // Item_IP
-        EmptyFuncVpV,               // Item_SwitchButton
         ShortPress_GovernorColor,   // Item_GovernorColor
         EmptyFuncVpV,               // Item_Formula
         ShortPress_MAC,             // Item_MAC
@@ -820,7 +819,6 @@ pFuncVpV FuncForLongPressureOnItem(void *item)
         FuncOnLongPressItem,        // Item_Governor
         FuncOnLongPressItemTime,    // Item_Time
         FuncOnLongPressItem,        // Item_IP
-        EmptyFuncVpV,               // Item_SwitchButton
         FuncOnLongPressItem,        // Item_GovernorColor
         EmptyFuncVpV,               // Item_Formula
         FuncOnLongPressItem,        // Item_MAC
@@ -877,12 +875,12 @@ static bool NeedForFireSetLED(void)    // Возвращает true, если лампочка УСТАНОВ
 
     NamePage name = GetNameOpenedPage();
     if (
-            name == PageSB_Debug_SerialNumber    ||
-            name == PageSB_Service_FFT_Cursors     || 
-            name == PageSB_Measures_Tune    || 
+            name == PageSB_Debug_SerialNumber   ||
+            name == PageSB_Service_FFT_Cursors  || 
+            name == PageSB_Measures_Tune        || 
             name == PageSB_Memory_Last          || 
-            name == PageSB_Memory_Internal          ||
-            IsRegSetActiveOnCursors()       ||
+            name == PageSB_Memory_Internal      ||
+            IsRegSetActiveOnCursors()           ||
             (name == PageSB_Service_Function && FUNC_ENABLED)
         )
     {

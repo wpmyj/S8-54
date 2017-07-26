@@ -89,9 +89,9 @@ static const MACaddress ipEthernet_MAC;                             ///< ÑÅÐÂÈÑ 
 static const       Page ppSound;                                    ///< ÑÅÐÂÈÑ - ÇÂÓÊ
 static const      Choice cSound_Enable;                             ///< ÑÅÐÂÈÑ - ÇÂÓÊ - Çâóê
 static const    Governor gSound_Volume;                             ///< ÑÅÐÂÈÑ - ÇÂÓÊ - Ãðîìêîñòü
-static const       Page ppTime;                                     ///< ÑÅÐÂÈÑ - ÂÐÅÌß
-static const        Time tTime_Time;                                ///< ÑÅÐÂÈÑ - ÂÐÅÌß - Âðåìÿ
-static const    Governor tTime_Correction;                          ///< ÑÅÐÂÈÑ - ÂÐÅÌß - Êîððåêöèÿ
+static const       Page ppRTC;                                     ///< ÑÅÐÂÈÑ - ÂÐÅÌß
+static const        Time tRTC_Time;                                ///< ÑÅÐÂÈÑ - ÂÐÅÌß - Âðåìÿ
+static const    Governor tRTC_Correction;                          ///< ÑÅÐÂÈÑ - ÂÐÅÌß - Êîððåêöèÿ
 static void     OnChanged_Time_Correction(void);
 static const      Choice cLanguage;                                 ///< ÑÅÐÂÈÑ - ßÇÛÊ
 static const       Page ppInformation;                              ///< ÑÅÐÂÈÑ - ÈÍÔÎÐÌÀÖÈß
@@ -127,7 +127,7 @@ const Page pService =
         (void*)&ppFunction,         // ÑÅÐÂÈÑ - ÔÓÍÊÖÈß
         (void*)&ppEthernet,         // ÑÅÐÂÈÑ - ETHERNET
         (void*)&ppSound,            // ÑÅÐÂÈÑ - ÇÂÓÊ
-        (void*)&ppTime,             // ÑÅÐÂÈÑ - ÂÐÅÌß
+        (void*)&ppRTC,             // ÑÅÐÂÈÑ - ÂÐÅÌß
         (void*)&cLanguage,          // ÑÅÐÂÈÑ - ßçûê
         (void*)&ppInformation       // ÑÅÐÂÈÑ - ÈÍÔÎÐÌÀÖÈß
     }
@@ -287,7 +287,8 @@ static const Page ppRecorder =
         (void*)&bRecorder_Start,
         (void*)&bRecorder_Choice,
         (void*)&bRecorder_Cursor
-    }
+    },
+    true
 };
 
 
@@ -309,7 +310,7 @@ static const Page ppFFT =
         (void*)&pppFFT_Cursors, // ÑÅÐÂÈÑ - ÑÏÅÊÒÐ - ÊÓÐÑÎÐÛ
         (void*)&cFFT_Range      // ÑÅÐÂÈÑ - ÑÏÅÊÒÐ - Äèàïàçîí
     },
-    OnPress_FFT
+    false, OnPress_FFT
 };
 
 static bool IsActive_FFT(void)
@@ -411,7 +412,7 @@ static const Page pppFFT_Cursors =
         (void*)0,
         (void*)0
     },
-    0, 0, OnRegSet_FFT_Cursors
+    true, 0, 0, OnRegSet_FFT_Cursors
 };
 
 static bool IsActive_FFT_Cursors(void)
@@ -504,9 +505,7 @@ static const Page ppFunction =
         (void*)&bFunction_RangeA,       // ÑÅÐÂÈÑ - ÔÓÍÊÖÈß - Ìàñøòàá 1-ãî êàíàëà
         (void*)&bFunction_RangeB
     },
-    OnPress_Function,
-    0,
-    OnRegSet_Function
+    true, OnPress_Function, 0, OnRegSet_Function
 };
 
 static bool IsActive_Function(void)
@@ -935,7 +934,7 @@ static const Governor gSound_Volume =
 
 
 // ÑÅÐÂÈÑ - ÂÐÅÌß ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-static const Page ppTime =
+static const Page ppRTC =
 {
     Item_Page, &pService, 0,
     {
@@ -943,19 +942,19 @@ static const Page ppTime =
         "Óñòàíîâêà è íàñòðîéêà âðåìåíè",
         "Set and setup time"
     },
-    Page_Service_Time,
+    Page_Service_RTC,
     {
-        (void*)&tTime_Time,         // ÑÅÐÂÈÑ - ÂÐÅÌß - Âðåìÿ
-        (void*)&tTime_Correction    // CÅÐÂÈÑ - ÂÐÅÌß - Êîððåêöèÿ
+        (void*)&tRTC_Time,          // ÑÅÐÂÈÑ - ÂÐÅÌß - Âðåìÿ
+        (void*)&tRTC_Correction     // CÅÐÂÈÑ - ÂÐÅÌß - Êîððåêöèÿ
     }
 };
 
 // ÑÅÐÂÈÑ - ÂÐÅÌß - Âðåìÿ ----------------------------------------------------------------------------------------------------------------------------
 static int8 dServicetime = 0;
 static int8 hours = 0, minutes = 0, secondes = 0, year = 0, month = 0, day = 0;
-static const Time tTime_Time =
+static const Time tRTC_Time =
 {
-    Item_Time, &ppTime, 0,
+    Item_Time, &ppRTC, 0,
     {
         "Âðåìÿ", "Time"
         ,
@@ -977,9 +976,9 @@ static const Time tTime_Time =
 };
 
 // ÑÅÐÂÈÑ - ÂÐÅÌß - Êîððåêöèÿ ------------------------------------------------------------------------------------------------------------------------
-static const Governor tTime_Correction =
+static const Governor tRTC_Correction =
 {
-    Item_Governor, &ppTime, 0,
+    Item_Governor, &ppRTC, 0,
     {
         "Êîððåêöèÿ", "Correction",
         "Óñòàíîâêà êîððåêòèðóþùåãî êîýôôèöèåíòà äëÿ êîìïåíñàöèè õîäà âðåìåíè",
@@ -1028,7 +1027,7 @@ static const Page ppInformation =
         (void*)0,
         (void*)0
     },
-    OnPress_Information
+    true, OnPress_Information
 };
 
 static void OnPress_Information(void)

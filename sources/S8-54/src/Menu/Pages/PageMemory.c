@@ -242,7 +242,7 @@ static const Page ppLast =
         (void*)&bLast_SaveToROM,    // ÏÀÌßÒÜ - ÏÎÑËÅÄÍÈÅ - Âíóòğ ÇÓ
         (void*)&bLast_SaveToDrive   // ÏÀÌßÒÜ - ÏÎÑËÅÄÍÈÅ - Ñîõğàíèòü
     },
-    OnPress_Last, OnDraw_Last, OnRegSet_Last
+    true, OnPress_Last, OnDraw_Last, OnRegSet_Last
 };
 
 static void OnPress_Last(void)
@@ -497,7 +497,7 @@ static const Page ppInternal =
         (void*)&bInternal_SaveToMemory, // ÏÀÌßÒÜ - ÂÍÓÒĞ ÇÓ - Ñîõğàíèòü
         (void*)&bInternal_SaveToDrive   // ÏÀÌßÒÜ - ÂÍÓÒĞ ÇÓ - Ñîõğàíèòü íà ôëåøêó
     },
-    OnPress_Internal, OnDraw_Internal, OnRegSet_Internal
+    true, OnPress_Internal, OnDraw_Internal, OnRegSet_Internal
 };
 
 static void OnPress_Internal(void)
@@ -996,7 +996,7 @@ static const Page pppDrive_Manager =
         (void*)&bDrive_Manager_LevelUp,     // ÏÀÌßÒÜ - ÂÍÅØÍ ÇÓ - ÊÀÒÀËÎÃ - Âûéòè èç êàòàëîãà
         (void*)&bDrive_Manager_LevelDown    // ÏÀÌßÒÜ - ÂÍÅØÍ ÇÓ - ÊÀÒÀËÎÃ - Âîéòè â êàòàëîã
     },
-    OnPress_Drive_Manager, 0, FM_RotateRegSet
+    true, OnPress_Drive_Manager, 0, FM_RotateRegSet
 };
 
 static bool IsActive_Drive_Manager(void)
@@ -1115,7 +1115,7 @@ static const Page pppDrive_Mask =
         (void*)&bDrive_Mask_Backspace,  // ÏÀÌßÒÜ - ÂÍÅØÍ ÇÓ - ÌÀÑÊÀ - Backspace
         (void*)&bDrive_Mask_Insert      // ÏÀÌßÒÜ - ÂÍÅØÍ ÇÓ - ÌÀÑÊÀ - Âñòàâèòü
     },
-    0, OnPress_Drive_Mask, OnRegSet_Drive_Mask
+    true, OnPress_Drive_Mask, 0, OnRegSet_Drive_Mask
 };
 
 static bool IsActive_Drive_Mask(void)
@@ -1381,7 +1381,7 @@ const Page pSetName =
         (void*)&bSetName_Insert,        // ÂÂÎÄ ÈÌÅÍÈ ÔÀÉËÀ - Âñòàâèòü
         (void*)&bSetName_Save           // ÂÂÎÄ ÈÌÅÍÈ ÔÀÉËÀ - Ñîõğàíèòü
     },
-    0, 0, OnRegSet_SetName
+    true, 0, 0, OnRegSet_SetName
 };
 
 static void OnRegSet_SetName(int angle)
