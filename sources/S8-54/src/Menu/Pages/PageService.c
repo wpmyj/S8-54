@@ -33,8 +33,17 @@ static void      OnChanged_Calibrator_Calibrator(bool active);
 static const       Button bCalibrator_Calibrate;                    ///< ÑÅÐÂÈÑ - ÊÀËÈÁÐÀÒÎÐ - Êàëèáðîâàòü
 static bool       IsActive_Calibrator_Calibrate(void);
 static void        OnPress_Calibrator_Calibrate(void);
+#ifdef OLD_RECORDER
 static const       Choice cRecorder;
 static void      OnChanged_Recorder(bool active);
+#else
+static const       Page ppRecorder;                                 ///< ÑÅÐÂÈÑ - ÐÅÃÈÑÒÐÀÒÎÐ
+static const     SButton bRecorder_Exit;                            ///< ÑÅÐÂÈÑ - ÐÅÃÈÑÒÐÀÒÎÐ - Âûõîä
+static const     SButton bRecorder_SaveTo;                          ///< ÑÅÐÂÈÑ - ÐÅÃÈÑÒÐÀÒÎÐ - Ñîõðàíÿòü â...
+static const     SButton bRecorder_Start;                           ///< ÑÅÐÂÈÑ - ÐÅÃÈÑÒÐÀÒÎÐ - Ñòàðò/Ñòîï
+static const     SButton bRecorder_Choice;                          ///< ÑÅÐÂÈÑ - ÐÅÃÈÑÒÐÀÒÎÐ - Âûáîð
+static const     SButton bRecorder_Cursor;                          ///< ÑÅÐÂÈÑ - ÐÅÃÈÑÒÐÀÒÎÐ - Êóðñîð
+#endif
 static const        Page ppFFT;                                     ///< ÑÅÐÂÈÑ - ÑÏÅÊÒÐ
 static bool       IsActive_FFT(void);
 static void        OnPress_FFT(void);
@@ -99,12 +108,6 @@ static void       OnPress_Information(void);
 static void   Information_Draw(void);
 static const     SButton bInformation_Exit;                         ///< ÑÅÐÂÈÑ - ÈÍÔÎÐÌÀÖÈß - Âûõîä
 static void       OnPress_Information_Exit(void);
-static const       Page ppRecorder;                                 ///< ÑÅÐÂÈÑ - ÐÅÃÈÑÒÐÀÒÎÐ
-static const     SButton bRecorder_Exit;                            ///< ÑÅÐÂÈÑ - ÐÅÃÈÑÒÐÀÒÎÐ - Âûõîä
-static const     SButton bRecorder_SaveTo;                          ///< ÑÅÐÂÈÑ - ÐÅÃÈÑÒÐÀÒÎÐ - Ñîõðàíÿòü â...
-static const     SButton bRecorder_Start;                           ///< ÑÅÐÂÈÑ - ÐÅÃÈÑÒÐÀÒÎÐ - Ñòàðò/Ñòîï
-static const     SButton bRecorder_Choice;                          ///< ÑÅÐÂÈÑ - ÐÅÃÈÑÒÐÀÒÎÐ - Âûáîð
-static const     SButton bRecorder_Cursor;                          ///< ÑÅÐÂÈÑ - ÐÅÃÈÑÒÐÀÒÎÐ - Êóðñîð
 
 
 // ÑÅÐÂÈÑ ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -121,13 +124,16 @@ const Page pService =
         (void*)&bResetSettings,     // ÑÅÐÂÈÑ - Ñáðîñ íàñòðîåê
         (void*)&bAutoSearch,        // ÑÅÐÂÈÑ - Ïîèñê ñèãíàëà
         (void*)&ppCalibrator,       // ÑÅÐÂÈÑ - ÊÀËÈÁÐÀÒÎÐ
+#ifdef OLD_RECORDER
         (void*)&cRecorder,          // ÑÅÐÂÈÑ - Ðåãèñòðàòîð
-        //(void*)&ppRecorder,         // ÑÅÐÂÈÑ - ÐÅÃÈÑÒÐÀÒÎÐ
+#else
+        (void*)&ppRecorder,         // ÑÅÐÂÈÑ - ÐÅÃÈÑÒÐÀÒÎÐ
+#endif
         (void*)&ppFFT,              // ÑÅÐÂÈÑ - ÑÏÅÊÒÐ
         (void*)&ppFunction,         // ÑÅÐÂÈÑ - ÔÓÍÊÖÈß
         (void*)&ppEthernet,         // ÑÅÐÂÈÑ - ETHERNET
         (void*)&ppSound,            // ÑÅÐÂÈÑ - ÇÂÓÊ
-        (void*)&ppRTC,             // ÑÅÐÂÈÑ - ÂÐÅÌß
+        (void*)&ppRTC,              // ÑÅÐÂÈÑ - ÂÐÅÌß
         (void*)&cLanguage,          // ÑÅÐÂÈÑ - ßçûê
         (void*)&ppInformation       // ÑÅÐÂÈÑ - ÈÍÔÎÐÌÀÖÈß
     }
@@ -249,6 +255,8 @@ static void OnPress_Calibrator_Calibrate(void)
     gStateFPGA.needCalibration = true;
 }
 
+#ifdef OLD_RECORDER
+
 // ÑÅÐÂÈÑ - Ðåãèñòðàòîð ------------------------------------------------------------------------------------------------------------------------------
 static const Choice cRecorder =
 {
@@ -270,6 +278,7 @@ static void OnChanged_Recorder(bool active)
     FPGA_EnableRecorderMode(RECORDER_MODE);
 }
 
+#else
 
 // CÅÐÂÈÑ - ÐÅÃÈÑÒÐÀÒÎÐ //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 static const Page ppRecorder =
@@ -290,6 +299,8 @@ static const Page ppRecorder =
     },
     true
 };
+
+#endif
 
 
 // ÑÅÐÂÈÑ - ÑÏÅÊÒÐ ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
