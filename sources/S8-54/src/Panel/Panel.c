@@ -551,10 +551,6 @@ void Panel_DisableIfNessessary(void)
 {
     if (NEED_DISABLE_POWER)
     {
-        if (IsPageSB(OpenedItem()))     // Если открата страница малых кнопок,
-        {
-            CloseOpenedItem();          // то закрываем её
-        }
         Settings_Save();
         Log_DisconnectLoggerUSB();
         Panel_TransmitData(0x04);
