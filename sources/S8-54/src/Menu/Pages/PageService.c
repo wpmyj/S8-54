@@ -33,8 +33,8 @@ static void      OnChanged_Calibrator_Calibrator(bool active);
 static const       Button bCalibrator_Calibrate;                    ///< ÑÅÐÂÈÑ - ÊÀËÈÁÐÀÒÎÐ - Êàëèáðîâàòü
 static bool       IsActive_Calibrator_Calibrate(void);
 static void        OnPress_Calibrator_Calibrate(void);
-//static const       Choice cRecorder;
-//static void      OnChanged_Recorder(bool active);
+static const       Choice cRecorder;
+static void      OnChanged_Recorder(bool active);
 static const        Page ppFFT;                                     ///< ÑÅÐÂÈÑ - ÑÏÅÊÒÐ
 static bool       IsActive_FFT(void);
 static void        OnPress_FFT(void);
@@ -121,8 +121,8 @@ const Page pService =
         (void*)&bResetSettings,     // ÑÅÐÂÈÑ - Ñáðîñ íàñòðîåê
         (void*)&bAutoSearch,        // ÑÅÐÂÈÑ - Ïîèñê ñèãíàëà
         (void*)&ppCalibrator,       // ÑÅÐÂÈÑ - ÊÀËÈÁÐÀÒÎÐ
-//        (void*)&cRecorder,          // ÑÅÐÂÈÑ - Ðåãèñòðàòîð
-        (void*)&ppRecorder,         // ÑÅÐÂÈÑ - ÐÅÃÈÑÒÐÀÒÎÐ
+        (void*)&cRecorder,          // ÑÅÐÂÈÑ - Ðåãèñòðàòîð
+        //(void*)&ppRecorder,         // ÑÅÐÂÈÑ - ÐÅÃÈÑÒÐÀÒÎÐ
         (void*)&ppFFT,              // ÑÅÐÂÈÑ - ÑÏÅÊÒÐ
         (void*)&ppFunction,         // ÑÅÐÂÈÑ - ÔÓÍÊÖÈß
         (void*)&ppEthernet,         // ÑÅÐÂÈÑ - ETHERNET
@@ -250,7 +250,6 @@ static void OnPress_Calibrator_Calibrate(void)
 }
 
 // ÑÅÐÂÈÑ - Ðåãèñòðàòîð ------------------------------------------------------------------------------------------------------------------------------
-/*
 static const Choice cRecorder =
 {
     Item_Choice, &pService, 0,
@@ -270,7 +269,6 @@ static void OnChanged_Recorder(bool active)
 {
     FPGA_EnableRecorderMode(RECORDER_MODE);
 }
-*/
 
 
 // CÅÐÂÈÑ - ÐÅÃÈÑÒÐÀÒÎÐ //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -282,7 +280,14 @@ static const Page ppRecorder =
         "Çàïèñü è âîñïðîèçâåäåíèå âõîäíûõ ñèãíàëîâ",
         "Recording and playback of input signals"
     },
-    PageSB_Service_Recorder
+    PageSB_Service_Recorder,
+    {
+        (void*)&bRecorder_Exit,
+        (void*)&bRecorder_SaveTo,
+        (void*)&bRecorder_Start,
+        (void*)&bRecorder_Choice,
+        (void*)&bRecorder_Cursor
+    }
 };
 
 
