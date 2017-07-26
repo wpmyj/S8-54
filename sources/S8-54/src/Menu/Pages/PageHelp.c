@@ -101,17 +101,11 @@ const SButton sbHelpParagraphNext =
 };
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
-static void PressSB_Help_Exit(void)
-{
-    Display_RemoveAddDrawFunction();
-}
-
-//----------------------------------------------------------------------------------------------------------------------------------------------------
 const SButton sbExitHelp =
 {
     Item_SmallButton, &pHelp,
     COMMON_BEGIN_SB_EXIT,
-    PressSB_Help_Exit,
+    OnPressSB_Exit,
     DrawSB_Exit
 };
 

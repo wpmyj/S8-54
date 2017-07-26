@@ -13,5 +13,7 @@
 const void* PageForButton(PanelButton button);
 /// Возвращает true, если item - адрес главной страницы меню.
 bool IsMainPage(const void *item);
-
+/// Функция отрисовки кнопки выхода из режима малого меню.
 void DrawSB_Exit(int x, int y);
+/// Универсальная функция отработки нажатия кнопки выхода из режима малого меню.
+void OnPressSB_Exit(void);

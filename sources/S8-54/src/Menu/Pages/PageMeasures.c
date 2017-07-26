@@ -27,7 +27,6 @@ static const    Page ppTune;                            ///< ÈÇÌÅÐÅÍÈß - ÍÀÑÒÐÎÈ
 static bool   IsActive_Tune(void);
 static void   OnRegSet_Tune(int angle);
 static const  SButton bTune_Exit;                       ///< ÈÇÌÅÐÅÍÈß - ÍÀÑÒÐÎÈÒÜ - Âûõîä
-static void    OnPress_Tune_Exit(void);
 static const  SButton bTune_Markers;                    ///< ÈÇÌÅÐÅÍÈß - ÍÀÑÒÐÎÈÒÜ - Ìàðêåðû
 static void    OnPress_Tune_Markers(void);
 static void       Draw_Tune_Markers(int x, int y);
@@ -342,14 +341,9 @@ static const SButton bTune_Exit =
 {
     Item_SmallButton, &ppTune,
     COMMON_BEGIN_SB_EXIT,
-    OnPress_Tune_Exit,
+    OnPressSB_Exit,
     DrawSB_Exit
 };
-
-static void OnPress_Tune_Exit(void)
-{
-    Display_RemoveAddDrawFunction();
-}
 
 // ÈÇÌÅÐÅÍÈß - ÍÀÑÒÐÎÈÒÜ - Ìàðêåðû -------------------------------------------------------------------------------------------------------------------
 static const SButton bTune_Markers =

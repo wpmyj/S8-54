@@ -1491,7 +1491,7 @@ static const SButton bSerialNumber_Exit =
 
 static void OnPress_SerialNumber_Exit(void)
 {
-    Display_RemoveAddDrawFunction();
+    OnPressSB_Exit();
     FREE_EXTRAMEM();
 }
 

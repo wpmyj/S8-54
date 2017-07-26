@@ -55,7 +55,6 @@ static const       Page pppFFT_Cursors;                             ///< ÑÅÐÂÈÑ 
 static bool       IsActive_FFT_Cursors(void);
 static void       OnRegSet_FFT_Cursors(int angle);
 static const      SButton bFFT_Cursors_Exit;                        ///< ÑÅÐÂÈÑ - ÑÏÅÊÒÐ - ÊÓÐÑÎÐÛ - Âûõîä
-static void        OnPress_FFT_Cursors_Exit(void);
 static const      SButton bFFT_Cursors_Source;                      ///< ÑÅÐÂÈÑ - ÑÏÅÊÒÐ - ÊÓÐÑÎÐÛ - Èñòî÷íèê
 static void        OnPress_FFT_Cursors_Source(void);
 static void           Draw_FFT_Cursors_Source(int x, int y);
@@ -300,6 +299,18 @@ static const Page ppRecorder =
     true
 };
 
+static const SButton bRecorder_Exit =
+{
+    Item_SmallButton, &ppRecorder, 0,
+    {
+        "Âûõîä", "Exit",
+        "Âûõîä èç ðåæèìà ðåãèñòðàòîðà",
+        "Exit registrator mode"
+    },
+    OnPressSB_Exit,
+    DrawSB_Exit
+};
+
 #endif
 
 
@@ -443,14 +454,9 @@ static const SButton bFFT_Cursors_Exit =
 {
     Item_SmallButton, &pppFFT_Cursors,
     COMMON_BEGIN_SB_EXIT,
-    OnPress_FFT_Cursors_Exit,
+    OnPressSB_Exit,
     DrawSB_Exit
 };
-
-static void OnPress_FFT_Cursors_Exit(void)
-{
-    Display_RemoveAddDrawFunction();
-}
 
 // ÑÅÐÂÈÑ - ÑÏÅÊÒÐ - ÊÓÐÑÎÐÛ - Èñòî÷íèê --------------------------------------------------------------------------------------------------------------
 static const SButton bFFT_Cursors_Source =

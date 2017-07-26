@@ -84,3 +84,9 @@ void DrawSB_Exit(int x, int y)
     Painter_Draw4SymbolsInRect(x + 2, y + 1, '\x2e');
     Painter_SetFont(TypeFont_8);
 }
+
+//----------------------------------------------------------------------------------------------------------------------------------------------------
+void OnPressSB_Exit(void)
+{
+    Display_RemoveAddDrawFunction();
+}

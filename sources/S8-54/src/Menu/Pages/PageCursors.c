@@ -28,7 +28,6 @@ static const  Choice cShowFreq;                         ///< ÊÓÐÎÑÐÛ - 1/dT
 static const   Page ppSet;                              ///< ÊÓÐÑÎÐÛ - ÓÑÒÀÍÎÂÈÒÜ
 static void  OnRegSet_Set(int angle);
 static const SButton bSet_Exit;                         ///< ÊÓÐÑÎÐÛ - ÓÑÒÀÍÎÂÈÒÜ - Âûõîä
-static void   OnPress_Set_Exit(void);
 static const SButton bSet_Channel;                      ///< ÊÓÐÑÎÐÛ - ÓÑÒÀÍÎÂÈÒÜ - Êàíàë
 static void   OnPress_Set_Channel(void);
 static void      Draw_Set_Channel(int x, int y);
@@ -233,14 +232,9 @@ static const SButton bSet_Exit =
         "Êíîïêà äëÿ âûõîäà â ïðåäûäóùåå ìåíþ",
         "Button to return to the previous menu"
     },
-    OnPress_Set_Exit,
+    OnPressSB_Exit,
     DrawSB_Exit
 };
-
-static void OnPress_Set_Exit(void)
-{
-    Display_RemoveAddDrawFunction();
-}
 
 // ÊÓÐÑÎÐÛ - ÓÑÒÀÍÎÂÈÒÜ - Êàíàë --------------------------------------------------------------------------------------------------------------------
 static const SButton bSet_Channel =

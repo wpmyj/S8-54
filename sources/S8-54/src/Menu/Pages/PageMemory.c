@@ -98,7 +98,6 @@ static bool    IsActive_Drive_Mask(void);
 static void     OnPress_Drive_Mask(void);
 static void    OnRegSet_Drive_Mask(int angle);
 static const   SButton bDrive_Mask_Exit;                        ///< ÏÀÌßÒÜ - ÂÍÅØÍ ÇÓ - ÌÀÑÊÀ - Âûõîä
-static void     OnPress_Drive_Mask_Exit(void);
 static const   SButton bDrive_Mask_Delete;                      ///< ÏÀÌßÒÜ - ÂÍÅØÍ ÇÓ - ÌÀÑÊÀ - Óäàëèòü
 static void     OnPress_Drive_Mask_Delete(void);
 static void        Draw_Drive_Mask_Delete(int x, int y);
@@ -299,7 +298,7 @@ static void OnPress_Last_Exit(void)
         FPGA_Start();
         RUN_FPGA_BEFORE_SB = 0;
     }
-    Display_RemoveAddDrawFunction();
+    OnPressSB_Exit();
 }
 
 // ÏÀÌßÒÜ - ÏÎÑËÅÄÍÈÅ - Ñëåäóþùèé --------------------------------------------------------------------------------------------------------------------
@@ -587,7 +586,7 @@ static void OnPress_Internal_Exit(void)
             FPGA_Start();
             RUN_FPGA_BEFORE_SB = 0;
         }
-        Display_RemoveAddDrawFunction();
+        OnPressSB_Exit();
         //ShortPressOnPageItem(PagePointerFromName(PageSB_Memory_Internal), 0);
     }
 }
@@ -1034,7 +1033,7 @@ static const SButton bDrive_Manager_Exit =
 static void OnPress_Drive_Manager_Exit(void)
 {
     Display_SetDrawMode(DrawMode_Auto, 0);
-    Display_RemoveAddDrawFunction();
+    OnPressSB_Exit();
 }
 
 // ÏÀÌßÒÜ - ÂÍÅØÍ ÇÓ - ÊÀÒÀËÎÃ - Tab --------------------------------------------------------------------------------------------------------------
@@ -1237,14 +1236,9 @@ static const SButton bDrive_Mask_Exit =
 {
     Item_SmallButton, &pppDrive_Mask,
     COMMON_BEGIN_SB_EXIT,
-    OnPress_Drive_Mask_Exit,
+    OnPressSB_Exit,
     DrawSB_Exit
 };
-
-static void OnPress_Drive_Mask_Exit(void)
-{
-    Display_RemoveAddDrawFunction();
-}
 
 // ÏÀÌßÒÜ - ÂÍÅØÍ ÇÓ - ÌÀÑÊÀ - Óäàëèòü ------------------------------------------------------------------------------------------------------------
 static const SButton bDrive_Mask_Delete =
@@ -1424,7 +1418,7 @@ static const SButton bSetName_Exit =   // Êíîïê äëÿ âûõîäà èç ðåæèìà çàäàíèÿ èìå
 
 static void OnPress_SetName_Exit(void)
 {
-    Display_RemoveAddDrawFunction();
+    OnPressSB_Exit();
     if (EXIT_FROM_SETNAME_TO == RETURN_TO_DISABLE_MENU)
     {
         ShortPressOnPageItem(PagePointerFromName(PageSB_Memory_SetName), 0);
