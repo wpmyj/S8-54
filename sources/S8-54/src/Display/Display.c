@@ -1004,7 +1004,7 @@ static void DrawCursorTShift(void)
     int x = gridLeft + (int)(shiftTPos * scale) - 3;
     if(IntInRange(x + 3, gridLeft, GridRight() + 1))
     {
-        Painter_Draw2SymbolsC(x, GRID_TOP - 1, SYMBOL_TPOS_2, SYMBOL_TPOS_3, gColorBack, gColorFill);
+        Painter_Draw2SymbolsC(x, GRID_TOP - 1, SYMBOL_TPOS_2, SYMBOL_TPOS_1, gColorBack, gColorFill);
     };
 
     // Рисуем tShift

@@ -40,6 +40,11 @@ static void      OnChanged_Recorder(bool active);
 static const       Page ppRecorder;                                 ///< ÑÅÐÂÈÑ - ÐÅÃÈÑÒÐÀÒÎÐ
 static const     SButton bRecorder_Exit;                            ///< ÑÅÐÂÈÑ - ÐÅÃÈÑÒÐÀÒÎÐ - Âûõîä
 static const     SButton bRecorder_SaveTo;                          ///< ÑÅÐÂÈÑ - ÐÅÃÈÑÒÐÀÒÎÐ - Ñîõðàíÿòü â...
+static bool      IsActive_Recorder_SaveTo(void);
+static void       OnPress_Recorder_SaveTo(void);
+static void          Draw_Recorder_SaveTo(int, int);
+static void          Draw_Recorder_SaveTo_RAM(int, int);
+static void          Draw_Recorder_SaveTo_EXT(int, int);
 static const     SButton bRecorder_Start;                           ///< ÑÅÐÂÈÑ - ÐÅÃÈÑÒÐÀÒÎÐ - Ñòàðò/Ñòîï
 static const     SButton bRecorder_Choice;                          ///< ÑÅÐÂÈÑ - ÐÅÃÈÑÒÐÀÒÎÐ - Âûáîð
 static const     SButton bRecorder_Cursor;                          ///< ÑÅÐÂÈÑ - ÐÅÃÈÑÒÐÀÒÎÐ - Êóðñîð
@@ -299,6 +304,7 @@ static const Page ppRecorder =
     true
 };
 
+//----------------------------------------------------------------------------------------------------------------------------------------------------
 static const SButton bRecorder_Exit =
 {
     Item_SmallButton, &ppRecorder, 0,
@@ -310,6 +316,48 @@ static const SButton bRecorder_Exit =
     OnPressSB_Exit,
     DrawSB_Exit
 };
+
+//----------------------------------------------------------------------------------------------------------------------------------------------------
+static const SButton bRecorder_SaveTo =
+{
+    Item_SmallButton, &ppRecorder, IsActive_Recorder_SaveTo,
+    {
+        "Ñîõðàíÿòü â ...", "Save in ...",
+        "Âûáîð ìåñòà õðàíåíèÿ äàííûõ",
+        "Selecting a storage location"
+    },
+    OnPress_Recorder_SaveTo,
+    Draw_Recorder_SaveTo,
+    {
+        {Draw_Recorder_SaveTo_RAM, "äàííûå ñîõðàíÿþòñÿ âî âíóòðåííþþ ïàìÿòü", "data is stored in the internal memory"},
+        {Draw_Recorder_SaveTo_EXT, "äàííûå ñîõðàíÿþòñÿ íà âíåøíåì ÇÓ", "data is stored in the data storage"}
+    }
+};
+
+static bool IsActive_Recorder_SaveTo(void)
+{
+    return true;
+}
+
+static void OnPress_Recorder_SaveTo(void)
+{
+
+}
+
+static void Draw_Recorder_SaveTo(int x, int y)
+{
+
+}
+
+static void Draw_Recorder_SaveTo_RAM(int x, int y)
+{
+
+}
+
+static void Draw_Recorder_SaveTo_EXT(int x, int y)
+{
+
+}
 
 #endif
 

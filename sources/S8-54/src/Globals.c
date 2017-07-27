@@ -108,7 +108,8 @@ GMemory gMemory =
     0,  // runningFPGAbeforeSmallButtons
     0,  // exitFromROMtoRAM
     0,  // после установки имени и сохранения на флешку возвращаемся в основное рабочее окно
-    0   // needForSaveToFlashDrive
+    0,  // needForSaveToFlashDrive
+    1   // recordSaveToRAM
 };
 
 

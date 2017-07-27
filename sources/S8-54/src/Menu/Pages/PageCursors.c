@@ -295,14 +295,14 @@ static const SButton bSet_U =      // ¬ыбор курсора напр€жени€ - курсор 1, курсо
     OnPress_Set_U,
     Draw_Set_U,
     {
-        {Draw_Set_U_disable, "курсоры напр€жени€ выключены", "cursors of tension are switched off"},
-        {Draw_Set_U_disableBoth, "курсоры напр€жени€ включены", "cursors of tension are switched on"},
-        {Draw_Set_U_enableUpper, "курсоры напр€жени€ включены, управление верхним курсором", "cursors of tension are switched on, control of the "
-                                    "top cursor"},
-        {Draw_Set_U_enableLower, "курсоры напр€жени€ включены, управление нижним курсором", "cursors of tension are switched on, control of the "
-                                    "lower cursor"},
-        {Draw_Set_U_enableBoth, "курсоры напр€жени€ включены, управление обоими курсорами", "cursors of tension are switched on, control of both "
-                                    "cursors"}
+        {Draw_Set_U_disable,        "курсоры напр€жени€ выключены", "cursors of tension are switched off"},
+        {Draw_Set_U_disableBoth,    "курсоры напр€жени€ включены", "cursors of tension are switched on"},
+        {Draw_Set_U_enableUpper,    "курсоры напр€жени€ включены, управление верхним курсором",
+                                    "cursors of tension are switched on, control of the top cursor"},
+        {Draw_Set_U_enableLower,    "курсоры напр€жени€ включены, управление нижним курсором",
+                                    "cursors of tension are switched on, control of the lower cursor"},
+        {Draw_Set_U_enableBoth,     "курсоры напр€жени€ включены, управление обоими курсорами",
+                                    "cursors of tension are switched on, control of both cursors"}
     }
 };
 

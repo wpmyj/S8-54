@@ -347,7 +347,7 @@ static void OnPress_Last_Prev(void)
 static void Draw_Last_Prev(int x, int y)
 {
     Painter_SetFont(TypeFont_UGO2);
-    Painter_Draw4SymbolsInRect(x + 2, y + 2, '\x20');
+    Painter_Draw4SymbolsInRect(x + 2, y + 2, SYMBOL_BACKSPACE);
     Painter_SetFont(TypeFont_8);
 }
 
@@ -1297,7 +1297,7 @@ static void OnPress_Drive_Mask_Backspace(void)
 static void Draw_Drive_Mask_Backspace(int x, int y)
 {
     Painter_SetFont(TypeFont_UGO2);
-    Painter_Draw4SymbolsInRect(x + 2, y + 1, '\x20');
+    Painter_Draw4SymbolsInRect(x + 2, y + 1, SYMBOL_BACKSPACE);
     Painter_SetFont(TypeFont_8);
 }
 
@@ -1482,7 +1482,7 @@ static void OnPress_SetName_Backspace(void)
 static void Draw_SetName_Backspace(int x, int y) //-V524
 {
     Painter_SetFont(TypeFont_UGO2);
-    Painter_Draw4SymbolsInRect(x + 2, y + 1, '\x20');
+    Painter_Draw4SymbolsInRect(x + 2, y + 1, SYMBOL_BACKSPACE);
     Painter_SetFont(TypeFont_8);
 }
 
