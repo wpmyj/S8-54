@@ -199,6 +199,15 @@ void Painter_DrawHPointLine(int y, int x0, int x1, float delta)
 }
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
+void Painter_DrawVPointLine(int x, int y0, int y1, float delta)
+{
+    for (int y = y0; y <= y1; y += (int)delta)
+    {
+        Painter_SetPoint(x, y);
+    }
+}
+
+//----------------------------------------------------------------------------------------------------------------------------------------------------
 void Painter_DrawMultiVPointLine(int numLines, int y, uint16 x[], int delta, int count, Color color)
 {
     ASSERT_RET(numLines > 20, "Число линий слишком большое %d", numLines);

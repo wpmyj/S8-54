@@ -48,6 +48,8 @@ void Painter_DrawVLine(int x, int y0, int y1);
 
 void Painter_DrawHPointLine(int y, int x0, int x1, float delta);
 
+void Painter_DrawVPointLine(int x, int y0, int y1, float delta);
+
 void Painter_DrawMultiVPointLine(int numLines, int y, uint16 x[], int delta, int count, Color color);
 
 void Painter_DrawMultiHPointLine(int numLines, int x, uint8 y[], int delta, int count, Color color);
