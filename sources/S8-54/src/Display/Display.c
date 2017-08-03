@@ -1876,6 +1876,7 @@ static void DrawGridType3(int left, int top, int right, int bottom, int centerX,
     Painter_DrawHPointLine(centerY, left + stepX, right, (float)stepX);
     uint8 masY[6] ={(uint8)(top + 1), (uint8)(top + 2), (uint8)(centerY - 1), (uint8)(centerY + 1), (uint8)(bottom - 2), (uint8)(bottom - 1)};
     Painter_DrawMultiHPointLine(6, left + deltaX, masY, deltaX, (right - top) / deltaX, gColorGrid);
+    Painter_SetColor(gColorGrid);
     Painter_DrawVPointLine(centerX, top + stepX, bottom - stepX, (float)stepX);
     uint16 masX[6] ={(uint16)(left + 1), (uint16)(left + 2), (uint16)(centerX - 1), (uint16)(centerX + 1), (uint16)(right - 2), (uint16)(right - 1)};
     Painter_DrawMultiVPointLine(6, top + deltaY, masX, deltaY, (bottom - top) / deltaY, gColorGrid);
