@@ -213,6 +213,8 @@ void Display_Init(void)
     Painter_SetFont(TypeFont_8);
 
     Painter_LoadPalette();
+
+    SetOrientation();
 }
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
@@ -235,7 +237,6 @@ void Display_Update(void)
     if(needClear)
     {
         Painter_BeginScene(gColorBack);
-        SetOrientation();
         PainterData_DrawMemoryWindow();
         DrawFullGrid();
     }

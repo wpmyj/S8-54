@@ -3,6 +3,7 @@
 #include "Log.h"
 #include "Panel.h"
 #include "PanelFunctions.h"
+#include "Display/PainterDataNew.h"
 #include "FPGA/FPGA.h"
 #include "Hardware/Hardware.h"
 #include "Hardware/Sound.h"
@@ -228,6 +229,8 @@ bool Panel_ProcessingCommandFromPIC(uint16 command)
 {
     if (command != 0)
     {
+        PainterDataNew_InterruptDrawing();
+
         gBF.panelControlReceive = 1;
 
         allRecData++;

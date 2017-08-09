@@ -35,12 +35,16 @@ extern DAC_HandleTypeDef handleDAC;
 
 #define NEED_AUTO_FIND      (gBF.FPGAneedAutoFind)
 #define NEED_DISABLE_POWER  (gBF.disablePower)
-#define RECORD_TO_RAM       
+#define RECORD_TO_RAM
+
+#define NUM_DRAWING_SIGNALS (gBF.numDrawingSignals)
 
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 typedef struct
 {
+    uint numDrawingSignals          : 9;    ///< \brief Количество нарисованных сигналов. Используется для того, чтобы определить, нужно ли стирать 
+                                            ///< дисплей в режиме накопления
     uint FPGAneedAutoFind           : 1;    ///< Если 1, то нужно найти сигнал.
     uint FPGAtemporaryPause         : 1;
     uint FPGAinProcessingOfRead     : 1;
@@ -66,7 +70,7 @@ typedef struct
     uint cableEthIsConnected        : 1;    ///< 1, если подключён кабель LAN.
     uint panelControlReceive        : 1;    ///< Если 1, то панель прислала команду.
     uint needToMountFlash           : 1;    ///< Установленное в 1 значение означает, что подсоединена флешка. Надо её монтировать.
-    uint consoleInPause,            : 1;    ///< Если 1, то консоль находится в режиме паузы.
+    uint consoleInPause             : 1;    ///< Если 1, то консоль находится в режиме паузы.
     uint needStopAfterReadFrameP2P  : 1;    ///< Если 1, то после считывания очередного фрейма нужно остановить вывод на экран.
     uint needFinishDraw             : 1;    ///< Если 1, то нужно немедленно завершить отрисовку и вывести на экран то, что уже нарисовано.
 } BitField;

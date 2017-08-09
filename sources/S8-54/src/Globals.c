@@ -62,6 +62,8 @@ DAC_HandleTypeDef handleDAC =
 
 volatile BitField gBF =
 {
+    0,  // numDrawingSignals
+
     // FPGA
     0,  // FPGAneedAutoFind
     0,  // FPGAtemporaryPause

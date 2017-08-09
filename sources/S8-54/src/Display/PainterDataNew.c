@@ -35,10 +35,19 @@ static bool CalcMinMax(uint8 in[2], uint8 out[2]);
 /// ”словие того, что мы находимс€ в ждущем режиме поточечном и на основном экране должно быть статичное изображение
 #define STAND_P2P (START_MODE_WAIT && IN_P2P_MODE && DS_NumElementsWithCurrentSettings() > 1)
 
+static bool interruptDrawing = false;
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+void PainterDataNew_InterruptDrawing(void)
+{
+    interruptDrawing = true;
+}
+
+//----------------------------------------------------------------------------------------------------------------------------------------------------
 void PainterDataNew_DrawData(void)
 {
+    interruptDrawing = false;
+
     // Ќормальный режим
     if (MODE_WORK_DIR)                              // ”становленный режим - непосредственный
     {
@@ -88,7 +97,23 @@ static void DrawData_ModeDir(void)
     }
     DrawData_OutAB();
 
+    if (MODE_ACCUM_NO_RESET)
+    {
+        int numAccum = NUM_ACCUM;
+        int numSignalsInStorage = DS_NumElementsWithCurrentSettings();
+        if (numSignalsInStorage < numAccum)
+        {
+            numAccum = numSignalsInStorage;
+        }
 
+        int i = 0;
+        while (i < numAccum && !interruptDrawing)
+        {
+            Data_ReadDataRAM(i);
+            DrawData_OutAB();
+            ++i;
+        }
+    }
 }
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------

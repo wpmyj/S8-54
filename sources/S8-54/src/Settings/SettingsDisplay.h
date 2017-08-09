@@ -38,6 +38,7 @@
 #define ENUM_ACCUM              (set.disp_ENumAccum)
 #define ENUM_ACCUM_INF          (ENUM_ACCUM == ENumAccum_Infinity)
 #define NUM_ACCUM               (1 << (int)ENUM_ACCUM)                   /* Возвращает число накоплений */
+#define IN_ACCUM_MODE           (ENUM_ACCUM > ENumAccum_1)
 
 #define MODE_ACCUM              (set.disp_ModeAccumulation)
 #define MODE_ACCUM_RESET        (MODE_ACCUM == ModeAccumulation_Reset)

@@ -16,5 +16,6 @@ void PainterData_DrawMath(void);
 /// Нарисовать данные в окне памяти
 void PainterData_DrawMemoryWindow(void);
 
+
 /** @}  @}
  */
