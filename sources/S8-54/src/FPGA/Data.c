@@ -34,7 +34,7 @@ void Data_ReadDataRAM(int fromEnd)
 
     bool readed = false;        // Признак того, что данные считаны
 
-    if (ENUM_AVE > ENumAverages_1)
+    if (ENUM_AVE > ENumAverages_1 && !IN_P2P_MODE)
     {
         Data_GetAverageFromDataStorage();
         readed = true;
