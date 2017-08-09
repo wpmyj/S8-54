@@ -37,5 +37,9 @@ void Process_AUTOSCALE(uint8 *buffer)
 //----------------------------------------------------------------------------------------------------------------------------------------------------
 void Process_REQUEST(uint8 *buffer)
 {
+#ifdef S8_54
     SCPI_SEND("S8-54");
+#else
+    SCPI_SEND("S8-55");
+#endif
 }
