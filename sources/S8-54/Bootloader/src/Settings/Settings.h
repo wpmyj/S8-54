@@ -20,7 +20,7 @@ typedef struct
     uint16              colors[16];
     ModeDrawSignal      modeDrawSignal;             // Режим отрисовки сигнала
     TypeGrid            typeGrid;                   // Тип сетки
-    NumAccumulation     numAccumulation;            // Число накоплений сигнала на экране
+    ENumAccum     numAccumulation;            // Число накоплений сигнала на экране
     ENumAverages        numAveraging;               // Число усреднений сигнала
     ModeAveraging       modeAveraging;              // Тип усреднений по измерениям
     ENumMinMax           numMinMax;                  // Число измерений для определения минимумов и максимумов

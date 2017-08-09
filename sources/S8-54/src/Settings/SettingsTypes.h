@@ -51,16 +51,16 @@ typedef enum
 /// Количество накоплений.
 typedef enum
 {
-    NumAccumulation_1,
-    NumAccumulation_2,
-    NumAccumulation_4,
-    NumAccumulation_8,
-    NumAccumulation_16,
-    NumAccumulation_32,
-    NumAccumulation_64,
-    NumAccumulation_128,
-    NumAccumulation_Infinity
-} NumAccumulation;
+    ENumAccum_1,
+    ENumAccum_2,
+    ENumAccum_4,
+    ENumAccum_8,
+    ENumAccum_16,
+    ENumAccum_32,
+    ENumAccum_64,
+    ENumAccum_128,
+    ENumAccum_Infinity
+} ENumAccum;
 
 /// Количество усреднений по измерениям.
 typedef enum

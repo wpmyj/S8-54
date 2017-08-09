@@ -151,7 +151,7 @@ static const Choice cAccum_Num =
         {"128", "128"},
         {"Бесконечность", "Infinity"}
     },
-    (int8*)&NUM_ACCUM
+    (int8*)&ENUM_ACCUM
 };
 
 // ДИСПЛЕЙ - НАКОПЛЕНИЕ - Режим ----------------------------------------------------------------------------------------------------------------------
@@ -192,7 +192,7 @@ static const Button bAccum_Clear =
 
 static bool IsActive_Accum_Clear(void)
 {
-    return NUM_ACCUM_INF;
+    return ENUM_ACCUM_INF;
 }
 
 void OnPress_Accum_Clear(void)

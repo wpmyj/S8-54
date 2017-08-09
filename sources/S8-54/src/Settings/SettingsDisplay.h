@@ -35,9 +35,9 @@
 #define TYPE_GRID_3             (TYPE_GRID == TypeGrid_3)
 #define TYPE_GRID_4             (TYPE_GRID == TypeGrid_4)
 
-#define NUM_ACCUM               (set.disp_NumAccumulation)
-#define NUM_ACCUM_INF           (NUM_ACCUM == NumAccumulation_Infinity)
-#define DISPLAY_NUM_ACCUM       (1 << (int)NUM_ACCUM)                   /* Возвращает число накоплений */
+#define ENUM_ACCUM              (set.disp_ENumAccum)
+#define ENUM_ACCUM_INF          (ENUM_ACCUM == ENumAccum_Infinity)
+#define NUM_ACCUM               (1 << (int)ENUM_ACCUM)                   /* Возвращает число накоплений */
 
 #define MODE_ACCUM              (set.disp_ModeAccumulation)
 #define MODE_ACCUM_RESET        (MODE_ACCUM == ModeAccumulation_Reset)
@@ -47,9 +47,9 @@
 #define NUM_MIN_MAX             (1 << (int)ENUM_MIN_MAX)                /* Возвращает количество измерений сигналов для расчёта минимумов и максимумов. */
 
 #define MODE_AVERAGING          (set.disp_ModeAveraging)
-#define ENUM_AVE                (set.disp_NumAverages)
+#define ENUM_AVE                (set.disp_ENumAverages)
 #define NUM_AVE                 (1 << (int)ENUM_AVE)
-#define IN_AVERAGING_MODE       (ENUM_AVE > 1 && (!IN_P2P_MODE))
+#define IN_AVERAGING_MODE       (ENUM_AVE > ENumAverages_1 && (!IN_P2P_MODE))
 
 #define SMOOTHING               (set.disp_ENumSmoothing)
 #define SMOOTHING_ENABLED       (SMOOTHING != NumSmooth_Disable)

@@ -60,7 +60,7 @@ static const Settings defaultSettings =
         },
         ModeDrawSignal_Lines,       // modeDrawSignal
         TypeGrid_1,                 // typeGrid
-        NumAccumulation_1,          // numAccumulation
+        ENumAccum_1,          // numAccumulation
         ENumAverages_1,             // numAveraging
         Averaging_Accurately,       // modeAveraging
         NumMinMax_1,                // numMinMax

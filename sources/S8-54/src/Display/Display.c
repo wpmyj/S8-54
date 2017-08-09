@@ -486,7 +486,7 @@ void Display_ShowWarning(Warning warning)
 //----------------------------------------------------------------------------------------------------------------------------------------------------
 static bool NeedForClearScreen(void)
 {
-    int numAccum = DISPLAY_NUM_ACCUM;
+    int numAccum = NUM_ACCUM;
     if(IN_RANDOM_MODE || numAccum == 1 || MODE_ACCUM_NO_RESET || RECORDER_MODE)
     {
         return true;
@@ -733,7 +733,7 @@ static void DrawLowPart(void)
 
     if(MODE_WORK_DIR)
     {
-        WriteStringAndNumber("накопл", (int16)x, (int16)y0, DISPLAY_NUM_ACCUM);
+        WriteStringAndNumber("накопл", (int16)x, (int16)y0, NUM_ACCUM);
         WriteStringAndNumber("усредн", (int16)x, (int16)y1, NUM_AVE);
         WriteStringAndNumber("мн\x93мкс", (int16)x, (int16)y2, NUM_MIN_MAX);
     }

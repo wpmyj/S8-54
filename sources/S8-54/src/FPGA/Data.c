@@ -20,6 +20,8 @@
 
 static DataSettings dataSettings;   ///< Здесь хранятся настройки для текущего рисуемого сигнала
 
+static void GetAverageFromDataStorage(void);
+
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 void Data_Clear(void)
@@ -37,7 +39,7 @@ void Data_ReadDataRAM(int fromEnd)
     if (IN_AVERAGING_MODE               // Если включено усреднение
         && fromEnd == 0)                // И запрашиваем псоледний считанный сигнал
     {
-        Data_GetAverageFromDataStorage();
+        GetAverageFromDataStorage();
         readed = true;
     }
     else
@@ -72,7 +74,7 @@ void Data_ReadDataROM(void)
 }
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
-void Data_GetAverageFromDataStorage(void)
+static void GetAverageFromDataStorage(void)
 {
     if(G_ENABLED_A)
     {
@@ -111,31 +113,6 @@ void Data_PrepareToDrawSettings(void)
         }
     }
 }
-
-//----------------------------------------------------------------------------------------------------------------------------------------------------
-/*
-static void GetDataFromStorage(void)
-{
-    int fromEnd = 0;
-
-    if (IN_P2P_MODE &&                              // Находимся в режиме поточечного вывода
-    START_MODE_WAIT &&                          // в режиме ждущей синхронизации
-    DS_NumElementsWithCurrentSettings() > 1)    // и в хранилище уже есть считанные сигналы с такими настройками
-    {
-    fromEnd = 1;
-    }
-
-    DS_GetDataFromEnd_RAM(fromEnd, &pDSDir, (uint16**)&dataDirA, (uint16**)&dataDirB);
-
-    if (sDisplay_NumAverage() != 1 || IN_RANDOM_MODE)
-    {
-    ModeFSMC mode = FSMC_GetMode();
-    FSMC_SetMode(ModeFSMC_RAM);
-    Data_GetAverageFromDataStorage();
-    FSMC_SetMode(mode);
-    }
-}
-*/
 
 
 /** @}  @}
