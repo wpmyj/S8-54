@@ -133,7 +133,7 @@ static void Process_AVERAGE(uint8 *buffer)
         {0}
     };
     ENTER_ANALYSIS
-        if (value <= 9) {ENUM_AVE = (NumAveraging)value; }
+        if (value <= 9) {ENUM_AVE = (ENumAverages)value; }
         else if (10 == value) { MODE_AVERAGING = Averaging_Accurately; }
         else if (11 == value) { MODE_AVERAGING = Averaging_Around; }
         else if (12 == value)

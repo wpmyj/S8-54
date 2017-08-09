@@ -32,10 +32,23 @@ void Data_ReadDataRAM(int fromEnd)
 {
     Data_Clear();
 
-    if(DS_GetDataFromEnd(fromEnd, &dataSettings, inA, inB))
+    bool readed = false;        // Признак того, что данные считаны
+
+    if (ENUM_AVE > ENumAverages_1)
     {
-        if (ENUM_POINTS(&dataSettings) == FPGA_ENUM_POINTS) /** \todo Это временно. Нужно сделать пересчёт к установленной длине памяти в 
-                                                               в ProcessingSignal_SetData(), чтобы не мелькало на экране. */
+        Data_GetAverageFromDataStorage();
+        readed = true;
+    }
+    else
+    {
+        DS_GetDataFromEnd(fromEnd, &dataSettings, inA, inB);
+        readed = true;
+    }
+
+    if (readed)
+    {
+        if (ENUM_POINTS(&dataSettings) == FPGA_ENUM_POINTS) /** \todo Это временно. Нужно сделать пересчёт к установленной длине памяти в
+                                                            в ProcessingSignal_SetData(), чтобы не мелькало на экране. */
         {
             pDS = &dataSettings;
 
@@ -60,16 +73,13 @@ void Data_ReadDataROM(void)
 //----------------------------------------------------------------------------------------------------------------------------------------------------
 void Data_GetAverageFromDataStorage(void)
 {
-    if(DS)
+    if(G_ENABLED_A)
     {
-        if(G_ENABLED_A)
-        {
-            memcpy(inA, DS_GetAverageData(A), BYTES_IN_CHANNEL(DS));
-        }
-        if(G_ENABLED_B)
-        {
-            memcpy(inB, DS_GetAverageData(B), BYTES_IN_CHANNEL(DS));
-        }
+        memcpy(inA, DS_GetAverageData(A), BYTES_IN_CHANNEL(DS));
+    }
+    if(G_ENABLED_B)
+    {
+        memcpy(inB, DS_GetAverageData(B), BYTES_IN_CHANNEL(DS));
     }
 }
 

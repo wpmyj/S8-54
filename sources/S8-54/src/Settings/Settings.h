@@ -49,7 +49,7 @@ typedef struct
     ModeDrawSignal      disp_ModeDrawSignal;        ///< Режим отрисовки сигнала.
     TypeGrid            disp_TypeGrid;              ///< Тип сетки
     NumAccumulation     disp_NumAccumulation;       ///< Число накоплений сигнала на экране.
-    NumAveraging        disp_NumAveraging;          ///< Число усреднений сигнала.
+    ENumAverages        disp_NumAverages;          ///< Число усреднений сигнала.
     ModeAveraging       disp_ModeAveraging;         ///< Тип усреднений по измерениям.
     ENumMinMax          disp_ENumMinMax;            ///< Перечисление количества измерений для определения минимумов и масимумов.
     ENumSmoothing       disp_ENumSmoothing;         ///< Перечисление количества точек для скользящего фильтра.

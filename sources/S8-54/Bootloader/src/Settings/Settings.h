@@ -21,7 +21,7 @@ typedef struct
     ModeDrawSignal      modeDrawSignal;             // Режим отрисовки сигнала
     TypeGrid            typeGrid;                   // Тип сетки
     NumAccumulation     numAccumulation;            // Число накоплений сигнала на экране
-    NumAveraging        numAveraging;               // Число усреднений сигнала
+    ENumAverages        numAveraging;               // Число усреднений сигнала
     ModeAveraging       modeAveraging;              // Тип усреднений по измерениям
     ENumMinMax           numMinMax;                  // Число измерений для определения минимумов и максимумов
     NumSmoothing        smoothing;                  // Число точек для скользящего фильтра

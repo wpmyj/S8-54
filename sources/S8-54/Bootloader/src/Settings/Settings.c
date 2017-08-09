@@ -61,7 +61,7 @@ static const Settings defaultSettings =
         ModeDrawSignal_Lines,       // modeDrawSignal
         TypeGrid_1,                 // typeGrid
         NumAccumulation_1,          // numAccumulation
-        NumAveraging_1,             // numAveraging
+        ENumAverages_1,             // numAveraging
         Averaging_Accurately,       // modeAveraging
         NumMinMax_1,                // numMinMax
         NumSmooth_Disable,          // smoothing

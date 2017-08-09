@@ -52,7 +52,7 @@ int sDisplay_NumPointSmoothing(void)
 //---------------------------------------------------------------------------------------------------------------------------------------------------
 int sDisplay_NumAverage(void)
 {
-    if (MODE_EMS && (ENUM_AVE < NumAveraging_8))
+    if (MODE_EMS && (ENUM_AVE < ENumAverages_8))
     {
         return 8;
     }

@@ -46,7 +46,7 @@
 #define NUM_MIN_MAX             (1 << (int)ENUM_MIN_MAX)                /* ¬озвращает количество измерений сигналов дл€ расчЄта минимумов и максимумов. */
 
 #define MODE_AVERAGING          (set.disp_ModeAveraging)
-#define ENUM_AVE                (set.disp_NumAveraging)
+#define ENUM_AVE                (set.disp_NumAverages)
 #define NUM_AVE                 (1 << (int)ENUM_AVE)
 
 #define SMOOTHING               (set.disp_ENumSmoothing)
