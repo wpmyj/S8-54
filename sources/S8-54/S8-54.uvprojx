@@ -79,7 +79,7 @@
             <nStopB2X>0</nStopB2X>
           </BeforeMake>
           <AfterMake>
-            <RunUserProg1>1</RunUserProg1>
+            <RunUserProg1>0</RunUserProg1>
             <RunUserProg2>0</RunUserProg2>
             <UserProg1Name>fromelf --bin --output .\s8-54.bin .\objects\s8-54.axf</UserProg1Name>
             <UserProg2Name></UserProg2Name>

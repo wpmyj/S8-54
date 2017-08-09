@@ -220,15 +220,6 @@ void Display_Update(void)
 {
     Data_Clear();
 
-    static uint prevLoadPalette = 0;
-    bool needReloadPalette = false;
-
-    if(gTimeMS - prevLoadPalette > 1000)
-    {
-        needReloadPalette = true;
-        prevLoadPalette = gTimeMS;
-    }
-
     uint timeStart = gTimerTics;
 
     if (funcOnHand)
@@ -293,11 +284,6 @@ void Display_Update(void)
     }
 
     DrawTimeForFrame(gTimerTics - timeStart);
-
-    if (needReloadPalette)
-    {
-        //Painter_LoadPalette();
-    }
 
     Painter_EndScene();
 
