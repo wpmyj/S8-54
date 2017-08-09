@@ -32,9 +32,10 @@ void Data_ReadDataRAM(int fromEnd)
 {
     Data_Clear();
 
-    bool readed = false;        // Признак того, что данные считаны
+    bool readed = false;                // Признак того, что данные считаны
 
-    if (ENUM_AVE > ENumAverages_1 && !IN_P2P_MODE)
+    if (IN_AVERAGING_MODE               // Если включено усреднение
+        && fromEnd == 0)                // И запрашиваем псоледний считанный сигнал
     {
         Data_GetAverageFromDataStorage();
         readed = true;

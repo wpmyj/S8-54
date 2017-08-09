@@ -1,6 +1,7 @@
 #pragma once
 #include "defines.h"
 #include "SettingsTypes.h"
+#include "SettingsTime.h"
 #include "Display/Colors.h"
 
 
@@ -48,6 +49,7 @@
 #define MODE_AVERAGING          (set.disp_ModeAveraging)
 #define ENUM_AVE                (set.disp_NumAverages)
 #define NUM_AVE                 (1 << (int)ENUM_AVE)
+#define IN_AVERAGING_MODE       (ENUM_AVE > 1 && (!IN_P2P_MODE))
 
 #define SMOOTHING               (set.disp_ENumSmoothing)
 #define SMOOTHING_ENABLED       (SMOOTHING != NumSmooth_Disable)
