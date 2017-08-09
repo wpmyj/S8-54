@@ -10,10 +10,12 @@
   <project>
     <PathAndName>.\S8-54\S8-54.uvprojx</PathAndName>
     <NodeIsActive>1</NodeIsActive>
+    <NodeIsExpanded>1</NodeIsExpanded>
   </project>
 
   <project>
     <PathAndName>.\S8-54\Bootloader\BootloaderS8-54.uvprojx</PathAndName>
+    <NodeIsExpanded>1</NodeIsExpanded>
   </project>
 
 </ProjectWorkspace>

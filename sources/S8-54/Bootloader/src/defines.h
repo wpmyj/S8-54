@@ -2,7 +2,7 @@
 #include <stm32f4xx_hal.h>
 #include "globals.h"
 
-//#define S8_54
+#define S8_54
 
 #define VERSION "54-1.0"
 
