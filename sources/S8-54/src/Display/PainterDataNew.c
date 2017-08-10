@@ -160,7 +160,7 @@ static void DrawData_OutAB(void)
 //----------------------------------------------------------------------------------------------------------------------------------------------------
 static void DrawData_Out(Channel ch, uint8 *data)
 {
-    if (!G_ENABLED(ch))
+    if (!SET_ENABLED(ch) || !G_ENABLED(ch))
     {
         return;
     }
