@@ -32,7 +32,7 @@
 
 // Включаем выравнивание, чтобы однозначно происходило определение новой версии структуры Settings
 
-#pragma pack(1)
+#pragma pack(push, 1)
 
 typedef struct
 {
@@ -247,7 +247,7 @@ typedef struct
                                                                     ///< управления сигналом.
 } Settings;
 
-#pragma pack(4)
+#pragma pack(pop)
 
 extern Settings set;
 
