@@ -42,17 +42,12 @@ static void DrawTPos(int leftX, int rightX);
 static void DrawTShift(int leftX, int rightX, int numPoints);
 static int FillDataP2P(uint8 *data, DataSettings **ds);
 static void DrawMarkersForMeasure(float scale);
-/// Возвращает true, если изогражение сигнала выходит за пределы экрана.
-static bool DataBeyondTheBorders(const uint8 *data, int firstPoint, int lastPoint);
 static void DrawSignalLined(const uint8 *data, int startPoint, int endPoint, int minY, int maxY, float scaleY, float scaleX, bool calculateFiltr);
 static void DrawSignalPointed(const uint8 *data, int startPoint, int endPoint, int minY, int maxY, float scaleY, float scaleX);
 /// Возвращает точку в экранной координате. Если точка не считана (NONE_VALUE), возвращает -1.
 static int Ordinate(uint8 x, float scale);
 static int FillDataP2PforRecorder(int numPoints, int numPointsDS, int pointsInScreen, uint8 *src, uint8 *dest);
 static int FillDataP2PforNormal(int numPoints, int numPointsDS, int pointsInScreen, uint8 *src, uint8 *dest);
-/// \todo Выоводит сообщение на экране о выходе сигнала за границы экрана.
-/// delta - расстояние от края сетки, на котором находится сообщение. Если delta < 0 - выводится внизу сетки
-static void DrawLimitLabel(int delta);
 static void SendToDisplayDataInRect(int x, const int *min, const int *max, uint width);
 
 
@@ -234,7 +229,7 @@ static void DrawDataChannel(Channel ch, uint8 *dataIn)
 
     Painter_SetColor(gColorChan[curCh]);
 
-    if (!DataBeyondTheBorders(dataIn, firstPoint, lastPoint))   // Если сигнал не выходит за пределы экрана
+//    if (!DataBeyondTheBorders(dataIn, firstPoint, lastPoint))   // Если сигнал не выходит за пределы экрана
     {
         if (MODE_DRAW_SIGNAL_LINES)
         {
@@ -484,36 +479,6 @@ static void DrawMarkersForMeasure(float scale)
 }
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
-static bool DataBeyondTheBorders(const uint8 *data, int firstPoint, int lastPoint)
-{
-    int numMin = 0; // Здесь количество отсчётов, меньших или равных MIN_VALUE
-    int numMax = 0; // Здесь количество отсчётов, больших или равных MAX_VALUE
-    int numPoints = lastPoint - firstPoint;
-    for (int i = firstPoint; i < lastPoint; i++)
-    {
-        if (data[i] <= MIN_VALUE) //-V108
-        {
-            numMin++;
-        }
-        if (data[i] >= MAX_VALUE) //-V108
-        {
-            numMax++;
-        }
-    }
-    if (numMin >= numPoints - 1)
-    {
-        DrawLimitLabel(-10);
-        return true;
-    }
-    else if (numMax >= numPoints - 1)
-    {
-        DrawLimitLabel(10);
-        return true;
-    }
-    return false;
-}
-
-//----------------------------------------------------------------------------------------------------------------------------------------------------
 static void DrawSignalLined(const uint8 *data, int startPoint, int endPoint, int minY, int maxY, float scaleY, float scaleX, bool calculateFiltr)
 {
     uint8 dataCD[281];
@@ -674,26 +639,4 @@ static int FillDataP2PforNormal(int numPoints, int numPointsDS, int pointsInScre
     return numPoints > pointsInScreen ? pointsInScreen : numPoints;
 }
 
-//----------------------------------------------------------------------------------------------------------------------------------------------------
-static void DrawLimitLabel(int delta)
-{
-    int width = 150;
-    int height = 20;
 
-    Color color = Painter_GetColor();
-
-    int x = GridWidth() / 2 - width / 2 + GridLeft();
-    int y = 0;
-    if (delta < 0)
-    {
-        y = GridFullBottom() + delta - height;
-    }
-    else
-    {
-        y = GRID_TOP + delta;
-    }
-
-    Painter_FillRegionC(x, y, width, height, gColorBack);
-    Painter_DrawRectangleC(x, y, width, height, color);
-    Painter_DrawStringInCenterRect(x, y, width, height, "Сигнал за пределами экрана");
-}

@@ -27,6 +27,11 @@ static void DrawData_Out_PeakDet(Channel ch, uint8 data[281 * 2], int left, int 
 /// \brief Используется в режиме пикового детектора. В in хранятся два значения, соответствующие максимальному и минимальному. 
 /// Они перемещаются в out в возрастающем порядке out[0] = min, out[1] = max. Возвращает false, если точка не считана - хотя бы одно значение == 0.
 static bool CalcMinMax(uint8 in[2], uint8 out[2]);
+/// Возвращает true, если изогражение сигнала выходит за пределы экрана.
+static bool DataBeyondTheBorders(const uint8 *data, int firstPoint, int lastPoint);
+/// \brief Выоводит сообщение на экране о выходе сигнала за границы экрана.
+/// delta - расстояние от края сетки, на котором находится сообщение. Если delta < 0 - выводится внизу сетки
+static void DrawLimitLabel(int delta);
 
 
 /// Признак того, что на основном экране нужно рисовать бегущий сигнал поточечного вывода
@@ -207,7 +212,10 @@ static void DrawData_Out(Channel ch, uint8 *data)
             }
         }
 
-        DrawData_Out_Normal(ch, pData + pointFirst, left, bottom, scaleY);
+        if (!DataBeyondTheBorders(pData, pointFirst, pointLast))
+        {
+            DrawData_Out_Normal(ch, pData + pointFirst, left, bottom, scaleY);
+        }
 
         if (!STAND_P2P)
         {
@@ -363,4 +371,58 @@ static bool CalcMinMax(uint8 in[2], uint8 out[2])
     }
 
     return true;
+}
+
+//----------------------------------------------------------------------------------------------------------------------------------------------------
+static bool DataBeyondTheBorders(const uint8 *data, int firstPoint, int lastPoint)
+{
+    int numMin = 0; // Здесь количество отсчётов, меньших или равных MIN_VALUE
+    int numMax = 0; // Здесь количество отсчётов, больших или равных MAX_VALUE
+    int numPoints = lastPoint - firstPoint;
+    for (int i = firstPoint; i < lastPoint; i++)
+    {
+        if (data[i] <= MIN_VALUE) //-V108
+        {
+            numMin++;
+        }
+        if (data[i] >= MAX_VALUE) //-V108
+        {
+            numMax++;
+        }
+    }
+    if (numMin >= numPoints - 1)
+    {
+        DrawLimitLabel(-10);
+        return true;
+    }
+    else if (numMax >= numPoints - 1)
+    {
+        DrawLimitLabel(10);
+        return true;
+    }
+    return false;
+}
+
+//----------------------------------------------------------------------------------------------------------------------------------------------------
+static void DrawLimitLabel(int delta)
+{
+    int width = 150;
+    int height = 20;
+
+    Color color = Painter_GetColor();
+
+    int x = GridWidth() / 2 - width / 2 + GridLeft();
+    int y = 0;
+    if (delta < 0)
+    {
+        y = GridFullBottom() + delta - height;
+    }
+    else
+    {
+        y = GRID_TOP + delta;
+    }
+
+    Painter_FillRegionC(x, y, width, height, gColorBack);
+    Painter_DrawRectangleC(x, y, width, height, color);
+    Painter_DrawStringInCenterRect(x, y, width, height, "Сигнал за пределами экрана");
 }
