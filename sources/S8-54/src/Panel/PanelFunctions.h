@@ -297,14 +297,14 @@ void ChangeShiftScreen(int *prevTime, void(*f)(int), int16 relStep)
 }
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
-void FuncRShift1(int delta)
+void FuncRShiftA(int delta)
 {
     static int prevTime = 0;
     ChangeRShift(&prevTime, FPGA_SetRShift, A, delta * STEP_RSHIFT);
 }
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
-void FuncRShift2(int delta)
+void FuncRShiftB(int delta)
 {
     static int prevTime = 0;
     ChangeRShift(&prevTime, FPGA_SetRShift, B, delta * STEP_RSHIFT);
@@ -373,14 +373,16 @@ static void ChangeRange(Channel ch, int delta)    // delta == -1 - уменьшаем. de
 }
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
-void FuncRange1(int delta)
+void FuncRangeA(int delta)
 {
+    LAST_AFFECTED_CH = A;
     ChangeRange(A, -delta);
 }
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
-void FuncRange2(int delta)
+void FuncRangeB(int delta)
 {
+    LAST_AFFECTED_CH = B;
     ChangeRange(B, -delta);
 }
 
@@ -391,7 +393,7 @@ void FuncRegSet(int delta)
 }
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
-void FuncBtnRegChannel1(int key)
+void FuncBtnRegChannelA(int key)
 {
     if (key == 1)
     {
@@ -400,7 +402,7 @@ void FuncBtnRegChannel1(int key)
 }
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
-void FuncBtnRegChannel2(int key)
+void FuncBtnRegChannelB(int key)
 {
     if (key == 1)
     {

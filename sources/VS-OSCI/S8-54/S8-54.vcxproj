@@ -90,7 +90,7 @@
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;_LIB;%(PreprocessorDefinitions);S8_54;STM32F437xx;USE_HAL_DRIVER;_CRT_SECURE_NO_WARNINGS;__GNUC__</PreprocessorDefinitions>
       <SDLCheck>true</SDLCheck>
-      <DisableSpecificWarnings>4005;4013;4068;4100;4132;4201;4668;4820;4710;4774</DisableSpecificWarnings>
+      <DisableSpecificWarnings>4005;4013;4068;4100;4132;4201;4204;4668;4820;4710;4774</DisableSpecificWarnings>
       <MinimalRebuild>false</MinimalRebuild>
       <AdditionalOptions>-MP %(AdditionalOptions)</AdditionalOptions>
     </ClCompile>

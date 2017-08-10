@@ -97,18 +97,18 @@ typedef struct
 static const StructReg funculatorReg[] =
 {
     {0}, {0}, {0}, {0}, {0}, {0}, {0}, {0}, {0}, {0}, {0}, {0}, {0}, {0}, {0}, {0}, {0}, {0}, {0}, {0},
-    {FuncRange1,    EFB,                EmptyFuncVV},   ///< R_Range1
-    {FuncRShift1,   FuncBtnRegChannel1, EmptyFuncVV},   ///< R_RShift1
-    {FuncRange2,    EFB,                EmptyFuncVV},   ///< R_Range2
-    {FuncRShift2,   FuncBtnRegChannel2, EmptyFuncVV},   ///< R_RShift2
+    {FuncRangeA,    EFB,                EmptyFuncVV},   ///< R_Range1
+    {FuncRShiftA,   FuncBtnRegChannelA, EmptyFuncVV},   ///< R_RShift1
+    {FuncRangeB,    EFB,                EmptyFuncVV},   ///< R_Range2
+    {FuncRShiftB,   FuncBtnRegChannelB, EmptyFuncVV},   ///< R_RShift2
     {FuncTBase,     EFB,                EmptyFuncVV},   ///< R_TBase
     {FuncTShift,    FuncBtnRegTime,     EmptyFuncVV},   ///< R_TShift
     {FuncTrigLev,   FuncBtnRegTrig,     EmptyFuncVV},   ///< R_TrigLev
     {FuncRegSet,    FuncBtnRegSet,      EmptyFuncVV},   ///< R_Set
-    {FuncRange1,    EFB,                EmptyFuncVV},   ///< R_Range1
-    {FuncRShift1,   FuncBtnRegChannel1, EmptyFuncVV},   ///< R_RShift1
-    {FuncRange2,    EFB,                EmptyFuncVV},   ///< R_Range2
-    {FuncRShift2,   FuncBtnRegChannel2, EmptyFuncVV},   ///< R_RShift2
+    {FuncRangeA,    EFB,                EmptyFuncVV},   ///< R_Range1
+    {FuncRShiftA,   FuncBtnRegChannelA, EmptyFuncVV},   ///< R_RShift1
+    {FuncRangeB,    EFB,                EmptyFuncVV},   ///< R_Range2
+    {FuncRShiftB,   FuncBtnRegChannelB, EmptyFuncVV},   ///< R_RShift2
     {FuncTBase,     EFB,                EmptyFuncVV},   ///< R_TBase
     {FuncTShift,    FuncBtnRegTime,     EmptyFuncVV},   ///< R_TShift
     {FuncTrigLev,   FuncBtnRegTrig,     EmptyFuncVV},   ///< R_TrigLev
