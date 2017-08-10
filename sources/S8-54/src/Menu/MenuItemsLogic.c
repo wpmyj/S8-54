@@ -387,10 +387,12 @@ void GovernorColor_ChangeValue(GovernorColor *governor, int delta)
     if (ct->currentField == 0)
     {
         Color_BrightnessChange(ct, delta);
+        Sound_GovernorChangedValue();
     }
     else
     {
         Color_ComponentChange(ct, delta);
+        Sound_GovernorChangedValue();
     }
 
     PageService_InitGlobalColors();

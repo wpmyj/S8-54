@@ -236,7 +236,6 @@ void Display_Update(void)
     if(needClear)
     {
         Painter_BeginScene(gColorBack);
-        PainterData_DrawMemoryWindow();
         DrawFullGrid();
     }
 

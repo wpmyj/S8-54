@@ -864,7 +864,8 @@ void Menu_OpenItemTime(void)
 }
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
-static bool NeedForFireSetLED(void)    // Возвращает true, если лампочка УСТАНОВКА должна гореть
+/// Возвращает true, если лампочка УСТАНОВКА должна гореть
+static bool NeedForFireSetLED(void)
 {
     //uint timeStart = gTimeMS;
     if (!MENU_IS_SHOWN)
@@ -889,7 +890,8 @@ static bool NeedForFireSetLED(void)    // Возвращает true, если лампочка УСТАНОВ
     
     TypeItem typeCurrentItem = TypeMenuItem(CurrentItem());
     if (typeCurrentItem == Item_Governor    ||
-        typeCurrentItem == Item_ChoiceReg)
+        typeCurrentItem == Item_ChoiceReg   ||
+        typeCurrentItem == Item_GovernorColor)
     {
         return true;
     }

@@ -1,4 +1,5 @@
 #include "Globals.h"
+#include "PainterData.h"
 #include "PainterDataNew.h"
 #include "Display/Grid.h"
 #include "FPGA/Data.h"
@@ -65,7 +66,8 @@ void PainterDataNew_DrawData(void)
     // ѕјћя“№ - ѕќ—Ћ≈ƒЌ»≈
     else if (MODE_WORK_RAM)
     {
-        DrawData_ModeRAM();                         
+        DrawData_ModeRAM();
+        PainterData_DrawMemoryWindow();
     }
     // ѕјћя“№ - ¬Ќ”“– «”
     else
@@ -73,16 +75,19 @@ void PainterDataNew_DrawData(void)
         if (SHOW_IN_INT_BOTH || SHOW_IN_INT_SAVED)
         {
             DrawData_ModeROM();
+            PainterData_DrawMemoryWindow();
         }
         if (SHOW_IN_INT_BOTH || SHOW_IN_INT_DIRECT) // ≈сли нужно показывать не только сохранЄнный сигнал
         {
             if (EXIT_FROM_ROM_TO_RAM)               // и мы перешли на страницу "ѕјћя“№-¬Ќ”“– «”" со страницы "ѕјћя“№-ѕќ—Ћ≈ƒЌ»≈"
             {
                 DrawData_ModeRAM();
+                PainterData_DrawMemoryWindow();
             }
             else                                    // ј если перешли из нормального режим
             {
                 DrawData_ModeDir();                 // “о нарисуем сигнал нормального режима
+                PainterData_DrawMemoryWindow();
             }
         }
     }
@@ -103,6 +108,7 @@ static void DrawData_ModeDir(void)
         Data_ReadDataRAM(0);
     }
     DrawData_OutAB();
+    PainterData_DrawMemoryWindow();
 
     if (MODE_ACCUM_NO_RESET)
     {
