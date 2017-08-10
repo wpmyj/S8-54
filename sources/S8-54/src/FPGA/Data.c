@@ -5,6 +5,7 @@
 #undef _INCLUDE_DATA_
 #include "DataBuffer.h"
 #include "Globals.h"
+#include "Log.h"
 #include "Hardware/FLASH.h"
 #include "Hardware/FSMC.h"
 #include "Settings/SettingsMemory.h"
@@ -19,8 +20,6 @@
 
 
 static DataSettings dataSettings;   ///< Здесь хранятся настройки для текущего рисуемого сигнала
-
-static void GetAverageFromDataStorage(void);
 
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -39,7 +38,16 @@ void Data_ReadDataRAM(int fromEnd)
     if (IN_AVERAGING_MODE               // Если включено усреднение
         && fromEnd == 0)                // И запрашиваем псоледний считанный сигнал
     {
-        GetAverageFromDataStorage();
+        dataSettings = *DS_DataSettingsFromEnd(0);
+        pDS = &dataSettings;
+        if (G_ENABLED_A)
+        {
+            memcpy(inA, DS_GetAverageData(A), BYTES_IN_CHANNEL(DS));
+        }
+        if (G_ENABLED_B)
+        {
+            memcpy(inB, DS_GetAverageData(B), BYTES_IN_CHANNEL(DS));
+        }
         readed = true;
     }
     else
@@ -70,19 +78,6 @@ void Data_ReadDataROM(void)
         pDS = &dataSettings;
 
         Processing_SetData();
-    }
-}
-
-//----------------------------------------------------------------------------------------------------------------------------------------------------
-static void GetAverageFromDataStorage(void)
-{
-    if(G_ENABLED_A)
-    {
-        memcpy(inA, DS_GetAverageData(A), BYTES_IN_CHANNEL(DS));
-    }
-    if(G_ENABLED_B)
-    {
-        memcpy(inB, DS_GetAverageData(B), BYTES_IN_CHANNEL(DS));
     }
 }
 
