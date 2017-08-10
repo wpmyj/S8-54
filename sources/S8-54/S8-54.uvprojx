@@ -1035,16 +1035,6 @@
               <FilePath>.\src\Display\PainterC.h</FilePath>
             </File>
             <File>
-              <FileName>PainterData.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\src\Display\PainterData.c</FilePath>
-            </File>
-            <File>
-              <FileName>PainterData.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\src\Display\PainterData.h</FilePath>
-            </File>
-            <File>
               <FileName>PainterMem.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\src\Display\PainterMem.c</FilePath>
@@ -1080,14 +1070,14 @@
               <FilePath>.\src\Display\WelcomeScreen.h</FilePath>
             </File>
             <File>
-              <FileName>PainterDataNew.c</FileName>
+              <FileName>PainterData.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\src\Display\PainterDataNew.c</FilePath>
+              <FilePath>.\src\Display\PainterData.c</FilePath>
             </File>
             <File>
-              <FileName>PainterDataNew.h</FileName>
+              <FileName>PainterData.h</FileName>
               <FileType>5</FileType>
-              <FilePath>.\src\Display\PainterDataNew.h</FilePath>
+              <FilePath>.\src\Display\PainterData.h</FilePath>
             </File>
           </Files>
         </Group>
