@@ -14,7 +14,7 @@
 
 #define NUM_VER "1.3"
 
-//#define OLD_RECORDER
+#define OLD_RECORDER
 
 typedef signed      char        int8;
 typedef signed      char        int8_t;
