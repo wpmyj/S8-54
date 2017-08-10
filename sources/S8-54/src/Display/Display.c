@@ -124,7 +124,6 @@ static bool showLevelTrigLev = false;   ///< Ќужно ли рисовать горизонтальную ли
 
 static bool trigEnable = false;
 static bool drawRShiftMarkers = false;
-static uint numDrawingSignals = 0;      ///< „исло нарисованных сигналов дл€ режима накоплени€.
 
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -487,8 +486,7 @@ void Display_ShowWarning(Warning warning)
 //----------------------------------------------------------------------------------------------------------------------------------------------------
 static bool NeedForClearScreen(void)
 {
-    int numAccum = NUM_ACCUM;
-    if(IN_RANDOM_MODE || numAccum == 1 || MODE_ACCUM_NO_RESET || RECORDER_MODE)
+    if(IN_RANDOM_MODE || NUM_ACCUM == 1 || MODE_ACCUM_NO_RESET || RECORDER_MODE)
     {
         return true;
     }
@@ -497,9 +495,9 @@ static bool NeedForClearScreen(void)
         NEED_FINISH_DRAW = 0;
         return true;
     }
-    if(MODE_ACCUM_RESET && numDrawingSignals >= (uint)numAccum)
+    if(!ENUM_ACCUM_INF && MODE_ACCUM_RESET && NUM_DRAWING_SIGNALS >= NUM_ACCUM)
     {
-        numDrawingSignals = 0;
+        NUM_DRAWING_SIGNALS = 0;
         return true;
     }
     return false;

@@ -87,6 +87,8 @@ void PainterDataNew_DrawData(void)
 //----------------------------------------------------------------------------------------------------------------------------------------------------
 static void DrawData_ModeDir(void)
 {
+    NUM_DRAWING_SIGNALS++;
+
     if (START_MODE_WAIT && IN_P2P_MODE && DS_NumElementsWithCurrentSettings() > 1)
     {
         Data_ReadDataRAM(1);
@@ -104,6 +106,11 @@ static void DrawData_ModeDir(void)
         if (numSignalsInStorage < numAccum)
         {
             numAccum = numSignalsInStorage;
+        }
+
+        if (ENUM_ACCUM_INF)                     // Если бесконечное накопление
+        {
+            numAccum = numSignalsInStorage;     // то будем выводить все сигналы
         }
 
         int i = 0;
