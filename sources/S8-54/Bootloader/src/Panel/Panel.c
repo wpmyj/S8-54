@@ -16,10 +16,10 @@
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 #define MAX_DATA            20
 
-#define LED_CHAN0_ENABLE    129
-#define LED_CHAN0_DISABLE   1
-#define LED_CHAN1_ENABLE    130
-#define LED_CHAN1_DISABLE   2
+#define LED_CHANA_ENABLE    129
+#define LED_CHANA_DISABLE   1
+#define LED_CHANB_ENABLE    130
+#define LED_CHANB_DISABLE   2
 #define LED_TRIG_ENABLE     131
 #define LED_TRIG_DISABLE    3
 #define POWER_OFF           4

@@ -81,6 +81,7 @@ static void CalibrateStretch(Channel ch);
 typedef struct
 {
     uint startTime;
+    Settings settings;
 } StrForAutoFind;
 
 /** @}
@@ -975,10 +976,9 @@ void FPGA_AutoFind(void)
 
     /// \todo Сделать динамическую индикацию процесса поиска. Временно отключена, потому что глючит изображение. Иногда даже зависает прибор.
 
-    Settings settings = set;                        // Сохраняем текущие настройки - если сигнал найти не удастся, придётся восстановить их потом
-
     MALLOC_EXTRAMEM(StrForAutoFind, p);             // Подготовим структуру, использующуюся для отрисовки прогресс-бара
     p->startTime = HAL_GetTick();
+    p->settings = set;                              // Сохраняем текущие настройки - если сигнал найти не удастся, придётся восстановить их потом
 
     FuncDrawAutoFind();
 
@@ -987,7 +987,7 @@ void FPGA_AutoFind(void)
         if (!FindWave(B))
         {                                           // Если не удалось найти сигнал, то:
             Display_ShowWarning(SignalNotFound);    // выводим соотвествующее сообщение,
-            set = settings;                         // восстанавливаем предыдущие настройки
+            set = p->settings;                      // восстанавливаем предыдущие настройки
             FPGA_LoadSettings();                    // и загружаем их в альтеру
         }
     }
@@ -1003,7 +1003,7 @@ void FPGA_AutoFind(void)
 static bool FindWave(Channel ch)
 {
     FPGA_SetTBase(TBase_20ms);
-    SET_ENABLED(ch) = true;
+    sChannel_SetEnabled(ch, true);
     FPGA_SetTrigSource((TrigSource)ch);
     FPGA_SetTrigLev((TrigSource)ch, TrigLevZero);
     FPGA_SetRShift(ch, RShiftZero);

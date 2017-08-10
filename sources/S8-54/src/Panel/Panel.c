@@ -19,10 +19,10 @@ extern void OnPress_ResetSettings(void);
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 #define MAX_DATA            20
 
-#define LED_CHAN0_ENABLE    129
-#define LED_CHAN0_DISABLE   1
-#define LED_CHAN1_ENABLE    130
-#define LED_CHAN1_DISABLE   2
+#define LED_CHANA_ENABLE    129
+#define LED_CHANA_DISABLE   1
+#define LED_CHANB_ENABLE    130
+#define LED_CHANB_DISABLE   2
 #define LED_TRIG_ENABLE     131
 #define LED_TRIG_DISABLE    3
 #define POWER_OFF           4
@@ -47,6 +47,11 @@ static PanelCommand recvCommand = C_None;
 
 static int allRecData = 0;
 static bool isRunning = true;
+
+/// Включить/выключить лампочку КАНАЛ1
+static void EnableLEDChannelA(bool enable);
+/// Включить/выключить лампочку КАНАЛ2
+static void EnableLEDChannelB(bool enable);
 
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -395,16 +400,30 @@ void Panel_Update(void)
 
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
-void Panel_EnableLEDChannelA(bool enable)
+static void EnableLEDChannelA(bool enable)
 {
-    Panel_TransmitData(enable ? LED_CHAN0_ENABLE : LED_CHAN0_DISABLE);
+    Panel_TransmitData(enable ? LED_CHANA_ENABLE : LED_CHANA_DISABLE);
 }
 
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
-void Panel_EnableLEDChannelB(bool enable)
+static void EnableLEDChannelB(bool enable)
 {
-    Panel_TransmitData(enable ? LED_CHAN1_ENABLE : LED_CHAN1_DISABLE);
+    Panel_TransmitData(enable ? LED_CHANB_ENABLE : LED_CHANB_DISABLE);
+}
+
+
+//----------------------------------------------------------------------------------------------------------------------------------------------------
+void Panel_EnableLEDChannel(Channel ch, bool enable)
+{
+    if (ch == A)
+    {
+        EnableLEDChannelA(enable);
+    }
+    else
+    {
+        EnableLEDChannelB(enable);
+    }
 }
 
 

@@ -57,9 +57,10 @@
 #define CALIBR_MODE_B           (SET_CALIBR_MODE(B))
 
 
-void sChannel_SetRange(Channel ch, Range range);           // РЈСЃС‚Р°РЅРѕРІРёС‚СЊ РјР°СЃС€С‚Р°Р± РїРѕ РЅР°РїСЂСЏР¶РµРЅРёСЋ РєР°РЅР°Р»Р° ch.
+void sChannel_SetRange(Channel ch, Range range);           // Установить масштаб по напряжению канала ch.
 int sChannel_MultiplierRel2Abs(Divider divider);
-bool sChannel_Enabled(Channel ch);                         // Р’РѕР·РІСЂР°С‰Р°РµС‚ true, РµСЃР»Рё РєР°РЅР°Р» ch РІРєР»СЋС‡С‘РЅ.
+bool sChannel_Enabled(Channel ch);                         // Возвращает true, если канал ch включён.
+void sChannel_SetEnabled(Channel ch, bool enabled);
 bool sChannel_NeedForDraw(const uint8 *data, Channel ch, DataSettings *ds);
 
 const char *sChannel_Range2String(Range range, Divider divider);

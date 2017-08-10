@@ -104,7 +104,7 @@ static const Choice cChanA_Input =
 
 void OnChanged_ChanA_Input(bool active)
 {
-    Panel_EnableLEDChannelA(sChannel_Enabled(A));
+    Panel_EnableLEDChannel(A, sChannel_Enabled(A));
 }
 
 // ÊÀÍÀË 1 - Ñâÿçü -----------------------------------------------------------------------------------------------------------------------------------
@@ -281,7 +281,7 @@ void OnChanged_ChanB_Input(bool active)
     {
         SET_ENABLED_B = false;
     }
-    Panel_EnableLEDChannelB(sChannel_Enabled(B));
+    Panel_EnableLEDChannel(B, sChannel_Enabled(B));
 }
 
 // ÊÀÍÀË 2 - Ñâÿçü -----------------------------------------------------------------------------------------------------------------------------------

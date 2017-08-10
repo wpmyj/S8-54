@@ -61,6 +61,13 @@ bool sChannel_Enabled(Channel ch)
     return SET_ENABLED(ch);
 }
 
+//----------------------------------------------------------------------------------------------------------------------------------------------------
+void sChannel_SetEnabled(Channel ch, bool enabled)
+{
+    SET_ENABLED(ch) = enabled;
+    Panel_EnableLEDChannel(ch, enabled);
+}
+
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
 const char* sChannel_Range2String(Range range, Divider divider)
