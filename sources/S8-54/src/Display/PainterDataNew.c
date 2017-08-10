@@ -180,7 +180,7 @@ static void DrawData_Out(Channel ch, uint8 *data)
     int bottom = GridChannelBottom();
     int top = GRID_TOP;
 
-    float scaleY = (bottom - top) / (float)(MAX_VALUE - MIN_VALUE);
+    float scaleY = (bottom - top) / (float)(MAX_VALUE - MIN_VALUE + 1);
 
     /// \todo Переделать на массив функций.
     if(G_PEACKDET)

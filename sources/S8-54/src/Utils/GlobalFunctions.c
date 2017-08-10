@@ -672,7 +672,31 @@ void BubbleSortINT(int array[], int num)
 }
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
-void LoggingArrayUINT8(uint8 *array, int numElements)
-{
+void LoggingArrayUINT8(char *label, uint8 *array, int numElements)
+{                                   // (1 + 3) -> 1 позиция на пробел и максимум 3 на 8-битное число
+                                    // 1 -> завершающий ноль
+                                    // strlen(label) -> на запись метки
+                                    // 3 -> на " - "
+    char *buffer = malloc(numElements * (1 + 3) + 1 + strlen(label) + 3);   // 1 + 3 - 
 
+    buffer[0] = 0;
+
+    strcat(buffer, label);
+    strcat(buffer, " - ");
+
+    char bufferNumber[5];                               // Буфер для текстового представления 8-битового значения
+
+    for (int i = 0; i < numElements; i++)
+    {
+        sprintf(bufferNumber, "%d ", array[i]);
+        strcat(buffer, bufferNumber);
+        for (int num = 0; num < 4 - strlen(bufferNumber); num++)
+        {
+            strcat(buffer, " ");
+        }
+    }
+
+    LOG_WRITE(buffer);
+
+    free(buffer);
 }

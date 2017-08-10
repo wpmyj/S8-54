@@ -122,7 +122,7 @@ void EmptyFuncpVII(void *, int, int);
 
 char* IntToStrCat(char *_buffer, int _value);
 /// Выводит numElements элементов массива array в одной строке консоли
-void LoggingArrayUINT8(uint8 *array, int numElements);
+void LoggingArrayUINT8(char *label, uint8 *array, int numElements);
 
 
 /** @}  @}

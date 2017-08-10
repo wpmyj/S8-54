@@ -9,6 +9,7 @@
 #include "Hardware/FLASH.h"
 #include "Hardware/FSMC.h"
 #include "Settings/SettingsMemory.h"
+#include "Utils/GlobalFunctions.h"
 #include "Utils/ProcessingSignal.h"
 
 
