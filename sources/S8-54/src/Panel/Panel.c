@@ -3,7 +3,7 @@
 #include "Log.h"
 #include "Panel.h"
 #include "PanelFunctions.h"
-#include "Display/PainterDataNew.h"
+#include "Display/PainterData.h"
 #include "FPGA/FPGA.h"
 #include "Hardware/Hardware.h"
 #include "Hardware/Sound.h"

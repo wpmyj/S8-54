@@ -60,7 +60,8 @@ typedef enum
     Page_Memory_Drive,              ///< ПАМЯТЬ - ВНЕШН ЗУ
     PageSB_Memory_Drive_Manager,    ///< ПАМЯТЬ - ВНЕШН ЗУ - КАТАЛОГ
     PageSB_Memory_Drive_Mask,       ///< ПАМЯТЬ - ВНЕШН ЗУ - МАСКА
-    PageSB_Memory_SetName,          ///< Появляется перед сохранением файла на флешку для задания имени файла при соответствующей опции ВНЕШН ЗУ - Имя файла
+    PageSB_Memory_SetName,          ///< \brief Появляется перед сохранением файла на флешку для задания имени файла при соответствующей опции 
+                                    ///< ВНЕШН ЗУ - Имя файла
     Page_Measures,                  ///< ИЗМЕРЕНИЯ
     PageSB_Measures_Tune,           ///< ИЗМЕРЕНИЯ - НАСТРОИТЬ
     Page_Service,                   ///< СЕРВИС
@@ -102,13 +103,13 @@ typedef enum
 struct Page
 {
     COMMON_PART_MENU_ITEM
-    NamePage                name;                               ///< Имя из перечисления NamePage
-    void*                   items[MAX_NUM_ITEMS_IN_PAGE];       ///< Здесь указатели на пункты этой страницы (в обычной странице)
-                                                                ///< для страницы малых кнопок  здесь хранятся 6 указателей на SButton : 0 - B_Menu, 1...5 - B_F1...B_F5
-    bool                    isPageSB;                           ///< Если true, то это страница малых кнопок
-    pFuncVV                 funcOnPress;                        ///< Будет вызываться при нажатии на свёрнутую страницу
-    pFuncVV                 funcOnDraw;                         ///< Будет вызываться после отрисовки кнопок
-    pFuncVI                 funcRegSetSB;                       ///< В странице малых кнопок вызывается при повороте ручки установка
+    NamePage name;                          ///< Имя из перечисления NamePage
+    void*    items[MAX_NUM_ITEMS_IN_PAGE];  ///< Здесь указатели на пункты этой страницы (в обычной странице)
+                                            ///< для страницы малых кнопок  здесь хранятся 6 указателей на SButton : 0 - B_Menu, 1...5 - B_F1...B_F5
+    bool     isPageSB;                      ///< Если true, то это страница малых кнопок
+    pFuncVV  funcOnPress;                   ///< Будет вызываться при нажатии на свёрнутую страницу
+    pFuncVV  funcOnDraw;                    ///< Будет вызываться после отрисовки кнопок
+    pFuncVI  funcRegSetSB;                  ///< В странице малых кнопок вызывается при повороте ручки установка
 };
 
 typedef struct Page Page;
@@ -146,11 +147,11 @@ typedef struct
 typedef struct
 {
     COMMON_PART_MENU_ITEM
-    int16*              cell;
-    int16               minValue;           ///< Минмальное значение, которое может принимать регулятор.
-    int16               maxValue;           ///< Максимальное значение.
-    pFuncVV             funcOfChanged;      ///< Функция, которую нужно вызывать после того, как значение регулятора изменилось.
-    pFuncVV             funcBeforeDraw;     ///< Функция, которая вызывается перед отрисовкой
+    int16*  cell;
+    int16   minValue;       ///< Минмальное значение, которое может принимать регулятор.
+    int16   maxValue;       ///< Максимальное значение.
+    pFuncVV funcOfChanged;  ///< Функция, которую нужно вызывать после того, как значение регулятора изменилось.
+    pFuncVV funcBeforeDraw; ///< Функция, которая вызывается перед отрисовкой
 } Governor;
 
 typedef struct

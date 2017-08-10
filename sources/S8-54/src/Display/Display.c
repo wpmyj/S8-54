@@ -4,7 +4,6 @@
 #include "Grid.h"
 #include "Log.h"
 #include "PainterData.h"
-#include "PainterDataNew.h"
 #include "Symbols.h"
 #include "Ethernet/TcpSocket.h"
 #include "FlashDrive/FlashDrive.h"

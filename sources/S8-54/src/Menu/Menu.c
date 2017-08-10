@@ -867,7 +867,6 @@ void Menu_OpenItemTime(void)
 /// Âîçâğàùàåò true, åñëè ëàìïî÷êà ÓÑÒÀÍÎÂÊÀ äîëæíà ãîğåòü
 static bool NeedForFireSetLED(void)
 {
-    //uint timeStart = gTimeMS;
     if (!MENU_IS_SHOWN)
     {
         TypeItem type = TypeOpenedItem();
@@ -888,17 +887,17 @@ static bool NeedForFireSetLED(void)
         return true;
     }
     
-    TypeItem typeCurrentItem = TypeMenuItem(CurrentItem());
-    if (typeCurrentItem == Item_Governor    ||
-        typeCurrentItem == Item_ChoiceReg   ||
-        typeCurrentItem == Item_GovernorColor)
+    TypeItem type = TypeMenuItem(CurrentItem());
+    if (type == Item_Governor    ||
+        type == Item_ChoiceReg   ||
+        type == Item_GovernorColor)
     {
         return true;
     }
 
-    TypeItem typeOpenedItem = TypeOpenedItem();
-    if (typeOpenedItem == Item_Choice       ||
-        (typeOpenedItem == Item_Page && NumSubPages(OpenedItem()) > 1)
+    type = TypeOpenedItem();
+    if (type == Item_Choice       ||
+        (type == Item_Page && NumSubPages(OpenedItem()) > 1)
         )
     {
         return true;
