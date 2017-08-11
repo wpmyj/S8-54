@@ -109,14 +109,14 @@ void SendData(const uint8 *buffer, int size)
 //----------------------------------------------------------------------------------------------------------------------------------------------------
 void VCP_SendStringAsinch(char *data)
 {
-    VCP_SendDataAsinch((uint8*)data, strlen(data));
+    VCP_SendDataAsinch((uint8 *)data, strlen(data));
 }
 
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
 void VCP_SendStringSynch(char *data)
 {
-    VCP_SendDataSynch((uint8*)data, strlen(data));
+    VCP_SendDataSynch((uint8 *)data, strlen(data));
 }
 
 
@@ -134,7 +134,7 @@ void VCP_SendFormatStringAsynch(char *format, ...)
     vsprintf(buffer, format, args);
     va_end(args);
     strcat(buffer, "\r\n");
-    VCP_SendDataAsinch((uint8*)buffer, strlen(buffer));
+    VCP_SendDataAsinch((uint8 *)buffer, strlen(buffer));
 }
 
 
@@ -147,7 +147,7 @@ void VCP_SendFormatStringSynch(char *format, ...)
     vsprintf(buffer, format, args);
     va_end(args);
     strcat(buffer, "\r\n");
-    VCP_SendDataSynch((uint8*)buffer, strlen(buffer));
+    VCP_SendDataSynch((uint8 *)buffer, strlen(buffer));
 }
 
 

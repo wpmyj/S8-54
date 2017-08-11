@@ -37,9 +37,9 @@ void Menu_RotateRegSetLeft(void);
 /// ”становить врем€ автоматического сокрыти€ меню в соответствии с установками.
 void Menu_SetAutoHide(bool active);
 /// ¬озвращает адрес пункта меню, наход€щегос€ под нажатой в данный момент кнопкой.
-void* Menu_ItemUnderKey(void);
+void *Menu_ItemUnderKey(void);
 /// ¬озвращает путь к текущему пункту меню в текстовом виде, готовом к выводу на экран.
-char* Menu_StringNavigation(char buffer[100]);
+char *Menu_StringNavigation(char buffer[100]);
 
 void Menu_Show(bool show);
      

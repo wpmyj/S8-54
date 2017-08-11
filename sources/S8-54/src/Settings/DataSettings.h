@@ -25,7 +25,7 @@ typedef struct
 
 typedef struct
 {
-    uint8*      addr;                   ///< Адрес данных во внешнем ОЗУ
+    uint8      *addr;                   ///< Адрес данных во внешнем ОЗУ
     uint16      rShift[2];
     uint16      trigLev[2];
     int16       tShift;                 ///< Смещение по времени

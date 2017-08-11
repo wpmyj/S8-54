@@ -395,7 +395,7 @@ bool FDrive_OpenNewFileForWrite(const char *fullPathToFile, StructForWrite *stru
 
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
-bool FDrive_WriteToFile(uint8* data, int sizeData, StructForWrite *structForWrite)
+bool FDrive_WriteToFile(uint8 *data, int sizeData, StructForWrite *structForWrite)
 {
     while (sizeData > 0)
     {

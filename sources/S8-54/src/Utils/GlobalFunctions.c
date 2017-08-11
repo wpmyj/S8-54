@@ -14,7 +14,7 @@
 
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-void* AllocMemForChannelFromHeap(Channel ch, DataSettings *ds)
+void *AllocMemForChannelFromHeap(Channel ch, DataSettings *ds)
 {
     int numBytes = RequestBytesForChannel(ch, ds);
     if(numBytes)
@@ -56,7 +56,7 @@ int RequestBytesForChannel(Channel ch, DataSettings *ds)
 
 
 //---------------------------------------------------------------------------------------------------------------------------------------------------
-char* FloatFract2String(float value, bool alwaysSign, char bufferOut[20])
+char *FloatFract2String(float value, bool alwaysSign, char bufferOut[20])
 {
     return Float2String(value, alwaysSign, 4, bufferOut);
 }
@@ -94,7 +94,7 @@ static int NumDigitsInIntPart(float value)
 
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
-char* Float2String(float value, bool alwaysSign, int numDigits, char bufferOut[20])
+char *Float2String(float value, bool alwaysSign, int numDigits, char bufferOut[20])
 {
     bufferOut[0] = 0;
     char *pBuffer = bufferOut;
@@ -155,7 +155,7 @@ char* Float2String(float value, bool alwaysSign, int numDigits, char bufferOut[2
 
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
-char* Int2String(int value, bool alwaysSign, int numMinFields, char buffer[20])
+char *Int2String(int value, bool alwaysSign, int numMinFields, char buffer[20])
 {
     const int SIZE = 20;
     char format[SIZE] = "%";
@@ -208,7 +208,7 @@ bool String2Int(char *str, int *value)
 
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
-char*    Bin2String(uint8 value, char buffer[9])
+char *Bin2String(uint8 value, char buffer[9])
 {
     for(int bit = 0; bit < 8; bit++)
     {
@@ -220,7 +220,7 @@ char*    Bin2String(uint8 value, char buffer[9])
 
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
-char*   Bin2String16(uint16 value, char valBuffer[19])
+char *Bin2String16(uint16 value, char valBuffer[19])
 {
     char buffer[9];
     strcpy(valBuffer, Bin2String(value >> 8, buffer));
@@ -231,7 +231,7 @@ char*   Bin2String16(uint16 value, char valBuffer[19])
 
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
-char* Hex8toString(uint8 value, char buffer[3], bool upper)
+char *Hex8toString(uint8 value, char buffer[3], bool upper)
 {
     sprintf(buffer, upper ? "%02X" : "%02x", value);
     return buffer;
@@ -239,7 +239,7 @@ char* Hex8toString(uint8 value, char buffer[3], bool upper)
 
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
-char* Hex16toString(uint16 value, char buffer[5], bool upper)
+char *Hex16toString(uint16 value, char buffer[5], bool upper)
 {
     sprintf(buffer, upper ? "%04X" : "%04x", value);
     return buffer;
@@ -247,7 +247,7 @@ char* Hex16toString(uint16 value, char buffer[5], bool upper)
 
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
-char* Hex32toString(uint32 value, char buffer[9], bool upper)
+char *Hex32toString(uint32 value, char buffer[9], bool upper)
 {
     sprintf(buffer, upper ? "%08X" : "%08x", value);
     return buffer;
@@ -255,7 +255,7 @@ char* Hex32toString(uint32 value, char buffer[9], bool upper)
 
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
-char*    Voltage2String(float voltage, bool alwaysSign, char buffer[20])
+char *Voltage2String(float voltage, bool alwaysSign, char buffer[20])
 {
     buffer[0] = 0;
     const char *suffix = DICT(D10kV);
@@ -294,14 +294,14 @@ char*    Voltage2String(float voltage, bool alwaysSign, char buffer[20])
 
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
-char* Time2String(float time, bool alwaysSign, char buffer[20])
+char *Time2String(float time, bool alwaysSign, char buffer[20])
 {
     return Time2StringAccuracy(time, alwaysSign, buffer, 4);
 }
 
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
-char* Time2StringAccuracy(float time, bool alwaysSign, char buffer[20], int numDigits)
+char *Time2StringAccuracy(float time, bool alwaysSign, char buffer[20], int numDigits)
 {
     buffer[0] = 0;
     const char *suffix = DICT(Ds);
@@ -338,7 +338,7 @@ char* Time2StringAccuracy(float time, bool alwaysSign, char buffer[20], int numD
 
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
-char* Phase2String(float phase, bool empty, char bufferOut[20])
+char *Phase2String(float phase, bool empty, char bufferOut[20])
 {
     const int SIZE = 20;
     char buffer[SIZE];
@@ -348,14 +348,14 @@ char* Phase2String(float phase, bool empty, char bufferOut[20])
 
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
-char*  Freq2String(float freq, bool alwaysSign, char bufferOut[20])
+char *Freq2String(float freq, bool alwaysSign, char bufferOut[20])
 {
     return Freq2StringAccuracy(freq, bufferOut, 4);
 }
 
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
-char* Freq2StringAccuracy(float freq, char bufferOut[20], int numDigits)
+char *Freq2StringAccuracy(float freq, char bufferOut[20], int numDigits)
 {
     bufferOut[0] = 0;
     const char *suffix = DICT(DHz);
@@ -382,7 +382,7 @@ char* Freq2StringAccuracy(float freq, char bufferOut[20], int numDigits)
 
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
-char* Float2Db(float value, int numDigits, char bufferOut[20])
+char *Float2Db(float value, int numDigits, char bufferOut[20])
 {
     bufferOut[0] = 0;
     char buffer[20];
@@ -584,7 +584,7 @@ void EmptyFuncpVII(void *v, int i, int ii) { }
 
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
-char* IntToStrCat(char *_buffer, int _value)
+char *IntToStrCat(char *_buffer, int _value)
 {
 #define LENGTH_INTTOSTRCAT 10
     char buffer[LENGTH_INTTOSTRCAT];

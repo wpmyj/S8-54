@@ -116,7 +116,7 @@ void Painter_SetColor(Color color)
         currentColor = color;
         if (currentColor > NUM_COLORS)
         {
-            CalculateColor((uint8*)(&(color)));
+            CalculateColor((uint8 *)(&(color)));
         }
         uint8 command[4] = {SET_COLOR, color};
         Painter_SendToDisplay(command, 4);
@@ -546,7 +546,7 @@ bool Painter_SaveScreenToFlashDrive(void)
 
     FDrive_OpenNewFileForWrite(fileName, &structForWrite);
 
-    FDrive_WriteToFile((uint8*)(&bmFH), 14, &structForWrite);
+    FDrive_WriteToFile((uint8 *)(&bmFH), 14, &structForWrite);
 
     BITMAPINFOHEADER bmIH =
     {
@@ -563,7 +563,7 @@ bool Painter_SaveScreenToFlashDrive(void)
         0   // clrImportant;
     };
 
-    FDrive_WriteToFile((uint8*)(&bmIH), 40, &structForWrite);
+    FDrive_WriteToFile((uint8 *)(&bmIH), 40, &structForWrite);
 
     uint8 buffer[320 * 3] = {0};
 

@@ -47,7 +47,7 @@ bool GetWord(const uint8 *string, Word *word, const int numWord)
     {
         if (currentWord == numWord)
         {
-            word->address = (uint8*)string;
+            word->address = (uint8 *)string;
             ChooseSymbols(&string);
             word->numSymbols = (int8)(string - word->address);
             

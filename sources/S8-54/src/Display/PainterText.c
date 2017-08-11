@@ -60,7 +60,7 @@ void Painter_LoadFont(TypeFont typeFont)
     /// \todo шрифты теперь зашиты в дисплей
     //Painter_SendToDisplay(command, 3084);
     Painter_SendToInterfaces(command, 2);
-    Painter_SendToInterfaces((uint8*)(fonts[typeFont]), sizeof(Font));
+    Painter_SendToInterfaces((uint8 *)(fonts[typeFont]), sizeof(Font));
 }
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
@@ -476,7 +476,7 @@ static int8* BreakWord(char *word)
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
 // Возвращает часть слова до слога numSyllable(включительн) вместе со знаком переноса
-static char* PartWordForTransfer(char *word, int8* lengthSyllables, int numSyllable, char buffer[30])
+static char *PartWordForTransfer(char *word, int8 *lengthSyllables, int numSyllable, char buffer[30])
 {
     int length = 0;
     for (int i = 0; i <= numSyllable; i++)

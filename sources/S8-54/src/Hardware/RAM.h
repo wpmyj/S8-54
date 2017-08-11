@@ -76,7 +76,7 @@ void RAM_MemClear(void *address, int numHalfWords);
 
 void RAM_Test(void);
 
-uint8* RAM(Address address);
+uint8 *RAM(Address address);
 
 /** @}  @}
  */

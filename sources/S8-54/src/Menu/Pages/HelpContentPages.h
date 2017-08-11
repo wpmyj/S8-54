@@ -15,12 +15,12 @@ typedef enum
 typedef struct  
 {
     TypePageHelp    type;
-    void*           parent;             ///< Адрес родительской страницы
+    void           *parent;             ///< Адрес родительской страницы
     /// \todo избавиться от этого рудимента
     pFuncBV         funcNotUsed;        ///< Оставлено для соместимости с типом Page - нужно для отрисовки.
-    char*           titleHint[4];       ///< \brief Название страницы на русском и английском языке, а затем содержимое на русском и английском 
+    char * const    titleHint[4];       ///< \brief Название страницы на русском и английском языке, а затем содержимое на русском и английском 
                                         /// (для случая TypePage_Description)
-    void*           pages[MAX_PAGES];   ///< Массив содержит адреса ссылаемых страниц в случае TypePage_Content
+    void           *pages[MAX_PAGES];   ///< Массив содержит адреса ссылаемых страниц в случае TypePage_Content
 } PageHelp;
 
 extern const PageHelp helpMenu;

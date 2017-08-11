@@ -111,11 +111,11 @@ static void CalculateAroundAverage(uint8 *dataA, uint8 *dataB, DataSettings *dss
         float numAveDataF = (float)numAveData;
         float numAveDataFless = numAveDataF - 1.0f;
         float numAveDataInv = 1.0f / numAveDataF;
-        float* aDataA = &aveDataA_RAM[0];
-        float* aDataB = &aveDataB_RAM[0];
-        uint8* dA = &dataA[0];
-        uint8* dB = &dataB[0];
-        float* endData = &aveDataA_RAM[size]; //-V108
+        float *aDataA = &aveDataA_RAM[0];
+        float *aDataB = &aveDataB_RAM[0];
+        uint8 *dA = &dataA[0];
+        uint8 *dB = &dataB[0];
+        float *endData = &aveDataA_RAM[size]; //-V108
 
         do 
         {
@@ -419,8 +419,8 @@ void CalculateLimits(uint8 *dataA, uint8 *dataB, DataSettings *dss)
 
             for(int i = 0; i < numElements; i++)
             {
-                SET_LIMIT((uint8*)dataA, limitUpA_RAM, limitDownA_RAM);
-                SET_LIMIT((uint8*)dataB, limitUpB_RAM, limitDownB_RAM);
+                SET_LIMIT((uint8 *)dataA, limitUpA_RAM, limitDownA_RAM);
+                SET_LIMIT((uint8 *)dataB, limitUpB_RAM, limitDownB_RAM);
             }
         }
     }
@@ -615,7 +615,7 @@ static bool CopyData(DataSettings *ds, Channel ch, uint8 *dataImportRel)
         return false;
     }
 
-    uint8* address = ADDRESS_DATA(ds);
+    uint8 *address = ADDRESS_DATA(ds);
 
     int length = BYTES_IN_CHANNEL(ds);
 
@@ -631,7 +631,7 @@ static bool CopyData(DataSettings *ds, Channel ch, uint8 *dataImportRel)
 
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
-uint8* DS_GetData_RAM(Channel ch, int fromEnd)
+uint8 *DS_GetData_RAM(Channel ch, int fromEnd)
 {
     uint8 *dataImport = (ch == A) ? RAM(DS_DATA_IMPORT_REL_A) : RAM(DS_DATA_IMPORT_REL_B);
 
@@ -706,7 +706,7 @@ bool DS_GetDataFromEnd_RAM(int fromEnd, DataSettings **ds, uint16 **dataA, uint1
 
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
-uint8* DS_GetAverageData(Channel ch)
+uint8 *DS_GetAverageData(Channel ch)
 {
     if (newSumCalculated[ch] == false)
     {
@@ -762,7 +762,7 @@ uint8* DS_GetAverageData(Channel ch)
 
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
-uint8* DS_GetLimitation(Channel ch, int direction)
+uint8 *DS_GetLimitation(Channel ch, int direction)
 {
     if(direction == 0)
     {

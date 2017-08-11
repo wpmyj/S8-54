@@ -147,7 +147,7 @@ typedef struct
 typedef struct
 {
     COMMON_PART_MENU_ITEM
-    int16*  cell;
+    int16  *cell;
     int16   minValue;       ///< Минмальное значение, которое может принимать регулятор.
     int16   maxValue;       ///< Максимальное значение.
     pFuncVV funcOfChanged;  ///< Функция, которую нужно вызывать после того, как значение регулятора изменилось.
@@ -157,10 +157,10 @@ typedef struct
 typedef struct
 {
     COMMON_PART_MENU_ITEM
-    uint8*  ip0;
-    uint8*  ip1;
-    uint8*  ip2;
-    uint8*  ip3;
+    uint8 *ip0;
+    uint8 *ip1;
+    uint8 *ip2;
+    uint8 *ip3;
     pFuncVB funcOfChanged;
     uint16* port;
 } IPaddress;
@@ -168,12 +168,12 @@ typedef struct
 typedef struct
 {
     COMMON_PART_MENU_ITEM
-    uint8*  mac0;
-    uint8*  mac1;
-    uint8*  mac2;
-    uint8*  mac3;
-    uint8*  mac4;
-    uint8*  mac5;
+    uint8 *mac0;
+    uint8 *mac1;
+    uint8 *mac2;
+    uint8 *mac3;
+    uint8 *mac4;
+    uint8 *mac5;
     pFuncVB funcOfChanged;
 } MACaddress;
 
@@ -189,12 +189,12 @@ typedef struct
 typedef struct
 {
     COMMON_PART_MENU_ITEM
-    int8*   function;       ///< Адрес ячейки, где хранится Function, из которой берётся знак операции
-    int8*   koeff1add;      ///< Адрес коэффициента при первом члене для сложения
-    int8*   koeff2add;      ///< Адрес коэффициента при втором члене для сложения
-    int8*   koeff1mul;      ///< Адрес коэффициента при первом члене для умножения
-    int8*   koeff2mul;      ///< Адрес коэффициента при втором члене для умножения
-    int8*   curDigit;       ///< Текущий разряд : 0 - знак первого члена, 1 - коэффициент первого члена, 2 - знак второго члена, 3 - коэффициент второго члена
+    int8   *function;       ///< Адрес ячейки, где хранится Function, из которой берётся знак операции
+    int8   *koeff1add;      ///< Адрес коэффициента при первом члене для сложения
+    int8   *koeff2add;      ///< Адрес коэффициента при втором члене для сложения
+    int8   *koeff1mul;      ///< Адрес коэффициента при первом члене для умножения
+    int8   *koeff2mul;      ///< Адрес коэффициента при втором члене для умножения
+    int8   *curDigit;       ///< Текущий разряд : 0 - знак первого члена, 1 - коэффициент первого члена, 2 - знак второго члена, 3 - коэффициент второго члена
     pFuncVV funcOfChanged;  ///< Эта функция вызывается после изменения состояния элемента управления.
 } Formula;
 

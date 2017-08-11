@@ -38,8 +38,8 @@ StateWorkFPGA fpgaStateWork = StateWorkFPGA_Stop;
 volatile static int numberMeasuresForGates = 1000;
 static DataSettings ds;
 static uint timeCompletePredTrig = 0;   ///< Здесь окончание счёта предзапуска. Если == 0, то предзапуск не завершён.
-static uint8* dataRandA = 0;
-static uint8* dataRandB = 0;
+static uint8 *dataRandA = 0;
+static uint8 *dataRandB = 0;
 static uint timeStart = 0;
 static uint timeSwitchingTrig = 0;
 static bool readingPointP2P = false;    ///< Признак того, что точка и последнего прерывания поточечного вывода прочитана.
@@ -545,9 +545,9 @@ static void ReadChannel(uint8 *data, Channel ch, int length, uint16 nStop, bool 
 
     if (shift)
     {
-        *((uint8*)p) = ((*address) >> 8);
+        *((uint8 *)p) = ((*address) >> 8);
 
-        p = (uint16*)(((uint8*)p) + 1);
+        p = (uint16*)(((uint8 *)p) + 1);
         endP -= 8;                          // Это нужно, чтбы не выйти за границу буфера - ведь мы сдвигаем данные на один байт
     }
 

@@ -158,7 +158,7 @@ void DHCP_Process(struct netif *netif)
         iptab[2] = (uint8_t)(IPaddress >> 8);
         iptab[3] = (uint8_t)(IPaddress);
 
-        sprintf((char*)iptxt, "%d.%d.%d.%d", iptab[3], iptab[2], iptab[1], iptab[0]);       
+        sprintf((char *)iptxt, "%d.%d.%d.%d", iptab[3], iptab[2], iptab[1], iptab[0]);       
 
         LCD_UsrLog ("IP address assigned by a DHCP server: %s\n", iptxt);
 #else
@@ -184,7 +184,7 @@ void DHCP_Process(struct netif *netif)
 #ifdef USE_LCD  
           uint8_t iptxt[20];
           
-          sprintf((char*)iptxt, "%d.%d.%d.%d", IP_ADDR0, IP_ADDR1, IP_ADDR2, IP_ADDR3);
+          sprintf((char *)iptxt, "%d.%d.%d.%d", IP_ADDR0, IP_ADDR1, IP_ADDR2, IP_ADDR3);
           LCD_UsrLog ("DHCP timeout !!\n");
           LCD_UsrLog ("Static IP address  : %s\n", iptxt);      
 #else

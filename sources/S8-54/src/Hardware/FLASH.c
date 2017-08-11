@@ -77,11 +77,11 @@ typedef struct
                             FLASH_FLAG_PGPERR |  /* programming parallelism error flag */   \
                             FLASH_FLAG_PGSERR);  /* programming sequence error flag    */
 
-#define READ_BYTE(address) (*((volatile uint8*)address))
+#define READ_BYTE(address) (*((volatile uint8 *)address))
 
-#define READ_HALF_WORD(address) (*((volatile uint16*)address))
+#define READ_HALF_WORD(address) (*((volatile uint16 *)address))
 
-#define READ_WORD(address) (*((volatile uint*)address))
+#define READ_WORD(address) (*((volatile uint *)address))
 
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -182,8 +182,8 @@ static void WriteBufferWords(uint address, void *buffer, int numWords)
 //----------------------------------------------------------------------------------------------------------------------------------------------------
 static void ReadBufferBytes(uint addressSrc, void *bufferDest, int size)
 {
-    uint8 *src = (uint8*)addressSrc;
-    uint8 *dest = (uint8*)bufferDest;
+    uint8 *src = (uint8 *)addressSrc;
+    uint8 *dest = (uint8 *)bufferDest;
 
     for (int i = 0; i < size; i++)
     {
@@ -413,7 +413,7 @@ static void WriteBufferBytes(uint address, void *buffer, int size)
     HAL_FLASH_Unlock();
     for(int i = 0; i < size; i++)
     {
-        uint64_t data = ((uint8*)buffer)[i];
+        uint64_t data = ((uint8 *)buffer)[i];
         HAL_FLASH_Program(TYPEPROGRAM_BYTE, address, data);
         address++;
     }
@@ -520,17 +520,17 @@ bool FLASH_GetData(int num, DataSettings *ds, uint8 *dataA, uint8 *dataB)
 bool OTP_SaveSerialNumber(char *servialNumber)
 {
     // Находим первую пустую строку длиной 16 байт в области OTP, начиная с начала
-    uint8 *address = (uint8*)FLASH_OTP_BASE;
+    uint8 *address = (uint8 *)FLASH_OTP_BASE;
 
     while ((*address) != 0xff &&                    // *address != 0xff означает, что запись в эту строку уже производилась
-           address < (uint8*)FLASH_OTP_END - 16)
+           address < (uint8 *)FLASH_OTP_END - 16)
     {
         address += 16;
     }
 
-    if (address < (uint8*)FLASH_OTP_END - 16)
+    if (address < (uint8 *)FLASH_OTP_END - 16)
     {
-        WriteBufferBytes((uint)address, (uint8*)servialNumber, strlen(servialNumber) + 1);
+        WriteBufferBytes((uint)address, (uint8 *)servialNumber, strlen(servialNumber) + 1);
         return true;
     }
 
@@ -544,12 +544,12 @@ int OTP_GetSerialNumber(char buffer[17])
 
     const int allShotsMAX = 512 / 16;   // Максимальное число записей в OTP серийного номера.
 
-    uint8* address = (uint8*)FLASH_OTP_END - 15;
+    uint8 *address = (uint8 *)FLASH_OTP_END - 15;
 
     do
     {
         address -= 16;
-    } while(*address == 0xff && address > (uint8*)FLASH_OTP_BASE);
+    } while(*address == 0xff && address > (uint8 *)FLASH_OTP_BASE);
 
     if (*address == 0xff)   // Не нашли строки с информацией, дойдя до начального адреса OTP
     {
@@ -557,9 +557,9 @@ int OTP_GetSerialNumber(char buffer[17])
         return allShotsMAX;
     }
 
-    strcpy(buffer, (char*)address);
+    strcpy(buffer, (char *)address);
 
-    return allShotsMAX - (address - (uint8*)FLASH_OTP_BASE) / 16 - 1;
+    return allShotsMAX - (address - (uint8 *)FLASH_OTP_BASE) / 16 - 1;
 }
 
 #undef CLEAR_FLASH_FLAGS

@@ -106,10 +106,10 @@ void RAM_ReadBuffer1(void *src, void *dest, int numBytes)
     if ((uint)addrRAM & 0x1)
     {
         uint8 data = RAM_ReadByte(src);
-        *((uint8*)dest) = data;
+        *((uint8 *)dest) = data;
         numBytes--;
-        addrRAM = (uint16*)(((uint8*)src) + 1);
-        addrDest = (uint16*)(((uint8*)dest) + 1);
+        addrRAM = (uint16 *)(((uint8 *)src) + 1);
+        addrDest = (uint16 *)(((uint8 *)dest) + 1);
     }
 
     int numHalfWords = numBytes / 2;
@@ -122,7 +122,7 @@ void RAM_ReadBuffer1(void *src, void *dest, int numBytes)
     if (numBytes & 0x1)
     {
         uint8 data = RAM_ReadByte(src);
-        *((uint8*)dest) = data;
+        *((uint8 *)dest) = data;
     }
 }
 
@@ -293,7 +293,7 @@ void RAM_MemClear(void *address_, int numHalfWords)
 
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
-uint8* RAM(Address address)
+uint8 *RAM(Address address)
 {                                                                                           // битность,  пам€ть, всего
                                                                                             //    шт        кЅ
 #define RAM_FPGA_DATA_A             (ADDR_RAM)                                              //    8         16
@@ -317,7 +317,7 @@ uint8* RAM(Address address)
 #define RAM_DS_POOL_BEGIN           ((RAM_DRAW_MATH_DATA_REL_B) + (FPGA_MAX_POINTS) * 4)    //
 #define RAM_DS_POOL_END             ((ADDR_RAM)                 + (1024 * 1024))
 
-    const uint8* addresses[] =
+    const uint8 *addresses[] =
     {
         RAM_FPGA_DATA_A,
         RAM_FPGA_DATA_B,
@@ -345,5 +345,5 @@ uint8* RAM(Address address)
         RAM_DS_POOL_END
     };
  
-    return (uint8*)addresses[address];
+    return (uint8 *)addresses[address];
 }

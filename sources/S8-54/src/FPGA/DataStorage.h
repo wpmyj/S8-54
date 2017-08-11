@@ -27,13 +27,13 @@ bool DS_GetDataFromEnd(int fromEnd, DataSettings *ds, uint8 *dataA, uint8 *dataB
 /// Получить указатели на сохранённые данные. Данные хранятся в ОЗУ.
 bool DS_GetDataFromEnd_RAM(int fromEnd, DataSettings **ds, uint16 **dataA, uint16 **dataB);
 /// Возвращет указатель, который указывает на данные в памяти внешнего ОЗУ. Доступ к данным осуществляется по полусловам
-uint8* DS_GetData_RAM(Channel ch, int fromEnd);
+uint8 *DS_GetData_RAM(Channel ch, int fromEnd);
 /// Получить усреднённые данные по нескольким измерениям
-uint8* DS_GetAverageData(Channel ch);
+uint8 *DS_GetAverageData(Channel ch);
 /// Возвращает указатель на данные, отстоящие на indexFromEnd oт последнего сохранённого
-DataSettings* DS_DataSettingsFromEnd(int indexFromEnd);
+DataSettings *DS_DataSettingsFromEnd(int indexFromEnd);
 /// Получить ограничивающую линию сигнала 0 - снизу, 1 - сверху
-uint8* DS_GetLimitation(Channel ch, int direction);
+uint8 *DS_GetLimitation(Channel ch, int direction);
 /// Сколько измерений может быть сохранено при такой же длине данных, как у последнего записанного
 int DS_NumberAvailableEntries(void);
 

@@ -138,7 +138,7 @@ void Painter_SetPalette(Color color)
     uint8 command[4];
     command[0] = SET_PALETTE_COLOR;
     *(command + 1) = color;
-    *((uint16*)(command + 2)) = set.display.colors[color];
+    *((uint16 *)(command + 2)) = set.display.colors[color];
     Painter_SendToDisplay(command, 4);
 }
 
@@ -151,7 +151,7 @@ void Painter_SetColor(Color color)
         currentColor = color;
         if (currentColor > NUM_COLORS)
         {   
-            CalculateColor((uint8*)(&(color)));
+            CalculateColor((uint8 *)(&(color)));
         }
         uint8 command[4] = {SET_COLOR};
         command[1] = color;
