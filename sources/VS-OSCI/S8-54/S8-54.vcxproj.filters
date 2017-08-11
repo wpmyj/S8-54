@@ -561,6 +561,9 @@
     <ClCompile Include="..\..\S8-54\src\Display\PainterData.c">
       <Filter>Display</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\S8-54\src\Utils\Dictionary.c">
+      <Filter>Utils</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\STM32Cube_FW_F4\Middlewares\ST\STM32_USB_Device_Library\Class\CDC\Inc\usbd_cdc.h">
@@ -1066,6 +1069,9 @@
     </ClInclude>
     <ClInclude Include="..\..\S8-54\src\Display\PainterData.h">
       <Filter>Display</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\S8-54\src\Utils\Dictionary.h">
+      <Filter>Utils</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

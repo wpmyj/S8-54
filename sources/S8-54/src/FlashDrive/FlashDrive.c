@@ -4,9 +4,10 @@
 #include "Globals.h"
 #include "Log.h"
 #include "Display/Display.h"
-#include "Menu/FileManager.h"
 #include "Hardware/RTC.h"
 #include "Hardware/Timer.h"
+#include "Menu/FileManager.h"
+#include "Utils/Dictionary.h"
 #include <ff_gen_drv.h>
 #include <usbh_diskio.h>
 
@@ -103,7 +104,7 @@ void FDrive_Update(void)
         uint timeStart = gTimeMS;
         gBF.needToMountFlash = 0;
 
-        Display_FuncOnWaitStart("Обнаружено запоминающее устройство", "Detected flash drive", false);
+        Display_FuncOnWaitStart(DICT(DDetectFlashDrive), false);
 
         if (f_mount(&USBDISKFatFs, (TCHAR const*)USBDISKPath, 1) != FR_OK)
         {

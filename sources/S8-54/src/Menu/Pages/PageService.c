@@ -12,6 +12,7 @@
 #include "Menu/MenuDrawing.h"
 #include "Menu/MenuFunctions.h"
 #include "Panel/Panel.h"
+#include "Utils/Dictionary.h"
 #include "Utils/GlobalFunctions.h"
 #include "Utils/Math.h"
 
@@ -712,7 +713,7 @@ static void Draw_Function_Screen(int x, int y)
 
 static void Draw_Function_Screen_Disable(int x, int y)
 {
-    Painter_DrawText(x + 2 + (LANG_EN ? 2 : 0), y + 5, LANG_RU ? "Вык" : "Dis");
+    Painter_DrawText(x + 2 + (LANG_EN ? 2 : 0), y + 5, DICT(DDis));
 }
 
 static void Draw_Function_Screen_Separate(int x, int y)
@@ -804,7 +805,7 @@ static void Draw_Function_ModeRegSet_Range(int x, int y)
 
 static void Draw_Function_ModeRegSet_RShift(int x, int y)
 {
-    Painter_DrawText(x + 5 - (LANG_EN ? 3 : 0), y + 5, LANG_RU ? "См" : "Shif");
+    Painter_DrawText(x + 5 - (LANG_EN ? 3 : 0), y + 5, DICT(DShift));
 }
 
 // СЕРВИС - ФУНКЦИЯ - Масштаб 1-го канала ------------------------------------------------------------------------------------------------------------
@@ -1102,29 +1103,25 @@ static void OnPress_Information(void)
 
 static void Information_Draw(void)
 {
-    Language lang = LANG;
-
     Painter_BeginScene(gColorBack);
     int x = 100;
     int dY = 20;
     int y = 20;
     Painter_DrawRectangleC(0, 0, 319, 239, gColorFill);
     y += dY;
-    Painter_DrawText(x, y, lang == Russian ? "ИНФОРМАЦИЯ" : "INFORMATION");
+    Painter_DrawText(x, y, DICT(DInformation));
     y += dY;
     
-#ifdef S8_54
-    Painter_DrawText(x, y, lang == Russian ? "Модель : С8-54" : "Model : S8-54");
-#else
-    Painter_DrawText(x, y, lang == Russian ? "Модель : С8-55" : "Model : S8-55");
-#endif
-    y += 2 * dY;
-
     char buffer[100];
 
-    Painter_DrawText(x, y, lang == Russian ? "Программное обеспечение:" : "Software:");
+    sprintf(buffer, "%s : %s", DICT(DModel), LANG_RU ? MODEL_RU : MODEL_EN);
+    Painter_DrawText(x, y, buffer);
+
+    y += 2 * dY;
+
+    Painter_DrawText(x, y, DICT(DSoftware));
     y += dY;
-    sprintf(buffer, (const char*)((lang == Russian) ? "версия %s" : "version %s"), NUM_VER);
+    sprintf(buffer, (const char*)DICT(DVersion), NUM_VER);
     Painter_DrawText(x, y, buffer);
     y += dY;
 

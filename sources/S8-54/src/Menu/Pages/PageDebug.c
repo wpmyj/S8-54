@@ -11,6 +11,7 @@
 #include "Menu/MenuFunctions.h"
 #include "Menu/Pages/Definition.h"
 #include "Utils/Debug.h"
+#include "Utils/Dictionary.h"
 #include "Utils/GlobalFunctions.h"
 
 
@@ -1351,7 +1352,7 @@ static bool IsActive_SaveFirmware(void)
 
 static void OnPress_SaveFirmware(void)
 {
-    Display_FuncOnWaitStart("Сохраняю прошивку", "Save the firmware", false);
+    Display_FuncOnWaitStart(DICT(DSaveFirmware), false);
 
     StructForWrite structForWrite;
 

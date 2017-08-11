@@ -1544,6 +1544,16 @@
               <FileType>5</FileType>
               <FilePath>.\src\Utils\TablesWindow.h</FilePath>
             </File>
+            <File>
+              <FileName>Dictionary.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\src\Utils\Dictionary.h</FilePath>
+            </File>
+            <File>
+              <FileName>Dictionary.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\src\Utils\Dictionary.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>

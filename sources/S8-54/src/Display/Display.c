@@ -20,6 +20,7 @@
 #include "Menu/MenuDrawing.h"
 #include "Menu/MenuFunctions.h"
 #include "Utils/Debug.h"
+#include "Utils/Dictionary.h"
 #include "Utils/GlobalFunctions.h"
 #include "Utils/Math.h"
 #include "Utils/ProcessingSignal.h"
@@ -1109,7 +1110,7 @@ static void WriteValueTrigLevel(void)
         }
 
         char buffer[20];
-        strcpy(buffer, LANG_RU ? "Ур синхр = " : "Trig lvl = ");
+        strcpy(buffer, DICT(DTrigLev));
         char bufForVolt[20];
         strcat(buffer, Voltage2String(trigLev, true, bufForVolt));
         int width = 96;
@@ -1544,7 +1545,7 @@ static void DrawHiRightPart(void)
         if(trigEnable)
         {
             Painter_FillRegionC(x, 1 + y, GRID_TOP - 3, GRID_TOP - 7, gColorFill);
-            Painter_DrawTextC(x + 3, 3 + y, LANG_RU ? "СИ" : "Tr", gColorBack);
+            Painter_DrawTextC(x + 3, 3 + y, DICT(DTrig), gColorBack);
         }
     }
 
@@ -1561,7 +1562,7 @@ static void DrawHiRightPart(void)
         x += 18;
         Painter_DrawVLineC(x, 1, GRID_TOP - 2, gColorFill);
         x += 2;
-        Painter_DrawText(LANG_RU ? x : x + 3, -1, LANG_RU ? "режим" : "mode");
+        Painter_DrawText(LANG_RU ? x : x + 3, -1, DICT(DMode));
         Painter_DrawStringInCenterRect(x + 1, 9, 25, 8, strings[MODE_WORK][LANG]);
     }
     else
@@ -1621,7 +1622,7 @@ static void WriteTextVoltage(Channel ch, int x, int y)
     }
     const int SIZE = 100;
     char buffer[SIZE];
-    snprintf(buffer, SIZE, "%s\xa5%s\xa5%s", (ch == A) ? (LANG_RU ? "1к" : "1c") : (LANG_RU ? "2к" : "2c"), couple[SET_COUPLE(ch)], sChannel_Range2String(range, divider));
+    snprintf(buffer, SIZE, "%s\xa5%s\xa5%s", (ch == A) ? DICT(D1ch) : DICT(D2ch), couple[SET_COUPLE(ch)], sChannel_Range2String(range, divider));
     Painter_DrawTextC(x + 1, y, buffer, colorDraw);
     char bufferTemp[SIZE];
     snprintf(bufferTemp, SIZE, "\xa5%s", sChannel_RShift2String((int16)SET_RSHIFT(ch), range, divider, buffer));
@@ -2006,7 +2007,7 @@ static int CalculateCountH(void)
 }
 
 static uint timeStart = 0;
-static char *textWait = 0;
+static const char *textWait = 0;
 static bool clearBackground = false;
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
@@ -2043,10 +2044,10 @@ static void FuncOnWait(void)
 }
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
-void Display_FuncOnWaitStart(char *textRu, char *textEn, bool eraseBackground)
+void Display_FuncOnWaitStart(const char *text, bool eraseBackground)
 {
     timeStart = gTimeMS;
-    textWait = LANG_RU ? textRu : textEn;
+    textWait = text;
     clearBackground = eraseBackground;
     Display_SetDrawMode(DrawMode_Hand, FuncOnWait);
 }

@@ -10,6 +10,7 @@
 #include "Hardware/Timer.h"
 #include "Panel/Panel.h"
 #include "Utils/Debug.h"
+#include "Utils/Dictionary.h"
 #include "Utils/GlobalFunctions.h"
 #include "Utils/Math.h"
 
@@ -736,11 +737,11 @@ void FPGA_BalanceChannel(Channel ch)
 {
     if (ch == A)
     {
-        Display_FuncOnWaitStart("Балансировка канала 1", "Balancde channel 1", false);
+        Display_FuncOnWaitStart(DICT(DBalance1ch), false);
     }
     else
     {
-        Display_FuncOnWaitStart("Балансировка канала 2", "Balance channel 2", false);
+        Display_FuncOnWaitStart(DICT(DBalance2ch), false);
     }
 
     CreateCalibrationStruct();

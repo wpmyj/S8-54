@@ -7,12 +7,34 @@
 #include <limits.h>
 
 #define S8_54
+//#define S8_55
+
+#if ((defined S8_54) && (defined S8_55))
+    #error ("Only S8_54 or S8_55 can be selected")
+#endif
+
+#if (!(defined S8_54) && !(defined S8_55))
+    #error ("Select the S8_54 or S8_55")
+#endif
+
+#define NUM_VER "1.3"
+
+#ifdef S8_54
+#define MODEL_RU "С8-54"
+#define MODEL_EN "S8-54"
+#endif
+
+#ifdef S8_55
+#define MODEL_RU "С8-55"
+#define MODEL_EN "S8-55"
+#endif
+
+
 
 #define INTERRUPT_P2P   // Если определено, то для чтения точек используется прерывание
  
 #include <stm32f4xx_hal.h>
 
-#define NUM_VER "1.3"
 
 #define OLD_RECORDER
 

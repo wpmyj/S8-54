@@ -7,6 +7,7 @@
 #include "FPGA/fpgaTypes.h"
 #include "Settings/Settings.h"
 #include "Utils/Debug.h"
+#include "Utils/Dictionary.h"
 #include "Utils/Math.h"
 #include <string.h>
 #include <stdlib.h>
@@ -257,7 +258,7 @@ char* Hex32toString(uint32 value, char buffer[9], bool upper)
 char*    Voltage2String(float voltage, bool alwaysSign, char buffer[20])
 {
     buffer[0] = 0;
-    char *suffix;
+    const char *suffix = DICT(D10kV);
     if(voltage == ERROR_VALUE_FLOAT)
     {
         strcat(buffer, ERROR_STRING_VALUE);
@@ -265,21 +266,20 @@ char*    Voltage2String(float voltage, bool alwaysSign, char buffer[20])
     }
     else if(fabsf(voltage) + 0.5e-4f < 1e-3f)
     {
-        suffix = LANG_RU ? "\x10ìêÂ" : "\x10uV";
+        suffix = DICT(D10uV);
         voltage *= 1e6f;
     }
     else if(fabsf(voltage) + 0.5e-4f < 1.0f)
     {
-        suffix = LANG_RU ? "\x10ìÂ" : "\x10mV" ;
+        suffix = DICT(D10mV);
         voltage *= 1e3f;
     }
     else if(fabsf(voltage) + 0.5e-4f < 1000.0f)
     {
-        suffix = LANG_RU ? "\x10Â" : "\x10V";
+        suffix = DICT(D10V);
     }
     else
     {
-        suffix = LANG_RU ? "\x10êÂ" : "\x10kV";
         voltage *= 1e-3f;
     }
 
@@ -304,10 +304,9 @@ char* Time2String(float time, bool alwaysSign, char buffer[20])
 char* Time2StringAccuracy(float time, bool alwaysSign, char buffer[20], int numDigits)
 {
     buffer[0] = 0;
-    char *suffix = 0;
+    const char *suffix = DICT(Ds);
 
     float fabsTime = fabsf(time);
-    bool russian = LANG_RU;
 
     if (time == ERROR_VALUE_FLOAT)
     {
@@ -316,22 +315,18 @@ char* Time2StringAccuracy(float time, bool alwaysSign, char buffer[20], int numD
     }
     else if (fabsTime + 0.5e-10f < 1e-6f)
     {
-        suffix = russian ? "íñ" : "ns";
+        suffix = DICT(Dns);
         time *= 1e9f;
     }
     else if (fabsTime + 0.5e-7f < 1e-3f)    
     {
-        suffix = russian ? "ìêñ" : "us";
+        suffix = DICT(Dus);
         time *= 1e6f;
     }
     else if (fabsTime + 0.5e-3f < 1.0f)
     {
-        suffix = russian ? "ìñ" : "ms";
+        suffix = DICT(Dms);
         time *= 1e3f;
-    }
-    else
-    {
-        suffix = russian ? "ñ" : "s";
     }
 
     char bufferOut[20];
@@ -363,7 +358,7 @@ char*  Freq2String(float freq, bool alwaysSign, char bufferOut[20])
 char* Freq2StringAccuracy(float freq, char bufferOut[20], int numDigits)
 {
     bufferOut[0] = 0;
-    char *suffix = 0;
+    const char *suffix = DICT(DHz);
     if (freq == ERROR_VALUE_FLOAT)
     {
         strcat(bufferOut, ERROR_STRING_VALUE);
@@ -371,17 +366,13 @@ char* Freq2StringAccuracy(float freq, char bufferOut[20], int numDigits)
     }
     if (freq >= 1e6f)
     {
-        suffix = LANG_RU ? "ÌÃö" : "MHz";
+        suffix = DICT(DMHz);
         freq /= 1e6f;
     }
     else if (freq >= 1e3f)
     {
-        suffix = LANG_RU ? "êÃö" : "kHz";
+        suffix = DICT(DkHz);
         freq /= 1e3f;
-    }
-    else
-    {
-        suffix = LANG_RU ? "Ãö" : "Hz";
     }
     char buffer[20];
     strcat(bufferOut, Float2String(freq, false, numDigits, buffer));

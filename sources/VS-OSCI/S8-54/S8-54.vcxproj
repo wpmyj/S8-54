@@ -232,6 +232,7 @@
     <ClCompile Include="..\..\S8-54\src\Settings\SettingsTime.c" />
     <ClCompile Include="..\..\S8-54\src\Tables.c" />
     <ClCompile Include="..\..\S8-54\src\Utils\Debug.c" />
+    <ClCompile Include="..\..\S8-54\src\Utils\Dictionary.c" />
     <ClCompile Include="..\..\S8-54\src\Utils\Generator.c" />
     <ClCompile Include="..\..\S8-54\src\Utils\GlobalFunctions.c" />
     <ClCompile Include="..\..\S8-54\src\Utils\Map.c" />
@@ -431,6 +432,7 @@
     <ClInclude Include="..\..\S8-54\src\Settings\SettingsTypes.h" />
     <ClInclude Include="..\..\S8-54\src\Tables.h" />
     <ClInclude Include="..\..\S8-54\src\Utils\Debug.h" />
+    <ClInclude Include="..\..\S8-54\src\Utils\Dictionary.h" />
     <ClInclude Include="..\..\S8-54\src\Utils\Generator.h" />
     <ClInclude Include="..\..\S8-54\src\Utils\GlobalFunctions.h" />
     <ClInclude Include="..\..\S8-54\src\Utils\Map.h" />

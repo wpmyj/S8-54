@@ -14,6 +14,7 @@
 #include "Menu/MenuFunctions.h"
 #include "Menu/MenuItemsLogic.h"
 #include "Menu/Pages/Definition.h"
+#include "Utils/Dictionary.h"
 #include "Utils/GlobalFunctions.h"
 #include "Utils/Math.h"
 
@@ -799,17 +800,17 @@ void Draw_Internal_Scale(int x, int y)
 
 void Draw_Internal_Scale_Recalculated(int x, int y)
 {
-    Painter_DrawText(x + 8, y + 2, LANG_RU ? "М" : "M");
+    Painter_DrawText(x + 8, y + 2, DICT(DM));
     Painter_SetFont(TypeFont_5);
-    Painter_DrawText(x + 5, y + 9, LANG_RU ? "АБС" : "ABS");
+    Painter_DrawText(x + 5, y + 9, DICT(DABS));
     Painter_SetFont(TypeFont_8);
 }
 
 void Draw_Internal_Scale_Original(int x, int y)
 {
-    Painter_DrawText(x + 8, y + 2, LANG_RU ? "М" : "M");
+    Painter_DrawText(x + 8, y + 2, DICT(DM));
     Painter_SetFont(TypeFont_5);
-    Painter_DrawText(x + 5, y + 9, LANG_RU ? "ОТН" : "REL");
+    Painter_DrawText(x + 5, y + 9, DICT(DREL));
     Painter_SetFont(TypeFont_8);
 }
 
@@ -829,7 +830,7 @@ static const SButton bInternal_SaveToMemory =
 
 static void OnPress_Internal_SaveToMemory(void)
 {
-    Display_FuncOnWaitStart("Записываю в память", "I stored in memory", false);
+    Display_FuncOnWaitStart(DICT(DStoredInMemory), false);
     SaveSignalToIntMemory();
     Display_FuncOnWaitStop();
 }
