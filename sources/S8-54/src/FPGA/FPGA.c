@@ -453,11 +453,11 @@ static bool ReadRandomizeModeSave(bool first, bool last, bool onlySave)
             uint8 *dA = outA;
             uint8 *dB = outB;
 
-            if (G_ENABLED_A)
+            if (ENABLED_DS_A)
             {
                 memcpy(dataRandA, dA, bytesInChannel);
             }
-            if (G_ENABLED_B)
+            if (ENABLED_DS_B)
             {
                 memcpy(dataRandB, dB, bytesInChannel);
             }

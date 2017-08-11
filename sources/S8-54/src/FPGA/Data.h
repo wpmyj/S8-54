@@ -28,44 +28,55 @@ EXTERN DataSettings *pDS;           ///< Указатель на настройки текущего рисуемо
  *  @{
  */
 
-#define G_TSHIFT            (TSHIFT(DS))
-#define G_TBASE             (TBASE(DS))
-#define G_INVERSE(ch)       (INVERSE(DS, ch))
-#define G_COUPLE(ch)        (COUPLE(DS, ch))
-#define G_DIVIDER(ch)       (DIVIDER(DS, ch))
-#define G_RANGE(ch)         (RANGE(DS, ch))
-#define G_RANGE_A           (RANGE(DS, A))
-#define G_RANGE_B           (RANGE(DS, B))
-#define G_ENABLED(ch)       (ENABLED(DS, ch))
-#define G_ENABLED_A         (ENABLED(DS, A))
-#define G_ENABLED_B         (ENABLED(DS, B))
-#define G_RSHIFT(ch)        (RSHIFT(DS, ch))
-#define G_RSHIFT_A          (RSHIFT(DS, A))
-#define G_RSHIFT_B          (RSHIFT(DS, B))
-#define G_PEACKDET          (PEACKDET(DS))
-#define G_TRIGLEV(ch)       (TRIGLEV(DS))
-#define G_ENUM_BYTES        (ENUM_BYTES(DS))
-#define G_BYTES_IN_CHANNEL  (BYTES_IN_CHANNEL(DS))
+#define TSHIFT_DS           (TSHIFT(DS))
+#define TBASE_DS            (TBASE(DS))
+#define INVERSE_DS(ch)      (INVERSE(DS, ch))
+#define COUPLE_DS(ch)       (COUPLE(DS, ch))
+#define DIVIDER_DS(ch)      (DIVIDER(DS, ch))
+#define RANGE_DS(ch)        (RANGE(DS, ch))
+#define RANGE_DS_A          (RANGE(DS, A))
+#define RANGE_DS_B          (RANGE(DS, B))
+#define ENABLED_DS(ch)      (ENABLED(DS, ch))
+#define ENABLED_DS_A        (ENABLED(DS, A))
+#define ENABLED_DS_B        (ENABLED(DS, B))
+#define RSHIFT_DS(ch)       (RSHIFT(DS, ch))
+#define RSHIFT_DS_A         (RSHIFT(DS, A))
+#define RSHIFT_DS_B         (RSHIFT(DS, B))
+#define PEACKDET_DS         (PEACKDET(DS))
+#define TRIGLEV_DS(ch)      (TRIGLEV(DS))
+#define ENUM_BYTES_DS       (ENUM_BYTES(DS))
+#define BYTES_IN_CHANNEL_DS (BYTES_IN_CHANNEL(DS))
 
-#define G_TIME_TIME         (TIME_TIME(DS))
-#define G_TIME_DAY          (TIME_DAY(DS))
-#define G_TIME_HOURS        (TIME_HOURS(DS))
-#define G_TIME_MINUTES      (TIME_MINUTES(DS))
-#define G_TIME_SECONDS      (TIME_SECONDS(DS))
-#define G_TIME_MONTH        (TIME_MONTH(DS))
-#define G_TIME_YEAR         (TIME_YEAR(DS))
+#define TIME_TIME_DS        (TIME_TIME(DS))
+#define TIME_DAY_DS         (TIME_DAY(DS))
+#define TIME_HOURS_DS       (TIME_HOURS(DS))
+#define TIME_MINUTES_DS     (TIME_MINUTES(DS))
+#define TIME_SECONDS_DS     (TIME_SECONDS(DS))
+#define TIME_MONTH_DS       (TIME_MONTH(DS))
+#define TIME_YEAR_DS        (TIME_YEAR(DS))
 
 /** @}
  */
 
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-void Data_Clear(void);
 
+/// В этой структуре будут храниться точки, подготовленные для вывода на экран
+typedef struct
+{
+    uint8 dataA[281 * 2];   ///< Данные первого канала. Точек в два раза больше, чем на экране, для пикового детектора
+    uint8 dataB[281 * 2];   ///< Данные второго канала. Точек в два раза больше, чем на экране, для пикового детектора
+    bool drawA;             ///< Если true, то канал 1 надо рисовать
+    bool drawB;             ///< Если true, то канал 2 надо рисовать
+    PeackDetMode peackDet;  ///< Определяет, в каком режиме выводить точки
+} DataStruct;
+
+/// Вызывается в начале цикла
+void Data_Clear(void);
 /// Читает данные из ОЗУ, fromEnd c конца (fromEnd == 0 - последний считанный сигнал) и заполняет данными inA(B), outA(B), DS.
-void Data_ReadDataRAM(int fromEnd);
+void Data_ReadFromRAM(int fromEnd, DataStruct *dataStruct);
 /// Читает данные из EPROM. Номер сигнала - глобвльнй NUM_ROM_SIGNAL и заполняет данными inA(B), outA(B), DS.
-void Data_ReadDataROM(void);
+void Data_ReadFromROM(DataStruct *dataStruct);
 
 
 /** @}  @}  @}

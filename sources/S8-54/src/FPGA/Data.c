@@ -20,6 +20,10 @@
  */
 
 
+/// «аполн€ет структуру dataStruct данными дл€ отрисовки
+static void PrepareDataForDraw(DataStruct *dataStruct);
+
+
 static DataSettings dataSettings;   ///< «десь хран€тс€ настройки дл€ текущего рисуемого сигнала
 
 
@@ -30,7 +34,7 @@ void Data_Clear(void)
 }
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
-void Data_ReadDataRAM(int fromEnd)
+void Data_ReadFromRAM(int fromEnd, DataStruct *dataStruct)
 {
     Data_Clear();
 
@@ -41,11 +45,11 @@ void Data_ReadDataRAM(int fromEnd)
     {
         dataSettings = *DS_DataSettingsFromEnd(0);
         pDS = &dataSettings;
-        if (G_ENABLED_A)
+        if (ENABLED_DS_A)
         {
             memcpy(inA, DS_GetAverageData(A), BYTES_IN_CHANNEL(DS));
         }
-        if (G_ENABLED_B)
+        if (ENABLED_DS_B)
         {
             memcpy(inB, DS_GetAverageData(B), BYTES_IN_CHANNEL(DS));
         }
@@ -65,12 +69,14 @@ void Data_ReadDataRAM(int fromEnd)
             pDS = &dataSettings;
 
             Processing_SetData();
+
+            PrepareDataForDraw(dataStruct);
         }
     }
 }
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
-void Data_ReadDataROM(void)
+void Data_ReadFromROM(DataStruct *dataStruct)
 {
     Data_Clear();
 
@@ -79,7 +85,20 @@ void Data_ReadDataROM(void)
         pDS = &dataSettings;
 
         Processing_SetData();
+
+        PrepareDataForDraw(dataStruct);
     }
+}
+
+//----------------------------------------------------------------------------------------------------------------------------------------------------
+static void PrepareDataForDraw(DataStruct *dataStruct)
+{
+    if (!dataStruct)
+    {
+        return;
+    }
+
+    dataStruct->peackDet = PEACKDET_DS;  // ќтрисовывать будем даже в том случае, если режимы пикового детектора не совпадают
 }
 
 

@@ -28,7 +28,7 @@ int sDisplay_NumPointSmoothing(void)
     }
 
     int retValue = 0;
-    if (SMOOTHING_ENABLED)
+    if (SMOOTHINENABLED_DS)
     {
         retValue = SMOOTHING + 1; //-V2006
     }

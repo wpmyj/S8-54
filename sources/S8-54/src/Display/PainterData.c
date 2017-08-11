@@ -85,6 +85,7 @@ static void DrawMemoryWindow(void);
 
 static bool interruptDrawing = false;
 static Channel curCh = A;           ///< Текущий ресуемый канал.
+static DataStruct *dataStruct = 0;
 
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -94,8 +95,10 @@ void PainterDataNew_InterruptDrawing(void)
 }
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
-void PainterDataNew_DrawData(void)
+void PainterData_DrawData(void)
 {
+    dataStruct = (DataStruct *)malloc(sizeof(DataStruct));
+
     interruptDrawing = false;
 
     // Нормальный режим
@@ -136,20 +139,21 @@ void PainterDataNew_DrawData(void)
         }
     }
     
+    free(dataStruct);
 }
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
 static void DrawData_ModeDir(void)
 {
     NUM_DRAWING_SIGNALS++;
-
+    
     if (STAND_P2P)
     {
-        Data_ReadDataRAM(1);
+        Data_ReadFromRAM(1, dataStruct);
     }
     else
     {
-        Data_ReadDataRAM(0);
+        Data_ReadFromRAM(0, dataStruct);
     }
     DrawData_OutAB();
     DrawMemoryWindow();
@@ -171,7 +175,7 @@ static void DrawData_ModeDir(void)
         int i = 0;
         while (i < numAccum && !interruptDrawing)
         {
-            Data_ReadDataRAM(i);
+            Data_ReadFromRAM(i, dataStruct);
             DrawData_OutAB();
             ++i;
         }
@@ -181,14 +185,14 @@ static void DrawData_ModeDir(void)
 //----------------------------------------------------------------------------------------------------------------------------------------------------
 static void DrawData_ModeRAM(void)
 {
-    Data_ReadDataRAM(NUM_RAM_SIGNAL);
+    Data_ReadFromRAM(NUM_RAM_SIGNAL, dataStruct);
     DrawData_OutAB();
 }
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
 static void DrawData_ModeROM(void)
 {
-    Data_ReadDataROM();
+    Data_ReadFromROM(dataStruct);
     DrawData_OutAB();
 }
 
@@ -215,7 +219,7 @@ static void DrawData_OutAB(void)
 //----------------------------------------------------------------------------------------------------------------------------------------------------
 static void DrawData_Out(Channel ch, uint8 *data)
 {
-    if (!SET_ENABLED(ch) || !G_ENABLED(ch))
+    if (!SET_ENABLED(ch) || !ENABLED_DS(ch))
     {
         return;
     }
@@ -233,7 +237,7 @@ static void DrawData_Out(Channel ch, uint8 *data)
     float scaleY = (bottom - top) / (float)(MAX_VALUE - MIN_VALUE + 1);
 
     /// \todo Переделать на массив функций.
-    if(G_PEACKDET)
+    if(PEACKDET_DS)
     {
         DrawData_Out_PeakDet(ch, data + pointFirst * 2, left, bottom, scaleY);  
     }
@@ -260,7 +264,7 @@ static void DrawData_Out(Channel ch, uint8 *data)
                         }
                     }
                 }
-                else if(NUM_POINTS_P2P <= G_BYTES_IN_CHANNEL)
+                else if(NUM_POINTS_P2P <= BYTES_IN_CHANNEL_DS)
                 {
                     int pointer = 0;
 
@@ -272,7 +276,7 @@ static void DrawData_Out(Channel ch, uint8 *data)
                 else
                 {
                     int pointer = 0;
-                    for (int i = G_BYTES_IN_CHANNEL - 281; i < G_BYTES_IN_CHANNEL; i++)
+                    for (int i = BYTES_IN_CHANNEL_DS - 281; i < BYTES_IN_CHANNEL_DS; i++)
                     {
                         d[pointer++] = data[i];
                     }
@@ -512,8 +516,8 @@ void PainterData_DrawMath(void)
 
     int numPoints = BYTES_IN_CHANNEL(DS);
 
-    Math_PointsRelToVoltage(dataRel0, numPoints, G_RANGE_A, G_RSHIFT_A, dataAbsA);
-    Math_PointsRelToVoltage(dataRel1, numPoints, G_RANGE_B, G_RSHIFT_B, dataAbsB);
+    Math_PointsRelToVoltage(dataRel0, numPoints, RANGE_DS_A, RSHIFT_DS_A, dataAbsA);
+    Math_PointsRelToVoltage(dataRel1, numPoints, RANGE_DS_B, RSHIFT_DS_B, dataAbsB);
 
     Math_CalculateMathFunction(dataAbsA, dataAbsB, numPoints);
 
@@ -707,7 +711,7 @@ static void DrawSignalLined(const uint8 *data, int startPoint, int endPoint, int
     }
 
     int gridLeft = GridLeft();
-    if (G_PEACKDET == PeackDet_Disable)
+    if (PEACKDET_DS == PeackDet_Disable)
     {
         int gridRight = GridRight();
         int numSmoothing = sDisplay_NumPointSmoothing();
@@ -776,7 +780,7 @@ static void DrawSignalLined(const uint8 *data, int startPoint, int endPoint, int
             CONVERT_DATA_TO_DISPLAY(dataCD[index], 0);
         }
     }
-    if (G_PEACKDET == PeackDet_Disable)
+    if (PEACKDET_DS == PeackDet_Disable)
     {
         CONVERT_DATA_TO_DISPLAY(dataCD[280], data[endPoint]); //-V108
         Painter_DrawSignal(GridLeft(), dataCD, true);
@@ -830,7 +834,7 @@ static void DrawMemoryWindow(void)
     int width = (int)((rightX - leftX) * (282.0f / SET_POINTS_IN_CHANNEL));
 
     // На всякий случай убеждаемся, что данные есть. А то в поточечном режиме возможны глюки при переключении и запуске новых циклов считывания.
-    if ((SET_ENABLED_A && G_ENABLED_A) || (SET_ENABLED_B && G_ENABLED_B) || !IN_P2P_MODE || (IN_P2P_MODE && NUM_POINTS_P2P))
+    if ((SET_ENABLED_A && ENABLED_DS_A) || (SET_ENABLED_B && ENABLED_DS_B) || !IN_P2P_MODE || (IN_P2P_MODE && NUM_POINTS_P2P))
     {
         bool needReleaseHeap = false;
 
@@ -865,7 +869,7 @@ static void DrawMemoryWindow(void)
         }
 
         Channel lastAffectedChannel = LAST_AFFECTED_CH;
-        //if (((uint)NumPoints_2_ENumPoints(BYTES_IN_CHANNEL(DS)) == G_ENUM_BYTES) && DS)
+        //if (((uint)NumPoints_2_ENumPoints(BYTES_IN_CHANNEL(DS)) == ENUM_BYTES_DS) && DS)
         if (DS)
         {
             Channel chanFirst = lastAffectedChannel == A ? B : A;
@@ -873,7 +877,7 @@ static void DrawMemoryWindow(void)
             const uint8 *dataFirst = lastAffectedChannel == A ? datB : datA;
             const uint8 *dataSecond = lastAffectedChannel == A ? datA : datB;
 
-            bool peackDet = G_PEACKDET != PeackDet_Disable;
+            bool peackDet = PEACKDET_DS != PeackDet_Disable;
 
             if (sChannel_NeedForDraw(dataFirst, chanFirst, DS))
             {

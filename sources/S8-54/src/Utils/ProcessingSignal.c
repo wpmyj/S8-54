@@ -140,7 +140,7 @@ void Processing_CalculateMeasures(void)
         return;
     }
 
-    int length = G_BYTES_IN_CHANNEL;
+    int length = BYTES_IN_CHANNEL_DS;
 
     // Вначале выделим память для данных из внешнего ОЗУ
     dataInA = malloc(length);
@@ -198,7 +198,7 @@ float CalculateVoltageMax(Channel ch)
         markerHor[ch][0] = (int)max;                           // Здесь не округляем, потому что max может быть только целым
     }
 
-    return POINT_2_VOLTAGE(max, G_RANGE(ch), G_RSHIFT(ch));
+    return POINT_2_VOLTAGE(max, RANGE_DS(ch), RSHIFT_DS(ch));
 }
 
 
@@ -212,7 +212,7 @@ float CalculateVoltageMin(Channel ch)
         markerHor[ch][0] = (int)min;                           // Здесь не округляем, потому что min может быть только целым
     }
     
-    return POINT_2_VOLTAGE(min, G_RANGE(ch),G_RSHIFT(ch));
+    return POINT_2_VOLTAGE(min, RANGE_DS(ch),RSHIFT_DS(ch));
 }
 
 
@@ -243,7 +243,7 @@ float CalculateVoltageMinSteady(Channel ch)
         markerHor[ch][0] = (int)ROUND(min);
     }
 
-    return POINT_2_VOLTAGE(min, G_RANGE(ch), G_RSHIFT(ch));
+    return POINT_2_VOLTAGE(min, RANGE_DS(ch), RSHIFT_DS(ch));
 }
 
 
@@ -259,7 +259,7 @@ float CalculateVoltageMaxSteady(Channel ch)
         markerHor[ch][0] = (int)max;
     }
 
-    return POINT_2_VOLTAGE(max, G_RANGE(ch), G_RSHIFT(ch));
+    return POINT_2_VOLTAGE(max, RANGE_DS(ch), RSHIFT_DS(ch));
 }
 
 
@@ -277,8 +277,8 @@ float CalculateVoltageVybrosPlus(Channel ch)
         markerHor[ch][1] = (int)maxSteady;
     }
 
-    uint rShift = G_RSHIFT(ch);
-    return fabsf(POINT_2_VOLTAGE(maxSteady, G_RANGE(ch), rShift) - POINT_2_VOLTAGE(max, G_RANGE(ch), rShift));
+    uint rShift = RSHIFT_DS(ch);
+    return fabsf(POINT_2_VOLTAGE(maxSteady, RANGE_DS(ch), rShift) - POINT_2_VOLTAGE(max, RANGE_DS(ch), rShift));
 }
 
 
@@ -295,8 +295,8 @@ float CalculateVoltageVybrosMinus(Channel ch)
         markerHor[ch][1] = (int)minSteady;
     }
 
-    uint16 rShift = G_RSHIFT(ch);
-    return fabsf(POINT_2_VOLTAGE(minSteady, G_RANGE(ch), rShift) - POINT_2_VOLTAGE(min, G_RANGE(ch), rShift));
+    uint16 rShift = RSHIFT_DS(ch);
+    return fabsf(POINT_2_VOLTAGE(minSteady, RANGE_DS(ch), rShift) - POINT_2_VOLTAGE(min, RANGE_DS(ch), rShift));
 }
 
 
@@ -344,7 +344,7 @@ float CalculateVoltageAverage(Channel ch)
         markerHor[ch][0] = aveRel;
     }
 
-    return POINT_2_VOLTAGE(aveRel, G_RANGE(ch), G_RSHIFT(ch));
+    return POINT_2_VOLTAGE(aveRel, RANGE_DS(ch), RSHIFT_DS(ch));
 }
 
 
@@ -356,19 +356,19 @@ float CalculateVoltageRMS(Channel ch)
     EXIT_IF_ERROR_INT(period);
 
     float rms = 0.0f;
-    uint16 rShift = G_RSHIFT(ch);
+    uint16 rShift = RSHIFT_DS(ch);
 
     uint8 *dataIn = CHOICE_BUFFER;
 
     for(int i = firstPoint; i < firstPoint + period; i++)
     {
-        float volts = POINT_2_VOLTAGE(dataIn[i], G_RANGE(ch), rShift);
+        float volts = POINT_2_VOLTAGE(dataIn[i], RANGE_DS(ch), rShift);
         rms +=  volts * volts;
     }
 
     if(MARKED_MEAS == Measure_VoltageRMS)
     {
-        markerHor[ch][0] = Math_VoltageToPoint(sqrtf(rms / period), G_RANGE(ch), rShift);
+        markerHor[ch][0] = Math_VoltageToPoint(sqrtf(rms / period), RANGE_DS(ch), rShift);
     }
 
     return sqrtf(rms / period);
@@ -399,7 +399,7 @@ float CalculatePeriod(Channel ch)
 
             EXIT_IF_ERRORS_FLOAT(firstIntersection, secondIntersection);
 
-            float per = TSHIFT_2_ABS((secondIntersection - firstIntersection) / 2.0f, G_TBASE);
+            float per = TSHIFT_2_ABS((secondIntersection - firstIntersection) / 2.0f, TBASE_DS);
 
             period[ch] = per;
             periodIsCaclulating[ch] = true;
@@ -575,7 +575,7 @@ float CalculateDurationPlus(Channel ch)
 
     EXIT_IF_ERROR_FLOAT(secondIntersection);
 
-    return TSHIFT_2_ABS((secondIntersection - firstIntersection) / 2.0f, G_TBASE);
+    return TSHIFT_2_ABS((secondIntersection - firstIntersection) / 2.0f, TBASE_DS);
 }
 
 
@@ -597,7 +597,7 @@ float CalculateDurationMinus(Channel ch)
 
     EXIT_IF_ERROR_FLOAT(secondIntersection);
 
-    return TSHIFT_2_ABS((secondIntersection - firstIntersection) / 2.0f, G_TBASE);
+    return TSHIFT_2_ABS((secondIntersection - firstIntersection) / 2.0f, TBASE_DS);
 }
 
 
@@ -626,7 +626,7 @@ float CalculateTimeNarastaniya(Channel ch)   /** \todo Здесь, возможно, нужно ув
 
     EXIT_IF_ERROR_FLOAT(secondIntersection);
 
-    float retValue = TSHIFT_2_ABS((secondIntersection - firstIntersection) / 2.0f, G_TBASE);
+    float retValue = TSHIFT_2_ABS((secondIntersection - firstIntersection) / 2.0f, TBASE_DS);
 
     if (MARKED_MEAS == Measure_TimeNarastaniya)
     {
@@ -664,7 +664,7 @@ float CalculateTimeSpada(Channel ch)        /// \todo Аналогично времени нараста
 
     EXIT_IF_ERROR_FLOAT(secondIntersection);
 
-    float retValue = TSHIFT_2_ABS((secondIntersection - firstIntersection) / 2.0f, G_TBASE);
+    float retValue = TSHIFT_2_ABS((secondIntersection - firstIntersection) / 2.0f, TBASE_DS);
 
     if (MARKED_MEAS == Measure_TimeSpada)
     {
@@ -959,7 +959,7 @@ float CalculateDelayPlus(Channel ch) //-V2008
 
     EXIT_IF_ERROR_FLOAT(secondIntersection);
 
-    return TSHIFT_2_ABS((secondIntersection - firstIntersection) / 2.0f, G_TBASE);
+    return TSHIFT_2_ABS((secondIntersection - firstIntersection) / 2.0f, TBASE_DS);
 }
 
 
@@ -1000,7 +1000,7 @@ float CalculateDelayMinus(Channel ch) //-V2008
 
     EXIT_IF_ERROR_FLOAT(secondIntersection);
 
-    return TSHIFT_2_ABS((secondIntersection - firstIntersection) / 2.0f, G_TBASE);
+    return TSHIFT_2_ABS((secondIntersection - firstIntersection) / 2.0f, TBASE_DS);
 }
 
 
@@ -1041,10 +1041,10 @@ void Processing_SetData(void)
     
     int numSmoothing = sDisplay_NumPointSmoothing();
 
-    int length = G_BYTES_IN_CHANNEL;
+    int length = BYTES_IN_CHANNEL_DS;
 
-    bool enableA = G_ENABLED_A == 1;
-    bool enableB = G_ENABLED_B == 1;
+    bool enableA = ENABLED_DS_A == 1;
+    bool enableB = ENABLED_DS_B == 1;
 
     dataInA = 0;
     dataInB = 0;
@@ -1265,7 +1265,7 @@ char* Processing_GetStringMeasure(Measure measure, Channel ch, char* buffer, int
     {
         strcat(buffer, "-.-");
     }
-    else if((ch == A && !G_ENABLED_A) || (ch == B && !G_ENABLED_B))
+    else if((ch == A && !ENABLED_DS_A) || (ch == B && !ENABLED_DS_B))
     {
     }
     else if(measures[measure].FuncCalculate)
@@ -1313,19 +1313,19 @@ int Processing_GetMarkerVertical(Channel ch, int numMarker)
 //----------------------------------------------------------------------------------------------------------------------------------------------------
 static void CountedToCurrentSettings(void)
 {
-    int numPoints = G_BYTES_IN_CHANNEL;
+    int numPoints = BYTES_IN_CHANNEL_DS;
 
-    int16 dTShift = SET_TSHIFT - G_TSHIFT;
+    int16 dTShift = SET_TSHIFT - TSHIFT_DS;
 
-    int rShiftA = ((int)SET_RSHIFT_A - (int)G_RSHIFT_A) / (float)STEP_RSHIFT * 1.25f;   /// \todo магические числа
+    int rShiftA = ((int)SET_RSHIFT_A - (int)RSHIFT_DS_A) / (float)STEP_RSHIFT * 1.25f;   /// \todo магические числа
 
-    int rShiftB = ((int)SET_RSHIFT_B - (int)G_RSHIFT_B) / (float)STEP_RSHIFT * 1.25f;   /// \todo избавиться от этого непонятного коэффициента
+    int rShiftB = ((int)SET_RSHIFT_B - (int)RSHIFT_DS_B) / (float)STEP_RSHIFT * 1.25f;   /// \todo избавиться от этого непонятного коэффициента
 
-    if (SET_RANGE_A !=  G_RANGE_A)
+    if (SET_RANGE_A !=  RANGE_DS_A)
     {
         CountedRange(A);
     }
-    else if (SET_RANGE_B != G_RANGE_B)
+    else if (SET_RANGE_B != RANGE_DS_B)
     {
         CountedRange(B);
     }
@@ -1416,9 +1416,9 @@ static void CountedRange(Channel ch)
 {
     uint8 *in = 0;
     uint16 *out = 0;
-    Range rangeIn = G_RANGE(ch);
+    Range rangeIn = RANGE_DS(ch);
     Range rangeOut = SET_RANGE(ch);
-    int rShiftIn = G_RSHIFT(ch);
+    int rShiftIn = RSHIFT_DS(ch);
     int rShiftOut = SET_RSHIFT(ch);
 
     if (ch == A)
@@ -1432,7 +1432,7 @@ static void CountedRange(Channel ch)
         out = (uint16*)outB;
     }
 
-    int numPoints = G_BYTES_IN_CHANNEL;
+    int numPoints = BYTES_IN_CHANNEL_DS;
 
     for (int i = 0; i < numPoints; i += 2)
     {

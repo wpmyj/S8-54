@@ -13,7 +13,7 @@
 
 
 /// Отрисовка сигнала на основном экране.
-void PainterDataNew_DrawData(void);
+void PainterData_DrawData(void);
 /// Прервать процесс рисования
 void PainterDataNew_InterruptDrawing(void);
 /// Нарисовать результат математической функции

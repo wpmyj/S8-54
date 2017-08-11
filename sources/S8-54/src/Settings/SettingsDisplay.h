@@ -53,7 +53,7 @@
 #define IN_AVERAGING_MODE       (ENUM_AVE > ENumAverages_1 && (!IN_P2P_MODE))
 
 #define SMOOTHING               (set.disp_ENumSmoothing)
-#define SMOOTHING_ENABLED       (SMOOTHING != NumSmooth_Disable)
+#define SMOOTHINENABLED_DS       (SMOOTHING != NumSmooth_Disable)
 
 #define ALT_MARKERS             (set.disp_AltMarkers)
 #define ALT_MARKERS_SHOW        (ALT_MARKERS == AM_Show)

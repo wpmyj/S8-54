@@ -1224,6 +1224,11 @@
               <FileType>5</FileType>
               <FilePath>.\src\FPGA\DataBuffer.h</FilePath>
             </File>
+            <File>
+              <FileName>FPGATypes.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\src\FPGA\FPGATypes.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>

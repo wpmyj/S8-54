@@ -218,7 +218,7 @@ void Display_Update(void)
         DrawFullGrid();
     }
 
-    PainterDataNew_DrawData();
+    PainterData_DrawData();
 
     if(needClear)
     {
@@ -359,13 +359,13 @@ void Display_Clear(void)
 //----------------------------------------------------------------------------------------------------------------------------------------------------
 void Display_ShiftScreen(int delta)
 {
-    if(G_PEACKDET)
+    if(PEACKDET_DS)
     {
         delta *= 2;
     }
     int16 shift = SHIFT_IN_MEMORY;
     shift += (int16)delta;
-    int16 max = (int16)BYTES_IN_CHANNEL(DS) - 282 * (G_PEACKDET ? 2 : 1);
+    int16 max = (int16)BYTES_IN_CHANNEL(DS) - 282 * (PEACKDET_DS ? 2 : 1);
     if(shift < 0)
     {
         shift = 0;
@@ -635,8 +635,8 @@ static void DrawLowPart(void)
     {
         if(DS)
         {
-            tBase = G_TBASE;
-            tShift = G_TSHIFT;
+            tBase = TBASE_DS;
+            tShift = TSHIFT_DS;
         }
     }
     snprintf(buffer, SIZE, "ð\xa5%s", Tables_GetTBaseString(tBase));
@@ -1371,7 +1371,7 @@ static void DRAW_SPECTRUM(const uint8 *dataIn, int numPoints, Channel ch)
 
     RAM_MemCpy16((void*)dataIn, data, numPoints);
 
-    Math_PointsRelToVoltage(data, numPoints, G_RANGE(ch), G_RSHIFT(ch), dataR);
+    Math_PointsRelToVoltage(data, numPoints, RANGE_DS(ch), RSHIFT_DS(ch), dataR);
     Math_CalculateFFT(dataR, numPoints, spectrum, &freq0, &density0, &freq1, &density1, &y0, &y1);
     DrawSpectrumChannel(spectrum, gColorChan[ch]);
     if(!MENU_IS_SHOWN || MenuIsMinimize())
@@ -1642,12 +1642,12 @@ static void DrawTime(int x, int y)
         if(DS)
         {
             y -= 9;
-            time.day = G_TIME_DAY;
-            time.hours = G_TIME_HOURS;
-            time.minutes = G_TIME_MINUTES;
-            time.seconds = G_TIME_SECONDS;
-            time.month = G_TIME_MONTH;
-            time.year = G_TIME_YEAR;
+            time.day = TIME_DAY_DS;
+            time.hours = TIME_HOURS_DS;
+            time.minutes = TIME_MINUTES_DS;
+            time.seconds = TIME_SECONDS_DS;
+            time.month = TIME_MONTH_DS;
+            time.year = TIME_YEAR_DS;
             Painter_DrawText(x, y, Int2String(time.day, false, 2, buffer));
             Painter_DrawText(x + dField, y, ":");
             Painter_DrawText(x + dField + dSeparator, y, Int2String(time.month, false, 2, buffer));
