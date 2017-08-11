@@ -1,4 +1,5 @@
 #include "Globals.h"
+#include "Log.h"
 #include "PainterData.h"
 #include "Symbols.h"
 #include "Display/Grid.h"
@@ -61,7 +62,7 @@ static int Ordinate(uint8 x, float scale);
 /// Возвращает точку в экранной координате. Если точка не считана (NONE_VALUE), возвращает -1.
 static void SendToDisplayDataInRect(int x, const int *min, const int *max, uint width);
 /// Нарисовать данные в окне памяти
-void DrawMemoryWindow(void);
+static void DrawMemoryWindow(void);
 
 
 /// Признак того, что на основном экране нужно рисовать бегущий сигнал поточечного вывода
@@ -104,7 +105,7 @@ void PainterDataNew_DrawData(void)
         {
             DrawData_ModeROM();
         }
-        DrawData_ModeDir();                         // Рисуем данные нормального режима
+        DrawData_ModeDir();
     }
     // ПАМЯТЬ - ПОСЛЕДНИЕ
     else if (MODE_WORK_RAM)
@@ -239,7 +240,8 @@ static void DrawData_Out(Channel ch, uint8 *data)
     else
     {
         uint8 *pData = data;
-        int pointer = 0;
+
+        int posVertLine = 0;
 
         if (!STAND_P2P)
         {
@@ -247,12 +249,32 @@ static void DrawData_Out(Channel ch, uint8 *data)
             {
                 uint8 d[281] = {0};
 
-                for (int i = 0; i < G_BYTES_IN_CHANNEL; i++)
+                if (NUM_POINTS_P2P <= 281)
                 {
-                    if (data[i])
+                    for (int i = 0; i < 281; i++)
                     {
-                        d[pointer] = data[i];
-                        pointer = (pointer + 1) % 281;
+                        if (data[i])
+                        {
+                            d[i] = data[i];
+                            posVertLine = i;
+                        }
+                    }
+                }
+                else if(NUM_POINTS_P2P <= G_BYTES_IN_CHANNEL)
+                {
+                    int pointer = 0;
+
+                    for (int i = NUM_POINTS_P2P - 281; i < NUM_POINTS_P2P; i++)
+                    {
+                        d[pointer++] = data[i];
+                    }
+                }
+                else
+                {
+                    int pointer = 0;
+                    for (int i = G_BYTES_IN_CHANNEL - 281; i < G_BYTES_IN_CHANNEL; i++)
+                    {
+                        d[pointer++] = data[i];
                     }
                 }
 
@@ -270,13 +292,7 @@ static void DrawData_Out(Channel ch, uint8 *data)
         {
             if (NEED_DRAW_DYNAMIC_P2P)
             {
-                DataSettings *ds = 0;
-                uint8 *dA = 0;
-                uint8 *dB = 0;
-                if (DS_GetLastFrameP2P_RAM(&ds, &dA, &dB) < SET_POINTS_IN_CHANNEL)
-                {
-                    Painter_DrawVLineC(left + pointer - 1, bottom, GRID_TOP, gColorGrid);
-                }
+                Painter_DrawVLineC(left + posVertLine, bottom, GRID_TOP, gColorGrid);
             }
         }
     }
@@ -796,10 +812,8 @@ static void DrawSignalPointed(const uint8 *data, int startPoint, int endPoint, i
 }
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
-void DrawMemoryWindow(void)
+static void DrawMemoryWindow(void)
 {
-    Data_ReadDataRAM(0);
-
     int leftX = 3;
     int top = 0;
     int height = GRID_TOP - 3;

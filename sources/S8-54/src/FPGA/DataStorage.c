@@ -801,6 +801,8 @@ void DS_NewFrameP2P(DataSettings dss)
         return;
     }
 
+    NUM_POINTS_P2P = 0;
+
     PushData(&dss, 0, 0);
 
     numPointsP2P = 0;
@@ -818,6 +820,8 @@ void DS_AddPointsP2P(uint16 dataA, uint16 dataB)
     {
         return;
     }
+
+    NUM_POINTS_P2P += 2;
 
     FSMC_SET_MODE(ModeFSMC_RAM);
 
@@ -873,10 +877,13 @@ int DS_GetLastFrameP2P_RAM(DataSettings **ds, uint8 **dataA, uint8 **dataB)
 
     *ds = dp;
 
+    NUM_POINTS_P2P = numPointsP2P;
+
     if (TBASE(dp) < MIN_TBASE_P2P)
     {
         *dataA = 0;
         *dataB = 0;
+
         return 0;
     }
 
