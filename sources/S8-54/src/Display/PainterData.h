@@ -18,8 +18,6 @@ void PainterDataNew_DrawData(void);
 void PainterDataNew_InterruptDrawing(void);
 /// Нарисовать результат математической функции
 void PainterData_DrawMath(void);
-/// Нарисовать данные в окне памяти
-void PainterData_DrawMemoryWindow(void);
 
 
 /** @}  @}

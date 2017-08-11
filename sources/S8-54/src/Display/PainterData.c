@@ -60,6 +60,8 @@ static void DrawTShift(int leftX, int rightX, int numPoints);
 static int Ordinate(uint8 x, float scale);
 /// Возвращает точку в экранной координате. Если точка не считана (NONE_VALUE), возвращает -1.
 static void SendToDisplayDataInRect(int x, const int *min, const int *max, uint width);
+/// Нарисовать данные в окне памяти
+void DrawMemoryWindow(void);
 
 
 /// Признак того, что на основном экране нужно рисовать бегущий сигнал поточечного вывода
@@ -108,7 +110,7 @@ void PainterDataNew_DrawData(void)
     else if (MODE_WORK_RAM)
     {
         DrawData_ModeRAM();
-        PainterData_DrawMemoryWindow();
+        DrawMemoryWindow();
     }
     // ПАМЯТЬ - ВНУТР ЗУ
     else
@@ -116,19 +118,19 @@ void PainterDataNew_DrawData(void)
         if (SHOW_IN_INT_BOTH || SHOW_IN_INT_SAVED)
         {
             DrawData_ModeROM();
-            PainterData_DrawMemoryWindow();
+            DrawMemoryWindow();
         }
         if (SHOW_IN_INT_BOTH || SHOW_IN_INT_DIRECT) // Если нужно показывать не только сохранённый сигнал
         {
             if (EXIT_FROM_ROM_TO_RAM)               // и мы перешли на страницу "ПАМЯТЬ-ВНУТР ЗУ" со страницы "ПАМЯТЬ-ПОСЛЕДНИЕ"
             {
                 DrawData_ModeRAM();
-                PainterData_DrawMemoryWindow();
+                DrawMemoryWindow();
             }
             else                                    // А если перешли из нормального режим
             {
                 DrawData_ModeDir();                 // То нарисуем сигнал нормального режима
-                PainterData_DrawMemoryWindow();
+                DrawMemoryWindow();
             }
         }
     }
@@ -149,7 +151,7 @@ static void DrawData_ModeDir(void)
         Data_ReadDataRAM(0);
     }
     DrawData_OutAB();
-    PainterData_DrawMemoryWindow();
+    DrawMemoryWindow();
 
     if (MODE_ACCUM_NO_RESET)
     {
@@ -423,6 +425,10 @@ static bool CalcMinMax(uint8 in[2], uint8 out[2])
 //----------------------------------------------------------------------------------------------------------------------------------------------------
 static bool DataBeyondTheBorders(const uint8 *data, int firstPoint, int lastPoint)
 {
+    if (IN_P2P_MODE)
+    {
+        return false;   /// \todo временно, потому что в этой функции висло иногда при переключении на поточечный вывод
+    }
     int numMin = 0; // Здесь количество отсчётов, меньших или равных MIN_VALUE
     int numMax = 0; // Здесь количество отсчётов, больших или равных MAX_VALUE
     int numPoints = lastPoint - firstPoint;
@@ -790,7 +796,7 @@ static void DrawSignalPointed(const uint8 *data, int startPoint, int endPoint, i
 }
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
-void PainterData_DrawMemoryWindow(void)
+void DrawMemoryWindow(void)
 {
     Data_ReadDataRAM(0);
 

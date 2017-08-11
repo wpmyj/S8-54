@@ -6,7 +6,7 @@
 #include <math.h>
 #include <limits.h>
 
-//#define S8_54
+#define S8_54
 
 #define INTERRUPT_P2P   // Если определено, то для чтения точек используется прерывание
  
@@ -28,7 +28,7 @@ typedef unsigned    int         uint;
 typedef unsigned    int         uint32;
 typedef unsigned    int         uint32_t;
 typedef unsigned    char        uchar;
-typedef uint8                   BYTE; //-V677
+typedef uint8                   BYTE; //-V6770
 
 
 #ifndef bool

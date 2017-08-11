@@ -60,6 +60,8 @@ static void ProcessingAfterReadData(void);                          ///< Действи
 /// \param saveToStorage  Нужно в режиме рандомизатора для указания, что пора сохранять измерение.
 /// \param onlySave       Только сохранить в хранилище.
 static void DataReadSave(bool first, bool saveToStorage, bool onlySave);
+/// Сдвигает данные в массиве data на shift байт влева или вправо. При этом пустые ячейки заполняются ближайшим значением
+static void ShiftOnNPoints(uint8 *data, int size, int shift);
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 static uint16 READ_DATA_ADC_16(const uint16 *address, Channel ch   )
@@ -614,12 +616,26 @@ static void ReadRealMode(uint8 *dataA, uint8 *dataB)
     }
 
     ReadChannel(dataA, A, BYTES_IN_CHANNEL(&ds), nStop, shift, balanceA);
+    
     ReadChannel(dataB, B, BYTES_IN_CHANNEL(&ds), nStop, shift, balanceB);
 
     RAM_MemCpy16(dataA, RAM(FPGA_DATA_A), FPGA_MAX_POINTS);
     RAM_MemCpy16(dataB, RAM(FPGA_DATA_B), FPGA_MAX_POINTS);
 
     gBF.FPGAinProcessingOfRead = 0;
+}
+
+//----------------------------------------------------------------------------------------------------------------------------------------------------
+static void ShiftOnNPoints(uint8 *data, int size, int shift)
+{
+    if (shift > 0)
+    {
+
+    }
+    else
+    {
+
+    }
 }
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
