@@ -60,8 +60,8 @@ static void ProcessingAfterReadData(void);                          ///< Действи
 /// \param saveToStorage  Нужно в режиме рандомизатора для указания, что пора сохранять измерение.
 /// \param onlySave       Только сохранить в хранилище.
 static void DataReadSave(bool first, bool saveToStorage, bool onlySave);
-/// Сдвигает данные в массиве data на shift байт влева или вправо. При этом пустые ячейки заполняются ближайшим значением
-static void ShiftOnNPoints(uint8 *data, int size, int shift);
+/// Сдвигает данные в массиве на одну точку вправо
+static void ShiftOnePoint2Right(uint8 *data, int size);
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 static uint16 READ_DATA_ADC_16(const uint16 *address, Channel ch   )
@@ -587,6 +587,8 @@ static void ReadChannel(uint8 *data, Channel ch, int length, uint16 nStop, bool 
             data[i] = (uint8)newData;
         }
     }
+
+    ShiftOnePoint2Right(data, length);
 }
 
 //---------------------------------------------------------------------------------------------------------------------------------------------------
@@ -626,15 +628,11 @@ static void ReadRealMode(uint8 *dataA, uint8 *dataB)
 }
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
-static void ShiftOnNPoints(uint8 *data, int size, int shift)
+static void ShiftOnePoint2Right(uint8 *data, int size)
 {
-    if (shift > 0)
+    for (int i = size - 1; i >= 1; i--)
     {
-
-    }
-    else
-    {
-
+        data[i] = data[i - 1];
     }
 }
 
