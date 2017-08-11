@@ -3,6 +3,7 @@
 #include "Data.h"
 #include "DataBuffer.h"
 #include "FPGA.h"
+#include "FPGATypes.h"
 #include "Log.h"
 #include "Display/Display.h"
 #include "FPGA/DataStorage.h"
@@ -104,12 +105,6 @@ void FPGA_Init(void)
     HardwareInit();     /// \todo Пока не получается чтение флага сделать на прерывании
     FreqMeter_Init();
     InitADC();
-}
-
-//---------------------------------------------------------------------------------------------------------------------------------------------------
-uint16* AddressRead(Channel ch)
-{
-    return ((ch == A) ? RD_ADC_A : RD_ADC_B);
 }
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
@@ -406,7 +401,7 @@ static void ReadRandomizeChannel(Channel ch, uint16 addrFirstRead, uint8 *data, 
     *WR_PRED = addrFirstRead;
     *WR_ADDR_NSTOP = 0xffff;
 
-    uint16 *addr = AddressRead(ch);
+    uint16 *addr = ADDRESS_READ(ch);
 
     uint16 newData = 0;
 
@@ -539,7 +534,7 @@ static void ReadChannel(uint8 *data, Channel ch, int length, uint16 nStop, bool 
     uint16 *p = (uint16*)data;
     uint16 *endP = (uint16*)&data[length];
 
-    uint16 *address = (ch == A) ? RD_ADC_A : RD_ADC_B;
+    uint16 *address = ADDRESS_READ(ch);
 
     volatile uint16 dat = *address;
 

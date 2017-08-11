@@ -1,4 +1,6 @@
 ﻿#pragma once
+#include "Hardware/FSMC.h"
+#include "Settings/SettingsTypes.h"
 
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -93,6 +95,11 @@
 #define FL_LAST_RECOR       6   ///< 6 - признак последней записи - определяет, какой бит ставить первым
 #define FL_OVERFLOW_FREQ    8   ///< 8 - признак переполнения счётчика частоты
 #define FL_OVERFLOW_PERIOD  9   ///< 9 - признак переполнения счётчика периода
+
+
+extern uint16 *addressesADC[NumChannels];
+#define ADDRESS_READ(ch)    addressesADC[ch];
+
 
 /** @}  @}
  */

@@ -23,7 +23,6 @@
 
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-extern uint16* AddressRead(Channel ch);
 extern bool ProcessingData(void);
 extern uint8 ReadFlag(void);
 extern TBase CalculateTBase(float freq);
@@ -217,7 +216,7 @@ static int16 CalculateAdditionRShift(Channel ch, Range range)
         *WR_PRED = ReadNStop();
         *WR_ADDR_NSTOP = 0xffff;
 
-        uint16* addrRead = AddressRead(ch);
+        uint16* addrRead = ADDRESS_READ(ch);
 
         for(int i = 0; i < 250; i += 2)
         {
@@ -274,7 +273,7 @@ static float CalculateStretchADC(Channel ch)
             return ERROR_VALUE_FLOAT;
         }
 
-        uint16 *addressRead = AddressRead(ch);
+        uint16 *addressRead = ADDRESS_READ(ch);
 
 #define NUM_POINTS 1024
 
@@ -529,7 +528,7 @@ static float CalculateDeltaADC(Channel ch, float *avgADC1, float *avgADC2, float
     FPGA_SetTrigSource((TrigSource)ch);
     FPGA_SetTrigLev((TrigSource)ch, TrigLevZero);
 
-    uint16 *address = AddressRead(ch);
+    uint16 *address = ADDRESS_READ(ch);
 
     static const int numCicles = 10;
     for(int cicle = 0; cicle < numCicles; cicle++)
