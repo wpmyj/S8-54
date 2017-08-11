@@ -10,7 +10,7 @@ int     Painter_DrawChar(int x, int y, char symbol);
 int     Painter_DrawCharC(int x, int y, char symbol, Color color);
 int     Painter_DrawText(int x, int y, const char *text);
 int     Painter_DrawTextC(int x, int y, const char *text, Color color);
-int     Painter_DrawTextWithLimitationC(int x, int y, const char* text, Color color, int limitX, int limitY, int limitWidth, int limitHeight);
+int     Painter_DrawTextWithLimitationC(int x, int y, const char *text, Color color, int limitX, int limitY, int limitWidth, int limitHeight);
 int     Painter_DrawTextInBoundedRectWithTransfers(int x, int y, int width, const char *text, Color colorBackground, Color colorFill);  // Возвращает нижнюю координату прямоугольника
 int     Painter_DrawTextInRectWithTransfersC(int x, int y, int width, int height, const char *text, Color color);
 // Пишет строку в позиции x, y

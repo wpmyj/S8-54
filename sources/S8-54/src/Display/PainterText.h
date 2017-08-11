@@ -29,7 +29,7 @@ int Painter_DrawFormText(int x, int y, Color color, char *text, ...);
 
 int Painter_DrawTextC(int x, int y, const char *text, Color color);
 
-int Painter_DrawTextWithLimitationC(int x, int y, const char* text, Color color, int limitX, int limitY, int limitWidth, int limitHeight);
+int Painter_DrawTextWithLimitationC(int x, int y, const char *text, Color color, int limitX, int limitY, int limitWidth, int limitHeight);
 /// Возвращает нижнюю координату прямоугольника
 int Painter_DrawTextInBoundedRectWithTransfers(int x, int y, int width, const char *text, Color colorBackground, Color colorFill);
 

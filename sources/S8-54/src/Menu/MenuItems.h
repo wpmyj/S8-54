@@ -95,9 +95,9 @@ typedef enum
 /// Общая часть для всех типов элементов меню
 #define COMMON_PART_MENU_ITEM                                                                                   \
     TypeItem                type;           /* Тип итема */                                                     \
-    const struct Page*      keeper;         /* Адрес страницы, которой принадлежит. Для Page_Main = 0 */        \
+    const struct Page      *keeper;         /* Адрес страницы, которой принадлежит. Для Page_Main = 0 */        \
     pFuncBV                 funcOfActive;   /* Активен ли данный элемент */                                     \
-    const char*             titleHint[4];   /* Название страницы на русском и английском языках. Также подсказка для режима помощи */
+    const char             *titleHint[4];   /* Название страницы на русском и английском языках. Также подсказка для режима помощи */
 
 /// Описывает страницу меню.
 struct Page
@@ -131,7 +131,7 @@ typedef struct
 typedef struct
 {
     pFuncVII    funcDrawUGO;    ///< Указатель на функцию отрисовки изображения варианта кнопки
-    const char *helpUGO[2];     ///< Подпись к данному изображению.
+    const char * const helpUGO[2];     ///< Подпись к данному изображению.
 } StructHelpSmallButton;
 
 /// Описывает кнопку для дополнительного режима меню.
@@ -208,10 +208,10 @@ typedef struct
 typedef struct
 {
     COMMON_PART_MENU_ITEM
-    const char*     names[MAX_NUM_SUBITEMS_IN_CHOICE][2];   ///< Варианты выбора на русском и английском языках.
-    int8*           cell;                                   ///< Адрес ячейки, в которой хранится позиция текущего выбора.
-    pFuncVB			funcOnChanged;                          ///< Функция должна вызываться после изменения значения элемента.
-    pFuncVII        funcForDraw;                            ///< Функция вызывается после отрисовки элемента. 
+    const char * const  names[MAX_NUM_SUBITEMS_IN_CHOICE][2];   ///< Варианты выбора на русском и английском языках.
+    int8*               cell;                                   ///< Адрес ячейки, в которой хранится позиция текущего выбора.
+    pFuncVB			    funcOnChanged;                          ///< Функция должна вызываться после изменения значения элемента.
+    pFuncVII            funcForDraw;                            ///< Функция вызывается после отрисовки элемента. 
 } Choice;
 
 

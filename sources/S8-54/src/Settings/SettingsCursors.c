@@ -26,7 +26,7 @@ bool sCursors_NecessaryDrawCursors(void)
 
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
-const char* sCursors_GetCursVoltage(Channel source, int numCur, char buffer[20])
+const char *sCursors_GetCursVoltage(Channel source, int numCur, char buffer[20])
 {
     float voltage = Math_VoltageCursor(sCursors_GetCursPosU(source, numCur), SET_RANGE(source), SET_RSHIFT(source));
     if (SET_DIVIDER_10(source))
@@ -38,7 +38,7 @@ const char* sCursors_GetCursVoltage(Channel source, int numCur, char buffer[20])
 
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
-const char* sCursors_GetCursorTime(Channel source, int numCur, char buffer[20])
+const char *sCursors_GetCursorTime(Channel source, int numCur, char buffer[20])
 {
 //    float pos = 0.0;
 
@@ -52,7 +52,7 @@ const char* sCursors_GetCursorTime(Channel source, int numCur, char buffer[20])
 
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
-const char* sCursors_GetCursorPercentsU(Channel source, char buffer[20])
+const char *sCursors_GetCursorPercentsU(Channel source, char buffer[20])
 {
     buffer[0] = 0;
     /** \todo Тут дикая дичь. Эта строчка вызывает HardFault. Возможно, из-за включенного выравнивания Settings.
@@ -72,7 +72,7 @@ const char* sCursors_GetCursorPercentsU(Channel source, char buffer[20])
 
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
-const char* sCursors_GetCursorPercentsT(Channel source, char buffer[20])
+const char *sCursors_GetCursorPercentsT(Channel source, char buffer[20])
 {
     buffer[0] = 0;
     

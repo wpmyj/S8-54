@@ -125,7 +125,7 @@ int NumCurrentSubPage(Page *page)
 }
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
-const char* TitleItem(void *item) 
+const char *TitleItem(void *item) 
 {
     return ((Page*)item)->titleHint[LANG];
 }
@@ -311,19 +311,19 @@ int NumItemsInPage(const Page * const page)
 }
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
-const char* NameCurrentSubItem(Choice *choice) 
+const char *NameCurrentSubItem(Choice *choice) 
 {
     return ((int8*)choice->cell == 0) ? "" : choice->names[*((int8*)choice->cell)][LANG];
 }
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
-const char* NameSubItem(Choice *choice, int i) 
+const char *NameSubItem(Choice *choice, int i) 
 {
     return choice->names[i][LANG];
 }
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
-const char* NameNextSubItem(Choice *choice) 
+const char *NameNextSubItem(Choice *choice) 
 {
     if(choice->cell == 0) 
     {
@@ -340,7 +340,7 @@ const char* NameNextSubItem(Choice *choice)
 }
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
-const char* NamePrevSubItem(Choice *choice)
+const char *NamePrevSubItem(Choice *choice)
 {
     if (choice->cell == 0)
     {

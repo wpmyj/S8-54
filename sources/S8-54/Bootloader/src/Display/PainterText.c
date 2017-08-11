@@ -270,7 +270,7 @@ static int DrawCharWithLimitation(int eX, int eY, uchar symbol, int limitX, int 
 
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
-int Painter_DrawTextWithLimitationC(int x, int y, const char* text, Color color, int limitX, int limitY, int limitWidth, int limitHeight)
+int Painter_DrawTextWithLimitationC(int x, int y, const char *text, Color color, int limitX, int limitY, int limitWidth, int limitHeight)
 {
     Painter_SetColor(color);
     int retValue = x;
@@ -871,7 +871,7 @@ static int Painter_DrawBigCharInBuffer(int eX, int eY, int size, char symbol, ui
 
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
-void Painter_DrawBigTextInBuffer(int eX, int eY, int size, const char* text, uint8 buffer[320][240])
+void Painter_DrawBigTextInBuffer(int eX, int eY, int size, const char *text, uint8 buffer[320][240])
 {
     for (int x = 0; x < 320; x++)
     {

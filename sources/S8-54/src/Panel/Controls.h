@@ -73,9 +73,9 @@ typedef enum
 #define NUM_REGULATORS (R_Set - R_Range1 + 1)
 
 /// Возвращает имя кнопки
-const char* NameButton(PanelButton button);
+const char *NameButton(PanelButton button);
 /// Возвращает имя ручки
-const char* NameRegulator(PanelRegulator regulator);
+const char *NameRegulator(PanelRegulator regulator);
 
 /** @}
  */

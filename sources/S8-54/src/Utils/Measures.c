@@ -101,7 +101,7 @@ int Measure_GetDX(void)
 
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
-const char* Measure_Name(int row, int col)
+const char *Measure_Name(int row, int col)
 {
     return measures[MEASURE(row * Measure_NumCols() + col)].name;
 }

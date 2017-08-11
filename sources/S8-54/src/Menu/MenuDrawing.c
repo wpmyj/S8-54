@@ -54,7 +54,7 @@ static void DrawHintItem(int x, int y, int width)
         return;
     }
 
-    const char *names[Item_NumberItems][2] =
+    const char * const names[Item_NumberItems][2] =
     {
         {"",            ""},        // Item_None
         {"",            ""},        // Item_Choice

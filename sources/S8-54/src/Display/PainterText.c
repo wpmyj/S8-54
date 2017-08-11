@@ -286,7 +286,7 @@ static int DrawCharWithLimitation(int eX, int eY, uchar symbol, int limitX, int 
 }
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
-int Painter_DrawTextWithLimitationC(int x, int y, const char* text, Color color, int limitX, int limitY, int limitWidth, int limitHeight)
+int Painter_DrawTextWithLimitationC(int x, int y, const char *text, Color color, int limitX, int limitY, int limitWidth, int limitHeight)
 {
     Painter_SetColor(color);
     int retValue = x;

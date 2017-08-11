@@ -1,7 +1,7 @@
 #include "Dictionary.h"
 
 
-const char* const dictWords[DNumWords][2] =
+const char * const dictWords[DNumWords][2] =
 {
     {"Модель", "Model"},
     {"Программное обеспечение :", "Software :"},

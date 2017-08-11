@@ -333,7 +333,7 @@ void Menu_SetAutoHide(bool active)
 char* Menu_StringNavigation(char buffer[100])
 {
     buffer[0] = 0;
-    const char *titles[10] = {0};
+    const char * titles[10] = {0};
     int numTitle = 0;
     void *item = OpenedItem();
     if(IsMainPage(item))

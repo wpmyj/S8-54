@@ -2,7 +2,7 @@
 
 
 //---------------------------------------------------------------------------------------------------------------------------------------------------
-static const char* namesButtons[] = 
+static const char * const namesButtons[] = 
 {
     "B_Empty",
     "B_Channel1",
@@ -27,14 +27,14 @@ static const char* namesButtons[] =
 
 
 //---------------------------------------------------------------------------------------------------------------------------------------------------
-const char* NameButton(PanelButton button) 
+const char *NameButton(PanelButton button) 
 {
     return namesButtons[button];
 }
 
 
 //---------------------------------------------------------------------------------------------------------------------------------------------------
-static const char* nameReg[] =
+static const char * const nameReg[] =
 {
     "None", "None", "None", "None", "None", "None", "None", "None", "None", "None",
     "None", "None", "None", "None", "None", "None", "None", "None", "None", "None",
@@ -58,7 +58,7 @@ static const char* nameReg[] =
 
 
 //---------------------------------------------------------------------------------------------------------------------------------------------------
-const char* NameRegulator(Regulator regulator)
+const char *NameRegulator(Regulator regulator)
 {
     return nameReg[regulator];
 }

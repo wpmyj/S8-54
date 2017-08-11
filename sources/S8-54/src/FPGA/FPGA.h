@@ -94,7 +94,7 @@ void FPGA_SetBandwidth(Channel ch);
 /// Функция чтения точки при поточечном выводе. Вызывается из внешнего прерывания
 void FPGA_ReadPoint(void);
 /// Возвращает установленное смещение по времени в текстовом виде, пригодном для вывода на экран
-const char* FPGA_GetTShiftString(int16 tShiftRel, char buffer[20]);
+const char *FPGA_GetTShiftString(int16 tShiftRel, char buffer[20]);
 
 typedef enum
 {

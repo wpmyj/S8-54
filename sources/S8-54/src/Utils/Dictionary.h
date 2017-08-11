@@ -39,4 +39,4 @@ typedef enum
 
 #define DICT(word) (dictWords[word][LANG])
 
-extern const char* const dictWords[DNumWords][2];
+extern const char * const dictWords[DNumWords][2];

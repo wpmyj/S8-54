@@ -1121,7 +1121,7 @@ static void Information_Draw(void)
 
     Painter_DrawText(x, y, DICT(DSoftware));
     y += dY;
-    sprintf(buffer, (const char*)DICT(DVersion), NUM_VER);
+    sprintf(buffer, (const char *)DICT(DVersion), NUM_VER);
     Painter_DrawText(x, y, buffer);
     y += dY;
 

@@ -12,7 +12,7 @@
 // Структура для описания диапазона масштаба по напряжению.
 typedef struct
 {
-    const char* name[2][2];     // Название диапазона в текстовом виде, пригодном для вывода на экран.
+    const char * const name[2][2];     // Название диапазона в текстовом виде, пригодном для вывода на экран.
 } RangeStruct;
 
 
@@ -71,14 +71,14 @@ void sChannel_SetEnabled(Channel ch, bool enabled)
 
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
-const char* sChannel_Range2String(Range range, Divider divider)
+const char *sChannel_Range2String(Range range, Divider divider)
 {
     return ranges[range].name[LANG][divider];
 }
 
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
-const char* sChannel_RShift2String(uint16 rShiftRel, Range range, Divider divider, char buffer[20])
+const char *sChannel_RShift2String(uint16 rShiftRel, Range range, Divider divider, char buffer[20])
 {
     float rShiftVal = RSHIFT_2_ABS(rShiftRel, range) * sChannel_MultiplierRel2Abs(divider);
     return Voltage2String(rShiftVal, true, buffer);

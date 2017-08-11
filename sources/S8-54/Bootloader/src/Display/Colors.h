@@ -42,8 +42,8 @@ void Color_SetBrightness(ColorType *colorType, float brightness);
 void Color_Init(ColorType *colorType, bool forced);                 // Если forced == false, то инициализация происходит только при первом вызове функции
 void Color_ComponentChange(ColorType * const colorType, int delta);
 
-const char* NameColorFromValue(uint16 colorValue);
-const char* NameColor(Color color);
+const char *NameColorFromValue(uint16 colorValue);
+const char *NameColor(Color color);
 #define MAKE_COLOR(r, g, b) (((b) & 0x1f) + (((g) & 0x3f) << 5) + (((r) & 0x1f) << 11))
 #define R_FROM_COLOR(color) (((uint16)(color) >> 11) & (uint16)0x1f)
 #define G_FROM_COLOR(color) (((uint16)(color) >> 5) & (uint16)0x3f)

@@ -640,7 +640,7 @@ void Painter_SendToInterfaces(uint8 *pointer, int size)
     if (stateTransmit == StateTransmit_InProcess)
     {
         VCP_SendDataSynch(pointer, size);
-        TCPSocket_Send((const char*)pointer, size);
+        TCPSocket_Send((const char *)pointer, size);
     }
 }
 

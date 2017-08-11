@@ -61,5 +61,5 @@ typedef enum
 #define NUM_REGULATORS (R_Set - R_Range1 + 1)
 
 
-const char* NameButton(PanelButton button);
-const char* NameRegulator(Regulator regulator);
+const char *NameButton(PanelButton button);
+const char *NameRegulator(Regulator regulator);

@@ -204,7 +204,7 @@ void Color_ComponentChange(ColorType * const colorType, int delta)
 }
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
-static const char* colorNames[] =
+static const char * const colorNames[] =
 {
     "COLOR_BLACK",
     "COLOR_WHITE",
@@ -229,7 +229,7 @@ static const char* colorNames[] =
 };
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
-const char* NameColorFromValue(uint16 colorValue)
+const char *NameColorFromValue(uint16 colorValue)
 {
     for (int i = 0; i < NUM_COLORS; i++)
     {
@@ -242,7 +242,7 @@ const char* NameColorFromValue(uint16 colorValue)
 }
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
-const char* NameColor(Color color)
+const char *NameColor(Color color)
 {
     return colorNames[color];
 }

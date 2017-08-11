@@ -57,13 +57,13 @@ float sCursors_GetCursPosU(Channel ch, int numCur);
 /// Возвращает true,если нужно рисовать курсоры
 bool  sCursors_NecessaryDrawCursors(void);
 /// Получить строку курсора напряжения
-const char* sCursors_GetCursVoltage(Channel source, int numCur, char buffer[20]);
+const char *sCursors_GetCursVoltage(Channel source, int numCur, char buffer[20]);
 /// Получить строку курсора времени
-const char* sCursors_GetCursorTime(Channel source, int numCur, char buffer[20]);
+const char *sCursors_GetCursorTime(Channel source, int numCur, char buffer[20]);
 /// Получить строку процентов курсоров напряжения
-const char* sCursors_GetCursorPercentsU(Channel source, char buffer[20]);
+const char *sCursors_GetCursorPercentsU(Channel source, char buffer[20]);
 /// Получить строку процентов курсоров времени
-const char* sCursors_GetCursorPercentsT(Channel source, char buffer[20]);
+const char *sCursors_GetCursorPercentsT(Channel source, char buffer[20]);
 
 float GetCursPosT(Channel ch, int num);
 void SetCursPosT_temp(Channel ch, int num, float value);

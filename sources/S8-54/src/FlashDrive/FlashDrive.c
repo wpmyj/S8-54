@@ -130,7 +130,7 @@ void FDrive_Update(void)
 
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
-bool FDrive_AppendStringToFile(const char* string)
+bool FDrive_AppendStringToFile(const char *string)
 {
     return false;
 }
@@ -148,7 +148,7 @@ void WriteToFile(FIL *file, char *string)
 
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
-void FDrive_GetNumDirsAndFiles(const char* fullPath, int *numDirs, int *numFiles)
+void FDrive_GetNumDirsAndFiles(const char *fullPath, int *numDirs, int *numFiles)
 {
     FILINFO fno;
     DIR dir;
@@ -382,7 +382,7 @@ bool FDrive_GetNextNameFile(char *nameFileOut, StructForReadDir *s)
 
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
-bool FDrive_OpenNewFileForWrite(const char* fullPathToFile, StructForWrite *structForWrite)
+bool FDrive_OpenNewFileForWrite(const char *fullPathToFile, StructForWrite *structForWrite)
 {
     if (f_open(&structForWrite->fileObj, fullPathToFile, FA_CREATE_ALWAYS | FA_WRITE) != FR_OK)
     {

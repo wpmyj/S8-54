@@ -1194,7 +1194,7 @@ static void DebugShowSetInfo_Draw(void)
     DRAW_FORMAT2("balanceADC : %d %d", NRST_BALANCE_ADC_A, NRST_BALANCE_ADC_B);
     DRAW_FORMAT("numAveForRand : %d", NRST_NUM_AVE_FOR_RAND);
 
-    const char *s[3] = {"выключено", "настроено автоматически", "задано вручную"};
+    const char * const s[3] = {"выключено", "настроено автоматически", "задано вручную"};
     DRAW_FORMAT("balanceADCtype : %s", (NRST_BALANCE_ADC_TYPE < 3 ? s[NRST_BALANCE_ADC_TYPE] : "!!! неправильное значение !!!"));
     DRAW_FORMAT("stretchADCtype : %s", (NRST_STRETCH_ADC_TYPE < 3 ? s[NRST_STRETCH_ADC_TYPE] : "!!! неправильное значение !!!"));
   

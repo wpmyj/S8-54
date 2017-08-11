@@ -669,7 +669,7 @@ static void DrawLowPart(void)
     Painter_DrawText(x + 35, y0, buffer);
 
     buffer[0] = 0;
-    const char *source[3] ={"1", "2", "\x82"};
+    const char * const source[3] ={"1", "2", "\x82"};
     if(MODE_WORK_DIR)
     {
         snprintf(buffer, 100, "ñ\xa5\x10%s", source[TRIGSOURCE]);
@@ -678,19 +678,19 @@ static void DrawLowPart(void)
     Painter_DrawTextC(x, y1, buffer, ColorTrig());
 
     buffer[0] = 0;
-    static const char *couple[] =
+    static const char * const couple[] =
     {
         "\x92",
         "\x91",
         "\x92",
         "\x92"
     };
-    static const char *polar[] =
+    static const char * const polar[] =
     {
         "\xa7",
         "\xa6"
     };
-    static const char *filtr[] =
+    static const char * const filtr[] =
     {
         "\xb5\xb6",
         "\xb5\xb6",
@@ -1333,7 +1333,7 @@ static void DrawGridSpectrum(void)
     if(SCALE_FFT_LOG)
     {
         static const int nums[] ={4, 6, 8};
-        static const char *strs[] ={"0", "-10", "-20", "-30", "-40", "-50", "-60", "-70"};
+        static const char * const strs[] ={"0", "-10", "-20", "-30", "-40", "-50", "-60", "-70"};
         int numParts = nums[MAX_DB_FFT];
         float scale = (float)GridMathHeight() / numParts;
         for(int i = 1; i < numParts; i++)
@@ -1354,7 +1354,7 @@ static void DrawGridSpectrum(void)
     }
     else if(SCALE_FFT_LIN)
     {
-        static const char *strs[] ={"1.0", "0.8", "0.6", "0.4", "0.2"};
+        static const char * const strs[] ={"1.0", "0.8", "0.6", "0.4", "0.2"};
         float scale = (float)GridMathHeight() / 5;
         for(int i = 1; i < 5; i++)
         {
@@ -1550,7 +1550,7 @@ static void DrawHiRightPart(void)
     }
 
     // Ðåæèì ðàáîòû
-    static const char *strings[][2] =
+    static const char * const strings[][2] =
     {
         {"ÈÇÌ", "MEAS"},
         {"ÏÎÑË", "LAST"},
@@ -1605,7 +1605,7 @@ static void WriteTextVoltage(Channel ch, int x, int y)
         return;
     }
 
-    static const char *couple[] = {"\x92", "\x91", "\x90" };
+    static const char * const couple[] = {"\x92", "\x91", "\x90" };
 
     Color color = gColorChan[ch];
 

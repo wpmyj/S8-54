@@ -53,7 +53,7 @@ int Measure_GetDY(void);
 
 int Measure_GetDX(void);
 
-const char* Measure_Name(int row, int col);
+const char *Measure_Name(int row, int col);
 
 Measure Measure_Type(int row, int col);
 
