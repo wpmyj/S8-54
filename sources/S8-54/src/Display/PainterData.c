@@ -142,7 +142,7 @@ static void DrawData_ModeDir(void)
 {
     NUM_DRAWING_SIGNALS++;
 
-    if (START_MODE_WAIT && IN_P2P_MODE && DS_NumElementsWithCurrentSettings() > 1)
+    if (STAND_P2P)
     {
         Data_ReadDataRAM(1);
     }
@@ -153,7 +153,7 @@ static void DrawData_ModeDir(void)
     DrawData_OutAB();
     DrawMemoryWindow();
 
-    if (MODE_ACCUM_NO_RESET)
+    if (MODE_ACCUM_NO_RESET && !IN_P2P_MODE)
     {
         int numAccum = NUM_ACCUM;
         int numSignalsInStorage = DS_NumElementsWithCurrentSettings();
