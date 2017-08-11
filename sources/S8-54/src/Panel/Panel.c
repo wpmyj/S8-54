@@ -234,7 +234,7 @@ bool Panel_ProcessingCommandFromPIC(uint16 command)
 {
     if (command != 0)
     {
-        PainterDataNew_InterruptDrawing();
+        PainterData_InterruptDrawing();
 
         gBF.panelControlReceive = 1;
 
