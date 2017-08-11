@@ -829,8 +829,9 @@ static void DrawMemoryWindow(void)
     const int xVert0 = leftX + (int)(shiftInMemory * scaleX);
     int width = (int)((rightX - leftX) * (282.0f / SET_POINTS_IN_CHANNEL));
 
-    if ((SET_ENABLED_A && G_ENABLED_A) || (SET_ENABLED_B && G_ENABLED_B))                // На всякий случай убеждаемся, что данные есть. А то в поточечном режиме возможны глюки при переключении и запуске
-    {                           // новых циклов считывания.
+    // На всякий случай убеждаемся, что данные есть. А то в поточечном режиме возможны глюки при переключении и запуске новых циклов считывания.
+    if ((SET_ENABLED_A && G_ENABLED_A) || (SET_ENABLED_B && G_ENABLED_B) || !IN_P2P_MODE || (IN_P2P_MODE && NUM_POINTS_P2P))
+    {
         bool needReleaseHeap = false;
 
         uint8 *datA = outA;
@@ -902,7 +903,7 @@ static void DrawMemoryWindow(void)
 //----------------------------------------------------------------------------------------------------------------------------------------------------
 static void DrawDataInRect(int x, uint width, const uint8 *data, int numBytes, bool peackDet)
 {
-    if (numBytes == 0)
+    if (numBytes == 0 || (IN_P2P_MODE && !NUM_POINTS_P2P))
     {
         return;
     }

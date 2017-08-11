@@ -541,8 +541,7 @@ void DS_AddData(uint8 *dataA, uint8 *dataB, DataSettings dss)
     if (numPointsP2P)                           // Если находимся в поточечном выводе
     {
         ReplaceLastFrame(&dss, dataA, dataB);   // Заменим последний фрейм данных (в котором находятся текущие точки) считанными
-        numPointsP2P = 0;
-    }
+   }
     else
     {
         PushData(&dss, dataA, dataB);
@@ -801,8 +800,6 @@ void DS_NewFrameP2P(DataSettings dss)
         return;
     }
 
-    NUM_POINTS_P2P = 0;
-
     PushData(&dss, 0, 0);
 
     numPointsP2P = 0;
@@ -820,8 +817,6 @@ void DS_AddPointsP2P(uint16 dataA, uint16 dataB)
     {
         return;
     }
-
-    NUM_POINTS_P2P += 2;
 
     FSMC_SET_MODE(ModeFSMC_RAM);
 
