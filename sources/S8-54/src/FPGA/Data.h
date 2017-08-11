@@ -66,8 +66,6 @@ void Data_Clear(void);
 void Data_ReadDataRAM(int fromEnd);
 /// Читает данные из EPROM. Номер сигнала - глобвльнй NUM_ROM_SIGNAL и заполняет данными inA(B), outA(B), DS.
 void Data_ReadDataROM(void);
-/// Устанавливает глобальные указатели в соответствии с сигналом, параметры которого нужно выводить на экран.
-void Data_PrepareToDrawSettings(void);
 
 
 /** @}  @}  @}
