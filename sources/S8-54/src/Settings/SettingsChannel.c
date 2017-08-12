@@ -83,28 +83,3 @@ const char *sChannel_RShift2String(uint16 rShiftRel, Range range, Divider divide
     float rShiftVal = RSHIFT_2_ABS(rShiftRel, range) * sChannel_MultiplierRel2Abs(divider);
     return Voltage2String(rShiftVal, true, buffer);
 };
-
-
-//----------------------------------------------------------------------------------------------------------------------------------------------------
-bool sChannel_NeedForDraw(Channel ch, DataSettings *ds)
-{
-    if (MODE_WORK_DIR)
-    {
-        if (!sChannel_Enabled(ch))
-        {
-            return false;
-        }
-    }
-    else if (ds != 0)
-    {
-        if ((ch == A && !ENABLED_A(ds)) || (ch == B && !ENABLED_B(ds)))
-        {
-            return false;
-        }
-    }
-    else
-    {
-        return false;
-    }
-    return true;
-}

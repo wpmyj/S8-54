@@ -63,6 +63,8 @@ static int Ordinate(uint8 x, float scale);
 static void SendToDisplayDataInRect(int x, const int *min, const int *max, uint width);
 /// Ќарисовать данные в окне пам€ти
 static void DrawMemoryWindow(void);
+/// Ќужно ли рисовать данный канал
+static bool NeedForDraw(Channel ch, DataSettings *ds);
 
 
 /// ѕризнак того, что на основном экране нужно рисовать бегущий сигнал поточечного вывода
@@ -564,7 +566,7 @@ static void DrawDataChannel(Channel ch, uint8 *dataIn)
         dataIn = data;
     }
 
-    if (!sChannel_NeedForDraw(curCh, DS))
+    if (!NeedForDraw(curCh, DS))
     {
         return;
     }
@@ -835,12 +837,12 @@ static void DrawMemoryWindow(void)
         const uint8 *dataFirst = LAST_AFFECTED_CH_IS_A ? OUT_B : OUT_A;
         const uint8 *dataSecond = (dataFirst == OUT_A) ? OUT_B : OUT_A;
 
-        if (sChannel_NeedForDraw(chanFirst, DS) && dataStruct->needDraw[A])
+        if (NeedForDraw(chanFirst, DS) && dataStruct->needDraw[A])
         {
             curCh = chanFirst;
             DrawDataInRect(rightX + 3, dataFirst);
         }
-        if (sChannel_NeedForDraw(chanSecond, DS) && dataStruct->needDraw[B])
+        if (NeedForDraw(chanSecond, DS) && dataStruct->needDraw[B])
         {
             curCh = chanSecond;
             DrawDataInRect(rightX + 3, dataSecond);
@@ -1031,4 +1033,28 @@ static void SendToDisplayDataInRect(int x, const int *min, const int *max, uint 
     }
 
     Painter_DrawVLineArray(x, (int)width, points, gColorChan[curCh]); //-V202
+}
+
+//----------------------------------------------------------------------------------------------------------------------------------------------------
+static bool NeedForDraw(Channel ch, DataSettings *ds)
+{
+    if (MODE_WORK_DIR)
+    {
+        if (!sChannel_Enabled(ch))
+        {
+            return false;
+        }
+    }
+    else if (ds != 0)
+    {
+        if ((ch == A && !ENABLED_A(ds)) || (ch == B && !ENABLED_B(ds)))
+        {
+            return false;
+        }
+    }
+    else
+    {
+        return false;
+    }
+    return true;
 }
