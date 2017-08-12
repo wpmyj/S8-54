@@ -657,8 +657,8 @@ void FPGA_ProcedureCalibration(void)
     
     Settings storedSettings;
     
-    bool chanAenable = sChannel_Enabled(A);
-    bool chanBenable = sChannel_Enabled(B);
+    bool chanAenable = SET_ENABLED_A;
+    bool chanBenable = SET_ENABLED_B;
 
     SET_ENABLED_A = SET_ENABLED_B = true;
     

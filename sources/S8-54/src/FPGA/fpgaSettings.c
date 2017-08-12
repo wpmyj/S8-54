@@ -482,7 +482,7 @@ void FPGA_SetBandwidth(Channel ch)
 //----------------------------------------------------------------------------------------------------------------------------------------------------
 void FPGA_SetRange(Channel ch, Range range)
 {
-    if (!sChannel_Enabled(ch))
+    if (!SET_ENABLED(ch))
     {
         return;
     }
@@ -509,7 +509,7 @@ void FPGA_SetRange(Channel ch, Range range)
 //----------------------------------------------------------------------------------------------------------------------------------------------------
 void FPGA_SetTBase(TBase tBase)
 {
-    if (!sChannel_Enabled(A) && !sChannel_Enabled(B))
+    if (!SET_ENABLED_A && !SET_ENABLED_B)
     {
         return;
     }
@@ -587,7 +587,7 @@ void FPGA_TBaseIncrease(void)
 //----------------------------------------------------------------------------------------------------------------------------------------------------
 void FPGA_SetRShift(Channel ch, uint16 rShift)
 {
-    if (!sChannel_Enabled(ch))
+    if (!SET_ENABLED(ch))
     {
         return;
     }
@@ -664,7 +664,7 @@ void FPGA_SetTShift(int tShift)
 //----------------------------------------------------------------------------------------------------------------------------------------------------
 static void SetTShift(int tShift, bool needFPGApause)
 {
-    if (!sChannel_Enabled(A) && !sChannel_Enabled(B))
+    if (!SET_ENABLED_A && !SET_ENABLED_B)
     {
         return;
     }

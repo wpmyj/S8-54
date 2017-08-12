@@ -61,7 +61,7 @@ void Process_INPUT(uint8 *buffer)
         else if (1 == value)    { SET_ENABLED(ch) = false; }
         else if (2 == value)
         {
-            SCPI_SEND(":CHANNEL%d:INPUT %s", Tables_GetNumChannel(ch), sChannel_Enabled(ch) ? "ON" : "OFF");
+            SCPI_SEND(":CHANNEL%d:INPUT %s", Tables_GetNumChannel(ch), SET_ENABLED(ch) ? "ON" : "OFF");
         }
     LEAVE_ANALYSIS
 }

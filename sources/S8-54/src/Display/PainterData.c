@@ -38,7 +38,7 @@ static bool DataBeyondTheBorders(const uint8 *data, int firstPoint, int lastPoin
 /// delta - рассто€ние от кра€ сетки, на котором находитс€ сообщение. ≈сли delta < 0 - выводитс€ внизу сетки
 static void DrawLimitLabel(int delta);
 
-static void DrawDataChannel(Channel ch, uint8 *dataIn);
+static void DrawChannelMath(uint8 *dataIn);
 
 static int FillDataP2P(uint8 *data, DataSettings **ds);
 
@@ -64,7 +64,7 @@ static void SendToDisplayDataInRect(int x, const int *min, const int *max, uint 
 /// Ќарисовать данные в окне пам€ти
 static void DrawMemoryWindow(void);
 /// Ќужно ли рисовать данный канал
-static bool NeedForDraw(Channel ch, DataSettings *ds);
+static bool NeedForDraw(Channel ch);
 
 
 /// ѕризнак того, что на основном экране нужно рисовать бегущий сигнал поточечного вывода
@@ -520,7 +520,7 @@ void PainterData_DrawMath(void)
 
     Math_PointsVoltageToRel(dataAbsA, numPoints, SET_RANGE_MATH, SET_RSHIFT_MATH, points);
 
-    DrawDataChannel(Math, points);
+    DrawChannelMath(points);
 
     static const int WIDTH = 71;
     static const int HEIGHT = 10;
@@ -535,12 +535,12 @@ void PainterData_DrawMath(void)
 }
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
-static void DrawDataChannel(Channel ch, uint8 *dataIn)
+static void DrawChannelMath(uint8 *dataIn)
 {
-    curCh = ch;
+    curCh = Math;
 
-    int minY = curCh == Math ? GridMathTop() : GRID_TOP;
-    int maxY = curCh == Math ? GridMathBottom() : GridChannelBottom();
+    int minY = GridMathTop();
+    int maxY = GridMathBottom();
 
     bool calculateFiltr = true;
     int sizeBuffer = BYTES_IN_CHANNEL(DS);
@@ -566,7 +566,7 @@ static void DrawDataChannel(Channel ch, uint8 *dataIn)
         dataIn = data;
     }
 
-    if (!NeedForDraw(curCh, DS))
+    if (!FUNC_ENABLED)
     {
         return;
     }
@@ -578,7 +578,7 @@ static void DrawDataChannel(Channel ch, uint8 *dataIn)
         DrawMarkersForMeasure(scaleY);
     }
 
-    Painter_SetColor(gColorChan[curCh]);
+    Painter_SetColor(gColorChan[Math]);
 
     //    if (!DataBeyondTheBorders(dataIn, firstPoint, lastPoint))   // ≈сли сигнал не выходит за пределы экрана
     {
@@ -837,12 +837,12 @@ static void DrawMemoryWindow(void)
         const uint8 *dataFirst = LAST_AFFECTED_CH_IS_A ? OUT_B : OUT_A;
         const uint8 *dataSecond = (dataFirst == OUT_A) ? OUT_B : OUT_A;
 
-        if (NeedForDraw(chanFirst, DS) && dataStruct->needDraw[A])
+        if (NeedForDraw(chanFirst) && dataStruct->needDraw[A])
         {
             curCh = chanFirst;
             DrawDataInRect(rightX + 3, dataFirst);
         }
-        if (NeedForDraw(chanSecond, DS) && dataStruct->needDraw[B])
+        if (NeedForDraw(chanSecond) && dataStruct->needDraw[B])
         {
             curCh = chanSecond;
             DrawDataInRect(rightX + 3, dataSecond);
@@ -1036,23 +1036,17 @@ static void SendToDisplayDataInRect(int x, const int *min, const int *max, uint 
 }
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
-static bool NeedForDraw(Channel ch, DataSettings *ds)
+static bool NeedForDraw(Channel ch)
 {
-    if (MODE_WORK_DIR)
+    if (!DS)
     {
-        if (!sChannel_Enabled(ch))
-        {
-            return false;
-        }
+        return false;
     }
-    else if (ds != 0)
+    else if (MODE_WORK_DIR)
     {
-        if ((ch == A && !ENABLED_A(ds)) || (ch == B && !ENABLED_B(ds)))
-        {
-            return false;
-        }
+        return SET_ENABLED(ch);
     }
-    else
+    else if ((ch == A && !ENABLED_DS_A) || (ch == B && !ENABLED_DS_B))
     {
         return false;
     }

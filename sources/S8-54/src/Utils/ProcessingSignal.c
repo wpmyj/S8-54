@@ -1255,7 +1255,7 @@ void Processing_InterpolationSinX_X(uint8 *data, int numPoints, TBase tBase)
 //----------------------------------------------------------------------------------------------------------------------------------------------------
 char* Processing_GetStringMeasure(Measure measure, Channel ch, char* buffer, int lenBuf)
 {
-    if (!sChannel_Enabled(ch))
+    if (!SET_ENABLED(ch))
     {
         return "";
     }

@@ -59,7 +59,6 @@
 
 void sChannel_SetRange(Channel ch, Range range);           // Установить масштаб по напряжению канала ch.
 int sChannel_MultiplierRel2Abs(Divider divider);
-bool sChannel_Enabled(Channel ch);                         // Возвращает true, если канал ch включён.
 void sChannel_SetEnabled(Channel ch, bool enabled);
 
 const char *sChannel_Range2String(Range range, Divider divider);

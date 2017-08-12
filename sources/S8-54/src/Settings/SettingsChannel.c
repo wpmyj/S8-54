@@ -32,13 +32,11 @@ static const RangeStruct ranges[RangeSize] =
     {"5\x10Â",  "50\x10Â",  "5\x10V",   "50\x10V"}
 };
 
-
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 void sChannel_SetRange(Channel ch, Range range)
 {
     SET_RANGE(ch) = range;
 }
-
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
 int sChannel_MultiplierRel2Abs(Divider divider)
@@ -51,17 +49,6 @@ int sChannel_MultiplierRel2Abs(Divider divider)
     return 1;
 }
 
-
-//----------------------------------------------------------------------------------------------------------------------------------------------------
-bool sChannel_Enabled(Channel ch)
-{
-    if (ch == Math && FUNC_ENABLED)
-    {
-        return true;
-    }
-    return SET_ENABLED(ch);
-}
-
 //----------------------------------------------------------------------------------------------------------------------------------------------------
 void sChannel_SetEnabled(Channel ch, bool enabled)
 {
@@ -69,13 +56,11 @@ void sChannel_SetEnabled(Channel ch, bool enabled)
     Panel_EnableLEDChannel(ch, enabled);
 }
 
-
 //----------------------------------------------------------------------------------------------------------------------------------------------------
 const char *sChannel_Range2String(Range range, Divider divider)
 {
     return ranges[range].name[LANG][divider];
 }
-
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
 const char *sChannel_RShift2String(uint16 rShiftRel, Range range, Divider divider, char buffer[20])

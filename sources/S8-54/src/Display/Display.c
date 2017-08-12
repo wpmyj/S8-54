@@ -1351,7 +1351,7 @@ static void DrawGridSpectrum(void)
 //----------------------------------------------------------------------------------------------------------------------------------------------------
 static void DRAW_SPECTRUM(const uint8 *dataIn, int numPoints, Channel ch)
 {
-    if(!sChannel_Enabled(ch))
+    if(!SET_ENABLED(ch))
     {
         return;
     }
@@ -1894,7 +1894,7 @@ static void DrawCursorRShift(Channel ch)
         Painter_DrawCharC(x - 8, yFull - 5, 'm', gColorBack);
         return;
     }
-    if(!sChannel_Enabled(ch))
+    if(!SET_ENABLED(ch))
     {
         return;
     }

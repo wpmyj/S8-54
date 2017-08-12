@@ -102,8 +102,8 @@ bool DataSettings_IsEquals(const DataSettings *ds1, const DataSettings *ds2)
 //----------------------------------------------------------------------------------------------------------------------------------------------------
 void DataSettings_Fill(DataSettings *ds)
 {
-    Lval_ENABLED_A(ds) = sChannel_Enabled(A) ? 1 : 0;
-    Lval_ENABLED_B(ds) = sChannel_Enabled(B) ? 1 : 0;
+    Lval_ENABLED_A(ds) = SET_ENABLED_A ? 1 : 0;
+    Lval_ENABLED_B(ds) = SET_ENABLED_B ? 1 : 0;
     INVERSE_A(ds) = SET_INVERSE_A ? 1 : 0;
     INVERSE_B(ds) = SET_INVERSE_B ? 1 : 0;
     Lval_RANGE_A(ds) = SET_RANGE_A;
