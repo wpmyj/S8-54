@@ -60,7 +60,7 @@ static void DrawTShift(int leftX, int rightX, int numPoints);
 
 static int Ordinate(uint8 x, float scale);
 /// Возвращает точку в экранной координате. Если точка не считана (NONE_VALUE), возвращает -1.
-static void SendToDisplayDataInRect(int x, const int *min, const int *max, uint width);
+static void SendToDisplayDataInRect(Channel chan, int x, const int *min, const int *max, uint width);
 /// Нарисовать данные в окне памяти
 static void DrawMemoryWindow(void);
 /// Нужно ли рисовать данный канал
@@ -539,8 +539,6 @@ void PainterData_DrawMath(void)
 //----------------------------------------------------------------------------------------------------------------------------------------------------
 static void DrawChannel_Math(uint8 *dataIn)
 {
-    curCh = Math;
-
     int minY = GridMathTop();
     int maxY = GridMathBottom();
 
@@ -838,12 +836,10 @@ static void DrawMemoryWindow(void)
 
         if (NeedForDraw(chanFirst) && dataStruct->needDraw[A])
         {
-            curCh = chanFirst;
             DrawDataInRect(rightX + 3, chanFirst);
         }
         if (NeedForDraw(chanSecond) && dataStruct->needDraw[B])
         {
-            curCh = chanSecond;
             DrawDataInRect(rightX + 3, chanSecond);
         }
     }
@@ -946,13 +942,13 @@ static void DrawDataInRect(uint width, Channel ch)
     {
         if (numPoints < 256)
         {
-            SendToDisplayDataInRect(x, mines, maxes, numPoints);
+            SendToDisplayDataInRect(ch, x, mines, maxes, numPoints);
         }
         else
         {
-            SendToDisplayDataInRect(x, mines, maxes, 255);
+            SendToDisplayDataInRect(ch, x, mines, maxes, 255);
             numPoints -= 255;
-            SendToDisplayDataInRect(x + 255, mines + 255, maxes + 255, numPoints);
+            SendToDisplayDataInRect(ch, x + 255, mines + 255, maxes + 255, numPoints);
         }
     }
 }
@@ -1021,7 +1017,7 @@ static int Ordinate(uint8 x, float scale)
 //----------------------------------------------------------------------------------------------------------------------------------------------------
 // Процедура ограничивает width числом 255
 //----------------------------------------------------------------------------------------------------------------------------------------------------
-static void SendToDisplayDataInRect(int x, const int *min, const int *max, uint width)
+static void SendToDisplayDataInRect(Channel ch, int x, const int *min, const int *max, uint width)
 {
     LIMIT_ABOVE(width, 255);
 
@@ -1033,7 +1029,7 @@ static void SendToDisplayDataInRect(int x, const int *min, const int *max, uint 
         points[i * 2 + 1] = min[i];
     }
 
-    Painter_DrawVLineArray(x, (int)width, points, gColorChan[curCh]); //-V202
+    Painter_DrawVLineArray(x, (int)width, points, gColorChan[ch]); //-V202
 }
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
