@@ -674,21 +674,32 @@ static void DrawMarkersForMeasure(Channel ch)
         return;
     }
 
-    float scale = (float)(GridChannelBottom() - GRID_TOP) / (MAX_VALUE - MIN_VALUE);
+    int bottom = GridChannelBottom();
+    int left = GridLeft();
+    int right = GridRight();
+    float scale = (float)(bottom - GRID_TOP) / (MAX_VALUE - MIN_VALUE);
 
     Painter_SetColor(ColorCursors(ch));
     for (int numMarker = 0; numMarker < 2; numMarker++)
     {
         int pos = Processing_GetMarkerHorizontal(ch, numMarker);
-        if (pos != ERROR_VALUE_INT && pos > 0 && pos < 200)
+        if (pos != ERROR_VALUE_INT)
         {
-            Painter_DrawDashedHLine(GridFullBottom() - (int)(pos * scale), GridLeft(), GridRight(), 3, 2, 0);
+            int posY = bottom - (int)(pos * scale);
+            if (posY > GRID_TOP && posY < bottom)
+            {
+                Painter_DrawDashedHLine(posY, left, right, 3, 2, 0);
+            }
         }
 
         pos = Processing_GetMarkerVertical(ch, numMarker);
-        if (pos != ERROR_VALUE_INT && pos > 0 && pos < GridRight())
+        if (pos != ERROR_VALUE_INT)
         {
-            Painter_DrawDashedVLine(GridLeft() + (int)(pos * scale), GRID_TOP, GridFullBottom(), 3, 2, 0);
+            int posX = left + (int)(pos * scale);
+            if (posX > left && posX < right)
+            {
+                Painter_DrawDashedVLine(posX, GRID_TOP, bottom, 3, 2, 0);
+            }
         }
 
     }
