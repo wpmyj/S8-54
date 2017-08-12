@@ -830,11 +830,11 @@ static void DrawMemoryWindow(void)
 
         if (NeedForDraw(chanFirst) && dataStruct->needDraw[A])
         {
-            DrawDataInRect(rightX + 3, chanFirst);
+            DrawDataInRect(rightX + 2, chanFirst);
         }
         if (NeedForDraw(chanSecond) && dataStruct->needDraw[B])
         {
-            DrawDataInRect(rightX + 3, chanSecond);
+            DrawDataInRect(rightX + 2, chanSecond);
         }
     }
     int leftX = 3;
@@ -859,9 +859,7 @@ static void DrawDataInRect(uint width, Channel ch)
     uint8 *data = dataOUT[ch];
 
     int numBytes = BYTES_IN_CHANNEL_DS;
-    int x = 1;
 
-    width--;
     float elemsInColumn = (float)numBytes / (float)width;
     uint8 min[width + 1];
     uint8 max[width + 1];
@@ -900,8 +898,7 @@ static void DrawDataInRect(uint width, Channel ch)
         }
     }
 
-    int height = 17;
-    float scale = (float)height / (float)(MAX_VALUE - MIN_VALUE);
+    float scale = 17.0f / (MAX_VALUE - MIN_VALUE);
 
     const int SIZE_BUFFER = width + 1;
 
@@ -937,6 +934,8 @@ static void DrawDataInRect(uint width, Channel ch)
 
     if (numPoints > 1)
     {
+        int x = 1;
+
         if (numPoints < 256)
         {
             SendToDisplayDataInRect(ch, x, mines, maxes, numPoints);
