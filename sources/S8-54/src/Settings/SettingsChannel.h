@@ -61,7 +61,7 @@ void sChannel_SetRange(Channel ch, Range range);           // Установить масштаб
 int sChannel_MultiplierRel2Abs(Divider divider);
 bool sChannel_Enabled(Channel ch);                         // Возвращает true, если канал ch включён.
 void sChannel_SetEnabled(Channel ch, bool enabled);
-bool sChannel_NeedForDraw(const uint8 *data, Channel ch, DataSettings *ds);
+bool sChannel_NeedForDraw(Channel ch, DataSettings *ds);
 
 const char *sChannel_Range2String(Range range, Divider divider);
 const char *sChannel_RShift2String(uint16 rShiftRel, Range range, Divider divider, char buffer[20]);

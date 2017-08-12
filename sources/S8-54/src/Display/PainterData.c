@@ -564,7 +564,7 @@ static void DrawDataChannel(Channel ch, uint8 *dataIn)
         dataIn = data;
     }
 
-    if (!sChannel_NeedForDraw(dataIn, curCh, DS))
+    if (!sChannel_NeedForDraw(curCh, DS))
     {
         return;
     }
@@ -835,12 +835,12 @@ static void DrawMemoryWindow(void)
         const uint8 *dataFirst = LAST_AFFECTED_CH_IS_A ? OUT_B : OUT_A;
         const uint8 *dataSecond = (dataFirst == OUT_A) ? OUT_B : OUT_A;
 
-        if (sChannel_NeedForDraw(dataFirst, chanFirst, DS) && dataStruct->needDraw[A])
+        if (sChannel_NeedForDraw(chanFirst, DS) && dataStruct->needDraw[A])
         {
             curCh = chanFirst;
             DrawDataInRect(rightX + 3, dataFirst);
         }
-        if (sChannel_NeedForDraw(dataSecond, chanSecond, DS) && dataStruct->needDraw[B])
+        if (sChannel_NeedForDraw(chanSecond, DS) && dataStruct->needDraw[B])
         {
             curCh = chanSecond;
             DrawDataInRect(rightX + 3, dataSecond);

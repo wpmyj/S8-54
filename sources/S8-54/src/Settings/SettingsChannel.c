@@ -86,13 +86,8 @@ const char *sChannel_RShift2String(uint16 rShiftRel, Range range, Divider divide
 
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
-bool sChannel_NeedForDraw(const uint8 *data, Channel ch, DataSettings *ds)
+bool sChannel_NeedForDraw(Channel ch, DataSettings *ds)
 {
-    if (!data)
-    {
-        return false;
-    }
-
     if (MODE_WORK_DIR)
     {
         if (!sChannel_Enabled(ch))
