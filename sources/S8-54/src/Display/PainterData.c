@@ -1002,12 +1002,9 @@ static void DrawTShift(int leftX, int rightX, int numBytes)
 {
     float scale = (float)(rightX - leftX + 1) / ((float)numBytes - (numBytes == 281 ? 1 : 0));
     int xShift = (int)(1.5f + (TPOS_IN_BYTES - TSHIFT_IN_POINTS) * scale) - 1;
-    if (SET_PEAKDET_EN)
+    if (SET_PEAKDET_EN && TPOS_IS_RIGHT)
     {
-        if (TPOS_RIGHT)
-        {
-            --xShift;
-        }
+        --xShift;
     }
     if (FPGA_POINTS_512)
     {

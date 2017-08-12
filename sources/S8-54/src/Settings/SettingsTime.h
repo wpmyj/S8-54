@@ -23,13 +23,13 @@
 #define IN_P2P_MODE         (SET_TBASE >= MIN_TBASE_P2P)
 
 #define TPOS                (set.time_TPos)
-#define TPOS_RIGHT          (TPOS == TPos_Right)
-#define TPOS_LEFT           (TPOS == TPos_Left)
-#define TPOS_CENTER         (TPOS == TPos_Center)
+#define TPOS_IS_RIGHT       (TPOS == TPos_Right)
+#define TPOS_IS_LEFT        (TPOS == TPos_Left)
+#define TPOS_IS_CENTER      (TPOS == TPos_Center)
 
-#define SAMPLE              (set.time_SampleType)
-#define SAMPLE_REAL         (SAMPLE == SampleType_Real)
-#define SAMPLE_OLD          (set.time_SampleTypeOld)
+#define SAMPLE_TYPE         (set.time_SampleType)
+#define SAMPLE_TYPE_IS_REAL (SAMPLE_TYPE == SampleType_Real)
+#define SAMPLE_TYPE_IS_OLD  (set.time_SampleTypeOld)
 
 #define TPOS_IN_POINTS      sTime_TPosInPoints()
 #define TSHIFT_IN_POINTS    sTime_TShiftInPoints()

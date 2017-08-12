@@ -206,15 +206,15 @@ void OnChanged_Points(bool active)
     {
         width *= 2;
     }
-    if (TPOS_LEFT)
+    if (TPOS_IS_LEFT)
     {
         SHIFT_IN_MEMORY = 0;
     }
-    else if (TPOS_CENTER)
+    else if (TPOS_IS_CENTER)
     {
         SHIFT_IN_MEMORY = (int16)(SET_BYTES_IN_CHANNEL / 2 - width / 2);
     }
-    else if (TPOS_RIGHT)
+    else if (TPOS_IS_RIGHT)
     {
         SHIFT_IN_MEMORY = (int16)(SET_BYTES_IN_CHANNEL - width - 2);
     }

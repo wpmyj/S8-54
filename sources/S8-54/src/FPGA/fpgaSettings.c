@@ -142,11 +142,11 @@ void LoadTShift(void)
     {
         extern const int Kr[];
         int k = 0;
-        if (TPOS_LEFT)
+        if (TPOS_IS_LEFT)
         {
             k = SET_POINTS_IN_CHANNEL % Kr[tBase];
         }
-        else if (TPOS_CENTER)
+        else if (TPOS_IS_CENTER)
         {
             k = (SET_POINTS_IN_CHANNEL / 2) % Kr[tBase];
         }
@@ -558,7 +558,7 @@ void FPGA_TBaseDecrease(void)
     if (SET_TBASE == TBase_20ns &&      // Если перешли в режим эквавалентного времени
         !START_MODE_SINGLE)             // И не находимся в режиме однократного запуска
     {
-        SAMPLE = SAMPLE_OLD;
+        SAMPLE_TYPE = SAMPLE_TYPE_IS_OLD;
     }
 }
 
@@ -579,7 +579,7 @@ void FPGA_TBaseIncrease(void)
     if (SET_TBASE == TBase_50ns &&      // Если перешли в режим реального времени
         !START_MODE_SINGLE)             // И не находимся в режиме однократного запуска
     {
-        SAMPLE = SampleType_Real;       // И установим реальный, потому что в реальном режиме эквивалентный глупо смотрится
+        SAMPLE_TYPE = SampleType_Real;       // И установим реальный, потому что в реальном режиме эквивалентный глупо смотрится
     }
 }
 

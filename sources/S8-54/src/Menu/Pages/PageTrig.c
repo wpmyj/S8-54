@@ -92,12 +92,12 @@ void OnChanged_TrigMode(bool active)
         // рандомизатора автоматический или ждущий
         if (START_MODE_SINGLE)
         {
-            SAMPLE_OLD = SAMPLE;
-            SAMPLE = SampleType_Real;
+            SAMPLE_TYPE_IS_OLD = SAMPLE_TYPE;
+            SAMPLE_TYPE = SampleType_Real;
         }
         else if(START_MODE_AUTO)    // Иначе восстановим ранее сохранённый
         {
-            SAMPLE = SAMPLE_OLD;
+            SAMPLE_TYPE = SAMPLE_TYPE_IS_OLD;
         }
     }
 }

@@ -465,7 +465,7 @@ static bool ReadRandomizeModeSave(bool first, bool last, bool onlySave)
             return false;
         };
 
-        if (START_MODE_SINGLE || SAMPLE_REAL)
+        if (START_MODE_SINGLE || SAMPLE_TYPE_IS_REAL)
         {
             FPGA_ClearData();
 
@@ -500,7 +500,7 @@ static bool ReadRandomizeModeSave(bool first, bool last, bool onlySave)
         ReadRandomizeChannel(B, addrFirstRead, &dataRandB[index], &dataRandB[FPGA_MAX_POINTS - 1], step, numSkipped);
         ReadRandomizeChannel(A, addrFirstRead, &dataRandA[index], &dataRandA[FPGA_MAX_POINTS - 1], step, numSkipped);
         
-        if (START_MODE_SINGLE || SAMPLE_REAL)
+        if (START_MODE_SINGLE || SAMPLE_TYPE_IS_REAL)
         {
             Processing_InterpolationSinX_X(dataRandA, bytesInChannel, tBase);
             Processing_InterpolationSinX_X(dataRandB, bytesInChannel, tBase);
@@ -699,7 +699,7 @@ bool ProcessingData(void)
         dataRandA = AllocMemForChannelFromHeap(A, 0);
         dataRandB = AllocMemForChannelFromHeap(B, 0);
 
-        if (SAMPLE_REAL)
+        if (SAMPLE_TYPE_IS_REAL)
         {
             num = 1;                                // Для реальной выборки ограничим количество считываний - нам надо только одно измерение.
         }

@@ -62,7 +62,7 @@ static const Choice cSample =
         {"–еальное врем€",  "Real"},
         {"Ёквивалентна€",   "Equals"}
     },
-    (int8 *)&SAMPLE
+    (int8 *)&SAMPLE_TYPE
 };
 
 static bool IsActive_Sample(void)
