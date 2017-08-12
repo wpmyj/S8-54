@@ -91,6 +91,15 @@ void Data_ReadFromROM(DataStruct *dataStruct)
 }
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
+#define CYCLE(in, out, num)         \
+    uint8 *dest = in;               \
+    uint8 *src = out;               \
+    for(int i = 0; i < num; i++)    \
+    {                               \
+        *dest++ = *src++;           \
+    }
+
+//----------------------------------------------------------------------------------------------------------------------------------------------------
 static void PrepareDataForDraw(DataStruct *dataStruct)
 {
     if (!dataStruct)
@@ -98,7 +107,32 @@ static void PrepareDataForDraw(DataStruct *dataStruct)
         return;
     }
 
-    dataStruct->peackDet = PEACKDET_DS;  // Отрисовывать будем даже в том случае, если режимы пикового детектора не совпадают
+    int pointFirst = 0;
+    int pointLast = 0;
+
+    sDisplay_PointsOnDisplay(&pointFirst, &pointLast);
+
+    dataStruct->drawA = ENABLED_DS_A && SET_ENABLED_A;
+    dataStruct->drawB = ENABLED_DS_B && SET_ENABLED_B;
+
+    int numBytes = 281;
+    int firstByte = pointFirst;
+
+    if (PEACKDET_DS)
+    {
+        numBytes *= 2;
+        firstByte *= 2;
+    }
+
+    if (dataStruct->drawA)
+    {
+        CYCLE(dataStruct->dataA, &outA[firstByte], numBytes);
+    }
+
+    if (dataStruct->drawB)
+    {
+        CYCLE(dataStruct->dataB, &outB[firstByte], numBytes);
+    }
 }
 
 
