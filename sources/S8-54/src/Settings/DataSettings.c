@@ -32,7 +32,7 @@ int NumBytesInChannel_(DataSettings *ds, bool forCalculate)
 
 
 
-    return numPoints[FPGA_ENUM_POINTS][PEACKDET(ds)];
+    return numPoints[FPGA_ENUM_POINTS][PEAKDET(ds)];
 }
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
@@ -94,7 +94,7 @@ bool DataSettings_IsEquals(const DataSettings *ds1, const DataSettings *ds2)
         (TRIGLEV_B(ds1) == TRIGLEV_B(ds2)) &&
         (DIVIDER_A(ds1) == DIVIDER_A(ds2)) &&
         (DIVIDER_B(ds1) == DIVIDER_B(ds2)) &&
-        (PEACKDET(ds1) == PEACKDET(ds2));
+        (PEAKDET(ds1) == PEAKDET(ds2));
 
     return equals;
 }
@@ -116,7 +116,7 @@ void DataSettings_Fill(DataSettings *ds)
     Lval_COUPLE_B(ds) = SET_COUPLE_B;
     TRIGLEV_A(ds) = SET_TRIGLEV_A;
     TRIGLEV_B(ds) = SET_TRIGLEV_A;
-    Lval_PEACKDET(ds) = SET_PEACKDET;
+    Lval_PEAKDET(ds) = SET_PEAKDET;
     Lval_DIVIDER_A(ds) = SET_DIVIDER_A;
     Lval_DIVIDER_B(ds) = SET_DIVIDER_B;
     TIME_MS(ds) = 0;                        // Ёто важно дл€ режима поточеного вывода. ќзначает, что полный сигнал ещЄ не считан

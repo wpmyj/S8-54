@@ -15,9 +15,9 @@
 #define SET_TBASE           (set.time_TBase)
 #define TIME_DIVXPOS        (set.time_TimeDivXPos)
 
-#define SET_PEACKDET        (set.time_PeackDet)
-#define SET_PEACKDET_EN     (SET_PEACKDET == PeackDet_Enable)
-#define SET_PEACKDET_DIS    (SET_PEACKDET == PeackDet_Disable)
+#define SET_PEAKDET         (set.time_PeakDet)
+#define SET_PEAKDET_EN      (SET_PEAKDET == PeakDet_Enable)
+#define SET_PEAKDET_DIS     (SET_PEAKDET == PeakDet_Disable)
 
 #define IN_RANDOM_MODE      (SET_TBASE < TBase_50ns)
 #define IN_P2P_MODE         (SET_TBASE >= MIN_TBASE_P2P)

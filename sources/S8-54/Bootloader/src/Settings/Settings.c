@@ -83,7 +83,7 @@ static const Settings defaultSettings =
         TPos_Center,
         SampleType_Equal,        // sampleType
         SampleType_Equal,
-        PeackDet_Disable
+        PeakDet_Disable
     },
     // cursors
     {

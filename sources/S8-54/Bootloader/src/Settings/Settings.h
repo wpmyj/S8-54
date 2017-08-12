@@ -46,7 +46,7 @@ typedef struct
     TPos            tPos;
     SampleType      sampleType;
     SampleType      sampleTypeOld;
-    PeackDetMode    peackDet;
+    PeakDetMode    peackDet;
 } SettingsTime;
 
 

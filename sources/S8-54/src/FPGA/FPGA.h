@@ -72,7 +72,7 @@ void FPGA_ChangePostValue(int delta);
 /// Установить добавочное смещение по времени для режима рандомизатора. В каждой развёртке это смещение должно быть разное
 void FPGA_SetDeltaTShift(int16 shift);
 /// Включить/выключить режим пикового детектора
-void FPGA_SetPeackDetMode(PeackDetMode peackDetMode);
+void FPGA_SetPeackDetMode(PeakDetMode peackDetMode);
 /// Включить/выключить калибратор.
 void FPGA_SetCalibratorMode(CalibratorMode calibratorMode);
 

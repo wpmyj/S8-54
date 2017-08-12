@@ -84,7 +84,7 @@ static const Choice cPeakDet =
         {ENABLE_RU,     ENABLE_EN}
     /* , {"Среднее",   "Average"} */
     },
-    (int8 *)&SET_PEACKDET, OnChanged_PeakDet
+    (int8 *)&SET_PEAKDET, OnChanged_PeakDet
 };
 
 static bool IsActive_PeakDet(void)
@@ -106,7 +106,7 @@ void OnChanged_PeakDet(bool active)
 {
     if(active)
     {
-        FPGA_SetPeackDetMode(SET_PEACKDET);
+        FPGA_SetPeackDetMode(SET_PEAKDET);
         FPGA_SetTBase(SET_TBASE);
         OnChanged_Points(true);
     }

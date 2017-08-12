@@ -88,7 +88,7 @@ typedef struct
     TPos            time_TPos;
     SampleType      time_SampleType;
     SampleType      time_SampleTypeOld;
-    PeackDetMode    time_PeackDet;
+    PeakDetMode    time_PeakDet;
     // Курсоры
     CursCntrl       curs_CntrlU[NumChannels];       ///< Активные курсоры напряжения.
     CursCntrl       curs_CntrlT[NumChannels];       ///< Активные курсоры времени.

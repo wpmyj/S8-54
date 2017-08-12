@@ -89,7 +89,7 @@ static const Settings defaultSettings =
     TPos_Center,                            // TPos
     SampleType_Equal,                       // SampleType
     SampleType_Equal,                       // SampleTypeOld
-    PeackDet_Disable,                       // PeackDet
+    PeakDet_Disable,                       // PeackDet
     // SettingsCursors
     {CursCntrl_Disable, CursCntrl_Disable}, // CntrlU[NumChannels]
     {CursCntrl_Disable, CursCntrl_Disable}, // CntrlT[NumChannels]

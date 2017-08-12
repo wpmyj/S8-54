@@ -411,7 +411,7 @@ void Math_CalculateFFT(float *dataR, int numPoints, float *result, float *freq0,
 
     *freq0 = scale * POS_MATH_CUR_0 * k;
     *freq1 = scale * POS_MATH_CUR_1 * k;
-    if (SET_PEACKDET)
+    if (SET_PEAKDET)
     {
         *freq0 *= 2;
         *freq1 *= 2;

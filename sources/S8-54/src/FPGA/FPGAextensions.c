@@ -1066,14 +1066,14 @@ static uint8 GetBound(uint8 data[512], uint8 *_min, uint8 *_max)
 //----------------------------------------------------------------------------------------------------------------------------------------------------
 static Range FindRange(Channel ch)
 {
-    PeackDetMode peackDet = SET_PEACKDET;
+    PeakDetMode peackDet = SET_PEAKDET;
     TPos tPos = TPOS;
     Range oldRange = SET_RANGE(ch);
 
     START_MODE = StartMode_Wait;                // Устанавливаем ждущий режим синхронизации, чтоб понять, есть ли сигнал
 
     FPGA_Stop(false);
-    FPGA_SetPeackDetMode(PeackDet_Enable);
+    FPGA_SetPeackDetMode(PeakDet_Enable);
     FPGA_SetRange(ch, Range_2mV);
     FPGA_SetTPos(TPos_Left);
 

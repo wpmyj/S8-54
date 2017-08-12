@@ -29,20 +29,20 @@ void *AllocMemForChannelFromHeap(Channel ch, DataSettings *ds)
 int RequestBytesForChannel(Channel ch, DataSettings *ds)
 {
     ENumPointsFPGA numBytes;
-    PeackDetMode peakDet;
+    PeakDetMode peakDet;
 
     if(ds)
     {
         numBytes = (ENumPointsFPGA)ENUM_BYTES(ds);
-        peakDet = PEACKDET(ds);
+        peakDet = PEAKDET(ds);
     }
     else
     {
         numBytes = NumPoints_2_ENumPoints(BYTES_IN_CHANNEL(ds));
-        peakDet = SET_PEACKDET;
+        peakDet = SET_PEAKDET;
     }
 
-    if((numBytes == FNP_32k) || (numBytes == FNP_16k && peakDet == PeackDet_Enable))
+    if((numBytes == FNP_32k) || (numBytes == FNP_16k && peakDet == PeakDet_Enable))
     {
         if(ch == A)
         {

@@ -52,7 +52,7 @@ static int FillDataP2PforRecorder(int numPoints, int numPointsDS, int pointsInSc
 
 static int FillDataP2PforNormal(int numPoints, int numPointsDS, int pointsInScreen, uint8 *src, uint8 *dest);
 
-static void DrawDataInRect(int x, uint width, const uint8 *data, int numElems, bool peackDet);
+static void DrawDataInRect(int x, uint width, const uint8 *data, int numElems);
 
 static void DrawTPos(int leftX, int rightX);
 
@@ -228,7 +228,7 @@ static void DrawChannel(Channel ch)
     float scaleY = (bottom - top) / (float)(MAX_VALUE - MIN_VALUE + 1);
 
     /// \todo Переделать на массив функций.
-    if(PEACKDET_DS)
+    if(PEAKDET_DS)
     {
         DrawChannel_PeakDet(ch, left, bottom, scaleY);
     }
@@ -595,7 +595,7 @@ static void DrawDataChannel(Channel ch, uint8 *dataIn)
 static int FillDataP2P(uint8 *data, DataSettings **ds)
 {
     int pointsInScreen = 281;
-    if (SET_PEACKDET_EN)
+    if (SET_PEAKDET_EN)
     {
         pointsInScreen *= 2;
     }
@@ -645,7 +645,7 @@ static int FillDataP2PforNormal(int numPoints, int numPointsDS, int pointsInScre
         RAM_MemCpy16(src, dest, numPoints < numPointsDS ? numPoints : numPointsDS);
     }
 
-    //    int kP2P = SET_PEACKDET_EN ? 2 : 1;
+    //    int kP2P = SET_PEAKDET_EN ? 2 : 1;
 
     if (numPoints > pointsInScreen)
     {
@@ -704,7 +704,7 @@ static void DrawSignalLined(const uint8 *data, int startPoint, int endPoint, int
     }
 
     int gridLeft = GridLeft();
-    if (PEACKDET_DS == PeackDet_Disable)
+    if (PEAKDET_DS == PeakDet_Disable)
     {
         int gridRight = GridRight();
         int numSmoothing = sDisplay_NumPointSmoothing();
@@ -773,7 +773,7 @@ static void DrawSignalLined(const uint8 *data, int startPoint, int endPoint, int
             CONVERT_DATA_TO_DISPLAY(dataCD[index], 0);
         }
     }
-    if (PEACKDET_DS == PeackDet_Disable)
+    if (PEAKDET_DS == PeakDet_Disable)
     {
         CONVERT_DATA_TO_DISPLAY(dataCD[280], data[endPoint]); //-V108
         Painter_DrawSignal(GridLeft(), dataCD, true);
@@ -859,25 +859,22 @@ static void DrawMemoryWindow(void)
             datB = dB;
         }
 
-        //if (((uint)NumPoints_2_ENumPoints(BYTES_IN_CHANNEL(DS)) == ENUM_BYTES_DS) && DS)
         if (DS)
         {
             Channel chanFirst = LAST_AFFECTED_CH_IS_A ? B : A;
-            Channel chanSecond = LAST_AFFECTED_CH_IS_A ? A : B;
+            Channel chanSecond = (chanFirst == A) ? B : A;
             const uint8 *dataFirst = LAST_AFFECTED_CH_IS_A ? datB : datA;
-            const uint8 *dataSecond = LAST_AFFECTED_CH_IS_A ? datA : datB;
-
-            bool peackDet = PEACKDET_DS != PeackDet_Disable;
+            const uint8 *dataSecond = (dataFirst == datA) ? datB : datA;
 
             if (sChannel_NeedForDraw(dataFirst, chanFirst, DS))
             {
                 curCh = chanFirst;
-                DrawDataInRect(1, rightX + 3, dataFirst, BYTES_IN_CHANNEL(DS), peackDet);
+                DrawDataInRect(1, rightX + 3, dataFirst, BYTES_IN_CHANNEL(DS));
             }
             if (sChannel_NeedForDraw(dataSecond, chanSecond, DS))
             {
                 curCh = chanSecond;
-                DrawDataInRect(1, rightX + 3, dataSecond, BYTES_IN_CHANNEL(DS), peackDet);
+                DrawDataInRect(1, rightX + 3, dataSecond, BYTES_IN_CHANNEL(DS));
             }
         }
         if (needReleaseHeap)
@@ -895,7 +892,7 @@ static void DrawMemoryWindow(void)
 }
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
-static void DrawDataInRect(int x, uint width, const uint8 *data, int numBytes, bool peackDet)
+static void DrawDataInRect(int x, uint width, const uint8 *data, int numBytes)
 {
     if (numBytes == 0 || (IN_P2P_MODE && !NUM_POINTS_P2P))
     {
@@ -907,7 +904,7 @@ static void DrawDataInRect(int x, uint width, const uint8 *data, int numBytes, b
     uint8 min[width + 1];
     uint8 max[width + 1];
 
-    if (SET_PEACKDET_EN)                                                    // Если пик. дет. выключен
+    if (PEAKDET_DS != PeakDet_Disable)                                 // Если пик. дет. включен
     {
         uint8 *iMin = &min[0];
         uint8 *iMax = &max[0];
@@ -925,7 +922,7 @@ static void DrawDataInRect(int x, uint width, const uint8 *data, int numBytes, b
             }
         }
     }
-    else                                                                // Если пик. дет. включён
+    else                                                                // Если пик. дет. выключён
     {
         for (int col = 0; col < width; col++)
         {
@@ -1005,7 +1002,7 @@ static void DrawTShift(int leftX, int rightX, int numBytes)
 {
     float scale = (float)(rightX - leftX + 1) / ((float)numBytes - (numBytes == 281 ? 1 : 0));
     int xShift = (int)(1.5f + (sTime_TPosInBytes() - sTime_TShiftInPoints()) * scale) - 1;
-    if (SET_PEACKDET_EN)
+    if (SET_PEAKDET_EN)
     {
         if (TPOS_RIGHT)
         {

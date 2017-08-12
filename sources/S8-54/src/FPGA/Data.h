@@ -43,7 +43,7 @@ EXTERN DataSettings *pDS;           ///< ”казатель на настройки текущего рисуемо
 #define RSHIFT_DS(ch)       (RSHIFT(DS, ch))
 #define RSHIFT_DS_A         (RSHIFT(DS, A))
 #define RSHIFT_DS_B         (RSHIFT(DS, B))
-#define PEACKDET_DS         (PEACKDET(DS))
+#define PEAKDET_DS         (PEAKDET(DS))
 #define TRIGLEV_DS(ch)      (TRIGLEV(DS))
 #define ENUM_BYTES_DS       (ENUM_BYTES(DS))
 #define BYTES_IN_CHANNEL_DS (BYTES_IN_CHANNEL(DS))

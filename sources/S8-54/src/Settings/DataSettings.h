@@ -79,8 +79,8 @@ typedef struct
 #define COUPLE_B(ds)            ((ModeCouple)Lval_COUPLE_B(ds))
 #define COUPLE(ds, ch)          ((ch == A) ? COUPLE_A(ds) : COUPLE_B(ds))
 
-#define Lval_PEACKDET(ds)       ((ds)->peackDet)
-#define PEACKDET(ds)            ((PeackDetMode)Lval_PEACKDET(ds))
+#define Lval_PEAKDET(ds)       ((ds)->peackDet)
+#define PEAKDET(ds)            ((PeakDetMode)Lval_PEAKDET(ds))
 
 #define INVERSE_A(ds)           ((ds)->inverseA)
 #define INVERSE_B(ds)           ((ds)->inverseB)
@@ -103,7 +103,7 @@ typedef struct
 #define TIME_MS(ds)             ((ds)->time.timeMS)
 
 #define ENUM_POINTS(ds)         ((ds)->enumPoints)
-#define ENUM_BYTES(ds)          (ENUM_POINTS(ds) + ((PEACKDET(ds) ? 1 : 0)))
+#define ENUM_BYTES(ds)          (ENUM_POINTS(ds) + ((PEAKDET(ds) ? 1 : 0)))
 
 #define BYTES_IN_CHANNEL(ds)    NumBytesInChannel_(ds, false)
 

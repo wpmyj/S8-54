@@ -603,7 +603,7 @@ static void ReadRealMode(uint8 *dataA, uint8 *dataB)
     int balanceB = 0;
 
     if (NRST_BALANCE_ADC_TYPE_IS_HAND && 
-        SET_PEACKDET_DIS)               // При включённом пиковом детекторе балансировка не нужна
+        SET_PEAKDET_DIS)               // При включённом пиковом детекторе балансировка не нужна
     {
         balanceA = NRST_BALANCE_ADC_A;
         balanceB = NRST_BALANCE_ADC_B;

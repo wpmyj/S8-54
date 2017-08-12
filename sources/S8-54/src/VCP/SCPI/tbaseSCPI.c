@@ -12,7 +12,7 @@
 static void Process_RANGE(uint8 *buffer);
 static void Process_OFFSET(uint8 *buffer);
 static void Process_SAMPLING(uint8 *buffer);
-static void Process_PEACKDET(uint8 *buffer);
+static void Process_PEAKDET(uint8 *buffer);
 static void Process_TPOS(uint8 *buffer);
 static void Process_SELFRECORDER(uint8 *buffer);
 static void Process_FUNCTIMEDIV(uint8 *buffer);
@@ -27,8 +27,8 @@ void Process_TBASE(uint8 *buffer)
         {"OFFSET",      Process_OFFSET},
         {"SAMPLING",    Process_SAMPLING},
         {"SAMPL",       Process_SAMPLING},
-        {"PEACKDET",    Process_PEACKDET},
-        {"PEACK",       Process_PEACKDET},
+        {"PEAKDET",    Process_PEAKDET},
+        {"PEACK",       Process_PEAKDET},
         {"TPOS",        Process_TPOS},
         {"SELFRECORDER",Process_SELFRECORDER},
         {"FUNCTIMEDIV", Process_FUNCTIMEDIV},
@@ -135,7 +135,7 @@ void Process_SAMPLING(uint8 *buffer)
 
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
-void Process_PEACKDET(uint8 *buffer)
+void Process_PEAKDET(uint8 *buffer)
 {
     extern void OnChanged_PeakDet(bool active);
     
@@ -148,10 +148,10 @@ void Process_PEACKDET(uint8 *buffer)
     };
     ENTER_ANALYSIS
         /// \todo SCPI для пикового детектора переделать
-        if (value < 2) { SET_PEACKDET = (value == 0) ? PeackDet_Disable : PeackDet_Enable; OnChanged_PeakDet(true); }
+        if (value < 2) { SET_PEAKDET = (value == 0) ? PeakDet_Disable : PeakDet_Enable; OnChanged_PeakDet(true); }
         else if (2 == value)
         {
-            SCPI_SEND(":TBASE:PEACKDET %s", SET_PEACKDET ? "ON" : "OFF");
+            SCPI_SEND(":TBASE:PEAKDET %s", SET_PEAKDET ? "ON" : "OFF");
         }
     LEAVE_ANALYSIS
 }

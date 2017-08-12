@@ -179,13 +179,13 @@ static const Choice cPoints =
 
 static bool IsActive_Points(void)
 {
-    return SET_PEACKDET_DIS;
+    return SET_PEAKDET_DIS;
 }
 
 void OnChanged_Points(bool active)
 {
     // Если включен пиковый детектор, то не можем переключать память
-    if (SET_PEACKDET_EN && !active)
+    if (SET_PEAKDET_EN && !active)
     {
         Display_ShowWarning(WrongModePeackDet);
         return;
@@ -202,7 +202,7 @@ void OnChanged_Points(bool active)
     
     FPGA_Reset();
     
-    if (SET_PEACKDET_EN)
+    if (SET_PEAKDET_EN)
     {
         width *= 2;
     }

@@ -118,7 +118,7 @@ static void PrepareDataForDraw(DataStruct *dataStruct)
     int numBytes = 281;
     int firstByte = pointFirst;
 
-    if (PEACKDET_DS)
+    if (PEAKDET_DS)
     {
         numBytes *= 2;
         firstByte *= 2;

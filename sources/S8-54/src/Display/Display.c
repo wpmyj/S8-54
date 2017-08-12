@@ -359,13 +359,13 @@ void Display_Clear(void)
 //----------------------------------------------------------------------------------------------------------------------------------------------------
 void Display_ShiftScreen(int delta)
 {
-    if(PEACKDET_DS)
+    if(PEAKDET_DS)
     {
         delta *= 2;
     }
     int16 shift = SHIFT_IN_MEMORY;
     shift += (int16)delta;
-    int16 max = (int16)BYTES_IN_CHANNEL(DS) - 282 * (PEACKDET_DS ? 2 : 1);
+    int16 max = (int16)BYTES_IN_CHANNEL(DS) - 282 * (PEAKDET_DS ? 2 : 1);
     if(shift < 0)
     {
         shift = 0;
@@ -761,7 +761,7 @@ static void DrawLowPart(void)
 
     Painter_SetColor(gColorFill);
     // Пиковый детектор
-    if(!SET_PEACKDET_DIS)
+    if(!SET_PEAKDET_DIS)
     {
         Painter_DrawChar(x + 38, GRID_BOTTOM + 11, '\x12');
         Painter_DrawChar(x + 46, GRID_BOTTOM + 11, '\x13');

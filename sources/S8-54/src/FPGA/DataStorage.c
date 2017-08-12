@@ -141,7 +141,7 @@ static int SizeData(DataSettings *ds)
     if(ENABLED_A(ds))
     {
         size += numBytesInChannel;
-        if(PEACKDET(ds) != PeackDet_Disable)
+        if(PEAKDET(ds) != PeakDet_Disable)
         {
             size += numBytesInChannel;
         }
@@ -150,7 +150,7 @@ static int SizeData(DataSettings *ds)
     if(ENABLED_B(ds))
     {
         size += numBytesInChannel;
-        if(PEACKDET(ds) != PeackDet_Disable)
+        if(PEAKDET(ds) != PeakDet_Disable)
         {
             size += numBytesInChannel;
         }

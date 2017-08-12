@@ -110,7 +110,7 @@ static void SetTShift(int tShift, bool needFPGApause);
 static void LoadTBase(void)
 {
     TBase tBase = SET_TBASE;
-    uint8 mask = SET_PEACKDET ? masksTBase[tBase].maskPeackDet : masksTBase[tBase].maskNorm;
+    uint8 mask = SET_PEAKDET ? masksTBase[tBase].maskPeackDet : masksTBase[tBase].maskNorm;
     FPGA_Write(RecordFPGA, WR_RAZV, mask, true);
     TIME_COMPENSATION = timeCompensation[tBase];
 }
@@ -435,9 +435,9 @@ void LoadRegUPR(void)
         data |= (1 << UPR_BIT_RECORDER);
     }
 
-    if (SET_PEACKDET_EN)
+    if (SET_PEAKDET_EN)
     {
-        data |= (1 << UPR_BIT_PEACKDET);
+        data |= (1 << UPR_BIT_PEAKDET);
     }
 
     FPGA_Write(RecordFPGA, WR_UPR, data, false);
@@ -531,7 +531,7 @@ void FPGA_SetTBase(TBase tBase)
 //----------------------------------------------------------------------------------------------------------------------------------------------------
 void FPGA_TBaseDecrease(void)
 {
-    if (SET_PEACKDET && SET_TBASE <= MIN_TBASE_PEC_DEAT)
+    if (SET_PEAKDET && SET_TBASE <= MIN_TBASE_PEC_DEAT)
     {
         Display_ShowWarning(LimitSweep_Time);
         Display_ShowWarning(EnabledPeakDet);
@@ -697,9 +697,9 @@ void FPGA_SetDeltaTShift(int16 shift)
 
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
-void FPGA_SetPeackDetMode(PeackDetMode peackDetMode)
+void FPGA_SetPeackDetMode(PeakDetMode peackDetMode)
 {
-    SET_PEACKDET = peackDetMode;
+    SET_PEAKDET = peackDetMode;
     LoadRegUPR();
     LoadTBase();
     LoadTShift();
