@@ -22,7 +22,7 @@ static void DrawData_ModeRAM(void);
 /// Нарисовать данные, которые рисовались бы, если б был установлен режим ModeWork_ROM.
 static void DrawData_ModeROM(void);
 /// Нарисовать данные из outA, outB.
-static void DrawData_OutAB(void);
+static void DrawData(void);
 /// Нарисовать данные из outA или outB.
 static void DrawChannel(Channel ch);
 /// Нарисовать данные из outA или outB c выключенным пиковым детектором.
@@ -155,7 +155,7 @@ static void DrawData_ModeDir(void)
     {
         Data_ReadFromRAM(0, dataStruct);
     }
-    DrawData_OutAB();
+    DrawData();
     DrawMemoryWindow();
 
     if (MODE_ACCUM_NO_RESET && !IN_P2P_MODE)
@@ -176,7 +176,7 @@ static void DrawData_ModeDir(void)
         while (i < numAccum && !interruptDrawing)
         {
             Data_ReadFromRAM(i, dataStruct);
-            DrawData_OutAB();
+            DrawData();
             ++i;
         }
     }
@@ -186,32 +186,23 @@ static void DrawData_ModeDir(void)
 static void DrawData_ModeRAM(void)
 {
     Data_ReadFromRAM(NUM_RAM_SIGNAL, dataStruct);
-    DrawData_OutAB();
+    DrawData();
 }
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
 static void DrawData_ModeROM(void)
 {
     Data_ReadFromROM(dataStruct);
-    DrawData_OutAB();
+    DrawData();
 }
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
-static void DrawData_OutAB(void)
+static void DrawData(void)
 {
-    if (DS)
-    {
-        if (LAST_AFFECTED_CH_IS_A)
-        {
-            DrawChannel(B);
-            DrawChannel(A);
-        }
-        else
-        {
-            DrawChannel(A);
-            DrawChannel(B);
-        }
-    }
+    static const Channel order[NumChannels][2] = { {B, A}, {A, B} };
+
+    DrawChannel(order[LAST_AFFECTED_CH][0]);
+    DrawChannel(order[LAST_AFFECTED_CH][1]);
 
     Painter_DrawRectangleC(GridLeft(), GRID_TOP, GridWidth(), GridFullHeight(), gColorFill);                                                                                                                         
 }
@@ -219,7 +210,7 @@ static void DrawData_OutAB(void)
 //----------------------------------------------------------------------------------------------------------------------------------------------------
 static void DrawChannel(Channel ch)
 {
-    if (!SET_ENABLED(ch) || !ENABLED_DS(ch))
+    if (!dataStruct->needDraw[ch])
     {
         return;
     }

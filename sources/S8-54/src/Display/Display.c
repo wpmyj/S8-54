@@ -1702,16 +1702,11 @@ static void DrawCursorsRShift(void)
     {
         DrawCursorRShift(Math);
     }
-    if(LAST_AFFECTED_CH_IS_A)
-    {
-        DrawCursorRShift(B);
-        DrawCursorRShift(A);
-    }
-    else
-    {
-        DrawCursorRShift(A);
-        DrawCursorRShift(B);
-    }
+
+    static const Channel order[NumChannels][2] = { {B, A}, {A, B} };
+
+    DrawCursorRShift(order[LAST_AFFECTED_CH][0]);
+    DrawCursorRShift(order[LAST_AFFECTED_CH][1]);
 }
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
