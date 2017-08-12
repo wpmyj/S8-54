@@ -104,7 +104,7 @@ struct Page
 {
     COMMON_PART_MENU_ITEM
     NamePage name;                          ///< Имя из перечисления NamePage
-    void*    items[MAX_NUM_ITEMS_IN_PAGE];  ///< Здесь указатели на пункты этой страницы (в обычной странице)
+    void    *items[MAX_NUM_ITEMS_IN_PAGE];  ///< Здесь указатели на пункты этой страницы (в обычной странице)
                                             ///< для страницы малых кнопок  здесь хранятся 6 указателей на SButton : 0 - B_Menu, 1...5 - B_F1...B_F5
     bool     isPageSB;                      ///< Если true, то это страница малых кнопок
     pFuncVV  funcOnPress;                   ///< Будет вызываться при нажатии на свёрнутую страницу
@@ -209,7 +209,7 @@ typedef struct
 {
     COMMON_PART_MENU_ITEM
     const char * const  names[MAX_NUM_SUBITEMS_IN_CHOICE][2];   ///< Варианты выбора на русском и английском языках.
-    int8*               cell;                                   ///< Адрес ячейки, в которой хранится позиция текущего выбора.
+    int8 *               cell;                                   ///< Адрес ячейки, в которой хранится позиция текущего выбора.
     pFuncVB			    funcOnChanged;                          ///< Функция должна вызываться после изменения значения элемента.
     pFuncVII            funcForDraw;                            ///< Функция вызывается после отрисовки элемента. 
 } Choice;
@@ -228,13 +228,13 @@ typedef struct
 typedef struct
 {
     COMMON_PART_MENU_ITEM
-    int8*   curField;   ///< Текущее поле установки. 0 - выход, 1 - сек, 2 - мин, 3 - часы, 4 - день, 5 - месяц, 6 - год, 7 - установить.
-    int8*   hours;
-    int8*   minutes;
-    int8*   seconds;
-    int8*   month;
-    int8*   day;
-    int8*   year;
+    int8 *   curField;   ///< Текущее поле установки. 0 - выход, 1 - сек, 2 - мин, 3 - часы, 4 - день, 5 - месяц, 6 - год, 7 - установить.
+    int8 *   hours;
+    int8 *   minutes;
+    int8 *   seconds;
+    int8 *   month;
+    int8 *   day;
+    int8 *   year;
 } Time;
 
 

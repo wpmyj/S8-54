@@ -450,7 +450,7 @@ static bool FindNextTransfer(const char *letters, int8 *lettersInSyllable)
 }
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
-static int8* BreakWord(char *word)
+static int8 *BreakWord(char *word)
 {
     int num = 0;
     static int8 lengthSyllables[10];
@@ -483,7 +483,7 @@ static char *PartWordForTransfer(char *word, int8 *lengthSyllables, int numSylla
     {
         length += lengthSyllables[i];
     }
-    memcpy((void*)buffer, (void*)word, length);
+    memcpy((void *)buffer, (void *)word, length);
     buffer[length] = '-';
     buffer[length + 1] = '\0';
     return buffer;

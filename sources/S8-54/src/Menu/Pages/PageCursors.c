@@ -90,11 +90,11 @@ const Page pCursors =
     },
     Page_Cursors,
     {
-        (void*)&cShow,             // КУРСОРЫ - Показывать
-        (void*)&cLookModeChanA,    // КУРСОРЫ - Слежение канал 1
-        (void*)&cLookModeChanB,    // КУРСОРЫ - Слежение канал 2
-        (void*)&cShowFreq,         // КУРОСРЫ - 1/dT
-        (void*)&ppSet              // КУРСОРЫ - УСТАНОВИТЬ
+        (void *)&cShow,             // КУРСОРЫ - Показывать
+        (void *)&cLookModeChanA,    // КУРСОРЫ - Слежение канал 1
+        (void *)&cLookModeChanB,    // КУРСОРЫ - Слежение канал 2
+        (void *)&cShowFreq,         // КУРОСРЫ - 1/dT
+        (void *)&ppSet              // КУРСОРЫ - УСТАНОВИТЬ
     }
 };
 
@@ -111,7 +111,7 @@ static const Choice cShow =
         {"Нет", "No"},
         {"Да",  "Yes"}
     },
-    (int8*)&CURS_SHOW
+    (int8 *)&CURS_SHOW
 };
 
 // КУРСОРЫ - Слежение канал 1 -----------------------------------------------------------------------------------------------------------------------
@@ -140,7 +140,7 @@ static const Choice cLookModeChanA =
         {"Время",           "Time"},
         {"Напряж и время",  "Volt and time"}
     },
-    (int8*)&CURS_LOOK_MODE(A)
+    (int8 *)&CURS_LOOK_MODE(A)
 };
 
 // КУРСОРЫ - Слежение канал 2 -----------------------------------------------------------------------------------------------------------------------
@@ -168,7 +168,7 @@ static const Choice cLookModeChanB =
         {"Время",           "Time"},
         {"Напряж. и время", "Volt. and time"}
     },
-    (int8*)&CURS_LOOK_MODE(B)
+    (int8 *)&CURS_LOOK_MODE(B)
 };
 
 // КУРОСРЫ - 1/dT -----------------------------------------------------------------------------------------------------------------------------------
@@ -186,7 +186,7 @@ static const Choice cShowFreq =
         {DISABLE_RU,    DISABLE_EN},
         {ENABLE_RU,     ENABLE_EN}
     },
-    (int8*)&CURSORS_SHOW_FREQ
+    (int8 *)&CURSORS_SHOW_FREQ
 };
 
 // КУРСОРЫ - УСТАНОВИТЬ /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -200,12 +200,12 @@ static const Page ppSet =
     },
     PageSB_Cursors_Set,
     {
-        (void*)&bSet_Exit,     // КУРСОРЫ - УСТАНОВИТЬ - Выход
-        (void*)&bSet_Channel,  // КУРСОРЫ - УСТАНОВИТЬ - Канал
-        (void*)&bSet_U,        // КУРСОРЫ - УСТАНОВИТЬ - Курсоры U
-        (void*)&bSet_T,        // КУРСОРЫ - УСТАНОВИТЬ - Курсоры Т
-        (void*)&bSet_100,      // КУРСОРЫ - УСТАНОВИТЬ - 100%
-        (void*)&bSet_Movement  // КУРСОРЫ - УСТАНОВИТЬ - Перемещение
+        (void *)&bSet_Exit,     // КУРСОРЫ - УСТАНОВИТЬ - Выход
+        (void *)&bSet_Channel,  // КУРСОРЫ - УСТАНОВИТЬ - Канал
+        (void *)&bSet_U,        // КУРСОРЫ - УСТАНОВИТЬ - Курсоры U
+        (void *)&bSet_T,        // КУРСОРЫ - УСТАНОВИТЬ - Курсоры Т
+        (void *)&bSet_100,      // КУРСОРЫ - УСТАНОВИТЬ - 100%
+        (void *)&bSet_Movement  // КУРСОРЫ - УСТАНОВИТЬ - Перемещение
     },
     true, 0, 0, OnRegSet_Set
 };
@@ -562,7 +562,7 @@ static const SButton bSet_Movement =     // Переключение шага перемещения курсор
 
 static void OnPress_Set_Movement(void)
 {
-    CircleIncreaseInt8((int8*)&CURS_MOVEMENT, 0, 1);
+    CircleIncreaseInt8((int8 *)&CURS_MOVEMENT, 0, 1);
 }
 
 static void Draw_Set_Movement(int x, int y)
@@ -658,12 +658,12 @@ static void SetCursSource(Channel ch)
 
 static void IncCursCntrlU(Channel ch)
 {
-    CircleIncreaseInt8((int8*)&CURsU_CNTRL_CH(ch), 0, 3);
+    CircleIncreaseInt8((int8 *)&CURsU_CNTRL_CH(ch), 0, 3);
 }
 
 static void IncCursCntrlT(Channel ch)
 {
-    CircleIncreaseInt8((int8*)&CURsT_CNTRL_CH(ch), 0, 3);
+    CircleIncreaseInt8((int8 *)&CURsT_CNTRL_CH(ch), 0, 3);
 }
 
 void CursorsUpdate(void)

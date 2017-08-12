@@ -71,7 +71,7 @@ static void DrawHintItem(int x, int y, int width)
     };
     TypeItem type = TypeMenuItem(gItemHint);
     Language lang = LANG;
-    Page *item = (Page*)gItemHint;
+    Page *item = (Page *)gItemHint;
 
     const int SIZE = 100;
     char title[SIZE];
@@ -223,7 +223,7 @@ static void DrawNestingPage(Page *page, int left, int bottom)
     {
         int nesting = 0;
 
-        Page* parent = Keeper(page);
+        Page *parent = Keeper(page);
 
         while (parent != &mainPage)
         {
@@ -244,25 +244,25 @@ static void DrawNestingPage(Page *page, int left, int bottom)
 }
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
-static void DrawGovernor(void* item, int x, int y)
+static void DrawGovernor(void *item, int x, int y)
 {
     Governor_Draw(item, x, y, false);
 }
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
-static void DrawIPaddress(void* item, int x, int y)
+static void DrawIPaddress(void *item, int x, int y)
 {
     IPaddress_Draw(item, x, y, false);
 }
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
-static void DrawMACaddress(void* item, int x, int y)
+static void DrawMACaddress(void *item, int x, int y)
 {
     MACaddress_Draw(item, x, y, false);
 }
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
-static void DrawFormula(void* item, int x, int y)
+static void DrawFormula(void *item, int x, int y)
 {
     Formula_Draw(item, x, y, false);
 }
@@ -306,7 +306,7 @@ static void DrawPage(void *item, int x, int y)
 //----------------------------------------------------------------------------------------------------------------------------------------------------
 void DrawItemsPage(Page *page, int layer, int yTop)
 {
-    void (*funcOfDraw[Item_NumberItems])(void*, int, int) = 
+    void (*funcOfDraw[Item_NumberItems])(void *, int, int) = 
     {  
         EmptyFuncpVII,      // Item_None
         DrawChoice,         // Item_Choice
@@ -392,19 +392,19 @@ int CalculateX(int layer)
 }
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
-bool IsShade(void* item)
+bool IsShade(void *item)
 {
     return CurrentItemIsOpened(GetNamePage(Keeper(item))) && (item != OpenedItem());
 }
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
-bool IsPressed(void* item)
+bool IsPressed(void *item)
 {
     return item == Menu_ItemUnderKey();
 }
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
-void* ItemUnderButton(PanelButton button)
+void *ItemUnderButton(PanelButton button)
 {
     return itemUnderButton[button];
 }

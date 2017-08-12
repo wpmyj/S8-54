@@ -33,7 +33,7 @@ void RAM_WriteRead_Sinch2(void *src_, void *dest_, int numBytes)
 
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
-void RAM_WriteRead_Sinch4(void* src_, void *dest_, int numBytes)
+void RAM_WriteRead_Sinch4(void *src_, void *dest_, int numBytes)
 {
     uint16 *src = (uint16 *)src_;
     uint16 *end = src + numBytes / 2;
@@ -52,7 +52,7 @@ void RAM_WriteRead_Sinch4(void* src_, void *dest_, int numBytes)
 
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
-void RAM_WriteRead_Sinch8(void* src_, void *dest_, int numBytes)
+void RAM_WriteRead_Sinch8(void *src_, void *dest_, int numBytes)
 {
     uint16 *src = (uint16 *)src_;
     uint16 *end = src + numBytes / 2;

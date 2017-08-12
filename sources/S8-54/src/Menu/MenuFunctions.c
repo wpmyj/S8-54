@@ -23,7 +23,7 @@
 extern const Page mainPage;
 
 
-static void* RetLastOpened(Page *_page, TypeItem *_type);
+static void *RetLastOpened(Page *_page, TypeItem *_type);
 
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -76,23 +76,23 @@ TypeItem TypeOpenedItem(void)
 }
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
-void* OpenedItem(void)
+void *OpenedItem(void)
 {
     TypeItem type = Item_None;
-    return RetLastOpened((Page*)&mainPage, &type);
+    return RetLastOpened((Page *)&mainPage, &type);
 }
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
-void* Item(const Page *page, int numElement)
+void *Item(const Page *page, int numElement)
 {
     return page->items[numElement + (IsPageSB(page) ? 1 : 0)];
 }
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
-void* CurrentItem(void)
+void *CurrentItem(void)
 {
     TypeItem type = Item_None;
-    void *lastOpened = RetLastOpened((Page*)&mainPage, &type);
+    void *lastOpened = RetLastOpened((Page *)&mainPage, &type);
     int8 pos = PosCurrentItem(lastOpened);
     if(type == Item_Page && pos != 0x7f)
     {
@@ -127,7 +127,7 @@ int NumCurrentSubPage(Page *page)
 //----------------------------------------------------------------------------------------------------------------------------------------------------
 const char *TitleItem(void *item) 
 {
-    return ((Page*)item)->titleHint[LANG];
+    return ((Page *)item)->titleHint[LANG];
 }
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
@@ -167,7 +167,7 @@ int NumSubPages(const Page *page)
 }
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
-void* RetLastOpened(Page *page, TypeItem *type)
+void *RetLastOpened(Page *page, TypeItem *type)
 {
     if(CurrentItemIsOpened(GetNamePage(page)))
     {
@@ -233,16 +233,16 @@ bool ItemIsOpened(const void *item)
 }
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
-Page* Keeper(const void *item)
+Page *Keeper(const void *item)
 {
-    const Page* page = ((Page*)(item))->keeper;
-    return (void*)page;
+    const Page *page = ((Page *)(item))->keeper;
+    return (void *)page;
 }
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
 NamePage GetNamePage(const Page *page)
 {
-    if(TypeMenuItem((void*)page) != Item_Page)
+    if(TypeMenuItem((void *)page) != Item_Page)
     {
         return Page_NoPage;
     }
@@ -264,7 +264,7 @@ bool ItemIsAcitve(const void *item)
 
     if (type == Item_Choice || type == Item_Page || type == Item_Button || type == Item_Governor || type == Item_SmallButton)
     {
-        pFuncBV func = ((Page*)(item))->funcOfActive;
+        pFuncBV func = ((Page *)(item))->funcOfActive;
 
         return func ? func() : true;
     }
@@ -313,7 +313,7 @@ int NumItemsInPage(const Page * const page)
 //----------------------------------------------------------------------------------------------------------------------------------------------------
 const char *NameCurrentSubItem(Choice *choice) 
 {
-    return ((int8*)choice->cell == 0) ? "" : choice->names[*((int8*)choice->cell)][LANG];
+    return ((int8 *)choice->cell == 0) ? "" : choice->names[*((int8 *)choice->cell)][LANG];
 }
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
@@ -330,7 +330,7 @@ const char *NameNextSubItem(Choice *choice)
         return "";
     }
     
-    int index = *((int8*)choice->cell) + 1;
+    int index = *((int8 *)choice->cell) + 1;
     
     if (index == Choice_NumSubItems(choice))
     {
@@ -347,7 +347,7 @@ const char *NamePrevSubItem(Choice *choice)
         return "";
     }
     
-    int index = *((int8*)choice->cell) - 1;
+    int index = *((int8 *)choice->cell) - 1;
     
     if (index < 0)
     {
@@ -426,7 +426,7 @@ void ShortPressOnPageItem(Page *page, int numItem)
 }
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
-Page* PagePointerFromName(NamePage namePage)
+Page *PagePointerFromName(NamePage namePage)
 {
     return 0;
 }
@@ -436,7 +436,7 @@ bool IsPageSB(const void *item)
 {
     if (TypeMenuItem(item) == Item_Page)
     {
-        return ((Page*)item)->isPageSB;
+        return ((Page *)item)->isPageSB;
     }
     return false;
 }

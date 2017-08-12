@@ -126,21 +126,21 @@ const Page pService =
     },
     Page_Service,
     {
-        (void*)&bResetSettings,     // СЕРВИС - Сброс настроек
-        (void*)&bAutoSearch,        // СЕРВИС - Поиск сигнала
-        (void*)&ppCalibrator,       // СЕРВИС - КАЛИБРАТОР
+        (void *)&bResetSettings,    // СЕРВИС - Сброс настроек
+        (void *)&bAutoSearch,       // СЕРВИС - Поиск сигнала
+        (void *)&ppCalibrator,      // СЕРВИС - КАЛИБРАТОР
 #ifdef OLD_RECORDER
-        (void*)&cRecorder,          // СЕРВИС - Регистратор
+        (void *)&cRecorder,         // СЕРВИС - Регистратор
 #else
-        (void*)&ppRecorder,         // СЕРВИС - РЕГИСТРАТОР
+        (void *)&ppRecorder,        // СЕРВИС - РЕГИСТРАТОР
 #endif
-        (void*)&ppFFT,              // СЕРВИС - СПЕКТР
-        (void*)&ppFunction,         // СЕРВИС - ФУНКЦИЯ
-        (void*)&ppEthernet,         // СЕРВИС - ETHERNET
-        (void*)&ppSound,            // СЕРВИС - ЗВУК
-        (void*)&ppRTC,              // СЕРВИС - ВРЕМЯ
-        (void*)&cLanguage,          // СЕРВИС - Язык
-        (void*)&ppInformation       // СЕРВИС - ИНФОРМАЦИЯ
+        (void *)&ppFFT,             // СЕРВИС - СПЕКТР
+        (void *)&ppFunction,        // СЕРВИС - ФУНКЦИЯ
+        (void *)&ppEthernet,        // СЕРВИС - ETHERNET
+        (void *)&ppSound,           // СЕРВИС - ЗВУК
+        (void *)&ppRTC,             // СЕРВИС - ВРЕМЯ
+        (void *)&cLanguage,         // СЕРВИС - Язык
+        (void *)&ppInformation      // СЕРВИС - ИНФОРМАЦИЯ
     }
 };
 
@@ -210,8 +210,8 @@ static const Page ppCalibrator =
     },
     Page_Service_Calibrator,
     {
-        (void*)&cCalibrator_Calibrator,     // СЕРВИС - КАЛИБРАТОР - Калибратор
-        (void*)&bCalibrator_Calibrate       // СЕРВИС - КАЛИБРАТОР - Калибровать
+        (void *)&cCalibrator_Calibrator,    // СЕРВИС - КАЛИБРАТОР - Калибратор
+        (void *)&bCalibrator_Calibrate      // СЕРВИС - КАЛИБРАТОР - Калибровать
     }
 };
 
@@ -230,7 +230,7 @@ static const Choice cCalibrator_Calibrator =
         {"+4V",         "+4V"},
         {"0V",          "0V"}
     },
-    (int8*)&CALIBRATOR_MODE, OnChanged_Calibrator_Calibrator
+    (int8 *)&CALIBRATOR_MODE, OnChanged_Calibrator_Calibrator
 };
 
 static void OnChanged_Calibrator_Calibrator(bool active)
@@ -275,7 +275,7 @@ static const Choice cRecorder =
         {DISABLE_RU, DISABLE_EN},
         {ENABLE_RU, ENABLE_EN}
     },
-    (int8*)&RECORDER_MODE, OnChanged_Recorder
+    (int8 *)&RECORDER_MODE, OnChanged_Recorder
 };
 
 static void OnChanged_Recorder(bool active)
@@ -296,11 +296,11 @@ static const Page ppRecorder =
     },
     PageSB_Service_Recorder,
     {
-        (void*)&bRecorder_Exit,
-        (void*)&bRecorder_SaveTo,
-        (void*)&bRecorder_Start,
-        (void*)&bRecorder_Choice,
-        (void*)&bRecorder_Cursor
+        (void *)&bRecorder_Exit,
+        (void *)&bRecorder_SaveTo,
+        (void *)&bRecorder_Start,
+        (void *)&bRecorder_Choice,
+        (void *)&bRecorder_Cursor
     },
     true
 };
@@ -374,12 +374,12 @@ static const Page ppFFT =
     },
     Page_Service_FFT,
     {
-        (void*)&cFFT_View,      // СЕРВИС - СПЕКТР - Отображение
-        (void*)&cFFT_Scale,     // СЕРВИС - СПЕКТР - Шкала
-        (void*)&cFFT_Source,    // СЕРВИС - СПЕКТР - Источник
-        (void*)&cFFT_Window,    // СЕРВИС - СПЕКТР - Окно 
-        (void*)&pppFFT_Cursors, // СЕРВИС - СПЕКТР - КУРСОРЫ
-        (void*)&cFFT_Range      // СЕРВИС - СПЕКТР - Диапазон
+        (void *)&cFFT_View,         // СЕРВИС - СПЕКТР - Отображение
+        (void *)&cFFT_Scale,        // СЕРВИС - СПЕКТР - Шкала
+        (void *)&cFFT_Source,       // СЕРВИС - СПЕКТР - Источник
+        (void *)&cFFT_Window,       // СЕРВИС - СПЕКТР - Окно 
+        (void *)&pppFFT_Cursors,    // СЕРВИС - СПЕКТР - КУРСОРЫ
+        (void *)&cFFT_Range         // СЕРВИС - СПЕКТР - Диапазон
     },
     false, OnPress_FFT
 };
@@ -410,7 +410,7 @@ static const Choice cFFT_View =
         {DISABLE_RU,    DISABLE_EN},
         {ENABLE_RU,     ENABLE_EN}
     },
-    (int8*)&FFT_ENABLED
+    (int8 *)&FFT_ENABLED
 };
 
 
@@ -427,7 +427,7 @@ static const Choice cFFT_Scale =
         {"Логарифм",    "Log"},
         {"Линейная",    "Linear"}
     },
-    (int8*)&SCALE_FFT
+    (int8 *)&SCALE_FFT
 };
 
 // СЕРВИС - СПЕКТР - Источник ------------------------------------------------------------------------------------------------------------------------
@@ -444,7 +444,7 @@ static const Choice cFFT_Source =
         {"Канал 2",     "Channel 2"},
         {"Канал 1 + 2", "Channel 1 + 2"}
     },
-    (int8*)&SOURCE_FFT
+    (int8 *)&SOURCE_FFT
 };
 
 // СЕРВИС - СПЕКТР - Окно ----------------------------------------------------------------------------------------------------------------------------
@@ -462,7 +462,7 @@ static const Choice cFFT_Window =
         {"Блэкмена",    "Blackman"},
         {"Ханна",       "Hann"}
     },
-    (int8*)&WINDOW_FFT
+    (int8 *)&WINDOW_FFT
 };
 
 // СЕРВИС - СПЕКТР - КУРСОРЫ /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -476,12 +476,12 @@ static const Page pppFFT_Cursors =
     },
     PageSB_Service_FFT_Cursors,
     {
-        (void*)&bFFT_Cursors_Exit,      // СЕРВИС - СПЕКТР - КУРСОРЫ - Выход
-        (void*)&bFFT_Cursors_Source,    // СЕРВИС - СПЕКТР - КУРСОРЫ - Источник
-        (void*)0,
-        (void*)0,
-        (void*)0,
-        (void*)0
+        (void *)&bFFT_Cursors_Exit,     // СЕРВИС - СПЕКТР - КУРСОРЫ - Выход
+        (void *)&bFFT_Cursors_Source,   // СЕРВИС - СПЕКТР - КУРСОРЫ - Источник
+        (void *)0,
+        (void *)0,
+        (void *)0,
+        (void *)0
     },
     true, 0, 0, OnRegSet_FFT_Cursors
 };
@@ -545,7 +545,7 @@ static const Choice cFFT_Range =
         {"-60дБ",   "-60dB"},
         {"-80дБ",   "-80dB"}
     },
-    (int8*)&MAX_DB_FFT
+    (int8 *)&MAX_DB_FFT
 };
 
 static bool IsActive_FFT_Range(void)
@@ -564,12 +564,12 @@ static const Page ppFunction =
     },
     PageSB_Service_Function,
     {
-        (void*)&bFunction_Exit,         // СЕРВИС - ФУНКЦИЯ - Выход
-        (void*)&bFunction_Screen,       // СЕРВИС - ФУНКЦИЯ - Экран
-        (void*)&bFunction_Type,         // СЕРВИС - ФУНКЦИЯ - Вид
-        (void*)&bFunction_ModeRegSet,   // СЕРВИС - ФУНКЦИЯ - Режим ручки УСТАНОВКА
-        (void*)&bFunction_RangeA,       // СЕРВИС - ФУНКЦИЯ - Масштаб 1-го канала
-        (void*)&bFunction_RangeB
+        (void *)&bFunction_Exit,        // СЕРВИС - ФУНКЦИЯ - Выход
+        (void *)&bFunction_Screen,      // СЕРВИС - ФУНКЦИЯ - Экран
+        (void *)&bFunction_Type,        // СЕРВИС - ФУНКЦИЯ - Вид
+        (void *)&bFunction_ModeRegSet,  // СЕРВИС - ФУНКЦИЯ - Режим ручки УСТАНОВКА
+        (void *)&bFunction_RangeA,      // СЕРВИС - ФУНКЦИЯ - Масштаб 1-го канала
+        (void *)&bFunction_RangeB
     },
     true, OnPress_Function, 0, OnRegSet_Function
 };
@@ -696,7 +696,7 @@ static void OnPress_Function_Screen(void)
     }
     else
     {
-        CircleIncreaseInt8((int8*)&FUNC_MODE_DRAW, 0, 2);
+        CircleIncreaseInt8((int8 *)&FUNC_MODE_DRAW, 0, 2);
     }
 }
 
@@ -747,7 +747,7 @@ static const SButton bFunction_Type =
 
 static void OnPress_Function_Type(void)
 {
-    CircleIncreaseInt8((int8*)&MATH_FUNC, 0, 1);
+    CircleIncreaseInt8((int8 *)&MATH_FUNC, 0, 1);
 }
 
 static void Draw_Function_Type(int x, int y)
@@ -789,7 +789,7 @@ static const SButton bFunction_ModeRegSet =
 
 static void OnPress_Function_ModeRegSet(void)
 {
-    CircleIncreaseInt8((int8*)&MATH_MODE_REG_SET, 0, 1);
+    CircleIncreaseInt8((int8 *)&MATH_MODE_REG_SET, 0, 1);
 }
 
 static void Draw_Function_ModeRegSet(int x, int y)
@@ -867,11 +867,11 @@ static const Page ppEthernet =
     },
     Page_Service_Ethernet,
     {
-        (void*)&cEthernet_Ethernet, // СЕРВИС - ETHERNET - Ethernet
-        (void*)&ipEthernet_IP,      // СЕРВИС - ETHERNET - IP адрес
-        (void*)&ipEthernet_NetMask, // СЕРВИС - ETHERNET - Маска подсети
-        (void*)&ipEthernet_Gateway, // СЕРВИС - ETHERNET - Шлюз
-        (void*)&ipEthernet_MAC      // СЕРВИС - ETHERNET - MAC адрес
+        (void *)&cEthernet_Ethernet,    // СЕРВИС - ETHERNET - Ethernet
+        (void *)&ipEthernet_IP,         // СЕРВИС - ETHERNET - IP адрес
+        (void *)&ipEthernet_NetMask,    // СЕРВИС - ETHERNET - Маска подсети
+        (void *)&ipEthernet_Gateway,    // СЕРВИС - ETHERNET - Шлюз
+        (void *)&ipEthernet_MAC         // СЕРВИС - ETHERNET - MAC адрес
     }
 };
 
@@ -892,7 +892,7 @@ static const Choice cEthernet_Ethernet =
         {"Включено",    "Included"},
         {"Отключено",   "Disconnected"}
     },
-    (int8*)&ETH_ENABLED, OnChanged_Ethernet_Settings
+    (int8 *)&ETH_ENABLED, OnChanged_Ethernet_Settings
 };
 
 static void OnChanged_Ethernet_Settings(bool active)
@@ -964,8 +964,8 @@ static const Page ppSound =
     },
     Page_Service_Sound,
     {
-        (void*)&cSound_Enable,  // СЕРВИС - ЗВУК - Звук
-        (void*)&gSound_Volume   // СЕРВИС - ЗВУК - Громкость
+        (void *)&cSound_Enable, // СЕРВИС - ЗВУК - Звук
+        (void *)&gSound_Volume  // СЕРВИС - ЗВУК - Громкость
     }
 
 };
@@ -983,7 +983,7 @@ static const Choice cSound_Enable =
         {DISABLE_RU, DISABLE_EN},
         {ENABLE_RU, ENABLE_EN}
     },
-    (int8*)&SOUND_ENABLED
+    (int8 *)&SOUND_ENABLED
 };
 
 // СЕРВИС - ЗВУК - Громкость -------------------------------------------------------------------------------------------------------------------------
@@ -1010,8 +1010,8 @@ static const Page ppRTC =
     },
     Page_Service_RTC,
     {
-        (void*)&tRTC_Time,          // СЕРВИС - ВРЕМЯ - Время
-        (void*)&tRTC_Correction     // CЕРВИС - ВРЕМЯ - Коррекция
+        (void *)&tRTC_Time,         // СЕРВИС - ВРЕМЯ - Время
+        (void *)&tRTC_Correction    // CЕРВИС - ВРЕМЯ - Коррекция
     }
 };
 
@@ -1071,7 +1071,7 @@ static const Choice cLanguage =
         {"Русский",     "Russian"},
         {"Английский",  "English"}
     },
-    (int8*)&LANG
+    (int8 *)&LANG
 };
 
 
@@ -1086,12 +1086,12 @@ static const Page ppInformation =
     },
     PageSB_Service_Information,
     {
-        (void*)&bInformation_Exit,  // СЕРВИС - ИНФОРМАЦИЯ - Выход
-        (void*)0,
-        (void*)0,
-        (void*)0,
-        (void*)0,
-        (void*)0
+        (void *)&bInformation_Exit, // СЕРВИС - ИНФОРМАЦИЯ - Выход
+        (void *)0,
+        (void *)0,
+        (void *)0,
+        (void *)0,
+        (void *)0
     },
     true, OnPress_Information
 };
@@ -1256,6 +1256,6 @@ const Formula mfMathFormula =
         "Здесь задаются коэффициенты и знаки в математической формуле",
         "Here you can set the coefficients and signs in a mathematical formula"
     },
-    (int8*)&MATH_FUNC, (int8*)&set.math_koeff1add, (int8*)&set.math_koeff2add, (int8*)&set.math_koeff1mul, (int8*)&set.math_koeff2mul, &curDigit, ChangeF_MathFormula
+    (int8 *)&MATH_FUNC, (int8 *)&set.math_koeff1add, (int8 *)&set.math_koeff2add, (int8 *)&set.math_koeff1mul, (int8 *)&set.math_koeff2mul, &curDigit, ChangeF_MathFormula
 };
 */

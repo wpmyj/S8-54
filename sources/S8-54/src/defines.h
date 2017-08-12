@@ -91,7 +91,7 @@ typedef enum
 } Color;
 
 typedef void    (*pFuncVV)(void);               ///< ”казатель на функцию, ничего не принимающую и ничего не возвращающую.
-typedef void    (*pFuncVpV)(void*);             ///< ”казатель на функцию, принимающую указатель на void и ничего не возвращающую.
+typedef void    (*pFuncVpV)(void *);            ///< ”казатель на функцию, принимающую указатель на void и ничего не возвращающую.
 typedef bool    (*pFuncBV)(void);
 typedef void    (*pFuncVB)(bool);
 typedef void    (*pFuncVI)(int);
@@ -104,7 +104,7 @@ typedef float   (*pFuncFU8)(uint8);
 typedef char   *(*pFuncCFB)(float, bool);
 typedef char   *(*pFuncCFBC)(float, bool, char *);
 typedef void    (*pFuncpU8)(uint8 *);
-typedef void    (*pFuncVpVIIB)(void*, int, int, bool);
+typedef void    (*pFuncVpVIIB)(void *, int, int, bool);
 
 #define GetBit(value, bit) (((value) >> (bit)) & 0x01)
 #define SetBit_(value, bit) ((value) |= (1 << (bit)))

@@ -169,7 +169,7 @@ static void WriteBufferWords(uint address, void *buffer, int numWords)
     HAL_FLASH_Unlock();
     for(int i = 0; i < numWords; i++)
     {
-        if(HAL_FLASH_Program(TYPEPROGRAM_WORD, address, (uint64_t)(((uint*)buffer)[i])) != HAL_OK)
+        if(HAL_FLASH_Program(TYPEPROGRAM_WORD, address, (uint64_t)(((uint *)buffer)[i])) != HAL_OK)
         {
             LOG_ERROR_TRACE("Не могу записать в флеш-память");
         }
@@ -310,7 +310,7 @@ void FLASH_DeleteData(int num)
 
     uint addressSector = AddressSectorForData(num);
 
-    WriteBufferWords(ADDR_DATA_TEMP, (void*)addressSector, SIZE_SECTOR_128 / 4);
+    WriteBufferWords(ADDR_DATA_TEMP, (void *)addressSector, SIZE_SECTOR_128 / 4);
 
     EraseSector(addressSector);
 
@@ -323,7 +323,7 @@ void FLASH_DeleteData(int num)
     {
         if (i != numNotWritted)
         {
-            WriteBufferWords(addressSector + sizeQuartPart * i, (void*)(ADDR_DATA_TEMP + sizeQuartPart * i), sizeQuartPart / 4);
+            WriteBufferWords(addressSector + sizeQuartPart * i, (void *)(ADDR_DATA_TEMP + sizeQuartPart * i), sizeQuartPart / 4);
         }
     }
     
@@ -448,7 +448,7 @@ void FLASH_SaveData(int num, DataSettings *ds, uint8 *dataA, uint8 *dataB)
     WriteWord(addrADDR, AddressForData(num));
 
     uint addrDS = (uint)&array->datas[num].ds;
-    WriteBufferBytes(addrDS, (void*)ds, sizeof(DataSettings));
+    WriteBufferBytes(addrDS, (void *)ds, sizeof(DataSettings));
 
     DataSettings dataSettings = {0};
 
@@ -483,7 +483,7 @@ static void SaveArrayDatas(ArrayDatas array)
         address = ADDR_DATA_DATA;                               // и записывать array будем в начале его
     }
 
-    WriteBufferBytes(address, (void*)&array, sizeof(ArrayDatas));
+    WriteBufferBytes(address, (void *)&array, sizeof(ArrayDatas));
 }
 
 
@@ -504,13 +504,13 @@ bool FLASH_GetData(int num, DataSettings *ds, uint8 *dataA, uint8 *dataB)
 
     if (ENABLED_A(ds))
     {
-        memcpy(dataA, (void*)addrData, BYTES_IN_CHANNEL(ds));
+        memcpy(dataA, (void *)addrData, BYTES_IN_CHANNEL(ds));
         addrData += BYTES_IN_CHANNEL(ds);
     }
 
     if (ENABLED_B(ds))
     {
-        memcpy(dataB, (void*)addrData, BYTES_IN_CHANNEL(ds));
+        memcpy(dataB, (void *)addrData, BYTES_IN_CHANNEL(ds));
     }
 
     return true;

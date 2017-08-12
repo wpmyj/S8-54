@@ -28,7 +28,7 @@ extern const PageHelp helpMenu;
 static const PageHelp helpMenuCommon =
 {
     TypePage_Description,
-    (void*)&helpMenu, 0,
+    (void *)&helpMenu, 0,
     {
         "Общее описание принципов меню",
         "General description of the principles of the menu",
@@ -55,7 +55,7 @@ static const PageHelp helpMenuCommon =
 static const PageHelp helpMenuControls =
 {
     TypePage_Description,
-    (void*)&helpMenu, 0,
+    (void *)&helpMenu, 0,
     {
         "Описание органов управлениея",
         "Description of the controls",
@@ -69,7 +69,7 @@ extern const PageHelp helpMain;
 static const PageHelp helpSCPI =
 {
     TypePage_Description,
-    (void*)&helpMain, 0,
+    (void *)&helpMain, 0,
     {
         "Работа с SCPI",
         "Working with SCPI",
@@ -81,14 +81,14 @@ static const PageHelp helpSCPI =
 const PageHelp helpMenu =
 {
     TypePage_Content,
-    (void*)&helpMain, 0,
+    (void *)&helpMain, 0,
     {
         "Работа с меню",
         "Working with menus"
     },
     {
-        (void*)&helpMenuCommon,
-        (void*)&helpMenuControls
+        (void *)&helpMenuCommon,
+        (void *)&helpMenuControls
     }
 };
 
@@ -101,7 +101,7 @@ const PageHelp helpMain =
         "HELP"
     },
     {
-        (void*)&helpMenu,
-        (void*)&helpSCPI
+        (void *)&helpMenu,
+        (void *)&helpSCPI
     }
 };

@@ -75,15 +75,15 @@ const Page pDisplay =
     },
     Page_Display,
     {
-        (void*)&cViewMode,     // ДИСПЛЕЙ - Отображение
-        (void*)&ppAccum,       // ДИСПЛЕЙ - НАКОПЛЕНИЕ
-        (void*)&ppAverage,     // ДИСПЛЕЙ - УСРЕДНЕНИЕ
-        (void*)&cMinMax,       // ДИСПЛЕЙ - Мин Макс
-        (void*)&cSmoothing,    // ДИСПЛЕЙ - Сглаживание
-        (void*)&cRefreshFPS,   // ДИСПЛЕЙ - Частота обновл
-        (void*)&ppGrid,        // ДИСПЛЕЙ - СЕТКА
-        (void*)&cScaleYtype,   // ДИСПЛЕЙ - Смещение
-        (void*)&ppSettings     // ДИСПЛЕЙ - НАСТРОЙКИ
+        (void *)&cViewMode,     // ДИСПЛЕЙ - Отображение
+        (void *)&ppAccum,       // ДИСПЛЕЙ - НАКОПЛЕНИЕ
+        (void *)&ppAverage,     // ДИСПЛЕЙ - УСРЕДНЕНИЕ
+        (void *)&cMinMax,       // ДИСПЛЕЙ - Мин Макс
+        (void *)&cSmoothing,    // ДИСПЛЕЙ - Сглаживание
+        (void *)&cRefreshFPS,   // ДИСПЛЕЙ - Частота обновл
+        (void *)&ppGrid,        // ДИСПЛЕЙ - СЕТКА
+        (void *)&cScaleYtype,   // ДИСПЛЕЙ - Смещение
+        (void *)&ppSettings     // ДИСПЛЕЙ - НАСТРОЙКИ
     }
 };
 
@@ -100,7 +100,7 @@ static const Choice cViewMode =
         {"Вектор",  "Vector"},
         {"Точки",   "Points"}
     },
-    (int8*)&MODE_DRAW_SIGNAL
+    (int8 *)&MODE_DRAW_SIGNAL
 };
 
 // ДИСПЛЕЙ - НАКОПЛЕНИЕ ------------------------------------------------------------------------------------------------------------------------------
@@ -114,9 +114,9 @@ static const Page ppAccum =
     },
     Page_Display_Accum,
     {
-        (void*)&cAccum_Num,    // ДИСПЛЕЙ - НАКОПЛЕНИЕ - Количество
-        (void*)&cAccum_Mode,   // ДИСПЛЕЙ - НАКОПЛЕНИЕ - Режим
-        (void*)&bAccum_Clear   // ДИСПЛЕЙ - НАКОПЛЕНИЕ - Очистить
+        (void *)&cAccum_Num,    // ДИСПЛЕЙ - НАКОПЛЕНИЕ - Количество
+        (void *)&cAccum_Mode,   // ДИСПЛЕЙ - НАКОПЛЕНИЕ - Режим
+        (void *)&bAccum_Clear   // ДИСПЛЕЙ - НАКОПЛЕНИЕ - Очистить
     }
 };
 
@@ -151,7 +151,7 @@ static const Choice cAccum_Num =
         {"128", "128"},
         {"Бесконечность", "Infinity"}
     },
-    (int8*)&ENUM_ACCUM
+    (int8 *)&ENUM_ACCUM
 };
 
 // ДИСПЛЕЙ - НАКОПЛЕНИЕ - Режим ----------------------------------------------------------------------------------------------------------------------
@@ -175,7 +175,7 @@ static const Choice cAccum_Mode =
         {"Не сбрасывать",   "Not to dump"},
         {"Сбрасывать",      "Dump"}
     },
-    (int8*)&MODE_ACCUM
+    (int8 *)&MODE_ACCUM
 };
 
 // ДИСПЛЕЙ - НАКОПЛЕНИЕ - Очистить -------------------------------------------------------------------------------------------------------------------
@@ -211,8 +211,8 @@ static const Page ppAverage =
     },
     Page_Display_Average,
     {
-        (void*)&cAverage_Num,  // ДИСПЛЕЙ - УСРЕДНЕНИЕ - Количество
-        (void*)&cAverage_Mode  // ДИСПЛЕЙ - УСРЕДНЕНИЕ - Режим
+        (void *)&cAverage_Num,  // ДИСПЛЕЙ - УСРЕДНЕНИЕ - Количество
+        (void *)&cAverage_Mode  // ДИСПЛЕЙ - УСРЕДНЕНИЕ - Режим
     }
 };
 
@@ -242,7 +242,7 @@ static const Choice cAverage_Num =
         {"256", "256"},
         {"512", "512"}
     },
-    (int8*)&ENUM_AVE
+    (int8 *)&ENUM_AVE
 };
 
 // ДИСПЛЕЙ - УСРЕДНЕНИЕ - Режим ----------------------------------------------------------------------------------------------------------------------
@@ -264,7 +264,7 @@ static const Choice cAverage_Mode =
         {"Точно",           "Accurately"},
         {"Приблизительно",  "Around"}
     },
-    (int8*)&MODE_AVERAGING
+    (int8 *)&MODE_AVERAGING
 };
 
 // ДИСПЛЕЙ - Мин Макс --------------------------------------------------------------------------------------------------------------------------------
@@ -287,7 +287,7 @@ static const Choice cMinMax =
         {"64",  "64"},
         {"128", "128"}
     },
-    (int8*)&set.disp_ENumMinMax, OnChanged_MinMax
+    (int8 *)&set.disp_ENumMinMax, OnChanged_MinMax
 };
 
 static bool IsActive_MinMax(void)
@@ -329,7 +329,7 @@ static const Choice cSmoothing =
         {"9 точки", "9 points"},
         {"10 точек", "10 points"}
     },
-    (int8*)&SMOOTHING
+    (int8 *)&SMOOTHING
 };
 
 // ДИСПЛЕЙ - Частота обновл --------------------------------------------------------------------------------------------------------------------------
@@ -348,7 +348,7 @@ static const Choice cRefreshFPS =
         {"2",   "2"},
         {"1",   "1"}
     },
-    (int8*)&NUM_SIGNALS_IN_SEC, OnChanged_RefreshFPS
+    (int8 *)&NUM_SIGNALS_IN_SEC, OnChanged_RefreshFPS
 };
 
 static void OnChanged_RefreshFPS(bool active)
@@ -367,8 +367,8 @@ static const Page ppGrid =
     },
     Page_Display_Grid,
     {
-        (void*)&cGrid_Type,        // ДИСПЛЕЙ - СЕТКА - Тип
-        (void*)&gGrid_Brightness   // ДИСПЛЕЙ - СЕТКА - Яркость
+        (void *)&cGrid_Type,        // ДИСПЛЕЙ - СЕТКА - Тип
+        (void *)&gGrid_Brightness   // ДИСПЛЕЙ - СЕТКА - Яркость
     }
 };
 
@@ -387,7 +387,7 @@ static const Choice cGrid_Type =
         {"Тип 3", "Type 3"},
         {"Тип 4", "Type 4"}
     },
-    (int8*)&TYPE_GRID
+    (int8 *)&TYPE_GRID
 };
 
 // ДИСПЛЕЙ - СЕТКА - Яркость -------------------------------------------------------------------------------------------------------------------------
@@ -429,7 +429,7 @@ static const Choice cScaleYtype =
         {"Напряжение", "Voltage"},
         {"Деления", "Divisions"}
     },
-    (int8*)&LINKING_RSHIFT
+    (int8 *)&LINKING_RSHIFT
 };
 
 // ДИСПЛЕЙ - НАСТРОЙКИ ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -443,13 +443,13 @@ const Page ppSettings =
     },
     Page_Display_Settings,
     {
-        (void*)&pppSettings_Colors,             // ДИСПЛЕЙ - НАСТРОЙКИ - ЦВЕТА
-        (void*)&gSettings_Brightness,           // ДИСПЛЕЙ - НАСТРОЙКИ - Яркость
-        (void*)&gSettings_Levels,               // ДИСПЛЕЙ - НАСТРОЙКИ - Уровни
-        (void*)&gSettings_Time,                 // ДИСПЛЕЙ - НАСТРОЙКИ - Время
-        (void*)&cSettings_StringNavigation,     // ДИСПЛЕЙ - НАСТРОЙКИ - Строка меню
-        (void*)&cSettings_AltMarkers,           // ДИСПЛЕЙ - НАСТРОЙКИ - Доп. маркеры
-        (void*)&cSettings_AutoHide              // ДИСПЛЕЙ - НАСТРОЙКИ - Скрывать
+        (void *)&pppSettings_Colors,            // ДИСПЛЕЙ - НАСТРОЙКИ - ЦВЕТА
+        (void *)&gSettings_Brightness,          // ДИСПЛЕЙ - НАСТРОЙКИ - Яркость
+        (void *)&gSettings_Levels,              // ДИСПЛЕЙ - НАСТРОЙКИ - Уровни
+        (void *)&gSettings_Time,                // ДИСПЛЕЙ - НАСТРОЙКИ - Время
+        (void *)&cSettings_StringNavigation,    // ДИСПЛЕЙ - НАСТРОЙКИ - Строка меню
+        (void *)&cSettings_AltMarkers,          // ДИСПЛЕЙ - НАСТРОЙКИ - Доп. маркеры
+        (void *)&cSettings_AutoHide             // ДИСПЛЕЙ - НАСТРОЙКИ - Скрывать
     }
 };
 
@@ -465,19 +465,19 @@ static const Page pppSettings_Colors =
     },
     Page_Display_Settings_Colors,
     {
-        (void*)&cSettings_Colors_Scheme,        // ДИСПЛЕЙ - НАСТРОЙКИ - ЦВЕТА - Цветовая схема
-        (void*)&gcSettings_Colors_ChannelA,     // ДИСПЛЕЙ - НАСТРОЙКИ - ЦВЕТА - Канал 1
-        (void*)&gcSettings_Colors_ChannelB,     // ДИСПЛЕЙ - НАСТРОЙКИ - ЦВЕТА - Канал 2
-        (void*)&gcSettings_Colors_Grid,         // ДИСПЛЕЙ - НАСТРОЙКИ - ЦВЕТА - Сетка
-        (void*)&cSettings_Colors_Background     // ДИСПЛЕЙ - НАСТРОЙКИ - ЦВЕТА - Фон
-        //(void*)&mgcColorChannel0alt,
-        //(void*)&mgcColorChannel1alt,
-        //(void*)&mgcColorMenu1,
-        //(void*)&mgcColorMenu2,
-        //(void*)&mgcColorMenu3
-        //,(void*)&mgcColorMathem,
-        //(void*)&mgcColorFFT,
-        //(void*)&mcServDisplInverse
+        (void *)&cSettings_Colors_Scheme,       // ДИСПЛЕЙ - НАСТРОЙКИ - ЦВЕТА - Цветовая схема
+        (void *)&gcSettings_Colors_ChannelA,    // ДИСПЛЕЙ - НАСТРОЙКИ - ЦВЕТА - Канал 1
+        (void *)&gcSettings_Colors_ChannelB,    // ДИСПЛЕЙ - НАСТРОЙКИ - ЦВЕТА - Канал 2
+        (void *)&gcSettings_Colors_Grid,        // ДИСПЛЕЙ - НАСТРОЙКИ - ЦВЕТА - Сетка
+        (void *)&cSettings_Colors_Background    // ДИСПЛЕЙ - НАСТРОЙКИ - ЦВЕТА - Фон
+        //(void *)&mgcColorChannel0alt,
+        //(void *)&mgcColorChannel1alt,
+        //(void *)&mgcColorMenu1,
+        //(void *)&mgcColorMenu2,
+        //(void *)&mgcColorMenu3
+        //,(void *)&mgcColorMathem,
+        //(void *)&mgcColorFFT,
+        //(void *)&mcServDisplInverse
     }
 };
 
@@ -494,7 +494,7 @@ static const Choice cSettings_Colors_Scheme =
         { "Схема 1", "Scheme 1" },
         { "Схема 2", "Scheme 2" }
     },
-    (int8*)&set.serv_ColorScheme
+    (int8 *)&set.serv_ColorScheme
 };
 
 // ДИСПЛЕЙ - НАСТРОЙКИ - ЦВЕТА - Канал 1 -------------------------------------------------------------------------------------------------------------
@@ -549,7 +549,7 @@ static const Choice cSettings_Colors_Background =
         { "Чёрный", "Black" },
         { "Белый", "White" }
     },
-    (int8*)&BACKGROUND, OnChanged_Settings_Colors_Background
+    (int8 *)&BACKGROUND, OnChanged_Settings_Colors_Background
 };
 
 static void OnChanged_Settings_Colors_Background(bool active)
@@ -630,7 +630,7 @@ static const Choice cSettings_StringNavigation =
         { "Всегда", "All" },
         { "Никогда", "None" }
     },
-    (int8*)&SHOW_STRING_NAVI
+    (int8 *)&SHOW_STRING_NAVI
 };
 
 // ДИСПЛЕЙ - НАСТРОЙКИ - Доп. маркеры ----------------------------------------------------------------------------------------------------------------
@@ -655,7 +655,7 @@ static const Choice cSettings_AltMarkers =
         { "Показывать", "Show" },
         { "Авто", "Auto" }
     },
-    (int8*)&ALT_MARKERS, Display_ChangedRShiftMarkers
+    (int8 *)&ALT_MARKERS, Display_ChangedRShiftMarkers
 };
 
 // ДИСПЛЕЙ - НАСТРОЙКИ - Скрывать --------------------------------------------------------------------------------------------------------------------
@@ -675,7 +675,7 @@ static const Choice cSettings_AutoHide =
         { "Через 30 сек", "Through 30 s" },
         { "Через 60 сек", "Through 60 s" }
     },
-    (int8*)&MENU_AUTO_HIDE, OnChanged_Settings_AutoHide
+    (int8 *)&MENU_AUTO_HIDE, OnChanged_Settings_AutoHide
 };
 
 static void OnChanged_Settings_AutoHide(bool autoHide)

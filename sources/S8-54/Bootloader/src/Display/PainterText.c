@@ -206,7 +206,7 @@ int Painter_DrawText(int x, int y, const char *text)
 #define SIZE_BUFFER 100
     uint8 command[SIZE_BUFFER];
     command[0] = DRAW_TEXT;
-    *((int16*)(command + 1)) = (int16)x;
+    *((int16 *)(command + 1)) = (int16)x;
     *(command + 3) = (int8)(y + 1);
     uint8 *pointer = command + 5;
     uint8 length = 0;
@@ -440,7 +440,7 @@ static bool FindNextTransfer(char *letters, int8 *lettersInSyllable)
 
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
-static int8* BreakWord(char *word)
+static int8 * BreakWord(char *word)
 {
     int num = 0;
     static int8 lengthSyllables[10];
@@ -467,14 +467,14 @@ static int8* BreakWord(char *word)
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
 // Возвращает часть слова до слога numSyllable(включительн) вместе со знаком переноса
-static char* PartWordForTransfer(char *word, int8* lengthSyllables, int numSyllable, char buffer[30])
+static char* PartWordForTransfer(char *word, int8 * lengthSyllables, int numSyllable, char buffer[30])
 {
     int length = 0;
     for (int i = 0; i <= numSyllable; i++)
     {
         length += lengthSyllables[i];
     }
-    memcpy((void*)buffer, (void*)word, length);
+    memcpy((void *)buffer, (void *)word, length);
     buffer[length] = '-';
     buffer[length + 1] = '\0';
     return buffer;

@@ -27,11 +27,11 @@ TypeItem TypeMenuItem(const void *address);
 /// Возвращает тип открытого элемента меню
 TypeItem TypeOpenedItem(void);
 /// Возвращает адрес открытого элемента меню
-void* OpenedItem(void);
+void *OpenedItem(void);
 /// Возвращает адрес текущего элемента меню (текущим, как правило, является элемент, кнопка которого была нажата последней
-void* CurrentItem(void);
+void *CurrentItem(void);
 /// Возвращает адрес элемента меню заданной страницы
-void* Item(const Page *page,                        ///< страница, элемент которой нужно узнать
+void *Item(const Page *page,                        ///< страница, элемент которой нужно узнать
             int numElement                          ///< порядковый номер элемента, который нужно узнать
             );
 /// Возвращает true, если текущий элемент страницы с именем namePage открыт
@@ -43,7 +43,7 @@ void SetCurrentItem(const void *item,               ///< адрес элемента, активно
                     bool active                     ///< true - сделать элемент текущим, false - расделать элемент текущим. В этом случае текущим становится заголовок страницы
                     );
 /// Возвращает адрес элемента, которому принадлежит элемент по адресу item
-Page* Keeper(const void *item);
+Page *Keeper(const void *item);
 /// Возвращает имя страницы page
 NamePage GetNamePage(const Page *page);
 
@@ -79,7 +79,7 @@ void ChangeSubPage(const Page *page, int delta);
 /// Вызывает функцию короткого нажатия кнопки над итемом numItem страницы page
 void ShortPressOnPageItem(Page *page, int numItem);
 
-Page* PagePointerFromName(NamePage namePage);
+Page *PagePointerFromName(NamePage namePage);
 
 bool IsPageSB(const void *item);
 

@@ -37,11 +37,11 @@ const Page pTime =
     },
     Page_Time,
     {
-        (void*)&cSample,        // РАЗВЕРТКА - Выборка
-        (void*)&cPeakDet,       // РАЗВЕРТКА - Пик дет
-        (void*)&cTPos,          // РАЗВЕРТКА - То
-        (void*)&cDivRole        // РАЗВЕРТКА - Ф-ция ВР/ДЕЛ
-        // (void*)&mcTimeSelfRecorder,
+        (void *)&cSample,       // РАЗВЕРТКА - Выборка
+        (void *)&cPeakDet,      // РАЗВЕРТКА - Пик дет
+        (void *)&cTPos,         // РАЗВЕРТКА - То
+        (void *)&cDivRole       // РАЗВЕРТКА - Ф-ция ВР/ДЕЛ
+        // (void *)&mcTimeSelfRecorder,
     }
 };
 
@@ -62,7 +62,7 @@ static const Choice cSample =
         {"Реальное время",  "Real"},
         {"Эквивалентная",   "Equals"}
     },
-    (int8*)&SAMPLE
+    (int8 *)&SAMPLE
 };
 
 static bool IsActive_Sample(void)
@@ -84,7 +84,7 @@ static const Choice cPeakDet =
         {ENABLE_RU,     ENABLE_EN}
     /* , {"Среднее",   "Average"} */
     },
-    (int8*)&SET_PEACKDET, OnChanged_PeakDet
+    (int8 *)&SET_PEACKDET, OnChanged_PeakDet
 };
 
 static bool IsActive_PeakDet(void)
@@ -141,7 +141,7 @@ static const Choice cTPos =
         {"Центр",   "Center"},
         {"Право",   "Right"}
     },
-    (int8*)&TPOS, OnChanged_TPos
+    (int8 *)&TPOS, OnChanged_TPos
 };
 
 void OnChanged_TPos(bool active)
@@ -169,5 +169,5 @@ static const Choice cDivRole =
         {"Время",       "Time"},
         {"Память",      "Memory"}
     },
-    (int8*)&TIME_DIVXPOS
+    (int8 *)&TIME_DIVXPOS
 };

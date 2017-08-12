@@ -61,8 +61,8 @@ void DS_Clear(void)
 {
     SIZE_POOL = RAM(DS_POOL_END) - RAM(DS_POOL_BEGIN);
 
-    sumA_RAM = (uint*)RAM(DS_SUM_A); //-V206
-    sumB_RAM = (uint*)RAM(DS_SUM_B); //-V206
+    sumA_RAM = (uint *)RAM(DS_SUM_A); //-V206
+    sumB_RAM = (uint *)RAM(DS_SUM_B); //-V206
 
     limitUpA_RAM = RAM(DS_LIMIT_UP_A);
     limitUpB_RAM = RAM(DS_LIMIT_UP_B);

@@ -17,10 +17,10 @@ typedef struct
 
 typedef struct
 {
-    int numEdges;
-    Edge* edges;
-    int numPoints;
-    Point* points;
+    int     numEdges;
+    Edge   *edges;
+    int     numPoints;
+    Point  *points;
 } Mesh;
 
 typedef struct

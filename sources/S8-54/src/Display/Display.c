@@ -1369,7 +1369,7 @@ static void DRAW_SPECTRUM(const uint8 *dataIn, int numPoints, Channel ch)
 
     uint8 *data = malloc(numPoints);
 
-    RAM_MemCpy16((void*)dataIn, data, numPoints);
+    RAM_MemCpy16((void *)dataIn, data, numPoints);
 
     Math_PointsRelToVoltage(data, numPoints, RANGE_DS(ch), RSHIFT_DS(ch), dataR);
     Math_CalculateFFT(dataR, numPoints, spectrum, &freq0, &density0, &freq1, &density1, &y0, &y1);

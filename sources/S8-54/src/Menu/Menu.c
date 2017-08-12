@@ -34,7 +34,7 @@ static PanelRegulator pressRegulator = R_Empty;
 static int angleRegSet = 0;
 ///\brief  Здесь хранится адрес элемента меню, соответствующего функциональной клавише [1..5], если она находится в нижнем положении, и 0, если ни одна 
 /// кнопка не нажата.
-static void* itemUnderKey = 0;
+static void *itemUnderKey = 0;
 /// Эта функция будет вызывана один раз после Menu_UpdateInput().
 static pFuncVV funcAterUpdate = 0;
                                                 
@@ -307,7 +307,7 @@ void Menu_RotateRegSetLeft(void)
 };
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
-void* Menu_ItemUnderKey(void)
+void *Menu_ItemUnderKey(void)
 {
     return itemUnderKey;
 };

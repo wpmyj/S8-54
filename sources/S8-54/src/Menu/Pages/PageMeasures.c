@@ -54,12 +54,12 @@ const Page pMeasures =
     },
     Page_Measures,
     {
-        (void*)&ppFreqMeter,    // ИЗМЕРЕНИЯ - ЧАСТОТОМЕР
-        (void*)&cIsShow,        // ИЗМЕРЕНИЯ - Показывать
-        (void*)&cNumber,        // ИЗМЕРЕНИЯ - Количество
-        (void*)&cChannels,      // ИЗМЕРЕНИЯ - Каналы
-        (void*)&ppTune,         // ИЗМЕРЕНИЯ - НАСТРОИТЬ
-        (void*)&cMode           // ИЗМЕРЕНИЯ - Вид
+        (void *)&ppFreqMeter,   // ИЗМЕРЕНИЯ - ЧАСТОТОМЕР
+        (void *)&cIsShow,       // ИЗМЕРЕНИЯ - Показывать
+        (void *)&cNumber,       // ИЗМЕРЕНИЯ - Количество
+        (void *)&cChannels,     // ИЗМЕРЕНИЯ - Каналы
+        (void *)&ppTune,        // ИЗМЕРЕНИЯ - НАСТРОИТЬ
+        (void *)&cMode          // ИЗМЕРЕНИЯ - Вид
     }
 };
 
@@ -74,10 +74,10 @@ const Page ppFreqMeter =
     },
     Page_Service_FreqMeter,
     {
-        (void*)&cFreqMeter_Enable,      // ИЗМЕРЕНИЯ - ЧАСТОТОМЕР - Частотомер
-        (void*)&cFreqMeter_TimeF,       // ИЗМЕРЕНИЯ - ЧАСТОТОМЕР - Время счёта F
-        (void*)&cFreqMeter_FreqClc,     // ИЗМЕРЕНИЯ - ЧАСТОТОМЕР - Метки времени
-        (void*)&cFreqMeter_NumPeriods   // ИЗМЕРЕНИЯ - ЧАСТОТОМЕР - Кол-во периодов
+        (void *)&cFreqMeter_Enable,     // ИЗМЕРЕНИЯ - ЧАСТОТОМЕР - Частотомер
+        (void *)&cFreqMeter_TimeF,      // ИЗМЕРЕНИЯ - ЧАСТОТОМЕР - Время счёта F
+        (void *)&cFreqMeter_FreqClc,    // ИЗМЕРЕНИЯ - ЧАСТОТОМЕР - Метки времени
+        (void *)&cFreqMeter_NumPeriods  // ИЗМЕРЕНИЯ - ЧАСТОТОМЕР - Кол-во периодов
     }
 };
 
@@ -94,7 +94,7 @@ static const Choice cFreqMeter_Enable =
         {DISABLE_RU, DISABLE_EN},
         {ENABLE_RU, ENABLE_EN}
     },
-    (int8*)&FREQ_METER_ENABLED, OnChanged_FreqMeter_Enable
+    (int8 *)&FREQ_METER_ENABLED, OnChanged_FreqMeter_Enable
 };
 
 static void OnChanged_FreqMeter_Enable(bool param)
@@ -116,7 +116,7 @@ static const Choice cFreqMeter_TimeF =
         {"1с", "1s"},
         {"10с", "10ms"}
     },
-    (int8*)&FREQ_METER_TIMECOUNTING, OnChanged_FreqMeter_Enable
+    (int8 *)&FREQ_METER_TIMECOUNTING, OnChanged_FreqMeter_Enable
 };
 
 // ИЗМЕРЕНИЯ - ЧАСТОТОМЕР - Метки времени ------------------------------------------------------------------------------------------------------------
@@ -134,7 +134,7 @@ static const Choice cFreqMeter_FreqClc =
         {"10МГц", "10MHz"},
         {"100МГц", "100MHz"}
     },
-    (int8*)&FREQ_METER_FREQ_CLC, OnChanged_FreqMeter_Enable
+    (int8 *)&FREQ_METER_FREQ_CLC, OnChanged_FreqMeter_Enable
 };
 
 // ИЗМЕРЕНИЯ - ЧАСТОТОМЕР - Кол-во периодов ----------------------------------------------------------------------------------------------------------
@@ -151,7 +151,7 @@ static const Choice cFreqMeter_NumPeriods =
         {"10", "10"},
         {"100", "100"}
     },
-    (int8*)&FREQ_METER_NUM_PERIODS, OnChanged_FreqMeter_Enable
+    (int8 *)&FREQ_METER_NUM_PERIODS, OnChanged_FreqMeter_Enable
 };
 
 // ИЗМЕРЕНИЯ - Показывать ----------------------------------------------------------------------------------------------------------------------------
@@ -167,7 +167,7 @@ static const Choice cIsShow =
         {"Нет", "No"},
         {"Да", "Yes"}
     },
-    (int8*)&SHOW_MEASURES
+    (int8 *)&SHOW_MEASURES
 };
 
 // ИЗМЕРЕНИЯ - Количество ----------------------------------------------------------------------------------------------------------------------------
@@ -204,7 +204,7 @@ static const Choice cNumber =
         {"6x1", "6x1"},
         {"6x2", "6x2"}
     },
-    (int8*)&NUM_MEASURES
+    (int8 *)&NUM_MEASURES
 };
 
 static bool IsActive_Number(void)
@@ -226,7 +226,7 @@ static const Choice cChannels =
         {"2", "2"},
         {"1 и 2", "1 and 2"}
     },
-    (int8*)&SOURCE_MEASURE
+    (int8 *)&SOURCE_MEASURE
 };
 
 static bool IsActive_Channels(void)
@@ -247,7 +247,7 @@ static const Choice cMode =
         {"Как есть",    "As is"},
         {"Уменьшать",   "Reduce"}
     },
-    (int8*)&set.meas_ModeViewSignals
+    (int8 *)&set.meas_ModeViewSignals
 };
 
 static bool IsActive_Mode(void)
@@ -267,12 +267,12 @@ static const Page ppTune =
     },
     PageSB_Measures_Tune,
     {
-        (void*)&bTune_Exit,     // ИЗМЕРЕНИЯ - НАСТРОИТЬ - Выход
-        (void*)0,
-        (void*)0,
-        (void*)0,
-        (void*)&bTune_Markers,  // ИЗМЕРЕНИЯ - НАСТРОИТЬ - Маркеры
-        (void*)&bTune_Settings  // ИЗМЕРЕНИЯ - НАСТРОИТЬ - Настройка
+        (void *)&bTune_Exit,    // ИЗМЕРЕНИЯ - НАСТРОИТЬ - Выход
+        (void *)0,
+        (void *)0,
+        (void *)0,
+        (void *)&bTune_Markers, // ИЗМЕРЕНИЯ - НАСТРОИТЬ - Маркеры
+        (void *)&bTune_Settings // ИЗМЕРЕНИЯ - НАСТРОИТЬ - Настройка
     },
     true, 0, 0, OnRegSet_Tune
 };

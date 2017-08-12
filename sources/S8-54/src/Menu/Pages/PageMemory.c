@@ -145,10 +145,10 @@ const Page pMemory =
     },
     Page_Memory,
     {
-        (void*)&cPoints,    // ПАМЯТЬ - Точки
-        (void*)&ppLast,     // ПАМЯТЬ - Последние
-        (void*)&ppInternal, // ПАМЯТЬ - ВНУТР ЗУ
-        (void*)&ppDrive     // ПАМЯТЬ - ВНЕШН ЗУ
+        (void *)&cPoints,       // ПАМЯТЬ - Точки
+        (void *)&ppLast,        // ПАМЯТЬ - Последние
+        (void *)&ppInternal,    // ПАМЯТЬ - ВНУТР ЗУ
+        (void *)&ppDrive        // ПАМЯТЬ - ВНЕШН ЗУ
     }
 };
 
@@ -174,7 +174,7 @@ static const Choice cPoints =
         {"16к", "16k"}
         //,{"32к", "32k"}
     },
-    (int8*)&FPGA_ENUM_POINTS, OnChanged_Points
+    (int8 *)&FPGA_ENUM_POINTS, OnChanged_Points
 };
 
 static bool IsActive_Points(void)
@@ -235,12 +235,12 @@ static const Page ppLast =
     },
     PageSB_Memory_Last,
     {
-        (void*)&bLast_Exit,         // ПАМЯТЬ - ПОСЛЕДНИЕ - Выход
-        (void*)0,
-        (void*)&bLast_Next,         // ПАМЯТЬ - ПОСЛЕДНИЕ - Следующий
-        (void*)&bLast_Prev,         // ПАМЯТЬ - ПОСЛЕДНИЕ - Предыдущий
-        (void*)&bLast_SaveToROM,    // ПАМЯТЬ - ПОСЛЕДНИЕ - Внутр ЗУ
-        (void*)&bLast_SaveToDrive   // ПАМЯТЬ - ПОСЛЕДНИЕ - Сохранить
+        (void *)&bLast_Exit,        // ПАМЯТЬ - ПОСЛЕДНИЕ - Выход
+        (void *)0,
+        (void *)&bLast_Next,        // ПАМЯТЬ - ПОСЛЕДНИЕ - Следующий
+        (void *)&bLast_Prev,        // ПАМЯТЬ - ПОСЛЕДНИЕ - Предыдущий
+        (void *)&bLast_SaveToROM,   // ПАМЯТЬ - ПОСЛЕДНИЕ - Внутр ЗУ
+        (void *)&bLast_SaveToDrive  // ПАМЯТЬ - ПОСЛЕДНИЕ - Сохранить
     },
     true, OnPress_Last, OnDraw_Last, OnRegSet_Last
 };
@@ -488,14 +488,14 @@ static const Page ppInternal =
     },
     PageSB_Memory_Internal,
     {
-        (void*)&bInternal_Exit,         // ПАМЯТЬ - ВНУТР ЗУ - Выход
-        (void*)&bInternal_ShowAlways,   // ПАМЯТЬ - ВНУТР ЗУ - Показывать всегда
-        (void*)&bInternal_ModeShow,     // ПАМЯТЬ - ВНУТР ЗУ - Вид сигнала
-        //(void*)0,
-        //(void*)&bInternal_EraseAll,
-        (void*)&bInternal_Scale,        // ПАМЯТЬ - ВНУТР ЗУ - Масштаб
-        (void*)&bInternal_SaveToMemory, // ПАМЯТЬ - ВНУТР ЗУ - Сохранить
-        (void*)&bInternal_SaveToDrive   // ПАМЯТЬ - ВНУТР ЗУ - Сохранить на флешку
+        (void *)&bInternal_Exit,            // ПАМЯТЬ - ВНУТР ЗУ - Выход
+        (void *)&bInternal_ShowAlways,      // ПАМЯТЬ - ВНУТР ЗУ - Показывать всегда
+        (void *)&bInternal_ModeShow,        // ПАМЯТЬ - ВНУТР ЗУ - Вид сигнала
+        //(void *)0,
+        //(void *)&bInternal_EraseAll,
+        (void *)&bInternal_Scale,           // ПАМЯТЬ - ВНУТР ЗУ - Масштаб
+        (void *)&bInternal_SaveToMemory,    // ПАМЯТЬ - ВНУТР ЗУ - Сохранить
+        (void *)&bInternal_SaveToDrive      // ПАМЯТЬ - ВНУТР ЗУ - Сохранить на флешку
     },
     true, OnPress_Internal, OnDraw_Internal, OnRegSet_Internal
 };
@@ -680,7 +680,7 @@ static const SButton bInternal_ModeShow =
 
 static void OnPress_Internal_ModeShow(void)
 {
-    CircleIncreaseInt8((int8*)&SHOW_IN_INT, 0, 2);
+    CircleIncreaseInt8((int8 *)&SHOW_IN_INT, 0, 2);
 }
 
 static void Draw_Internal_ModeShow(int x, int y)
@@ -783,7 +783,7 @@ static const SButton bInternal_Scale =
 
 void OnPress_Internal_Scale(void)
 {
-    CircleIncreaseInt8((int8*)&MEM_DATA_SCALE, 0, 1);
+    CircleIncreaseInt8((int8 *)&MEM_DATA_SCALE, 0, 1);
 }
 
 void Draw_Internal_Scale(int x, int y)
@@ -895,12 +895,12 @@ static const Page ppDrive =
     },
     Page_Memory_Drive,
     {
-        (void*)&pppDrive_Manager,       // ПАМЯТЬ - ВНЕШН ЗУ - КАТАЛОГ
-        (void*)&cDrive_Name,            // ПАМЯТЬ - ВНЕШН ЗУ - Имя файла
-        (void*)&pppDrive_Mask,          // Память - ВНЕШН ЗУ - МАСКА
-        (void*)&cDrive_SaveAs,          // ПАМЯТЬ - ВНЕШН ЗУ - Сохранять как
-        (void*)&cDrive_ModeBtnMemory,   // ПАМЯТЬ - ВНЕШН ЗУ - Реж кн ПАМЯТЬ
-        (void*)&cDrive_Autoconnect      // ПАМЯТЬ - ВНЕШН ЗУ - Автоподключение
+        (void *)&pppDrive_Manager,      // ПАМЯТЬ - ВНЕШН ЗУ - КАТАЛОГ
+        (void *)&cDrive_Name,           // ПАМЯТЬ - ВНЕШН ЗУ - Имя файла
+        (void *)&pppDrive_Mask,         // Память - ВНЕШН ЗУ - МАСКА
+        (void *)&cDrive_SaveAs,         // ПАМЯТЬ - ВНЕШН ЗУ - Сохранять как
+        (void *)&cDrive_ModeBtnMemory,  // ПАМЯТЬ - ВНЕШН ЗУ - Реж кн ПАМЯТЬ
+        (void *)&cDrive_Autoconnect     // ПАМЯТЬ - ВНЕШН ЗУ - Автоподключение
     }
 };
 
@@ -923,7 +923,7 @@ static const Choice cDrive_Name =
         {"По маске",    "Mask"},
         {"Вручную",     "Manually"}
     },
-    (int8*)&FILE_NAMING_MODE
+    (int8 *)&FILE_NAMING_MODE
 };
 
 // ПАМЯТЬ - ВНЕШН ЗУ - Сохранять как ---------------------------------------------------------------------------------------------------------------
@@ -943,7 +943,7 @@ static const Choice cDrive_SaveAs =
         {"Изображение",     "Image"},
         {"Текст",           "Text"}
     },
-    (int8*)&MODE_SAVE
+    (int8 *)&MODE_SAVE
 };
 
 // ПАМЯТЬ - ВНЕШН ЗУ - Реж кн ПАМЯТЬ ---------------------------------------------------------------------------------------------------------------
@@ -959,7 +959,7 @@ static const Choice cDrive_ModeBtnMemory =
         {"Меню",            "Menu"},
         {"Сохранение",      "Save"}
     },
-    (int8*)&MODE_BTN_MEMORY
+    (int8 *)&MODE_BTN_MEMORY
 };
 
 // ПАМЯТЬ - ВНЕШН ЗУ - Автоподключение -------------------------------------------------------------------------------------------------------------
@@ -975,7 +975,7 @@ static const Choice cDrive_Autoconnect =
         {DISABLE_RU,    DISABLE_EN},
         {ENABLE_RU,     ENABLE_EN}
     },
-    (int8*)&FLASH_AUTO_CONNECT
+    (int8 *)&FLASH_AUTO_CONNECT
 };
 
 // ПАМЯТЬ - ВНЕШН ЗУ - КАТАЛОГ /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -989,12 +989,12 @@ static const Page pppDrive_Manager =
     },
     PageSB_Memory_Drive_Manager,
     {
-        (void*)&bDrive_Manager_Exit,        // ПАМЯТЬ - ВНЕШН ЗУ - КАТАЛОГ - Выход
-        (void*)&bDrive_Manager_Tab,         // ПАМЯТЬ - ВНЕШН ЗУ - КАТАЛОГ - Tab
-        (void*)0,
-        (void*)0,
-        (void*)&bDrive_Manager_LevelUp,     // ПАМЯТЬ - ВНЕШН ЗУ - КАТАЛОГ - Выйти из каталога
-        (void*)&bDrive_Manager_LevelDown    // ПАМЯТЬ - ВНЕШН ЗУ - КАТАЛОГ - Войти в каталог
+        (void *)&bDrive_Manager_Exit,       // ПАМЯТЬ - ВНЕШН ЗУ - КАТАЛОГ - Выход
+        (void *)&bDrive_Manager_Tab,        // ПАМЯТЬ - ВНЕШН ЗУ - КАТАЛОГ - Tab
+        (void *)0,
+        (void *)0,
+        (void *)&bDrive_Manager_LevelUp,    // ПАМЯТЬ - ВНЕШН ЗУ - КАТАЛОГ - Выйти из каталога
+        (void *)&bDrive_Manager_LevelDown   // ПАМЯТЬ - ВНЕШН ЗУ - КАТАЛОГ - Войти в каталог
     },
     true, OnPress_Drive_Manager, 0, FM_RotateRegSet
 };
@@ -1108,12 +1108,12 @@ static const Page pppDrive_Mask =
     },
     PageSB_Memory_Drive_Mask,
     {
-        (void*)&bDrive_Mask_Exit,       // ПАМЯТЬ - ВНЕШН ЗУ - МАСКА - Выход
-        (void*)&bDrive_Mask_Delete,     // ПАМЯТЬ - ВНЕШН ЗУ - МАСКА - Удалить
-        (void*)0,
-        (void*)0,
-        (void*)&bDrive_Mask_Backspace,  // ПАМЯТЬ - ВНЕШН ЗУ - МАСКА - Backspace
-        (void*)&bDrive_Mask_Insert      // ПАМЯТЬ - ВНЕШН ЗУ - МАСКА - Вставить
+        (void *)&bDrive_Mask_Exit,      // ПАМЯТЬ - ВНЕШН ЗУ - МАСКА - Выход
+        (void *)&bDrive_Mask_Delete,    // ПАМЯТЬ - ВНЕШН ЗУ - МАСКА - Удалить
+        (void *)0,
+        (void *)0,
+        (void *)&bDrive_Mask_Backspace, // ПАМЯТЬ - ВНЕШН ЗУ - МАСКА - Backspace
+        (void *)&bDrive_Mask_Insert     // ПАМЯТЬ - ВНЕШН ЗУ - МАСКА - Вставить
     },
     true, OnPress_Drive_Mask, 0, OnRegSet_Drive_Mask
 };
@@ -1369,12 +1369,12 @@ const Page pSetName =
     },
     PageSB_Memory_SetName,
     {
-        (void*)&bSetName_Exit,          // ВВОД ИМЕНИ ФАЙЛА - Выход
-        (void*)&bSetName_Delete,        // ВВОД ИМЕНИ ФАЙЛА - Удалить
-        (void*)0,
-        (void*)&bSetName_Backspace,     // ВВОД ИМЕНИ ФАЙЛА - Backspace
-        (void*)&bSetName_Insert,        // ВВОД ИМЕНИ ФАЙЛА - Вставить
-        (void*)&bSetName_Save           // ВВОД ИМЕНИ ФАЙЛА - Сохранить
+        (void *)&bSetName_Exit,         // ВВОД ИМЕНИ ФАЙЛА - Выход
+        (void *)&bSetName_Delete,       // ВВОД ИМЕНИ ФАЙЛА - Удалить
+        (void *)0,
+        (void *)&bSetName_Backspace,    // ВВОД ИМЕНИ ФАЙЛА - Backspace
+        (void *)&bSetName_Insert,       // ВВОД ИМЕНИ ФАЙЛА - Вставить
+        (void *)&bSetName_Save          // ВВОД ИМЕНИ ФАЙЛА - Сохранить
     },
     true, 0, 0, OnRegSet_SetName
 };

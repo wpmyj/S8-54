@@ -41,12 +41,12 @@ const Page pTrig =
     },
     Page_Trig,
     {
-        (void*)&cMode,         // СИНХР - Режим
-        (void*)&cSource,       // СИНХР - Источник
-        (void*)&cPolarity,     // СИНХР - Полярность
-        (void*)&cInput,        // СИНХР - Вход
-        (void*)&ppSearch      // СИНХР - ПОИСК
-//        (void*)&gTimeDelay     // СИНХР - Удержание
+        (void *)&cMode,         // СИНХР - Режим
+        (void *)&cSource,       // СИНХР - Источник
+        (void *)&cPolarity,     // СИНХР - Полярность
+        (void *)&cInput,        // СИНХР - Вход
+        (void *)&ppSearch       // СИНХР - ПОИСК
+//        (void *)&gTimeDelay      // СИНХР - Удержание
     }
 };
 
@@ -72,7 +72,7 @@ static const Choice cMode =
         {"Ждущий",      "Wait"},
         {"Однократный", "Single"}
     },
-    (int8*)&START_MODE, OnChanged_TrigMode
+    (int8 *)&START_MODE, OnChanged_TrigMode
 };
 
 void OnChanged_TrigMode(bool active)
@@ -116,7 +116,7 @@ static const Choice cSource =
         {"Канал 2", "Channel 2"},
         {"Внешний", "External"}
     },
-    (int8*)&TRIGSOURCE, OnChanged_Source
+    (int8 *)&TRIGSOURCE, OnChanged_Source
 };
 
 static void OnChanged_Source(bool active)
@@ -141,7 +141,7 @@ static const Choice cPolarity =
         {"Фронт",       "Front"},
         {"Срез",        "Back"}
     },
-    (int8*)&TRIG_POLARITY, OnChanged_Polarity
+    (int8 *)&TRIG_POLARITY, OnChanged_Polarity
 };
 
 static void OnChanged_Polarity(bool active)
@@ -174,7 +174,7 @@ static const Choice cInput =
         {"ФНЧ", "LPF"},
         {"ФВЧ", "HPF"}
     },
-    (int8*)&TRIG_INPUT, OnChanged_Input
+    (int8 *)&TRIG_INPUT, OnChanged_Input
 };
 
 static void OnChanged_Input(bool active)
@@ -192,7 +192,7 @@ static const Governor gTimeDelay =
         "Устанавливает минимальное время между запусками.",
         "Sets the minimum time between starts."
     },
-    (int16*)&TRIG_TIME_DELAY, 45, 10000
+    (int16 *)&TRIG_TIME_DELAY, 45, 10000
 };
 */
 
@@ -207,8 +207,8 @@ static const Page ppSearch =
     },
     Page_Trig_Search,
     {
-        (void*)&cSearch_Mode,       // СИНХР - ПОИСК - Режим
-        (void*)&bSearch_Search      // СИНХР - ПОИСК - Найти
+        (void *)&cSearch_Mode,      // СИНХР - ПОИСК - Режим
+        (void *)&bSearch_Search     // СИНХР - ПОИСК - Найти
     }
 };
 
@@ -236,7 +236,7 @@ static const Choice cSearch_Mode =
         {"Ручной",          "Hand"},
         {"Автоматический",  "Auto"}
     },
-    (int8*)&TRIG_MODE_FIND
+    (int8 *)&TRIG_MODE_FIND
 };
 
 // СИНХР - ПОИСК - Найти -----------------------------------------------------------------------------------------------------------------------------

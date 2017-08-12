@@ -45,7 +45,7 @@ typedef enum
 } Color;
 
 typedef void    (*pFuncVV)(void);
-typedef void    (*pFuncVpV)(void*);
+typedef void    (*pFuncVpV)(void *);
 typedef bool    (*pFuncBV)(void);
 typedef void    (*pFuncVB)(bool);
 typedef void    (*pFuncVI)(int);

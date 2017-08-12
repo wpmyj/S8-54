@@ -1414,19 +1414,15 @@ float CalcAve(uint16 *data, Range range, uint16 rShift)
 //----------------------------------------------------------------------------------------------------------------------------------------------------
 static void CountedRange(Channel ch)
 {
-    uint8 *in = 0;
-    uint16 *out = 0;
     Range rangeIn = RANGE_DS(ch);
     Range rangeOut = SET_RANGE(ch);
     int rShiftIn = RSHIFT_DS(ch);
     int rShiftOut = SET_RSHIFT(ch);
+    
+    uint8 *in = dataInA;
+    uint16 *out = (uint16 *)OUT_A;
 
-    if (ch == A)
-    {
-        in = dataInA;
-        out = (uint16 *)OUT_A;
-    }
-    else
+    if(ch == B)
     {
         in = dataInB;
         out = (uint16 *)OUT_B;

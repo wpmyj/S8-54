@@ -32,7 +32,7 @@ static void DrawPageContent(void)
 
     while(currentPage->pages[numPage])
     {
-        Page *page = (Page*)currentPage->pages[numPage];
+        Page *page = (Page *)currentPage->pages[numPage];
         const char *title = page->titleHint[LANG];
         if(currentParagraph == numPage)
         {

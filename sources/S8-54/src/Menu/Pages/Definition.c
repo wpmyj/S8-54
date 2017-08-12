@@ -29,17 +29,17 @@ const Page mainPage =
     },
     Page_Main,
     {
-        (void*)&pDisplay,   // ƒ»—œÀ≈…
-        (void*)&pChanA,     //  ¿Õ¿À 1
-        (void*)&pChanB,     //  ¿Õ¿À 2
-        (void*)&pTrig,      // —»Õ’–
-        (void*)&pTime,      // –¿«¬≈–“ ¿
-        (void*)&pCursors,   //  ”–—Œ–€
-        (void*)&pMemory,    // œ¿Ãﬂ“‹
-        (void*)&pMeasures,  // »«Ã≈–≈Õ»ﬂ
-        (void*)&pService,   // —≈–¬»—
-        (void*)&pHelp,      // œŒÃŒŸ‹
-        (void*)&pDebug      // Œ“À¿ƒ ¿
+        (void *)&pDisplay,  // ƒ»—œÀ≈…
+        (void *)&pChanA,    //  ¿Õ¿À 1
+        (void *)&pChanB,    //  ¿Õ¿À 2
+        (void *)&pTrig,     // —»Õ’–
+        (void *)&pTime,     // –¿«¬≈–“ ¿
+        (void *)&pCursors,  //  ”–—Œ–€
+        (void *)&pMemory,   // œ¿Ãﬂ“‹
+        (void *)&pMeasures, // »«Ã≈–≈Õ»ﬂ
+        (void *)&pService,  // —≈–¬»—
+        (void *)&pHelp,     // œŒÃŒŸ‹
+        (void *)&pDebug     // Œ“À¿ƒ ¿
     }
 };
 
@@ -48,18 +48,18 @@ const void *PageForButton(PanelButton button)
 {
     static const void *pages[] = {  
         0,                  // B_Empty
-        (void*)&pChanA,     // B_Channel1
-        (void*)&pService,   // B_Service
-        (void*)&pChanB,     // B_Channel2
-        (void*)&pDisplay,   // B_Display
-        (void*)&pTime,      // B_Time
-        (void*)&pMemory,    // B_Memory
-        (void*)&pTrig,      // B_Trig
+        (void *)&pChanA,    // B_Channel1
+        (void *)&pService,  // B_Service
+        (void *)&pChanB,    // B_Channel2
+        (void *)&pDisplay,  // B_Display
+        (void *)&pTime,     // B_Time
+        (void *)&pMemory,   // B_Memory
+        (void *)&pTrig,     // B_Trig
         0,                  // B_Start
-        (void*)&pCursors,   // B_Cursors
-        (void*)&pMeasures,  // B_Measures
+        (void *)&pCursors,  // B_Cursors
+        (void *)&pMeasures, // B_Measures
         0,                  // B_Power
-        (void*)&pHelp,      // B_Help
+        (void *)&pHelp,     // B_Help
         0,                  // B_Menu
         0,                  // B_F1
         0,                  // B_F2

@@ -120,12 +120,12 @@ const Page pHelp =
     },
     PageSB_Help, 
     {
-        (void*)&sbExitHelp,
-        (void*)&sbHelpParagraphEnter,
-        (void*)&sbHelpParagraphLeave,
-        (void*)0,
-        (void*)&sbHelpParagraphPrev,
-        (void*)&sbHelpParagraphNext
+        (void *)&sbExitHelp,
+        (void *)&sbHelpParagraphEnter,
+        (void *)&sbHelpParagraphLeave,
+        (void *)0,
+        (void *)&sbHelpParagraphPrev,
+        (void *)&sbHelpParagraphNext
     },  
     true, 0, HelpContent_Draw, OnHelpRegSet
 };

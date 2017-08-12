@@ -14,13 +14,13 @@
 /// Нарисовать меню
 void Menu_Draw(void);
 /// Возвращает адрес элемента меню, соответствующего данной button
-void* ItemUnderButton(PanelButton button);
+void *ItemUnderButton(PanelButton button);
 /// Возвращает true, если кнопка, соответствующая элементу меню item, находится в нажатом положении
-bool IsPressed(void* item                   ///< Указатель на элемент меню
+bool IsPressed(void *item                   ///< Указатель на элемент меню
                 );
 /// @brief Возвращает true, если элемент меню item затенён (находится не на самом верхнем слое. Как правило, это означает, что раскрыт раскрывающийся элемент 
 /// меню вроде Choice или Governor
-bool IsShade(void* item                     ///< Указатель на элемент меню
+bool IsShade(void *item                     ///< Указатель на элемент меню
             );
 
 /** @}  @}

@@ -143,18 +143,18 @@ const Page pDebug =
     },
     Page_Debug,
     {
-        (void*)&ppConsole,              // Œ“À¿ƒ ¿ -  ŒÕ—ŒÀ‹
-        (void*)&ppADC,                  // Œ“À¿ƒ ¿ - ¿÷œ
-        (void*)&ppRand,                 // Œ“À¿ƒ ¿ - –¿Õƒ-“Œ–
-        (void*)&ppChannels,             // Œ“À¿ƒ ¿ -  ¿Õ¿À€
-        (void*)&cStats,                 // Œ“À¿ƒ ¿ - —Ú‡ÚËÒÚËÍ‡
-        (void*)&cDisplayOrientation,    // Œ“À¿ƒ ¿ - ŒËÂÌÚ‡ˆËˇ
-        (void*)&cEMS,                   // Œ“À¿ƒ ¿ - –ÂÊËÏ ›Ã—
-        (void*)&mgPred,                 // Œ“À¿ƒ ¿ - œÂ‰Á‡ÔÛÒÍ
-        (void*)&mgPost,                 // Œ“À¿ƒ ¿ - œÓÒÎÂÁ‡ÔÛÒÍ
-        (void*)&ppSettings,             // Œ“À¿ƒ ¿ - Õ¿—“–Œ… »
-        (void*)&bSaveFirmware,          // Œ“À¿ƒ ¿ - —Óı. ÔÓ¯Ë‚ÍÛ
-        (void*)&ppSerialNumber          // Œ“À¿ƒ ¿ - —/Õ
+        (void *)&ppConsole,             // Œ“À¿ƒ ¿ -  ŒÕ—ŒÀ‹
+        (void *)&ppADC,                 // Œ“À¿ƒ ¿ - ¿÷œ
+        (void *)&ppRand,			    // Œ“À¿ƒ ¿ - –¿Õƒ-“Œ–
+        (void *)&ppChannels,		    // Œ“À¿ƒ ¿ -  ¿Õ¿À€
+        (void *)&cStats,			    // Œ“À¿ƒ ¿ - —Ú‡ÚËÒÚËÍ‡
+        (void *)&cDisplayOrientation,   // Œ“À¿ƒ ¿ - ŒËÂÌÚ‡ˆËˇ
+        (void *)&cEMS,                  // Œ“À¿ƒ ¿ - –ÂÊËÏ ›Ã—
+        (void *)&mgPred,			    // Œ“À¿ƒ ¿ - œÂ‰Á‡ÔÛÒÍ
+        (void *)&mgPost,			    // Œ“À¿ƒ ¿ - œÓÒÎÂÁ‡ÔÛÒÍ
+        (void *)&ppSettings,		    // Œ“À¿ƒ ¿ - Õ¿—“–Œ… »
+        (void *)&bSaveFirmware,         // Œ“À¿ƒ ¿ - —Óı. ÔÓ¯Ë‚ÍÛ
+        (void *)&ppSerialNumber         // Œ“À¿ƒ ¿ - —/Õ
     }
 };
 
@@ -169,11 +169,11 @@ static const Page ppConsole =
     },
     Page_Debug_Console,
     {
-        (void*)&gConsole_NumStrings,    // Œ“À¿ƒ ¿ -  ŒÕ—ŒÀ‹ - ◊ËÒÎÓ ÒÚÓÍ
-        (void*)&cConsole_SizeFont,      // Œ“À¿ƒ ¿ -  ŒÕ—ŒÀ‹ - –‡ÁÏÂ ¯ËÙÚ‡
-        (void*)&cConsole_ModeStop,      // Œ“À¿ƒ ¿ -  ŒÕ—ŒÀ‹ - –ÂÊ. ÓÒÚ‡ÌÓ‚‡
-        (void*)&pppConsole_Registers,   // Œ“À¿ƒ ¿ -  ŒÕ—ŒÀ‹ - –≈√»—“–€
-        (void*)&bConsole_SizeSettings   // Œ“À¿ƒ ¿ -  ŒÕ—ŒÀ‹ - –‡ÁÏÂ Ì‡ÒÚÓÂÍ
+        (void *)&gConsole_NumStrings,   // Œ“À¿ƒ ¿ -  ŒÕ—ŒÀ‹ - ◊ËÒÎÓ ÒÚÓÍ
+        (void *)&cConsole_SizeFont,     // Œ“À¿ƒ ¿ -  ŒÕ—ŒÀ‹ - –‡ÁÏÂ ¯ËÙÚ‡
+        (void *)&cConsole_ModeStop,     // Œ“À¿ƒ ¿ -  ŒÕ—ŒÀ‹ - –ÂÊ. ÓÒÚ‡ÌÓ‚‡
+        (void *)&pppConsole_Registers,  // Œ“À¿ƒ ¿ -  ŒÕ—ŒÀ‹ - –≈√»—“–€
+        (void *)&bConsole_SizeSettings  // Œ“À¿ƒ ¿ -  ŒÕ—ŒÀ‹ - –‡ÁÏÂ Ì‡ÒÚÓÂÍ
 
     }
 };
@@ -219,7 +219,7 @@ static const Choice cConsole_ModeStop =
         {DISABLE_RU, DISABLE_EN},
         {ENABLE_RU, ENABLE_EN}
     },
-    (int8*)&set.dbg_ModePauseConsole
+    (int8 *)&set.dbg_ModePauseConsole
 };
 
 // Œ“À¿ƒ ¿ -  ŒÕ—ŒÀ‹ - –≈√»—“–€ //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -233,18 +233,18 @@ static const Page pppConsole_Registers =
     },
     Page_Debug_Console_Registers,
     {
-        (void*)&cConsole_Registers_ShowAll,      // Œ“À¿ƒ ¿ -  ŒÕ—ŒÀ‹ - –≈√»—“–€ - œÓÍ‡Á˚‚‡Ú¸ ‚ÒÂ
-        (void*)&cConsole_Registers_RD_FL,        // Œ“À¿ƒ ¿ -  ŒÕ—ŒÀ‹ - –≈√»—“–€ - RD_FL
-        (void*)&cConsole_Registers_RShiftA,      // Œ“À¿ƒ ¿ -  ŒÕ—ŒÀ‹ - –≈√»—“–€ - U ÒÏ. 1Í
-        (void*)&cConsole_Registers_RShiftB,      // Œ“À¿ƒ ¿ -  ŒÕ—ŒÀ‹ - –≈√»—“–€ - U ÒÏ. 2Í
-        (void*)&cConsole_Registers_TrigLev,      // Œ“À¿ƒ ¿ -  ŒÕ—ŒÀ‹ - –≈√»—“–€ - U ÒËÌı
-        (void*)&cConsole_Registers_RangeA,       // Œ“À¿ƒ ¿ -  ŒÕ—ŒÀ‹ - –≈√»—“–€ - ¬ŒÀ‹“/ƒ≈À 1
-        (void*)&cConsole_Registers_RangeB,       // Œ“À¿ƒ ¿ -  ŒÕ—ŒÀ‹ - –≈√»—“–€ - ¬ŒÀ‹“/ƒ≈À 2
-        (void*)&cConsole_Registers_TrigParam,    // Œ“À¿ƒ ¿ -  ŒÕ—ŒÀ‹ - –≈√»—“–€ - œ‡‡Ï. ÒËÌı.
-        (void*)&cConsole_Registers_ChanParamA,   // Œ“À¿ƒ ¿ -  ŒÕ—ŒÀ‹ - –≈√»—“–€ - œ‡‡Ï. Í‡Ì. 1
-        (void*)&cConsole_Registers_ChanParamB,   // Œ“À¿ƒ ¿ -  ŒÕ—ŒÀ‹ - –≈√»—“–€ - œ‡‡Ï. Í‡Ì. 2
-        (void*)&cConsole_Registers_TBase,        // Œ“À¿ƒ ¿ -  ŒÕ—ŒÀ‹ - –≈√»—“–€ - ¬–≈Ãﬂ/ƒ≈À
-        (void*)&cConsole_Registers_TShift        // Œ“À¿ƒ ¿ -  ŒÕ—ŒÀ‹ - –≈√»—“–€ - “ ÒÏ.
+        (void *)&cConsole_Registers_ShowAll,    // Œ“À¿ƒ ¿ -  ŒÕ—ŒÀ‹ - –≈√»—“–€ - œÓÍ‡Á˚‚‡Ú¸ ‚ÒÂ
+        (void *)&cConsole_Registers_RD_FL,      // Œ“À¿ƒ ¿ -  ŒÕ—ŒÀ‹ - –≈√»—“–€ - RD_FL
+        (void *)&cConsole_Registers_RShiftA,    // Œ“À¿ƒ ¿ -  ŒÕ—ŒÀ‹ - –≈√»—“–€ - U ÒÏ. 1Í
+        (void *)&cConsole_Registers_RShiftB,    // Œ“À¿ƒ ¿ -  ŒÕ—ŒÀ‹ - –≈√»—“–€ - U ÒÏ. 2Í
+        (void *)&cConsole_Registers_TrigLev,    // Œ“À¿ƒ ¿ -  ŒÕ—ŒÀ‹ - –≈√»—“–€ - U ÒËÌı
+        (void *)&cConsole_Registers_RangeA,     // Œ“À¿ƒ ¿ -  ŒÕ—ŒÀ‹ - –≈√»—“–€ - ¬ŒÀ‹“/ƒ≈À 1
+        (void *)&cConsole_Registers_RangeB,     // Œ“À¿ƒ ¿ -  ŒÕ—ŒÀ‹ - –≈√»—“–€ - ¬ŒÀ‹“/ƒ≈À 2
+        (void *)&cConsole_Registers_TrigParam,  // Œ“À¿ƒ ¿ -  ŒÕ—ŒÀ‹ - –≈√»—“–€ - œ‡‡Ï. ÒËÌı.
+        (void *)&cConsole_Registers_ChanParamA, // Œ“À¿ƒ ¿ -  ŒÕ—ŒÀ‹ - –≈√»—“–€ - œ‡‡Ï. Í‡Ì. 1
+        (void *)&cConsole_Registers_ChanParamB, // Œ“À¿ƒ ¿ -  ŒÕ—ŒÀ‹ - –≈√»—“–€ - œ‡‡Ï. Í‡Ì. 2
+        (void *)&cConsole_Registers_TBase,      // Œ“À¿ƒ ¿ -  ŒÕ—ŒÀ‹ - –≈√»—“–€ - ¬–≈Ãﬂ/ƒ≈À
+        (void *)&cConsole_Registers_TShift      // Œ“À¿ƒ ¿ -  ŒÕ—ŒÀ‹ - –≈√»—“–€ - “ ÒÏ.
     }
 };
 
@@ -261,7 +261,7 @@ static const Choice cConsole_Registers_ShowAll =
         {"ÕÂÚ", "No"},
         {"ƒ‡", "Yes"}
     },
-    (int8*)&DBG_SHOW_ALL
+    (int8 *)&DBG_SHOW_ALL
 };
 
 // Œ“À¿ƒ ¿ -  ŒÕ—ŒÀ‹ - –≈√»—“–€ - RD_FL --------------------------------------------------------------------------------------------------------------
@@ -277,7 +277,7 @@ static const Choice cConsole_Registers_RD_FL =
         {DISABLE_RU, DISABLE_EN},
         {ENABLE_RU, ENABLE_EN}
     },
-    (int8*)&DBG_SHOW_FLAG
+    (int8 *)&DBG_SHOW_FLAG
 };
 
 static bool IsActive_Console_Registers(void)
@@ -298,7 +298,7 @@ static const Choice cConsole_Registers_RShiftA =
         {DISABLE_RU, DISABLE_EN},
         {ENABLE_RU, ENABLE_EN}
     },
-    (int8*)&set.dbg_ShowRShift[A]
+    (int8 *)&set.dbg_ShowRShift[A]
 };
 
 // Œ“À¿ƒ ¿ -  ŒÕ—ŒÀ‹ - –≈√»—“–€ - U ÒÏ. 2Í -----------------------------------------------------------------------------------------------------------
@@ -314,7 +314,7 @@ static const Choice cConsole_Registers_RShiftB =
         {DISABLE_RU, DISABLE_EN},
         {ENABLE_RU, ENABLE_EN}
     },
-    (int8*)&set.dbg_ShowRShift[B]
+    (int8 *)&set.dbg_ShowRShift[B]
 };
 
 // Œ“À¿ƒ ¿ -  ŒÕ—ŒÀ‹ - –≈√»—“–€ - U ÒËÌı. -----------------------------------------------------------------------------------------------------------
@@ -330,7 +330,7 @@ static const Choice cConsole_Registers_TrigLev =
         {DISABLE_RU, DISABLE_EN},
         {ENABLE_RU, ENABLE_EN}
     },
-    (int8*)&set.dbg_ShowTrigLev
+    (int8 *)&set.dbg_ShowTrigLev
 };
 
 // Œ“À¿ƒ ¿ -  ŒÕ—ŒÀ‹ - –≈√»—“–€ - ¬ŒÀ‹“/ƒ≈À 1 --------------------------------------------------------------------------------------------------------
@@ -346,7 +346,7 @@ static const Choice cConsole_Registers_RangeA =
         {DISABLE_RU, DISABLE_EN},
         {ENABLE_RU, ENABLE_EN}
     },
-    (int8*)&set.dbg_ShowRange[A]
+    (int8 *)&set.dbg_ShowRange[A]
 };
 
 // Œ“À¿ƒ ¿ -  ŒÕ—ŒÀ‹ - –≈√»—“–€ - ¬ŒÀ‹“/ƒ≈À 2 --------------------------------------------------------------------------------------------------------
@@ -362,7 +362,7 @@ static const Choice cConsole_Registers_RangeB =
         {DISABLE_RU, DISABLE_EN},
         {ENABLE_RU, ENABLE_EN}
     },
-    (int8*)&set.dbg_ShowRange[B]
+    (int8 *)&set.dbg_ShowRange[B]
 };
 
 // Œ“À¿ƒ ¿ -  ŒÕ—ŒÀ‹ - –≈√»—“–€ - œ‡‡Ï. ÒËÌı. ------------------------------------------------------------------------------------------------------
@@ -378,7 +378,7 @@ static const Choice cConsole_Registers_TrigParam =
         {DISABLE_RU, DISABLE_EN},
         {ENABLE_RU, ENABLE_EN}
     },
-    (int8*)&set.dbg_ShowTrigParam
+    (int8 *)&set.dbg_ShowTrigParam
 };
 
 // Œ“À¿ƒ ¿ -  ŒÕ—ŒÀ‹ - –≈√»—“–€ - œ‡‡Ï. Í‡Ì. 2 ------------------------------------------------------------------------------------------------------
@@ -394,7 +394,7 @@ static const Choice cConsole_Registers_ChanParamA =
         {DISABLE_RU, DISABLE_EN},
         {ENABLE_RU, ENABLE_EN}
     },
-    (int8*)&set.dbg_ShowChanParam[A]
+    (int8 *)&set.dbg_ShowChanParam[A]
 };
 
 // Œ“À¿ƒ ¿ -  ŒÕ—ŒÀ‹ - –≈√»—“–€ - œ‡‡Ï. Í‡Ì. 2 ------------------------------------------------------------------------------------------------------
@@ -410,7 +410,7 @@ static const Choice cConsole_Registers_ChanParamB =
         {DISABLE_RU, DISABLE_EN},
         {ENABLE_RU, ENABLE_EN}
     },
-    (int8*)&set.dbg_ShowChanParam[B]
+    (int8 *)&set.dbg_ShowChanParam[B]
 };
 
 // Œ“À¿ƒ ¿ -  ŒÕ—ŒÀ‹ - –≈√»—“–€ - ¬–≈Ãﬂ/ƒ≈À ----------------------------------------------------------------------------------------------------------
@@ -426,7 +426,7 @@ static const Choice cConsole_Registers_TBase =
         {DISABLE_RU, DISABLE_EN},
         {ENABLE_RU, ENABLE_EN}
     },
-    (int8*)&set.dbg_ShowTBase
+    (int8 *)&set.dbg_ShowTBase
 };
 
 // Œ“À¿ƒ ¿ -  ŒÕ—ŒÀ‹ - –≈√»—“–€ - “ ÒÏ. --------------------------------------------------------------------------------------------------------------
@@ -442,7 +442,7 @@ static const Choice cConsole_Registers_TShift =
         {DISABLE_RU, DISABLE_EN},
         {ENABLE_RU, ENABLE_EN}
     },
-    (int8*)&set.dbg_ShowTShift
+    (int8 *)&set.dbg_ShowTShift
 };
 
 // Œ“À¿ƒ ¿ -  ŒÕ—ŒÀ‹ - –‡ÁÏÂ Ì‡ÒÚÓÂÍ ---------------------------------------------------------------------------------------------------------------
@@ -475,9 +475,9 @@ static const Page ppADC =
     },
     Page_Debug_ADC,
     {
-        (void*)&pppADC_Balance,     // Œ“À¿ƒ ¿ - ¿÷œ - ¡¿À¿Õ—
-        (void*)&pppADC_Stretch,     // Œ“À¿ƒ ¿ - ¿÷œ - –¿—“ﬂ∆ ¿
-        (void*)&pppADC_Shift        // Œ“À¿ƒ ¿ - ¿÷œ - ƒŒœ —Ã≈Ÿ
+        (void *)&pppADC_Balance,    // Œ“À¿ƒ ¿ - ¿÷œ - ¡¿À¿Õ—
+        (void *)&pppADC_Stretch,    // Œ“À¿ƒ ¿ - ¿÷œ - –¿—“ﬂ∆ ¿
+        (void *)&pppADC_Shift       // Œ“À¿ƒ ¿ - ¿÷œ - ƒŒœ —Ã≈Ÿ
     }
 };
 
@@ -492,9 +492,9 @@ static const Page pppADC_Balance =
     },
     Page_Debug_ADC_Balance,
     {
-        (void*)&cADC_Balance_Mode,   // Œ“À¿ƒ ¿ - ¿÷œ - ¡¿À¿Õ— - –ÂÊËÏ
-        (void*)&gADC_Balance_ShiftA, // Œ“À¿ƒ ¿ - ¿÷œ - ¡¿À¿Õ— - —ÏÂ˘ÂÌËÂ 1
-        (void*)&gADC_Balance_ShiftB  // Œ“À¿ƒ ¿ - ¿÷œ - ¡¿À¿Õ— - —ÏÂ˘ÂÌËÂ 2
+        (void *)&cADC_Balance_Mode,     // Œ“À¿ƒ ¿ - ¿÷œ - ¡¿À¿Õ— - –ÂÊËÏ
+        (void *)&gADC_Balance_ShiftA,   // Œ“À¿ƒ ¿ - ¿÷œ - ¡¿À¿Õ— - —ÏÂ˘ÂÌËÂ 1
+        (void *)&gADC_Balance_ShiftB    // Œ“À¿ƒ ¿ - ¿÷œ - ¡¿À¿Õ— - —ÏÂ˘ÂÌËÂ 2
     }
 };
 
@@ -512,7 +512,7 @@ static const Choice cADC_Balance_Mode =
         {"–Â‡Î¸Ì˚È", "Real"},
         {"–Û˜ÌÓÈ", "Manual"}
     },
-    (int8*)&NRST_BALANCE_ADC_TYPE, OnChanged_ADC_Balance_Mode, Draw_ADC_Balance_Mode
+    (int8 *)&NRST_BALANCE_ADC_TYPE, OnChanged_ADC_Balance_Mode, Draw_ADC_Balance_Mode
 };
 
 static void OnChanged_ADC_Balance_Mode(bool active)
@@ -587,21 +587,21 @@ static const Page pppADC_Stretch =
     },
     Page_Debug_ADC_Stretch,
     {
-        (void*)&cADC_Stretch_Mode,      // Œ“À¿ƒ ¿ - ¿÷œ - –¿—“ﬂ∆ ¿ - –ÂÊËÏ
-        (void*)&gADC_Stretch_A,         // Œ“À¿ƒ ¿ - ¿÷œ - –¿—“ﬂ∆ ¿ - –‡ÒÚˇÊÍ‡ 1Í
-        (void*)&gADC_Stretch_B,         // Œ“À¿ƒ ¿ - ¿÷œ - –¿—“ﬂ∆ ¿ - –‡ÒÚˇÊÍ‡ 2Í
-        (void*)&emptyChoice,
-        (void*)&emptyChoice,
-        (void*)&gADC_Stretch_Ak20mV,    // Œ“À¿ƒ ¿ - ¿÷œ - –¿—“ﬂ∆ ¿ - 20Ï¬/1¬ 1Í
-        (void*)&gADC_Stretch_Ak50mV,    // Œ“À¿ƒ ¿ - ¿÷œ - –¿—“ﬂ∆ ¿ - 50Ï¬ 1Í 
-        (void*)&gADC_Stretch_Ak100mV,   // Œ“À¿ƒ ¿ - ¿÷œ - –¿—“ﬂ∆ ¿ - 100Ï¬/5¬ 1Í
-        (void*)&gADC_Stretch_Ak2V,      // Œ“À¿ƒ ¿ - A÷œ - –¿—“ﬂ∆ ¿ - 2¬ 1Í
-        (void*)&emptyChoice,
-        (void*)&gADC_Stretch_Bk20mV,    // Œ“À¿ƒ ¿ - ¿÷œ - –¿—“ﬂ∆ ¿ - 20Ï¬/1¬ 2Í
-        (void*)&gADC_Stretch_Bk50mV,    // Œ“À¿ƒ ¿ - ¿÷œ - –¿—“ﬂ∆ ¿ - 50Ï¬ 2Í 
-        (void*)&gADC_Stretch_Bk100mV,   // Œ“À¿ƒ ¿ - ¿÷œ - –¿—“ﬂ∆ ¿ - 100Ï¬/5¬ 2Í
-        (void*)&gADC_Stretch_Bk2V,      // Œ“À¿ƒ ¿ - ¿÷œ - –¿—“ﬂ∆ ¿ - 2¬ 2Í
-        (void*)&emptyChoice
+        (void *)&cADC_Stretch_Mode,     // Œ“À¿ƒ ¿ - ¿÷œ - –¿—“ﬂ∆ ¿ - –ÂÊËÏ
+        (void *)&gADC_Stretch_A,        // Œ“À¿ƒ ¿ - ¿÷œ - –¿—“ﬂ∆ ¿ - –‡ÒÚˇÊÍ‡ 1Í
+        (void *)&gADC_Stretch_B,        // Œ“À¿ƒ ¿ - ¿÷œ - –¿—“ﬂ∆ ¿ - –‡ÒÚˇÊÍ‡ 2Í
+        (void *)&emptyChoice,
+        (void *)&emptyChoice,
+        (void *)&gADC_Stretch_Ak20mV,   // Œ“À¿ƒ ¿ - ¿÷œ - –¿—“ﬂ∆ ¿ - 20Ï¬/1¬ 1Í
+        (void *)&gADC_Stretch_Ak50mV,   // Œ“À¿ƒ ¿ - ¿÷œ - –¿—“ﬂ∆ ¿ - 50Ï¬ 1Í 
+        (void *)&gADC_Stretch_Ak100mV,  // Œ“À¿ƒ ¿ - ¿÷œ - –¿—“ﬂ∆ ¿ - 100Ï¬/5¬ 1Í
+        (void *)&gADC_Stretch_Ak2V,     // Œ“À¿ƒ ¿ - A÷œ - –¿—“ﬂ∆ ¿ - 2¬ 1Í
+        (void *)&emptyChoice,
+        (void *)&gADC_Stretch_Bk20mV,   // Œ“À¿ƒ ¿ - ¿÷œ - –¿—“ﬂ∆ ¿ - 20Ï¬/1¬ 2Í
+        (void *)&gADC_Stretch_Bk50mV,   // Œ“À¿ƒ ¿ - ¿÷œ - –¿—“ﬂ∆ ¿ - 50Ï¬ 2Í 
+        (void *)&gADC_Stretch_Bk100mV,  // Œ“À¿ƒ ¿ - ¿÷œ - –¿—“ﬂ∆ ¿ - 100Ï¬/5¬ 2Í
+        (void *)&gADC_Stretch_Bk2V,     // Œ“À¿ƒ ¿ - ¿÷œ - –¿—“ﬂ∆ ¿ - 2¬ 2Í
+        (void *)&emptyChoice
     }
 };
 
@@ -620,7 +620,7 @@ static const Choice cADC_Stretch_Mode =
         {"–Â‡Î¸Ì˚È", "Real"},
         {"–Û˜ÌÓÈ", "Manual"}
     },
-    (int8*)&NRST_STRETCH_ADC_TYPE, OnChanged_ADC_Stretch_Mode
+    (int8 *)&NRST_STRETCH_ADC_TYPE, OnChanged_ADC_Stretch_Mode
 };
 
 static int16 stretchA;
@@ -794,13 +794,13 @@ static const Page pppADC_Shift =
     },
     Page_Debug_ADC_Shift,
     {
-        (void*)&bADC_Shift_Reset,    // Œ“À¿ƒ ¿ - ¿÷œ - ƒŒœ —Ã≈Ÿ - —·ÓÒ
-        (void*)&gADC_Shift_A2mV,     // Œ“À¿ƒ ¿ - ¿÷œ - ƒŒœ —Ã≈Ÿ - —Ï 1Í 2Ï¬ ÔÓÒÚ
-        (void*)&gADC_Shift_B2mV,     // Œ“À¿ƒ ¿ - ¿÷œ - ƒŒœ —Ã≈Ÿ - —Ï 2Í 2Ï¬ ÔÓÒÚ
-        (void*)&gADC_Shift_A5mV,     // Œ“À¿ƒ ¿ - ¿÷œ - ƒŒœ —Ã≈Ÿ - —Ï 1Í 5Ï¬ ÔÓÒÚ
-        (void*)&gADC_Shift_B5mV,     // Œ“À¿ƒ ¿ - ¿÷œ - ƒŒœ —Ã≈Ÿ - —Ï 2Í 5Ï¬ ÔÓÒÚ
-        (void*)&gADC_Shift_A10mV,    // Œ“À¿ƒ ¿ - ¿÷œ - ƒŒœ —Ã≈Ÿ - —Ï 1Í 10Ï¬ ÔÓÒÚ
-        (void*)&gADC_Shift_B10mV     // Œ“À¿ƒ ¿ - ¿÷œ - ƒŒœ —Ã≈Ÿ - —Ï 2Í 10Ï¬ ÔÓÒÚ
+        (void *)&bADC_Shift_Reset,  // Œ“À¿ƒ ¿ - ¿÷œ - ƒŒœ —Ã≈Ÿ - —·ÓÒ
+        (void *)&gADC_Shift_A2mV,   // Œ“À¿ƒ ¿ - ¿÷œ - ƒŒœ —Ã≈Ÿ - —Ï 1Í 2Ï¬ ÔÓÒÚ
+        (void *)&gADC_Shift_B2mV,   // Œ“À¿ƒ ¿ - ¿÷œ - ƒŒœ —Ã≈Ÿ - —Ï 2Í 2Ï¬ ÔÓÒÚ
+        (void *)&gADC_Shift_A5mV,   // Œ“À¿ƒ ¿ - ¿÷œ - ƒŒœ —Ã≈Ÿ - —Ï 1Í 5Ï¬ ÔÓÒÚ
+        (void *)&gADC_Shift_B5mV,   // Œ“À¿ƒ ¿ - ¿÷œ - ƒŒœ —Ã≈Ÿ - —Ï 2Í 5Ï¬ ÔÓÒÚ
+        (void *)&gADC_Shift_A10mV,  // Œ“À¿ƒ ¿ - ¿÷œ - ƒŒœ —Ã≈Ÿ - —Ï 1Í 10Ï¬ ÔÓÒÚ
+        (void *)&gADC_Shift_B10mV   // Œ“À¿ƒ ¿ - ¿÷œ - ƒŒœ —Ã≈Ÿ - —Ï 2Í 10Ï¬ ÔÓÒÚ
     }
 };
 
@@ -841,7 +841,7 @@ static const Governor gADC_Shift_A2mV =
         "",
         ""
     },
-    (int16*)(&NRST_RSHIFT_ADD_A(Range_2mV, ModeCouple_DC)), -100, 100, OnChanged_ADC_Shift_A
+    (int16 *)(&NRST_RSHIFT_ADD_A(Range_2mV, ModeCouple_DC)), -100, 100, OnChanged_ADC_Shift_A
 };
 
 static void OnChanged_ADC_Shift_A(void)
@@ -858,7 +858,7 @@ static const Governor gADC_Shift_B2mV =
         "",
         ""
     },
-    (int16*)(&NRST_RSHIFT_ADD_B(Range_2mV, ModeCouple_DC)), -100, 100, OnChanged_ADC_Shift_B
+    (int16 *)(&NRST_RSHIFT_ADD_B(Range_2mV, ModeCouple_DC)), -100, 100, OnChanged_ADC_Shift_B
 };
 
 static void OnChanged_ADC_Shift_B(void)
@@ -875,7 +875,7 @@ static const Governor gADC_Shift_A5mV =
         "",
         ""
     },
-    (int16*)(&NRST_RSHIFT_ADD_A(Range_5mV, ModeCouple_DC)), -100, 100, OnChanged_ADC_Shift_A
+    (int16 *)(&NRST_RSHIFT_ADD_A(Range_5mV, ModeCouple_DC)), -100, 100, OnChanged_ADC_Shift_A
 };
 
 // Œ“À¿ƒ ¿ - ¿÷œ - ƒŒœ —Ã≈Ÿ - —Ï 2Í 5Ï¬ ÔÓÒÚ ---------------------------------------------------------------------------------------------------------
@@ -887,7 +887,7 @@ static const Governor gADC_Shift_B5mV =
         "",
         ""
     },
-    (int16*)(&NRST_RSHIFT_ADD_B(Range_5mV, ModeCouple_DC)), -100, 100, OnChanged_ADC_Shift_B
+    (int16 *)(&NRST_RSHIFT_ADD_B(Range_5mV, ModeCouple_DC)), -100, 100, OnChanged_ADC_Shift_B
 };
 
 // Œ“À¿ƒ ¿ - ¿÷œ - ƒŒœ —Ã≈Ÿ - —Ï 1Í 10Ï¬ ÔÓÒÚ --------------------------------------------------------------------------------------------------------
@@ -899,7 +899,7 @@ static const Governor gADC_Shift_A10mV =
         "",
         ""
     },
-    (int16*)(&NRST_RSHIFT_ADD_A(Range_10mV, ModeCouple_DC)), -100, 100, OnChanged_ADC_Shift_A
+    (int16 *)(&NRST_RSHIFT_ADD_A(Range_10mV, ModeCouple_DC)), -100, 100, OnChanged_ADC_Shift_A
 };
 
 // Œ“À¿ƒ ¿ - ¿÷œ - ƒŒœ —Ã≈Ÿ - —Ï 2Í 10Ï¬ ÔÓÒÚ --------------------------------------------------------------------------------------------------------
@@ -911,7 +911,7 @@ static const Governor gADC_Shift_B10mV =
         "",
         ""
     },
-    (int16*)(&NRST_RSHIFT_ADD_B(Range_10mV, ModeCouple_DC)), -100, 100, OnChanged_ADC_Shift_B
+    (int16 *)(&NRST_RSHIFT_ADD_B(Range_10mV, ModeCouple_DC)), -100, 100, OnChanged_ADC_Shift_B
 };
 
 // Œ“À¿ƒ ¿ - –¿Õƒ-“Œ– ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -925,14 +925,14 @@ static const Page ppRand =
     },
     Page_Debug_Rand,
     {
-        (void*)&gRand_NumAverage,          // Œ“À¿ƒ ¿ - –¿Õƒ-“Œ– - ”ÒÂ‰Ì.
-        (void*)&gRand_NumSmooth,           // Œ“À¿ƒ ¿ - –¿Õƒ-“Œ– - —„Î‡ÊË‚‡ÌËÂ
-        (void*)&gRand_NumMeasures,         // Œ“À¿ƒ ¿ - –¿Õƒ-“Œ– - ¬˚·-Í/‚ÓÓÚ‡
-        (void*)&cRand_ShowInfo,            // Œ“À¿ƒ ¿ - –¿Õƒ-“Œ– - »ÌÙÓÏ‡ˆËˇ
-        (void*)&gRand_ShowStat,            // Œ“À¿ƒ ¿ - –¿Õƒ-“Œ– - —Ú‡ÚËÒÚËÍ‡
-        (void*)&gRand_TimeCompensation,    // Œ“À¿ƒ ¿ - –¿Õƒ-“Œ– -  ÓÏÔÂÌÒ‡ˆËˇ Á‡‰ÂÊÍË
-        (void*)&gRand_AddTimeShift,        // Œ“À¿ƒ ¿ - –¿Õƒ-“Œ– - —ÏÂ˘ÂÌËÂ
-        (void*)&gRand_Pretriggered         // Œ“À¿ƒ ¿ - –AÕƒ-“Œ– - œÂ‰Á‡ÔÛÒÍ
+        (void *)&gRand_NumAverage,          // Œ“À¿ƒ ¿ - –¿Õƒ-“Œ– - ”ÒÂ‰Ì.
+        (void *)&gRand_NumSmooth,           // Œ“À¿ƒ ¿ - –¿Õƒ-“Œ– - —„Î‡ÊË‚‡ÌËÂ
+        (void *)&gRand_NumMeasures,         // Œ“À¿ƒ ¿ - –¿Õƒ-“Œ– - ¬˚·-Í/‚ÓÓÚ‡
+        (void *)&cRand_ShowInfo,            // Œ“À¿ƒ ¿ - –¿Õƒ-“Œ– - »ÌÙÓÏ‡ˆËˇ
+        (void *)&gRand_ShowStat,            // Œ“À¿ƒ ¿ - –¿Õƒ-“Œ– - —Ú‡ÚËÒÚËÍ‡
+        (void *)&gRand_TimeCompensation,    // Œ“À¿ƒ ¿ - –¿Õƒ-“Œ– -  ÓÏÔÂÌÒ‡ˆËˇ Á‡‰ÂÊÍË
+        (void *)&gRand_AddTimeShift,        // Œ“À¿ƒ ¿ - –¿Õƒ-“Œ– - —ÏÂ˘ÂÌËÂ
+        (void *)&gRand_Pretriggered         // Œ“À¿ƒ ¿ - –AÕƒ-“Œ– - œÂ‰Á‡ÔÛÒÍ
     }
 };
 
@@ -947,8 +947,8 @@ static const Page ppChannels =
     },
     Page_Debug_Channels,
     {
-        (void*)&cChannels_BandwidthA,  // Œ“À¿ƒ ¿ -  ¿Õ¿À€ - œÓÎÓÒ‡ 1
-        (void*)&cChannels_BandwidthB   // Œ“À¿ƒ ¿ -  ¿Õ¿À€ - œÓÎÓÒ‡ 2
+        (void *)&cChannels_BandwidthA,  // Œ“À¿ƒ ¿ -  ¿Õ¿À€ - œÓÎÓÒ‡ 1
+        (void *)&cChannels_BandwidthB   // Œ“À¿ƒ ¿ -  ¿Õ¿À€ - œÓÎÓÒ‡ 2
     }
 };
 
@@ -970,7 +970,7 @@ static const Choice cChannels_BandwidthA =
         {"650Ã√ˆ", "650MHz"},
         {"750Ã√ˆ", "750MHz"}
     },
-    (int8*)&BANDWIDTH_DEBUG(A), OnChanged_Channels_BandwidthA
+    (int8 *)&BANDWIDTH_DEBUG(A), OnChanged_Channels_BandwidthA
 };
 
 static void OnChanged_Channels_BandwidthA(bool active)
@@ -996,7 +996,7 @@ static const Choice cChannels_BandwidthB =
         {"650Ã√ˆ", "650MHz"},
         {"750Ã√ˆ", "750MHz"}
     },
-    (int8*)&BANDWIDTH_DEBUG(B), OnChanged_Channels_BandwidthB
+    (int8 *)&BANDWIDTH_DEBUG(B), OnChanged_Channels_BandwidthB
 };
 
 static void OnChanged_Channels_BandwidthB(bool active)
@@ -1135,7 +1135,7 @@ static const Page ppSettings =
     },
     PageSB_Debug_Settings,
     {
-        (void*)&bSettings_Exit        // Œ“À¿ƒ ¿ - Õ¿—“–Œ… » - ¬˚ıÓ‰
+        (void *)&bSettings_Exit     // Œ“À¿ƒ ¿ - Õ¿—“–Œ… » - ¬˚ıÓ‰
     },
     true, OnPress_Settings
 };
@@ -1255,7 +1255,7 @@ static const Choice cRand_ShowInfo =
         {"ÕÂ ÔÓÍ‡Á˚‚‡Ú¸", "Hide"},
         {"œÓÍ‡Á˚‚‡Ú¸", "Show"}
     },
-    (int8*)&SHOW_RAND_INFO
+    (int8 *)&SHOW_RAND_INFO
 };
 
 // Œ“À¿ƒ ¿ - –¿Õƒ-“Œ– - —Ú‡ÚËÒÚËÍ‡ -------------------------------------------------------------------------------------------------------------------
@@ -1271,7 +1271,7 @@ static const Choice gRand_ShowStat =
         {"ÕÂ ÔÓÍ‡Á˚‚‡Ú¸",   "Hide"},
         {"œÓÍ‡Á˚‚‡Ú¸",      "Show"}
     },
-    (int8*)&SHOW_RAND_STAT
+    (int8 *)&SHOW_RAND_STAT
 };
 
 // Œ“À¿ƒ ¿ - –ÂÊËÏ ›Ã— ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -1287,7 +1287,7 @@ static const Choice cEMS =
         {DISABLE_RU,    DISABLE_EN},
         {ENABLE_RU,     ENABLE_EN}
     },
-    (int8*)&MODE_EMS, OnChanged_EMS
+    (int8 *)&MODE_EMS, OnChanged_EMS
 };
 
 static void OnChanged_EMS(bool active)
@@ -1309,7 +1309,7 @@ static const Choice cDisplayOrientation =
         { "œˇÏ‡ˇ", "Direct" },
         { "Œ·‡ÚÌ‡ˇ", "Back" }
     },
-    (int8*)&DISPLAY_ORIENTATION, OnChanged_DisplayOrientation
+    (int8 *)&DISPLAY_ORIENTATION, OnChanged_DisplayOrientation
 };
 
 void OnChanged_DisplayOrientation(bool active)
@@ -1330,7 +1330,7 @@ static const Choice cStats =
         {"ÕÂ ÔÓÍ‡Á˚‚‡Ú¸",   "Hide"},
         {"œÓÍ‡Á˚‚‡Ú¸",      "Show"}
     },
-    (int8*)&SHOW_STAT
+    (int8 *)&SHOW_STAT
 };
 
 // Œ“À¿ƒ ¿ - —Óı. ÔÓ¯Ë‚ÍÛ --------------------------------------------------------------------------------------------------------------------------
@@ -1358,7 +1358,7 @@ static void OnPress_SaveFirmware(void)
 
     FDrive_OpenNewFileForWrite("S8-54.bin", &structForWrite);
 
-    uint8 *address = (uint8*)0x08020000;
+    uint8 *address = (uint8 *)0x08020000;
     uint8 *endAddress = address + 128 * 1024 * 3;
 
     int sizeBlock = 512;
@@ -1387,12 +1387,12 @@ static const Page ppSerialNumber =
     },
     PageSB_Debug_SerialNumber,
     {
-        (void*)&bSerialNumber_Exit,     // Œ“À¿ƒ ¿ - —/Õ - ¬˚ıÓ‰
-        (void*)&bSerialNumber_Change,   // Œ“À¿ƒ ¿ - —/Õ - œÂÂÈÚË
-        (void*)0,
-        (void*)0,
-        (void*)0,
-        (void*)&bSerialNumber_Save      // Œ“À¿ƒ ¿ - —/Õ - —Óı‡ÌËÚ¸
+        (void *)&bSerialNumber_Exit,    // Œ“À¿ƒ ¿ - —/Õ - ¬˚ıÓ‰
+        (void *)&bSerialNumber_Change,  // Œ“À¿ƒ ¿ - —/Õ - œÂÂÈÚË
+        (void *)0,
+        (void *)0,
+        (void *)0,
+        (void *)&bSerialNumber_Save     // Œ“À¿ƒ ¿ - —/Õ - —Óı‡ÌËÚ¸
     },
     true, OnPress_SerialNumber, 0, OnRegSet_SerialNumber
 };
@@ -1464,7 +1464,7 @@ static void Draw_EnterSerialNumber(void)
 
 static void OnRegSet_SerialNumber(int angle)
 {
-    typedef int (*pFunc)(int*, int, int);
+    typedef int (*pFunc)(int *, int, int);
 
     pFunc p = angle > 0 ? CircleIncreaseInt : CircleDecreaseInt;
 
@@ -1695,7 +1695,7 @@ const Page mspDebugADCaltShift =    // Œ“À¿ƒ ¿ - ¿÷œ - ƒŒœ —Ã≈Ÿ œ¿Ã
     },
     0, Page_Debug_ADC_AltShift,
     {
-        (void*)&mgDebugADCaltShift
+        (void *)&mgDebugADCaltShift
     }
 };
 */
