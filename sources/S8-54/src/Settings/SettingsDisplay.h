@@ -93,5 +93,7 @@ int sDisplay_NumAverage(void);
 /// Это смещение экрана по памяти в режиме пикового детектора оно будет в два раза меньше, чем байт, потому что каждая точка представлена двумя байтами
 int sDisplay_ShiftInMemoryInPoints(void);
 
+#define SHIFT_IN_MEMORY_IN_POINTS sDisplay_ShiftInMemoryInPoints()
+
 /** @}  @}
  */

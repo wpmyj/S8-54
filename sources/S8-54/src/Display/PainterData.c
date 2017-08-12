@@ -815,7 +815,7 @@ static void DrawMemoryWindow(void)
     int top = 0;
     int height = GRID_TOP - 3;
     int bottom = top + height;
-    int16 shiftInMemory = (int16)sDisplay_ShiftInMemoryInPoints();
+    int16 shiftInMemory = (int16)SHIFT_IN_MEMORY_IN_POINTS;
     static const int rightXses[3] = {276, 285, 247};
     int rightX = rightXses[MODE_WORK];
     if (sCursors_NecessaryDrawCursors())
@@ -1001,7 +1001,7 @@ static void DrawTPos(int leftX, int rightX)
 static void DrawTShift(int leftX, int rightX, int numBytes)
 {
     float scale = (float)(rightX - leftX + 1) / ((float)numBytes - (numBytes == 281 ? 1 : 0));
-    int xShift = (int)(1.5f + (sTime_TPosInBytes() - sTime_TShiftInPoints()) * scale) - 1;
+    int xShift = (int)(1.5f + (TPOS_IN_BYTES - TSHIFT_IN_POINTS) * scale) - 1;
     if (SET_PEAKDET_EN)
     {
         if (TPOS_RIGHT)

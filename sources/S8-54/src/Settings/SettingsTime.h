@@ -31,6 +31,9 @@
 #define SAMPLE_REAL         (SAMPLE == SampleType_Real)
 #define SAMPLE_OLD          (set.time_SampleTypeOld)
 
+#define TPOS_IN_POINTS      sTime_TPosInPoints()
+#define TSHIFT_IN_POINTS    sTime_TShiftInPoints()
+#define TPOS_IN_BYTES       sTime_TPosInBytes()
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 /// Сохранить масштаб по времени
@@ -47,6 +50,7 @@ int16 sTime_TShiftZero(void);
 int sTime_TShiftInPoints(void);
 
 int sTime_TPosInPoints(void);
+
 
 /** @}  @}
  */

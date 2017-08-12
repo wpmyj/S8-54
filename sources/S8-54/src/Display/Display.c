@@ -960,7 +960,7 @@ static void DrawCursorTShift(void)
     lastPoint = firstPoint + 281;
 
     // Рисуем TPos
-    int shiftTPos = sTime_TPosInPoints() - sDisplay_ShiftInMemoryInPoints();
+    int shiftTPos = TPOS_IN_POINTS - SHIFT_IN_MEMORY_IN_POINTS;
 
     float scale = (float)(lastPoint - firstPoint) / GridWidth();
     int gridLeft = GridLeft();
@@ -971,7 +971,7 @@ static void DrawCursorTShift(void)
     };
 
     // Рисуем tShift
-    int shiftTShift = sTime_TPosInPoints() - sTime_TShiftInPoints();
+    int shiftTShift = TPOS_IN_POINTS - TSHIFT_IN_POINTS;
     if(IntInRange(shiftTShift, firstPoint, lastPoint))
     {
         int x = gridLeft + shiftTShift - firstPoint - 3;
