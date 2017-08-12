@@ -42,7 +42,7 @@ static void DrawChannelMath(uint8 *dataIn);
 
 static int FillDataP2P(uint8 *data, DataSettings **ds);
 
-static void DrawMarkersForMeasure(float scale);
+static void DrawMarkersForMeasure(void);
 
 static void DrawSignalLined(const uint8 *data, int startPoint, int endPoint, int minY, int maxY, float scaleY, float scaleX, bool calculateFiltr);
 
@@ -111,6 +111,7 @@ void PainterData_DrawData(void)
             DrawData_ModeROM();
         }
         DrawData_ModeDir();
+        DrawMarkersForMeasure();
     }
     // œ¿Ãﬂ“‹ - œŒ—À≈ƒÕ»≈
     else if (MODE_WORK_RAM)
@@ -570,13 +571,9 @@ static void DrawChannelMath(uint8 *dataIn)
     {
         return;
     }
+
     float scaleY = (float)(maxY - minY) / (MAX_VALUE - MIN_VALUE);
     float scaleX = (float)GridWidth() / 280.0f;
-
-    if (SHOW_MEASURES)
-    {
-        DrawMarkersForMeasure(scaleY);
-    }
 
     Painter_SetColor(gColorChan[Math]);
 
@@ -671,12 +668,15 @@ static int FillDataP2PforNormal(int numPoints, int numPointsDS, int pointsInScre
 }
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
-static void DrawMarkersForMeasure(float scale)
+static void DrawMarkersForMeasure(void)
 {
-    if (curCh == Math)
+    if (!SHOW_MEASURES)
     {
         return;
     }
+
+    float scale = (float)(GridChannelBottom() - GRID_TOP) / (MAX_VALUE - MIN_VALUE);
+
     Painter_SetColor(ColorCursors(curCh));
     for (int numMarker = 0; numMarker < 2; numMarker++)
     {
