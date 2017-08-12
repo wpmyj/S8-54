@@ -38,11 +38,11 @@ static bool DataBeyondTheBorders(const uint8 *data, int firstPoint, int lastPoin
 /// delta - рассто€ние от кра€ сетки, на котором находитс€ сообщение. ≈сли delta < 0 - выводитс€ внизу сетки
 static void DrawLimitLabel(int delta);
 
-static void DrawChannelMath(uint8 *dataIn);
+static void DrawChannel_Math(uint8 *dataIn);
 
 static int FillDataP2P(uint8 *data, DataSettings **ds);
 
-static void DrawMarkersForMeasure(void);
+static void DrawMarkersForMeasure(Channel ch);
 
 static void DrawSignalLined(const uint8 *data, int startPoint, int endPoint, int minY, int maxY, float scaleY, float scaleX, bool calculateFiltr);
 
@@ -111,7 +111,6 @@ void PainterData_DrawData(void)
             DrawData_ModeROM();
         }
         DrawData_ModeDir();
-        DrawMarkersForMeasure();
     }
     // ѕјћя“№ - ѕќ—Ћ≈ƒЌ»≈
     else if (MODE_WORK_RAM)
@@ -294,6 +293,8 @@ static void DrawChannel(Channel ch)
             }
         }
     }
+
+    DrawMarkersForMeasure(ch);
 
     Painter_RunDisplay();
 }
@@ -521,7 +522,7 @@ void PainterData_DrawMath(void)
 
     Math_PointsVoltageToRel(dataAbsA, numPoints, SET_RANGE_MATH, SET_RSHIFT_MATH, points);
 
-    DrawChannelMath(points);
+    DrawChannel_Math(points);
 
     static const int WIDTH = 71;
     static const int HEIGHT = 10;
@@ -536,7 +537,7 @@ void PainterData_DrawMath(void)
 }
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
-static void DrawChannelMath(uint8 *dataIn)
+static void DrawChannel_Math(uint8 *dataIn)
 {
     curCh = Math;
 
@@ -668,7 +669,7 @@ static int FillDataP2PforNormal(int numPoints, int numPointsDS, int pointsInScre
 }
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
-static void DrawMarkersForMeasure(void)
+static void DrawMarkersForMeasure(Channel ch)
 {
     if (!SHOW_MEASURES)
     {
@@ -677,16 +678,16 @@ static void DrawMarkersForMeasure(void)
 
     float scale = (float)(GridChannelBottom() - GRID_TOP) / (MAX_VALUE - MIN_VALUE);
 
-    Painter_SetColor(ColorCursors(curCh));
+    Painter_SetColor(ColorCursors(ch));
     for (int numMarker = 0; numMarker < 2; numMarker++)
     {
-        int pos = Processing_GetMarkerHorizontal(curCh, numMarker);
+        int pos = Processing_GetMarkerHorizontal(ch, numMarker);
         if (pos != ERROR_VALUE_INT && pos > 0 && pos < 200)
         {
             Painter_DrawDashedHLine(GridFullBottom() - (int)(pos * scale), GridLeft(), GridRight(), 3, 2, 0);
         }
 
-        pos = Processing_GetMarkerVertical(curCh, numMarker);
+        pos = Processing_GetMarkerVertical(ch, numMarker);
         if (pos != ERROR_VALUE_INT && pos > 0 && pos < GridRight())
         {
             Painter_DrawDashedVLine(GridLeft() + (int)(pos * scale), GRID_TOP, GridFullBottom(), 3, 2, 0);
