@@ -1,4 +1,4 @@
-п»ї#pragma once
+#pragma once
 #include "Measures.h"
 #include "defines.h"
 #include "FPGA/FPGAtypes.h"
@@ -13,24 +13,27 @@
  *  @{
  */
 
+#define MARKER_HORIZONTAL(ch, num)  (markerHor[ch][num] - MIN_VALUE)
+#define MARKER_VERTICAL(ch, num)    (markerVert[ch][num])
 
-/// \brief РЈСЃС‚Р°РЅРѕРІРёС‚СЊ СЃРёРіРЅР°Р» РґР»СЏ РѕР±СЂР°Р±РѕС‚РєРё. Р”Р°РЅРЅС‹Рµ Р±РµСЂСѓС‚СЃСЏ РёР· DS, inA, inB.
-/// Р’С‹С…РѕРґРЅС‹Рµ РґР°РЅРЅС‹Рµ, СЃРѕРѕС‚РІРµС‚СЃС‚РІСѓСЋС‰РёРµ С‚РµРєСѓС‰РёРј РЅР°СЃС‚СЂРѕР№РєР°РјРё set, СЂР°СЃСЃС‡РёС‚С‹РІР°СЋС‚СЃСЏ СЃСЂР°Р·Сѓ Рё Р·Р°РїРёСЃС‹РІР°СЋС‚СЃСЏ РІ outA, outB.
+extern int markerHor[NumChannels][2];
+extern int markerVert[NumChannels][2];
+
+
+/// \brief Установить сигнал для обработки. Данные берутся из DS, inA, inB.
+/// Выходные данные, соответствующие текущим настройками set, рассчитываются сразу и записываются в outA, outB.
 void Processing_SetData(void);
-/// РџРѕР»СѓС‡РёС‚СЊ РїРѕР·РёС†РёСЋ РєСѓСЂСЃРѕСЂР° РЅР°РїСЂСЏР¶РµРЅРёСЏ, СЃРѕРѕС‚РІРµС‚СЃС‚РІСѓСЋС‰СЋ Р·Р°РґР°РЅРЅРѕР№ РїРѕР·РёС†РёРё РєСѓСЂСЃРѕСЂР° posCurT
+/// Получить позицию курсора напряжения, соответствующю заданной позиции курсора posCurT
 float Processing_GetCursU(Channel ch, float posCurT);
-/// РџРѕР»СѓС‡РёС‚СЊ РїРѕР·РёС†РёСЋ РєСѓСЂСЃРѕСЂР° РІСЂРµРјРµРЅРё, СЃРѕРѕС‚РІРµС‚СЃС‚РІСѓСЋС‰СѓСЋ Р·Р°РґР°РЅРЅРѕР№ РїРѕР·РёС†РёРё РєСѓСЂСЃРѕСЂР° РЅР°РїСЂСЏР¶РµРЅРёСЏ posCurU
+/// Получить позицию курсора времени, соответствующую заданной позиции курсора напряжения posCurU
 float Processing_GetCursT(Channel ch, float posCurU, int numCur);
-/// РђРїРїСЂРѕРєСЃРёРјРёСЂРѕРІР°С‚СЊ РµРґРёРЅРёС‡РЅРѕРµ РёР·РјРµСЂРµРЅРёРµ СЂРµР¶РёРјР° СЂР°РЅРґРѕРјРёР·Р°С‚РѕСЂР° С„СѓРЅРєС†РёРµР№ sinX/X
+/// Аппроксимировать единичное измерение режима рандомизатора функцией sinX/X
 void Processing_InterpolationSinX_X(uint8 *data, int numPoints, TBase tBase);
-/// Р’РѕР·РІСЂР°С‰Р°РµС‚ СЃС‚СЂРѕРєСѓ Р°РІС‚РѕРјР°С‚РёС‡РµСЃРєРѕРіРѕ РёР·РјРµСЂРµРЅРёСЏ
+/// Возвращает строку автоматического измерения
 char* Processing_GetStringMeasure(Measure measure, Channel ch, char *buffer, int lenBuf);
-/// Р Р°СЃС‡РёС‚Р°С‚СЊ РІСЃРµ РёР·РјРµСЂРµРЅРёСЏ
+/// Расчитать все измерения
 void Processing_CalculateMeasures(void);
-/// Р’РѕР·РІСЂР°С‰Р°РµС‚ Р·РЅР°С‡РµРЅРёРµ РіРѕСЂРёР·РѕРЅС‚Р°Р»СЊРЅРѕРіРѕ РјР°СЂРєРµСЂР°. Р•СЃР»Рё ERROR_VALUE_INT - РјР°СЂРєРµСЂ СЂРёСЃРѕРІР°С‚СЊ РЅРµ РЅСѓР¶РЅРѕ
-int Processing_GetMarkerHorizontal(Channel ch, int numMarker);
-/// Р’РѕР·РІСЂР°С‰Р°РµС‚ Р·РЅР°С‡РµРЅРёРµ РІРµСЂС‚РёРєР°Р»СЊРЅРѕРіРѕ РјР°СЂРєРµСЂР°. Р•СЃР»Рё ERROR_VALUE_INT - РјР°СЂРєРµСЂ СЂРёСЃРѕРІР°С‚СЊ РЅРµ РЅСѓР¶РЅРѕ
-int Processing_GetMarkerVertical(Channel ch, int numMarker);
+
 
 /** @}  @}
  */

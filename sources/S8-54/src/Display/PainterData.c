@@ -682,26 +682,17 @@ static void DrawMarkersForMeasure(Channel ch)
     Painter_SetColor(ColorCursors(ch));
     for (int numMarker = 0; numMarker < 2; numMarker++)
     {
-        int pos = Processing_GetMarkerHorizontal(ch, numMarker);
-        if (pos != ERROR_VALUE_INT)
+        int posY = bottom - (int)(MARKER_HORIZONTAL(ch, numMarker) * scale);
+        if (posY > GRID_TOP && posY < bottom)
         {
-            int posY = bottom - (int)(pos * scale);
-            if (posY > GRID_TOP && posY < bottom)
-            {
-                Painter_DrawDashedHLine(posY, left, right, 3, 2, 0);
-            }
+            Painter_DrawDashedHLine(posY, left, right, 3, 2, 0);
         }
 
-        pos = Processing_GetMarkerVertical(ch, numMarker);
-        if (pos != ERROR_VALUE_INT)
+        int posX = left + (int)(MARKER_VERTICAL(ch, numMarker) * scale);
+        if (posX > left && posX < right)
         {
-            int posX = left + (int)(pos * scale);
-            if (posX > left && posX < right)
-            {
-                Painter_DrawDashedVLine(posX, GRID_TOP, bottom, 3, 2, 0);
-            }
+            Painter_DrawDashedVLine(posX, GRID_TOP, bottom, 3, 2, 0);
         }
-
     }
 }
 
@@ -823,20 +814,12 @@ static void DrawSignalPointed(const uint8 *data, int startPoint, int endPoint, i
 //----------------------------------------------------------------------------------------------------------------------------------------------------
 static void DrawMemoryWindow(void)
 {
-    int leftX = 3;
-    int top = 0;
-    int height = GRID_TOP - 3;
-    int bottom = top + height;
-    int16 shiftInMemory = (int16)SHIFT_IN_MEMORY_IN_POINTS;
     static const int rightXses[3] = {276, 285, 247};
     int rightX = rightXses[MODE_WORK];
     if (sCursors_NecessaryDrawCursors())
     {
         rightX = 68;
     }
-    float scaleX = (float)(rightX - leftX + 1) / SET_POINTS_IN_CHANNEL;
-    const int xVert0 = leftX + (int)(shiftInMemory * scaleX);
-    int width = (int)((rightX - leftX) * (282.0f / SET_POINTS_IN_CHANNEL));
 
     // На всякий случай убеждаемся, что данные есть. А то в поточечном режиме возможны глюки при переключении и запуске новых циклов считывания.
     if ((SET_ENABLED_A && ENABLED_DS_A) || (SET_ENABLED_B && ENABLED_DS_B) || !IN_P2P_MODE || (IN_P2P_MODE && NUM_POINTS_P2P))
@@ -854,8 +837,11 @@ static void DrawMemoryWindow(void)
             DrawDataInRect(rightX + 3, chanSecond);
         }
     }
-
-    Painter_DrawRectangleC(xVert0, top, width - (FPGA_POINTS_8k ? 1 : 0), bottom - top + 1, gColorFill); //-V2007
+    int leftX = 3;
+    float scaleX = (float)(rightX - leftX + 1) / SET_POINTS_IN_CHANNEL;
+    const int xVert0 = leftX + (int)(SHIFT_IN_MEMORY_IN_POINTS * scaleX);
+    int width = (int)((rightX - leftX) * (282.0f / SET_POINTS_IN_CHANNEL));
+    Painter_DrawRectangleC(xVert0, 0, width - (FPGA_POINTS_8k ? 1 : 0), GRID_TOP - 2, gColorFill); //-V2007
 
     DrawTPos(leftX, rightX);
 

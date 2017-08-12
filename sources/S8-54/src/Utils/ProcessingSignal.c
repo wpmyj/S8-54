@@ -113,8 +113,8 @@ static const MeasureCalculate measures[Measure_NumMeasures] =
 
 static MeasureValue values[Measure_NumMeasures] = {{0.0f, 0.0f}};
 
-static int markerHor[NumChannels][2] = {{ERROR_VALUE_INT}, {ERROR_VALUE_INT}};
-static int markerVert[NumChannels][2] = {{ERROR_VALUE_INT}, {ERROR_VALUE_INT}};
+int markerHor[NumChannels][2] = {{ERROR_VALUE_INT}, {ERROR_VALUE_INT}};
+int markerVert[NumChannels][2] = {{ERROR_VALUE_INT}, {ERROR_VALUE_INT}};
 
 static bool maxIsCalculating[2] = {false, false};
 static bool minIsCalculating[2] = {false, false};
@@ -1293,20 +1293,6 @@ char* Processing_GetStringMeasure(Measure measure, Channel ch, char* buffer, int
         return buffer;
     }
     return buffer;
-}
-
-
-//----------------------------------------------------------------------------------------------------------------------------------------------------
-int Processing_GetMarkerHorizontal(Channel ch, int numMarker)
-{
-    return markerHor[ch][numMarker] - MIN_VALUE;
-}
-
-
-//----------------------------------------------------------------------------------------------------------------------------------------------------
-int Processing_GetMarkerVertical(Channel ch, int numMarker)
-{
-    return markerVert[ch][numMarker];
 }
 
 
