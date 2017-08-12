@@ -52,7 +52,7 @@ static int FillDataP2PforRecorder(int numPoints, int numPointsDS, int pointsInSc
 
 static int FillDataP2PforNormal(int numPoints, int numPointsDS, int pointsInScreen, uint8 *src, uint8 *dest);
 
-static void DrawDataInRect(uint width, const uint8 *data);
+static void DrawDataInRect(uint width, Channel ch);
 
 static void DrawTPos(int leftX, int rightX);
 
@@ -834,18 +834,16 @@ static void DrawMemoryWindow(void)
     {
         Channel chanFirst = LAST_AFFECTED_CH_IS_A ? B : A;
         Channel chanSecond = (chanFirst == A) ? B : A;
-        const uint8 *dataFirst = LAST_AFFECTED_CH_IS_A ? OUT_B : OUT_A;
-        const uint8 *dataSecond = (dataFirst == OUT_A) ? OUT_B : OUT_A;
 
         if (NeedForDraw(chanFirst) && dataStruct->needDraw[A])
         {
             curCh = chanFirst;
-            DrawDataInRect(rightX + 3, dataFirst);
+            DrawDataInRect(rightX + 3, chanFirst);
         }
         if (NeedForDraw(chanSecond) && dataStruct->needDraw[B])
         {
             curCh = chanSecond;
-            DrawDataInRect(rightX + 3, dataSecond);
+            DrawDataInRect(rightX + 3, chanSecond);
         }
     }
 
@@ -857,12 +855,14 @@ static void DrawMemoryWindow(void)
 }
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
-static void DrawDataInRect(uint width, const uint8 *data)
+static void DrawDataInRect(uint width, Channel ch)
 {
     if (IN_P2P_MODE && !NUM_POINTS_P2P)
     {
         return;
     }
+    
+    uint8 *data = dataOUT[ch];
 
     int numBytes = BYTES_IN_CHANNEL_DS;
     int x = 1;
