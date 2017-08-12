@@ -333,14 +333,14 @@ static void ReplaceLastFrame(DataSettings *ds, uint8 *dataA, uint8 *dataB)
 //----------------------------------------------------------------------------------------------------------------------------------------------------
 static void BeginLimits(uint8 *dataA, uint8 *dataB, int numElements)
 {
-    uint16* datA = (uint16*)dataA;
-    uint16* datB = (uint16*)dataB;
+    uint16 *datA = (uint16 *)dataA;
+    uint16 *datB = (uint16 *)dataB;
 
-    uint16* limitUpA = (uint16*)limitUpA_RAM;
-    uint16* limitDownA = (uint16*)limitDownA_RAM;
+    uint16 *limitUpA = (uint16 *)limitUpA_RAM;
+    uint16 *limitDownA = (uint16 *)limitDownA_RAM;
 
-    uint16* limitUpB = (uint16*)limitUpB_RAM;
-    uint16* limitDownB = (uint16*)limitDownB_RAM;
+    uint16 *limitUpB = (uint16 *)limitUpB_RAM;
+    uint16 *limitDownB = (uint16 *)limitDownB_RAM;
 
     for(int i = 0; i < numElements / 2; i++)
     {
@@ -450,8 +450,8 @@ void CalculateSums(void)
         numAveragings = sDisplay_NumAverage();
     }
 
-    uint16* sumA16 = (uint16*)sumA_RAM;
-    uint16* sumB16 = (uint16*)sumB_RAM;
+    uint16 *sumA16 = (uint16 *)sumA_RAM;
+    uint16 *sumB16 = (uint16 *)sumB_RAM;
 
     int iMax = numPoints / 2;
 
@@ -482,11 +482,11 @@ void CalculateSums(void)
         {
             DS_GetDataFromEnd_RAM(i, &ds, &dataA, &dataB);
 
-            sumA16 = (uint16*)sumA_RAM;
-            uint16* dA = dataA;
+            sumA16 = (uint16 *)sumA_RAM;
+            uint16 *dA = dataA;
 
-            sumB16 = (uint16*)sumB_RAM;
-            uint16* dB = dataB;
+            sumB16 = (uint16 *)sumB_RAM;
+            uint16 *dB = dataB;
 
 /* Прибавляем к младшим 16 разрядам суммы значение сигнала */
 /* И записываем сумму на место 16 младших разрядов суммы */
@@ -692,11 +692,11 @@ bool DS_GetDataFromEnd_RAM(int fromEnd, DataSettings **ds, uint16 **dataA, uint1
 
     if(dataA != 0)
     {
-        *dataA = CopyData(dp, A, dataImportRelA) ? (uint16*)dataImportRelA : 0;
+        *dataA = CopyData(dp, A, dataImportRelA) ? (uint16 *)dataImportRelA : 0;
     }
     if(dataB != 0)
     {
-        *dataB = CopyData(dp, B, dataImportRelB) ? (uint16*)dataImportRelB : 0;
+        *dataB = CopyData(dp, B, dataImportRelB) ? (uint16 *)dataImportRelB : 0;
     }
 
     *ds = dp;
@@ -850,13 +850,13 @@ void DS_AddPointsP2P(uint16 dataA, uint16 dataB)
 
     if (ENABLED_A(ds))
     {
-        *((uint16*)addrWrite) = dataA;
+        *((uint16 *)addrWrite) = dataA;
         addrWrite += length; //-V102
     }
 
     if (ENABLED_B(ds))
     {
-        *((uint16*)addrWrite) = dataB;
+        *((uint16 *)addrWrite) = dataB;
     }
 
     numPointsP2P += 2;

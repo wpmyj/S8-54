@@ -1053,8 +1053,8 @@ void Processing_SetData(void)
     if (enableA) { dataInA = malloc(FPGA_MAX_POINTS); };
     if (enableB) { dataInB = malloc(FPGA_MAX_POINTS); };
 
-    if (enableA) { Math_CalculateFiltrArray(inA, dataInA, length, numSmoothing); };
-    if (enableB) { Math_CalculateFiltrArray(inB, dataInB, length, numSmoothing); };
+    if (enableA) { Math_CalculateFiltrArray(IN_A, dataInA, length, numSmoothing); };
+    if (enableB) { Math_CalculateFiltrArray(IN_B, dataInB, length, numSmoothing); };
   
     CountedToCurrentSettings();
 
@@ -1334,8 +1334,8 @@ static void CountedToCurrentSettings(void)
         int startIndex = -dTShift;
         for (int i = 0; i <= startIndex; i++)
         {
-            outA[i] = AVE_VALUE;
-            outB[i] = AVE_VALUE;
+            OUT_A[i] = AVE_VALUE;
+            OUT_B[i] = AVE_VALUE;
         };
 
         int endIndex = numPoints / 2 - dTShift;
@@ -1343,8 +1343,8 @@ static void CountedToCurrentSettings(void)
         {
             for (int i = endIndex; i < numPoints / 2; i++)
             {
-                outA[i] = AVE_VALUE;
-                outB[i] = AVE_VALUE;
+                OUT_A[i] = AVE_VALUE;
+                OUT_B[i] = AVE_VALUE;
             }
         }
 
@@ -1368,7 +1368,7 @@ static void CountedToCurrentSettings(void)
                         LIMITATION(dA1, dA1, 1, 255);
                     }
                 }
-                ((uint16*)outA)[index] = (uint16)((dA0 | (dA1 << 8)));
+                ((uint16 *)OUT_A)[index] = (uint16)((dA0 | (dA1 << 8)));
 
                 int dB0 = dataInB[i];
                 int dB1 = dataInB[i + 1];
@@ -1385,14 +1385,14 @@ static void CountedToCurrentSettings(void)
                         LIMITATION(dB1, dB1, 1, 255);
                     }
                 }
-                ((uint16*)outB)[index] = (uint16)((dB0 | (dB1 << 8)));
+                ((uint16 *)OUT_B)[index] = (uint16)((dB0 | (dB1 << 8)));
             }
         }
     }
     else
     {      
-        memcpy(outA, dataInA, numPoints);
-        memcpy(outB, dataInB, numPoints);
+        memcpy(OUT_A, dataInA, numPoints);
+        memcpy(OUT_B, dataInB, numPoints);
     }
 }
 
@@ -1424,12 +1424,12 @@ static void CountedRange(Channel ch)
     if (ch == A)
     {
         in = dataInA;
-        out = (uint16*)outA;
+        out = (uint16 *)OUT_A;
     }
     else
     {
         in = dataInB;
-        out = (uint16*)outB;
+        out = (uint16 *)OUT_B;
     }
 
     int numPoints = BYTES_IN_CHANNEL_DS;

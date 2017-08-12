@@ -103,14 +103,14 @@ typedef enum
     RecordDAC
 } TypeRecord;
 
-#define CS1 ((uint16*)0)
-#define CS2 ((uint16*)1)
-#define CS3 ((uint16*)2)
-#define CS4 ((uint16*)3)
+#define CS1 ((uint16 *)0)
+#define CS2 ((uint16 *)1)
+#define CS3 ((uint16 *)2)
+#define CS4 ((uint16 *)3)
 
-#define dacRShiftA ((uint16*)0)
-#define dacRShiftB ((uint16*)1)
-#define dacTrigLev ((uint16*)2)
+#define dacRShiftA ((uint16 *)0)
+#define dacRShiftB ((uint16 *)1)
+#define dacTrigLev ((uint16 *)2)
 
 
 void FPGA_Write(TypeRecord type, uint16 *address, uint data, bool restart);

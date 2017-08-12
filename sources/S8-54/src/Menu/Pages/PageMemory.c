@@ -843,7 +843,7 @@ static void SaveSignalToIntMemory(void)
 
     if (DS)                                             // Если есть что сохранять
     {
-        FLASH_SaveData(NUM_ROM_SIGNAL, DS, inA, inB);   // То сохраняем данные из DS, DATA_A, DATA_B на место NUM_ROM_SIGNAL в ППЗУ
+        FLASH_SaveData(NUM_ROM_SIGNAL, DS, IN_A, IN_B);   // То сохраняем данные из DS, DATA_A, DATA_B на место NUM_ROM_SIGNAL в ППЗУ
         Display_ShowWarning(SignalIsSaved);
     }
 }

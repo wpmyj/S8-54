@@ -535,23 +535,23 @@ static void DrawSpectrum(void)
 
         if(SOURCE_FFT_A)
         {
-            DRAW_SPECTRUM(outA, numPoints, A);
+            DRAW_SPECTRUM(OUT_A, numPoints, A);
         }
         else if(SOURCE_FFT_B)
         {
-            DRAW_SPECTRUM(outB, numPoints, B);
+            DRAW_SPECTRUM(OUT_B, numPoints, B);
         }
         else
         {
             if(LAST_AFFECTED_CH_IS_A)
             {
-                DRAW_SPECTRUM(outB, numPoints, B);
-                DRAW_SPECTRUM(outA, numPoints, A);
+                DRAW_SPECTRUM(OUT_B, numPoints, B);
+                DRAW_SPECTRUM(OUT_A, numPoints, A);
             }
             else
             {
-                DRAW_SPECTRUM(outA, numPoints, A);
-                DRAW_SPECTRUM(outB, numPoints, B);
+                DRAW_SPECTRUM(OUT_A, numPoints, A);
+                DRAW_SPECTRUM(OUT_B, numPoints, B);
             }
         }
 

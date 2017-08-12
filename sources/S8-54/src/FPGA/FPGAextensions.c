@@ -216,7 +216,7 @@ static int16 CalculateAdditionRShift(Channel ch, Range range)
         *WR_PRED = ReadNStop();
         *WR_ADDR_NSTOP = 0xffff;
 
-        uint16* addrRead = ADDRESS_READ(ch);
+        uint16 *addrRead = ADDRESS_READ(ch);
 
         for(int i = 0; i < 250; i += 2)
         {

@@ -230,7 +230,7 @@ void Painter_DrawMultiVPointLine(int numLines, int y, uint16 x[], int delta, int
     uint8 *pointer = command + 6;
     for(int i = 0; i < numLines; i++) 
     {
-        *((uint16*)pointer) = x[i];
+        *((uint16 *)pointer) = x[i];
         pointer += 2;
     }
     int numBytes = 1 + 1 + 1 + numLines * 2 + 1 + 1;
@@ -253,7 +253,7 @@ void Painter_DrawMultiHPointLine(int numLines, int x, uint8 y[], int delta, int 
     uint8 command[30];
     command[0] = DRAW_MULTI_HPOINT_LINE;
     *(command + 1) = (uint8)numLines;
-    *((uint16*)(command + 2)) = (uint16)x;
+    *((uint16 *)(command + 2)) = (uint16)x;
     *(command + 4) = (uint8)count;
     *(command + 5) = (uint8)delta;
     uint8 *pointer = command + 6;
@@ -343,7 +343,7 @@ void Painter_SetBrightnessDisplay(int16 brightness)
     }
     uint8 command[4];
     command[0] = SET_BRIGHTNESS;
-    *((uint16*)(command + 1)) = (uint16)recValue;
+    *((uint16 *)(command + 1)) = (uint16)recValue;
     Painter_SendToDisplay(command, 4);
 }
 
@@ -499,10 +499,10 @@ void Painter_DrawPicture(int x, int y, int width, int height, uint8 *address)
 {
     uint8 command[4];
     command[0] = LOAD_IMAGE;
-    *((uint16*)(command + 1)) = (uint16)x;
+    *((uint16 *)(command + 1)) = (uint16)x;
     *(command + 3) = (uint8)y;
     Painter_SendToDisplay(command, 4);
-    *((uint16*)(command)) = (uint16)width;
+    *((uint16 *)(command)) = (uint16)width;
     *(command + 2) = (uint8)height;
     *(command + 3) = 0;
     Painter_SendToDisplay(command, 4);

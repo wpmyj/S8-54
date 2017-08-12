@@ -47,17 +47,17 @@ void Data_ReadFromRAM(int fromEnd, DataStruct *dataStruct)
         pDS = &dataSettings;
         if (ENABLED_DS_A)
         {
-            memcpy(inA, DS_GetAverageData(A), BYTES_IN_CHANNEL(DS));
+            memcpy(IN_A, DS_GetAverageData(A), BYTES_IN_CHANNEL(DS));
         }
         if (ENABLED_DS_B)
         {
-            memcpy(inB, DS_GetAverageData(B), BYTES_IN_CHANNEL(DS));
+            memcpy(IN_B, DS_GetAverageData(B), BYTES_IN_CHANNEL(DS));
         }
         readed = true;
     }
     else
     {
-        DS_GetDataFromEnd(fromEnd, &dataSettings, inA, inB);
+        DS_GetDataFromEnd(fromEnd, &dataSettings, IN_A, IN_B);
         readed = true;
     }
 
@@ -80,7 +80,7 @@ void Data_ReadFromROM(DataStruct *dataStruct)
 {
     Data_Clear();
 
-    if (FLASH_GetData(NUM_ROM_SIGNAL, &dataSettings, inA, inB))
+    if (FLASH_GetData(NUM_ROM_SIGNAL, &dataSettings, IN_A, IN_B))
     {
         pDS = &dataSettings;
 
@@ -126,12 +126,12 @@ static void PrepareDataForDraw(DataStruct *dataStruct)
 
     if (dataStruct->needDraw[A])
     {
-        CYCLE(dataStruct->data[A], &outA[firstByte], numBytes);
+        CYCLE(dataStruct->data[A], &OUT_A[firstByte], numBytes);
     }
 
     if (dataStruct->needDraw[B])
     {
-        CYCLE(dataStruct->data[B], &outB[firstByte], numBytes);
+        CYCLE(dataStruct->data[B], &OUT_B[firstByte], numBytes);
     }
 }
 

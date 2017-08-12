@@ -162,7 +162,7 @@ typedef struct
     uint8 *ip2;
     uint8 *ip3;
     pFuncVB funcOfChanged;
-    uint16* port;
+    uint16 *port;
 } IPaddress;
 
 typedef struct

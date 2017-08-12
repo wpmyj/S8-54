@@ -64,8 +64,8 @@ void HelpContent_Draw(void)
                                                                 0, 0, но в таком случае левой вертикальной полосы не видно */
 
     /*
-    uint16 *addr1 = (uint16*)(0x08000000 + (rand() % 65535));
-    uint8 *addr2 = (uint8*)(0x08000000 + (rand() % 65535));
+    uint16 *addr1 = (uint16 *)(0x08000000 + (rand() % 65535));
+    uint8 *addr2 = (uint8 *)(0x08000000 + (rand() % 65535));
 
     Painter_SetColor(COLOR_FILL);
     for (int i = 0; i < 10000; i++)

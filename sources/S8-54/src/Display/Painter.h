@@ -88,7 +88,7 @@ void    Painter_SendToDisplay(uint8 *bytes, int numBytes);
 void    Painter_SendToInterfaces(uint8 *pointer, int size);
 
 #define WRITE_BYTE(offset, value)   *(command + offset) = (uint8)value
-#define WRITE_SHORT(offset, value)  *((uint16*)(command + offset)) = (uint16)value
+#define WRITE_SHORT(offset, value)  *((uint16 *)(command + offset)) = (uint16)value
 
 /** @} @}
  */

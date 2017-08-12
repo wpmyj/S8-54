@@ -450,16 +450,13 @@ static bool ReadRandomizeModeSave(bool first, bool last, bool onlySave)
         // Буфера dataRandA, dataRandB созданы заранее для ускорения, т.к. в режиме рандомизатора в FPGA_Update() выполняется несколько чтений
         if (first)
         {
-            uint8 *dA = outA;
-            uint8 *dB = outB;
-
             if (ENABLED_DS_A)
             {
-                memcpy(dataRandA, dA, bytesInChannel);
+                memcpy(dataRandA, OUT_A, bytesInChannel);
             }
             if (ENABLED_DS_B)
             {
-                memcpy(dataRandB, dB, bytesInChannel);
+                memcpy(dataRandB, OUT_B, bytesInChannel);
             }
         }
 
@@ -531,8 +528,8 @@ static void ReadChannel(uint8 *data, Channel ch, int length, uint16 nStop, bool 
     *WR_PRED = nStop;
     *WR_ADDR_NSTOP = 0xffff;
 
-    uint16 *p = (uint16*)data;
-    uint16 *endP = (uint16*)&data[length];
+    uint16 *p = (uint16 *)data;
+    uint16 *endP = (uint16 *)&data[length];
 
     uint16 *address = ADDRESS_READ(ch);
 
@@ -542,7 +539,7 @@ static void ReadChannel(uint8 *data, Channel ch, int length, uint16 nStop, bool 
     {
         *((uint8 *)p) = ((*address) >> 8);
 
-        p = (uint16*)(((uint8 *)p) + 1);
+        p = (uint16 *)(((uint8 *)p) + 1);
         endP -= 8;                          // Это нужно, чтбы не выйти за границу буфера - ведь мы сдвигаем данные на один байт
     }
 
@@ -560,7 +557,7 @@ static void ReadChannel(uint8 *data, Channel ch, int length, uint16 nStop, bool 
 
     if (shift)                              ///  \todo Во-первых, теряется один байт. Во-вторых, не очень-то красиво выглядит
     {
-        while (p < (uint16*)&data[length - 1])
+        while (p < (uint16 *)&data[length - 1])
         {
             *p++ = READ_DATA_ADC_16(address, ch);
         }
@@ -646,8 +643,7 @@ static void InverseDataIsNecessary(Channel ch, uint8 *data)
 //----------------------------------------------------------------------------------------------------------------------------------------------------
 static void DataReadSave(bool first, bool saveToStorage, bool onlySave)
 {
-    uint8 *dataA = outA;        // Будем испльзовать память, предназначенную для хранения выходного сигнала, 
-    uint8 *dataB = outB;        // в качестве временного буфера.
+    // В этой функции испльзуем память, предназначенную для хранения выходного сигнала, в качестве временного буфера.
 
     gBF.FPGAinProcessingOfRead = 1;
     if (IN_RANDOM_MODE)
@@ -656,29 +652,29 @@ static void DataReadSave(bool first, bool saveToStorage, bool onlySave)
     }
     else
     {
-        ReadRealMode(dataA, dataB);
+        ReadRealMode(OUT_A, OUT_B);
     }
 
     int numBytes = BYTES_IN_CHANNEL(&ds);
 
-    RAM_MemCpy16(RAM(FPGA_DATA_A), dataA, numBytes);
-    RAM_MemCpy16(RAM(FPGA_DATA_B), dataB, numBytes);
+    RAM_MemCpy16(RAM(FPGA_DATA_A), OUT_A, numBytes);
+    RAM_MemCpy16(RAM(FPGA_DATA_B), OUT_B, numBytes);
 
     for (int i = 0; i < numBytes; i++)
     {
-        LIMITATION(dataA[i], dataA[i], MIN_VALUE, MAX_VALUE); //-V522
-        LIMITATION(dataB[i], dataB[i], MIN_VALUE, MAX_VALUE); //-V522
+        LIMITATION(OUT_A[i], OUT_A[i], MIN_VALUE, MAX_VALUE); //-V522
+        LIMITATION(OUT_B[i], OUT_B[i], MIN_VALUE, MAX_VALUE); //-V522
     }
 
     if (!IN_RANDOM_MODE)
     {
-        InverseDataIsNecessary(A, dataA);
-        InverseDataIsNecessary(B, dataB);
+        InverseDataIsNecessary(A, OUT_A);
+        InverseDataIsNecessary(B, OUT_B);
     }
     
     if (saveToStorage)
     {
-        DS_AddData(dataA, dataB, ds);
+        DS_AddData(OUT_A, OUT_B, ds);
     }
 
     if (TRIG_MODE_FIND_AUTO)

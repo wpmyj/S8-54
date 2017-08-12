@@ -513,16 +513,13 @@ void PainterData_DrawMath(void)
         return;
     }
 
-    uint8 *dataRel0 = outA;
-    uint8 *dataRel1 = outB;
-
     float *dataAbsA = (float*)RAM(DRAW_MATH_DATA_REL_A);
     float *dataAbsB = (float*)RAM(DRAW_MATH_DATA_REL_B);
 
     int numPoints = BYTES_IN_CHANNEL(DS);
 
-    Math_PointsRelToVoltage(dataRel0, numPoints, RANGE_DS_A, RSHIFT_DS_A, dataAbsA);
-    Math_PointsRelToVoltage(dataRel1, numPoints, RANGE_DS_B, RSHIFT_DS_B, dataAbsB);
+    Math_PointsRelToVoltage(OUT_A, numPoints, RANGE_DS_A, RSHIFT_DS_A, dataAbsA);
+    Math_PointsRelToVoltage(OUT_B, numPoints, RANGE_DS_B, RSHIFT_DS_B, dataAbsB);
 
     Math_CalculateMathFunction(dataAbsA, dataAbsB, numPoints);
 
@@ -843,17 +840,15 @@ static void DrawMemoryWindow(void)
     {
         bool needReleaseHeap = false;
 
-        uint8 *datA = outA;
-        uint8 *datB = outB;
+        uint8 *datA = OUT_A;
+        uint8 *datB = OUT_B;
+        
         uint8 *dA = 0;  // —юда считаем данные каналов из RAM
         uint8 *dB = 0;
 
         if (MODE_WORK_DIR || MODE_WORK_RAM)
         {
             needReleaseHeap = true;
-
-            datA = outA;
-            datB = outB;
 
             if (TBASE(DS_DataSettingsFromEnd(0)) >= MIN_TBASE_P2P)          // ≈сли находимс€ в режиме поточечного вывода
             {

@@ -219,7 +219,7 @@ void Painter_DrawMultiVPointLine(int numLines, int y, uint16 x[], int delta, int
     uint8 *pointer = command + 6;
     for (int i = 0; i < numLines; i++)
     {
-        *((uint16*)pointer) = x[i];
+        *((uint16 *)pointer) = x[i];
         pointer += 2;
     }
     int numBytes = 1 + 1 + 1 + numLines * 2 + 1 + 1;

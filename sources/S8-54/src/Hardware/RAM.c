@@ -15,11 +15,11 @@ static volatile bool transferComplete = true;
 
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-void RAM_WriteRead_Sinch2(void* src_, void *dest_, int numBytes)
+void RAM_WriteRead_Sinch2(void *src_, void *dest_, int numBytes)
 {
-    uint16 *src = (uint16*)src_;
+    uint16 *src = (uint16 *)src_;
     uint16 *end = src + numBytes / 2;
-    uint16 *dest = (uint16*)dest_;
+    uint16 *dest = (uint16 *)dest_;
 
     FSMC_SetMode(ModeFSMC_RAM);
 
@@ -35,9 +35,9 @@ void RAM_WriteRead_Sinch2(void* src_, void *dest_, int numBytes)
 //----------------------------------------------------------------------------------------------------------------------------------------------------
 void RAM_WriteRead_Sinch4(void* src_, void *dest_, int numBytes)
 {
-    uint16 *src = (uint16*)src_;
+    uint16 *src = (uint16 *)src_;
     uint16 *end = src + numBytes / 2;
-    uint16 *dest = (uint16*)dest_;
+    uint16 *dest = (uint16 *)dest_;
 
     FSMC_SetMode(ModeFSMC_RAM);
 
@@ -54,9 +54,9 @@ void RAM_WriteRead_Sinch4(void* src_, void *dest_, int numBytes)
 //----------------------------------------------------------------------------------------------------------------------------------------------------
 void RAM_WriteRead_Sinch8(void* src_, void *dest_, int numBytes)
 {
-    uint16 *src = (uint16*)src_;
+    uint16 *src = (uint16 *)src_;
     uint16 *end = src + numBytes / 2;
-    uint16 *dest = (uint16*)dest_;
+    uint16 *dest = (uint16 *)dest_;
 
     FSMC_SetMode(ModeFSMC_RAM);
 
@@ -77,8 +77,8 @@ void RAM_MemCpy16(void *src_, void *dest_, int numBytes)
 {
     FSMC_SET_MODE(ModeFSMC_RAM);
 
-    uint16 *src = (uint16*)src_;
-    uint16 *dest = (uint16*)dest_;
+    uint16 *src = (uint16 *)src_;
+    uint16 *dest = (uint16 *)dest_;
     uint16 *end = src + numBytes / 2;
 
     while (src < end)
@@ -100,8 +100,8 @@ void RAM_MemCpy16(void *src_, void *dest_, int numBytes)
 //----------------------------------------------------------------------------------------------------------------------------------------------------
 void RAM_ReadBuffer1(void *src, void *dest, int numBytes)
 {
-    uint16* addrRAM = (uint16*)src;
-    uint16* addrDest = (uint16*)dest;
+    uint16 *addrRAM = (uint16 *)src;
+    uint16 *addrDest = (uint16 *)dest;
 
     if ((uint)addrRAM & 0x1)
     {
@@ -145,7 +145,7 @@ void RAM_MemSet_Sinch(uint8 *dest, uint8 value_, int numBytes)
 {
     uint16 value = (value_ << 8) | value_;
     
-    uint16 *address = (uint16*)dest;
+    uint16 *address = (uint16 *)dest;
     for (int i = 0; i < numBytes / 2; i++)
     {
         *address++ = value;
@@ -205,12 +205,12 @@ void RAM_WriteByte(void *dest, uint8 value)
 {
     if ((int)dest & 0x1) //-V205
     {
-        uint16 *addr = (uint16*)((int)dest & 0xfffffffe); //-V205 //-V204
+        uint16 *addr = (uint16 *)((int)dest & 0xfffffffe); //-V205 //-V204
         *addr = (value << 8) + (uint8)(*addr);
     }
     else
     {
-        uint16 *addr = (uint16*)dest;      
+        uint16 *addr = (uint16 *)dest;      
         *addr = ((*addr) & 0xff00) + value;
     }
 }
@@ -219,7 +219,7 @@ void RAM_WriteByte(void *dest, uint8 value)
 //---------------------------------------------------------------------------------------------------------------------------------------------------
 void RAM_WriteWord(void *dest, uint value)
 {
-    uint16 *addr = (uint16*)((int)dest); //-V205 //-V204 //-V220
+    uint16 *addr = (uint16 *)((int)dest); //-V205 //-V204 //-V220
     *addr = (uint16)value;
     *(addr + 1) = (uint16)(value >> 16);
 }
@@ -228,7 +228,7 @@ void RAM_WriteWord(void *dest, uint value)
 //----------------------------------------------------------------------------------------------------------------------------------------------------
 void RAM_MemShiftLeft(uint8 *address, int numBytes, int shift)
 {
-    uint16 *addr = (uint16*)address;
+    uint16 *addr = (uint16 *)address;
     int counter = numBytes / 2;
     int s = shift / 2;
 
@@ -248,11 +248,11 @@ uint8 RAM_ReadByte(void *src)
 
     if(odd)
     {
-        addr = (uint16*)((int)src & 0xfffffffe); //-V205 //-V204
+        addr = (uint16 *)((int)src & 0xfffffffe); //-V205 //-V204
     }
     else
     {
-        addr = (uint16*)src;
+        addr = (uint16 *)src;
     }
 
     uint16 value = *addr;
@@ -269,8 +269,8 @@ uint8 RAM_ReadByte(void *src)
 //---------------------------------------------------------------------------------------------------------------------------------------------------
 uint RAM_ReadWord(void *src)
 {
-    uint16* addr0 = (uint16*)((int)src); //-V205 //-V204 //-V220
-    uint16* addr1 = addr0 + 1;
+    uint16 *addr0 = (uint16 *)((int)src); //-V205 //-V204 //-V220
+    uint16 *addr1 = addr0 + 1;
 
     return (*addr0) + ((*addr1) << 16);
 }
@@ -281,7 +281,7 @@ void RAM_MemClear(void *address_, int numHalfWords)
 {
     FSMC_SET_MODE(ModeFSMC_RAM);
     
-    uint16 *address = (uint16*)address_;
+    uint16 *address = (uint16 *)address_;
 
     for (int i = 0; i < numHalfWords; i++)
     {
