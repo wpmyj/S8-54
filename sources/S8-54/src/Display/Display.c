@@ -543,7 +543,7 @@ static void DrawSpectrum(void)
         }
         else
         {
-            if(LAST_AFFECTED_CH == A)
+            if(LAST_AFFECTED_CH_IS_A)
             {
                 DRAW_SPECTRUM(outB, numPoints, B);
                 DRAW_SPECTRUM(outA, numPoints, A);
@@ -1702,15 +1702,15 @@ static void DrawCursorsRShift(void)
     {
         DrawCursorRShift(Math);
     }
-    if(LAST_AFFECTED_CH == B)
+    if(LAST_AFFECTED_CH_IS_A)
     {
-        DrawCursorRShift(A);
         DrawCursorRShift(B);
+        DrawCursorRShift(A);
     }
     else
     {
-        DrawCursorRShift(B);
         DrawCursorRShift(A);
+        DrawCursorRShift(B);
     }
 }
 

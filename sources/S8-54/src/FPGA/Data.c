@@ -112,8 +112,8 @@ static void PrepareDataForDraw(DataStruct *dataStruct)
 
     sDisplay_PointsOnDisplay(&pointFirst, &pointLast);
 
-    dataStruct->drawA = ENABLED_DS_A && SET_ENABLED_A;
-    dataStruct->drawB = ENABLED_DS_B && SET_ENABLED_B;
+    dataStruct->needDraw[A] = ENABLED_DS_A && SET_ENABLED_A;
+    dataStruct->needDraw[B] = ENABLED_DS_B && SET_ENABLED_B;
 
     int numBytes = 281;
     int firstByte = pointFirst;
@@ -124,14 +124,14 @@ static void PrepareDataForDraw(DataStruct *dataStruct)
         firstByte *= 2;
     }
 
-    if (dataStruct->drawA)
+    if (dataStruct->needDraw[A])
     {
-        CYCLE(dataStruct->dataA, &outA[firstByte], numBytes);
+        CYCLE(dataStruct->data[A], &outA[firstByte], numBytes);
     }
 
-    if (dataStruct->drawB)
+    if (dataStruct->needDraw[B])
     {
-        CYCLE(dataStruct->dataB, &outB[firstByte], numBytes);
+        CYCLE(dataStruct->data[B], &outB[firstByte], numBytes);
     }
 }
 

@@ -24,11 +24,11 @@ static void DrawData_ModeROM(void);
 /// Нарисовать данные из outA, outB.
 static void DrawData_OutAB(void);
 /// Нарисовать данные из outA или outB.
-static void DrawData_Out(Channel ch, uint8 *data);
+static void DrawChannel(Channel ch);
 /// Нарисовать данные из outA или outB c выключенным пиковым детектором.
-static void DrawData_Out_Normal(Channel ch, uint8 data[281], int left, int bottom, float scaleY);
+static void DrawChannel_Normal(Channel ch, int left, int bottom, float scaleY);
 /// Нарисовать данные из outA или outB с включённым пиковым детектором.
-static void DrawData_Out_PeakDet(Channel ch, uint8 data[281 * 2], int left, int bottom, float scaleY);
+static void DrawChannel_PeakDet(Channel ch, int left, int bottom, float scaleY);
 /// \brief Используется в режиме пикового детектора. В in хранятся два значения, соответствующие максимальному и минимальному. 
 /// Они перемещаются в out в возрастающем порядке out[0] = min, out[1] = max. Возвращает false, если точка не считана - хотя бы одно значение == 0.
 static bool CalcMinMax(uint8 in[2], uint8 out[2]);
@@ -203,13 +203,13 @@ static void DrawData_OutAB(void)
     {
         if (LAST_AFFECTED_CH_IS_A)
         {
-            DrawData_Out(B, outB);
-            DrawData_Out(A, outA);
+            DrawChannel(B);
+            DrawChannel(A);
         }
         else
         {
-            DrawData_Out(A, outA);
-            DrawData_Out(B, outB);
+            DrawChannel(A);
+            DrawChannel(B);
         }
     }
 
@@ -217,7 +217,7 @@ static void DrawData_OutAB(void)
 }
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
-static void DrawData_Out(Channel ch, uint8 *data)
+static void DrawChannel(Channel ch)
 {
     if (!SET_ENABLED(ch) || !ENABLED_DS(ch))
     {
@@ -239,11 +239,11 @@ static void DrawData_Out(Channel ch, uint8 *data)
     /// \todo Переделать на массив функций.
     if(PEACKDET_DS)
     {
-        DrawData_Out_PeakDet(ch, data + pointFirst * 2, left, bottom, scaleY);  
+        DrawChannel_PeakDet(ch, left, bottom, scaleY);
     }
     else
     {
-        uint8 *pData = data;
+        uint8 *pData = dataStruct->data[ch];
 
         int posVertLine = 0;
 
@@ -257,9 +257,9 @@ static void DrawData_Out(Channel ch, uint8 *data)
                 {
                     for (int i = 0; i < 281; i++)
                     {
-                        if (data[i])
+                        if (pData[i])
                         {
-                            d[i] = data[i];
+                            d[i] = pData[i];
                             posVertLine = i;
                         }
                     }
@@ -270,7 +270,7 @@ static void DrawData_Out(Channel ch, uint8 *data)
 
                     for (int i = NUM_POINTS_P2P - 281; i < NUM_POINTS_P2P; i++)
                     {
-                        d[pointer++] = data[i];
+                        d[pointer++] = pData[i];
                     }
                 }
                 else
@@ -278,7 +278,7 @@ static void DrawData_Out(Channel ch, uint8 *data)
                     int pointer = 0;
                     for (int i = BYTES_IN_CHANNEL_DS - 281; i < BYTES_IN_CHANNEL_DS; i++)
                     {
-                        d[pointer++] = data[i];
+                        d[pointer++] = pData[i];
                     }
                 }
 
@@ -289,7 +289,7 @@ static void DrawData_Out(Channel ch, uint8 *data)
 
         if (!DataBeyondTheBorders(pData, pointFirst, pointLast))
         {
-            DrawData_Out_Normal(ch, pData + pointFirst, left, bottom, scaleY);
+            DrawChannel_Normal(ch, left, bottom, scaleY);
         }
 
         if (!STAND_P2P)
@@ -305,9 +305,11 @@ static void DrawData_Out(Channel ch, uint8 *data)
 }
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
-static void DrawData_Out_Normal(Channel ch, uint8 data[281], int left, int bottom, float scaleY)
+static void DrawChannel_Normal(Channel ch, int left, int bottom, float scaleY)
 {
     float k = bottom + MIN_VALUE * scaleY;
+    
+    uint8 *data = dataStruct->data[ch];
 
     for(int i = 0; i < 280; ++i)                        /// \todo Последня точка не рисуется.
     {
@@ -350,7 +352,7 @@ static void DrawData_Out_Normal(Channel ch, uint8 data[281], int left, int botto
 }
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
-static void DrawData_Out_PeakDet(Channel ch, uint8 data[281 * 2], int left, int bottom, float scaleY)
+static void DrawChannel_PeakDet(Channel ch, int left, int bottom, float scaleY)
 {
     float k = bottom + MIN_VALUE * scaleY;
 
@@ -363,6 +365,9 @@ static void DrawData_Out_PeakDet(Channel ch, uint8 data[281 * 2], int left, int 
 #define Y_MAX_NEXT inNext[1]
 
         uint8 in[2];            // Здесь будут храниться отсортированные по возрастанию значения
+
+        uint8 *data = dataStruct->data[ch];
+        
         if(!CalcMinMax(data + i * 2, in))
         {
             continue;
@@ -868,14 +873,13 @@ static void DrawMemoryWindow(void)
             datB = dB;
         }
 
-        Channel lastAffectedChannel = LAST_AFFECTED_CH;
         //if (((uint)NumPoints_2_ENumPoints(BYTES_IN_CHANNEL(DS)) == ENUM_BYTES_DS) && DS)
         if (DS)
         {
-            Channel chanFirst = lastAffectedChannel == A ? B : A;
-            Channel chanSecond = lastAffectedChannel == A ? A : B;
-            const uint8 *dataFirst = lastAffectedChannel == A ? datB : datA;
-            const uint8 *dataSecond = lastAffectedChannel == A ? datA : datB;
+            Channel chanFirst = LAST_AFFECTED_CH_IS_A ? B : A;
+            Channel chanSecond = LAST_AFFECTED_CH_IS_A ? A : B;
+            const uint8 *dataFirst = LAST_AFFECTED_CH_IS_A ? datB : datA;
+            const uint8 *dataSecond = LAST_AFFECTED_CH_IS_A ? datA : datB;
 
             bool peackDet = PEACKDET_DS != PeackDet_Disable;
 
