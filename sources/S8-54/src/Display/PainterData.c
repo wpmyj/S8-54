@@ -52,7 +52,7 @@ static int FillDataP2PforRecorder(int numPoints, int numPointsDS, int pointsInSc
 
 static int FillDataP2PforNormal(int numPoints, int numPointsDS, int pointsInScreen, uint8 *src, uint8 *dest);
 
-static void DrawDataInRect(int x, uint width, const uint8 *data, int numElems);
+static void DrawDataInRect(uint width, const uint8 *data);
 
 static void DrawTPos(int leftX, int rightX);
 
@@ -828,59 +828,22 @@ static void DrawMemoryWindow(void)
 
     // На всякий случай убеждаемся, что данные есть. А то в поточечном режиме возможны глюки при переключении и запуске новых циклов считывания.
     if ((SET_ENABLED_A && ENABLED_DS_A) || (SET_ENABLED_B && ENABLED_DS_B) || !IN_P2P_MODE || (IN_P2P_MODE && NUM_POINTS_P2P))
+    //if(dataStruct->needDraw[A] || dataStruct->needDraw[B])
     {
-        bool needReleaseHeap = false;
+        Channel chanFirst = LAST_AFFECTED_CH_IS_A ? B : A;
+        Channel chanSecond = (chanFirst == A) ? B : A;
+        const uint8 *dataFirst = LAST_AFFECTED_CH_IS_A ? OUT_B : OUT_A;
+        const uint8 *dataSecond = (dataFirst == OUT_A) ? OUT_B : OUT_A;
 
-        uint8 *datA = OUT_A;
-        uint8 *datB = OUT_B;
-        
-        uint8 *dA = 0;  // Сюда считаем данные каналов из RAM
-        uint8 *dB = 0;
-
-        if (MODE_WORK_DIR || MODE_WORK_RAM)
+        if (sChannel_NeedForDraw(dataFirst, chanFirst, DS) && dataStruct->needDraw[A])
         {
-            needReleaseHeap = true;
-
-            if (TBASE(DS_DataSettingsFromEnd(0)) >= MIN_TBASE_P2P)          // Если находимся в режиме поточечного вывода
-            {
-                DS_GetLastFrameP2P_RAM(&DS, &datA, &datB);
-            }
-
-            // Нужно переписать из внешнего ОЗУ в стек, потому чт
-            dA = AllocMemForChannelFromHeap(A, DS);
-            dB = AllocMemForChannelFromHeap(B, DS);
-
-            int numBytes = BYTES_IN_CHANNEL(DS);
-
-            RAM_MemCpy16(datA, dA, numBytes);
-            RAM_MemCpy16(datB, dB, numBytes);
-
-            datA = dA;
-            datB = dB;
+            curCh = chanFirst;
+            DrawDataInRect(rightX + 3, dataFirst);
         }
-
-        if (DS)
+        if (sChannel_NeedForDraw(dataSecond, chanSecond, DS) && dataStruct->needDraw[B])
         {
-            Channel chanFirst = LAST_AFFECTED_CH_IS_A ? B : A;
-            Channel chanSecond = (chanFirst == A) ? B : A;
-            const uint8 *dataFirst = LAST_AFFECTED_CH_IS_A ? datB : datA;
-            const uint8 *dataSecond = (dataFirst == datA) ? datB : datA;
-
-            if (sChannel_NeedForDraw(dataFirst, chanFirst, DS))
-            {
-                curCh = chanFirst;
-                DrawDataInRect(1, rightX + 3, dataFirst, BYTES_IN_CHANNEL(DS));
-            }
-            if (sChannel_NeedForDraw(dataSecond, chanSecond, DS))
-            {
-                curCh = chanSecond;
-                DrawDataInRect(1, rightX + 3, dataSecond, BYTES_IN_CHANNEL(DS));
-            }
-        }
-        if (needReleaseHeap)
-        {
-            free(dA);
-            free(dB);
+            curCh = chanSecond;
+            DrawDataInRect(rightX + 3, dataSecond);
         }
     }
 
@@ -892,12 +855,15 @@ static void DrawMemoryWindow(void)
 }
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
-static void DrawDataInRect(int x, uint width, const uint8 *data, int numBytes)
+static void DrawDataInRect(uint width, const uint8 *data)
 {
-    if (numBytes == 0 || (IN_P2P_MODE && !NUM_POINTS_P2P))
+    if (IN_P2P_MODE && !NUM_POINTS_P2P)
     {
         return;
     }
+
+    int numBytes = BYTES_IN_CHANNEL_DS;
+    int x = 1;
 
     width--;
     float elemsInColumn = (float)numBytes / (float)width;
@@ -1058,18 +1024,9 @@ static void SendToDisplayDataInRect(int x, const int *min, const int *max, uint 
 
     uint8 points[width * 2];
 
-    //    uint8 _min = 255;
-    //    uint8 _max = 0;
-
     for (uint i = 0; i < width; i++)
     {
         points[i * 2] = max[i];
-        /*
-        if (points[i * 2] > _max)
-        {
-        _max = points[i * 2];
-        }
-        */
         points[i * 2 + 1] = min[i];
     }
 
