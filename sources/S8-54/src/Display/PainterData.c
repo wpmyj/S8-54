@@ -63,8 +63,6 @@ static int Ordinate(uint8 x, float scale);
 static void SendToDisplayDataInRect(Channel chan, int x, const int *min, const int *max, uint width);
 /// Нарисовать данные в окне памяти
 static void DrawMemoryWindow(void);
-/// Нужно ли рисовать данный канал
-static bool NeedForDraw(Channel ch);
 
 
 /// Признак того, что на основном экране нужно рисовать бегущий сигнал поточечного вывода
@@ -821,22 +819,9 @@ static void DrawMemoryWindow(void)
         rightX = 68;
     }
 
-    // На всякий случай убеждаемся, что данные есть. А то в поточечном режиме возможны глюки при переключении и запуске новых циклов считывания.
-    if ((SET_ENABLED_A && ENABLED_DS_A) || (SET_ENABLED_B && ENABLED_DS_B) || !IN_P2P_MODE || (IN_P2P_MODE && NUM_POINTS_P2P))
-    //if(dataStruct->needDraw[A] || dataStruct->needDraw[B])
-    {
-        Channel chanFirst = LAST_AFFECTED_CH_IS_A ? B : A;
-        Channel chanSecond = (chanFirst == A) ? B : A;
+    DrawDataInRect(rightX + 2, LAST_AFFECTED_CH_IS_A ? B : A);
+    DrawDataInRect(rightX + 2, LAST_AFFECTED_CH_IS_A ? A : B);
 
-        if (NeedForDraw(chanFirst) && dataStruct->needDraw[A])
-        {
-            DrawDataInRect(rightX + 2, chanFirst);
-        }
-        if (NeedForDraw(chanSecond) && dataStruct->needDraw[B])
-        {
-            DrawDataInRect(rightX + 2, chanSecond);
-        }
-    }
     int leftX = 3;
     float scaleX = (float)(rightX - leftX + 1) / SET_POINTS_IN_CHANNEL;
     const int xVert0 = leftX + (int)(SHIFT_IN_MEMORY_IN_POINTS * scaleX);
@@ -852,6 +837,11 @@ static void DrawMemoryWindow(void)
 static void DrawDataInRect(uint width, Channel ch)
 {
     if (IN_P2P_MODE && !NUM_POINTS_P2P)
+    {
+        return;
+    }
+
+    if (!dataStruct->needDraw[ch])
     {
         return;
     }
@@ -896,12 +886,12 @@ static void DrawDataInRect(uint width, Channel ch)
         }
     }
 
-    float scale = 17.0f / (MAX_VALUE - MIN_VALUE);
-
     const int SIZE_BUFFER = width + 1;
 
     int mines[SIZE_BUFFER];     // Массив для максимальных значений в каждом столбике
     int maxes[SIZE_BUFFER];     // Массив для минимальных значений в каждом столбике
+
+    float scale = 17.0f / (MAX_VALUE - MIN_VALUE);
 
     mines[0] = Ordinate(max[0], scale);
     maxes[0] = Ordinate(min[0], scale);
@@ -998,14 +988,12 @@ static void DrawTShift(int leftX, int rightX, int numBytes)
 /// Возвращает (-1), если точка не считана (NONE_VALUE)
 static int Ordinate(uint8 x, float scale)
 {
-    const float bottom = 17.0;
-
     if (x == NONE_VALUE)
     {
         return -1;
     }
 
-    return (bottom - scale * LimitationInt(x - MIN_VALUE, 0, (MAX_VALUE - MIN_VALUE))) + 0.5f;
+    return (17.0f - scale * LimitationInt(x - MIN_VALUE, 0, (MAX_VALUE - MIN_VALUE))) + 0.5f;
 }
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
@@ -1024,22 +1012,4 @@ static void SendToDisplayDataInRect(Channel ch, int x, const int *min, const int
     }
 
     Painter_DrawVLineArray(x, (int)width, points, gColorChan[ch]); //-V202
-}
-
-//----------------------------------------------------------------------------------------------------------------------------------------------------
-static bool NeedForDraw(Channel ch)
-{
-    if (!DS)
-    {
-        return false;
-    }
-    else if (MODE_WORK_DIR)
-    {
-        return SET_ENABLED(ch);
-    }
-    else if ((ch == A && !ENABLED_DS_A) || (ch == B && !ENABLED_DS_B))
-    {
-        return false;
-    }
-    return true;
 }

@@ -107,6 +107,12 @@ static void PrepareDataForDraw(DataStruct *dataStruct)
         return;
     }
 
+    if (!DS)
+    {
+        dataStruct->needDraw[A] = dataStruct->needDraw[B] = false;
+        return;
+    }
+
     int pointFirst = 0;
     int pointLast = 0;
 
