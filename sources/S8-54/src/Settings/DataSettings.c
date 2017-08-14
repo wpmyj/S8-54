@@ -2,6 +2,7 @@
 // PVS-Studio Static Code Analyzer for C, C++ and C#: http://www.viva64.com
 #include "DataSettings.h"
 #include "Globals.h"
+#include "Log.h"
 #include "Hardware/FLASH.h"
 #include "Settings/SettingsMemory.h"
 
@@ -83,11 +84,13 @@ bool DataSettings_IsEquals(const DataSettings *ds1, const DataSettings *ds2)
         (INVERSE_A(ds1) == INVERSE_A(ds2)) &&
         (INVERSE_B(ds1) == INVERSE_B(ds2)) &&
         (RANGE_A(ds1) == RANGE_A(ds2)) &&
+
         (RANGE_B(ds1) == RANGE_B(ds2)) &&
         (RSHIFT_A(ds1) == RSHIFT_A(ds2)) &&
         (RSHIFT_B(ds1) == RSHIFT_B(ds2)) &&
         (TBASE(ds1) == TBASE(ds2)) &&
         (TSHIFT(ds1) == TSHIFT(ds2)) &&
+
         (COUPLE_A(ds1) == COUPLE_A(ds2)) &&
         (COUPLE_B(ds1) == COUPLE_B(ds2)) &&
         (TRIGLEV_A(ds1) == TRIGLEV_A(ds2)) &&
@@ -97,6 +100,13 @@ bool DataSettings_IsEquals(const DataSettings *ds1, const DataSettings *ds2)
         (PEACKDET(ds1) == PEACKDET(ds2));
 
     return equals;
+}
+
+//----------------------------------------------------------------------------------------------------------------------------------------------------
+void DataSettings_Log(DataSettings *ds)
+{
+    LOG_WRITE("%d %d %d %d %d %d %d %d %d %d", ENABLED_A(ds), ENABLED_B(ds), INVERSE_A(ds), INVERSE_B(ds), RANGE_A(ds),
+              RANGE_B(ds), RSHIFT_A(ds), RSHIFT_B(ds), TBASE(ds), TSHIFT(ds));
 }
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------

@@ -19,6 +19,9 @@
 
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+static void ReplaceLastFrame(DataSettings *ds, uint8 *dataA, uint8 *dataB);
+
+
 static int SIZE_POOL = 0;
 
 static uint *sumA_RAM = 0;        // Сумма первого канала
@@ -90,11 +93,16 @@ void DS_Clear(void)
 //----------------------------------------------------------------------------------------------------------------------------------------------------
 static void CalculateAroundAverage(uint8 *dataA, uint8 *dataB, DataSettings *dss)
 {
+    if (!dataA && !dataB)
+    {
+        return;
+    }
+
     int numAveData = DS_NumElementsWithCurrentSettings();
 
     int size = BYTES_IN_CHANNEL(dss);
 
-    if (numAveData == 1)
+    if (numAveData  <= 1)
     {
         for (int i = 0; i < size; i++)
         {
@@ -305,31 +313,6 @@ static void PushData(DataSettings *ds, uint8 *dataA, uint8 *dataB)
     numElementsInStorage++;
 }
 
-
-//----------------------------------------------------------------------------------------------------------------------------------------------------
-static void ReplaceLastFrame(DataSettings *ds, uint8 *dataA, uint8 *dataB)
-{
-    DataSettings *lastDS = DS_DataSettingsFromEnd(0);
-    TIME_TIME(lastDS) = TIME_TIME(ds);    // Нужно скопировать время, потому что во фрейме последних точек оно нулевое.
-
-    int numBytes = BYTES_IN_CHANNEL(ds);
-
-    FSMC_SET_MODE(ModeFSMC_RAM);
-
-    if (ENABLED_A(ds))
-    {
-        RAM_MemCpy16(dataA, AddressChannel(lastDS, A), numBytes);
-    }
-
-    if (ENABLED_B(ds))
-    {
-        RAM_MemCpy16(dataB, AddressChannel(lastDS, B), numBytes);
-    }
-
-    FSMC_RESTORE_MODE();
-}
-
-
 //----------------------------------------------------------------------------------------------------------------------------------------------------
 static void BeginLimits(uint8 *dataA, uint8 *dataB, int numElements)
 {
@@ -350,23 +333,7 @@ static void BeginLimits(uint8 *dataA, uint8 *dataB, int numElements)
 }
 
 
-//----------------------------------------------------------------------------------------------------------------------------------------------------
-DataSettings* DS_DataSettingsFromEnd(int indexFromEnd)
-{
-    int index = 0;
 
-    if(indexFromEnd <= iLast)
-    {
-        index = iLast - indexFromEnd;
-    }
-    else
-    {
-        indexFromEnd -= iLast;
-        index = NUM_DATAS - indexFromEnd;
-    }
-
-    return &gDatas[index];
-}
 
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
@@ -538,7 +505,7 @@ void DS_AddData(uint8 *dataA, uint8 *dataB, DataSettings dss)
 
     CalculateLimits(dataA, dataB, &dss);
 
-    if (numPointsP2P)                           // Если находимся в поточечном выводе
+    if (IN_P2P_MODE)                           // Если находимся в поточечном выводе
     {
         ReplaceLastFrame(&dss, dataA, dataB);   // Заменим последний фрейм данных (в котором находятся текущие точки) считанными
    }
@@ -550,6 +517,60 @@ void DS_AddData(uint8 *dataA, uint8 *dataB, DataSettings dss)
     CalculateSums();
 
     CalculateAroundAverage(dataA, dataB, &dss);
+}
+
+//----------------------------------------------------------------------------------------------------------------------------------------------------
+static void ReplaceLastFrame(DataSettings *ds, uint8 *dataA, uint8 *dataB)
+{
+    DataSettings *lastDS = DS_DataSettingsFromEnd(0);
+    TIME_TIME(lastDS) = TIME_TIME(ds);    // Нужно скопировать время, потому что во фрейме последних точек оно нулевое.
+
+    int numBytes = BYTES_IN_CHANNEL(ds);
+
+    FSMC_SET_MODE(ModeFSMC_RAM);
+
+    if (ENABLED_A(ds))
+    {
+        RAM_MemCpy16(dataA, AddressChannel(lastDS, A), numBytes);
+    }
+
+    if (ENABLED_B(ds))
+    {
+        RAM_MemCpy16(dataB, AddressChannel(lastDS, B), numBytes);
+    }
+
+    FSMC_RESTORE_MODE();
+}
+
+//----------------------------------------------------------------------------------------------------------------------------------------------------
+void DS_NewFrameP2P(DataSettings dss)
+{
+    if (!ENABLED_A(&dss) && !ENABLED_B(&dss))
+    {
+        return;
+    }
+
+    PushData(&dss, 0, 0);
+
+    numPointsP2P = 0;
+}
+
+//----------------------------------------------------------------------------------------------------------------------------------------------------
+DataSettings* DS_DataSettingsFromEnd(int indexFromEnd)
+{
+    int index = 0;
+
+    if (indexFromEnd <= iLast)
+    {
+        index = iLast - indexFromEnd;
+    }
+    else
+    {
+        indexFromEnd -= iLast;
+        index = NUM_DATAS - indexFromEnd;
+    }
+
+    return &gDatas[index];
 }
 
 
@@ -789,20 +810,6 @@ int DS_NumberAvailableEntries(void)
     LIMITATION_ABOVE(numElems, SIZE_POOL / SizeData(&gDatas[iLast]), NUM_DATAS);
 
     return numElems;
-}
-
-
-//----------------------------------------------------------------------------------------------------------------------------------------------------
-void DS_NewFrameP2P(DataSettings dss)
-{
-    if (!ENABLED_A(&dss) && !ENABLED_B(&dss))
-    {
-        return;
-    }
-
-    PushData(&dss, 0, 0);
-
-    numPointsP2P = 0;
 }
 
 

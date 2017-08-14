@@ -139,5 +139,7 @@ void DataSettings_Fill(DataSettings *ds);
 
 bool DataSettings_IsEquals(const DataSettings *ds1, const DataSettings *ds2);
 
+void DataSettings_Log(DataSettings *ds);
+
 /** @}  @}
  */
