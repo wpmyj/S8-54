@@ -14,7 +14,8 @@
 
 typedef struct
 {
-    uint timeMS     : 32;   // Время в миллисекундах от старта системы. Т.к. структура заполняется во время сохранения данных в хранилище, то timeMS == 0 означает, что полный сигнал в режиме поточеного вывода ещё не считан
+    uint timeMS     : 32;   ///< \brief Время в миллисекундах от старта системы. Т.к. структура заполняется во время сохранения данных в хранилище, 
+                            /// то timeMS == 0 означает, что полный сигнал в режиме поточеного вывода ещё не считан
     uint hours      : 5;
     uint minutes    : 6;
     uint seconds    : 6;
@@ -25,22 +26,23 @@ typedef struct
 
 typedef struct
 {
-    uint8      *addr;                   ///< Адрес данных во внешнем ОЗУ
+    uint8      *addr;                    ///< Адрес данных во внешнем ОЗУ
     uint16      rShift[2];
     uint16      trigLev[2];
-    int16       tShift;                 ///< Смещение по времени
-    uint8       range[2];               ///< Масштаб по напряжению обоих каналов.
-    uint        tBase           : 5;    ///< Масштаб по времени
-    uint        enableA         : 1;    ///< Включён ли канал A
-    uint        enableB         : 1;    ///< Включен ли канал B
-    uint        coupleA         : 2;    ///< Режим канала по входу
-    uint        coupleB         : 2;
-    uint        peackDet        : 2;    ///< Включен ли пиковый детектор
-    uint        inverseA        : 1;
-    uint        inverseB        : 1;
-    uint        multiplierA     : 1;
-    uint        multiplierB     : 1;
-    uint        enumPoints      : 3;
+    int16       tShift;                  ///< Смещение по времени
+    uint8       range[2];                ///< Масштаб по напряжению обоих каналов.
+    uint        tBase            : 5;    ///< Масштаб по времени
+    uint        enableA          : 1;    ///< Включён ли канал A
+    uint        enableB          : 1;    ///< Включен ли канал B
+    uint        coupleA          : 2;    ///< Режим канала по входу
+    uint        coupleB          : 2;
+    uint        peackDet         : 2;    ///< Включен ли пиковый детектор
+    uint        inverseA         : 1;
+    uint        inverseB         : 1;
+    uint        multiplierA      : 1;
+    uint        multiplierB      : 1;
+    uint        enumPoints       : 3;
+    uint        isFrameP2P       : 1;    ///< Если 1, то это фрейм поточечного вывода, в котором хранятся по одиночке считанные точки
     PackedTime  time;
 } DataSettings;
 
