@@ -85,7 +85,7 @@ char  Measure_GetChar(Measure measure)
 //----------------------------------------------------------------------------------------------------------------------------------------------------
 int Measure_GetDY(void)
 {
-    if(SOURCE_MEASURE_A_B)
+    if(SOURCE_MEASURE_A_B && SET_ENABLED_A && SET_ENABLED_B)
     {
         return 30;
     }

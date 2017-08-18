@@ -909,18 +909,18 @@ static void DrawMeasures(void)
                     Painter_FillRegionC(x + 1, y + 1, dX - 2, 9, active ? gColorBack : gColorFill);
                     Painter_DrawTextC(x + 4, y + 2, Measure_Name(str, elem), active ? gColorFill : gColorBack);
                 }
-                if(SOURCE_MEASURE_A)
+                if(SOURCE_MEASURE_A && SET_ENABLED_A)
                 {
                     Painter_DrawTextC(x + 2, y + 11, Processing_GetStringMeasure(meas, A, buffer, SIZE_BUFFER), gColorChan[A]);
                 }
-                else if(SOURCE_MEASURE_B)
+                else if(SOURCE_MEASURE_B && SET_ENABLED_B)
                 {
                     Painter_DrawTextC(x + 2, y + 11, Processing_GetStringMeasure(meas, B, buffer, SIZE_BUFFER), gColorChan[B]);
                 }
                 else
                 {
                     Painter_DrawTextC(x + 2, y + 11, Processing_GetStringMeasure(meas, A, buffer, SIZE_BUFFER), gColorChan[A]);
-                    Painter_DrawTextC(x + 2, y + 20, Processing_GetStringMeasure(meas, B, buffer, SIZE_BUFFER), gColorChan[B]);
+                    Painter_DrawTextC(x + 2, y + (SET_ENABLED_A ? 20 : 11), Processing_GetStringMeasure(meas, B, buffer, SIZE_BUFFER), gColorChan[B]);
                 }
 #undef SIZE_BUFFER
             }

@@ -140,8 +140,6 @@ void Processing_CalculateMeasures(void)
         return;
     }
     
-    LOG_WRITE("");
-
     int length = BYTES_IN_CHANNEL_DS;
 
     // Вначале выделим память для данных из внешнего ОЗУ
