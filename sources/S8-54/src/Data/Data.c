@@ -30,7 +30,7 @@ static DataSettings dataSettings;   ///< Здесь хранятся настройки для текущего р
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 void Data_Clear(void)
 {
-    pDS = 0;
+    DS = 0;
 }
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
@@ -44,7 +44,7 @@ void Data_ReadFromRAM(int fromEnd, DataStruct *dataStruct)
         && fromEnd == 0)                                                    // И запрашиваем псоледний считанный сигнал
     {
         dataSettings = *DS_DataSettingsFromEnd(0);
-        pDS = &dataSettings;
+        DS = &dataSettings;
         if (ENABLED_DS_A)
         {
             memcpy(IN_A, DS_GetAverageData(A), BYTES_IN_CHANNEL(DS));
@@ -66,7 +66,7 @@ void Data_ReadFromRAM(int fromEnd, DataStruct *dataStruct)
         if (ENUM_POINTS(&dataSettings) == FPGA_ENUM_POINTS) /** \todo Это временно. Нужно сделать пересчёт к установленной длине памяти в
                                                             в ProcessingSignal_SetData(), чтобы не мелькало на экране. */
         {
-            pDS = &dataSettings;
+            DS = &dataSettings;
 
             Processing_SetData();
 
@@ -82,7 +82,7 @@ void Data_ReadFromROM(DataStruct *dataStruct)
 
     if (FLASH_GetData(NUM_ROM_SIGNAL, &dataSettings, IN_A, IN_B))
     {
-        pDS = &dataSettings;
+        DS = &dataSettings;
 
         Processing_SetData();
 
