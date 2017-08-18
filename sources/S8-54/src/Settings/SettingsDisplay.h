@@ -71,6 +71,8 @@
 
 #define BRIGHTNESS_GRID         (set.disp_BrightnessGrid)
 
+#define SET_NUM_BYTES_ON_DISPLAY   (SET_PEAKDET_EN ? 281 * 2 : 281)
+
 
 /// ¬озвращает ограничение частоты кадров
 int sDisplay_NumSignalsInS(void);

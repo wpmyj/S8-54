@@ -217,10 +217,6 @@ static void DrawChannel(Channel ch)
 
     Painter_SetColor(gColorChan[ch]);
 
-    int pointFirst = 0;
-    int pointLast = 0;
-    sDisplay_PointsOnDisplay(&pointFirst, &pointLast);
-
     int left = GridLeft();
     int bottom = GridChannelBottom();
     int top = GRID_TOP;
@@ -274,11 +270,10 @@ static void DrawChannel(Channel ch)
                 }
 
                 pData = d;
-                pointFirst = 0;
             }
         }
 
-        if (!DataBeyondTheBorders(pData, pointFirst, pointLast))
+        if (!DataBeyondTheBorders(pData, 0, SET_NUM_BYTES_ON_DISPLAY))
         {
             DrawChannel_Normal(ch, left, bottom, scaleY);
         }
