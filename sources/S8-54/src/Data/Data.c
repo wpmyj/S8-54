@@ -38,10 +38,10 @@ void Data_ReadFromRAM(int fromEnd, DataStruct *dataStruct)
 {
     Data_Clear();
 
-    bool readed = false;                // Признак того, что данные считаны
+    bool readed = false;                                                    // Признак того, что данные считаны
 
-    if (IN_AVERAGING_MODE               // Если включено усреднение
-        && fromEnd == 0)                // И запрашиваем псоледний считанный сигнал
+    if ((IN_AVERAGING_MODE || (IN_RANDOM_MODE && NRST_NUM_AVE_FOR_RAND))    // Если включено усреднение
+        && fromEnd == 0)                                                    // И запрашиваем псоледний считанный сигнал
     {
         dataSettings = *DS_DataSettingsFromEnd(0);
         pDS = &dataSettings;

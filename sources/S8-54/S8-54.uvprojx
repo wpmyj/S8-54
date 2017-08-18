@@ -921,11 +921,6 @@
               <FilePath>.\src\Globals.h</FilePath>
             </File>
             <File>
-              <FileName>Heap.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\src\Heap.c</FilePath>
-            </File>
-            <File>
               <FileName>Log.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\src\Log.c</FilePath>
@@ -1166,26 +1161,6 @@
           <GroupName>FPGA</GroupName>
           <Files>
             <File>
-              <FileName>DataStorage.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\src\FPGA\DataStorage.c</FilePath>
-            </File>
-            <File>
-              <FileName>DataStorage.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\src\FPGA\DataStorage.h</FilePath>
-            </File>
-            <File>
-              <FileName>Data.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\src\FPGA\Data.c</FilePath>
-            </File>
-            <File>
-              <FileName>Data.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\src\FPGA\Data.h</FilePath>
-            </File>
-            <File>
               <FileName>FPGA.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\src\FPGA\FPGA.c</FilePath>
@@ -1214,16 +1189,6 @@
               <FileName>FPGATypes.h</FileName>
               <FileType>5</FileType>
               <FilePath>.\src\FPGA\FPGATypes.h</FilePath>
-            </File>
-            <File>
-              <FileName>DataBuffer.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\src\FPGA\DataBuffer.c</FilePath>
-            </File>
-            <File>
-              <FileName>DataBuffer.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\src\FPGA\DataBuffer.h</FilePath>
             </File>
             <File>
               <FileName>FPGATypes.c</FileName>
@@ -1340,16 +1305,6 @@
         <Group>
           <GroupName>Settings</GroupName>
           <Files>
-            <File>
-              <FileName>DataSettings.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\src\Settings\DataSettings.c</FilePath>
-            </File>
-            <File>
-              <FileName>DataSettings.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\src\Settings\DataSettings.h</FilePath>
-            </File>
             <File>
               <FileName>Settings.c</FileName>
               <FileType>1</FileType>
@@ -1814,6 +1769,51 @@
               <FileName>PageHelp.h</FileName>
               <FileType>5</FileType>
               <FilePath>.\src\Menu\Pages\PageHelp.h</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>Data</GroupName>
+          <Files>
+            <File>
+              <FileName>Data.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\src\Data\Data.c</FilePath>
+            </File>
+            <File>
+              <FileName>Data.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\src\Data\Data.h</FilePath>
+            </File>
+            <File>
+              <FileName>DataBuffer.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\src\Data\DataBuffer.c</FilePath>
+            </File>
+            <File>
+              <FileName>DataBuffer.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\src\Data\DataBuffer.h</FilePath>
+            </File>
+            <File>
+              <FileName>DataSettings.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\src\Data\DataSettings.c</FilePath>
+            </File>
+            <File>
+              <FileName>DataSettings.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\src\Data\DataSettings.h</FilePath>
+            </File>
+            <File>
+              <FileName>DataStorage.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\src\Data\DataStorage.c</FilePath>
+            </File>
+            <File>
+              <FileName>DataStorage.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\src\Data\DataStorage.h</FilePath>
             </File>
           </Files>
         </Group>

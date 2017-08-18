@@ -1,11 +1,11 @@
 // This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++ and C#: http://www.viva64.com
 #include "PageMemory.h"
+#include "Data/Data.h"
+#include "Data/DataBuffer.h"
 #include "Display/Grid.h"
 #include "Display/Symbols.h"
 #include "FlashDrive/FlashDrive.h"
-#include "FPGA/Data.h"
-#include "FPGA/DataBuffer.h"
 #include "FPGA/FPGA.h"
 #include "Hardware/FLASH.h"
 #include "Hardware/Sound.h"

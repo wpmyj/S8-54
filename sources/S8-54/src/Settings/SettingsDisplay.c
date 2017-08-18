@@ -57,7 +57,16 @@ int sDisplay_NumAverage(void)
         return 8;
     }
 
-    return (NUM_AVE);
+    if (!IN_RANDOM_MODE)
+    {
+        return NUM_AVE;
+    }
+    else if (NRST_NUM_AVE_FOR_RAND > NUM_AVE)
+    {
+        return NRST_NUM_AVE_FOR_RAND;
+    }
+
+    return NUM_AVE;
 }
 
 

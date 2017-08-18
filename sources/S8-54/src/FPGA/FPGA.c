@@ -1,12 +1,12 @@
 // This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++ and C#: http://www.viva64.com
-#include "Data.h"
-#include "DataBuffer.h"
 #include "FPGA.h"
 #include "FPGATypes.h"
 #include "Log.h"
+#include "Data/Data.h"
+#include "Data/DataBuffer.h"
+#include "Data/DataStorage.h"
 #include "Display/Display.h"
-#include "FPGA/DataStorage.h"
 #include "FPGA/FPGAtypes.h"
 #include "FPGA/FPGAextensions.h"
 #include "Hardware/FSMC.h"

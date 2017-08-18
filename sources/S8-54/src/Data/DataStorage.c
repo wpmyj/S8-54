@@ -115,6 +115,7 @@ static void CalculateAroundAverage(uint8 *dataA, uint8 *dataB, DataSettings *dss
         {
             numAveData = sDisplay_NumAverage();
         }
+
         float numAveDataF = (float)numAveData;
         float numAveDataFless = numAveDataF - 1.0f;
         float numAveDataInv = 1.0f / numAveDataF;
@@ -445,17 +446,7 @@ void CalculateSums(void)
 
     int numPoints = BYTES_IN_CHANNEL(ds);
 
-    int numAveragings = 0;
-
-    if(IN_RANDOM_MODE)
-    {
-        numAveragings = NRST_NUM_AVE_FOR_RAND;
-    }
-
-    if(sDisplay_NumAverage() > numAveragings)
-    {
-        numAveragings = sDisplay_NumAverage();
-    }
+    int numAveragings = sDisplay_NumAverage();
 
     uint16 *sumA16 = (uint16 *)sumA_RAM;
     uint16 *sumB16 = (uint16 *)sumB_RAM;
@@ -745,16 +736,7 @@ uint8 *DS_GetAverageData(Channel ch)
         return &gDataAve[ch][0];
     }
 
-    int numAveraging = 0;
-    if (IN_RANDOM_MODE)
-    {
-        numAveraging = NRST_NUM_AVE_FOR_RAND;
-    }
-
-    if (sDisplay_NumAverage() > numAveraging)
-    {
-        numAveraging = sDisplay_NumAverage();
-    }
+    int numAveraging = sDisplay_NumAverage();
 
     LIMIT_ABOVE(numAveraging, DS_NumElementsWithSameSettings());
 

@@ -1,5 +1,5 @@
 #pragma once
-#include "Settings/DataSettings.h"
+#include "Data/DataSettings.h"
 #include "Settings/SettingsTypes.h"
 
 

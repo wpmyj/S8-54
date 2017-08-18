@@ -1,7 +1,7 @@
 #pragma once
+#include "Data/DataSettings.h"
 #include "FPGA/FPGAtypes.h"
 #include "Panel/Controls.h"
-#include "Settings/DataSettings.h"
 #include "Settings/SettingsTypes.h"
 #include <stm32f4xx_hal.h>
 #include <stm32f4xx_hal_hcd.h>
