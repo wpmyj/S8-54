@@ -540,21 +540,20 @@ static void DrawChannel_Math(uint8 *dataIn)
     bool calculateFiltr = true;
     int sizeBuffer = BYTES_IN_CHANNEL(DS);
     uint8 data[sizeBuffer];
+  
+    BitSet64 points = {0};
 
-    int firstPoint = 0;
-    int lastPoint = 280;
-
-    if (!IN_P2P_MODE ||                                     // Если не находимся в режиме медленных поточечных развёрток
-        (IN_P2P_MODE && TIME_MS(DS)))                       // Или в поточечном, но данные уже считаны
+    if (!IN_P2P_MODE ||                                // Если не находимся в режиме медленных поточечных развёрток
+        (IN_P2P_MODE && TIME_MS(DS)))                  // Или в поточечном, но данные уже считаны
     {
-        sDisplay_PointsOnDisplay(&firstPoint, &lastPoint);  // то находим первую и последнюю точки, выводимые на экран
+        points = sDisplay_PointsOnDisplay();           // то находим первую и последнюю точки, выводимые на экран
     }
 
-    if (IN_P2P_MODE &&                                      // Если находимся в режиме медленных поточечных развёрток
-        TIME_MS(DS) == 0)                                   // и считывание полного набора данных ещё не произошло
+    if (IN_P2P_MODE &&                                 // Если находимся в режиме медленных поточечных развёрток
+        TIME_MS(DS) == 0)                              // и считывание полного набора данных ещё не произошло
     {
-        lastPoint = FillDataP2P(data, &DS);
-        if (lastPoint < 2)                                  // Если готово меньше двух точек - выход
+        points.word1 = FillDataP2P(data, &DS);
+        if (points.word1 < 2)                          // Если готово меньше двух точек - выход
         {
             return;
         }
@@ -575,11 +574,11 @@ static void DrawChannel_Math(uint8 *dataIn)
     {
         if (MODE_DRAW_SIGNAL_LINES)
         {
-            DrawSignalLined(dataIn, firstPoint, lastPoint, minY, maxY, scaleY, scaleX, calculateFiltr);
+            DrawSignalLined(dataIn, points.word0, points.word1, minY, maxY, scaleY, scaleX, calculateFiltr);
         }
         else
         {
-            DrawSignalPointed(dataIn, firstPoint, lastPoint, minY, maxY, scaleY, scaleX);
+            DrawSignalPointed(dataIn, points.word0, points.word1, minY, maxY, scaleY, scaleX);
         }
     }
 }

@@ -1087,12 +1087,10 @@ float Processing_GetCursU(Channel ch, float posCurT)
         return 0;
     }
     
-    int firstPoint = 0;
-    int lastPoint = 0;
-    sDisplay_PointsOnDisplay(&firstPoint, &lastPoint);
+    BitSet64 points = sDisplay_PointsOnDisplay();
 
     float retValue = 0.0f;
-    LIMITATION(retValue, (float)(200 - (CHOICE_BUFFER)[firstPoint + (int)posCurT] + MIN_VALUE), 0.0f, 200.0f);
+    LIMITATION(retValue, (float)(200 - (CHOICE_BUFFER)[points.word0 + (int)posCurT] + MIN_VALUE), 0.0f, 200.0f);
     return retValue;
 }
 
@@ -1107,15 +1105,16 @@ float Processing_GetCursT(Channel ch, float posCurU, int numCur)
         return 0;
     }
 
-    int firstPoint = 0;
-    int lastPoint = 0;
-    sDisplay_PointsOnDisplay(&firstPoint, &lastPoint);
+#define FIRST_POINT (points.word0)
+#define LAST_POINT  (points.word1)
+    
+    BitSet64 points = sDisplay_PointsOnDisplay();
 
-    int prevData = 200 - dataIn[firstPoint] + MIN_VALUE;
+    int prevData = 200 - dataIn[FIRST_POINT] + MIN_VALUE;
 
     int numIntersections = 0;
 
-    for(int i = firstPoint + 1; i < lastPoint; i++)
+    for(int i = FIRST_POINT + 1; i < LAST_POINT; i++)
     {
         int curData = 200 - (dataIn)[i] + MIN_VALUE;
 
@@ -1123,7 +1122,7 @@ float Processing_GetCursT(Channel ch, float posCurU, int numCur)
         {
             if(numCur == 0)
             {
-                return (float)(i - firstPoint);
+                return (float)(i - FIRST_POINT);
             }
             else
             {
@@ -1133,7 +1132,7 @@ float Processing_GetCursT(Channel ch, float posCurU, int numCur)
                 }
                 else
                 {
-                    return (float)(i - firstPoint);
+                    return (float)(i - FIRST_POINT);
                 }
             }
         }
@@ -1142,7 +1141,7 @@ float Processing_GetCursT(Channel ch, float posCurU, int numCur)
         {
             if(numCur == 0)
             {
-                return (float)(i - firstPoint);
+                return (float)(i - FIRST_POINT);
             }
             else
             {
@@ -1152,13 +1151,16 @@ float Processing_GetCursT(Channel ch, float posCurU, int numCur)
                 }
                 else
                 {
-                    return (float)(i - firstPoint);
+                    return (float)(i - FIRST_POINT);
                 }
             }
         }
         prevData = curData;
     }
     return 0;
+
+#undef LAST_POINT
+#undef FIRST_POINT
 }
 
 

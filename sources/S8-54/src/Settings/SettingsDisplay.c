@@ -71,14 +71,14 @@ int sDisplay_NumAverage(void)
 
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
-void sDisplay_PointsOnDisplay(int *firstPoint, int *lastPoint)
+BitSet64 sDisplay_PointsOnDisplay(void)
 {
-    *firstPoint = SHIFT_IN_MEMORY;
-    if (SET_PEAKDET_EN)
-    {
-        *firstPoint /= 2;
-    }
-    *lastPoint = *firstPoint + 281;
+    BitSet64 retValue;
+
+    retValue.word0 = (SET_PEAKDET_EN ? (SHIFT_IN_MEMORY / 2) : SHIFT_IN_MEMORY);
+    retValue.word1 = retValue.word0 + 281;
+
+    return retValue;
 }
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------

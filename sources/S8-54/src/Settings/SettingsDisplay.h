@@ -81,7 +81,7 @@ void sDisplay_SetNumSignalsInS(int maxFPS);
 /// Возвращает число точек сглаживающего фильтра (режим ДИСПЛЕЙ - Сглаживание)
 int sDisplay_NumPointSmoothing(void);
 /// Возвращает адрес первой и последней точки на экране в координатах экрана
-void sDisplay_PointsOnDisplay(int *firstPoint, int *lastPoint);
+BitSet64 sDisplay_PointsOnDisplay(void);
 /// Возращает адрес первой и последней точки в координатах массива
 BitSet64 sDisplay_BytesOnDisplay(void);
 /// Возвращает время, через которое меню автоматически скрывается, если не было больше нажатий

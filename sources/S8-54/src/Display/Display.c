@@ -954,15 +954,16 @@ static void DrawStringNavigation(void)
 //----------------------------------------------------------------------------------------------------------------------------------------------------
 static void DrawCursorTShift(void)
 {
-    int firstPoint = 0;
-    int lastPoint = 0;
-    sDisplay_PointsOnDisplay(&firstPoint, &lastPoint);
-    lastPoint = firstPoint + 281;
+#define FIRST_POINT (points.word0)
+#define LAST_POINT  (points.word1)
+    
+    BitSet64 points = sDisplay_PointsOnDisplay();
+    LAST_POINT = FIRST_POINT + 281;
 
     // Рисуем TPos
     int shiftTPos = TPOS_IN_POINTS - SHIFT_IN_MEMORY_IN_POINTS;
 
-    float scale = (float)(lastPoint - firstPoint) / GridWidth();
+    float scale = (float)(LAST_POINT - FIRST_POINT) / GridWidth();
     int gridLeft = GridLeft();
     int x = gridLeft + (int)(shiftTPos * scale) - 3;
     if(IntInRange(x + 3, gridLeft, GridRight() + 1))
@@ -972,21 +973,24 @@ static void DrawCursorTShift(void)
 
     // Рисуем tShift
     int shiftTShift = TPOS_IN_POINTS - TSHIFT_IN_POINTS;
-    if(IntInRange(shiftTShift, firstPoint, lastPoint))
+    if(IntInRange(shiftTShift, FIRST_POINT, LAST_POINT))
     {
-        int x = gridLeft + shiftTShift - firstPoint - 3;
+        int x = gridLeft + shiftTShift - FIRST_POINT - 3;
         Painter_Draw2SymbolsC(x, GRID_TOP - 1, SYMBOL_TSHIFT_NORM_1, SYMBOL_TSHIFT_NORM_2, gColorBack, gColorFill);
     }
-    else if(shiftTShift < firstPoint)
+    else if(shiftTShift < FIRST_POINT)
     {
         Painter_Draw2SymbolsC(gridLeft + 1, GRID_TOP, SYMBOL_TSHIFT_LEFT_1, SYMBOL_TSHIFT_LEFT_2, gColorBack, gColorFill);
         Painter_DrawLineC(GridLeft() + 9, GRID_TOP + 1, GridLeft() + 9, GRID_TOP + 7, gColorBack);
     }
-    else if(shiftTShift > lastPoint)
+    else if(shiftTShift > LAST_POINT)
     {
         Painter_Draw2SymbolsC(GridRight() - 8, GRID_TOP, SYMBOL_TSHIFT_RIGHT_1, SYMBOL_TSHIFT_RIGHT_2, gColorBack, gColorFill);
         Painter_DrawLineC(GridRight() - 9, GRID_TOP + 1, GridRight() - 9, GRID_TOP + 7, gColorBack);
     }
+    
+#undef FIRST_POINT
+#undef LAST_POINT
 }
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------
