@@ -151,6 +151,10 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="..\..\S8-54\src\Data\Data.c" />
+    <ClCompile Include="..\..\S8-54\src\Data\DataBuffer.c" />
+    <ClCompile Include="..\..\S8-54\src\Data\DataSettings.c" />
+    <ClCompile Include="..\..\S8-54\src\Data\DataStorage.c" />
     <ClCompile Include="..\..\S8-54\src\defines.c" />
     <ClCompile Include="..\..\S8-54\src\Display\Colors.c">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</ExcludedFromBuild>
@@ -172,9 +176,6 @@
     <ClCompile Include="..\..\S8-54\src\FlashDrive\FlashDrive.c">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\..\S8-54\src\FPGA\Data.c" />
-    <ClCompile Include="..\..\S8-54\src\FPGA\DataBuffer.c" />
-    <ClCompile Include="..\..\S8-54\src\FPGA\DataStorage.c" />
     <ClCompile Include="..\..\S8-54\src\FPGA\FPGA.c" />
     <ClCompile Include="..\..\S8-54\src\FPGA\FPGAExtensions.c" />
     <ClCompile Include="..\..\S8-54\src\FPGA\FPGASettings.c" />
@@ -222,7 +223,6 @@
     <ClCompile Include="..\..\S8-54\src\Panel\Controls.c" />
     <ClCompile Include="..\..\S8-54\src\Panel\Panel.c" />
     <ClCompile Include="..\..\S8-54\src\Panel\PanelFunctions.h" />
-    <ClCompile Include="..\..\S8-54\src\Settings\DataSettings.c" />
     <ClCompile Include="..\..\S8-54\src\Settings\Settings.c" />
     <ClCompile Include="..\..\S8-54\src\Settings\SettingsChannel.c" />
     <ClCompile Include="..\..\S8-54\src\Settings\SettingsCursors.c" />
@@ -350,6 +350,10 @@
     <ClCompile Include="..\..\STM32Cube_FW_F4\Middlewares\Third_Party\LwIP\src\netif\etharp.c" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\S8-54\src\Data\Data.h" />
+    <ClInclude Include="..\..\S8-54\src\Data\DataBuffer.h" />
+    <ClInclude Include="..\..\S8-54\src\Data\DataSettings.h" />
+    <ClInclude Include="..\..\S8-54\src\Data\DataStorage.h" />
     <ClInclude Include="..\..\S8-54\src\defines.h" />
     <ClInclude Include="..\..\S8-54\src\Display\Colors.h" />
     <ClInclude Include="..\..\S8-54\src\Display\Display.h" />
@@ -375,9 +379,6 @@
     <ClInclude Include="..\..\S8-54\src\FlashDrive\FlashDrive.h">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</ExcludedFromBuild>
     </ClInclude>
-    <ClInclude Include="..\..\S8-54\src\FPGA\Data.h" />
-    <ClInclude Include="..\..\S8-54\src\FPGA\DataBuffer.h" />
-    <ClInclude Include="..\..\S8-54\src\FPGA\DataStorage.h" />
     <ClInclude Include="..\..\S8-54\src\FPGA\FPGA.h" />
     <ClInclude Include="..\..\S8-54\src\FPGA\FPGAExtensions.h" />
     <ClInclude Include="..\..\S8-54\src\FPGA\FPGATypes.h" />
@@ -417,7 +418,6 @@
     <ClInclude Include="..\..\S8-54\src\Menu\Pages\PageMemory.h" />
     <ClInclude Include="..\..\S8-54\src\Panel\Controls.h" />
     <ClInclude Include="..\..\S8-54\src\Panel\Panel.h" />
-    <ClInclude Include="..\..\S8-54\src\Settings\DataSettings.h" />
     <ClInclude Include="..\..\S8-54\src\Settings\Settings.h" />
     <ClInclude Include="..\..\S8-54\src\Settings\SettingsChannel.h" />
     <ClInclude Include="..\..\S8-54\src\Settings\SettingsCursors.h" />
