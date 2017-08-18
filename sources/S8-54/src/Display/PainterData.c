@@ -292,6 +292,8 @@ static void DrawChannel(Channel ch)
     DrawMarkersForMeasure(ch);
 
     Painter_RunDisplay();
+
+    Painter_DrawVLineC(left + dataStruct->posBreak, top, bottom, COLOR_GRID);
 }
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------

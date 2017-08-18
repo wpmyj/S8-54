@@ -40,7 +40,9 @@ void Data_ReadFromRAM(int fromEnd, StructDataDrawing *dataStruct)
 {
     Data_Clear();
 
-    bool readed = false;                                                    // Признак того, что данные считаны
+    bool readed = false;      // Признак того, что данные считаны
+
+    dataStruct->posBreak = 0;
 
     if ((IN_AVERAGING_MODE || (IN_RANDOM_MODE && NRST_NUM_AVE_FOR_RAND))    // Если включено усреднение
         && fromEnd == 0)                                                    // И запрашиваем псоледний считанный сигнал
@@ -157,6 +159,7 @@ static void FillDataP2P(StructDataDrawing *dataStruct, Channel ch)
         while (allPoints > 0)
         {
             dataStruct->data[ch][index] = dataOUT[ch][pointer];
+            dataStruct->posBreak = index;
             index++;
             pointer++;
             allPoints--;
