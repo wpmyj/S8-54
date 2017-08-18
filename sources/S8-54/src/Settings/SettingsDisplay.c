@@ -82,14 +82,14 @@ void sDisplay_PointsOnDisplay(int *firstPoint, int *lastPoint)
 }
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
-void sDisplay_BytesOnDisplay(int *firstByte, int *lastByte)
+BitSet64 sDisplay_BytesOnDisplay(void)
 {
-    *firstByte = SHIFT_IN_MEMORY;
-    *lastByte = *firstByte + 281;
-    if (SET_PEAKDET_EN)
-    {
-        *lastByte += 281;
-    }
+    BitSet64 retValue;
+
+    retValue.word0 = SHIFT_IN_MEMORY;
+    retValue.word1 = SHIFT_IN_MEMORY + (SET_PEAKDET_EN ? 281 * 2 : 281);
+
+    return retValue;
 }
 
 

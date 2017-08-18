@@ -176,13 +176,10 @@ static void FillDataNormal(DataStruct *dataStruct, Channel ch)
         return;
     }
 
-    int firstByte = 0;
-    int lastByte = 0;
-
-    sDisplay_BytesOnDisplay(&firstByte, &lastByte);
+    BitSet64 points = sDisplay_BytesOnDisplay();
 
     uint8 *dest = dataStruct->data[ch];
-    uint8 *src = &dataOUT[ch][firstByte];
+    uint8 *src = &dataOUT[ch][points.word0];
 
     int numBytes = PEAKDET_DS ? 281 * 2 : 281;
 

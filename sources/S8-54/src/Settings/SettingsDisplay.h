@@ -83,7 +83,7 @@ int sDisplay_NumPointSmoothing(void);
 /// ¬озвращает адрес первой и последней точки на экране в координатах экрана
 void sDisplay_PointsOnDisplay(int *firstPoint, int *lastPoint);
 /// ¬озращает адрес первой и последней точки в координатах массива
-void sDisplay_BytesOnDisplay(int *firstByte, int *lastByte);
+BitSet64 sDisplay_BytesOnDisplay(void);
 /// ¬озвращает врем€, через которое меню автоматически скрываетс€, если не было больше нажатий
 int sDisplay_TimeMenuAutoHide(void);
 /// ≈сли экран разделЄн на две части и основной сигнал выводитс€ сверху - например, в режиме вывода спектра

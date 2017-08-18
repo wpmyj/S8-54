@@ -1044,7 +1044,9 @@ void Processing_SetData(void)
 {
     isSet = true;
 
-    sDisplay_BytesOnDisplay(&firstByte, &lastByte);
+    BitSet64 points = sDisplay_BytesOnDisplay();
+    firstByte = points.word0;
+    lastByte = points.word1;
 
     numBytes = lastByte - firstByte;
     
