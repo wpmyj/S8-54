@@ -223,85 +223,33 @@ static void DrawChannel(Channel ch)
 
     float scaleY = (bottom - top) / (float)(MAX_VALUE - MIN_VALUE + 1);
 
-    /// \todo Переделать на массив функций.
     if(PEAKDET_DS)
     {
         DrawChannel_PeakDet(ch, left, bottom, scaleY);
     }
     else
     {
-        uint8 *pData = dataStruct->data[ch];
-
-        int posVertLine = 0;
-      
-        if (!STAND_P2P)
-        {
-            if (NEED_DRAW_DYNAMIC_P2P)
-            {
-                int numPointsP2P = DS_NumPointsInLastFrameP2P();
-                
-                uint8 d[281] = {0};
-
-                if (numPointsP2P <= 281)
-                {
-                    for (int i = 0; i < 281; i++)
-                    {
-                        if (pData[i])
-                        {
-                            d[i] = pData[i];
-                            posVertLine = i;
-                        }
-                    }
-                }
-                else if(numPointsP2P <= BYTES_IN_CHANNEL_DS)
-                {
-                    int pointer = 0;
-
-                    for (int i = numPointsP2P - 281; i < numPointsP2P; i++)
-                    {
-                        d[pointer++] = pData[i];
-                    }
-                }
-                else
-                {
-                    int pointer = 0;
-                    for (int i = BYTES_IN_CHANNEL_DS - 281; i < BYTES_IN_CHANNEL_DS; i++)
-                    {
-                        d[pointer++] = pData[i];
-                    }
-                }
-
-                pData = d;
-            }
-        }
-
-        if (!DataBeyondTheBorders(pData, 0, SET_NUM_BYTES_ON_DISPLAY))
-        {
-            DrawChannel_Normal(ch, left, bottom, scaleY);
-        }
-
-        if (!STAND_P2P)
-        {
-            if (NEED_DRAW_DYNAMIC_P2P)
-            {
-                Painter_DrawVLineC(left + posVertLine, bottom, GRID_TOP, gColorGrid);
-            }
-        }
+        DrawChannel_Normal(ch, left, bottom, scaleY);
     }
+
+    Painter_DrawVLineC(left + dataStruct->posBreak, top, bottom, COLOR_GRID);
 
     DrawMarkersForMeasure(ch);
 
     Painter_RunDisplay();
-
-    Painter_DrawVLineC(left + dataStruct->posBreak, top, bottom, COLOR_GRID);
 }
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
 static void DrawChannel_Normal(Channel ch, int left, int bottom, float scaleY)
 {
-    float k = bottom + MIN_VALUE * scaleY;
-    
     uint8 *data = dataStruct->data[ch];
+
+    if (DataBeyondTheBorders(data, 0, 281))
+    {
+        return;
+    }
+
+    float k = bottom + MIN_VALUE * scaleY;
 
     for(int i = 0; i < 280; ++i)                        /// \todo Последня точка не рисуется.
     {
