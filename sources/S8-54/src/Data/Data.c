@@ -22,6 +22,7 @@
 
 /// Заполняет структуру dataStruct данными для отрисовки
 static void PrepareDataForDraw(DataStruct *dataStruct);
+static void FillDataP2P(DataStruct *dataStruct, Channel ch);
 
 
 static DataSettings dataSettings;   ///< Здесь хранятся настройки для текущего рисуемого сигнала
@@ -91,12 +92,14 @@ void Data_ReadFromROM(DataStruct *dataStruct)
 }
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
-#define CYCLE(in, out, num)         \
-    uint8 *dest = in;               \
-    uint8 *src = out;               \
-    for(int i = 0; i < num; i++)    \
-    {                               \
-        *dest++ = *src++;           \
+#define CYCLE(in, out, num)             \
+    {                                   \
+        uint8 *dest = in;               \
+        uint8 *src = out;               \
+        for(int i = 0; i < num; i++)    \
+        {                               \
+            *dest++ = *src++;           \
+        }                               \
     }
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
@@ -121,6 +124,12 @@ static void PrepareDataForDraw(DataStruct *dataStruct)
     dataStruct->needDraw[A] = ENABLED_DS_A && SET_ENABLED_A;
     dataStruct->needDraw[B] = ENABLED_DS_B && SET_ENABLED_B;
 
+    if (IN_P2P_MODE && DS_NumPointsInLastFrameP2P() < 2)
+    {
+        dataStruct->needDraw[A] = dataStruct->needDraw[B] = false;
+        return;
+    }
+
     int numBytes = 281;
     int firstByte = pointFirst;
 
@@ -130,14 +139,55 @@ static void PrepareDataForDraw(DataStruct *dataStruct)
         firstByte *= 2;
     }
 
-    if (dataStruct->needDraw[A])
+    if (IN_P2P_MODE)
+    {
+        FillDataP2P(dataStruct, A);
+        FillDataP2P(dataStruct, B);
+    }
+    else
     {
         CYCLE(dataStruct->data[A], &OUT_A[firstByte], numBytes);
-    }
-
-    if (dataStruct->needDraw[B])
-    {
         CYCLE(dataStruct->data[B], &OUT_B[firstByte], numBytes);
+    }
+}
+
+static void FillDataP2P(DataStruct *dataStruct, Channel ch)
+{
+    for (int i = 0; i < 281; i++)
+    {
+        dataStruct->data[ch][i] = 0;
+    }
+    
+    if(!dataStruct->needDraw[ch])
+    {
+        return;
+    }
+    
+    int allPoints = DS_NumPointsInLastFrameP2P();
+    if (allPoints > 1)
+    {
+        int pointer = 0;                // Указатель на данные полного фрейма
+        int index = 0;                  // Указатель на данные выходного буфера, в который мы запишем 281 точку
+        while (allPoints > BYTES_IN_CHANNEL(DS))
+        {
+            ++index;
+            if (index > 280)
+            {
+                index = 0;
+            }
+            --allPoints;
+        }
+        while (allPoints > 0)
+        {
+            dataStruct->data[ch][index] = dataOUT[ch][pointer];
+            index++;
+            pointer++;
+            allPoints--;
+            if (index > 280)
+            {
+                index = 0;
+            }
+        }
     }
 }
 

@@ -233,14 +233,16 @@ static void DrawChannel(Channel ch)
         uint8 *pData = dataStruct->data[ch];
 
         int posVertLine = 0;
-
+      
         if (!STAND_P2P)
         {
             if (NEED_DRAW_DYNAMIC_P2P)
             {
+                int numPointsP2P = DS_NumPointsInLastFrameP2P();
+                
                 uint8 d[281] = {0};
 
-                if (NUM_POINTS_P2P <= 281)
+                if (numPointsP2P <= 281)
                 {
                     for (int i = 0; i < 281; i++)
                     {
@@ -251,11 +253,11 @@ static void DrawChannel(Channel ch)
                         }
                     }
                 }
-                else if(NUM_POINTS_P2P <= BYTES_IN_CHANNEL_DS)
+                else if(numPointsP2P <= BYTES_IN_CHANNEL_DS)
                 {
                     int pointer = 0;
 
-                    for (int i = NUM_POINTS_P2P - 281; i < NUM_POINTS_P2P; i++)
+                    for (int i = numPointsP2P - 281; i < numPointsP2P; i++)
                     {
                         d[pointer++] = pData[i];
                     }
@@ -831,11 +833,6 @@ static void DrawMemoryWindow(void)
 //----------------------------------------------------------------------------------------------------------------------------------------------------
 static void DrawDataInRect(uint width, Channel ch)
 {
-    if (IN_P2P_MODE && !NUM_POINTS_P2P)
-    {
-        return;
-    }
-
     if (!dataStruct->needDraw[ch])
     {
         return;
