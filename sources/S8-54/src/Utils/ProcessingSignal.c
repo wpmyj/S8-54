@@ -399,7 +399,7 @@ float CalculatePeriod(Channel ch)
 
             EXIT_IF_ERRORS_FLOAT(firstIntersection, secondIntersection);
 
-            float per = TSHIFT_2_ABS((secondIntersection - firstIntersection) / 2.0f, TBASE_DS);
+            float per = TSHIFT_2_ABS((secondIntersection - firstIntersection) / 2.0f, SET_TBASE);
 
             period[ch] = per;
             periodIsCaclulating[ch] = true;
