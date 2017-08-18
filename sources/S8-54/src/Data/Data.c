@@ -23,6 +23,7 @@
 /// Заполняет структуру dataStruct данными для отрисовки
 static void PrepareDataForDraw(DataStruct *dataStruct);
 static void FillDataP2P(DataStruct *dataStruct, Channel ch);
+static void FillDataNormal(DataStruct *dataStruct, Channel ch);
 
 
 static DataSettings dataSettings;   ///< Здесь хранятся настройки для текущего рисуемого сигнала
@@ -92,17 +93,6 @@ void Data_ReadFromROM(DataStruct *dataStruct)
 }
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
-#define CYCLE(in, out, num)             \
-    {                                   \
-        uint8 *dest = in;               \
-        uint8 *src = out;               \
-        for(int i = 0; i < num; i++)    \
-        {                               \
-            *dest++ = *src++;           \
-        }                               \
-    }
-
-//----------------------------------------------------------------------------------------------------------------------------------------------------
 static void PrepareDataForDraw(DataStruct *dataStruct)
 {
     if (!dataStruct)
@@ -116,11 +106,6 @@ static void PrepareDataForDraw(DataStruct *dataStruct)
         return;
     }
 
-    int pointFirst = 0;
-    int pointLast = 0;
-
-    sDisplay_PointsOnDisplay(&pointFirst, &pointLast);
-
     dataStruct->needDraw[A] = ENABLED_DS_A && SET_ENABLED_A;
     dataStruct->needDraw[B] = ENABLED_DS_B && SET_ENABLED_B;
 
@@ -130,15 +115,6 @@ static void PrepareDataForDraw(DataStruct *dataStruct)
         return;
     }
 
-    int numBytes = 281;
-    int firstByte = pointFirst;
-
-    if (PEAKDET_DS)
-    {
-        numBytes *= 2;
-        firstByte *= 2;
-    }
-
     if (IN_P2P_MODE)
     {
         FillDataP2P(dataStruct, A);
@@ -146,11 +122,12 @@ static void PrepareDataForDraw(DataStruct *dataStruct)
     }
     else
     {
-        CYCLE(dataStruct->data[A], &OUT_A[firstByte], numBytes);
-        CYCLE(dataStruct->data[B], &OUT_B[firstByte], numBytes);
+        FillDataNormal(dataStruct, A);
+        FillDataNormal(dataStruct, B);
     }
 }
 
+//----------------------------------------------------------------------------------------------------------------------------------------------------
 static void FillDataP2P(DataStruct *dataStruct, Channel ch)
 {
     for (int i = 0; i < 281; i++)
@@ -188,6 +165,30 @@ static void FillDataP2P(DataStruct *dataStruct, Channel ch)
                 index = 0;
             }
         }
+    }
+}
+
+//----------------------------------------------------------------------------------------------------------------------------------------------------
+static void FillDataNormal(DataStruct *dataStruct, Channel ch)
+{
+    if (!dataStruct->needDraw[ch])
+    {
+        return;
+    }
+
+    int firstByte = 0;
+    int lastByte = 0;
+
+    sDisplay_BytesOnDisplay(&firstByte, &lastByte);
+
+    uint8 *dest = dataStruct->data[ch];
+    uint8 *src = &dataOUT[ch][firstByte];
+
+    int numBytes = PEAKDET_DS ? 281 * 2 : 281;
+
+    for(int i = 0; i < numBytes; i++)
+    {
+        *dest++ = *src++;
     }
 }
 
