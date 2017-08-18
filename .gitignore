@@ -33,6 +33,7 @@ _old_for_delete_
 *.plog
 *.db
 *.opendb
+*.scvd
 Archiv
 sources/S8-53/Objects
 sources/S8-53/out

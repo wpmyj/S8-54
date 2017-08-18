@@ -70,9 +70,9 @@ static bool isSet = false;          ///< Если true, то сигнал назначен.
 static uint8 *dataInA = 0;
 static uint8 *dataInB = 0;
 
-static int firstPoint = 0;
-static int lastPoint = 0;
-static int numPoints = 0;
+static int firstByte = 0;
+static int lastByte = 0;
+static int numBytes = 0;
 
 typedef struct
 {
@@ -139,6 +139,8 @@ void Processing_CalculateMeasures(void)
     {
         return;
     }
+    
+    LOG_WRITE("");
 
     int length = BYTES_IN_CHANNEL_DS;
 
@@ -170,11 +172,11 @@ void Processing_CalculateMeasures(void)
                     markerVert[A][0] = markerVert[A][1] = markerVert[B][0] = markerVert[B][1] = ERROR_VALUE_INT;
                     markerHor[A][0] = markerHor[A][1] = markerHor[B][0] = markerHor[B][1] = ERROR_VALUE_INT;
                 }
-                if(SOURCE_MEASURE_A || SOURCE_MEASURE_A_B)
+                if((SOURCE_MEASURE_A || SOURCE_MEASURE_A_B) && SET_ENABLED_A)
                 {
                     values[meas].value[A] = func(A);
                 }
-                if(SOURCE_MEASURE_B || SOURCE_MEASURE_A_B)
+                if((SOURCE_MEASURE_B || SOURCE_MEASURE_A_B) && SET_ENABLED_B)
                 {
                     values[meas].value[B] = func(B);
                 }
@@ -330,7 +332,7 @@ float CalculateVoltageAverage(Channel ch)
 
     int sum = 0;
 
-    uint8 *data = &CHOICE_BUFFER[firstPoint];
+    uint8 *data = &CHOICE_BUFFER[firstByte];
 
     for(int i = 0; i < period; i++)
     {
@@ -360,7 +362,7 @@ float CalculateVoltageRMS(Channel ch)
 
     uint8 *dataIn = CHOICE_BUFFER;
 
-    for(int i = firstPoint; i < firstPoint + period; i++)
+    for(int i = firstByte; i < firstByte + period; i++)
     {
         float volts = POINT_2_VOLTAGE(dataIn[i], RANGE_DS(ch), rShift);
         rms +=  volts * volts;
@@ -394,14 +396,21 @@ float CalculatePeriod(Channel ch)
 
             EXIT_IF_ERRORS_FLOAT(intersectionDownToTop, intersectionTopToDown);
 
-            float firstIntersection = intersectionDownToTop < intersectionTopToDown ? intersectionDownToTop : intersectionTopToDown;
-            float secondIntersection = FindIntersectionWithHorLine(ch, 2, intersectionDownToTop < intersectionTopToDown, (uint8)aveValue);
+            bool firstDownToTop = intersectionDownToTop < intersectionTopToDown;
+            float firstIntersection = firstDownToTop ? intersectionDownToTop : intersectionTopToDown;
+            float secondIntersection = FindIntersectionWithHorLine(ch, 2, firstDownToTop, (uint8)aveValue);
 
             EXIT_IF_ERRORS_FLOAT(firstIntersection, secondIntersection);
 
             float per = TSHIFT_2_ABS((secondIntersection - firstIntersection) / 2.0f, SET_TBASE);
+            
+            if(SET_PEAKDET_EN)
+            {
+                per *= 0.5f;
+            }
 
             period[ch] = per;
+
             periodIsCaclulating[ch] = true;
         }
     }
@@ -437,12 +446,12 @@ int CalculatePeriodAccurately(Channel ch)
             EXIT_FROM_PERIOD_ACCURACY
         }
         int delta = (int)(pic * 5.0f);
-        sums[firstPoint] = dataIn[firstPoint];
+        sums[firstByte] = dataIn[firstByte];
 
-        int i = firstPoint + 1;
+        int i = firstByte + 1;
         int *sum = &sums[i];
         uint8 *data = &dataIn[i];
-        uint8 *end = &dataIn[lastPoint];
+        uint8 *end = &dataIn[lastByte];
 
         while (data < end)
         {
@@ -455,17 +464,17 @@ int CalculatePeriodAccurately(Channel ch)
             sum++;
         }
 
-        int addShift = firstPoint - 1;
-        int maxPeriod = (int)(numPoints * 0.95f);
+        int addShift = firstByte - 1;
+        int maxPeriod = (int)(numBytes * 0.95f);
 
         for(int nextPeriod = 10; nextPeriod < maxPeriod; nextPeriod++)
         {
             int sum = sums[addShift + nextPeriod];
 
             int maxDelta = 0;
-            int maxStart = numPoints - nextPeriod;
+            int maxStart = numBytes - nextPeriod;
 
-            int *pSums = &sums[firstPoint + 1];
+            int *pSums = &sums[firstByte + 1];
             for(int start = 1; start < maxStart; start++)
             {
                 int nextSum = *(pSums + nextPeriod) - (*pSums);
@@ -520,8 +529,9 @@ float CalculateFreq(Channel ch)
 float FindIntersectionWithHorLine(Channel ch, int numIntersection, bool downToUp, uint8 yLine)
 {
     int num = 0;
-    int x = firstPoint;
-    int compValue = lastPoint - 1;
+    int x = firstByte;
+    int compValue = lastByte - 1;
+    int step = SET_PEAKDET_EN ? 2 : 1;
 
     uint8 *data = &CHOICE_BUFFER[0];
 
@@ -529,31 +539,32 @@ float FindIntersectionWithHorLine(Channel ch, int numIntersection, bool downToUp
     {
         while((num < numIntersection) && (x < compValue))
         {
-            if(data[x] < yLine && data[x + 1] >= yLine)
+            if(data[x] < yLine && data[x + step] >= yLine)
             {
                 num++;
             }
-            x++;
+            x += step;
         }
     }
     else
     {
         while((num < numIntersection) && (x < compValue))
         {
-            if(data[x] > yLine && data[x + 1] <= yLine)
+            if(data[x] > yLine && data[x + step] <= yLine)
             {
                 num++;
             }
-            x++;
+            x += step;
         }
     }
-    x--;
+    x -= step;
 
     if (num < numIntersection)
     {
         return ERROR_VALUE_FLOAT;
     }
-    return Math_GetIntersectionWithHorizontalLine(x, data[x], x + 1, data[x + 1], yLine);
+    
+    return Math_GetIntersectionWithHorizontalLine(x, data[x], x + step, data[x + step], yLine);
 }
 
 
@@ -721,8 +732,8 @@ float CalculateMinSteadyRel(Channel ch)
             int sum = 0;
             int numSums = 0;
 
-            uint8 *data = &dataIn[firstPoint];
-            const uint8 * const end = &dataIn[lastPoint];
+            uint8 *data = &dataIn[firstByte];
+            const uint8 * const end = &dataIn[lastByte];
             while(data <= end)
             {
                 uint8 d = *data++;
@@ -746,7 +757,7 @@ float CalculateMinSteadyRel(Channel ch)
             {
                 float value = pic / 9.0f;
 
-                data = &dataIn[firstPoint];
+                data = &dataIn[firstByte];
                 float _min = min[ch];
                 while (data <= end)
                 {
@@ -799,8 +810,8 @@ float CalculateMaxSteadyRel(Channel ch)
         {
             int sum = 0;
             int numSums = 0;
-            uint8 *data = &dataIn[firstPoint];
-            const uint8 * const end = &dataIn[lastPoint];
+            uint8 *data = &dataIn[firstByte];
+            const uint8 * const end = &dataIn[lastByte];
             while (data <= end)
             {
                 uint8 d = *data++;
@@ -825,7 +836,7 @@ float CalculateMaxSteadyRel(Channel ch)
             {
                 float value = pic / 9.0f;
 
-                data = &dataIn[firstPoint];
+                data = &dataIn[firstByte];
                 uint8 _max = (uint8)max[ch];
                 while (data <= end)
                 {
@@ -866,7 +877,7 @@ float CalculateMaxRel(Channel ch)
 
     if(!maxIsCalculating[ch])
     {
-        uint8 val = Math_GetMaxFromArrayWithErrorCode(CHOICE_BUFFER, firstPoint, lastPoint);
+        uint8 val = Math_GetMaxFromArrayWithErrorCode(CHOICE_BUFFER, firstByte, lastByte);
         max[ch] = val == ERROR_VALUE_UINT8 ? ERROR_VALUE_FLOAT : val;
         maxIsCalculating[ch] = true;
     }
@@ -882,7 +893,7 @@ float CalculateMinRel(Channel ch)
 
     if (!minIsCalculating[ch])
     {
-        uint8 val = Math_GetMinFromArrayWithErrorCode(CHOICE_BUFFER, firstPoint, lastPoint);
+        uint8 val = Math_GetMinFromArrayWithErrorCode(CHOICE_BUFFER, firstByte, lastByte);
         min[ch] = val == ERROR_VALUE_UINT8 ? ERROR_VALUE_FLOAT : val;
         minIsCalculating[ch] = true;
     }
@@ -1035,9 +1046,9 @@ void Processing_SetData(void)
 {
     isSet = true;
 
-    sDisplay_PointsOnDisplay(&firstPoint, &lastPoint);
+    sDisplay_BytesOnDisplay(&firstByte, &lastByte);
 
-    numPoints = lastPoint - firstPoint;
+    numBytes = lastByte - firstByte;
     
     int numSmoothing = sDisplay_NumPointSmoothing();
 

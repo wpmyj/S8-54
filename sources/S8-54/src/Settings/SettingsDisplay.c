@@ -72,6 +72,17 @@ void sDisplay_PointsOnDisplay(int *firstPoint, int *lastPoint)
     *lastPoint = *firstPoint + 281;
 }
 
+//----------------------------------------------------------------------------------------------------------------------------------------------------
+void sDisplay_BytesOnDisplay(int *firstByte, int *lastByte)
+{
+    *firstByte = SHIFT_IN_MEMORY;
+    *lastByte = *firstByte + 281;
+    if (SET_PEAKDET_EN)
+    {
+        *lastByte += 281;
+    }
+}
+
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
 int sDisplay_ShiftInMemoryInPoints(void)
