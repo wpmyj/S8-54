@@ -21,9 +21,9 @@
 
 
 /// Заполняет структуру dataStruct данными для отрисовки
-static void PrepareDataForDraw(DataStruct *dataStruct);
-static void FillDataP2P(DataStruct *dataStruct, Channel ch);
-static void FillDataNormal(DataStruct *dataStruct, Channel ch);
+static void PrepareDataForDraw(StructDataDrawing *dataStruct);
+static void FillDataP2P(StructDataDrawing *dataStruct, Channel ch);
+static void FillDataNormal(StructDataDrawing *dataStruct, Channel ch);
 
 
 static DataSettings dataSettings;   ///< Здесь хранятся настройки для текущего рисуемого сигнала
@@ -36,7 +36,7 @@ void Data_Clear(void)
 }
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
-void Data_ReadFromRAM(int fromEnd, DataStruct *dataStruct)
+void Data_ReadFromRAM(int fromEnd, StructDataDrawing *dataStruct)
 {
     Data_Clear();
 
@@ -78,7 +78,7 @@ void Data_ReadFromRAM(int fromEnd, DataStruct *dataStruct)
 }
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
-void Data_ReadFromROM(DataStruct *dataStruct)
+void Data_ReadFromROM(StructDataDrawing *dataStruct)
 {
     Data_Clear();
 
@@ -93,7 +93,7 @@ void Data_ReadFromROM(DataStruct *dataStruct)
 }
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
-static void PrepareDataForDraw(DataStruct *dataStruct)
+static void PrepareDataForDraw(StructDataDrawing *dataStruct)
 {
     if (!dataStruct)
     {
@@ -128,7 +128,7 @@ static void PrepareDataForDraw(DataStruct *dataStruct)
 }
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
-static void FillDataP2P(DataStruct *dataStruct, Channel ch)
+static void FillDataP2P(StructDataDrawing *dataStruct, Channel ch)
 {
     for (int i = 0; i < 281; i++)
     {
@@ -169,7 +169,7 @@ static void FillDataP2P(DataStruct *dataStruct, Channel ch)
 }
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
-static void FillDataNormal(DataStruct *dataStruct, Channel ch)
+static void FillDataNormal(StructDataDrawing *dataStruct, Channel ch)
 {
     if (!dataStruct->needDraw[ch])
     {

@@ -66,14 +66,14 @@ typedef struct
 {
     uint8   data[NumChannels][281 * 2];     ///< Данные обоих каналов. Точек в два раза больше, чем на экране, для пикового детектора
     bool    needDraw[NumChannels];          ///< Если true, то канал 1 надо рисовать
-} DataStruct;
+} StructDataDrawing;
 
 /// Вызывается в начале цикла
 void Data_Clear(void);
 /// Читает данные из ОЗУ, fromEnd c конца (fromEnd == 0 - последний считанный сигнал) и заполняет данными inA(B), outA(B), DS.
-void Data_ReadFromRAM(int fromEnd, DataStruct *dataStruct);
+void Data_ReadFromRAM(int fromEnd, StructDataDrawing *dataStruct);
 /// Читает данные из EPROM. Номер сигнала - глобвльнй NUM_ROM_SIGNAL и заполняет данными inA(B), outA(B), DS.
-void Data_ReadFromROM(DataStruct *dataStruct);
+void Data_ReadFromROM(StructDataDrawing *dataStruct);
 
 
 /** @}  @}  @}

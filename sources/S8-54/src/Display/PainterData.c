@@ -85,7 +85,7 @@ static void DrawMemoryWindow(void);
 
 static bool interruptDrawing = false;
 static Channel curCh = A;           ///< Текущий ресуемый канал.
-static DataStruct *dataStruct = 0;
+static StructDataDrawing *dataStruct = 0;
 
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -97,7 +97,7 @@ void PainterData_InterruptDrawing(void)
 //----------------------------------------------------------------------------------------------------------------------------------------------------
 void PainterData_DrawData(void)
 {
-    dataStruct = (DataStruct *)malloc(sizeof(DataStruct));
+    dataStruct = (StructDataDrawing *)malloc(sizeof(StructDataDrawing));
 
     interruptDrawing = false;
 
