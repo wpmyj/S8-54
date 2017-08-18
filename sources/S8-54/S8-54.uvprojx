@@ -958,6 +958,51 @@
           </Files>
         </Group>
         <Group>
+          <GroupName>Data</GroupName>
+          <Files>
+            <File>
+              <FileName>Data.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\src\Data\Data.c</FilePath>
+            </File>
+            <File>
+              <FileName>Data.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\src\Data\Data.h</FilePath>
+            </File>
+            <File>
+              <FileName>DataBuffer.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\src\Data\DataBuffer.c</FilePath>
+            </File>
+            <File>
+              <FileName>DataBuffer.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\src\Data\DataBuffer.h</FilePath>
+            </File>
+            <File>
+              <FileName>DataSettings.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\src\Data\DataSettings.c</FilePath>
+            </File>
+            <File>
+              <FileName>DataSettings.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\src\Data\DataSettings.h</FilePath>
+            </File>
+            <File>
+              <FileName>DataStorage.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\src\Data\DataStorage.c</FilePath>
+            </File>
+            <File>
+              <FileName>DataStorage.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\src\Data\DataStorage.h</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
           <GroupName>Display</GroupName>
           <Files>
             <File>
@@ -1769,51 +1814,6 @@
               <FileName>PageHelp.h</FileName>
               <FileType>5</FileType>
               <FilePath>.\src\Menu\Pages\PageHelp.h</FilePath>
-            </File>
-          </Files>
-        </Group>
-        <Group>
-          <GroupName>Data</GroupName>
-          <Files>
-            <File>
-              <FileName>Data.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\src\Data\Data.c</FilePath>
-            </File>
-            <File>
-              <FileName>Data.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\src\Data\Data.h</FilePath>
-            </File>
-            <File>
-              <FileName>DataBuffer.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\src\Data\DataBuffer.c</FilePath>
-            </File>
-            <File>
-              <FileName>DataBuffer.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\src\Data\DataBuffer.h</FilePath>
-            </File>
-            <File>
-              <FileName>DataSettings.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\src\Data\DataSettings.c</FilePath>
-            </File>
-            <File>
-              <FileName>DataSettings.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\src\Data\DataSettings.h</FilePath>
-            </File>
-            <File>
-              <FileName>DataStorage.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\src\Data\DataStorage.c</FilePath>
-            </File>
-            <File>
-              <FileName>DataStorage.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\src\Data\DataStorage.h</FilePath>
             </File>
           </Files>
         </Group>
