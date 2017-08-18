@@ -19,6 +19,8 @@
 
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+static void ReplaceLastFrame(DataSettings *ds, uint8 *dataA, uint8 *dataB);
+
 static int SIZE_POOL = 0;
 
 static uint *sumA_RAM = 0;        // Сумма первого канала
@@ -90,11 +92,16 @@ void DS_Clear(void)
 //----------------------------------------------------------------------------------------------------------------------------------------------------
 static void CalculateAroundAverage(uint8 *dataA, uint8 *dataB, DataSettings *dss)
 {
+    if (!dataA && !dataB)
+    {
+        return;
+    }
+
     int numAveData = DS_NumElementsWithCurrentSettings();
 
     int size = BYTES_IN_CHANNEL(dss);
 
-    if (numAveData == 1)
+    if (numAveData <= 1)
     {
         for (int i = 0; i < size; i++)
         {
@@ -538,10 +545,10 @@ void DS_AddData(uint8 *dataA, uint8 *dataB, DataSettings dss)
 
     CalculateLimits(dataA, dataB, &dss);
 
-    if (numPointsP2P)                           // Если находимся в поточечном выводе
+    if (IN_P2P_MODE)                            // Если находимся в поточечном выводе
     {
         ReplaceLastFrame(&dss, dataA, dataB);   // Заменим последний фрейм данных (в котором находятся текущие точки) считанными
-   }
+    }
     else
     {
         PushData(&dss, dataA, dataB);
