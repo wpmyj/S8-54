@@ -12,32 +12,30 @@
 
 typedef enum
 {
-    FPGA_DATA_A             = 0,
-    FPGA_DATA_B             = 1,
+    FPGA_DATA_A,
+    FPGA_DATA_B,
 
     // DataStorage
-    DS_DATA_IMPORT_REL_A    = 2,
-    DS_DATA_IMPORT_REL_B    = 3,
-    DS_AVE_DATA_A           = 4,
-    DS_AVE_DATA_B           = 5,
-    DS_SUM_A                = 6,
-    DS_SUM_B                = 7,
-    DS_LIMIT_UP_A           = 8,
-    DS_LIMIT_UP_B           = 9,
-    DS_LIMIT_DOWN_A         = 10,
-    DS_LIMIT_DOWN_B         = 11,
+    DS_DATA_IMPORT_REL_A,
+    DS_DATA_IMPORT_REL_B,
+    DS_AVE_DATA_A,
+    DS_AVE_DATA_B,
+    DS_SUM_A,
+    DS_SUM_B,
+    DS_LIMIT_UP_A,
+    DS_LIMIT_UP_B,
+    DS_LIMIT_DOWN_A,
+    DS_LIMIT_DOWN_B,
 
     // ProcessingSignal
-    PS_DATA_OUT_A           = 12,
-    PS_DATA_OUT_B           = 13,
-    PS_DATA_IN_A            = 14,
-    PS_DATA_IN_B            = 15,
+    PS_DATA_IN_A,
+    PS_DATA_IN_B,
 
-    DRAW_MATH_DATA_REL_A    = 16,
-    DRAW_MATH_DATA_REL_B    = 17,
+    DRAW_MATH_DATA_REL_A,
+    DRAW_MATH_DATA_REL_B,
 
-    DS_POOL_BEGIN           = 18,   ///< Здесь начало места, где хранятся сигналы во внешнем ОЗУ
-    DS_POOL_END             = 19    ///< Здесь конец места, где хранятся сигналы во внешнем ОЗУ
+    DS_POOL_BEGIN,         ///< Здесь начало места, где хранятся сигналы во внешнем ОЗУ
+    DS_POOL_END            ///< Здесь конец места, где хранятся сигналы во внешнем ОЗУ
 } Address;
 
 

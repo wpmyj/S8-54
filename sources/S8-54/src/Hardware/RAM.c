@@ -308,16 +308,14 @@ uint8 *RAM(Address address)
 #define RAM_DS_LIMIT_UP_B           ((RAM_DS_LIMIT_UP_A)        + (FPGA_MAX_POINTS))        //    8         160
 #define RAM_DS_LIMIT_DOWN_A         ((RAM_DS_LIMIT_UP_B)        + (FPGA_MAX_POINTS))        //    8         176
 #define RAM_DS_LIMIT_DOWN_B         ((RAM_DS_LIMIT_DOWN_A)      + (FPGA_MAX_POINTS))        //    8         192
-#define RAM_PS_DATA_OUT_A           ((RAM_DS_LIMIT_DOWN_B)      + (FPGA_MAX_POINTS))        //    8         208
-#define RAM_PS_DATA_OUT_B           ((RAM_PS_DATA_OUT_A)        + (FPGA_MAX_POINTS))        //    8         224
-#define RAM_PS_DATA_IN_A            ((RAM_PS_DATA_OUT_B)        + (FPGA_MAX_POINTS))        //    8         240
+#define RAM_PS_DATA_IN_A            ((RAM_DS_LIMIT_DOWN_B)      + (FPGA_MAX_POINTS))        //    8         240
 #define RAM_PS_DATA_IN_B            ((RAM_PS_DATA_IN_A)         + (FPGA_MAX_POINTS))        //    8         256
 #define RAM_DRAW_MATH_DATA_REL_A    ((RAM_PS_DATA_IN_B)         + (FPGA_MAX_POINTS))        //    32        320
 #define RAM_DRAW_MATH_DATA_REL_B    ((RAM_DRAW_MATH_DATA_REL_A) + (FPGA_MAX_POINTS) * 4)    //    32        384
 #define RAM_DS_POOL_BEGIN           ((RAM_DRAW_MATH_DATA_REL_B) + (FPGA_MAX_POINTS) * 4)    //
 #define RAM_DS_POOL_END             ((ADDR_RAM)                 + (1024 * 1024))
 
-    const uint8 *addresses[] =
+    static const uint8 *addresses[] =
     {
         RAM_FPGA_DATA_A,
         RAM_FPGA_DATA_B,
@@ -333,8 +331,6 @@ uint8 *RAM(Address address)
         RAM_DS_LIMIT_DOWN_A,
         RAM_DS_LIMIT_DOWN_B,
 
-        RAM_PS_DATA_OUT_A,
-        RAM_PS_DATA_OUT_B,
         RAM_PS_DATA_IN_A,
         RAM_PS_DATA_IN_B,
 
