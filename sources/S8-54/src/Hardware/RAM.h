@@ -27,10 +27,6 @@ typedef enum
     DS_LIMIT_DOWN_A,
     DS_LIMIT_DOWN_B,
 
-    // ProcessingSignal
-    PS_DATA_IN_A,
-    PS_DATA_IN_B,
-
     DRAW_MATH_DATA_REL_A,
     DRAW_MATH_DATA_REL_B,
 

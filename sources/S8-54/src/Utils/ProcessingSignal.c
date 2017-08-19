@@ -67,9 +67,6 @@ static void CountedRange(Channel ch);
 
 static bool isSet = false;          ///< Если true, то сигнал назначен.
 
-static uint8 *dataInA = 0;
-static uint8 *dataInB = 0;
-
 static int firstByte = 0;
 static int lastByte = 0;
 static int numBytes = 0;
@@ -142,14 +139,6 @@ void Processing_CalculateMeasures(void)
     
     int length = BYTES_IN_CHANNEL_DS;
 
-    // Вначале выделим память для данных из внешнего ОЗУ
-    dataInA = malloc(length);
-    dataInB = malloc(length);
-
-    // Вначале перепишем данные из внешнего ОЗУ
-    RAM_MemCpy16(RAM(PS_DATA_IN_A), dataInA, length);
-    RAM_MemCpy16(RAM(PS_DATA_IN_B), dataInB, length);
-
     maxIsCalculating[0] = maxIsCalculating[1] = maxSteadyIsCalculating[0] = maxSteadyIsCalculating[1] = false;
     minIsCalculating[0] = minIsCalculating[1] = minSteadyIsCalculating[0] = minSteadyIsCalculating[1] = false;
     aveIsCalculating[0] = aveIsCalculating[1] = false;
@@ -181,10 +170,6 @@ void Processing_CalculateMeasures(void)
             }
         }
     }
-
-    // Теперь удалим выделенную память
-    free(dataInA);
-    free(dataInB);
 }
 
 
@@ -318,7 +303,7 @@ float CalculateVoltageAmpl(Channel ch)
 
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
-#define CHOICE_BUFFER (ch == A ? dataInA : dataInB)
+#define CHOICE_BUFFER (dataIN[ch])
 
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
@@ -1054,28 +1039,18 @@ void Processing_SetData(void)
 
     int length = BYTES_IN_CHANNEL_DS;
 
-    bool enableA = ENABLED_DS_A == 1;
-    bool enableB = ENABLED_DS_B == 1;
-
-    dataInA = 0;
-    dataInB = 0;
-
-    // Выделим память для данных
-    if (enableA) { dataInA = malloc(FPGA_MAX_POINTS); };
-    if (enableB) { dataInB = malloc(FPGA_MAX_POINTS); };
-
-    if (enableA) { Math_CalculateFiltrArray(IN_A, dataInA, length, numSmoothing); };
-    if (enableB) { Math_CalculateFiltrArray(IN_B, dataInB, length, numSmoothing); };
+    if (ENABLED_DS_A)
+    {
+        Math_CalculateFiltrArray(IN_A, OUT_A, length, numSmoothing);
+        memcpy(OUT_A, IN_A, length);
+    };
+    if (ENABLED_DS_B)
+    {
+        Math_CalculateFiltrArray(IN_B, OUT_B, length, numSmoothing);
+        memcpy(OUT_B, IN_B, length);
+    };
   
     CountedToCurrentSettings();
-
-    // Теперь сохраним данные во внешнем ОЗУ
-    if (enableA) { RAM_MemCpy16(dataInA, RAM(PS_DATA_IN_A), FPGA_MAX_POINTS); };
-    if (enableB) { RAM_MemCpy16(dataInB, RAM(PS_DATA_IN_B), FPGA_MAX_POINTS); };
-
-    // И вернём ранее запрошенную память
-    if (enableA) { SAFE_FREE(dataInA); };
-    if (enableB) { SAFE_FREE(dataInB); };
 }
 
 
@@ -1352,8 +1327,8 @@ static void CountedToCurrentSettings(void)
             int index = i / 2 - dTShift;
             if (index >= 0 && index < numPoints)
             {
-                int dA0 = dataInA[i];
-                int dA1 = dataInA[i + 1];
+                int dA0 = IN_A[i];
+                int dA1 = IN_A[i + 1];
                 if (rShiftA)
                 {
                     if (dA0)                            // Только если значение в этой точке есть
@@ -1369,8 +1344,8 @@ static void CountedToCurrentSettings(void)
                 }
                 ((uint16 *)OUT_A)[index] = (uint16)((dA0 | (dA1 << 8)));
 
-                int dB0 = dataInB[i];
-                int dB1 = dataInB[i + 1];
+                int dB0 = IN_B[i];
+                int dB1 = IN_B[i + 1];
                 if (rShiftB)
                 {
                     if (dB0)                            // Только если значение в этой точке есть
@@ -1390,8 +1365,8 @@ static void CountedToCurrentSettings(void)
     }
     else
     {      
-        memcpy(OUT_A, dataInA, numPoints);
-        memcpy(OUT_B, dataInB, numPoints);
+        memcpy(OUT_A, IN_A, numPoints);
+        memcpy(OUT_B, IN_B, numPoints);
     }
 }
 
@@ -1418,15 +1393,9 @@ static void CountedRange(Channel ch)
     int rShiftIn = RSHIFT_DS(ch);
     int rShiftOut = SET_RSHIFT(ch);
     
-    uint8 *in = dataInA;
-    uint16 *out = (uint16 *)OUT_A;
-
-    if(ch == B)
-    {
-        in = dataInB;
-        out = (uint16 *)OUT_B;
-    }
-
+    uint8 *in = dataIN[ch];
+    uint16 *out = (uint16*)dataOUT[ch];
+    
     int numPoints = BYTES_IN_CHANNEL_DS;
 
     for (int i = 0; i < numPoints; i += 2)
