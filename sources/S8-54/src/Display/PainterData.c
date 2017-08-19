@@ -149,7 +149,6 @@ static void DrawData_ModeDir(void)
     
     if (STAND_P2P)
     {
-        volatile int numElements = DS_NumElementsWithCurrentSettings();
         Data_ReadFromRAM(1, dataStruct);
     }
     else

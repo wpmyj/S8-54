@@ -282,31 +282,35 @@ static void PrepareLastElemForWrite(DataSettings *ds)
 //----------------------------------------------------------------------------------------------------------------------------------------------------
 static void PushData(DataSettings *ds, uint8 *dataA, uint8 *dataB)
 {
+    PrepareLastElemForWrite(ds);
+
     int numBytes = BYTES_IN_CHANNEL(ds);
 
-    if (ds->isFrameP2P == 1)           // Если находимся в режиме поточечного вывода
+    if(dataA)
     {
-        if (DS_NumElementsInStorage() == 0)   // Если элементов в хранилище ещё нету
-        {
-            PrepareLastElemForWrite(ds);
-        }
-
-        RAM_MemSet_Sinch(AddressChannel(ds, A), NONE_VALUE, numBytes);  // Для режима поточечного вывода - заполняем одним значением
-        RAM_MemSet_Sinch(AddressChannel(ds, B), NONE_VALUE, numBytes);  // Для режима поточечного вывода - заполянем одним значением
-    }
-    else
-    {
-        PrepareLastElemForWrite(ds);
-
         if (ENABLED_A(ds))
         {
             RAM_MemCpy16(dataA, AddressChannel(ds, A), numBytes);
         }
+    }
+    else
+    {
+        RAM_MemSet_Sinch(AddressChannel(ds, A), NONE_VALUE, numBytes);  // Для режима поточечного вывода - заполняем одним значением
+    }
+
+    if(dataB)
+    {
         if (ENABLED_B(ds))
         {
             RAM_MemCpy16(dataB, AddressChannel(ds, B), numBytes);
         }
     }
+    else
+    {
+        RAM_MemSet_Sinch(AddressChannel(ds, B), NONE_VALUE, numBytes);  // Для режима поточечного вывода - заполянем одним значением
+    }
+
+    numElementsInStorage++;
 }
 
 
@@ -314,7 +318,6 @@ static void PushData(DataSettings *ds, uint8 *dataA, uint8 *dataB)
 static void ReplaceLastFrame(DataSettings *ds, uint8 *dataA, uint8 *dataB)
 {
     DataSettings *lastDS = DS_DataSettingsFromEnd(0);
-    lastDS->isFrameP2P = 0;
     TIME_TIME(lastDS) = TIME_TIME(ds);    // Нужно скопировать время, потому что во фрейме последних точек оно нулевое.
 
     int numBytes = BYTES_IN_CHANNEL(ds);
@@ -528,9 +531,8 @@ void DS_AddData(uint8 *dataA, uint8 *dataB, DataSettings dss)
         return;
     }
 
-    numPointsP2P = 0;
-
     TIME_TIME(&dss) = RTC_GetPackedTime();
+
 
     CalculateLimits(dataA, dataB, &dss);
 
@@ -541,7 +543,6 @@ void DS_AddData(uint8 *dataA, uint8 *dataB, DataSettings dss)
     else
     {
         PushData(&dss, dataA, dataB);
-        ++numElementsInStorage;
     }
 
     CalculateSums();
@@ -582,10 +583,8 @@ int DS_NumElementsWithCurrentSettings(void)
     DataSettings_Fill(&dp);
     int retValue = 0;
     int numElements = DS_NumElementsInStorage();
-    
-    LOG_WRITE("numElements = %d", numElements);
 
-    for(; retValue < numElements; retValue++)
+    for(retValue = 0; retValue < numElements; retValue++)
     {
         if(!DataSettings_IsEquals(&dp, DS_DataSettingsFromEnd(retValue)))
         {
@@ -789,8 +788,6 @@ void DS_NewFrameP2P(DataSettings dss)
     {
         return;
     }
-
-    dss.isFrameP2P = 1;
 
     PushData(&dss, 0, 0);
 
