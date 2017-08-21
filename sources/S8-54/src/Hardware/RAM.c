@@ -296,20 +296,22 @@ void RAM_MemClear(void *address_, int numHalfWords)
 uint8 *RAM(Address address)
 {                                                                                           // битность,  пам€ть, всего
                                                                                             //    шт        кЅ
-#define RAM_FPGA_DATA_A             (ADDR_RAM)                                              //    8         16
-#define RAM_FPGA_DATA_B             ((RAM_FPGA_DATA_A)          + (FPGA_MAX_POINTS))        //    8         32
-#define RAM_DS_DATA_IMPORT_REL_A    ((RAM_FPGA_DATA_B)          + (FPGA_MAX_POINTS))        //    8         48
-#define RAM_DS_DATA_IMPORT_REL_B    ((RAM_DS_DATA_IMPORT_REL_A) + (FPGA_MAX_POINTS))        //    8         64
-#define RAM_DS_AVE_DATA_A           ((RAM_DS_DATA_IMPORT_REL_B) + (FPGA_MAX_POINTS))        //    32        128
-#define RAM_DS_AVE_DATA_B           ((RAM_DS_AVE_DATA_A)        + (FPGA_MAX_POINTS) * 4)    //    32        128
-#define RAM_DS_SUM_A                ((RAM_DS_AVE_DATA_B)        + (FPGA_MAX_POINTS) * 4)    //    32        128
-#define RAM_DS_SUM_B                ((RAM_DS_SUM_A)             + (FPGA_MAX_POINTS) * 4)    //    32        128
-#define RAM_DS_LIMIT_UP_A           ((RAM_DS_SUM_B)             + (FPGA_MAX_POINTS) * 4)    //    8         144
-#define RAM_DS_LIMIT_UP_B           ((RAM_DS_LIMIT_UP_A)        + (FPGA_MAX_POINTS))        //    8         160
-#define RAM_DS_LIMIT_DOWN_A         ((RAM_DS_LIMIT_UP_B)        + (FPGA_MAX_POINTS))        //    8         176
-#define RAM_DS_LIMIT_DOWN_B         ((RAM_DS_LIMIT_DOWN_A)      + (FPGA_MAX_POINTS))        //    8         192
-#define RAM_DRAW_MATH_DATA_REL_A    ((RAM_DS_LIMIT_DOWN_B)      + (FPGA_MAX_POINTS))        //    32        320
-#define RAM_DRAW_MATH_DATA_REL_B    ((RAM_DRAW_MATH_DATA_REL_A) + (FPGA_MAX_POINTS) * 4)    //    32        384
+#define RAM_FPGA_DATA_A             (ADDR_RAM)                                              //    8 
+#define RAM_FPGA_DATA_B             ((RAM_FPGA_DATA_A)          + (FPGA_MAX_POINTS))        //    8 
+#define RAM_DS_DATA_IMPORT_REL_A    ((RAM_FPGA_DATA_B)          + (FPGA_MAX_POINTS))        //    8 
+#define RAM_DS_DATA_IMPORT_REL_B    ((RAM_DS_DATA_IMPORT_REL_A) + (FPGA_MAX_POINTS))        //    8 
+#define RAM_DS_AVE_DATA_A           ((RAM_DS_DATA_IMPORT_REL_B) + (FPGA_MAX_POINTS))        //    32
+#define RAM_DS_AVE_DATA_B           ((RAM_DS_AVE_DATA_A)        + (FPGA_MAX_POINTS) * 4)    //    32
+#define RAM_DS_SUM_A                ((RAM_DS_AVE_DATA_B)        + (FPGA_MAX_POINTS) * 4)    //    32
+#define RAM_DS_SUM_B                ((RAM_DS_SUM_A)             + (FPGA_MAX_POINTS) * 4)    //    32
+#define RAM_DS_LIMIT_UP_A           ((RAM_DS_SUM_B)             + (FPGA_MAX_POINTS) * 4)    //    8 
+#define RAM_DS_LIMIT_UP_B           ((RAM_DS_LIMIT_UP_A)        + (FPGA_MAX_POINTS))        //    8 
+#define RAM_DS_LIMIT_DOWN_A         ((RAM_DS_LIMIT_UP_B)        + (FPGA_MAX_POINTS))        //    8 
+#define RAM_DS_LIMIT_DOWN_B         ((RAM_DS_LIMIT_DOWN_A)      + (FPGA_MAX_POINTS))        //    8 
+#define RAM_DS_P2P_FRAME_A          ((RAM_DS_LIMIT_DOWN_B)      + (FPGA_MAX_POINTS))
+#define RAM_DS_P2P_FRAME_B          ((RAM_DS_P2P_FRAME_A)       + (FPGA_MAX_POINTS))
+#define RAM_DRAW_MATH_DATA_REL_A    ((RAM_DS_P2P_FRAME_B)       + (FPGA_MAX_POINTS))        //    32
+#define RAM_DRAW_MATH_DATA_REL_B    ((RAM_DRAW_MATH_DATA_REL_A) + (FPGA_MAX_POINTS) * 4)    //    32
 #define RAM_DS_POOL_BEGIN           ((RAM_DRAW_MATH_DATA_REL_B) + (FPGA_MAX_POINTS) * 4)    //
 #define RAM_DS_POOL_END             ((ADDR_RAM)                 + (1024 * 1024))
 
@@ -328,6 +330,9 @@ uint8 *RAM(Address address)
         RAM_DS_LIMIT_UP_B,
         RAM_DS_LIMIT_DOWN_A,
         RAM_DS_LIMIT_DOWN_B,
+
+        RAM_DS_P2P_FRAME_A,
+        RAM_DS_P2P_FRAME_B,
 
         RAM_DRAW_MATH_DATA_REL_A,
         RAM_DRAW_MATH_DATA_REL_B,
