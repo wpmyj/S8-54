@@ -827,11 +827,11 @@ void DS_AddPointsP2P(uint16 dataA, uint16 dataB)
     {
         if (ENABLED_A(&dsP2P))                           // То сдвинем все точки во фрейме влево
         {
-            RAM_MemShiftLeft(frameP2P, length - 2, 2);
+            RAM_MemShiftLeft(frameP2P + 2, length - 2, 2);
         }
         if (ENABLED_B(&dsP2P))
         {
-            RAM_MemShiftLeft(frameP2P + length, length - 2, 2);
+            RAM_MemShiftLeft(frameP2P + 2 + length, length - 2, 2);
         }
     }
 

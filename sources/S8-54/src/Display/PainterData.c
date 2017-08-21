@@ -744,8 +744,6 @@ static void DrawSignalPointed(const uint8 *data, int startPoint, int endPoint, i
 //----------------------------------------------------------------------------------------------------------------------------------------------------
 static void DrawMemoryWindow(void)
 {
-    return ;
-
     static const int rightXses[3] = {276, 285, 247};
     int rightX = rightXses[MODE_WORK];
     if (sCursors_NecessaryDrawCursors())

@@ -6,6 +6,7 @@
 #include "DataBuffer.h"
 #include "Globals.h"
 #include "Log.h"
+#include "FPGA/FPGA.h"
 #include "Hardware/FLASH.h"
 #include "Hardware/FSMC.h"
 #include "Settings/SettingsMemory.h"
@@ -117,8 +118,8 @@ static void PrepareDataForDraw(StructDataDrawing *dataStruct)
         return;
     }
 
-    if (IN_P2P_MODE)
-    {
+    if (IN_P2P_MODE && FPGA_IsRunning())    // FPGA_IsRunning - потому что в автоматическом режиме при считывании полного измерения происходит остановка
+    {                                       // цикла считывания на некоторое время
         FillDataP2P(dataStruct, A);
         FillDataP2P(dataStruct, B);
     }
