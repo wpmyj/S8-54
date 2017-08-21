@@ -238,7 +238,7 @@ void FPGA_Start(void)
     else
     {
         HAL_NVIC_EnableIRQ(EXTI2_IRQn);     // ¬клюение чтени€ одиночной точки
-        DS_NewFrameP2P(ds);
+        DS_NewFrameP2P(&ds);
     }
 
     fpgaStateWork = StateWorkFPGA_Work;

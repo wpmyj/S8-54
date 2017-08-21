@@ -40,7 +40,7 @@ int DS_NumberAvailableEntries(void);
 //////////////////////////////// Функции для поточечного вывода ////////////////////////////////////////
 
 /// Создаёт в хранилище место для помещения туда точек.Данные этого фрейма можно получить DS_GetDataFromEnd_RAM(0...)
-void DS_NewFrameP2P(DataSettings dss);
+void DS_NewFrameP2P(DataSettings *dss);
 /// Поместить очередные считанные точки в специально выделенный для них фрейм
 void DS_AddPointsP2P(uint16 dataA, uint16 dataB);
 /// \brief Получить данные фрейма поточечного вывода. Последние полученные данные можно получить вызовом DS_GetDataFromEnd_RAM(1...). 

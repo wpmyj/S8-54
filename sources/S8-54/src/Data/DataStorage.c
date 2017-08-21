@@ -1,5 +1,6 @@
 // This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++ and C#: http://www.viva64.com
+#include "DataSettings.h"
 #include "DataStorage.h"
 #include "Log.h"
 #include "FPGA/FPGAtypes.h"
@@ -14,12 +15,11 @@
 #include "Utils/Math.h"
 #include "Utils/Debug.h"
 #include "Utils/GlobalFunctions.h"
-
 #include <string.h>
 
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-static void ReplaceLastFrame(DataSettings *ds, uint8 *dataA, uint8 *dataB);
+//static void ReplaceLastFrame(DataSettings *ds, uint8 *dataA, uint8 *dataB);
 
 static int SIZE_POOL = 0;
 
@@ -40,8 +40,12 @@ static float *aveDataB_RAM = 0;
 static bool newSumCalculated[NumChannels] = {true, true};   // Если true, то новые суммы рассчитаны, и нужно повторить расчёт среднего
 static int numElementsInStorage = 0;
 
-static int numPointsP2P = 0;                                // Когда в последнем фрейме хранятся точки для поточечного вывода, то здесь хранится количество точек
 
+// Для поточечного режима фрейм бегущего кадра
+static uint8 *frameP2P = 0;
+static int numPointsP2P = 0;            // Когда в последнем фрейме хранятся точки для поточечного вывода, то здесь хранится количество точек
+static DataSettings dsP2P = {0};        // Настройки поточечного режима    
+static bool inFrameP2Pmode = false;     // Если true - сейчас поточечный режим
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 void ClearLimitsAndSums(void)
@@ -70,6 +74,7 @@ void DS_Clear(void)
     limitUpB_RAM = RAM(DS_LIMIT_UP_B);
     limitDownA_RAM = RAM(DS_LIMIT_DOWN_A);
     limitDownB_RAM = RAM(DS_LIMIT_DOWN_B);
+    frameP2P = RAM(DS_P2P_FRAME);
 
     aveDataA_RAM = (float*)RAM(DS_AVE_DATA_A);
     aveDataB_RAM = (float*)RAM(DS_AVE_DATA_B);
@@ -315,6 +320,7 @@ static void PushData(DataSettings *ds, uint8 *dataA, uint8 *dataB)
 
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
+/*
 static void ReplaceLastFrame(DataSettings *ds, uint8 *dataA, uint8 *dataB)
 {
     DataSettings *lastDS = DS_DataSettingsFromEnd(0);
@@ -336,6 +342,7 @@ static void ReplaceLastFrame(DataSettings *ds, uint8 *dataA, uint8 *dataB)
 
     FSMC_RESTORE_MODE();
 }
+*/
 
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
@@ -361,6 +368,11 @@ static void BeginLimits(uint8 *dataA, uint8 *dataB, int numElements)
 //----------------------------------------------------------------------------------------------------------------------------------------------------
 DataSettings* DS_DataSettingsFromEnd(int indexFromEnd)
 {
+    if (inFrameP2Pmode)
+    {
+        return &dsP2P;
+    }
+
     int index = 0;
 
     if(indexFromEnd <= iLast)
@@ -531,19 +543,13 @@ void DS_AddData(uint8 *dataA, uint8 *dataB, DataSettings dss)
         return;
     }
 
-    TIME_TIME(&dss) = RTC_GetPackedTime();
+    inFrameP2Pmode = false;
 
+    TIME_TIME(&dss) = RTC_GetPackedTime();
 
     CalculateLimits(dataA, dataB, &dss);
 
-    if (IN_P2P_MODE)                            // Если находимся в поточечном выводе
-    {
-        ReplaceLastFrame(&dss, dataA, dataB);   // Заменим последний фрейм данных (в котором находятся текущие точки) считанными
-    }
-    else
-    {
-        PushData(&dss, dataA, dataB);
-    }
+    PushData(&dss, dataA, dataB);
 
     CalculateSums();
 
@@ -680,14 +686,20 @@ bool DS_GetDataFromEnd(int fromEnd, DataSettings *ds, uint8 *dataA, uint8 *dataB
 //----------------------------------------------------------------------------------------------------------------------------------------------------
 bool DS_GetDataFromEnd_RAM(int fromEnd, DataSettings **ds, uint16 **dataA, uint16 **dataB)
 {
-    uint8 *dataImportRelA = RAM(DS_DATA_IMPORT_REL_A);
-    uint8 *dataImportRelB = RAM(DS_DATA_IMPORT_REL_B);
-
     DataSettings *dp = DS_DataSettingsFromEnd(fromEnd);
 
     if(dp == 0)
     {
         return false;
+    }
+    
+    uint8 *dataImportRelA = RAM(DS_DATA_IMPORT_REL_A);
+    uint8 *dataImportRelB = RAM(DS_DATA_IMPORT_REL_B);
+
+    if (inFrameP2Pmode)
+    {
+        dataImportRelA = RAM(DS_P2P_FRAME);
+        dataImportRelB = dataImportRelA + BYTES_IN_CHANNEL(dp);
     }
 
     if(dataA != 0)
@@ -784,15 +796,17 @@ int DS_NumberAvailableEntries(void)
 
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
-void DS_NewFrameP2P(DataSettings dss)
+void DS_NewFrameP2P(DataSettings *dss)
 {
-    if (!ENABLED_A(&dss) && !ENABLED_B(&dss))
+    if (!ENABLED_A(dss) && !ENABLED_B(dss))
     {
         return;
     }
 
-    PushData(&dss, 0, 0);
-
+    inFrameP2Pmode = true;
+    dsP2P = *dss;
+    dsP2P.addr = RAM(DS_P2P_FRAME);
+    RAM_MemClear(frameP2P, 2 * BYTES_IN_CHANNEL(dss));
     numPointsP2P = 0;
 }
 
@@ -800,54 +814,39 @@ void DS_NewFrameP2P(DataSettings dss)
 //----------------------------------------------------------------------------------------------------------------------------------------------------
 void DS_AddPointsP2P(uint16 dataA, uint16 dataB)
 {
-    DataSettings* ds = DS_DataSettingsFromEnd(0);
-
-    int length = BYTES_IN_CHANNEL(ds);
-
-    if (!ENABLED_A(ds) && !ENABLED_B(ds))
+    if (!ENABLED_A(&dsP2P) && !ENABLED_B(&dsP2P))
     {
         return;
     }
 
     FSMC_SET_MODE(ModeFSMC_RAM);
 
+    int length = BYTES_IN_CHANNEL(&dsP2P);
+
     if (numPointsP2P >= length)                         // Если место во фрейме заполнено полностью
     {
-        uint8 *address = ADDRESS_DATA(ds);
-
-        if (ENABLED_A(ds))                           // То сдвинем все точки во фрейме влево
+        if (ENABLED_A(&dsP2P))                           // То сдвинем все точки во фрейме влево
         {
-            RAM_MemShiftLeft(address + 2, length - 2, 2);
-
-            address += length; //-V102
+            RAM_MemShiftLeft(frameP2P, length - 2, 2);
         }
-        if (ENABLED_B(ds))
+        if (ENABLED_B(&dsP2P))
         {
-            RAM_MemShiftLeft(address + 2, length - 2, 2);
+            RAM_MemShiftLeft(frameP2P + length, length - 2, 2);
         }
     }
 
-    int dNumPoints = numPointsP2P - length;
-    if (dNumPoints < 0)
+    int offsetWrite = (numPointsP2P >= length) ? length - 2 : numPointsP2P;
+
+    if (ENABLED_A(&dsP2P))
     {
-        dNumPoints = 0;
-    }
-    else
-    {
-        dNumPoints += 2;
+        uint16 *address = (uint16*)(frameP2P + offsetWrite);
+        *address = dataA;
     }
 
-    uint8 *addrWrite = ADDRESS_DATA(ds) + numPointsP2P - dNumPoints;
-
-    if (ENABLED_A(ds))
+    if (ENABLED_B(&dsP2P))
     {
-        *((uint16 *)addrWrite) = dataA;
-        addrWrite += length; //-V102
-    }
-
-    if (ENABLED_B(ds))
-    {
-        *((uint16 *)addrWrite) = dataB;
+        uint16 *address = (uint16 *)(frameP2P + length + offsetWrite);
+        *address = dataB;
     }
 
     numPointsP2P += 2;
@@ -865,29 +864,17 @@ int DS_NumPointsInLastFrameP2P(void)
 //----------------------------------------------------------------------------------------------------------------------------------------------------
 int DS_GetLastFrameP2P_RAM(DataSettings **ds, uint8 **dataA, uint8 **dataB)
 {
-    DataSettings *dp = DS_DataSettingsFromEnd(0);
-
-    *ds = dp;
-
-    if (TBASE(dp) < MIN_TBASE_P2P)
+    if (!inFrameP2Pmode)
     {
+        *ds = 0;
         *dataA = 0;
         *dataB = 0;
-
-        return 0;
+        return -1;
     }
 
-    if (numPointsP2P)
-    {
-        if (dataA)
-        {
-            *dataA = AddressChannel(dp, A);
-        }
-        if (dataB)
-        {
-            *dataB = AddressChannel(dp, B);
-        }
-    }
+    *ds = &dsP2P;
+    *dataA = frameP2P;
+    *dataB = frameP2P + BYTES_IN_CHANNEL(&dsP2P);
 
     return numPointsP2P;
 }

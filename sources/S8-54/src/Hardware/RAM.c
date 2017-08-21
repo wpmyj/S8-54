@@ -308,9 +308,8 @@ uint8 *RAM(Address address)
 #define RAM_DS_LIMIT_UP_B           ((RAM_DS_LIMIT_UP_A)        + (FPGA_MAX_POINTS))        //    8 
 #define RAM_DS_LIMIT_DOWN_A         ((RAM_DS_LIMIT_UP_B)        + (FPGA_MAX_POINTS))        //    8 
 #define RAM_DS_LIMIT_DOWN_B         ((RAM_DS_LIMIT_DOWN_A)      + (FPGA_MAX_POINTS))        //    8 
-#define RAM_DS_P2P_FRAME_A          ((RAM_DS_LIMIT_DOWN_B)      + (FPGA_MAX_POINTS))
-#define RAM_DS_P2P_FRAME_B          ((RAM_DS_P2P_FRAME_A)       + (FPGA_MAX_POINTS))
-#define RAM_DRAW_MATH_DATA_REL_A    ((RAM_DS_P2P_FRAME_B)       + (FPGA_MAX_POINTS))        //    32
+#define RAM_DS_P2P_FRAME            ((RAM_DS_LIMIT_DOWN_B)      + (FPGA_MAX_POINTS) * 2)    //
+#define RAM_DRAW_MATH_DATA_REL_A    ((RAM_DS_P2P_FRAME  )       + (FPGA_MAX_POINTS))        //    32
 #define RAM_DRAW_MATH_DATA_REL_B    ((RAM_DRAW_MATH_DATA_REL_A) + (FPGA_MAX_POINTS) * 4)    //    32
 #define RAM_DS_POOL_BEGIN           ((RAM_DRAW_MATH_DATA_REL_B) + (FPGA_MAX_POINTS) * 4)    //
 #define RAM_DS_POOL_END             ((ADDR_RAM)                 + (1024 * 1024))
@@ -331,8 +330,7 @@ uint8 *RAM(Address address)
         RAM_DS_LIMIT_DOWN_A,
         RAM_DS_LIMIT_DOWN_B,
 
-        RAM_DS_P2P_FRAME_A,
-        RAM_DS_P2P_FRAME_B,
+        RAM_DS_P2P_FRAME,
 
         RAM_DRAW_MATH_DATA_REL_A,
         RAM_DRAW_MATH_DATA_REL_B,

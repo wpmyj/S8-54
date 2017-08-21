@@ -27,8 +27,7 @@ typedef enum
     DS_LIMIT_DOWN_A,
     DS_LIMIT_DOWN_B,
 
-    DS_P2P_FRAME_A,         ///< «десь будут хранитьс€ точки поточечного режима
-    DS_P2P_FRAME_B,
+    DS_P2P_FRAME,           ///< «десь будут хранитьс€ точки поточечного режима
 
     DRAW_MATH_DATA_REL_A,
     DRAW_MATH_DATA_REL_B,

@@ -64,13 +64,6 @@ static void SendToDisplayDataInRect(Channel chan, int x, const int *min, const i
 /// Ќарисовать данные в окне пам€ти
 static void DrawMemoryWindow(void);
 
-
-/// ѕризнак того, что на основном экране нужно рисовать бегущий сигнал поточечного вывода
-#define NEED_DRAW_DYNAMIC_P2P (IN_P2P_MODE && FPGA_IsRunning())
-
-/// ”словие того, что мы находимс€ в ждущем режиме поточечном и на основном экране должно быть статичное изображение
-#define STAND_P2P (START_MODE_WAIT && IN_P2P_MODE && DS_NumElementsWithCurrentSettings() > 1)
-
 #define CONVERT_DATA_TO_DISPLAY(out, inVal)                     \
     int in = inVal;                                             \
     if(in < MIN_VALUE) { in = MIN_VALUE; }                      \
@@ -147,14 +140,7 @@ static void DrawData_ModeDir(void)
 {
     NUM_DRAWING_SIGNALS++;
     
-    if (STAND_P2P)
-    {
-        Data_ReadFromRAM(1, dataStruct);
-    }
-    else
-    {
-        Data_ReadFromRAM(0, dataStruct);
-    }
+    Data_ReadFromRAM(0, dataStruct);
     DrawData();
     DrawMemoryWindow();
 
@@ -758,6 +744,8 @@ static void DrawSignalPointed(const uint8 *data, int startPoint, int endPoint, i
 //----------------------------------------------------------------------------------------------------------------------------------------------------
 static void DrawMemoryWindow(void)
 {
+    return ;
+
     static const int rightXses[3] = {276, 285, 247};
     int rightX = rightXses[MODE_WORK];
     if (sCursors_NecessaryDrawCursors())
