@@ -136,7 +136,7 @@ static void CalculateAroundAverage(uint8 *dataA, uint8 *dataB, DataSettings *dss
             aDataA++;
             *aDataB = ((*aDataB) * numAveDataFless + (float)(*dB++)) * numAveDataInv;
             aDataB++;
-        } while (aDataA != endData);
+        } while (aDataA != endData && !NEED_FINISH_DRAW);
     }
 }
 
@@ -394,6 +394,19 @@ DataSettings* GetSettingsDataFromEnd(int fromEnd)
 //----------------------------------------------------------------------------------------------------------------------------------------------------
 void CalculateLimits(uint8 *dataA, uint8 *dataB, DataSettings *dss)
 {
+#define SET_LIMIT(d, up, down)          \
+    data = RAM_ReadByte(d + i);         \
+    limitUp = RAM_ReadByte(up + i);     \
+    limitDown = RAM_ReadByte(down + i); \
+    if(data > limitUp)                  \
+    {                                   \
+        RAM_WriteByte(up + i, data);    \
+    }                                   \
+    if(data < limitDown)                \
+    {                                   \
+        RAM_WriteByte(down + i, data);  \
+    }
+
     int numElements = BYTES_IN_CHANNEL(dss);
 
     if(DS_NumElementsInStorage() == 0 || NUM_MIN_MAX == 1 || (!DataSettings_IsEquals(dss, GetSettingsDataFromEnd(0))))
@@ -416,26 +429,19 @@ void CalculateLimits(uint8 *dataA, uint8 *dataB, DataSettings *dss)
             const uint8 *dataA = DS_GetData_RAM(A, numData);
             const uint8 *dataB = DS_GetData_RAM(B, numData);
 
-#define SET_LIMIT(d, up, down)          \
-    data = RAM_ReadByte(d + i);         \
-    limitUp = RAM_ReadByte(up + i);     \
-    limitDown = RAM_ReadByte(down + i); \
-    if(data > limitUp)                  \
-    {                                   \
-        RAM_WriteByte(up + i, data);    \
-    }                                   \
-    if(data < limitDown)                \
-    {                                   \
-        RAM_WriteByte(down + i, data);  \
-    }
-        uint8 data = 0;
-        uint8 limitUp = 0;
-        uint8 limitDown = 0;
+            uint8 data = 0;
+            uint8 limitUp = 0;
+            uint8 limitDown = 0;
 
             for(int i = 0; i < numElements; i++)
             {
                 SET_LIMIT((uint8 *)dataA, limitUpA_RAM, limitDownA_RAM);
                 SET_LIMIT((uint8 *)dataB, limitUpB_RAM, limitDownB_RAM);
+            }
+
+            if (NEED_FINISH_DRAW)
+            {
+                break;
             }
         }
     }
