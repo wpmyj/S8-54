@@ -810,9 +810,9 @@ float LimitationFloat(float value, float min, float max)
 
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
-uint8 Math_CalculateFiltr(const uint8 *data, int x, int numPoints, int numSmoothing)
+uint8 Math_CalculateFiltr(const uint8 *data, int x, int numPoints)
 {
-    if (numSmoothing < 2)
+    if (NUM_SMOOTHING < 2)
     {
         return data[x];
     }
@@ -821,7 +821,7 @@ uint8 Math_CalculateFiltr(const uint8 *data, int x, int numPoints, int numSmooth
     int sum = data[x];
     int startDelta = 1;
 
-    int endDelta = numSmoothing / 2;
+    int endDelta = NUM_SMOOTHING / 2;
 
     for (int delta = startDelta; delta <= endDelta; delta++)
     {
@@ -833,9 +833,9 @@ uint8 Math_CalculateFiltr(const uint8 *data, int x, int numPoints, int numSmooth
         }
     }
 
-    if ((numSmoothing % 2) == 1)
+    if ((NUM_SMOOTHING % 2) == 1)
     {
-        int delta = numSmoothing / 2;
+        int delta = NUM_SMOOTHING / 2;
         if ((x + delta) < numPoints)
         {
             sum += data[x + delta];
@@ -848,9 +848,9 @@ uint8 Math_CalculateFiltr(const uint8 *data, int x, int numPoints, int numSmooth
 
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
-void Math_CalculateFiltrArray(const uint8 *dataIn, uint8 *dataOut, int numPoints)
+void Math_CalculateFiltrArray(const uint8 *dataIn, uint8 *dataOut, int numPoints, bool needSmoothing)
 {
-    if (NUM_SMOOTHING < 2)
+    if (NUM_SMOOTHING < 2 || !needSmoothing)
     {
         memcpy(dataOut, dataIn, numPoints);
     }

@@ -1039,12 +1039,12 @@ void Processing_SetData(bool needSmoothing)
 
     if (ENABLED_DS_A)
     {
-        Math_CalculateFiltrArray(IN_A, OUT_A, length);
+        Math_CalculateFiltrArray(IN_A, OUT_A, length, needSmoothing);
         memcpy(IN_A, OUT_A, length);
     };
     if (ENABLED_DS_B)
     {
-        Math_CalculateFiltrArray(IN_B, OUT_B, length);
+        Math_CalculateFiltrArray(IN_B, OUT_B, length, needSmoothing);
         memcpy(IN_B, OUT_B, length);
     };
   
