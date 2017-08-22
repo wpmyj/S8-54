@@ -64,7 +64,7 @@ static const Settings defaultSettings =
         ENumAverages_1,             // numAveraging
         Averaging_Accurately,       // modeAveraging
         NumMinMax_1,                // numMinMax
-        NumSmooth_Disable,          // smoothing
+        ENumSmooth_Disable,          // smoothing
         NumSignalsInSec_25,         // num signals in one second
         A,                          // lastAffectedChannel
         ModeAccumulation_NoReset,   // modeAccumulation

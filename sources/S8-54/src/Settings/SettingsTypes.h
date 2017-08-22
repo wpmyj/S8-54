@@ -100,16 +100,16 @@ typedef enum
 /// Количество точек для расчёта сглаживания.
 typedef enum
 {
-    NumSmooth_Disable,
-    NumSmooth_2points = 1,
-    NumSmooth_3points = 2,
-    NumSmooth_4points = 3,
-    NumSmooth_5points = 4,
-    NumSmooth_6points = 5,
-    NumSmooth_7points = 6,
-    NumSmooth_8points = 7,
-    NumSmooth_9points = 8,
-    NumSmooth_10points = 9
+    ENumSmooth_Disable,
+    ENumSmooth_2points,
+    ENumSmooth_3points,
+    ENumSmooth_4points,
+    ENumSmooth_5points,
+    ENumSmooth_6points,
+    ENumSmooth_7points,
+    ENumSmooth_8points,
+    ENumSmooth_9points,
+    ENumSmooth_10points
 } ENumSmoothing;
 
 /// Ограничение FPS.

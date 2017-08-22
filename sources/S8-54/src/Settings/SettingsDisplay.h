@@ -55,7 +55,7 @@
 
 #define ENUM_SMOOTHING          (set.disp_ENumSmoothing)
 #define NUM_SMOOTHHING          (sDisplay_NumPointSmoothing())
-#define SMOOTHING_ENABLED       (ENUM_SMOOTHING != NumSmooth_Disable)
+#define SMOOTHING_ENABLED       (ENUM_SMOOTHING != ENumSmooth_Disable)
 
 #define ALT_MARKERS             (set.disp_AltMarkers)
 #define ALT_MARKERS_SHOW        (ALT_MARKERS == AM_Show)

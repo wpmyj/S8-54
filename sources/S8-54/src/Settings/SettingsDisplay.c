@@ -22,7 +22,7 @@ void sDisplay_SetNumSignalsInS(int numSignalsInS)
 //----------------------------------------------------------------------------------------------------------------------------------------------------
 int sDisplay_NumPointSmoothing(void)
 {
-    if(MODE_EMS && (ENUM_SMOOTHING < NumSmooth_4points))
+    if(MODE_EMS && (ENUM_SMOOTHING < ENumSmooth_4points))
     {
         return 4;
     }
