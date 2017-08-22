@@ -45,7 +45,7 @@ static const Settings defaultSettings =
         MAKE_COLOR(31, 51, 0),  // COLOR_MENU_ITEM_BRIGHT
         MAKE_COLOR(0, 25, 15),  // COLOR_DATA_A_WHITE
         MAKE_COLOR(0, 31, 0),   // COLOR_DATA_B_WHITE
-        MAKE_COLOR(1, 40, 25),
+        MAKE_COLOR(1, 40, 25),  // COLOR_GRID_WHITE
         MAKE_COLOR(0, 51, 0)
     },
     ModeDrawSignal_Lines,       // ModeDrawSignal

@@ -1040,12 +1040,12 @@ void Processing_SetData(void)
     if (ENABLED_DS_A)
     {
         Math_CalculateFiltrArray(IN_A, OUT_A, length, NUM_SMOOTHHING);
-        memcpy(OUT_A, IN_A, length);
+        memcpy(IN_A, OUT_A, length);
     };
     if (ENABLED_DS_B)
     {
         Math_CalculateFiltrArray(IN_B, OUT_B, length, NUM_SMOOTHHING);
-        memcpy(OUT_B, IN_B, length);
+        memcpy(IN_B, OUT_B, length);
     };
   
     CountedToCurrentSettings();
