@@ -60,7 +60,7 @@ static void DrawTShift(int leftX, int rightX, int numPoints);
 
 static int Ordinate(uint8 x, float scale);
 /// ¬озвращает точку в экранной координате. ≈сли точка не считана (NONE_VALUE), возвращает -1.
-static void SendToDisplayDataInRect(Channel chan, int x, const int *min, const int *max, uint width);
+static void SendToDisplayDataInRect(Channel chan, int x, int *min, int *max, int width);
 /// Ќарисовать данные в окне пам€ти
 static void DrawMemoryWindow(void);
 
@@ -144,7 +144,7 @@ static void DrawData_ModeDir(void)
     DrawData();
     DrawMemoryWindow();
 
-    if (MODE_ACCUM_NO_RESET && !IN_P2P_MODE)
+    if (MODE_ACCUM_NO_RESET && !IN_P2P_MODE && ENUM_ACCUM > ENumAccum_1)
     {
         int numAccum = NUM_ACCUM;
         int numSignalsInStorage = DS_NumElementsWithCurrentSettings();
@@ -832,7 +832,7 @@ static void DrawDataInRect(uint width, Channel ch)
     // “еперь уточним количество точек, которые нужно нарисовать (исходим из того, что в реальном режиме и рандомизаторе рисуем все точки,
     // а в поточечном только начальные до определЄнной позиции
 
-    uint numPoints = 0;
+    int numPoints = 0;
     for (int i = 0; i < width; i++)
     {
         if (maxes[i] == -1 && mines[i] == -1)
@@ -926,16 +926,16 @@ static int Ordinate(uint8 x, float scale)
 //----------------------------------------------------------------------------------------------------------------------------------------------------
 // ѕроцедура ограничивает width числом 255
 //----------------------------------------------------------------------------------------------------------------------------------------------------
-static void SendToDisplayDataInRect(Channel ch, int x, const int *min, const int *max, uint width)
+static void SendToDisplayDataInRect(Channel ch, int x, int *min, int *max, int width)
 {
     LIMIT_ABOVE(width, 255);
 
     uint8 points[width * 2];
 
-    for (uint i = 0; i < width; i++)
+    for (int i = 0; i < width; i++)
     {
         points[i * 2] = max[i];
-        points[i * 2 + 1] = min[i];
+        points[i * 2 + 1] = min[i] < 0 ? 0 : min[i];
     }
 
     Painter_DrawVLineArray(x, (int)width, points, gColorChan[ch]); //-V202

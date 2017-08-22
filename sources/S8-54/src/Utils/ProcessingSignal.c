@@ -1287,7 +1287,7 @@ char* Processing_GetStringMeasure(Measure measure, Channel ch, char* buffer, int
 //----------------------------------------------------------------------------------------------------------------------------------------------------
 static void CountedToCurrentSettings(void)
 {
-    int numPoints = BYTES_IN_CHANNEL_DS;
+    int numBytes = BYTES_IN_CHANNEL_DS;
 
     int16 dTShift = SET_TSHIFT - TSHIFT_DS;
 
@@ -1312,20 +1312,20 @@ static void CountedToCurrentSettings(void)
             OUT_B[i] = AVE_VALUE;
         };
 
-        int endIndex = numPoints / 2 - dTShift;
-        if (endIndex < numPoints / 2 - 1)
+        int endIndex = numBytes / 2 - dTShift;
+        if (endIndex < numBytes / 2 - 1)
         {
-            for (int i = endIndex; i < numPoints / 2; i++)
+            for (int i = endIndex; i < numBytes / 2; i++)
             {
                 OUT_A[i] = AVE_VALUE;
                 OUT_B[i] = AVE_VALUE;
             }
         }
 
-        for (int i = 0; i < numPoints; i += 2)
+        for (int i = 0; i < numBytes; i += 2)
         {
             int index = i / 2 - dTShift;
-            if (index >= 0 && index < numPoints)
+            if (index >= 0 && index < numBytes)
             {
                 int dA0 = IN_A[i];
                 int dA1 = IN_A[i + 1];
@@ -1364,9 +1364,9 @@ static void CountedToCurrentSettings(void)
         }
     }
     else
-    {      
-        memcpy(OUT_A, IN_A, numPoints);
-        memcpy(OUT_B, IN_B, numPoints);
+    {
+        memcpy(OUT_A, IN_A, numBytes);
+        memcpy(OUT_B, IN_B, numBytes);
     }
 }
 
@@ -1394,22 +1394,23 @@ static void CountedRange(Channel ch)
     int rShiftOut = SET_RSHIFT(ch);
     
     uint8 *in = dataIN[ch];
-    uint16 *out = (uint16*)dataOUT[ch];
+    uint8 *out = dataOUT[ch];
     
-    int numPoints = BYTES_IN_CHANNEL_DS;
+    int numBytes = BYTES_IN_CHANNEL_DS;
 
-    for (int i = 0; i < numPoints; i += 2)
+    for (int i = 0; i < numBytes; ++i)
     {
-        int d0 = in[i];
-        float abs0 = POINT_2_VOLTAGE(d0, rangeIn, rShiftIn);
-        d0 = Math_VoltageToPoint(abs0, rangeOut, (uint16)rShiftOut);
-        LIMITATION(d0, d0, 0, 255);
-
-        int d1 = in[i + 1];
-        float abs1 = POINT_2_VOLTAGE(d1, rangeIn, rShiftIn);
-        d1 = Math_VoltageToPoint(abs1, rangeOut, (uint16)rShiftOut);
-        LIMITATION(d1, d1, 0, 255);
-
-        out[i / 2] = (uint16)((d0 | (d1 << 8)));
+        int d = in[i];
+        if (d)
+        {
+            float abs = POINT_2_VOLTAGE(d, rangeIn, rShiftIn);
+            d = Math_VoltageToPoint(abs, rangeOut, (uint16)rShiftOut);
+            LIMITATION(d, d, MIN_VALUE, MAX_VALUE);
+            out[i] = d;
+        }
+        else
+        {
+            out[i] = 0;
+        }
     }
 }

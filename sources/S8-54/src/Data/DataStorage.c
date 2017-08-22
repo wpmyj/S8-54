@@ -554,8 +554,6 @@ void DS_AddData(uint8 *dataA, uint8 *dataB, DataSettings dss)
     CalculateSums();
 
     CalculateAroundAverage(dataA, dataB, &dss);
-
-    LOG_WRITE("num elements in storage %d", numElementsInStorage);
 }
 
 
