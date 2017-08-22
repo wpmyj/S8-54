@@ -71,6 +71,11 @@ static void CountedTBase(void);
 /// Приведение сигнала в конкретном канале к установленному в приборе TBase
 static void CountedTBaseChannel(Channel ch);
 
+/// Линейная интерполяция
+static void LinearInterpolation(uint8 *data, int numPoints);
+/// Возвращает индекс следующей за prevIndex ненулевой точки. Возвращает -1, если точки таковой не найдено
+static bool IndexNextPoint(uint8 *data, int numPoints, int prevIndex, int *nextIndex);
+
 static bool isSet = false;          ///< Если true, то сигнал назначен.
 
 static int firstByte = 0;
@@ -1299,17 +1304,22 @@ static void CountedToCurrentSettings(void)
 
     int rShiftB = ((int)SET_RSHIFT_B - (int)RSHIFT_DS_B) / (float)STEP_RSHIFT * 1.25f;   /// \todo избавиться от этого непонятного коэффициента
 
+    bool counted = false;
+
     if (SET_TBASE != TBASE_DS)
     {
         CountedTBase();
+        counted = true;
     }
     else if (SET_RANGE_A !=  RANGE_DS_A)
     {
         CountedRange(A);
+        counted = true;
     }
     else if (SET_RANGE_B != RANGE_DS_B)
     {
         CountedRange(B);
+        counted = true;
     }
     else if (dTShift || rShiftA || rShiftB)
     {
@@ -1370,8 +1380,10 @@ static void CountedToCurrentSettings(void)
                 ((uint16 *)OUT_B)[index] = (uint16)((dB0 | (dB1 << 8)));
             }
         }
+        counted = true;
     }
     else
+    //if(!counted)
     {
         memcpy(OUT_A, IN_A, numBytes);
         memcpy(OUT_B, IN_B, numBytes);
@@ -1464,4 +1476,60 @@ static void CountedTBaseChannel(Channel ch)
             out[indexOut] = in[i];
         }
     }
+
+    LinearInterpolation(out, numBytes);
+}
+
+//----------------------------------------------------------------------------------------------------------------------------------------------------
+static void LinearInterpolation(uint8 *data, int numPoints)
+{
+    int index = FindAnotherElement(data, NONE_VALUE, numPoints);   // Находим индекс первого непустого элемента
+
+    if (index == -1)                                               // Если такового элемента на нашлось - выходим
+    {
+        return;
+    }
+
+    FillArrayUINT8(data, data[index], index);                      // И заполняем все первые пустые элементы этим значением
+    
+    int iFirst = index;
+    int iSecond = -1;
+                                                                   // Теперь переходим непосредственно к аппроксимации
+    while (iFirst < numPoints)
+    {
+        if (!IndexNextPoint(data, numPoints, iFirst, &iSecond))    // Находим следующую непустую точку
+        {                                                          // И если не нашли
+            FillArrayUINT8(&data[iFirst], data[iFirst], numPoints - iFirst);    // То заполняем последние точки последними непустыми значениями
+            return;                                                             // И выходим
+        }
+        if (iSecond == iFirst + 1)                  // Если следующая точка находится сразу после первой
+        {
+            iFirst = iSecond;                       // То сразу переходим к поиску следующей точки
+            continue;
+        }
+        float k = (data[iSecond] - data[iFirst]) / (float)(iSecond - iFirst);   // Аппроксимируем точки, если есть пустые
+
+        for (int i = iFirst; i < iSecond; i++)
+        {
+            data[i] = data[iFirst] + k * (i - iFirst);
+        }
+
+        iFirst = iSecond;
+    }
+}
+
+//----------------------------------------------------------------------------------------------------------------------------------------------------
+static bool IndexNextPoint(uint8 *data, int numPoints, int prevIndex, int *nextIndex)
+{
+    for (int i = prevIndex + 1; i < numPoints; ++i)
+    {
+        if (data[i] != NONE_VALUE)
+        {
+            *nextIndex = i;
+            return true;
+        }
+    }
+
+    *nextIndex = -1;
+    return false;
 }

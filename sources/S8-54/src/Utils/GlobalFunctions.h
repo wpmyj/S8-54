@@ -119,6 +119,10 @@ void EmptyFuncVpV(void *);
 void EmptyFuncVII(int, int);
 /// Функция-заглушка. Ничего не делает
 void EmptyFuncpVII(void *, int, int);
+/// Заполнить массив одним значением
+void FillArrayUINT8(uint8 *data, uint8 value, int numElements);
+/// Найти первый элемент массива, не соотвествующий заданному
+int FindAnotherElement(uint8 *data, uint8 value, int numElements);
 
 char* IntToStrCat(char *_buffer, int _value);
 /// Выводит numElements элементов массива array в одной строке консоли
