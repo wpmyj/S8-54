@@ -247,4 +247,9 @@ const char *NameColor(Color color)
     return colorNames[color];
 }
 
+//----------------------------------------------------------------------------------------------------------------------------------------------------
+Color ColorChanAccum(Channel ch)
+{
+    return ch == A ? COLOR_DATA_A_WHITE_ACCUM : COLOR_DATA_B_WHITE_ACCUM;
+}
 

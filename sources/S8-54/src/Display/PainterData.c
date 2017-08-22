@@ -22,9 +22,9 @@ static void DrawData_ModeRAM(void);
 /// Нарисовать данные, которые рисовались бы, если б был установлен режим ModeWork_ROM.
 static void DrawData_ModeROM(void);
 /// Нарисовать данные из outA, outB.
-static void DrawData(void);
+static void DrawData(bool forAccum);
 /// Нарисовать данные из outA или outB.
-static void DrawChannel(Channel ch);
+static void DrawChannel(Channel ch, Color color);
 /// Нарисовать данные из outA или outB c выключенным пиковым детектором.
 static void DrawChannel_Normal(Channel ch, int left, int bottom, float scaleY);
 /// Нарисовать данные из outA или outB с включённым пиковым детектором.
@@ -140,12 +140,6 @@ void PainterData_DrawData(void)
 //----------------------------------------------------------------------------------------------------------------------------------------------------
 static void DrawData_ModeDir(void)
 {  
-    Data_ReadFromRAM(0, dataStruct, false);
-    DrawData();
-    IncreaseNumDrawingSignals();
-    Data_ReadFromRAM(0, dataStruct, true);
-    DrawMemoryWindow();
-
     if (MODE_ACCUM_NO_RESET && !IN_P2P_MODE && ENUM_ACCUM > ENumAccum_1)
     {
         int numAccum = NUM_ACCUM;
@@ -164,10 +158,15 @@ static void DrawData_ModeDir(void)
         while (i < numAccum && !interruptDrawing)
         {
             Data_ReadFromRAM(i, dataStruct, false);
-            DrawData();
+            DrawData(true);
             ++i;
         }
     }
+    Data_ReadFromRAM(0, dataStruct, false);
+    DrawData(false);
+    IncreaseNumDrawingSignals();
+    Data_ReadFromRAM(0, dataStruct, true);
+    DrawMemoryWindow();
 }
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
@@ -190,36 +189,38 @@ static void IncreaseNumDrawingSignals(void)
 static void DrawData_ModeRAM(void)
 {
     Data_ReadFromRAM(NUM_RAM_SIGNAL, dataStruct, false);
-    DrawData();
+    DrawData(false);
 }
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
 static void DrawData_ModeROM(void)
 {
     Data_ReadFromROM(dataStruct);
-    DrawData();
+    DrawData(false);
 }
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
-static void DrawData(void)
+static void DrawData(bool forAccum)
 {
     static const Channel order[NumChannels][2] = { {B, A}, {A, B} };
 
-    DrawChannel(order[LAST_AFFECTED_CH][0]);
-    DrawChannel(order[LAST_AFFECTED_CH][1]);
+    Channel ch = order[LAST_AFFECTED_CH][0];
+    DrawChannel(ch, forAccum ? ColorChanAccum(ch) : gColorChan[ch]);
+    ch = order[LAST_AFFECTED_CH][1];
+    DrawChannel(ch, forAccum ? ColorChanAccum(ch): gColorChan[ch]);
 
     Painter_DrawRectangleC(GridLeft(), GRID_TOP, GridWidth(), GridFullHeight(), gColorFill);                                                                                                                         
 }
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
-static void DrawChannel(Channel ch)
+static void DrawChannel(Channel ch, Color color)
 {
     if (!dataStruct->needDraw[ch])
     {
         return;
     }
 
-    Painter_SetColor(gColorChan[ch]);
+    Painter_SetColor(color);
 
     int left = GridLeft();
     int bottom = GridChannelBottom();
