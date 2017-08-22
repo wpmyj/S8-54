@@ -31,7 +31,8 @@ void DrawGovernorChoiceColorFormulaHiPart(void *item, int x, int y, bool pressed
     Color color = shade ? ColorMenuTitleLessBright() : (COLOR_SCHEME_IS_WHITE_LETTERS ? COLOR_WHITE :COLOR_BLACK);
     Painter_DrawHLineC(y + 1, x, x + width + 3, ColorBorderMenu(false));
 
-    Painter_DrawVolumeButton(x + 1, y + 2, width + 2, MI_HEIGHT_VALUE + 3, 1, ColorMenuItem(false), ColorMenuItemBrighter(), ColorMenuItemLessBright(), pressed, shade);
+    Painter_DrawVolumeButton(x + 1, y + 2, width + 2, MI_HEIGHT_VALUE + 3, 1, ColorMenuItem(false), ColorMenuItemBrighter(), ColorMenuItemLessBright(), 
+        pressed, shade);
 
     Painter_DrawTextC(x + 6 + delta, y + 6 + delta, TitleItem(item), color);
     
@@ -262,7 +263,8 @@ void Formula_DrawClosed(Formula *formula, int x, int y)
 }
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
-static void DrawValueWithSelectedPosition(int x, int y, int value, int numDigits, int selPos, bool hLine, bool fillNull) // Если selPos == -1, подсвечивать не нужно
+// Если selPos == -1, подсвечивать не нужно
+static void DrawValueWithSelectedPosition(int x, int y, int value, int numDigits, int selPos, bool hLine, bool fillNull)
 {
     int firstValue = value;
     int height = hLine ? 9 : 8;
@@ -475,7 +477,8 @@ static void GovernorColor_DrawOpened(GovernorColor *gov, int x, int y)
     Painter_DrawVolumeButton(x + 1, y + 1, MI_WIDTH_VALUE + 2 + delta, MI_HEIGHT_VALUE + 3, 2, ColorMenuItem(false), 
         ColorMenuItemBrighter(), ColorMenuItemLessBright(), IsPressed(gov), IsShade(gov));
     Painter_DrawHLineC(y + MI_HEIGHT / 2 + 2, x, x + MI_WIDTH + delta, ColorMenuTitle(false));
-    Painter_DrawStringInCenterRectC(x + (IsPressed(gov) ? 2 : 1), y + (IsPressed(gov) ? 2 : 1), MI_WIDTH + delta, MI_HEIGHT / 2 + 2, TitleItem(gov), COLOR_WHITE);
+    Painter_DrawStringInCenterRectC(x + (IsPressed(gov) ? 2 : 1), y + (IsPressed(gov) ? 2 : 1), MI_WIDTH + delta, MI_HEIGHT / 2 + 2, TitleItem(gov), 
+        COLOR_WHITE);
     DrawGovernorColorValue(x + 1, y + 19, gov, delta);
 }
 
@@ -632,7 +635,8 @@ void Choice_DrawClosed(Choice *choice, int x, int y)
     bool pressed = IsPressed(choice);
     bool shade = IsShade(choice) || ! ItemIsAcitve(choice);
         
-    Painter_DrawVolumeButton(x + 1, y + 17, MI_WIDTH_VALUE + 2, MI_HEIGHT_VALUE + 3, 1, COLOR_MENU_FIELD, ColorMenuItemBrighter(), ColorMenuItemLessBright(), true, IsShade(choice));
+    Painter_DrawVolumeButton(x + 1, y + 17, MI_WIDTH_VALUE + 2, MI_HEIGHT_VALUE + 3, 1, COLOR_MENU_FIELD, ColorMenuItemBrighter(), 
+        ColorMenuItemLessBright(), true, IsShade(choice));
 
     int deltaY = (int)Choice_Step(choice);
     Color colorText = shade ? ColorMenuItem(true) : COLOR_BLACK;
@@ -645,7 +649,8 @@ void Choice_DrawClosed(Choice *choice, int x, int y)
     {
         Painter_DrawTextWithLimitationC(x + 4, y + 21 - deltaY, NameCurrentSubItem(choice), colorText, x, y + 19, MI_WIDTH_VALUE, MI_HEIGHT_VALUE - 1);
         Painter_DrawHLineC(y + (deltaY > 0 ? 31 : 19) - deltaY, x + 3, x + MI_WIDTH_VALUE + 1, COLOR_BLACK);
-        Painter_DrawTextWithLimitationC(x + 4, y + (deltaY > 0 ? 33 : 9) - deltaY, deltaY > 0 ? NameNextSubItem(choice) : NamePrevSubItem(choice), colorText, x, y + 19, MI_WIDTH_VALUE, MI_HEIGHT_VALUE - 1);
+        Painter_DrawTextWithLimitationC(x + 4, y + (deltaY > 0 ? 33 : 9) - deltaY, deltaY > 0 ? NameNextSubItem(choice) : NamePrevSubItem(choice), 
+            colorText, x, y + 19, MI_WIDTH_VALUE, MI_HEIGHT_VALUE - 1);
     }
     Painter_DrawHLineC(y + MI_HEIGHT + 1, x, x + MI_WIDTH, ColorBorderMenu(false));
 
@@ -765,7 +770,8 @@ void Page_Draw(Page *page, int x, int y)
     bool isPressed = IsPressed(page);
     Painter_DrawHLineC(y + 1, x, x + MI_WIDTH, ColorBorderMenu(false));
 
-    Painter_DrawVolumeButton(x + 1, y + 2, MI_WIDTH - 2, MI_HEIGHT - 2, 1, ColorMenuItem(false), ColorMenuItemBrighter(), ColorMenuItemLessBright(), isPressed, isShade);
+    Painter_DrawVolumeButton(x + 1, y + 2, MI_WIDTH - 2, MI_HEIGHT - 2, 1, ColorMenuItem(false), ColorMenuItemBrighter(), ColorMenuItemLessBright(), 
+        isPressed, isShade);
 
     Color colorText = isShade ? ColorMenuItem(true) : COLOR_BLACK;
     int delta = 0;

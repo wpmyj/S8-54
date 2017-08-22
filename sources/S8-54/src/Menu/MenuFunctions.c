@@ -262,7 +262,7 @@ bool ItemIsAcitve(const void *item)
 
     /// \todo Здесь оптимизировать через битовую маску
 
-    if (type == Item_Choice || type == Item_Page || type == Item_Button || type == Item_Governor || type == Item_SmallButton)
+    if (type == Item_Choice || type == Item_Page || type == Item_Button || type == Item_Governor || type == Item_SmallButton || type == Item_ChoiceReg)
     {
         pFuncBV func = ((Page *)(item))->funcOfActive;
 
