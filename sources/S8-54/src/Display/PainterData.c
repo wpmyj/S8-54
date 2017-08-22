@@ -64,6 +64,8 @@ static void SendToDisplayDataInRect(Channel chan, int x, int *min, int *max, int
 /// Нарисовать данные в окне памяти
 static void DrawMemoryWindow(void);
 
+static void IncreaseNumDrawingSignals(void);
+
 #define CONVERT_DATA_TO_DISPLAY(out, inVal)                     \
     int in = inVal;                                             \
     if(in < MIN_VALUE) { in = MIN_VALUE; }                      \
@@ -137,11 +139,10 @@ void PainterData_DrawData(void)
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
 static void DrawData_ModeDir(void)
-{
-    NUM_DRAWING_SIGNALS++;
-    
+{  
     Data_ReadFromRAM(0, dataStruct, false);
     DrawData();
+    IncreaseNumDrawingSignals();
     Data_ReadFromRAM(0, dataStruct, true);
     DrawMemoryWindow();
 
@@ -166,6 +167,22 @@ static void DrawData_ModeDir(void)
             DrawData();
             ++i;
         }
+    }
+}
+
+//----------------------------------------------------------------------------------------------------------------------------------------------------
+static void IncreaseNumDrawingSignals(void)
+{
+    static uint8 *addr = 0;
+
+    if (addr == 0 && DS)
+    {
+        addr = DS->addr;
+    }
+    else if (DS && addr != DS->addr)
+    {
+        NUM_DRAWING_SIGNALS++;
+        addr = DS->addr;
     }
 }
 

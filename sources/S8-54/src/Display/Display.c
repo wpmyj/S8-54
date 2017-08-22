@@ -464,6 +464,13 @@ void Display_ShowWarning(Warning warning)
 //----------------------------------------------------------------------------------------------------------------------------------------------------
 static bool NeedForClearScreen(void)
 {
+    static bool first = true;
+    if (first)
+    {
+        first = false;
+        return true;
+    }
+
     if(IN_RANDOM_MODE || NUM_ACCUM == 1 || MODE_ACCUM_NO_RESET || RECORDER_MODE)
     {
         return true;
