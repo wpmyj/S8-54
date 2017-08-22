@@ -8,29 +8,29 @@
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 int sDisplay_NumSignalsInS(void)
 {
-    return Tables_ENUMtoENumSignalsInSec(NUM_SIGNALS_IN_SEC);
+    return Tables_ENUMtoENumSignalsInSec(ENUM_SIGNALS_IN_SEC);
 }
 
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
 void sDisplay_SetNumSignalsInS(int numSignalsInS)
 {
-    NUM_SIGNALS_IN_SEC = Tables_ENumSignalsInSecToENUM(numSignalsInS);
+    ENUM_SIGNALS_IN_SEC = Tables_ENumSignalsInSecToENUM(numSignalsInS);
 }
  
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
 int sDisplay_NumPointSmoothing(void)
 {
-    if(MODE_EMS && (SMOOTHING < NumSmooth_4points))
+    if(MODE_EMS && (ENUM_SMOOTHING < NumSmooth_4points))
     {
         return 4;
     }
 
     int retValue = 0;
-    if (SMOOTHINENABLED_DS)
+    if (SMOOTHING_ENABLED)
     {
-        retValue = SMOOTHING + 1; //-V2006
+        retValue = ENUM_SMOOTHING + 1; //-V2006
     }
 
     if (IN_RANDOM_MODE)

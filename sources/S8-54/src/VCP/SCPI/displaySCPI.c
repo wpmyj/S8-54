@@ -189,10 +189,10 @@ static void Process_FILTR(uint8 *buffer)
         {0}
     };
     ENTER_ANALYSIS
-        if (value <= 9) { SMOOTHING = (ENumSmoothing)value; }
+        if (value <= 9) { ENUM_SMOOTHING = (ENumSmoothing)value; }
         else if (10 == value)
         {
-            SCPI_SEND(":DISPLAY:FILTR %s", map[SMOOTHING].key);
+            SCPI_SEND(":DISPLAY:FILTR %s", map[ENUM_SMOOTHING].key);
         }
     LEAVE_ANALYSIS
 }
@@ -212,10 +212,10 @@ static void Process_FPS(uint8 *buffer)
         {0}
     };
     ENTER_ANALYSIS
-        if (value < 5) { NUM_SIGNALS_IN_SEC = (ENumSignalsInSec)value; }
+        if (value < 5) { ENUM_SIGNALS_IN_SEC = (ENumSignalsInSec)value; }
         else if (5 == value)
         {
-            SCPI_SEND(":DISPLAY:FPS %s", map[NUM_SIGNALS_IN_SEC].key);
+            SCPI_SEND(":DISPLAY:FPS %s", map[ENUM_SIGNALS_IN_SEC].key);
         }
     LEAVE_ANALYSIS
 }

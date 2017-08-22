@@ -16,7 +16,8 @@
 #define SHIFT_IN_MEMORY         (set.disp_ShiftInMemory)
 #define TIME_MESSAGES           (set.disp_TimeMessages)
 #define COLOR(x)                (set.disp_Colors[x])
-#define NUM_SIGNALS_IN_SEC      (set.disp_ENumSignalsInSec)
+#define ENUM_SIGNALS_IN_SEC     (set.disp_ENumSignalsInSec)
+#define NUM_SIGNALS_IN_SEC      (sDisplay_NumSignalsInS())
 #define LAST_AFFECTED_CH        (set.disp_LastAffectedChannel)
 #define LAST_AFFECTED_CH_IS_A   (LAST_AFFECTED_CH == A)
 #define DISPLAY_ORIENTATION     (set.dbg_Orientation)
@@ -52,8 +53,9 @@
 #define NUM_AVE                 (1 << (int)ENUM_AVE)
 #define IN_AVERAGING_MODE       (ENUM_AVE > ENumAverages_1 && (!IN_P2P_MODE))
 
-#define SMOOTHING               (set.disp_ENumSmoothing)
-#define SMOOTHINENABLED_DS       (SMOOTHING != NumSmooth_Disable)
+#define ENUM_SMOOTHING          (set.disp_ENumSmoothing)
+#define NUM_SMOOTHHING          (sDisplay_NumPointSmoothing())
+#define SMOOTHING_ENABLED       (ENUM_SMOOTHING != NumSmooth_Disable)
 
 #define ALT_MARKERS             (set.disp_AltMarkers)
 #define ALT_MARKERS_SHOW        (ALT_MARKERS == AM_Show)

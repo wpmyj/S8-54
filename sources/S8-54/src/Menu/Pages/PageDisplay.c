@@ -329,7 +329,7 @@ static const Choice cSmoothing =
         {"9 точки", "9 points"},
         {"10 точек", "10 points"}
     },
-    (int8 *)&SMOOTHING
+    (int8 *)&ENUM_SMOOTHING
 };
 
 // ДИСПЛЕЙ - Частота обновл --------------------------------------------------------------------------------------------------------------------------
@@ -348,12 +348,12 @@ static const Choice cRefreshFPS =
         {"2",   "2"},
         {"1",   "1"}
     },
-    (int8 *)&NUM_SIGNALS_IN_SEC, OnChanged_RefreshFPS
+    (int8 *)&ENUM_SIGNALS_IN_SEC, OnChanged_RefreshFPS
 };
 
 static void OnChanged_RefreshFPS(bool active)
 {
-    FPGA_SetENumSignalsInSec(sDisplay_NumSignalsInS());
+    FPGA_SetENumSignalsInSec(NUM_SIGNALS_IN_SEC);
 }
 
 // ДИСПЛЕЙ - СЕТКА -----------------------------------------------------------------------------------------------------------------------------------

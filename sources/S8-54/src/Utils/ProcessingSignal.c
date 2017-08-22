@@ -1035,18 +1035,16 @@ void Processing_SetData(void)
 
     numBytes = lastByte - firstByte;
     
-    int numSmoothing = sDisplay_NumPointSmoothing();
-
     int length = BYTES_IN_CHANNEL_DS;
 
     if (ENABLED_DS_A)
     {
-        Math_CalculateFiltrArray(IN_A, OUT_A, length, numSmoothing);
+        Math_CalculateFiltrArray(IN_A, OUT_A, length, NUM_SMOOTHHING);
         memcpy(OUT_A, IN_A, length);
     };
     if (ENABLED_DS_B)
     {
-        Math_CalculateFiltrArray(IN_B, OUT_B, length, numSmoothing);
+        Math_CalculateFiltrArray(IN_B, OUT_B, length, NUM_SMOOTHHING);
         memcpy(OUT_B, IN_B, length);
     };
   
