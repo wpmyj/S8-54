@@ -270,6 +270,7 @@ void Settings_Load(bool _default)
     Display_ChangedRShiftMarkers(true);
     OnChanged_ADC_Stretch_Mode(true);
     OnChanged_DisplayOrientation(true);
+    Painter_SetBrightnessDisplay(BRIGHTNESS_DISPLAY);
 
     gBF.alreadyLoadSettings = 1;
 }
