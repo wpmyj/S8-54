@@ -839,7 +839,7 @@ static void SaveSignalToIntMemory(void)
 {
     // Заносим в указатели DS, DATA_A, DATA_B данные из ОЗУ или последний считанный сигнал, в зависимости от того, из какого режима зашли в 
     // "ПАМЯТЬ-ВНУТР ЗУ"
-    Data_ReadFromRAM(EXIT_FROM_ROM_TO_RAM ? NUM_RAM_SIGNAL : 0, 0);
+    Data_ReadFromRAM(EXIT_FROM_ROM_TO_RAM ? NUM_RAM_SIGNAL : 0, 0, false);
 
     if (DS)                                             // Если есть что сохранять
     {

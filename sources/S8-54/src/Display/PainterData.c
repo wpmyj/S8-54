@@ -140,8 +140,9 @@ static void DrawData_ModeDir(void)
 {
     NUM_DRAWING_SIGNALS++;
     
-    Data_ReadFromRAM(0, dataStruct);
+    Data_ReadFromRAM(0, dataStruct, false);
     DrawData();
+    Data_ReadFromRAM(0, dataStruct, true);
     DrawMemoryWindow();
 
     if (MODE_ACCUM_NO_RESET && !IN_P2P_MODE && ENUM_ACCUM > ENumAccum_1)
@@ -161,7 +162,7 @@ static void DrawData_ModeDir(void)
         int i = 0;
         while (i < numAccum && !interruptDrawing)
         {
-            Data_ReadFromRAM(i, dataStruct);
+            Data_ReadFromRAM(i, dataStruct, false);
             DrawData();
             ++i;
         }
@@ -171,7 +172,7 @@ static void DrawData_ModeDir(void)
 //----------------------------------------------------------------------------------------------------------------------------------------------------
 static void DrawData_ModeRAM(void)
 {
-    Data_ReadFromRAM(NUM_RAM_SIGNAL, dataStruct);
+    Data_ReadFromRAM(NUM_RAM_SIGNAL, dataStruct, false);
     DrawData();
 }
 
@@ -531,7 +532,7 @@ static int FillDataP2P(uint8 *data, DataSettings **ds)
     uint8 *dataA = 0;
     uint8 *dataB = 0;
 
-    int numPoints = DS_GetLastFrameP2P_RAM(ds, &dataA, &dataB); // Получаем фрейм поточечного вывода
+    int numPoints = DS_GetFrameP2P_RAM(ds, &dataA, &dataB); // Получаем фрейм поточечного вывода
 
     int numPointsDS = BYTES_IN_CHANNEL(*ds);
 

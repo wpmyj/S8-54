@@ -46,7 +46,7 @@ void DS_AddPointsP2P(uint16 dataA, uint16 dataB);
 /// \brief ѕолучить данные фрейма поточечного вывода. ѕоследние полученные данные можно получить вызовом DS_GetDataFromEnd_RAM(1...). 
 /// ¬озвращает общее количество точек (оно может быть больше, чем количество точек в канале. ¬ этом случае в канале наход€тс€ последние 
 /// numPointsInChan точек.
-int DS_GetLastFrameP2P_RAM(DataSettings **ds, uint8 **dataA, uint8 **dataB);
+int DS_GetFrameP2P_RAM(DataSettings **ds, uint8 **dataA, uint8 **dataB);
 /// ¬озвращает число считанных точек в поточечном режиме
 int DS_NumPointsInLastFrameP2P(void);
 

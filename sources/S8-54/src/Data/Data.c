@@ -9,6 +9,7 @@
 #include "FPGA/FPGA.h"
 #include "Hardware/FLASH.h"
 #include "Hardware/FSMC.h"
+#include "Hardware/RAM.h"
 #include "Settings/SettingsMemory.h"
 #include "Utils/GlobalFunctions.h"
 #include "Utils/ProcessingSignal.h"
@@ -37,7 +38,7 @@ void Data_Clear(void)
 }
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
-void Data_ReadFromRAM(int fromEnd, StructDataDrawing *dataStruct)
+void Data_ReadFromRAM(int fromEnd, StructDataDrawing *dataStruct, bool forMemoryWindow)
 {
     Data_Clear();
 
@@ -60,9 +61,21 @@ void Data_ReadFromRAM(int fromEnd, StructDataDrawing *dataStruct)
         }
         readed = true;
     }
-    else
+    else if(!IN_P2P_MODE || (IN_P2P_MODE && STAND_P2P && !forMemoryWindow) || (IN_P2P_MODE && !FPGA_IsRunning()))
     {
         DS_GetDataFromEnd(fromEnd, &dataSettings, IN_A, IN_B);
+        readed = true;
+    }
+    else
+    {
+        uint8 *dataA = 0;
+        uint8 *dataB = 0;
+        DataSettings *ds = 0;
+        DS_GetFrameP2P_RAM(&ds, &dataA, &dataB);
+        memcpy(&dataSettings, ds, sizeof(DataSettings));
+        DS = &dataSettings;
+        RAM_MemCpy16(dataA, IN_A, BYTES_IN_CHANNEL_DS);
+        RAM_MemCpy16(dataB, IN_B, BYTES_IN_CHANNEL_DS);
         readed = true;
     }
 
@@ -118,9 +131,8 @@ static void PrepareDataForDraw(StructDataDrawing *dataStruct)
         return;
     }
 
-    if (IN_P2P_MODE && FPGA_IsRunning())
-                               // FPGA_IsRunning - потому что в автоматическом режиме при считывании полного измерения происходит остановка
-    {                                       // цикла считывания на некоторое время
+    if (IN_P2P_MODE && FPGA_IsRunning() && !STAND_P2P)  // FPGA_IsRunning - потому что в автоматическом режиме при считывании полного измерения 
+    {                                                   // происходит остановка цикла считывания на некоторое время
         FillDataP2P(dataStruct, A);
         FillDataP2P(dataStruct, B);
     }

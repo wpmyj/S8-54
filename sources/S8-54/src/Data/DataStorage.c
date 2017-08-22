@@ -368,11 +368,6 @@ static void BeginLimits(uint8 *dataA, uint8 *dataB, int numElements)
 //----------------------------------------------------------------------------------------------------------------------------------------------------
 DataSettings* DS_DataSettingsFromEnd(int indexFromEnd)
 {
-    if (inFrameP2Pmode)
-    {
-        return &dsP2P;
-    }
-
     int index = 0;
 
     if(indexFromEnd <= iLast)
@@ -694,12 +689,6 @@ bool DS_GetDataFromEnd_RAM(int fromEnd, DataSettings **ds, uint16 **dataA, uint1
     uint8 *dataImportRelA = RAM(DS_DATA_IMPORT_REL_A);
     uint8 *dataImportRelB = RAM(DS_DATA_IMPORT_REL_B);
 
-    if (inFrameP2Pmode)
-    {
-        dataImportRelA = RAM(DS_P2P_FRAME);
-        dataImportRelB = dataImportRelA + BYTES_IN_CHANNEL(dp);
-    }
-
     if(dataA != 0)
     {
         *dataA = CopyData(dp, A, dataImportRelA) ? (uint16 *)dataImportRelA : 0;
@@ -860,7 +849,7 @@ int DS_NumPointsInLastFrameP2P(void)
 
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
-int DS_GetLastFrameP2P_RAM(DataSettings **ds, uint8 **dataA, uint8 **dataB)
+int DS_GetFrameP2P_RAM(DataSettings **ds, uint8 **dataA, uint8 **dataB)
 {
     if (!inFrameP2Pmode)
     {
