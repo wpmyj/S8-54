@@ -162,17 +162,19 @@ static void DrawData_ModeDir(void)
             ++i;
         }
     }
-    Data_ReadFromRAM(0, dataStruct, false);
-    DrawData(false);
-    IncreaseNumDrawingSignals();
-    Data_ReadFromRAM(0, dataStruct, true);
-    DrawMemoryWindow();
-
     Data_ReadMin(dataStruct);
-    DrawData(false);
+    DrawData(true);
 
     Data_ReadMax(dataStruct);
+    DrawData(true);
+
+    Data_ReadFromRAM(0, dataStruct, false);
     DrawData(false);
+
+    IncreaseNumDrawingSignals();
+
+    Data_ReadFromRAM(0, dataStruct, true);
+    DrawMemoryWindow();
 }
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------

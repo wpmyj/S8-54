@@ -128,11 +128,11 @@ void ReadMinMax(StructDataDrawing *dataStruct, int direction)
 
     dataSettings = *DS_DataSettingsFromEnd(0);
 
-    if (!DS_GetLimitation(A, IN_A, 0))
+    if (!DS_GetLimitation(A, IN_A, direction))
     {
         return;
     }
-    if (!DS_GetLimitation(B, IN_B, 0))
+    if (!DS_GetLimitation(B, IN_B, direction))
     {
         return;
     }
