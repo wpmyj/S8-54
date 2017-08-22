@@ -22,7 +22,7 @@ extern int markerVert[NumChannels][2];
 
 /// \brief ”становить сигнал дл€ обработки. ƒанные берутс€ из DS, inA, inB.
 /// ¬ыходные данные, соответствующие текущим настройками set, рассчитываютс€ сразу и записываютс€ в outA, outB.
-void Processing_SetData(void);
+void Processing_SetData(bool needSmoothing);
 /// ѕолучить позицию курсора напр€жени€, соответствующю заданной позиции курсора posCurT
 float Processing_GetCursU(Channel ch, float posCurT);
 /// ѕолучить позицию курсора времени, соответствующую заданной позиции курсора напр€жени€ posCurU

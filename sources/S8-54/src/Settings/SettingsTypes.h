@@ -87,14 +87,14 @@ typedef enum
 /// Количество измерений для расчёта минимального и максимального значений.
 typedef enum
 {
-    NumMinMax_1,
-    NumMinMax_2,
-    NumMinMax_4,
-    NumMinMax_8,
-    NumMinMax_16,
-    NumMinMax_32,
-    NumMinMax_64,
-    NumMinMax_128
+    ENumMinMax_1,
+    ENumMinMax_2,
+    ENumMinMax_4,
+    ENumMinMax_8,
+    ENumMinMax_16,
+    ENumMinMax_32,
+    ENumMinMax_64,
+    ENumMinMax_128
 } ENumMinMax;
 
 /// Количество точек для расчёта сглаживания.

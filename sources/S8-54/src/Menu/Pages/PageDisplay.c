@@ -323,10 +323,10 @@ static const Choice cSmoothing =
         {"3 точки", "3 points"},
         {"4 точки", "4 points"},
         {"5 точек", "5 points"},
-        {"6 точки", "6 points"},
+        {"6 точек", "6 points"},
         {"7 точек", "7 points"},
-        {"8 точки", "8 points"},
-        {"9 точки", "9 points"},
+        {"8 точек", "8 points"},
+        {"9 точек", "9 points"},
         {"10 точек", "10 points"}
     },
     (int8 *)&ENUM_SMOOTHING

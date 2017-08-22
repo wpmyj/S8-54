@@ -46,6 +46,7 @@
 #define MODE_ACCUM_NO_RESET     (MODE_ACCUM == ModeAccumulation_NoReset)
 
 #define ENUM_MIN_MAX            (set.disp_ENumMinMax)
+#define MIN_MAX_ENABLED         (ENUM_MIN_MAX != ENumMinMax_1)
 #define NUM_MIN_MAX             (1 << (int)ENUM_MIN_MAX)                /* ¬озвращает количество измерений сигналов дл€ расчЄта минимумов и максимумов. */
 
 #define MODE_AVERAGING          (set.disp_ModeAveraging)
@@ -54,7 +55,7 @@
 #define IN_AVERAGING_MODE       (ENUM_AVE > ENumAverages_1 && (!IN_P2P_MODE))
 
 #define ENUM_SMOOTHING          (set.disp_ENumSmoothing)
-#define NUM_SMOOTHHING          (sDisplay_NumPointSmoothing())
+#define NUM_SMOOTHING          (sDisplay_NumPointSmoothing())
 #define SMOOTHING_ENABLED       (ENUM_SMOOTHING != ENumSmooth_Disable)
 
 #define ALT_MARKERS             (set.disp_AltMarkers)

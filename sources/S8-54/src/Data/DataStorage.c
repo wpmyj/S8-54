@@ -675,6 +675,26 @@ bool DS_GetDataFromEnd(int fromEnd, DataSettings *ds, uint8 *dataA, uint8 *dataB
     return false;
 }
 
+//----------------------------------------------------------------------------------------------------------------------------------------------------
+bool DS_GetLimitation(Channel ch, uint8 *data, int direction)
+{
+    if (!MIN_MAX_ENABLED || DS_NumElementsWithSameSettings() < 2)
+    {
+        return false;
+    }
+
+    DataSettings *ds = DS_DataSettingsFromEnd(0);
+
+    uint8 *limit = A == ch ? limitDownA_RAM : limitDownB_RAM;
+    if (direction == 1)
+    {
+        limit = A == ch ? limitUpA_RAM : limitUpB_RAM;
+    }
+    RAM_MemCpy16(limit, data, BYTES_IN_CHANNEL(ds));
+
+    return true;
+}
+
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
 bool DS_GetDataFromEnd_RAM(int fromEnd, DataSettings **ds, uint16 **dataA, uint16 **dataB)
@@ -749,23 +769,6 @@ uint8 *DS_GetAverageData(Channel ch)
 
     return &gDataAve[ch][0];
 }
-
-
-//----------------------------------------------------------------------------------------------------------------------------------------------------
-uint8 *DS_GetLimitation(Channel ch, int direction)
-{
-    if(direction == 0)
-    {
-        uint8 *limit = A == ch ? limitDownA_RAM : limitDownB_RAM;
-        return &(limit[0]);
-    }
-    else
-    {
-        uint8 *limit = A == ch ? limitUpA_RAM : limitUpB_RAM;
-        return &(limit[0]);
-    }
-}
-
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
 int DS_NumberAvailableEntries(void)

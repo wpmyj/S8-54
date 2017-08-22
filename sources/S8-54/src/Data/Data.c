@@ -26,6 +26,7 @@
 static void PrepareDataForDraw(StructDataDrawing *dataStruct);
 static void FillDataP2P(StructDataDrawing *dataStruct, Channel ch);
 static void FillDataNormal(StructDataDrawing *dataStruct, Channel ch);
+static void ReadMinMax(StructDataDrawing *dataStruct, int direction);
 
 
 static DataSettings dataSettings;   ///< Здесь хранятся настройки для текущего рисуемого сигнала
@@ -86,7 +87,7 @@ void Data_ReadFromRAM(int fromEnd, StructDataDrawing *dataStruct, bool forMemory
         {
             DS = &dataSettings;
 
-            Processing_SetData();
+            Processing_SetData(true);
 
             PrepareDataForDraw(dataStruct);
         }
@@ -102,10 +103,45 @@ void Data_ReadFromROM(StructDataDrawing *dataStruct)
     {
         DS = &dataSettings;
 
-        Processing_SetData();
+        Processing_SetData(true);
 
         PrepareDataForDraw(dataStruct);
     }
+}
+
+//----------------------------------------------------------------------------------------------------------------------------------------------------
+void Data_ReadMin(StructDataDrawing *dataStruct)
+{
+    ReadMinMax(dataStruct, 0);
+}
+
+//----------------------------------------------------------------------------------------------------------------------------------------------------
+void Data_ReadMax(StructDataDrawing *dataStruct)
+{
+    ReadMinMax(dataStruct, 1);
+}
+
+//----------------------------------------------------------------------------------------------------------------------------------------------------
+void ReadMinMax(StructDataDrawing *dataStruct, int direction)
+{
+    Data_Clear();
+
+    dataSettings = *DS_DataSettingsFromEnd(0);
+
+    if (!DS_GetLimitation(A, IN_A, 0))
+    {
+        return;
+    }
+    if (!DS_GetLimitation(B, IN_B, 0))
+    {
+        return;
+    }
+
+    DS = &dataSettings;
+
+    Processing_SetData(false);
+
+    PrepareDataForDraw(dataStruct);
 }
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------

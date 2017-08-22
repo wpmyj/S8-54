@@ -33,7 +33,7 @@ uint8 *DS_GetAverageData(Channel ch);
 /// Возвращает указатель на данные, отстоящие на indexFromEnd oт последнего сохранённого
 DataSettings *DS_DataSettingsFromEnd(int indexFromEnd);
 /// Получить ограничивающую линию сигнала 0 - снизу, 1 - сверху
-uint8 *DS_GetLimitation(Channel ch, int direction);
+bool DS_GetLimitation(Channel ch, uint8 *data, int direction);
 /// Сколько измерений может быть сохранено при такой же длине данных, как у последнего записанного
 int DS_NumberAvailableEntries(void);
 

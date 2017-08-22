@@ -167,6 +167,12 @@ static void DrawData_ModeDir(void)
     IncreaseNumDrawingSignals();
     Data_ReadFromRAM(0, dataStruct, true);
     DrawMemoryWindow();
+
+    Data_ReadMin(dataStruct);
+    DrawData(false);
+
+    Data_ReadMax(dataStruct);
+    DrawData(false);
 }
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
@@ -667,7 +673,7 @@ static void DrawSignalLined(const uint8 *data, int startPoint, int endPoint, int
             if (x0 >= gridLeft && x0 <= gridRight)
             {
                 int index = i - startPoint;
-                int y = calculateFiltr ? Math_CalculateFiltr(data, i, numPoints, NUM_SMOOTHHING) : data[i]; //-V108
+                int y = calculateFiltr ? Math_CalculateFiltr(data, i, numPoints, NUM_SMOOTHING) : data[i]; //-V108
                 int newY = 0;
                 CONVERT_DATA_TO_DISPLAY(newY, y);
                 dataCD[index] = (uint8)newY;
@@ -742,7 +748,7 @@ static void DrawSignalPointed(const uint8 *data, int startPoint, int endPoint, i
         for (int i = startPoint; i < endPoint; i++)
         {
             int index = i - startPoint;
-            CONVERT_DATA_TO_DISPLAY(dataCD[index], Math_CalculateFiltr(data, i, numPoints, NUM_SMOOTHHING));
+            CONVERT_DATA_TO_DISPLAY(dataCD[index], Math_CalculateFiltr(data, i, numPoints, NUM_SMOOTHING));
         }
         Painter_DrawSignal(GridLeft(), dataCD, false);
     }
@@ -752,7 +758,7 @@ static void DrawSignalPointed(const uint8 *data, int startPoint, int endPoint, i
         {
             int index = i - startPoint;
             int dat = 0;
-            CONVERT_DATA_TO_DISPLAY(dat, Math_CalculateFiltr(data, i, numPoints, NUM_SMOOTHHING));
+            CONVERT_DATA_TO_DISPLAY(dat, Math_CalculateFiltr(data, i, numPoints, NUM_SMOOTHING));
             Painter_SetPoint(GridLeft() + (int)(index * scaleX), dat);
         }
     }

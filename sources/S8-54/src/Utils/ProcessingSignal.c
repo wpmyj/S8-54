@@ -1025,7 +1025,7 @@ float CalculatePhazaMinus(Channel ch)
 
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
-void Processing_SetData(void)
+void Processing_SetData(bool needSmoothing)
 {
     isSet = true;
 
@@ -1037,14 +1037,14 @@ void Processing_SetData(void)
     
     int length = BYTES_IN_CHANNEL_DS;
 
-    if (ENABLED_DS_A)
+    if (ENABLED_DS_A && needSmoothing)
     {
-        Math_CalculateFiltrArray(IN_A, OUT_A, length, NUM_SMOOTHHING);
+        Math_CalculateFiltrArray(IN_A, OUT_A, length, NUM_SMOOTHING);
         memcpy(IN_A, OUT_A, length);
     };
-    if (ENABLED_DS_B)
+    if (ENABLED_DS_B && needSmoothing)
     {
-        Math_CalculateFiltrArray(IN_B, OUT_B, length, NUM_SMOOTHHING);
+        Math_CalculateFiltrArray(IN_B, OUT_B, length, NUM_SMOOTHING);
         memcpy(IN_B, OUT_B, length);
     };
   
