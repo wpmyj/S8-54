@@ -721,7 +721,7 @@ void Button_Draw(Button *button, int x, int y)
     bool shade = IsShade(button) || !ItemIsAcitve(button);
 
     Painter_DrawHLineC(y + 1, x, x + MI_WIDTH, ColorMenuTitle(shade));
-    Color color = shade ? COLOR_BLACK : COLOR_WHITE;
+    Color color = shade ? ColorMenuItem(true) : COLOR_WHITE;
     Painter_FillRegionC(x + 1, y + 2, MI_WIDTH - 2, MI_HEIGHT - 2, ColorMenuItem(false));
     Painter_DrawVolumeButton(x + 3, y + 4, MI_WIDTH - 6, MI_HEIGHT - 6, 2, ColorMenuItem(false), ColorMenuItemBrighter(), 
                             ColorMenuItemLessBright(), pressed, shade);

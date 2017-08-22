@@ -192,7 +192,7 @@ static const Button bAccum_Clear =
 
 static bool IsActive_Accum_Clear(void)
 {
-    return ENUM_ACCUM_INF;
+    return ENUM_ACCUM != ENumAccum_1 && !MODE_ACCUM_NO_RESET;
 }
 
 void OnPress_Accum_Clear(void)
