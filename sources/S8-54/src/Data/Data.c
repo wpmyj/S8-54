@@ -130,20 +130,14 @@ void ReadMinMax(StructDataDrawing *dataStruct, int direction)
     
     dataStruct->needDraw[A] = dataStruct->needDraw[B] = false;
 
-    if (!DS_GetLimitation(A, IN_A, direction))
+    if (DS_GetLimitation(A, IN_A, direction) && DS_GetLimitation(B, IN_B, direction))
     {
-        return;
+        DS = &dataSettings;
+
+        Processing_SetData(false);
+
+        PrepareDataForDraw(dataStruct);
     }
-    if (!DS_GetLimitation(B, IN_B, direction))
-    {
-        return;
-    }
-
-    DS = &dataSettings;
-
-    Processing_SetData(false);
-
-    PrepareDataForDraw(dataStruct);
 }
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------

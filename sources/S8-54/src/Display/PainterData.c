@@ -214,17 +214,21 @@ static void DrawData_ModeROM(void)
 //----------------------------------------------------------------------------------------------------------------------------------------------------
 static void DrawData(bool forAccum)
 {
-    static const Channel order[NumChannels][2] = { {B, A}, {A, B} };
+    if (DS)
+    {
+        static const Channel order[NumChannels][2] = { {B, A}, {A, B} };
 
-    Channel ch = order[LAST_AFFECTED_CH][0];
+        Channel ch = order[LAST_AFFECTED_CH][0];
 
-    DrawChannel(ch, forAccum ? ColorChanAccum(ch) : gColorChan[ch]);
+        DrawChannel(ch, forAccum ? ColorChanAccum(ch) : gColorChan[ch]);
 
-    ch = order[LAST_AFFECTED_CH][1];
+        ch = order[LAST_AFFECTED_CH][1];
 
-    DrawChannel(ch, forAccum ? ColorChanAccum(ch): gColorChan[ch]);
+        DrawChannel(ch, forAccum ? ColorChanAccum(ch) : gColorChan[ch]);
 
-    Painter_DrawRectangleC(GridLeft(), GRID_TOP, GridWidth(), GridFullHeight(), gColorFill);                                                                                                                         
+    }
+
+    Painter_DrawRectangleC(GridLeft(), GRID_TOP, GridWidth(), GridFullHeight(), gColorFill);
 }
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
@@ -783,8 +787,11 @@ static void DrawMemoryWindow(void)
         rightX = 68;
     }
 
-    DrawDataInRect(rightX + 2, LAST_AFFECTED_CH_IS_A ? B : A);
-    DrawDataInRect(rightX + 2, LAST_AFFECTED_CH_IS_A ? A : B);
+    if (DS)
+    {
+        DrawDataInRect(rightX + 2, LAST_AFFECTED_CH_IS_A ? B : A);
+        DrawDataInRect(rightX + 2, LAST_AFFECTED_CH_IS_A ? A : B);
+    }
 
     int leftX = 3;
     float scaleX = (float)(rightX - leftX + 1) / SET_POINTS_IN_CHANNEL;
