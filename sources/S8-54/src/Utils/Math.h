@@ -111,7 +111,7 @@ float LimitationFloat(float value, float min, float max);
 
 uint8 Math_CalculateFiltr(const uint8 *data, int x, int numPoints, int numSmoothing);
 
-void Math_CalculateFiltrArray(const uint8 *dataIn, uint8 *dataOut, int numPoints, int numSmoothing);
+void Math_CalculateFiltrArray(const uint8 *dataIn, uint8 *dataOut, int numPoints);
 
 /** @}  @}
  */

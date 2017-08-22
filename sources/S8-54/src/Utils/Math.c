@@ -848,18 +848,18 @@ uint8 Math_CalculateFiltr(const uint8 *data, int x, int numPoints, int numSmooth
 
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
-void Math_CalculateFiltrArray(const uint8 *dataIn, uint8 *dataOut, int numPoints, int numSmoothing)
+void Math_CalculateFiltrArray(const uint8 *dataIn, uint8 *dataOut, int numPoints)
 {
-    if (numSmoothing < 2)
+    if (NUM_SMOOTHING < 2)
     {
         memcpy(dataOut, dataIn, numPoints);
     }
     else
     {
-        bool addCalculation = (numSmoothing % 2) == 1;
-        int endDelta = numSmoothing / 2;
+        bool addCalculation = (NUM_SMOOTHING % 2) == 1;
+        int endDelta = NUM_SMOOTHING / 2;
         int startDelta = 1;
-        int delta = numSmoothing / 2;
+        int delta = NUM_SMOOTHING / 2;
 
         for (int i = 0; i < numPoints; i++)
         {

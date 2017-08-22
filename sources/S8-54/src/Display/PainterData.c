@@ -162,6 +162,9 @@ static void DrawData_ModeDir(void)
             ++i;
         }
     }
+    if(IN_RANDOM_MODE)
+    {
+    }
     Data_ReadMin(dataStruct);
     DrawData(true);
 

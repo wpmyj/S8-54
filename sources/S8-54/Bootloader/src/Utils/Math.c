@@ -1,8 +1,6 @@
 #include "Math.h"
-#include "Settings/Settings.h"
 #include "Hardware/Timer.h"
-
-
+#include "Settings/Settings.h"
 #include <math.h>
 #include <stdlib.h>
 #include <string.h>
@@ -307,48 +305,4 @@ uint8 Math_CalculateFiltr(const uint8 *data, int x, int numPoints, int numSmooth
     }
 
     return (uint8)(sum / count);
-}
-
-
-//----------------------------------------------------------------------------------------------------------------------------------------------------
-void Math_CalculateFiltrArray(const uint8 *dataIn, uint8 *dataOut, int numPoints, int numSmoothing)
-{
-    if (numSmoothing < 2)
-    {
-        memcpy(dataOut, dataIn, numPoints);
-    }
-    else
-    {
-        bool addCalculation = (numSmoothing % 2) == 1;
-        int endDelta = numSmoothing / 2;
-        int startDelta = 1;
-        int delta = numSmoothing / 2;
-
-        for (int i = 0; i < numPoints; i++)
-        {
-            int count = 1;
-            int sum = dataIn[i];
-
-            for (int delta = startDelta; delta <= endDelta; delta++)
-            {
-                if (((i - delta) >= 0) && ((i + delta) < (numPoints)))
-                {
-                    sum += dataIn[i - delta];
-                    sum += dataIn[i + delta];
-                    count += 2;
-                }
-            }
-
-            if (addCalculation)
-            {
-                if ((i + delta) < numPoints)
-                {
-                    sum += dataIn[i + delta];
-                    count++;
-                }
-            }
-
-            dataOut[i] = (uint8)(sum / count);
-        }
-    }
 }

@@ -1037,14 +1037,14 @@ void Processing_SetData(bool needSmoothing)
     
     int length = BYTES_IN_CHANNEL_DS;
 
-    if (ENABLED_DS_A && needSmoothing)
+    if (ENABLED_DS_A)
     {
-        Math_CalculateFiltrArray(IN_A, OUT_A, length, NUM_SMOOTHING);
+        Math_CalculateFiltrArray(IN_A, OUT_A, length);
         memcpy(IN_A, OUT_A, length);
     };
-    if (ENABLED_DS_B && needSmoothing)
+    if (ENABLED_DS_B)
     {
-        Math_CalculateFiltrArray(IN_B, OUT_B, length, NUM_SMOOTHING);
+        Math_CalculateFiltrArray(IN_B, OUT_B, length);
         memcpy(IN_B, OUT_B, length);
     };
   
