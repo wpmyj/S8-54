@@ -68,22 +68,22 @@ typedef unsigned char bool;
 // Тип цвета
 typedef enum
 {
-    COLOR_BLACK             = 0x00,     ///< Чёрный
-    COLOR_WHITE             = 0x01,     ///< Белый
-    COLOR_GRID              = 0x02,     ///< Сетка
-    COLOR_DATA_1            = 0x03,     ///< Данные первого канала
-    COLOR_DATA_2            = 0x04,     ///< Данные второго канала
-    COLOR_MENU_FIELD        = 0x05,
-    COLOR_MENU_TITLE        = 0x06,
-    COLOR_MENU_TITLE_DARK   = 0x07,
-    COLOR_MENU_TITLE_BRIGHT = 0x08,
-    COLOR_MENU_ITEM         = 0x09,
-    COLOR_MENU_ITEM_DARK    = 0x0a,
-    COLOR_MENU_ITEM_BRIGHT  = 0x0b,
-    COLOR_DATA_A_WHITE      = 0x0c,
-    COLOR_DATA_B_WHITE      = 0x0d,
-    COLOR_GRID_WHITE        = 0x0e,
-    COLOR_EMPTY             = 0x0f,
+    COLOR_BLACK                 = 0x00,     ///< Чёрный
+    COLOR_WHITE                 = 0x01,     ///< Белый
+    COLOR_GRID                  = 0x02,     ///< Сетка
+    COLOR_DATA_1                = 0x03,     ///< Данные первого канала
+    COLOR_DATA_2                = 0x04,     ///< Данные второго канала
+    COLOR_MENU_FIELD            = 0x05,
+    COLOR_MENU_TITLE            = 0x06,
+    COLOR_MENU_TITLE_DARK       = 0x07,
+    COLOR_MENU_TITLE_BRIGHT     = 0x08,
+    COLOR_MENU_ITEM             = 0x09,
+    COLOR_MENU_ITEM_DARK        = 0x0a,
+    COLOR_MENU_ITEM_BRIGHT      = 0x0b,
+    COLOR_DATA_A_WHITE_ACCUM    = 0x0c,     ///< Используется как для отрисовки цвета канала при белом фоне, так и для отрисовки накопленных сигналов
+    COLOR_DATA_B_WHITE_ACCUM    = 0x0d,
+    COLOR_GRID_WHITE            = 0x0e,
+    COLOR_EMPTY                 = 0x0f,
     NUM_COLORS,
     COLOR_FLASH_10,
     COLOR_FLASH_01,

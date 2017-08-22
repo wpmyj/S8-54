@@ -218,8 +218,8 @@ static const char * const colorNames[] =
     "COLOR_MENU_ITEM",
     "COLOR_MENU_ITEM_DARK",
     "COLOR_MENU_ITEM_BRIGHT",
-    "COLOR_DATA_A_WHITE",
-    "COLOR_DATA_B_WHITE",
+    "COLOR_DATA_A_WHITE_ACCUM",
+    "COLOR_DATA_B_WHITE_ACCUM",
     "COLOR_CURSORS_A",
     "COLOR_CURSORS_B",
     "NUM_COLORS",
@@ -246,3 +246,5 @@ const char *NameColor(Color color)
 {
     return colorNames[color];
 }
+
+

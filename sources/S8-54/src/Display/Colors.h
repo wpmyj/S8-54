@@ -58,6 +58,9 @@ const char *NameColor(Color color);
 #define G_FROM_COLOR(color) (((uint16)(color) >> 5) & (uint16)0x3f)
 #define B_FROM_COLOR(color) ((uint16)(color) & 0x1f)
 
+/// Цвет канала в режиме накопления
+Color ColorChanAccum(Channel ch);       
+
 extern Color gColorFill;
 extern Color gColorBack;
 extern Color gColorGrid;
