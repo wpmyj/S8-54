@@ -491,9 +491,9 @@ static const Page ppInternal =
         (void *)&bInternal_Exit,            // ПАМЯТЬ - ВНУТР ЗУ - Выход
         (void *)&bInternal_ShowAlways,      // ПАМЯТЬ - ВНУТР ЗУ - Показывать всегда
         (void *)&bInternal_ModeShow,        // ПАМЯТЬ - ВНУТР ЗУ - Вид сигнала
-        //(void *)0,
+        (void *)0,
         //(void *)&bInternal_EraseAll,
-        (void *)&bInternal_Scale,           // ПАМЯТЬ - ВНУТР ЗУ - Масштаб
+        //(void *)&bInternal_Scale,           // ПАМЯТЬ - ВНУТР ЗУ - Масштаб
         (void *)&bInternal_SaveToMemory,    // ПАМЯТЬ - ВНУТР ЗУ - Сохранить
         (void *)&bInternal_SaveToDrive      // ПАМЯТЬ - ВНУТР ЗУ - Сохранить на флешку
     },
