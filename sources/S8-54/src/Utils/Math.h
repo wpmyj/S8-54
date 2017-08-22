@@ -37,6 +37,8 @@
 
 #define ROUND(x) ((x) += 0.5f, (x))
 
+#define IN_RANGE(x, min, max) ((x) >= (min) && (x) <= (max))
+
 #define PI 3.141592653589793f
 
 

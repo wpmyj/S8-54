@@ -62,8 +62,14 @@ static float CalculatePhazaMinus(Channel ch);
 /// начинаетс€ с 1. downToTop - если true, ищем пересечение сигнала со средней линией при прохождении из "-" в "+".
 static float FindIntersectionWithHorLine(Channel ch, int numIntersection, bool downToUp, uint8 yLine);
 
+/// ѕриведение сигнала к установленным в приборе настройкам
 static void CountedToCurrentSettings(void);
+/// ѕриведение сигнала к установленному в приборе Range
 static void CountedRange(Channel ch);
+/// ѕриведение сигнала к установленному в приборе TBase
+static void CountedTBase(void);
+/// ѕриведение сигнала в конкретном канале к установленному в приборе TBase
+static void CountedTBaseChannel(Channel ch);
 
 static bool isSet = false;          ///< ≈сли true, то сигнал назначен.
 
@@ -1293,7 +1299,11 @@ static void CountedToCurrentSettings(void)
 
     int rShiftB = ((int)SET_RSHIFT_B - (int)RSHIFT_DS_B) / (float)STEP_RSHIFT * 1.25f;   /// \todo избавитьс€ от этого непон€тного коэффициента
 
-    if (SET_RANGE_A !=  RANGE_DS_A)
+    if (SET_TBASE != TBASE_DS)
+    {
+        CountedTBase();
+    }
+    else if (SET_RANGE_A !=  RANGE_DS_A)
     {
         CountedRange(A);
     }
@@ -1409,6 +1419,49 @@ static void CountedRange(Channel ch)
         else
         {
             out[i] = 0;
+        }
+    }
+}
+
+//----------------------------------------------------------------------------------------------------------------------------------------------------
+static void CountedTBase(void)
+{
+    CountedTBaseChannel(A);
+    CountedTBaseChannel(B);
+}
+
+//----------------------------------------------------------------------------------------------------------------------------------------------------
+static void CountedTBaseChannel(Channel ch)
+{
+    float ratio = TSHIFT_2_ABS(1, TBASE_DS) / TSHIFT_2_ABS(1, SET_TBASE);
+
+    uint8 *in = dataIN[ch];
+    uint8 *out = dataOUT[ch];
+
+    int numBytes = BYTES_IN_CHANNEL_DS;
+
+    for (int i = 0; i < numBytes; i++)
+    {
+        out[i] = NONE_VALUE;
+    }
+
+    const int index0 = numBytes / 2;
+
+    for (int i = index0; i >= 0; i--)
+    {
+        int indexOut = index0 + (i - index0) * ratio;
+        if (IN_RANGE(indexOut, 0, numBytes - 1))
+        {
+            out[indexOut] = in[i];
+        }
+    }
+
+    for (int i = index0; i < numBytes; i++)
+    {
+        int indexOut = index0 + (i - index0) * ratio;
+        if (IN_RANGE(indexOut, 0, numBytes - 1))
+        {
+            out[indexOut] = in[i];
         }
     }
 }
