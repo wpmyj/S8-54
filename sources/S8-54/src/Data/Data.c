@@ -127,6 +127,8 @@ void ReadMinMax(StructDataDrawing *dataStruct, int direction)
     Data_Clear();
 
     dataSettings = *DS_DataSettingsFromEnd(0);
+    
+    dataStruct->needDraw[A] = dataStruct->needDraw[B] = false;
 
     if (!DS_GetLimitation(A, IN_A, direction))
     {
