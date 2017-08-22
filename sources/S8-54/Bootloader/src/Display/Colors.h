@@ -10,7 +10,7 @@ Color ColorContrast(Color color);       // Возвращает цвет, контрастный к color.
 Color LightShadingTextColor(void);      // Светлый цвет в тени.
 
 
-#define ColorMenuField() COLOR_MENU_FIELD
+#define COLOR_MENU_FIELD COLOR_MENU_FIELD
 // Чуть менее светлый цвет, чем цвет элемента меню. Используется для создания эффекта объёма.
 #define ColorMenuItemLessBright()   COLOR_MENU_ITEM_DARK
 // Чуть более светлый цвет, чем цвет заголовка страницы. Используется для создания эффекта объёма.

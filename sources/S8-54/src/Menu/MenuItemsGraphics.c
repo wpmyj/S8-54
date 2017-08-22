@@ -79,7 +79,7 @@ void DrawGovernorLowPart(Governor *governor, int x, int y, bool pressed, bool sh
     
     Color colorTextDown = COLOR_BLACK;
 
-    Painter_DrawVolumeButton(x + 1, y + 17, MI_WIDTH_VALUE + 2, MI_HEIGHT_VALUE + 3, 2, ColorMenuField(), 
+    Painter_DrawVolumeButton(x + 1, y + 17, MI_WIDTH_VALUE + 2, MI_HEIGHT_VALUE + 3, 2, COLOR_MENU_FIELD, 
         ColorMenuItemBrighter(), ColorMenuItemLessBright(), true, shade);
     if(shade)
     {
@@ -132,7 +132,7 @@ static void DrawIPaddressLowPart(IPaddress *ip, int x, int y, bool pressed, bool
 
     Color colorTextDown = COLOR_BLACK;
 
-    Painter_DrawVolumeButton(x + 1, y + 17, MI_WIDTH_VALUE + 2, MI_HEIGHT_VALUE + 3, 2, ColorMenuField(),
+    Painter_DrawVolumeButton(x + 1, y + 17, MI_WIDTH_VALUE + 2, MI_HEIGHT_VALUE + 3, 2, COLOR_MENU_FIELD,
                              ColorMenuItemBrighter(), ColorMenuItemLessBright(), true, shade);
     if (shade)
     {
@@ -160,7 +160,7 @@ static void DrawMACaddressLowPart(MACaddress *mac, int x, int y, bool pressed, b
 
     Color colorTextDown = COLOR_BLACK;
 
-    Painter_DrawVolumeButton(x + 1, y + 17, MI_WIDTH_VALUE + 2, MI_HEIGHT_VALUE + 3, 2, ColorMenuField(),
+    Painter_DrawVolumeButton(x + 1, y + 17, MI_WIDTH_VALUE + 2, MI_HEIGHT_VALUE + 3, 2, COLOR_MENU_FIELD,
                              ColorMenuItemBrighter(), ColorMenuItemLessBright(), true, shade);
     if (shade)
     {
@@ -215,7 +215,7 @@ void DrawFormulaLowPart(Formula *formula, int x, int y, bool pressed, bool shade
 {
     Color colorTextDown = COLOR_BLACK;
 
-    Painter_DrawVolumeButton(x + 1, y + 17, MI_WIDTH_VALUE + 2, MI_HEIGHT_VALUE + 3, 2, ColorMenuField(),
+    Painter_DrawVolumeButton(x + 1, y + 17, MI_WIDTH_VALUE + 2, MI_HEIGHT_VALUE + 3, 2, COLOR_MENU_FIELD,
                      ColorMenuItemBrighter(), ColorMenuItemLessBright(), true, shade);
     if (shade)
     {
@@ -520,10 +520,10 @@ void Choice_DrawOpened(Choice *choice, int x, int y)
         bool pressed = i == index;
         if(pressed)
         {
-            Painter_DrawVolumeButton(x + 1, yItem, MOI_WIDTH - 2 , MOSI_HEIGHT - 2, 2, ColorMenuField(), ColorMenuTitleBrighter(),
+            Painter_DrawVolumeButton(x + 1, yItem, MOI_WIDTH - 2 , MOSI_HEIGHT - 2, 2, COLOR_MENU_FIELD, ColorMenuTitleBrighter(),
                 ColorMenuTitleLessBright(), pressed, IsShade(choice));
         }
-        Painter_DrawTextC(x + 4, yItem + 2, NameSubItem(choice, i), pressed ? COLOR_BLACK : ColorMenuField());
+        Painter_DrawTextC(x + 4, yItem + 2, NameSubItem(choice, i), pressed ? COLOR_BLACK : COLOR_MENU_FIELD);
     }
 }
 
@@ -632,7 +632,7 @@ void Choice_DrawClosed(Choice *choice, int x, int y)
     bool pressed = IsPressed(choice);
     bool shade = IsShade(choice) || ! ItemIsAcitve(choice);
         
-    Painter_DrawVolumeButton(x + 1, y + 17, MI_WIDTH_VALUE + 2, MI_HEIGHT_VALUE + 3, 1, ColorMenuField(), ColorMenuItemBrighter(), ColorMenuItemLessBright(), true, IsShade(choice));
+    Painter_DrawVolumeButton(x + 1, y + 17, MI_WIDTH_VALUE + 2, MI_HEIGHT_VALUE + 3, 1, COLOR_MENU_FIELD, ColorMenuItemBrighter(), ColorMenuItemLessBright(), true, IsShade(choice));
 
     int deltaY = (int)Choice_Step(choice);
     Color colorText = shade ? ColorMenuItem(true) : COLOR_BLACK;
@@ -678,7 +678,7 @@ void Time_DrawClosed(Time *item, int x, int y)
     bool shade = IsShade(item);
     DrawGovernorChoiceColorFormulaHiPart(item, x, y, pressed, shade, false);
 
-    Painter_DrawVolumeButton(x + 1, y + 17, MI_WIDTH_VALUE + 2, MI_HEIGHT_VALUE + 3, 2, shade ? ColorMenuTitleLessBright() : ColorMenuField(), 
+    Painter_DrawVolumeButton(x + 1, y + 17, MI_WIDTH_VALUE + 2, MI_HEIGHT_VALUE + 3, 2, shade ? ColorMenuTitleLessBright() : COLOR_MENU_FIELD, 
         ColorMenuItemBrighter(), ColorMenuItemLessBright(), true, IsShade(item));
     //int delta = 0;
 
