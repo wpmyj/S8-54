@@ -46,5 +46,10 @@ typedef struct
 //void DBG_Log_Point(char *point);
 //void DBG_Log_Out(void);
 
+
+void DBG_Breakpoint(int numBreakpoint);
+
+extern int breakpoint;
+
 /** @}  @}
  */

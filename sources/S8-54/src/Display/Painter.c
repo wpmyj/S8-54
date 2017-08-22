@@ -2,20 +2,20 @@
 // PVS-Studio Static Code Analyzer for C, C++ and C#: http://www.viva64.com
 #include "defines.h"
 #include "Colors.h"
-#include "Painter.h"
 #include "font/Font.h"
-#include "defines.h"
 #include "Log.h"
-#include "Hardware/Timer.h"
-#include "Settings/Settings.h"
-#include "VCP/VCP.h"
+#include "Painter.h"
 #include "Ethernet/Ethernet.h"
 #include "Ethernet/TcpSocket.h"
+#include "FlashDrive/FlashDrive.h"
 #include "Hardware/FSMC.h"
+#include "Hardware/Timer.h"
+#include "Menu/FileManager.h"
+#include "Settings/Settings.h"
+#include "VCP/VCP.h"
+#include "Utils/Debug.h"
 #include "Utils/Math.h"
 #include "Utils/GlobalFunctions.h"
-#include "FlashDrive/FlashDrive.h"
-#include "Menu/FileManager.h"
 
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -625,6 +625,7 @@ void Painter_SendToDisplay(uint8 *bytes, int numBytes)
     {
         while (HAL_GPIO_ReadPin(GPIOG, GPIO_PIN_11) == GPIO_PIN_RESET)
         {
+            volatile int temp = breakpoint;
         };
         Timer_PauseOnTicks(75);    /// \todo Здесь время ожидание увеличено по сравнению с С8-53 (там частота 120МГц, здесь - 180МГц)
         *ADDR_CDISPLAY = *bytes++;

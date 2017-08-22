@@ -92,3 +92,4 @@ void    Painter_SendToInterfaces(uint8 *pointer, int size);
 
 /** @} @}
  */
+

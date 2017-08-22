@@ -162,14 +162,15 @@ static void DrawData_ModeDir(void)
             ++i;
         }
     }
-    if(IN_RANDOM_MODE)
+    
+    if (!IN_RANDOM_MODE && !IN_P2P_MODE)
     {
-    }
-    Data_ReadMin(dataStruct);
-    DrawData(true);
+        Data_ReadMin(dataStruct);
+        DrawData(true);
 
-    Data_ReadMax(dataStruct);
-    DrawData(true);
+        Data_ReadMax(dataStruct);
+        DrawData(true);
+    }
 
     Data_ReadFromRAM(0, dataStruct, false);
     DrawData(false);
@@ -216,8 +217,11 @@ static void DrawData(bool forAccum)
     static const Channel order[NumChannels][2] = { {B, A}, {A, B} };
 
     Channel ch = order[LAST_AFFECTED_CH][0];
+
     DrawChannel(ch, forAccum ? ColorChanAccum(ch) : gColorChan[ch]);
+
     ch = order[LAST_AFFECTED_CH][1];
+
     DrawChannel(ch, forAccum ? ColorChanAccum(ch): gColorChan[ch]);
 
     Painter_DrawRectangleC(GridLeft(), GRID_TOP, GridWidth(), GridFullHeight(), gColorFill);                                                                                                                         

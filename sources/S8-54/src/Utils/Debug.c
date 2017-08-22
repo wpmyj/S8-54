@@ -91,3 +91,11 @@ void DBG_Log_Out(void)
         nextPoint = 0;
     }
 }
+
+int breakpoint = -1;
+
+//----------------------------------------------------------------------------------------------------------------------------------------------------
+void DBG_Breakpoint(int numBreakpoint)
+{
+    breakpoint = numBreakpoint;
+}

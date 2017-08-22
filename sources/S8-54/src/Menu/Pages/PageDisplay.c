@@ -292,7 +292,7 @@ static const Choice cMinMax =
 
 static bool IsActive_MinMax(void)
 {
-    return SET_TBASE > TBase_20ns;
+    return !IN_RANDOM_MODE && !IN_P2P_MODE;
 }
 
 static void OnChanged_MinMax(bool active)
