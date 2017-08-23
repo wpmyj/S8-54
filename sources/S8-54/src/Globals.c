@@ -60,31 +60,21 @@ DAC_HandleTypeDef handleDAC =
 volatile BitField gBF =
 {
     0,  // numDrawingSignals
-
     // FPGA
     0,  // FPGAneedAutoFind
     0,  // FPGAinProcessingOfRead
-
     // Flash drive
     1,  // cursorInDirs
     1,  // needRedrawFileManager
-
     0,  // showHelpHints
-
     0,  // showDebugMenu
-
-    0,  // tuneTime
-
     GRID_BOTTOM, // topMeasures
-
     0,  // disable power
     0,  // временный показ строки меню навигации
     0,  // needSetOrientation
     0,  // cableEthIsConnected
-
     0,  // panelControlReceive
     0,  // needToMountFlash
-
     0,  // consoleInPause
     0   // needStopAfterReadFrameP2P
 };
