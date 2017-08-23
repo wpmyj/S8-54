@@ -37,7 +37,6 @@ extern DAC_HandleTypeDef handleDAC;
 #define FPGA_NEED_AUTO_FIND     (gBF.FPGAneedAutoFind)
 
 #define FPGA_IN_PROCESS_OF_READ (gBF.FPGAinProcessingOfRead)
-#define FPGA_CAN_READ_DATA      (gBF.FPGAcanReadData)
 #define FPGA_FIRST_AFTER_WRITE  (gBF.FPGAfirstAfterWrite)
 
 #define FM_CURSOR_IN_DIRS       (gBF.cursorInDirs)
@@ -57,7 +56,6 @@ typedef struct
                                             ///<        дисплей в режиме накопления
     uint FPGAneedAutoFind           : 1;    ///< Если 1, то нужно найти сигнал.
     uint FPGAinProcessingOfRead     : 1;
-    uint FPGAcanReadData            : 1;
     uint FPGAfirstAfterWrite        : 1;    ///< \brief Используется в режиме рандомизатора. После записи любого параметра в альтеру нужно не 
                                             ///<        использовать первое считанное данное с АЦП, потому что оно завышено и портит ворота.
     uint cursorInDirs               : 1;    ///< Если 1, то ручка УСТАНОВКА перемещает по каталогам.

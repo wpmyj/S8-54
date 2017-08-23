@@ -31,11 +31,13 @@
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 #define FPGA_IN_PAUSE           (bf.pause)
+#define FPGA_CAN_READ_DATA      (bf.canRead)
 
 static struct BitFieldFPGA
 {
-    uint pause : 1;
-} bf = {0};
+    uint pause   : 1;
+    uint canRead : 1;
+} bf = {0, 1};
 
 
 #define NULL_TSHIFT 1000000
