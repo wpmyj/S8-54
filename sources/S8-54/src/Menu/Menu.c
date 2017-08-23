@@ -88,7 +88,7 @@ void Menu_UpdateInput(void)
 //----------------------------------------------------------------------------------------------------------------------------------------------------
 void Menu_ShortPressureButton(PanelButton button)
 {
-    if (gBF.showHelpHints == 0)
+    if (!HINT_MODE_ENABLE)
     {
         if (button == B_Memory && FDRIVE_IS_CONNECTED && MODE_BTN_MEMORY_SAVE)
         {
@@ -102,7 +102,7 @@ void Menu_ShortPressureButton(PanelButton button)
 //----------------------------------------------------------------------------------------------------------------------------------------------------
 void Menu_LongPressureButton(PanelButton button)
 {
-    if (gBF.showHelpHints == 0)
+    if (!HINT_MODE_ENABLE)
     {
         longPressureButton = button;
         NEED_FINISH_DRAW = 1;
@@ -244,7 +244,7 @@ static void ProcessButtonForHint(PanelButton button)
 void Menu_PressButton(PanelButton button)
 {
     Sound_ButtonPress();
-    if (gBF.showHelpHints)
+    if (HINT_MODE_ENABLE)
     {
         ProcessButtonForHint(button);
         return;
@@ -271,7 +271,7 @@ void Menu_PressButton(PanelButton button)
 void Menu_ReleaseButton(PanelButton button)
 {
     Sound_ButtonRelease();
-    if (gBF.showHelpHints == 0)
+    if (!HINT_MODE_ENABLE)
     {
         releaseButton = button;
     }
@@ -280,7 +280,7 @@ void Menu_ReleaseButton(PanelButton button)
 //---------------------------------------------------------------------------------------------------------------------------------------------------
 void Menu_PressReg(PanelRegulator reg)
 {
-    if (gBF.showHelpHints == 0)
+    if (!HINT_MODE_ENABLE)
     {
         pressRegulator = reg;
     }
@@ -289,7 +289,7 @@ void Menu_PressReg(PanelRegulator reg)
 //----------------------------------------------------------------------------------------------------------------------------------------------------
 void Menu_RotateRegSetRight(void)
 {   
-    if (gBF.showHelpHints == 0)
+    if (!HINT_MODE_ENABLE)
     {
         angleRegSet++;
         NEED_FINISH_DRAW = 1;
@@ -299,7 +299,7 @@ void Menu_RotateRegSetRight(void)
 //----------------------------------------------------------------------------------------------------------------------------------------------------
 void Menu_RotateRegSetLeft(void)
 {
-    if (gBF.showHelpHints == 0)
+    if (!HINT_MODE_ENABLE)
     {
         angleRegSet--;
         NEED_FINISH_DRAW = 1;
@@ -403,7 +403,7 @@ static void ProcessingShortPressureButton(void)
             else if (MENU_IS_SHOWN && IsFunctionalButton(button))       // Если меню показано и нажата функциональная клавиша
             {
                 void *item = ItemUnderButton(button);
-                if (gBF.showHelpHints)
+                if (HINT_MODE_ENABLE)
                 {
                     SetItemForHint(item);
                 }

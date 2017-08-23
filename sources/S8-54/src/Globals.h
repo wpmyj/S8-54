@@ -38,6 +38,7 @@ extern DAC_HandleTypeDef handleDAC;
 #define RECORD_TO_RAM
 
 #define NUM_DRAWING_SIGNALS (gBF.numDrawingSignals)
+#define HINT_MODE_ENABLE    (gBF.showHelpHints)  ///< В этом при нажатии на кнопки вместо выполнения её функции выводится информация о её назначении
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 typedef struct
