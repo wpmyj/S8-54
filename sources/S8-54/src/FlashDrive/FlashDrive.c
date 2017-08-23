@@ -15,7 +15,7 @@
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 static FATFS USBDISKFatFs;
 static char USBDISKPath[4];
-bool gFlashDriveIsConnected = false;
+static bool gFlashDriveIsConnected = false;
 
 
 extern void ChangeStateFlashDrive(void);
@@ -77,6 +77,12 @@ void FDrive_Mount(void)
     {
         LOG_ERROR_TRACE("Не могу примонтировать диск");
     }
+}
+
+//----------------------------------------------------------------------------------------------------------------------------------------------------
+bool FDrive_IsConnected(void)
+{
+    return gFlashDriveIsConnected;
 }
 
 

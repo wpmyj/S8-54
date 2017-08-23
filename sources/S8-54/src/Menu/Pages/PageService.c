@@ -4,6 +4,7 @@
 #include "main.h"
 #include "Display/Display.h"
 #include "Display/Symbols.h"
+#include "FlashDrive/FlashDrive.h"
 #include "FPGA/FPGA.h"
 #include "Hardware/FLASH.h"
 #include "Hardware/Hardware.h"
@@ -339,7 +340,7 @@ static const SButton bRecorder_SaveTo =
 
 static bool IsActive_Recorder_SaveTo(void)
 {
-    return true;
+    return FDRIVE_IS_CONNECTED;
 }
 
 static void OnPress_Recorder_SaveTo(void)

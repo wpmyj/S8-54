@@ -750,7 +750,7 @@ static void DrawLowPart(void)
     Painter_SetFont(TypeFont_UGO2);
 
     // Флешка
-    if(gFlashDriveIsConnected)
+    if(FDRIVE_IS_CONNECTED)
     {
         Painter_Draw4SymbolsInRect(x + 57, GRID_BOTTOM + 2, SYMBOL_FLASH_DRIVE);
     }

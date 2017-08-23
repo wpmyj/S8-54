@@ -404,7 +404,7 @@ static void OnPress_Last_SaveToDrive(void)
 
 void Memory_SaveSignalToFlashDrive(void)
 {
-    if (gFlashDriveIsConnected)
+    if (FDRIVE_IS_CONNECTED)
     {
         if (FILE_NAMING_MODE_MANUAL)
         {
@@ -469,7 +469,7 @@ static void DrawSetName(void)
 
 static void Draw_Last_SaveToDrive(int x, int y)
 {
-    if (gFlashDriveIsConnected)
+    if (FDRIVE_IS_CONNECTED)
     {
         Painter_SetFont(TypeFont_UGO2);
         Painter_Draw4SymbolsInRect(x + 2, y + 1, SYMBOL_FLASH_DRIVE_BIG);
@@ -876,7 +876,7 @@ static void OnPress_Internal_SaveToDrive(void)
 
 static void Draw_Internal_SaveToDrive(int x, int y)
 {
-    if (gFlashDriveIsConnected)
+    if (FDRIVE_IS_CONNECTED)
     {
         Painter_SetFont(TypeFont_UGO2);
         Painter_Draw4SymbolsInRect(x + 2, y + 1, SYMBOL_FLASH_DRIVE_BIG);
@@ -1001,12 +1001,12 @@ static const Page pppDrive_Manager =
 
 static bool IsActive_Drive_Manager(void)
 {
-    return gFlashDriveIsConnected;
+    return FDRIVE_IS_CONNECTED;
 }
 
 void OnPress_Drive_Manager(void)
 {
-    if (gFlashDriveIsConnected)
+    if (FDRIVE_IS_CONNECTED)
     {
         FDrive_Mount();
         Display_SetDrawMode(DrawMode_Auto, FM_Draw);
@@ -1532,7 +1532,7 @@ static const SButton bSetName_Save =
 
 static void OnPress_SetName_Save(void)
 {
-    if (gFlashDriveIsConnected)
+    if (FDRIVE_IS_CONNECTED)
     {
         OnPress_SetName_Exit();
         NEED_SAVE_TO_FLASHDRIVE = 1;
@@ -1541,7 +1541,7 @@ static void OnPress_SetName_Save(void)
 
 static void Draw_SetName_Save(int x, int y)
 {
-    if (gFlashDriveIsConnected)
+    if (FDRIVE_IS_CONNECTED)
     {
         Painter_SetFont(TypeFont_UGO2);
         Painter_Draw4SymbolsInRect(x + 2, y + 1, SYMBOL_FLASH_DRIVE_BIG);

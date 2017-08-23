@@ -1347,7 +1347,7 @@ static const Button bSaveFirmware =
 
 static bool IsActive_SaveFirmware(void)
 {
-    return gFlashDriveIsConnected;
+    return FDRIVE_IS_CONNECTED;
 }
 
 static void OnPress_SaveFirmware(void)

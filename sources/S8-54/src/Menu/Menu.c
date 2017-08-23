@@ -90,7 +90,7 @@ void Menu_ShortPressureButton(PanelButton button)
 {
     if (gBF.showHelpHints == 0)
     {
-        if (button == B_Memory && gFlashDriveIsConnected && MODE_BTN_MEMORY_SAVE)
+        if (button == B_Memory && FDRIVE_IS_CONNECTED && MODE_BTN_MEMORY_SAVE)
         {
             NEED_SAVE_TO_FLASHDRIVE = 1;
         }
@@ -370,7 +370,7 @@ static void ProcessingShortPressureButton(void)
 {
     if(shortPressureButton != B_Empty)
     {
-        if (shortPressureButton == B_Memory && MODE_BTN_MEMORY_SAVE && gFlashDriveIsConnected)
+        if (shortPressureButton == B_Memory && MODE_BTN_MEMORY_SAVE && FDRIVE_IS_CONNECTED)
         {
             EXIT_FROM_SETNAME_TO = MENU_IS_SHOWN ? RETURN_TO_MAIN_MENU : RETURN_TO_DISABLE_MENU;
             Memory_SaveSignalToFlashDrive();
@@ -832,7 +832,7 @@ pFuncVpV FuncForLongPressureOnItem(void *item)
 //----------------------------------------------------------------------------------------------------------------------------------------------------
 void ChangeStateFlashDrive(void)
 {
-    if(!gFlashDriveIsConnected)
+    if(!FDRIVE_IS_CONNECTED)
     {
         if(GetNameOpenedPage() == PageSB_Memory_Drive_Manager)
         {
