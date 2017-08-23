@@ -38,7 +38,6 @@ extern DAC_HandleTypeDef handleDAC;
 
 #define FPGA_IN_PROCESS_OF_READ (gBF.FPGAinProcessingOfRead)
 
-#define FM_CURSOR_IN_DIRS       (gBF.cursorInDirs)
 #define FM_NEED_REDRAW          (gBF.needRedrawFileManager)
 #define FM_REDRAW_FULL          1
 #define FM_REDRAW_FOLDERS       2
