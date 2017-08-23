@@ -12,6 +12,7 @@
 #include "Hardware/RAM.h"
 #include "Settings/SettingsMemory.h"
 #include "Utils/GlobalFunctions.h"
+#include "Utils/Math.h"
 #include "Utils/ProcessingSignal.h"
 
 
@@ -157,7 +158,7 @@ static void PrepareDataForDraw(StructDataDrawing *dataStruct)
     dataStruct->needDraw[A] = ENABLED_DS_A && SET_ENABLED_A;
     dataStruct->needDraw[B] = ENABLED_DS_B && SET_ENABLED_B;
 
-    if ((IN_P2P_MODE && DS_NumPointsInLastFrameP2P() < 2) || (PEAKDET_DS != SET_PEAKDET))
+    if ((IN_P2P_MODE && DS_NumPointsInFrameP2P() < 2) || (PEAKDET_DS != SET_PEAKDET))
     {
         dataStruct->needDraw[A] = dataStruct->needDraw[B] = false;
         return;
@@ -178,17 +179,17 @@ static void PrepareDataForDraw(StructDataDrawing *dataStruct)
 //----------------------------------------------------------------------------------------------------------------------------------------------------
 static void FillDataP2P(StructDataDrawing *dataStruct, Channel ch)
 {
-    for (int i = 0; i < 281; i++)
-    {
-        dataStruct->data[ch][i] = 0;
-    }
+    memset(dataStruct->data[ch], 0, 281 * 2);
     
     if(!dataStruct->needDraw[ch])
     {
         return;
     }
     
-    int allPoints = DS_NumPointsInLastFrameP2P();
+    int allPoints = DS_NumPointsInFrameP2P();
+
+    int bytesInScreen = PEAKDET_DS ? 280 * 2 : 280;
+
     if (allPoints > 1)
     {
         int pointer = 0;                // ”казатель на данные полного фрейма
@@ -196,24 +197,16 @@ static void FillDataP2P(StructDataDrawing *dataStruct, Channel ch)
         while (allPoints > BYTES_IN_CHANNEL(DS))
         {
             ++index;
-            if (index > 280)
-            {
-                index = 0;
-            }
+            SET_IF_LARGER(index, bytesInScreen, 0);
             --allPoints;
         }
         while (allPoints > 0)
         {
-            dataStruct->data[ch][index] = dataOUT[ch][pointer];
-            dataStruct->posBreak = index;
-            index++;
-            pointer++;
-            allPoints--;
-            if (index > 280)
-            {
-                index = 0;
-            }
+            dataStruct->data[ch][index++] = dataOUT[ch][pointer++];
+            SET_IF_LARGER(index, bytesInScreen, 0);
+            --allPoints;
         }
+        dataStruct->posBreak = PEAKDET_DS ? index / 2 : index;
     }
 }
 

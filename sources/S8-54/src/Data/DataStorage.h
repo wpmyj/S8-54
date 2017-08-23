@@ -48,7 +48,7 @@ void DS_AddPointsP2P(uint16 dataA, uint16 dataB);
 /// numPointsInChan точек.
 int DS_GetFrameP2P_RAM(DataSettings **ds, uint8 **dataA, uint8 **dataB);
 /// Возвращает число считанных точек в поточечном режиме
-int DS_NumPointsInLastFrameP2P(void);
+int DS_NumPointsInFrameP2P(void);
 
 ////////////////////////////// Функции для самописца //////////////////////////////////////////////////
 

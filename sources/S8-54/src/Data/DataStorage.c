@@ -851,7 +851,7 @@ void DS_AddPointsP2P(uint16 dataA, uint16 dataB)
 }
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
-int DS_NumPointsInLastFrameP2P(void)
+int DS_NumPointsInFrameP2P(void)
 {
     return numPointsP2P;
 }

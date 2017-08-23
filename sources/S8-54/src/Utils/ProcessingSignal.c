@@ -1304,22 +1304,17 @@ static void CountedToCurrentSettings(void)
 
     int rShiftB = ((int)SET_RSHIFT_B - (int)RSHIFT_DS_B) / (float)STEP_RSHIFT * 1.25f;   /// \todo избавиться от этого непонятного коэффициента
 
-    bool counted = false;
-
     if (SET_TBASE != TBASE_DS)
     {
         CountedTBase();
-        counted = true;
     }
     else if (SET_RANGE_A !=  RANGE_DS_A)
     {
         CountedRange(A);
-        counted = true;
     }
     else if (SET_RANGE_B != RANGE_DS_B)
     {
         CountedRange(B);
-        counted = true;
     }
     else if (dTShift || rShiftA || rShiftB)
     {
@@ -1380,10 +1375,8 @@ static void CountedToCurrentSettings(void)
                 ((uint16 *)OUT_B)[index] = (uint16)((dB0 | (dB1 << 8)));
             }
         }
-        counted = true;
     }
     else
-    //if(!counted)
     {
         memcpy(OUT_A, IN_A, numBytes);
         memcpy(OUT_B, IN_B, numBytes);
