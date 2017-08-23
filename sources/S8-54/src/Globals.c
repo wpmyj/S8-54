@@ -69,7 +69,6 @@ volatile BitField gBF =
     0,  // FPGAtemporaryPause
     0,  // FPGAinProcessingOfRead
     1,  // FPGAcanReadData
-    0,  // FPGAcritiacalSituation
     0,  // FPGAfirstAfterWrite
 
     // Flash drive

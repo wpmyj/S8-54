@@ -37,6 +37,7 @@ extern DAC_HandleTypeDef handleDAC;
 #define FPGA_NEED_AUTO_FIND     (gBF.FPGAneedAutoFind)
 #define FPGA_IN_PAUSE           (gBF.FPGAtemporaryPause)
 #define FPGA_IN_PROCESS_OF_READ (gBF.FPGAinProcessingOfRead)
+#define FPGA_CAN_READ_DATA      (gBF.FPGAcanReadData)
 
 #define NUM_DRAWING_SIGNALS     (gBF.numDrawingSignals)
 /// В этом при нажатии на кнопки вместо выполнения её функции выводится информация о её назначении
@@ -51,7 +52,6 @@ typedef struct
     uint FPGAtemporaryPause         : 1;
     uint FPGAinProcessingOfRead     : 1;
     uint FPGAcanReadData            : 1;
-    uint FPGAcritiacalSituation     : 1;
     uint FPGAfirstAfterWrite        : 1;    ///< \brief Используется в режиме рандомизатора. После записи любого параметра в альтеру нужно не 
                                             ///<        использовать первое считанное данное с АЦП, потому что оно завышено и портит ворота.
     uint cursorInDirs               : 1;    ///< Если 1, то ручка УСТАНОВКА перемещает по каталогам.

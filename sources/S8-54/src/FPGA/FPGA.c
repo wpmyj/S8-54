@@ -111,7 +111,7 @@ void FPGA_Init(void)
 // Функция вызывается, когда можно считывать очередной сигнал.
 static void OnTimerCanReadData(void)
 {
-    gBF.FPGAcanReadData = 1;
+    FPGA_CAN_READ_DATA = 1;
 }
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
@@ -229,7 +229,6 @@ void FPGA_Start(void)
     DataSettings_Fill(&ds);
 
     timeStart = gTimeMS;
-    gBF.FPGAcritiacalSituation = 0;
 
     if (!IN_P2P_MODE)
     {
@@ -882,7 +881,7 @@ void FPGA_Update(void)
 		return;
 	}
 
-    if(gBF.FPGAcanReadData == 0)
+    if(!FPGA_CAN_READ_DATA)
     {
         return;
     }
@@ -892,7 +891,7 @@ void FPGA_Update(void)
         ProcessingData();
     }
 
-    gBF.FPGAcanReadData = 0;
+    FPGA_CAN_READ_DATA = 0;
 }
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
