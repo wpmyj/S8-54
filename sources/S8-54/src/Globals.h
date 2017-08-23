@@ -45,6 +45,7 @@ extern DAC_HandleTypeDef handleDAC;
 #define NUM_DRAWING_SIGNALS     (gBF.numDrawingSignals)
 /// В этом при нажатии на кнопки вместо выполнения её функции выводится информация о её назначении
 #define HINT_MODE_ENABLE        (gBF.showHelpHints)
+#define SHOW_DEBUG_MENU         (gBF.showDebugMenu)
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 typedef struct

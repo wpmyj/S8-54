@@ -291,7 +291,7 @@ int NumItemsInPage(const Page * const page)
 {
     if (page->name == Page_Main)
     {
-        return (gBF.showDebugMenu == 0) ? 10 : 11;
+        return SHOW_DEBUG_MENU ? 11 : 10;
     }
     else if (IsPageSB(page))
     {
