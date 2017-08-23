@@ -1010,7 +1010,7 @@ void OnPress_Drive_Manager(void)
     {
         FDrive_Mount();
         Display_SetDrawMode(DrawMode_Auto, FM_Draw);
-        gBF.needRedrawFileManager = 1;
+        FM_NEED_REDRAW = FM_REDRAW_FULL;
     }
     else
     {

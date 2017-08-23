@@ -246,9 +246,9 @@ void FPGA_Start(void)
 //----------------------------------------------------------------------------------------------------------------------------------------------------
 static bool CalculateGate(uint16 rand, uint16 *eMin, uint16 *eMax)
 {
-    if (gBF.FPGAfirstAfterWrite == 1)   // ≈сли первый запуск после записи в альтеру -
+    if (FPGA_FIRST_AFTER_WRITE)   // ≈сли первый запуск после записи в альтеру -
     {
-        gBF.FPGAfirstAfterWrite = 0;    // пропускаем его, потому что оно дудет портить нам статистику
+        FPGA_FIRST_AFTER_WRITE = 0;    // пропускаем его, потому что оно дудет портить нам статистику
         if (!START_MODE_SINGLE)         // » если не однократный режим -
         {
             return false;               // то выходим с ошибкой
@@ -1032,7 +1032,7 @@ void FPGA_Write(TypeRecord type, uint16 *address, uint data, bool restart)
     }
 
     
-    gBF.FPGAfirstAfterWrite = 1;
+    FPGA_FIRST_AFTER_WRITE = 1;
     if (restart)
     {
         if (FPGA_IN_PROCESS_OF_READ)

@@ -38,6 +38,13 @@ extern DAC_HandleTypeDef handleDAC;
 #define FPGA_IN_PAUSE           (gBF.FPGAtemporaryPause)
 #define FPGA_IN_PROCESS_OF_READ (gBF.FPGAinProcessingOfRead)
 #define FPGA_CAN_READ_DATA      (gBF.FPGAcanReadData)
+#define FPGA_FIRST_AFTER_WRITE  (gBF.FPGAfirstAfterWrite)
+
+#define FM_CURSOR_IN_DIRS       (gBF.cursorInDirs)
+#define FM_NEED_REDRAW          (gBF.needRedrawFileManager)
+#define FM_REDRAW_FULL          1
+#define FM_REDRAW_FOLDERS       2
+#define FM_REDRAW_FILES         3
 
 #define NUM_DRAWING_SIGNALS     (gBF.numDrawingSignals)
 /// В этом при нажатии на кнопки вместо выполнения её функции выводится информация о её назначении
