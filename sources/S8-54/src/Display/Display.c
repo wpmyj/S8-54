@@ -27,6 +27,13 @@
 
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+#define NEED_SET_ORIENTATION    (bf.needSetOrientation)
+
+static struct BitFieldDisplay
+{
+    uint needSetOrientation : 1;
+} bf = {0};
+
 typedef struct
 {
     Warning      warning;
@@ -436,7 +443,7 @@ void Display_SetPauseForConsole(bool pause)
 void Display_SetOrientation(DisplayOrientation orientation)
 {
     DISPLAY_ORIENTATION = orientation;
-    gBF.needSetOrientation = 1;
+    NEED_SET_ORIENTATION = 1;
 }
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
@@ -491,12 +498,12 @@ static bool NeedForClearScreen(void)
 //----------------------------------------------------------------------------------------------------------------------------------------------------
 static void SetOrientation(void)
 {
-    if(gBF.needSetOrientation == 1)
+    if(NEED_SET_ORIENTATION)
     {
         uint8 command[4] ={SET_ORIENTATION, DISPLAY_ORIENTATION, 0, 0};
         Painter_SendToDisplay(command, 4);
         Painter_SendToInterfaces(command, 2);
-        gBF.needSetOrientation = 0;
+        NEED_SET_ORIENTATION = 0;
     }
 }
 

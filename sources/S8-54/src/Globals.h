@@ -49,6 +49,7 @@ extern DAC_HandleTypeDef handleDAC;
 #define TOP_MEASURES            (gBF.topMeasures)
 #define SHOW_STRING_NAVIGATION  (gBF.temporaryShowStrNavi)
 
+
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 typedef struct
 {
@@ -66,12 +67,10 @@ typedef struct
                                             ///<        чтобы они ничего не перекрывали.
     uint disablePower               : 1;    ///< Если 1, то нужно выключить питание.
     uint temporaryShowStrNavi       : 1;    ///< Признак того, что нужно временно показывать строку навигации меню.
-    uint needSetOrientation         : 1;    ///< Для установки ориентации дисплея.
     uint cableEthIsConnected        : 1;    ///< 1, если подключён кабель LAN.
     uint panelControlReceive        : 1;    ///< Если 1, то панель прислала команду.
     uint needToMountFlash           : 1;    ///< Установленное в 1 значение означает, что подсоединена флешка. Надо её монтировать.
     uint consoleInPause             : 1;    ///< Если 1, то консоль находится в режиме паузы.
-    uint needStopAfterReadFrameP2P  : 1;    ///< Если 1, то после считывания очередного фрейма нужно остановить вывод на экран.
     uint needFinishDraw             : 1;    ///< Если 1, то нужно немедленно завершить отрисовку и вывести на экран то, что уже нарисовано.
 } BitField;
 

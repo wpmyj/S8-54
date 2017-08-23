@@ -30,9 +30,10 @@
 
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-#define FPGA_IN_PAUSE           (bf.pause)
-#define FPGA_CAN_READ_DATA      (bf.canRead)
-#define FPGA_FIRST_AFTER_WRITE  (bf.firstAfterWrite)
+#define FPGA_IN_PAUSE                   (bf.pause)
+#define FPGA_CAN_READ_DATA              (bf.canRead)
+#define FPGA_FIRST_AFTER_WRITE          (bf.firstAfterWrite)
+#define NEED_STOP_AFTER_READ_FRAME_2P2  (bf.needStopAfterReadFrame2P2)
 
 
 static struct BitFieldFPGA
@@ -41,6 +42,7 @@ static struct BitFieldFPGA
     uint canRead         : 1;
     uint firstAfterWrite : 1;   ///< \brief »спользуетс€ в режиме рандомизатора. ѕосле записи любого параметра в альтеру нужно не 
                                 ///<        использовать первое считанное данное с ј÷ѕ, потому что оно завышено и портит ворота.
+    uint needStopAfterReadFrame2P2 : 1;
 } bf = {0, 1, 0};
 
 
@@ -234,7 +236,7 @@ void FPGA_WriteStartToHardware(void)
 //----------------------------------------------------------------------------------------------------------------------------------------------------
 void FPGA_Start(void)
 {
-    gBF.needStopAfterReadFrameP2P = 0;
+    NEED_STOP_AFTER_READ_FRAME_2P2 = 0;
 
     FPGA_WriteStartToHardware();
 
@@ -800,7 +802,7 @@ static void ProcessingAfterReadData(void)
     {
         if(IN_P2P_MODE && START_MODE_AUTO)                              // ≈сли находимс€ в режиме поточечного вывода при автоматической синхронизации
         {
-            if(gBF.needStopAfterReadFrameP2P == 0)
+            if(!NEED_STOP_AFTER_READ_FRAME_2P2)
             {
                 Timer_SetAndStartOnce(kTimerStartP2P, FPGA_Start, 1000);    // то откладываем следующий запуск, чтобы зафиксировать сигнал на экране
             }
@@ -923,7 +925,7 @@ static void OnPressStartStopInP2P(void)
         }
         else
         {   // то устанавливаем признак того, что после окончани€ не надо запускать следующий цикл
-            gBF.needStopAfterReadFrameP2P = !gBF.needStopAfterReadFrameP2P;
+            NEED_STOP_AFTER_READ_FRAME_2P2 = !NEED_STOP_AFTER_READ_FRAME_2P2;
             FPGA_Stop(false);
         }
     }
