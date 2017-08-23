@@ -85,11 +85,18 @@
   <ItemGroup>
     <ClInclude Include="..\..\Display\GraphicsConfig.h" />
     <ClInclude Include="..\..\Display\HardwareProfile.h" />
-    <ClInclude Include="..\..\Display\MainDemo.h" />
+    <ClInclude Include="..\..\Display\Microchip\Include\GenericTypeDefs.h" />
+    <ClInclude Include="..\..\Display\Microchip\Include\Graphics\DisplayDriver.h" />
+    <ClInclude Include="..\..\Display\Microchip\Include\Graphics\gfxcolors.h" />
+    <ClInclude Include="..\..\Display\Microchip\Include\Graphics\Graphics.h" />
+    <ClInclude Include="..\..\Display\Microchip\Include\Graphics\mchpGfxDrv.h" />
+    <ClInclude Include="..\..\Display\Microchip\Include\Graphics\Primitive.h" />
+    <ClInclude Include="..\..\Display\Microchip\Include\TimeDelay.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\Display\MainDemo.c" />
-    <ClCompile Include="..\..\Microchip\Graphics\Drivers\mchpGfxDrv.c" />
+    <ClCompile Include="..\..\Display\Microchip\Common\TimeDelay.c" />
+    <ClCompile Include="..\..\Display\Microchip\Graphics\Drivers\mchpGfxDrv.c" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

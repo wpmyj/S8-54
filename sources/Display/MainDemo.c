@@ -8,7 +8,7 @@
     20 - RB5 - 0
 */
  
-#include "MainDemo.h"
+//#include "MainDemo.h"
 #include <p24FJ256DA210.h>
 #include "PPS.h"
 #include "Graphics/mchpGfxDrv.h"
@@ -24,6 +24,57 @@
 _CONFIG1( WDTPS_PS128 & FWPSA_PR128 & ALTVREF_ALTVREDIS & ICS_PGx2 & GWRP_OFF & JTAGEN_OFF & FWDTEN_OFF & GCP_OFF)
 _CONFIG2( POSCMOD_XT & IOL1WAY_OFF & OSCIOFNC_OFF & OSCIOFNC_OFF & FCKSM_CSDCMD & FNOSC_PRIPLL & PLL96MHZ_ON & PLLDIV_DIV2 & IESO_OFF)
 _CONFIG3( WPFP_WPFP255 & SOSCSEL_SOSC & WUTSEL_LEG & WPDIS_WPDIS & WPCFG_WPCFGDIS & WPEND_WPENDMEM)
+
+
+void PMP_SetColor(void);
+
+void PMP_FillRegion(void);
+
+void PMP_Invalidate(void);
+
+void PMP_SetReInit(void);
+
+void PMP_DrawVLine(void);
+
+void PMP_DrawHLine(void);
+
+void PMP_DrawLine(void);
+
+void PMP_DrawPixel(void);
+
+void PMP_DrawSignalLines(void);
+
+void PMP_DrawText(void);
+
+void PMP_SetPaletteColor(void);
+
+void PMP_SetFont(void);
+
+void PMP_VerDotLine(void);
+
+void PMP_DrawVLinesArray(void);
+
+void PMP_DrawSignalPoints(void);
+
+void PMP_SetBrightness(void);
+
+void PMP_DrawMultiHPointLine(void);
+
+void PMP_DrawMultiVPointLine(void);
+
+void PMP_LoadImage(void);
+
+void PMP_RunBuffer(void);
+
+void SetPaletteDirect(BYTE numColor, SHORT valueColor);
+
+void SetColorDirect(BYTE numColor);
+
+void FillRegion(SHORT x, SHORT y, SHORT width, SHORT height);
+
+void EndScene(void);
+
+void SetFontDirect(BYTE numFont);
 
 
 #define OUT_PIN_PPS_RP0				RPOR0bits.RP0R
