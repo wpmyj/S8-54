@@ -242,9 +242,11 @@ typedef struct
     int16               nrst_AddStretch50mV[NumChannels];
     int16               nrst_AddStretch100mV[NumChannels];
     int16               nrst_AddStretch2V[NumChannels];
-    int16               nrst_NumSmoothForRand;                      ///< Число точек для скользящего фильта в рандомизаторе.
-    MemDataScale        mem_DataScale;                              ///< \brief Определяет поведение сохранённого сигнала при переключении ручек
-                                                                    ///< управления сигналом.
+    int16               nrst_NumSmoothForRand;              ///< Число точек для скользящего фильта в рандомизаторе.
+    MemDataScale        mem_DataScale;                      ///< \brief Определяет поведение сохранённого сигнала при переключении ручек
+                                                            ///< управления сигналом.
+    PlaceOfSaving       rec_PlaceOfSaving;                  ///< Куда будут сохраняться данные регистратора
+    int8                rec_NumCursor;                      ///< Номер активного курсора
 } Settings;
 
 #pragma pack(pop)

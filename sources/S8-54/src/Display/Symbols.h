@@ -1,4 +1,4 @@
-п»ї#pragma once
+#pragma once
 
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -6,49 +6,47 @@
 /** @addtogroup Painter
  *  @{
  *  @defgroup Symbols
- *  @brief РСЃРїРѕР»СЊР·СѓРµРјС‹Рµ РЈР“Рћ
+ *  @brief Используемые УГО
  *  @{
  */
 
 
 
 // TypeFont_8
-#define SYMBOL_GOVERNOR_SHIFT_3 '\x0e'  ///< РЎРёРјРІРѕР» СЂРµРіСѓР»СЏС‚РѕСЂР°
-#define SYMBOL_TSHIFT_NORM_2    '\x84'  ///< 2-СЏ С‡Р°СЃС‚СЊ СЃРёРјРІРѕР»Р° СЃРјРµС‰РµРЅРёСЏ РїРѕ РІСЂРµРјРµРЅРё РЅРѕСЂРјР°Р»СЊРЅРѕРіРѕ
-#define SYMBOL_TSHIFT_NORM_1    '\x85'  ///< 1-СЏ С‡Р°СЃС‚СЊ СЃРёРјРІРѕР»Р° СЃРјРµС‰РµРЅРёСЏ РїРѕ РІСЂРµРјРµРЅРё РЅРѕСЂРјР°Р»СЊРЅРѕРіРѕ
-#define SYMBOL_TSHIFT_LEFT_2    '\x86'  ///< 2-СЏ С‡Р°СЃС‚СЊ СЃРёРјРІРѕР»Р° СЃРјРµС‰РµРЅРёСЏ РїРѕ РІСЂРµРјРµРЅРё СЃР»РµРІР° РѕС‚ СЌРєСЂР°РЅР°
-#define SYMBOL_TSHIFT_RIGHT_2   '\x87'  ///< 2-СЏ С‡Р°СЃС‚СЊ СЃРёРјРІРѕР»Р° СЃРјРµС‰РµРЅРёСЏ РїРѕ РІСЂРµРјРµРЅРё СЃРїСЂР°РІР° РѕС‚ СЌРєСЂР°РЅР°
-#define SYMBOL_TPOS_1           '\x8a'  ///< 2-СЏ С‡Р°СЃС‚СЊ СЃРёРјРІРѕР»Р° TPos
-#define SYMBOL_TPOS_2           '\x8b'  ///< 1-СЏ С‡Р°СЃС‚СЊ СЃРёРјРІРѕР»Р° TPos
-#define SYMBOL_GOVERNOR_SHIFT_2 '\x8c'  ///< РЎРёРјРІРѕР» СЂРµРіСѓР»СЏС‚РѕСЂР°
-#define SYMBOL_TSHIFT_RIGHT_1   '\x93'  ///< 1-СЏ С‡Р°СЃС‚СЊ СЃРёРјРІРѕР»Р° СЃРјРµС‰РµРЅРёСЏ РїРѕ РІСЂРµРјРµРЅРё СЃРїСЂР°РІР° РѕС‚ СЌРєСЂР°РЅР°
-#define SYMBOL_RSHIFT_NORMAL    '\x93'  ///< РЎРёРјРІРѕР» СЃРјРµС‰РµРЅРёСЏ РїРѕ РЅР°РїСЂСЏР¶РµРЅРёСЋ РЅРѕСЂРјР°Р»СЊРЅС‹Р№
-#define SYMBOL_TSHIFT_LEFT_1    '\x94'  ///< 1-СЏ С‡Р°СЃС‚СЊ СЃРёРјРІРѕР»Р° СЃРјРµС‰РµРЅРёСЏ РїРѕ РІСЂРµРјРµРЅРё СЃР»РµРІР° РѕС‚ СЌРєСЂР°РЅР°
-#define SYMBOL_TRIG_LEV_NORMAL  '\x94'  ///< РЎРёРјРІРѕР» СѓСЂРѕРІРµРЅСЊ СЃРёРЅС…СЂРѕРЅРёР·Р°С†РёРё РЅРѕСЂРјР°Р»СЊРЅС‹Р№
-#define SYMBOL_TRIG_LEV_LOWER   '\x95'  ///< РЎРёРјРІРѕР» СѓСЂРѕРІРµРЅСЊ СЃРёРЅС…СЂРѕРЅРёР·Р°С†РёРё РЅРёР¶Рµ СЃРµС‚РєРё
-#define SYMBOL_RSHIFT_LOWER     '\x95'  ///< РЎРёРјРІРѕР» СЃРјРµС‰РµРЅРёСЏ РїРѕ РЅР°РїСЂСЏР¶РµРЅРёСЋ РЅРёР¶Рµ СЃРµС‚РєРё
-#define SYMBOL_TRIG_LEV_ABOVE   '\x96'  ///< РЎРёРјРІРѕР» СѓСЂРѕРІРµРЅСЊ СЃРёРЅС…СЂРѕРЅРёР·Р°С†РёРё РІС‹С€Рµ СЃРµС‚РєРё
-#define SYMBOL_RSHIFT_ABOVE     '\x96'  ///< РЎРёРјРІРѕР» СЃРјРµС‰РµРЅРёСЏ РїРѕ РЅР°РїСЂСЏР¶РµРЅРёСЋ РІС‹С€Рµ СЃРµС‚РєРё
-#define SYMBOL_GOVERNOR_SHIFT_0 '\xaa'  ///< РЎРёРјРІРѕР» СЂРµРіСѓР»СЏС‚РѕСЂР°
-#define SYMBOL_GOVERNOR_SHIFT_1 '\xac'  ///< РЎРёРјРІРѕР» СЂРµРіСѓР»СЏС‚РѕСЂР°
-#define SYMBOL_PLAY             '\xae'  ///< РЎРёРјРІРѕР» СЂР°Р±РѕС‚С‹ СЃРїСЂР°РІР° РІРІРµСЂС…Сѓ СЌРєСЂР°РЅР°
+#define SYMBOL_GOVERNOR_SHIFT_3 '\x0e'  ///< Символ регулятора
+#define SYMBOL_TSHIFT_NORM_2    '\x84'  ///< 2-я часть символа смещения по времени нормального
+#define SYMBOL_TSHIFT_NORM_1    '\x85'  ///< 1-я часть символа смещения по времени нормального
+#define SYMBOL_TSHIFT_LEFT_2    '\x86'  ///< 2-я часть символа смещения по времени слева от экрана
+#define SYMBOL_TSHIFT_RIGHT_2   '\x87'  ///< 2-я часть символа смещения по времени справа от экрана
+#define SYMBOL_TPOS_1           '\x8a'  ///< 2-я часть символа TPos
+#define SYMBOL_TPOS_2           '\x8b'  ///< 1-я часть символа TPos
+#define SYMBOL_GOVERNOR_SHIFT_2 '\x8c'  ///< Символ регулятора
+#define SYMBOL_TSHIFT_RIGHT_1   '\x93'  ///< 1-я часть символа смещения по времени справа от экрана
+#define SYMBOL_RSHIFT_NORMAL    '\x93'  ///< Символ смещения по напряжению нормальный
+#define SYMBOL_TSHIFT_LEFT_1    '\x94'  ///< 1-я часть символа смещения по времени слева от экрана
+#define SYMBOL_TRIG_LEV_NORMAL  '\x94'  ///< Символ уровень синхронизации нормальный
+#define SYMBOL_TRIG_LEV_LOWER   '\x95'  ///< Символ уровень синхронизации ниже сетки
+#define SYMBOL_RSHIFT_LOWER     '\x95'  ///< Символ смещения по напряжению ниже сетки
+#define SYMBOL_TRIG_LEV_ABOVE   '\x96'  ///< Символ уровень синхронизации выше сетки
+#define SYMBOL_RSHIFT_ABOVE     '\x96'  ///< Символ смещения по напряжению выше сетки
+#define SYMBOL_GOVERNOR_SHIFT_0 '\xaa'  ///< Символ регулятора
+#define SYMBOL_GOVERNOR_SHIFT_1 '\xac'  ///< Символ регулятора
+#define SYMBOL_PLAY             '\xae'  ///< Символ работы справа вверху экрана
 
 
 // TypeFont_UGO2
-#define SYMBOL_FLASH_DRIVE      '\x80'  ///< РЎРёРјРІРѕР» С„Р»РµС€РєРё РІРЅРёР·Сѓ СЌРєСЂР°РЅР°
-#define SYMBOL_ETHERNET         '\x82'  ///< РЎРёРјРІРѕР» Ethernet РІРЅРёР·Сѓ СЌРєСЂР°РЅР°
-#define SYMBOL_USB              '\x84'  ///< РЎРёРјРІРѕР» USB РІРЅРёР·Сѓ СЌРєСЂР°РЅР°
 #define SYMBOL_BACKSPACE        '\x20'
-
-
-
-
-#define SYMBOL_DELETE           '\x22'  ///< Р’РќР•РЁРќ Р—РЈ-РњРђРЎРљРђ-РЈР”РђР›РРўР¬
-#define SYMBOL_INSERT           '\x26'  ///< Р’РќР•РЁРќ Р—РЈ-РРњРЇ-Р’РЎРўРђР’РРўР¬
+#define SYMBOL_DELETE           '\x22'  ///< ВНЕШН ЗУ-МАСКА-УДАЛИТЬ
+#define SYMBOL_INSERT           '\x26'  ///< ВНЕШН ЗУ-ИМЯ-ВСТАВИТЬ
 #define SYMBOL_SAVE_TO_MEM      '\x2c'
+#define SYMBOL_ROM              '\x40'  ///< Микросхемка
+#define SYMBOL_FLASH_DRIVE_BIG  '\x42'  ///< Символ флешки
+#define SYMBOL_FOLDER           '\x46'  ///< Каталог
+#define SYMBOL_FLASH_DRIVE      '\x80'  ///< Символ флешки внизу экрана
+#define SYMBOL_ETHERNET         '\x82'  ///< Символ Ethernet внизу экрана
+#define SYMBOL_USB              '\x84'  ///< Символ USB внизу экрана
 #define SYMBOL_TAB              '\x6e'
-
-#define SYMBOL_MATH_FUNC_MUL    '\x8a'  ///< РњРђРўР•РњРђРўРРљРђ-Р¤РЈРќРљР¦РРЇ-РЈРњРќРћР–Р•РќРР•
+#define SYMBOL_MATH_FUNC_MUL    '\x8a'  ///< МАТЕМАТИКА-ФУНКЦИЯ-УМНОЖЕНИЕ
 
 /** @}  @}
  */

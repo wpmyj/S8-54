@@ -46,9 +46,12 @@ static void       OnPress_Recorder_SaveTo(void);
 static void          Draw_Recorder_SaveTo(int, int);
 static void          Draw_Recorder_SaveTo_RAM(int, int);
 static void          Draw_Recorder_SaveTo_EXT(int, int);
-static const     SButton bRecorder_Start;                           ///< ÑÅÐÂÈÑ - ÐÅÃÈÑÒÐÀÒÎÐ - Ñòàðò/Ñòîï
 static const     SButton bRecorder_Choice;                          ///< ÑÅÐÂÈÑ - ÐÅÃÈÑÒÐÀÒÎÐ - Âûáîð
+static void       OnPress_Recorder_Choice(void);
+static void          Draw_Recorder_Choice(int x, int y);
 static const     SButton bRecorder_Cursor;                          ///< ÑÅÐÂÈÑ - ÐÅÃÈÑÒÐÀÒÎÐ - Êóðñîð
+static void       OnPress_Recorder_Cursor(void);
+static void          Draw_Recorder_Cursor(int x, int y);
 #endif
 static const        Page ppFFT;                                     ///< ÑÅÐÂÈÑ - ÑÏÅÊÒÐ
 static bool       IsActive_FFT(void);
@@ -298,14 +301,13 @@ static const Page ppRecorder =
     {
         (void *)&bRecorder_Exit,
         (void *)&bRecorder_SaveTo,
-        (void *)&bRecorder_Start,
         (void *)&bRecorder_Choice,
         (void *)&bRecorder_Cursor
     },
     true
 };
 
-//----------------------------------------------------------------------------------------------------------------------------------------------------
+// ÑÅÐÂÈÑ - ÐÅÃÈÑÒÐÀÒÎÐ - Âûõîä ----------------------------------------------------------------------------------------------------------------------
 static const SButton bRecorder_Exit =
 {
     Item_SmallButton, &ppRecorder, 0,
@@ -318,7 +320,7 @@ static const SButton bRecorder_Exit =
     DrawSB_Exit
 };
 
-//----------------------------------------------------------------------------------------------------------------------------------------------------
+// ÑÅÐÂÈÑ - ÐÅÃÈÑÒÐÀÒÎÐ - Ñîõðàíÿòü â ... ------------------------------------------------------------------------------------------------------------
 static const SButton bRecorder_SaveTo =
 {
     Item_SmallButton, &ppRecorder, IsActive_Recorder_SaveTo,
@@ -342,23 +344,84 @@ static bool IsActive_Recorder_SaveTo(void)
 
 static void OnPress_Recorder_SaveTo(void)
 {
-
+    CircleIncreaseInt8((int8*)(&REC_PLACE_OF_SAVING), 0, PlaceOfSaving_Number - 1);
 }
 
 static void Draw_Recorder_SaveTo(int x, int y)
 {
+    static const pFuncVII funcs[PlaceOfSaving_Number] =
+    {
+        Draw_Recorder_SaveTo_RAM, Draw_Recorder_SaveTo_EXT
+    };
 
+    funcs[REC_PLACE_OF_SAVING](x, y);
 }
 
 static void Draw_Recorder_SaveTo_RAM(int x, int y)
 {
-
+    Painter_SetFont(TypeFont_UGO2);
+    Painter_Draw4SymbolsInRect(x + 2, y + 1, SYMBOL_ROM);
+    Painter_SetFont(TypeFont_8);
 }
 
 static void Draw_Recorder_SaveTo_EXT(int x, int y)
 {
+    Painter_SetFont(TypeFont_UGO2);
+    Painter_Draw4SymbolsInRect(x + 2, y + 1, SYMBOL_FLASH_DRIVE_BIG);
+    Painter_SetFont(TypeFont_8);
+}
+
+// ÑÅÐÂÈÑ - ÐÅÃÈÑÒÐÀÒÎÐ - Âûáîð ----------------------------------------------------------------------------------------------------------------------
+static const SButton bRecorder_Choice =
+{
+    Item_SmallButton, &ppRecorder, 0,
+    {
+        "Âûáîð", "Choice",
+        "Âûáîð ñèãíàëà äëÿ ïðîñìîòðà",
+        "Select signal to view"
+    },
+    OnPress_Recorder_Choice,
+    Draw_Recorder_Choice
+};
+
+static void OnPress_Recorder_Choice(void)
+{
 
 }
+
+static void Draw_Recorder_Choice(int x, int y)
+{
+    Painter_SetFont(TypeFont_UGO2);
+    Painter_Draw4SymbolsInRect(x + 1, y, SYMBOL_FOLDER);
+    Painter_SetFont(TypeFont_8);
+}
+
+// ÑÅÐÂÈÑ - ÐÅÃÈÑÒÐÀÒÎÐ - Êóðñîð ---------------------------------------------------------------------------------------------------------------------
+static const SButton bRecorder_Cursor =
+{
+    Item_SmallButton, &ppRecorder, 0,
+    {
+        "Êóðñîð", "Cursors",
+        "Âûáîð êóðñîðà",
+        "Cursor selection"
+    },
+    OnPress_Recorder_Cursor,
+    Draw_Recorder_Cursor
+};
+
+static void OnPress_Recorder_Cursor(void)
+{
+    CircleIncreaseInt8(&REC_NUM_CURSOR, 0, 1);
+}
+
+static void Draw_Recorder_Cursor(int x, int y)
+{
+    Painter_DrawText(x + 8, y + 5, REC_NUM_CURSOR ? "2" : "1");
+}
+
+//----------------------------------------------------------------------------------------------------------------------------------------------------
+
+
 
 #endif
 

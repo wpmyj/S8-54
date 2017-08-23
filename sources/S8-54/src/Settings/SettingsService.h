@@ -31,6 +31,9 @@
 #define COLOR_SCHEME                    (set.serv_ColorScheme)
 #define COLOR_SCHEME_IS_WHITE_LETTERS   (COLOR_SCHEME == ColorScheme_WhiteLetters)
 
+#define REC_PLACE_OF_SAVING             (set.rec_PlaceOfSaving)
+#define REC_NUM_CURSOR                  (set.rec_NumCursor)
+
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 float   sService_MathGetFFTmaxDBabs(void);

@@ -379,7 +379,7 @@ static void OnPress_Last_SaveToROM(void)
 static void Draw_Last_SaveToROM(int x, int y)
 {
     Painter_SetFont(TypeFont_UGO2);
-    Painter_Draw4SymbolsInRect(x + 2, y + 1, '\x40');
+    Painter_Draw4SymbolsInRect(x + 2, y + 1, SYMBOL_ROM);
     Painter_SetFont(TypeFont_8);
 }
 
@@ -472,7 +472,7 @@ static void Draw_Last_SaveToDrive(int x, int y)
     if (gFlashDriveIsConnected)
     {
         Painter_SetFont(TypeFont_UGO2);
-        Painter_Draw4SymbolsInRect(x + 2, y + 1, '\x42');
+        Painter_Draw4SymbolsInRect(x + 2, y + 1, SYMBOL_FLASH_DRIVE_BIG);
         Painter_SetFont(TypeFont_8);
     }
 }
@@ -879,7 +879,7 @@ static void Draw_Internal_SaveToDrive(int x, int y)
     if (gFlashDriveIsConnected)
     {
         Painter_SetFont(TypeFont_UGO2);
-        Painter_Draw4SymbolsInRect(x + 2, y + 1, '\x42');
+        Painter_Draw4SymbolsInRect(x + 2, y + 1, SYMBOL_FLASH_DRIVE_BIG);
         Painter_SetFont(TypeFont_8);
     }
 }
@@ -1544,7 +1544,7 @@ static void Draw_SetName_Save(int x, int y)
     if (gFlashDriveIsConnected)
     {
         Painter_SetFont(TypeFont_UGO2);
-        Painter_Draw4SymbolsInRect(x + 2, y + 1, '\x42');
+        Painter_Draw4SymbolsInRect(x + 2, y + 1, SYMBOL_FLASH_DRIVE_BIG);
         Painter_SetFont(TypeFont_8);
     }
 }

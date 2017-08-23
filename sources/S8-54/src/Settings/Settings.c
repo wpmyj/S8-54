@@ -216,7 +216,9 @@ static const Settings defaultSettings =
     {0, 0},                     // AddStretch100mV[NumChannels]
     {0, 0},                     // AddStretch2V[NumChannels]
     1,                          // NumSmoothForRand
-    MemDataScale_Recalculated   // mem_DataScale
+    MemDataScale_Recalculated,  // mem_DataScale
+    PlaceOfSaving_RAM,          // rec_PlaceOfSaving
+    0                           // rec_NumCursor
 };
 
 Settings set;
