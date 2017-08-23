@@ -223,6 +223,7 @@
     <ClCompile Include="..\..\S8-54\src\Panel\Controls.c" />
     <ClCompile Include="..\..\S8-54\src\Panel\Panel.c" />
     <ClCompile Include="..\..\S8-54\src\Panel\PanelFunctions.h" />
+    <ClCompile Include="..\..\S8-54\src\SelfRecorder\SelfRecorder.c" />
     <ClCompile Include="..\..\S8-54\src\Settings\Settings.c" />
     <ClCompile Include="..\..\S8-54\src\Settings\SettingsChannel.c" />
     <ClCompile Include="..\..\S8-54\src\Settings\SettingsCursors.c" />
@@ -418,6 +419,7 @@
     <ClInclude Include="..\..\S8-54\src\Menu\Pages\PageMemory.h" />
     <ClInclude Include="..\..\S8-54\src\Panel\Controls.h" />
     <ClInclude Include="..\..\S8-54\src\Panel\Panel.h" />
+    <ClInclude Include="..\..\S8-54\src\SelfRecorder\SelfRecorder.h" />
     <ClInclude Include="..\..\S8-54\src\Settings\Settings.h" />
     <ClInclude Include="..\..\S8-54\src\Settings\SettingsChannel.h" />
     <ClInclude Include="..\..\S8-54\src\Settings\SettingsCursors.h" />

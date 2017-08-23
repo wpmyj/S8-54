@@ -379,7 +379,7 @@ static void OnPress_Last_SaveToROM(void)
 static void Draw_Last_SaveToROM(int x, int y)
 {
     Painter_SetFont(TypeFont_UGO2);
-    Painter_Draw4SymbolsInRect(x + 2, y + 1, '\x40');
+    Painter_Draw4SymbolsInRect(x + 2, y + 1, SYMBOL_ROM);
     Painter_SetFont(TypeFont_8);
 }
 
@@ -404,7 +404,7 @@ static void OnPress_Last_SaveToDrive(void)
 
 void Memory_SaveSignalToFlashDrive(void)
 {
-    if (gFlashDriveIsConnected)
+    if (FDRIVE_IS_CONNECTED)
     {
         if (FILE_NAMING_MODE_MANUAL)
         {
@@ -469,10 +469,10 @@ static void DrawSetName(void)
 
 static void Draw_Last_SaveToDrive(int x, int y)
 {
-    if (gFlashDriveIsConnected)
+    if (FDRIVE_IS_CONNECTED)
     {
         Painter_SetFont(TypeFont_UGO2);
-        Painter_Draw4SymbolsInRect(x + 2, y + 1, '\x42');
+        Painter_Draw4SymbolsInRect(x + 2, y + 1, SYMBOL_FLASH_DRIVE_BIG);
         Painter_SetFont(TypeFont_8);
     }
 }
@@ -876,10 +876,10 @@ static void OnPress_Internal_SaveToDrive(void)
 
 static void Draw_Internal_SaveToDrive(int x, int y)
 {
-    if (gFlashDriveIsConnected)
+    if (FDRIVE_IS_CONNECTED)
     {
         Painter_SetFont(TypeFont_UGO2);
-        Painter_Draw4SymbolsInRect(x + 2, y + 1, '\x42');
+        Painter_Draw4SymbolsInRect(x + 2, y + 1, SYMBOL_FLASH_DRIVE_BIG);
         Painter_SetFont(TypeFont_8);
     }
 }
@@ -1001,16 +1001,16 @@ static const Page pppDrive_Manager =
 
 static bool IsActive_Drive_Manager(void)
 {
-    return gFlashDriveIsConnected;
+    return FDRIVE_IS_CONNECTED;
 }
 
 void OnPress_Drive_Manager(void)
 {
-    if (gFlashDriveIsConnected)
+    if (FDRIVE_IS_CONNECTED)
     {
         FDrive_Mount();
         Display_SetDrawMode(DrawMode_Auto, FM_Draw);
-        gBF.needRedrawFileManager = 1;
+        FM_NEED_REDRAW = FM_REDRAW_FULL;
     }
     else
     {
@@ -1532,7 +1532,7 @@ static const SButton bSetName_Save =
 
 static void OnPress_SetName_Save(void)
 {
-    if (gFlashDriveIsConnected)
+    if (FDRIVE_IS_CONNECTED)
     {
         OnPress_SetName_Exit();
         NEED_SAVE_TO_FLASHDRIVE = 1;
@@ -1541,10 +1541,10 @@ static void OnPress_SetName_Save(void)
 
 static void Draw_SetName_Save(int x, int y)
 {
-    if (gFlashDriveIsConnected)
+    if (FDRIVE_IS_CONNECTED)
     {
         Painter_SetFont(TypeFont_UGO2);
-        Painter_Draw4SymbolsInRect(x + 2, y + 1, '\x42');
+        Painter_Draw4SymbolsInRect(x + 2, y + 1, SYMBOL_FLASH_DRIVE_BIG);
         Painter_SetFont(TypeFont_8);
     }
 }

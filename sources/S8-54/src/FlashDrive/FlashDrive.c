@@ -13,9 +13,18 @@
 
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+#define NEED_MOUNT (bf.needToMoundFlash)
+
+static struct BitFieldFlashDrive
+{
+    uint needToMoundFlash : 1;  ///< Установленное в 1 значение означает, что подсоединена флешка. Надо её монтировать.
+} bf = {0};
+
+
+USBH_HandleTypeDef handleUSBH;
 static FATFS USBDISKFatFs;
 static char USBDISKPath[4];
-bool gFlashDriveIsConnected = false;
+static bool gFlashDriveIsConnected = false;
 
 
 extern void ChangeStateFlashDrive(void);
@@ -34,7 +43,7 @@ void USBH_UserProcess(USBH_HandleTypeDef *phost, uint8 id)
             break;
 
         case HOST_USER_CLASS_ACTIVE:
-            gBF.needToMountFlash = 1;
+            NEED_MOUNT = 1;
 
             /*
             if (f_mount(&USBDISKFatFs, (TCHAR const*)USBDISKPath, 1) != FR_OK)
@@ -79,6 +88,12 @@ void FDrive_Mount(void)
     }
 }
 
+//----------------------------------------------------------------------------------------------------------------------------------------------------
+bool FDrive_IsConnected(void)
+{
+    return gFlashDriveIsConnected;
+}
+
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
 void FDrive_Init(void)
@@ -99,10 +114,10 @@ void FDrive_Init(void)
 //----------------------------------------------------------------------------------------------------------------------------------------------------
 void FDrive_Update(void)
 {
-    if (gBF.needToMountFlash == 1)      // Если обнаружено физическое подключение внешнего диска
+    if (NEED_MOUNT)      // Если обнаружено физическое подключение внешнего диска
     {
         uint timeStart = gTimeMS;
-        gBF.needToMountFlash = 0;
+        NEED_MOUNT = 0;
 
         Display_FuncOnWaitStart(DICT(DDetectFlashDrive), false);
 

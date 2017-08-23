@@ -173,7 +173,7 @@ void Choice_StartChange(Choice *choice, int delta)
         return;
     }
     Sound_GovernorChangedValue();
-    if (gBF.showHelpHints)
+    if (HINT_MODE_ENABLE)
     {
         SetItemForHint(choice);
     }

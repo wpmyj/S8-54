@@ -236,7 +236,7 @@ bool Panel_ProcessingCommandFromPIC(uint16 command)
     {
         PainterData_InterruptDrawing();
 
-        gBF.panelControlReceive = 1;
+        PANEL_CONTROL_RECEIVE = 1;
 
         allRecData++;
 
@@ -395,7 +395,7 @@ void Panel_Update(void)
     regRight = R_Empty;
     numReg = 0;
 
-    gBF.panelControlReceive = 0;
+    PANEL_CONTROL_RECEIVE = 0;
 }
 
 

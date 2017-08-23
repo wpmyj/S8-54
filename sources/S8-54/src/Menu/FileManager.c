@@ -23,6 +23,14 @@
 
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+#define FM_CURSOR_IN_DIRS       (bf.cursorsInDirs)
+
+static struct BitFieldFileManager
+{
+    uint cursorsInDirs : 1;
+} bf = {1};
+
+
 #define RECS_ON_PAGE    23
 #define WIDTH_COL       135
 
@@ -84,11 +92,11 @@ static void DrawDirs(int x, int y)
     if (FDrive_GetNameDir(currentDir, numFirstDir, nameDir, &sfrd))
     {
         int  drawingDirs = 0;
-        DrawLongString(x, y, nameDir, gBF.cursorInDirs == 1 && ( numFirstDir + drawingDirs == numCurDir));
+        DrawLongString(x, y, nameDir, FM_CURSOR_IN_DIRS && ( numFirstDir + drawingDirs == numCurDir));
         while (drawingDirs < (RECS_ON_PAGE - 1) && FDrive_GetNextNameDir(nameDir, &sfrd))
         {
             drawingDirs++;
-            DrawLongString(x, y + drawingDirs * 9, nameDir, gBF.cursorInDirs == 1 && ( numFirstDir + drawingDirs == numCurDir));
+            DrawLongString(x, y + drawingDirs * 9, nameDir, FM_CURSOR_IN_DIRS && ( numFirstDir + drawingDirs == numCurDir));
         }
     }
 }
@@ -103,11 +111,11 @@ static void DrawFiles(int x, int y)
     if (FDrive_GetNameFile(currentDir, numFirstFile, nameFile, &sfrd))
     {
         int drawingFiles = 0;
-        DrawLongString(x, y, nameFile, gBF.cursorInDirs == 0 && (numFirstFile + drawingFiles == numCurFile));
+        DrawLongString(x, y, nameFile, !FM_CURSOR_IN_DIRS && (numFirstFile + drawingFiles == numCurFile));
         while (drawingFiles < (RECS_ON_PAGE - 1) && FDrive_GetNextNameFile(nameFile, &sfrd))
         {
             drawingFiles++;
-            DrawLongString(x, y + drawingFiles * 9, nameFile, gBF.cursorInDirs == 0 && (numFirstFile + drawingFiles == numCurFile));
+            DrawLongString(x, y + drawingFiles * 9, nameFile, !FM_CURSOR_IN_DIRS && (numFirstFile + drawingFiles == numCurFile));
         }
     }
 }
@@ -143,7 +151,7 @@ static void DrawNameCurrentDir(int left, int top)
 //----------------------------------------------------------------------------------------------------------------------------------------------------
 void FM_Draw(void)
 {
-    if (gBF.needRedrawFileManager == 0)
+    if (!FM_NEED_REDRAW)
     {
         return;
     }
@@ -156,7 +164,7 @@ void FM_Draw(void)
     int width = 297;
     int left2col = width / 2;
 
-    if (gBF.needRedrawFileManager == 1)
+    if (FM_NEED_REDRAW == FM_REDRAW_FULL)
     {
         Painter_BeginScene(gColorBack);
         Menu_Draw();
@@ -168,27 +176,27 @@ void FM_Draw(void)
         Painter_DrawHLine(top + 15, 0, width);
     }
 
-    if (gBF.needRedrawFileManager != 3)
+    if (FM_NEED_REDRAW != FM_REDRAW_FILES)
     {
         DrawDirs(left + 2, top + 18);
     }
 
-    if (gBF.needRedrawFileManager != 2)
+    if (FM_NEED_REDRAW != FM_REDRAW_FOLDERS)
     {
         DrawFiles(left2col + 3, top + 18);
     }
 
     Painter_EndScene();
 
-    gBF.needRedrawFileManager = 0;
+    FM_NEED_REDRAW = 0;
 
     FSMC_SetMode(mode);
 }
 
 void PressSB_FM_LevelDown(void)
 {
-    gBF.needRedrawFileManager = 1;
-    if (gBF.cursorInDirs == 0)
+    FM_NEED_REDRAW = FM_REDRAW_FULL;
+    if (!FM_CURSOR_IN_DIRS)
     {
         return;
     }
@@ -211,7 +219,7 @@ void PressSB_FM_LevelDown(void)
 //----------------------------------------------------------------------------------------------------------------------------------------------------
 void PressSB_FM_LevelUp(void)
 {
-    gBF.needRedrawFileManager = 1;
+    FM_NEED_REDRAW = FM_REDRAW_FULL;
     if (strlen(currentDir) == 1)
     {
         return;
@@ -223,7 +231,7 @@ void PressSB_FM_LevelUp(void)
     }
     *pointer = '\0';
     numFirstDir = numFirstFile = numCurDir = numCurFile = 0;
-    gBF.cursorInDirs = 1;
+    FM_CURSOR_IN_DIRS = 1;
 }
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
@@ -302,15 +310,15 @@ static void DecCurrentFile(void)
 void FM_RotateRegSet(int angle)
 {
     Sound_RegulatorSwitchRotate();
-    if (gBF.cursorInDirs == 1)
+    if (FM_CURSOR_IN_DIRS)
     {
         angle > 0 ? DecCurrentDir() : IncCurrentDir();
-        gBF.needRedrawFileManager = 2;
+        FM_NEED_REDRAW = FM_REDRAW_FOLDERS;
     }
     else
     {
         angle > 0 ? DecCurrentFile() : IncCurrentFile();
-        gBF.needRedrawFileManager = 3;
+        FM_NEED_REDRAW = FM_REDRAW_FILES;
     }
 }
 
@@ -392,20 +400,20 @@ bool FM_GetNameForNewFile(char name[255])
 //----------------------------------------------------------------------------------------------------------------------------------------------------
 void PressSB_FM_Tab(void)
 {
-    gBF.needRedrawFileManager = 1;
+    FM_NEED_REDRAW = FM_REDRAW_FOLDERS;
 
-    if (gBF.cursorInDirs == 1)
+    if (FM_CURSOR_IN_DIRS)
     {
         if (numFiles != 0)
         {
-            gBF.cursorInDirs = 0;
+            FM_CURSOR_IN_DIRS = 0;
         }
     }
     else
     {
         if (numDirs != 0)
         {
-            gBF.cursorInDirs = 1;
+            FM_CURSOR_IN_DIRS = 1;
         }
     }
 }

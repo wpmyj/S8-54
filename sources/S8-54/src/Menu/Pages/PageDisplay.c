@@ -287,7 +287,7 @@ static const Choice cMinMax =
         {"64",  "64"},
         {"128", "128"}
     },
-    (int8 *)&set.disp_ENumMinMax, OnChanged_MinMax
+    (int8 *)&ENUM_MIN_MAX, OnChanged_MinMax
 };
 
 static bool IsActive_MinMax(void)
@@ -399,19 +399,19 @@ static const Governor gGrid_Brightness =
         "Устанавливает яркость сетки.",
         "Adjust the brightness of the grid."
     },
-    &set.disp_BrightnessGrid, 0, 100, OnChanged_Grid_Brightness, BeforeDraw_Grid_Brightness
+    &BRIGHTNESS_GRID, 0, 100, OnChanged_Grid_Brightness, BeforeDraw_Grid_Brightness
 };
 
 void OnChanged_Grid_Brightness(void)
 {
-    Color_SetBrightness(&colorTypeGrid, set.disp_BrightnessGrid / 1e2f);
+    Color_SetBrightness(&colorTypeGrid, BRIGHTNESS_GRID / 1e2f);
 }
 
 
 static void BeforeDraw_Grid_Brightness(void)
 {
     Color_Init(&colorTypeGrid, false);
-    set.disp_BrightnessGrid = (int16)(colorTypeGrid.brightness * 100.0f);
+    BRIGHTNESS_GRID = (int16)(colorTypeGrid.brightness * 100.0f);
 }
 
 // ДИСПЛЕЙ - Смещение --------------------------------------------------------------------------------------------------------------------------------

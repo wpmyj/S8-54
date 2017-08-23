@@ -88,9 +88,9 @@ void Menu_UpdateInput(void)
 //----------------------------------------------------------------------------------------------------------------------------------------------------
 void Menu_ShortPressureButton(PanelButton button)
 {
-    if (gBF.showHelpHints == 0)
+    if (!HINT_MODE_ENABLE)
     {
-        if (button == B_Memory && gFlashDriveIsConnected && MODE_BTN_MEMORY_SAVE)
+        if (button == B_Memory && FDRIVE_IS_CONNECTED && MODE_BTN_MEMORY_SAVE)
         {
             NEED_SAVE_TO_FLASHDRIVE = 1;
         }
@@ -102,7 +102,7 @@ void Menu_ShortPressureButton(PanelButton button)
 //----------------------------------------------------------------------------------------------------------------------------------------------------
 void Menu_LongPressureButton(PanelButton button)
 {
-    if (gBF.showHelpHints == 0)
+    if (!HINT_MODE_ENABLE)
     {
         longPressureButton = button;
         NEED_FINISH_DRAW = 1;
@@ -244,7 +244,7 @@ static void ProcessButtonForHint(PanelButton button)
 void Menu_PressButton(PanelButton button)
 {
     Sound_ButtonPress();
-    if (gBF.showHelpHints)
+    if (HINT_MODE_ENABLE)
     {
         ProcessButtonForHint(button);
         return;
@@ -260,7 +260,7 @@ void Menu_PressButton(PanelButton button)
       
         if (memcmp(bufferForButtons, sampleBufferForButtons, SIZE_BUFFER_FOR_BUTTONS) == 0) //-V512
         {
-            gBF.showDebugMenu = 1;
+            SHOW_DEBUG_MENU = 1;
             Display_ShowWarning(MenuDebugEnabled);
         }
     }
@@ -271,7 +271,7 @@ void Menu_PressButton(PanelButton button)
 void Menu_ReleaseButton(PanelButton button)
 {
     Sound_ButtonRelease();
-    if (gBF.showHelpHints == 0)
+    if (!HINT_MODE_ENABLE)
     {
         releaseButton = button;
     }
@@ -280,7 +280,7 @@ void Menu_ReleaseButton(PanelButton button)
 //---------------------------------------------------------------------------------------------------------------------------------------------------
 void Menu_PressReg(PanelRegulator reg)
 {
-    if (gBF.showHelpHints == 0)
+    if (!HINT_MODE_ENABLE)
     {
         pressRegulator = reg;
     }
@@ -289,7 +289,7 @@ void Menu_PressReg(PanelRegulator reg)
 //----------------------------------------------------------------------------------------------------------------------------------------------------
 void Menu_RotateRegSetRight(void)
 {   
-    if (gBF.showHelpHints == 0)
+    if (!HINT_MODE_ENABLE)
     {
         angleRegSet++;
         NEED_FINISH_DRAW = 1;
@@ -299,7 +299,7 @@ void Menu_RotateRegSetRight(void)
 //----------------------------------------------------------------------------------------------------------------------------------------------------
 void Menu_RotateRegSetLeft(void)
 {
-    if (gBF.showHelpHints == 0)
+    if (!HINT_MODE_ENABLE)
     {
         angleRegSet--;
         NEED_FINISH_DRAW = 1;
@@ -370,7 +370,7 @@ static void ProcessingShortPressureButton(void)
 {
     if(shortPressureButton != B_Empty)
     {
-        if (shortPressureButton == B_Memory && MODE_BTN_MEMORY_SAVE && gFlashDriveIsConnected)
+        if (shortPressureButton == B_Memory && MODE_BTN_MEMORY_SAVE && FDRIVE_IS_CONNECTED)
         {
             EXIT_FROM_SETNAME_TO = MENU_IS_SHOWN ? RETURN_TO_MAIN_MENU : RETURN_TO_DISABLE_MENU;
             Memory_SaveSignalToFlashDrive();
@@ -403,7 +403,7 @@ static void ProcessingShortPressureButton(void)
             else if (MENU_IS_SHOWN && IsFunctionalButton(button))       // Если меню показано и нажата функциональная клавиша
             {
                 void *item = ItemUnderButton(button);
-                if (gBF.showHelpHints)
+                if (HINT_MODE_ENABLE)
                 {
                     SetItemForHint(item);
                 }
@@ -613,7 +613,7 @@ void Menu_TemporaryEnableStrNavi(void)
 {
     if (SHOW_STRING_NAVI_TEMP)
     {
-        gBF.temporaryShowStrNavi = 1;                                           // Устанавливаем признак того, что надо выводить строку навигации меню
+        SHOW_STRING_NAVIGATION = 1;                                            // Устанавливаем признак того, что надо выводить строку навигации меню
         Timer_SetAndStartOnce(kStrNaviAutoHide, OnTimerStrNaviAutoHide, 3000); // и запускаем таймер, который его отключит
     }
 }
@@ -621,7 +621,7 @@ void Menu_TemporaryEnableStrNavi(void)
 //---------------------------------------------------------------------------------------------------------------------------------------------------
 static void OnTimerStrNaviAutoHide(void)
 {
-    gBF.temporaryShowStrNavi = 0;
+    SHOW_STRING_NAVIGATION = 0;
 }
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
@@ -832,7 +832,7 @@ pFuncVpV FuncForLongPressureOnItem(void *item)
 //----------------------------------------------------------------------------------------------------------------------------------------------------
 void ChangeStateFlashDrive(void)
 {
-    if(!gFlashDriveIsConnected)
+    if(!FDRIVE_IS_CONNECTED)
     {
         if(GetNameOpenedPage() == PageSB_Memory_Drive_Manager)
         {

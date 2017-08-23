@@ -118,7 +118,7 @@ int BottomMessages(void)
     }
     else if (SHOW_MEASURES)
     {
-        retValue = gBF.topMeasures;
+        retValue = TOP_MEASURES;
     }
     return retValue - 12;;
 }

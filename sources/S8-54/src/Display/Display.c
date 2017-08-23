@@ -27,6 +27,13 @@
 
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+#define NEED_SET_ORIENTATION    (bf.needSetOrientation)
+
+static struct BitFieldDisplay
+{
+    uint needSetOrientation : 1;
+} bf = {0};
+
 typedef struct
 {
     Warning      warning;
@@ -436,7 +443,7 @@ void Display_SetPauseForConsole(bool pause)
 void Display_SetOrientation(DisplayOrientation orientation)
 {
     DISPLAY_ORIENTATION = orientation;
-    gBF.needSetOrientation = 1;
+    NEED_SET_ORIENTATION = 1;
 }
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
@@ -491,12 +498,12 @@ static bool NeedForClearScreen(void)
 //----------------------------------------------------------------------------------------------------------------------------------------------------
 static void SetOrientation(void)
 {
-    if(gBF.needSetOrientation == 1)
+    if(NEED_SET_ORIENTATION)
     {
         uint8 command[4] ={SET_ORIENTATION, DISPLAY_ORIENTATION, 0, 0};
         Painter_SendToDisplay(command, 4);
         Painter_SendToInterfaces(command, 2);
-        gBF.needSetOrientation = 0;
+        NEED_SET_ORIENTATION = 0;
     }
 }
 
@@ -750,13 +757,13 @@ static void DrawLowPart(void)
     Painter_SetFont(TypeFont_UGO2);
 
     // Флешка
-    if(gFlashDriveIsConnected)
+    if(FDRIVE_IS_CONNECTED)
     {
         Painter_Draw4SymbolsInRect(x + 57, GRID_BOTTOM + 2, SYMBOL_FLASH_DRIVE);
     }
 
     // Ethernet
-    if((gEthIsConnected || gBF.cableEthIsConnected) && gTimeMS > 2000)
+    if((gEthIsConnected || CABLE_LAN_IS_CONNECTED) && gTimeMS > 2000)
     {
         Painter_Draw4SymbolsInRectC(x + 87, GRID_BOTTOM + 2, SYMBOL_ETHERNET, gEthIsConnected ? COLOR_WHITE : COLOR_FLASH_01);
     }
@@ -857,13 +864,12 @@ static void DrawCursorTrigLevel(void)
 //----------------------------------------------------------------------------------------------------------------------------------------------------
 static void DrawMeasures(void)
 {
+    TOP_MEASURES = GRID_BOTTOM;
+
     if(!SHOW_MEASURES)
     {
-        gBF.topMeasures = GRID_BOTTOM;
         return;
     }
-
-    gBF.topMeasures = GRID_BOTTOM;
 
     Processing_CalculateMeasures();
 
@@ -899,7 +905,7 @@ static void DrawMeasures(void)
             {
                 Painter_FillRegionC(x, y, dX, dY, gColorBack);
                 Painter_DrawRectangleC(x, y, dX, dY, gColorFill);
-                gBF.topMeasures = Math_MinInt(gBF.topMeasures, y);
+                TOP_MEASURES = Math_MinInt(TOP_MEASURES, y);
             }
             if(active)
             {
@@ -943,7 +949,7 @@ static void DrawMeasures(void)
 //----------------------------------------------------------------------------------------------------------------------------------------------------
 static void DrawStringNavigation(void)
 {
-    if((gBF.temporaryShowStrNavi || SHOW_STRING_NAVI_ALL) && (MENU_IS_SHOWN || (TypeOpenedItem()) != Item_Page))
+    if((SHOW_STRING_NAVIGATION || SHOW_STRING_NAVI_ALL) && (MENU_IS_SHOWN || (TypeOpenedItem()) != Item_Page))
     {
         char buffer[100];
         char *string = Menu_StringNavigation(buffer);

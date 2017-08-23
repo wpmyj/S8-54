@@ -80,7 +80,7 @@ void Ethernet_Update(uint timeMS)
 
     do 
     {
-        gBF.cableEthIsConnected = gTimeMS - gEthTimeLastEthifInput <= 1500;
+        CABLE_LAN_IS_CONNECTED = gTimeMS - gEthTimeLastEthifInput <= 1500;
 
         ethernetif_input(&gnetif);
         sys_check_timeouts();

@@ -33,6 +33,8 @@ void FDrive_Update(void);
 
 void FDrive_Mount(void);
 
+bool FDrive_IsConnected(void);
+
 void FDrive_GetNumDirsAndFiles(const char *fullPath, int *numDirs, int *numFiles);
 
 bool FDrive_GetNameDir(const char *fuulPath, int numDir, char *nameDirOut, StructForReadDir *sfrd);
@@ -53,8 +55,7 @@ bool FDrive_CloseFile(StructForWrite *structForWrite);
 
 bool FDrive_AppendStringToFile(const char *string);
 
-
-extern bool gFlashDriveIsConnected;
+#define FDRIVE_IS_CONNECTED (FDrive_IsConnected())
 
 /** @}
  */

@@ -994,7 +994,7 @@ void FPGA_AutoFind(void)
 
     FREE_EXTRAMEM();
 
-    NEED_AUTO_FIND = 0;
+    FPGA_NEED_AUTO_FIND = 0;
 
     FPGA_Start();
 }

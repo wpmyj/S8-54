@@ -120,7 +120,7 @@ void Menu_Draw(void)
         }
     }
 
-    if (gBF.showHelpHints)
+    if (HINT_MODE_ENABLE)
     {
         int x = 1;
         int y = 0;
