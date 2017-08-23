@@ -871,12 +871,12 @@ void FPGA_Update(void)
         FPGA_ProcedureCalibration();            // выполняем её.
         gStateFPGA.needCalibration = false;
     }
-    if (gBF.FPGAtemporaryPause == 1)
+    if (FPGA_IN_PAUSE)
     {
         return;
     }
 
-	if(NEED_AUTO_FIND)
+	if(FPGA_NEED_AUTO_FIND)
     {
 		FPGA_AutoFind();
 		return;
@@ -981,13 +981,13 @@ void FPGA_SetNumberMeasuresForGates(int number)
 //----------------------------------------------------------------------------------------------------------------------------------------------------
 void StopTemporaryPause(void)
 {
-    gBF.FPGAtemporaryPause = 0;
+    FPGA_IN_PAUSE = 0;
 }
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
 void FPGA_TemporaryPause(void)
 {
-    gBF.FPGAtemporaryPause = 1;
+    FPGA_IN_PAUSE = 1;
     Timer_SetAndStartOnce(kTemporaryPauseFPGA, StopTemporaryPause, 100);
 }
 

@@ -33,9 +33,9 @@ extern DMA_HandleTypeDef handleDMA_RAM;
 extern ADC_HandleTypeDef handleADC;
 extern DAC_HandleTypeDef handleDAC;
 
-#define NEED_AUTO_FIND      (gBF.FPGAneedAutoFind)
+#define FPGA_NEED_AUTO_FIND (gBF.FPGAneedAutoFind)
 #define NEED_DISABLE_POWER  (gBF.disablePower)
-#define RECORD_TO_RAM
+#define FPGA_IN_PAUSE       (gBF.FPGAtemporaryPause)
 
 #define NUM_DRAWING_SIGNALS (gBF.numDrawingSignals)
 #define HINT_MODE_ENABLE    (gBF.showHelpHints)  ///< В этом при нажатии на кнопки вместо выполнения её функции выводится информация о её назначении
@@ -73,8 +73,6 @@ typedef struct
     uint consoleInPause             : 1;    ///< Если 1, то консоль находится в режиме паузы.
     uint needStopAfterReadFrameP2P  : 1;    ///< Если 1, то после считывания очередного фрейма нужно остановить вывод на экран.
     uint needFinishDraw             : 1;    ///< Если 1, то нужно немедленно завершить отрисовку и вывести на экран то, что уже нарисовано.
-    uint numPointsP2P               : 32;   ///< \brief Здесь хранится число считанных точек в поточечном режиме. Оно может быть больше, чем число 
-                                            ///         точек на канал
 } BitField;
 
 extern volatile BitField gBF;   ///< @brief Структура сделана volatile, потому что иначе при вклюённой оптимизации зависает во время выключения. 

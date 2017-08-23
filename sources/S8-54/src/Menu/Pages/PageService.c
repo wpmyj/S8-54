@@ -199,7 +199,7 @@ static const Button bAutoSearch =
 
 static void OnPress_AutoSearch(void)
 {
-    NEED_AUTO_FIND = 1;
+    FPGA_NEED_AUTO_FIND = 1;
 };
 
 
