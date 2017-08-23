@@ -543,7 +543,7 @@ static void ReadChannel(uint8 *data, Channel ch, int length, uint16 nStop, bool 
         endP -= 8;                          // Это нужно, чтбы не выйти за границу буфера - ведь мы сдвигаем данные на один байт
     }
 
-    while (p < endP && gBF.FPGAinProcessingOfRead == 1)
+    while (p < endP && FPGA_IN_PROCESS_OF_READ)
     {
         *p++ = READ_DATA_ADC_16(address, ch);
         *p++ = READ_DATA_ADC_16(address, ch);
@@ -593,7 +593,7 @@ uint16 ReadNStop(void)
 //----------------------------------------------------------------------------------------------------------------------------------------------------
 static void ReadRealMode(uint8 *dataA, uint8 *dataB)
 {
-    gBF.FPGAinProcessingOfRead = 1;
+    FPGA_IN_PROCESS_OF_READ = 1;
 
     uint16 nStop = ReadNStop();
 
@@ -616,7 +616,7 @@ static void ReadRealMode(uint8 *dataA, uint8 *dataB)
     RAM_MemCpy16(dataA, RAM(FPGA_DATA_A), FPGA_MAX_POINTS);
     RAM_MemCpy16(dataB, RAM(FPGA_DATA_B), FPGA_MAX_POINTS);
 
-    gBF.FPGAinProcessingOfRead = 0;
+    FPGA_IN_PROCESS_OF_READ = 0;
 }
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
@@ -645,7 +645,7 @@ static void DataReadSave(bool first, bool saveToStorage, bool onlySave)
 {
     // В этой функции испльзуем память, предназначенную для хранения выходного сигнала, в качестве временного буфера.
 
-    gBF.FPGAinProcessingOfRead = 1;
+    FPGA_IN_PROCESS_OF_READ = 1;
     if (IN_RANDOM_MODE)
     {
         ReadRandomizeModeSave(first, saveToStorage, onlySave);
@@ -682,7 +682,7 @@ static void DataReadSave(bool first, bool saveToStorage, bool onlySave)
         FPGA_FindAndSetTrigLevel();
     }
 
-    gBF.FPGAinProcessingOfRead = 0;
+    FPGA_IN_PROCESS_OF_READ = 0;
 }
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
@@ -1036,10 +1036,10 @@ void FPGA_Write(TypeRecord type, uint16 *address, uint data, bool restart)
     gBF.FPGAfirstAfterWrite = 1;
     if (restart)
     {
-        if (gBF.FPGAinProcessingOfRead == 1)
+        if (FPGA_IN_PROCESS_OF_READ)
         {
             FPGA_Stop(true);
-            gBF.FPGAinProcessingOfRead = 0;
+            FPGA_IN_PROCESS_OF_READ = 0;
             Write(type, address, data);
             FPGA_Start();
         }

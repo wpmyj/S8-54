@@ -183,7 +183,7 @@ void LoadTShift(void)
 
     gPost = ~(gPost + 1);                   // Здесь просто для записи в железо дополняем
 
-    if(gBF.FPGAinProcessingOfRead == 0)
+    if(!FPGA_IN_PROCESS_OF_READ)
     {
         if (SET_TBASE > 8)
         {

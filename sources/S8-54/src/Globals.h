@@ -33,12 +33,14 @@ extern DMA_HandleTypeDef handleDMA_RAM;
 extern ADC_HandleTypeDef handleADC;
 extern DAC_HandleTypeDef handleDAC;
 
-#define FPGA_NEED_AUTO_FIND (gBF.FPGAneedAutoFind)
-#define NEED_DISABLE_POWER  (gBF.disablePower)
-#define FPGA_IN_PAUSE       (gBF.FPGAtemporaryPause)
+#define NEED_DISABLE_POWER      (gBF.disablePower)
+#define FPGA_NEED_AUTO_FIND     (gBF.FPGAneedAutoFind)
+#define FPGA_IN_PAUSE           (gBF.FPGAtemporaryPause)
+#define FPGA_IN_PROCESS_OF_READ (gBF.FPGAinProcessingOfRead)
 
-#define NUM_DRAWING_SIGNALS (gBF.numDrawingSignals)
-#define HINT_MODE_ENABLE    (gBF.showHelpHints)  ///< В этом при нажатии на кнопки вместо выполнения её функции выводится информация о её назначении
+#define NUM_DRAWING_SIGNALS     (gBF.numDrawingSignals)
+/// В этом при нажатии на кнопки вместо выполнения её функции выводится информация о её назначении
+#define HINT_MODE_ENABLE        (gBF.showHelpHints)
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 typedef struct
