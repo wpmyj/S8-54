@@ -35,7 +35,7 @@ extern DAC_HandleTypeDef handleDAC;
 
 #define NEED_DISABLE_POWER      (gBF.disablePower)
 #define FPGA_NEED_AUTO_FIND     (gBF.FPGAneedAutoFind)
-#define FPGA_IN_PAUSE           (gBF.FPGAtemporaryPause)
+
 #define FPGA_IN_PROCESS_OF_READ (gBF.FPGAinProcessingOfRead)
 #define FPGA_CAN_READ_DATA      (gBF.FPGAcanReadData)
 #define FPGA_FIRST_AFTER_WRITE  (gBF.FPGAfirstAfterWrite)
@@ -56,7 +56,6 @@ typedef struct
     uint numDrawingSignals          : 9;    ///< \brief  оличество нарисованных сигналов. »спользуетс€ дл€ того, чтобы определить, нужно ли стирать 
                                             ///<        дисплей в режиме накоплени€
     uint FPGAneedAutoFind           : 1;    ///< ≈сли 1, то нужно найти сигнал.
-    uint FPGAtemporaryPause         : 1;
     uint FPGAinProcessingOfRead     : 1;
     uint FPGAcanReadData            : 1;
     uint FPGAfirstAfterWrite        : 1;    ///< \brief »спользуетс€ в режиме рандомизатора. ѕосле записи любого параметра в альтеру нужно не 
