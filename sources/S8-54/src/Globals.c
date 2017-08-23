@@ -67,7 +67,6 @@ volatile BitField gBF =
     // FPGA
     0,  // FPGAneedAutoFind
     0,  // FPGAinProcessingOfRead
-    0,  // FPGAfirstAfterWrite
 
     // Flash drive
     1,  // cursorInDirs

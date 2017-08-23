@@ -32,12 +32,16 @@
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 #define FPGA_IN_PAUSE           (bf.pause)
 #define FPGA_CAN_READ_DATA      (bf.canRead)
+#define FPGA_FIRST_AFTER_WRITE  (bf.firstAfterWrite)
+
 
 static struct BitFieldFPGA
 {
-    uint pause   : 1;
-    uint canRead : 1;
-} bf = {0, 1};
+    uint pause           : 1;
+    uint canRead         : 1;
+    uint firstAfterWrite : 1;   ///< \brief Используется в режиме рандомизатора. После записи любого параметра в альтеру нужно не 
+                                ///<        использовать первое считанное данное с АЦП, потому что оно завышено и портит ворота.
+} bf = {0, 1, 0};
 
 
 #define NULL_TSHIFT 1000000
