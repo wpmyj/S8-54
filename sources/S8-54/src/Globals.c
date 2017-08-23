@@ -73,7 +73,6 @@ volatile BitField gBF =
     0,  // временный показ строки меню навигации
     0,  // cableEthIsConnected
     0,  // panelControlReceive
-    0,  // needToMountFlash
     0   // consoleInPause
 };
 

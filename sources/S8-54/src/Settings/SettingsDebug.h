@@ -13,7 +13,6 @@
 #define CONSOLE_SIZE_FONT       (set.dbg_SizeFont ? 8 : 5)
 /// Если truе, то включён режим остновки консоли, в котором нажатие ПУСК/СТОП приостанавливает вывод в консоль.
 #define MODE_PAUSE_CONSOLE      (set.dbg_ModePauseConsole)
-#define CONSOLE_IN_PAUSE        (gBF.consoleInPause)                                ///< Если 1, то консоль находится в режиме паузы.
 #define NUM_MEASURES_FOR_GATES  (set.dbg_NumMeasuresForGates)
 #define TIME_COMPENSATION       (set.dbg_TimeCompensation)
 #define SHOW_RAND_INFO          (set.dbg_ShowRandInfo)

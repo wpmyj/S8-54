@@ -48,6 +48,9 @@ extern DAC_HandleTypeDef handleDAC;
 #define SHOW_DEBUG_MENU         (gBF.showDebugMenu)
 #define TOP_MEASURES            (gBF.topMeasures)
 #define SHOW_STRING_NAVIGATION  (gBF.temporaryShowStrNavi)
+#define NEED_FINISH_DRAW        (gBF.needFinishDraw)
+#define CONSOLE_IN_PAUSE        (gBF.consoleInPause)     ///< ≈сли 1, то консоль находитс€ в режиме паузы.
+
 
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -69,7 +72,6 @@ typedef struct
     uint temporaryShowStrNavi       : 1;    ///< ѕризнак того, что нужно временно показывать строку навигации меню.
     uint cableEthIsConnected        : 1;    ///< 1, если подключЄн кабель LAN.
     uint panelControlReceive        : 1;    ///< ≈сли 1, то панель прислала команду.
-    uint needToMountFlash           : 1;    ///< ”становленное в 1 значение означает, что подсоединена флешка. Ќадо еЄ монтировать.
     uint consoleInPause             : 1;    ///< ≈сли 1, то консоль находитс€ в режиме паузы.
     uint needFinishDraw             : 1;    ///< ≈сли 1, то нужно немедленно завершить отрисовку и вывести на экран то, что уже нарисовано.
 } BitField;
@@ -77,8 +79,6 @@ typedef struct
 extern volatile BitField gBF;   ///< @brief —труктура сделана volatile, потому что иначе при вклюЄнной оптимизации зависает во врем€ выключени€. 
                                 ///< ¬еро€тно, это св€зано с переменной soundIsBeep (перед стиранием сектора в цикле происходит ожидание, когда эта 
                                 ///< переменна€ изменит своЄ состо€ние (каковое изменение происходит из прерывани€, €сен перец)).
-
-#define NEED_FINISH_DRAW        (gBF.needFinishDraw)
 
 #define NUM_RAM_SIGNAL          (gMemory.currentNumRAMSignal)
 #define NUM_ROM_SIGNAL          (gMemory.currentNumROMSignal)
