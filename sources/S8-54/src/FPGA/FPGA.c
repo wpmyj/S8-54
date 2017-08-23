@@ -781,7 +781,7 @@ bool ProcessingData(void)
             break;
         }
 
-        if (gBF.panelControlReceive && IN_RANDOM_MODE)
+        if (PANEL_CONTROL_RECEIVE && IN_RANDOM_MODE)
         {
             DataReadSave(false, true, true);
             retValue = true;

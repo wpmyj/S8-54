@@ -50,7 +50,8 @@ extern DAC_HandleTypeDef handleDAC;
 #define SHOW_STRING_NAVIGATION  (gBF.temporaryShowStrNavi)
 #define NEED_FINISH_DRAW        (gBF.needFinishDraw)
 #define CONSOLE_IN_PAUSE        (gBF.consoleInPause)     ///< ≈сли 1, то консоль находитс€ в режиме паузы.
-
+#define PANEL_CONTROL_RECEIVE   (gBF.panelControlReceive)
+#define CABLE_LAN_IS_CONNECTED  (gBF.cableEthIsConnected)
 
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
