@@ -287,7 +287,7 @@ static const Choice cMinMax =
         {"64",  "64"},
         {"128", "128"}
     },
-    (int8 *)&set.disp_ENumMinMax, OnChanged_MinMax
+    (int8 *)&ENUM_MIN_MAX, OnChanged_MinMax
 };
 
 static bool IsActive_MinMax(void)
