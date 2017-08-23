@@ -857,13 +857,12 @@ static void DrawCursorTrigLevel(void)
 //----------------------------------------------------------------------------------------------------------------------------------------------------
 static void DrawMeasures(void)
 {
+    TOP_MEASURES = GRID_BOTTOM;
+
     if(!SHOW_MEASURES)
     {
-        gBF.topMeasures = GRID_BOTTOM;
         return;
     }
-
-    gBF.topMeasures = GRID_BOTTOM;
 
     Processing_CalculateMeasures();
 
@@ -899,7 +898,7 @@ static void DrawMeasures(void)
             {
                 Painter_FillRegionC(x, y, dX, dY, gColorBack);
                 Painter_DrawRectangleC(x, y, dX, dY, gColorFill);
-                gBF.topMeasures = Math_MinInt(gBF.topMeasures, y);
+                TOP_MEASURES = Math_MinInt(TOP_MEASURES, y);
             }
             if(active)
             {
@@ -943,7 +942,7 @@ static void DrawMeasures(void)
 //----------------------------------------------------------------------------------------------------------------------------------------------------
 static void DrawStringNavigation(void)
 {
-    if((gBF.temporaryShowStrNavi || SHOW_STRING_NAVI_ALL) && (MENU_IS_SHOWN || (TypeOpenedItem()) != Item_Page))
+    if((SHOW_STRING_NAVIGATION || SHOW_STRING_NAVI_ALL) && (MENU_IS_SHOWN || (TypeOpenedItem()) != Item_Page))
     {
         char buffer[100];
         char *string = Menu_StringNavigation(buffer);

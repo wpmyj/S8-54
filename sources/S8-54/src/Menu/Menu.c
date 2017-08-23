@@ -613,7 +613,7 @@ void Menu_TemporaryEnableStrNavi(void)
 {
     if (SHOW_STRING_NAVI_TEMP)
     {
-        gBF.temporaryShowStrNavi = 1;                                           // Устанавливаем признак того, что надо выводить строку навигации меню
+        SHOW_STRING_NAVIGATION = 1;                                            // Устанавливаем признак того, что надо выводить строку навигации меню
         Timer_SetAndStartOnce(kStrNaviAutoHide, OnTimerStrNaviAutoHide, 3000); // и запускаем таймер, который его отключит
     }
 }
@@ -621,7 +621,7 @@ void Menu_TemporaryEnableStrNavi(void)
 //---------------------------------------------------------------------------------------------------------------------------------------------------
 static void OnTimerStrNaviAutoHide(void)
 {
-    gBF.temporaryShowStrNavi = 0;
+    SHOW_STRING_NAVIGATION = 0;
 }
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
