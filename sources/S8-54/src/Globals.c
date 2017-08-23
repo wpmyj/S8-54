@@ -69,11 +69,6 @@ volatile BitField gBF =
     1,  // cursorInDirs
     1,  // needRedrawFileManager
 
-
-
-    0,  // alreadyLoadSettings
-
-
     0,  // showHelpHints
 
     0,  // showDebugMenu

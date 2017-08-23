@@ -14,7 +14,15 @@
 #include "Log.h"
 #include <string.h>
 
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+/*
+static struct BitFieldSettings
+{
+} bf = {0};
+*/
 
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 extern void OnChanged_ADC_Stretch_Mode(bool active);
 extern void OnChanged_DisplayOrientation(bool);
 
@@ -273,8 +281,6 @@ void Settings_Load(bool _default)
     OnChanged_ADC_Stretch_Mode(true);
     OnChanged_DisplayOrientation(true);
     Painter_SetBrightnessDisplay(BRIGHTNESS_DISPLAY);
-
-    gBF.alreadyLoadSettings = 1;
 }
 
 
