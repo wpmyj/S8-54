@@ -598,7 +598,7 @@ void FPGA_SetRShift(Channel ch, uint16 rShift)
         Display_ShowWarning(ch == A ? LimitChan1_RShift : LimitChan2_RShift);
     }
 
-    LIMITATION(rShift, rShift, RShiftMin, RShiftMax);
+    LIMITATION(rShift, RShiftMin, RShiftMax);
 
     uint16 oldRShift = SET_RSHIFT(ch);
     SET_RSHIFT(ch) = rShift;
@@ -620,7 +620,7 @@ void FPGA_SetTrigLev(TrigSource ch, uint16 trigLev)
     {
         Display_ShowWarning(LimitSweep_Level);
     }
-    LIMITATION(trigLev, trigLev, TrigLevMin, TrigLevMax);
+    LIMITATION(trigLev, TrigLevMin, TrigLevMax);
 
     Display_RotateTrigLev();
 
@@ -671,7 +671,7 @@ static void SetTShift(int tShift, bool needFPGApause)
 
     if (tShift < sTime_TShiftMin() || tShift > TShiftMax)
     {
-        LIMITATION(tShift, tShift, sTime_TShiftMin(), TShiftMax);
+        LIMITATION(tShift, sTime_TShiftMin(), TShiftMax);
         Display_ShowWarning(LimitSweep_TShift);
     }
 

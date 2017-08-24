@@ -261,7 +261,8 @@ static void DecCurrentDir(void)
         if (numCurDir < 0)
         {
             numCurDir = numDirs - 1;
-            LIMITATION(numFirstDir, numDirs - RECS_ON_PAGE, 0, numCurDir);
+            numFirstDir = numDirs - RECS_ON_PAGE;
+            LIMITATION(numFirstDir, 0, numCurDir);
         }
         if (numCurDir < numFirstDir)
         {
@@ -297,7 +298,8 @@ static void DecCurrentFile(void)
         if (numCurFile < 0)
         {
             numCurFile = numFiles - 1;
-            LIMITATION(numFirstFile, numFiles - RECS_ON_PAGE, 0, numCurFile);
+            numFirstFile = numFiles - RECS_ON_PAGE;;
+            LIMITATION(numFirstFile, 0, numCurFile);
         }
         if (numCurFile < numFirstFile)
         {
@@ -340,7 +342,7 @@ bool FM_GetNameForNewFile(char name[255])
 
     if (FILE_NAMING_MODE_MANUAL)
     {
-        LIMITATION(size, size, 1, 95);
+        LIMITATION(size, 1, 95);
         strcat(name, FILE_NAME);
         strcat(name, ".");
         strcat(name, MODE_SAVE_BMP ? "bmp" : "txt");

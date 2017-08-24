@@ -323,7 +323,7 @@ void DrawItemsPage(Page *page, int layer, int yTop)
     };
     int posFirstItem = PosItemOnTop(page);
     int posLastItem = posFirstItem + MENU_ITEMS_ON_DISPLAY - 1;
-    LIMITATION(posLastItem, posLastItem, 0, NumItemsInPage(page) - 1);
+    LIMITATION(posLastItem, 0, NumItemsInPage(page) - 1);
     int count = 0;
     for(int posItem = posFirstItem; posItem <= posLastItem; posItem++)
     {

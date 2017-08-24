@@ -139,6 +139,7 @@ static bool picIsCalculating[2] = {false, false};
 //#define EXIT_IF_ERRORS_UINT8(x, y)  if((x) == ERROR_VALUE_UINT8 || (y) == ERROR_VALUE_UINT8)                          return ERROR_VALUE_FLOAT;
 #define EXIT_IF_ERROR_INT(x)        if((x) == ERROR_VALUE_INT)                                                          return ERROR_VALUE_FLOAT;
 
+#define PI 3.141592653589793f
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 void Processing_CalculateMeasures(void)
@@ -1073,8 +1074,8 @@ float Processing_GetCursU(Channel ch, float posCurT)
     
     BitSet64 points = sDisplay_PointsOnDisplay();
 
-    float retValue = 0.0f;
-    LIMITATION(retValue, (float)(200 - (CHOICE_BUFFER)[points.word0 + (int)posCurT] + MIN_VALUE), 0.0f, 200.0f);
+    float retValue = (float)(200 - (CHOICE_BUFFER)[points.word0 + (int)posCurT] + MIN_VALUE);
+    LIMITATION(retValue, 0.0f, 200.0f);
     return retValue;
 }
 
@@ -1347,12 +1348,12 @@ static void CountedToCurrentSettings(void)
                     if (dA0)                            // “олько если значение в этой точке есть
                     {
                         dA0 += rShiftA;
-                        LIMITATION(dA0, dA0, 1, 255);
+                        LIMITATION(dA0, 1, 255);
                     }
                     if (dA1)                            // “олько если значение в этой точке есть
                     {
                         dA1 += rShiftA;
-                        LIMITATION(dA1, dA1, 1, 255);
+                        LIMITATION(dA1, 1, 255);
                     }
                 }
                 ((uint16 *)OUT_A)[index] = (uint16)((dA0 | (dA1 << 8)));
@@ -1364,12 +1365,12 @@ static void CountedToCurrentSettings(void)
                     if (dB0)                            // “олько если значение в этой точке есть
                     {
                         dB0 += rShiftB;
-                        LIMITATION(dB0, dB0, 1, 255);
+                        LIMITATION(dB0, 1, 255);
                     }
                     if (dB1)                            // “олько если значение в этой точке есть
                     {
                         dB1 += rShiftB;
-                        LIMITATION(dB1, dB1, 1, 255);
+                        LIMITATION(dB1, 1, 255);
                     }
                 }
                 ((uint16 *)OUT_B)[index] = (uint16)((dB0 | (dB1 << 8)));
@@ -1418,7 +1419,7 @@ static void CountedRange(Channel ch)
         {
             float abs = POINT_2_VOLTAGE(d, rangeIn, rShiftIn);
             d = Math_VoltageToPoint(abs, rangeOut, (uint16)rShiftOut);
-            LIMITATION(d, d, MIN_VALUE, MAX_VALUE);
+            LIMITATION(d, MIN_VALUE, MAX_VALUE);
             out[i] = d;
         }
         else

@@ -209,7 +209,7 @@ static void FillDataP2P(StructDataDrawing *dataStruct, Channel ch)
         dataStruct->posBreak = PEAKDET_DS ? (index / 2) : (index - 1);
     }
 
-    LIMITATION(dataStruct->posBreak, dataStruct->posBreak, 0, 281);
+    LIMITATION(dataStruct->posBreak, 0, 281);
 }
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------

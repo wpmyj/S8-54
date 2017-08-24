@@ -637,7 +637,8 @@ static bool GetHeightTextWithTransfers(int left, int top, int right, const char 
         y += 9;
     }
 
-    LIMITATION(*height, y - top + 4, 0, 239);
+    *height = y - top + 4;
+    LIMITATION(*height, 0, 239);
 
     return curSymbol == numSymbols;
 }

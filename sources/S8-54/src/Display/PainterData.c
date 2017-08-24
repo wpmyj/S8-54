@@ -284,7 +284,7 @@ static void DrawChannel_Normal(Channel ch, int left, int bottom, float scaleY)
             continue;                                   // Если это значение отсутствует - переходим к следующей точке
         }
 
-        LIMITATION(val, val, MIN_VALUE, MAX_VALUE);
+        LIMITATION(val, MIN_VALUE, MAX_VALUE);
 
         int y = k - val * scaleY;                       //int y = bottom - (val - MIN_VALUE) * scaleY;
 
@@ -394,8 +394,8 @@ static bool CalcMinMax(uint8 in[2], uint8 out[2])
         return false;
     }
 
-    LIMITATION(val1, val1, MIN_VALUE, MAX_VALUE);
-    LIMITATION(val2, val2, MIN_VALUE, MAX_VALUE);
+    LIMITATION(val1, MIN_VALUE, MAX_VALUE);
+    LIMITATION(val2, MIN_VALUE, MAX_VALUE);
 
     if(val1 < val2)
     {

@@ -415,11 +415,11 @@ void Painter_SetBrightnessDisplay(int16 brightness)
 uint16 Painter_ReduceBrightness(uint16 colorValue, float newBrightness)
 {
     int red = (int)(R_FROM_COLOR(colorValue) * newBrightness);
-    LIMITATION(red, red, 0, 31);
+    LIMITATION(red, 0, 31);
     int green = (int)(G_FROM_COLOR(colorValue) * newBrightness);
-    LIMITATION(green, green, 0, 63);
+    LIMITATION(green, 0, 63);
     int blue = (int)(B_FROM_COLOR(colorValue) * newBrightness);
-    LIMITATION(blue, blue, 0, 31);
+    LIMITATION(blue, 0, 31);
     return MAKE_COLOR(red, green, blue);
 }
 

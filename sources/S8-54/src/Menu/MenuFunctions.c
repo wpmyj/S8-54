@@ -108,7 +108,7 @@ int HeightOpenedItem(void *item)
     if(type == Item_Page)
     {
         int numItems = NumItemsInPage(item) - NumCurrentSubPage(item) * MENU_ITEMS_ON_DISPLAY;
-        LIMITATION(numItems, numItems, 0, MENU_ITEMS_ON_DISPLAY);
+        LIMITATION(numItems, 0, MENU_ITEMS_ON_DISPLAY);
         return MP_TITLE_HEIGHT + MI_HEIGHT * numItems;
     } 
     else if(type == Item_Choice || type == Item_ChoiceReg)

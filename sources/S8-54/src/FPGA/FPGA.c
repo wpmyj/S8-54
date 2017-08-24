@@ -205,14 +205,16 @@ static bool ReadPoint(void)
         bsA.halfWord = *RD_ADC_A;
         bsB.halfWord = *RD_ADC_B;
 
-        int16 byte0 = 0;
-        LIMITATION(byte0, (int16)bsA.byte0 + balanceA, 0, 255);
-        LIMITATION(bsA.byte0, (uint8)byte0, MIN_VALUE, MAX_VALUE);
-        LIMITATION(bsA.byte1, bsA.byte1, MIN_VALUE, MAX_VALUE);
-        byte0 = 0;
-        LIMITATION(byte0, (int16)bsB.byte0 + balanceB, 0, 255);
-        LIMITATION(bsB.byte0, (uint8)byte0, MIN_VALUE, MAX_VALUE);
-        LIMITATION(bsB.byte1, bsB.byte1, MIN_VALUE, MAX_VALUE);
+        int16 byte0 = (int16)bsA.byte0 + balanceA;
+        LIMITATION(byte0, 0, 255);
+        bsA.byte0 = (uint8)byte0;
+        LIMITATION(bsA.byte0, MIN_VALUE, MAX_VALUE);
+        LIMITATION(bsA.byte1, MIN_VALUE, MAX_VALUE);
+        byte0 = (int16)bsB.byte0 + balanceB;
+        LIMITATION(byte0, 0, 255);
+        bsB.byte0 = (uint8)byte0;
+        LIMITATION(bsB.byte0, MIN_VALUE, MAX_VALUE);
+        LIMITATION(bsB.byte1, MIN_VALUE, MAX_VALUE);
 
         DS_AddPointsP2P(bsA.halfWord, bsB.halfWord);
 
@@ -677,8 +679,8 @@ static void DataReadSave(bool first, bool saveToStorage, bool onlySave)
 
     for (int i = 0; i < numBytes; i++)
     {
-        LIMITATION(OUT_A[i], OUT_A[i], MIN_VALUE, MAX_VALUE); //-V522
-        LIMITATION(OUT_B[i], OUT_B[i], MIN_VALUE, MAX_VALUE); //-V522
+        LIMITATION(OUT_A[i], MIN_VALUE, MAX_VALUE); //-V522
+        LIMITATION(OUT_B[i], MIN_VALUE, MAX_VALUE); //-V522
     }
 
     if (!IN_RANDOM_MODE)

@@ -425,7 +425,7 @@ void CalculateLimits(uint8 *dataA, uint8 *dataB, DataSettings *dss)
     else
     {
         int allDatas = DS_NumElementsWithSameSettings();
-        LIMITATION(allDatas, allDatas, 1, NUM_MIN_MAX);
+        LIMITATION(allDatas, 1, NUM_MIN_MAX);
 
         if(DS_NumElementsWithSameSettings() >= NUM_MIN_MAX)
         {

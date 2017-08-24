@@ -11,35 +11,33 @@
  *  @{
  */
 
-#define SET_IF_LARGER(x, max, newValue) if((x) > (max)) { (x) = (newValue); }
+#define SET_IF_LARGER(x, max, newValue)     if((x) > (max)) { (x) = (newValue); }
 
-#define LIMIT_BELOW(x, min)         if((x) < (min)) { (x) = (min); }
+#define LIMIT_BELOW(x, min)                 if((x) < (min)) { (x) = (min); }
 
-#define LIMIT_ABOVE(x, max)         if((x) > (max)) { (x) = (max); }
+#define LIMIT_ABOVE(x, max)                 if((x) > (max)) { (x) = (max); }
 
-#define SET_MIN_IF_LESS(x, min)     if((x) < (min)) { (min) = (x); }
+#define SET_MIN_IF_LESS(x, min)             if((x) < (min)) { (min) = (x); }
 
-#define SET_MAX_IF_LARGER(x, max)   if((x) > (max)) { (max) = (x); }
+#define SET_MAX_IF_LARGER(x, max)           if((x) > (max)) { (max) = (x); }
 
 #define LIMITATION_ABOVE(var, value, max)   var = (value); if((var) > (max)) { (var) = (max); }
 
-#define LIMITATION(var, value, min, max)    var = (value); if(var < (min)) { (var) = (min); } else if(var > (max)) { var = (max); };
+#define LIMITATION(var, min, max)           if(var < (min)) { (var) = (min); } else if(var > (max)) { var = (max); };
 
-#define MAX_VOLTAGE_ON_SCREEN(range) (tableScalesRange[(range)] * 5)
+#define MAX_VOLTAGE_ON_SCREEN(range)        (tableScalesRange[(range)] * 5)
 
-#define RSHIFT_2_ABS(rShift, range) (-((RShiftZero - ((int)rShift)) * absStepRShift[(range)]))
+#define RSHIFT_2_ABS(rShift, range)         (-((RShiftZero - ((int)rShift)) * absStepRShift[(range)]))
 
 #define POINT_2_VOLTAGE(value, range, rShift) (((value) - MIN_VALUE) * voltsInPoint[(range)] - MAX_VOLTAGE_ON_SCREEN((range)) - RSHIFT_2_ABS((rShift), (range)))
 
-#define TSHIFT_2_ABS(tShift, tBase)  (absStepTShift[(tBase)] * (tShift) * 2.0f)
+#define TSHIFT_2_ABS(tShift, tBase)         (absStepTShift[(tBase)] * (tShift) * 2.0f)
 
-#define TSHIFT_2_REL(tShiftAbs, tBase) ((tShiftAbs) / absStepTShift[(tBase)] / 2.0f)
+#define TSHIFT_2_REL(tShiftAbs, tBase)      ((tShiftAbs) / absStepTShift[(tBase)] / 2.0f)
 
-#define ROUND(x) ((x) += 0.5f, (x))
+#define ROUND(x)                            ((x) += 0.5f, (x))
 
-#define IN_RANGE(x, min, max) ((x) >= (min) && (x) <= (max))
-
-#define PI 3.141592653589793f
+#define IN_RANGE(x, min, max)               ((x) >= (min) && (x) <= (max))
 
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
