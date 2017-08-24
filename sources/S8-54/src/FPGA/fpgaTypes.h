@@ -46,8 +46,6 @@
 /// Столько точек может записать прибор во внутреннюю память за одно измерение
 #define FPGA_MAX_POINTS     16384
 
-#define FPGA_MAX_POINTS_FOR_CALCULATE 900
-
 #define WR_START        ((uint16 *)(ADDR_FPGA + (0x00 << 1)))    ///< Запуск цикла измерения. Для запуска нужно записать 1
 #define WR_RAZV         ((uint16 *)(ADDR_FPGA + (0x01 << 1)))
 #define WR_PRED         ((uint16 *)(ADDR_FPGA + (0x02 << 1)))
