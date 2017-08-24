@@ -112,13 +112,6 @@ int NumBytesInChannel_(DataSettings *ds, bool forCalculate);
 // Возвращает 0, если канал выключен
 uint8 *AddressChannel(DataSettings *ds, Channel ch);
 
-typedef enum
-{
-    StateOSCI_Start,
-    StateOSCI_DrawLoPart        // Пишем надписи в нижней части экрана
-} StateOSCI;
-
-extern StateOSCI gState;    // Для описания текущего состояния прибора - например, сбор данных, вывод на дисплей текущего сигнала или из памяти
 
 #define NUM_DATAS 999
 extern DataSettings gDatas[NUM_DATAS];                  // Используется только в DataStorage

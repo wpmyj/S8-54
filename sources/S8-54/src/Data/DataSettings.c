@@ -9,7 +9,13 @@ DataSettings gDatas[NUM_DATAS];
 uint8 gDataAve[NumChannels][FPGA_MAX_POINTS];
 int gAddNStop = 0;
 void *extraMEM = 0;
-StateOSCI gState = StateOSCI_Start;
+
+enum StateOSCI
+{
+    StateOSCI_Start,
+    StateOSCI_DrawLoPart        // Пишем надписи в нижней части экрана
+} gState = StateOSCI_Start;
+
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 int NumBytesInChannel_(DataSettings *ds, bool forCalculate)
