@@ -1,6 +1,7 @@
 // This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++ and C#: http://www.viva64.com
 #include "Log.h"
+#include "Data/DataBuffer.h"
 #include "Display/Grid.h"
 #include "Display/Symbols.h"
 #include "FlashDrive/FlashDrive.h"

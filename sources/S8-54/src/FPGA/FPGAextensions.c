@@ -2,6 +2,7 @@
 // PVS-Studio Static Code Analyzer for C, C++ and C#: http://www.viva64.com
 #include "FPGAExtensions.h"
 #include "Log.h"
+#include "Data/DataBuffer.h"
 #include "Data/DataStorage.h"
 #include "Display/DisplayPrimitives.h"
 #include "Display/PainterC.h"

@@ -101,6 +101,8 @@ static const TBaseMaskStruct masksTBase[TBaseSize] =
 
 uint16 gPost = 1024;
 int16 gPred = 1024;
+int gAddNStop = 0;
+
 
 static void LoadTrigLev(void);
 /// \todo временный костыль. ѕри изменении tShift нужно временно останавливать альтеру, а при изменении развЄртки не нужно

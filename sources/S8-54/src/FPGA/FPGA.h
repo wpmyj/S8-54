@@ -16,6 +16,7 @@
 extern uint16 gPost;
 extern int16 gPred;
 extern StateWorkFPGA fpgaStateWork;
+extern int gAddNStop;
 
 
 /// Если true, то находимся в ждущем режиме рандомизатора и нужно выводить статический сигнал

@@ -12,6 +12,7 @@
  *  @{
  */
 
+
 typedef struct
 {
     uint timeMS     : 32;   // Время в миллисекундах от старта системы. Т.к. структура заполняется во время сохранения данных в хранилище, то timeMS == 0 означает, что полный сигнал в режиме поточеного вывода ещё не считан
@@ -43,6 +44,9 @@ typedef struct
     uint        enumPoints      : 3;
     PackedTime  time;
 } DataSettings;
+
+int BytesInChannel(DataSettings *ds);
+void DataSettings_Fill(DataSettings *ds);
 
 #define RSHIFT(ds, ch)          ((ds)->rShift[ch])
 #define RSHIFT_A(ds)            (RSHIFT(ds, A))
@@ -102,15 +106,6 @@ typedef struct
 
 #define ENUM_POINTS(ds)         ((ds)->enumPoints)
 #define ENUM_BYTES(ds)          (ENUM_POINTS(ds) + ((PEAKDET(ds) ? 1 : 0)))
-
-int BytesInChannel(DataSettings *ds);
-
-extern int gAddNStop;
-extern void *extraMEM;      // Это специальный указатель. Используется для выделения памяти переменным, которые не нужны всё время выполения программы,
-                            // но нужны болеее чем в одной функции. Перед использованием с помощью вызова malloc() выделяется необходимое количество
-                            // памяти, которая затем освобождается вызвом free()
-
-void DataSettings_Fill(DataSettings *ds);
 
 
 /** @}  @}
