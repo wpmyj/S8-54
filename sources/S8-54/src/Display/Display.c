@@ -722,9 +722,9 @@ static void DrawLowPart(void)
 
     if(MODE_WORK_DIR)
     {
-        WriteStringAndNumber("накопл", (int16)x, (int16)y0, NUM_ACCUM);
-        WriteStringAndNumber("усредн", (int16)x, (int16)y1, NUM_AVE);
-        WriteStringAndNumber("мн\x93мкс", (int16)x, (int16)y2, NUM_MIN_MAX);
+        WriteStringAndNumber(LANG_RU ? "накопл" : "accum", (int16)x, (int16)y0, NUM_ACCUM);
+        WriteStringAndNumber(LANG_RU ? "усредн" : "ave", (int16)x, (int16)y1, NUM_AVE);
+        WriteStringAndNumber(LANG_RU ? "мн\x93мкс" : "mn\x93max", (int16)x, (int16)y2, NUM_MIN_MAX);
     }
 
     x += 42;

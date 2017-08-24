@@ -52,7 +52,7 @@
 #define WR_POST         ((uint16 *)(ADDR_FPGA + (0x03 << 1)))
 #define WR_TRIG         ((uint16 *)(ADDR_FPGA + (0x04 << 1)))
 #define WR_UPR          ((uint16 *)(ADDR_FPGA + (0x05 << 1)))
-#define UPR_BIT_PEAKDET            1   ///< пиковый детектор - 0/1 выкл/вкл
+#define UPR_BIT_PEAKDET            1    ///< пиковый детектор - 0/1 выкл/вкл
 #define UPR_BIT_CALIBRATOR_AC_DC    2   ///< постоянное/переменное
 #define UPR_BIT_CALIBRATOR_VOLTAGE  3   ///< 0/4В
 #define UPR_BIT_RECORDER            4   ///< 0 - обычный режим, 1 - регистратор
