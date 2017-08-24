@@ -122,12 +122,6 @@ extern void *extraMEM;      // Это специальный указатель. Используется для выдел
                             // но нужны болеее чем в одной функции. Перед использованием с помощью вызова malloc() выделяется необходимое количество
                             // памяти, которая затем освобождается вызвом free()
 
-
-
-#define INVERSE_CH(ch) GetInverse(ch)
-
-bool GetInverse(Channel ch);
-
 void DataSettings_Fill(DataSettings *ds);
 
 bool DataSettings_IsEquals(const DataSettings *ds1, const DataSettings *ds2);

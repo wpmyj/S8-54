@@ -5,16 +5,12 @@
 #include "Hardware/FLASH.h"
 #include "Settings/SettingsMemory.h"
 
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 DataSettings gDatas[NUM_DATAS];
 uint8 gDataAve[NumChannels][FPGA_MAX_POINTS];
 int gAddNStop = 0;
 void *extraMEM = 0;
-
-enum StateOSCI
-{
-    StateOSCI_Start,
-    StateOSCI_DrawLoPart        // Пишем надписи в нижней части экрана
-} gState = StateOSCI_Start;
 
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -55,29 +51,6 @@ uint8 *AddressChannel(DataSettings *ds, Channel ch)
     }
 
     return 0;
-}
-
-
-//----------------------------------------------------------------------------------------------------------------------------------------------------
-bool GetInverse(Channel ch)
-{
-    if (gState == StateOSCI_Start)
-    {
-
-    }
-    else if (gState == StateOSCI_DrawLoPart)
-    {
-        if (MODE_WORK_DIR || (MODE_WORK_ROM && SHOW_IN_INT_DIRECT))
-        {
-            return SET_INVERSE(ch);
-        }
-        else
-        {
-            //return INVERSE_DS(ds)
-        }
-    }
-
-    return false;
 }
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
