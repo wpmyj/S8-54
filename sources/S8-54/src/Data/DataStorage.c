@@ -51,6 +51,9 @@ static bool inFrameP2Pmode = false;     // Если true - сейчас поточечный режим
 
 #define NUM_DATAS 999
 static DataSettings datas[NUM_DATAS];
+static uint8 gDataAve[NumChannels][FPGA_MAX_POINTS];
+
+#define ADDRESS_DATA(ds)        ((ds)->addr)
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 void ClearLimitsAndSums(void)

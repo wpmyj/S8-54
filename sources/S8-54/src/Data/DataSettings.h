@@ -44,8 +44,6 @@ typedef struct
     PackedTime  time;
 } DataSettings;
 
-#define ADDRESS_DATA(ds)        ((ds)->addr)
-
 #define RSHIFT(ds, ch)          ((ds)->rShift[ch])
 #define RSHIFT_A(ds)            (RSHIFT(ds, A))
 #define RSHIFT_B(ds)            (RSHIFT(ds, B))
@@ -106,8 +104,6 @@ typedef struct
 #define ENUM_BYTES(ds)          (ENUM_POINTS(ds) + ((PEAKDET(ds) ? 1 : 0)))
 
 int BytesInChannel(DataSettings *ds);
-
-extern uint8 gDataAve[NumChannels][FPGA_MAX_POINTS];    // Используется только в DataStorage
 
 extern int gAddNStop;
 extern void *extraMEM;      // Это специальный указатель. Используется для выделения памяти переменным, которые не нужны всё время выполения программы,
