@@ -45,7 +45,7 @@ EXTERN DataSettings *pDS;           ///< ”казатель на настройки текущего рисуемо
 #define PEAKDET_DS          (PEAKDET(DS))
 #define TRIGLEV_DS(ch)      (TRIGLEV(DS))
 #define ENUM_BYTES_DS       (ENUM_BYTES(DS))
-#define BYTES_IN_CHANNEL_DS (BYTES_IN_CHANNEL(DS))
+#define BYTES_IN_CHANNEL_DS (BytesInChannel(DS))
 
 #define TIME_TIME_DS        (TIME_TIME(DS))
 #define TIME_DAY_DS         (TIME_DAY(DS))

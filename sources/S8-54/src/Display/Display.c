@@ -372,7 +372,7 @@ void Display_ShiftScreen(int delta)
     }
     int16 shift = SHIFT_IN_MEMORY;
     shift += (int16)delta;
-    int16 max = (int16)BYTES_IN_CHANNEL(DS) - 282 * (PEAKDET_DS ? 2 : 1);
+    int16 max = (int16)BytesInChannel(DS) - 282 * (PEAKDET_DS ? 2 : 1);
     if(shift < 0)
     {
         shift = 0;
@@ -541,7 +541,7 @@ static void DrawSpectrum(void)
 
     if(MODE_WORK_DIR)
     {
-        int numPoints = BYTES_IN_CHANNEL(DS);
+        int numPoints = BytesInChannel(DS);
         if(numPoints < 512)
         {
             numPoints = 256;

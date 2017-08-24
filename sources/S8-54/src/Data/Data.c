@@ -55,11 +55,11 @@ void Data_ReadFromRAM(int fromEnd, StructDataDrawing *dataStruct, bool forMemory
         DS = &dataSettings;
         if (ENABLED_DS_A)
         {
-            memcpy(IN_A, DS_GetAverageData(A), BYTES_IN_CHANNEL(DS));
+            memcpy(IN_A, DS_GetAverageData(A), BytesInChannel(DS));
         }
         if (ENABLED_DS_B)
         {
-            memcpy(IN_B, DS_GetAverageData(B), BYTES_IN_CHANNEL(DS));
+            memcpy(IN_B, DS_GetAverageData(B), BytesInChannel(DS));
         }
         readed = true;
     }
@@ -194,7 +194,7 @@ static void FillDataP2P(StructDataDrawing *dataStruct, Channel ch)
     {
         int pointer = 0;                // ”казатель на данные полного фрейма
         int index = 0;                  // ”казатель на данные выходного буфера, в который мы запишем 281 точку
-        while (allPoints > BYTES_IN_CHANNEL(DS))
+        while (allPoints > BytesInChannel(DS))
         {
             ++index;
             SET_IF_LARGER(index, bytesInScreen, 0);

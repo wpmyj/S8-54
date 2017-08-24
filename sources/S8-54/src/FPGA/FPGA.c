@@ -449,7 +449,7 @@ static void ReadRandomizeChannel(Channel ch, uint16 addrFirstRead, uint8 *data, 
 // last - если true, это последний вызов из последовательности, нужно записать результаты в пам€ть.
 static bool ReadRandomizeModeSave(bool first, bool last, bool onlySave)
 {
-    int bytesInChannel = BYTES_IN_CHANNEL(&ds);
+    int bytesInChannel = BytesInChannel(&ds);
 
     if (first)
     {
@@ -602,7 +602,7 @@ static void ReadChannel(uint8 *data, Channel ch, int length, uint16 nStop, bool 
 //  ажетс€, рассчитываем адрес последней записи
 uint16 ReadNStop(void)
 {
-    return *RD_ADDR_NSTOP + 16384 - (uint16)BYTES_IN_CHANNEL(&ds) / 2 - 1 - (uint16)gAddNStop;
+    return *RD_ADDR_NSTOP + 16384 - (uint16)BytesInChannel(&ds) / 2 - 1 - (uint16)gAddNStop;
 }
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
@@ -624,9 +624,9 @@ static void ReadRealMode(uint8 *dataA, uint8 *dataB)
         balanceB = NRST_BALANCE_ADC_B;
     }
 
-    ReadChannel(dataA, A, BYTES_IN_CHANNEL(&ds), nStop, shift, balanceA);
+    ReadChannel(dataA, A, BytesInChannel(&ds), nStop, shift, balanceA);
     
-    ReadChannel(dataB, B, BYTES_IN_CHANNEL(&ds), nStop, shift, balanceB);
+    ReadChannel(dataB, B, BytesInChannel(&ds), nStop, shift, balanceB);
 
     RAM_MemCpy16(dataA, RAM(FPGA_DATA_A), FPGA_MAX_POINTS);
     RAM_MemCpy16(dataB, RAM(FPGA_DATA_B), FPGA_MAX_POINTS);
@@ -670,7 +670,7 @@ static void DataReadSave(bool first, bool saveToStorage, bool onlySave)
         ReadRealMode(OUT_A, OUT_B);
     }
 
-    int numBytes = BYTES_IN_CHANNEL(&ds);
+    int numBytes = BytesInChannel(&ds);
 
     RAM_MemCpy16(RAM(FPGA_DATA_A), OUT_A, numBytes);
     RAM_MemCpy16(RAM(FPGA_DATA_B), OUT_B, numBytes);
@@ -1022,7 +1022,7 @@ void FPGA_FindAndSetTrigLevel(void)
 
     const uint16 *data = TRIGSOURCE_A ? dataA : dataB;
 
-    int lastPoint = BYTES_IN_CHANNEL(ds_) - 1;
+    int lastPoint = BytesInChannel(ds_) - 1;
 
     uint8 min = Math_GetMinFromArray_RAM(data, 0, lastPoint);
     uint8 max = Math_GetMaxFromArray_RAM(data, 0, lastPoint);

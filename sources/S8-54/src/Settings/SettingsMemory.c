@@ -27,7 +27,7 @@ int sMemory_NumBytesInChannel_(void)
 {
     DataSettings ds;
     DataSettings_Fill(&ds);
-    return BYTES_IN_CHANNEL(&ds);
+    return BytesInChannel(&ds);
 }
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------

@@ -109,7 +109,7 @@ static void CalculateAroundAverage(uint8 *dataA, uint8 *dataB, DataSettings *dss
 
     int numAveData = DS_NumElementsWithCurrentSettings();
 
-    int size = BYTES_IN_CHANNEL(dss);
+    int size = BytesInChannel(dss);
 
     if (numAveData <= 1)
     {
@@ -154,7 +154,7 @@ static int SizeData(DataSettings *ds)
 
     int size = 0;
 
-    int numBytesInChannel = BYTES_IN_CHANNEL(ds);
+    int numBytesInChannel = BytesInChannel(ds);
 
     if(ENABLED_A(ds))
     {
@@ -294,7 +294,7 @@ static void PushData(DataSettings *ds, uint8 *dataA, uint8 *dataB)
 {
     PrepareLastElemForWrite(ds);
 
-    int numBytes = BYTES_IN_CHANNEL(ds);
+    int numBytes = BytesInChannel(ds);
 
     if(dataA)
     {
@@ -331,7 +331,7 @@ static void ReplaceLastFrame(DataSettings *ds, uint8 *dataA, uint8 *dataB)
     DataSettings *lastDS = DS_DataSettingsFromEnd(0);
     TIME_TIME(lastDS) = TIME_TIME(ds);    // Нужно скопировать время, потому что во фрейме последних точек оно нулевое.
 
-    int numBytes = BYTES_IN_CHANNEL(ds);
+    int numBytes = BytesInChannel(ds);
 
     FSMC_SET_MODE(ModeFSMC_RAM);
 
@@ -412,7 +412,7 @@ void CalculateLimits(uint8 *dataA, uint8 *dataB, DataSettings *dss)
         RAM_WriteByte(down + i, data);  \
     }
 
-    int numElements = BYTES_IN_CHANNEL(dss);
+    int numElements = BytesInChannel(dss);
 
     if(DS_NumElementsInStorage() == 0 || NUM_MIN_MAX == 1 || (!DataSettings_IsEquals(dss, GetSettingsDataFromEnd(0))))
     {
@@ -462,7 +462,7 @@ void CalculateSums(void)
 
     DS_GetDataFromEnd_RAM(0, &ds, &dataA, &dataB);
 
-    int numPoints = BYTES_IN_CHANNEL(ds);
+    int numPoints = BytesInChannel(ds);
 
     int numAveragings = sDisplay_NumAverage();
 
@@ -627,7 +627,7 @@ static bool CopyData(DataSettings *ds, Channel ch, uint8 *dataImportRel)
 
     uint8 *address = ADDRESS_DATA(ds);
 
-    int length = BYTES_IN_CHANNEL(ds);
+    int length = BytesInChannel(ds);
 
     if(ch == B && ENABLED_B(ds) && ENABLED_A(ds))
     {
@@ -673,11 +673,11 @@ bool DS_GetDataFromEnd(int fromEnd, DataSettings *ds, uint8 *dataA, uint8 *dataB
         memcpy(ds, dataSettings, sizeof(DataSettings));
         if(dA)
         {
-            RAM_MemCpy16(dA, dataA, BYTES_IN_CHANNEL(ds));
+            RAM_MemCpy16(dA, dataA, BytesInChannel(ds));
         }
         if(dB)
         {
-            RAM_MemCpy16(dB, dataB, BYTES_IN_CHANNEL(ds));
+            RAM_MemCpy16(dB, dataB, BytesInChannel(ds));
         }
 
         return true;
@@ -701,7 +701,7 @@ bool DS_GetLimitation(Channel ch, uint8 *data, int direction)
     {
         limit = A == ch ? limitUpA_RAM : limitUpB_RAM;
     }
-    RAM_MemCpy16(limit, data, BYTES_IN_CHANNEL(ds));
+    RAM_MemCpy16(limit, data, BytesInChannel(ds));
 
     return true;
 }
@@ -755,7 +755,7 @@ uint8 *DS_GetAverageData(Channel ch)
         return 0;
     }
 
-    int numPoints = BYTES_IN_CHANNEL(ds);
+    int numPoints = BytesInChannel(ds);
 
     if (sDisplay_GetModeAveraging() == Averaging_Around)
     {
@@ -807,7 +807,7 @@ void DS_NewFrameP2P(DataSettings *dss)
     inFrameP2Pmode = true;
     dsP2P = *dss;
     dsP2P.addr = RAM(DS_P2P_FRAME);
-    RAM_MemClear(frameP2P, 2 * BYTES_IN_CHANNEL(dss));
+    RAM_MemClear(frameP2P, 2 * BytesInChannel(dss));
     numPointsP2P = 0;
 }
 
@@ -822,7 +822,7 @@ void DS_AddPointsP2P(uint16 dataA, uint16 dataB)
 
     FSMC_SET_MODE(ModeFSMC_RAM);
 
-    int length = BYTES_IN_CHANNEL(&dsP2P);
+    int length = BytesInChannel(&dsP2P);
 
     if (numPointsP2P >= length)                         // Если место во фрейме заполнено полностью
     {
@@ -875,7 +875,7 @@ int DS_GetFrameP2P_RAM(DataSettings **ds, uint8 **dataA, uint8 **dataB)
 
     *ds = &dsP2P;
     *dataA = frameP2P;
-    *dataB = frameP2P + BYTES_IN_CHANNEL(&dsP2P);
+    *dataB = frameP2P + BytesInChannel(&dsP2P);
 
     return numPointsP2P;
 }
@@ -891,7 +891,7 @@ uint8 *AddressChannel(DataSettings *ds, Channel ch)
 
     if (ch == B && ENABLED_B(ds))
     {
-        return ADDRESS_DATA(ds) + (ENABLED_A(ds) ? BYTES_IN_CHANNEL(ds) : 0);
+        return ADDRESS_DATA(ds) + (ENABLED_A(ds) ? BytesInChannel(ds) : 0);
     }
 
     return 0;

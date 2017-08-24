@@ -480,7 +480,7 @@ void PainterData_DrawMath(void)
     float *dataAbsA = (float*)RAM(DRAW_MATH_DATA_REL_A);
     float *dataAbsB = (float*)RAM(DRAW_MATH_DATA_REL_B);
 
-    int numPoints = BYTES_IN_CHANNEL(DS);
+    int numPoints = BytesInChannel(DS);
 
     Math_PointsRelToVoltage(OUT_A, numPoints, RANGE_DS_A, RSHIFT_DS_A, dataAbsA);
     Math_PointsRelToVoltage(OUT_B, numPoints, RANGE_DS_B, RSHIFT_DS_B, dataAbsB);
@@ -512,7 +512,7 @@ static void DrawChannel_Math(uint8 *dataIn)
     int maxY = GridMathBottom();
 
     bool calculateFiltr = true;
-    int sizeBuffer = BYTES_IN_CHANNEL(DS);
+    int sizeBuffer = BytesInChannel(DS);
     uint8 data[sizeBuffer];
   
     BitSet64 points = {0};
@@ -571,7 +571,7 @@ static int FillDataP2P(uint8 *data, DataSettings **ds)
 
     int numPoints = DS_GetFrameP2P_RAM(ds, &dataA, &dataB); // Получаем фрейм поточечного вывода
 
-    int numPointsDS = BYTES_IN_CHANNEL(*ds);
+    int numPointsDS = BytesInChannel(*ds);
 
     uint8 *dat[] = {dataA, dataB};
 
@@ -678,7 +678,7 @@ static void DrawSignalLined(const uint8 *data, int startPoint, int endPoint, int
     if (PEAKDET_DS == PeakDet_Disable)
     {
         int gridRight = GridRight();
-        int numPoints = BYTES_IN_CHANNEL(DS);
+        int numPoints = BytesInChannel(DS);
         for (int i = startPoint; i < endPoint; i++)
         {
 
@@ -753,7 +753,7 @@ static void DrawSignalLined(const uint8 *data, int startPoint, int endPoint, int
 //----------------------------------------------------------------------------------------------------------------------------------------------------
 static void DrawSignalPointed(const uint8 *data, int startPoint, int endPoint, int minY, int maxY, float scaleY, float scaleX)
 {
-    int numPoints = BYTES_IN_CHANNEL(DS);
+    int numPoints = BytesInChannel(DS);
 
     if (scaleX == 1.0f)
     {
@@ -801,7 +801,7 @@ static void DrawMemoryWindow(void)
 
     DrawTPos(leftX, rightX);
 
-    DrawTShift(leftX, rightX, BYTES_IN_CHANNEL(DS));
+    DrawTShift(leftX, rightX, BytesInChannel(DS));
 }
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------

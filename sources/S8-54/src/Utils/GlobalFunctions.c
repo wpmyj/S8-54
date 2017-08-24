@@ -38,7 +38,7 @@ int RequestBytesForChannel(Channel ch, DataSettings *ds)
     }
     else
     {
-        numBytes = NumPoints_2_ENumPoints(BYTES_IN_CHANNEL(ds));
+        numBytes = NumPoints_2_ENumPoints(BytesInChannel(ds));
         peakDet = SET_PEAKDET;
     }
 
