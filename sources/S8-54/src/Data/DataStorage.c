@@ -47,6 +47,9 @@ static int numPointsP2P = 0;            // Когда в последнем фрейме хранятся точ
 static DataSettings dsP2P = {0};        // Настройки поточечного режима    
 static bool inFrameP2Pmode = false;     // Если true - сейчас поточечный режим
 
+#define NUM_DATAS 999
+static DataSettings datas[NUM_DATAS];
+
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 void ClearLimitsAndSums(void)
 {
@@ -81,11 +84,11 @@ void DS_Clear(void)
 
     iFirst = 0;
     iLast = 0;
-    ADDRESS_DATA(&gDatas[iFirst]) = ADDRESS_DATA(&gDatas[iLast]) = 0;
+    ADDRESS_DATA(&datas[iFirst]) = ADDRESS_DATA(&datas[iLast]) = 0;
 
     for(int i = 0; i < NUM_DATAS; i++)
     {
-        ADDRESS_DATA(&gDatas[i]) = 0;  // Пишем признак того, что ячейка свободна
+        ADDRESS_DATA(&datas[i]) = 0;  // Пишем признак того, что ячейка свободна
     }
 
     numElementsInStorage = 0;
@@ -175,7 +178,7 @@ static int SizeData(DataSettings *ds)
 //----------------------------------------------------------------------------------------------------------------------------------------------------
 static void DeleteFirst(void)
 {
-    ADDRESS_DATA(&gDatas[iFirst]) = 0;
+    ADDRESS_DATA(&datas[iFirst]) = 0;
     iFirst++;
     if(iFirst == NUM_DATAS)
     {
@@ -192,11 +195,11 @@ static void DeleteFirst(void)
 static void PrepareLastElemForWrite(DataSettings *ds)
 {
     // Если хранилище пустое
-    if(ADDRESS_DATA(&gDatas[iFirst]) == 0)
+    if(ADDRESS_DATA(&datas[iFirst]) == 0)
     {
         iFirst = iLast = 0;
         ADDRESS_DATA(ds) = RAM(DS_POOL_BEGIN);
-        gDatas[iFirst] = *ds;
+        datas[iFirst] = *ds;
         return;
     }
 
@@ -204,8 +207,8 @@ static void PrepareLastElemForWrite(DataSettings *ds)
     if(iFirst == iLast)
     {
         iLast = iFirst + 1;
-        ADDRESS_DATA(ds) = ADDRESS_DATA(&gDatas[iFirst]) + SizeData(&gDatas[iFirst]);
-        gDatas[iLast] = *ds;
+        ADDRESS_DATA(ds) = ADDRESS_DATA(&datas[iFirst]) + SizeData(&datas[iFirst]);
+        datas[iLast] = *ds;
         return;
     }
 
@@ -224,16 +227,16 @@ static void PrepareLastElemForWrite(DataSettings *ds)
     volatile bool run = true;
     while(run)
     {
-        uint8 *addrFirst = ADDRESS_DATA(&gDatas[iFirst]);
-        uint8 *addrLast = ADDRESS_DATA(&gDatas[iLast]);
+        uint8 *addrFirst = ADDRESS_DATA(&datas[iFirst]);
+        uint8 *addrLast = ADDRESS_DATA(&datas[iLast]);
 
         if(addrLast > addrFirst)                                                   // Данные в памяти сохранены в порядке возрастания
         {
-            int memFree = RAM(DS_POOL_END) - addrLast - SizeData(&gDatas[iLast]);     // Столько памяти осталось за последним элементом
+            int memFree = RAM(DS_POOL_END) - addrLast - SizeData(&datas[iLast]);     // Столько памяти осталось за последним элементом
 
             if(memFree >= size)                                                    // Памяти за последним элементом достаточно
             {
-                addrWrite = addrLast + SizeData(&gDatas[iLast]);
+                addrWrite = addrLast + SizeData(&datas[iLast]);
                 break;
             }
             else                                                                    // Памяти за последним элементом не хватает.
@@ -251,22 +254,22 @@ static void PrepareLastElemForWrite(DataSettings *ds)
         }
         else
         {
-            int memFree = addrFirst - addrLast - SizeData(&gDatas[iFirst]);
+            int memFree = addrFirst - addrLast - SizeData(&datas[iFirst]);
 
             if(memFree >= size)
             {
-                addrWrite = addrLast + SizeData(&gDatas[iLast]);
+                addrWrite = addrLast + SizeData(&datas[iLast]);
                 break;
             }
             else
             {
-                if(addrFirst - addrLast - SizeData(&gDatas[iLast]) < size)
+                if(addrFirst - addrLast - SizeData(&datas[iLast]) < size)
                 {
                     DeleteFirst();
                 }
                 else
                 {
-                    addrWrite = ADDRESS_DATA(&gDatas[iLast]) + SizeData(&gDatas[iLast]);
+                    addrWrite = ADDRESS_DATA(&datas[iLast]) + SizeData(&datas[iLast]);
                     break;
                 }
             }
@@ -280,7 +283,7 @@ static void PrepareLastElemForWrite(DataSettings *ds)
         iLast = 0;
     }
     ADDRESS_DATA(ds) = addrWrite;
-    gDatas[iLast] = *ds;
+    datas[iLast] = *ds;
 }
 
 
@@ -380,7 +383,7 @@ DataSettings* DS_DataSettingsFromEnd(int indexFromEnd)
         index = NUM_DATAS - indexFromEnd;
     }
 
-    return &gDatas[index];
+    return &datas[index];
 }
 
 
@@ -779,13 +782,13 @@ uint8 *DS_GetAverageData(Channel ch)
 //----------------------------------------------------------------------------------------------------------------------------------------------------
 int DS_NumberAvailableEntries(void)
 {
-    if(ADDRESS_DATA(&gDatas[iFirst]) == 0)
+    if(ADDRESS_DATA(&datas[iFirst]) == 0)
     {
         return 0;
     }
 
     int numElems = 0;
-    LIMITATION_ABOVE(numElems, SIZE_POOL / SizeData(&gDatas[iLast]), NUM_DATAS);
+    LIMITATION_ABOVE(numElems, SIZE_POOL / SizeData(&datas[iLast]), NUM_DATAS);
 
     return numElems;
 }

@@ -113,8 +113,6 @@ int NumBytesInChannel_(DataSettings *ds, bool forCalculate);
 uint8 *AddressChannel(DataSettings *ds, Channel ch);
 
 
-#define NUM_DATAS 999
-extern DataSettings gDatas[NUM_DATAS];                  // Используется только в DataStorage
 extern uint8 gDataAve[NumChannels][FPGA_MAX_POINTS];    // Используется только в DataStorage
 
 extern int gAddNStop;
