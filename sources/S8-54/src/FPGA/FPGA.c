@@ -968,7 +968,7 @@ void FPGA_Stop(bool pause)
 //----------------------------------------------------------------------------------------------------------------------------------------------------
 void FPGA_Reset(void)
 {
-    bool needStart = FPGA_IsRunning();
+    bool needStart = FPGA_IS_RUNNING;
     FPGA_Stop(false);
     if (needStart)
     {

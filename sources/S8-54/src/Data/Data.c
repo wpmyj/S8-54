@@ -68,7 +68,7 @@ void Data_ReadFromRAM(int fromEnd, StructDataDrawing *dataStruct, bool forMemory
         }
         readed = true;
     }
-    else if(!IN_P2P_MODE || (IN_P2P_MODE && STAND_P2P && !forMemoryWindow) || (IN_P2P_MODE && !FPGA_IsRunning()))
+    else if(!IN_P2P_MODE || (IN_P2P_MODE && STAND_P2P && !forMemoryWindow) || (IN_P2P_MODE && !FPGA_IS_RUNNING))
     {
         DS_GetDataFromEnd(fromEnd, &dataSettings, IN_A, IN_B);
         readed = true;
@@ -169,7 +169,7 @@ static void PrepareDataForDraw(StructDataDrawing *dataStruct)
         return;
     }
 
-    if (IN_P2P_MODE && FPGA_IsRunning() && !STAND_P2P)  // FPGA_IsRunning - потому что в автоматическом режиме при считывании полного измерения 
+    if (IN_P2P_MODE && FPGA_IS_RUNNING && !STAND_P2P)   // FPGA_IS_RUNNING - потому что в автоматическом режиме при считывании полного измерения 
     {                                                   // происходит остановка цикла считывания на некоторое время
         FillDataP2P(dataStruct, A);
         FillDataP2P(dataStruct, B);

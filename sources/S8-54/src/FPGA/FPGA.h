@@ -18,6 +18,7 @@ extern int16 gPred;
 extern StateWorkFPGA fpgaStateWork;
 extern int gAddNStop;
 
+#define FPGA_IS_RUNNING FPGA_IsRunning()
 
 /// Инициализация
 void FPGA_Init(void);

@@ -11,6 +11,7 @@
 #include "Menu/MenuDrawing.h"
 #include "Menu/MenuFunctions.h"
 #include "Menu/Pages/Definition.h"
+#include "Settings/SettingsDebug.h"
 #include "Utils/Debug.h"
 #include "Utils/Dictionary.h"
 #include "Utils/GlobalFunctions.h"
@@ -220,7 +221,7 @@ static const Choice cConsole_ModeStop =
         {DISABLE_RU, DISABLE_EN},
         {ENABLE_RU, ENABLE_EN}
     },
-    (int8 *)&set.dbg_ModePauseConsole
+    (int8 *)&MODE_PAUSE_CONSOLE
 };
 
 // Œ“À¿ƒ ¿ -  ŒÕ—ŒÀ‹ - –≈√»—“–€ //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
