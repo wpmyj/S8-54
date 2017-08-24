@@ -19,10 +19,6 @@ extern StateWorkFPGA fpgaStateWork;
 extern int gAddNStop;
 
 
-/// Если true, то находимся в ждущем режиме рандомизатора и нужно выводить статический сигнал
-#define STAND_P2P (IN_P2P_MODE && START_MODE_WAIT && DS_NumElementsWithCurrentSettings() > 0)
-
-
 /// Инициализация
 void FPGA_Init(void);
 /// Установить количество считываемых сигналов в секунду

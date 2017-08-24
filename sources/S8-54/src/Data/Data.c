@@ -23,6 +23,7 @@
  */
 
 
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 static void Clear(void);
 /// «аполн€ет структуру dataStruct данными дл€ отрисовки
 static void PrepareDataForDraw(StructDataDrawing *dataStruct);
@@ -32,6 +33,9 @@ static void ReadMinMax(StructDataDrawing *dataStruct, int direction);
 
 
 static DataSettings dataSettings;   ///< «десь хран€тс€ настройки дл€ текущего рисуемого сигнала
+
+/// ≈сли true, то находимс€ в ждущем режиме рандомизатора и нужно выводить статический сигнал
+#define STAND_P2P (IN_P2P_MODE && START_MODE_WAIT && DS_NumElementsWithCurrentSettings() > 0)
 
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
