@@ -1003,7 +1003,7 @@ void FPGA_AutoFind(void)
 //----------------------------------------------------------------------------------------------------------------------------------------------------
 static bool FindWave(Channel ch)
 {
-    FPGA_SetTBase(TBase_20ms);
+    FPGA_SetTBase((TBase)((int)MIN_TBASE_P2P - 1));
     sChannel_SetEnabled(ch, true);
     FPGA_SetTrigSource((TrigSource)ch);
     FPGA_SetTrigLev((TrigSource)ch, TrigLevZero);
