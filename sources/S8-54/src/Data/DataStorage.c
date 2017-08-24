@@ -21,6 +21,7 @@
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Возвращает 0, если канал выключен
 static uint8 *AddressChannel(DataSettings *ds, Channel ch);
+static bool DataSettingsIsEquals(const DataSettings *ds1, const DataSettings *ds2);
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 static int SIZE_POOL = 0;
@@ -417,7 +418,7 @@ void CalculateLimits(uint8 *dataA, uint8 *dataB, DataSettings *dss)
 
     int numElements = BytesInChannel(dss);
 
-    if(DS_NumElementsInStorage() == 0 || NUM_MIN_MAX == 1 || (!DataSettings_IsEquals(dss, GetSettingsDataFromEnd(0))))
+    if(DS_NumElementsInStorage() == 0 || NUM_MIN_MAX == 1 || (!DataSettingsIsEquals(dss, GetSettingsDataFromEnd(0))))
     {
         BeginLimits(dataA, dataB, numElements);
     }
@@ -572,7 +573,7 @@ static bool SettingsIsIdentical(int elemFromEnd0, int elemFromEnd1)
 {
     DataSettings* dp0 = DS_DataSettingsFromEnd(elemFromEnd0);
     DataSettings* dp1 = DS_DataSettingsFromEnd(elemFromEnd1);
-    return DataSettings_IsEquals(dp0, dp1);
+    return DataSettingsIsEquals(dp0, dp1);
 }
 
 
@@ -601,7 +602,7 @@ int DS_NumElementsWithCurrentSettings(void)
 
     for(retValue = 0; retValue < numElements; retValue++)
     {
-        if(!DataSettings_IsEquals(&dp, DS_DataSettingsFromEnd(retValue)))
+        if(!DataSettingsIsEquals(&dp, DS_DataSettingsFromEnd(retValue)))
         {
             break;
         }
@@ -898,4 +899,29 @@ uint8 *AddressChannel(DataSettings *ds, Channel ch)
     }
 
     return 0;
+}
+
+//----------------------------------------------------------------------------------------------------------------------------------------------------
+static bool DataSettingsIsEquals(const DataSettings *ds1, const DataSettings *ds2)
+{
+    /** @todo оптимизировать функцию сравнения */
+    bool equals = (ENABLED_A(ds1) == ENABLED_A(ds2)) &&
+        (ENABLED_B(ds1) == ENABLED_B(ds2)) &&
+        (INVERSE_A(ds1) == INVERSE_A(ds2)) &&
+        (INVERSE_B(ds1) == INVERSE_B(ds2)) &&
+        (RANGE_A(ds1) == RANGE_A(ds2)) &&
+        (RANGE_B(ds1) == RANGE_B(ds2)) &&
+        (RSHIFT_A(ds1) == RSHIFT_A(ds2)) &&
+        (RSHIFT_B(ds1) == RSHIFT_B(ds2)) &&
+        (TBASE(ds1) == TBASE(ds2)) &&
+        (TSHIFT(ds1) == TSHIFT(ds2)) &&
+        (COUPLE_A(ds1) == COUPLE_A(ds2)) &&
+        (COUPLE_B(ds1) == COUPLE_B(ds2)) &&
+        (TRIGLEV_A(ds1) == TRIGLEV_A(ds2)) &&
+        (TRIGLEV_B(ds1) == TRIGLEV_B(ds2)) &&
+        (DIVIDER_A(ds1) == DIVIDER_A(ds2)) &&
+        (DIVIDER_B(ds1) == DIVIDER_B(ds2)) &&
+        (PEAKDET(ds1) == PEAKDET(ds2));
+
+    return equals;
 }

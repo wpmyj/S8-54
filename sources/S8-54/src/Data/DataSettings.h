@@ -112,7 +112,6 @@ extern void *extraMEM;      // Это специальный указатель. Используется для выдел
 
 void DataSettings_Fill(DataSettings *ds);
 
-bool DataSettings_IsEquals(const DataSettings *ds1, const DataSettings *ds2);
 
 /** @}  @}
  */
