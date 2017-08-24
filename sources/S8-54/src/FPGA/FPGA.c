@@ -876,7 +876,7 @@ TBase CalculateTBase(float freq)
 //----------------------------------------------------------------------------------------------------------------------------------------------------
 void FPGA_Update(void)
 {
-    if (fpgaStateWork == StateWorkFPGA_Stop)
+    if (FPGA_IN_STATE_STOP)
     {
         return;
     }
@@ -921,7 +921,7 @@ static void OnPressStartStopInP2P(void)
     }
     else                                        // Если идёт процесс сбора информации
     {
-        if(fpgaStateWork == StateWorkFPGA_Stop)
+        if(FPGA_IN_STATE_STOP)
         {
             FPGA_Start();
         }
@@ -945,7 +945,7 @@ void FPGA_OnPressStartStop(void)
     {
         OnPressStartStopInP2P();
     }
-    else if(fpgaStateWork == StateWorkFPGA_Stop) 
+    else if(FPGA_IN_STATE_STOP) 
     {
         FPGA_Start();
         fpgaStateWork = StateWorkFPGA_Wait;
@@ -979,7 +979,7 @@ void FPGA_Reset(void)
 //----------------------------------------------------------------------------------------------------------------------------------------------------
 bool FPGA_IsRunning(void)
 {
-    return fpgaStateWork != StateWorkFPGA_Stop;
+    return !FPGA_IN_STATE_STOP;
 }
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
@@ -1062,7 +1062,7 @@ void FPGA_Write(TypeRecord type, uint16 *address, uint data, bool restart)
         }
         else
         {
-            if (fpgaStateWork != StateWorkFPGA_Stop)
+            if (!FPGA_IN_STATE_STOP)
             {
                 FPGA_Stop(true);
                 Write(type, address, data);

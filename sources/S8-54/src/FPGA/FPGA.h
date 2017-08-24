@@ -15,6 +15,9 @@
 
 extern uint16 gPost;
 extern int16 gPred;
+#define FPGA_IN_STATE_STOP (fpgaStateWork == StateWorkFPGA_Stop)
+#define FPGA_IN_STATE_WORK (fpgaStateWork == StateWorkFPGA_Work)
+#define FPGA_IN_STATE_WAIT (fpgaStateWork == StateWorkFPGA_Wait)
 extern StateWorkFPGA fpgaStateWork;
 extern int gAddNStop;
 

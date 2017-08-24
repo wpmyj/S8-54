@@ -1571,15 +1571,15 @@ static void DrawHiRightPart(void)
 
         x += 2;
         y = 1;
-        if(fpgaStateWork == StateWorkFPGA_Work)       // Рабочий режим
+        if(FPGA_IN_STATE_WORK)       // Рабочий режим
         {
             Painter_Draw4SymbolsInRect(x, 1, SYMBOL_PLAY);
         }
-        else if(fpgaStateWork == StateWorkFPGA_Stop)  // Режим остановки
+        else if(FPGA_IN_STATE_STOP)  // Режим остановки
         {
             Painter_FillRegion(x + 3, y + 3, 10, 10);
         }
-        else if(fpgaStateWork == StateWorkFPGA_Wait)  // Режим ожидания сигнала
+        else if(FPGA_IN_STATE_WAIT)  // Режим ожидания сигнала
         {
             int w = 4;
             int h = 14;
