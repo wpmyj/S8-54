@@ -23,6 +23,7 @@
  */
 
 
+static void Clear(void);
 /// Заполняет структуру dataStruct данными для отрисовки
 static void PrepareDataForDraw(StructDataDrawing *dataStruct);
 static void FillDataP2P(StructDataDrawing *dataStruct, Channel ch);
@@ -34,7 +35,7 @@ static DataSettings dataSettings;   ///< Здесь хранятся настройки для текущего р
 
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-void Data_Clear(void)
+void Clear(void)
 {
     DS = 0;
 }
@@ -42,7 +43,7 @@ void Data_Clear(void)
 //----------------------------------------------------------------------------------------------------------------------------------------------------
 void Data_ReadFromRAM(int fromEnd, StructDataDrawing *dataStruct, bool forMemoryWindow)
 {
-    Data_Clear();
+    Clear();
 
     bool readed = false;      // Признак того, что данные считаны
 
@@ -98,7 +99,7 @@ void Data_ReadFromRAM(int fromEnd, StructDataDrawing *dataStruct, bool forMemory
 //----------------------------------------------------------------------------------------------------------------------------------------------------
 void Data_ReadFromROM(StructDataDrawing *dataStruct)
 {
-    Data_Clear();
+    Clear();
 
     if (FLASH_GetData(NUM_ROM_SIGNAL, &dataSettings, IN_A, IN_B))
     {
@@ -125,7 +126,7 @@ void Data_ReadMax(StructDataDrawing *dataStruct)
 //----------------------------------------------------------------------------------------------------------------------------------------------------
 void ReadMinMax(StructDataDrawing *dataStruct, int direction)
 {
-    Data_Clear();
+    Clear();
 
     dataSettings = *DS_DataSettingsFromEnd(0);
     

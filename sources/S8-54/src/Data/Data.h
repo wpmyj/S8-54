@@ -69,8 +69,7 @@ typedef struct
     int     posBreak;                       ///< Позиция в координатах сетки, на которой нужно рисовать линию разрыва поточечного вывода
 } StructDataDrawing;
 
-/// Вызывается в начале цикла
-void Data_Clear(void);
+
 /// \brief Читает данные из ОЗУ, fromEnd c конца (fromEnd == 0 - последний считанный сигнал) и заполняет данными inA(B), outA(B), DS.
 /// forMemoryWindow нужен для того, чтобы в ждущем режиме выводить разные сигналы для экрана и окна памяти
 void Data_ReadFromRAM(int fromEnd, StructDataDrawing *dataStruct, bool forMemoryWindow);

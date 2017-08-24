@@ -205,8 +205,6 @@ void Display_Init(void)
 //----------------------------------------------------------------------------------------------------------------------------------------------------
 void Display_Update(void)
 {
-    Data_Clear();
-
     uint timeStart = gTimerTics;
 
     if (funcOnHand)
