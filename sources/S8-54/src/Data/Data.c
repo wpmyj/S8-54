@@ -206,8 +206,10 @@ static void FillDataP2P(StructDataDrawing *dataStruct, Channel ch)
             SET_IF_LARGER(index, bytesInScreen, 0);
             --allPoints;
         }
-        dataStruct->posBreak = PEAKDET_DS ? index / 2 : index;
+        dataStruct->posBreak = PEAKDET_DS ? (index / 2) : (index - 1);
     }
+
+    LIMITATION(dataStruct->posBreak, dataStruct->posBreak, 0, 281);
 }
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------

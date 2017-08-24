@@ -25,8 +25,6 @@
 
 #define LIMITATION(var, value, min, max)    var = (value); if(var < (min)) { (var) = (min); } else if(var > (max)) { var = (max); };
 
-#define LIMITATION_BOUND(var, min, max)     if((var) < (min)) { (min) = (var); }; if((var) > (max)) { (max) = (var); };
-
 #define MAX_VOLTAGE_ON_SCREEN(range) (tableScalesRange[(range)] * 5)
 
 #define RSHIFT_2_ABS(rShift, range) (-((RShiftZero - ((int)rShift)) * absStepRShift[(range)]))
