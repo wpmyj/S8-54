@@ -13,7 +13,7 @@ void *extraMEM = 0;
 
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-int NumBytesInChannel_(DataSettings *ds, bool forCalculate)
+int NumBytesInChannel_(DataSettings *ds)
 {
     static const int numPoints[FPGA_ENUM_POINTS_SIZE][3] =
     {
@@ -26,30 +26,7 @@ int NumBytesInChannel_(DataSettings *ds, bool forCalculate)
         {32768, 32768, 32768}
     };
 
-    if(FPGA_ENUM_POINTS >= FNP_1k && forCalculate)
-    {
-        return FPGA_MAX_POINTS_FOR_CALCULATE;
-    }
-
-
-
     return numPoints[FPGA_ENUM_POINTS][PEAKDET(ds)];
-}
-
-//----------------------------------------------------------------------------------------------------------------------------------------------------
-uint8 *AddressChannel(DataSettings *ds, Channel ch)
-{
-    if (ch == A && ENABLED_A(ds))
-    {
-        return ADDRESS_DATA(ds);
-    }
-
-    if (ch == B && ENABLED_B(ds))
-    {
-        return ADDRESS_DATA(ds) + (ENABLED_A(ds) ? BYTES_IN_CHANNEL(ds) : 0);
-    }
-
-    return 0;
 }
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------

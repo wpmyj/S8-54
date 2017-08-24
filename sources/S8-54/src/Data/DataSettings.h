@@ -105,13 +105,9 @@ typedef struct
 #define ENUM_POINTS(ds)         ((ds)->enumPoints)
 #define ENUM_BYTES(ds)          (ENUM_POINTS(ds) + ((PEAKDET(ds) ? 1 : 0)))
 
-#define BYTES_IN_CHANNEL(ds)    NumBytesInChannel_(ds, false)
+#define BYTES_IN_CHANNEL(ds)    NumBytesInChannel_(ds)
 
-int NumBytesInChannel_(DataSettings *ds, bool forCalculate);
-
-// Возвращает 0, если канал выключен
-uint8 *AddressChannel(DataSettings *ds, Channel ch);
-
+int NumBytesInChannel_(DataSettings *ds);
 
 extern uint8 gDataAve[NumChannels][FPGA_MAX_POINTS];    // Используется только в DataStorage
 

@@ -19,8 +19,10 @@
 
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-//static void ReplaceLastFrame(DataSettings *ds, uint8 *dataA, uint8 *dataB);
+// Возвращает 0, если канал выключен
+static uint8 *AddressChannel(DataSettings *ds, Channel ch);
 
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 static int SIZE_POOL = 0;
 
 static uint *sumA_RAM = 0;        // Сумма первого канала
@@ -876,4 +878,21 @@ int DS_GetFrameP2P_RAM(DataSettings **ds, uint8 **dataA, uint8 **dataB)
     *dataB = frameP2P + BYTES_IN_CHANNEL(&dsP2P);
 
     return numPointsP2P;
+}
+
+
+//----------------------------------------------------------------------------------------------------------------------------------------------------
+uint8 *AddressChannel(DataSettings *ds, Channel ch)
+{
+    if (ch == A && ENABLED_A(ds))
+    {
+        return ADDRESS_DATA(ds);
+    }
+
+    if (ch == B && ENABLED_B(ds))
+    {
+        return ADDRESS_DATA(ds) + (ENABLED_A(ds) ? BYTES_IN_CHANNEL(ds) : 0);
+    }
+
+    return 0;
 }
