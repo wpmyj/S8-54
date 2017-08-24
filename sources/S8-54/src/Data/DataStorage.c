@@ -860,13 +860,6 @@ void DS_AddPointsP2P(uint16 dataA, uint16 dataB)
 }
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
-int DS_NumPointsInFrameP2P(void)
-{
-    return numPointsP2P;
-}
-
-
-//----------------------------------------------------------------------------------------------------------------------------------------------------
 int DS_GetFrameP2P_RAM(DataSettings **ds, uint8 **dataA, uint8 **dataB)
 {
     if (!inFrameP2Pmode)
@@ -883,7 +876,6 @@ int DS_GetFrameP2P_RAM(DataSettings **ds, uint8 **dataA, uint8 **dataB)
 
     return numPointsP2P;
 }
-
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
 uint8 *AddressChannel(DataSettings *ds, Channel ch)

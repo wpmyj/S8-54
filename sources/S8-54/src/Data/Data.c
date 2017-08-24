@@ -34,6 +34,8 @@ static void ReadMinMax(StructDataDrawing *dataStruct, int direction);
 
 static DataSettings dataSettings;   ///< «десь хран€тс€ настройки дл€ текущего рисуемого сигнала
 
+static int numPointsP2P = 0;
+
 /// ≈сли true, то находимс€ в ждущем режиме рандомизатора и нужно выводить статический сигнал
 #define STAND_P2P (IN_P2P_MODE && START_MODE_WAIT && DS_NumElementsWithCurrentSettings() > 0)
 
@@ -78,7 +80,7 @@ void Data_ReadFromRAM(int fromEnd, StructDataDrawing *dataStruct, bool forMemory
         uint8 *dataA = 0;
         uint8 *dataB = 0;
         DataSettings *ds = 0;
-        DS_GetFrameP2P_RAM(&ds, &dataA, &dataB);
+        numPointsP2P = DS_GetFrameP2P_RAM(&ds, &dataA, &dataB);
         memcpy(&dataSettings, ds, sizeof(DataSettings));
         DS = &dataSettings;
         RAM_MemCpy16(dataA, IN_A, BYTES_IN_CHANNEL_DS);
@@ -163,7 +165,7 @@ static void PrepareDataForDraw(StructDataDrawing *dataStruct)
     dataStruct->needDraw[A] = ENABLED_DS_A && SET_ENABLED_A;
     dataStruct->needDraw[B] = ENABLED_DS_B && SET_ENABLED_B;
 
-    if ((IN_P2P_MODE && DS_NumPointsInFrameP2P() < 2) || (PEAKDET_DS != SET_PEAKDET))
+    if ((IN_P2P_MODE && numPointsP2P < 2) || (PEAKDET_DS != SET_PEAKDET))
     {
         dataStruct->needDraw[A] = dataStruct->needDraw[B] = false;
         return;
@@ -191,9 +193,9 @@ static void FillDataP2P(StructDataDrawing *dataStruct, Channel ch)
         return;
     }
     
-    int allPoints = DS_NumPointsInFrameP2P();
-
     int bytesInScreen = PEAKDET_DS ? 280 * 2 : 280;
+    
+    int allPoints = numPointsP2P;
 
     if (allPoints > 1)
     {
