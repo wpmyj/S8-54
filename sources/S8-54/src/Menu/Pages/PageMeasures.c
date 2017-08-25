@@ -305,7 +305,6 @@ static void OnRegSet_Tune(int angle)
         }
         MEASURE(posActive) = (Measure)posOnPageChoice;
         Painter_ResetFlash();
-        OnPress_Tune_Markers();
     }
     else
     {
