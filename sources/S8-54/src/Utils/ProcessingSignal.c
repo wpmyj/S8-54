@@ -1041,11 +1041,29 @@ void Processing_SetData(bool needSmoothing)
 {
     isSet = true;
 
-    BitSet64 points = sDisplay_BytesOnDisplay(TBASE_DS >= MIN_TBASE_P2P);   // ¬ поточечном режиме будем брать первые точки в массиве
+    BitSet64 points = sDisplay_BytesOnDisplay();
     firstByte = points.word0;
     lastByte = points.word1;
 
     numBytes = lastByte - firstByte;
+    
+    if(TBASE_DS >= MIN_TBASE_P2P)           // ≈сли находимс€ в поточечном режме, то нужно брать последние считанные точки дл€ проведени€ измерений
+    {
+        for (int i = BYTES_IN_CHANNEL_DS - 1; i >= 0; --i)
+        {
+            if (IN_A[i] != NONE_VALUE)      // ≈сли это значение считано
+            {
+                lastByte = i;
+                firstByte = lastByte - numBytes;
+                if (firstByte < 0)
+                {
+                    firstByte = 0;
+                    lastByte = numBytes;
+                }
+                break;
+            }
+        }
+    }
     
     int length = BYTES_IN_CHANNEL_DS;
 

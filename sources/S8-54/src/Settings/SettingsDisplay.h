@@ -85,8 +85,8 @@ void sDisplay_SetNumSignalsInS(int maxFPS);
 int sDisplay_NumPointSmoothing(void);
 /// ¬озвращает адрес первой и последней точки на экране в координатах экрана
 BitSet64 sDisplay_PointsOnDisplay(void);
-/// \brief ¬озращает адрес первой и последней точки в координатах экрана. ≈сли forCalcualte == true, то берутс€ значени€ с начала массива (это нужно дл€ индикации в поточечном режиме
-BitSet64 sDisplay_BytesOnDisplay(bool forCalculate);
+/// \brief ¬озращает адрес первой и последней точки в координатах экрана
+BitSet64 sDisplay_BytesOnDisplay(void);
 /// ¬озвращает врем€, через которое меню автоматически скрываетс€, если не было больше нажатий
 int sDisplay_TimeMenuAutoHide(void);
 /// ≈сли экран разделЄн на две части и основной сигнал выводитс€ сверху - например, в режиме вывода спектра
