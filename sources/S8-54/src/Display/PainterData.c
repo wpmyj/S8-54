@@ -477,8 +477,8 @@ void PainterData_DrawMath(void)
         return;
     }
 
-    float *dataAbsA = (float*)RAM(DRAW_MATH_DATA_REL_A);
-    float *dataAbsB = (float*)RAM(DRAW_MATH_DATA_REL_B);
+    float *dataAbsA = (float *)RAM8(DRAW_MATH_DATA_REL_A);
+    float *dataAbsB = (float *)RAM8(DRAW_MATH_DATA_REL_B);
 
     int numPoints = BytesInChannel(DS);
 

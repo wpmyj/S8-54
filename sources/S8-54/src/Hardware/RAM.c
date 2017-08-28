@@ -293,7 +293,7 @@ void RAM_MemClear(void *address_, int numHalfWords)
 
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
-uint8 *RAM(Address address)
+uint8 *RAM8(Address address)
 {                                                                                           // битность,  пам€ть, всего
                                                                                             //    шт        кЅ
 #define RAM_FPGA_DATA_A             (ADDR_RAM)                                              //    8 
@@ -340,4 +340,10 @@ uint8 *RAM(Address address)
     };
  
     return (uint8 *)addresses[address];
+}
+
+//----------------------------------------------------------------------------------------------------------------------------------------------------
+uint16 *RAM16(Address address)
+{
+    return (uint16 *)RAM8(address);
 }

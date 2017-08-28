@@ -29,10 +29,10 @@ static int SIZE_POOL = 0;
 static uint *sumA_RAM = 0;        // Сумма первого канала
 static uint *sumB_RAM = 0;
 
-static uint8 *limitUpA_RAM = 0;
-static uint8 *limitUpB_RAM = 0;
-static uint8 *limitDownA_RAM = 0;
-static uint8 *limitDownB_RAM = 0;
+static uint16 *limitUpA_RAM = 0;
+static uint16 *limitUpB_RAM = 0;
+static uint16 *limitDownA_RAM = 0;
+static uint16 *limitDownB_RAM = 0;
 
 static int iFirst = 0;          // Номер в массиве datas первого сохранённого сигнала
 static int iLast = 0;           // Номер в массиве datas последнего сохранённого сигнала
@@ -74,19 +74,19 @@ void ClearLimitsAndSums(void)
 //----------------------------------------------------------------------------------------------------------------------------------------------------
 void DS_Clear(void)
 {
-    SIZE_POOL = RAM(DS_POOL_END) - RAM(DS_POOL_BEGIN);
+    SIZE_POOL = RAM8(DS_POOL_END) - RAM8(DS_POOL_BEGIN);
 
-    sumA_RAM = (uint *)RAM(DS_SUM_A); //-V206
-    sumB_RAM = (uint *)RAM(DS_SUM_B); //-V206
+    sumA_RAM = (uint *)RAM8(DS_SUM_A); //-V206
+    sumB_RAM = (uint *)RAM8(DS_SUM_B); //-V206
 
-    limitUpA_RAM = RAM(DS_LIMIT_UP_A);
-    limitUpB_RAM = RAM(DS_LIMIT_UP_B);
-    limitDownA_RAM = RAM(DS_LIMIT_DOWN_A);
-    limitDownB_RAM = RAM(DS_LIMIT_DOWN_B);
-    frameP2P = RAM(DS_P2P_FRAME);
+    limitUpA_RAM = RAM16(DS_LIMIT_UP_A);
+    limitUpB_RAM = RAM16(DS_LIMIT_UP_B);
+    limitDownA_RAM = RAM16(DS_LIMIT_DOWN_A);
+    limitDownB_RAM = RAM16(DS_LIMIT_DOWN_B);
+    frameP2P = RAM8(DS_P2P_FRAME);
 
-    aveDataA_RAM = (float*)RAM(DS_AVE_DATA_A);
-    aveDataB_RAM = (float*)RAM(DS_AVE_DATA_B);
+    aveDataA_RAM = (float *)RAM8(DS_AVE_DATA_A);
+    aveDataB_RAM = (float *)RAM8(DS_AVE_DATA_B);
 
     iFirst = 0;
     iLast = 0;
@@ -204,7 +204,7 @@ static void PrepareLastElemForWrite(DataSettings *ds)
     if(ADDRESS_DATA(&datas[iFirst]) == 0)
     {
         iFirst = iLast = 0;
-        ADDRESS_DATA(ds) = RAM(DS_POOL_BEGIN);
+        ADDRESS_DATA(ds) = RAM8(DS_POOL_BEGIN);
         datas[iFirst] = *ds;
         return;
     }
@@ -238,7 +238,7 @@ static void PrepareLastElemForWrite(DataSettings *ds)
 
         if(addrLast > addrFirst)                                                   // Данные в памяти сохранены в порядке возрастания
         {
-            int memFree = RAM(DS_POOL_END) - addrLast - SizeData(&datas[iLast]);     // Столько памяти осталось за последним элементом
+            int memFree = RAM8(DS_POOL_END) - addrLast - SizeData(&datas[iLast]);     // Столько памяти осталось за последним элементом
 
             if(memFree >= size)                                                    // Памяти за последним элементом достаточно
             {
@@ -247,13 +247,13 @@ static void PrepareLastElemForWrite(DataSettings *ds)
             }
             else                                                                    // Памяти за последним элементом не хватает.
             {
-                if(addrFirst - RAM(DS_POOL_BEGIN) < size)                       // Если в начале меньше памяти, чем необходимо
+                if(addrFirst - RAM8(DS_POOL_BEGIN) < size)                       // Если в начале меньше памяти, чем необходимо
                 {
                     DeleteFirst();                                              // Удаляем один элемент с начала
                 }
                 else
                 {
-                    addrWrite = RAM(DS_POOL_BEGIN);
+                    addrWrite = RAM8(DS_POOL_BEGIN);
                     break;
                 }
             }
@@ -332,8 +332,8 @@ static void BeginLimits(uint8 *dataA, uint8 *dataB, int numElements)
 {
     for(int i = 0; i < numElements / 2; i++)
     {
-        ((uint16*)limitUpA_RAM)[i] = ((uint16*)limitDownA_RAM)[i] = ((uint16*)dataA)[i];
-        ((uint16*)limitUpB_RAM)[i] = ((uint16*)limitDownB_RAM)[i] = ((uint16*)dataB)[i];
+        limitUpA_RAM[i] = limitDownA_RAM[i] = ((uint16 *)dataA)[i];
+        limitUpB_RAM[i] = limitDownB_RAM[i] = ((uint16 *)dataB)[i];
     }
 }
 
@@ -406,8 +406,8 @@ void CalculateLimits(uint8 *dataA, uint8 *dataB, DataSettings *dss)
 
             for(int i = 0; i < numElements; i++)
             {
-                SET_LIMIT((uint8 *)dataA, limitUpA_RAM, limitDownA_RAM);
-                SET_LIMIT((uint8 *)dataB, limitUpB_RAM, limitDownB_RAM);
+                SET_LIMIT((uint8 *)dataA, (uint8 *)limitUpA_RAM, (uint8 *)limitDownA_RAM);
+                SET_LIMIT((uint8 *)dataB, (uint8 *)limitUpB_RAM, (uint8 *)limitDownB_RAM);
             }
 
             if (NEED_FINISH_DRAW)
@@ -609,7 +609,7 @@ static bool CopyData(DataSettings *ds, Channel ch, uint8 *dataImportRel)
 //----------------------------------------------------------------------------------------------------------------------------------------------------
 uint8 *DS_GetData_RAM(Channel ch, int fromEnd)
 {
-    uint8 *dataImport = (ch == A) ? RAM(DS_DATA_IMPORT_REL_A) : RAM(DS_DATA_IMPORT_REL_B);
+    uint8 *dataImport = (ch == A) ? RAM8(DS_DATA_IMPORT_REL_A) : RAM8(DS_DATA_IMPORT_REL_B);
 
     DataSettings* dp = DS_DataSettingsFromEnd(fromEnd);
 
@@ -662,10 +662,10 @@ bool DS_GetLimitation(Channel ch, uint8 *data, int direction)
 
     DataSettings *ds = DS_DataSettingsFromEnd(0);
 
-    uint8 *limit = A == ch ? limitDownA_RAM : limitDownB_RAM;
+    uint8 *limit = A == ch ? (uint8 *)limitDownA_RAM : (uint8 *)limitDownB_RAM;
     if (direction == 1)
     {
-        limit = A == ch ? limitUpA_RAM : limitUpB_RAM;
+        limit = A == ch ? (uint8 *)limitUpA_RAM : (uint8 *)limitUpB_RAM;
     }
     RAM_MemCpy16(limit, data, BytesInChannel(ds));
 
@@ -683,8 +683,8 @@ bool DS_GetDataFromEnd_RAM(int fromEnd, DataSettings **ds, uint16 **dataA, uint1
         return false;
     }
     
-    uint8 *dataImportRelA = RAM(DS_DATA_IMPORT_REL_A);
-    uint8 *dataImportRelB = RAM(DS_DATA_IMPORT_REL_B);
+    uint8 *dataImportRelA = RAM8(DS_DATA_IMPORT_REL_A);
+    uint8 *dataImportRelB = RAM8(DS_DATA_IMPORT_REL_B);
 
     if(dataA != 0)
     {
@@ -772,7 +772,7 @@ void DS_NewFrameP2P(DataSettings *dss)
 
     inFrameP2Pmode = true;
     dsP2P = *dss;
-    dsP2P.addr = RAM(DS_P2P_FRAME);
+    dsP2P.addr = RAM8(DS_P2P_FRAME);
     RAM_MemClear(frameP2P, 2 * BytesInChannel(dss));
     numPointsP2P = 0;
 }
