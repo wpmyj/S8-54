@@ -20,7 +20,7 @@
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 extern void OnChanged_ChanA_Input(bool active);
 extern void OnChanged_ChanB_Input(bool active);
-
+extern void Long_Help(void);
 extern const Page pHelp;
 
 /// Если произошло короткое нажатие кнопки, то здесь хранится имя этой кнопки до обработки  этого нажатия.
