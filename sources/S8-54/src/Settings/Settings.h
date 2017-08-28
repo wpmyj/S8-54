@@ -222,14 +222,14 @@ typedef struct
     bool                dbg_ShowTShift;
     bool                dbg_ShowTBase;
     // SettingsMenu
-    int8                menu_PosActItem[Page_NumPages];     ///< \brief Позиция активного пункта. bit7 == 1 - item is opened, 0x7f - нет 
-                                                            ///< активного пункта.
-    int8                menu_CurrentSubPage[Page_NumPages]; ///< Номер текущей подстраницы.
-    bool                menu_PageDebugActive;               ///< Активна ли кнопка отладки в меню.
-    int8                menu_IsShown;                       ///< \brief Меню показано. Если == false, и при этом какой-либо элемент меню раскрыт,
-                                                            ///< то он будет показан на экране.
+    int8                menu_PosActItem[Page_NumPages];             ///< \brief Позиция активного пункта. bit7 == 1 - item is opened, 0x7f - нет 
+                                                                    ///< активного пункта.
+    int8                menu_CurrentSubPage[Page_NumPages];         ///< Номер текущей подстраницы.
+    bool                menu_PageDebugActive;                       ///< Активна ли кнопка отладки в меню.
+    int8                menu_IsShown;                               ///< \brief Меню показано. Если == false, и при этом какой-либо элемент меню раскрыт,
+                                                                    ///< то он будет показан на экране.
     // Настройки, которые задаются единожды при наладке на заводе
-    int16               nrst_RShiftAdd[NumChannels][RangeSize][2];  ///< Добавочное смещение для открытого (0) и закрытого (1) входов.
+    int16               nrst_RShiftAdd[NumChannels][RangeSize][2];  ///< Добавочное смещение, которое пишется сюда при калибровке и балансировке
     int16               nrst_CorrectionTime;                        ///< Коэффициент коррекции времени.
     int16               nrst_BalanceADC[NumChannels];               ///< Значение дополнительного смещения АЦП для ручной балансировки.
     int16               nrst_NumAveForRand;                         ///< По скольким измерениям усреднять сигнал в режиме рандомизатора.
@@ -242,11 +242,12 @@ typedef struct
     int16               nrst_AddStretch50mV[NumChannels];
     int16               nrst_AddStretch100mV[NumChannels];
     int16               nrst_AddStretch2V[NumChannels];
-    int16               nrst_NumSmoothForRand;              ///< Число точек для скользящего фильта в рандомизаторе.
-    MemDataScale        mem_DataScale;                      ///< \brief Определяет поведение сохранённого сигнала при переключении ручек
-                                                            ///< управления сигналом.
-    PlaceOfSaving       rec_PlaceOfSaving;                  ///< Куда будут сохраняться данные регистратора
-    int8                rec_NumCursor;                      ///< Номер активного курсора
+    int16               nrst_NumSmoothForRand;                      ///< Число точек для скользящего фильта в рандомизаторе.
+    MemDataScale        mem_DataScale;                              ///< \brief Определяет поведение сохранённого сигнала при переключении ручек
+                                                                    ///< управления сигналом.
+    PlaceOfSaving       rec_PlaceOfSaving;                          ///< Куда будут сохраняться данные регистратора
+    int8                rec_NumCursor;                              ///< Номер активного курсора
+    int16               nrst_RShiftAddStable[NumChannels][3];       ///< Добавочное смещение для трёх самых чувствительных диапазонов. Задаётся единожды при настройке
 } Settings;
 
 #pragma pack(pop)

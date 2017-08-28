@@ -5,6 +5,10 @@
 #define NRST_RSHIFT_ADD_A(range, mode)      (NRST_RSHIFT_ADD(A, range, mode))
 #define NRST_RSHIFT_ADD_B(range, mode)      (NRST_RSHIFT_ADD(B, range, mode))
 
+#define RSHIFT_ADD_STABLE(ch, range)        (set.nrst_RShiftAddStable[ch][range])
+#define RSHIFT_ADD_STABLE_A(range)          (RSHIFT_ADD_STABLE(A, range))
+#define RSHIFT_ADD_STABLE_B(range)          (RSHIFT_ADD_STABLE(B, range))
+
 #define NRST_STRETCH_ADC_TYPE               (set.nrst_StretchADCtype)
 #define NRST_STRETCH_ADC_TYPE_IS_DISABLE    (NRST_STRETCH_ADC_TYPE == StretchADC_Disable)
 #define NRST_STRETCH_ADC_TYPE_IS_HAND       (NRST_STRETCH_ADC_TYPE == StretchADC_Hand)

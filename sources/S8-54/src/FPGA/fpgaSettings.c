@@ -209,7 +209,18 @@ static int CalculateDeltaRShift(Channel ch)
     ModeCouple mode = SET_COUPLE(ch);
     static const int index[3] = {0, 1, 1};
 
-    int addRShift = -(SET_INVERSE(ch) ? -1 : 1) * (int)NRST_RSHIFT_ADD(ch, range, index[mode]);
+    int fullShift = 0;
+
+    if (!gFPGAisCalibrateAddRshift)      // Если не находимся в режиме калибровки, то учтём поправки
+    {
+        fullShift = (int)NRST_RSHIFT_ADD(ch, range, index[mode]);
+        if (mode == ModeCouple_DC && range < 3)
+        {
+            fullShift += RSHIFT_ADD_STABLE(ch, range);
+        }
+    }
+
+    int addRShift = -(SET_INVERSE(ch) ? -1 : 1) * fullShift;
     int addRShiftFull = addRShift * (RSHIFT_IN_CELL / 20);
 
     uint16 rShiftRel = (uint16)((int)SET_RSHIFT(ch) + addRShiftFull);
@@ -613,7 +624,6 @@ void FPGA_SetRShift(Channel ch, uint16 rShift)
     }
 };
 
-
 //----------------------------------------------------------------------------------------------------------------------------------------------------
 void FPGA_SetTrigLev(TrigSource ch, uint16 trigLev)
 {
@@ -633,35 +643,11 @@ void FPGA_SetTrigLev(TrigSource ch, uint16 trigLev)
     }
 };
 
-
-//----------------------------------------------------------------------------------------------------------------------------------------------------
-void FPGA_ChangePostValue(int delta)
-{
-	/*
-    int tempPost = (int)postValue + Math_Sign(delta);
-
-    if (tempPost < 0)
-    {
-        postValue = 0;
-    }
-    else if (tempPost > 16383)
-    {
-        postValue = 16383;
-    }
-    else
-    {
-        postValue = tempPost;
-    }
-	*/
-}
-
-
 //----------------------------------------------------------------------------------------------------------------------------------------------------
 void FPGA_SetTShift(int tShift)
 {
     SetTShift(tShift, true);
 };
-
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
 static void SetTShift(int tShift, bool needFPGApause)

@@ -20,6 +20,7 @@ extern int16 gPred;
 #define FPGA_IN_STATE_WAIT (fpgaStateWork == StateWorkFPGA_Wait)
 extern StateWorkFPGA fpgaStateWork;
 extern int gAddNStop;
+extern bool gFPGAisCalibrateAddRshift;
 
 #define FPGA_IS_RUNNING FPGA_IsRunning()
 
@@ -73,7 +74,6 @@ void FPGA_SetRShift(Channel ch, uint16 rShift);
 /// Установить относительное смещение по времени
 void FPGA_SetTShift(int tShift);
 
-void FPGA_ChangePostValue(int delta);
 /// Установить добавочное смещение по времени для режима рандомизатора. В каждой развёртке это смещение должно быть разное
 void FPGA_SetDeltaTShift(int16 shift);
 /// Включить/выключить режим пикового детектора

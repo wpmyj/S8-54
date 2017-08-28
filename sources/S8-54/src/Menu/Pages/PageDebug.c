@@ -822,12 +822,9 @@ static void OnPress_ADC_Shift_Reset(void)
 {
     for (int ch = 0; ch < 2; ch++)
     {
-        for (int mode = 0; mode < 2; mode++)
+        for (int range = 0; range < 3; range++)
         {
-            for (int range = 0; range < RangeSize; range++)
-            {
-                NRST_RSHIFT_ADD(ch, range, mode) = 0;
-            }
+            RSHIFT_ADD_STABLE(ch, range) = 0;
         }
     }
     FPGA_SetRShift(A, SET_RSHIFT_A);
@@ -843,12 +840,14 @@ static const Governor gADC_Shift_A2mV =
         "",
         ""
     },
-    (int16 *)(&NRST_RSHIFT_ADD_A(Range_2mV, ModeCouple_DC)), -100, 100, OnChanged_ADC_Shift_A
+    (int16 *)(&RSHIFT_ADD_STABLE_A(Range_2mV)), -100, 100, OnChanged_ADC_Shift_A
 };
 
 static void OnChanged_ADC_Shift_A(void)
 {
     FPGA_SetRShift(A, SET_RSHIFT_A);
+
+    //LOG_WRITE("2mv = %d, 5mV = %d, 10mV = %d", RSHIFT_ADD_STABLE(A, Range_2mV), RSHIFT_ADD_STABLE(A, Range_5mV), RSHIFT_ADD_STABLE(A, Range_10mV));
 }
 
 // ÎÒËÀÄÊÀ - ÀÖÏ - ÄÎÏ ÑÌÅÙ - Ñì 2ê 2ìÂ ïîñò ---------------------------------------------------------------------------------------------------------
@@ -860,7 +859,7 @@ static const Governor gADC_Shift_B2mV =
         "",
         ""
     },
-    (int16 *)(&NRST_RSHIFT_ADD_B(Range_2mV, ModeCouple_DC)), -100, 100, OnChanged_ADC_Shift_B
+    (int16 *)(&RSHIFT_ADD_STABLE_B(Range_2mV)), -100, 100, OnChanged_ADC_Shift_B
 };
 
 static void OnChanged_ADC_Shift_B(void)
@@ -877,7 +876,7 @@ static const Governor gADC_Shift_A5mV =
         "",
         ""
     },
-    (int16 *)(&NRST_RSHIFT_ADD_A(Range_5mV, ModeCouple_DC)), -100, 100, OnChanged_ADC_Shift_A
+    (int16 *)(&RSHIFT_ADD_STABLE_A(Range_5mV)), -100, 100, OnChanged_ADC_Shift_A
 };
 
 // ÎÒËÀÄÊÀ - ÀÖÏ - ÄÎÏ ÑÌÅÙ - Ñì 2ê 5ìÂ ïîñò ---------------------------------------------------------------------------------------------------------
@@ -889,7 +888,7 @@ static const Governor gADC_Shift_B5mV =
         "",
         ""
     },
-    (int16 *)(&NRST_RSHIFT_ADD_B(Range_5mV, ModeCouple_DC)), -100, 100, OnChanged_ADC_Shift_B
+    (int16 *)(&RSHIFT_ADD_STABLE_B(Range_5mV)), -100, 100, OnChanged_ADC_Shift_B
 };
 
 // ÎÒËÀÄÊÀ - ÀÖÏ - ÄÎÏ ÑÌÅÙ - Ñì 1ê 10ìÂ ïîñò --------------------------------------------------------------------------------------------------------
@@ -901,7 +900,7 @@ static const Governor gADC_Shift_A10mV =
         "",
         ""
     },
-    (int16 *)(&NRST_RSHIFT_ADD_A(Range_10mV, ModeCouple_DC)), -100, 100, OnChanged_ADC_Shift_A
+    (int16 *)(&RSHIFT_ADD_STABLE_A(Range_10mV)), -100, 100, OnChanged_ADC_Shift_A
 };
 
 // ÎÒËÀÄÊÀ - ÀÖÏ - ÄÎÏ ÑÌÅÙ - Ñì 2ê 10ìÂ ïîñò --------------------------------------------------------------------------------------------------------
@@ -913,7 +912,7 @@ static const Governor gADC_Shift_B10mV =
         "",
         ""
     },
-    (int16 *)(&NRST_RSHIFT_ADD_B(Range_10mV, ModeCouple_DC)), -100, 100, OnChanged_ADC_Shift_B
+    (int16 *)(&RSHIFT_ADD_STABLE_B(Range_10mV)), -100, 100, OnChanged_ADC_Shift_B
 };
 
 // ÎÒËÀÄÊÀ - ÐÀÍÄ-ÒÎÐ ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

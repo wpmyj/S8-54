@@ -570,18 +570,7 @@ static void CalibrateAddRShift(Channel ch)
         {
             NRST_RSHIFT_ADD(ch, range, i) = 0;
         }
-        for (int i = 0; i < 2; i++)
-        {
-            FPGA_SetModeCouple(ch, (ModeCouple)i);    // 
-        }
-        for (int mode = 0; mode < 2; mode++)
-        {
-            NRST_RSHIFT_ADD(ch, range, mode) = CalculateAdditionRShift(ch, (Range)range);
-            if (mode == ModeCouple_DC && range == Range_2mV)
-            {
-                NRST_RSHIFT_ADD(ch, range, mode) -= 5;
-            }
-        }
+        NRST_RSHIFT_ADD(ch, range, ModeCouple_AC) = NRST_RSHIFT_ADD(ch, range,   ModeCouple_DC) = CalculateAdditionRShift(ch, (Range)range);
     }
 }
 
@@ -700,7 +689,7 @@ void FPGA_ProcedureCalibration(void)
     
         // Рассчитываем дополнительное смещение и растяжку второго канала
         gStateFPGA.stateCalibration = StateCalibration_RShiftBstart;
-
+    
         CalibrateChannel(B);
     
         break;
@@ -735,6 +724,8 @@ void FPGA_ProcedureCalibration(void)
 //---------------------------------------------------------------------------------------------------------------------------------------------------
 void FPGA_BalanceChannel(Channel ch)
 {
+    gFPGAisCalibrateAddRshift = true;
+
     CreateCalibrationStruct();
 
     Display_FuncOnWaitStart(DICT(ch == A ? DBalanceChA : DBalanceChB), false);
@@ -750,11 +741,9 @@ void FPGA_BalanceChannel(Channel ch)
     CalibrationMode mode = SET_CALIBR_MODE(ch);
     SET_CALIBR_MODE(ch) = CalibrationMode_x1;
 
-    WriteAdditionRShifts(A);
+    WriteAdditionRShifts(ch);
     
     SET_CALIBR_MODE(ch) = mode;
-
-
 
     Panel_Enable();
 
@@ -763,6 +752,8 @@ void FPGA_BalanceChannel(Channel ch)
     FPGA_OnPressStartStop();
 
     DeleteCalibrationStruct();
+
+    gFPGAisCalibrateAddRshift = false;
 }
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
