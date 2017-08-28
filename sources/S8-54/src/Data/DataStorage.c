@@ -327,52 +327,15 @@ static void PushData(DataSettings *ds, uint8 *dataA, uint8 *dataB)
     numElementsInStorage++;
 }
 
-
-//----------------------------------------------------------------------------------------------------------------------------------------------------
-/*
-static void ReplaceLastFrame(DataSettings *ds, uint8 *dataA, uint8 *dataB)
-{
-    DataSettings *lastDS = DS_DataSettingsFromEnd(0);
-    TIME_TIME(lastDS) = TIME_TIME(ds);    // Нужно скопировать время, потому что во фрейме последних точек оно нулевое.
-
-    int numBytes = BytesInChannel(ds);
-
-    FSMC_SET_MODE(ModeFSMC_RAM);
-
-    if (ENABLED_A(ds))
-    {
-        RAM_MemCpy16(dataA, AddressChannel(lastDS, A), numBytes);
-    }
-
-    if (ENABLED_B(ds))
-    {
-        RAM_MemCpy16(dataB, AddressChannel(lastDS, B), numBytes);
-    }
-
-    FSMC_RESTORE_MODE();
-}
-*/
-
-
 //----------------------------------------------------------------------------------------------------------------------------------------------------
 static void BeginLimits(uint8 *dataA, uint8 *dataB, int numElements)
 {
-    uint16 *datA = (uint16 *)dataA;
-    uint16 *datB = (uint16 *)dataB;
-
-    uint16 *limitUpA = (uint16 *)limitUpA_RAM;
-    uint16 *limitDownA = (uint16 *)limitDownA_RAM;
-
-    uint16 *limitUpB = (uint16 *)limitUpB_RAM;
-    uint16 *limitDownB = (uint16 *)limitDownB_RAM;
-
     for(int i = 0; i < numElements / 2; i++)
     {
-        limitUpA[i] = limitDownA[i] = datA[i]; //-V108
-        limitUpB[i] = limitDownB[i] = datB[i]; //-V108
+        ((uint16*)limitUpA_RAM)[i] = ((uint16*)limitDownA_RAM)[i] = ((uint16*)dataA)[i];
+        ((uint16*)limitUpB_RAM)[i] = ((uint16*)limitDownB_RAM)[i] = ((uint16*)dataB)[i];
     }
 }
-
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
 DataSettings* DS_DataSettingsFromEnd(int indexFromEnd)
@@ -391,7 +354,6 @@ DataSettings* DS_DataSettingsFromEnd(int indexFromEnd)
 
     return &datas[index];
 }
-
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
 DataSettings* GetSettingsDataFromEnd(int fromEnd)
