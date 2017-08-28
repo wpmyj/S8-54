@@ -1041,7 +1041,7 @@ void Processing_SetData(bool needSmoothing)
 {
     isSet = true;
 
-    BitSet64 points = sDisplay_BytesOnDisplay();
+    BitSet64 points = sDisplay_BytesOnDisplay(TBASE_DS >= MIN_TBASE_P2P);   // В поточечном режиме будем брать первые точки в массиве
     firstByte = points.word0;
     lastByte = points.word1;
 

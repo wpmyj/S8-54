@@ -82,11 +82,11 @@ BitSet64 sDisplay_PointsOnDisplay(void)
 }
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
-BitSet64 sDisplay_BytesOnDisplay(void)
+BitSet64 sDisplay_BytesOnDisplay(bool forCalculate)
 {
     BitSet64 retValue;
 
-    retValue.word0 = SHIFT_IN_MEMORY;
+    retValue.word0 = forCalculate ? 0 : SHIFT_IN_MEMORY;
     retValue.word1 = SHIFT_IN_MEMORY + (SET_PEAKDET_EN ? 281 * 2 : 281);
 
     return retValue;
