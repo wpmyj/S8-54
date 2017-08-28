@@ -21,6 +21,8 @@
 extern void OnChanged_ChanA_Input(bool active);
 extern void OnChanged_ChanB_Input(bool active);
 
+extern const Page pHelp;
+
 /// Если произошло короткое нажатие кнопки, то здесь хранится имя этой кнопки до обработки  этого нажатия.
 static PanelButton shortPressureButton = B_Empty;
 /// Если произошло длинное нажатие кнопки, то здесь хранится имя этой кнопки до обработки этого нажатия.
@@ -382,10 +384,13 @@ static void ProcessingShortPressureButton(void)
 
         PanelButton button = shortPressureButton;
 
-        bool run = false;
         do
         {
-            if(button == B_Menu)                                   // Если нажата кнопка МЕНЮ и мы не находимся в режме настройки измерений.
+            if (button == B_Help)
+            {
+                Long_Help();
+            }
+            else if(button == B_Menu)                                   // Если нажата кнопка МЕНЮ и мы не находимся в режме настройки измерений.
             {
                 if(!MENU_IS_SHOWN)
                 {
@@ -429,7 +434,7 @@ static void ProcessingShortPressureButton(void)
                 }
 
                 const void *page = PageForButton(button);
-                if(page)
+                if(page && page != &pHelp)
                 {
                     SetCurrentItem(page, true);
                     OpenItem(page, true);
@@ -437,7 +442,7 @@ static void ProcessingShortPressureButton(void)
                     Menu_Show(true);
                 }
             }
-        } while(run);
+        } while(false);
 
         shortPressureButton = B_Empty;
     }
