@@ -140,6 +140,9 @@ void PainterData_DrawData(void)
 //----------------------------------------------------------------------------------------------------------------------------------------------------
 static void DrawData_ModeDir(void)
 {  
+    Data_ReadFromRAM(0, dataStruct, true);
+    DrawMemoryWindow();
+
     if (MODE_ACCUM_NO_RESET && !IN_P2P_MODE && ENUM_ACCUM > ENumAccum_1)
     {
         int numAccum = NUM_ACCUM;
@@ -176,9 +179,6 @@ static void DrawData_ModeDir(void)
     DrawData(false);
 
     IncreaseNumDrawingSignals();
-
-    Data_ReadFromRAM(0, dataStruct, true);
-    DrawMemoryWindow();
 }
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------

@@ -36,7 +36,7 @@
 #include <stm32f4xx_hal.h>
 
 
-//#define OLD_RECORDER
+#define OLD_RECORDER
 
 typedef signed      char        int8;
 typedef signed      char        int8_t;
