@@ -700,7 +700,7 @@ void FPGA_ProcedureCalibration(void)
     
         // Рассчитываем дополнительное смещение и растяжку второго канала
         gStateFPGA.stateCalibration = StateCalibration_RShiftBstart;
-    
+
         CalibrateChannel(B);
     
         break;
@@ -735,16 +735,10 @@ void FPGA_ProcedureCalibration(void)
 //---------------------------------------------------------------------------------------------------------------------------------------------------
 void FPGA_BalanceChannel(Channel ch)
 {
-    if (ch == A)
-    {
-        Display_FuncOnWaitStart(DICT(DBalance1ch), false);
-    }
-    else
-    {
-        Display_FuncOnWaitStart(DICT(DBalance2ch), false);
-    }
-
     CreateCalibrationStruct();
+
+    Display_FuncOnWaitStart(DICT(ch == A ? DBalanceChA : DBalanceChB), false);
+
     Settings storedSettings;
     Settings_SaveState(&storedSettings);
     Panel_Disable();
@@ -760,11 +754,15 @@ void FPGA_BalanceChannel(Channel ch)
     
     SET_CALIBR_MODE(ch) = mode;
 
+
+
     Panel_Enable();
 
     Display_FuncOnWaitStop();
     
     FPGA_OnPressStartStop();
+
+    DeleteCalibrationStruct();
 }
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------

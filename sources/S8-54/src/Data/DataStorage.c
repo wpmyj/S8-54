@@ -378,11 +378,11 @@ void CalculateLimits(uint8 *dataA, uint8 *dataB, DataSettings *dss)
         RAM_WriteByte(down + i, data);  \
     }
 
-    int numElements = BytesInChannel(dss);
+    int numBytes = BytesInChannel(dss);
 
     if(DS_NumElementsInStorage() == 0 || NUM_MIN_MAX == 1 || (!DataSettingsIsEquals(dss, GetSettingsDataFromEnd(0))))
     {
-        BeginLimits(dataA, dataB, numElements);
+        BeginLimits(dataA, dataB, numBytes);
     }
     else
     {
@@ -391,7 +391,7 @@ void CalculateLimits(uint8 *dataA, uint8 *dataB, DataSettings *dss)
 
         if(DS_NumElementsWithSameSettings() >= NUM_MIN_MAX)
         {
-            BeginLimits(dataA, dataB, numElements);
+            BeginLimits(dataA, dataB, numBytes);
             allDatas--;
         }
 
@@ -404,7 +404,7 @@ void CalculateLimits(uint8 *dataA, uint8 *dataB, DataSettings *dss)
             uint8 limitUp = 0;
             uint8 limitDown = 0;
 
-            for(int i = 0; i < numElements; i++)
+            for(int i = 0; i < numBytes; i++)
             {
                 SET_LIMIT((uint8 *)dataA, (uint8 *)limitUpA_RAM, (uint8 *)limitDownA_RAM);
                 SET_LIMIT((uint8 *)dataB, (uint8 *)limitUpB_RAM, (uint8 *)limitDownB_RAM);
