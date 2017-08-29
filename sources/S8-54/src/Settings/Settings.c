@@ -422,6 +422,14 @@ static void WriteNonResetSettings(Settings *src, Settings *dest)
         }
     }
 
+    for (int x = 0; x < NumChannels; x++)
+    {
+        for (int i = 0; i < 3; i++)
+        {
+            XCHNG(RShiftAddStable[x][i]);
+        }
+    }
+
     XCHNG(CorrectionTime);
 
     for (int x = 0; x < NumChannels; x++)
@@ -452,6 +460,8 @@ static void WriteNonResetSettings(Settings *src, Settings *dest)
     }
 
     XCHNG(NumSmoothForRand);
+
+    dest->serv_SoundEnable = src->serv_SoundEnable;
 
 #undef XCHNG
 }

@@ -370,6 +370,7 @@
     <ClInclude Include="..\..\S8-54\src\Display\PainterText.h" />
     <ClInclude Include="..\..\S8-54\src\Display\Symbols.h" />
     <ClInclude Include="..\..\S8-54\src\Display\WelcomeScreen.h" />
+    <ClInclude Include="..\..\S8-54\src\dox\History.h" />
     <ClInclude Include="..\..\S8-54\src\dox\main_page.h" />
     <ClInclude Include="..\..\S8-54\src\dox\PageAlgorithm.h" />
     <ClInclude Include="..\..\S8-54\src\dox\PageData.h" />

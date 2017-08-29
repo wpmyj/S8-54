@@ -724,7 +724,7 @@ void FPGA_ProcedureCalibration(void)
 //---------------------------------------------------------------------------------------------------------------------------------------------------
 void FPGA_BalanceChannel(Channel ch)
 {
-    gFPGAisCalibrateAddRshift = true;
+    //gFPGAisCalibrateAddRshift = true;
 
     CreateCalibrationStruct();
 
@@ -753,7 +753,7 @@ void FPGA_BalanceChannel(Channel ch)
 
     DeleteCalibrationStruct();
 
-    gFPGAisCalibrateAddRshift = false;
+    //gFPGAisCalibrateAddRshift = false;
 }
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------

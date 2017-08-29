@@ -1088,6 +1088,9 @@
     <ClInclude Include="..\..\S8-54\src\SelfRecorder\SelfRecorder.h">
       <Filter>SelfRecorder</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\S8-54\src\dox\History.h">
+      <Filter>_dox</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\S8-54\src\Display\font\font5.inc">

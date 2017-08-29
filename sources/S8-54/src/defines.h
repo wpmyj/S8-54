@@ -6,8 +6,8 @@
 #include <math.h>
 #include <limits.h>
 
-//#define S8_54
-#define S8_55
+#define S8_54
+//#define S8_55
 
 #if ((defined S8_54) && (defined S8_55))
     #error ("Only S8_54 or S8_55 can be selected")
