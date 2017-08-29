@@ -62,6 +62,8 @@ sources/VS-OSCI/Display/Debug
 sources/S8-54/Bootloader/Objects
 sources/S8-54/Bootloader/Listings
 sources/Display/Display.hex
+sources/VS-OSCI/InterfacePC/InterfacePC/bin
+sources/VS-OSCI/InterfacePC/InterfacePC/obj
 bins
 
 doc/doxygen/S8-54/**/*
