@@ -715,8 +715,8 @@ void FPGA_EnableRecorderMode(bool enable)
         }
     }
 
-    FPGA_SetModeCouple(A, SET_COUPLE_A);
-    FPGA_SetModeCouple(B, SET_COUPLE_B);
+    FPGA_SetModeCouple(A, ModeCouple_DC);
+    FPGA_SetModeCouple(B, ModeCouple_DC);
     
     LoadRegUPR();
 

@@ -187,33 +187,57 @@ static void PrepareDataForDraw(StructDataDrawing *dataStruct)
 static void FillDataP2P(StructDataDrawing *dataStruct, Channel ch)
 {
     memset(dataStruct->data[ch], 0, 281 * 2);
-    
-    if(!dataStruct->needDraw[ch])
+
+    if (!dataStruct->needDraw[ch])
     {
         return;
     }
-    
+
     int bytesInScreen = PEAKDET_DS ? 280 * 2 : 280;
-    
+
     int allPoints = numPointsP2P;
 
-    if (allPoints > 1)
+    if (RECORDER_MODE)
     {
-        int pointer = 0;                // Указатель на данные полного фрейма
-        int index = 0;                  // Указатель на данные выходного буфера, в который мы запишем 281 точку
-        while (allPoints > BytesInChannel(DS))
+        int start = allPoints - bytesInScreen;  // Значения, начиная с этого, нужно записывать в экранный буфер.
+        int end = allPoints - 1;                // Этим значением заканчиывается вывод на экран
+        LIMIT_BELOW(start, 0);
+
+        if (end > BytesInChannel(DS) - 1)       // Если считано больше точек, чем помещается в память канала
         {
-            ++index;
-            SET_IF_LARGER(index, bytesInScreen, 0);
-            --allPoints;
+            start = BytesInChannel(DS) - bytesInScreen;
+            end = BytesInChannel(DS)  - 1;
         }
-        while (allPoints > 0)
+
+        int index = start;
+
+        for (; index <= end; index++)
         {
-            dataStruct->data[ch][index++] = dataOUT[ch][pointer++];
-            SET_IF_LARGER(index, bytesInScreen, 0);
-            --allPoints;
+            dataStruct->data[ch][index - start] = dataOUT[ch][index];
         }
         dataStruct->posBreak = PEAKDET_DS ? (index / 2) : (index - 1);
+    }
+    else
+    {
+        if (allPoints > 1)
+        {
+            int pointer = 0;                // Указатель на данные полного фрейма
+            int index = 0;                  // Указатель на данные выходного буфера, в который мы запишем 281 точку
+            while (allPoints > BytesInChannel(DS))
+            {
+                ++index;
+                SET_IF_LARGER(index, bytesInScreen, 0);
+                --allPoints;
+            }
+            while (allPoints > 0)
+            {
+                dataStruct->data[ch][index++] = dataOUT[ch][pointer++];
+                SET_IF_LARGER(index, bytesInScreen, 0);
+                --allPoints;
+            }
+            dataStruct->posBreak = PEAKDET_DS ? (index / 2) : (index - 1);
+        }
+
     }
 
     LIMITATION(dataStruct->posBreak, 0, 281);
