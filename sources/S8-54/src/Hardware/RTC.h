@@ -8,11 +8,11 @@
 /** @addtogroup Hardware
  *  @{
  *  @defgroup RTC
- *  @brief Р Р°Р±РѕС‚Р° СЃ С‡Р°СЃР°РјРё СЂРµР°Р»СЊРЅРѕРіРѕ РІСЂРµРјРµРЅРё
+ *  @brief Работа с часами реального времени
  *  @{
  */
 
-/// РРЅРёС†РёР°Р»РёР·Р°С†РёСЏ
+/// Инициализация
 void RTC_Init(void);
 
 bool RTC_SetTimeAndData(int8 day, int8 month, int8 year, int8 hours, int8 minutes, int8 seconds);

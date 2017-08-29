@@ -638,8 +638,8 @@ float CalculateTimeNarastaniya(Channel ch)   /** \todo Здесь, возможно, нужно ув
     {
         markerHor[ch][0] = (int)max09;
         markerHor[ch][1] = (int)min01;
-        markerVert[ch][0] = (int)((int16)firstIntersection - SHIFT_IN_MEMORY);
-        markerVert[ch][1] = (int)((int16)secondIntersection - SHIFT_IN_MEMORY);
+        markerVert[ch][0] = (int)((int16)firstIntersection - firstByte);
+        markerVert[ch][1] = (int)((int16)secondIntersection - firstByte);
     }
 
     return retValue;

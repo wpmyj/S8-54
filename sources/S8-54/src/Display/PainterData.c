@@ -645,18 +645,21 @@ static void DrawMarkersForMeasure(Channel ch)
     int bottom = GridChannelBottom();
     int left = GridLeft();
     int right = GridRight();
-    float scale = (float)(bottom - GRID_TOP) / (MAX_VALUE - MIN_VALUE);
+    float scaleY = (float)(bottom - GRID_TOP) / (MAX_VALUE - MIN_VALUE);
+
+    BitSet64 points = sDisplay_PointsOnDisplay();
+    float scaleX = (float)(GridRight() - GridLeft()) / (float)(points.word1 - points.word0);
 
     Painter_SetColor(ColorCursors(ch));
     for (int numMarker = 0; numMarker < 2; numMarker++)
     {
-        int posY = bottom - (int)(MARKER_HORIZONTAL(ch, numMarker) * scale);
+        int posY = bottom - (int)(MARKER_HORIZONTAL(ch, numMarker) * scaleY);
         if (posY > GRID_TOP && posY < bottom)
         {
             Painter_DrawDashedHLine(posY, left, right, 3, 2, 0);
         }
 
-        int posX = left + (int)(MARKER_VERTICAL(ch, numMarker) * scale);
+        int posX = left + (int)(MARKER_VERTICAL(ch, numMarker) * scaleX);
         if (posX > left && posX < right)
         {
             Painter_DrawDashedVLine(posX, GRID_TOP, bottom, 3, 2, 0);
