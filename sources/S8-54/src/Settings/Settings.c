@@ -461,7 +461,5 @@ static void WriteNonResetSettings(Settings *src, Settings *dest)
 
     XCHNG(NumSmoothForRand);
 
-    dest->serv_SoundEnable = src->serv_SoundEnable;
-
 #undef XCHNG
 }
