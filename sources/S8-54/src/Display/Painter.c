@@ -55,8 +55,9 @@ void Painter_BeginScene(Color color)
 {
     if (TRANSMIT_NEED_FOR_FIRST || TRANSMIT_NEED_FOR_SECOND)
     {
+        bool needForLoadFonts = TRANSMIT_NEED_FOR_FIRST;
         stateTransmit = StateTransmit_InProcess;
-        if (TRANSMIT_NEED_FOR_FIRST)
+        if (needForLoadFonts)
         {
             Painter_LoadPalette();
             Painter_LoadFont(TypeFont_5);

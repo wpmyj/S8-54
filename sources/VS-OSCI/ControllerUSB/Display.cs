@@ -22,21 +22,29 @@ namespace Controller_S8_53
 
         enum Command : byte
         {
-            SET_COLOR = 1,
-            FILL_REGION = 2,
-            END_SCENE = 3,
-            DRAW_HLINE = 4,
-            DRAW_VLINE = 5,
-            SET_POINT = 6,
-            DRAW_SIGNAL_LINES = 7,
-            DRAW_TEXT = 8,
-            SET_PALETTE = 9,
-            SET_FONT = 10,
-            DRAW_VLINES_ARRAY = 13,
-            DRAW_SIGNAL_POINTS = 14,
-            DRAW_MULTI_HPOINT_LINES_2 = 17,
-            DRAW_MULTI_VPOINT_LINES = 18,
-            LOAD_FONT = 19
+            EMPTY_FUNCTION              = 0,
+            SET_BRIGHTNESS              = 1,
+            SET_ORIENTATION             = 2,
+            SET_PALETTE                 = 3,
+            SET_COLOR                   = 4,
+            SET_FONT                    = 5,
+            DRAW_TEXT                   = 6,
+            SET_POINT                   = 7,
+            DRAW_LINE                   = 8,
+            FILL_REGION                 = 9,
+            DRAW_MULTI_HPOINT_LINES_2   = 10,
+            DRAW_MULTI_VPOINT_LINES     = 11,
+            DRAW_SIGNAL_LINES           = 12,
+            DRAW_SIGNAL_POINTS          = 13,
+            DRAW_VLINES_ARRAY           = 14,
+            END_SCENE                   = 15,
+            RUN_BUFFER                  = 16,
+            GET_PIXEL                   = 17,
+            LOAD_IMAGE                  = 18,
+            DRAW_HLINE                  = 19,
+            DRAW_VLINE                  = 20,
+            SET_REINIT                  = 21,
+            LOAD_FONT                   = 22
         };
 
         [DllImport("gdi32")]
