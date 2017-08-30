@@ -128,13 +128,18 @@ namespace Controller_S8_53 {
 
         private static byte[] data = new byte[16 * 1024];
 
-        override public SerialPort GetSerialPort()
-        {
-            return port;
-        }
-
         override public bool IsOpen() {
             return port.IsOpen;
+        }
+
+        override public int BytesToRead()
+        {
+            return port.BytesToRead;
+        }
+
+        override public void Read(byte[] buffer, int start, int length)
+        {
+            port.Read(buffer, start, length);
         }
     }
 }

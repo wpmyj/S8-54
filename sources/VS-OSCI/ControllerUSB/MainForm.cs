@@ -14,7 +14,7 @@ namespace Controller_S8_53 {
     public partial class MainForm : Form {
 
         private bool needForDisconnect = false;
-        private Client port = new ComPort();
+        private Client client = new ComPort();
         private Dictionary<Button, string> mapButtons = new Dictionary<Button, string>();
 
         private Queue<string> commands = new Queue<string>();
@@ -66,21 +66,21 @@ namespace Controller_S8_53 {
         }
 
         private void btnUpdatePorts_Click(object sender, EventArgs e) {
-            string[] ports = port.GetPorts();
+            string[] ports = client.GetPorts();
             cbPorts.Items.Clear();
             cbPorts.Items.AddRange(ports);
             cbPorts.SelectedIndex = ports.Length - 1;
         }
 
         private void btnConnectUSB_Click(object sender, EventArgs e) {
-            if(port.IsOpen()) {
+            if(client.IsOpen()) {
                 needForDisconnect = true;
                 btnConnectUSB.Text = "Подкл";
             } else {
-                if(port.Open(cbPorts.SelectedIndex)) {
+                if(client.Open(cbPorts.SelectedIndex)) {
                     btnConnectUSB.Text = "Откл";
-                    port.SendString("DISPLAY:AUTOSEND 1");
-                    display.StartDrawing(port.GetSerialPort());
+                    client.SendString("DISPLAY:AUTOSEND 1");
+                    display.StartDrawing(client);
                     needForDisconnect = false;
                 }
             }
@@ -88,23 +88,23 @@ namespace Controller_S8_53 {
 
         private void cbPorts_SelectedIndexChanged(object sender, EventArgs e)
         {
-            btnConnectUSB.Enabled = port.DeviceConnectToPort(cbPorts.SelectedIndex);
+            btnConnectUSB.Enabled = client.DeviceConnectToPort(cbPorts.SelectedIndex);
         }
 
         private void OnEndFrameEvent(object sender, EventArgs e)
         {
             if (needForDisconnect)
             {
-                port.Stop();
+                client.Stop();
             }
             else
             {
                 while (commands.Count != 0)
                 {
-                    port.SendString(commands.Dequeue());
+                    client.SendString(commands.Dequeue());
                 }
-                port.SendString("DISPLAY:AUTOSEND 2");
-                display.StartDrawing(port.GetSerialPort());
+                client.SendString("DISPLAY:AUTOSEND 2");
+                display.StartDrawing(client);
             }
         }
 

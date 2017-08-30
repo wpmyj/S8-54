@@ -7,7 +7,7 @@ using System.IO.Ports;
 
 namespace Controller_S8_53
 {
-    class Client
+    public class Client
     {
         virtual public string[] GetPorts()
         {
@@ -34,6 +34,15 @@ namespace Controller_S8_53
             return false;
         }
         virtual public void Stop()
+        {
+
+        }
+        virtual public int BytesToRead()
+        {
+            return 0;
+        }
+
+        virtual public void Read(byte[] buffer, int start, int length)
         {
 
         }

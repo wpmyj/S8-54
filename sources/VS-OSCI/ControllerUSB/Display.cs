@@ -108,7 +108,7 @@ namespace Controller_S8_53
 
         private static Stopwatch stopWatch = new Stopwatch();
 
-        private static SerialPort port;
+        private static Client client;
 
         private static int currentFont = 0;
 
@@ -427,12 +427,12 @@ namespace Controller_S8_53
             {
                 return recData[pointer++];
             }
-            while(port.BytesToRead == 0)
+            while(client.BytesToRead() == 0)
             {
             };
-            int length = port.BytesToRead;
+            int length = client.BytesToRead();
             recData = new byte[length];
-            port.Read(recData, 0, length);
+            client.Read(recData, 0, length);
             pointer = 1;
             return recData[0];
         }
@@ -442,10 +442,10 @@ namespace Controller_S8_53
             return int8() + (int8() << 8);
         }
 
-        public void StartDrawing(SerialPort port_)
+        public void StartDrawing(Client client_)
         {
             processThread = new Thread(Processing);
-            port = port_;
+            client = client_;
             running = true;
             processThread.Start();
         }
