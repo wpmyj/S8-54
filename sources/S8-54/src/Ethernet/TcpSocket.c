@@ -23,20 +23,82 @@ struct State
     int numPort;
 };
 
-void(*SocketFuncConnect)(void) = 0;                                 // this function will be called every time a new connection
-void(*SocketFuncReceiver)(const char *buffer, uint length) = 0;     // this function will be called when a message is received from any client
+static void(*SocketFuncConnect)(void) = 0;                                 // this function will be called every time a new connection
+static void(*SocketFuncReceiver)(const char *buffer, uint length) = 0;     // this function will be called when a message is received from any client
 
 bool gEthIsConnected = false;                                       // Если true, то подсоединён клиент
 
+static err_t CallbackOnAccept(void *arg, struct tcp_pcb *_newPCB, err_t err);
+static void Send(struct tcp_pcb *tpcb, struct State *ss);
+
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+bool TCPSocket_Init(void(*funcConnect)(void), void(*funcReceiver)(const char *buffer, uint length))
+{
+    struct tcp_pcb *pcb = tcp_new();
+    if (pcb != NULL)
+    {
+        err_t err = tcp_bind(pcb, IP_ADDR_ANY, (u16_t)DEFAULT_PORT);
+        if (err == ERR_OK)
+        {
+            pcb = tcp_listen(pcb);
+            SocketFuncReceiver = funcReceiver;
+            SocketFuncConnect = funcConnect;
+            tcp_accept(pcb, CallbackOnAccept);
+        }
+        else
+        {
+            // abort? output diagnostic?
+        }
+    }
+    else
+    {
+        // abort? output diagonstic?
+    }
+
+    pcbClient = 0;
+
+    return true;
+}
+
+//----------------------------------------------------------------------------------------------------------------------------------------------------
+bool TCPSocket_Send(const char *buffer, uint length)
+{
+    if (pcbClient)
+    {
+        struct pbuf *tcpBuffer = pbuf_alloc(PBUF_RAW, (u16_t)length, PBUF_POOL);
+        tcpBuffer->flags = 1;
+        pbuf_take(tcpBuffer, buffer, (u16_t)length);
+        struct State *ss = (struct State*)mem_malloc(sizeof(struct State));
+        ss->p = tcpBuffer;
+        Send(pcbClient, ss);
+        mem_free(ss);
+    }
+    return pcbClient != 0;
+}
+
+//----------------------------------------------------------------------------------------------------------------------------------------------------
+void TCPSocket_SendFormatString(char *format, ...)
+{
+#undef SIZE_BUFFER
+#define SIZE_BUFFER 200
+    static char buffer[SIZE_BUFFER];
+    __va_list args;
+    va_start(args, format);
+    vsprintf(buffer, format, args);
+    va_end(args);
+    strcat(buffer, "\r\n");
+    TCPSocket_Send(buffer, strlen(buffer));
+}
+
+//----------------------------------------------------------------------------------------------------------------------------------------------------
 void ETH_SendFormatString(char *format, ...)
 {
 
 }
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
-void CloseConnection(struct tcp_pcb *tpcb, struct State *ss)
+static void CloseConnection(struct tcp_pcb *tpcb, struct State *ss)
 {
     gEthIsConnected = false;
     tcp_arg(tpcb, NULL);
@@ -55,7 +117,7 @@ void CloseConnection(struct tcp_pcb *tpcb, struct State *ss)
 }
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
-void Send(struct tcp_pcb *tpcb, struct State *ss)
+static void Send(struct tcp_pcb *tpcb, struct State *ss)
 {
     struct pbuf *ptr;
     err_t wr_err = ERR_OK;
@@ -100,7 +162,7 @@ void Send(struct tcp_pcb *tpcb, struct State *ss)
 }
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
-err_t CallbackOnSent(void *arg, struct tcp_pcb *tpcb, u16_t len)
+static err_t CallbackOnSent(void *arg, struct tcp_pcb *tpcb, u16_t len)
 {
     struct State *ss;
     LWIP_UNUSED_ARG(len);
@@ -122,7 +184,7 @@ err_t CallbackOnSent(void *arg, struct tcp_pcb *tpcb, u16_t len)
 }
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
-void SendAnswer(void *arg, struct tcp_pcb *tpcb)
+static void SendAnswer(void *arg, struct tcp_pcb *tpcb)
 {
     static const char policy[] = "<?xml version=\"1.0\"?>"                                                  \
         "<!DOCTYPE cross-domain-policy SYSTEM \"http://www.adobe.com/xml/dtds/cross-domain-policy.dtd\">"   \
@@ -139,7 +201,7 @@ void SendAnswer(void *arg, struct tcp_pcb *tpcb)
 }
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
-err_t CallbackOnReceive(void *arg, struct tcp_pcb *tpcb, struct pbuf *p, err_t err)
+static err_t CallbackOnReceive(void *arg, struct tcp_pcb *tpcb, struct pbuf *p, err_t err)
 {
     err_t ret_err;
     LWIP_ASSERT("arg != NULL", arg != NULL);
@@ -247,7 +309,7 @@ err_t CallbackOnReceive(void *arg, struct tcp_pcb *tpcb, struct pbuf *p, err_t e
 }
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
-void CallbackOnError(void *arg, err_t err)
+static void CallbackOnError(void *arg, err_t err)
 {
     struct State *ss;
     LWIP_UNUSED_ARG(err);
@@ -260,7 +322,7 @@ void CallbackOnError(void *arg, err_t err)
 }
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
-err_t CallbackOnPoll(void *arg, struct tcp_pcb *tpcb)
+static err_t CallbackOnPoll(void *arg, struct tcp_pcb *tpcb)
 {
     err_t ret_err;
     struct State *ss = (struct State *)arg;
@@ -292,7 +354,7 @@ err_t CallbackOnPoll(void *arg, struct tcp_pcb *tpcb)
 }
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
-err_t CallbackOnAccept(void *arg, struct tcp_pcb *_newPCB, err_t err)
+static err_t CallbackOnAccept(void *arg, struct tcp_pcb *_newPCB, err_t err)
 {
     err_t ret_err;
 
@@ -341,66 +403,9 @@ err_t CallbackOnAccept(void *arg, struct tcp_pcb *_newPCB, err_t err)
 }
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
-err_t CallbackOnAcceptPolicyPort(void *arg, struct tcp_pcb *newPCB, err_t err)
+/*
+static err_t CallbackOnAcceptPolicyPort(void *arg, struct tcp_pcb *newPCB, err_t err)
 {
     return CallbackOnAccept(arg, newPCB, err);
 }
-
-//----------------------------------------------------------------------------------------------------------------------------------------------------
-bool TCPSocket_Init(void(*funcConnect)(void), void(*funcReceiver)(const char *buffer, uint length))
-{
-    struct tcp_pcb *pcb = tcp_new();
-    if (pcb != NULL)
-    {
-        err_t err = tcp_bind(pcb, IP_ADDR_ANY, (u16_t)DEFAULT_PORT);
-        if (err == ERR_OK)
-        {
-            pcb = tcp_listen(pcb);
-            SocketFuncReceiver = funcReceiver;
-            SocketFuncConnect = funcConnect;
-            tcp_accept(pcb, CallbackOnAccept);
-        }
-        else
-        {
-            // abort? output diagnostic?
-        }
-    }
-    else
-    {
-        // abort? output diagonstic?
-    }
-
-    pcbClient = 0;
-
-    return true;
-}
-
-//----------------------------------------------------------------------------------------------------------------------------------------------------
-bool TCPSocket_Send(const char *buffer, uint length)
-{
-    if (pcbClient)
-    {
-        struct pbuf *tcpBuffer = pbuf_alloc(PBUF_RAW, (u16_t)length, PBUF_POOL);
-        tcpBuffer->flags = 1;
-        pbuf_take(tcpBuffer, buffer, (u16_t)length);
-        struct State *ss = (struct State*)mem_malloc(sizeof(struct State));
-        ss->p = tcpBuffer;
-        Send(pcbClient, ss);
-        mem_free(ss);
-    }
-    return pcbClient != 0;
-}
-
-//----------------------------------------------------------------------------------------------------------------------------------------------------
-void TCPSocket_SendFormatString(char *format, ...)
-{
-#undef SIZE_BUFFER
-#define SIZE_BUFFER 200
-    static char buffer[SIZE_BUFFER];
-    __va_list args;
-    va_start(args, format);
-    vsprintf(buffer, format, args);
-    va_end(args);
-    strcat(buffer, "\r\n");
-    TCPSocket_Send(buffer, strlen(buffer));
-}
+*/
