@@ -85,17 +85,15 @@ static void ShiftOnePoint2Right(uint8 *data, int size);
 static uint16 READ_DATA_ADC_16(const uint16 *address, Channel ch )
 {
     float delta = AVE_VALUE - (RShiftZero - SET_RSHIFT(ch)) / (RSHIFT_IN_CELL / 20.0f);
-    BitSet16 _data_;
-    _data_.halfWord = *address;
-    int byte0 = (int)(((float)_data_.byte[0] - delta) * GetStretchADC(ch) + delta + 0.5f);
-    if (byte0 < 0) { byte0 = 0; };
-    if (byte0 > 255) { byte0 = 255; };
-    _data_.byte[0] = (uint8)byte0;
-    int byte1 = (int)(((float)_data_.byte[1] - delta) * GetStretchADC(ch) + delta + 0.5f);
-    if (byte1 < 0) { byte1 = 0; };
-    if (byte1 > 255) { byte1 = 255; };
-    _data_.byte[1] = (uint8)byte1;
-    return _data_.halfWord;
+    BitSet16 point;
+    point.halfWord = *address;
+    int byte0 = (int)(((float)point.byte[0] - delta) * GetStretchADC(ch) + delta + 0.5f);
+    LIMITATION(byte0, 0, 255);
+    point.byte[0] = (uint8)byte0;
+    int byte1 = (int)(((float)point.byte[1] - delta) * GetStretchADC(ch) + delta + 0.5f);
+    LIMITATION(byte1, 0, 255);
+    point.byte[1] = (uint8)byte1;
+    return point.halfWord;
 }
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
