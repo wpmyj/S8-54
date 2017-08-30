@@ -82,7 +82,7 @@ static void DataReadSave(bool first, bool saveToStorage, bool onlySave);
 static void ShiftOnePoint2Right(uint8 *data, int size);
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-static uint16 READ_DATA_ADC_16(const uint16 *address, Channel ch   )
+static uint16 READ_DATA_ADC_16(const uint16 *address, Channel ch )
 {
     float delta = AVE_VALUE - (RShiftZero - SET_RSHIFT(ch)) / (RSHIFT_IN_CELL / 20.0f);
     BitSet16 _data_;
@@ -203,8 +203,8 @@ static bool ReadPoint(void)
         BitSet16 bsA;
         BitSet16 bsB;
 
-        bsA.halfWord = *RD_ADC_A;
-        bsB.halfWord = *RD_ADC_B;
+        bsA.halfWord = READ_DATA_ADC_16(RD_ADC_A, A);
+        bsB.halfWord = READ_DATA_ADC_16(RD_ADC_B, B);
 
         int16 byte0 = (int16)bsA.byte0 + balanceA;
         LIMITATION(byte0, 0, 255);
@@ -432,7 +432,7 @@ static void ReadRandomizeChannel(Channel ch, uint16 addrFirstRead, uint8 *data, 
     {
         while (data <= last)
         {
-            newData = *addr;
+            newData = READ_DATA_ADC_16(addr, ch);
             *data = (uint8)((int)(2 * AVE_VALUE) - LimitationUInt8((uint8)newData, MIN_VALUE, MAX_VALUE));
             data += step;
         }
@@ -441,7 +441,7 @@ static void ReadRandomizeChannel(Channel ch, uint16 addrFirstRead, uint8 *data, 
     {
         while (data <= last)
         {
-            *data = (uint8)(*addr);
+            *data = (uint8)READ_DATA_ADC_16(addr, ch);
             data += step;
         }
     }
