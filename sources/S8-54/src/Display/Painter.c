@@ -24,6 +24,12 @@ static Color currentColor = NUM_COLORS;
 static bool framesElapsed = false;
 
 
+#define TRANSMIT_NEED_FOR_FIRST     (stateTransmit == StateTransmit_NeedForTransmitFirst)
+#define TRANSMIT_NEED_FOR_SECOND    (stateTransmit == StateTransmit_NeedForTransmitSecond)
+#define TRANSMIT_IS_FREE            (stateTransmit == StateTransmit_Free)
+#define TRANSMIT_IN_PROCESS         (stateTransmit == StateTransmit_InProcess)
+
+
 static enum StateTransmit
 {
     StateTransmit_Free,
@@ -47,11 +53,10 @@ static uint8 Read2points(int x, int y);
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 void Painter_BeginScene(Color color)
 {
-    if (stateTransmit == StateTransmit_NeedForTransmitFirst || stateTransmit == StateTransmit_NeedForTransmitSecond)
+    if (TRANSMIT_NEED_FOR_FIRST || TRANSMIT_NEED_FOR_SECOND)
     {
-        bool needForLoadFontsAndPalette = stateTransmit == StateTransmit_NeedForTransmitFirst;
         stateTransmit = StateTransmit_InProcess;
-        if (needForLoadFontsAndPalette)
+        if (TRANSMIT_NEED_FOR_FIRST)
         {
             Painter_LoadPalette();
             Painter_LoadFont(TypeFont_5);
@@ -83,7 +88,7 @@ void Painter_EndScene(void)
     uint8 command[4] = {INVALIDATE};
     Painter_SendToDisplay(command, 4);
     Painter_SendToInterfaces(command, 1);
-    if (stateTransmit == StateTransmit_InProcess)
+    if (TRANSMIT_IN_PROCESS)
     {
         VCP_Flush();
         stateTransmit = StateTransmit_Free;
@@ -95,7 +100,7 @@ void Painter_EndScene(void)
 //----------------------------------------------------------------------------------------------------------------------------------------------------
 void Painter_SendFrame(bool first)
 {
-    if (stateTransmit == StateTransmit_Free)
+    if (TRANSMIT_IS_FREE)
     {
         stateTransmit = (first ? StateTransmit_NeedForTransmitFirst : StateTransmit_NeedForTransmitSecond);
     }
@@ -638,7 +643,7 @@ void Painter_SendToDisplay(uint8 *bytes, int numBytes)
 //----------------------------------------------------------------------------------------------------------------------------------------------------
 void Painter_SendToInterfaces(uint8 *pointer, int size)
 {
-    if (stateTransmit == StateTransmit_InProcess)
+    if (TRANSMIT_IN_PROCESS)
     {
         VCP_SendDataSynch(pointer, size);
         TCPSocket_Send((const char *)pointer, size);

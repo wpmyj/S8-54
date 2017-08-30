@@ -32,10 +32,9 @@
 #endif
 
 
-#define CONNECTED_TO_HOST gConnectedToHost
+#define CONNECTED_TO_USB        gConnectedToUSB
+#define CABLE_USB_IS_CONNECTED  gCableUSBisConnected
 
 
-extern bool gCableVCPisConnected;
-extern bool gConnectedToHost;
-
-
+extern bool gConnectedToUSB;
+extern bool gCableUSBisConnected;

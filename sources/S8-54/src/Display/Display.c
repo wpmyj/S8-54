@@ -766,9 +766,9 @@ static void DrawLowPart(void)
         Painter_Draw4SymbolsInRectC(x + 87, GRID_BOTTOM + 2, SYMBOL_ETHERNET, gEthIsConnected ? COLOR_WHITE : COLOR_FLASH_01);
     }
 
-    if(CONNECTED_TO_HOST || gCableVCPisConnected)
+    if(CONNECTED_TO_USB || CABLE_USB_IS_CONNECTED)
     {
-        Painter_Draw4SymbolsInRectC(x + 72, GRID_BOTTOM + 2, SYMBOL_USB, CONNECTED_TO_HOST ? COLOR_WHITE : COLOR_FLASH_01);
+        Painter_Draw4SymbolsInRectC(x + 72, GRID_BOTTOM + 2, SYMBOL_USB, CONNECTED_TO_USB ? COLOR_WHITE : COLOR_FLASH_01);
     }
 
     Painter_SetColor(gColorFill);

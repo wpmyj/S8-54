@@ -68,7 +68,7 @@ void VCP_Flush(void)
 //----------------------------------------------------------------------------------------------------------------------------------------------------
 void VCP_SendDataSynch(const uint8 *buffer, int size)
 {
-    if (CONNECTED_TO_HOST)
+    if (CONNECTED_TO_USB)
     {
         USBD_CDC_HandleTypeDef *pCDC = handleUSBD.pClassData;
     
@@ -121,7 +121,7 @@ void VCP_SendStringSynch(char *data)
 //----------------------------------------------------------------------------------------------------------------------------------------------------
 void VCP_SendFormatStringAsynch(char *format, ...)
 {
-    if (CONNECTED_TO_HOST)
+    if (CONNECTED_TO_USB)
     {
         static char buffer[200];
         __va_list args;

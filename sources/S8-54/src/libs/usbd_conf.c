@@ -15,8 +15,8 @@ extern PCD_HandleTypeDef handlePCD;
 extern USBD_HandleTypeDef handleUSBD;
 
 
-bool gCableVCPisConnected = false;
-bool gConnectedToHost = false;
+bool gCableUSBisConnected = false;
+bool gConnectedToUSB = false;
 
 
 /*******************************************************************************
@@ -35,18 +35,18 @@ void HAL_PCD_SetupStageCallback(PCD_HandleTypeDef *hpcd)
                                                                     //
     if (request.wLength == 0)                                       //
     {                                                               //
-        if (gCableVCPisConnected)                                   //
+        if (CABLE_USB_IS_CONNECTED)                                 //
         {                                                           //
             if (prevLength != 0)                                    //
             {                                                       //
-                CONNECTED_TO_HOST = true;                           // GOVNOCODE Таким вот замысловатым образом определяем, что к нам подконнектился хост (
+                CONNECTED_TO_USB = true;                            // GOVNOCODE Таким вот замысловатым образом определяем, что к нам подконнектился хост (
             }                                                       //
             else                                                    //
             {                                                       //
-                CONNECTED_TO_HOST = false;                          //
+                CONNECTED_TO_USB = false;                           //
                 Settings_Save();                                    // При отконнекчивании сохраняем настройки
             }                                                       /// \todo Возможно, это не нужно делать
-            CONNECTED_TO_HOST = prevLength != 0;                    // 
+            CONNECTED_TO_USB = prevLength != 0;                     // 
         }                                                           //
     }                                                               //
     prevLength = request.wLength;                                   //

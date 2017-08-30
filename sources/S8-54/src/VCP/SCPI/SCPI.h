@@ -20,7 +20,7 @@
 
 
 #define SCPI_SEND(...)                                  \
-    if(CONNECTED_TO_HOST)                               \
+    if(CONNECTED_TO_USB)                               \
     {                                                   \
         VCP_SendFormatStringAsynch(__VA_ARGS__);        \
     };                                                  \
