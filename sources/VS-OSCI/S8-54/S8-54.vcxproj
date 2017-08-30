@@ -171,7 +171,9 @@
     <ClCompile Include="..\..\S8-54\src\Display\PainterMem.c" />
     <ClCompile Include="..\..\S8-54\src\Display\PainterText.c" />
     <ClCompile Include="..\..\S8-54\src\Display\WelcomeScreen.c" />
+    <ClCompile Include="..\..\S8-54\src\Ethernet\app_ethernet.c" />
     <ClCompile Include="..\..\S8-54\src\Ethernet\Ethernet.c" />
+    <ClCompile Include="..\..\S8-54\src\Ethernet\ethernetif.c" />
     <ClCompile Include="..\..\S8-54\src\Ethernet\TcpSocket.c" />
     <ClCompile Include="..\..\S8-54\src\FlashDrive\FlashDrive.c">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</ExcludedFromBuild>
@@ -189,8 +191,6 @@
     <ClCompile Include="..\..\S8-54\src\Hardware\Sound.c" />
     <ClCompile Include="..\..\S8-54\src\Hardware\Timer.c" />
     <ClCompile Include="..\..\S8-54\src\Heap.c" />
-    <ClCompile Include="..\..\S8-54\src\libs\app_ethernet.c" />
-    <ClCompile Include="..\..\S8-54\src\libs\ethernetif.c" />
     <ClCompile Include="..\..\S8-54\src\libs\stm32f4xx_hal_msp.c" />
     <ClCompile Include="..\..\S8-54\src\libs\stm32f4xx_it.c" />
     <ClCompile Include="..\..\S8-54\src\libs\system_stm32f4xx.c" />
@@ -376,7 +376,10 @@
     <ClInclude Include="..\..\S8-54\src\dox\PageData.h" />
     <ClInclude Include="..\..\S8-54\src\dox\PageMenu.h" />
     <ClInclude Include="..\..\S8-54\src\dox\RelatedPages.h" />
+    <ClInclude Include="..\..\S8-54\src\Ethernet\app_ethernet.h" />
     <ClInclude Include="..\..\S8-54\src\Ethernet\Ethernet.h" />
+    <ClInclude Include="..\..\S8-54\src\Ethernet\ethernetif.h" />
+    <ClInclude Include="..\..\S8-54\src\Ethernet\lwipopts.h" />
     <ClInclude Include="..\..\S8-54\src\Ethernet\TcpSocket.h" />
     <ClInclude Include="..\..\S8-54\src\FlashDrive\FlashDrive.h">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</ExcludedFromBuild>
@@ -392,10 +395,7 @@
     <ClInclude Include="..\..\S8-54\src\Hardware\RTC.h" />
     <ClInclude Include="..\..\S8-54\src\Hardware\Sound.h" />
     <ClInclude Include="..\..\S8-54\src\Hardware\Timer.h" />
-    <ClInclude Include="..\..\S8-54\src\libs\app_ethernet.h" />
-    <ClInclude Include="..\..\S8-54\src\libs\ethernetif.h" />
     <ClInclude Include="..\..\S8-54\src\libs\ffconf.h" />
-    <ClInclude Include="..\..\S8-54\src\libs\lwipopts.h" />
     <ClInclude Include="..\..\S8-54\src\libs\stm32f4xx_hal_conf.h" />
     <ClInclude Include="..\..\S8-54\src\libs\stm32f4xx_it.h" />
     <ClInclude Include="..\..\S8-54\src\libs\usbd_cdc_interface.h" />

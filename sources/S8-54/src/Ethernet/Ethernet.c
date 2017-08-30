@@ -1,15 +1,10 @@
 // This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++ and C#: http://www.viva64.com
 #include "defines.h"
-#include "Ethernet.h"
-#include "TcpSocket.h"
-#include "main.h"
-#include "Hardware/Timer.h"
 #include "ethernetif.h"
-#include "VCP/SCPI/SCPI.h"
 #include "Log.h"
-
-
+#include "main.h"
+#include "VCP/SCPI/SCPI.h"
 #include <lwip/init.h>
 #include <lwip/ip_addr.h>
 #include <lwip/netif.h>
@@ -76,15 +71,15 @@ void Ethernet_Init(void)
 //----------------------------------------------------------------------------------------------------------------------------------------------------
 void Ethernet_Update(uint timeMS)
 {
-    uint time = gTimeMS;
+    uint time = HAL_GetTick();
 
     do 
     {
-        CABLE_LAN_IS_CONNECTED = gTimeMS - gEthTimeLastEthifInput <= 1500;
+        CABLE_LAN_IS_CONNECTED = HAL_GetTick() - gEthTimeLastEthifInput <= 1500;
 
         ethernetif_input(&gnetif);
         sys_check_timeouts();
-    } while (gTimeMS - time < timeMS);
+    } while (HAL_GetTick() - time < timeMS);
 }
 
 
