@@ -12,7 +12,7 @@ struct tcp_pcb *pcbClient = 0;      // 0, если клиент не приконнекчен
 enum States
 {
     S_ACCEPTED,
-    S_RECIEVED,
+    S_RECEIVED,
     S_CLOSING
 };
 
@@ -24,7 +24,7 @@ struct State
 };
 
 void(*SocketFuncConnect)(void) = 0;                                 // this function will be called every time a new connection
-void(*SocketFuncReciever)(const char *buffer, uint length) = 0;     // this function will be called when a message is recieved from any client
+void(*SocketFuncReceiver)(const char *buffer, uint length) = 0;     // this function will be called when a message is received from any client
 
 bool gEthIsConnected = false;                                       // Если true, то подсоединён клиент
 
@@ -139,7 +139,7 @@ void SendAnswer(void *arg, struct tcp_pcb *tpcb)
 }
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
-err_t CallbackOnRecieve(void *arg, struct tcp_pcb *tpcb, struct pbuf *p, err_t err)
+err_t CallbackOnReceive(void *arg, struct tcp_pcb *tpcb, struct pbuf *p, err_t err)
 {
     err_t ret_err;
     LWIP_ASSERT("arg != NULL", arg != NULL);
@@ -185,7 +185,7 @@ err_t CallbackOnRecieve(void *arg, struct tcp_pcb *tpcb, struct pbuf *p, err_t e
         if (ss->numPort == POLICY_PORT)
         {
             pbuf_free(p);
-            ss->state = S_RECIEVED;
+            ss->state = S_RECEIVED;
             SendAnswer(ss, tpcb);
             ss->state = S_CLOSING;
             ret_err = ERR_OK;
@@ -193,14 +193,14 @@ err_t CallbackOnRecieve(void *arg, struct tcp_pcb *tpcb, struct pbuf *p, err_t e
         else
         {
             // first data chunk in p->payload
-            ss->state = S_RECIEVED;
+            ss->state = S_RECEIVED;
             // store reference to incoming pbuf (chain)
             ss->p = p;
             Send(tpcb, ss);
             ret_err = ERR_OK;
         }
     }
-    else if (ss->state == S_RECIEVED)
+    else if (ss->state == S_RECEIVED)
     {
         // read some more data
         if (ss->p == NULL)
@@ -208,7 +208,7 @@ err_t CallbackOnRecieve(void *arg, struct tcp_pcb *tpcb, struct pbuf *p, err_t e
             //ss->p = p;
             //tcp_sent(tpcb, CallbackOnSent);
             //Send(tpcb, ss);
-            SocketFuncReciever((char *)p->payload, p->len);
+            SocketFuncReceiver((char *)p->payload, p->len);
 
             u8_t freed = 0;
             do
@@ -315,7 +315,7 @@ err_t CallbackOnAccept(void *arg, struct tcp_pcb *_newPCB, err_t err)
         s->p = NULL;
         /* pass newly allocated s to our callbacks */
         tcp_arg(_newPCB, s);
-        tcp_recv(_newPCB, CallbackOnRecieve);
+        tcp_recv(_newPCB, CallbackOnReceive);
         tcp_err(_newPCB, CallbackOnError);
         tcp_poll(_newPCB, CallbackOnPoll, 0);
         tcp_sent(_newPCB, CallbackOnSent);
@@ -347,7 +347,7 @@ err_t CallbackOnAcceptPolicyPort(void *arg, struct tcp_pcb *newPCB, err_t err)
 }
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
-bool TCPSocket_Init(void(*funcConnect)(void), void(*funcReciever)(const char *buffer, uint length))
+bool TCPSocket_Init(void(*funcConnect)(void), void(*funcReceiver)(const char *buffer, uint length))
 {
     struct tcp_pcb *pcb = tcp_new();
     if (pcb != NULL)
@@ -356,7 +356,7 @@ bool TCPSocket_Init(void(*funcConnect)(void), void(*funcReciever)(const char *bu
         if (err == ERR_OK)
         {
             pcb = tcp_listen(pcb);
-            SocketFuncReciever = funcReciever;
+            SocketFuncReceiver = funcReceiver;
             SocketFuncConnect = funcConnect;
             tcp_accept(pcb, CallbackOnAccept);
         }
