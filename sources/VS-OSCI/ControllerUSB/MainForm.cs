@@ -14,7 +14,7 @@ namespace Controller_S8_53 {
     public partial class MainForm : Form {
 
         private bool needForDisconnect = false;
-        private ComPort port = new ComPort();
+        private Client port = new ComPort();
         private Dictionary<Button, string> mapButtons = new Dictionary<Button, string>();
 
         private Queue<string> commands = new Queue<string>();
@@ -72,7 +72,7 @@ namespace Controller_S8_53 {
             cbPorts.SelectedIndex = ports.Length - 1;
         }
 
-        private void btnConnect_Click(object sender, EventArgs e) {
+        private void btnConnectUSB_Click(object sender, EventArgs e) {
             if(port.IsOpen()) {
                 needForDisconnect = true;
                 btnConnectUSB.Text = "Подкл";
@@ -106,6 +106,11 @@ namespace Controller_S8_53 {
                 port.SendString("DISPLAY:AUTOSEND 2");
                 display.StartDrawing(port.GetSerialPort());
             }
+        }
+
+        private void btnConnectLAN_Click(object sender, EventArgs e)
+        {
+            string ipAddress = textBoxIP.Text;
         }
     }
 }

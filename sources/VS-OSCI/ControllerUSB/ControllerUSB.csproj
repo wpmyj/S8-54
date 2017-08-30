@@ -59,6 +59,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Client.cs" />
     <Compile Include="ComPort.cs" />
     <Compile Include="Display.cs">
       <SubType>UserControl</SubType>

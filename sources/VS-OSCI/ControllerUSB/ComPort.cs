@@ -19,7 +19,7 @@ namespace Controller_S8_53 {
         }
     }
 
-    class ComPort {
+    class ComPort : Client {
 
         enum TypeDisplay {
             None,
@@ -31,24 +31,22 @@ namespace Controller_S8_53 {
         private static string[] ports;
         private static Mutex mutex = new Mutex();
         
-        private TypeDisplay typeDisplay = TypeDisplay.None;
-
         public ComPort () {
             port = new SerialPort();
             port.ReadTimeout = 100;
             port.BaudRate = 125000;
         }
         
-        public void Stop() {
+        override public void Stop() {
             port.Close();
         }
 
-        public string[] GetPorts() {
+        override public string[] GetPorts() {
             ports = SerialPort.GetPortNames();
             return ports;
         }
 
-        public bool DeviceConnectToPort(int numPort) {
+        override public bool DeviceConnectToPort(int numPort) {
             port.PortName = ports[numPort];
             string answer;
             try {
@@ -74,7 +72,7 @@ namespace Controller_S8_53 {
             }
         }
 
-        public void SendString(string str) {
+        override public void SendString(string str) {
             mutex.WaitOne();
 
             if(port.IsOpen) {
@@ -109,7 +107,7 @@ namespace Controller_S8_53 {
             port.Close();
         }
 
-        public bool Open(int numPort)
+        override public bool Open(int numPort)
         {
             try
             {
@@ -119,18 +117,6 @@ namespace Controller_S8_53 {
                 {
                     SendString("REQUEST ?");
                     string answer = ReadLine();
-                    if(answer == "S8-53")
-                    {
-                        typeDisplay = TypeDisplay.Monochrome;
-                    }
-                    else if(answer == "S8-53/1")
-                    {
-                        typeDisplay = TypeDisplay.Color;
-                    }
-                    else
-                    {
-                        typeDisplay = TypeDisplay.None;
-                    }
                 }
             }
             catch(SystemException)
@@ -142,12 +128,12 @@ namespace Controller_S8_53 {
 
         private static byte[] data = new byte[16 * 1024];
 
-        public SerialPort GetSerialPort()
+        override public SerialPort GetSerialPort()
         {
             return port;
         }
 
-        public bool IsOpen() {
+        override public bool IsOpen() {
             return port.IsOpen;
         }
     }

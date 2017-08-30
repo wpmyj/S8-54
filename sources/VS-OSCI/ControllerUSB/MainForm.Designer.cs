@@ -298,7 +298,7 @@
             this.btnConnectUSB.TabIndex = 2;
             this.btnConnectUSB.Text = "Подкл";
             this.btnConnectUSB.UseVisualStyleBackColor = true;
-            this.btnConnectUSB.Click += new System.EventHandler(this.btnConnect_Click);
+            this.btnConnectUSB.Click += new System.EventHandler(this.btnConnectUSB_Click);
             // 
             // cbPorts
             // 
@@ -361,6 +361,7 @@
             this.btnConnectLAN.Size = new System.Drawing.Size(56, 32);
             this.btnConnectLAN.TabIndex = 0;
             this.btnConnectLAN.Text = "Подкл";
+            this.btnConnectLAN.Click += new System.EventHandler(this.btnConnectLAN_Click);
             // 
             // textBoxIP
             // 
