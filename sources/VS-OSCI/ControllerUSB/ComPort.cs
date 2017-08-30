@@ -55,8 +55,7 @@ namespace Controller_S8_53 {
                     SendString("REQUEST ?");
                     answer = ReadLine();
                     port.Close();
-                    bool retValue = (answer == "S8-53" || answer == "S8-53/1");
-                    return retValue;
+                    return answer.Length > 0;
                 }
             } catch(SystemException) {
                 port.Close();
