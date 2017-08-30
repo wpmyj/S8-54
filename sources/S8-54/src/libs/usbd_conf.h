@@ -32,6 +32,10 @@
 #endif
 
 
+#define CONNECTED_TO_HOST gConnectedToHost
+
+
 extern bool gCableVCPisConnected;
-extern bool gConnectToHost;
+extern bool gConnectedToHost;
+
 

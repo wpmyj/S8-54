@@ -16,7 +16,7 @@ extern USBD_HandleTypeDef handleUSBD;
 
 
 bool gCableVCPisConnected = false;
-bool gConnectToHost = false;
+bool gConnectedToHost = false;
 
 
 /*******************************************************************************
@@ -39,14 +39,14 @@ void HAL_PCD_SetupStageCallback(PCD_HandleTypeDef *hpcd)
         {                                                           //
             if (prevLength != 0)                                    //
             {                                                       //
-                gConnectToHost = true;                              // GOVNOCODE Таким вот замысловатым образом определяем, что к нам подконнектился хост (
+                CONNECTED_TO_HOST = true;                           // GOVNOCODE Таким вот замысловатым образом определяем, что к нам подконнектился хост (
             }                                                       //
             else                                                    //
             {                                                       //
-                gConnectToHost = false;                             //
+                CONNECTED_TO_HOST = false;                          //
                 Settings_Save();                                    // При отконнекчивании сохраняем настройки
             }                                                       /// \todo Возможно, это не нужно делать
-            gConnectToHost = prevLength != 0;                       // 
+            CONNECTED_TO_HOST = prevLength != 0;                    // 
         }                                                           //
     }                                                               //
     prevLength = request.wLength;                                   //

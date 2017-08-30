@@ -20,7 +20,7 @@
 
 
 #define SCPI_SEND(...)                                  \
-    if(gConnectToHost)                                  \
+    if(CONNECTED_TO_HOST)                               \
     {                                                   \
         VCP_SendFormatStringAsynch(__VA_ARGS__);        \
     };                                                  \

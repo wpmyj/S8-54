@@ -68,34 +68,32 @@ void VCP_Flush(void)
 //----------------------------------------------------------------------------------------------------------------------------------------------------
 void VCP_SendDataSynch(const uint8 *buffer, int size)
 {
-    if (!gConnectToHost)
+    if (CONNECTED_TO_HOST)
     {
-        return;
+        USBD_CDC_HandleTypeDef *pCDC = handleUSBD.pClassData;
+    
+        do 
+        {
+            if (sizeBuffer + size > SIZE_BUFFER_VCP)
+            {
+                int reqBytes = SIZE_BUFFER_VCP - sizeBuffer;
+                LIMITATION(reqBytes, 0, size);
+                while (pCDC->TxState == 1) {};
+                memcpy(buffSend + sizeBuffer, buffer, reqBytes);
+                USBD_CDC_SetTxBuffer(&handleUSBD, buffSend, SIZE_BUFFER_VCP);
+                USBD_CDC_TransmitPacket(&handleUSBD);
+                size -= reqBytes;
+                buffer += reqBytes;
+                sizeBuffer = 0;
+            }
+            else
+            {
+                memcpy(buffSend + sizeBuffer, buffer, size);
+                sizeBuffer += size;
+                size = 0;
+            }
+        } while (size);
     }
-
-    USBD_CDC_HandleTypeDef *pCDC = handleUSBD.pClassData;
-
-    do 
-    {
-        if (sizeBuffer + size > SIZE_BUFFER_VCP)
-        {
-            int reqBytes = SIZE_BUFFER_VCP - sizeBuffer;
-            LIMITATION(reqBytes, 0, size);
-            while (pCDC->TxState == 1) {};
-            memcpy(buffSend + sizeBuffer, buffer, reqBytes);
-            USBD_CDC_SetTxBuffer(&handleUSBD, buffSend, SIZE_BUFFER_VCP);
-            USBD_CDC_TransmitPacket(&handleUSBD);
-            size -= reqBytes;
-            buffer += reqBytes;
-            sizeBuffer = 0;
-        }
-        else
-        {
-            memcpy(buffSend + sizeBuffer, buffer, size);
-            sizeBuffer += size;
-            size = 0;
-        }
-    } while (size);
 }
 
 
@@ -123,18 +121,16 @@ void VCP_SendStringSynch(char *data)
 //----------------------------------------------------------------------------------------------------------------------------------------------------
 void VCP_SendFormatStringAsynch(char *format, ...)
 {
-    if (!gConnectToHost)
+    if (CONNECTED_TO_HOST)
     {
-        return;
+        static char buffer[200];
+        __va_list args;
+        va_start(args, format);
+        vsprintf(buffer, format, args);
+        va_end(args);
+        strcat(buffer, "\r\n");
+        VCP_SendDataAsinch((uint8 *)buffer, strlen(buffer));
     }
-
-    static char buffer[200];
-    __va_list args;
-    va_start(args, format);
-    vsprintf(buffer, format, args);
-    va_end(args);
-    strcat(buffer, "\r\n");
-    VCP_SendDataAsinch((uint8 *)buffer, strlen(buffer));
 }
 
 
