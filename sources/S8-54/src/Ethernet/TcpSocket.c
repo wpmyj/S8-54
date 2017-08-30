@@ -29,13 +29,13 @@ void(*SocketFuncReciever)(const char *buffer, uint length) = 0;     // this func
 bool gEthIsConnected = false;                                       // Если true, то подсоединён клиент
 
 
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 void ETH_SendFormatString(char *format, ...)
 {
 
 }
 
-
-//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//----------------------------------------------------------------------------------------------------------------------------------------------------
 void CloseConnection(struct tcp_pcb *tpcb, struct State *ss)
 {
     gEthIsConnected = false;
@@ -54,18 +54,17 @@ void CloseConnection(struct tcp_pcb *tpcb, struct State *ss)
     tcp_close(tpcb);
 }
 
-
 //----------------------------------------------------------------------------------------------------------------------------------------------------
-void Send(struct tcp_pcb *_tpcb, struct State *_ss)
+void Send(struct tcp_pcb *tpcb, struct State *ss)
 {
     struct pbuf *ptr;
     err_t wr_err = ERR_OK;
 
-    while ((wr_err == ERR_OK) && (_ss->p != NULL) && (_ss->p->len <= tcp_sndbuf(_tpcb)))
+    while ((wr_err == ERR_OK) && (ss->p != NULL) && (ss->p->len <= tcp_sndbuf(tpcb)))
     {
-        ptr = _ss->p;
+        ptr = ss->p;
         // enqueue data for transmittion
-        wr_err = tcp_write(_tpcb, ptr->payload, ptr->len, 1);
+        wr_err = tcp_write(tpcb, ptr->payload, ptr->len, 1);
         if (wr_err == ERR_OK)
         {
             u16_t plen;
@@ -73,11 +72,11 @@ void Send(struct tcp_pcb *_tpcb, struct State *_ss)
 
             plen = ptr->len;
             // continue with new pbuf in chain (if any) 
-            _ss->p = ptr->next;
-            if (_ss->p != NULL)
+            ss->p = ptr->next;
+            if (ss->p != NULL)
             {
                 // new reference!
-                pbuf_ref(_ss->p);
+                pbuf_ref(ss->p);
             }
             // chop first pbuf from chain
             do
@@ -86,12 +85,12 @@ void Send(struct tcp_pcb *_tpcb, struct State *_ss)
                 freed = pbuf_free(ptr);
             } while (freed == 0);
             // we can read more data now
-            tcp_recved(_tpcb, plen);
+            tcp_recved(tpcb, plen);
         }
         else if (wr_err == ERR_MEM)
         {
             // we are low on memory, try later / harder, defer to poll
-            _ss->p = ptr;
+            ss->p = ptr;
         }
         else
         {
@@ -100,32 +99,30 @@ void Send(struct tcp_pcb *_tpcb, struct State *_ss)
     }
 }
 
-
 //----------------------------------------------------------------------------------------------------------------------------------------------------
-err_t CallbackOnSent(void *_arg, struct tcp_pcb *_tpcb, u16_t _len)
+err_t CallbackOnSent(void *arg, struct tcp_pcb *tpcb, u16_t len)
 {
     struct State *ss;
-    LWIP_UNUSED_ARG(_len);
-    ss = (struct State*)_arg;
+    LWIP_UNUSED_ARG(len);
+    ss = (struct State*)arg;
 
     if (ss->p != NULL)
     {
-        Send(_tpcb, ss);
+        Send(tpcb, ss);
     }
     else
     {
         // no more pbufs to send
         if (ss->state == S_CLOSING)
         {
-            CloseConnection(_tpcb, ss);
+            CloseConnection(tpcb, ss);
         }
     }
     return ERR_OK;
 }
 
-
 //----------------------------------------------------------------------------------------------------------------------------------------------------
-void SendAnswer(void *_arg, struct tcp_pcb *_tpcb)
+void SendAnswer(void *arg, struct tcp_pcb *tpcb)
 {
     static const char policy[] = "<?xml version=\"1.0\"?>"                                                  \
         "<!DOCTYPE cross-domain-policy SYSTEM \"http://www.adobe.com/xml/dtds/cross-domain-policy.dtd\">"   \
@@ -136,18 +133,17 @@ void SendAnswer(void *_arg, struct tcp_pcb *_tpcb)
     struct pbuf *tcpBuffer = pbuf_alloc(PBUF_RAW, (u16_t)strlen(policy), PBUF_POOL);
     tcpBuffer->flags = 1;
     pbuf_take(tcpBuffer, policy, (u16_t)strlen(policy));
-    struct State *s = (struct State *)_arg;
+    struct State *s = (struct State *)arg;
     s->p = tcpBuffer;
-    Send(_tpcb, s);
+    Send(tpcb, s);
 }
 
-
 //----------------------------------------------------------------------------------------------------------------------------------------------------
-err_t CallbackOnRecieve(void *_arg, struct tcp_pcb *_tpcb, struct pbuf *_p, err_t _err)
+err_t CallbackOnRecieve(void *arg, struct tcp_pcb *tpcb, struct pbuf *p, err_t err)
 {
     err_t ret_err;
-    LWIP_ASSERT("arg != NULL", _arg != NULL);
-    struct State *ss = (struct State*)_arg;
+    LWIP_ASSERT("arg != NULL", arg != NULL);
+    struct State *ss = (struct State*)arg;
 
     static int number = 0;
 
@@ -158,49 +154,49 @@ err_t CallbackOnRecieve(void *_arg, struct tcp_pcb *_tpcb, struct pbuf *_p, err_
     
     number++;
 
-    if (_p == NULL)
+    if (p == NULL)
     {
         // remote host closed connection
         ss->state = S_CLOSING;
         if (ss->p == NULL)
         {
             // we're done sending, close it
-            CloseConnection(_tpcb, ss);
+            CloseConnection(tpcb, ss);
         }
         else
         {
             // we're not done yet
-            //tcp_sent(_tpcb, CallbackOnSent);
+            //tcp_sent(tpcb, CallbackOnSent);
         }
         ret_err = ERR_OK;
     }
-    else if (_err != ERR_OK)
+    else if (err != ERR_OK)
     {
         // cleanup, for unkown reason
-        if (_p != NULL)
+        if (p != NULL)
         {
             ss->p = NULL;
-            pbuf_free(_p);
+            pbuf_free(p);
         }
-        ret_err = _err;
+        ret_err = err;
     }
     else if (ss->state == S_ACCEPTED)
     {
         if (ss->numPort == POLICY_PORT)
         {
-            pbuf_free(_p);
+            pbuf_free(p);
             ss->state = S_RECIEVED;
-            SendAnswer(ss, _tpcb);
+            SendAnswer(ss, tpcb);
             ss->state = S_CLOSING;
             ret_err = ERR_OK;
         }
         else
         {
-            // first data chunk in _p->payload
+            // first data chunk in p->payload
             ss->state = S_RECIEVED;
             // store reference to incoming pbuf (chain)
-            ss->p = _p;
-            Send(_tpcb, ss);
+            ss->p = p;
+            Send(tpcb, ss);
             ret_err = ERR_OK;
         }
     }
@@ -209,16 +205,16 @@ err_t CallbackOnRecieve(void *_arg, struct tcp_pcb *_tpcb, struct pbuf *_p, err_
         // read some more data
         if (ss->p == NULL)
         {
-            //ss->p = _p;
-            //tcp_sent(_tpcb, CallbackOnSent);
-            //Send(_tpcb, ss);
-            SocketFuncReciever((char *)_p->payload, _p->len);
+            //ss->p = p;
+            //tcp_sent(tpcb, CallbackOnSent);
+            //Send(tpcb, ss);
+            SocketFuncReciever((char *)p->payload, p->len);
 
             u8_t freed = 0;
             do
             {
                 // try hard to free pbuf 
-                freed = pbuf_free(_p);
+                freed = pbuf_free(p);
             } while (freed == 0);
 
         }
@@ -227,36 +223,35 @@ err_t CallbackOnRecieve(void *_arg, struct tcp_pcb *_tpcb, struct pbuf *_p, err_
             struct pbuf *ptr;
             // chain pbufs to the end of what we recv'ed previously
             ptr = ss->p;
-            pbuf_chain(ptr, _p);
+            pbuf_chain(ptr, p);
         }
         ret_err = ERR_OK;
     }
     else if (ss->state == S_CLOSING)
     {
         // odd case, remote side closing twice, trash data
-        tcp_recved(_tpcb, _p->tot_len);
+        tcp_recved(tpcb, p->tot_len);
         ss->p = NULL;
-        pbuf_free(_p);
+        pbuf_free(p);
         ret_err = ERR_OK;
     }
     else
     {
         // unknown ss->state, trash data
-        tcp_recved(_tpcb, _p->tot_len);
+        tcp_recved(tpcb, p->tot_len);
         ss->p = NULL;
-        pbuf_free(_p);
+        pbuf_free(p);
         ret_err = ERR_OK;
     }
     return ret_err;
 }
 
-
 //----------------------------------------------------------------------------------------------------------------------------------------------------
-void CallbackOnError(void *_arg, err_t _err)
+void CallbackOnError(void *arg, err_t err)
 {
     struct State *ss;
-    LWIP_UNUSED_ARG(_err);
-    ss = (struct State *)_arg;
+    LWIP_UNUSED_ARG(err);
+    ss = (struct State *)arg;
     if (ss != NULL)
     {
         mem_free(ss);
@@ -264,26 +259,25 @@ void CallbackOnError(void *_arg, err_t _err)
     gEthIsConnected = false;
 }
 
-
 //----------------------------------------------------------------------------------------------------------------------------------------------------
-err_t CallbackOnPoll(void *_arg, struct tcp_pcb *_tpcb)
+err_t CallbackOnPoll(void *arg, struct tcp_pcb *tpcb)
 {
     err_t ret_err;
-    struct State *ss = (struct State *)_arg;
+    struct State *ss = (struct State *)arg;
     if (ss != NULL)
     {
         if (ss->p != NULL)
         {
             // there is a remaining pbuf (chain)
-            //tcp_sent(_tpcb, CallbackOnSent);
-            Send(_tpcb, ss);
+            //tcp_sent(tpcb, CallbackOnSent);
+            Send(tpcb, ss);
         }
         else
         {
             // no remaining pbuf (chain)
             if (ss->state == S_CLOSING)
             {
-                CloseConnection(_tpcb, ss);
+                CloseConnection(tpcb, ss);
             }
         }
         ret_err = ERR_OK;
@@ -291,21 +285,20 @@ err_t CallbackOnPoll(void *_arg, struct tcp_pcb *_tpcb)
     else
     {
         // nothing to be done
-        tcp_abort(_tpcb);
+        tcp_abort(tpcb);
         ret_err = ERR_ABRT;
     }
     return ret_err;
 }
 
-
 //----------------------------------------------------------------------------------------------------------------------------------------------------
-err_t CallbackOnAccept(void *_arg, struct tcp_pcb *_newPCB, err_t _err)
+err_t CallbackOnAccept(void *arg, struct tcp_pcb *_newPCB, err_t err)
 {
     err_t ret_err;
 
     struct State *s;
-    LWIP_UNUSED_ARG(_arg);
-    LWIP_UNUSED_ARG(_err);
+    LWIP_UNUSED_ARG(arg);
+    LWIP_UNUSED_ARG(err);
     
 
     /* Unless this pcb should have NORMAL priority, set its priority now.
@@ -347,16 +340,14 @@ err_t CallbackOnAccept(void *_arg, struct tcp_pcb *_newPCB, err_t _err)
     return ret_err;
 }
 
-
 //----------------------------------------------------------------------------------------------------------------------------------------------------
-err_t CallbackOnAcceptPolicyPort(void *_arg, struct tcp_pcb *_newPCB, err_t _err)
+err_t CallbackOnAcceptPolicyPort(void *arg, struct tcp_pcb *newPCB, err_t err)
 {
-    return CallbackOnAccept(_arg, _newPCB, _err);
+    return CallbackOnAccept(arg, newPCB, err);
 }
 
-
 //----------------------------------------------------------------------------------------------------------------------------------------------------
-bool TCPSocket_Init(void(*_funcConnect)(void), void(*_funcReciever)(const char *_buffer, uint _length))
+bool TCPSocket_Init(void(*funcConnect)(void), void(*funcReciever)(const char *buffer, uint length))
 {
     struct tcp_pcb *pcb = tcp_new();
     if (pcb != NULL)
@@ -365,8 +356,8 @@ bool TCPSocket_Init(void(*_funcConnect)(void), void(*_funcReciever)(const char *
         if (err == ERR_OK)
         {
             pcb = tcp_listen(pcb);
-            SocketFuncReciever = _funcReciever;
-            SocketFuncConnect = _funcConnect;
+            SocketFuncReciever = funcReciever;
+            SocketFuncConnect = funcConnect;
             tcp_accept(pcb, CallbackOnAccept);
         }
         else
@@ -384,7 +375,6 @@ bool TCPSocket_Init(void(*_funcConnect)(void), void(*_funcReciever)(const char *
     return true;
 }
 
-
 //----------------------------------------------------------------------------------------------------------------------------------------------------
 bool TCPSocket_Send(const char *buffer, uint length)
 {
@@ -400,7 +390,6 @@ bool TCPSocket_Send(const char *buffer, uint length)
     }
     return pcbClient != 0;
 }
-
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
 void TCPSocket_SendFormatString(char *format, ...)
