@@ -28,7 +28,7 @@ static void(*SocketFuncReceiver)(const char *buffer, uint length) = 0;     // th
 
 bool gEthIsConnected = false;                                       // Если true, то подсоединён клиент
 
-static err_t CallbackOnAccept(void *arg, struct tcp_pcb *_newPCB, err_t err);
+static err_t CallbackOnAccept(void *arg, struct tcp_pcb *newPCB, err_t err);
 static void Send(struct tcp_pcb *tpcb, struct State *ss);
 
 
@@ -354,7 +354,7 @@ static err_t CallbackOnPoll(void *arg, struct tcp_pcb *tpcb)
 }
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
-static err_t CallbackOnAccept(void *arg, struct tcp_pcb *_newPCB, err_t err)
+static err_t CallbackOnAccept(void *arg, struct tcp_pcb *newPCB, err_t err)
 {
     err_t ret_err;
 
@@ -366,28 +366,28 @@ static err_t CallbackOnAccept(void *arg, struct tcp_pcb *_newPCB, err_t err)
     /* Unless this pcb should have NORMAL priority, set its priority now.
         When running out of pcbs, low priority pcbs can be aborted to create
         new pcbs of higher priority. */
-    tcp_setprio(_newPCB, TCP_PRIO_MIN);
+    tcp_setprio(newPCB, TCP_PRIO_MIN);
 
     s = (struct State*)mem_malloc(sizeof(struct State));
 
     if (s)
     {
         s->state = S_ACCEPTED;
-        s->numPort = ((unsigned short)POLICY_PORT == _newPCB->local_port) ? POLICY_PORT : DEFAULT_PORT;
+        s->numPort = ((unsigned short)POLICY_PORT == newPCB->local_port) ? POLICY_PORT : DEFAULT_PORT;
         s->p = NULL;
         /* pass newly allocated s to our callbacks */
-        tcp_arg(_newPCB, s);
-        tcp_recv(_newPCB, CallbackOnReceive);
-        tcp_err(_newPCB, CallbackOnError);
-        tcp_poll(_newPCB, CallbackOnPoll, 0);
-        tcp_sent(_newPCB, CallbackOnSent);
+        tcp_arg(newPCB, s);
+        tcp_recv(newPCB, CallbackOnReceive);
+        tcp_err(newPCB, CallbackOnError);
+        tcp_poll(newPCB, CallbackOnPoll, 0);
+        tcp_sent(newPCB, CallbackOnSent);
         ret_err = ERR_OK;
 
         if (s->numPort == DEFAULT_PORT)
         {
             if (pcbClient == 0)
             {
-                pcbClient = _newPCB;
+                pcbClient = newPCB;
                 SocketFuncConnect();
                 gEthIsConnected = true;
             }
