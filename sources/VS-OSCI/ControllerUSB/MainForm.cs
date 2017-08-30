@@ -43,8 +43,6 @@ namespace Controller_S8_53 {
             Display.EndFrameEvent += OnEndFrameEvent;
 
             btnUpdatePorts_Click(null, null);
-
-            btnConnect_Click(null, null);
         }
 
         private void button_MouseDown(object sender, MouseEventArgs e) {
@@ -77,10 +75,10 @@ namespace Controller_S8_53 {
         private void btnConnect_Click(object sender, EventArgs e) {
             if(port.IsOpen()) {
                 needForDisconnect = true;
-                btnConnect.Text = "Подкл";
+                btnConnectUSB.Text = "Подкл";
             } else {
                 if(port.Open(cbPorts.SelectedIndex)) {
-                    btnConnect.Text = "Откл";
+                    btnConnectUSB.Text = "Откл";
                     port.SendString("DISPLAY:AUTOSEND 1");
                     display.StartDrawing(port.GetSerialPort());
                     needForDisconnect = false;
@@ -90,7 +88,7 @@ namespace Controller_S8_53 {
 
         private void cbPorts_SelectedIndexChanged(object sender, EventArgs e)
         {
-            btnConnect.Enabled = port.DeviceConnectToPort(cbPorts.SelectedIndex);
+            btnConnectUSB.Enabled = port.DeviceConnectToPort(cbPorts.SelectedIndex);
         }
 
         private void OnEndFrameEvent(object sender, EventArgs e)

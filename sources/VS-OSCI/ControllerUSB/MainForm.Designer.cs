@@ -44,9 +44,14 @@
             this.label3 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.btnStart = new System.Windows.Forms.Button();
-            this.btnConnect = new System.Windows.Forms.Button();
+            this.btnConnectUSB = new System.Windows.Forms.Button();
             this.cbPorts = new System.Windows.Forms.ComboBox();
             this.btnUpdatePorts = new System.Windows.Forms.Button();
+            this.tabControl = new System.Windows.Forms.TabControl();
+            this.tabUSB = new System.Windows.Forms.TabPage();
+            this.tabLAN = new System.Windows.Forms.TabPage();
+            this.btnConnectLAN = new System.Windows.Forms.Button();
+            this.textBoxIP = new System.Windows.Forms.TextBox();
             this.govTBase = new Controller_S8_53.Governor();
             this.govRange1 = new Controller_S8_53.Governor();
             this.govSet = new Controller_S8_53.Governor();
@@ -56,6 +61,9 @@
             this.govRShift1 = new Controller_S8_53.Governor();
             this.govRShift0 = new Controller_S8_53.Governor();
             this.display = new Controller_S8_53.Display();
+            this.tabControl.SuspendLayout();
+            this.tabUSB.SuspendLayout();
+            this.tabLAN.SuspendLayout();
             this.SuspendLayout();
             // 
             // btnMenu
@@ -281,21 +289,21 @@
             this.btnStart.MouseDown += new System.Windows.Forms.MouseEventHandler(this.button_MouseDown);
             this.btnStart.MouseUp += new System.Windows.Forms.MouseEventHandler(this.button_MouseUp);
             // 
-            // btnConnect
+            // btnConnectUSB
             // 
-            this.btnConnect.Enabled = false;
-            this.btnConnect.Location = new System.Drawing.Point(924, 12);
-            this.btnConnect.Name = "btnConnect";
-            this.btnConnect.Size = new System.Drawing.Size(56, 32);
-            this.btnConnect.TabIndex = 2;
-            this.btnConnect.Text = "Подкл";
-            this.btnConnect.UseVisualStyleBackColor = true;
-            this.btnConnect.Click += new System.EventHandler(this.btnConnect_Click);
+            this.btnConnectUSB.Enabled = false;
+            this.btnConnectUSB.Location = new System.Drawing.Point(189, 17);
+            this.btnConnectUSB.Name = "btnConnectUSB";
+            this.btnConnectUSB.Size = new System.Drawing.Size(56, 32);
+            this.btnConnectUSB.TabIndex = 2;
+            this.btnConnectUSB.Text = "Подкл";
+            this.btnConnectUSB.UseVisualStyleBackColor = true;
+            this.btnConnectUSB.Click += new System.EventHandler(this.btnConnect_Click);
             // 
             // cbPorts
             // 
             this.cbPorts.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cbPorts.Location = new System.Drawing.Point(740, 20);
+            this.cbPorts.Location = new System.Drawing.Point(10, 25);
             this.cbPorts.Name = "cbPorts";
             this.cbPorts.Size = new System.Drawing.Size(84, 21);
             this.cbPorts.TabIndex = 0;
@@ -303,13 +311,64 @@
             // 
             // btnUpdatePorts
             // 
-            this.btnUpdatePorts.Location = new System.Drawing.Point(840, 12);
+            this.btnUpdatePorts.Location = new System.Drawing.Point(105, 17);
             this.btnUpdatePorts.Name = "btnUpdatePorts";
             this.btnUpdatePorts.Size = new System.Drawing.Size(72, 32);
             this.btnUpdatePorts.TabIndex = 1;
             this.btnUpdatePorts.Text = "Обновить";
             this.btnUpdatePorts.UseVisualStyleBackColor = true;
             this.btnUpdatePorts.Click += new System.EventHandler(this.btnUpdatePorts_Click);
+            // 
+            // tabControl
+            // 
+            this.tabControl.Controls.Add(this.tabUSB);
+            this.tabControl.Controls.Add(this.tabLAN);
+            this.tabControl.Location = new System.Drawing.Point(721, 12);
+            this.tabControl.Name = "tabControl";
+            this.tabControl.SelectedIndex = 0;
+            this.tabControl.Size = new System.Drawing.Size(259, 93);
+            this.tabControl.TabIndex = 7;
+            // 
+            // tabUSB
+            // 
+            this.tabUSB.Controls.Add(this.btnUpdatePorts);
+            this.tabUSB.Controls.Add(this.cbPorts);
+            this.tabUSB.Controls.Add(this.btnConnectUSB);
+            this.tabUSB.Location = new System.Drawing.Point(4, 22);
+            this.tabUSB.Name = "tabUSB";
+            this.tabUSB.Padding = new System.Windows.Forms.Padding(3);
+            this.tabUSB.Size = new System.Drawing.Size(251, 67);
+            this.tabUSB.TabIndex = 0;
+            this.tabUSB.Text = "USB";
+            this.tabUSB.UseVisualStyleBackColor = true;
+            // 
+            // tabLAN
+            // 
+            this.tabLAN.Controls.Add(this.btnConnectLAN);
+            this.tabLAN.Controls.Add(this.textBoxIP);
+            this.tabLAN.Location = new System.Drawing.Point(4, 22);
+            this.tabLAN.Name = "tabLAN";
+            this.tabLAN.Padding = new System.Windows.Forms.Padding(3);
+            this.tabLAN.Size = new System.Drawing.Size(251, 67);
+            this.tabLAN.TabIndex = 1;
+            this.tabLAN.Text = "LAN";
+            this.tabLAN.UseVisualStyleBackColor = true;
+            // 
+            // btnConnectLAN
+            // 
+            this.btnConnectLAN.Location = new System.Drawing.Point(189, 17);
+            this.btnConnectLAN.Name = "btnConnectLAN";
+            this.btnConnectLAN.Size = new System.Drawing.Size(56, 32);
+            this.btnConnectLAN.TabIndex = 0;
+            this.btnConnectLAN.Text = "Подкл";
+            // 
+            // textBoxIP
+            // 
+            this.textBoxIP.Location = new System.Drawing.Point(15, 23);
+            this.textBoxIP.Name = "textBoxIP";
+            this.textBoxIP.Size = new System.Drawing.Size(90, 20);
+            this.textBoxIP.TabIndex = 0;
+            this.textBoxIP.Text = "192.168.1.200";
             // 
             // govTBase
             // 
@@ -411,9 +470,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(992, 493);
-            this.Controls.Add(this.cbPorts);
-            this.Controls.Add(this.btnUpdatePorts);
-            this.Controls.Add(this.btnConnect);
+            this.Controls.Add(this.tabControl);
             this.Controls.Add(this.btnStart);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.label3);
@@ -449,6 +506,10 @@
             this.MinimumSize = new System.Drawing.Size(1000, 520);
             this.Name = "MainForm";
             this.Text = "C8-54 USB Пульт оператора";
+            this.tabControl.ResumeLayout(false);
+            this.tabUSB.ResumeLayout(false);
+            this.tabLAN.ResumeLayout(false);
+            this.tabLAN.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -486,10 +547,14 @@
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Button btnStart;
-        private System.Windows.Forms.Button btnConnect;
+        private System.Windows.Forms.Button btnConnectUSB;
         private System.Windows.Forms.Button btnUpdatePorts;
         private System.Windows.Forms.ComboBox cbPorts;
-
+        private System.Windows.Forms.TabControl tabControl;
+        private System.Windows.Forms.TabPage tabUSB;
+        private System.Windows.Forms.TabPage tabLAN;
+        private System.Windows.Forms.Button btnConnectLAN;
+        private System.Windows.Forms.TextBox textBoxIP;
     }
 }
 

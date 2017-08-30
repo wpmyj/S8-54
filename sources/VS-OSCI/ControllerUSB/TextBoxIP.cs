@@ -15,7 +15,7 @@ namespace Controller_S8_53
     {
         private int maxValue = 0;
 
-        public event EventHandler<EventArgs> FieldFilled;
+        //public event EventHandler<EventArgs> FieldFilled;
 
         public TextBoxIntValue(int maxValue)
         {
