@@ -14,7 +14,7 @@ namespace Controller_S8_53 {
     public partial class MainForm : Form {
 
         private bool needForDisconnect = false;
-        private Client client = new ComPort();
+        private Client client;
         private Dictionary<Button, string> mapButtons = new Dictionary<Button, string>();
 
         private Queue<string> commands = new Queue<string>();
@@ -66,6 +66,7 @@ namespace Controller_S8_53 {
         }
 
         private void btnUpdatePorts_Click(object sender, EventArgs e) {
+            client = new ComPort();
             string[] ports = client.GetPorts();
             cbPorts.Items.Clear();
             cbPorts.Items.AddRange(ports);
@@ -110,7 +111,29 @@ namespace Controller_S8_53 {
 
         private void btnConnectLAN_Click(object sender, EventArgs e)
         {
-            string ipAddress = textBoxIP.Text;
+            if(client != null && client.GetTypeClient() == 1 && client.IsOpen())
+            {
+                needForDisconnect = true;
+                btnConnectLAN.Text = "Подкл";
+                btnUpdatePorts.Enabled = true;
+                btnConnectUSB.Enabled = true;
+                cbPorts.Enabled = true;
+                textBoxIP.Enabled = true;
+            }
+            else
+            {
+                client = new TcpSocket();
+                if(client.Open(textBoxIP.Text))
+                {
+                    client.SendString("DISPLAY:AUTOSEND 1");
+                    display.StartDrawing(client);
+                    cbPorts.Enabled = false;
+                    btnUpdatePorts.Enabled = false;
+                    btnConnectUSB.Enabled = false;
+                    textBoxIP.Enabled = false;
+                    btnConnectLAN.Text = "Откл";
+                }
+            }
         }
     }
 }

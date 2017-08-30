@@ -35,6 +35,7 @@ namespace Controller_S8_53 {
             port = new SerialPort();
             port.ReadTimeout = 100;
             port.BaudRate = 125000;
+            typeClient = 0;
         }
         
         override public void Stop() {

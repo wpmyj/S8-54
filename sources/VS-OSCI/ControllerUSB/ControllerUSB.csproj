@@ -87,6 +87,7 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="TcpSocket.cs" />
     <Compile Include="TextBoxIP.cs">
       <SubType>Component</SubType>
     </Compile>

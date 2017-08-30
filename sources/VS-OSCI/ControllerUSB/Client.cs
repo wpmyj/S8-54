@@ -3,12 +3,26 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.IO.Ports;
 
 namespace Controller_S8_53
 {
+    /*
+    public enum TypeClient
+    {
+        TypeClient_ComPort,
+        TypeClient_Socket
+    };
+    */
+
     public class Client
     {
+        public int typeClient;  // 0 - ComPort, 1 - TcpSocket
+
+        virtual public int GetTypeClient()
+        {
+            return typeClient;
+        }
+
         virtual public string[] GetPorts()
         {
             return new string[1];
@@ -21,13 +35,13 @@ namespace Controller_S8_53
         {
             return false;
         }
+        virtual public bool Open(string address)
+        {
+            return false;
+        }
         virtual public void SendString(string str)
         {
 
-        }
-        virtual public SerialPort GetSerialPort()
-        {
-            return new SerialPort();
         }
         virtual public bool DeviceConnectToPort(int numPort)
         {

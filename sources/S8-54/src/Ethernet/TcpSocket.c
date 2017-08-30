@@ -149,6 +149,15 @@ err_t CallbackOnRecieve(void *_arg, struct tcp_pcb *_tpcb, struct pbuf *_p, err_
     LWIP_ASSERT("arg != NULL", _arg != NULL);
     struct State *ss = (struct State*)_arg;
 
+    static int number = 0;
+
+    if (number )
+    {
+        number = number;
+    }
+    
+    number++;
+
     if (_p == NULL)
     {
         // remote host closed connection
@@ -368,27 +377,6 @@ bool TCPSocket_Init(void(*_funcConnect)(void), void(*_funcReciever)(const char *
     else
     {
         // abort? output diagonstic?
-    }
-
-    pcb = tcp_new();
-    if (pcb != NULL)
-    {
-        err_t err = tcp_bind(pcb, IP_ADDR_ANY, (u16_t)POLICY_PORT);
-        if (err == ERR_OK)
-        {
-            pcb = tcp_listen(pcb);
-            SocketFuncReciever = _funcReciever;
-            SocketFuncConnect = _funcConnect;
-            tcp_accept(pcb, CallbackOnAcceptPolicyPort);
-        }
-        else
-        {
-
-        }
-    }
-    else
-    {
-
     }
 
     pcbClient = 0;

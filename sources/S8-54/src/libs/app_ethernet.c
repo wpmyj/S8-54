@@ -33,6 +33,7 @@
 #include "lwip/dhcp.h"
 #include "app_ethernet.h"
 #include "ethernetif.h"
+#include "globals.h"
 
 /* Private typedef -----------------------------------------------------------*/
 /* Private define ------------------------------------------------------------*/
@@ -94,7 +95,8 @@ void ethernetif_notify_conn_changed(struct netif *netif)
     netif_set_addr(netif, &ipaddr , &netmask, &gw);
     
     /* When the netif is fully configured this function must be called.*/
-    netif_set_up(netif);     
+    netif_set_up(netif);
+    CABLE_LAN_IS_CONNECTED = true;
   }
   else
   {
@@ -105,6 +107,7 @@ void ethernetif_notify_conn_changed(struct netif *netif)
     
     /*  When the netif link is down this function must be called.*/
     netif_set_down(netif);
+    CABLE_LAN_IS_CONNECTED = false;
   }
 }
 
