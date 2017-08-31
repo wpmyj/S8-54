@@ -31,14 +31,16 @@ void HAL_PCD_SetupStageCallback(PCD_HandleTypeDef *hpcd)
     USBD_HandleTypeDef *pdev = (USBD_HandleTypeDef*)(hpcd->pData);  //
     USBD_SetupReqTypedef request = pdev->request;                   //
                                                                     //
+    
     static uint16 prevLength = 7;                                   //
                                                                     //
     if (request.wLength == 0)                                       //
     {                                                               //
-        if (CABLE_USB_IS_CONNECTED)                                 //
+//        if (CABLE_USB_IS_CONNECTED)                                 //
         {                                                           //
             if (prevLength != 0)                                    //
             {                                                       //
+                CABLE_USB_IS_CONNECTED = true;  // Это потому, что при включении прибора с подключенным шнуром
                 CONNECTED_TO_USB = true;                            // GOVNOCODE Таким вот замысловатым образом определяем, что к нам подконнектился хост (
             }                                                       //
             else                                                    //
@@ -46,10 +48,11 @@ void HAL_PCD_SetupStageCallback(PCD_HandleTypeDef *hpcd)
                 CONNECTED_TO_USB = false;                           //
                 Settings_Save();                                    // При отконнекчивании сохраняем настройки
             }                                                       /// \todo Возможно, это не нужно делать
-            CONNECTED_TO_USB = prevLength != 0;                     // 
+            //CONNECTED_TO_USB = prevLength != 0;                     // 
         }                                                           //
     }                                                               //
     prevLength = request.wLength;                                   //
+    
 }
 
 void HAL_PCD_DataOutStageCallback(PCD_HandleTypeDef *hpcd, uint8_t epnum)
