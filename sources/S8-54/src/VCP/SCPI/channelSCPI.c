@@ -37,8 +37,9 @@ void Process_CHANNEL(uint8 *buffer)
         {"COUP",        Process_COUPLING},
         {"BWLIMIT",     Process_BWLIMIT},
         {"BWL",         Process_BWLIMIT},
+        {"SCALE",       Process_RANGE},
+        {"SCAL",        Process_RANGE},
 
-        {"RANGE",   Process_RANGE},
         {"OFFSET",  Process_OFFSET},
         {0}
     };
@@ -161,10 +162,13 @@ void Process_RANGE(uint8 *buffer)
         {0}
     };
     ENTER_ANALYSIS
-        if (value < (uint8)RangeSize)      { FPGA_SetRange(ch, (Range)value); }
-        else if (value == (uint8)RangeSize)
+        if (value == (uint8)RangeSize)
         {
             SCPI_SEND(":CHANNEL%d:RANGE %s", Tables_GetNumChannel(ch), map[SET_RANGE(ch)].key);
+        }
+        else
+        {
+            FPGA_SetRange(ch, (Range)value);
         }
     LEAVE_ANALYSIS
 }
