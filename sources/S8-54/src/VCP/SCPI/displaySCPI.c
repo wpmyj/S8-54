@@ -15,7 +15,7 @@ static void Process_MAPPING(uint8 *buffer);
 static void Process_ACCUM(uint8 *buffer);
 static void Process_AVERAGE(uint8 *buffer);
 static void Process_MINMAX(uint8 *buffer);
-static void Process_FILTR(uint8 *buffer);
+static void Process_BWLIMIT(uint8 *buffer);
 static void Process_FPS(uint8 *buffer);
 static void Process_GRID(uint8 *buffer);
 
@@ -32,7 +32,7 @@ void Process_DISPLAY(uint8 *buffer)
         {"AVERAGE",     Process_AVERAGE},   // Усреднение
         {"AVE",         Process_AVERAGE},
         {"MINMAX",      Process_MINMAX},    // Мин Макс
-        {"FILTR",       Process_FILTR},     // Сглаживание
+        {"FILTR",       Process_BWLIMIT},     // Сглаживание
         {"FPS",         Process_FPS},       // Частота обновл
         {"GRID",        Process_GRID},      // СЕТКА
         {0}
@@ -171,7 +171,7 @@ static void Process_MINMAX(uint8 *buffer)
 
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
-static void Process_FILTR(uint8 *buffer)
+static void Process_BWLIMIT(uint8 *buffer)
 {
     static const MapElement map[] =
     {

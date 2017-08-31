@@ -14,7 +14,7 @@
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 static void Process_INPUT(uint8 *buffer);
 static void Process_COUPLING(uint8 *buffer);
-static void Process_FILTR(uint8 *buffer);
+static void Process_BWLIMIT(uint8 *buffer);
 static void Process_INVERT(uint8 *buffer);
 static void Process_RANGE(uint8 *buffer);
 static void Process_OFFSET(uint8 *buffer);
@@ -35,8 +35,9 @@ void Process_CHANNEL(uint8 *buffer)
         {"INV",         Process_INVERT},
         {"COUPLING",    Process_COUPLING},
         {"COUP",        Process_COUPLING},
+        {"BWLIMIT",     Process_BWLIMIT},
+        {"BWL",         Process_BWLIMIT},
 
-        {"FILTR",   Process_FILTR},
         {"RANGE",   Process_RANGE},
         {"OFFSET",  Process_OFFSET},
         {0}
@@ -95,25 +96,24 @@ void Process_COUPLING(uint8 *buffer)
 
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
-void Process_FILTR(uint8 *buffer)
+void Process_BWLIMIT(uint8 *buffer)
 {
     static const MapElement map[] =
     {
         {"ON",  0},
-        {"OFF", 1},
-        {"?",   2},
+        {"1",   1},
+        {"OFF", 2},
+        {"0",   3},
+        {"?",   4},
         {0}
     };
     ENTER_ANALYSIS
-        /// \todo это для C8-53, сделать для С8-54
-/*      
-        if (0 == value)         { set.chan[ch].filtr = true; }
-        else if (1 == value)    { set.chan[ch].filtr = false; }
-        else if (2 == value)
+        if (0 == value || 1 == value)         { SET_BANDWIDTH(ch) = Bandwidth_20MHz; FPGA_SetBandwidth(ch); }
+        else if (2 == value || 3 == value)    { SET_BANDWIDTH(ch) = Bandwidth_Full; FPGA_SetBandwidth(ch); }
+        else if (4 == value)
         {
-            SCPI_SEND(":CHANNEL%d:FILTR %s", Tables_GetNumChannel(ch), set.chan[ch].filtr == true ? "ON" : "OFF");
+            SCPI_SEND(":CHANNEL%d:FILTR %s", Tables_GetNumChannel(ch), SET_BANDWIDTH(ch) == Bandwidth_20MHz ? "ON" : "OFF");
         }
-*/
     LEAVE_ANALYSIS
 }
 
