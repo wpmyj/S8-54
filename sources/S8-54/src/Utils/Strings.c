@@ -3,6 +3,7 @@
 #include "defines.h"
 #include "Strings.h"
 #include <ctype.h>
+#include <string.h>
 
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -136,8 +137,10 @@ bool ChooseSpaces(const uint8 **string)
 
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
-bool EqualsStrings(char *str1, char *str2, int size)
+bool EqualsStrings(char *str1, char *str2)
 {
+    int size = strlen(str1);
+
     for (int i = 0; i < size; i++)
     {
         if (str1[i] != str2[i])

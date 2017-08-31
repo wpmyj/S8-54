@@ -7,6 +7,8 @@
  *  @{
  */
 
+void Process_IDN(uint8 *buffer);
+
 void Process_RUN(uint8 *buffer);
 
 void Process_STOP(uint8 *buffer);

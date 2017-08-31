@@ -103,8 +103,9 @@ typedef void    (*pFuncVI16pI16pI16)(int16, int16 *, int16 *);
 typedef float   (*pFuncFU8)(uint8);
 typedef char   *(*pFuncCFB)(float, bool);
 typedef char   *(*pFuncCFBC)(float, bool, char *);
-typedef void    (*pFuncpU8)(uint8 *);
+typedef void    (*pFuncVU8)(uint8 *);
 typedef void    (*pFuncVpVIIB)(void *, int, int, bool);
+typedef int     (*pFuncIU8I)(uint8 *, int);
 
 #define GetBit(value, bit) (((value) >> (bit)) & 0x01)
 #define SetBit_(value, bit) ((value) |= (1 << (bit)))

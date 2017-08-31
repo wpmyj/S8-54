@@ -23,8 +23,8 @@ int GetNumWordsInString(const uint8 *string);
 bool GetWord(const uint8 *string, Word *word, const int numWord);
 
 bool WordEqualZeroString(Word *word, char *string);
-
-bool EqualsStrings(char *str1, char *str2, int size);
+/// Сравнивает две строки. Число символов берётся из str1
+bool EqualsStrings(char *str1, char *str2);
 
 bool EqualsZeroStrings(char *str1, char *str2);
 

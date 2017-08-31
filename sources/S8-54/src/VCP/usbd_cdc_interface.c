@@ -130,30 +130,39 @@ static int8_t CDC_Itf_Control (uint8_t cmd, uint8_t* pbuf, uint16_t length)
 //----------------------------------------------------------------------------------------------------------------------------------------------------
 static int8 CDC_Itf_Receive(uint8 *buffer, uint *length)
 {
+#define LENGTH_DATA_BUFFER 100
+    static uint8 data[LENGTH_DATA_BUFFER];
     static int sizeData = 0;
 
-    for (uint i = 0; i < *length; i++)
+    if (sizeData + *length > LENGTH_DATA_BUFFER)
     {
-        if(0 == sizeData && buffer[0] != ':')
+        LOG_ERROR_TRACE("Переполнение приёмного буфера");
+    }
+    else
+    {
+        memcpy(data + sizeData, buffer, *length);
+        sizeData += *length;
+
+        int processingBytes = 0;                                            // Число обработанных байт
+
+        do
         {
-            continue;
-        }
-        UserRxBuffer[sizeData] = buffer[i];
-        sizeData++;
-        if (sizeData > 2 && UserRxBuffer[sizeData - 1] == '\x0a' && UserRxBuffer[sizeData - 2] == '\x0d')
-        {
-            SCPI_ParseNewCommand(UserRxBuffer + 1);
-            sizeData = 0;
-        }
-        if (sizeData == APP_RX_DATA_SIZE)
-        {
-            LOG_ERROR_TRACE("Переполнение приёмного буфера VCP");
-            sizeData = 0;
-            break;
-        }
+            processingBytes = SCPI_ParseNewCommand(buffer, sizeData);
+
+            if (processingBytes == sizeData)                                // Если весь буфер обработан
+            {
+                sizeData = 0;
+            }
+            else if (processingBytes)                                       // Если часть буфера декодирована
+            {
+                sizeData -= processingBytes;
+                memcpy(data, data + processingBytes, sizeData);             // копипруем оставшуюся часть в начало буфера
+            }
+
+        } while(sizeData && processingBytes);
     }
 
-    USBD_CDC_SetRxBuffer(&handleUSBD, UserRxBuffer + sizeData);
+    USBD_CDC_SetRxBuffer(&handleUSBD, UserRxBuffer);
     USBD_CDC_ReceivePacket(&handleUSBD);
     return (USBD_OK);
 }

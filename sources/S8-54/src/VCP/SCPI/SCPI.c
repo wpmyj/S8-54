@@ -16,14 +16,13 @@ typedef enum
     SAVE_SYMBOLS
 } StateProcessing;
 
-static int FindNumSymbolsInCommand(uint8 *buffer);
-
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-void SCPI_ParseNewCommand(uint8 *buffer)
+int SCPI_ParseNewCommand(uint8 *buffer, int length)
 {
     static const StructCommand commands[] =
     {
+        {"*IDN?",       Process_IDN},
         {"RUN",         Process_RUN},
         {"STOP",        Process_STOP},
         {"RESET",       Process_RESET},
@@ -50,48 +49,44 @@ void SCPI_ParseNewCommand(uint8 *buffer)
         {0}
     };
 
-    SCPI_ProcessingCommand(commands, buffer);
-}
+    uint8 *addrRET = buffer;
+    uint8 *addrLast = buffer + length;
 
+    while (*addrRET != 0x0a && *addrRET != 0x0d)
+    {
+        ++addrRET;
+        if (addrRET == addrLast) // Если вышли за границу массива
+        {
+            return 0;
+        }
+    }
+
+    SCPI_ProcessingCommand(commands, buffer);
+
+    return addrRET - buffer + 1;
+}
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
 void SCPI_ProcessingCommand(const StructCommand *commands, uint8 *buffer) 
 {
-    int sizeNameCommand = FindNumSymbolsInCommand(buffer);
-    if (sizeNameCommand == 0) 
+    while(*buffer == ':')
     {
-        return;
+        ++buffer;
     }
-    for (int i = 0; i < sizeNameCommand; i++)
-    {
-        buffer[i] = (uint8)toupper(buffer[i]);
-    }
+    
     int numCommand = -1;
     char *name = 0;
     do 
     {
         numCommand++;   
         name = commands[numCommand].name;
-    } while (name != 0 && (!EqualsStrings((char*)buffer, name, sizeNameCommand)));
+    } while (name != 0 && (!EqualsStrings(name, (char*)buffer)));
 
     if (name != 0) 
     {
-        commands[numCommand].func(buffer + sizeNameCommand + 1);
+        commands[numCommand].func(buffer + strlen(name));   // Передаём в функцию указатель на первый символ за именем команды
     }
 }
-
-
-//----------------------------------------------------------------------------------------------------------------------------------------------------
-int FindNumSymbolsInCommand(uint8 *buffer)
-{
-    int pos = 0;
-    while ((buffer[pos] != ':') && (buffer[pos] != ' ') && (buffer[pos] != '\x0d'))
-    {
-        pos++;
-    }
-    return pos;
-}
-
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
 bool SCPI_FirstIsInt(uint8 *buffer, int *value, int min, int max)
