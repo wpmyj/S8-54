@@ -194,9 +194,6 @@
     <ClCompile Include="..\..\S8-54\src\libs\stm32f4xx_hal_msp.c" />
     <ClCompile Include="..\..\S8-54\src\libs\stm32f4xx_it.c" />
     <ClCompile Include="..\..\S8-54\src\libs\system_stm32f4xx.c" />
-    <ClCompile Include="..\..\S8-54\src\libs\usbd_cdc_interface.c" />
-    <ClCompile Include="..\..\S8-54\src\libs\usbd_conf.c" />
-    <ClCompile Include="..\..\S8-54\src\libs\usbd_desc.c" />
     <ClCompile Include="..\..\S8-54\src\libs\usbh_conf.c" />
     <ClCompile Include="..\..\S8-54\src\Log.c" />
     <ClCompile Include="..\..\S8-54\src\main.c" />
@@ -249,6 +246,9 @@
     <ClCompile Include="..\..\S8-54\src\VCP\SCPI\SCPI.c" />
     <ClCompile Include="..\..\S8-54\src\VCP\SCPI\tbaseSCPI.c" />
     <ClCompile Include="..\..\S8-54\src\VCP\SCPI\trigSCPI.c" />
+    <ClCompile Include="..\..\S8-54\src\VCP\usbd_cdc_interface.c" />
+    <ClCompile Include="..\..\S8-54\src\VCP\usbd_conf.c" />
+    <ClCompile Include="..\..\S8-54\src\VCP\usbd_desc.c" />
     <ClCompile Include="..\..\S8-54\src\VCP\VCP.c" />
     <ClCompile Include="..\..\STM32Cube_FW_F4\Drivers\STM32F4xx_HAL_Driver\Src\stm32f4xx_hal.c" />
     <ClCompile Include="..\..\STM32Cube_FW_F4\Drivers\STM32F4xx_HAL_Driver\Src\stm32f4xx_hal_adc.c" />
@@ -398,9 +398,6 @@
     <ClInclude Include="..\..\S8-54\src\libs\ffconf.h" />
     <ClInclude Include="..\..\S8-54\src\libs\stm32f4xx_hal_conf.h" />
     <ClInclude Include="..\..\S8-54\src\libs\stm32f4xx_it.h" />
-    <ClInclude Include="..\..\S8-54\src\libs\usbd_cdc_interface.h" />
-    <ClInclude Include="..\..\S8-54\src\libs\usbd_conf.h" />
-    <ClInclude Include="..\..\S8-54\src\libs\usbd_desc.h" />
     <ClInclude Include="..\..\S8-54\src\libs\usbh_conf.h" />
     <ClInclude Include="..\..\S8-54\src\Log.h" />
     <ClInclude Include="..\..\S8-54\src\main.h" />
@@ -449,6 +446,9 @@
     <ClInclude Include="..\..\S8-54\src\VCP\SCPI\commonSCPI.h" />
     <ClInclude Include="..\..\S8-54\src\VCP\SCPI\controlSCPI.h" />
     <ClInclude Include="..\..\S8-54\src\VCP\SCPI\SCPI.h" />
+    <ClInclude Include="..\..\S8-54\src\VCP\usbd_cdc_interface.h" />
+    <ClInclude Include="..\..\S8-54\src\VCP\usbd_conf.h" />
+    <ClInclude Include="..\..\S8-54\src\VCP\usbd_desc.h" />
     <ClInclude Include="..\..\S8-54\src\VCP\VCP.h" />
     <ClInclude Include="..\..\STM32Cube_FW_F4\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal.h" />
     <ClInclude Include="..\..\STM32Cube_FW_F4\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal_adc.h" />
