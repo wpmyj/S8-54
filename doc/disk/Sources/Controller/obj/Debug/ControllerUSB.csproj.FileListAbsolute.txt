@@ -1,0 +1,13 @@
+d:\Projects\S8-54\sources\VS-OSCI\ControllerUSB\bin\Debug\ControllerUSB.exe.config
+d:\Projects\S8-54\sources\VS-OSCI\ControllerUSB\bin\Debug\ControllerUSB.exe
+d:\Projects\S8-54\sources\VS-OSCI\ControllerUSB\bin\Debug\ControllerUSB.pdb
+d:\Projects\S8-54\sources\VS-OSCI\ControllerUSB\obj\Debug\Controller_S8_53.Display.resources
+d:\Projects\S8-54\sources\VS-OSCI\ControllerUSB\obj\Debug\Controller_S8_53.Governor.resources
+d:\Projects\S8-54\sources\VS-OSCI\ControllerUSB\obj\Debug\Controller_S8_53.LineEditID.resources
+d:\Projects\S8-54\sources\VS-OSCI\ControllerUSB\obj\Debug\Controller_S8_53.MainForm.resources
+d:\Projects\S8-54\sources\VS-OSCI\ControllerUSB\obj\Debug\ControllerUSB.Properties.Resources.resources
+d:\Projects\S8-54\sources\VS-OSCI\ControllerUSB\obj\Debug\Controller_S8_53.TextBoxIntValue.resources
+d:\Projects\S8-54\sources\VS-OSCI\ControllerUSB\obj\Debug\ControllerUSB.csproj.GenerateResource.Cache
+d:\Projects\S8-54\sources\VS-OSCI\ControllerUSB\obj\Debug\ControllerUSB.exe
+d:\Projects\S8-54\sources\VS-OSCI\ControllerUSB\obj\Debug\ControllerUSB.pdb
+d:\Projects\S8-54\sources\VS-OSCI\ControllerUSB\obj\Debug\ControllerUSB.csprojResolveAssemblyReference.cache

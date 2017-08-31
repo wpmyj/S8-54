@@ -1,0 +1,1702 @@
+// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
+// PVS-Studio Static Code Analyzer for C, C++ and C#: http://www.viva64.com
+#include "Log.h"
+#include "Data/DataBuffer.h"
+#include "Display/Grid.h"
+#include "Display/Symbols.h"
+#include "FlashDrive/FlashDrive.h"
+#include "FPGA/FPGA.h"
+#include "Hardware/FLASH.h"
+#include "Hardware/Sound.h"
+#include "Menu/MenuDrawing.h"
+#include "Menu/MenuFunctions.h"
+#include "Menu/Pages/Definition.h"
+#include "Settings/SettingsDebug.h"
+#include "Utils/Debug.h"
+#include "Utils/Dictionary.h"
+#include "Utils/GlobalFunctions.h"
+
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+extern Page mainPage;
+extern void LoadTShift(void);
+
+static const     Page ppConsole;                            ///< Œ“À¿ƒ ¿ -  ŒÕ—ŒÀ‹
+static const  Governor gConsole_NumStrings;                 ///< Œ“À¿ƒ ¿ -  ŒÕ—ŒÀ‹ - –‡ÁÏÂ ¯ËÙÚ‡
+static const    Choice cConsole_SizeFont;                   ///< Œ“À¿ƒ ¿ -  ŒÕ—ŒÀ‹ - –‡ÁÏÂ ¯ËÙÚ‡
+static const    Choice cConsole_ModeStop;                   ///< Œ“À¿ƒ ¿ -  ŒÕ—ŒÀ‹ - –ÂÊ. ÓÒÚ‡ÌÓ‚‡
+static const    Page pppConsole_Registers;                  ///< Œ“À¿ƒ ¿ -  ŒÕ—ŒÀ‹ - –≈√»—“–€
+static const    Choice cConsole_Registers_ShowAll;          ///< Œ“À¿ƒ ¿ -  ŒÕ—ŒÀ‹ - –≈√»—“–€ - œÓÍ‡Á˚‚‡Ú¸ ‚ÒÂ
+static const    Choice cConsole_Registers_RD_FL;            ///< Œ“À¿ƒ ¿ -  ŒÕ—ŒÀ‹ - –≈√»—“–€ - RD_FL
+static bool    IsActive_Console_Registers(void);
+static const    Choice cConsole_Registers_RShiftA;          ///< Œ“À¿ƒ ¿ -  ŒÕ—ŒÀ‹ - –≈√»—“–€ - U ÒÏ. 1Í
+static const    Choice cConsole_Registers_RShiftB;          ///< Œ“À¿ƒ ¿ -  ŒÕ—ŒÀ‹ - –≈√»—“–€ - U ÒÏ. 2Í
+static const    Choice cConsole_Registers_TrigLev;          ///< Œ“À¿ƒ ¿ -  ŒÕ—ŒÀ‹ - –≈√»—“–€ - U ÒËÌı.
+static const    Choice cConsole_Registers_RangeA;           ///< Œ“À¿ƒ ¿ -  ŒÕ—ŒÀ‹ - –≈√»—“–€ - ¬ŒÀ‹“/ƒ≈À 1
+static const    Choice cConsole_Registers_RangeB;           ///< Œ“À¿ƒ ¿ -  ŒÕ—ŒÀ‹ - –≈√»—“–€ - ¬ŒÀ‹“/ƒ≈À 2
+static const    Choice cConsole_Registers_TrigParam;        ///< Œ“À¿ƒ ¿ -  ŒÕ—ŒÀ‹ - –≈√»—“–€ - œ‡‡Ï. ÒËÌı.
+static const    Choice cConsole_Registers_ChanParamA;       ///< Œ“À¿ƒ ¿ -  ŒÕ—ŒÀ‹ - –≈√»—“–€ - œ‡‡Ï. Í‡Ì. 2
+static const    Choice cConsole_Registers_ChanParamB;       ///< Œ“À¿ƒ ¿ -  ŒÕ—ŒÀ‹ - –≈√»—“–€ - œ‡‡Ï. Í‡Ì. 2
+static const    Choice cConsole_Registers_TBase;            ///< Œ“À¿ƒ ¿ -  ŒÕ—ŒÀ‹ - –≈√»—“–€ - ¬–≈Ãﬂ/ƒ≈À
+static const    Choice cConsole_Registers_TShift;           ///< Œ“À¿ƒ ¿ -  ŒÕ—ŒÀ‹ - –≈√»—“–€ - “ ÒÏ.
+static const    Button bConsole_SizeSettings;               ///< Œ“À¿ƒ ¿ -  ŒÕ—ŒÀ‹ - –‡ÁÏÂ Ì‡ÒÚÓÂÍ
+static void        Draw_Console_SizeSettings(int x, int y); 
+static const     Page ppADC;                                ///< Œ“À¿ƒ ¿ - ¿÷œ
+static const    Page pppADC_Balance;                        ///< Œ“À¿ƒ ¿ - ¿÷œ - ¡¿À¿Õ—
+static const    Choice cADC_Balance_Mode;                   ///< Œ“À¿ƒ ¿ - ¿÷œ - ¡¿À¿Õ— - –ÂÊËÏ
+static void   OnChanged_ADC_Balance_Mode(bool active);
+static void        Draw_ADC_Balance_Mode(int x, int y);
+static const  Governor gADC_Balance_ShiftA;                 ///< Œ“À¿ƒ ¿ - ¿÷œ - ¡¿À¿Õ— - —ÏÂ˘ÂÌËÂ 1
+static bool    IsActive_ADC_Balance_ShiftAB(void);
+static void   OnChanged_ADC_Balance_ShiftA(void);
+static const  Governor gADC_Balance_ShiftB;                 ///< Œ“À¿ƒ ¿ - ¿÷œ - ¡¿À¿Õ— - —ÏÂ˘ÂÌËÂ 2 
+static void   OnChanged_ADC_Balance_ShiftB(void);
+static const    Page pppADC_Stretch;                        ///< Œ“À¿ƒ ¿ - ¿÷œ - –¿—“ﬂ∆ ¿
+static const    Choice cADC_Stretch_Mode;                   ///< Œ“À¿ƒ ¿ - ¿÷œ - –¿—“ﬂ∆ ¿ - –ÂÊËÏ
+       void   OnChanged_ADC_Stretch_Mode(bool active);
+static const  Governor gADC_Stretch_A;                      ///< Œ“À¿ƒ ¿ - ¿÷œ - –¿—“ﬂ∆ ¿ - –‡ÒÚˇÊÍ‡ 1Í
+static bool    IsActive_ADC_StretchAB(void);
+static void   OnChanged_ADC_Stretch_A(void);
+static const  Governor gADC_Stretch_B;                      ///< Œ“À¿ƒ ¿ - ¿÷œ - –¿—“ﬂ∆ ¿ - –‡ÒÚˇÊÍ‡ 2Í
+static void   OnChanged_ADC_Stretch_B(void);
+static const  Governor gADC_Stretch_Ak20mV;                 ///< Œ“À¿ƒ ¿ - ¿÷œ - –¿—“ﬂ∆ ¿ - 20Ï¬/1¬ 1Í
+static const  Governor gADC_Stretch_Ak50mV;                 ///< Œ“À¿ƒ ¿ - ¿÷œ - –¿—“ﬂ∆ ¿ - 50Ï¬ 1Í 
+static const  Governor gADC_Stretch_Ak100mV;                ///< Œ“À¿ƒ ¿ - ¿÷œ - –¿—“ﬂ∆ ¿ - 100Ï¬/5¬ 1Í
+static const  Governor gADC_Stretch_Ak2V;                   ///< Œ“À¿ƒ ¿ - A÷œ - –¿—“ﬂ∆ ¿ - 2¬ 1Í
+static const  Governor gADC_Stretch_Bk20mV;                 ///< Œ“À¿ƒ ¿ - ¿÷œ - –¿—“ﬂ∆ ¿ - 20Ï¬/1¬ 2Í
+static const  Governor gADC_Stretch_Bk50mV;                 ///< Œ“À¿ƒ ¿ - ¿÷œ - –¿—“ﬂ∆ ¿ - 50Ï¬ 2Í 
+static const  Governor gADC_Stretch_Bk100mV;                ///< Œ“À¿ƒ ¿ - ¿÷œ - –¿—“ﬂ∆ ¿ - 100Ï¬/5¬ 2Í
+static const  Governor gADC_Stretch_Bk2V;                   ///< Œ“À¿ƒ ¿ - ¿÷œ - –¿—“ﬂ∆ ¿ - 2¬ 2Í
+static const    Page pppADC_Shift;                          ///< Œ“À¿ƒ ¿ - ¿÷œ - ƒŒœ —Ã≈Ÿ
+static const    Button bADC_Shift_Reset;                    ///< Œ“À¿ƒ ¿ - ¿÷œ - ƒŒœ —Ã≈Ÿ - —·ÓÒ
+static void     OnPress_ADC_Shift_Reset(void);
+static const  Governor gADC_Shift_A2mV;                     ///< Œ“À¿ƒ ¿ - ¿÷œ - ƒŒœ —Ã≈Ÿ - —Ï 1Í 2Ï¬ ÔÓÒÚ
+static void   OnChanged_ADC_Shift_A(void);
+static const  Governor gADC_Shift_B2mV;                     ///< Œ“À¿ƒ ¿ - ¿÷œ - ƒŒœ —Ã≈Ÿ - —Ï 2Í 2Ï¬ ÔÓÒÚ
+static void   OnChanged_ADC_Shift_B(void);
+static const  Governor gADC_Shift_A5mV;                     ///< Œ“À¿ƒ ¿ - ¿÷œ - ƒŒœ —Ã≈Ÿ - —Ï 1Í 5Ï¬ ÔÓÒÚ
+static const  Governor gADC_Shift_B5mV;                     ///< Œ“À¿ƒ ¿ - ¿÷œ - ƒŒœ —Ã≈Ÿ - —Ï 2Í 5Ï¬ ÔÓÒÚ
+static const  Governor gADC_Shift_A10mV;                    ///< Œ“À¿ƒ ¿ - ¿÷œ - ƒŒœ —Ã≈Ÿ - —Ï 1Í 10Ï¬ ÔÓÒÚ
+static const  Governor gADC_Shift_B10mV;                    ///< Œ“À¿ƒ ¿ - ¿÷œ - ƒŒœ —Ã≈Ÿ - —Ï 2Í 10Ï¬ ÔÓÒÚ
+static const     Page ppRand;                               ///< Œ“À¿ƒ ¿ - –¿Õƒ-“Œ–
+static const  Governor gRand_NumMeasures;                   ///< Œ“À¿ƒ ¿ - –¿Õƒ-“Œ– - ¬˚·-Í/‚ÓÓÚ‡
+static void   OnChanged_Rand_NumMeasures(void);
+static const  Governor gRand_NumAverage;                    ///< Œ“À¿ƒ ¿ - –¿Õƒ-“Œ– - ”ÒÂ‰Ì.
+static const  Governor gRand_NumSmooth;                     ///< Œ“À¿ƒ ¿ - –¿Õƒ-“Œ– - —„Î‡ÊË‚‡ÌËÂ
+static const    Choice cRand_ShowInfo;                      ///< Œ“À¿ƒ ¿ - –¿Õƒ-“Œ– - »ÌÙÓÏ‡ˆËˇ
+static const    Choice gRand_ShowStat;                      ///< Œ“À¿ƒ ¿ - –¿Õƒ-“Œ– - —Ú‡ÚËÒÚËÍ‡
+static const  Governor gRand_TimeCompensation;              ///< Œ“À¿ƒ ¿ - –¿Õƒ-“Œ– -  ÓÏÔÂÌÒ‡ˆËˇ Á‡‰ÂÊÍË
+static void   OnChanged_Rand_TimeCompensation(void);
+static const  Governor gRand_AddTimeShift;                  ///< Œ“À¿ƒ ¿ - –¿Õƒ-“Œ– - —ÏÂ˘ÂÌËÂ
+static void   OnChanged_Rand_AddTimeShift(void);
+static const  Governor gRand_Pretriggered;                  ///< Œ“À¿ƒ ¿ - –¿Õƒ-“Œ– - œÂ‰Á‡ÔÛÒÍ
+static void   OnChanged_Rand_Pretriggered(void);
+static const     Page ppChannels;                           ///< Œ“À¿ƒ ¿ -  ¿Õ¿À€
+static const    Choice cChannels_BandwidthA;                ///< Œ“À¿ƒ ¿ -  ¿Õ¿À€ - œÓÎÓÒ‡ 1
+static void   OnChanged_Channels_BandwidthA(bool active);
+static const    Choice cChannels_BandwidthB;                ///< Œ“À¿ƒ ¿ -  ¿Õ¿À€ - œÓÎÓÒ‡ 2
+static void   OnChanged_Channels_BandwidthB(bool active);
+static const    Choice cStats;                              ///< Œ“À¿ƒ ¿ - —Ú‡ÚËÒÚËÍ‡
+static const    Choice cDisplayOrientation;                 ///< Œ“À¿ƒ ¿ - ŒËÂÌÚ‡ˆËˇ
+       void   OnChanged_DisplayOrientation(bool);
+static const    Choice cEMS;                                ///< Œ“À¿ƒ ¿ - –ÂÊËÏ ›Ã—
+static void   OnChanged_EMS(bool);
+static const Governor mgPred;                               ///< Œ“À¿ƒ ¿ - œÂ‰Á‡ÔÛÒÍ
+static void   OnChanged_Pred(void);
+static const Governor mgPost;                               ///< Œ“À¿ƒ ¿ - œÓÒÎÂÁ‡ÔÛÒÍ
+static void   OnChanged_Post(void);
+static const     Page ppSettings;                           ///< Œ“À¿ƒ ¿ - Õ¿—“–Œ… »
+static void     OnPress_Settings(void);
+static const   SButton bSettings_Exit;                      ///< Œ“À¿ƒ ¿ - Õ¿—“–Œ… » - ¬˚ıÓ‰
+static void     OnPress_Settings_Exit(void);
+static const    Button bSaveFirmware;                       ///< Œ“À¿ƒ ¿ - —Óı. ÔÓ¯Ë‚ÍÛ
+static bool    IsActive_SaveFirmware(void);
+static void     OnPress_SaveFirmware(void);
+static const     Page ppSerialNumber;                       ///< Œ“À¿ƒ ¿ - —/Õ
+static void     OnPress_SerialNumber(void);
+static void        Draw_EnterSerialNumber(void);
+static void    OnRegSet_SerialNumber(int);
+static const   SButton bSerialNumber_Exit;                  ///< Œ“À¿ƒ ¿ - —/Õ - ¬˚ıÓ‰
+static void     OnPress_SerialNumber_Exit(void);
+static const   SButton bSerialNumber_Change;                ///< Œ“À¿ƒ ¿ - —/Õ - œÂÂÈÚË
+static void     OnPress_SerialNumber_Change(void);
+static void        Draw_SerialNumber_Change(int, int);
+static const   SButton bSerialNumber_Save;                  ///< Œ“À¿ƒ ¿ - —/Õ - —Óı‡ÌËÚ¸
+static void     OnPress_SerialNumber_Save(void);
+static void        Draw_SerialNumber_Save(int, int);
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+/// ¬ ˝ÚÓÈ ÒÚÛÍÚÛÂ ·Û‰ÛÚ ı‡ÌËÚ¸Òˇ ‰‡ÌÌ˚Â ÒÂËÈÌÓ„Ó ÌÓÏÂ‡ ÔË ÓÚÍ˚ÚÓÈ ÒÚ‡ÌËˆÂ ppSerialNumer
+typedef struct
+{
+    int number;     ///< —ÓÓÚ‚ÂÚÒÚ‚ÂÌÌÓ, ÔÓˇ‰ÍÓ‚˚È ÌÓÏÂ.
+    int year;       ///< —ÓÓÚ‚ÂÚÒÚ‚ÂÌÌÓ, „Ó‰.
+    int curDigt;    ///< —ÓÓÚ‚ÂÚÒÚ‚ÂÌÌÓ, ÌÓÏÂÓÏ (0) ËÎË „Ó‰ÓÏ (1) ÛÔ‡‚ÎˇÂÚ Û˜Í‡ ”—“¿ÕŒ¬ ¿.
+} StructForSN;
+
+
+// Œ“À¿ƒ ¿ ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+const Page pDebug =
+{
+    Item_Page, &mainPage, 0,
+    {
+        "Œ“À¿ƒ ¿", "DEBUG",
+        "", ""
+    },
+    Page_Debug,
+    {
+        (void *)&ppConsole,             // Œ“À¿ƒ ¿ -  ŒÕ—ŒÀ‹
+        (void *)&ppADC,                 // Œ“À¿ƒ ¿ - ¿÷œ
+        (void *)&ppRand,			    // Œ“À¿ƒ ¿ - –¿Õƒ-“Œ–
+        (void *)&ppChannels,		    // Œ“À¿ƒ ¿ -  ¿Õ¿À€
+        (void *)&cStats,			    // Œ“À¿ƒ ¿ - —Ú‡ÚËÒÚËÍ‡
+        (void *)&cDisplayOrientation,   // Œ“À¿ƒ ¿ - ŒËÂÌÚ‡ˆËˇ
+        (void *)&cEMS,                  // Œ“À¿ƒ ¿ - –ÂÊËÏ ›Ã—
+        (void *)&mgPred,			    // Œ“À¿ƒ ¿ - œÂ‰Á‡ÔÛÒÍ
+        (void *)&mgPost,			    // Œ“À¿ƒ ¿ - œÓÒÎÂÁ‡ÔÛÒÍ
+        (void *)&ppSettings,		    // Œ“À¿ƒ ¿ - Õ¿—“–Œ… »
+        (void *)&bSaveFirmware,         // Œ“À¿ƒ ¿ - —Óı. ÔÓ¯Ë‚ÍÛ
+        (void *)&ppSerialNumber         // Œ“À¿ƒ ¿ - —/Õ
+    }
+};
+
+// Œ“À¿ƒ ¿ -  ŒÕ—ŒÀ‹ /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+static const Page ppConsole =
+{
+    Item_Page, &pDebug, 0,
+    {
+        " ŒÕ—ŒÀ‹", "CONSOLE",
+        "",
+        ""
+    },
+    Page_Debug_Console,
+    {
+        (void *)&gConsole_NumStrings,   // Œ“À¿ƒ ¿ -  ŒÕ—ŒÀ‹ - ◊ËÒÎÓ ÒÚÓÍ
+        (void *)&cConsole_SizeFont,     // Œ“À¿ƒ ¿ -  ŒÕ—ŒÀ‹ - –‡ÁÏÂ ¯ËÙÚ‡
+        (void *)&cConsole_ModeStop,     // Œ“À¿ƒ ¿ -  ŒÕ—ŒÀ‹ - –ÂÊ. ÓÒÚ‡ÌÓ‚‡
+        (void *)&pppConsole_Registers,  // Œ“À¿ƒ ¿ -  ŒÕ—ŒÀ‹ - –≈√»—“–€
+        (void *)&bConsole_SizeSettings  // Œ“À¿ƒ ¿ -  ŒÕ—ŒÀ‹ - –‡ÁÏÂ Ì‡ÒÚÓÂÍ
+
+    }
+};
+
+// Œ“À¿ƒ ¿ -  ŒÕ—ŒÀ‹ - ◊ËÒÎÓ ÒÚÓÍ -------------------------------------------------------------------------------------------------------------------
+static const Governor gConsole_NumStrings =
+{
+    Item_Governor, &ppConsole, 0,
+    {
+        "◊ËÒÎÓ ÒÚÓÍ", "Number strings",
+        "",
+        ""
+    },
+    &CONSOLE_NUM_STRINGS, 0, 33
+};
+
+// Œ“À¿ƒ ¿ -  ŒÕ—ŒÀ‹ - –‡ÁÏÂ ¯ËÙÚ‡ -----------------------------------------------------------------------------------------------------------------
+static const Choice cConsole_SizeFont =
+{
+    Item_Choice, &ppConsole, 0,
+    {
+        "–‡ÁÏÂ ¯ËÙÚ‡", "Size font",
+        "",
+        ""
+    },
+    {
+        {"5", "5"},
+        {"8", "8"}
+    },
+    &set.dbg_SizeFont
+};
+
+// Œ“À¿ƒ ¿ -  ŒÕ—ŒÀ‹ - –ÂÊ. ÓÒÚ‡ÌÓ‚‡ -----------------------------------------------------------------------------------------------------------------
+static const Choice cConsole_ModeStop =
+{
+    Item_Choice, &ppConsole, 0,
+    {
+        "–ÂÊ. ÓÒÚ‡ÌÓ‚‡", "Mode stop",
+        "œÂ‰ÓÒÚ‡‚ÎˇÂÚ ‚ÓÁÏÓÊÌÓÒÚ¸ ÔËÓÒÚ‡ÌÓ‚ÍË ‚˚‚Ó‰‡ ‚ ÍÓÌÒÓÎ¸ ÔÛÚ∏Ï Ì‡Ê‡ÚËˇ Ì‡ ÍÌÓÔÍÛ œ”— /—“Œœ",
+        "It provides the ability to pause the output to the console by pressing the œ”— /—“Œœ button"
+    },
+    {
+        {DISABLE_RU, DISABLE_EN},
+        {ENABLE_RU, ENABLE_EN}
+    },
+    (int8 *)&MODE_PAUSE_CONSOLE
+};
+
+// Œ“À¿ƒ ¿ -  ŒÕ—ŒÀ‹ - –≈√»—“–€ //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+static const Page pppConsole_Registers =
+{
+    Item_Page, &ppConsole, 0,
+    {
+        "–≈√»—“–€", "REGISTERS",
+        "",
+        ""
+    },
+    Page_Debug_Console_Registers,
+    {
+        (void *)&cConsole_Registers_ShowAll,    // Œ“À¿ƒ ¿ -  ŒÕ—ŒÀ‹ - –≈√»—“–€ - œÓÍ‡Á˚‚‡Ú¸ ‚ÒÂ
+        (void *)&cConsole_Registers_RD_FL,      // Œ“À¿ƒ ¿ -  ŒÕ—ŒÀ‹ - –≈√»—“–€ - RD_FL
+        (void *)&cConsole_Registers_RShiftA,    // Œ“À¿ƒ ¿ -  ŒÕ—ŒÀ‹ - –≈√»—“–€ - U ÒÏ. 1Í
+        (void *)&cConsole_Registers_RShiftB,    // Œ“À¿ƒ ¿ -  ŒÕ—ŒÀ‹ - –≈√»—“–€ - U ÒÏ. 2Í
+        (void *)&cConsole_Registers_TrigLev,    // Œ“À¿ƒ ¿ -  ŒÕ—ŒÀ‹ - –≈√»—“–€ - U ÒËÌı
+        (void *)&cConsole_Registers_RangeA,     // Œ“À¿ƒ ¿ -  ŒÕ—ŒÀ‹ - –≈√»—“–€ - ¬ŒÀ‹“/ƒ≈À 1
+        (void *)&cConsole_Registers_RangeB,     // Œ“À¿ƒ ¿ -  ŒÕ—ŒÀ‹ - –≈√»—“–€ - ¬ŒÀ‹“/ƒ≈À 2
+        (void *)&cConsole_Registers_TrigParam,  // Œ“À¿ƒ ¿ -  ŒÕ—ŒÀ‹ - –≈√»—“–€ - œ‡‡Ï. ÒËÌı.
+        (void *)&cConsole_Registers_ChanParamA, // Œ“À¿ƒ ¿ -  ŒÕ—ŒÀ‹ - –≈√»—“–€ - œ‡‡Ï. Í‡Ì. 1
+        (void *)&cConsole_Registers_ChanParamB, // Œ“À¿ƒ ¿ -  ŒÕ—ŒÀ‹ - –≈√»—“–€ - œ‡‡Ï. Í‡Ì. 2
+        (void *)&cConsole_Registers_TBase,      // Œ“À¿ƒ ¿ -  ŒÕ—ŒÀ‹ - –≈√»—“–€ - ¬–≈Ãﬂ/ƒ≈À
+        (void *)&cConsole_Registers_TShift      // Œ“À¿ƒ ¿ -  ŒÕ—ŒÀ‹ - –≈√»—“–€ - “ ÒÏ.
+    }
+};
+
+// Œ“À¿ƒ ¿ -  ŒÕ—ŒÀ‹ - –≈√»—“–€ - œÓÍ‡Á˚‚‡Ú¸ ‚ÒÂ -----------------------------------------------------------------------------------------------------
+static const Choice cConsole_Registers_ShowAll =
+{
+    Item_Choice, &pppConsole_Registers, 0,
+    {
+        "œÓÍ‡Á˚‚‡Ú¸ ‚ÒÂ", "Show all",
+        "œÓÍ‡Á˚‚‡Ú¸ ‚ÒÂ ÁÌ‡˜ÂÌËˇ, Á‡Ò˚Î‡ÂÏ˚Â ‚ Â„ËÒÚ˚",
+        "To show all values transferred in registers"
+    },
+    {
+        {"ÕÂÚ", "No"},
+        {"ƒ‡", "Yes"}
+    },
+    (int8 *)&DBG_SHOW_ALL
+};
+
+// Œ“À¿ƒ ¿ -  ŒÕ—ŒÀ‹ - –≈√»—“–€ - RD_FL --------------------------------------------------------------------------------------------------------------
+static const Choice cConsole_Registers_RD_FL =
+{
+    Item_Choice, &pppConsole_Registers, IsActive_Console_Registers,
+    {
+        "RD_FL", "RD_FL",
+        "",
+        ""
+    },
+    {
+        {DISABLE_RU, DISABLE_EN},
+        {ENABLE_RU, ENABLE_EN}
+    },
+    (int8 *)&DBG_SHOW_FLAG
+};
+
+static bool IsActive_Console_Registers(void)
+{
+    return DBG_SHOW_ALL;
+}
+
+// Œ“À¿ƒ ¿ -  ŒÕ—ŒÀ‹ - –≈√»—“–€ - U ÒÏ. 1Í -----------------------------------------------------------------------------------------------------------
+static const Choice cConsole_Registers_RShiftA =
+{
+    Item_Choice, &pppConsole_Registers, IsActive_Console_Registers,
+    {
+        "U ÒÏ. 1Í", "U shift 1ch",
+        "",
+        ""
+    },
+    {
+        {DISABLE_RU, DISABLE_EN},
+        {ENABLE_RU, ENABLE_EN}
+    },
+    (int8 *)&set.dbg_ShowRShift[A]
+};
+
+// Œ“À¿ƒ ¿ -  ŒÕ—ŒÀ‹ - –≈√»—“–€ - U ÒÏ. 2Í -----------------------------------------------------------------------------------------------------------
+static const Choice cConsole_Registers_RShiftB =
+{
+    Item_Choice, &pppConsole_Registers, IsActive_Console_Registers,
+    {
+        "U ÒÏ. 2Í", "U shift 2ch",
+        "",
+        ""
+    },
+    {
+        {DISABLE_RU, DISABLE_EN},
+        {ENABLE_RU, ENABLE_EN}
+    },
+    (int8 *)&set.dbg_ShowRShift[B]
+};
+
+// Œ“À¿ƒ ¿ -  ŒÕ—ŒÀ‹ - –≈√»—“–€ - U ÒËÌı. -----------------------------------------------------------------------------------------------------------
+static const Choice cConsole_Registers_TrigLev =
+{
+    Item_Choice, &pppConsole_Registers, IsActive_Console_Registers,
+    {
+        "U ÒËÌı.", "U trig.",
+        "",
+        ""
+    },
+    {
+        {DISABLE_RU, DISABLE_EN},
+        {ENABLE_RU, ENABLE_EN}
+    },
+    (int8 *)&set.dbg_ShowTrigLev
+};
+
+// Œ“À¿ƒ ¿ -  ŒÕ—ŒÀ‹ - –≈√»—“–€ - ¬ŒÀ‹“/ƒ≈À 1 --------------------------------------------------------------------------------------------------------
+static const Choice cConsole_Registers_RangeA =
+{
+    Item_Choice, &pppConsole_Registers, IsActive_Console_Registers,
+    {
+        "¬ŒÀ‹“/ƒ≈À 1", "Range 1",
+        "",
+        ""
+    },
+    {
+        {DISABLE_RU, DISABLE_EN},
+        {ENABLE_RU, ENABLE_EN}
+    },
+    (int8 *)&set.dbg_ShowRange[A]
+};
+
+// Œ“À¿ƒ ¿ -  ŒÕ—ŒÀ‹ - –≈√»—“–€ - ¬ŒÀ‹“/ƒ≈À 2 --------------------------------------------------------------------------------------------------------
+static const Choice cConsole_Registers_RangeB =
+{
+    Item_Choice, &pppConsole_Registers, IsActive_Console_Registers,
+    {
+        "¬ŒÀ‹“/ƒ≈À 2", "Range 2",
+        "",
+        ""
+    },
+    {
+        {DISABLE_RU, DISABLE_EN},
+        {ENABLE_RU, ENABLE_EN}
+    },
+    (int8 *)&set.dbg_ShowRange[B]
+};
+
+// Œ“À¿ƒ ¿ -  ŒÕ—ŒÀ‹ - –≈√»—“–€ - œ‡‡Ï. ÒËÌı. ------------------------------------------------------------------------------------------------------
+static const Choice cConsole_Registers_TrigParam =
+{
+    Item_Choice, &pppConsole_Registers, IsActive_Console_Registers,
+    {
+        "œ‡‡Ï. ÒËÌı.", "Trig param",
+        "",
+        ""
+    },
+    {
+        {DISABLE_RU, DISABLE_EN},
+        {ENABLE_RU, ENABLE_EN}
+    },
+    (int8 *)&set.dbg_ShowTrigParam
+};
+
+// Œ“À¿ƒ ¿ -  ŒÕ—ŒÀ‹ - –≈√»—“–€ - œ‡‡Ï. Í‡Ì. 2 ------------------------------------------------------------------------------------------------------
+static const Choice cConsole_Registers_ChanParamA =
+{
+    Item_Choice, &pppConsole_Registers, IsActive_Console_Registers,
+    {
+        "œ‡‡Ï. Í‡Ì. 1", "Chan 1 param",
+        "",
+        ""
+    },
+    {
+        {DISABLE_RU, DISABLE_EN},
+        {ENABLE_RU, ENABLE_EN}
+    },
+    (int8 *)&set.dbg_ShowChanParam[A]
+};
+
+// Œ“À¿ƒ ¿ -  ŒÕ—ŒÀ‹ - –≈√»—“–€ - œ‡‡Ï. Í‡Ì. 2 ------------------------------------------------------------------------------------------------------
+static const Choice cConsole_Registers_ChanParamB =
+{
+    Item_Choice, &pppConsole_Registers, IsActive_Console_Registers,
+    {
+        "œ‡‡Ï. Í‡Ì. 2", "Chan 2 param",
+        "",
+        ""
+    },
+    {
+        {DISABLE_RU, DISABLE_EN},
+        {ENABLE_RU, ENABLE_EN}
+    },
+    (int8 *)&set.dbg_ShowChanParam[B]
+};
+
+// Œ“À¿ƒ ¿ -  ŒÕ—ŒÀ‹ - –≈√»—“–€ - ¬–≈Ãﬂ/ƒ≈À ----------------------------------------------------------------------------------------------------------
+static const Choice cConsole_Registers_TBase =
+{
+    Item_Choice, &pppConsole_Registers, IsActive_Console_Registers,
+    {
+        "¬–≈Ãﬂ/ƒ≈À", "TBase",
+        "",
+        ""
+    },
+    {
+        {DISABLE_RU, DISABLE_EN},
+        {ENABLE_RU, ENABLE_EN}
+    },
+    (int8 *)&set.dbg_ShowTBase
+};
+
+// Œ“À¿ƒ ¿ -  ŒÕ—ŒÀ‹ - –≈√»—“–€ - “ ÒÏ. --------------------------------------------------------------------------------------------------------------
+static const Choice cConsole_Registers_TShift =
+{
+    Item_Choice, &pppConsole_Registers, IsActive_Console_Registers,
+    {
+        "“ ÒÏ.", "tShift",
+        "",
+        ""
+    },
+    {
+        {DISABLE_RU, DISABLE_EN},
+        {ENABLE_RU, ENABLE_EN}
+    },
+    (int8 *)&set.dbg_ShowTShift
+};
+
+// Œ“À¿ƒ ¿ -  ŒÕ—ŒÀ‹ - –‡ÁÏÂ Ì‡ÒÚÓÂÍ ---------------------------------------------------------------------------------------------------------------
+static const Button bConsole_SizeSettings =
+{
+    Item_Button, &ppConsole, 0,
+    {
+        "", "",
+        "œÓÍ‡Á˚‚‡ÂÚ ÚÂÍÛ˘ËÈ ‡ÁÏÂ ÒÚÛÍÚÛ˚ ‰Îˇ ÒÓı‡ÌÂÌËˇ Ì‡ÒÚÓÂÍ",
+        "Displays the current size of the structure to save settings"
+    },
+    0, Draw_Console_SizeSettings
+};
+
+static void Draw_Console_SizeSettings(int x, int y)
+{
+    char buffer[30];
+    sprintf(buffer, "–‡ÁÏ.Ì‡ÒÚ. %d", sizeof(Settings));
+    Painter_DrawTextC(x + 6, y + 13, buffer, gColorBack);
+}
+
+// Œ“À¿ƒ ¿ - ¿÷œ /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+static const Page ppADC =
+{
+    Item_Page, &pDebug, 0,
+    {
+        "¿÷œ", "ADC",
+        "",
+        ""
+    },
+    Page_Debug_ADC,
+    {
+        (void *)&pppADC_Balance,    // Œ“À¿ƒ ¿ - ¿÷œ - ¡¿À¿Õ—
+        (void *)&pppADC_Stretch,    // Œ“À¿ƒ ¿ - ¿÷œ - –¿—“ﬂ∆ ¿
+        (void *)&pppADC_Shift       // Œ“À¿ƒ ¿ - ¿÷œ - ƒŒœ —Ã≈Ÿ
+    }
+};
+
+// Œ“À¿ƒ ¿ - ¿÷œ - ¡¿À¿Õ— ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+static const Page pppADC_Balance =
+{
+    Item_Page, &ppADC, 0,
+    {
+        "¡¿À¿Õ—", "BALANCE",
+        "",
+        ""
+    },
+    Page_Debug_ADC_Balance,
+    {
+        (void *)&cADC_Balance_Mode,     // Œ“À¿ƒ ¿ - ¿÷œ - ¡¿À¿Õ— - –ÂÊËÏ
+        (void *)&gADC_Balance_ShiftA,   // Œ“À¿ƒ ¿ - ¿÷œ - ¡¿À¿Õ— - —ÏÂ˘ÂÌËÂ 1
+        (void *)&gADC_Balance_ShiftB    // Œ“À¿ƒ ¿ - ¿÷œ - ¡¿À¿Õ— - —ÏÂ˘ÂÌËÂ 2
+    }
+};
+
+// Œ“À¿ƒ ¿ - ¿÷œ - ¡¿À¿Õ— - –ÂÊËÏ --------------------------------------------------------------------------------------------------------------------
+static const Choice cADC_Balance_Mode =
+{
+    Item_Choice, &pppADC_Balance, 0,
+    {
+        "–ÂÊËÏ", "Mode",
+        "",
+        ""
+    },
+    {
+        {DISABLE_RU, DISABLE_EN},
+        {"–Â‡Î¸Ì˚È", "Real"},
+        {"–Û˜ÌÓÈ", "Manual"}
+    },
+    (int8 *)&NRST_BALANCE_ADC_TYPE, OnChanged_ADC_Balance_Mode, Draw_ADC_Balance_Mode
+};
+
+static void OnChanged_ADC_Balance_Mode(bool active)
+{
+    Draw_ADC_Balance_Mode(0, 0);
+}
+
+static int16 shiftADCA;
+static int16 shiftADCB;
+
+static void Draw_ADC_Balance_Mode(int x, int y)
+{
+    int8 shift[2][3] =
+    {
+        {0, SET_BALANCE_ADC_A, (int8)NRST_BALANCE_ADC_A},
+        {0, SET_BALANCE_ADC_B, (int8)NRST_BALANCE_ADC_B}
+    };
+
+    shiftADCA = shift[A][NRST_BALANCE_ADC_TYPE];
+    shiftADCB = shift[B][NRST_BALANCE_ADC_TYPE];
+}
+
+// Œ“À¿ƒ ¿ - ¿÷œ - ¡¿À¿Õ— - —ÏÂ˘ÂÌËÂ 1 ---------------------------------------------------------------------------------------------------------------
+static const Governor gADC_Balance_ShiftA =
+{
+    Item_Governor, &pppADC_Balance, IsActive_ADC_Balance_ShiftAB,
+    {
+        "—ÏÂ˘ÂÌËÂ 1", "Offset 1",
+        "",
+        ""
+    },
+    &shiftADCA, -125, 125, OnChanged_ADC_Balance_ShiftA
+};
+
+static bool IsActive_ADC_Balance_ShiftAB(void)
+{
+    return NRST_BALANCE_ADC_TYPE_IS_HAND;
+}
+
+static void OnChanged_ADC_Balance_ShiftA(void)
+{
+    NRST_BALANCE_ADC_A = shiftADCA;
+}
+
+// Œ“À¿ƒ ¿ - ¿÷œ - ¡¿À¿Õ— - —ÏÂ˘ÂÌËÂ 2 ---------------------------------------------------------------------------------------------------------------
+static const Governor gADC_Balance_ShiftB =
+{
+    Item_Governor, &pppADC_Balance, IsActive_ADC_Balance_ShiftAB,
+    {
+        "—ÏÂ˘ÂÌËÂ 2", "Offset 2",
+        "",
+        ""
+    },
+    &shiftADCB, -125, 125, OnChanged_ADC_Balance_ShiftB
+};
+
+static void OnChanged_ADC_Balance_ShiftB(void)
+{
+    NRST_BALANCE_ADC_B = shiftADCB;
+}
+
+static const Choice emptyChoice;
+
+// Œ“À¿ƒ ¿ - ¿÷œ - –¿—“ﬂ∆ ¿ //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+static const Page pppADC_Stretch =
+{
+    Item_Page, &ppADC, 0,
+    {
+        "–¿—“ﬂ∆ ¿", "STRETCH",
+        "”ÒÚ‡Ì‡‚ÎË‚‡ÂÚ ÂÊËÏ Ë ‚ÂÎË˜ËÌÛ ‡ÒÚˇÊÍË (‰Îˇ Û˜ÌÓ„Ó ÂÊËÏ‡)",
+        "Sets mode and the value of stretching (manual mode)"
+    },
+    Page_Debug_ADC_Stretch,
+    {
+        (void *)&cADC_Stretch_Mode,     // Œ“À¿ƒ ¿ - ¿÷œ - –¿—“ﬂ∆ ¿ - –ÂÊËÏ
+        (void *)&gADC_Stretch_A,        // Œ“À¿ƒ ¿ - ¿÷œ - –¿—“ﬂ∆ ¿ - –‡ÒÚˇÊÍ‡ 1Í
+        (void *)&gADC_Stretch_B,        // Œ“À¿ƒ ¿ - ¿÷œ - –¿—“ﬂ∆ ¿ - –‡ÒÚˇÊÍ‡ 2Í
+        (void *)&emptyChoice,
+        (void *)&emptyChoice,
+        (void *)&gADC_Stretch_Ak20mV,   // Œ“À¿ƒ ¿ - ¿÷œ - –¿—“ﬂ∆ ¿ - 20Ï¬/1¬ 1Í
+        (void *)&gADC_Stretch_Ak50mV,   // Œ“À¿ƒ ¿ - ¿÷œ - –¿—“ﬂ∆ ¿ - 50Ï¬ 1Í 
+        (void *)&gADC_Stretch_Ak100mV,  // Œ“À¿ƒ ¿ - ¿÷œ - –¿—“ﬂ∆ ¿ - 100Ï¬/5¬ 1Í
+        (void *)&gADC_Stretch_Ak2V,     // Œ“À¿ƒ ¿ - A÷œ - –¿—“ﬂ∆ ¿ - 2¬ 1Í
+        (void *)&emptyChoice,
+        (void *)&gADC_Stretch_Bk20mV,   // Œ“À¿ƒ ¿ - ¿÷œ - –¿—“ﬂ∆ ¿ - 20Ï¬/1¬ 2Í
+        (void *)&gADC_Stretch_Bk50mV,   // Œ“À¿ƒ ¿ - ¿÷œ - –¿—“ﬂ∆ ¿ - 50Ï¬ 2Í 
+        (void *)&gADC_Stretch_Bk100mV,  // Œ“À¿ƒ ¿ - ¿÷œ - –¿—“ﬂ∆ ¿ - 100Ï¬/5¬ 2Í
+        (void *)&gADC_Stretch_Bk2V,     // Œ“À¿ƒ ¿ - ¿÷œ - –¿—“ﬂ∆ ¿ - 2¬ 2Í
+        (void *)&emptyChoice
+    }
+};
+
+
+// Œ“À¿ƒ ¿ - ¿÷œ - –¿—“ﬂ∆ ¿ - –ÂÊËÏ ------------------------------------------------------------------------------------------------------------------
+static const Choice cADC_Stretch_Mode =
+{
+    Item_Choice, &pppADC_Stretch, 0,
+    {
+        "–ÂÊËÏ", "Mode",
+        "",
+        ""
+    },
+    {
+        {DISABLE_RU, DISABLE_EN},
+        {"–Â‡Î¸Ì˚È", "Real"},
+        {"–Û˜ÌÓÈ", "Manual"}
+    },
+    (int8 *)&NRST_STRETCH_ADC_TYPE, OnChanged_ADC_Stretch_Mode
+};
+
+static int16 stretchA;
+static int16 stretchB;  
+
+void OnChanged_ADC_Stretch_Mode(bool active)
+{
+    if (NRST_STRETCH_ADC_TYPE_IS_DISABLE)
+    {
+        stretchA = NRST_STRETCH_ADC_A(StretchADC_Disable) = 0;
+        stretchB = NRST_STRETCH_ADC_B(StretchADC_Disable) = 0;
+    }
+    else
+    {
+        stretchA = NRST_STRETCH_ADC_A(NRST_STRETCH_ADC_TYPE);
+        stretchB = NRST_STRETCH_ADC_B(NRST_STRETCH_ADC_TYPE);
+    }
+}
+
+// Œ“À¿ƒ ¿ - ¿÷œ - –¿—“ﬂ∆ ¿ - –‡ÒÚˇÊÍ‡ 1Í ------------------------------------------------------------------------------------------------------------
+static const Governor gADC_Stretch_A =
+{
+    Item_Governor, &pppADC_Stretch, IsActive_ADC_StretchAB,
+    {
+        "–‡ÒÚˇÊÍ‡ 1Í", "Stretch 1ch"
+        ,
+        "«‡‰‡∏Ú Û˜ÌÛ˛ ‡ÒÚˇÊÍÛ ÔÂ‚Ó„Ó Í‡Ì‡Î‡.\n"
+        "1 Â‰ËÌËˆ‡ = 0.0001"
+        ,
+        "Sets the manual stretching of the first channel.\n"
+        "1 = 0.0001"
+    },
+    &stretchA, -10000, 10000, OnChanged_ADC_Stretch_A
+};
+
+static bool IsActive_ADC_StretchAB(void)
+{
+    return NRST_STRETCH_ADC_TYPE_IS_HAND;
+}
+
+static void OnChanged_ADC_Stretch_A(void)
+{
+    NRST_STRETCH_ADC_A(NRST_STRETCH_ADC_TYPE) = stretchA;
+}
+
+// Œ“À¿ƒ ¿ - ¿÷œ - –¿—“ﬂ∆ ¿ - –‡ÒÚˇÊÍ‡ 2Í ------------------------------------------------------------------------------------------------------------
+static const Governor gADC_Stretch_B =
+{
+    Item_Governor, &pppADC_Stretch, IsActive_ADC_StretchAB,
+    {
+        "–‡ÒÚˇÊÍ‡ 2Í", "Stretch 2ch"
+        ,
+        "«‡‰‡∏Ú Û˜ÌÛ˛ ‡ÒÚˇÊÍÛ ‚ÚÓÓ„Ó Í‡Ì‡Î‡.\n"
+        "1 Â‰ËÌËˆ‡ = 0.0001"
+        ,
+        "Sets the manual stretching of the second channel.\n"
+        "1 = 0.0001"
+    },
+    &stretchB, -10000, 10000, OnChanged_ADC_Stretch_B
+};
+
+static void OnChanged_ADC_Stretch_B(void)
+{
+    NRST_STRETCH_ADC_B(NRST_STRETCH_ADC_TYPE) = stretchB;
+}
+
+// Œ“À¿ƒ ¿ - ¿÷œ - –¿—“ﬂ∆ ¿ - 20Ï¬/1¬ 1Í -------------------------------------------------------------------------------------------------------------
+static const Governor gADC_Stretch_Ak20mV =
+{
+    Item_Governor, &pppADC_Stretch, 0,
+    {
+        "20Ï¬/1¬ 1Í", "20mV/1V 1k",
+        "",
+        ""
+    },
+    &NRST_ADD_STRETCH_20mV_A, -10000, 10000
+};
+
+// Œ“À¿ƒ ¿ - ¿÷œ - –¿—“ﬂ∆ ¿ - 50Ï¬ 1Í ----------------------------------------------------------------------------------------------------------------
+static const Governor gADC_Stretch_Ak50mV =
+{
+    Item_Governor, &pppADC_Stretch, 0,
+    {
+        "50Ï¬ 1Í", "50mV 1k",
+        "",
+        ""
+    },
+    &NRST_ADD_STRETCH_50mV_A, -10000, 10000
+};
+
+// Œ“À¿ƒ ¿ - ¿÷œ - –¿—“ﬂ∆ ¿ - 100Ï¬/5¬ 1Í ------------------------------------------------------------------------------------------------------------
+static const Governor gADC_Stretch_Ak100mV =
+{
+    Item_Governor, &pppADC_Stretch, 0,
+    {
+        "100Ï¬/5¬ 1Í", "100mV/5V 1ch",
+        "",
+        ""
+    },
+    &NRST_ADD_STRETCH_100mV_A, -10000, 10000
+};
+
+// Œ“À¿ƒ ¿ - ¿÷œ - –¿—“ﬂ∆ ¿ - 2¬ 1Í ------------------------------------------------------------------------------------------------------------------
+static const Governor gADC_Stretch_Ak2V =
+{
+    Item_Governor, &pppADC_Stretch, 0,
+    {
+        "2¬ 1Í", "2V 1ch",
+        "",
+        ""
+    },
+    &NRST_ADD_STRETCH_2V_A, -10000, 10000
+};
+
+// Œ“À¿ƒ ¿ - ¿÷œ - –¿—“ﬂ∆ ¿ - 20Ï¬/1¬ 2Í -------------------------------------------------------------------------------------------------------------
+static const Governor gADC_Stretch_Bk20mV =
+{
+    Item_Governor, &pppADC_Stretch, 0,
+    {
+        "20Ï¬/1¬ 2Í", "20mV/1V 2k",
+        "",
+        ""
+    },
+    &NRST_ADD_STRETCH_20mV_B, -10000, 10000
+};
+
+// Œ“À¿ƒ ¿ - ¿÷œ - –¿—“ﬂ∆ ¿ - ƒÓÔ ÒÏÂ˘ 50Ï¬ 2Í -------------------------------------------------------------------------------------------------------
+static const Governor gADC_Stretch_Bk50mV =
+{
+    Item_Governor, &pppADC_Stretch, 0,
+    {
+        "50Ï¬ 2Í", "50mV 2k",
+        "",
+        ""
+    },
+    &NRST_ADD_STRETCH_50mV_B, -10000, 10000
+};
+
+// Œ“À¿ƒ ¿ - ¿÷œ - –¿—“ﬂ∆ ¿ - 100Ï¬/5¬ 2Í ------------------------------------------------------------------------------------------------------------
+static const Governor gADC_Stretch_Bk100mV =
+{
+    Item_Governor, &pppADC_Stretch, 0,
+    {
+        "100Ï¬/5¬ 2Í", "100mV/5V 2k",
+        "",
+        ""
+    },
+    &NRST_ADD_STRETCH_100mV_B, -10000, 10000
+};
+
+// Œ“À¿ƒ ¿ - ¿÷œ - –¿—“ﬂ∆ ¿ - 2¬ 2Í ------------------------------------------------------------------------------------------------------------------
+static const Governor gADC_Stretch_Bk2V =
+{
+    Item_Governor, &pppADC_Stretch, 0,
+    {
+        "2¬ 2Í", "2V 2ch",
+        "",
+        ""
+    },
+    &NRST_ADD_STRETCH_2V_B, -10000, 10000
+};
+
+// Œ“À¿ƒ ¿ - ¿÷œ - ƒŒœ —Ã≈Ÿ //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+static const Page pppADC_Shift =
+{
+    Item_Page, &ppADC, 0,
+    {
+        "ƒŒœ —Ã≈Ÿ", "ADD RSHFIT",
+        "",
+        ""
+    },
+    Page_Debug_ADC_Shift,
+    {
+        (void *)&bADC_Shift_Reset,  // Œ“À¿ƒ ¿ - ¿÷œ - ƒŒœ —Ã≈Ÿ - —·ÓÒ
+        (void *)&gADC_Shift_A2mV,   // Œ“À¿ƒ ¿ - ¿÷œ - ƒŒœ —Ã≈Ÿ - —Ï 1Í 2Ï¬ ÔÓÒÚ
+        (void *)&gADC_Shift_B2mV,   // Œ“À¿ƒ ¿ - ¿÷œ - ƒŒœ —Ã≈Ÿ - —Ï 2Í 2Ï¬ ÔÓÒÚ
+        (void *)&gADC_Shift_A5mV,   // Œ“À¿ƒ ¿ - ¿÷œ - ƒŒœ —Ã≈Ÿ - —Ï 1Í 5Ï¬ ÔÓÒÚ
+        (void *)&gADC_Shift_B5mV,   // Œ“À¿ƒ ¿ - ¿÷œ - ƒŒœ —Ã≈Ÿ - —Ï 2Í 5Ï¬ ÔÓÒÚ
+        (void *)&gADC_Shift_A10mV,  // Œ“À¿ƒ ¿ - ¿÷œ - ƒŒœ —Ã≈Ÿ - —Ï 1Í 10Ï¬ ÔÓÒÚ
+        (void *)&gADC_Shift_B10mV   // Œ“À¿ƒ ¿ - ¿÷œ - ƒŒœ —Ã≈Ÿ - —Ï 2Í 10Ï¬ ÔÓÒÚ
+    }
+};
+
+// Œ“À¿ƒ ¿ - ¿÷œ - ƒŒœ —Ã≈Ÿ - —·ÓÒ ------------------------------------------------------------------------------------------------------------------
+static const Button bADC_Shift_Reset =
+{
+    Item_Button, &pppADC_Shift, 0,
+    {
+        "—·ÓÒ", "Reset",
+        "",
+        ""
+    },
+    OnPress_ADC_Shift_Reset
+};
+
+static void OnPress_ADC_Shift_Reset(void)
+{
+    for (int ch = 0; ch < 2; ch++)
+    {
+        for (int range = 0; range < 3; range++)
+        {
+            RSHIFT_ADD_STABLE(ch, range) = 0;
+        }
+    }
+    FPGA_SetRShift(A, SET_RSHIFT_A);
+    FPGA_SetRShift(B, SET_RSHIFT_B);
+}
+
+// Œ“À¿ƒ ¿ - ¿÷œ - ƒŒœ —Ã≈Ÿ - —Ï 1Í 2Ï¬ ÔÓÒÚ ---------------------------------------------------------------------------------------------------------
+static const Governor gADC_Shift_A2mV =
+{
+    Item_Governor, &pppADC_Shift, 0,
+    {
+        "—Ï 1Í 2Ï¬ ÔÓÒÚ", "Shift 1ch 2mV DC",
+        "",
+        ""
+    },
+    (int16 *)(&RSHIFT_ADD_STABLE_A(Range_2mV)), -100, 100, OnChanged_ADC_Shift_A
+};
+
+static void OnChanged_ADC_Shift_A(void)
+{
+    FPGA_SetRShift(A, SET_RSHIFT_A);
+
+    //LOG_WRITE("2mv = %d, 5mV = %d, 10mV = %d", RSHIFT_ADD_STABLE(A, Range_2mV), RSHIFT_ADD_STABLE(A, Range_5mV), RSHIFT_ADD_STABLE(A, Range_10mV));
+}
+
+// Œ“À¿ƒ ¿ - ¿÷œ - ƒŒœ —Ã≈Ÿ - —Ï 2Í 2Ï¬ ÔÓÒÚ ---------------------------------------------------------------------------------------------------------
+static const Governor gADC_Shift_B2mV =
+{
+    Item_Governor, &pppADC_Shift, 0,
+    {
+        "—Ï 2Í 2Ï¬ ÔÓÒÚ", "Shift 2ch 2mV DC",
+        "",
+        ""
+    },
+    (int16 *)(&RSHIFT_ADD_STABLE_B(Range_2mV)), -100, 100, OnChanged_ADC_Shift_B
+};
+
+static void OnChanged_ADC_Shift_B(void)
+{
+    FPGA_SetRShift(B, SET_RSHIFT_B);
+}
+
+// Œ“À¿ƒ ¿ - ¿÷œ - ƒŒœ —Ã≈Ÿ - —Ï 1Í 5Ï¬ ÔÓÒÚ ---------------------------------------------------------------------------------------------------------
+static const Governor gADC_Shift_A5mV =
+{
+    Item_Governor, &pppADC_Shift, 0,
+    {
+        "—Ï 1Í 5Ï¬ ÔÓÒÚ", "Shift 1ch 5mV DC",
+        "",
+        ""
+    },
+    (int16 *)(&RSHIFT_ADD_STABLE_A(Range_5mV)), -100, 100, OnChanged_ADC_Shift_A
+};
+
+// Œ“À¿ƒ ¿ - ¿÷œ - ƒŒœ —Ã≈Ÿ - —Ï 2Í 5Ï¬ ÔÓÒÚ ---------------------------------------------------------------------------------------------------------
+static const Governor gADC_Shift_B5mV =
+{
+    Item_Governor, &pppADC_Shift, 0,
+    {
+        "—Ï 2Í 5Ï¬ ÔÓÒÚ", "Shift 2ch 5mV DC",
+        "",
+        ""
+    },
+    (int16 *)(&RSHIFT_ADD_STABLE_B(Range_5mV)), -100, 100, OnChanged_ADC_Shift_B
+};
+
+// Œ“À¿ƒ ¿ - ¿÷œ - ƒŒœ —Ã≈Ÿ - —Ï 1Í 10Ï¬ ÔÓÒÚ --------------------------------------------------------------------------------------------------------
+static const Governor gADC_Shift_A10mV =
+{
+    Item_Governor, &pppADC_Shift, 0,
+    {
+        "—Ï 1Í 10Ï¬ ÔÓÒÚ", "Shift 1ch 10mV DC",
+        "",
+        ""
+    },
+    (int16 *)(&RSHIFT_ADD_STABLE_A(Range_10mV)), -100, 100, OnChanged_ADC_Shift_A
+};
+
+// Œ“À¿ƒ ¿ - ¿÷œ - ƒŒœ —Ã≈Ÿ - —Ï 2Í 10Ï¬ ÔÓÒÚ --------------------------------------------------------------------------------------------------------
+static const Governor gADC_Shift_B10mV =
+{
+    Item_Governor, &pppADC_Shift, 0,
+    {
+        "—Ï 2Í 10Ï¬ ÔÓÒÚ", "Shift 2ch 10mV DC",
+        "",
+        ""
+    },
+    (int16 *)(&RSHIFT_ADD_STABLE_B(Range_10mV)), -100, 100, OnChanged_ADC_Shift_B
+};
+
+// Œ“À¿ƒ ¿ - –¿Õƒ-“Œ– ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+static const Page ppRand =
+{
+    Item_Page, &pDebug, 0,
+    {
+        "–¿Õƒ-“Œ–", "RANDOMIZER",
+        "",
+        ""
+    },
+    Page_Debug_Rand,
+    {
+        (void *)&gRand_NumAverage,          // Œ“À¿ƒ ¿ - –¿Õƒ-“Œ– - ”ÒÂ‰Ì.
+        (void *)&gRand_NumSmooth,           // Œ“À¿ƒ ¿ - –¿Õƒ-“Œ– - —„Î‡ÊË‚‡ÌËÂ
+        (void *)&gRand_NumMeasures,         // Œ“À¿ƒ ¿ - –¿Õƒ-“Œ– - ¬˚·-Í/‚ÓÓÚ‡
+        (void *)&cRand_ShowInfo,            // Œ“À¿ƒ ¿ - –¿Õƒ-“Œ– - »ÌÙÓÏ‡ˆËˇ
+        (void *)&gRand_ShowStat,            // Œ“À¿ƒ ¿ - –¿Õƒ-“Œ– - —Ú‡ÚËÒÚËÍ‡
+        (void *)&gRand_TimeCompensation,    // Œ“À¿ƒ ¿ - –¿Õƒ-“Œ– -  ÓÏÔÂÌÒ‡ˆËˇ Á‡‰ÂÊÍË
+        (void *)&gRand_AddTimeShift,        // Œ“À¿ƒ ¿ - –¿Õƒ-“Œ– - —ÏÂ˘ÂÌËÂ
+        (void *)&gRand_Pretriggered         // Œ“À¿ƒ ¿ - –AÕƒ-“Œ– - œÂ‰Á‡ÔÛÒÍ
+    }
+};
+
+// Œ“À¿ƒ ¿ -  ¿Õ¿À€ //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+static const Page ppChannels =
+{
+    Item_Page, &pDebug, 0,
+    {
+        " ¿Õ¿À€", "CHANNELS",
+        "",
+        ""
+    },
+    Page_Debug_Channels,
+    {
+        (void *)&cChannels_BandwidthA,  // Œ“À¿ƒ ¿ -  ¿Õ¿À€ - œÓÎÓÒ‡ 1
+        (void *)&cChannels_BandwidthB   // Œ“À¿ƒ ¿ -  ¿Õ¿À€ - œÓÎÓÒ‡ 2
+    }
+};
+
+// Œ“À¿ƒ ¿ -  ¿ÕÀ¿€ - œÓÎÓÒ‡ 1 -----------------------------------------------------------------------------------------------------------------------
+static const Choice cChannels_BandwidthA =
+{
+    Item_Choice, &ppChannels, 0,
+    {
+        "œÓÎÓÒ‡ 1", "Bandwidth 1",
+        "«‰ÂÒ¸ ÏÓÊÌÓ ‚˚·‡Ú¸ ÔÓÎÓÒÛ, ÍÓÚÓ‡ˇ ·Û‰ÂÚ ‰ÂÈÒÚ‚Ó‚‡Ú¸ ‚  ¿Õ¿À1-œÓÎÓÒ‡ ÔË ‚˚·ÓÂ ÁÌ‡˜ÂÌËˇ œÓÎÌ‡ˇ",
+        "Here you can select the bandwidth, which will operate in CHANNEL1-Bandwidth when set to Full"
+    },
+    {
+        {"œÓÎÌ‡ˇ", "Full"},
+        {"20Ã√ˆ", "20MHz"},
+        {"100Ã√ˆ", "100MHz"},
+        {"200Ã√ˆ", "200MHz"},
+        {"350Ã√ˆ", "350MHz"},
+        {"650Ã√ˆ", "650MHz"},
+        {"750Ã√ˆ", "750MHz"}
+    },
+    (int8 *)&BANDWIDTH_DEBUG(A), OnChanged_Channels_BandwidthA
+};
+
+static void OnChanged_Channels_BandwidthA(bool active)
+{
+    FPGA_SetBandwidth(A);
+}
+
+// Œ“À¿ƒ ¿ -  ¿ÕÀ¿€ - œÓÎÓÒ‡ 1 -----------------------------------------------------------------------------------------------------------------------
+static const Choice cChannels_BandwidthB =
+{
+    Item_Choice, &ppChannels, 0,
+    {
+        "œÓÎÓÒ‡ 2", "Bandwidth 2",
+        "«‰ÂÒ¸ ÏÓÊÌÓ ‚˚·‡Ú¸ ÔÓÎÓÒÛ, ÍÓÚÓ‡ˇ ·Û‰ÂÚ ‰ÂÈÒÚ‚Ó‚‡Ú¸ ‚  ¿Õ¿À2-œÓÎÓÒ‡ ÔË ‚˚·ÓÂ ÁÌ‡˜ÂÌËˇ œÓÎÌ‡ˇ",
+        "Here you can select the bandwidth, which will operate in CHANNEL2-Bandwidth when set to Full"
+    },
+    {
+        {"œÓÎÌ‡ˇ", "Full"},
+        {"20Ã√ˆ", "20MHz"},
+        {"100Ã√ˆ", "100MHz"},
+        {"200Ã√ˆ", "200MHz"},
+        {"350Ã√ˆ", "350MHz"},
+        {"650Ã√ˆ", "650MHz"},
+        {"750Ã√ˆ", "750MHz"}
+    },
+    (int8 *)&BANDWIDTH_DEBUG(B), OnChanged_Channels_BandwidthB
+};
+
+static void OnChanged_Channels_BandwidthB(bool active)
+{
+    FPGA_SetBandwidth(B);
+}
+
+// Œ“À¿ƒ ¿ - –¿Õƒ-“Œ– - ¬˚·-Í/‚ÓÓÚ‡ -----------------------------------------------------------------------------------------------------------------
+static const Governor gRand_NumMeasures =
+{
+    Item_Governor, &ppRand, 0,
+    {
+        "¬˚·-Í/‚ÓÓÚ‡", "Samples/gates",
+        "",
+        ""
+    },
+    &NUM_MEASURES_FOR_GATES, 1, 2500, OnChanged_Rand_NumMeasures
+};
+
+static void OnChanged_Rand_NumMeasures(void)
+{
+    FPGA_SetNumberMeasuresForGates(NUM_MEASURES_FOR_GATES);
+}
+
+// Œ“À¿ƒ ¿ - –¿Õƒ-“Œ– -  ÓÏÔÂÌÒ‡ˆËˇ Á‡‰ÂÊÍË ---------------------------------------------------------------------------------------------------------
+static const Governor gRand_TimeCompensation =
+{
+    Item_Governor, &ppRand, 0,
+    {
+        " ÓÏÔÂÌÒ‡ˆËˇ Á‡‰ÂÊÍË", "Compenstaion time",
+        "œÓ‰ÒÚÓÈÍ‡ ÍÓÏÔÂÌÒ‡ˆËË Á‡‰ÂÊÍË ¿÷œ 40 ÌÒ",
+        ""
+    },
+    &TIME_COMPENSATION, 0, 510, OnChanged_Rand_TimeCompensation
+};
+
+static void OnChanged_Rand_TimeCompensation(void)
+{
+    FPGA_SetDeltaTShift(TIME_COMPENSATION);
+}
+
+// Œ“À¿ƒ ¿ - –¿Õƒ-“Œ– - —ÏÂ˘ÂÌËÂ ---------------------------------------------------------------------------------------------------------------------
+int16 addShift = 0;
+
+static const Governor gRand_AddTimeShift =
+{
+    Item_Governor, &ppRand, 0,
+    {
+        "ƒÓÔ ÒÏÂ˘ÂÌËÂ", "Add shift",
+        "ƒÓ·‡‚Ó˜ÌÓÂ ÒÏ˘ÂÌËÂ ÔË ‚‡˘ÂÌËË tShift",
+        ""
+    },
+    &addShift, -100, 100, OnChanged_Rand_AddTimeShift
+};
+
+static void OnChanged_Rand_AddTimeShift(void)
+{
+    FPGA_SetTShift(SET_TSHIFT);
+}
+
+// Œ“À¿ƒ ¿ - –¿Õƒ-“Œ– - œÂ‰Á‡ÔÛÒÍ -------------------------------------------------------------------------------------------------------------------
+static const Governor gRand_Pretriggered =
+{
+    Item_Governor, &ppRand, 0,
+    {
+        "œÂ‰Á‡ÔÛÒÍ", "Pretiggered",
+        "¬ÂÎË˜ËÌ‡ ÔÂ‰Á‡ÔÛÒÍ‡, ÍÓÚÓ‡ˇ ÔË¯ÂÚÒˇ ‚ ‡Ì‰ÓÏËÁ‡ÚÓ",
+        ""
+    },
+    &PRETRIGGERED, 0, 30000, OnChanged_Rand_Pretriggered
+};
+
+static void OnChanged_Rand_Pretriggered(void)
+{
+    LoadTShift();
+}
+
+// Œ“À¿ƒ ¿ - –¿Õƒ-“Œ– - ”ÒÂ‰Ì. ----------------------------------------------------------------------------------------------------------------------
+static const Governor gRand_NumAverage =
+{
+    Item_Governor, &ppRand, 0,
+    {
+        "”ÒÂ‰Ì.", "Average",
+        "",
+        ""
+    },
+    &NRST_NUM_AVE_FOR_RAND, 1, 32
+};
+
+// Œ“À¿ƒ ¿ - –¿Õƒ-“Œ– - —„Î‡ÊË‚‡ÌËÂ ------------------------------------------------------------------------------------------------------------------
+static const Governor gRand_NumSmooth =
+{
+    Item_Governor, &ppRand, 0,
+    {
+        "—„Î‡ÊË‚‡ÌËÂ", "Smoothing",
+        "",
+        ""
+    },
+    &NRST_NUM_SMOOTH_FOR_RAND, 1, 10
+};
+
+static int16 pred;
+static int16 post;
+
+// Œ“À¿ƒ ¿ - œÂ‰Á‡ÔÛÒÍ ------------------------------------------------------------------------------------------------------------------------------
+static const Governor mgPred =
+{
+    Item_Governor, &pDebug, 0,
+    {
+        "œÂ‰Á‡ÔÛÒÍ", "",
+        "", ""
+    },
+    &pred, 0, 15000, OnChanged_Pred
+};
+
+// Œ“À¿ƒ ¿ - œÓÒÎÂÁ‡ÔÛÒÍ -----------------------------------------------------------------------------------------------------------------------------
+static const Governor mgPost =
+{
+    Item_Governor, &pDebug, 0,
+    {
+        "œÓÒÎÂÁ‡ÔÛÒÍ", "",
+        "", ""
+    },
+    &post, 0, 15000, OnChanged_Post
+};
+
+
+// Œ“À¿ƒ ¿ - Õ¿—“–Œ… » ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+static const Page ppSettings =
+{
+    Item_Page, &pDebug, 0,
+    {
+        "Õ¿—“–Œ… »", "SETTINGS",
+        "œÓÍ‡Á‡Ú¸ ËÌÙÓÏ‡ˆË˛ Ó Ì‡ÒÚÓÈÍ‡ı",
+        "Show settings information"
+    },
+    PageSB_Debug_Settings,
+    {
+        (void *)&bSettings_Exit     // Œ“À¿ƒ ¿ - Õ¿—“–Œ… » - ¬˚ıÓ‰
+    },
+    true, OnPress_Settings
+};
+
+// Œ“À¿ƒ ¿ - Õ¿—“–Œ… » - ¬˚ıÓ‰ -----------------------------------------------------------------------------------------------------------------------
+static const SButton bSettings_Exit =
+{
+    Item_SmallButton, &ppSettings,
+    COMMON_BEGIN_SB_EXIT,
+    OnPress_Settings_Exit,
+    DrawSB_Exit
+};
+
+static void OnPress_Settings_Exit(void)
+{
+    Display_SetDrawMode(DrawMode_Auto, 0);
+}
+
+static void DebugShowSetInfo_Draw(void)
+{
+    Painter_BeginScene(gColorBack);
+    Painter_DrawRectangleC(0, 0, 319, 239, gColorFill);
+
+    int x0 = 30;
+    int y0 = 25;
+    int dY = 10;
+    int y = y0 - dY;
+
+#define Y_AND_INCREASE (y += dY, y)
+#define DRAW_TEXT(str)                  Painter_DrawText(x0, Y_AND_INCREASE, str);
+#define DRAW_FORMAT(str, value)         Painter_DrawFormatText(x0, Y_AND_INCREASE, str, value)
+#define DRAW_FORMAT2(str, val1, val2)   Painter_DrawFormatText(x0, Y_AND_INCREASE, str, val1, val2);
+
+    //Painter_DrawFormatText(x0, Y_AND_INCREASE, "–‡ÁÏÂ ÓÒÌÓ‚ÌÓÈ ÒÚÛÍÚÛ˚ %d", sizeof(set));
+    DRAW_FORMAT("–‡ÁÏÂ ÓÒÌÓ‚ÌÓÈ ÒÚÛÍÚÛ˚ : %d", sizeof(set));
+    Painter_DrawText(x0, Y_AND_INCREASE, "ÕÂÒ·‡Ò˚‚‡ÂÏ‡ˇ ÒÚÛÍÚÛ‡:");
+    int x = Painter_DrawText(x0, Y_AND_INCREASE, "rShiftAdd :") + 5;
+
+    int ddY = 0;
+
+    for (int type = 0; type < 2; type++)
+    {
+        for (int ch = 0; ch < 2; ch++)
+        {
+            for (int range = 0; range < RangeSize; range++)
+            {
+                Painter_DrawFormatText(x + range * 20, y + dY * ddY, "%d", NRST_RSHIFT_ADD(ch, range, type));
+            }
+            ddY++;
+        }
+    }
+
+    y += dY * 3;
+
+    DRAW_FORMAT("correctionTime : %d", NRST_CORRECTION_TIME);
+    DRAW_FORMAT2("balanceADC : %d %d", NRST_BALANCE_ADC_A, NRST_BALANCE_ADC_B);
+    DRAW_FORMAT("numAveForRand : %d", NRST_NUM_AVE_FOR_RAND);
+
+    const char * const s[3] = {"‚˚ÍÎ˛˜ÂÌÓ", "Ì‡ÒÚÓÂÌÓ ‡‚ÚÓÏ‡ÚË˜ÂÒÍË", "Á‡‰‡ÌÓ ‚Û˜ÌÛ˛"};
+    DRAW_FORMAT("balanceADCtype : %s", (NRST_BALANCE_ADC_TYPE < 3 ? s[NRST_BALANCE_ADC_TYPE] : "!!! ÌÂÔ‡‚ËÎ¸ÌÓÂ ÁÌ‡˜ÂÌËÂ !!!"));
+    DRAW_FORMAT("stretchADCtype : %s", (NRST_STRETCH_ADC_TYPE < 3 ? s[NRST_STRETCH_ADC_TYPE] : "!!! ÌÂÔ‡‚ËÎ¸ÌÓÂ ÁÌ‡˜ÂÌËÂ !!!"));
+  
+    x = Painter_DrawText(x0, Y_AND_INCREASE, "stretchADC :") + 5;
+
+    for (int ch = 0; ch < 2; ch++)
+    {
+        for (int num = 0; num < 3; num++)
+        {
+            Painter_DrawFormatText(x + num * 20, y + dY * ch, "%d", NRST_STRETCH_ADC(ch, num));
+        }
+    }
+
+    y += dY;
+
+#define DRAW_STRETCH(name) DRAW_FORMAT2(#name " : %d %d", set.nrst_##name[0], set.nrst_##name[1])
+
+    DRAW_STRETCH(AddStretch20mV);
+    DRAW_STRETCH(AddStretch50mV);
+    DRAW_STRETCH(AddStretch100mV);
+    DRAW_STRETCH(AddStretch2V);
+
+    DRAW_FORMAT("numSmoothForRand : %d", NRST_NUM_SMOOTH_FOR_RAND);
+
+    Menu_Draw();
+    Painter_EndScene();
+}
+
+static void OnPress_Settings(void)
+{
+    Display_SetDrawMode(DrawMode_Auto, DebugShowSetInfo_Draw);
+}
+
+static void OnChanged_Pred(void)
+{
+    gPred = ~pred;
+    static char buffer[30];
+    LOG_WRITE("pred %d %s", pred, Hex16toString(gPred, buffer, true));
+}
+
+static void OnChanged_Post(void)
+{
+    gPost = ~post;
+    static char buffer[30];
+    LOG_WRITE("post %d %s", post, Hex16toString(gPost, buffer, true));
+}
+
+// Œ“À¿ƒ ¿ - –¿Õƒ-“Œ– - »ÌÙÓÏ‡ˆËˇ -------------------------------------------------------------------------------------------------------------------
+static const Choice cRand_ShowInfo =
+{
+    Item_Choice, &ppRand, 0,
+    {
+        "»ÌÙÓÏ‡ˆËˇ", "Information",
+        "œÓÍ‡Á˚‚‡Ú¸ ËÌÙÓÏ‡ˆË˛ Ó ‚ÓÓÚ‡ı ‡Ì‰ÓÏËÁ‡ÚÓ‡",
+        "To show information on randomizer gate"
+    },
+    {
+        {"ÕÂ ÔÓÍ‡Á˚‚‡Ú¸", "Hide"},
+        {"œÓÍ‡Á˚‚‡Ú¸", "Show"}
+    },
+    (int8 *)&SHOW_RAND_INFO
+};
+
+// Œ“À¿ƒ ¿ - –¿Õƒ-“Œ– - —Ú‡ÚËÒÚËÍ‡ -------------------------------------------------------------------------------------------------------------------
+static const Choice gRand_ShowStat =
+{
+    Item_Choice, &ppRand, 0,
+    {
+        "—Ú‡ÚËÒÚËÍ‡", "Statistics",
+        "œÓÍ‡Á˚‚‡Ú¸ „‡ÙËÍ ÒÚ‡ÚËÒÚËÍË",
+        "Statistics show schedule"
+    },
+    {
+        {"ÕÂ ÔÓÍ‡Á˚‚‡Ú¸",   "Hide"},
+        {"œÓÍ‡Á˚‚‡Ú¸",      "Show"}
+    },
+    (int8 *)&SHOW_RAND_STAT
+};
+
+// Œ“À¿ƒ ¿ - –ÂÊËÏ ›Ã— ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+static const Choice cEMS =
+{
+    Item_Choice, &pDebug, 0,
+    {
+        "–ÂÊËÏ ›Ã—", "EMS mode",
+        "œËÌÛ‰ËÚÂÎ¸ÌÓ ‚ÍÎ˛˜‡ÂÚ ÙËÎ¸Ú 20Ã√ˆ, Ò„Î‡ÊË‚‡ÌËÂ ÔÓ 4-Ï ÚÓ˜Í‡Ï, ÛÒÂ‰ÌÂÌËÂ ÔÓ 8-ÏË ÚÓ˜Í‡Ï",
+        ""
+    },
+    {
+        {DISABLE_RU,    DISABLE_EN},
+        {ENABLE_RU,     ENABLE_EN}
+    },
+    (int8 *)&MODE_EMS, OnChanged_EMS
+};
+
+static void OnChanged_EMS(bool active)
+{
+    FPGA_SetBandwidth(A);
+    FPGA_SetBandwidth(B);
+}
+
+// Œ“À¿ƒ ¿ - ŒËÂÌÚ‡ˆËˇ //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+static const Choice cDisplayOrientation =
+{
+    Item_Choice, &pDebug, 0,
+    {
+        "ŒËÂÌÚ‡ˆËˇ", "DisplayOrientation",
+        "”ÒÚ‡Ì‡‚ÎË‚‡ÂÚ ÓËÂÌÚ‡ˆË˛ ‰ËÒÔÎÂˇ",
+        "Sets display orientation"
+    },
+    {
+        { "œˇÏ‡ˇ", "Direct" },
+        { "Œ·‡ÚÌ‡ˇ", "Back" }
+    },
+    (int8 *)&DISPLAY_ORIENTATION, OnChanged_DisplayOrientation
+};
+
+void OnChanged_DisplayOrientation(bool active)
+{
+    Display_SetOrientation(DISPLAY_ORIENTATION);
+}
+
+// Œ“À¿ƒ ¿ - —Ú‡ÚËÒÚËÍ‡ ------------------------------------------------------------------------------------------------------------------------------
+static const Choice cStats =
+{
+    Item_Choice, &pDebug, 0,
+    {
+        "—Ú‡ÚËÒÚËÍ‡", "Statistics",
+        "œÓÍ‡Á˚‚‡Ú¸/ÌÂ ÔÓÍ‡Á˚‚‡Ú¸ ‚ÂÏˇ/Í‡‰, Í‡‰Ó‚ ‚ ÒÂÍÛÌ‰Û, ÍÓÎË˜ÂÒÚ‚Ó ÒË„Ì‡ÎÓ‚ Ò ÔÓÒÎÂ‰ÌËÏË Ì‡ÒÚÓÈÍ‡ÏË ‚ Ô‡ÏˇÚË/ÍÓÎË˜ÂÒÚ‚Ó ÒÓı‡ÌˇÂÏ˚ı ‚ Ô‡ÏˇÚË ÒË„Ì‡ÎÓ‚",
+        "To show/not to show a time/shot, frames per second, quantity of signals with the last settings in memory/quantity of the signals kept in memory"
+    },
+    {
+        {"ÕÂ ÔÓÍ‡Á˚‚‡Ú¸",   "Hide"},
+        {"œÓÍ‡Á˚‚‡Ú¸",      "Show"}
+    },
+    (int8 *)&SHOW_STAT
+};
+
+// Œ“À¿ƒ ¿ - —Óı. ÔÓ¯Ë‚ÍÛ --------------------------------------------------------------------------------------------------------------------------
+static const Button bSaveFirmware =
+{
+    Item_Button, &pDebug, IsActive_SaveFirmware,
+    {
+        "—Óı. ÔÓ¯Ë‚ÍÛ", "Save firmware",
+        "—Óı‡ÌÂÌËÂ ÔÓ¯Ë‚ÍË - ÒÂÍÚÓÓ‚ 5, 6, 7 Ó·˘ËÏ Ó·˙∏ÏÓÏ 3 ı 128 Í¡, „‰Â ı‡ÌËÚÒˇ ÔÓ„‡ÏÏ‡",
+        "Saving firmware - sectors 5, 6, 7 with a total size of 3 x 128 kB, where the program is stored"
+    },
+    OnPress_SaveFirmware
+};
+
+static bool IsActive_SaveFirmware(void)
+{
+    return FDRIVE_IS_CONNECTED;
+}
+
+static void OnPress_SaveFirmware(void)
+{
+    Display_FuncOnWaitStart(DICT(DSaveFirmware), false);
+
+    StructForWrite structForWrite;
+
+    FDrive_OpenNewFileForWrite("S8-54.bin", &structForWrite);
+
+    uint8 *address = (uint8 *)0x08020000;
+    uint8 *endAddress = address + 128 * 1024 * 3;
+
+    int sizeBlock = 512;
+
+    while (address < endAddress)
+    {
+        FDrive_WriteToFile(address, sizeBlock, &structForWrite);
+        address += sizeBlock;
+    }
+
+    FDrive_CloseFile(&structForWrite);
+
+    Display_FuncOnWaitStop();
+
+    Display_ShowWarning(FirmwareSaved);
+}
+
+// Œ“À¿ƒ ¿ - —/Õ /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+static const Page ppSerialNumber =
+{
+    Item_Page, &pDebug, 0,
+    {
+        "—/Õ", "S/N",
+        "«‡ÔËÒ¸ ÒÂËÈÌÓ„Ó ÌÓÏÂ‡ ‚ OTP-Ô‡ÏˇÚ¸. ¬Õ»Ã¿Õ»≈!!! Œ“P-Ô‡ÏˇÚ¸ - Ô‡ÏˇÚ¸ Ò Ó‰ÌÓÍ‡ÚÌÓÈ Á‡ÔËÒ¸˛.",
+        "Serial number recording in OTP-memory. ATTENTION!!! OTP memory is a one-time programming memory."
+    },
+    PageSB_Debug_SerialNumber,
+    {
+        (void *)&bSerialNumber_Exit,    // Œ“À¿ƒ ¿ - —/Õ - ¬˚ıÓ‰
+        (void *)&bSerialNumber_Change,  // Œ“À¿ƒ ¿ - —/Õ - œÂÂÈÚË
+        (void *)0,
+        (void *)0,
+        (void *)0,
+        (void *)&bSerialNumber_Save     // Œ“À¿ƒ ¿ - —/Õ - —Óı‡ÌËÚ¸
+    },
+    true, OnPress_SerialNumber, 0, OnRegSet_SerialNumber
+};
+
+static void OnPress_SerialNumber(void)
+{
+    Display_SetAddDrawFunction(Draw_EnterSerialNumber);
+    MALLOC_EXTRAMEM(StructForSN, s);
+    s->number = 01;
+    s->year = 2017;
+    s->curDigt = 0;
+}
+
+static void Draw_EnterSerialNumber(void)
+{
+    int x0 = GridLeft() + 40;
+    int y0 = GRID_TOP + 20;
+    int width = GridWidth() - 80;
+    int height = 160;
+
+    Painter_DrawRectangleC(x0, y0, width, height, gColorFill);
+    Painter_FillRegionC(x0 + 1, y0 + 1, width - 2, height - 2, gColorBack);
+
+    int deltaX = 10;
+
+    ACCESS_EXTRAMEM(StructForSN, s);
+    
+    bool selNumber = s->curDigt == 0;
+
+    char buffer[20];
+    snprintf(buffer, 19, "%02d", s->number);
+
+    Color colorText = gColorFill;
+    Color colorBackground = gColorBack;
+
+    if (selNumber)
+    {
+        colorText = COLOR_FLASH_01;
+        colorBackground = COLOR_FLASH_10;
+    }
+
+    int y = y0 + 50;
+
+    Painter_SetColor(colorText);
+    int x = Painter_DrawTextOnBackground(x0 + deltaX, y, buffer, colorBackground);
+
+    colorText = COLOR_FLASH_01;
+    colorBackground = COLOR_FLASH_10;
+
+    if (selNumber)
+    {
+        colorText = gColorFill;
+        colorBackground = gColorBack;
+    }
+
+    snprintf(buffer, 19, "%04d", s->year);
+
+    Painter_SetColor(colorText);
+    Painter_DrawTextOnBackground(x + 5, y, buffer, colorBackground);
+
+    // “ÂÔÂ¸ ‚˚‚Â‰ÂÏ ËÌÙÓÏ‡ˆË˛ Ó· ÓÒÚ‡‚¯ÂÏÒˇ ÏÂÒÚÂ ‚ OTP-Ô‡ÏˇÚË ‰Îˇ Á‡ÔËÒË
+
+    int allShots = OTP_GetSerialNumber(buffer);
+
+    Painter_DrawFormText(x0 + deltaX, y0 + 130, gColorFill, "“ÂÍÛ˘ËÈ ÒÓı‡Ì∏ÌÌ˚È ÌÓÏÂ %s", buffer[0] == 0 ? "-- ----" : buffer);
+
+    Painter_DrawFormText(x0 + deltaX, y0 + 100, gColorFill, "ŒÒÚ‡ÎÓÒ¸ ÏÂÒÚ‡ ‰Îˇ %d ÔÓÔ˚ÚÓÍ", allShots);
+}
+
+static void OnRegSet_SerialNumber(int angle)
+{
+    typedef int (*pFunc)(int *, int, int);
+
+    pFunc p = angle > 0 ? CircleIncreaseInt : CircleDecreaseInt;
+
+    ACCESS_EXTRAMEM(StructForSN, s);
+
+    if (s->curDigt == 0)
+    {
+        p(&s->number, 1, 99);
+    }
+    else
+    {
+        p(&s->year, 2016, 2050);
+    }
+    Sound_GovernorChangedValue();
+}
+
+// Œ“À¿ƒ ¿ - —/Õ - ¬˚ıÓ‰ -----------------------------------------------------------------------------------------------------------------------------
+static const SButton bSerialNumber_Exit =
+{
+    Item_SmallButton, &ppSerialNumber,
+    COMMON_BEGIN_SB_EXIT,
+    OnPress_SerialNumber_Exit,
+    DrawSB_Exit
+};
+
+static void OnPress_SerialNumber_Exit(void)
+{
+    OnPressSB_Exit();
+    FREE_EXTRAMEM();
+}
+
+// Œ“À¿ƒ ¿ - —/Õ - ¬ÒÚ‡‚ËÚ¸ --------------------------------------------------------------------------------------------------------------------------
+static const SButton bSerialNumber_Change =
+{
+    Item_SmallButton, &ppSerialNumber, 0,
+    {
+        "¬ÒÚ‡‚ËÚ¸", "Insert",
+        "¬ÒÚ‡‚ÎˇÂÚ ‚˚·‡Ì˚È ÒËÏ‚ÓÎ",
+        "Inserts the chosen symbol"
+    },
+    OnPress_SerialNumber_Change,
+    Draw_SerialNumber_Change
+};
+
+static void OnPress_SerialNumber_Change(void)
+{
+    ACCESS_EXTRAMEM(StructForSN, s);
+    ++s->curDigt;
+    s->curDigt %= 2;
+    Painter_ResetFlash();
+}
+
+static void Draw_SerialNumber_Change(int x, int y)
+{
+    Painter_SetFont(TypeFont_UGO2);
+    Painter_Draw4SymbolsInRect(x + 2, y + 2, SYMBOL_TAB);
+    Painter_SetFont(TypeFont_8);
+}
+
+// Œ“À¿ƒ ¿ - —/Õ - —Óı‡ÌËÚ¸ -------------------------------------------------------------------------------------------------------------------------
+static const SButton bSerialNumber_Save =
+{
+    Item_SmallButton, &ppSerialNumber, 0,
+    {
+        "—Óı‡ÌËÚ¸", "Save",
+        "«‡ÔËÒ˚‚‡ÂÚ ÒÂËÈÌ˚È ÌÓÏÂ ‚ OTP",
+        "Records the serial number in OTP"
+    },
+    OnPress_SerialNumber_Save,
+    Draw_SerialNumber_Save
+};
+
+static void OnPress_SerialNumber_Save(void)
+{
+    ACCESS_EXTRAMEM(StructForSN, s);
+
+    char stringSN[20];
+
+    snprintf(stringSN, 19, "%02d %04d", s->number, s->year);
+
+    if (!OTP_SaveSerialNumber(stringSN))
+    {
+        Display_ShowWarning(FullyCompletedOTP);
+    }
+}
+
+static void Draw_SerialNumber_Save(int x, int y)
+{
+    Painter_SetFont(TypeFont_UGO2);
+    Painter_Draw4SymbolsInRect(x + 2, y + 1, SYMBOL_SAVE_TO_MEM);
+    Painter_SetFont(TypeFont_8);
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*
+void OnPressDebugDisable(void)
+{
+    ShowMenu(false);
+    SetMenuPageDebugActive(false);
+    SetMenuPosActItem(Page_Main, 0);
+}
+
+
+//------------------------------------------------------------------------------------------------------------------------------------------------------
+void OnDegubConsoleViewChanged(bool active)
+{
+    Display_SetPauseForConsole(CONSOLE_IN_PAUSE);
+}
+
+
+//------------------------------------------------------------------------------------------------------------------------------------------------------
+void OnPressDebugConsoleUp(void)
+{
+    Display_OneStringUp();
+}
+
+
+//------------------------------------------------------------------------------------------------------------------------------------------------------
+void OnPressDebugConsoleDown(void)
+{
+    Display_OneStringDown();
+}
+
+        /// Œ“À¿ƒ ¿ - ¿÷œ - ƒŒœ. —Ã≈Ÿ. œ¿Ã. - ¬ÂÎË˜ËÌ‡
+        const Governor mgDebugADCaltShift =
+        {
+            Item_Governor, &mspDebugADCaltShift,
+            {
+                "¬ÂÎË˜ËÌ‡", "Value"
+            },
+            {
+                "",
+                ""
+            },
+            0,
+            &set.debug.altShift, -2, 2, 0
+        };
+
+bool sIsShowReg_RShift1(void)
+{
+    return set.debug.showRegisters.rShiftB || set.debug.showRegisters.all;
+}
+
+
+//------------------------------------------------------------------------------------------------------------------------------------------------------
+bool sIsShowReg_TrigLev(void)
+{
+    return set.debug.showRegisters.trigLev || set.debug.showRegisters.all;
+}
+
+
+//------------------------------------------------------------------------------------------------------------------------------------------------------
+bool sIsShowReg_Range(Channel ch)
+{
+    return set.debug.showRegisters.range[ch] || set.debug.showRegisters.all;
+}
+
+
+//------------------------------------------------------------------------------------------------------------------------------------------------------
+bool sIsShowReg_TrigParam(void)
+{
+    return set.debug.showRegisters.trigParam || set.debug.showRegisters.all;
+}
+
+
+//------------------------------------------------------------------------------------------------------------------------------------------------------
+bool sIsShowReg_ChanParam(Channel ch)
+{
+    return set.debug.showRegisters.chanParam[ch] || set.debug.showRegisters.all;
+}
+
+
+//------------------------------------------------------------------------------------------------------------------------------------------------------
+bool sIsShowReg_TShift(void)
+{
+    return set.debug.showRegisters.tShift || set.debug.showRegisters.all;
+}
+
+
+//------------------------------------------------------------------------------------------------------------------------------------------------------
+bool sIsShowReg_TBase(void)
+{
+    return set.debug.showRegisters.tBase || set.debug.showRegisters.all;
+}
+
+
+const Page mspDebugADCaltShift =    // Œ“À¿ƒ ¿ - ¿÷œ - ƒŒœ —Ã≈Ÿ œ¿Ã
+{
+    Item_Page, &ppADC,
+    {
+        "ƒŒœ —Ã≈Ÿ œ¿Ã", "ALT SHIFT MEM"
+    },
+    {
+        "",
+        ""
+    },
+    0, Page_Debug_ADC_AltShift,
+    {
+        (void *)&mgDebugADCaltShift
+    }
+};
+*/
