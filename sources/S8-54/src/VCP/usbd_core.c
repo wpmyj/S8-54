@@ -533,6 +533,7 @@ USBD_StatusTypeDef USBD_LL_IsoOUTIncomplete(USBD_HandleTypeDef  *pdev, uint8_t e
 */
 USBD_StatusTypeDef USBD_LL_DevConnected(USBD_HandleTypeDef  *pdev)
 {
+    CABLE_USB_IS_CONNECTED = true;
     CONNECTED_TO_USB = true;
     return USBD_OK;
 }
@@ -545,7 +546,6 @@ USBD_StatusTypeDef USBD_LL_DevConnected(USBD_HandleTypeDef  *pdev)
 */
 USBD_StatusTypeDef USBD_LL_DevDisconnected(USBD_HandleTypeDef  *pdev)
 {
-    CONNECTED_TO_USB = false;
   /* Free Class Resources */
   pdev->dev_state = USBD_STATE_DEFAULT;
   pdev->pClass->DeInit(pdev, pdev->dev_config);  
