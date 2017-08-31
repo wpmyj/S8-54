@@ -82,7 +82,7 @@ bool WordEqualZeroString(Word *word, char* string)
     char *ch = string;
     char *w = (char*)(word->address);
 
-    while (*ch != 0)
+    while (*ch != 0 && *ch != 0x0a && *ch != 0x0d)
     {
         if (*ch++ != *w++)
         {
@@ -101,12 +101,12 @@ bool WordEqualZeroString(Word *word, char* string)
 //----------------------------------------------------------------------------------------------------------------------------------------------------
 bool ChooseSymbols(const uint8 **string)
 {
-    if (SYMBOL(string) == 0x0d && SYMBOL(string + 1) == 0x0a)
+    if (SYMBOL(string) == 0x0d || SYMBOL(string) == 0x0a)
     {
         return false;
     }
 
-    while (SYMBOL(string) != ' ' && SYMBOL(string) != 0x0d && SYMBOL(string + 1) != 0x0a)
+    while (SYMBOL(string) != ' ' && SYMBOL(string) != 0x0d && SYMBOL(string) != 0x0a)
     {
         (*string)++;
     }

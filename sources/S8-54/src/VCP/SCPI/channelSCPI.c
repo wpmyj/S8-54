@@ -29,6 +29,7 @@ void Process_CHANNEL(uint8 *buffer)
     static const StructCommand commands[] = 
     {
         {"INPUT",   Process_INPUT},
+
         {"COUPLE",  Process_COUPLE},
         {"FILTR",   Process_FILTR},
         {"INVERSE", Process_INVERSE},
@@ -48,7 +49,6 @@ void Process_CHANNEL(uint8 *buffer)
 //----------------------------------------------------------------------------------------------------------------------------------------------------
 void Process_INPUT(uint8 *buffer)
 {
-    LOG_FUNC_ENTER;
     static const MapElement map[] = 
     {
         {"ON",  0},
@@ -57,8 +57,14 @@ void Process_INPUT(uint8 *buffer)
         {0}
     };
     ENTER_ANALYSIS
-        if (0 == value)         { SET_ENABLED(ch) = true; }
-        else if (1 == value)    { SET_ENABLED(ch) = false; }
+        if (0 == value)
+        {
+            SET_ENABLED(ch) = true;
+        }
+        else if (1 == value)
+        {
+            SET_ENABLED(ch) = false;
+        }
         else if (2 == value)
         {
             SCPI_SEND(":CHANNEL%d:INPUT %s", Tables_GetNumChannel(ch), SET_ENABLED(ch) ? "ON" : "OFF");

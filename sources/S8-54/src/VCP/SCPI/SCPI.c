@@ -84,7 +84,7 @@ void SCPI_ProcessingCommand(const StructCommand *commands, uint8 *buffer)
 
     if (name != 0) 
     {
-        commands[numCommand].func(buffer + strlen(name));   // Передаём в функцию указатель на первый символ за именем команды
+        commands[numCommand].func(buffer + strlen(name) + 1); // Передаём в функцию указатель на первый символ за двоеточием, следующим после команды
     }
 }
 
