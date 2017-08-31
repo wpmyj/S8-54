@@ -248,6 +248,7 @@
     <ClCompile Include="..\..\S8-54\src\VCP\SCPI\trigSCPI.c" />
     <ClCompile Include="..\..\S8-54\src\VCP\usbd_cdc_interface.c" />
     <ClCompile Include="..\..\S8-54\src\VCP\usbd_conf.c" />
+    <ClCompile Include="..\..\S8-54\src\VCP\usbd_core.c" />
     <ClCompile Include="..\..\S8-54\src\VCP\usbd_desc.c" />
     <ClCompile Include="..\..\S8-54\src\VCP\VCP.c" />
     <ClCompile Include="..\..\STM32Cube_FW_F4\Drivers\STM32F4xx_HAL_Driver\Src\stm32f4xx_hal.c" />
