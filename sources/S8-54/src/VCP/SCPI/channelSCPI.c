@@ -43,7 +43,8 @@ void Process_CHANNEL(uint8 *buffer)
         {"SCAL",        Process_RANGE},
         {"BALANCE",     Process_BALANCE},
         {"BAL",         Process_BALANCE},
-        {"OFFSET",  Process_OFFSET},
+        {"OFFSET",      Process_OFFSET},
+        {"OFFS",        Process_OFFSET},
         {0}
     };
 
@@ -182,17 +183,22 @@ void Process_OFFSET(uint8 *buffer)
     int intVal = 0;
     if (SCPI_FirstIsInt(buffer, &intVal, -240, 240))
     {
-        int rShift = RShiftZero + 2 * intVal;
+        int rShift = RShiftZero + (intVal * RSHIFT_IN_CELL / 20);
         FPGA_SetRShift(ch, (int16)rShift);
         return;
     }
     ENTER_ANALYSIS
         if (value == 0)
         {
-            int retValue = (SET_RSHIFT(ch) - RShiftZero) / 2;
+            int retValue = (SET_RSHIFT(ch) - RShiftZero) / (RSHIFT_IN_CELL / 20);
             SCPI_SEND(":CHANNNEL%d:OFFSET %d", Tables_GetNumChannel(ch), retValue);
         }
+        else
+        {
+            SCPI_SEND("COMMAND ERROR");
+        }
     LEAVE_ANALYSIS
+
 }
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------

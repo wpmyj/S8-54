@@ -57,7 +57,8 @@ void Process_CHANNEL(uint8 *buffer);
 void Process_TRIG(uint8 *buffer);
 
 void Process_TBASE(uint8 *buffer);
-
+/// \brief Извлекает целое число из буфера и помещает по адресу value. Возвращает false, если в начале буфера не находится число или число не входит 
+/// в границы [min; max]
 bool SCPI_FirstIsInt(uint8 *buffer, int *value, int min, int max);
 
 /** @}
