@@ -23,9 +23,9 @@ int SCPI_ParseNewCommand(uint8 *buffer, int length)
     static const StructCommand commands[] =
     {
         {"*IDN?",       Process_IDN},
+        {"*RST",        Process_RESET},
         {"RUN",         Process_RUN},
         {"STOP",        Process_STOP},
-        {"RESET",       Process_RESET},
         {"AUTOSCALE",   Process_AUTOSCALE}, 
         {"REQUEST ?",   Process_REQUEST},
 

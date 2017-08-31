@@ -3,6 +3,7 @@
 #include "defines.h"
 #include "commonSCPI.h"
 #include "Hardware/Hardware.h"
+#include "Settings/Settings.h"
 #include "VCP/VCP.h"
 #include "VCP/SCPI/SCPI.h"
 
@@ -32,7 +33,7 @@ void Process_STOP(uint8 *buffer)
 //----------------------------------------------------------------------------------------------------------------------------------------------------
 void Process_RESET(uint8 *buffer)
 {
-
+    Settings_Load(true);
 }
 
 
