@@ -17,7 +17,12 @@
         uint8 value = GetValueFromMap(map, &parameter); \
         if (value < 255) {
 
-#define LEAVE_ANALYSIS   }}
+#define LEAVE_ANALYSIS   }              \
+    else                                \
+    {                                  \
+        SCPI_SEND("COMMAND ERROR");    \
+    }                                    \
+    }
 
 
 #define SCPI_SEND(...)                              \

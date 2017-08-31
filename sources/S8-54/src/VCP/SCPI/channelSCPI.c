@@ -29,14 +29,16 @@ void Process_CHANNEL(uint8 *buffer)
     static const StructCommand commands[] = 
     {
         {"INPUT",   Process_INPUT},
+        {"PROBE",   Process_PROBE},
+        {"PROB",    Process_PROBE},
+        {"INVERT",  Process_INVERSE},
+        {"INV",     Process_INVERSE},
 
         {"COUPLE",  Process_COUPLE},
         {"FILTR",   Process_FILTR},
-        {"INVERSE", Process_INVERSE},
         {"INV",     Process_INVERSE},
         {"RANGE",   Process_RANGE},
         {"OFFSET",  Process_OFFSET},
-        {"PROBE",   Process_PROBE},
         {0}
     };
 
@@ -52,20 +54,16 @@ void Process_INPUT(uint8 *buffer)
     static const MapElement map[] = 
     {
         {"ON",  0},
-        {"OFF", 1},
-        {"?",   2},
+        {"1",   1},
+        {"OFF", 2},
+        {"0",   3},
+        {"?",   4},
         {0}
     };
     ENTER_ANALYSIS
-        if (0 == value)
-        {
-            SET_ENABLED(ch) = true;
-        }
-        else if (1 == value)
-        {
-            SET_ENABLED(ch) = false;
-        }
-        else if (2 == value)
+        if (0 == value || 1 == value)       { SET_ENABLED(ch) = true; }
+        else if (2 == value || 3 == value)  { SET_ENABLED(ch) = false; }
+        else if (4 == value)
         {
             SCPI_SEND(":CHANNEL%d:INPUT %s", Tables_GetNumChannel(ch), SET_ENABLED(ch) ? "ON" : "OFF");
         }
@@ -126,14 +124,16 @@ void Process_INVERSE(uint8 *buffer)
     static const MapElement map[] =
     {
         {"ON",  0},
-        {"OFF", 1},
-        {"?",   2},
+        {"1",   1},
+        {"OFF", 2},
+        {"0",   3},
+        {"?",   4},
         {0}
     };
     ENTER_ANALYSIS
-        if (0 == value)         { SET_INVERSE(ch) = true; }
-        else if (1 == value)    { SET_INVERSE(ch) = false; }
-        else if (2 == value)
+        if (0 == value || 1 == value)       { SET_INVERSE(ch) = true; }
+        else if (2 == value || 3 == value)  { SET_INVERSE(ch) = false; }
+        else if (4 == value)
         {
             SCPI_SEND(":CHANNEL%d:INVERSE %s", Tables_GetNumChannel(ch), SET_INVERSE(ch) ? "ON" : "OFF");
         }
@@ -200,9 +200,9 @@ void Process_PROBE(uint8 *buffer)
 {
     static const MapElement map[] =
     {
-        {"X1",  0},
-        {"X10", 1},
-        {"?",   2},
+        {"1/1",  0},
+        {"1/10", 1},
+        {"?",    2},
         {0}
     };
     ENTER_ANALYSIS
