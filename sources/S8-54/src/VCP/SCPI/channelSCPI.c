@@ -2,6 +2,7 @@
 // PVS-Studio Static Code Analyzer for C, C++ and C#: http://www.viva64.com
 #include "defines.h"
 #include "SCPI.h"
+#include "FPGA/FPGAextensions.h"
 #include "Settings/Settings.h"
 #include "Settings/SettingsChannel.h"
 #include "Utils/Map.h"
@@ -19,6 +20,7 @@ static void Process_INVERT(uint8 *buffer);
 static void Process_RANGE(uint8 *buffer);
 static void Process_OFFSET(uint8 *buffer);
 static void Process_PROBE(uint8 *buffer);
+static void Process_BALANCE(uint8 *buffer);
 
 static Channel ch = A;
 
@@ -39,7 +41,8 @@ void Process_CHANNEL(uint8 *buffer)
         {"BWL",         Process_BWLIMIT},
         {"SCALE",       Process_RANGE},
         {"SCAL",        Process_RANGE},
-
+        {"BALANCE",     Process_BALANCE},
+        {"BAL",         Process_BALANCE},
         {"OFFSET",  Process_OFFSET},
         {0}
     };
@@ -48,7 +51,6 @@ void Process_CHANNEL(uint8 *buffer)
 
     SCPI_ProcessingCommand(commands, buffer);
 }
-
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
 void Process_INPUT(uint8 *buffer)
@@ -72,7 +74,6 @@ void Process_INPUT(uint8 *buffer)
     LEAVE_ANALYSIS
 }
 
-
 //----------------------------------------------------------------------------------------------------------------------------------------------------
 void Process_COUPLING(uint8 *buffer)
 {
@@ -94,7 +95,6 @@ void Process_COUPLING(uint8 *buffer)
         }
     LEAVE_ANALYSIS
 }
-
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
 void Process_BWLIMIT(uint8 *buffer)
@@ -118,7 +118,6 @@ void Process_BWLIMIT(uint8 *buffer)
     LEAVE_ANALYSIS
 }
 
-
 //----------------------------------------------------------------------------------------------------------------------------------------------------
 void Process_INVERT(uint8 *buffer)
 {
@@ -140,7 +139,6 @@ void Process_INVERT(uint8 *buffer)
         }
     LEAVE_ANALYSIS
 }
-
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
 void Process_RANGE(uint8 *buffer)
@@ -173,7 +171,6 @@ void Process_RANGE(uint8 *buffer)
     LEAVE_ANALYSIS
 }
 
-
 //----------------------------------------------------------------------------------------------------------------------------------------------------
 void Process_OFFSET(uint8 *buffer)
 {
@@ -198,7 +195,6 @@ void Process_OFFSET(uint8 *buffer)
     LEAVE_ANALYSIS
 }
 
-
 //----------------------------------------------------------------------------------------------------------------------------------------------------
 void Process_PROBE(uint8 *buffer)
 {
@@ -217,4 +213,10 @@ void Process_PROBE(uint8 *buffer)
             SCPI_SEND(":CHANNEL%d:PROBE %s", Tables_GetNumChannel(ch), map[SET_DIVIDER(ch)].key);
         }
     LEAVE_ANALYSIS
+}
+
+//----------------------------------------------------------------------------------------------------------------------------------------------------
+void Process_BALANCE(uint8 *buffer)
+{
+    FPGA_BalanceChannel(ch);
 }
