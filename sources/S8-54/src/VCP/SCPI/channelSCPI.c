@@ -13,9 +13,9 @@
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 static void Process_INPUT(uint8 *buffer);
-static void Process_COUPLE(uint8 *buffer);
+static void Process_COUPLING(uint8 *buffer);
 static void Process_FILTR(uint8 *buffer);
-static void Process_INVERSE(uint8 *buffer);
+static void Process_INVERT(uint8 *buffer);
 static void Process_RANGE(uint8 *buffer);
 static void Process_OFFSET(uint8 *buffer);
 static void Process_PROBE(uint8 *buffer);
@@ -28,15 +28,15 @@ void Process_CHANNEL(uint8 *buffer)
 {
     static const StructCommand commands[] = 
     {
-        {"INPUT",   Process_INPUT},
-        {"PROBE",   Process_PROBE},
-        {"PROB",    Process_PROBE},
-        {"INVERT",  Process_INVERSE},
-        {"INV",     Process_INVERSE},
+        {"INPUT",       Process_INPUT},
+        {"PROBE",       Process_PROBE},
+        {"PROB",        Process_PROBE},
+        {"INVERT",      Process_INVERT},
+        {"INV",         Process_INVERT},
+        {"COUPLING",    Process_COUPLING},
+        {"COUP",        Process_COUPLING},
 
-        {"COUPLE",  Process_COUPLE},
         {"FILTR",   Process_FILTR},
-        {"INV",     Process_INVERSE},
         {"RANGE",   Process_RANGE},
         {"OFFSET",  Process_OFFSET},
         {0}
@@ -72,7 +72,7 @@ void Process_INPUT(uint8 *buffer)
 
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
-void Process_COUPLE(uint8 *buffer)
+void Process_COUPLING(uint8 *buffer)
 {
     static const MapElement map[] = 
     {
@@ -83,12 +83,12 @@ void Process_COUPLE(uint8 *buffer)
         {0}
     };
     ENTER_ANALYSIS
-        if (0 == value)         { SET_COUPLE(ch) = ModeCouple_DC; }
-        else if (1 == value)    { SET_COUPLE(ch) = ModeCouple_AC; }
-        else if (2 == value)    { SET_COUPLE(ch) = ModeCouple_GND; }
+        if (0 == value)         { SET_COUPLE(ch) = ModeCouple_DC; FPGA_SetModeCouple(ch, SET_COUPLE(ch)); }
+        else if (1 == value)    { SET_COUPLE(ch) = ModeCouple_AC; FPGA_SetModeCouple(ch, SET_COUPLE(ch)); }
+        else if (2 == value)    { SET_COUPLE(ch) = ModeCouple_GND; FPGA_SetModeCouple(ch, SET_COUPLE(ch)); }
         else if (3 == value)
         {
-            SCPI_SEND(":CHANNEL%d:COUPLE %s", Tables_GetNumChannel(ch), map[SET_COUPLE(ch)].key);
+            SCPI_SEND(":CHANNEL%d:COUPLING %s", Tables_GetNumChannel(ch), map[SET_COUPLE(ch)].key);
         }
     LEAVE_ANALYSIS
 }
@@ -119,7 +119,7 @@ void Process_FILTR(uint8 *buffer)
 
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
-void Process_INVERSE(uint8 *buffer)
+void Process_INVERT(uint8 *buffer)
 {
     static const MapElement map[] =
     {
@@ -135,7 +135,7 @@ void Process_INVERSE(uint8 *buffer)
         else if (2 == value || 3 == value)  { SET_INVERSE(ch) = false; }
         else if (4 == value)
         {
-            SCPI_SEND(":CHANNEL%d:INVERSE %s", Tables_GetNumChannel(ch), SET_INVERSE(ch) ? "ON" : "OFF");
+            SCPI_SEND(":CHANNEL%d:INVERT %s", Tables_GetNumChannel(ch), SET_INVERSE(ch) ? "ON" : "OFF");
         }
     LEAVE_ANALYSIS
 }
