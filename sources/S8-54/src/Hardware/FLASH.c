@@ -102,7 +102,6 @@ static void ReadBufferBytes(uint addressSrc, void *bufferDest, int size);
 static bool EraseSector(uint startAddress);
 static uint GetSector(uint startAddress);
  
-#define NUM_RECORDS (128 * 1024)    /* 128 штук по 1024 байта */
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 void FLASH_LoadSettings(void)
@@ -115,7 +114,7 @@ void FLASH_LoadSettings(void)
         do
         {
             address += 1024;
-        } while (READ_HALF_WORD(address) != 0xffff && address < (ADDR_SECTOR_SETTINGS + 1024 * NUM_RECORDS));
+        } while (READ_HALF_WORD(address) != 0xffff && address < (ADDR_SECTOR_SETTINGS + SIZE_SECTOR_SETTINGS));
 
         address -= 1024;
 
@@ -134,12 +133,12 @@ void FLASH_SaveSettings(void)
     // Ќаходим первый свободынй адрес записи.
     int address = ADDR_SECTOR_SETTINGS;
     while (READ_HALF_WORD(address) != 0xffff &&                     // ѕока по адресу, кратному 1024, не записаны настройки
-           address < (ADDR_SECTOR_SETTINGS + 1024 * NUM_RECORDS))   // и мы не вышли за пределы сектора настроек
+           address < (ADDR_SECTOR_SETTINGS + SIZE_SECTOR_SETTINGS)) // и мы не вышли за пределы сектора настроек
     {
         address += 1024;                                            // переходим на следующую предполагаемую область записи
     }
 
-    if (address == ADDR_SECTOR_SETTINGS + 1024 * NUM_RECORDS)       // ≈сли адрес указывает на последнюю область сектора дл€ записи настроек
+    if (address == ADDR_SECTOR_SETTINGS + SIZE_SECTOR_SETTINGS)     // ≈сли адрес указывает на последнюю область сектора дл€ записи настроек
     {
         EraseSector(ADDR_SECTOR_SETTINGS);                          // “о стираем к лешему заполненный сетор настроек
         address = ADDR_SECTOR_SETTINGS;
