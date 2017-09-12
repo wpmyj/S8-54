@@ -35,6 +35,7 @@ _old_for_delete_
 *.opendb
 *.scvd
 Archiv
+sources/.vs
 sources/S8-53/Objects
 sources/S8-53/out
 sources/S8-54/Objects
