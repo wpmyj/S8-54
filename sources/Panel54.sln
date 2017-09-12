@@ -1,9 +1,9 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2013
-VisualStudioVersion = 12.0.40629.0
+# Visual Studio 15
+VisualStudioVersion = 15.0.26730.12
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "PanelS8-54", "VS-OSCI\PanelS8-54\PanelS8-54.vcxproj", "{BAE88726-7A1F-4871-9F23-0B4C52FF4754}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Panel54", "VS-OSCI\PanelS8-54\PanelS8-54.vcxproj", "{BAE88726-7A1F-4871-9F23-0B4C52FF4754}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -12,11 +12,13 @@ Global
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{BAE88726-7A1F-4871-9F23-0B4C52FF4754}.Debug|Win32.ActiveCfg = Debug|Win32
-		{BAE88726-7A1F-4871-9F23-0B4C52FF4754}.Debug|Win32.Build.0 = Debug|Win32
 		{BAE88726-7A1F-4871-9F23-0B4C52FF4754}.Release|Win32.ActiveCfg = Release|Win32
 		{BAE88726-7A1F-4871-9F23-0B4C52FF4754}.Release|Win32.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {10613F54-FFFA-43BA-934D-3FF6B4A5BC8E}
 	EndGlobalSection
 EndGlobal
