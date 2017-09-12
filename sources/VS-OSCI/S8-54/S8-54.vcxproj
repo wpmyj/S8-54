@@ -350,6 +350,7 @@
     <ClCompile Include="..\..\STM32Cube_FW_F4\Middlewares\Third_Party\LwIP\src\core\tcp_out.c" />
     <ClCompile Include="..\..\STM32Cube_FW_F4\Middlewares\Third_Party\LwIP\src\core\udp.c" />
     <ClCompile Include="..\..\STM32Cube_FW_F4\Middlewares\Third_Party\LwIP\src\netif\etharp.c" />
+    <ClCompile Include="..\..\STM32F437lib\GPIO.c" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\S8-54\src\Data\Data.h" />
@@ -547,6 +548,8 @@
     <ClInclude Include="..\..\STM32Cube_FW_F4\Middlewares\Third_Party\LwIP\src\include\lwip\tcpip.h" />
     <ClInclude Include="..\..\STM32Cube_FW_F4\Middlewares\Third_Party\LwIP\src\include\lwip\udp.h" />
     <ClInclude Include="..\..\STM32Cube_FW_F4\Middlewares\Third_Party\LwIP\src\include\netif\etharp.h" />
+    <ClInclude Include="..\..\STM32F437lib\GPIO.h" />
+    <ClInclude Include="..\..\STM32F437lib\GPIOdefs.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\S8-54\src\Display\font\font5.inc" />

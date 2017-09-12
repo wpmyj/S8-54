@@ -436,6 +436,16 @@
               <FilePath>..\STM32Cube_FW_F4\Drivers\STM32F4xx_HAL_Driver\Src\stm32f4xx_hal_flash_ex.c</FilePath>
             </File>
             <File>
+              <FileName>stm32f4xx_hal_gpio.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\STM32Cube_FW_F4\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal_gpio.h</FilePath>
+            </File>
+            <File>
+              <FileName>stm32f4xx_hal_gpio_ex.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\STM32Cube_FW_F4\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal_gpio_ex.h</FilePath>
+            </File>
+            <File>
               <FileName>stm32f4xx_hal_gpio.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\STM32Cube_FW_F4\Drivers\STM32F4xx_HAL_Driver\Src\stm32f4xx_hal_gpio.c</FilePath>
@@ -784,6 +794,26 @@
               <FileName>ethernet.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\STM32Cube_FW_F4\Middlewares\Third_Party\LwIP\src\netif\ethernet.c</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>STM32F437lib</GroupName>
+          <Files>
+            <File>
+              <FileName>GPIO.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\STM32F437lib\GPIO.c</FilePath>
+            </File>
+            <File>
+              <FileName>GPIO.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\STM32F437lib\GPIO.h</FilePath>
+            </File>
+            <File>
+              <FileName>GPIOdefs.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\STM32F437lib\GPIOdefs.h</FilePath>
             </File>
           </Files>
         </Group>
