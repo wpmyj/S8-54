@@ -27,6 +27,7 @@ sources/VS-OSCI/Client/Client/obj/*
 sources/VS-OSCI/Controller/.vs/*
 sources/VS-OSCI/Controller/bin/*
 sources/VS-OSCI/Controller/obj/*
+sources/VS-OSCI/ControllerETH/obj/*
 sources/VS-OSCI/InterfacePC/.vs/*
 sources/VS-OSCI/InterfacePC/InterfacePC/bin/*
 sources/VS-OSCI/InterfacePC/InterfacePC/obj/*
