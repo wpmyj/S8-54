@@ -7,6 +7,7 @@
 *.sym
 *.tmp
 *.tre
+*.uvgui*.*
 ~*.*
 
 doc/doxygen/S8-54/*
