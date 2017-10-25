@@ -1,5 +1,3 @@
-// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
-// PVS-Studio Static Code Analyzer for C, C++ and C#: http://www.viva64.com
 #include "Log.h"
 #include "Display/Display.h"
 #include "Settings/Settings.h"
@@ -27,7 +25,7 @@ void Log_Write(TypeTrace type, char *format, ...)
         while (*pointer++) {};
         ++pointer;
     }
-    __va_list args;
+    va_list args;
     va_start(args, format);
     vsprintf(pointer, format, args);
     va_end(args);
@@ -43,7 +41,7 @@ void Log_Trace(TypeTrace type, const char *module, const char *func, int numLine
 {
     char buffer[SIZE_BUFFER_LOG];
     char message[SIZE_BUFFER_LOG];
-    __va_list args;
+    va_list args;
     va_start(args, format);
     vsprintf(buffer, format, args);
     va_end(args);

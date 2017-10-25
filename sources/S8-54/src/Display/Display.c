@@ -1,5 +1,3 @@
-// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
-// PVS-Studio Static Code Analyzer for C, C++ and C#: http://www.viva64.com
 #include "Display.h"
 #include "Grid.h"
 #include "Log.h"
@@ -1371,9 +1369,15 @@ static void DRAW_SPECTRUM(const uint8 *dataIn, int numPoints, Channel ch)
         return;
     }
 
-    float dataR[numPoints];
-    float spectrum[numPoints];
-
+#define MAX_POINTS_FOR_SPECTRUM 1024
+    if(numPoints > MAX_POINTS_FOR_SPECTRUM)
+    {
+        numPoints = MAX_POINTS_FOR_SPECTRUM;
+    }
+    
+    float dataR[MAX_POINTS_FOR_SPECTRUM];
+    float spectrum[MAX_POINTS_FOR_SPECTRUM];
+    
     float freq0 = 0.0f;
     float freq1 = 0.0f;
     float density0 = 0.0f;
@@ -1382,7 +1386,7 @@ static void DRAW_SPECTRUM(const uint8 *dataIn, int numPoints, Channel ch)
     int y1 = 0;
     int s = 2;
 
-    uint8 *data = malloc(numPoints);
+    uint8 *data = (uint8 *)malloc(numPoints);
 
     RAM_MemCpy16((void *)dataIn, data, numPoints);
 

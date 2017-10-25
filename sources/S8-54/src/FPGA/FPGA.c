@@ -48,6 +48,8 @@ static struct BitFieldFPGA
 
 #define NULL_TSHIFT 1000000
 
+extern const int Kr[];
+
 #define N_KR 100
 const int Kr[] = {N_KR / 1, N_KR / 2, N_KR / 5, N_KR / 10, N_KR / 20};
 
@@ -712,8 +714,8 @@ bool ProcessingData(void)
 
     if (IN_RANDOM_MODE)
     {
-        dataRandA = AllocMemForChannelFromHeap(A, 0);
-        dataRandB = AllocMemForChannelFromHeap(B, 0);
+        dataRandA = (uint8 *)AllocMemForChannelFromHeap(A, 0);
+        dataRandB = (uint8 *)AllocMemForChannelFromHeap(B, 0);
 
         if (SAMPLE_TYPE_IS_REAL)
         {

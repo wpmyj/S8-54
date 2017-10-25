@@ -231,7 +231,7 @@ void Measure_DrawPageChoice(void)
                 Painter_DrawTextRelativelyRightC(x0 + dX, y0 + 12, measures[meas].name, active ? COLOR_FLASH_01 : gColorFill);
                 Painter_SetFont(TypeFont_UGO);
             }
-            meas++;
+            meas = (Measure)((int)meas + 1);
         }
     }
     Painter_SetFont(TypeFont_8);

@@ -419,7 +419,7 @@ static void ProcessingShortPressureButton(void)
             }
             else                                                        // Если меню не показано.
             {
-                NamePage name = GetNamePage(OpenedItem());
+                NamePage name = GetNamePage((const Page *)OpenedItem());
                 if(button == B_Channel1 && name == Page_ChannelA && MENU_IS_SHOWN)
                 {
                     SET_ENABLED_A = !SET_ENABLED_A;
@@ -566,7 +566,7 @@ void ProcessingRegulatorSetRotate(void)
             }
             else if (type == Item_Time)
             {
-                angleRegSet > 0 ? Time_IncCurrentPosition(item) : Time_DecCurrentPosition(item);
+                angleRegSet > 0 ? Time_IncCurrentPosition((Time *)item) : Time_DecCurrentPosition((Time *)item);
             }
         }
     }
@@ -604,7 +604,7 @@ void ProcessingReleaseButton(void)
 //----------------------------------------------------------------------------------------------------------------------------------------------------
 void ShortPress_Page(void *item)
 {
-    Page *page = item;
+    Page *page = (Page *)item;
     if (page->funcOnPress)
     {
         page->funcOnPress();
@@ -700,10 +700,10 @@ void FuncOnLongPressItemTime(void *time)
     }
     if(ItemIsOpened(time) && *((Time*)time)->curField == iSET)
     {
-        Time_SetNewTime(time);
+        Time_SetNewTime((Time *)time);
     }
     OpenItem(time, !ItemIsOpened(time));
-    Time_SetOpened(time);
+    Time_SetOpened((Time *)time);
 }
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
@@ -712,12 +712,12 @@ void ShortPress_Time(void *time)
     if(!ItemIsOpened(time))
     {
         SetCurrentItem(time, true);
-        Time_SetOpened(time);
+        Time_SetOpened((Time *)time);
         OpenItem(time, true);
     }
     else
     {
-        Time_SelectNextPosition(time);
+        Time_SelectNextPosition((Time *)time);
     }
 }
 
@@ -778,7 +778,7 @@ void ShortPress_GovernorColor(void *governorColor)
 //----------------------------------------------------------------------------------------------------------------------------------------------------
 static void ShortPress_SmallButton(void *smallButton)
 {
-    SButton *sb = smallButton;
+    SButton *sb = (SButton *)smallButton;
     if (sb)
     {
         pFuncVV func = sb->funcOnPress;
@@ -841,7 +841,7 @@ void ChangeStateFlashDrive(void)
     {
         if(GetNameOpenedPage() == PageSB_Memory_Drive_Manager)
         {
-            ShortPressOnPageItem(OpenedItem(), 0);
+            ShortPressOnPageItem((Page *)OpenedItem(), 0);
         }
     }
     else if(FLASH_AUTO_CONNECT)
@@ -902,7 +902,7 @@ static bool NeedForFireSetLED(void)
 
     type = TypeOpenedItem();
     if (type == Item_Choice       ||
-        (type == Item_Page && NumSubPages(OpenedItem()) > 1)
+        (type == Item_Page && NumSubPages((const Page *)OpenedItem()) > 1)
         )
     {
         return true;

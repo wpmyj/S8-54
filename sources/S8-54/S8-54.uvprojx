@@ -163,7 +163,7 @@
             <AdsACrf>1</AdsACrf>
             <AdsANop>0</AdsANop>
             <AdsANot>0</AdsANot>
-            <AdsLLst>0</AdsLLst>
+            <AdsLLst>1</AdsLLst>
             <AdsLmap>1</AdsLmap>
             <AdsLcgr>1</AdsLcgr>
             <AdsLsym>1</AdsLsym>
@@ -187,7 +187,7 @@
             <hadIRAM2>1</hadIRAM2>
             <hadIROM2>0</hadIROM2>
             <StupSel>8</StupSel>
-            <useUlib>1</useUlib>
+            <useUlib>0</useUlib>
             <EndSel>0</EndSel>
             <uLtcg>0</uLtcg>
             <nSecure>0</nSecure>
@@ -333,8 +333,8 @@
             <v6WtE>0</v6WtE>
             <v6Rtti>0</v6Rtti>
             <VariousControls>
-              <MiscControls>--c99</MiscControls>
-              <Define>USE_HAL_DRIVER, STM32F437xx</Define>
+              <MiscControls>--cpp</MiscControls>
+              <Define>USE_HAL_DRIVER, STM32F437xx, __cplusplus</Define>
               <Undefine></Undefine>
               <IncludePath>..\STM32Cube_FW_F4\Drivers\STM32F4xx_HAL_Driver\Inc;..\STM32Cube_FW_F4\Drivers\STM32F4xx_HAL_Driver\Inc\Legacy\;..\STM32Cube_FW_F4\Drivers\STM32F4xx_HAL_Driver\Src;..\STM32Cube_FW_F4\Middlewares\Third_Party\FatFs\src;..\STM32Cube_FW_F4\Middlewares\ST\STM32_USB_Host_Library\Core\Inc\;..\STM32Cube_FW_F4\Middlewares\ST\STM32_USB_Device_Library\Core\Inc\;..\STM32Cube_FW_F4\Middlewares\ST\STM32_USB_Device_Library\Class\CDC\Inc\;..\STM32Cube_FW_F4\Middlewares\ST\STM32_USB_Host_Library\Class\MSC\Inc\;..\STM32Cube_FW_F4\Middlewares\ST\STM32_USB_Host_Library\Class\MSC\Src\;..\STM32Cube_FW_F4\Middlewares\ST\STM32_USB_Host_Library\Core\Src\;..\STM32Cube_FW_F4\Middlewares\ST\STM32_USB_Device_Library\Class\CDC\Src\;..\STM32Cube_FW_F4\Middlewares\ST\STM32_USB_Device_Library\Core\Src\;..\STM32Cube_FW_F4\Middlewares\Third_Party\LwIP\src\include;..\STM32Cube_FW_F4\Middlewares\Third_Party\LwIP\system;..\STM32Cube_FW_F4\Middlewares\Third_Party\LwIP\src\include\ipv4;..\STM32Cube_FW_F4\Middlewares\Third_Party\FatFs\src\drivers;..\STM32Cube_FW_F4\Middlewares\Third_Party\LwIP\src;..\STM32Cube_FW_F4\Drivers\CMSIS\Include;..\STM32Cube_FW_F4\Drivers\CMSIS\Device\ST\STM32F4xx\Include;src;src\libs;src\Ethernet;src\VCP</IncludePath>
             </VariousControls>
@@ -914,6 +914,44 @@
               <FileName>main2.s</FileName>
               <FileType>2</FileType>
               <FilePath>.\src\main2.s</FilePath>
+              <FileOption>
+                <CommonProperty>
+                  <UseCPPCompiler>2</UseCPPCompiler>
+                  <RVCTCodeConst>0</RVCTCodeConst>
+                  <RVCTZI>0</RVCTZI>
+                  <RVCTOtherData>0</RVCTOtherData>
+                  <ModuleSelection>0</ModuleSelection>
+                  <IncludeInBuild>0</IncludeInBuild>
+                  <AlwaysBuild>0</AlwaysBuild>
+                  <GenerateAssemblyFile>2</GenerateAssemblyFile>
+                  <AssembleAssemblyFile>2</AssembleAssemblyFile>
+                  <PublicsOnly>2</PublicsOnly>
+                  <StopOnExitCode>11</StopOnExitCode>
+                  <CustomArgument></CustomArgument>
+                  <IncludeLibraryModules></IncludeLibraryModules>
+                  <ComprImg>1</ComprImg>
+                </CommonProperty>
+                <FileArmAds>
+                  <Aads>
+                    <interw>2</interw>
+                    <Ropi>2</Ropi>
+                    <Rwpi>2</Rwpi>
+                    <thumb>2</thumb>
+                    <SplitLS>2</SplitLS>
+                    <SwStkChk>2</SwStkChk>
+                    <NoWarn>2</NoWarn>
+                    <uSurpInc>2</uSurpInc>
+                    <useXO>2</useXO>
+                    <uClangAs>2</uClangAs>
+                    <VariousControls>
+                      <MiscControls></MiscControls>
+                      <Define></Define>
+                      <Undefine></Undefine>
+                      <IncludePath></IncludePath>
+                    </VariousControls>
+                  </Aads>
+                </FileArmAds>
+              </FileOption>
             </File>
             <File>
               <FileName>Tables.c</FileName>
@@ -1401,11 +1439,6 @@
           <GroupName>Menu/Pages</GroupName>
           <Files>
             <File>
-              <FileName>Definition.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\src\Menu\Pages\Definition.c</FilePath>
-            </File>
-            <File>
               <FileName>Definition.h</FileName>
               <FileType>5</FileType>
               <FilePath>.\src\Menu\Pages\Definition.h</FilePath>
@@ -1461,11 +1494,6 @@
               <FilePath>.\src\Menu\Pages\PageTime.c</FilePath>
             </File>
             <File>
-              <FileName>PageTrig.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\src\Menu\Pages\PageTrig.c</FilePath>
-            </File>
-            <File>
               <FileName>PageDebug.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\src\Menu\Pages\PageDebug.c</FilePath>
@@ -1494,6 +1522,16 @@
               <FileName>PageHelp.h</FileName>
               <FileType>5</FileType>
               <FilePath>.\src\Menu\Pages\PageHelp.h</FilePath>
+            </File>
+            <File>
+              <FileName>PageTrig.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\src\Menu\Pages\PageTrig.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>Definition.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\src\Menu\Pages\Definition.cpp</FilePath>
             </File>
           </Files>
         </Group>

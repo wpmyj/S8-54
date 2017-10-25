@@ -73,7 +73,7 @@
         <LExpSel>0</LExpSel>
       </OPTXL>
       <OPTFL>
-        <tvExp>0</tvExp>
+        <tvExp>1</tvExp>
         <tvExpOptDlg>0</tvExpOptDlg>
         <IsCurrentTarget>1</IsCurrentTarget>
       </OPTFL>
@@ -152,7 +152,7 @@
           <Type>0</Type>
           <LineNumber>252</LineNumber>
           <EnabledFlag>1</EnabledFlag>
-          <Address>134493754</Address>
+          <Address>134380836</Address>
           <ByteObject>0</ByteObject>
           <HtxType>0</HtxType>
           <ManyObjects>0</ManyObjects>
@@ -168,7 +168,7 @@
           <Type>0</Type>
           <LineNumber>64</LineNumber>
           <EnabledFlag>1</EnabledFlag>
-          <Address>134354414</Address>
+          <Address>134428638</Address>
           <ByteObject>0</ByteObject>
           <HtxType>0</HtxType>
           <ManyObjects>0</ManyObjects>
@@ -178,22 +178,6 @@
           <Filename>&lt;1&gt;.\src\VCP\usbd_cdc_interface.c</Filename>
           <ExecCommand></ExecCommand>
           <Expression>\\S8_54\src/VCP/usbd_cdc_interface.c\64</Expression>
-        </Bp>
-        <Bp>
-          <Number>2</Number>
-          <Type>0</Type>
-          <LineNumber>160</LineNumber>
-          <EnabledFlag>1</EnabledFlag>
-          <Address>134454482</Address>
-          <ByteObject>0</ByteObject>
-          <HtxType>0</HtxType>
-          <ManyObjects>0</ManyObjects>
-          <SizeOfObject>0</SizeOfObject>
-          <BreakByAccess>0</BreakByAccess>
-          <BreakIfRCount>1</BreakIfRCount>
-          <Filename>&lt;1&gt;.\src\VCP\VCP.c</Filename>
-          <ExecCommand></ExecCommand>
-          <Expression>\\S8_54\src/VCP/VCP.c\160</Expression>
         </Bp>
       </Breakpoint>
       <WatchWindow1>
@@ -1354,7 +1338,7 @@
 
   <Group>
     <GroupName>libs</GroupName>
-    <tvExp>0</tvExp>
+    <tvExp>1</tvExp>
     <tvExpOptDlg>0</tvExpOptDlg>
     <cbSel>0</cbSel>
     <RteFlg>0</RteFlg>
@@ -1470,7 +1454,7 @@
 
   <Group>
     <GroupName>src</GroupName>
-    <tvExp>1</tvExp>
+    <tvExp>0</tvExp>
     <tvExpOptDlg>0</tvExpOptDlg>
     <cbSel>0</cbSel>
     <RteFlg>0</RteFlg>
@@ -2713,18 +2697,6 @@
     <File>
       <GroupNumber>17</GroupNumber>
       <FileNumber>189</FileNumber>
-      <FileType>1</FileType>
-      <tvExp>0</tvExp>
-      <tvExpOptDlg>0</tvExpOptDlg>
-      <bDave2>0</bDave2>
-      <PathWithFileName>.\src\Menu\Pages\Definition.c</PathWithFileName>
-      <FilenameWithoutPath>Definition.c</FilenameWithoutPath>
-      <RteFlg>0</RteFlg>
-      <bShared>0</bShared>
-    </File>
-    <File>
-      <GroupNumber>17</GroupNumber>
-      <FileNumber>190</FileNumber>
       <FileType>5</FileType>
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
@@ -2736,7 +2708,7 @@
     </File>
     <File>
       <GroupNumber>17</GroupNumber>
-      <FileNumber>191</FileNumber>
+      <FileNumber>190</FileNumber>
       <FileType>1</FileType>
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
@@ -2748,7 +2720,7 @@
     </File>
     <File>
       <GroupNumber>17</GroupNumber>
-      <FileNumber>192</FileNumber>
+      <FileNumber>191</FileNumber>
       <FileType>5</FileType>
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
@@ -2760,7 +2732,7 @@
     </File>
     <File>
       <GroupNumber>17</GroupNumber>
-      <FileNumber>193</FileNumber>
+      <FileNumber>192</FileNumber>
       <FileType>5</FileType>
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
@@ -2772,7 +2744,7 @@
     </File>
     <File>
       <GroupNumber>17</GroupNumber>
-      <FileNumber>194</FileNumber>
+      <FileNumber>193</FileNumber>
       <FileType>1</FileType>
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
@@ -2784,7 +2756,7 @@
     </File>
     <File>
       <GroupNumber>17</GroupNumber>
-      <FileNumber>195</FileNumber>
+      <FileNumber>194</FileNumber>
       <FileType>1</FileType>
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
@@ -2796,7 +2768,7 @@
     </File>
     <File>
       <GroupNumber>17</GroupNumber>
-      <FileNumber>196</FileNumber>
+      <FileNumber>195</FileNumber>
       <FileType>5</FileType>
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
@@ -2808,7 +2780,7 @@
     </File>
     <File>
       <GroupNumber>17</GroupNumber>
-      <FileNumber>197</FileNumber>
+      <FileNumber>196</FileNumber>
       <FileType>1</FileType>
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
@@ -2820,7 +2792,7 @@
     </File>
     <File>
       <GroupNumber>17</GroupNumber>
-      <FileNumber>198</FileNumber>
+      <FileNumber>197</FileNumber>
       <FileType>5</FileType>
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
@@ -2832,7 +2804,7 @@
     </File>
     <File>
       <GroupNumber>17</GroupNumber>
-      <FileNumber>199</FileNumber>
+      <FileNumber>198</FileNumber>
       <FileType>1</FileType>
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
@@ -2844,7 +2816,7 @@
     </File>
     <File>
       <GroupNumber>17</GroupNumber>
-      <FileNumber>200</FileNumber>
+      <FileNumber>199</FileNumber>
       <FileType>1</FileType>
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
@@ -2856,19 +2828,7 @@
     </File>
     <File>
       <GroupNumber>17</GroupNumber>
-      <FileNumber>201</FileNumber>
-      <FileType>1</FileType>
-      <tvExp>0</tvExp>
-      <tvExpOptDlg>0</tvExpOptDlg>
-      <bDave2>0</bDave2>
-      <PathWithFileName>.\src\Menu\Pages\PageTrig.c</PathWithFileName>
-      <FilenameWithoutPath>PageTrig.c</FilenameWithoutPath>
-      <RteFlg>0</RteFlg>
-      <bShared>0</bShared>
-    </File>
-    <File>
-      <GroupNumber>17</GroupNumber>
-      <FileNumber>202</FileNumber>
+      <FileNumber>200</FileNumber>
       <FileType>1</FileType>
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
@@ -2880,7 +2840,7 @@
     </File>
     <File>
       <GroupNumber>17</GroupNumber>
-      <FileNumber>203</FileNumber>
+      <FileNumber>201</FileNumber>
       <FileType>1</FileType>
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
@@ -2892,7 +2852,7 @@
     </File>
     <File>
       <GroupNumber>17</GroupNumber>
-      <FileNumber>204</FileNumber>
+      <FileNumber>202</FileNumber>
       <FileType>5</FileType>
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
@@ -2904,7 +2864,7 @@
     </File>
     <File>
       <GroupNumber>17</GroupNumber>
-      <FileNumber>205</FileNumber>
+      <FileNumber>203</FileNumber>
       <FileType>1</FileType>
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
@@ -2916,7 +2876,7 @@
     </File>
     <File>
       <GroupNumber>17</GroupNumber>
-      <FileNumber>206</FileNumber>
+      <FileNumber>204</FileNumber>
       <FileType>1</FileType>
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
@@ -2928,13 +2888,37 @@
     </File>
     <File>
       <GroupNumber>17</GroupNumber>
-      <FileNumber>207</FileNumber>
+      <FileNumber>205</FileNumber>
       <FileType>5</FileType>
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
       <PathWithFileName>.\src\Menu\Pages\PageHelp.h</PathWithFileName>
       <FilenameWithoutPath>PageHelp.h</FilenameWithoutPath>
+      <RteFlg>0</RteFlg>
+      <bShared>0</bShared>
+    </File>
+    <File>
+      <GroupNumber>17</GroupNumber>
+      <FileNumber>206</FileNumber>
+      <FileType>8</FileType>
+      <tvExp>0</tvExp>
+      <tvExpOptDlg>0</tvExpOptDlg>
+      <bDave2>0</bDave2>
+      <PathWithFileName>.\src\Menu\Pages\PageTrig.cpp</PathWithFileName>
+      <FilenameWithoutPath>PageTrig.cpp</FilenameWithoutPath>
+      <RteFlg>0</RteFlg>
+      <bShared>0</bShared>
+    </File>
+    <File>
+      <GroupNumber>17</GroupNumber>
+      <FileNumber>207</FileNumber>
+      <FileType>8</FileType>
+      <tvExp>0</tvExp>
+      <tvExpOptDlg>0</tvExpOptDlg>
+      <bDave2>0</bDave2>
+      <PathWithFileName>.\src\Menu\Pages\Definition.cpp</PathWithFileName>
+      <FilenameWithoutPath>Definition.cpp</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
     </File>

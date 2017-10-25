@@ -1,5 +1,3 @@
-// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
-// PVS-Studio Static Code Analyzer for C, C++ and C#: http://www.viva64.com
 #include "defines.h"
 #include "Settings/Settings.h"
 #include "Settings/SettingsTypes.h"
@@ -16,15 +14,16 @@
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 extern Page mainPage;
+extern const Page pTime;
 
-static const  Choice cSample;                ///< ÐÀÇÂÅÐÒÊÀ - Âûáîðêà
+extern const  Choice cSample;                ///< ÐÀÇÂÅÐÒÊÀ - Âûáîðêà
 static bool  IsActive_Sample(void);
-static const  Choice cPeakDet;               ///< ÐÀÇÂÅÐÒÊÀ - Ïèê äåò
+extern const  Choice cPeakDet;               ///< ÐÀÇÂÅÐÒÊÀ - Ïèê äåò
 static bool  IsActive_PeakDet(void);
        void OnChanged_PeakDet(bool active);
-static const  Choice cTPos;                  ///< ÐÀÇÂÅÐÒÊÀ - Òî
+extern const  Choice cTPos;                  ///< ÐÀÇÂÅÐÒÊÀ - Òî
        void OnChanged_TPos(bool active);
-static const  Choice cDivRole;               ///< ÐÀÇÂÅÐÒÊÀ - Ô-öèÿ ÂÐ/ÄÅË
+extern const  Choice cDivRole;               ///< ÐÀÇÂÅÐÒÊÀ - Ô-öèÿ ÂÐ/ÄÅË
 
 // ÐÀÇÂÅÐÒÊÀ /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 const Page pTime =

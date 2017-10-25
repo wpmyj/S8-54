@@ -512,8 +512,8 @@ static void DrawChannel_Math(uint8 *dataIn)
     int maxY = GridMathBottom();
 
     bool calculateFiltr = true;
-    int sizeBuffer = BytesInChannel(DS);
-    uint8 data[sizeBuffer];
+    int sizeBuffer = BytesInChannel(DS);   
+    uint8 *data = (uint8 *)malloc(sizeBuffer);
   
     BitSet64 points = {0};
 
@@ -529,6 +529,7 @@ static void DrawChannel_Math(uint8 *dataIn)
         points.word1 = FillDataP2P(data, &DS);
         if (points.word1 < 2)                          // Если готово меньше двух точек - выход
         {
+            free (data);
             return;
         }
         dataIn = data;
@@ -536,6 +537,7 @@ static void DrawChannel_Math(uint8 *dataIn)
 
     if (!FUNC_ENABLED)
     {
+        free(data);
         return;
     }
 
@@ -555,6 +557,7 @@ static void DrawChannel_Math(uint8 *dataIn)
             DrawSignalPointed(dataIn, points.word0, points.word1, minY, maxY, scaleY, scaleX);
         }
     }
+    free(data);
 }
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
@@ -616,7 +619,7 @@ static int FillDataP2PforNormal(int numPoints, int numPointsDS, int pointsInScre
     if (numPoints > pointsInScreen)
     {
         int numScreens = numPoints / pointsInScreen;                                                        // Число полных нарисованных экранов.
-        uint8 dataTemp[pointsInScreen];
+        uint8 *dataTemp = (uint8 *)malloc(pointsInScreen);
 
         memcpy(dataTemp, dest + (numScreens - 1) * pointsInScreen - deltaNumPoints, pointsInScreen);        // Теперь скопируем последний полный экран в буфер
 
@@ -625,6 +628,7 @@ static int FillDataP2PforNormal(int numPoints, int numPointsDS, int pointsInScre
                                                                                                             //        xP2P = GridLeft() + ((numPoints  % pointsInScreen) / kP2P) - 1;
 
         memcpy(dest, dataTemp, pointsInScreen);                                                             // Теперь скопируем временный буфер в выходной
+        free(dataTemp);
     }
     else
     {
@@ -817,9 +821,9 @@ static void DrawDataInRect(uint width, Channel ch)
     
     uint8 *data = dataOUT[ch];
 
-    float elemsInColumn = BYTES_IN_CHANNEL_DS / (float)width;
-    uint8 min[width + 1];
-    uint8 max[width + 1];
+    float elemsInColumn = BYTES_IN_CHANNEL_DS / (float)width;   
+    uint8 *min = (uint8 *)malloc(width + 1);
+    uint8 *max = (uint8 *)malloc(width + 1);
 
     if (PEAKDET_DS != PeakDet_Disable)                                 // Если пик. дет. включен
     {
@@ -856,9 +860,9 @@ static void DrawDataInRect(uint width, Channel ch)
     }
 
     const int SIZE_BUFFER = width + 1;
-
-    int mines[SIZE_BUFFER];     // Массив для максимальных значений в каждом столбике
-    int maxes[SIZE_BUFFER];     // Массив для минимальных значений в каждом столбике
+   
+    int *mines = (int *)malloc(SIZE_BUFFER);    // Массив для максимальных значений в каждом столбике
+    int *maxes = (int *)malloc(SIZE_BUFFER);    // Массив для минимальных значений в каждом столбике
 
     float scale = 17.0f / (MAX_VALUE - MIN_VALUE);
 
@@ -904,6 +908,10 @@ static void DrawDataInRect(uint width, Channel ch)
             SendToDisplayDataInRect(ch, x + 255, mines + 255, maxes + 255, numPoints);
         }
     }
+    free(mines);
+    free(maxes);
+    free(min);
+    free(max);
 }
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
@@ -972,7 +980,7 @@ static void SendToDisplayDataInRect(Channel ch, int x, int *min, int *max, int w
 {
     LIMIT_ABOVE(width, 255);
 
-    uint8 points[width * 2];
+    uint8 *points = (uint8 *)malloc(width * 2);
 
     for (int i = 0; i < width; i++)
     {
@@ -981,4 +989,5 @@ static void SendToDisplayDataInRect(Channel ch, int x, int *min, int *max, int w
     }
 
     Painter_DrawVLineArray(x, (int)width, points, gColorChan[ch]); //-V202
+    free(points);
 }

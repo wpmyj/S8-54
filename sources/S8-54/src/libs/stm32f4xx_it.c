@@ -1,5 +1,3 @@
-// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
-// PVS-Studio Static Code Analyzer for C, C++ and C#: http://www.viva64.com
 #include "defines.h"
 #include "Data/Data.h"
 #include "Display/Display.h"
@@ -9,6 +7,11 @@
 #include "Utils/Debug.h"
 #include "stm32f4xx_it.h"
 #include <stm32f4xx_hal.h>
+
+
+#ifdef __cplusplus
+extern "C" {
+#endif
 
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -138,3 +141,7 @@ void HAL_ADC_ConvCpltCallback(ADC_HandleTypeDef* hadc)
     extern uint16 adcValueFPGA;
     adcValueFPGA = (uint16)HAL_ADC_GetValue(hadc);
 }
+
+#ifdef __cplusplus
+}
+#endif

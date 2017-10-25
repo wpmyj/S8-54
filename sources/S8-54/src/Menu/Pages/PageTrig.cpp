@@ -1,5 +1,3 @@
-// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
-// PVS-Studio Static Code Analyzer for C, C++ and C#: http://www.viva64.com
 #include "defines.h"
 #include "Menu/MenuItems.h"
 #include "Settings/Settings.h"
@@ -11,22 +9,22 @@
 
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-static const   Choice cMode;                    ///< ÑÈÍÕÐ - Ðåæèì
+extern const   Choice cMode;                    ///< ÑÈÍÕÐ - Ðåæèì
        void  OnChanged_TrigMode(bool active);   
-static const   Choice cSource;                  ///< ÑÈÍÕÐ - Èñòî÷íèê
+extern const   Choice cSource;                  ///< ÑÈÍÕÐ - Èñòî÷íèê
 static void  OnChanged_Source(bool active);
-static const   Choice cPolarity;                ///< ÑÈÍÕÐ - Ïîëÿðíîñòü
+extern const   Choice cPolarity;                ///< ÑÈÍÕÐ - Ïîëÿðíîñòü
 static void  OnChanged_Polarity(bool active);   
-static const   Choice cInput;                   ///< ÑÈÍÕÐ - Âõîä
+extern const   Choice cInput;                   ///< ÑÈÍÕÐ - Âõîä
 static void  OnChanged_Input(bool active);
-static const    Page ppSearch;                  ///< ÑÈÍÕÐ - ÏÎÈÑÊ
-static const   Choice cSearch_Mode;             ///< ÑÈÍÕÐ - ÏÎÈÑÊ - Ðåæèì
-static const   Button bSearch_Search;           ///< ÑÈÍÕÐ - ÏÎÈÑÊ - Íàéòè
+extern const    Page ppSearch;                  ///< ÑÈÍÕÐ - ÏÎÈÑÊ
+extern const   Choice cSearch_Mode;             ///< ÑÈÍÕÐ - ÏÎÈÑÊ - Ðåæèì
+extern const   Button bSearch_Search;           ///< ÑÈÍÕÐ - ÏÎÈÑÊ - Íàéòè
 static bool   IsActive_Search_Search(void);
 static void    OnPress_Search_Search(void);
 //static const Governor gTimeDelay;               ///< ÑÈÍÕÐ - Óäåðæàíèå
 
-
+extern const Page pTrig;
 extern const Page mainPage;
 
 

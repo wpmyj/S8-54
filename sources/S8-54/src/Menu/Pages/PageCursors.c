@@ -1,5 +1,3 @@
-// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
-// PVS-Studio Static Code Analyzer for C, C++ and C#: http://www.viva64.com
 #include "defines.h"
 #include "PageCursors.h"
 #include "Definition.h"
@@ -20,20 +18,21 @@
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 extern const Page mainPage;
+extern const Page pCursors;
 
-static const  Choice cShow;                             ///< ÊÓÐÑÎÐÛ - Ïîêàçûâàòü
-static const  Choice cLookModeChanA;                    ///< ÊÓÐÑÎÐÛ - Ñëåæåíèå êàíàë 1
-static const  Choice cLookModeChanB;                    ///< ÊÓÐÑÎÐÛ - Ñëåæåíèå êàíàë 2
-static const  Choice cShowFreq;                         ///< ÊÓÐÎÑÐÛ - 1/dT
-static const   Page ppSet;                              ///< ÊÓÐÑÎÐÛ - ÓÑÒÀÍÎÂÈÒÜ
+extern const  Choice cShow;                             ///< ÊÓÐÑÎÐÛ - Ïîêàçûâàòü
+extern const  Choice cLookModeChanA;                    ///< ÊÓÐÑÎÐÛ - Ñëåæåíèå êàíàë 1
+extern const  Choice cLookModeChanB;                    ///< ÊÓÐÑÎÐÛ - Ñëåæåíèå êàíàë 2
+extern const  Choice cShowFreq;                         ///< ÊÓÐÎÑÐÛ - 1/dT
+extern const   Page ppSet;                              ///< ÊÓÐÑÎÐÛ - ÓÑÒÀÍÎÂÈÒÜ
 static void  OnRegSet_Set(int angle);
-static const SButton bSet_Exit;                         ///< ÊÓÐÑÎÐÛ - ÓÑÒÀÍÎÂÈÒÜ - Âûõîä
-static const SButton bSet_Channel;                      ///< ÊÓÐÑÎÐÛ - ÓÑÒÀÍÎÂÈÒÜ - Êàíàë
+extern const SButton bSet_Exit;                         ///< ÊÓÐÑÎÐÛ - ÓÑÒÀÍÎÂÈÒÜ - Âûõîä
+extern const SButton bSet_Channel;                      ///< ÊÓÐÑÎÐÛ - ÓÑÒÀÍÎÂÈÒÜ - Êàíàë
 static void   OnPress_Set_Channel(void);
 static void      Draw_Set_Channel(int x, int y);
 static void      Draw_Set_ChannelA(int x, int y);
 static void      Draw_Set_ChannelB(int x, int y);
-static const SButton bSet_U;                            ///< ÊÓÐÑÎÐÛ - ÓÑÒÀÍÎÂÈÒÜ - Êóðñîðû U
+extern const SButton bSet_U;                            ///< ÊÓÐÑÎÐÛ - ÓÑÒÀÍÎÂÈÒÜ - Êóðñîðû U
 static void   OnPress_Set_U(void);
 static void      Draw_Set_U(int x, int y);
 static void      Draw_Set_U_disable(int x, int y);
@@ -41,7 +40,7 @@ static void      Draw_Set_U_disableBoth(int x, int y);
 static void      Draw_Set_U_enableUpper(int x, int y);
 static void      Draw_Set_U_enableLower(int x, int y);
 static void      Draw_Set_U_enableBoth(int x, int y);
-static const SButton bSet_T;                            ///< ÊÓÐÑÎÐÛ - ÓÑÒÀÍÎÂÈÒÜ - Êóðñîðû Ò
+extern const SButton bSet_T;                            ///< ÊÓÐÑÎÐÛ - ÓÑÒÀÍÎÂÈÒÜ - Êóðñîðû Ò
 static void   OnPress_Set_T(void);
 static void      Draw_Set_T(int x, int y);
 static void      Draw_Set_T_disable(int x, int y);
@@ -49,10 +48,10 @@ static void      Draw_Set_T_disableBoth(int x, int y);
 static void      Draw_Set_T_enableLeft(int x, int y);
 static void      Draw_Set_T_enableRight(int x, int y);
 static void      Draw_Set_T_enableBoth(int x, int y);
-static const SButton bSet_100;                          ///< ÊÓÐÑÎÐÛ - ÓÑÒÀÍÎÂÈÒÜ - 100%
+extern const SButton bSet_100;                          ///< ÊÓÐÑÎÐÛ - ÓÑÒÀÍÎÂÈÒÜ - 100%
 static void   OnPress_Set_100(void);
 static void      Draw_Set_100(int x, int y);
-static const SButton bSet_Movement;                     ///< ÊÓÐÑÎÐÛ - ÓÑÒÀÍÎÂÈÒÜ - Ïåðåìåùåíèå
+extern const SButton bSet_Movement;                     ///< ÊÓÐÑÎÐÛ - ÓÑÒÀÍÎÂÈÒÜ - Ïåðåìåùåíèå
 static void   OnPress_Set_Movement(void);
 static void      Draw_Set_Movement(int x, int y);
 static void      Draw_Set_Movement_Percents(int x, int y);
