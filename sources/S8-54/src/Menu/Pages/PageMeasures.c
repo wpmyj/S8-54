@@ -1,3 +1,5 @@
+// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
+// PVS-Studio Static Code Analyzer for C, C++ and C#: http://www.viva64.com
 #include "defines.h"
 #include "Menu/MenuItems.h"
 #include "Utils/Measures.h"
@@ -10,28 +12,28 @@
 
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-extern const    Page ppFreqMeter;                       ///< ÈÇÌÅÐÅÍÈß - ×ÀÑÒÎÒÎÌÅÐ
-extern const   Choice cFreqMeter_Enable;                ///< ÈÇÌÅÐÅÍÈß - ×ÀÑÒÎÒÎÌÅÐ - ×àñòîòîìåð
+static const    Page ppFreqMeter;                       ///< ÈÇÌÅÐÅÍÈß - ×ÀÑÒÎÒÎÌÅÐ
+static const   Choice cFreqMeter_Enable;                ///< ÈÇÌÅÐÅÍÈß - ×ÀÑÒÎÒÎÌÅÐ - ×àñòîòîìåð
 static void  OnChanged_FreqMeter_Enable(bool param);    
-extern const   Choice cFreqMeter_TimeF;                 ///< ÈÇÌÅÐÅÍÈß - ×ÀÑÒÎÒÎÌÅÐ - Âðåìÿ ñ÷¸òà F
-extern const   Choice cFreqMeter_FreqClc;               ///< ÈÇÌÅÐÅÍÈß - ×ÀÑÒÎÒÎÌÅÐ - Ìåòêè âðåìåíè
-extern const   Choice cFreqMeter_NumPeriods;            ///< ÈÇÌÅÐÅÍÈß - ×ÀÑÒÎÒÎÌÅÐ - Êîë-âî ïåðèîäîâ
-extern const   Choice cIsShow;                          ///< ÈÇÌÅÐÅÍÈß - Ïîêàçûâàòü
-extern const   Choice cNumber;                          ///< ÈÇÌÅÐÅÍÈß - Êîëè÷åñòâî
+static const   Choice cFreqMeter_TimeF;                 ///< ÈÇÌÅÐÅÍÈß - ×ÀÑÒÎÒÎÌÅÐ - Âðåìÿ ñ÷¸òà F
+static const   Choice cFreqMeter_FreqClc;               ///< ÈÇÌÅÐÅÍÈß - ×ÀÑÒÎÒÎÌÅÐ - Ìåòêè âðåìåíè
+static const   Choice cFreqMeter_NumPeriods;            ///< ÈÇÌÅÐÅÍÈß - ×ÀÑÒÎÒÎÌÅÐ - Êîë-âî ïåðèîäîâ
+static const   Choice cIsShow;                          ///< ÈÇÌÅÐÅÍÈß - Ïîêàçûâàòü
+static const   Choice cNumber;                          ///< ÈÇÌÅÐÅÍÈß - Êîëè÷åñòâî
 static bool   IsActive_Number(void);
-extern const   Choice cChannels;                        ///< ÈÇÌÅÐÅÍÈß - Êàíàëû
+static const   Choice cChannels;                        ///< ÈÇÌÅÐÅÍÈß - Êàíàëû
 static bool   IsActive_Channels(void);
-extern const    Page ppTune;                            ///< ÈÇÌÅÐÅÍÈß - ÍÀÑÒÐÎÈÒÜ
+static const    Page ppTune;                            ///< ÈÇÌÅÐÅÍÈß - ÍÀÑÒÐÎÈÒÜ
 static bool   IsActive_Tune(void);
 static void   OnRegSet_Tune(int angle);
-extern const  SButton bTune_Exit;                       ///< ÈÇÌÅÐÅÍÈß - ÍÀÑÒÐÎÈÒÜ - Âûõîä
-extern const  SButton bTune_Markers;                    ///< ÈÇÌÅÐÅÍÈß - ÍÀÑÒÐÎÈÒÜ - Ìàðêåðû
+static const  SButton bTune_Exit;                       ///< ÈÇÌÅÐÅÍÈß - ÍÀÑÒÐÎÈÒÜ - Âûõîä
+static const  SButton bTune_Markers;                    ///< ÈÇÌÅÐÅÍÈß - ÍÀÑÒÐÎÈÒÜ - Ìàðêåðû
 static void    OnPress_Tune_Markers(void);
 static void       Draw_Tune_Markers(int x, int y);
-extern const  SButton bTune_Settings;                   ///< ÈÇÌÅÐÅÍÈß - ÍÀÑÒÐÎÈÒÜ - Íàñòðîéêà
+static const  SButton bTune_Settings;                   ///< ÈÇÌÅÐÅÍÈß - ÍÀÑÒÐÎÈÒÜ - Íàñòðîéêà
 static void    OnPress_Tune_Settings(void);
 static void  Draw_Tune_Settings(int x, int y);
-extern const   Choice cMode;                            ///< ÈÇÌÅÐÅÍÈß - Âèä
+static const   Choice cMode;                            ///< ÈÇÌÅÐÅÍÈß - Âèä
 static bool   IsActive_Mode(void);
 
 int8 posActive = 0;                 ///< Ïîçèöèÿ àêòèâíîãî èçìåðåíèÿ (íà êîòîðîì êóðñîð)
@@ -39,7 +41,6 @@ bool pageChoiceIsActive = false;    ///< Åñëè true - ðàñêðûòà ñòðàíèöà âûáîðà èç
 int8 posOnPageChoice = 0;           ///< Ïîçèöèÿ êóðñîðà íà ñòðàíèöå âûáîðà èçìåðåíèÿ
 
 extern const Page mainPage;
-extern const Page pMeasures;
 
 
 // ÈÇÌÅÐÅÍÈß /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

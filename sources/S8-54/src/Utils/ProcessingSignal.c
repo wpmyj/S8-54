@@ -1,3 +1,5 @@
+// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
+// PVS-Studio Static Code Analyzer for C, C++ and C#: http://www.viva64.com
 #include "defines.h"
 #include "ProcessingSignal.h"
 #include "Globals.h"
@@ -83,7 +85,7 @@ static int numBytes = 0;
 typedef struct
 {
     char        *name;
-    pFuncFCh    FuncCalculate;
+    pFuncFU8    FuncCalculate;
     pFuncCFBC   FucnConvertate;
     bool        showSign;           ///< Если true, нужно показывать знак.
 } MeasureCalculate;
@@ -161,7 +163,7 @@ void Processing_CalculateMeasures(void)
         for(int elem = 0; elem < Measure_NumCols(); elem++)
         {
             Measure meas = Measure_Type(str, elem);
-            pFuncFCh func = measures[meas].FuncCalculate;
+            pFuncFU8 func = measures[meas].FuncCalculate;
             if(func)
             {
                 if(meas == MARKED_MEAS || MARKED_MEAS == Measure_None)
@@ -425,7 +427,7 @@ int CalculatePeriodAccurately(Channel ch)
 {
     static int period[2];
 
-    int *sums = (int *)malloc(FPGA_MAX_POINTS);
+    int *sums = malloc(FPGA_MAX_POINTS);
 
     uint8 *dataIn = CHOICE_BUFFER;
 
@@ -1184,7 +1186,7 @@ void Processing_InterpolationSinX_X(uint8 *data, int numPoints, TBase tBase)
     static const int deltas[5] = {100, 50, 20, 10, 5};
     int delta = deltas[tBase];
 
-    uint8 *signedData = (uint8 *)malloc(numPoints / 2);
+    uint8 *signedData = malloc(numPoints / 2);
     int numSignedPoints = 0;
     
     for (int pos = 0; pos < numPoints; pos++)

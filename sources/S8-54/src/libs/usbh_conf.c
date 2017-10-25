@@ -1,3 +1,5 @@
+// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
+// PVS-Studio Static Code Analyzer for C, C++ and C#: http://www.viva64.com
 #include "defines.h"
 #include "Globals.h"
 #include <stm32f4xx_hal.h>
@@ -6,35 +8,61 @@
 #include <usbh_core.h>
 
 
-//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-// LL Driver Callbacks (HCD -> USB Host Library)
-//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+/*******************************************************************************
+                       LL Driver Callbacks (HCD -> USB Host Library)
+*******************************************************************************/
+
+/**
+  * @brief  SOF callback.
+  * @param  hhcd: HCD handle
+  * @retval None
+  */
 void HAL_HCD_SOF_Callback(HCD_HandleTypeDef *hhcd)
 {
-  USBH_LL_IncTimer ((USBH_HandleTypeDef *)hhcd->pData);
+  USBH_LL_IncTimer (hhcd->pData);
 }
 
-//----------------------------------------------------------------------------------------------------------------------------------------------------
+/**
+  * @brief  Connect callback.
+  * @param  hhcd: HCD handle
+  * @retval None
+  */
 void HAL_HCD_Connect_Callback(HCD_HandleTypeDef *hhcd)
 {
-  USBH_LL_Connect((USBH_HandleTypeDef *)hhcd->pData);
+  USBH_LL_Connect(hhcd->pData);
 }
 
-//----------------------------------------------------------------------------------------------------------------------------------------------------
+/**
+  * @brief  Disconnect callback.
+  * @param  hhcd: HCD handle
+  * @retval None
+  */
 void HAL_HCD_Disconnect_Callback(HCD_HandleTypeDef *hhcd)
 {
-  USBH_LL_Disconnect((USBH_HandleTypeDef *)hhcd->pData);
+  USBH_LL_Disconnect(hhcd->pData);
 } 
 
-//----------------------------------------------------------------------------------------------------------------------------------------------------
+/**
+  * @brief  Notify URB state change callback.
+  * @param  hhcd: HCD handle
+  * @param  chnum:
+  * @param  urb_state:
+  * @retval None
+  */
 void HAL_HCD_HC_NotifyURBChange_Callback(HCD_HandleTypeDef *hhcd, uint8_t chnum, HCD_URBStateTypeDef urb_state)
 {
   /* To be used with OS to sync URB state with the global state machine */
 }
 
-//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-// LL Driver Interface (USB Host Library --> HCD)
-//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+/*******************************************************************************
+                       LL Driver Interface (USB Host Library --> HCD)
+*******************************************************************************/
+
+/**
+  * @brief  Initializes the Low Level portion of the Host driver.
+  * @param  phost: Host handle
+  * @retval USBH Status
+  */
 USBH_StatusTypeDef USBH_LL_Init(USBH_HandleTypeDef *phost)
 {  
     /* Set the LL driver parameters */
@@ -59,33 +87,49 @@ USBH_StatusTypeDef USBH_LL_Init(USBH_HandleTypeDef *phost)
     return USBH_OK;
 }
 
-//----------------------------------------------------------------------------------------------------------------------------------------------------
+/**
+  * @brief  De-Initializes the Low Level portion of the Host driver.
+  * @param  phost: Host handle
+  * @retval USBH Status
+  */
 USBH_StatusTypeDef USBH_LL_DeInit(USBH_HandleTypeDef *phost)
 {
-  HAL_HCD_DeInit((HCD_HandleTypeDef *)phost->pData);
+  HAL_HCD_DeInit(phost->pData);
   return USBH_OK; 
 }
 
-//----------------------------------------------------------------------------------------------------------------------------------------------------
+/**
+  * @brief  Starts the Low Level portion of the Host driver.   
+  * @param  phost: Host handle
+  * @retval USBH Status
+  */
 USBH_StatusTypeDef USBH_LL_Start(USBH_HandleTypeDef *phost)
 {
-  HAL_HCD_Start((HCD_HandleTypeDef *)phost->pData);
+  HAL_HCD_Start(phost->pData);
   return USBH_OK; 
 }
 
-//----------------------------------------------------------------------------------------------------------------------------------------------------
+/**
+  * @brief  Stops the Low Level portion of the Host driver.
+  * @param  phost: Host handle
+  * @retval USBH Status
+  */
 USBH_StatusTypeDef USBH_LL_Stop(USBH_HandleTypeDef *phost)
 {
-  HAL_HCD_Stop((HCD_HandleTypeDef *)phost->pData);
+  HAL_HCD_Stop(phost->pData);
   return USBH_OK; 
 }
 
-//----------------------------------------------------------------------------------------------------------------------------------------------------
+/**
+  * @brief  Returns the USB Host Speed from the Low Level Driver.
+  * @param  phost: Host handle
+  * @retval USBH Speeds
+  */
 USBH_SpeedTypeDef USBH_LL_GetSpeed(USBH_HandleTypeDef *phost)
 {
   USBH_SpeedTypeDef speed = USBH_SPEED_FULL;
     
-  switch (HAL_HCD_GetCurrentSpeed((HCD_HandleTypeDef *)phost->pData))
+  switch (HAL_HCD_GetCurrentSpeed(phost->pData))
   {
   case 0: 
     speed = USBH_SPEED_HIGH;
@@ -106,17 +150,26 @@ USBH_SpeedTypeDef USBH_LL_GetSpeed(USBH_HandleTypeDef *phost)
   return speed;
 }
 
-//----------------------------------------------------------------------------------------------------------------------------------------------------
+/**
+  * @brief  Resets the Host Port of the Low Level Driver.
+  * @param  phost: Host handle
+  * @retval USBH Status
+  */
 USBH_StatusTypeDef USBH_LL_ResetPort (USBH_HandleTypeDef *phost) 
 {
-  HAL_HCD_ResetPort((HCD_HandleTypeDef *)phost->pData);
+  HAL_HCD_ResetPort(phost->pData);
   return USBH_OK; 
 }
 
-//----------------------------------------------------------------------------------------------------------------------------------------------------
+/**
+  * @brief  Returns the last transfered packet size.
+  * @param  phost: Host handle
+  * @param  pipe: Pipe index   
+  * @retval Packet Size
+  */
 uint32_t USBH_LL_GetLastXferSize(USBH_HandleTypeDef *phost, uint8_t pipe)  
 {
-  return HAL_HCD_HC_GetXferCount((HCD_HandleTypeDef *)phost->pData, pipe);
+  return HAL_HCD_HC_GetXferCount(phost->pData, pipe);
 }
 
 /**
@@ -138,7 +191,7 @@ USBH_StatusTypeDef USBH_LL_OpenPipe(USBH_HandleTypeDef *phost,
                                     uint8_t ep_type,
                                     uint16_t mps)
 {
-  HAL_HCD_HC_Init((HCD_HandleTypeDef *)phost->pData,
+  HAL_HCD_HC_Init(phost->pData,
                   pipe,
                   epnum,
                   dev_address,
@@ -156,7 +209,7 @@ USBH_StatusTypeDef USBH_LL_OpenPipe(USBH_HandleTypeDef *phost,
   */
 USBH_StatusTypeDef USBH_LL_ClosePipe(USBH_HandleTypeDef *phost, uint8_t pipe)   
 {
-  HAL_HCD_HC_Halt((HCD_HandleTypeDef *)phost->pData, pipe);
+  HAL_HCD_HC_Halt(phost->pData, pipe);
   return USBH_OK;
 }
 
@@ -196,7 +249,7 @@ USBH_StatusTypeDef USBH_LL_SubmitURB(USBH_HandleTypeDef *phost,
                                      uint16_t length,
                                      uint8_t do_ping) 
 {
-  HAL_HCD_HC_SubmitRequest((HCD_HandleTypeDef *)phost->pData,
+  HAL_HCD_HC_SubmitRequest(phost->pData,
                            pipe, 
                            direction,
                            ep_type,  
@@ -223,7 +276,7 @@ USBH_StatusTypeDef USBH_LL_SubmitURB(USBH_HandleTypeDef *phost,
   */
 USBH_URBStateTypeDef USBH_LL_GetURBState(USBH_HandleTypeDef *phost, uint8_t pipe) 
 {
-  return (USBH_URBStateTypeDef)HAL_HCD_HC_GetURBState ((HCD_HandleTypeDef *)phost->pData, pipe);
+  return (USBH_URBStateTypeDef)HAL_HCD_HC_GetURBState (phost->pData, pipe);
 }
 
 /**

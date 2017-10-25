@@ -39,9 +39,8 @@ PanelButton GetFuncButtonFromY(int _y)
         if(_y < y)
         {
             return button;
-        }       
-        button = (PanelButton)((int)button + 1);
-        
+        }
+        button++;
         y += step;
     }
     return  B_F5;
@@ -99,13 +98,13 @@ void Menu_Draw(void)
         void *item = OpenedItem();
         if(MENU_IS_SHOWN)
         {
-            DrawOpenedPage(TypeMenuItem(item) == Item_Page ? (Page *)item : Keeper(item), 0, GRID_TOP);
+            DrawOpenedPage(TypeMenuItem(item) == Item_Page ? item : Keeper(item), 0, GRID_TOP);
         }
         else
         {
             if(TypeMenuItem(item) == Item_Choice || TypeMenuItem(item) == Item_ChoiceReg)
             {
-                Choice_Draw((Choice *)item, CalculateX(0), GRID_TOP, false);
+                Choice_Draw(item, CalculateX(0), GRID_TOP, false);
                 Painter_DrawVLineC(CalculateX(0), GRID_TOP + 1, GRID_TOP + 34, ColorBorderMenu(false));
                 Painter_DrawVLine(CalculateX(0) + 1, GRID_TOP + 1, GRID_TOP + 34);
                 Painter_DrawVLineC(GRID_RIGHT, GRID_TOP + 30, GRID_TOP + 40, gColorFill);
@@ -114,7 +113,7 @@ void Menu_Draw(void)
             }
             else if(TypeMenuItem(item) == Item_Governor)
             {
-                Governor_Draw((Governor *)item, CalculateX(0), GRID_TOP, true);
+                Governor_Draw(item, CalculateX(0), GRID_TOP, true);
                 Painter_DrawHLineC(GRID_TOP, CalculateX(0) - 2, GRID_RIGHT, gColorFill);
                 Painter_DrawVLine(GRID_RIGHT, GRID_TOP, GRID_TOP + 40);
             }
@@ -247,61 +246,61 @@ static void DrawNestingPage(Page *page, int left, int bottom)
 //----------------------------------------------------------------------------------------------------------------------------------------------------
 static void DrawGovernor(void *item, int x, int y)
 {
-    Governor_Draw((Governor *)item, x, y, false);
+    Governor_Draw(item, x, y, false);
 }
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
 static void DrawIPaddress(void *item, int x, int y)
 {
-    IPaddress_Draw((IPaddress *)item, x, y, false);
+    IPaddress_Draw(item, x, y, false);
 }
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
 static void DrawMACaddress(void *item, int x, int y)
 {
-    MACaddress_Draw((MACaddress *)item, x, y, false);
+    MACaddress_Draw(item, x, y, false);
 }
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
 static void DrawFormula(void *item, int x, int y)
 {
-    Formula_Draw((Formula *)item, x, y, false);
+    Formula_Draw(item, x, y, false);
 }
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
 static void DrawChoice(void *item, int x, int y)
 {
-    Choice_Draw((Choice *)item, x, y, false);
+    Choice_Draw(item, x, y, false);
 }
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
 static void DrawSmallButton(void *item, int x, int y)
 {
-    SmallButton_Draw((SButton *)item, LEFT_SB, y + 7);
+    SmallButton_Draw(item, LEFT_SB, y + 7);
 }
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
 static void DrawTime(void *item, int x, int y)
 {
-    Time_Draw((Time *)item, x, y, false);
+    Time_Draw(item, x, y, false);
 }
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
 static void DrawGovernorColor(void *item, int x, int y)
 {
-    GovernorColor_Draw((GovernorColor *)item, x, y, false);
+    GovernorColor_Draw(item, x, y, false);
 }
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
 static void DrawButton(void *item, int x, int y)
 {
-    Button_Draw((Button *)item, x, y);
+    Button_Draw(item, x, y);
 }
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
 static void DrawPage(void *item, int x, int y)
 {
-    Page_Draw((Page *)item, x, y);
+    Page_Draw(item, x, y);
 }
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
@@ -356,27 +355,27 @@ void DrawOpenedPage(Page *page, int layer, int yTop)
         TypeItem type = TypeMenuItem(item);
         if (type == Item_Choice || type == Item_ChoiceReg)
         {
-            Choice_Draw((Choice *)item, CalculateX(1), ItemOpenedPosY(item), true);
+            Choice_Draw(item, CalculateX(1), ItemOpenedPosY(item), true);
         }
         else if (type == Item_Governor)
         {
-            Governor_Draw((Governor *)item, CalculateX(1), ItemOpenedPosY(item), true);
+            Governor_Draw(item, CalculateX(1), ItemOpenedPosY(item), true);
         }
         else if (type == Item_GovernorColor)
         {
-            GovernorColor_Draw((GovernorColor *)item, CalculateX(1), ItemOpenedPosY(item), true);
+            GovernorColor_Draw(item, CalculateX(1), ItemOpenedPosY(item), true);
         }
         else if (type == Item_Time)
         {
-            Time_Draw((Time *)item, CalculateX(1), ItemOpenedPosY(item), true);
+            Time_Draw(item, CalculateX(1), ItemOpenedPosY(item), true);
         }
         else if (type == Item_IP)
         {
-            IPaddress_Draw((IPaddress *)item, CalculateX(1), ItemOpenedPosY(item), true);
+            IPaddress_Draw(item, CalculateX(1), ItemOpenedPosY(item), true);
         }
         else if (type == Item_MAC)
         {
-            MACaddress_Draw((MACaddress *)item, CalculateX(1), ItemOpenedPosY(item), true);
+            MACaddress_Draw(item, CalculateX(1), ItemOpenedPosY(item), true);
         }
     }
 

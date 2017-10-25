@@ -82,10 +82,6 @@ static USBH_StatusTypeDef  DeInitStateMachine(USBH_HandleTypeDef *phost);
 static void USBH_Process_OS(void const * argument);
 #endif
 
-#ifdef __cplusplus
-extern "C" {
-#endif
-
 /**
   * @brief  HCD_Init 
   *         Initialize the HOST Core.
@@ -137,11 +133,6 @@ USBH_StatusTypeDef  USBH_Init(USBH_HandleTypeDef *phost, void (*pUsrFunc)(USBH_H
   USBH_LL_Init(phost);
   return USBH_OK;
 }
-
-#ifdef __cplusplus
-}
-#endif
-
 
 /**
   * @brief  HCD_Init 

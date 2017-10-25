@@ -93,10 +93,10 @@ void *CurrentItem(void)
 {
     TypeItem type = Item_None;
     void *lastOpened = RetLastOpened((Page *)&mainPage, &type);
-    int8 pos = PosCurrentItem((const Page *)lastOpened);
+    int8 pos = PosCurrentItem(lastOpened);
     if(type == Item_Page && pos != 0x7f)
     {
-        return Item((const Page *)lastOpened, pos);
+        return Item(lastOpened, pos);
     }
     return lastOpened;
 }
@@ -107,13 +107,13 @@ int HeightOpenedItem(void *item)
     TypeItem type = TypeMenuItem(item);
     if(type == Item_Page)
     {
-        int numItems = NumItemsInPage((const Page *)item) - NumCurrentSubPage((Page *)item) * MENU_ITEMS_ON_DISPLAY;
+        int numItems = NumItemsInPage(item) - NumCurrentSubPage(item) * MENU_ITEMS_ON_DISPLAY;
         LIMITATION(numItems, 0, MENU_ITEMS_ON_DISPLAY);
         return MP_TITLE_HEIGHT + MI_HEIGHT * numItems;
     } 
     else if(type == Item_Choice || type == Item_ChoiceReg)
     {
-        return MOI_HEIGHT_TITLE + Choice_NumSubItems((Choice *)item) * MOSI_HEIGHT - 1;
+        return MOI_HEIGHT_TITLE + Choice_NumSubItems(item) * MOSI_HEIGHT - 1;
     }
     return MI_HEIGHT;
 }
@@ -176,7 +176,7 @@ void *RetLastOpened(Page *page, TypeItem *type)
         TypeItem typeLocal = TypeMenuItem(Item(page, posActItem));
         if(typeLocal == Item_Page)
         {
-            return RetLastOpened((Page *)item, type);
+            return RetLastOpened(item, type);
         }
         else
         {
@@ -195,7 +195,7 @@ void CloseOpenedItem(void)
     {
         if (IsPageSB(item))
         {
-            CallFuncOnPressButton(SmallButonFromPage((Page *)item, 0));
+            CallFuncOnPressButton(SmallButonFromPage(item, 0));
         }
         NamePage name = Keeper(item)->name;
         SetMenuPosActItem(name, MENU_POS_ACT_ITEM(name) & 0x7f);
@@ -236,7 +236,7 @@ bool ItemIsOpened(const void *item)
 Page *Keeper(const void *item)
 {
     const Page *page = ((Page *)(item))->keeper;
-    return (Page *)page;
+    return (void *)page;
 }
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
@@ -252,7 +252,7 @@ NamePage GetNamePage(const Page *page)
 //----------------------------------------------------------------------------------------------------------------------------------------------------
 NamePage GetNameOpenedPage(void)
 {
-    return GetNamePage((const Page *)OpenedItem());
+    return GetNamePage(OpenedItem());
 }
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
@@ -368,23 +368,23 @@ bool ChangeOpenedItem(void *item, int delta)
 
     if (type == Item_Page)
     {
-        ChangeSubPage((const Page *)item, delta);
+        ChangeSubPage(item, delta);
     }
     else if (type == Item_IP)
     {
-        IPaddress_ChangeValue((IPaddress *)item, delta);
+        IPaddress_ChangeValue(item, delta);
     }
     else if (type == Item_MAC)
     {
-        MACaddress_ChangeValue((MACaddress *)item, delta);
+        MACaddress_ChangeValue(item, delta);
     }
     else if (type == Item_ChoiceReg || type == Item_Choice)
     {
-        Choice_ChangeIndex((Choice *)item, MENU_IS_SHOWN ? delta : -delta);
+        Choice_ChangeIndex(item, MENU_IS_SHOWN ? delta : -delta);
     }
     else if (type == Item_Governor)
     {
-        Governor_ChangeValue((Governor *)item, delta);
+        Governor_ChangeValue(item, delta);
     }
     
     return true;
@@ -396,7 +396,7 @@ void ChangeItem(void *item, int delta)
     TypeItem type = TypeMenuItem(item);
     if (type == Item_Choice || type == Item_ChoiceReg)
     {
-        Choice_StartChange((Choice *)item, delta);
+        Choice_StartChange(item, delta);
     }
     else if (type == Item_Governor)
     {
@@ -412,7 +412,7 @@ void ChangeItem(void *item, int delta)
     }
     else if (type == Item_GovernorColor)
     {
-        GovernorColor_ChangeValue((GovernorColor *)item, delta);
+        GovernorColor_ChangeValue(item, delta);
     }
 }
 
@@ -444,7 +444,7 @@ bool IsPageSB(const void *item)
 //----------------------------------------------------------------------------------------------------------------------------------------------------
 SButton* SmallButonFromPage(Page *page, int numButton)
 {
-    return (SButton *)page->items[numButton];
+    return page->items[numButton];
 }
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------

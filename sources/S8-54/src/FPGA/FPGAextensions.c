@@ -1,3 +1,5 @@
+// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
+// PVS-Studio Static Code Analyzer for C, C++ and C#: http://www.viva64.com
 #include "FPGAExtensions.h"
 #include "Log.h"
 #include "Data/DataBuffer.h"
@@ -136,7 +138,7 @@ static bool IsCalibrateChannel(Channel ch)
 static void CreateCalibrationStruct(void)
 {
     /** @todo перенести cal в extraMEM */
-    cal = (CalibrationStruct *)malloc(sizeof(CalibrationStruct));
+    cal = malloc(sizeof(CalibrationStruct));
     memset(cal, 0, sizeof(CalibrationStruct)); //-V575
 }
 

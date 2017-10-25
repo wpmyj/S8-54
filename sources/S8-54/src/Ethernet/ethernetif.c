@@ -396,10 +396,6 @@ err_t ethernetif_init(struct netif *netif)
   return ERR_OK;
 }
 
-#ifdef __cplusplus
-extern "C" {
-#endif
-
 /**
   * @brief  Returns the current time in milliseconds
   *         when LWIP_TIMERS == 1 and NO_SYS == 1
@@ -409,10 +405,6 @@ u32_t sys_now(void)
 {
   return HAL_GetTick();
 }
-
-#ifdef __cplusplus
-}
-#endif
 
 /**
   * @brief  This function sets the netif link status.

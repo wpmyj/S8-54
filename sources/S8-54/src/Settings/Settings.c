@@ -1,3 +1,5 @@
+// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
+// PVS-Studio Static Code Analyzer for C, C++ and C#: http://www.viva64.com
 #include "Settings.h"
 #include "Hardware/FLASH.H"
 #include "Display/Display.h"
@@ -341,7 +343,7 @@ void SetMenuPageDebugActive(bool active)
 //----------------------------------------------------------------------------------------------------------------------------------------------------
 void CurrentPageSBregSet(int angle)
 {
-    Page *page = (Page *)OpenedItem();
+    Page *page = OpenedItem();
     if (page->funcRegSetSB)
     {
         page->funcRegSetSB(angle);
@@ -354,8 +356,8 @@ const SButton* GetSmallButton(PanelButton button)
 {
     if(MenuIsMinimize() && button >= B_Menu && button <= B_F5)
     {
-        Page *page = (Page *)OpenedItem();
-        SButton *sb = (SButton *)page->items[button - B_Menu];
+        Page *page = OpenedItem();
+        SButton *sb = page->items[button - B_Menu];
         return sb;
     }
     return NULL;

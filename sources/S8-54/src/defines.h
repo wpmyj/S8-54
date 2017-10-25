@@ -1,10 +1,10 @@
+// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
+// PVS-Studio Static Code Analyzer for C, C++ and C#: http://www.viva64.com
 #pragma once
 #include <stm32f4xx_hal.h>
 //#include <stdio.h>
 #include <math.h>
 #include <limits.h>
-
-#include "Settings/SettingsTypes.h"
 
 #define S8_54
 //#define S8_55
@@ -53,6 +53,13 @@ typedef unsigned    char        uchar;
 typedef uint8                   BYTE; //-V6770
 
 
+#ifndef bool
+typedef unsigned char bool;
+#define false   0
+#define true    (!false)
+#endif
+
+
 #define DEBUG
 
 
@@ -94,7 +101,6 @@ typedef void    (*pFuncVI16)(int16);
 typedef bool    (*pFuncBU8)(uint8);
 typedef void    (*pFuncVI16pI16pI16)(int16, int16 *, int16 *);
 typedef float   (*pFuncFU8)(uint8);
-typedef float   (*pFuncFCh)(Channel);
 typedef char   *(*pFuncCFB)(float, bool);
 typedef char   *(*pFuncCFBC)(float, bool, char *);
 typedef void    (*pFuncVU8)(uint8 *);
@@ -213,17 +219,3 @@ typedef struct
 void HardwareErrorHandler(const char *file, const char *function, int line);
 
 #define SAFE_FREE(x) if(x) free(x); (x) = 0;
-
-
-#define ITM_Port8(n)    (*((__IO uint8 *)(0xe0000000 + 4 * n)))
-#define ITM_Port16(n)   (*((__IO uint16 *)(0xe0000000 + 4 * n)))
-#define ITM_Port32(n)   (*((__IO uint *)(0xe0000000 + 4 * n)))
-
-#define DEMCR (*((__IO uint *)(0xe000edfc)))
-#define TRCENA  0x01000000
-
-struct FILE { int handle; };
-extern FILE __stdout;
-extern FILE __stdin;
-
-int fputc(int ch, FILE *f);

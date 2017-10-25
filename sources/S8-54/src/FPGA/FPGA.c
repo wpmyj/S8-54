@@ -1,3 +1,5 @@
+// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
+// PVS-Studio Static Code Analyzer for C, C++ and C#: http://www.viva64.com
 #include "FPGA.h"
 #include "FPGATypes.h"
 #include "Log.h"
@@ -45,8 +47,6 @@ static struct BitFieldFPGA
 
 
 #define NULL_TSHIFT 1000000
-
-extern const int Kr[];
 
 #define N_KR 100
 const int Kr[] = {N_KR / 1, N_KR / 2, N_KR / 5, N_KR / 10, N_KR / 20};
@@ -561,14 +561,14 @@ static void ReadChannel(uint8 *data, Channel ch, int length, uint16 nStop, bool 
 
     while (p < endP && FPGA_IN_PROCESS_OF_READ)
     {
-        *p++ = (uint16)AVE_VALUE | ((uint16)AVE_VALUE << 8); //READ_DATA_ADC_16(address, ch);
-        *p++ = (uint16)AVE_VALUE | ((uint16)AVE_VALUE << 8); //READ_DATA_ADC_16(address, ch);
-        *p++ = (uint16)AVE_VALUE | ((uint16)AVE_VALUE << 8); //READ_DATA_ADC_16(address, ch);
-        *p++ = (uint16)AVE_VALUE | ((uint16)AVE_VALUE << 8); //READ_DATA_ADC_16(address, ch);
-        *p++ = (uint16)AVE_VALUE | ((uint16)AVE_VALUE << 8); //READ_DATA_ADC_16(address, ch);
-        *p++ = (uint16)AVE_VALUE | ((uint16)AVE_VALUE << 8); //READ_DATA_ADC_16(address, ch);
-        *p++ = (uint16)AVE_VALUE | ((uint16)AVE_VALUE << 8); //READ_DATA_ADC_16(address, ch);
-        *p++ = (uint16)AVE_VALUE | ((uint16)AVE_VALUE << 8); //READ_DATA_ADC_16(address, ch);
+        *p++ = READ_DATA_ADC_16(address, ch);
+        *p++ = READ_DATA_ADC_16(address, ch);
+        *p++ = READ_DATA_ADC_16(address, ch);
+        *p++ = READ_DATA_ADC_16(address, ch);
+        *p++ = READ_DATA_ADC_16(address, ch);
+        *p++ = READ_DATA_ADC_16(address, ch);
+        *p++ = READ_DATA_ADC_16(address, ch);
+        *p++ = READ_DATA_ADC_16(address, ch);
     }
 
     if (shift)                              ///  \todo Во-первых, теряется один байт. Во-вторых, не очень-то красиво выглядит
@@ -712,8 +712,8 @@ bool ProcessingData(void)
 
     if (IN_RANDOM_MODE)
     {
-        dataRandA = (uint8 *)AllocMemForChannelFromHeap(A, 0);
-        dataRandB = (uint8 *)AllocMemForChannelFromHeap(B, 0);
+        dataRandA = AllocMemForChannelFromHeap(A, 0);
+        dataRandB = AllocMemForChannelFromHeap(B, 0);
 
         if (SAMPLE_TYPE_IS_REAL)
         {

@@ -84,9 +84,6 @@ void Data_ReadFromRAM(int fromEnd, StructDataDrawing *dataStruct, bool forMemory
     }
     else if(!IN_P2P_MODE || (IN_P2P_MODE && STAND_P2P && !forMemoryWindow) || (IN_P2P_MODE && !FPGA_IS_RUNNING))
     {
-        __IO uint8 *inA = IN_A;
-        __IO uint8 *inB = IN_B;
-        
         DS_GetDataFromEnd(fromEnd, &dataSettings, IN_A, IN_B);
         readed = true;
     }

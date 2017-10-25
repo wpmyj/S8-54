@@ -1,8 +1,9 @@
+// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
+// PVS-Studio Static Code Analyzer for C, C++ and C#: http://www.viva64.com
 #include "Log.h"
 #include "Ethernet/Ethernet.h"
 #include "FlashDrive/FlashDrive.h"
 #include "FPGA/FPGA.h"
-#include "Hardware/Hardware.h"
 #include "Hardware/Timer.h"
 #include "Menu/Menu.h"
 #include "Panel/Panel.h"
@@ -22,8 +23,7 @@ extern void main3(void);
 int main(void)
 {
     Log_EnableLoggerUSB(true);
-    //main3();
-    Hardware_Init();
+    main3();
     VCP_Init();
     Settings_Load(false);
     FPGA_Init();
@@ -31,9 +31,7 @@ int main(void)
     Display_Init();
     Ethernet_Init();
     Menu_Init();
-
-    printf("Test");
-
+    
     while(1)
     {
         Timer_StartMultiMeasurement();  // —брос таймера дл€ замера длительности временных интервалов в течение одной итерации цикла.

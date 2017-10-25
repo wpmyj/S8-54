@@ -1,9 +1,6 @@
+// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
+// PVS-Studio Static Code Analyzer for C, C++ and C#: http://www.viva64.com
 #include "defines.h"
-
-
-//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-FILE __stdout;
-FILE __stdin;
 
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -14,15 +11,3 @@ void HardwareErrorHandler(const char *file, const char *function, int line)
     {
     }; 
 };
-
-
-//----------------------------------------------------------------------------------------------------------------------------------------------------
-int fputc(int ch, FILE *f)
-{
-    if (DEMCR & TRCENA)
-    {
-        while(ITM_Port32(0) == 0);
-        ITM_Port8(0) = ch;
-    }
-    return ch;
-}

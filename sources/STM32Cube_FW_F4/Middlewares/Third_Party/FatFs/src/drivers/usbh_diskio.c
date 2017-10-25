@@ -70,7 +70,7 @@ DRESULT USBH_read (BYTE, BYTE*, DWORD, UINT);
   DRESULT USBH_ioctl (BYTE, BYTE, void*);
 #endif /* _USE_IOCTL == 1 */
   
-Diskio_drvTypeDef  USBH_Driver =
+const Diskio_drvTypeDef  USBH_Driver =
 {
   USBH_initialize,
   USBH_status,

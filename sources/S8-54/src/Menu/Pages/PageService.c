@@ -1,3 +1,5 @@
+// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
+// PVS-Studio Static Code Analyzer for C, C++ and C#: http://www.viva64.com
 #include "Definition.h"
 #include "main.h"
 #include "Display/Display.h"
@@ -18,24 +20,23 @@
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 extern Page mainPage;
-extern const Page pService;
 extern void Func_Start(int key);          // 1 - Ì‡Ê‡ÚËÂ, 1 - ÓÚÔÛÒÍ‡ÌËÂ
 
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-extern const       Button bResetSettings;                           ///< —≈–¬»— - —·ÓÒ Ì‡ÒÚÓÂÍ
+static const       Button bResetSettings;                           ///< —≈–¬»— - —·ÓÒ Ì‡ÒÚÓÂÍ
         void       OnPress_ResetSettings(void);
 static void           Draw_ResetSettings(void);
-extern const       Button bAutoSearch;                              ///< —≈–¬»— - œÓËÒÍ ÒË„Ì‡Î‡
+static const       Button bAutoSearch;                              ///< —≈–¬»— - œÓËÒÍ ÒË„Ì‡Î‡
 static void        OnPress_AutoSearch(void);
-extern const        Page ppCalibrator;                              ///< —≈–¬»— -  ¿À»¡–¿“Œ–
-extern const       Choice cCalibrator_Calibrator;                   ///< —≈–¬»— -  ¿À»¡–¿“Œ– -  ‡ÎË·‡ÚÓ
+static const        Page ppCalibrator;                              ///< —≈–¬»— -  ¿À»¡–¿“Œ–
+static const       Choice cCalibrator_Calibrator;                   ///< —≈–¬»— -  ¿À»¡–¿“Œ– -  ‡ÎË·‡ÚÓ
 static void      OnChanged_Calibrator_Calibrator(bool active);
-extern const       Button bCalibrator_Calibrate;                    ///< —≈–¬»— -  ¿À»¡–¿“Œ– -  ‡ÎË·Ó‚‡Ú¸
+static const       Button bCalibrator_Calibrate;                    ///< —≈–¬»— -  ¿À»¡–¿“Œ– -  ‡ÎË·Ó‚‡Ú¸
 static bool       IsActive_Calibrator_Calibrate(void);
 static void        OnPress_Calibrator_Calibrate(void);
 #ifdef OLD_RECORDER
-extern const       Choice cRecorder;
+static const       Choice cRecorder;
 static void      OnChanged_Recorder(bool active);
 #else
 static const       Page ppRecorder;                                 ///< —≈–¬»— - –≈√»—“–¿“Œ–
@@ -53,68 +54,68 @@ static const     SButton bRecorder_Cursor;                          ///< —≈–¬»— 
 static void       OnPress_Recorder_Cursor(void);
 static void          Draw_Recorder_Cursor(int x, int y);
 #endif
-extern const        Page ppFFT;                                     ///< —≈–¬»— - —œ≈ “–
+static const        Page ppFFT;                                     ///< —≈–¬»— - —œ≈ “–
 static bool       IsActive_FFT(void);
 static void        OnPress_FFT(void);
-extern const       Choice cFFT_View;                                ///< —≈–¬»— - —œ≈ “– - ŒÚÓ·‡ÊÂÌËÂ
-extern const       Choice cFFT_Scale;                               ///< —≈–¬»— - —œ≈ “– - ÿÍ‡Î‡
-extern const       Choice cFFT_Source;                              ///< —≈–¬»— - —œ≈ “– - »ÒÚÓ˜ÌËÍ
-extern const       Choice cFFT_Window;                              ///< —≈–¬»— - —œ≈ “– - ŒÍÌÓ
-extern const       Page pppFFT_Cursors;                             ///< —≈–¬»— - —œ≈ “– -  ”–—Œ–€
+static const       Choice cFFT_View;                                ///< —≈–¬»— - —œ≈ “– - ŒÚÓ·‡ÊÂÌËÂ
+static const       Choice cFFT_Scale;                               ///< —≈–¬»— - —œ≈ “– - ÿÍ‡Î‡
+static const       Choice cFFT_Source;                              ///< —≈–¬»— - —œ≈ “– - »ÒÚÓ˜ÌËÍ
+static const       Choice cFFT_Window;                              ///< —≈–¬»— - —œ≈ “– - ŒÍÌÓ
+static const       Page pppFFT_Cursors;                             ///< —≈–¬»— - —œ≈ “– -  ”–—Œ–€
 static bool       IsActive_FFT_Cursors(void);
 static void       OnRegSet_FFT_Cursors(int angle);
-extern const      SButton bFFT_Cursors_Exit;                        ///< —≈–¬»— - —œ≈ “– -  ”–—Œ–€ - ¬˚ıÓ‰
-extern const      SButton bFFT_Cursors_Source;                      ///< —≈–¬»— - —œ≈ “– -  ”–—Œ–€ - »ÒÚÓ˜ÌËÍ
+static const      SButton bFFT_Cursors_Exit;                        ///< —≈–¬»— - —œ≈ “– -  ”–—Œ–€ - ¬˚ıÓ‰
+static const      SButton bFFT_Cursors_Source;                      ///< —≈–¬»— - —œ≈ “– -  ”–—Œ–€ - »ÒÚÓ˜ÌËÍ
 static void        OnPress_FFT_Cursors_Source(void);
 static void           Draw_FFT_Cursors_Source(int x, int y);
-extern const       Choice cFFT_Range;                               ///< —≈–¬»— - —œ≈ “– - ƒË‡Ô‡ÁÓÌ
+static const       Choice cFFT_Range;                               ///< —≈–¬»— - —œ≈ “– - ƒË‡Ô‡ÁÓÌ
 static bool       IsActive_FFT_Range(void);
-extern const        Page ppFunction;                                ///< —≈–¬»— - ‘”Õ ÷»ﬂ
+static const        Page ppFunction;                                ///< —≈–¬»— - ‘”Õ ÷»ﬂ
 static bool       IsActive_Function(void);
 static void        OnPress_Function(void);
 static void       OnRegSet_Function(int delta);
-extern const      SButton bFunction_Exit;                           ///< —≈–¬»— - ‘”Õ ÷»ﬂ - ¬˚ıÓ‰
-extern const      SButton bFunction_Screen;                         ///< —≈–¬»— - ‘”Õ ÷»ﬂ - ›Í‡Ì
+static const      SButton bFunction_Exit;                           ///< —≈–¬»— - ‘”Õ ÷»ﬂ - ¬˚ıÓ‰
+static const      SButton bFunction_Screen;                         ///< —≈–¬»— - ‘”Õ ÷»ﬂ - ›Í‡Ì
 static void        OnPress_Function_Screen(void);
 static void           Draw_Function_Screen(int x, int y);
 static void           Draw_Function_Screen_Disable(int x, int y);
 static void           Draw_Function_Screen_Separate(int x, int y);
 static void           Draw_Function_Screen_Together(int x, int y);
-extern const      SButton bFunction_Type;                           ///< —≈–¬»— - ‘”Õ ÷»ﬂ - ¬Ë‰
+static const      SButton bFunction_Type;                           ///< —≈–¬»— - ‘”Õ ÷»ﬂ - ¬Ë‰
 static void        OnPress_Function_Type(void);
 static void           Draw_Function_Type(int x, int y);
 static void           Draw_Function_Type_Sum(int x, int y);
 static void           Draw_Function_Type_Mul(int x, int y);
-extern const      SButton bFunction_ModeRegSet;                     ///< —≈–¬»— - ‘”Õ ÷»ﬂ - –ÂÊËÏ Û˜ÍË ”—“¿ÕŒ¬ ¿
+static const      SButton bFunction_ModeRegSet;                     ///< —≈–¬»— - ‘”Õ ÷»ﬂ - –ÂÊËÏ Û˜ÍË ”—“¿ÕŒ¬ ¿
 static void        OnPress_Function_ModeRegSet(void);
 static void           Draw_Function_ModeRegSet(int x, int y);
 static void           Draw_Function_ModeRegSet_Range(int x, int y);
 static void           Draw_Function_ModeRegSet_RShift(int x, int y);
-extern const      SButton bFunction_RangeA;                         ///< —≈–¬»— - ‘”Õ ÷»ﬂ - Ã‡Ò¯Ú‡· 1-„Ó Í‡Ì‡Î‡
+static const      SButton bFunction_RangeA;                         ///< —≈–¬»— - ‘”Õ ÷»ﬂ - Ã‡Ò¯Ú‡· 1-„Ó Í‡Ì‡Î‡
 static void        OnPress_Function_RangeA(void);
 static void           Draw_Function_RangeA(int x, int y);
-extern const      SButton bFunction_RangeB;                         ///< —≈–¬»— - ‘”Õ ÷»ﬂ - Ã‡Ò¯Ú‡· 2-„Ó Í‡Ì‡Î‡
+static const      SButton bFunction_RangeB;                         ///< —≈–¬»— - ‘”Õ ÷»ﬂ - Ã‡Ò¯Ú‡· 2-„Ó Í‡Ì‡Î‡
 static void        OnPress_Function_RangeB(void);
 static void           Draw_Function_RangeB(int x, int y);
-extern const        Page ppEthernet;                                ///< —≈–¬»— - ETHERNET
-extern const      Choice cEthernet_Ethernet;                        ///< —≈–¬»— - ETHERNET - Ethernet
+static const        Page ppEthernet;                                ///< —≈–¬»— - ETHERNET
+static const      Choice cEthernet_Ethernet;                        ///< —≈–¬»— - ETHERNET - Ethernet
 static void     OnChanged_Ethernet_Settings(bool active);
-extern const  IPaddress ipEthernet_IP;                              ///< —≈–¬»— - ETHERNET - IP ‡‰ÂÒ
-extern const  IPaddress ipEthernet_NetMask;                         ///< —≈–¬»— - ETHERNET - Ã‡ÒÍ‡ ÔÓ‰ÒÂÚË
-extern const  IPaddress ipEthernet_Gateway;                         ///< —≈–¬»— - ETHERNET - ÿÎ˛Á
-extern const MACaddress ipEthernet_MAC;                             ///< —≈–¬»— - ETHERNET - MAC ‡‰ÂÒ
-extern const       Page ppSound;                                    ///< —≈–¬»— - «¬” 
-extern const      Choice cSound_Enable;                             ///< —≈–¬»— - «¬”  - «‚ÛÍ
-extern const    Governor gSound_Volume;                             ///< —≈–¬»— - «¬”  - √ÓÏÍÓÒÚ¸
-extern const       Page ppRTC;                                     ///< —≈–¬»— - ¬–≈Ãﬂ
-extern const        Time tRTC_Time;                                ///< —≈–¬»— - ¬–≈Ãﬂ - ¬ÂÏˇ
-extern const    Governor tRTC_Correction;                          ///< —≈–¬»— - ¬–≈Ãﬂ -  ÓÂÍˆËˇ
+static const  IPaddress ipEthernet_IP;                              ///< —≈–¬»— - ETHERNET - IP ‡‰ÂÒ
+static const  IPaddress ipEthernet_NetMask;                         ///< —≈–¬»— - ETHERNET - Ã‡ÒÍ‡ ÔÓ‰ÒÂÚË
+static const  IPaddress ipEthernet_Gateway;                         ///< —≈–¬»— - ETHERNET - ÿÎ˛Á
+static const MACaddress ipEthernet_MAC;                             ///< —≈–¬»— - ETHERNET - MAC ‡‰ÂÒ
+static const       Page ppSound;                                    ///< —≈–¬»— - «¬” 
+static const      Choice cSound_Enable;                             ///< —≈–¬»— - «¬”  - «‚ÛÍ
+static const    Governor gSound_Volume;                             ///< —≈–¬»— - «¬”  - √ÓÏÍÓÒÚ¸
+static const       Page ppRTC;                                     ///< —≈–¬»— - ¬–≈Ãﬂ
+static const        Time tRTC_Time;                                ///< —≈–¬»— - ¬–≈Ãﬂ - ¬ÂÏˇ
+static const    Governor tRTC_Correction;                          ///< —≈–¬»— - ¬–≈Ãﬂ -  ÓÂÍˆËˇ
 static void     OnChanged_Time_Correction(void);
-extern const      Choice cLanguage;                                 ///< —≈–¬»— - ﬂ«€ 
-extern const       Page ppInformation;                              ///< —≈–¬»— - »Õ‘Œ–Ã¿÷»ﬂ
+static const      Choice cLanguage;                                 ///< —≈–¬»— - ﬂ«€ 
+static const       Page ppInformation;                              ///< —≈–¬»— - »Õ‘Œ–Ã¿÷»ﬂ
 static void       OnPress_Information(void);
 static void   Information_Draw(void);
-extern const     SButton bInformation_Exit;                         ///< —≈–¬»— - »Õ‘Œ–Ã¿÷»ﬂ - ¬˚ıÓ‰
+static const     SButton bInformation_Exit;                         ///< —≈–¬»— - »Õ‘Œ–Ã¿÷»ﬂ - ¬˚ıÓ‰
 static void       OnPress_Information_Exit(void);
 
 
@@ -701,7 +702,7 @@ static void OnRegSet_Function(int delta)
         {
             if (SET_RANGE_MATH < RangeSize - 1)
             {
-                SET_RANGE_MATH = (Range)((int)SET_RANGE_MATH + 1);
+                SET_RANGE_MATH++;
                 SET_RSHIFT_MATH = (int16)Math_RShift2Rel(rShiftAbs, SET_RANGE_MATH);
                 Sound_RegulatorSwitchRotate();
             }
@@ -711,7 +712,7 @@ static void OnRegSet_Function(int delta)
         {
             if (SET_RANGE_MATH > 0)
             {
-                SET_RANGE_MATH = (Range)((int)SET_RANGE_MATH - 1);
+                SET_RANGE_MATH--;
                 SET_RSHIFT_MATH = (int16)Math_RShift2Rel(rShiftAbs, SET_RANGE_MATH);
                 Sound_RegulatorSwitchRotate();
             }
