@@ -31,7 +31,9 @@ int main(void)
     Display_Init();
     Ethernet_Init();
     Menu_Init();
-    
+
+    printf("Test");
+
     while(1)
     {
         Timer_StartMultiMeasurement();  // —брос таймера дл€ замера длительности временных интервалов в течение одной итерации цикла.

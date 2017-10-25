@@ -138,7 +138,7 @@
         <SetRegEntry>
           <Number>0</Number>
           <Key>ST-LINKIII-KEIL_SWO</Key>
-          <Name>-U53FF7A064980555756211187 -O8398 -SF4000 -C0 -A0 -I0 -HNlocalhost -HP7184 -P2 -N00("ARM CoreSight SW-DP") -D00(2BA01477) -L00(0) -TO18 -TC10000000 -TP21 -TDS8004 -TDT0 -TDC1F -TIEFFFFFFFF -TIP8 -FO11 -FD20000000 -FC1000 -FN1 -FF0STM32F4xx_2048.FLM -FS08020000 -FL0100000 -FP0($$Device:STM32F437ZITx$CMSIS\Flash\STM32F4xx_2048.FLM)</Name>
+          <Name>-U52FF71064980515751430287 -O8398 -SF4000 -C0 -A0 -I0 -HNlocalhost -HP7184 -P2 -N00("ARM CoreSight SW-DP") -D00(2BA01477) -L00(0) -TO19 -TC168000000 -TP21 -TDS8053 -TDT0 -TDC1F -TIEFFFFFFFF -TIP8 -FO11 -FD20000000 -FC1000 -FN1 -FF0STM32F4xx_2048.FLM -FS08020000 -FL0100000 -FP0($$Device:STM32F437ZITx$CMSIS\Flash\STM32F4xx_2048.FLM)</Name>
         </SetRegEntry>
         <SetRegEntry>
           <Number>0</Number>
@@ -150,34 +150,82 @@
         <Bp>
           <Number>0</Number>
           <Type>0</Type>
-          <LineNumber>252</LineNumber>
+          <LineNumber>887</LineNumber>
           <EnabledFlag>1</EnabledFlag>
-          <Address>134380836</Address>
+          <Address>134430014</Address>
           <ByteObject>0</ByteObject>
           <HtxType>0</HtxType>
           <ManyObjects>0</ManyObjects>
           <SizeOfObject>0</SizeOfObject>
           <BreakByAccess>0</BreakByAccess>
           <BreakIfRCount>1</BreakIfRCount>
-          <Filename>&lt;1&gt;.\src\VCP\usbd_core.c</Filename>
+          <Filename>&lt;1&gt;.\src\Display\PainterData.c</Filename>
           <ExecCommand></ExecCommand>
-          <Expression>\\S8_54\src/VCP/usbd_core.c\252</Expression>
+          <Expression>\\S8_54\src/Display/PainterData.c\887</Expression>
         </Bp>
         <Bp>
           <Number>1</Number>
           <Type>0</Type>
-          <LineNumber>64</LineNumber>
+          <LineNumber>883</LineNumber>
           <EnabledFlag>1</EnabledFlag>
-          <Address>134428638</Address>
+          <Address>134430004</Address>
           <ByteObject>0</ByteObject>
           <HtxType>0</HtxType>
           <ManyObjects>0</ManyObjects>
           <SizeOfObject>0</SizeOfObject>
           <BreakByAccess>0</BreakByAccess>
           <BreakIfRCount>1</BreakIfRCount>
-          <Filename>&lt;1&gt;.\src\VCP\usbd_cdc_interface.c</Filename>
+          <Filename>&lt;1&gt;.\src\Display\PainterData.c</Filename>
           <ExecCommand></ExecCommand>
-          <Expression>\\S8_54\src/VCP/usbd_cdc_interface.c\64</Expression>
+          <Expression>\\S8_54\src/Display/PainterData.c\883</Expression>
+        </Bp>
+        <Bp>
+          <Number>2</Number>
+          <Type>0</Type>
+          <LineNumber>839</LineNumber>
+          <EnabledFlag>1</EnabledFlag>
+          <Address>134429726</Address>
+          <ByteObject>0</ByteObject>
+          <HtxType>0</HtxType>
+          <ManyObjects>0</ManyObjects>
+          <SizeOfObject>0</SizeOfObject>
+          <BreakByAccess>0</BreakByAccess>
+          <BreakIfRCount>1</BreakIfRCount>
+          <Filename>&lt;1&gt;.\src\Display\PainterData.c</Filename>
+          <ExecCommand></ExecCommand>
+          <Expression>\\S8_54\src/Display/PainterData.c\839</Expression>
+        </Bp>
+        <Bp>
+          <Number>3</Number>
+          <Type>0</Type>
+          <LineNumber>835</LineNumber>
+          <EnabledFlag>1</EnabledFlag>
+          <Address>134429722</Address>
+          <ByteObject>0</ByteObject>
+          <HtxType>0</HtxType>
+          <ManyObjects>0</ManyObjects>
+          <SizeOfObject>0</SizeOfObject>
+          <BreakByAccess>0</BreakByAccess>
+          <BreakIfRCount>1</BreakIfRCount>
+          <Filename>&lt;1&gt;.\src\Display\PainterData.c</Filename>
+          <ExecCommand></ExecCommand>
+          <Expression>\\S8_54\src/Display/PainterData.c\835</Expression>
+        </Bp>
+        <Bp>
+          <Number>4</Number>
+          <Type>0</Type>
+          <LineNumber>879</LineNumber>
+          <EnabledFlag>1</EnabledFlag>
+          <Address>134429990</Address>
+          <ByteObject>0</ByteObject>
+          <HtxType>0</HtxType>
+          <ManyObjects>0</ManyObjects>
+          <SizeOfObject>0</SizeOfObject>
+          <BreakByAccess>0</BreakByAccess>
+          <BreakIfRCount>1</BreakIfRCount>
+          <Filename>&lt;1&gt;.\src\Display\PainterData.c</Filename>
+          <ExecCommand></ExecCommand>
+          <Expression>\\S8_54\src/Display/PainterData.c\879</Expression>
         </Bp>
       </Breakpoint>
       <WatchWindow1>
@@ -240,8 +288,8 @@
       <MemoryWindow1>
         <Mm>
           <WinNumber>1</WinNumber>
-          <SubType>264</SubType>
-          <ItemText>word</ItemText>
+          <SubType>0</SubType>
+          <ItemText>data</ItemText>
           <AccSizeX>0</AccSizeX>
         </Mm>
       </MemoryWindow1>
@@ -1338,7 +1386,7 @@
 
   <Group>
     <GroupName>libs</GroupName>
-    <tvExp>1</tvExp>
+    <tvExp>0</tvExp>
     <tvExpOptDlg>0</tvExpOptDlg>
     <cbSel>0</cbSel>
     <RteFlg>0</RteFlg>

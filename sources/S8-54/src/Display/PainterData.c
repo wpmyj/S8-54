@@ -143,6 +143,7 @@ static void DrawData_ModeDir(void)
     Data_ReadFromRAM(0, dataStruct, true);
     DrawMemoryWindow();
 
+    /*
     if (MODE_ACCUM_NO_RESET && !IN_P2P_MODE && ENUM_ACCUM > ENumAccum_1)
     {
         int numAccum = NUM_ACCUM;
@@ -177,6 +178,7 @@ static void DrawData_ModeDir(void)
 
     Data_ReadFromRAM(0, dataStruct, false);
     DrawData(false);
+    */
 
     IncreaseNumDrawingSignals();
 }
@@ -819,11 +821,25 @@ static void DrawDataInRect(uint width, Channel ch)
         return;
     }
     
+    __IO uint8 *dA = dataOUT[A];
+    __IO uint8 *dB = dataOUT[B];
+    
     uint8 *data = dataOUT[ch];
 
     float elemsInColumn = BYTES_IN_CHANNEL_DS / (float)width;   
     uint8 *min = (uint8 *)malloc(width + 1);
+    memset(min, 0, width + 1);
     uint8 *max = (uint8 *)malloc(width + 1);
+    memset(max, 0, width + 1);
+
+    if (min == 0)
+    {
+        min = 0;
+    }
+    if (max == 0)
+    {
+        max = 0;
+    }
 
     if (PEAKDET_DS != PeakDet_Disable)                                 // Если пик. дет. включен
     {
@@ -863,6 +879,15 @@ static void DrawDataInRect(uint width, Channel ch)
    
     int *mines = (int *)malloc(SIZE_BUFFER);    // Массив для максимальных значений в каждом столбике
     int *maxes = (int *)malloc(SIZE_BUFFER);    // Массив для минимальных значений в каждом столбике
+    
+    if(mines == 0)
+    {
+        mines = 0;
+    }
+    if(maxes == 0)
+    {
+        maxes = 0;
+    }
 
     float scale = 17.0f / (MAX_VALUE - MIN_VALUE);
 

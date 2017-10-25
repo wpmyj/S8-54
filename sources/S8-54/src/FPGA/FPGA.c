@@ -1,5 +1,3 @@
-// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
-// PVS-Studio Static Code Analyzer for C, C++ and C#: http://www.viva64.com
 #include "FPGA.h"
 #include "FPGATypes.h"
 #include "Log.h"
@@ -563,14 +561,14 @@ static void ReadChannel(uint8 *data, Channel ch, int length, uint16 nStop, bool 
 
     while (p < endP && FPGA_IN_PROCESS_OF_READ)
     {
-        *p++ = READ_DATA_ADC_16(address, ch);
-        *p++ = READ_DATA_ADC_16(address, ch);
-        *p++ = READ_DATA_ADC_16(address, ch);
-        *p++ = READ_DATA_ADC_16(address, ch);
-        *p++ = READ_DATA_ADC_16(address, ch);
-        *p++ = READ_DATA_ADC_16(address, ch);
-        *p++ = READ_DATA_ADC_16(address, ch);
-        *p++ = READ_DATA_ADC_16(address, ch);
+        *p++ = (uint16)AVE_VALUE | ((uint16)AVE_VALUE << 8); //READ_DATA_ADC_16(address, ch);
+        *p++ = (uint16)AVE_VALUE | ((uint16)AVE_VALUE << 8); //READ_DATA_ADC_16(address, ch);
+        *p++ = (uint16)AVE_VALUE | ((uint16)AVE_VALUE << 8); //READ_DATA_ADC_16(address, ch);
+        *p++ = (uint16)AVE_VALUE | ((uint16)AVE_VALUE << 8); //READ_DATA_ADC_16(address, ch);
+        *p++ = (uint16)AVE_VALUE | ((uint16)AVE_VALUE << 8); //READ_DATA_ADC_16(address, ch);
+        *p++ = (uint16)AVE_VALUE | ((uint16)AVE_VALUE << 8); //READ_DATA_ADC_16(address, ch);
+        *p++ = (uint16)AVE_VALUE | ((uint16)AVE_VALUE << 8); //READ_DATA_ADC_16(address, ch);
+        *p++ = (uint16)AVE_VALUE | ((uint16)AVE_VALUE << 8); //READ_DATA_ADC_16(address, ch);
     }
 
     if (shift)                              ///  \todo Во-первых, теряется один байт. Во-вторых, не очень-то красиво выглядит

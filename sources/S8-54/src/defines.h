@@ -213,3 +213,17 @@ typedef struct
 void HardwareErrorHandler(const char *file, const char *function, int line);
 
 #define SAFE_FREE(x) if(x) free(x); (x) = 0;
+
+
+#define ITM_Port8(n)    (*((__IO uint8 *)(0xe0000000 + 4 * n)))
+#define ITM_Port16(n)   (*((__IO uint16 *)(0xe0000000 + 4 * n)))
+#define ITM_Port32(n)   (*((__IO uint *)(0xe0000000 + 4 * n)))
+
+#define DEMCR (*((__IO uint *)(0xe000edfc)))
+#define TRCENA  0x01000000
+
+struct FILE { int handle; };
+extern FILE __stdout;
+extern FILE __stdin;
+
+int fputc(int ch, FILE *f);
