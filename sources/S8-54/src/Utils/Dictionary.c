@@ -32,5 +32,6 @@ const char * const dictWords[DNumWords][2] =
     {"с", "s"},
     {"ћ√ц", "MHz"},
     {"к√ц", "kHz"},
-    {"√ц", "Hz"}
+    {"√ц", "Hz"},
+    {"”дал€ю сохранЄнные данные", "I delete the saved data"}
 };

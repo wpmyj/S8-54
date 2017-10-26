@@ -34,6 +34,7 @@ typedef enum
     DMHz,
     DkHz,
     DHz,
+    DDeleteFromMemory,
     DNumWords
 } DictWord;
 

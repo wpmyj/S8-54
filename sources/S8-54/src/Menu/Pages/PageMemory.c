@@ -62,6 +62,9 @@ static void        Draw_Internal_ModeShow(int x, int y);
 static void        Draw_Internal_ModeShow_Direct(int x, int y); 
 static void        Draw_Internal_ModeShow_Saved(int x, int y);
 static void        Draw_Internal_ModeShow_Both(int x, int y);
+static const   SButton bInternal_Delete;                        ///< ÏÀÌßÒÜ - ÂÍÓÒÐ ÇÓ - Óäàëèòü
+static void     OnPress_Internal_Delete(void);
+static void        Draw_Internal_Delete(int x, int y);
 /*
 static const   SButton bInternal_EraseAll;                      ///< ÏÀÌßÒÜ - ÂÍÓÒÐ ÇÓ - Ñòåðåòü âñå
 static void     OnPress_Internal_EraseAll(void);
@@ -491,9 +494,10 @@ static const Page ppInternal =
         (void *)&bInternal_Exit,            // ÏÀÌßÒÜ - ÂÍÓÒÐ ÇÓ - Âûõîä
         (void *)&bInternal_ShowAlways,      // ÏÀÌßÒÜ - ÂÍÓÒÐ ÇÓ - Ïîêàçûâàòü âñåãäà
         (void *)&bInternal_ModeShow,        // ÏÀÌßÒÜ - ÂÍÓÒÐ ÇÓ - Âèä ñèãíàëà
-        (void *)0,
+        //(void *)0,
         //(void *)&bInternal_EraseAll,
         //(void *)&bInternal_Scale,           // ÏÀÌßÒÜ - ÂÍÓÒÐ ÇÓ - Ìàñøòàá
+        (void *)&bInternal_Delete,          // ÏÀÌßÒÜ - ÂÍÓÒÐ ÇÓ - Óäàëèòü
         (void *)&bInternal_SaveToMemory,    // ÏÀÌßÒÜ - ÂÍÓÒÐ ÇÓ - Ñîõðàíèòü
         (void *)&bInternal_SaveToDrive      // ÏÀÌßÒÜ - ÂÍÓÒÐ ÇÓ - Ñîõðàíèòü íà ôëåøêó
     },
@@ -851,7 +855,35 @@ static void SaveSignalToIntMemory(void)
 static void Draw_Internal_SaveToMemory(int x, int y)
 {
     Painter_SetFont(TypeFont_UGO2);
-    Painter_Draw4SymbolsInRect(x + 2, y + 1, '\x2c');
+    Painter_Draw4SymbolsInRect(x + 2, y + 1, SYMBOL_SAVE_TO_MEM);
+    Painter_SetFont(TypeFont_8);
+}
+
+
+// ÏÀÌßÒÜ - ÂÍÓÒÐ ÇÓ - Óäàëèòü ----------------------------------------------------------------------------------------------------------------------
+static const SButton bInternal_Delete =
+{
+    Item_SmallButton, &ppInternal, 0,
+    {
+        "Óäàëèòü", "Delete",
+        "Óäàëÿåò âûáðàííûé ñèãíàë èç âíóòðåííåãî çàïîìèíàþùåãî óñòðîéñòâà",
+        "Removes the selected signal from the internal storage device"
+    },
+    OnPress_Internal_Delete,
+    Draw_Internal_Delete
+};
+
+static void OnPress_Internal_Delete(void)
+{
+    Display_FuncOnWaitStart(DICT(DDeleteFromMemory), false);
+    FLASH_DeleteData(NUM_ROM_SIGNAL);
+    Display_FuncOnWaitStop();
+}
+
+static void Draw_Internal_Delete(int x, int y)
+{
+    Painter_SetFont(TypeFont_UGO2);
+    Painter_Draw4SymbolsInRect(x + 2, y + 1, SYMBOL_DELETE);
     Painter_SetFont(TypeFont_8);
 }
 
