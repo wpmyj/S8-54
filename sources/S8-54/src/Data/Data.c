@@ -55,6 +55,8 @@ void Data_ReadFromRAM(int fromEnd, StructDataDrawing *dataStruct, bool forMemory
 
     dataStruct->posBreak = 0;
 
+    dataStruct->forMode = ModeWork_RAM;
+
     if (RECORDER_MODE && FPGA_IN_STATE_STOP)
     {
         uint8 *dataA = 0;
@@ -121,6 +123,8 @@ void Data_ReadFromROM(StructDataDrawing *dataStruct)
 
     dataStruct->posBreak = 0;
 
+    dataStruct->forMode = ModeWork_ROM;
+
     if (FLASH_GetData(NUM_ROM_SIGNAL, &dataSettings, IN_A, IN_B))
     {
         DS = &dataSettings;
@@ -185,7 +189,7 @@ static void PrepareDataForDraw(StructDataDrawing *dataStruct)
         return;
     }
 
-    if ((IN_P2P_MODE && FPGA_IS_RUNNING && !STAND_P2P) || (FPGA_IN_STATE_STOP && RECORDER_MODE))   
+    if (((IN_P2P_MODE && FPGA_IS_RUNNING && !STAND_P2P) || (FPGA_IN_STATE_STOP && RECORDER_MODE)) && dataStruct->forMode != ModeWork_ROM)
                                                         // FPGA_IS_RUNNING - потому что в автоматическом режиме при считывании полного измерения 
     {                                                   // происходит остановка цикла считывания на некоторое время
         FillDataP2P(dataStruct, A);
