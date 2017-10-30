@@ -403,6 +403,12 @@ float CalculatePeriod(Channel ch)
             period[ch] = per;
 
             periodIsCaclulating[ch] = true;
+
+            if (MARKED_MEAS == Measure_Period || MARKED_MEAS == Measure_Freq)
+            {
+                markerVert[ch][0] = (int)((int16)firstIntersection - firstByte);
+                markerVert[ch][1] = (int)((int16)secondIntersection - firstByte);
+            }
         }
     }
 
