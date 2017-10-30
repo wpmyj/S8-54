@@ -636,7 +636,7 @@ void Choice_DrawClosed(Choice *choice, int x, int y)
     bool shade = IsShade(choice) || ! ItemIsAcitve(choice);
         
     Painter_DrawVolumeButton(x + 1, y + 17, MI_WIDTH_VALUE + 2, MI_HEIGHT_VALUE + 3, 1, COLOR_MENU_FIELD, ColorMenuItemBrighter(), 
-        ColorMenuItemLessBright(), true, IsShade(choice));
+        ColorMenuItemLessBright(), true, shade);
 
     int deltaY = (int)Choice_Step(choice);
     Color colorText = shade ? ColorMenuItem(true) : COLOR_BLACK;
@@ -683,16 +683,15 @@ void Time_DrawClosed(Time *item, int x, int y)
     bool shade = IsShade(item);
     DrawGovernorChoiceColorFormulaHiPart(item, x, y, pressed, shade, false);
 
-    Painter_DrawVolumeButton(x + 1, y + 17, MI_WIDTH_VALUE + 2, MI_HEIGHT_VALUE + 3, 2, shade ? ColorMenuTitleLessBright() : COLOR_MENU_FIELD, 
-        ColorMenuItemBrighter(), ColorMenuItemLessBright(), true, IsShade(item));
-    //int delta = 0;
+    Painter_DrawVolumeButton(x + 1, y + 17, MI_WIDTH_VALUE + 2, MI_HEIGHT_VALUE + 3, 1, COLOR_MENU_FIELD, ColorMenuItemBrighter(), 
+        ColorMenuItemLessBright(), true, shade);
 
     int deltaField = 10;
     int deltaSeparator = 2;
     int startX = 3;
     y += 21;
     PackedTime time = RTC_GetPackedTime();
-    Painter_DrawTextC(x + startX, y, Int2String(time.hours, false, 2, buffer), COLOR_BLACK);
+    Painter_DrawTextC(x + startX, y, Int2String(time.hours, false, 2, buffer), shade ? ColorMenuItem(true) : COLOR_BLACK);
     Painter_DrawText(x + startX + deltaField, y, ":");
     Painter_DrawText(x + startX + deltaField + deltaSeparator, y, Int2String(time.minutes, false, 2, buffer));
     Painter_DrawText(x + startX + 2 * deltaField + deltaSeparator, y, ":");
