@@ -946,29 +946,27 @@ float CalculatePicRel(Channel ch)
 //----------------------------------------------------------------------------------------------------------------------------------------------------
 float CalculateDelayPlus(Channel ch)
 {
-    float period0 = CalculatePeriod(A);
-    float period1 = CalculatePeriod(B);
+    float periodA = CalculatePeriod(A);
+    float periodB = CalculatePeriod(B);
 
-    EXIT_IF_ERRORS_FLOAT(period0, period1);
-    if(!Math_FloatsIsEquals(period0, period1, 1.05f))
+    EXIT_IF_ERRORS_FLOAT(periodA, periodB);
+    if(!Math_FloatsIsEquals(periodA, periodB, 1.05f))
     {
         return ERROR_VALUE_FLOAT;
     }
 
-    float average0 = CalculateAverageRel(A);
-    float average1 = CalculateAverageRel(B);
+    float averageA = CalculateAverageRel(A);
+    float averageB = CalculateAverageRel(B);
 
-    EXIT_IF_ERRORS_FLOAT(average0, average1);
+    EXIT_IF_ERRORS_FLOAT(averageA, averageB);
 
-    float firstIntersection = 0.0f;
-    float secondIntersection = 0.0f;
-    float averageFirst = ch == A ? average0 : average1;
-    float averageSecond = ch == A ? average1 : average0;
+    float averageFirst = ch == A ? averageA : averageB;
+    float averageSecond = ch == A ? averageB : averageA;
     Channel firstChannel = ch == A ? A : B;
     Channel secondChannel = ch == A ? B : A;
 
-    firstIntersection = FindIntersectionWithHorLine(firstChannel, 1, true, (uint8)averageFirst);
-    secondIntersection = FindIntersectionWithHorLine(secondChannel, 1, true, (uint8)averageSecond);
+    float firstIntersection = FindIntersectionWithHorLine(firstChannel, 1, true, (uint8)averageFirst);
+    float secondIntersection = FindIntersectionWithHorLine(secondChannel, 1, true, (uint8)averageSecond);
 
     EXIT_IF_ERRORS_FLOAT(firstIntersection, secondIntersection);
 
@@ -976,14 +974,6 @@ float CalculateDelayPlus(Channel ch)
     {
         secondIntersection = FindIntersectionWithHorLine(secondChannel, 2, true, (uint8)averageSecond);
     }
-
-    /*
-    if (MARKED_MEAS == Measure_DelayPlus)
-    {
-        markerTime[ch][0] = (int)((int16)firstIntersection - firstByte);
-        markerTime[ch][1] = (int)((int16)secondIntersection - firstByte);
-    }
-    */
 
     EXIT_IF_ERROR_FLOAT(secondIntersection);
 
