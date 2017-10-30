@@ -49,9 +49,11 @@ void Painter_DrawVLine(int x, int y0, int y1);
 void Painter_DrawHPointLine(int y, int x0, int x1, float delta);
 
 void Painter_DrawVPointLine(int x, int y0, int y1, float delta);
-
+/// \brief Нарисовать numLines вертикальных линий, состоящих из count точек каждая с расстоянием между точками delta. Горизонтальная координата
+/// первой точки каждой линии соответствует очередному элементу массива x[]
 void Painter_DrawMultiVPointLine(int numLines, int y, uint16 x[], int delta, int count, Color color);
-
+/// \brief Нарисовать numLines горизонтальных линий, состоящих из count точек каждая с расстоянием между точками delta. Вертикальная координата
+/// первой точки каждой линии соответствует очередному элементу массива y[]
 void Painter_DrawMultiHPointLine(int numLines, int x, uint8 y[], int delta, int count, Color color);
 
 void Painter_DrawLine(int x0, int y0, int x1, int y1);
