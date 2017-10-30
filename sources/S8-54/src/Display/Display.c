@@ -724,7 +724,7 @@ static void DrawLowPart(void)
         char mesFreq[20] = "\x7c=";
         char buffer[20];
         float freq = FreqMeter_GetFreq();
-        if(freq == -1.0f) //-V550
+        if(freq == -1.0f)
         {
             strcat(mesFreq, "******");
         }
@@ -1236,7 +1236,7 @@ static void AddString(const char *string)
     {
         char *addressLastString = strings[FirstEmptyString() - 1];
         char *address = addressLastString + strlen(addressLastString) + 1;
-        strings[FirstEmptyString()] = address; //-V557
+        strings[FirstEmptyString()] = address;
         strcpy(address, buffer);
     }
 }

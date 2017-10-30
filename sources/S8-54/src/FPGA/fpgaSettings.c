@@ -397,7 +397,7 @@ void WriteChipSelect4(void)
 void PrepareAndWriteDataToAnalogSPI(uint16 *addrAnalog)
 {
     static pFuncVV funcs[4] = {WriteChipSelect1, WriteChipSelect2, WriteChipSelect3, WriteChipSelect4};
-    funcs[(int)addrAnalog](); //-V205
+    funcs[(int)addrAnalog]();
 }
 
 
@@ -582,7 +582,7 @@ void FPGA_TBaseIncrease(void)
 {
     if (SET_TBASE < (TBaseSize - 1))
     {
-        TBase base = (TBase)(SET_TBASE + 1); //-V2006
+        TBase base = (TBase)(SET_TBASE + 1);
         FPGA_SetTBase(base);
     }
     else
@@ -739,7 +739,7 @@ bool FPGA_RangeIncrease(Channel ch)
     bool retValue = false;
     if (SET_RANGE(ch) < RangeSize - 1)
     {
-        FPGA_SetRange(ch, (Range)(SET_RANGE(ch) + 1)); //-V2006
+        FPGA_SetRange(ch, (Range)(SET_RANGE(ch) + 1));
         retValue = true;
     }
     else
@@ -757,7 +757,7 @@ bool FPGA_RangeDecrease(Channel ch)
     bool retValue = false;
     if (SET_RANGE(ch) > 0)
     {
-        FPGA_SetRange(ch, (Range)(SET_RANGE(ch) - 1)); //-V2006
+        FPGA_SetRange(ch, (Range)(SET_RANGE(ch) - 1));
         retValue = true;
     }
     else

@@ -450,7 +450,7 @@ void Panel_TransmitData(uint16 data)
     }
     else
     {
-        if (data == 0x04) //-V112
+        if (data == 0x04)
         {
             uint time = gTimeMS;
             while (gTimeMS - time < 200) {};

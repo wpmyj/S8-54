@@ -48,7 +48,7 @@ typedef unsigned    int         uint;
 typedef unsigned    int         uint32;
 typedef unsigned    int         uint32_t;
 typedef unsigned    char        uchar;
-typedef uint8                   BYTE; //-V6770
+typedef uint8                   BYTE;
 
 
 #ifndef bool
@@ -134,7 +134,7 @@ typedef union
         uint16 halfWord0;
         uint16 halfWord1;
     };
-    uint8   byte[4]; //-V112
+    uint8   byte[4];
     struct
     {
         uint8 byte0;

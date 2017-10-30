@@ -139,7 +139,7 @@ static void CreateCalibrationStruct(void)
 {
     /** @todo перенести cal в extraMEM */
     cal = malloc(sizeof(CalibrationStruct));
-    memset(cal, 0, sizeof(CalibrationStruct)); //-V575
+    memset(cal, 0, sizeof(CalibrationStruct));
 }
 
 //---------------------------------------------------------------------------------------------------------------------------------------------------
@@ -166,7 +166,7 @@ static bool RunFuncAndWaitFlag(pFuncVV func, uint8 flag)
     func();
 
     const uint timeWait = 1000;
-    uint startTime = gTimeMS; //-V101
+    uint startTime = gTimeMS;
 
     while (GetBit(FSMC_READ(RD_FL), flag) == 0 && (gTimeMS - startTime > timeWait))
     {
@@ -193,7 +193,7 @@ static int16 CalculateAdditionRShift(Channel ch, Range range)
     
     for(int i = 0; i < numMeasures; i++)
     {
-        volatile uint startTime = gTimeMS; //-V101
+        volatile uint startTime = gTimeMS;
         const uint timeWait = 5000;
 
         FPGA_WriteStartToHardware();
@@ -206,7 +206,7 @@ static int16 CalculateAdditionRShift(Channel ch, Range range)
 
         FPGA_SwitchingTrig();
 
-        startTime = gTimeMS; //-V101
+        startTime = gTimeMS;
 
         while(GetBit(FSMC_READ(RD_FL), FL_DATA_READY) == 0 && (gTimeMS - startTime < timeWait)) {};
         if(gTimeMS - startTime > timeWait)         // Если прошло слишком много времени - 
@@ -234,7 +234,7 @@ static int16 CalculateAdditionRShift(Channel ch, Range range)
 
     int16 retValue = (int16)(aveValue - (float)AVE_VALUE + (aveValue > AVE_VALUE ? 0.5f : -0.5f));
 
-    if(retValue < -(GRID_DELTA * 4) || retValue > (GRID_DELTA * 4)) // Проверка на выход за пределы двух клеток вверх и вниз //-V112
+    if(retValue < -(GRID_DELTA * 4) || retValue > (GRID_DELTA * 4)) // Проверка на выход за пределы двух клеток вверх и вниз
     {
         return ERROR_VALUE_INT16;
     }
@@ -248,10 +248,10 @@ static float CalculateStretchADC(Channel ch)
     FPGA_Write(RecordFPGA, WR_UPR, BINARY_U8(00000100), false);
 
     FPGA_SetRange(ch, (SET_CALIBR_MODE(ch) == CalibrationMode_x1) ? Range_500mV : Range_50mV);
-    FPGA_SetRShift(ch, RShiftZero - 2700 * 4);    // Смещаем сигнал на 4 клетки вниз //-V112
+    FPGA_SetRShift(ch, RShiftZero - 2700 * 4);    // Смещаем сигнал на 4 клетки вниз
     FPGA_SetModeCouple(ch, ModeCouple_DC);
     FPGA_SetTrigSource((TrigSource)ch);
-    FPGA_SetTrigLev((TrigSource)ch, TrigLevZero + 40 * 4); //-V112
+    FPGA_SetTrigLev((TrigSource)ch, TrigLevZero + 40 * 4);
 
     int numMeasures = 10;
     int sumMIN = 0;
@@ -309,7 +309,7 @@ static float CalculateStretchADC(Channel ch)
     
     float retValue = 160.0f / (aveMax - aveMin) * (MAX_VALUE - MIN_VALUE) / 200.0f;
 
-    if(retValue < 0.5f || retValue > 1.5f || numMIN < NUM_POINTS / 4 || numMAX < NUM_POINTS / 4 || numNot > NUM_POINTS / 4) //-V112
+    if(retValue < 0.5f || retValue > 1.5f || numMIN < NUM_POINTS / 4 || numMAX < NUM_POINTS / 4 || numNot > NUM_POINTS / 4)
     {
         return ERROR_VALUE_FLOAT;
     }
@@ -332,7 +332,7 @@ static void DrawParametersChannel(Channel ch, int eX, int eY, bool inProgress)
     Painter_SetColor(gColorFill);
     if(inProgress)
     {
-        Painter_DrawText(eX, eY + 4, ch == 0 ? "КАНАЛ 1" : "КАНАЛ 2"); //-V112
+        Painter_DrawText(eX, eY + 4, ch == 0 ? "КАНАЛ 1" : "КАНАЛ 2");
         ProgressBar *bar = (ch == A) ? &cal->barA : &cal->barB;
         bar->width = 240;
         bar->height = 15;
@@ -412,7 +412,7 @@ static void FuncAttScreen(void)
     if(first)
     {
         first = false;
-        startTime = gTimeMS; //-V101
+        startTime = gTimeMS;
     }
     int16 y = 10;
     Display_Clear();
@@ -520,7 +520,7 @@ static void FuncAttScreen(void)
 static float CalculateDeltaADC(Channel ch, float *avgADC1, float *avgADC2, float *delta)
 {
     uint *startTime = (ch == A) ? &cal->startTimeChanA : &cal->startTimeChanB;
-    *startTime = gTimeMS; //-V101
+    *startTime = gTimeMS;
 
     ProgressBar *bar = (ch == A) ? &cal->barA : &cal->barB;
     bar->passedTime = 0;
@@ -841,13 +841,13 @@ void FreqMeter_Draw(int x, int y)
     char buffer[30];
     float freq = FreqSetToFreq(&freqActual);
 
-    bool condFreq = GetBit(flag, FL_OVERFLOW_FREQ) == 1 || drawFreq == false || freq == 0.0f; //-V550
+    bool condFreq = GetBit(flag, FL_OVERFLOW_FREQ) == 1 || drawFreq == false || freq == 0.0f;
 
     Painter_DrawText(x + 17, y + 1, condFreq ? EMPTY_STRING : Freq2StringAccuracy(freq, buffer, 6));
 
     freq = PeriodSetToFreq(&periodActual);
 
-    bool condPeriod = GetBit(flag, FL_OVERFLOW_PERIOD) == 1 || drawPeriod == false || freq == 0.0f; //-V550
+    bool condPeriod = GetBit(flag, FL_OVERFLOW_PERIOD) == 1 || drawPeriod == false || freq == 0.0f;
 
     Painter_SetColor(ColorTrig());
     Painter_DrawText(x + 17, y + 10, condPeriod ? EMPTY_STRING : Time2StringAccuracy(1.0f / freq, false, buffer, 6));
@@ -1207,7 +1207,7 @@ static bool FindParams(Channel ch, TBase *tBase)
 static void CalibrateStretch(Channel ch)
 {
     float kStretch = CalculateStretchADC(ch);
-    if (kStretch == ERROR_VALUE_FLOAT) //-V550
+    if (kStretch == ERROR_VALUE_FLOAT)
     {
         cal->isCalculateStretch[ch] = false;
         gStateFPGA.stateCalibration = (ch == A) ? StateCalibration_ErrorCalibrationA : StateCalibration_ErrorCalibrationB;

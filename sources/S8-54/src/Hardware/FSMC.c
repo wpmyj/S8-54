@@ -19,8 +19,8 @@ static pFuncBV funcAfterSetMode = 0;
 
 static SRAM_HandleTypeDef gSramHandle =
     {
-        FMC_NORSRAM_DEVICE, //-V204
-        FMC_NORSRAM_EXTENDED_DEVICE, //-V204
+        FMC_NORSRAM_DEVICE,
+        FMC_NORSRAM_EXTENDED_DEVICE,
         {
             FMC_NORSRAM_BANK1,                 // Init.NSBank
             FMC_DATA_ADDRESS_MUX_DISABLE,      // Init.DataAddressMux
@@ -32,7 +32,7 @@ static SRAM_HandleTypeDef gSramHandle =
             FMC_WAIT_TIMING_BEFORE_WS,         // Init.WaitSignalActive
             FMC_WRITE_OPERATION_ENABLE,        // Init.WriteOperation
             FMC_WAIT_SIGNAL_DISABLE,           // Init.WaitSignal
-            FMC_EXTENDED_MODE_DISABLE,          // Init.ExtendedMode
+            FMC_EXTENDED_MODE_DISABLE,         // Init.ExtendedMode
             FMC_ASYNCHRONOUS_WAIT_DISABLE,     // Init.AsynchronousWait
             FMC_WRITE_BURST_DISABLE            // Init.WriteBurst
         }
@@ -115,8 +115,8 @@ void FSMC_SetMode(ModeFSMC mode)
 
             static const SRAM_HandleTypeDef sramHandle =
             {
-                FMC_NORSRAM_DEVICE, //-V204
-                FMC_NORSRAM_EXTENDED_DEVICE, //-V204
+                FMC_NORSRAM_DEVICE,
+                FMC_NORSRAM_EXTENDED_DEVICE,
                 {
                     FMC_NORSRAM_BANK1,                 // Init.NSBank
                     FMC_DATA_ADDRESS_MUX_ENABLE,       // Init.DataAddressMux

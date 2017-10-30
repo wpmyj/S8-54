@@ -1483,7 +1483,7 @@ static void OnPress_SetName_Delete(void)
     FILE_NAME[0] = '\0';
 }
 
-static void Draw_SetName_Delete(int x, int y) //-V524
+static void Draw_SetName_Delete(int x, int y)
 {
     Painter_SetFont(TypeFont_UGO2);
     Painter_Draw4SymbolsInRect(x + 2, y + 1, SYMBOL_DELETE);
@@ -1512,7 +1512,7 @@ static void OnPress_SetName_Backspace(void)
     }
 }
 
-static void Draw_SetName_Backspace(int x, int y) //-V524
+static void Draw_SetName_Backspace(int x, int y)
 {
     Painter_SetFont(TypeFont_UGO2);
     Painter_Draw4SymbolsInRect(x + 2, y + 1, SYMBOL_BACKSPACE);
@@ -1542,7 +1542,7 @@ static void OnPress_SetName_Insert(void)
     }
 }
 
-static void Draw_SetName_Insert(int x, int y) //-V524
+static void Draw_SetName_Insert(int x, int y)
 {
     Painter_SetFont(TypeFont_UGO2);
     Painter_Draw4SymbolsInRect(x + 2, y + 2, '\x26');

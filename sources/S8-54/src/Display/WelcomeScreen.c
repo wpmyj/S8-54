@@ -62,8 +62,8 @@ void WelcomeScreen_Update(void)
 {
     Painter_BeginScene(COLOR_WHITE);
     for(int num = 0; num < 12; num++) {
-        Point p0 = mesh.points[mesh.edges[num].numPoint0]; //-V108
-        Point p1 = mesh.points[mesh.edges[num].numPoint1]; //-V108
+        Point p0 = mesh.points[mesh.edges[num].numPoint0];
+        Point p1 = mesh.points[mesh.edges[num].numPoint1];
         Point p0out = p0;
         Point p1out = p1;
 

@@ -30,7 +30,7 @@ int sDisplay_NumPointSmoothing(void)
     int retValue = 0;
     if (SMOOTHING_ENABLED)
     {
-        retValue = ENUM_SMOOTHING + 1; //-V2006
+        retValue = ENUM_SMOOTHING + 1;
     }
 
     if (IN_RANDOM_MODE)

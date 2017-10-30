@@ -27,7 +27,7 @@ void Painter_SetFont(TypeFont typeFont)
 
     uint8 command[4] = {SET_FONT, (uint8)typeFont};
 
-    Painter_SendToDisplay(command, 4); //-V112
+    Painter_SendToDisplay(command, 4);
     Painter_SendToInterfaces(command, 2);
 }
 
@@ -73,7 +73,7 @@ bool ByteFontNotEmpty(int eChar, int byte)
         prevChar = eChar;
         bytes = font->symbol[prevChar].bytes;
     }
-    return bytes[byte]; //-V108
+    return bytes[byte];
 }
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
@@ -231,7 +231,7 @@ int Painter_DrawText(int x, int y, const char *text)
 
     *pointer = 0;
     WRITE_BYTE(4, length);
-    int numBytes = ((length + 4) / 4) * 4 + 4; //-V112
+    int numBytes = ((length + 4) / 4) * 4 + 4;
     Painter_SendToDisplay(command, numBytes);
     Painter_SendToInterfaces(command, 1 + 2 + 1 + 1 + length);
     return retValue;
@@ -374,7 +374,7 @@ static bool CompareArrays(const bool *array1, const bool *array2, int numElems)
 {
     for (int i = 0; i < numElems; i++)
     {
-        if (array1[i] != array2[i]) //-V108
+        if (array1[i] != array2[i])
         {
             return false;
         }
@@ -383,7 +383,8 @@ static bool CompareArrays(const bool *array1, const bool *array2, int numElems)
 }
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
-// Ќаходит следующий перенос. C letters начинаетс€ часть слово, где нужно найти перенос, в lettersInSyllable будет записано число букв в найденном слоге. ≈сли слово закончилось, функци€ возвращает false
+/// \brief Ќаходит следующий перенос. C letters начинаетс€ часть слово, где нужно найти перенос, в lettersInSyllable будет записано число букв в 
+/// найденном слоге. ≈сли слово закончилось, функци€ возвращает false
 static bool FindNextTransfer(const char *letters, int8 *lettersInSyllable)
 {
 
@@ -397,11 +398,11 @@ static bool FindNextTransfer(const char *letters, int8 *lettersInSyllable)
     }
 
     static const bool template1[3] = {false, true, true};               //     011     2   // ѕосле второго символа перенос
-    static const bool template2[4] = {true, false, true, false};        //     1010    2 //-V112
-    static const bool template3[4] = {false, true, false, true};        //     0101    3 //-V112
-    static const bool template4[4] = {true, false, true, true};         //     1011    3 //-V112
-    static const bool template5[4] = {false, true, false, false};       //     0100    3 //-V112
-    static const bool template6[4] = {true, false, true, true};         //     1011    3 //-V112
+    static const bool template2[4] = {true, false, true, false};        //     1010    2
+    static const bool template3[4] = {false, true, false, true};        //     0101    3
+    static const bool template4[4] = {true, false, true, true};         //     1011    3
+    static const bool template5[4] = {false, true, false, false};       //     0100    3
+    static const bool template6[4] = {true, false, true, true};         //     1011    3
     static const bool template7[5] = {true, true, false, true, false};  //     11010   3
     static const bool template8[6] = {true, true, false, true, true};   //     11011   4
 
@@ -410,7 +411,7 @@ static bool FindNextTransfer(const char *letters, int8 *lettersInSyllable)
     int size = strlen(letters);
     for (int i = 0; i < size; i++)
     {
-        consonant[i] = IsConsonant(letters[i]); //-V108
+        consonant[i] = IsConsonant(letters[i]);
     }
 
     if (CompareArrays(template1, consonant, 3))
@@ -418,7 +419,7 @@ static bool FindNextTransfer(const char *letters, int8 *lettersInSyllable)
         *lettersInSyllable = 2;
         return true;
     }
-    if (CompareArrays(template2, consonant, 4)) //-V112
+    if (CompareArrays(template2, consonant, 4))
     {
         *lettersInSyllable = 2;
         return true;

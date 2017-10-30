@@ -355,7 +355,7 @@ void Time_IncCurrentPosition(Time *time)
     {
         static const int8 max[] = {0, 31, 12, 99, 23, 59, 59};
         static const int8 min[] = {0, 1, 1, 15, 0, 0, 0};
-        *(value[position]) = (*(value[position]))++; //-V567
+        *(value[position]) = (*(value[position]))++;
         if (*value[position] > max[position])
         {
             *value[position] = min[position];

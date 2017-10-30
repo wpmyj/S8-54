@@ -388,7 +388,7 @@ static void OnPress_Tune_Settings(void)
     pageChoiceIsActive = !pageChoiceIsActive;
     if (pageChoiceIsActive)
     {
-        posOnPageChoice = MEASURE(posActive); //-V2006
+        posOnPageChoice = MEASURE(posActive);
     }
 }
 

@@ -178,7 +178,7 @@ static void Sound_Beep(const TypeWave newTypeWave, const float newFreq, const fl
     {
         return;
     }
-    if (frequency != newFreq || amplitude != newAmpl || typeWave != newTypeWave) //-V550
+    if (frequency != newFreq || amplitude != newAmpl || typeWave != newTypeWave)
     {
         frequency = newFreq;
         amplitude = newAmpl * SOUND_VOLUME / 100.0f;

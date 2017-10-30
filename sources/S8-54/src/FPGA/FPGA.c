@@ -296,7 +296,7 @@ static bool CalculateGate(uint16 rand, uint16 *eMin, uint16 *eMax)
 
     static int stat[281];
 
-    if (gScaleRandStat != 0.0f) //-V550
+    if (gScaleRandStat != 0.0f)
     {
         if (rand <= minGate)
         {
@@ -313,7 +313,7 @@ static bool CalculateGate(uint16 rand, uint16 *eMin, uint16 *eMax)
         }
     }
 
-    if (minGate == 0.0f) //-V550
+    if (minGate == 0.0f)
     {
         *eMin = min;
         *eMax = max;
@@ -343,8 +343,8 @@ static bool CalculateGate(uint16 rand, uint16 *eMin, uint16 *eMax)
             stat[i] = 0;
         }
     }
-    *eMin = (uint16)minGate; //-V519
-    *eMax = (uint16)maxGate; //-V519
+    *eMin = (uint16)minGate;
+    *eMax = (uint16)maxGate;
 
     if ((rand - 5) < minGate || (rand + 5) > maxGate)
     {
@@ -678,8 +678,8 @@ static void DataReadSave(bool first, bool saveToStorage, bool onlySave)
 
     for (int i = 0; i < numBytes; i++)
     {
-        LIMITATION(OUT_A[i], MIN_VALUE, MAX_VALUE); //-V522
-        LIMITATION(OUT_B[i], MIN_VALUE, MAX_VALUE); //-V522
+        LIMITATION(OUT_A[i], MIN_VALUE, MAX_VALUE);
+        LIMITATION(OUT_B[i], MIN_VALUE, MAX_VALUE);
     }
 
     if (!IN_RANDOM_MODE)
@@ -860,7 +860,7 @@ TBase CalculateTBase(float freq)
 
 
     const STR *str = &structs[0];
-    while (str->freq != 0.0f) //-V550
+    while (str->freq != 0.0f)
     {
         if (freq >= str->freq)
         {
@@ -1092,14 +1092,14 @@ void FPGA_Write(TypeRecord type, uint16 *address, uint data, bool restart)
 static uint16 PinSelect(uint16 *addrAnalog)
 {
     const uint16 pins[4] = {GPIO_PIN_3, GPIO_PIN_6, GPIO_PIN_10, GPIO_PIN_15};
-    return pins[(int)addrAnalog]; //-V205
+    return pins[(int)addrAnalog];
 }
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
 static GPIO_TypeDef* AddrGPIO(uint16 *addrAnalog)
 {
     GPIO_TypeDef *gpio[4] = {GPIOD, GPIOD, GPIOG, GPIOG};
-    return gpio[(int)addrAnalog]; //-V205
+    return gpio[(int)addrAnalog];
 }
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------

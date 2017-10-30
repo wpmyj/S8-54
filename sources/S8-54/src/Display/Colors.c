@@ -62,7 +62,7 @@ Color ColorBorderMenu(bool inShade)
 Color ColorContrast(Color color)
 {
     uint16 colorValue = COLOR(color);
-    if (R_FROM_COLOR(colorValue) > 16 || G_FROM_COLOR(colorValue) > 32 || B_FROM_COLOR(colorValue) > 16)    //-V112
+    if (R_FROM_COLOR(colorValue) > 16 || G_FROM_COLOR(colorValue) > 32 || B_FROM_COLOR(colorValue) > 16)
     {
         return COLOR_BLACK;
     }
@@ -79,7 +79,7 @@ Color LightShadingTextColor(void)
 void Color_Log(Color color)
 {
     uint16 colorValue = COLOR(color);
-    LOG_WRITE("%s   r=%d, g=%d, b=%d", NameColor(color), R_FROM_COLOR(colorValue), G_FROM_COLOR(colorValue), B_FROM_COLOR(colorValue)); //-V111
+    LOG_WRITE("%s   r=%d, g=%d, b=%d", NameColor(color), R_FROM_COLOR(colorValue), G_FROM_COLOR(colorValue), B_FROM_COLOR(colorValue));
 }
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
@@ -134,7 +134,7 @@ void Color_SetBrightness(ColorType *colorType, float brightness)
 //----------------------------------------------------------------------------------------------------------------------------------------------------
 void Color_BrightnessChange(ColorType *colorType, int delta)
 {
-    if ((delta > 0 && colorType->brightness == 1.0f) || (delta < 0 && colorType->brightness == 0.0f)) //-V550
+    if ((delta > 0 && colorType->brightness == 1.0f) || (delta < 0 && colorType->brightness == 0.0f))
     {
         return;
     }
@@ -178,7 +178,7 @@ void Color_Init(ColorType *colorType, bool forced)
 
         ColorType_SetBrightness(colorType);
 
-        if (colorType->red == 0.0f && colorType->green == 0.0f && colorType->blue == 0.0f) //-V550
+        if (colorType->red == 0.0f && colorType->green == 0.0f && colorType->blue == 0.0f)
         {
             colorType->stepRed = 0.31f;
             colorType->stepGreen = 0.63f;

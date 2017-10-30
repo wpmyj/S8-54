@@ -134,7 +134,7 @@ void RAM_WriteRead_Asinch(uint16 *src, uint16 *dest, int numHalfWords)
 
     transferComplete = false;
 
-    HAL_DMA_Start_IT(&handleDMA_RAM, (uint)src, (uint)dest, numHalfWords * 2); //-V221
+    HAL_DMA_Start_IT(&handleDMA_RAM, (uint)src, (uint)dest, numHalfWords * 2);
     
     RAM_WaitWriteReadComplete();
 }
@@ -203,9 +203,9 @@ void RAM_Init(void)
 //----------------------------------------------------------------------------------------------------------------------------------------------------
 void RAM_WriteByte(void *dest, uint8 value)
 {
-    if ((int)dest & 0x1) //-V205
+    if ((int)dest & 0x1)
     {
-        uint16 *addr = (uint16 *)((int)dest & 0xfffffffe); //-V205 //-V204
+        uint16 *addr = (uint16 *)((int)dest & 0xfffffffe);
         *addr = (value << 8) + (uint8)(*addr);
     }
     else
@@ -219,7 +219,7 @@ void RAM_WriteByte(void *dest, uint8 value)
 //---------------------------------------------------------------------------------------------------------------------------------------------------
 void RAM_WriteWord(void *dest, uint value)
 {
-    uint16 *addr = (uint16 *)((int)dest); //-V205 //-V204 //-V220
+    uint16 *addr = (uint16 *)((int)dest);
     *addr = (uint16)value;
     *(addr + 1) = (uint16)(value >> 16);
 }
@@ -244,11 +244,11 @@ void RAM_MemShiftLeft(uint8 *address, int numBytes, int shift)
 uint8 RAM_ReadByte(void *src)
 {
     uint16 *addr = 0;
-    bool odd = (int)src & 0x1; //-V205
+    bool odd = (int)src & 0x1;
 
     if(odd)
     {
-        addr = (uint16 *)((int)src & 0xfffffffe); //-V205 //-V204
+        addr = (uint16 *)((int)src & 0xfffffffe);
     }
     else
     {
@@ -269,7 +269,7 @@ uint8 RAM_ReadByte(void *src)
 //---------------------------------------------------------------------------------------------------------------------------------------------------
 uint RAM_ReadWord(void *src)
 {
-    uint16 *addr0 = (uint16 *)((int)src); //-V205 //-V204 //-V220
+    uint16 *addr0 = (uint16 *)((int)src);
     uint16 *addr1 = addr0 + 1;
 
     return (*addr0) + ((*addr1) << 16);

@@ -260,7 +260,7 @@ void Menu_PressButton(PanelButton button)
         }
         bufferForButtons[0] = button;
       
-        if (memcmp(bufferForButtons, sampleBufferForButtons, SIZE_BUFFER_FOR_BUTTONS) == 0) //-V512
+        if (memcmp(bufferForButtons, sampleBufferForButtons, SIZE_BUFFER_FOR_BUTTONS) == 0)
         {
             SHOW_DEBUG_MENU = 1;
             Display_ShowWarning(MenuDebugEnabled);

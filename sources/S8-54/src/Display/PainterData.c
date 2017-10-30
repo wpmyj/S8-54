@@ -422,11 +422,11 @@ static bool DataBeyondTheBorders(const uint8 *data, int firstPoint, int lastPoin
     int numPoints = lastPoint - firstPoint;
     for (int i = firstPoint; i < lastPoint; i++)
     {
-        if (data[i] <= MIN_VALUE) //-V108
+        if (data[i] <= MIN_VALUE)
         {
             numMin++;
         }
-        if (data[i] >= MAX_VALUE) //-V108
+        if (data[i] >= MAX_VALUE)
         {
             numMax++;
         }
@@ -688,7 +688,7 @@ static void DrawSignalLined(const uint8 *data, int startPoint, int endPoint, int
             if (x0 >= gridLeft && x0 <= gridRight)
             {
                 int index = i - startPoint;
-                int y = calculateFiltr ? Math_CalculateFiltr(data, i, numPoints) : data[i]; //-V108
+                int y = calculateFiltr ? Math_CalculateFiltr(data, i, numPoints) : data[i];
                 int newY = 0;
                 CONVERT_DATA_TO_DISPLAY(newY, y);
                 dataCD[index] = (uint8)newY;
@@ -747,7 +747,7 @@ static void DrawSignalLined(const uint8 *data, int startPoint, int endPoint, int
     }
     if (PEAKDET_DS == PeakDet_Disable)
     {
-        CONVERT_DATA_TO_DISPLAY(dataCD[280], data[endPoint]); //-V108
+        CONVERT_DATA_TO_DISPLAY(dataCD[280], data[endPoint]);
         Painter_DrawSignal(GridLeft(), dataCD, true);
     }
 }
@@ -799,7 +799,7 @@ static void DrawMemoryWindow(void)
     float scaleX = (float)(rightX - leftX + 1) / SET_POINTS_IN_CHANNEL;
     const int xVert0 = leftX + (int)(SHIFT_IN_MEMORY_IN_POINTS * scaleX);
     int width = (int)((rightX - leftX) * (282.0f / SET_POINTS_IN_CHANNEL));
-    Painter_DrawRectangleC(xVert0, 0, width - (FPGA_POINTS_8k ? 1 : 0), GRID_TOP - 2, gColorFill); //-V2007
+    Painter_DrawRectangleC(xVert0, 0, width - (FPGA_POINTS_8k ? 1 : 0), GRID_TOP - 2, gColorFill);
 
     DrawTPos(leftX, rightX);
 
@@ -947,9 +947,9 @@ static void DrawTShift(int leftX, int rightX, int numBytes)
     }
 
     Painter_FillRegionC((int)xShift - 1, 1, 6, 6, gColorBack);
-    Painter_FillRegionC((int)xShift, 2, 4, 4, gColorFill); //-V112
+    Painter_FillRegionC((int)xShift, 2, 4, 4, gColorFill);
     Painter_DrawLineC((int)xShift + dX01, 3, (int)xShift + dX11, dY11 - 2, gColorBack);
-    Painter_DrawLine((int)xShift + dX02, 4, (int)xShift + 2, dY12 - 2); //-V112
+    Painter_DrawLine((int)xShift + dX02, 4, (int)xShift + 2, dY12 - 2);
 }
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
@@ -979,5 +979,5 @@ static void SendToDisplayDataInRect(Channel ch, int x, int *min, int *max, int w
         points[i * 2 + 1] = min[i] < 0 ? 0 : min[i];
     }
 
-    Painter_DrawVLineArray(x, (int)width, points, gColorChan[ch]); //-V202
+    Painter_DrawVLineArray(x, (int)width, points, gColorChan[ch]);
 }

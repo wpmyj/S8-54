@@ -77,7 +77,7 @@ void DS_Clear(void)
     SIZE_POOL = RAM8(DS_POOL_END) - RAM8(DS_POOL_BEGIN);
 
     sumA_RAM = (uint *)RAM8(DS_SUM_A);
-    sumB_RAM = (uint *)RAM8(DS_SUM_B); //-V206
+    sumB_RAM = (uint *)RAM8(DS_SUM_B);
 
     limitUpA_RAM = RAM16(DS_LIMIT_UP_A);
     limitUpB_RAM = RAM16(DS_LIMIT_UP_B);
@@ -119,8 +119,8 @@ static void CalculateAroundAverage(uint8 *dataA, uint8 *dataB, DataSettings *dss
     {
         for (int i = 0; i < size; i++)
         {
-            aveDataA_RAM[i] = dataA[i]; //-V108
-            aveDataB_RAM[i] = dataB[i]; //-V108
+            aveDataA_RAM[i] = dataA[i];
+            aveDataB_RAM[i] = dataB[i];
         }
     }
     else
@@ -137,7 +137,7 @@ static void CalculateAroundAverage(uint8 *dataA, uint8 *dataB, DataSettings *dss
         float *aDataB = &aveDataB_RAM[0];
         uint8 *dA = &dataA[0];
         uint8 *dB = &dataB[0];
-        float *endData = &aveDataA_RAM[size]; //-V108
+        float *endData = &aveDataA_RAM[size];
 
         do 
         {
@@ -439,13 +439,13 @@ void CalculateSums(void)
 
     for(int i = 0; i < iMax; i++)
     {
-        uint16 data16 = dataA[i]; //-V108
+        uint16 data16 = dataA[i];
         *sumA16 = (uint8)data16;
         sumA16 += 2;
         *sumA16 = (uint8)(data16 >> 8);
         sumA16 += 2;
 
-        data16 = dataB[i]; //-V108
+        data16 = dataB[i];
         *sumB16 = (uint8)data16;
         sumB16 += 2;
         *sumB16 = (uint8)(data16 >> 8);
@@ -597,7 +597,7 @@ static bool CopyData(DataSettings *ds, Channel ch, uint8 *dataImportRel)
 
     if(ch == B && ENABLED_B(ds) && ENABLED_A(ds))
     {
-        address += length; //-V102
+        address += length;
     }
 
     RAM_MemCpy16(address, dataImportRel, length);
@@ -729,7 +729,7 @@ uint8 *DS_GetAverageData(Channel ch)
         
         for (int i = 0; i < numPoints; i++)
         {
-            gDataAve[ch][i] = (uint8)(floatAveData[i] + 0.5f); //-V108
+            gDataAve[ch][i] = (uint8)(floatAveData[i] + 0.5f);
         }
         return &gDataAve[ch][0];
     }
