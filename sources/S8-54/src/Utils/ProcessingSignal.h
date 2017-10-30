@@ -13,11 +13,11 @@
  *  @{
  */
 
-#define MARKER_HORIZONTAL(ch, num)  (markerHor[ch][num] - MIN_VALUE)
-#define MARKER_VERTICAL(ch, num)    (markerVert[ch][num])
+#define MARKER_VOLTAGE(ch, num)  (markerVoltage[ch][num] - MIN_VALUE)
+#define MARKER_TIME(ch, num)    (markerTime[ch][num])
 
-extern int markerHor[NumChannels][2];
-extern int markerVert[NumChannels][2];
+extern int markerVoltage[NumChannels][2];
+extern int markerTime[NumChannels][2];
 
 
 /// \brief Установить сигнал для обработки. Данные берутся из DS, inA, inB.

@@ -117,8 +117,8 @@ static const MeasureCalculate measures[Measure_NumMeasures] =
 
 static MeasureValue values[Measure_NumMeasures] = {{0.0f, 0.0f}};
 
-int markerHor[NumChannels][2] = {{ERROR_VALUE_INT}, {ERROR_VALUE_INT}};
-int markerVert[NumChannels][2] = {{ERROR_VALUE_INT}, {ERROR_VALUE_INT}};
+int markerVoltage[NumChannels][2] = {{ERROR_VALUE_INT}, {ERROR_VALUE_INT}};
+int markerTime[NumChannels][2] = {{ERROR_VALUE_INT}, {ERROR_VALUE_INT}};
 
 static bool maxIsCalculating[2] = {false, false};
 static bool minIsCalculating[2] = {false, false};
@@ -164,8 +164,8 @@ void Processing_CalculateMeasures(void)
             {
                 if(meas == MARKED_MEAS || MARKED_MEAS == Measure_None)
                 {
-                    markerVert[A][0] = markerVert[A][1] = markerVert[B][0] = markerVert[B][1] = ERROR_VALUE_INT;
-                    markerHor[A][0] = markerHor[A][1] = markerHor[B][0] = markerHor[B][1] = ERROR_VALUE_INT;
+                    markerTime[A][0] = markerTime[A][1] = markerTime[B][0] = markerTime[B][1] = ERROR_VALUE_INT;
+                    markerVoltage[A][0] = markerVoltage[A][1] = markerVoltage[B][0] = markerVoltage[B][1] = ERROR_VALUE_INT;
                 }
                 if((SOURCE_MEASURE_A || SOURCE_MEASURE_A_B) && SET_ENABLED_A)
                 {
@@ -188,7 +188,7 @@ float CalculateVoltageMax(Channel ch)
     EXIT_IF_ERROR_FLOAT(max);
     if(MARKED_MEAS == Measure_VoltageMax)
     {
-        markerHor[ch][0] = (int)max;                           // Здесь не округляем, потому что max может быть только целым
+        markerVoltage[ch][0] = (int)max;                           // Здесь не округляем, потому что max может быть только целым
     }
 
     return POINT_2_VOLTAGE(max, RANGE_DS(ch), RSHIFT_DS(ch));
@@ -202,7 +202,7 @@ float CalculateVoltageMin(Channel ch)
     EXIT_IF_ERROR_FLOAT(min);
     if(MARKED_MEAS == Measure_VoltageMin)
     {
-        markerHor[ch][0] = (int)min;                           // Здесь не округляем, потому что min может быть только целым
+        markerVoltage[ch][0] = (int)min;                           // Здесь не округляем, потому что min может быть только целым
     }
     
     return POINT_2_VOLTAGE(min, RANGE_DS(ch),RSHIFT_DS(ch));
@@ -219,8 +219,8 @@ float CalculateVoltagePic(Channel ch)
 
     if(MARKED_MEAS == Measure_VoltagePic)
     {
-        markerHor[ch][0] = (int)CalculateMaxRel(ch);
-        markerHor[ch][1] = (int)CalculateMinRel(ch);
+        markerVoltage[ch][0] = (int)CalculateMaxRel(ch);
+        markerVoltage[ch][1] = (int)CalculateMinRel(ch);
     }
     return max - min;
 }
@@ -233,7 +233,7 @@ float CalculateVoltageMinSteady(Channel ch)
     EXIT_IF_ERROR_FLOAT(min);
     if(MARKED_MEAS == Measure_VoltageMinSteady)
     {
-        markerHor[ch][0] = (int)ROUND(min);
+        markerVoltage[ch][0] = (int)ROUND(min);
     }
 
     return POINT_2_VOLTAGE(min, RANGE_DS(ch), RSHIFT_DS(ch));
@@ -249,7 +249,7 @@ float CalculateVoltageMaxSteady(Channel ch)
 
     if(MARKED_MEAS == Measure_VoltageMaxSteady)
     {
-        markerHor[ch][0] = (int)max;
+        markerVoltage[ch][0] = (int)max;
     }
 
     return POINT_2_VOLTAGE(max, RANGE_DS(ch), RSHIFT_DS(ch));
@@ -266,8 +266,8 @@ float CalculateVoltageVybrosPlus(Channel ch)
 
     if (MARKED_MEAS == Measure_VoltageVybrosPlus)
     {
-        markerHor[ch][0] = (int)max;
-        markerHor[ch][1] = (int)maxSteady;
+        markerVoltage[ch][0] = (int)max;
+        markerVoltage[ch][1] = (int)maxSteady;
     }
 
     uint rShift = RSHIFT_DS(ch);
@@ -284,8 +284,8 @@ float CalculateVoltageVybrosMinus(Channel ch)
 
     if (MARKED_MEAS == Measure_VoltageVybrosMinus)
     {
-        markerHor[ch][0] = (int)min;
-        markerHor[ch][1] = (int)minSteady;
+        markerVoltage[ch][0] = (int)min;
+        markerVoltage[ch][1] = (int)minSteady;
     }
 
     uint16 rShift = RSHIFT_DS(ch);
@@ -303,8 +303,8 @@ float CalculateVoltageAmpl(Channel ch)
 
     if(MARKED_MEAS == Measure_VoltageAmpl)
     {
-        markerHor[ch][0] = (int)CalculateMaxSteadyRel(ch);
-        markerHor[ch][1] = (int)CalculateMinSteadyRel(ch);
+        markerVoltage[ch][0] = (int)CalculateMaxSteadyRel(ch);
+        markerVoltage[ch][1] = (int)CalculateMinSteadyRel(ch);
     }
     return max - min;
 }
@@ -334,7 +334,7 @@ float CalculateVoltageAverage(Channel ch)
 
     if(MARKED_MEAS == Measure_VoltageAverage)
     {
-        markerHor[ch][0] = aveRel;
+        markerVoltage[ch][0] = aveRel;
     }
 
     return POINT_2_VOLTAGE(aveRel, RANGE_DS(ch), RSHIFT_DS(ch));
@@ -361,7 +361,7 @@ float CalculateVoltageRMS(Channel ch)
 
     if(MARKED_MEAS == Measure_VoltageRMS)
     {
-        markerHor[ch][0] = Math_VoltageToPoint(sqrtf(rms / period), RANGE_DS(ch), rShift);
+        markerVoltage[ch][0] = Math_VoltageToPoint(sqrtf(rms / period), RANGE_DS(ch), rShift);
     }
 
     return sqrtf(rms / period);
@@ -406,8 +406,8 @@ float CalculatePeriod(Channel ch)
 
             if (MARKED_MEAS == Measure_Period || MARKED_MEAS == Measure_Freq)
             {
-                markerVert[ch][0] = (int)((int16)firstIntersection - firstByte);
-                markerVert[ch][1] = (int)((int16)secondIntersection - firstByte);
+                markerTime[ch][0] = (int)((int16)firstIntersection - firstByte);
+                markerTime[ch][1] = (int)((int16)secondIntersection - firstByte);
             }
         }
     }
@@ -581,6 +581,12 @@ float CalculateDurationPlus(Channel ch)
         secondIntersection = FindIntersectionWithHorLine(ch, 2, false, (uint8)aveValue);
     }
 
+    if (MARKED_MEAS == Measure_DurationPlus)
+    {
+        markerTime[ch][0] = (int)((int16)firstIntersection - firstByte);
+        markerTime[ch][1] = (int)((int16)secondIntersection - firstByte);
+    }
+
     EXIT_IF_ERROR_FLOAT(secondIntersection);
 
     return TSHIFT_2_ABS((secondIntersection - firstIntersection) / 2.0f, TBASE_DS);
@@ -601,6 +607,12 @@ float CalculateDurationMinus(Channel ch)
     if(secondIntersection < firstIntersection)
     {
         secondIntersection = FindIntersectionWithHorLine(ch, 2, true, (uint8)aveValue);
+    }
+
+    if (MARKED_MEAS == Measure_DurationMinus)
+    {
+        markerTime[ch][0] = (int)((int16)firstIntersection - firstByte);
+        markerTime[ch][1] = (int)((int16)secondIntersection - firstByte);
     }
 
     EXIT_IF_ERROR_FLOAT(secondIntersection);
@@ -638,10 +650,10 @@ float CalculateTimeNarastaniya(Channel ch)   /** \todo Здесь, возможно, нужно ув
 
     if (MARKED_MEAS == Measure_TimeNarastaniya)
     {
-        markerHor[ch][0] = (int)max09;
-        markerHor[ch][1] = (int)min01;
-        markerVert[ch][0] = (int)((int16)firstIntersection - firstByte);
-        markerVert[ch][1] = (int)((int16)secondIntersection - firstByte);
+        markerVoltage[ch][0] = (int)max09;
+        markerVoltage[ch][1] = (int)min01;
+        markerTime[ch][0] = (int)((int16)firstIntersection - firstByte);
+        markerTime[ch][1] = (int)((int16)secondIntersection - firstByte);
     }
 
     return retValue;
@@ -676,10 +688,10 @@ float CalculateTimeSpada(Channel ch)        /// \todo Аналогично времени нараста
 
     if (MARKED_MEAS == Measure_TimeSpada)
     {
-        markerHor[ch][0] = (int)max09;
-        markerHor[ch][1] = (int)min01;
-        markerVert[ch][0] = (int)((int16)firstIntersection - SHIFT_IN_MEMORY);
-        markerVert[ch][1] = (int)((int16)secondIntersection - SHIFT_IN_MEMORY);
+        markerVoltage[ch][0] = (int)max09;
+        markerVoltage[ch][1] = (int)min01;
+        markerTime[ch][0] = (int)((int16)firstIntersection - SHIFT_IN_MEMORY);
+        markerTime[ch][1] = (int)((int16)secondIntersection - SHIFT_IN_MEMORY);
     }
 
     return retValue;
@@ -965,6 +977,14 @@ float CalculateDelayPlus(Channel ch) //-V2008
         secondIntersection = FindIntersectionWithHorLine(secondChannel, 2, true, (uint8)averageSecond);
     }
 
+    /*
+    if (MARKED_MEAS == Measure_DelayPlus)
+    {
+        markerTime[ch][0] = (int)((int16)firstIntersection - firstByte);
+        markerTime[ch][1] = (int)((int16)secondIntersection - firstByte);
+    }
+    */
+
     EXIT_IF_ERROR_FLOAT(secondIntersection);
 
     return TSHIFT_2_ABS((secondIntersection - firstIntersection) / 2.0f, TBASE_DS);
@@ -1005,6 +1025,14 @@ float CalculateDelayMinus(Channel ch) //-V2008
     {
         secondIntersection = FindIntersectionWithHorLine(secondChannel, 2, false, (uint8)averageSecond);
     }
+
+    /*
+    if (MARKED_MEAS == Measure_DelayMinus)
+    {
+        markerTime[ch][0] = (int)((int16)firstIntersection - firstByte);
+        markerTime[ch][1] = (int)((int16)secondIntersection - firstByte);
+    }
+    */
 
     EXIT_IF_ERROR_FLOAT(secondIntersection);
 

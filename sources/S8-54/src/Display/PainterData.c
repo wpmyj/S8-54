@@ -652,13 +652,13 @@ static void DrawMarkersForMeasure(Channel ch)
     Painter_SetColor(ColorCursors(ch));
     for (int numMarker = 0; numMarker < 2; numMarker++)
     {
-        int posY = bottom - (int)(MARKER_HORIZONTAL(ch, numMarker) * scaleY);
+        int posY = bottom - (int)(MARKER_VOLTAGE(ch, numMarker) * scaleY);
         if (posY > GRID_TOP && posY < bottom)
         {
             Painter_DrawDashedHLine(posY, left, right, 3, 2, 0);
         }
 
-        int posX = left + (int)(MARKER_VERTICAL(ch, numMarker) * scaleX);
+        int posX = left + (int)(MARKER_TIME(ch, numMarker) * scaleX);
         if (posX > left && posX < right)
         {
             Painter_DrawDashedVLine(posX, GRID_TOP, bottom, 3, 2, 0);

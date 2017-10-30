@@ -66,8 +66,8 @@ void ClearLimitsAndSums(void)
     RAM_MemClear(limitUpB_RAM, numBytesB);
     RAM_MemClear(limitDownA_RAM, numBytesA);
     RAM_MemClear(limitDownB_RAM, numBytesB);
-    RAM_MemClear(sumA_RAM, numBytesA * 4); //-V112
-    RAM_MemClear(sumB_RAM, numBytesB * 4); //-V112
+    RAM_MemClear(sumA_RAM, numBytesA * 4);
+    RAM_MemClear(sumB_RAM, numBytesB * 4);
 }
 
 
@@ -76,7 +76,7 @@ void DS_Clear(void)
 {
     SIZE_POOL = RAM8(DS_POOL_END) - RAM8(DS_POOL_BEGIN);
 
-    sumA_RAM = (uint *)RAM8(DS_SUM_A); //-V206
+    sumA_RAM = (uint *)RAM8(DS_SUM_A);
     sumB_RAM = (uint *)RAM8(DS_SUM_B); //-V206
 
     limitUpA_RAM = RAM16(DS_LIMIT_UP_A);
