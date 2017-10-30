@@ -1,5 +1,3 @@
-
-
 #include "defines.h"
 #include "ProcessingSignal.h"
 #include "Globals.h"
@@ -1315,26 +1313,33 @@ static void CountedToCurrentSettings(void)
 {
     int numBytes = BYTES_IN_CHANNEL_DS;
 
+    if (SET_TBASE != TBASE_DS)
+    {
+        CountedTBase(A);
+        memcpy(IN_A, OUT_A, numBytes);
+        CountedTBase(B);
+        memcpy(IN_B, OUT_B, numBytes);
+    }
+    
+    if (SET_RANGE_A !=  RANGE_DS_A)
+    {
+        CountedRange(A);
+        memcpy(IN_A, OUT_A, numBytes);
+    }
+    
+    if (SET_RANGE_B != RANGE_DS_B)
+    {
+        CountedRange(B);
+        memcpy(IN_B, OUT_B, numBytes);
+    }
+
     int16 dTShift = SET_TSHIFT - TSHIFT_DS;
 
     int rShiftA = ((int)SET_RSHIFT_A - (int)RSHIFT_DS_A) / (float)STEP_RSHIFT * 1.25f;   /// \todo магические числа
 
     int rShiftB = ((int)SET_RSHIFT_B - (int)RSHIFT_DS_B) / (float)STEP_RSHIFT * 1.25f;   /// \todo избавиться от этого непонятного коэффициента
-
-    if (SET_TBASE != TBASE_DS)
-    {
-        CountedTBase(A);
-        CountedTBase(B);
-    }
-    else if (SET_RANGE_A !=  RANGE_DS_A)
-    {
-        CountedRange(A);
-    }
-    else if (SET_RANGE_B != RANGE_DS_B)
-    {
-        CountedRange(B);
-    }
-    else if (dTShift || rShiftA || rShiftB)
+    
+    if (dTShift || rShiftA || rShiftB)
     {
         int startIndex = -dTShift;
         for (int i = 0; i <= startIndex; i++)
@@ -1393,12 +1398,13 @@ static void CountedToCurrentSettings(void)
                 ((uint16 *)OUT_B)[index] = (uint16)((dB0 | (dB1 << 8)));
             }
         }
+
+        memcpy(IN_A, OUT_A, numBytes);
+        memcpy(IN_B, OUT_B, numBytes);
     }
-    else
-    {
-        memcpy(OUT_A, IN_A, numBytes);
-        memcpy(OUT_B, IN_B, numBytes);
-    }
+
+    memcpy(OUT_A, IN_A, numBytes);
+    memcpy(OUT_B, IN_B, numBytes);
 }
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------

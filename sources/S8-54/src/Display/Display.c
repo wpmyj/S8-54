@@ -638,17 +638,6 @@ static void DrawLowPart(void)
     TBase tBase = SET_TBASE;
     int16 tShift = SET_TSHIFT;
 
-    if(MODE_WORK_ROM && SHOW_IN_INT_DIRECT)
-    { 
-    }
-    else if(!MODE_WORK_DIR)
-    {
-        if(DS)
-        {
-            tBase = TBASE_DS;
-            tShift = TSHIFT_DS;
-        }
-    }
     snprintf(buffer, SIZE, "ð\xa5%s", Tables_GetTBaseString(tBase));
     Painter_DrawText(x, y0, buffer);
 
