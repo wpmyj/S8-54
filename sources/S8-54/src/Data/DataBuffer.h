@@ -11,10 +11,12 @@
 extern uint8 *dataIN[NumChannels];      ///< Считанные данные первого канала.
 extern uint8 *dataOUT[NumChannels];     ///< Данные к выводу первого канала.
 
-#define IN_A    dataIN[A]
-#define IN_B    dataIN[B]
-#define OUT_A   dataOUT[A]
-#define OUT_B   dataOUT[B]
+#define IN(ch)  (dataIN[ch])
+#define IN_A    IN(A)
+#define IN_B    IN(B)
+#define OUT(ch) (dataOUT[ch])
+#define OUT_A   OUT(A)
+#define OUT_B   OUT(B)
 
 
 extern void *extraMEM;      // Это специальный указатель. Используется для выделения памяти переменным, которые не нужны всё время выполения программы,

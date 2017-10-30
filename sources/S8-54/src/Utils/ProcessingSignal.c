@@ -66,10 +66,8 @@ static float FindIntersectionWithHorLine(Channel ch, int numIntersection, bool d
 static void CountedToCurrentSettings(void);
 /// ѕриведение сигнала к установленному в приборе Range
 static void CountedRange(Channel ch);
-/// ѕриведение сигнала к установленному в приборе TBase
-static void CountedTBase(void);
-/// ѕриведение сигнала в конкретном канале к установленному в приборе TBase
-static void CountedTBaseChannel(Channel ch);
+/// ѕриведение сигнала в канале к установленному в приборе TBase
+static void CountedTBase(Channel ch);
 
 /// Ћинейна€ интерпол€ци€
 static void LinearInterpolation(uint8 *data, int numPoints);
@@ -315,7 +313,7 @@ float CalculateVoltageAmpl(Channel ch)
 
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
-#define CHOICE_BUFFER (dataIN[ch])
+#define CHOICE_BUFFER (IN(ch))
 
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
@@ -1325,7 +1323,8 @@ static void CountedToCurrentSettings(void)
 
     if (SET_TBASE != TBASE_DS)
     {
-        CountedTBase();
+        CountedTBase(A);
+        CountedTBase(B);
     }
     else if (SET_RANGE_A !=  RANGE_DS_A)
     {
@@ -1425,8 +1424,8 @@ static void CountedRange(Channel ch)
     int rShiftIn = RSHIFT_DS(ch);
     int rShiftOut = SET_RSHIFT(ch);
     
-    uint8 *in = dataIN[ch];
-    uint8 *out = dataOUT[ch];
+    uint8 *in = IN(ch);
+    uint8 *out = OUT(ch);
     
     int numBytes = BYTES_IN_CHANNEL_DS;
 
@@ -1448,19 +1447,12 @@ static void CountedRange(Channel ch)
 }
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
-static void CountedTBase(void)
-{
-    CountedTBaseChannel(A);
-    CountedTBaseChannel(B);
-}
-
-//----------------------------------------------------------------------------------------------------------------------------------------------------
-static void CountedTBaseChannel(Channel ch)
+static void CountedTBase(Channel ch)
 {
     float ratio = TSHIFT_2_ABS(1, TBASE_DS) / TSHIFT_2_ABS(1, SET_TBASE);
 
-    uint8 *in = dataIN[ch];
-    uint8 *out = dataOUT[ch];
+    uint8 *in = IN(ch);
+    uint8 *out = OUT(ch);
 
     int numBytes = BYTES_IN_CHANNEL_DS;
 

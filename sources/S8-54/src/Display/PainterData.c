@@ -814,7 +814,7 @@ static void DrawDataInRect(uint width, Channel ch)
         return;
     }
     
-    uint8 *data = dataOUT[ch];
+    uint8 *data = OUT(ch);
 
     float elemsInColumn = BYTES_IN_CHANNEL_DS / (float)width;
     uint8 min[width + 1];
