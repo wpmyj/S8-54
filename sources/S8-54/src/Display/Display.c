@@ -538,9 +538,10 @@ static void DrawSpectrum(void)
     if(MODE_WORK_DIR)
     {
         int numPoints = BytesInChannel(DS);
-        if(numPoints < 512)
+
+        if (numPoints > 4096)       /// \todo Пока 8к и более не хочет считать
         {
-            numPoints = 256;
+            numPoints = 4096;
         }
 
         if(SOURCE_FFT_A)

@@ -1,5 +1,3 @@
-
-
 #include "DataSettings.h"
 #include "Globals.h"
 #include "Hardware/FLASH.h"
