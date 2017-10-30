@@ -119,6 +119,8 @@ void Data_ReadFromROM(StructDataDrawing *dataStruct)
 {
     Clear();
 
+    dataStruct->posBreak = 0;
+
     if (FLASH_GetData(NUM_ROM_SIGNAL, &dataSettings, IN_A, IN_B))
     {
         DS = &dataSettings;

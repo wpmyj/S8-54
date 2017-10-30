@@ -1,5 +1,3 @@
-
-
 #include "Display.h"
 #include "Grid.h"
 #include "Log.h"

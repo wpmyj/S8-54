@@ -225,7 +225,6 @@ static void DrawData(bool forAccum)
         ch = order[LAST_AFFECTED_CH][1];
 
         DrawChannel(ch, forAccum ? ColorChanAccum(ch) : gColorChan[ch]);
-
     }
 
     Painter_DrawRectangleC(GridLeft(), GRID_TOP, GridWidth(), GridFullHeight(), gColorFill);
