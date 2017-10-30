@@ -31,7 +31,8 @@ extern void ChangeStateFlashDrive(void);
 
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-static void SetTime(char *nameFile);
+/// Устанавливает текущее время для файла nameFile
+static void SetTimeForFile(char *nameFile);
 
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -452,13 +453,13 @@ bool FDrive_CloseFile(StructForWrite *structForWrite)
     }
     f_close(&structForWrite->fileObj);
 
-    SetTime(structForWrite->name);
+    SetTimeForFile(structForWrite->name);
 
     return true;
 }
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
-static void SetTime(char *name)
+static void SetTimeForFile(char *name)
 {
     FILINFO info;
 
