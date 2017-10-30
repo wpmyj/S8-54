@@ -248,6 +248,7 @@ typedef struct
     PlaceOfSaving       rec_PlaceOfSaving;                          ///< Куда будут сохраняться данные регистратора
     int8                rec_NumCursor;                              ///< Номер активного курсора
     int16               nrst_RShiftAddStable[NumChannels][3];       ///< Добавочное смещение для трёх самых чувствительных диапазонов. Задаётся единожды при настройке
+    LinkingTShift       time_LinkingTShift;                         ///< Тип привязки смещения по горизонтали
 } Settings;
 
 #pragma pack(pop)

@@ -226,7 +226,9 @@ static const Settings defaultSettings =
     1,                          // NumSmoothForRand
     MemDataScale_Recalculated,  // mem_DataScale
     PlaceOfSaving_RAM,          // rec_PlaceOfSaving
-    0                           // rec_NumCursor
+    0,                          // rec_NumCursor
+    {{0, 0, 0}, {0, 0, 0}},
+    LinkingTShift_Time          // time_LinkingTShift
 };
 
 Settings set;

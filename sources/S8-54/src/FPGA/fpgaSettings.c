@@ -1,5 +1,3 @@
-
-
 #include "Log.h"
 #include "Data/Data.h"
 #include "Display/Display.h"
@@ -531,7 +529,10 @@ void FPGA_SetTBase(TBase tBase)
         float tShiftAbsOld = TSHIFT_2_ABS(SET_TSHIFT, SET_TBASE);
         sTime_SetTBase(tBase);
         LoadTBase();
-        SetTShift((int)TSHIFT_2_REL(tShiftAbsOld, SET_TBASE), false);
+        if (LINKING_TSHIFT == LinkingTShift_Time)
+        {
+            SetTShift((int)TSHIFT_2_REL(tShiftAbsOld, SET_TBASE), false);
+        }
         NEED_FINISH_DRAW = 1;
     }
     else

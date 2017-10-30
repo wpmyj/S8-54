@@ -17,14 +17,15 @@
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 extern Page mainPage;
 
-static const  Choice cSample;                ///< ÐÀÇÂÅÐÒÊÀ - Âûáîðêà
+static const  Choice cSample;               ///< ÐÀÇÂÅÐÒÊÀ - Âûáîðêà
 static bool  IsActive_Sample(void);
-static const  Choice cPeakDet;               ///< ÐÀÇÂÅÐÒÊÀ - Ïèê äåò
+static const  Choice cPeakDet;              ///< ÐÀÇÂÅÐÒÊÀ - Ïèê äåò
 static bool  IsActive_PeakDet(void);
        void OnChanged_PeakDet(bool active);
-static const  Choice cTPos;                  ///< ÐÀÇÂÅÐÒÊÀ - Òî
+static const  Choice cTPos;                 ///< ÐÀÇÂÅÐÒÊÀ - Òî
        void OnChanged_TPos(bool active);
-static const  Choice cDivRole;               ///< ÐÀÇÂÅÐÒÊÀ - Ô-öèÿ ÂÐ/ÄÅË
+static const  Choice cDivRole;              ///< ÐÀÇÂÅÐÒÊÀ - Ô-öèÿ ÂÐ/ÄÅË
+static const  Choice cShiftXtype;           ///< ÐÀÇÂÅÐÒÊÀ - Ñìåùåíèå
 
 // ÐÀÇÂÅÐÒÊÀ /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 const Page pTime =
@@ -40,8 +41,8 @@ const Page pTime =
         (void *)&cSample,       // ÐÀÇÂÅÐÒÊÀ - Âûáîðêà
         (void *)&cPeakDet,      // ÐÀÇÂÅÐÒÊÀ - Ïèê äåò
         (void *)&cTPos,         // ÐÀÇÂÅÐÒÊÀ - Òî
-        (void *)&cDivRole       // ÐÀÇÂÅÐÒÊÀ - Ô-öèÿ ÂÐ/ÄÅË
-        // (void *)&mcTimeSelfRecorder,
+        (void *)&cDivRole,      // ÐÀÇÂÅÐÒÊÀ - Ô-öèÿ ÂÐ/ÄÅË
+        (void *)&cShiftXtype    // ÐÀÇÂÅÐÒÊÀ - Ñìåùåíèå
     }
 };
 
@@ -170,4 +171,22 @@ static const Choice cDivRole =
         {"Ïàìÿòü",      "Memory"}
     },
     (int8 *)&TIME_DIVXPOS
+};
+
+// ÐÀÇÂÅÐÒÊÀ - Ñìåùåíèå ------------------------------------------------------------------------------------------------------------------------------
+static const Choice cShiftXtype =
+{
+    Item_Choice, &pTime, 0,
+    {
+        "Ñìåùåíèå", "Offset"
+        "Çàäà¸ò ðåæèì óäåðæàíèÿ ñìåùåíèÿ ïî ãîðèçîíòàëè\n1. \"Âðåìÿ\" - ñîõðàíÿåòñÿ àáñîëþòíîå ñìåùåíèå â ñåêóíäàõ.\n2. \"Äåëåíèÿ\" - ñîõðàíÿåòñÿ "
+        "ïîëîæåíèå ìåùåíèÿ íà ýêðàíå.",
+        "Sets the mode of retaining the horizontal displacement\n1. \"Time\" - saved the asbolutic offset in seconds.\n2. \"Divisions\" - retained "
+        "the position of the offset on the screen."
+    },
+    {
+        "Âðåìÿ", "Time",
+        "Äåëåíèÿ", "Divisions"
+    },
+    (int8 *)&LINKING_TSHIFT
 };

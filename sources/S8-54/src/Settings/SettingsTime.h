@@ -35,6 +35,8 @@
 #define TSHIFT_IN_POINTS    sTime_TShiftInPoints()
 #define TPOS_IN_BYTES       sTime_TPosInBytes()
 
+#define LINKING_TSHIFT      (set.time_LinkingTShift)
+
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 /// Сохранить масштаб по времени
 void sTime_SetTBase(TBase tBase);
