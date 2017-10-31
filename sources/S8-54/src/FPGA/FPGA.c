@@ -710,8 +710,8 @@ bool ProcessingData(void)
 
     if (IN_RANDOM_MODE)
     {
-        dataRandA = AllocMemForChannelFromHeap(A, 0);
-        dataRandB = AllocMemForChannelFromHeap(B, 0);
+        dataRandA = (uint8 *)AllocMemForChannelFromHeap(A, 0);
+        dataRandB = (uint8 *)AllocMemForChannelFromHeap(B, 0);
 
         if (SAMPLE_TYPE_IS_REAL)
         {

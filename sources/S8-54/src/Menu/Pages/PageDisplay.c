@@ -1,5 +1,3 @@
-
-
 #include "defines.h"
 #include "Menu/Menu.h"
 #include "Menu/MenuItems.h"
@@ -13,47 +11,47 @@
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 extern ColorType colorTypeGrid;
 
-       const Page pDisplay;
-static const         Choice cViewMode;                          ///< ÄÈÑÏËÅÉ - Îòîáðàæåíèå
-static const          Page ppAccum;                             ///< ÄÈÑÏËÅÉ - ÍÀÊÎÏËÅÍÈÅ
+extern           const Page pDisplay;
+extern const         Choice cViewMode;                          ///< ÄÈÑÏËÅÉ - Îòîáðàæåíèå
+extern const          Page ppAccum;                             ///< ÄÈÑÏËÅÉ - ÍÀÊÎÏËÅÍÈÅ
 static bool         IsActive_Accum(void);
-static const         Choice cAccum_Num;                         ///< ÄÈÑÏËÅÉ - ÍÀÊÎÏËÅÍÈÅ - Êîëè÷åñòâî
-static const         Choice cAccum_Mode;                        ///< ÄÈÑÏËÅÉ - ÍÀÊÎÏËÅÍÈÅ - Ðåæèì
-static const         Button bAccum_Clear;                       ///< ÄÈÑÏËÅÉ - ÍÀÊÎÏËÅÍÈÅ - Î÷èñòèòü
+extern const         Choice cAccum_Num;                         ///< ÄÈÑÏËÅÉ - ÍÀÊÎÏËÅÍÈÅ - Êîëè÷åñòâî
+extern const         Choice cAccum_Mode;                        ///< ÄÈÑÏËÅÉ - ÍÀÊÎÏËÅÍÈÅ - Ðåæèì
+extern const         Button bAccum_Clear;                       ///< ÄÈÑÏËÅÉ - ÍÀÊÎÏËÅÍÈÅ - Î÷èñòèòü
 static bool         IsActive_Accum_Clear(void);
        void          OnPress_Accum_Clear(void);
-static const          Page ppAverage;                           ///< ÄÈÑÏËÅÉ - ÓÑÐÅÄÍÅÍÈÅ
+extern const          Page ppAverage;                           ///< ÄÈÑÏËÅÉ - ÓÑÐÅÄÍÅÍÈÅ
 static bool         IsActive_Average(void);
-static const         Choice cAverage_Num;                       ///< ÄÈÑÏËÅÉ - ÓÑÐÅÄÍÅÍÈÅ - Êîëè÷åñòâî
-static const         Choice cAverage_Mode;                      ///< ÄÈÑÏËÅÉ - ÓÑÐÅÄÍÅÍÈÅ - Ðåæèì
-static const         Choice cMinMax;                            ///< ÄÈÑÏËÅÉ - Ìèí Ìàêñ
+extern const         Choice cAverage_Num;                       ///< ÄÈÑÏËÅÉ - ÓÑÐÅÄÍÅÍÈÅ - Êîëè÷åñòâî
+extern const         Choice cAverage_Mode;                      ///< ÄÈÑÏËÅÉ - ÓÑÐÅÄÍÅÍÈÅ - Ðåæèì
+extern const         Choice cMinMax;                            ///< ÄÈÑÏËÅÉ - Ìèí Ìàêñ
 static bool         IsActive_MinMax(void);
 static void        OnChanged_MinMax(bool active);
-static const         Choice cSmoothing;                         ///< ÄÈÑÏËÅÉ - Ñãëàæèâàíèå
-static const         Choice cRefreshFPS;                        ///< ÄÈÑÏËÅÉ - ×àñòîòà îáíîâë
+extern const         Choice cSmoothing;                         ///< ÄÈÑÏËÅÉ - Ñãëàæèâàíèå
+extern const         Choice cRefreshFPS;                        ///< ÄÈÑÏËÅÉ - ×àñòîòà îáíîâë
 static void        OnChanged_RefreshFPS(bool active);
-static const          Page ppGrid;                              ///< ÄÈÑÏËÅÉ - ÑÅÒÊÀ
-static const         Choice cGrid_Type;                         ///< ÄÈÑÏËÅÉ - ÑÅÒÊÀ - Òèï
-static const       Governor gGrid_Brightness;                   ///< ÄÈÑÏËÅÉ - ÑÅÒÊÀ - ßðêîñòü
+extern const          Page ppGrid;                              ///< ÄÈÑÏËÅÉ - ÑÅÒÊÀ
+extern const         Choice cGrid_Type;                         ///< ÄÈÑÏËÅÉ - ÑÅÒÊÀ - Òèï
+extern const       Governor gGrid_Brightness;                   ///< ÄÈÑÏËÅÉ - ÑÅÒÊÀ - ßðêîñòü
        void        OnChanged_Grid_Brightness(void);
 static void       BeforeDraw_Grid_Brightness(void);
-static const         Choice cScaleYtype;                        ///< ÄÈÑÏËÅÉ - Ñìåùåíèå
-static const          Page ppSettings;                          ///< ÄÈÑÏËÅÉ - ÍÀÑÒÐÎÉÊÈ
-static const         Page pppSettings_Colors;                   ///< ÄÈÑÏËÅÉ - ÍÀÑÒÐÎÉÊÈ - ÖÂÅÒÀ
-static const         Choice cSettings_Colors_Scheme;            ///< ÄÈÑÏËÅÉ - ÍÀÑÒÐÎÉÊÈ - ÖÂÅÒÀ - Öâåòîâàÿ ñõåìà
-static const GovernorColor gcSettings_Colors_ChannelA;          ///< ÄÈÑÏËÅÉ - ÍÀÑÒÐÎÉÊÈ - ÖÂÅÒÀ - Êàíàë 1
-static const GovernorColor gcSettings_Colors_ChannelB;          ///< ÄÈÑÏËÅÉ - ÍÀÑÒÐÎÉÊÈ - ÖÂÅÒÀ - Êàíàë 2
-static const GovernorColor gcSettings_Colors_Grid;              ///< ÄÈÑÏËÅÉ - ÍÀÑÒÐÎÉÊÈ - ÖÂÅÒÀ - Ñåòêà
-static const         Choice cSettings_Colors_Background;        ///< ÄÈÑÏËÅÉ - ÍÀÑÒÐÎÉÊÈ - ÖÂÅÒÀ - Ôîí
+extern const         Choice cScaleYtype;                        ///< ÄÈÑÏËÅÉ - Ñìåùåíèå
+extern const          Page ppSettings;                          ///< ÄÈÑÏËÅÉ - ÍÀÑÒÐÎÉÊÈ
+extern const         Page pppSettings_Colors;                   ///< ÄÈÑÏËÅÉ - ÍÀÑÒÐÎÉÊÈ - ÖÂÅÒÀ
+extern const         Choice cSettings_Colors_Scheme;            ///< ÄÈÑÏËÅÉ - ÍÀÑÒÐÎÉÊÈ - ÖÂÅÒÀ - Öâåòîâàÿ ñõåìà
+extern const GovernorColor gcSettings_Colors_ChannelA;          ///< ÄÈÑÏËÅÉ - ÍÀÑÒÐÎÉÊÈ - ÖÂÅÒÀ - Êàíàë 1
+extern const GovernorColor gcSettings_Colors_ChannelB;          ///< ÄÈÑÏËÅÉ - ÍÀÑÒÐÎÉÊÈ - ÖÂÅÒÀ - Êàíàë 2
+extern const GovernorColor gcSettings_Colors_Grid;              ///< ÄÈÑÏËÅÉ - ÍÀÑÒÐÎÉÊÈ - ÖÂÅÒÀ - Ñåòêà
+extern const         Choice cSettings_Colors_Background;        ///< ÄÈÑÏËÅÉ - ÍÀÑÒÐÎÉÊÈ - ÖÂÅÒÀ - Ôîí
 static void        OnChanged_Settings_Colors_Background(bool active);
        void PageService_InitGlobalColors(void);
-static const       Governor gSettings_Brightness;               ///< ÄÈÑÏËÅÉ - ÍÀÑÒÐÎÉÊÈ - ßðêîñòü
+extern const       Governor gSettings_Brightness;               ///< ÄÈÑÏËÅÉ - ÍÀÑÒÐÎÉÊÈ - ßðêîñòü
 static void        OnChanged_Settings_Brightness(void);
-static const       Governor gSettings_Levels;                   ///< ÄÈÑÏËÅÉ - ÍÀÑÒÐÎÉÊÈ - Óðîâíè
-static const       Governor gSettings_Time;                     ///< ÄÈÑÏËÅÉ - ÍÀÑÒÐÎÉÊÈ - Âðåìÿ
-static const         Choice cSettings_StringNavigation;         ///< ÄÈÑÏËÅÉ - ÍÀÑÒÐÎÉÊÈ - Ñòðîêà ìåíþ
-static const         Choice cSettings_AltMarkers;               ///< ÄÈÑÏËÅÉ - ÍÀÑÒÐÎÉÊÈ - Äîï. ìàðêåðû
-static const         Choice cSettings_AutoHide;                 ///< ÄÈÑÏËÅÉ - ÍÀÑÒÐÎÉÊÈ - Ñêðûâàòü
+extern const       Governor gSettings_Levels;                   ///< ÄÈÑÏËÅÉ - ÍÀÑÒÐÎÉÊÈ - Óðîâíè
+extern const       Governor gSettings_Time;                     ///< ÄÈÑÏËÅÉ - ÍÀÑÒÐÎÉÊÈ - Âðåìÿ
+extern const         Choice cSettings_StringNavigation;         ///< ÄÈÑÏËÅÉ - ÍÀÑÒÐÎÉÊÈ - Ñòðîêà ìåíþ
+extern const         Choice cSettings_AltMarkers;               ///< ÄÈÑÏËÅÉ - ÍÀÑÒÐÎÉÊÈ - Äîï. ìàðêåðû
+extern const         Choice cSettings_AutoHide;                 ///< ÄÈÑÏËÅÉ - ÍÀÑÒÐÎÉÊÈ - Ñêðûâàòü
 static void        OnChanged_Settings_AutoHide(bool active);
 
 

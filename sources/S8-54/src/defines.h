@@ -50,14 +50,6 @@ typedef unsigned    int         uint32_t;
 typedef unsigned    char        uchar;
 typedef uint8                   BYTE;
 
-
-#ifndef bool
-typedef unsigned char bool;
-#define false   0
-#define true    (!false)
-#endif
-
-
 #define DEBUG
 
 

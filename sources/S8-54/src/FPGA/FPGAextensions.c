@@ -1,5 +1,3 @@
-
-
 #include "FPGAExtensions.h"
 #include "Log.h"
 #include "Data/DataBuffer.h"
@@ -138,7 +136,7 @@ static bool IsCalibrateChannel(Channel ch)
 static void CreateCalibrationStruct(void)
 {
     /** @todo перенести cal в extraMEM */
-    cal = malloc(sizeof(CalibrationStruct));
+    cal = (CalibrationStruct *)malloc(sizeof(CalibrationStruct));
     memset(cal, 0, sizeof(CalibrationStruct));
 }
 

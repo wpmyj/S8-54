@@ -511,8 +511,8 @@ static void DrawChannel_Math(uint8 *dataIn)
     int maxY = GridMathBottom();
 
     bool calculateFiltr = true;
-    int sizeBuffer = BytesInChannel(DS);
-    uint8 data[sizeBuffer];
+#define SIZE_BUFFER (16 * 1024)
+    uint8 data[SIZE_BUFFER];
   
     BitSet64 points = {0};
 
@@ -615,7 +615,7 @@ static int FillDataP2PforNormal(int numPoints, int numPointsDS, int pointsInScre
     if (numPoints > pointsInScreen)
     {
         int numScreens = numPoints / pointsInScreen;                                                        // Число полных нарисованных экранов.
-        uint8 dataTemp[pointsInScreen];
+        uint8 dataTemp[281 * 2];
 
         memcpy(dataTemp, dest + (numScreens - 1) * pointsInScreen - deltaNumPoints, pointsInScreen);        // Теперь скопируем последний полный экран в буфер
 
@@ -817,8 +817,8 @@ static void DrawDataInRect(uint width, Channel ch)
     uint8 *data = OUT(ch);
 
     float elemsInColumn = BYTES_IN_CHANNEL_DS / (float)width;
-    uint8 min[width + 1];
-    uint8 max[width + 1];
+    uint8 min[321];
+    uint8 max[321];
 
     if (PEAKDET_DS != PeakDet_Disable)                                 // Если пик. дет. включен
     {
@@ -854,7 +854,8 @@ static void DrawDataInRect(uint width, Channel ch)
         }
     }
 
-    const int SIZE_BUFFER = width + 1;
+#undef SIZE_BUFFER
+#define SIZE_BUFFER 322
 
     int mines[SIZE_BUFFER];     // Массив для максимальных значений в каждом столбике
     int maxes[SIZE_BUFFER];     // Массив для минимальных значений в каждом столбике
@@ -971,7 +972,7 @@ static void SendToDisplayDataInRect(Channel ch, int x, int *min, int *max, int w
 {
     LIMIT_ABOVE(width, 255);
 
-    uint8 points[width * 2];
+    uint8 points[320 * 2];
 
     for (int i = 0; i < width; i++)
     {
