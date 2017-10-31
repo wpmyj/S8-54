@@ -590,10 +590,10 @@ void FPGA_TBaseIncrease(void)
         Display_ShowWarning(LimitSweep_Time);
     }
     
-    if (SET_TBASE == TBase_50ns &&      // Если перешли в режим реального времени
-        !START_MODE_SINGLE)             // И не находимся в режиме однократного запуска
+    if (SET_TBASE == TBase_50ns &&          // Если перешли в режим реального времени
+        !START_MODE_SINGLE)                 // И не находимся в режиме однократного запуска
     {
-        SAMPLE_TYPE = SampleType_Real;       // И установим реальный, потому что в реальном режиме эквивалентный глупо смотрится
+        SAMPLE_TYPE = SampleType_Real;      // И установим реальный, потому что в реальном режиме эквивалентный глупо смотрится
     }
 }
 

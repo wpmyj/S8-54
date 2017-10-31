@@ -124,6 +124,8 @@ static void        Draw_SerialNumber_Change(int, int);
 static const   SButton bSerialNumber_Save;                  ///< ÎÒËÀÄÊÀ - Ñ/Í - Ñîõðàíèòü
 static void     OnPress_SerialNumber_Save(void);
 static void        Draw_SerialNumber_Save(int, int);
+static const    Button bEraseData;                          ///< ÎÒËÀÄÊÀ - Ñòåðåòü äàííûå
+static void     OnPress_EraseData(void);
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 /// Â ýòîé ñòðóêòóðå áóäóò õðàíèòüñÿ äàííûå ñåðèéíîãî íîìåðà ïðè îòêðûòîé ñòðàíèöå ppSerialNumer
@@ -156,7 +158,8 @@ const Page pDebug =
         (void *)&mgPost,			    // ÎÒËÀÄÊÀ - Ïîñëåçàïóñê
         (void *)&ppSettings,		    // ÎÒËÀÄÊÀ - ÍÀÑÒÐÎÉÊÈ
         (void *)&bSaveFirmware,         // ÎÒËÀÄÊÀ - Ñîõð. ïðîøèâêó
-        (void *)&ppSerialNumber         // ÎÒËÀÄÊÀ - Ñ/Í
+        (void *)&ppSerialNumber,        // ÎÒËÀÄÊÀ - Ñ/Í
+        (void *)&bEraseData             // ÎÒËÀÄÊÀ - Ñòåðåòü äàííûå
     }
 };
 
@@ -1376,6 +1379,26 @@ static void OnPress_SaveFirmware(void)
 
     Display_ShowWarning(FirmwareSaved);
 }
+
+// ÎÒËÀÄÊÀ - Ñòåðåòü äàííûå --------------------------------------------------------------------------------------------------------------------------
+static const Button bEraseData =
+{
+    Item_Button, &pDebug, 0,
+    {
+        "Ñòåðåòü äàííå", "Erase data",
+        "Ñòèðàåò ñîõðàí¸ííûå äàííûå èç ÏÏÇÓ",
+        "Erase all saved datas from EEPROM"
+    },
+    OnPress_EraseData
+};
+
+static void OnPress_EraseData(void)
+{
+    Display_FuncOnWaitStart(DICT(DDeleteFromMemory), false);
+    FLASH_DeleteAllData();
+    Display_FuncOnWaitStop();
+}
+
 
 // ÎÒËÀÄÊÀ - Ñ/Í /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 static const Page ppSerialNumber =

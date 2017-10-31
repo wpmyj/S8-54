@@ -1,5 +1,3 @@
-
-
 #include "FPGA.h"
 #include "FPGATypes.h"
 #include "Log.h"
@@ -38,12 +36,12 @@
 
 static struct BitFieldFPGA
 {
-    uint pause           : 1;
-    uint canRead         : 1;
-    uint firstAfterWrite : 1;   ///< \brief Используется в режиме рандомизатора. После записи любого параметра в альтеру нужно не 
-                                ///<        использовать первое считанное данное с АЦП, потому что оно завышено и портит ворота.
+    uint pause                     : 1;
+    uint canRead                   : 1;
+    uint firstAfterWrite           : 1;     ///< \brief Используется в режиме рандомизатора. После записи любого параметра в альтеру нужно не 
+                                            ///<        использовать первое считанное данное с АЦП, потому что оно завышено и портит ворота.
     uint needStopAfterReadFrame2P2 : 1;
-} bf = {0, 1, 0};
+} bf = {0, 1, 0, 0};
 
 
 #define NULL_TSHIFT 1000000

@@ -963,9 +963,14 @@ static void DrawCursorTShift(void)
     int shiftTPos = TPOS_IN_POINTS - SHIFT_IN_MEMORY_IN_POINTS;
 
     float scale = (float)(LAST_POINT - FIRST_POINT) / GridWidth();
+
     int gridLeft = GridLeft();
+    int gridRight = GridRight();
+
+    //LOG_WRITE("left = %d, first = %d, last = %d, width = %d, scale = %f", gridLeft, FIRST_POINT, LAST_POINT, GridWidth(), scale);
+
     int x = gridLeft + (int)(shiftTPos * scale) - 3;
-    if(IntInRange(x + 3, gridLeft, GridRight() + 1))
+    if(IntInRange(x + 3, gridLeft, gridRight + 1))
     {
         Painter_Draw2SymbolsC(x, GRID_TOP - 1, SYMBOL_TPOS_2, SYMBOL_TPOS_1, gColorBack, gColorFill);
     };
@@ -980,12 +985,12 @@ static void DrawCursorTShift(void)
     else if(shiftTShift < FIRST_POINT)
     {
         Painter_Draw2SymbolsC(gridLeft + 1, GRID_TOP, SYMBOL_TSHIFT_LEFT_1, SYMBOL_TSHIFT_LEFT_2, gColorBack, gColorFill);
-        Painter_DrawLineC(GridLeft() + 9, GRID_TOP + 1, GridLeft() + 9, GRID_TOP + 7, gColorBack);
+        Painter_DrawLineC(gridLeft + 9, GRID_TOP + 1, gridLeft + 9, GRID_TOP + 7, gColorBack);
     }
     else if(shiftTShift > LAST_POINT)
     {
-        Painter_Draw2SymbolsC(GridRight() - 8, GRID_TOP, SYMBOL_TSHIFT_RIGHT_1, SYMBOL_TSHIFT_RIGHT_2, gColorBack, gColorFill);
-        Painter_DrawLineC(GridRight() - 9, GRID_TOP + 1, GridRight() - 9, GRID_TOP + 7, gColorBack);
+        Painter_Draw2SymbolsC(gridRight - 8, GRID_TOP, SYMBOL_TSHIFT_RIGHT_1, SYMBOL_TSHIFT_RIGHT_2, gColorBack, gColorFill);
+        Painter_DrawLineC(gridRight - 9, GRID_TOP + 1, gridRight - 9, GRID_TOP + 7, gColorBack);
     }
     
 #undef FIRST_POINT

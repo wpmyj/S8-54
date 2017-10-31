@@ -29,7 +29,7 @@ extern void OnPress_ResetSettings(void);
 
 
 static PanelButton pressedKey = B_Empty;
-static volatile PanelButton pressedButton = B_Empty;    ///< Используется для отслеживания нажатой кнопки при отключенной панели.
+static volatile PanelButton releasedButton = B_Empty;    ///< Используется для отслеживания нажатой кнопки при отключенной панели.
 static uint16 dataTransmitted[MAX_DATA] = {0x00};
 static uint16 firstPos = 0;
 static uint16 lastPos = 0;
@@ -234,6 +234,13 @@ bool Panel_ProcessingCommandFromPIC(uint16 command)
 {
     if (command != 0)
     {
+
+        if (!isRunning)
+        {
+            releasedButton = ButtonIsRelease(command);
+            return true;
+        }
+
         PainterData_InterruptDrawing();
 
         PANEL_CONTROL_RECEIVE = 1;
@@ -251,7 +258,6 @@ bool Panel_ProcessingCommandFromPIC(uint16 command)
             if (prButton)
             {
                 pressButton = prButton;
-                pressedButton = prButton;
             }
             else
             {
@@ -332,11 +338,6 @@ static void ProcessingCommand(void)
 //----------------------------------------------------------------------------------------------------------------------------------------------------
 void Panel_Update(void)
 {
-    if (pressButton)
-    {
-        pressedButton = pressButton;
-    }
-
     if (isRunning)
     {
         if (releaseButton)
@@ -562,9 +563,9 @@ void Panel_EnableLEDRegSet(bool enable)
 //----------------------------------------------------------------------------------------------------------------------------------------------------
 PanelButton Panel_WaitPressingButton(void)
 {
-    pressedButton = B_Empty;
-    while (pressedButton == B_Empty) {};
-    return pressedButton;
+    releasedButton = B_Empty;
+    while (releasedButton == B_Empty) {};
+    return releasedButton;
 }
 
 

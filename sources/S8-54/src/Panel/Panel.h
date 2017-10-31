@@ -24,7 +24,7 @@ void Panel_EnableLEDTrig(bool enable);
 /// Передача данных в МК клавиатуры
 void Panel_TransmitData(uint16 data);
 /// Отлючить панель управления
-/** Когда панель отключена, то происходит лишь обновление состояния переменной pressedButton */
+/** Когда панель отключена, то происходит лишь обновление состояния переменной releasedButton */
 void Panel_Disable(void);
 /// Включить панель управления
 void Panel_Enable(void);

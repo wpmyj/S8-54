@@ -172,7 +172,7 @@ void OnPress_ResetSettings(void)
 
     Display_SetDrawMode(DrawMode_Auto, 0);
     Panel_Enable();
-    Func_Start(1);
+    //Func_Start(1);
 }
 
 static void Draw_ResetSettings(void)
