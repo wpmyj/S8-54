@@ -218,8 +218,6 @@ void Painter_DrawMultiVPointLine(int numLines, int y, uint16 x[], int delta, int
 {
     ASSERT_RET(numLines > 20, "Число линий слишком большое %d", numLines);
 
-    LOG_WRITE("numLInes %d, y %d, delta %d, count %d", numLines, y, delta, count);
-
     Painter_SetColor(color);
 
     uint8 command[60] = {DRAW_MULTI_VPOINT_LINE, numLines, y, count, delta, 0};

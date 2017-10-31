@@ -1806,7 +1806,7 @@ static void DrawGridType1(int left, int top, int right, int bottom, float center
     }
     mas[12] = (uint8)(bottom - 1);
 
-    //Painter_DrawMultiHPointLine(13, left + (int)stepX, mas, (int)stepX, CalculateCountH(), gColorGrid);
+    Painter_DrawMultiHPointLine(13, left + (int)stepX, mas, (int)stepX, CalculateCountH(), gColorGrid);
 }
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
@@ -1951,11 +1951,11 @@ static int CalculateCountV(void)
     {
         if(NUM_MEASURES_1_5)
         {
-            return SOURCE_MEASURE_A_B ? 55 : 44;
+            return SOURCE_MEASURE_A_B ? 55 : 59;
         }
         if(NUM_MEASURES_2_5)
         {
-            return SOURCE_MEASURE_A_B ? 69 : 39;
+            return SOURCE_MEASURE_A_B ? 69 : 51;
         }
         if(NUM_MEASURES_3_5)
         {
