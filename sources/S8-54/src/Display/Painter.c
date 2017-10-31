@@ -271,8 +271,6 @@ void Painter_DrawMultiHPointLine(int numLines, int x, uint8 y[], int delta, int 
     }
     Painter_SendToDisplay(command, numBytes);
     Painter_SendToInterfaces(command, 1 + 1 + 2 + 1 + 1 + numLines);
-
-    Painter_DrawHLineC(y[12], 0, 10, gColorChan[A]);
 }
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------

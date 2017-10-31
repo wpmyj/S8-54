@@ -1286,7 +1286,7 @@ static void DrawGrid(int left, int top, int width, int height)
         }
     }
 
-    float deltaX = GridDeltaX() *(float)width / width;
+    float deltaX = GridDeltaX() * (float)width / width;
     float deltaY = GridDeltaY() * (float)height / height;
     float stepX = deltaX / 5;
     float stepY = deltaY / 5;
