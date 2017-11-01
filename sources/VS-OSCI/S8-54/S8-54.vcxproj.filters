@@ -159,9 +159,6 @@
     <ClCompile Include="..\..\S8-54\src\Display\DisplayPrimitives.c">
       <Filter>Display</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\S8-54\src\Display\Grid.c">
-      <Filter>Display</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\S8-54\src\Display\Math3D.c">
       <Filter>Display</Filter>
     </ClCompile>
@@ -583,6 +580,9 @@
       <Filter>HAL</Filter>
     </ClCompile>
     <ClCompile Include="..\..\S8-54\src\Display\Display.cpp">
+      <Filter>Display</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\S8-54\src\Display\Grid.cpp">
       <Filter>Display</Filter>
     </ClCompile>
   </ItemGroup>

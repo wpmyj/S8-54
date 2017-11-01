@@ -14,7 +14,7 @@
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 float sCursors_GetCursPosU(Channel ch, int numCur)
 {
-    return CURsU_POS(ch, numCur) / (GridChannelBottom() == GridFullBottom() ? 1.0f : 2.0f);
+    return CURsU_POS(ch, numCur) / (grid.ChannelBottom() == grid.FullBottom() ? 1.0f : 2.0f);
 }
 
 

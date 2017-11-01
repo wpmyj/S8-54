@@ -202,7 +202,7 @@ void Measure_DrawPageChoice(void)
     {
         return;
     }
-    int x = (NUM_MEASURES_6_1 || NUM_MEASURES_6_2) ? (GridRight() - 3 * GRID_WIDTH / 5) : GridLeft();
+    int x = (NUM_MEASURES_6_1 || NUM_MEASURES_6_2) ? (grid.Right() - 3 * GRID_WIDTH / 5) : grid.Left();
     int y = GRID_TOP;
     int dX = GRID_WIDTH / 5;
     int dY = 22;

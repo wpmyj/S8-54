@@ -10,39 +10,46 @@
  *  @{
  */
 
-int GridLeft(void);
+class Grid
+{
+public:
+    int Left(void);
 
-int GridRight(void);
+    int Right(void);
 
-int GridWidth(void);
+    int Width(void);
 
-float GridDeltaY(void);
+    float DeltaY(void);
 
-float GridDeltaX(void);
+    float DeltaX(void);
 
-int GridWidthInCells(void);
+    int WidthInCells(void);
 
-int GridFullBottom(void);
+    int FullBottom(void);
 
-int GridFullHeight(void);
+    int FullHeight(void);
 
-int GridFullCenterHeight(void);
+    int FullCenterHeight(void);
 
-int GridChannelBottom(void);
+    int ChannelBottom(void);
 
-int GridChannelHeight(void);
+    int ChannelHeight(void);
 
-int GridChannelCenterHeight(void);
+    int ChannelCenterHeight(void);
 
-int GridMathHeight(void);
+    int MathHeight(void);
 
-int GridMathBottom(void);
+    int MathBottom(void);
 
-int GridMathTop(void);
+    int MathTop(void);
 
-int BottomMessages(void);
+    int BottomMessages(void);
 
-void CoordTrigLevel(int *left, int *top, int width);
+    void CoordTrigLevel(int *left, int *top, int width);
+};
+
+
+extern Grid grid;
 
 /** @}  @}
  */

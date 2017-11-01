@@ -1,5 +1,3 @@
-
-
 #include "Grid.h"
 #include "Globals.h"
 #include "Settings/Settings.h"
@@ -7,111 +5,109 @@
 
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-int GridLeft(void)
+Grid grid;
+
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+int Grid::Left(void)
 {
     return (MenuIsMinimize() && MENU_IS_SHOWN ? 9 : 20) + Measure_GetDeltaGridLeft();
 }
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
-int GridRight(void)
+int Grid::Right(void)
 {
     return ((MenuIsMinimize() && MENU_IS_SHOWN) ? 9 : 20) + 280;
 }
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
-int GridChannelBottom(void)
+int Grid::ChannelBottom(void)
 {
-    return (sDisplay_IsSeparate()) ? (GRID_TOP + GRID_HEIGHT / 2) : GridFullBottom();
+    return (sDisplay_IsSeparate()) ? (GRID_TOP + GRID_HEIGHT / 2) : FullBottom();
 }
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
-int GridSignalWidth(void)
+int Grid::ChannelHeight(void)
 {
-    return GridWidth();
+    return (sDisplay_IsSeparate()) ? grid.FullHeight() / 2 : grid.FullHeight();
 }
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
-int GridChannelHeight(void)
+int Grid::ChannelCenterHeight(void)
 {
-    return (sDisplay_IsSeparate()) ? GridFullHeight() / 2 : GridFullHeight();
+    return (GRID_TOP + grid.ChannelBottom()) / 2;
 }
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
-int GridChannelCenterHeight(void)
-{
-    return (GRID_TOP + GridChannelBottom()) / 2;
-}
-
-//----------------------------------------------------------------------------------------------------------------------------------------------------
-int GridFullBottom(void)
+int Grid::FullBottom(void)
 {
     return GRID_BOTTOM - Measure_GetDeltaGridBottom();
 }
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
-int GridFullHeight(void)
+int Grid::FullHeight(void)
 {
-    return GridFullBottom() - GRID_TOP;
+    return grid.FullBottom() - GRID_TOP;
 }
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
-int GridWidth(void)
+int Grid::Width(void)
 {
-    return GridRight() - GridLeft();
+    return grid.Right() - grid.Left();
 }
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
-int GridFullCenterHeight(void)
+int Grid::FullCenterHeight(void)
 {
-    return (GridFullBottom() + GRID_TOP) / 2;
+    return (grid.FullBottom() + GRID_TOP) / 2;
 }
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
-int GridWidthInCells(void)
+int Grid::WidthInCells(void)
 {
     return MENU_IS_SHOWN ? 10 : 14;
 }
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
-float GridDeltaY(void)
+float Grid::DeltaY(void)
 {
-    float delta = (GridFullBottom() - GRID_TOP) / 10.0f;
+    float delta = (grid.FullBottom() - GRID_TOP) / 10.0f;
     return sDisplay_IsSeparate() ? (delta / 2.0f) : delta;
 }
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
-float GridDeltaX(void)
+float Grid::DeltaX(void)
 {
-    float delta = (GridRight() - GridLeft()) / 14.0f;
+    float delta = (grid.Right() - grid.Left()) / 14.0f;
     return delta;
 }
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
-int GridMathTop(void)
+int Grid::MathTop(void)
 {
-    return GridMathBottom() - GridMathHeight();
+    return grid.MathBottom() - grid.MathHeight();
 }
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
-int GridMathHeight(void)
+int Grid::MathHeight(void)
 {
     if (FFT_ENABLED || FUNC_MODE_DRAW_SEPARATE)
     {
-        return GridFullHeight() / 2;
+        return grid.FullHeight() / 2;
     }
-    return GridFullHeight();
+    return grid.FullHeight();
 }
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
-int GridMathBottom(void)
+int Grid::MathBottom(void)
 {
-    return GridFullBottom();
+    return grid.FullBottom();
 }
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
-int BottomMessages(void)
+int Grid::BottomMessages(void)
 {
-    int retValue = GridFullBottom();
+    int retValue = grid.FullBottom();
     if (MODE_WORK_ROM)
     {
         retValue -= 12;
@@ -124,16 +120,16 @@ int BottomMessages(void)
 }
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
-void CoordTrigLevel(int *left, int *top, int width)
+void Grid::CoordTrigLevel(int *left, int *top, int width)
 {
     if (!SHOW_MEASURES || NUM_MEASURES < MN_6_1)
     {
-        *left = (GridWidth() - width) / 2 + GridLeft();
+        *left = (grid.Width() - width) / 2 + grid.Left();
         *top = BottomMessages() - 20;
     }
     else
     {
         *left = NUM_MEASURES_6_1 ? 100 : 130;
-        *top = GridFullBottom() - 32;
+        *top = grid.FullBottom() - 32;
     }
 }

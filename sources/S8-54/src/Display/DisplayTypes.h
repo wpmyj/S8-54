@@ -15,7 +15,7 @@
 #define GRID_BOTTOM             ((GRID_TOP) + (GRID_HEIGHT))
 #define GRID_WIDTH              (280)
 
-#define GRID_RIGHT              ((GridLeft()) + (GridWidth()))
+#define GRID_RIGHT              ((grid.Left()) + (grid.Width()))
 
 #define CUR_WIDTH               6
 #define CUR_HEIGHT              8

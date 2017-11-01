@@ -1430,9 +1430,9 @@ static void OnPress_SerialNumber(void)
 
 static void Draw_EnterSerialNumber(void)
 {
-    int x0 = GridLeft() + 40;
+    int x0 = grid.Left() + 40;
     int y0 = GRID_TOP + 20;
-    int width = GridWidth() - 80;
+    int width = grid.Width() - 80;
     int height = 160;
 
     Painter_DrawRectangleC(x0, y0, width, height, gColorFill);

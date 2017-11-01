@@ -227,7 +227,7 @@ static void DrawData(bool forAccum)
         DrawChannel(ch, forAccum ? ColorChanAccum(ch) : gColorChan[ch]);
     }
 
-    Painter_DrawRectangleC(GridLeft(), GRID_TOP, GridWidth(), GridFullHeight(), gColorFill);
+    Painter_DrawRectangleC(grid.Left(), GRID_TOP, grid.Width(), grid.FullHeight(), gColorFill);
 }
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
@@ -240,8 +240,8 @@ static void DrawChannel(Channel ch, Color color)
 
     Painter_SetColor(color);
 
-    int left = GridLeft();
-    int bottom = GridChannelBottom();
+    int left = grid.Left();
+    int bottom = grid.ChannelBottom();
     int top = GRID_TOP;
 
     float scaleY = (bottom - top) / (float)(MAX_VALUE - MIN_VALUE + 1);
@@ -452,11 +452,11 @@ static void DrawLimitLabel(int delta)
 
     Color color = Painter_GetColor();
 
-    int x = GridWidth() / 2 - width / 2 + GridLeft();
+    int x = grid.Width() / 2 - width / 2 + grid.Left();
     int y = 0;
     if (delta < 0)
     {
-        y = GridFullBottom() + delta - height;
+        y = grid.FullBottom() + delta - height;
     }
     else
     {
@@ -495,20 +495,20 @@ void PainterData_DrawMath(void)
     static const int WIDTH = 71;
     static const int HEIGHT = 10;
     int delta = (SHOW_STRING_NAVI_ALL && FUNC_MODE_DRAW_TOGETHER) ? 10 : 0;
-    Painter_DrawRectangleC(GridLeft(), GridMathTop() + delta, WIDTH, HEIGHT, gColorFill);
-    Painter_FillRegionC(GridLeft() + 1, GridMathTop() + 1 + delta, WIDTH - 2, HEIGHT - 2, gColorBack);
+    Painter_DrawRectangleC(grid.Left(), grid.MathTop() + delta, WIDTH, HEIGHT, gColorFill);
+    Painter_FillRegionC(grid.Left() + 1, grid.MathTop() + 1 + delta, WIDTH - 2, HEIGHT - 2, gColorBack);
     Divider divider = set.math_Divider;
-    Painter_DrawTextC(GridLeft() + 2, GridMathTop() + 1 + delta, sChannel_Range2String(SET_RANGE_MATH, divider), gColorFill);
-    Painter_DrawText(GridLeft() + 25, GridMathTop() + 1 + delta, ":");
+    Painter_DrawTextC(grid.Left() + 2, grid.MathTop() + 1 + delta, sChannel_Range2String(SET_RANGE_MATH, divider), gColorFill);
+    Painter_DrawText(grid.Left() + 25, grid.MathTop() + 1 + delta, ":");
     char buffer[20];
-    Painter_DrawText(GridLeft() + 27, GridMathTop() + 1 + delta, sChannel_RShift2String(SET_RSHIFT_MATH, SET_RANGE_MATH, divider, buffer));
+    Painter_DrawText(grid.Left() + 27, grid.MathTop() + 1 + delta, sChannel_RShift2String(SET_RSHIFT_MATH, SET_RANGE_MATH, divider, buffer));
 }
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
 static void DrawChannel_Math(uint8 *dataIn)
 {
-    int minY = GridMathTop();
-    int maxY = GridMathBottom();
+    int minY = grid.MathTop();
+    int maxY = grid.MathBottom();
 
     bool calculateFiltr = true;
     int sizeBuffer = BytesInChannel(DS);
@@ -542,7 +542,7 @@ static void DrawChannel_Math(uint8 *dataIn)
     }
 
     float scaleY = (float)(maxY - minY) / (MAX_VALUE - MIN_VALUE);
-    float scaleX = (float)GridWidth() / 280.0f;
+    float scaleX = (float)grid.Width() / 280.0f;
 
     Painter_SetColor(gColorChan[Math]);
 
@@ -627,13 +627,13 @@ static int FillDataP2PforNormal(int numPoints, int numPointsDS, int pointsInScre
 
         memcpy(dataTemp, dest + numScreens * pointsInScreen - deltaNumPoints, numPoints % pointsInScreen);  // Теперь скопируем остаток в начало буфера
 
-                                                                                                            //        xP2P = GridLeft() + ((numPoints  % pointsInScreen) / kP2P) - 1;
+                                                                                                            //        xP2P = grid.Left() + ((numPoints  % pointsInScreen) / kP2P) - 1;
 
         memcpy(dest, dataTemp, pointsInScreen);                                                             // Теперь скопируем временный буфер в выходной
     }
     else
     {
-        //        xP2P = GridLeft() + numPoints / kP2P - 1;
+        //        xP2P = grid.Left() + numPoints / kP2P - 1;
     }
 
     return numPoints > pointsInScreen ? pointsInScreen : numPoints;
@@ -647,13 +647,13 @@ static void DrawMarkersForMeasure(Channel ch)
         return;
     }
 
-    int bottom = GridChannelBottom();
-    int left = GridLeft();
-    int right = GridRight();
+    int bottom = grid.ChannelBottom();
+    int left = grid.Left();
+    int right = grid.Right();
     float scaleY = (float)(bottom - GRID_TOP) / (MAX_VALUE - MIN_VALUE);
 
     BitSet64 points = sDisplay_PointsOnDisplay();
-    float scaleX = (float)(GridRight() - GridLeft()) / (float)(points.word1 - points.word0);
+    float scaleX = (float)(grid.Right() - grid.Left()) / (float)(points.word1 - points.word0);
 
     Painter_SetColor(ColorCursors(ch));
     for (int numMarker = 0; numMarker < 2; numMarker++)
@@ -682,10 +682,10 @@ static void DrawSignalLined(const uint8 *data, int startPoint, int endPoint, int
         return;
     }
 
-    int gridLeft = GridLeft();
+    int gridLeft = grid.Left();
     if (PEAKDET_DS == PeakDet_Disable)
     {
-        int gridRight = GridRight();
+        int gridRight = grid.Right();
         int numPoints = BytesInChannel(DS);
         for (int i = startPoint; i < endPoint; i++)
         {
@@ -754,7 +754,7 @@ static void DrawSignalLined(const uint8 *data, int startPoint, int endPoint, int
     if (PEAKDET_DS == PeakDet_Disable)
     {
         CONVERT_DATA_TO_DISPLAY(dataCD[280], data[endPoint]);
-        Painter_DrawSignal(GridLeft(), dataCD, true);
+        Painter_DrawSignal(grid.Left(), dataCD, true);
     }
 }
 
@@ -771,7 +771,7 @@ static void DrawSignalPointed(const uint8 *data, int startPoint, int endPoint, i
             int index = i - startPoint;
             CONVERT_DATA_TO_DISPLAY(dataCD[index], Math_CalculateFiltr(data, i, numPoints));
         }
-        Painter_DrawSignal(GridLeft(), dataCD, false);
+        Painter_DrawSignal(grid.Left(), dataCD, false);
     }
     else
     {
@@ -780,7 +780,7 @@ static void DrawSignalPointed(const uint8 *data, int startPoint, int endPoint, i
             int index = i - startPoint;
             int dat = 0;
             CONVERT_DATA_TO_DISPLAY(dat, Math_CalculateFiltr(data, i, numPoints));
-            Painter_SetPoint(GridLeft() + (int)(index * scaleX), dat);
+            Painter_SetPoint(grid.Left() + (int)(index * scaleX), dat);
         }
     }
 }

@@ -164,7 +164,7 @@
     </ClCompile>
     <ClCompile Include="..\..\S8-54\src\Display\DisplayPrimitives.c" />
     <ClCompile Include="..\..\S8-54\src\Display\font\Font.c" />
-    <ClCompile Include="..\..\S8-54\src\Display\Grid.c" />
+    <ClCompile Include="..\..\S8-54\src\Display\Grid.cpp" />
     <ClCompile Include="..\..\S8-54\src\Display\Math3D.c" />
     <ClCompile Include="..\..\S8-54\src\Display\Painter.c" />
     <ClCompile Include="..\..\S8-54\src\Display\PainterData.c" />

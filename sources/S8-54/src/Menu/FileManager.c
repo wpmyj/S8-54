@@ -169,7 +169,7 @@ void FM_Draw(void)
         Painter_BeginScene(gColorBack);
         Menu_Draw();
         Painter_DrawRectangleC(0, 0, width, 239, gColorFill);
-        Painter_FillRegionC(left, top, GridWidth() - 2, GridFullHeight() - 2, gColorBack);
+        Painter_FillRegionC(left, top, grid.Width() - 2, grid.FullHeight() - 2, gColorBack);
         FDrive_GetNumDirsAndFiles(currentDir, &numDirs, &numFiles);
         DrawNameCurrentDir(left, top + 2);
         Painter_DrawVLineC(left2col, top + 16, 239, gColorFill);

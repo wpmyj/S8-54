@@ -57,8 +57,8 @@ static void DrawPageDescription(void)
 //----------------------------------------------------------------------------------------------------------------------------------------------------
 void HelpContent_Draw(void)
 {
-    Painter_FillRegionC(GridRight(), 0, 319 - GridRight(), 20, gColorBack);
-    Painter_FillRegion(GridRight(), 219, 319 - GridRight(), 21);
+    Painter_FillRegionC(grid.Right(), 0, 319 - grid.Right(), 20, gColorBack);
+    Painter_FillRegion(grid.Right(), 219, 319 - grid.Right(), 21);
     Painter_FillRegion(1, 1, WIDTH, 237);
     Painter_DrawRectangleC(1, 0, WIDTH + 1, 239, gColorFill);   /** \todo Здесь непонятно, почему так. Координаты верхнего левого угла должны быть 
                                                                 0, 0, но в таком случае левой вертикальной полосы не видно */

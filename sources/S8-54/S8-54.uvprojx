@@ -1044,11 +1044,6 @@
               <FilePath>.\src\Display\DisplayTypes.h</FilePath>
             </File>
             <File>
-              <FileName>Grid.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\src\Display\Grid.c</FilePath>
-            </File>
-            <File>
               <FileName>Grid.h</FileName>
               <FileType>5</FileType>
               <FilePath>.\src\Display\Grid.h</FilePath>
@@ -1127,6 +1122,11 @@
               <FileName>Display.cpp</FileName>
               <FileType>8</FileType>
               <FilePath>.\src\Display\Display.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>Grid.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\src\Display\Grid.cpp</FilePath>
             </File>
           </Files>
         </Group>

@@ -544,8 +544,8 @@ void Math_CalculateFFT(float *dataR, int numPoints, float *result, float *freq0,
         *density0 = result[POS_MATH_CUR_0];
         *density1 = result[POS_MATH_CUR_1];
     }
-    *y0 = GridMathBottom() - (int)(result[POS_MATH_CUR_0] * GridMathHeight());
-    *y1 = GridMathBottom() - (int)(result[POS_MATH_CUR_1] * GridMathHeight());
+    *y0 = grid.MathBottom() - (int)(result[POS_MATH_CUR_0] * grid.MathHeight());
+    *y1 = grid.MathBottom() - (int)(result[POS_MATH_CUR_1] * grid.MathHeight());
 }
 
 
