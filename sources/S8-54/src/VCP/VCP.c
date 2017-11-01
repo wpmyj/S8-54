@@ -154,8 +154,16 @@ void VCP_SendByte(uint8 byte)
 }
 
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 //----------------------------------------------------------------------------------------------------------------------------------------------------
 void OTG_HS_IRQHandler(void)
 {
     HAL_PCD_IRQHandler(&handlePCD);
 }
+
+#ifdef __cplusplus
+}
+#endif
