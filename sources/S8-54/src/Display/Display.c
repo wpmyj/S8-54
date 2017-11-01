@@ -1363,9 +1363,16 @@ static void DRAW_SPECTRUM(const uint8 *dataIn, int numPoints, Channel ch)
     {
         return;
     }
+    
+#define SIZE_BUFFER (1024 * 8)
+    
+    if(numPoints > SIZE_BUFFER)
+    {
+        numPoints = SIZE_BUFFER;
+    }
 
-    float dataR[numPoints];
-    float spectrum[numPoints];
+    float dataR[SIZE_BUFFER];
+    float spectrum[SIZE_BUFFER];
 
     float freq0 = 0.0f;
     float freq1 = 0.0f;
@@ -1375,7 +1382,7 @@ static void DRAW_SPECTRUM(const uint8 *dataIn, int numPoints, Channel ch)
     int y1 = 0;
     int s = 2;
 
-    uint8 *data = malloc(numPoints);
+    uint8 *data = (uint8 *)malloc(numPoints);
 
     RAM_MemCpy16((void *)dataIn, data, numPoints);
 
