@@ -1,6 +1,4 @@
 #pragma once
-
-
 #include "lwip/err.h"
 #include "lwip/netif.h"
 
