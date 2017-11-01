@@ -11,32 +11,32 @@
 
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-static const  Choice cChanA_Input;                      ///< ÊÀÍÀË 1 - Âõîä
+extern const  Choice cChanA_Input;                      ///< ÊÀÍÀË 1 - Âõîä
        void OnChanged_ChanA_Input(bool active);
-static const  Choice cChanA_Couple;                     ///< ÊÀÍÀË 1 - Ñâÿçü
+extern const  Choice cChanA_Couple;                     ///< ÊÀÍÀË 1 - Ñâÿçü
 static void OnChanged_ChanA_Couple(bool active);
-static const  Choice cChanA_Bandwidth;                  ///< ÊÀÍÀË 1 - Ïîëîñà
+extern const  Choice cChanA_Bandwidth;                  ///< ÊÀÍÀË 1 - Ïîëîñà
 static void OnChanged_ChanA_Bandwidth(bool active);
-static const  Choice cChanA_Resistance;                 ///< ÊÀÍÀË 1 - Âõ ñîïð
+extern const  Choice cChanA_Resistance;                 ///< ÊÀÍÀË 1 - Âõ ñîïð
 static void OnChanged_ChanA_Resistance(bool active);
-static const  Choice cChanA_Inverse;                    ///< ÊÀÍÀË 1 - Èíâåðñèÿ
+extern const  Choice cChanA_Inverse;                    ///< ÊÀÍÀË 1 - Èíâåðñèÿ
 static void OnChanged_ChanA_Inverse(bool active);
-static const  Choice cChanA_Divider;                     ///< ÊÀÍÀË 1 - Äåëèòåëü
-static const  Button bChanA_Balance;                     ///< ÊÀÍÀË 1 - Áàëàíñèðîâàòü
+extern const  Choice cChanA_Divider;                     ///< ÊÀÍÀË 1 - Äåëèòåëü
+extern const  Button bChanA_Balance;                     ///< ÊÀÍÀË 1 - Áàëàíñèðîâàòü
 static void   OnPress_ChanA_Balance(void);
-static const  Choice cChanB_Input;
+extern const  Choice cChanB_Input;
 static bool  IsActive_ChanB_Input(void);
       void  OnChanged_ChanB_Input(bool active);
-static const  Choice cChanB_Couple;
+extern const  Choice cChanB_Couple;
 static void OnChanged_ChanB_Couple(bool active);
-static const  Choice cChanB_Bandwidth;
+extern const  Choice cChanB_Bandwidth;
 static void OnChanged_ChanB_Bandwidth(bool active);
-static const  Choice cChanB_Resistance;
+extern const  Choice cChanB_Resistance;
 static void OnChanged_ChanB_Resistance(bool active);
-static const  Choice cChanB_Inverse;
+extern const  Choice cChanB_Inverse;
 static void OnChanged_ChanB_Inverse(bool active);
-static const  Choice cChanB_Divider;
-static const  Button bChanB_Balance;
+extern const  Choice cChanB_Divider;
+extern const  Button bChanB_Balance;
 static void   OnPress_ChanB_Balance(void);
 
 

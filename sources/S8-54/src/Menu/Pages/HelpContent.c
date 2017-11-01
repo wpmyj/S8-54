@@ -120,7 +120,7 @@ void HelpContent_EnterParagraph(void)
 {
     if(currentPage->type == TypePage_Content)
     {
-        currentPage = currentPage->pages[currentParagraph];
+        currentPage = (const PageHelp *)currentPage->pages[currentParagraph];
     }
     currentParagraph = 0;
 }
@@ -131,7 +131,7 @@ void HelpContent_LeaveParagraph(void)
     currentParagraph = 0;
     if(currentPage->parent)
     {
-        currentPage = currentPage->parent;
+        currentPage = (const PageHelp *)currentPage->parent;
     }
 }
 
