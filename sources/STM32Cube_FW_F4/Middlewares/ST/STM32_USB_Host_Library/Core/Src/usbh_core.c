@@ -30,6 +30,11 @@
 #include "usbh_core.h"
 
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
+
 /** @addtogroup USBH_LIB
   * @{
   */
@@ -914,6 +919,12 @@ USBH_StatusTypeDef  USBH_LL_NotifyURBChange (USBH_HandleTypeDef *phost)
   return USBH_OK;
 }
 #endif  
+
+#ifdef __cplusplus
+}
+#endif
+
+
 /**
   * @}
   */ 
