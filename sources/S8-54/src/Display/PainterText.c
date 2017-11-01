@@ -241,7 +241,7 @@ int Painter_DrawText(int x, int y, const char *text)
 int Painter_DrawFormatText(int x, int y, char *format, ...)
 {
     char buffer[200];
-    __va_list args;
+    va_list args;
     va_start(args, format);
     vsprintf(buffer, format, args);
     va_end(args);
@@ -668,7 +668,7 @@ int Painter_DrawFormText(int x, int y, Color color, char *text, ...)
 {
 #define SIZE_BUFFER_DRAW_FORM_TEXT 200
     char buffer[SIZE_BUFFER_DRAW_FORM_TEXT];
-    __va_list args;
+    va_list args;
     va_start(args, text);
     vsprintf(buffer, text, args);
     va_end(args);
