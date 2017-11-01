@@ -1,9 +1,8 @@
-
-
 #include "Log.h"
 #include "Ethernet/Ethernet.h"
 #include "FlashDrive/FlashDrive.h"
 #include "FPGA/FPGA.h"
+#include "Hardware/Hardware.h"
 #include "Hardware/Timer.h"
 #include "Menu/Menu.h"
 #include "Panel/Panel.h"
@@ -23,7 +22,8 @@ extern void main3(void);
 int main(void)
 {
     Log_EnableLoggerUSB(true);
-    main3();
+    //main3();
+    Hardware_Init();
     VCP_Init();
     Settings_Load(false);
     FPGA_Init();

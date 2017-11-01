@@ -26,7 +26,7 @@ extern const  Choice cDivRole;              ///< РАЗВЕРТКА - Ф-ция ВР/ДЕЛ
 extern const  Choice cShiftXtype;           ///< РАЗВЕРТКА - Смещение
 
 // РАЗВЕРТКА /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-const Page pTime =
+const Page pageTime =
 {
     Item_Page, &mainPage, 0,
     {
@@ -47,7 +47,7 @@ const Page pTime =
 // РАЗВЕРТКА - Выборка -------------------------------------------------------------------------------------------------------------------------------
 static const Choice cSample =
 {
-    Item_Choice, &pTime, IsActive_Sample,
+    Item_Choice, &pageTime, IsActive_Sample,
     {
         "Выборка",          "Sampling"
         ,
@@ -72,7 +72,7 @@ static bool IsActive_Sample(void)
 // РАЗВЕРТКА - Пик дет -------------------------------------------------------------------------------------------------------------------------------
 static const Choice cPeakDet =
 {
-    Item_Choice, &pTime, IsActive_PeakDet,
+    Item_Choice, &pageTime, IsActive_PeakDet,
     {
         "Пик дет",      "Pic deat",
         "Включает/выключает пиковый детектор.",
@@ -129,7 +129,7 @@ void OnChanged_PeakDet(bool active)
 // РАЗВЕРТКА - То ------------------------------------------------------------------------------------------------------------------------------------
 static const Choice cTPos =
 {
-    Item_Choice, &pTime, 0,
+    Item_Choice, &pageTime, 0,
     {
         "\x7b",     "\x7b",
         "Задаёт точку привязки нулевого смещения по времени к экрану - левый край, центр, правый край.", 
@@ -152,7 +152,7 @@ void OnChanged_TPos(bool active)
 // РАЗВЕРТКА - Ф-ция ВР/ДЕЛ --------------------------------------------------------------------------------------------------------------------------
 static const Choice cDivRole =
 {
-    Item_Choice, &pTime, 0,
+    Item_Choice, &pageTime, 0,
     {
         "Ф-ция ВР/ДЕЛ", "Funct Time/DIV"
         ,
@@ -174,7 +174,7 @@ static const Choice cDivRole =
 // РАЗВЕРТКА - Смещение ------------------------------------------------------------------------------------------------------------------------------
 static const Choice cShiftXtype =
 {
-    Item_Choice, &pTime, 0,
+    Item_Choice, &pageTime, 0,
     {
         "Смещение", "Offset"
         "Задаёт режим удержания смещения по горизонтали\n1. \"Время\" - сохраняется абсолютное смещение в секундах.\n2. \"Деления\" - сохраняется "
@@ -188,3 +188,6 @@ static const Choice cShiftXtype =
     },
     (int8 *)&LINKING_TSHIFT
 };
+
+
+Page *pTime = (Page *)&pageTime;

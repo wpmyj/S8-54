@@ -136,7 +136,7 @@ typedef struct
 
 
 // ОТЛАДКА ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-const Page pDebug =
+const Page pageDebug =
 {
     Item_Page, &mainPage, 0,
     {
@@ -164,7 +164,7 @@ const Page pDebug =
 // ОТЛАДКА - КОНСОЛЬ /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 static const Page ppConsole =
 {
-    Item_Page, &pDebug, 0,
+    Item_Page, &pageDebug, 0,
     {
         "КОНСОЛЬ", "CONSOLE",
         "",
@@ -470,7 +470,7 @@ static void Draw_Console_SizeSettings(int x, int y)
 // ОТЛАДКА - АЦП /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 static const Page ppADC =
 {
-    Item_Page, &pDebug, 0,
+    Item_Page, &pageDebug, 0,
     {
         "АЦП", "ADC",
         "",
@@ -577,7 +577,7 @@ static void OnChanged_ADC_Balance_ShiftB(void)
     NRST_BALANCE_ADC_B = shiftADCB;
 }
 
-extern const Choice emptyChoice;
+static const Choice emptyChoice = {Item_Choice};
 
 // ОТЛАДКА - АЦП - РАСТЯЖКА //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 static const Page pppADC_Stretch =
@@ -919,7 +919,7 @@ static const Governor gADC_Shift_B10mV =
 // ОТЛАДКА - РАНД-ТОР ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 static const Page ppRand =
 {
-    Item_Page, &pDebug, 0,
+    Item_Page, &pageDebug, 0,
     {
         "РАНД-ТОР", "RANDOMIZER",
         "",
@@ -941,7 +941,7 @@ static const Page ppRand =
 // ОТЛАДКА - КАНАЛЫ //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 static const Page ppChannels =
 {
-    Item_Page, &pDebug, 0,
+    Item_Page, &pageDebug, 0,
     {
         "КАНАЛЫ", "CHANNELS",
         "",
@@ -1106,7 +1106,7 @@ static int16 post;
 // ОТЛАДКА - Предзапуск ------------------------------------------------------------------------------------------------------------------------------
 static const Governor mgPred =
 {
-    Item_Governor, &pDebug, 0,
+    Item_Governor, &pageDebug, 0,
     {
         "Предзапуск", "",
         "", ""
@@ -1117,7 +1117,7 @@ static const Governor mgPred =
 // ОТЛАДКА - Послезапуск -----------------------------------------------------------------------------------------------------------------------------
 static const Governor mgPost =
 {
-    Item_Governor, &pDebug, 0,
+    Item_Governor, &pageDebug, 0,
     {
         "Послезапуск", "",
         "", ""
@@ -1129,7 +1129,7 @@ static const Governor mgPost =
 // ОТЛАДКА - НАСТРОЙКИ ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 static const Page ppSettings =
 {
-    Item_Page, &pDebug, 0,
+    Item_Page, &pageDebug, 0,
     {
         "НАСТРОЙКИ", "SETTINGS",
         "Показать информацию о настройках",
@@ -1279,7 +1279,7 @@ static const Choice gRand_ShowStat =
 // ОТЛАДКА - Режим ЭМС ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 static const Choice cEMS =
 {
-    Item_Choice, &pDebug, 0,
+    Item_Choice, &pageDebug, 0,
     {
         "Режим ЭМС", "EMS mode",
         "Принудительно включает фильтр 20МГц, сглаживание по 4-м точкам, усреднение по 8-ми точкам",
@@ -1301,7 +1301,7 @@ static void OnChanged_EMS(bool active)
 // ОТЛАДКА - Ориентация //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 static const Choice cDisplayOrientation =
 {
-    Item_Choice, &pDebug, 0,
+    Item_Choice, &pageDebug, 0,
     {
         "Ориентация", "DisplayOrientation",
         "Устанавливает ориентацию дисплея",
@@ -1322,7 +1322,7 @@ void OnChanged_DisplayOrientation(bool active)
 // ОТЛАДКА - Статистика ------------------------------------------------------------------------------------------------------------------------------
 static const Choice cStats =
 {
-    Item_Choice, &pDebug, 0,
+    Item_Choice, &pageDebug, 0,
     {
         "Статистика", "Statistics",
         "Показывать/не показывать время/кадр, кадров в секунду, количество сигналов с последними настройками в памяти/количество сохраняемых в памяти сигналов",
@@ -1338,7 +1338,7 @@ static const Choice cStats =
 // ОТЛАДКА - Сохр. прошивку --------------------------------------------------------------------------------------------------------------------------
 static const Button bSaveFirmware =
 {
-    Item_Button, &pDebug, IsActive_SaveFirmware,
+    Item_Button, &pageDebug, IsActive_SaveFirmware,
     {
         "Сохр. прошивку", "Save firmware",
         "Сохранение прошивки - секторов 5, 6, 7 общим объёмом 3 х 128 кБ, где хранится программа",
@@ -1381,7 +1381,7 @@ static void OnPress_SaveFirmware(void)
 // ОТЛАДКА - Стереть данные --------------------------------------------------------------------------------------------------------------------------
 static const Button bEraseData =
 {
-    Item_Button, &pDebug, 0,
+    Item_Button, &pageDebug, 0,
     {
         "Стереть данне", "Erase data",
         "Стирает сохранённые данные из ППЗУ",
@@ -1401,7 +1401,7 @@ static void OnPress_EraseData(void)
 // ОТЛАДКА - С/Н /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 static const Page ppSerialNumber =
 {
-    Item_Page, &pDebug, 0,
+    Item_Page, &pageDebug, 0,
     {
         "С/Н", "S/N",
         "Запись серийного номера в OTP-память. ВНИМАНИЕ!!! ОТP-память - память с однократной записью.",
@@ -1580,7 +1580,7 @@ static void Draw_SerialNumber_Save(int x, int y)
     Painter_SetFont(TypeFont_8);
 }
 
-
+Page *pDebug = (Page *)&pageDebug;
 
 
 
@@ -1721,3 +1721,4 @@ const Page mspDebugADCaltShift =    // ОТЛАДКА - АЦП - ДОП СМЕЩ ПАМ
     }
 };
 */
+

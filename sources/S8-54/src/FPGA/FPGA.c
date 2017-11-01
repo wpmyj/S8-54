@@ -47,7 +47,8 @@ static struct BitFieldFPGA
 #define NULL_TSHIFT 1000000
 
 #define N_KR 100
-const int Kr[] = {N_KR / 1, N_KR / 2, N_KR / 5, N_KR / 10, N_KR / 20};
+int Kr[] = {N_KR / 1, N_KR / 2, N_KR / 5, N_KR / 10, N_KR / 20};
+
 
 StateWorkFPGA fpgaStateWork = StateWorkFPGA_Stop;
 volatile static int numberMeasuresForGates = 1000;

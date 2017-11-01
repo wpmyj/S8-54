@@ -118,7 +118,7 @@ static void       OnPress_Information_Exit(void);
 
 
 // СЕРВИС ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-const Page pService =
+const Page pageService =
 {
     Item_Page, &mainPage, 0,
     {
@@ -149,7 +149,7 @@ const Page pService =
 // СЕРВИС - Сброс настроек ---------------------------------------------------------------------------------------------------------------------------
 static const Button bResetSettings =
 {
-    Item_Button, &pService, 0,
+    Item_Button, &pageService, 0,
     {
         "Сброс настроек", "Reset settings",
         "Сброс настроек на настройки по умолчанию",
@@ -186,7 +186,7 @@ static void Draw_ResetSettings(void)
 // СЕРВИС - Поиск сигнала ----------------------------------------------------------------------------------------------------------------------------
 static const Button bAutoSearch =
 {
-    Item_Button, &pService, 0,
+    Item_Button, &pageService, 0,
     {
         "Поиск сигнала", "Find signal",
         "Устанавливает оптимальные установки осциллографа для сигнала в канале 1",
@@ -204,7 +204,7 @@ static void OnPress_AutoSearch(void)
 // СЕРВИС - КАЛИБРАТОР ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 static const Page ppCalibrator =
 {
-    Item_Page, &pService, 0,
+    Item_Page, &pageService, 0,
     {
         "КАЛИБРАТОР", "CALIBRATOR",
         "Управлением калибратором и калибровка осциллографа",
@@ -267,7 +267,7 @@ static void OnPress_Calibrator_Calibrate(void)
 // СЕРВИС - Регистратор ------------------------------------------------------------------------------------------------------------------------------
 static const Choice cRecorder =
 {
-    Item_Choice, &pService, 0,
+    Item_Choice, &pageService, 0,
     {
         "Регистратор", "Recorder",
         "Включает/выключает режим регистратора. Этот режим доступен на развёртках 50 мс/дел и более медленных.",
@@ -290,7 +290,7 @@ static void OnChanged_Recorder(bool active)
 // CЕРВИС - РЕГИСТРАТОР //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 static const Page ppRecorder =
 {
-    Item_Page, &pService, 0,
+    Item_Page, &pageService, 0,
     {
         "РЕГИСТРАТОР", "RECORDER",
         "Запись и воспроизведение входных сигналов",
@@ -428,7 +428,7 @@ static void Draw_Recorder_Cursor(int x, int y)
 // СЕРВИС - СПЕКТР ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 static const Page ppFFT =
 {
-    Item_Page, &pService, IsActive_FFT,
+    Item_Page, &pageService, IsActive_FFT,
     {
         "СПЕКТР", "SPECTRUM",
         "Отображение спектра входного сигнала",
@@ -618,7 +618,7 @@ static bool IsActive_FFT_Range(void)
 // СЕРВИС - ФУНКЦИЯ //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 static const Page ppFunction =
 {
-    Item_Page, &pService, IsActive_Function,
+    Item_Page, &pageService, IsActive_Function,
     {
         "ФУНКЦИЯ", "FUNCTION",
         "Установка и выбор математической функции - сложения или умножения",
@@ -921,7 +921,7 @@ static void Draw_Function_RangeB(int x, int y)
 // СЕРВИС - ETHERNET /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 static const Page ppEthernet =
 {
-    Item_Page, &pService, 0,
+    Item_Page, &pageService, 0,
     {
         "ETHERNET", "ETHERNET",
         "Настройки ethernet",
@@ -1018,7 +1018,7 @@ static const MACaddress ipEthernet_MAC =
 // СЕРВИС - ЗВУК /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 static const Page ppSound =
 {
-    Item_Page, &pService, 0,
+    Item_Page, &pageService, 0,
     {
         "ЗВУК", "SOUND",
         "В этом меню можно настроить громкость звука",
@@ -1064,7 +1064,7 @@ static const Governor gSound_Volume =
 // СЕРВИС - ВРЕМЯ ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 static const Page ppRTC =
 {
-    Item_Page, &pService, 0,
+    Item_Page, &pageService, 0,
     {
         "ВРЕМЯ", "TIME",
         "Установка и настройка времени",
@@ -1123,7 +1123,7 @@ static void OnChanged_Time_Correction(void)
 // СЕРВИС - Язык -------------------------------------------------------------------------------------------------------------------------------------
 static const Choice cLanguage =
 {
-    Item_Choice, &pService, 0,
+    Item_Choice, &pageService, 0,
     {
         "Язык",         "Language",
         "Позволяет выбрать язык меню",
@@ -1140,7 +1140,7 @@ static const Choice cLanguage =
 // СЕРВИС - ИНФОРМАЦИЯ ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 static const Page ppInformation =
 {
-    Item_Page, &pService, 0,
+    Item_Page, &pageService, 0,
     {
         "ИНФОРМАЦИЯ", "INFORMATION",
         "Показывает информацию о приборе",
@@ -1215,6 +1215,8 @@ static void OnPress_Information_Exit(void)
 }
 
 
+Page *pService = (Page *)&pageService;
+
 
 
 
@@ -1285,12 +1287,12 @@ void OnChangedColorMenu2Item(void)
 
 
 // СЕРВИС ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-extern const Page pService;
+extern const Page pageService;
 
 // СЕРВИС - Откат настроек
 const Button mbServicePreviousSettings =
 {
-    Item_Button, &pService, 0,
+    Item_Button, &pageService, 0,
     {
         "Откат настроек", "Return settings",
         "Возвращает настройки осциллографа, которые были в момент нажатия \"Поиск сигнала\"",

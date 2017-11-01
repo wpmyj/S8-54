@@ -1,5 +1,3 @@
-
-
 #include "FlashDrive.h"
 #include "Globals.h"
 #include "Log.h"

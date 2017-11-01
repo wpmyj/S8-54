@@ -6,10 +6,10 @@ main3 PROC
   
     EXPORT main3
         
-    IMPORT Hardware_Init 
+    ;IMPORT Hardware_Init 
      
     PUSH {R0, LR}
-    BL Hardware_Init
+    ;BL Hardware_Init
     POP {R0, LR}
     
     

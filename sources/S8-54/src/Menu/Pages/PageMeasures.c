@@ -42,7 +42,7 @@ extern const Page mainPage;
 
 
 // ИЗМЕРЕНИЯ /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-const Page pMeasures =
+const Page pageMeasures =
 {
     Item_Page, &mainPage, 0,
     {
@@ -64,7 +64,7 @@ const Page pMeasures =
 // ИЗМЕРЕНИЯ - ЧАСТОТОМЕР ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 const Page ppFreqMeter =
 {
-    Item_Page, &pMeasures, 0,
+    Item_Page, &pageMeasures, 0,
     {
         "ЧАСТОТОМЕР", "FREQ METER",
         "",
@@ -155,7 +155,7 @@ static const Choice cFreqMeter_NumPeriods =
 // ИЗМЕРЕНИЯ - Показывать ----------------------------------------------------------------------------------------------------------------------------
 static const Choice cIsShow =
 {
-    Item_Choice, &pMeasures, 0,
+    Item_Choice, &pageMeasures, 0,
     {
         "Показывать", "Show",
         "Выводить или не выводить измерения на экран",
@@ -171,7 +171,7 @@ static const Choice cIsShow =
 // ИЗМЕРЕНИЯ - Количество ----------------------------------------------------------------------------------------------------------------------------
 static const Choice cNumber =
 {
-    Item_Choice, &pMeasures, IsActive_Number,
+    Item_Choice, &pageMeasures, IsActive_Number,
     {
         "Количество", "Number"
         ,
@@ -213,7 +213,7 @@ static bool IsActive_Number(void)
 // ИЗМЕРЕНИЯ - Каналы --------------------------------------------------------------------------------------------------------------------------------
 static const Choice cChannels =
 {
-    Item_Choice, &pMeasures, IsActive_Channels,
+    Item_Choice, &pageMeasures, IsActive_Channels,
     {
         "Каналы", "Channels",
         "По каким каналам выводить измерения",
@@ -235,7 +235,7 @@ static bool IsActive_Channels(void)
 // ИЗМЕРЕНИЯ - Вид -----------------------------------------------------------------------------------------------------------------------------------
 static const Choice cMode =
 {
-    Item_Choice, &pMeasures, IsActive_Mode,
+    Item_Choice, &pageMeasures, IsActive_Mode,
     {
         "Вид", "View",
         "Уменьшать или нет зону вывода сигнала для исключения перекрытия его результами измерений",
@@ -257,7 +257,7 @@ static bool IsActive_Mode(void)
 // ИЗМЕРЕНИЯ - НАСТРОИТЬ /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 static const Page ppTune =
 {
-    Item_Page, &pMeasures, IsActive_Tune,
+    Item_Page, &pageMeasures, IsActive_Tune,
     {
         "НАСТРОИТЬ", "CONFIGURE",
         "Переход в режми точной настройки количества и видов измерений",
@@ -396,3 +396,5 @@ static void Draw_Tune_Settings(int x, int y)
     Painter_Draw4SymbolsInRect(x + 2, y + 1, '\x62');
     Painter_SetFont(TypeFont_8);
 }
+
+Page *pMeasures = (Page *)&pageMeasures;

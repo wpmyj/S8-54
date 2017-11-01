@@ -5,18 +5,18 @@
 
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-extern const Page mainPage;
-extern const Page pDisplay;
-extern const Page pChanA;
-extern const Page pChanB;
-extern const Page pTrig;
-extern const Page pTime;
-extern const Page pCursors;
-extern const Page pMemory;
-extern const Page pMeasures;
-extern const Page pService;
-extern const Page pHelp;
-extern const Page pDebug;
+extern Page *mainPage;
+extern Page *pDisplay;
+extern Page *pChanA;
+extern Page *pChanB;
+extern Page *pTrig;
+extern Page *pTime;
+extern Page *pCursors;
+extern Page *pMemory;
+extern Page *pMeasures;
+extern Page *pService;
+extern Page *pHelp;
+extern Page *pDebug;
 
 
 /// Ã≈Õﬁ 
@@ -29,17 +29,17 @@ const Page mainPage =
     },
     Page_Main,
     {
-        (void *)&pDisplay,  // ƒ»—œÀ≈…
-        (void *)&pChanA,    //  ¿Õ¿À 1
-        (void *)&pChanB,    //  ¿Õ¿À 2
-        (void *)&pTrig,     // —»Õ’–
-        (void *)&pTime,     // –¿«¬≈–“ ¿
-        (void *)&pCursors,  //  ”–—Œ–€
-        (void *)&pMemory,   // œ¿Ãﬂ“‹
-        (void *)&pMeasures, // »«Ã≈–≈Õ»ﬂ
-        (void *)&pService,  // —≈–¬»—
-        (void *)&pHelp,     // œŒÃŒŸ‹
-        (void *)&pDebug     // Œ“À¿ƒ ¿
+        (void *)pDisplay,   // ƒ»—œÀ≈…
+        (void *)pChanA,     //  ¿Õ¿À 1
+        (void *)pChanB,     //  ¿Õ¿À 2
+        (void *)pTrig,      // —»Õ’–
+        (void *)pTime,      // –¿«¬≈–“ ¿
+        (void *)pCursors,   //  ”–—Œ–€
+        (void *)pMemory,    // œ¿Ãﬂ“‹
+        (void *)pMeasures,  // »«Ã≈–≈Õ»ﬂ
+        (void *)pService,   // —≈–¬»—
+        (void *)pHelp,      // œŒÃŒŸ‹
+        (void *)pDebug      // Œ“À¿ƒ ¿
     }
 };
 

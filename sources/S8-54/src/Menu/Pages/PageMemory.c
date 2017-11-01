@@ -136,7 +136,7 @@ static void SaveSignalToIntMemory(void);
 
 
 // ѕяћя“№ ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-const Page pMemory =
+const Page pageMemory =
 {
     Item_Page, &mainPage, 0,
     {
@@ -156,7 +156,7 @@ const Page pMemory =
 // ѕјћя“№ - “очки ------------------------------------------------------------------------------------------------------------------------------------
 static const Choice cPoints =
 {
-    Item_Choice, &pMemory, IsActive_Points,
+    Item_Choice, &pageMemory, IsActive_Points,
     {
         "ƒлина пам€ти", "Mem length"
         ,
@@ -228,7 +228,7 @@ void OnChanged_Points(bool active)
 // ѕјћя“№ - ѕќ—Ћ≈ƒЌ»≈ --------------------------------------------------------------------------------------------------------------------------------
 static const Page ppLast =
 {
-    Item_Page, &pMemory, 0,
+    Item_Page, &pageMemory, 0,
     {
         "ѕќ—Ћ≈ƒЌ»≈", "LATEST",
         "ѕереход в режим работы с последними полученными сигналами",
@@ -481,7 +481,7 @@ static void Draw_Last_SaveToDrive(int x, int y)
 // ѕјћя“№ - ¬Ќ”“– «” ---------------------------------------------------------------------------------------------------------------------------------
 static const Page ppInternal =
 {
-    Item_Page, &pMemory, 0,
+    Item_Page, &pageMemory, 0,
     {
         "¬Ќ”“– «”", "INT STORAGE",
         "ѕереход в режим работы с внутренней пам€тью",
@@ -917,7 +917,7 @@ static void Draw_Internal_SaveToDrive(int x, int y)
 // ѕјћя“№ - ¬Ќ≈ЎЌ «” ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 static const Page ppDrive =
 {
-    Item_Page, &pMemory, 0,
+    Item_Page, &pageMemory, 0,
     {
         "¬Ќ≈ЎЌ «”", "EXT STORAGE",
         "–абота с внешним запоминающим устройством.",
@@ -1579,6 +1579,9 @@ static void Draw_SetName_Save(int x, int y)
     }
 }
 
+
+Page *pMemory = (Page *)&pageMemory;
+
 /*
 
 void DrawSB_MemLastSelect(int x, int y)
@@ -1601,7 +1604,9 @@ void DrawSB_MemExtNewFolder(int x, int y)
     Painter_SetFont(TypeFont_8);
 }
 
-extern const Page pMemory;
+extern const Page pageMemory;
 extern const Page ppDrive;
 
 */
+
+

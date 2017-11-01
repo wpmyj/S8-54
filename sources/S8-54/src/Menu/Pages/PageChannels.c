@@ -64,7 +64,7 @@ static const char chanDividerEn[] = "Attenuation: \n\"Off\" - the signal is not 
 extern const Page mainPage;
 
 // КАНАЛ 1 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-const Page pChanA =
+const Page pageChanA =
 {
     Item_Page, &mainPage, 0,
     {
@@ -87,7 +87,7 @@ const Page pChanA =
 // КАНАЛ 1 - Вход ------------------------------------------------------------------------------------------------------------------------------------
 static const Choice cChanA_Input =
 {
-    Item_Choice, &pChanA, 0,
+    Item_Choice, &pageChanA, 0,
     {
         "Вход", "Input",
         chanInputRu,
@@ -108,7 +108,7 @@ void OnChanged_ChanA_Input(bool active)
 // КАНАЛ 1 - Связь -----------------------------------------------------------------------------------------------------------------------------------
 static const Choice cChanA_Couple =
 {
-    Item_Choice, &pChanA, 0,
+    Item_Choice, &pageChanA, 0,
     {
         "Связь", "Couple",
         chanCoupleRu,
@@ -130,7 +130,7 @@ static void OnChanged_ChanA_Couple(bool active)
 // КАНАЛ 1 - Полоса ----------------------------------------------------------------------------------------------------------------------------------
 static const Choice cChanA_Bandwidth =
 {
-    Item_Choice, &pChanA, 0,
+    Item_Choice, &pageChanA, 0,
     {
         "Полоса", "Bandwidth",
         "Задаёт полосу пропускания канала", "Sets the channel bandwidth"
@@ -150,7 +150,7 @@ static void OnChanged_ChanA_Bandwidth(bool active)
 // КАНАЛ 1 - Сопротивление ---------------------------------------------------------------------------------------------------------------------------
 static const Choice cChanA_Resistance =
 {
-    Item_Choice, &pChanA, 0,
+    Item_Choice, &pageChanA, 0,
     {
         "Вх сопр", "Resistance",
         "", ""
@@ -174,7 +174,7 @@ static void OnChanged_ChanA_Resistance(bool active)
 // КАНАЛ 1 - Инверсия --------------------------------------------------------------------------------------------------------------------------------
 static const Choice cChanA_Inverse =
 {
-    Item_Choice, &pChanA, 0,
+    Item_Choice, &pageChanA, 0,
     {
         "Инверсия", "Inverse",
         chanInverseRu,
@@ -195,7 +195,7 @@ static void OnChanged_ChanA_Inverse(bool active)
 // КАНАЛ 1 - Делитель --------------------------------------------------------------------------------------------------------------------------------
 static const Choice cChanA_Divider =
 {
-    Item_Choice, &pChanA, 0,
+    Item_Choice, &pageChanA, 0,
     {
         "Делитель", "Divider",
         chanDividerRu,
@@ -211,7 +211,7 @@ static const Choice cChanA_Divider =
 // КАНАЛ 1 - Балансировать ---------------------------------------------------------------------------------------------------------------------------
 static const Button bChanA_Balance =
 {
-    Item_Button, &pChanA, 0,
+    Item_Button, &pageChanA, 0,
     {
         "Балансировать", "Balance",
         "Балансировать канал",
@@ -226,7 +226,7 @@ static void OnPress_ChanA_Balance(void)
 }
 
 // КАНАЛ 2 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-const Page pChanB =
+const Page pageChanB =
 {
     Item_Page, &mainPage, 0,
     {
@@ -249,7 +249,7 @@ const Page pChanB =
 // КАНАЛ 2 - Вход ------------------------------------------------------------------------------------------------------------------------------------
 static const Choice cChanB_Input =
 {
-    Item_Choice, &pChanB, IsActive_ChanB_Input,
+    Item_Choice, &pageChanB, IsActive_ChanB_Input,
     {
         "Вход", "Input",
         chanInputRu,
@@ -285,7 +285,7 @@ void OnChanged_ChanB_Input(bool active)
 // КАНАЛ 2 - Связь -----------------------------------------------------------------------------------------------------------------------------------
 static const Choice cChanB_Couple =
 {
-    Item_Choice, &pChanB, 0,
+    Item_Choice, &pageChanB, 0,
     {
         "Связь", "Couple",
         chanCoupleRu,
@@ -307,7 +307,7 @@ static void OnChanged_ChanB_Couple(bool active)
 // КАНАЛ 2 - Полоса ----------------------------------------------------------------------------------------------------------------------------------
 static const Choice cChanB_Bandwidth =
 {
-    Item_Choice, &pChanB, 0,
+    Item_Choice, &pageChanB, 0,
     {
         "Полоса", "Bandwidth",
         "",
@@ -328,7 +328,7 @@ static void OnChanged_ChanB_Bandwidth(bool active)
 // КАНАЛ 2 - Сопротивление ---------------------------------------------------------------------------------------------------------------------------
 static const Choice cChanB_Resistance =
 {
-    Item_Choice, &pChanB, 0,
+    Item_Choice, &pageChanB, 0,
     {
         "Вх сопр", "Resistance",
         "", ""
@@ -352,7 +352,7 @@ static void OnChanged_ChanB_Resistance(bool active)
 // КАНАЛ 2 - Инверсия --------------------------------------------------------------------------------------------------------------------------------
 static const Choice cChanB_Inverse =
 {
-    Item_Choice, &pChanB, 0,
+    Item_Choice, &pageChanB, 0,
     {
         "Инверсия", "Inverse",
         chanInverseRu,
@@ -373,7 +373,7 @@ static void OnChanged_ChanB_Inverse(bool active)
 // КАНАЛ 2 - Делитель --------------------------------------------------------------------------------------------------------------------------------
 static const Choice cChanB_Divider =
 {
-    Item_Choice, &pChanB, 0,
+    Item_Choice, &pageChanB, 0,
     {
         "Делитель", "Divider",
         chanDividerRu,
@@ -389,7 +389,7 @@ static const Choice cChanB_Divider =
 // КАНАЛ 2 - Балансировать ---------------------------------------------------------------------------------------------------------------------------
 static const Button bChanB_Balance =
 {
-    Item_Button, &pChanB, 0,
+    Item_Button, &pageChanB, 0,
     {
         "Балансировать", "Balance",
         "Балансировать канал",
@@ -402,3 +402,6 @@ static void OnPress_ChanB_Balance(void)
 {
     FPGA_BalanceChannel(B);
 }
+
+Page *pChanA = (Page *)&pageChanA;
+Page *pChanB = (Page *)&pageChanB;

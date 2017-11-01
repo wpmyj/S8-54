@@ -130,6 +130,8 @@ static void LoadTBase(void)
 
 int addShiftForFPGA = 0;
 
+extern int Kr[];
+
 //----------------------------------------------------------------------------------------------------------------------------------------------------
 void LoadTShift(void)
 {
@@ -140,7 +142,6 @@ void LoadTShift(void)
 
     if(IN_RANDOM_MODE)
     {
-        extern const int Kr[];
         int k = 0;
         if (TPOS_IS_LEFT)
         {
