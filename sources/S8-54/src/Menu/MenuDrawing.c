@@ -24,7 +24,7 @@ static int ItemOpenedPosY(void *item);
 
 static void *itemUnderButton[B_NumButtons] = {0};
 
-//extern Page mainPage;
+extern Page mainPage;
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 PanelButton GetFuncButtonFromY(int _y)
@@ -217,7 +217,6 @@ static void DrawPagesUGO(Page *page, int right, int bottom)
 //---------------------------------------------------------------------------------------------------------------------------------------------------
 static void DrawNestingPage(Page *page, int left, int bottom)
 {
-    /*
     if (page != &mainPage)
     {
         int nesting = 0;
@@ -240,7 +239,6 @@ static void DrawNestingPage(Page *page, int left, int bottom)
             Painter_DrawRectangle(x, bottom, size, size);
         }
     }
-    */
 }
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------

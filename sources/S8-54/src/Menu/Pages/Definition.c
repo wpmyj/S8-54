@@ -1,12 +1,10 @@
-
-
 #include "defines.h"
 #include "Settings/Settings.h"
 
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-extern const Page mainPage;
 extern const Page pDisplay;
+/*
 extern const Page pChanA;
 extern const Page pChanB;
 extern const Page pTrig;
@@ -17,10 +15,11 @@ extern const Page pMeasures;
 extern const Page pService;
 extern const Page pHelp;
 extern const Page pDebug;
+*/
 
 
 /// Ã≈Õﬁ 
-const Page mainPage =
+Page mainPage =
 {
     Item_Page, 0, 0,
     {
@@ -30,6 +29,7 @@ const Page mainPage =
     Page_Main,
     {
         (void *)&pDisplay,  // ƒ»—œÀ≈…
+        /*/
         (void *)&pChanA,    //  ¿Õ¿À 1
         (void *)&pChanB,    //  ¿Õ¿À 2
         (void *)&pTrig,     // —»Õ’–
@@ -40,18 +40,26 @@ const Page mainPage =
         (void *)&pService,  // —≈–¬»—
         (void *)&pHelp,     // œŒÃŒŸ‹
         (void *)&pDebug     // Œ“À¿ƒ ¿
+        */
     }
 };
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
 const void *PageForButton(PanelButton button)
 {
-    static const void *pages[] = {  
+    static const void *pages[] =
+    {  
         0,                  // B_Empty
+        /*
         (void *)&pChanA,    // B_Channel1
         (void *)&pService,  // B_Service
         (void *)&pChanB,    // B_Channel2
+        */
+        0,
+        0,
+        0,
         (void *)&pDisplay,  // B_Display
+        /*
         (void *)&pTime,     // B_Time
         (void *)&pMemory,   // B_Memory
         (void *)&pTrig,     // B_Trig
@@ -66,6 +74,7 @@ const void *PageForButton(PanelButton button)
         0,                  // B_F3
         0,                  // B_F4
         0,                  // B_F5
+        */
     };
 
     return pages[button];

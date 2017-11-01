@@ -1529,9 +1529,9 @@
               <FilePath>.\src\Menu\Pages\PageTrig.cpp</FilePath>
             </File>
             <File>
-              <FileName>Definition.cpp</FileName>
-              <FileType>8</FileType>
-              <FilePath>.\src\Menu\Pages\Definition.cpp</FilePath>
+              <FileName>Definition.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\src\Menu\Pages\Definition.c</FilePath>
             </File>
           </Files>
         </Group>

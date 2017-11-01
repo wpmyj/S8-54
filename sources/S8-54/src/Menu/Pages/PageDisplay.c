@@ -55,7 +55,7 @@ extern const         Choice cSettings_AutoHide;                 ///< ÄÈÑÏËÅÉ - Í
 static void        OnChanged_Settings_AutoHide(bool active);
 
 
-//extern Page mainPage;
+extern Page mainPage;
 
 // ÄÈÑÏËÅÉ ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 void PageDisplay_Init(void)
@@ -65,7 +65,7 @@ void PageDisplay_Init(void)
 
 const Page pDisplay =
 {
-    Item_Page, 0, 0,
+    Item_Page, &mainPage, 0,
     {
         "ÄÈÑÏËÅÉ", "DISPLAY",
         "Ñîäåðæèò íàñòðîéêè îòîáðàæåíèÿ äèñïëåÿ.",

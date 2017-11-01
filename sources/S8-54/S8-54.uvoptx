@@ -2880,12 +2880,12 @@
     <File>
       <GroupNumber>17</GroupNumber>
       <FileNumber>207</FileNumber>
-      <FileType>8</FileType>
+      <FileType>1</FileType>
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>.\src\Menu\Pages\Definition.cpp</PathWithFileName>
-      <FilenameWithoutPath>Definition.cpp</FilenameWithoutPath>
+      <PathWithFileName>.\src\Menu\Pages\Definition.c</PathWithFileName>
+      <FilenameWithoutPath>Definition.c</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
     </File>

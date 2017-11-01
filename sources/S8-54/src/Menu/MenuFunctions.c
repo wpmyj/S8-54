@@ -20,7 +20,7 @@
 
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-//extern const Page mainPage;
+extern const Page mainPage;
 
 
 static void *RetLastOpened(Page *_page, TypeItem *_type);
@@ -78,9 +78,8 @@ TypeItem TypeOpenedItem(void)
 //----------------------------------------------------------------------------------------------------------------------------------------------------
 void *OpenedItem(void)
 {
-    return 0;
-    //TypeItem type = Item_None;
-    //return RetLastOpened((Page *)&mainPage, &type);
+    TypeItem type = Item_None;
+    return RetLastOpened((Page *)&mainPage, &type);
 }
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
@@ -92,8 +91,6 @@ void *Item(const Page *page, int numElement)
 //----------------------------------------------------------------------------------------------------------------------------------------------------
 void *CurrentItem(void)
 {
-    return 0;
-    /*
     TypeItem type = Item_None;
     void *lastOpened = RetLastOpened((Page *)&mainPage, &type);
     int8 pos = PosCurrentItem((const Page *)lastOpened);
@@ -102,7 +99,6 @@ void *CurrentItem(void)
         return Item((const Page *)lastOpened, pos);
     }
     return lastOpened;
-    */
 }
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
@@ -203,7 +199,7 @@ void CloseOpenedItem(void)
         }
         NamePage name = Keeper(item)->name;
         SetMenuPosActItem(name, MENU_POS_ACT_ITEM(name) & 0x7f);
-        //if(item == &mainPage)
+        if(item == &mainPage)
         {
             Menu_Show(false);
         }

@@ -38,13 +38,13 @@ int8 posActive = 0;                 ///< Позиция активного измерения (на котором
 bool pageChoiceIsActive = false;    ///< Если true - раскрыта страница выбора измерения
 int8 posOnPageChoice = 0;           ///< Позиция курсора на странице выбора измерения
 
-//extern const Page mainPage;
+extern const Page mainPage;
 
 
 // ИЗМЕРЕНИЯ /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 const Page pMeasures =
 {
-    Item_Page, 0, 0,
+    Item_Page, &mainPage, 0,
     {
         "ИЗМЕРЕНИЯ", "MEASURES",
         "Автоматические измерения",
