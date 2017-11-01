@@ -691,7 +691,7 @@ void LoggingArrayUINT8(char *label, uint8 *array, int numElements)
                                     // 1 -> завершающий ноль
                                     // strlen(label) -> на запись метки
                                     // 3 -> на " - "
-    char *buffer = malloc(numElements * (1 + 3) + 1 + strlen(label) + 3);   // 1 + 3 - 
+    char *buffer = (char *)malloc(numElements * (1 + 3) + 1 + strlen(label) + 3);   // 1 + 3 - 
 
     buffer[0] = 0;
 
