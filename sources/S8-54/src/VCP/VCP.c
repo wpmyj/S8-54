@@ -24,7 +24,7 @@ void VCP_Init(void)
 //----------------------------------------------------------------------------------------------------------------------------------------------------
 static bool PrevSendingComplete(void)
 {
-    USBD_CDC_HandleTypeDef *pCDC = handleUSBD.pClassData;
+    USBD_CDC_HandleTypeDef *pCDC = (USBD_CDC_HandleTypeDef *)handleUSBD.pClassData;
     return pCDC->TxState == 0;
 }
 
@@ -55,7 +55,7 @@ void VCP_Flush(void)
 {
     if (sizeBuffer)
     {
-        USBD_CDC_HandleTypeDef *pCDC = handleUSBD.pClassData;
+        USBD_CDC_HandleTypeDef *pCDC = (USBD_CDC_HandleTypeDef *)handleUSBD.pClassData;
         while (pCDC->TxState == 1) {};
         USBD_CDC_SetTxBuffer(&handleUSBD, buffSend, (uint16)sizeBuffer);
         USBD_CDC_TransmitPacket(&handleUSBD);
@@ -70,7 +70,7 @@ void VCP_SendDataSynch(const uint8 *buffer, int size)
 {
     if (CONNECTED_TO_USB)
     {
-        USBD_CDC_HandleTypeDef *pCDC = handleUSBD.pClassData;
+        USBD_CDC_HandleTypeDef *pCDC = (USBD_CDC_HandleTypeDef *)handleUSBD.pClassData;
     
         do 
         {
@@ -124,7 +124,7 @@ void VCP_SendFormatStringAsynch(char *format, ...)
     if (CONNECTED_TO_USB)
     {
         static char buffer[200];
-        __va_list args;
+        va_list args;
         va_start(args, format);
         vsprintf(buffer, format, args);
         va_end(args);
@@ -138,7 +138,7 @@ void VCP_SendFormatStringAsynch(char *format, ...)
 void VCP_SendFormatStringSynch(char *format, ...)
 {
     char buffer[200];
-    __va_list args;
+    va_list args;
     va_start(args, format);
     vsprintf(buffer, format, args);
     va_end(args);
