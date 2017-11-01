@@ -35,7 +35,7 @@
 
 #define TSHIFT_2_REL(tShiftAbs, tBase)      ((tShiftAbs) / absStepTShift[(tBase)] / 2.0f)
 
-#define ROUND(x)                            ((x) += 0.5f, (x))
+#define ROUND(x)                            (x += 0.5f, x)
 
 #define IN_RANGE(x, min, max)               ((x) >= (min) && (x) <= (max))
 

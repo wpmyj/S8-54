@@ -2,6 +2,11 @@
 #include "lwip/netif.h"
 
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
+
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 #define DHCP_START                 (uint8_t) 1
 #define DHCP_WAIT_ADDRESS          (uint8_t) 2
@@ -10,3 +15,7 @@
 #define DHCP_LINK_DOWN             (uint8_t) 5
    
 void User_notification(struct netif *netif);
+
+#ifdef __cplusplus
+}
+#endif

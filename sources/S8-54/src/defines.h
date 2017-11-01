@@ -53,6 +53,17 @@ typedef uint8                   BYTE;
 #define DEBUG
 
 
+#ifndef __cplusplus
+
+#ifndef bool
+typedef uint8   bool;
+#define false   0
+#define true    (!false)
+#endif
+
+#endif
+
+
 #define __IO volatile
     
 // Тип цвета

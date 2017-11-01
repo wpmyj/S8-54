@@ -81,11 +81,20 @@ void Timer_Init(void)
 }
 
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
+
 //----------------------------------------------------------------------------------------------------------------------------------------------------
 void TIM3_IRQHandler(void)
 {
     HAL_TIM_IRQHandler(&handleTIM3);
 }
+
+#ifdef __cplusplus
+}
+#endif
 
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
@@ -190,6 +199,9 @@ static void StartTIM(uint timeStopMS)
     HAL_TIM_Base_Start_IT(&handleTIM3);
 }
 
+#ifdef __cplusplus
+extern "C" {
+#endif
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
 void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
@@ -223,6 +235,10 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
 
     StartTIM(NearestTime());
 }
+
+#ifdef __cplusplus
+}
+#endif
 
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
