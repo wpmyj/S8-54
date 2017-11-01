@@ -1,5 +1,3 @@
-
-
 #include "PageMemory.h"
 #include "Data/Data.h"
 #include "Data/DataBuffer.h"
@@ -20,10 +18,9 @@
 
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-extern Page mainPage;
-
 extern void PressSB_FM_Tab(void);
 
+extern const      Page pMemory;
 extern const    Choice cPoints;                                 ///< ÏÀÌßÒÜ - Òî÷êè
 static bool    IsActive_Points(void);
        void   OnChanged_Points(bool active);
@@ -136,6 +133,7 @@ static void DrawMemoryWave(int num, bool exist);
 static void SaveSignalToIntMemory(void);
        void OnMemExtSetMaskNameRegSet(int angle, int maxIndex);
 
+extern Page mainPage;
 
 // ÏßÌßÒÜ ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 const Page pMemory =

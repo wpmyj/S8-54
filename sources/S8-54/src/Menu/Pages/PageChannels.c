@@ -11,6 +11,7 @@
 
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+extern const    Page pChanA;
 extern const  Choice cChanA_Input;                      ///< ÊÀÍÀË 1 - Âõîä
        void OnChanged_ChanA_Input(bool active);
 extern const  Choice cChanA_Couple;                     ///< ÊÀÍÀË 1 - Ñâÿçü
@@ -21,9 +22,10 @@ extern const  Choice cChanA_Resistance;                 ///< ÊÀÍÀË 1 - Âõ ñîïð
 static void OnChanged_ChanA_Resistance(bool active);
 extern const  Choice cChanA_Inverse;                    ///< ÊÀÍÀË 1 - Èíâåðñèÿ
 static void OnChanged_ChanA_Inverse(bool active);
-extern const  Choice cChanA_Divider;                     ///< ÊÀÍÀË 1 - Äåëèòåëü
-extern const  Button bChanA_Balance;                     ///< ÊÀÍÀË 1 - Áàëàíñèðîâàòü
+extern const  Choice cChanA_Divider;                    ///< ÊÀÍÀË 1 - Äåëèòåëü
+extern const  Button bChanA_Balance;                    ///< ÊÀÍÀË 1 - Áàëàíñèðîâàòü
 static void   OnPress_ChanA_Balance(void);
+extern const    Page pChanB;
 extern const  Choice cChanB_Input;
 static bool  IsActive_ChanB_Input(void);
       void  OnChanged_ChanB_Input(bool active);

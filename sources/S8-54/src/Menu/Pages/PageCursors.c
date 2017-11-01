@@ -1,5 +1,3 @@
-
-
 #include "defines.h"
 #include "PageCursors.h"
 #include "Definition.h"
@@ -19,7 +17,7 @@
 #include <string.h>
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-extern const Page mainPage;
+extern const Page pCursors;
 
 extern const  Choice cShow;                             ///< ÊÓÐÑÎÐÛ - Ïîêàçûâàòü
 extern const  Choice cLookModeChanA;                    ///< ÊÓÐÑÎÐÛ - Ñëåæåíèå êàíàë 1
@@ -78,6 +76,7 @@ static int CalculateXforCurs(int x, bool left);
 static int CalculateYforCurs(int y, bool top);
 static void DrawMenuCursVoltage(int x, int y, bool top, bool bottom);
 
+extern const Page mainPage;
 
 // ÊÓÐÑÎÐÛ ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 const Page pCursors =

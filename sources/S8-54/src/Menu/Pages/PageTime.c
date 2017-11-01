@@ -13,8 +13,7 @@
 
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-extern Page mainPage;
-
+extern const    Page pTime;
 extern const  Choice cSample;               ///< ÐÀÇÂÅÐÒÊÀ - Âûáîðêà
 static bool  IsActive_Sample(void);
 extern const  Choice cPeakDet;              ///< ÐÀÇÂÅÐÒÊÀ - Ïèê äåò
@@ -24,6 +23,8 @@ extern const  Choice cTPos;                 ///< ÐÀÇÂÅÐÒÊÀ - Òî
        void OnChanged_TPos(bool active);
 extern const  Choice cDivRole;              ///< ÐÀÇÂÅÐÒÊÀ - Ô-öèÿ ÂÐ/ÄÅË
 extern const  Choice cShiftXtype;           ///< ÐÀÇÂÅÐÒÊÀ - Ñìåùåíèå
+
+extern Page mainPage;
 
 // ÐÀÇÂÅÐÒÊÀ /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 const Page pTime =

@@ -10,6 +10,7 @@
 
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+extern const     Page pMeasures;
 extern const    Page ppFreqMeter;                       ///< ÈÇÌÅÐÅÍÈß - ×ÀÑÒÎÒÎÌÅÐ
 extern const   Choice cFreqMeter_Enable;                ///< ÈÇÌÅÐÅÍÈß - ×ÀÑÒÎÒÎÌÅÐ - ×àñòîòîìåð
 static void  OnChanged_FreqMeter_Enable(bool param);    
@@ -39,7 +40,6 @@ bool pageChoiceIsActive = false;    ///< Åñëè true - ðàñêðûòà ñòðàíèöà âûáîðà èç
 int8 posOnPageChoice = 0;           ///< Ïîçèöèÿ êóðñîðà íà ñòðàíèöå âûáîðà èçìåðåíèÿ
 
 extern const Page mainPage;
-
 
 // ÈÇÌÅÐÅÍÈß /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 const Page pMeasures =

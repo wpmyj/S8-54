@@ -1,5 +1,3 @@
-
-
 #include "Log.h"
 #include "Data/DataBuffer.h"
 #include "Display/Grid.h"
@@ -18,9 +16,8 @@
 
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-extern Page mainPage;
 extern void LoadTShift(void);
-
+extern const      Page pDebug;
 extern const     Page ppConsole;                            ///< ÎÒËÀÄÊÀ - ÊÎÍÑÎËÜ
 extern const  Governor gConsole_NumStrings;                 ///< ÎÒËÀÄÊÀ - ÊÎÍÑÎËÜ - Ðàçìåð øðèôòà
 extern const    Choice cConsole_SizeFont;                   ///< ÎÒËÀÄÊÀ - ÊÎÍÑÎËÜ - Ðàçìåð øðèôòà
@@ -136,6 +133,7 @@ typedef struct
     int curDigt;    ///< Ñîîòâåòñòâåííî, íîìåðîì (0) èëè ãîäîì (1) óïðàâëÿåò ðó÷êà ÓÑÒÀÍÎÂÊÀ.
 } StructForSN;
 
+extern Page mainPage;
 
 // ÎÒËÀÄÊÀ ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 const Page pDebug =
