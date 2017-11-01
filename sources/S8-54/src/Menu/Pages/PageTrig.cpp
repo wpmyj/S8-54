@@ -25,13 +25,13 @@ static void    OnPress_Search_Search(void);
 //static const Governor gTimeDelay;               ///< СИНХР - Удержание
 
 extern const Page pTrig;
-extern const Page mainPage;
+//extern const Page mainPage;
 
 
 // СИНХР /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 const Page pTrig =
 {
-    Item_Page, &mainPage, 0,
+    Item_Page, 0, 0,
     {
         "СИНХР", "TRIG",
         "Содержит настройки синхронизации.",

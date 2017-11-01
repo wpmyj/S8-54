@@ -3,6 +3,7 @@
 
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+/*
 extern const Page mainPage;
 extern const Page pDisplay;
 extern const Page pChanA;
@@ -15,6 +16,7 @@ extern const Page pMeasures;
 extern const Page pService;
 extern const Page pHelp;
 extern const Page pDebug;
+*/
 
 
 /// Ã≈Õﬁ 
@@ -27,17 +29,17 @@ const Page mainPage =
     },
     Page_Main,
     {
-        (void *)&pDisplay,  // ƒ»—œÀ≈…
-        (void *)&pChanA,    //  ¿Õ¿À 1
-        (void *)&pChanB,    //  ¿Õ¿À 2
-        (void *)&pTrig,     // —»Õ’–
-        (void *)&pTime,     // –¿«¬≈–“ ¿
-        (void *)&pCursors,  //  ”–—Œ–€
-        (void *)&pMemory,   // œ¿Ãﬂ“‹
-        (void *)&pMeasures, // »«Ã≈–≈Õ»ﬂ
-        (void *)&pService,  // —≈–¬»—
-        (void *)&pHelp,     // œŒÃŒŸ‹
-        (void *)&pDebug     // Œ“À¿ƒ ¿
+        (void *)0,  // ƒ»—œÀ≈…
+        (void *)0,    //  ¿Õ¿À 1
+        (void *)0,    //  ¿Õ¿À 2
+        (void *)0,     // —»Õ’–
+        (void *)0,     // –¿«¬≈–“ ¿
+        (void *)0,  //  ”–—Œ–€
+        (void *)0,   // œ¿Ãﬂ“‹
+        (void *)0, // »«Ã≈–≈Õ»ﬂ
+        (void *)0,  // —≈–¬»—
+        (void *)0,     // œŒÃŒŸ‹
+        (void *)0     // Œ“À¿ƒ ¿
     }
 };
 
@@ -46,18 +48,18 @@ const void *PageForButton(PanelButton button)
 {
     static const void *pages[] = {  
         0,                  // B_Empty
-        (void *)&pChanA,    // B_Channel1
-        (void *)&pService,  // B_Service
-        (void *)&pChanB,    // B_Channel2
-        (void *)&pDisplay,  // B_Display
-        (void *)&pTime,     // B_Time
-        (void *)&pMemory,   // B_Memory
-        (void *)&pTrig,     // B_Trig
+        0,    // B_Channel1
+        0,  // B_Service
+        0,    // B_Channel2
+        0,  // B_Display
+        0,     // B_Time
+        0,   // B_Memory
+        0,     // B_Trig
         0,                  // B_Start
-        (void *)&pCursors,  // B_Cursors
-        (void *)&pMeasures, // B_Measures
+        0,  // B_Cursors
+        0, // B_Measures
         0,                  // B_Power
-        (void *)&pHelp,     // B_Help
+        0,     // B_Help
         0,                  // B_Menu
         0,                  // B_F1
         0,                  // B_F2
