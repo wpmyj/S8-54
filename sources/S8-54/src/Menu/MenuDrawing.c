@@ -79,11 +79,11 @@ static void DrawHintItem(int x, int y, int width)
     {
         y -= 9;
     }
-    Painter_DrawStringInCenterRectAndBoundItC(x, y, width, 15, title, gColorBack, gColorFill);
-    y = Painter_DrawTextInBoundedRectWithTransfers(x, y + 15, width, item->titleHint[2 + lang], gColorBack, gColorFill);
+    painter.DrawStringInCenterRectAndBoundItC(x, y, width, 15, title, gColorBack, gColorFill);
+    y = painter.DrawTextInBoundedRectWithTransfers(x, y + 15, width, item->titleHint[2 + lang], gColorBack, gColorFill);
     if (item->type == Item_SmallButton)
     {
-        Painter_DrawHintsForSmallButton(x, y, width, (SButton*)item);
+        painter.DrawHintsForSmallButton(x, y, width, (SButton*)item);
     }
 }
 
@@ -103,17 +103,17 @@ void Menu_Draw(void)
             if(TypeMenuItem(item) == Item_Choice || TypeMenuItem(item) == Item_ChoiceReg)
             {
                 Choice_Draw((Choice *)item, CalculateX(0), GRID_TOP, false);
-                Painter_DrawVLineC(CalculateX(0), GRID_TOP + 1, GRID_TOP + 34, ColorBorderMenu(false));
-                Painter_DrawVLine(CalculateX(0) + 1, GRID_TOP + 1, GRID_TOP + 34);
-                Painter_DrawVLineC(GRID_RIGHT, GRID_TOP + 30, GRID_TOP + 40, gColorFill);
-                Painter_DrawVLineC(CalculateX(0) - 1, GRID_TOP + 1, GRID_TOP + 35, gColorBack);
-                Painter_DrawHLine(GRID_TOP + 35, CalculateX(0) - 1, GRID_RIGHT - 1);
+                painter_DrawVLineC(CalculateX(0), GRID_TOP + 1, GRID_TOP + 34, ColorBorderMenu(false));
+                painter.DrawVLine(CalculateX(0) + 1, GRID_TOP + 1, GRID_TOP + 34);
+                painter_DrawVLineC(GRID_RIGHT, GRID_TOP + 30, GRID_TOP + 40, gColorFill);
+                painter_DrawVLineC(CalculateX(0) - 1, GRID_TOP + 1, GRID_TOP + 35, gColorBack);
+                painter.DrawHLine(GRID_TOP + 35, CalculateX(0) - 1, GRID_RIGHT - 1);
             }
             else if(TypeMenuItem(item) == Item_Governor)
             {
                 Governor_Draw((Governor *)item, CalculateX(0), GRID_TOP, true);
-                Painter_DrawHLineC(GRID_TOP, CalculateX(0) - 2, GRID_RIGHT, gColorFill);
-                Painter_DrawVLine(GRID_RIGHT, GRID_TOP, GRID_TOP + 40);
+                painter_DrawHLineC(GRID_TOP, CalculateX(0) - 2, GRID_RIGHT, gColorFill);
+                painter.DrawVLine(GRID_RIGHT, GRID_TOP, GRID_TOP + 40);
             }
         }
     }
@@ -127,7 +127,7 @@ void Menu_Draw(void)
         {
             width = MenuIsMinimize() ? 289 : 220;
         }
-        Painter_DrawTextInBoundedRectWithTransfers(x, y, width,
+        painter.DrawTextInBoundedRectWithTransfers(x, y, width,
             LANG_RU ?    "Включён режим подсказок. В этом режиме при нажатии на кнопку на экран выводится информация о её назначении. "
                                                 "Чтобы выключить этот режим, нажмите кнопку ПОМОЩЬ и удерживайте её в течение 0.5с." : 
                                                 "Mode is activated hints. In this mode, pressing the button displays the information on its purpose. "
@@ -136,7 +136,7 @@ void Menu_Draw(void)
         y += LANG_RU ? 49 : 40;
         if (gStringForHint)
         {
-            Painter_DrawTextInBoundedRectWithTransfers(x, y, width, gStringForHint, gColorBack, COLOR_WHITE);
+            painter.DrawTextInBoundedRectWithTransfers(x, y, width, gStringForHint, gColorBack, COLOR_WHITE);
         }
         else if (gItemHint)
         {
@@ -156,34 +156,34 @@ void DrawTitlePage(Page *page, int layer, int yTop)
     }
     int height = HeightOpenedItem(page);
     bool shade = CurrentItemIsOpened(GetNamePage(page));
-    Painter_FillRegionC(x - 1, yTop, MP_TITLE_WIDTH + 2, height + 2, gColorBack);
-    Painter_DrawRectangleC(x, yTop, MP_TITLE_WIDTH + 1, height + 1, ColorBorderMenu(shade));
+    painter_FillRegionC(x - 1, yTop, MP_TITLE_WIDTH + 2, height + 2, gColorBack);
+    painter_DrawRectangleC(x, yTop, MP_TITLE_WIDTH + 1, height + 1, ColorBorderMenu(shade));
 
     if (shade)
     {
-        Painter_FillRegionC(x + 1, yTop + 1, MP_TITLE_WIDTH - 1, MP_TITLE_HEIGHT - 1, ColorMenuTitleLessBright());
-        Painter_FillRegionC(x + 4, yTop + 4, MP_TITLE_WIDTH - 7, MP_TITLE_HEIGHT - 7, COLOR_MENU_TITLE_DARK);
+        painter_FillRegionC(x + 1, yTop + 1, MP_TITLE_WIDTH - 1, MP_TITLE_HEIGHT - 1, ColorMenuTitleLessBright());
+        painter_FillRegionC(x + 4, yTop + 4, MP_TITLE_WIDTH - 7, MP_TITLE_HEIGHT - 7, COLOR_MENU_TITLE_DARK);
     }
     else
     {
-        Painter_DrawVolumeButton(x + 1, yTop + 1, MP_TITLE_WIDTH - 1, MP_TITLE_HEIGHT - 1, 2, ColorMenuTitle(false), ColorMenuTitleBrighter(), ColorMenuTitleLessBright(), shade, shade);
+        painter.DrawVolumeButton(x + 1, yTop + 1, MP_TITLE_WIDTH - 1, MP_TITLE_HEIGHT - 1, 2, ColorMenuTitle(false), ColorMenuTitleBrighter(), ColorMenuTitleLessBright(), shade, shade);
     }
     
-    Painter_DrawVLineC(x, yTop, yTop + HeightOpenedItem(page), ColorBorderMenu(false));
+    painter_DrawVLineC(x, yTop, yTop + HeightOpenedItem(page), ColorBorderMenu(false));
     bool condDrawRSet = NumSubPages(page) > 1 && TypeMenuItem(CurrentItem()) != Item_ChoiceReg && TypeMenuItem(CurrentItem()) != Item_Governor && TypeOpenedItem() == Item_Page;
     int delta = condDrawRSet ? -10 : 0;
     Color colorText = shade ? LightShadingTextColor() : COLOR_BLACK;
-    x = Painter_DrawStringInCenterRectC(x, yTop, MP_TITLE_WIDTH + 2 + delta, MP_TITLE_HEIGHT, TitleItem(page), colorText);
+    x = painter.DrawStringInCenterRectC(x, yTop, MP_TITLE_WIDTH + 2 + delta, MP_TITLE_HEIGHT, TitleItem(page), colorText);
     if(condDrawRSet)
     {
-        Painter_Draw4SymbolsInRectC(x + 4, yTop + 11, GetSymbolForGovernor(NumCurrentSubPage(page)), colorText);
+        painter_Draw4SymbolsInRectC(x + 4, yTop + 11, GetSymbolForGovernor(NumCurrentSubPage(page)), colorText);
     }
 
     itemUnderButton[GetFuncButtonFromY(yTop)] = page;
 
     delta = 0;
     
-    Painter_SetColor(colorText);
+    painter.SetColor(colorText);
     DrawPagesUGO(page, CalculateX(layer) + MP_TITLE_WIDTH - 3 + delta, yTop + MP_TITLE_HEIGHT - 2 + delta);
     DrawNestingPage(page, CalculateX(layer) + 5, yTop + MP_TITLE_HEIGHT - 8);
 }
@@ -205,11 +205,11 @@ static void DrawPagesUGO(Page *page, int right, int bottom)
         int x = left + p * (size + 2);
         if(p == currentPage)
         {
-            Painter_FillRegion(x, top, size, size);
+            painter.FillRegion(x, top, size, size);
         }
         else
         {
-            Painter_DrawRectangle(x, top, size, size);
+            painter.DrawRectangle(x, top, size, size);
         }
     }
 }
@@ -236,7 +236,7 @@ static void DrawNestingPage(Page *page, int left, int bottom)
         for (int i = 0; i <= nesting; i++)
         {
             int x = left + i * (size + delta);
-            Painter_DrawRectangle(x, bottom, size, size);
+            painter.DrawRectangle(x, bottom, size, size);
         }
     }
 }

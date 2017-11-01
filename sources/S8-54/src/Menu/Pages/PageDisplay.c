@@ -588,7 +588,7 @@ static const Governor gSettings_Brightness =
 
 static void OnChanged_Settings_Brightness(void)
 {
-    Painter_SetBrightnessDisplay(BRIGHTNESS_DISPLAY);
+    painter.SetBrightnessDisplay(BRIGHTNESS_DISPLAY);
 }
 
 // ƒ»—œÀ≈… - Õ¿—“–Œ… » - ”Ó‚ÌË ----------------------------------------------------------------------------------------------------------------------

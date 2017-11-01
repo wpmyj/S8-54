@@ -58,27 +58,27 @@ static void DrawLongString(int x, int y, char *string, bool hightlight)
     Color color = gColorFill;
     if (hightlight)
     {
-        Painter_FillRegionC(x - 1, y, WIDTH_COL + 9, 8, color);
+        painter_FillRegionC(x - 1, y, WIDTH_COL + 9, 8, color);
         color = gColorBack;
     }
 
     if (length <= WIDTH_COL)
     {
-        Painter_DrawTextC(x, y, string, color);
+        painter.DrawTextC(x, y, string, color);
     }
     else
     {
-        Painter_DrawTextWithLimitationC(x, y, string, color, x, y, WIDTH_COL, 10);
-        Painter_DrawText(x + WIDTH_COL + 3, y, "...");
+        painter.DrawTextWithLimitationC(x, y, string, color, x, y, WIDTH_COL, 10);
+        painter.DrawText(x + WIDTH_COL + 3, y, "...");
     }
 }
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
 static void DrawHat(int x, int y, char *string, int num1, int num2)
 {
-    Painter_FillRegionC(x - 1, y, WIDTH_COL + 9, RECS_ON_PAGE * 9 + 11, gColorBack);
-    Painter_DrawFormText(x + 60, y, gColorFill, string, num1, num2);
-    Painter_DrawHLine(y + 10, x + 2, x + 140);
+    painter_FillRegionC(x - 1, y, WIDTH_COL + 9, RECS_ON_PAGE * 9 + 11, gColorBack);
+    painter.DrawFormText(x + 60, y, gColorFill, string, num1, num2);
+    painter.DrawHLine(y + 10, x + 2, x + 140);
 }
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
@@ -123,11 +123,11 @@ static void DrawFiles(int x, int y)
 //----------------------------------------------------------------------------------------------------------------------------------------------------
 static void DrawNameCurrentDir(int left, int top)
 {
-    Painter_SetColor(gColorFill);
+    painter.SetColor(gColorFill);
     int length = Font_GetLengthText(currentDir);
     if (length < 277)
     {
-        Painter_DrawText(left + 1, top + 1, currentDir);
+        painter.DrawText(left + 1, top + 1, currentDir);
     }
     else
     {
@@ -144,7 +144,7 @@ static void DrawNameCurrentDir(int left, int top)
             }
             length = Font_GetLengthText(++pointer);
         }
-        Painter_DrawText(left + 1, top + 1, pointer);
+        painter.DrawText(left + 1, top + 1, pointer);
     }
 }
 
@@ -166,14 +166,14 @@ void FM_Draw(void)
 
     if (FM_NEED_REDRAW == FM_REDRAW_FULL)
     {
-        Painter_BeginScene(gColorBack);
+        painter.BeginScene(gColorBack);
         Menu_Draw();
-        Painter_DrawRectangleC(0, 0, width, 239, gColorFill);
-        Painter_FillRegionC(left, top, grid.Width() - 2, grid.FullHeight() - 2, gColorBack);
+        painter_DrawRectangleC(0, 0, width, 239, gColorFill);
+        painter_FillRegionC(left, top, grid.Width() - 2, grid.FullHeight() - 2, gColorBack);
         FDrive_GetNumDirsAndFiles(currentDir, &numDirs, &numFiles);
         DrawNameCurrentDir(left, top + 2);
-        Painter_DrawVLineC(left2col, top + 16, 239, gColorFill);
-        Painter_DrawHLine(top + 15, 0, width);
+        painter_DrawVLineC(left2col, top + 16, 239, gColorFill);
+        painter.DrawHLine(top + 15, 0, width);
     }
 
     if (FM_NEED_REDRAW != FM_REDRAW_FILES)
@@ -186,7 +186,7 @@ void FM_Draw(void)
         DrawFiles(left2col + 3, top + 18);
     }
 
-    Painter_EndScene();
+    painter.EndScene();
 
     FM_NEED_REDRAW = 0;
 

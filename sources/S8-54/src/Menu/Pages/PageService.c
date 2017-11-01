@@ -174,12 +174,12 @@ void OnPress_ResetSettings(void)
 
 static void Draw_ResetSettings(void)
 {
-    Painter_BeginScene(gColorBack);
+    painter.BeginScene(gColorBack);
 
-    Painter_DrawTextInRectWithTransfersC(30, 110, 300, 200, "Подтвердите сброс настроек нажатием кнопки ПУСК/СТОП.\n"
+    painter.DrawTextInRectWithTransfersC(30, 110, 300, 200, "Подтвердите сброс настроек нажатием кнопки ПУСК/СТОП.\n"
                                                          "Нажмите любую другую кнопку, если сброс не нужен.", gColorFill);
 
-    Painter_EndScene();
+    painter.EndScene();
 }
 
 // СЕРВИС - Поиск сигнала ----------------------------------------------------------------------------------------------------------------------------
@@ -357,16 +357,16 @@ static void Draw_Recorder_SaveTo(int x, int y)
 
 static void Draw_Recorder_SaveTo_RAM(int x, int y)
 {
-    Painter_SetFont(TypeFont_UGO2);
-    Painter_Draw4SymbolsInRect(x + 2, y + 1, SYMBOL_ROM);
-    Painter_SetFont(TypeFont_8);
+    painter.SetFont(TypeFont_UGO2);
+    painter.Draw4SymbolsInRect(x + 2, y + 1, SYMBOL_ROM);
+    painter.SetFont(TypeFont_8);
 }
 
 static void Draw_Recorder_SaveTo_EXT(int x, int y)
 {
-    Painter_SetFont(TypeFont_UGO2);
-    Painter_Draw4SymbolsInRect(x + 2, y + 1, SYMBOL_FLASH_DRIVE_BIG);
-    Painter_SetFont(TypeFont_8);
+    painter.SetFont(TypeFont_UGO2);
+    painter.Draw4SymbolsInRect(x + 2, y + 1, SYMBOL_FLASH_DRIVE_BIG);
+    painter.SetFont(TypeFont_8);
 }
 
 // СЕРВИС - РЕГИСТРАТОР - Выбор ----------------------------------------------------------------------------------------------------------------------
@@ -389,9 +389,9 @@ static void OnPress_Recorder_Choice(void)
 
 static void Draw_Recorder_Choice(int x, int y)
 {
-    Painter_SetFont(TypeFont_UGO2);
-    Painter_Draw4SymbolsInRect(x + 1, y, SYMBOL_FOLDER);
-    Painter_SetFont(TypeFont_8);
+    painter.SetFont(TypeFont_UGO2);
+    painter.Draw4SymbolsInRect(x + 1, y, SYMBOL_FOLDER);
+    painter.SetFont(TypeFont_8);
 }
 
 // СЕРВИС - РЕГИСТРАТОР - Курсор ---------------------------------------------------------------------------------------------------------------------
@@ -414,7 +414,7 @@ static void OnPress_Recorder_Cursor(void)
 
 static void Draw_Recorder_Cursor(int x, int y)
 {
-    Painter_DrawText(x + 8, y + 5, REC_NUM_CURSOR ? "2" : "1");
+    painter.DrawText(x + 8, y + 5, REC_NUM_CURSOR ? "2" : "1");
 }
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
@@ -588,7 +588,7 @@ static void OnPress_FFT_Cursors_Source(void)
 
 static void Draw_FFT_Cursors_Source(int x, int y)
 {
-    Painter_DrawText(x + 7, y + 5, MATH_CURRENT_CUR_IS_0 ? "1" : "2");
+    painter.DrawText(x + 7, y + 5, MATH_CURRENT_CUR_IS_0 ? "1" : "2");
 }
 
 // СЕРВИС - СПЕКТР - Диапазон ------------------------------------------------------------------------------------------------------------------------
@@ -774,19 +774,19 @@ static void Draw_Function_Screen(int x, int y)
 
 static void Draw_Function_Screen_Disable(int x, int y)
 {
-    Painter_DrawText(x + 2 + (LANG_EN ? 2 : 0), y + 5, DICT(DDis));
+    painter.DrawText(x + 2 + (LANG_EN ? 2 : 0), y + 5, DICT(DDis));
 }
 
 static void Draw_Function_Screen_Separate(int x, int y)
 {
-    Painter_DrawRectangle(x + 3, y + 5, 13, 9);
-    Painter_DrawHLine(y + 9, x + 3, x + 16);
-    Painter_DrawHLine(y + 10, x + 3, x + 16);
+    painter.DrawRectangle(x + 3, y + 5, 13, 9);
+    painter.DrawHLine(y + 9, x + 3, x + 16);
+    painter.DrawHLine(y + 10, x + 3, x + 16);
 }
 
 static void Draw_Function_Screen_Together(int x, int y)
 {
-    Painter_DrawRectangle(x + 3, y + 5, 13, 9);
+    painter.DrawRectangle(x + 3, y + 5, 13, 9);
 }
 
 // СЕРВИС - ФУНКЦИЯ - Вид ----------------------------------------------------------------------------------------------------------------------------
@@ -819,15 +819,15 @@ static void Draw_Function_Type(int x, int y)
 
 static void Draw_Function_Type_Sum(int x, int y)
 {
-    Painter_DrawHLine(y + 9, x + 4, x + 14);
-    Painter_DrawVLine(x + 9, y + 4, y + 14);
+    painter.DrawHLine(y + 9, x + 4, x + 14);
+    painter.DrawVLine(x + 9, y + 4, y + 14);
 }
 
 static void Draw_Function_Type_Mul(int x, int y)
 {
-    Painter_SetFont(TypeFont_UGO2);
-    Painter_Draw4SymbolsInRect(x + 4, y + 3, SYMBOL_MATH_FUNC_MUL);
-    Painter_SetFont(TypeFont_8);
+    painter.SetFont(TypeFont_UGO2);
+    painter.Draw4SymbolsInRect(x + 4, y + 3, SYMBOL_MATH_FUNC_MUL);
+    painter.SetFont(TypeFont_8);
 }
 
 
@@ -861,12 +861,12 @@ static void Draw_Function_ModeRegSet(int x, int y)
 
 static void Draw_Function_ModeRegSet_Range(int x, int y)
 {
-    Painter_DrawChar(x + 7, y + 5, LANG_RU ? 'M' : 'S');
+    painter.DrawChar(x + 7, y + 5, LANG_RU ? 'M' : 'S');
 }
 
 static void Draw_Function_ModeRegSet_RShift(int x, int y)
 {
-    Painter_DrawText(x + 5 - (LANG_EN ? 3 : 0), y + 5, DICT(DShift));
+    painter.DrawText(x + 5 - (LANG_EN ? 3 : 0), y + 5, DICT(DShift));
 }
 
 // СЕРВИС - ФУНКЦИЯ - Масштаб 1-го канала ------------------------------------------------------------------------------------------------------------
@@ -890,7 +890,7 @@ static void OnPress_Function_RangeA(void)
 
 static void Draw_Function_RangeA(int x, int y)
 {
-    Painter_DrawChar(x + 8, y + 5, '1');
+    painter.DrawChar(x + 8, y + 5, '1');
 }
 
 // СЕРВИС - ФУНКЦИЯ - Масштаб 2-го канала ------------------------------------------------------------------------------------------------------------
@@ -914,7 +914,7 @@ static void OnPress_Function_RangeB(void)
 
 static void Draw_Function_RangeB(int x, int y)
 {
-    Painter_DrawChar(x + 8, y + 5, '2');
+    painter.DrawChar(x + 8, y + 5, '2');
 }
 
 // СЕРВИС - ETHERNET /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -1164,39 +1164,39 @@ static void OnPress_Information(void)
 
 static void Information_Draw(void)
 {
-    Painter_BeginScene(gColorBack);
+    painter.BeginScene(gColorBack);
     int x = 100;
     int dY = 20;
     int y = 20;
-    Painter_DrawRectangleC(0, 0, 319, 239, gColorFill);
+    painter_DrawRectangleC(0, 0, 319, 239, gColorFill);
     y += dY;
-    Painter_DrawText(x, y, DICT(DInformation));
+    painter.DrawText(x, y, DICT(DInformation));
     y += dY;
     
     char buffer[100];
 
     sprintf(buffer, "%s : %s", DICT(DModel), LANG_RU ? MODEL_RU : MODEL_EN);
-    Painter_DrawText(x, y, buffer);
+    painter.DrawText(x, y, buffer);
 
     y += 2 * dY;
 
-    Painter_DrawText(x, y, DICT(DSoftware));
+    painter.DrawText(x, y, DICT(DSoftware));
     y += dY;
     sprintf(buffer, (const char *)DICT(DVersion), NUM_VER);
-    Painter_DrawText(x, y, buffer);
+    painter.DrawText(x, y, buffer);
     y += dY;
 
-    Painter_DrawFormText(x, y, gColorFill, "CRC32 : %X", Hardware_CalculateCRC32());
+    painter.DrawFormText(x, y, gColorFill, "CRC32 : %X", Hardware_CalculateCRC32());
 
     dY = -10;
-    Painter_DrawStringInCenterRect(0, 190 + dY, 320, 20, "Для получения помощи нажмите и удерживайте кнопку ПОМОЩЬ");
+    painter.DrawStringInCenterRect(0, 190 + dY, 320, 20, "Для получения помощи нажмите и удерживайте кнопку ПОМОЩЬ");
 #ifdef S8_54
-    Painter_DrawStringInCenterRect(0, 205 + dY, 320, 20, "Отдел маркетинга: тел./факс. 8-017-262-57-50");
-    Painter_DrawStringInCenterRect(0, 220 + dY, 320, 20, "Разработчики: e-mail: mnipi-24(@)tut.by, тел. 8-017-262-57-51");
+    painter.DrawStringInCenterRect(0, 205 + dY, 320, 20, "Отдел маркетинга: тел./факс. 8-017-262-57-50");
+    painter.DrawStringInCenterRect(0, 220 + dY, 320, 20, "Разработчики: e-mail: mnipi-24(@)tut.by, тел. 8-017-262-57-51");
 #endif
 
     Menu_Draw();
-    Painter_EndScene();
+    painter.EndScene();
 }
 
 // СЕРВИС - ИНФОРМАЦИЯ - Выход -----------------------------------------------------------------------------------------------------------------------
@@ -1261,8 +1261,8 @@ void OnPressPrevSettings(void)
 //----------------------------------------------------------------------------------------------------------------------------------------------------
 void OnChangedColorMenuTitle(void)
 {
-    uint16 newColor1 = Painter_ReduceBrightness(COLOR(COLOR_MENU_TITLE), 0.50f);
-    uint16 newColor2 = Painter_ReduceBrightness(COLOR(COLOR_MENU_TITLE), 1.50f);
+    uint16 newColor1 = painter.ReduceBrightness(COLOR(COLOR_MENU_TITLE), 0.50f);
+    uint16 newColor2 = painter.ReduceBrightness(COLOR(COLOR_MENU_TITLE), 1.50f);
     COLOR(COLOR_MENU_TITLE_DARK) = newColor1;
     COLOR(COLOR_MENU_TITLE_BRIGHT) = newColor2;
     Color_Log(COLOR_MENU_TITLE);
@@ -1273,8 +1273,8 @@ void OnChangedColorMenuTitle(void)
 //----------------------------------------------------------------------------------------------------------------------------------------------------
 void OnChangedColorMenu2Item(void)
 {
-    uint16 newColor1 = Painter_ReduceBrightness(COLOR(COLOR_MENU_ITEM), 0.50f);
-    uint16 newColor2 = Painter_ReduceBrightness(COLOR(COLOR_MENU_ITEM), 1.50f);
+    uint16 newColor1 = painter.ReduceBrightness(COLOR(COLOR_MENU_ITEM), 0.50f);
+    uint16 newColor2 = painter.ReduceBrightness(COLOR(COLOR_MENU_ITEM), 1.50f);
     COLOR(COLOR_MENU_ITEM_DARK) = newColor1;
     COLOR(COLOR_MENU_ITEM_BRIGHT) = newColor2;
     Color_Log(COLOR_MENU_ITEM);

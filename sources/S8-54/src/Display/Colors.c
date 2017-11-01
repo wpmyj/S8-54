@@ -20,7 +20,7 @@ Color gColorChan[4];
 static void SetColor(const ColorType *colorType)
 {
     COLOR(colorType->color) = MAKE_COLOR((int)colorType->red, (int)colorType->green, (int)colorType->blue);
-    Painter_SetPalette(colorType->color);
+    painter.SetPalette(colorType->color);
 }
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------

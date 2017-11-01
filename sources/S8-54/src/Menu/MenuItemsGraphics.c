@@ -29,12 +29,12 @@ void DrawGovernorChoiceColorFormulaHiPart(void *item, int x, int y, bool pressed
     }
 
     Color color = shade ? ColorMenuTitleLessBright() : (COLOR_SCHEME_IS_WHITE_LETTERS ? COLOR_WHITE :COLOR_BLACK);
-    Painter_DrawHLineC(y + 1, x, x + width + 3, ColorBorderMenu(false));
+    painter_DrawHLineC(y + 1, x, x + width + 3, ColorBorderMenu(false));
 
-    Painter_DrawVolumeButton(x + 1, y + 2, width + 2, MI_HEIGHT_VALUE + 3, 1, ColorMenuItem(false), ColorMenuItemBrighter(), ColorMenuItemLessBright(), 
+    painter.DrawVolumeButton(x + 1, y + 2, width + 2, MI_HEIGHT_VALUE + 3, 1, ColorMenuItem(false), ColorMenuItemBrighter(), ColorMenuItemLessBright(), 
         pressed, shade);
 
-    Painter_DrawTextC(x + 6 + delta, y + 6 + delta, TitleItem(item), color);
+    painter.DrawTextC(x + 6 + delta, y + 6 + delta, TitleItem(item), color);
     
     TypeItem type = TypeMenuItem(item);
 
@@ -69,7 +69,7 @@ void DrawGovernorChoiceColorFormulaHiPart(void *item, int x, int y, bool pressed
             }
         }
 
-        Painter_Draw4SymbolsInRectC(x + MI_WIDTH - 13, y + 5 + (ItemIsOpened(item) ? 0 : 15), symbol, shade ? color : COLOR_BLACK);
+        painter_Draw4SymbolsInRectC(x + MI_WIDTH - 13, y + 5 + (ItemIsOpened(item) ? 0 : 15), symbol, shade ? color : COLOR_BLACK);
     }
 }
 
@@ -80,20 +80,20 @@ void DrawGovernorLowPart(Governor *governor, int x, int y, bool pressed, bool sh
     
     Color colorTextDown = COLOR_BLACK;
 
-    Painter_DrawVolumeButton(x + 1, y + 17, MI_WIDTH_VALUE + 2, MI_HEIGHT_VALUE + 3, 2, COLOR_MENU_FIELD, 
+    painter.DrawVolumeButton(x + 1, y + 17, MI_WIDTH_VALUE + 2, MI_HEIGHT_VALUE + 3, 2, COLOR_MENU_FIELD, 
         ColorMenuItemBrighter(), ColorMenuItemLessBright(), true, shade);
     if(shade)
     {
         colorTextDown = ColorMenuItem(false);
     }
 
-    x = Painter_DrawTextC(x + 4, y + 21, "\x80", colorTextDown);
+    x = painter.DrawTextC(x + 4, y + 21, "\x80", colorTextDown);
     if(OpenedItem() != governor)
     {
         int delta = (int)Governor_Step(governor);
         if(delta == 0)
         {
-            x = Painter_DrawText(x + 1, y + 21, Int2String(*governor->cell, false, 1, buffer));
+            x = painter.DrawText(x + 1, y + 21, Int2String(*governor->cell, false, 1, buffer));
         }
         else
         {
@@ -104,25 +104,25 @@ void DrawGovernorLowPart(Governor *governor, int x, int y, bool pressed, bool sh
             int limHeight = MI_HEIGHT_VALUE - 1;
             if(delta > 0)
             {
-                x = Painter_DrawTextWithLimitationC(drawX, y + 21 - delta, Int2String(*governor->cell, false, 1, buffer), 
+                x = painter.DrawTextWithLimitationC(drawX, y + 21 - delta, Int2String(*governor->cell, false, 1, buffer), 
                                             COLOR_BLACK, limX, limY, limWidth, limHeight);
-                Painter_DrawTextWithLimitationC(drawX, y + 21 + 10 - delta, Int2String(Governor_NextValue(governor), false, 1, buffer),
+                painter.DrawTextWithLimitationC(drawX, y + 21 + 10 - delta, Int2String(Governor_NextValue(governor), false, 1, buffer),
                                             COLOR_BLACK, limX, limY, limWidth, limHeight);
             }
             if(delta < 0)
             {
-                x = Painter_DrawTextWithLimitationC(drawX, y + 21 - delta, Int2String(*governor->cell, false, 1, buffer), 
+                x = painter.DrawTextWithLimitationC(drawX, y + 21 - delta, Int2String(*governor->cell, false, 1, buffer), 
                                             COLOR_BLACK, limX, limY, limWidth, limHeight);
-                Painter_DrawTextWithLimitationC(drawX, y + 21 - 10 - delta, Int2String(Governor_PrevValue(governor), false, 1, buffer),
+                painter.DrawTextWithLimitationC(drawX, y + 21 - 10 - delta, Int2String(Governor_PrevValue(governor), false, 1, buffer),
                     COLOR_BLACK, limX, limY, limWidth, limHeight);
             }
         }
     }
     else
     {
-        x = Painter_DrawTextC(x + 1, y + 21, Int2String(*governor->cell, false, 1, buffer), COLOR_WHITE);
+        x = painter.DrawTextC(x + 1, y + 21, Int2String(*governor->cell, false, 1, buffer), COLOR_WHITE);
     }
-    Painter_DrawTextC(x + 1, y + 21, "\x81", colorTextDown);
+    painter.DrawTextC(x + 1, y + 21, "\x81", colorTextDown);
 }
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
@@ -133,7 +133,7 @@ static void DrawIPaddressLowPart(IPaddress *ip, int x, int y, bool pressed, bool
 
     Color colorTextDown = COLOR_BLACK;
 
-    Painter_DrawVolumeButton(x + 1, y + 17, MI_WIDTH_VALUE + 2, MI_HEIGHT_VALUE + 3, 2, COLOR_MENU_FIELD,
+    painter.DrawVolumeButton(x + 1, y + 17, MI_WIDTH_VALUE + 2, MI_HEIGHT_VALUE + 3, 2, COLOR_MENU_FIELD,
                              ColorMenuItemBrighter(), ColorMenuItemLessBright(), true, shade);
     if (shade)
     {
@@ -145,11 +145,11 @@ static void DrawIPaddressLowPart(IPaddress *ip, int x, int y, bool pressed, bool
     if (OpenedItem() != ip)
     {
         
-        Painter_DrawTextC(x + 4, y + 21, buffer, colorTextDown);
+        painter.DrawTextC(x + 4, y + 21, buffer, colorTextDown);
     }
     else
     {
-        Painter_DrawTextC(x + 4, y + 21, buffer, COLOR_WHITE);
+        painter.DrawTextC(x + 4, y + 21, buffer, COLOR_WHITE);
     }
 }
 
@@ -161,7 +161,7 @@ static void DrawMACaddressLowPart(MACaddress *mac, int x, int y, bool pressed, b
 
     Color colorTextDown = COLOR_BLACK;
 
-    Painter_DrawVolumeButton(x + 1, y + 17, MI_WIDTH_VALUE + 2, MI_HEIGHT_VALUE + 3, 2, COLOR_MENU_FIELD,
+    painter.DrawVolumeButton(x + 1, y + 17, MI_WIDTH_VALUE + 2, MI_HEIGHT_VALUE + 3, 2, COLOR_MENU_FIELD,
                              ColorMenuItemBrighter(), ColorMenuItemLessBright(), true, shade);
     if (shade)
     {
@@ -173,11 +173,11 @@ static void DrawMACaddressLowPart(MACaddress *mac, int x, int y, bool pressed, b
     if (OpenedItem() != mac)
     {
 
-        Painter_DrawTextC(x + 4, y + 21, buffer, colorTextDown);
+        painter.DrawTextC(x + 4, y + 21, buffer, colorTextDown);
     }
     else
     {
-        Painter_DrawTextC(x + 4, y + 21, buffer, COLOR_WHITE);
+        painter.DrawTextC(x + 4, y + 21, buffer, COLOR_WHITE);
     }
 }
 
@@ -196,19 +196,19 @@ void WriteTextFormula(Formula *formula, int x, int y, bool opened)
     int8 koeff2 = funcIsMul ? *formula->koeff2mul : *formula->koeff2add;
     if (koeff1 != 0)
     {
-       Painter_DrawChar(x, y, koeff1 < 0 ? '-' : '+');
+       painter.DrawChar(x, y, koeff1 < 0 ? '-' : '+');
     }
-    Painter_DrawChar(x + 5, y, (char)(koeff1 + 0x30));
-    Painter_DrawChar(x + 10, y, '*');
-    Painter_DrawText(x + 14, y, "K1");
-    Painter_DrawChar(x + 27, y, funcIsMul ? '*' : '+');
+    painter.DrawChar(x + 5, y, (char)(koeff1 + 0x30));
+    painter.DrawChar(x + 10, y, '*');
+    painter.DrawText(x + 14, y, "K1");
+    painter.DrawChar(x + 27, y, funcIsMul ? '*' : '+');
     if (koeff2 != 0)
     {
-       Painter_DrawChar(x + 30, y, koeff2 < 0 ? '-' : '+');
+       painter.DrawChar(x + 30, y, koeff2 < 0 ? '-' : '+');
     }
-    Painter_DrawChar(x + 39, y, (char)(koeff2 + 0x30));
-    Painter_DrawChar(x + 44, y, '*');
-    Painter_DrawText(x + 48, y, "K2");
+    painter.DrawChar(x + 39, y, (char)(koeff2 + 0x30));
+    painter.DrawChar(x + 44, y, '*');
+    painter.DrawText(x + 48, y, "K2");
 }
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
@@ -216,13 +216,13 @@ void DrawFormulaLowPart(Formula *formula, int x, int y, bool pressed, bool shade
 {
     Color colorTextDown = COLOR_BLACK;
 
-    Painter_DrawVolumeButton(x + 1, y + 17, MI_WIDTH_VALUE + 2, MI_HEIGHT_VALUE + 3, 2, COLOR_MENU_FIELD,
+    painter.DrawVolumeButton(x + 1, y + 17, MI_WIDTH_VALUE + 2, MI_HEIGHT_VALUE + 3, 2, COLOR_MENU_FIELD,
                      ColorMenuItemBrighter(), ColorMenuItemLessBright(), true, shade);
     if (shade)
     {
         colorTextDown = ColorMenuItem(false);
     }
-    Painter_SetColor(colorTextDown);
+    painter.SetColor(colorTextDown);
     WriteTextFormula(formula, x + 6, y + 21, false);
 }
 
@@ -274,19 +274,19 @@ static void DrawValueWithSelectedPosition(int x, int y, int value, int numDigits
         value /= 10;
         if (selPos == i)
         {
-            Painter_FillRegionC(x - 1, y, 5, height, gColorFill);
+            painter_FillRegionC(x - 1, y, 5, height, gColorFill);
         }
         if (!(rest == 0 && value == 0) || (firstValue == 0 && i == 0))
         {
-            Painter_DrawCharC(x, y, (char)(rest + 48), selPos == i ? COLOR_BLACK : COLOR_WHITE);
+            painter.DrawCharC(x, y, (char)(rest + 48), selPos == i ? COLOR_BLACK : COLOR_WHITE);
         }
         else if (fillNull)
         {
-            Painter_DrawCharC(x, y, '0', selPos == i ? COLOR_BLACK : COLOR_WHITE);
+            painter.DrawCharC(x, y, '0', selPos == i ? COLOR_BLACK : COLOR_WHITE);
         }
         if (hLine)
         {
-            Painter_DrawLineC(x, y + 9, x + 3, y + 9, COLOR_WHITE);
+            painter_DrawLineC(x, y + 9, x + 3, y + 9, COLOR_WHITE);
         }
         x -= 6;
     }
@@ -304,17 +304,17 @@ void DrawGovernorValue(int x, int y, Governor *governor)
     {
         value = -value;
     }
-    Painter_SetFont(TypeFont_5);
+    painter.SetFont(TypeFont_5);
     bool sign = governor->minValue < 0;
-    Painter_DrawTextC(x + 55, y - 5, Int2String(governor->maxValue, sign, 1, buffer), COLOR_WHITE);
-    Painter_DrawText(x + 55, y + 2, Int2String(governor->minValue, sign, 1, buffer));
-    Painter_SetFont(TypeFont_8);
+    painter.DrawTextC(x + 55, y - 5, Int2String(governor->maxValue, sign, 1, buffer), COLOR_WHITE);
+    painter.DrawText(x + 55, y + 2, Int2String(governor->minValue, sign, 1, buffer));
+    painter.SetFont(TypeFont_8);
 
     DrawValueWithSelectedPosition(startX, y, value, Governor_NumDigits(governor), gCurDigit, true, true);
 
     if(sign)
     {
-       Painter_DrawChar(startX - 30, y, signGovernor < 0 ? '\x9b' : '\x9a');
+       painter.DrawChar(startX - 30, y, signGovernor < 0 ? '\x9b' : '\x9a');
     }
 }
 
@@ -342,14 +342,14 @@ static void DrawIPvalue(int x, int y, IPaddress *ip)
         DrawValueWithSelectedPosition(x, y, bytes[i], 3, numIP == i ? selPos : -1, false, true);
         if (i != 3)
         {
-            Painter_DrawCharC(x + 5, y, '.', COLOR_WHITE);
+            painter.DrawCharC(x + 5, y, '.', COLOR_WHITE);
         }
         x += 19;
     }
 
     if (ip->port != 0)
     {
-        Painter_DrawCharC(x - 13, y, ':', COLOR_WHITE);
+        painter.DrawCharC(x - 13, y, ':', COLOR_WHITE);
         DrawValueWithSelectedPosition(x + 14, y, *ip->port, 5, numIP == 4 ? selPos : -1, false, true);
     }
 }
@@ -369,12 +369,12 @@ static void DrawMACvalue(int x, int y, MACaddress *mac)
         int value = (int)(*(bytes + num));
         if (gCurDigit == num)
         {
-            Painter_FillRegionC(x - 1, y, 10, 8, COLOR_WHITE);
+            painter_FillRegionC(x - 1, y, 10, 8, COLOR_WHITE);
         }
         const int SIZE = 20;
         char buffer[SIZE];
         snprintf(buffer, SIZE, "%02X", value);
-        Painter_DrawTextC(x, y, buffer, gCurDigit == num ? COLOR_BLACK : COLOR_WHITE);
+        painter.DrawTextC(x, y, buffer, gCurDigit == num ? COLOR_BLACK : COLOR_WHITE);
         x -= 12;
     }
 }
@@ -451,16 +451,16 @@ void DrawGovernorColorValue(int x, int y, GovernorColor *govColor, int delta)
     Color_Init(ct, false);
     int16 vals[4] = {(int16)(ct->brightness * 100.0f), (int16)blue, (int16)green, (int16)red};
 
-    Painter_FillRegionC(x, y, MI_WIDTH + delta - 2, MI_HEIGHT / 2 - 3, COLOR_BLACK);
+    painter_FillRegionC(x, y, MI_WIDTH + delta - 2, MI_HEIGHT / 2 - 3, COLOR_BLACK);
     x += 92;
     
     for(int i = 0; i < 4; i++)
     {
         Color colorBack = (field == i) ? COLOR_WHITE : COLOR_BLACK;
         Color colorDraw = (field == i) ? COLOR_BLACK : COLOR_WHITE;
-        Painter_FillRegionC(x - 1, y + 1, 29, 10, colorBack);
-        Painter_DrawTextC(x, y + 2, texts[i], colorDraw);
-        Painter_DrawText(x + 14, y + 2, Int2String(vals[i], false, 1, buffer));
+        painter_FillRegionC(x - 1, y + 1, 29, 10, colorBack);
+        painter.DrawTextC(x, y + 2, texts[i], colorDraw);
+        painter.DrawText(x + 14, y + 2, Int2String(vals[i], false, 1, buffer));
         x -= 30;
     }
     
@@ -472,12 +472,12 @@ static void GovernorColor_DrawOpened(GovernorColor *gov, int x, int y)
     static const int delta = 43;
     x -= delta;
     Color_Init(gov->colorType, false);
-    Painter_DrawRectangleC(x - 1, y - 1, MI_WIDTH + delta + 2, MI_HEIGHT + 2, COLOR_BLACK);
-    Painter_DrawRectangleC(x, y, MI_WIDTH + delta, MI_HEIGHT, ColorMenuTitle(false));
-    Painter_DrawVolumeButton(x + 1, y + 1, MI_WIDTH_VALUE + 2 + delta, MI_HEIGHT_VALUE + 3, 2, ColorMenuItem(false), 
+    painter_DrawRectangleC(x - 1, y - 1, MI_WIDTH + delta + 2, MI_HEIGHT + 2, COLOR_BLACK);
+    painter_DrawRectangleC(x, y, MI_WIDTH + delta, MI_HEIGHT, ColorMenuTitle(false));
+    painter.DrawVolumeButton(x + 1, y + 1, MI_WIDTH_VALUE + 2 + delta, MI_HEIGHT_VALUE + 3, 2, ColorMenuItem(false), 
         ColorMenuItemBrighter(), ColorMenuItemLessBright(), IsPressed(gov), IsShade(gov));
-    Painter_DrawHLineC(y + MI_HEIGHT / 2 + 2, x, x + MI_WIDTH + delta, ColorMenuTitle(false));
-    Painter_DrawStringInCenterRectC(x + (IsPressed(gov) ? 2 : 1), y + (IsPressed(gov) ? 2 : 1), MI_WIDTH + delta, MI_HEIGHT / 2 + 2, TitleItem(gov), 
+    painter_DrawHLineC(y + MI_HEIGHT / 2 + 2, x, x + MI_WIDTH + delta, ColorMenuTitle(false));
+    painter.DrawStringInCenterRectC(x + (IsPressed(gov) ? 2 : 1), y + (IsPressed(gov) ? 2 : 1), MI_WIDTH + delta, MI_HEIGHT / 2 + 2, TitleItem(gov), 
         COLOR_WHITE);
     DrawGovernorColorValue(x + 1, y + 19, gov, delta);
 }
@@ -487,7 +487,7 @@ static void GovernorColor_DrawClosed(GovernorColor *gov, int x, int y)
 {
     Color_Init(gov->colorType, false);
     DrawGovernorChoiceColorFormulaHiPart(gov, x, y, IsPressed(gov), IsShade(gov) || !ItemIsAcitve(gov), true);
-    Painter_FillRegionC(x + 2, y + 20, MI_WIDTH_VALUE, MI_HEIGHT_VALUE - 1, gov->colorType->color);
+    painter_FillRegionC(x + 2, y + 20, MI_WIDTH_VALUE, MI_HEIGHT_VALUE - 1, gov->colorType->color);
 }
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
@@ -508,13 +508,13 @@ void Choice_DrawOpened(Choice *choice, int x, int y)
 {
     int height = HeightOpenedItem(choice);
 
-    Painter_DrawRectangleC(x - 2, y - 1, MP_TITLE_WIDTH + 3, height + 3, gColorBack);
+    painter_DrawRectangleC(x - 2, y - 1, MP_TITLE_WIDTH + 3, height + 3, gColorBack);
     
     DrawGovernorChoiceColorFormulaHiPart(choice, x - 1, y - 1, IsPressed(choice), false, true);
-    Painter_DrawRectangleC(x - 1, y, MP_TITLE_WIDTH + 1, height + 1, ColorMenuTitle(false));
+    painter_DrawRectangleC(x - 1, y, MP_TITLE_WIDTH + 1, height + 1, ColorMenuTitle(false));
  
-    Painter_DrawHLine(y + MOI_HEIGHT_TITLE - 1, x, x + MOI_WIDTH);
-    Painter_DrawVolumeButton(x, y + MOI_HEIGHT_TITLE, MOI_WIDTH - 1, height - MOI_HEIGHT_TITLE, 1, COLOR_BLACK, ColorMenuTitleBrighter(),
+    painter.DrawHLine(y + MOI_HEIGHT_TITLE - 1, x, x + MOI_WIDTH);
+    painter.DrawVolumeButton(x, y + MOI_HEIGHT_TITLE, MOI_WIDTH - 1, height - MOI_HEIGHT_TITLE, 1, COLOR_BLACK, ColorMenuTitleBrighter(),
                         ColorMenuTitleLessBright(), false, IsShade(choice));
     int8 index = *choice->cell;
     for(int i = 0; i < Choice_NumSubItems(choice); i++)
@@ -523,10 +523,10 @@ void Choice_DrawOpened(Choice *choice, int x, int y)
         bool pressed = i == index;
         if(pressed)
         {
-            Painter_DrawVolumeButton(x + 1, yItem, MOI_WIDTH - 2 , MOSI_HEIGHT - 2, 2, COLOR_MENU_FIELD, ColorMenuTitleBrighter(),
+            painter.DrawVolumeButton(x + 1, yItem, MOI_WIDTH - 2 , MOSI_HEIGHT - 2, 2, COLOR_MENU_FIELD, ColorMenuTitleBrighter(),
                 ColorMenuTitleLessBright(), pressed, IsShade(choice));
         }
-        Painter_DrawTextC(x + 4, yItem + 2, NameSubItem(choice, i), pressed ? COLOR_BLACK : COLOR_MENU_FIELD);
+        painter.DrawTextC(x + 4, yItem + 2, NameSubItem(choice, i), pressed ? COLOR_BLACK : COLOR_MENU_FIELD);
     }
 }
 
@@ -537,13 +537,13 @@ void Time_DrawOpened(Time *time, int x, int y)
     
     int width = MI_WIDTH_VALUE + 3;
     int height = 61;
-    Painter_DrawRectangleC(x - 1, y - 1, width + 2, height + 3, gColorBack);
+    painter_DrawRectangleC(x - 1, y - 1, width + 2, height + 3, gColorBack);
     DrawGovernorChoiceColorFormulaHiPart(time, x - 1, y - 1, IsPressed(time), false, true);
 
-    Painter_DrawRectangleC(x - 1, y, width + 1, height + 1, ColorMenuTitle(false));
+    painter_DrawRectangleC(x - 1, y, width + 1, height + 1, ColorMenuTitle(false));
 
-    Painter_DrawHLine(y + MOI_HEIGHT_TITLE - 1, x, x + MOI_WIDTH);
-    Painter_DrawVolumeButton(x, y + MOI_HEIGHT_TITLE, MOI_WIDTH - 1, height - MOI_HEIGHT_TITLE, 1, COLOR_BLACK, ColorMenuTitleBrighter(),
+    painter.DrawHLine(y + MOI_HEIGHT_TITLE - 1, x, x + MOI_WIDTH);
+    painter.DrawVolumeButton(x, y + MOI_HEIGHT_TITLE, MOI_WIDTH - 1, height - MOI_HEIGHT_TITLE, 1, COLOR_BLACK, ColorMenuTitleBrighter(),
                              ColorMenuTitleLessBright(), false, IsShade(time));
 
     int y0 = 21;
@@ -583,16 +583,16 @@ void Time_DrawOpened(Time *time, int x, int y)
     strcpy(strI[iSEC],      Int2String(*time->seconds,  false, 2, buffer));
     strcpy(strI[iSET],      "—охранить");
 
-    Painter_DrawTextC(x + 3, y + y0, "д м г - ", COLOR_WHITE);
-    Painter_DrawText(x + 3, y + y1, "ч м с - ");
+    painter.DrawTextC(x + 3, y + y0, "д м г - ", COLOR_WHITE);
+    painter.DrawText(x + 3, y + y1, "ч м с - ");
 
     for (int i = 0; i < 8; i++)
     {
         if (*time->curField == i)
         {
-            Painter_FillRegionC(x + strPaint[i].x - 1, y + strPaint[i].y, strPaint[i].width, 8, COLOR_FLASH_10);
+            painter_FillRegionC(x + strPaint[i].x - 1, y + strPaint[i].y, strPaint[i].width, 8, COLOR_FLASH_10);
         }
-        Painter_DrawTextC(x + strPaint[i].x, y + strPaint[i].y, strI[i], *time->curField == i ? COLOR_FLASH_01 : COLOR_WHITE);
+        painter.DrawTextC(x + strPaint[i].x, y + strPaint[i].y, strI[i], *time->curField == i ? COLOR_FLASH_01 : COLOR_WHITE);
     }
 }
 
@@ -600,11 +600,11 @@ void Time_DrawOpened(Time *time, int x, int y)
 static void GovernorIpCommon_DrawOpened(void *item, int x, int y, int dWidth)
 {
     int height = 34;
-    Painter_DrawRectangleC(x - 2, y - 1, MP_TITLE_WIDTH + 3 + dWidth, height + 3, gColorBack);
-    Painter_DrawRectangleC(x - 1, y, MP_TITLE_WIDTH + 1 + dWidth, height + 1, ColorMenuTitle(false));
-    Painter_DrawHLine(y + MOI_HEIGHT_TITLE - 1, x, x + MOI_WIDTH + dWidth);
+    painter_DrawRectangleC(x - 2, y - 1, MP_TITLE_WIDTH + 3 + dWidth, height + 3, gColorBack);
+    painter_DrawRectangleC(x - 1, y, MP_TITLE_WIDTH + 1 + dWidth, height + 1, ColorMenuTitle(false));
+    painter.DrawHLine(y + MOI_HEIGHT_TITLE - 1, x, x + MOI_WIDTH + dWidth);
     DrawGovernorChoiceColorFormulaHiPart(item, x - 1, y - 1, IsPressed(item), false, true);
-    Painter_DrawVolumeButton(x, y + MOI_HEIGHT_TITLE, MOI_WIDTH - 1 + dWidth, height - MOI_HEIGHT_TITLE, 1, COLOR_BLACK, ColorMenuTitleBrighter(),
+    painter.DrawVolumeButton(x, y + MOI_HEIGHT_TITLE, MOI_WIDTH - 1 + dWidth, height - MOI_HEIGHT_TITLE, 1, COLOR_BLACK, ColorMenuTitleBrighter(),
                              ColorMenuTitleLessBright(), false, IsShade(item));
 }
 
@@ -635,24 +635,24 @@ void Choice_DrawClosed(Choice *choice, int x, int y)
     bool pressed = IsPressed(choice);
     bool shade = IsShade(choice) || ! ItemIsAcitve(choice);
         
-    Painter_DrawVolumeButton(x + 1, y + 17, MI_WIDTH_VALUE + 2, MI_HEIGHT_VALUE + 3, 1, COLOR_MENU_FIELD, ColorMenuItemBrighter(), 
+    painter.DrawVolumeButton(x + 1, y + 17, MI_WIDTH_VALUE + 2, MI_HEIGHT_VALUE + 3, 1, COLOR_MENU_FIELD, ColorMenuItemBrighter(), 
         ColorMenuItemLessBright(), true, shade);
 
     int deltaY = (int)Choice_Step(choice);
     Color colorText = shade ? ColorMenuItem(true) : COLOR_BLACK;
-    Painter_SetColor(colorText);
+    painter.SetColor(colorText);
     if(deltaY == 0)
     {
-        Painter_DrawText(x + 4, y + 21, NameCurrentSubItem(choice));
+        painter.DrawText(x + 4, y + 21, NameCurrentSubItem(choice));
     }
     else
     {
-        Painter_DrawTextWithLimitationC(x + 4, y + 21 - deltaY, NameCurrentSubItem(choice), colorText, x, y + 19, MI_WIDTH_VALUE, MI_HEIGHT_VALUE - 1);
-        Painter_DrawHLineC(y + (deltaY > 0 ? 31 : 19) - deltaY, x + 3, x + MI_WIDTH_VALUE + 1, COLOR_BLACK);
-        Painter_DrawTextWithLimitationC(x + 4, y + (deltaY > 0 ? 33 : 9) - deltaY, deltaY > 0 ? NameNextSubItem(choice) : NamePrevSubItem(choice), 
+        painter.DrawTextWithLimitationC(x + 4, y + 21 - deltaY, NameCurrentSubItem(choice), colorText, x, y + 19, MI_WIDTH_VALUE, MI_HEIGHT_VALUE - 1);
+        painter_DrawHLineC(y + (deltaY > 0 ? 31 : 19) - deltaY, x + 3, x + MI_WIDTH_VALUE + 1, COLOR_BLACK);
+        painter.DrawTextWithLimitationC(x + 4, y + (deltaY > 0 ? 33 : 9) - deltaY, deltaY > 0 ? NameNextSubItem(choice) : NamePrevSubItem(choice), 
             colorText, x, y + 19, MI_WIDTH_VALUE, MI_HEIGHT_VALUE - 1);
     }
-    Painter_DrawHLineC(y + MI_HEIGHT + 1, x, x + MI_WIDTH, ColorBorderMenu(false));
+    painter_DrawHLineC(y + MI_HEIGHT + 1, x, x + MI_WIDTH, ColorBorderMenu(false));
 
     if(choice->funcForDraw)
     {
@@ -683,7 +683,7 @@ void Time_DrawClosed(Time *item, int x, int y)
     bool shade = IsShade(item);
     DrawGovernorChoiceColorFormulaHiPart(item, x, y, pressed, shade, false);
 
-    Painter_DrawVolumeButton(x + 1, y + 17, MI_WIDTH_VALUE + 2, MI_HEIGHT_VALUE + 3, 1, COLOR_MENU_FIELD, ColorMenuItemBrighter(), 
+    painter.DrawVolumeButton(x + 1, y + 17, MI_WIDTH_VALUE + 2, MI_HEIGHT_VALUE + 3, 1, COLOR_MENU_FIELD, ColorMenuItemBrighter(), 
         ColorMenuItemLessBright(), true, shade);
 
     int deltaField = 10;
@@ -691,18 +691,18 @@ void Time_DrawClosed(Time *item, int x, int y)
     int startX = 3;
     y += 21;
     PackedTime time = RTC_GetPackedTime();
-    Painter_DrawTextC(x + startX, y, Int2String(time.hours, false, 2, buffer), shade ? ColorMenuItem(true) : COLOR_BLACK);
-    Painter_DrawText(x + startX + deltaField, y, ":");
-    Painter_DrawText(x + startX + deltaField + deltaSeparator, y, Int2String(time.minutes, false, 2, buffer));
-    Painter_DrawText(x + startX + 2 * deltaField + deltaSeparator, y, ":");
-    Painter_DrawText(x + startX + 2 * deltaField + 2 * deltaSeparator, y, Int2String(time.seconds, false, 2, buffer));
+    painter.DrawTextC(x + startX, y, Int2String(time.hours, false, 2, buffer), shade ? ColorMenuItem(true) : COLOR_BLACK);
+    painter.DrawText(x + startX + deltaField, y, ":");
+    painter.DrawText(x + startX + deltaField + deltaSeparator, y, Int2String(time.minutes, false, 2, buffer));
+    painter.DrawText(x + startX + 2 * deltaField + deltaSeparator, y, ":");
+    painter.DrawText(x + startX + 2 * deltaField + 2 * deltaSeparator, y, Int2String(time.seconds, false, 2, buffer));
 
     startX = 44;
-    Painter_DrawText(x + startX, y, Int2String(time.day, false, 2, buffer));
-    Painter_DrawText(x + startX + deltaField, y, ":");
-    Painter_DrawText(x + startX + deltaField + deltaSeparator, y, Int2String(time.month, false, 2, buffer));
-    Painter_DrawText(x + startX + 2 * deltaField + deltaSeparator, y, ":");
-    Painter_DrawText(x + startX + 2 * deltaField + 2 * deltaSeparator, y, Int2String(time.year, false, 2, buffer));
+    painter.DrawText(x + startX, y, Int2String(time.day, false, 2, buffer));
+    painter.DrawText(x + startX + deltaField, y, ":");
+    painter.DrawText(x + startX + deltaField + deltaSeparator, y, Int2String(time.month, false, 2, buffer));
+    painter.DrawText(x + startX + 2 * deltaField + deltaSeparator, y, ":");
+    painter.DrawText(x + startX + 2 * deltaField + 2 * deltaSeparator, y, Int2String(time.year, false, 2, buffer));
 }
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
@@ -724,15 +724,15 @@ void Button_Draw(Button *button, int x, int y)
     bool pressed = IsPressed(button);
     bool shade = IsShade(button) || !ItemIsAcitve(button);
 
-    Painter_DrawHLineC(y + 1, x, x + MI_WIDTH, ColorMenuTitle(shade));
+    painter_DrawHLineC(y + 1, x, x + MI_WIDTH, ColorMenuTitle(shade));
     Color color = shade ? ColorMenuItem(true) : COLOR_WHITE;
-    Painter_FillRegionC(x + 1, y + 2, MI_WIDTH - 2, MI_HEIGHT - 2, ColorMenuItem(false));
-    Painter_DrawVolumeButton(x + 3, y + 4, MI_WIDTH - 6, MI_HEIGHT - 6, 2, ColorMenuItem(false), ColorMenuItemBrighter(), 
+    painter_FillRegionC(x + 1, y + 2, MI_WIDTH - 2, MI_HEIGHT - 2, ColorMenuItem(false));
+    painter.DrawVolumeButton(x + 3, y + 4, MI_WIDTH - 6, MI_HEIGHT - 6, 2, ColorMenuItem(false), ColorMenuItemBrighter(), 
                             ColorMenuItemLessBright(), pressed, shade);
 
     int delta = (pressed && (!shade)) ? 2 : 1;
     
-    Painter_DrawStringInCenterRectC(x + delta, y + delta, MI_WIDTH, MI_HEIGHT, TitleItem(button), color);
+    painter.DrawStringInCenterRectC(x + delta, y + delta, MI_WIDTH, MI_HEIGHT, TitleItem(button), color);
 
     CallFuncOnDrawButton(button, x, y);
 }
@@ -744,12 +744,12 @@ void SmallButton_Draw(SButton *smallButton, int x, int y)
     {
         if (IsPressed(smallButton))
         {
-            Painter_FillRegionC(x, y, WIDTH_SB, WIDTH_SB, gColorFill);
-            Painter_SetColor(COLOR_BLACK);
+            painter_FillRegionC(x, y, WIDTH_SB, WIDTH_SB, gColorFill);
+            painter.SetColor(COLOR_BLACK);
         }
         else
         {
-            Painter_DrawRectangleC(x, y, WIDTH_SB, WIDTH_SB, gColorFill);
+            painter_DrawRectangleC(x, y, WIDTH_SB, WIDTH_SB, gColorFill);
         }
         if (smallButton->funcOnDraw)
         {
@@ -758,7 +758,7 @@ void SmallButton_Draw(SButton *smallButton, int x, int y)
     }
     else
     {
-        Painter_DrawRectangleC(x, y, WIDTH_SB, WIDTH_SB, gColorFill);
+        painter_DrawRectangleC(x, y, WIDTH_SB, WIDTH_SB, gColorFill);
     }
 }
 
@@ -767,9 +767,9 @@ void Page_Draw(Page *page, int x, int y)
 {
     bool isShade = IsShade(page) || !ItemIsAcitve(page);
     bool isPressed = IsPressed(page);
-    Painter_DrawHLineC(y + 1, x, x + MI_WIDTH, ColorBorderMenu(false));
+    painter_DrawHLineC(y + 1, x, x + MI_WIDTH, ColorBorderMenu(false));
 
-    Painter_DrawVolumeButton(x + 1, y + 2, MI_WIDTH - 2, MI_HEIGHT - 2, 1, ColorMenuItem(false), ColorMenuItemBrighter(), ColorMenuItemLessBright(), 
+    painter.DrawVolumeButton(x + 1, y + 2, MI_WIDTH - 2, MI_HEIGHT - 2, 1, ColorMenuItem(false), ColorMenuItemBrighter(), ColorMenuItemLessBright(), 
         isPressed, isShade);
 
     Color colorText = isShade ? ColorMenuItem(true) : COLOR_BLACK;
@@ -779,5 +779,5 @@ void Page_Draw(Page *page, int x, int y)
         colorText = COLOR_WHITE;
         delta = 1;
     }
-    Painter_DrawStringInCenterRectC(x + delta, y + delta, MI_WIDTH, MI_HEIGHT, TitleItem(page), colorText);
+    painter.DrawStringInCenterRectC(x + delta, y + delta, MI_WIDTH, MI_HEIGHT, TitleItem(page), colorText);
 }

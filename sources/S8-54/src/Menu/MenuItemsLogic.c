@@ -342,7 +342,7 @@ void Time_SetNewTime(Time *time)
 void Time_SelectNextPosition(Time *time)
 {
     CircleIncreaseInt8(time->curField, 0, 7);
-    Painter_ResetFlash();
+    painter.ResetFlash();
 }
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------

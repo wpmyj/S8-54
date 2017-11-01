@@ -464,7 +464,7 @@ static void Draw_Console_SizeSettings(int x, int y)
 {
     char buffer[30];
     sprintf(buffer, "Разм.настр. %d", sizeof(Settings));
-    Painter_DrawTextC(x + 6, y + 13, buffer, gColorBack);
+    painter.DrawTextC(x + 6, y + 13, buffer, gColorBack);
 }
 
 // ОТЛАДКА - АЦП /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -1158,8 +1158,8 @@ static void OnPress_Settings_Exit(void)
 
 static void DebugShowSetInfo_Draw(void)
 {
-    Painter_BeginScene(gColorBack);
-    Painter_DrawRectangleC(0, 0, 319, 239, gColorFill);
+    painter.BeginScene(gColorBack);
+    painter_DrawRectangleC(0, 0, 319, 239, gColorFill);
 
     int x0 = 30;
     int y0 = 25;
@@ -1167,14 +1167,14 @@ static void DebugShowSetInfo_Draw(void)
     int y = y0 - dY;
 
 #define Y_AND_INCREASE (y += dY, y)
-#define DRAW_TEXT(str)                  Painter_DrawText(x0, Y_AND_INCREASE, str);
-#define DRAW_FORMAT(str, value)         Painter_DrawFormatText(x0, Y_AND_INCREASE, str, value)
-#define DRAW_FORMAT2(str, val1, val2)   Painter_DrawFormatText(x0, Y_AND_INCREASE, str, val1, val2);
+#define DRAW_TEXT(str)                  painter.DrawText(x0, Y_AND_INCREASE, str);
+#define DRAW_FORMAT(str, value)         painter.DrawFormatText(x0, Y_AND_INCREASE, str, value)
+#define DRAW_FORMAT2(str, val1, val2)   painter.DrawFormatText(x0, Y_AND_INCREASE, str, val1, val2);
 
     //Painter_DrawFormatText(x0, Y_AND_INCREASE, "Размер основной структуры %d", sizeof(set));
     DRAW_FORMAT("Размер основной структуры : %d", sizeof(set));
-    Painter_DrawText(x0, Y_AND_INCREASE, "Несбрасываемая структура:");
-    int x = Painter_DrawText(x0, Y_AND_INCREASE, "rShiftAdd :") + 5;
+    painter.DrawText(x0, Y_AND_INCREASE, "Несбрасываемая структура:");
+    int x = painter.DrawText(x0, Y_AND_INCREASE, "rShiftAdd :") + 5;
 
     int ddY = 0;
 
@@ -1184,7 +1184,7 @@ static void DebugShowSetInfo_Draw(void)
         {
             for (int range = 0; range < RangeSize; range++)
             {
-                Painter_DrawFormatText(x + range * 20, y + dY * ddY, "%d", NRST_RSHIFT_ADD(ch, range, type));
+                painter.DrawFormatText(x + range * 20, y + dY * ddY, "%d", NRST_RSHIFT_ADD(ch, range, type));
             }
             ddY++;
         }
@@ -1200,13 +1200,13 @@ static void DebugShowSetInfo_Draw(void)
     DRAW_FORMAT("balanceADCtype : %s", (NRST_BALANCE_ADC_TYPE < 3 ? s[NRST_BALANCE_ADC_TYPE] : "!!! неправильное значение !!!"));
     DRAW_FORMAT("stretchADCtype : %s", (NRST_STRETCH_ADC_TYPE < 3 ? s[NRST_STRETCH_ADC_TYPE] : "!!! неправильное значение !!!"));
   
-    x = Painter_DrawText(x0, Y_AND_INCREASE, "stretchADC :") + 5;
+    x = painter.DrawText(x0, Y_AND_INCREASE, "stretchADC :") + 5;
 
     for (int ch = 0; ch < 2; ch++)
     {
         for (int num = 0; num < 3; num++)
         {
-            Painter_DrawFormatText(x + num * 20, y + dY * ch, "%d", NRST_STRETCH_ADC(ch, num));
+            painter.DrawFormatText(x + num * 20, y + dY * ch, "%d", NRST_STRETCH_ADC(ch, num));
         }
     }
 
@@ -1222,7 +1222,7 @@ static void DebugShowSetInfo_Draw(void)
     DRAW_FORMAT("numSmoothForRand : %d", NRST_NUM_SMOOTH_FOR_RAND);
 
     Menu_Draw();
-    Painter_EndScene();
+    painter.EndScene();
 }
 
 static void OnPress_Settings(void)
@@ -1435,8 +1435,8 @@ static void Draw_EnterSerialNumber(void)
     int width = grid.Width() - 80;
     int height = 160;
 
-    Painter_DrawRectangleC(x0, y0, width, height, gColorFill);
-    Painter_FillRegionC(x0 + 1, y0 + 1, width - 2, height - 2, gColorBack);
+    painter_DrawRectangleC(x0, y0, width, height, gColorFill);
+    painter_FillRegionC(x0 + 1, y0 + 1, width - 2, height - 2, gColorBack);
 
     int deltaX = 10;
 
@@ -1458,8 +1458,8 @@ static void Draw_EnterSerialNumber(void)
 
     int y = y0 + 50;
 
-    Painter_SetColor(colorText);
-    int x = Painter_DrawTextOnBackground(x0 + deltaX, y, buffer, colorBackground);
+    painter.SetColor(colorText);
+    int x = painter.DrawTextOnBackground(x0 + deltaX, y, buffer, colorBackground);
 
     colorText = COLOR_FLASH_01;
     colorBackground = COLOR_FLASH_10;
@@ -1472,16 +1472,16 @@ static void Draw_EnterSerialNumber(void)
 
     snprintf(buffer, 19, "%04d", s->year);
 
-    Painter_SetColor(colorText);
-    Painter_DrawTextOnBackground(x + 5, y, buffer, colorBackground);
+    painter.SetColor(colorText);
+    painter.DrawTextOnBackground(x + 5, y, buffer, colorBackground);
 
     // Теперь выведем информацию об оставшемся месте в OTP-памяти для записи
 
     int allShots = OTP_GetSerialNumber(buffer);
 
-    Painter_DrawFormText(x0 + deltaX, y0 + 130, gColorFill, "Текущий сохранённый номер %s", buffer[0] == 0 ? "-- ----" : buffer);
+    painter.DrawFormText(x0 + deltaX, y0 + 130, gColorFill, "Текущий сохранённый номер %s", buffer[0] == 0 ? "-- ----" : buffer);
 
-    Painter_DrawFormText(x0 + deltaX, y0 + 100, gColorFill, "Осталось места для %d попыток", allShots);
+    painter.DrawFormText(x0 + deltaX, y0 + 100, gColorFill, "Осталось места для %d попыток", allShots);
 }
 
 static void OnRegSet_SerialNumber(int angle)
@@ -1536,14 +1536,14 @@ static void OnPress_SerialNumber_Change(void)
     ACCESS_EXTRAMEM(StructForSN, s);
     ++s->curDigt;
     s->curDigt %= 2;
-    Painter_ResetFlash();
+    painter.ResetFlash();
 }
 
 static void Draw_SerialNumber_Change(int x, int y)
 {
-    Painter_SetFont(TypeFont_UGO2);
-    Painter_Draw4SymbolsInRect(x + 2, y + 2, SYMBOL_TAB);
-    Painter_SetFont(TypeFont_8);
+    painter.SetFont(TypeFont_UGO2);
+    painter.Draw4SymbolsInRect(x + 2, y + 2, SYMBOL_TAB);
+    painter.SetFont(TypeFont_8);
 }
 
 // ОТЛАДКА - С/Н - Сохранить -------------------------------------------------------------------------------------------------------------------------
@@ -1575,9 +1575,9 @@ static void OnPress_SerialNumber_Save(void)
 
 static void Draw_SerialNumber_Save(int x, int y)
 {
-    Painter_SetFont(TypeFont_UGO2);
-    Painter_Draw4SymbolsInRect(x + 2, y + 1, SYMBOL_SAVE_TO_MEM);
-    Painter_SetFont(TypeFont_8);
+    painter.SetFont(TypeFont_UGO2);
+    painter.Draw4SymbolsInRect(x + 2, y + 1, SYMBOL_SAVE_TO_MEM);
+    painter.SetFont(TypeFont_8);
 }
 
 

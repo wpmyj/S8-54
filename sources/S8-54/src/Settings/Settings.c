@@ -282,7 +282,7 @@ void Settings_Load(bool _default)
     display.ChangedRShiftMarkers(true);
     OnChanged_ADC_Stretch_Mode(true);
     OnChanged_DisplayOrientation(true);
-    Painter_SetBrightnessDisplay(BRIGHTNESS_DISPLAY);
+    painter.SetBrightnessDisplay(BRIGHTNESS_DISPLAY);
 }
 
 

@@ -1,5 +1,3 @@
-
-
 #include "defines.h"
 #include "Measures.h"
 #include "GlobalFunctions.h"
@@ -9,6 +7,7 @@
 #include "Display/Display.h"
 #include "Display/Colors.h"
 #include "Display/Painter.h"
+#include "Display/PainterC.h"
 #include "Display/Grid.h"
 #include "Hardware/Sound.h"
 
@@ -209,7 +208,7 @@ void Measure_DrawPageChoice(void)
     int maxRow = (NUM_MEASURES_6_1 || NUM_MEASURES_6_2) ? 8 : 5;
     int maxCol = (NUM_MEASURES_6_1 || NUM_MEASURES_6_2) ? 3 : 5;
     Measure meas = Measure_None;
-    Painter_SetFont(TypeFont_UGO);
+    painter.SetFont(TypeFont_UGO);
     for(int row = 0; row < maxRow; row++)
     {
         for(int col = 0; col < maxCol; col++)
@@ -221,18 +220,18 @@ void Measure_DrawPageChoice(void)
             int x0 = x + col * dX;
             int y0 = y + row * dY;
             bool active = meas == posOnPageChoice;
-            Painter_DrawRectangleC(x0, y0, dX, dY, COLOR_WHITE);
-            Painter_FillRegionC(x0 + 1, y0 + 1, dX - 2, dY - 2, active ? COLOR_FLASH_10 : gColorBack);
-            Painter_SetColor(active ? COLOR_FLASH_01 : gColorFill);
-            Painter_Draw10SymbolsInRect(x0 + 2, y0 + 1, Measure_GetChar(meas));
+            painter_DrawRectangleC(x0, y0, dX, dY, COLOR_WHITE);
+            painter_FillRegionC(x0 + 1, y0 + 1, dX - 2, dY - 2, active ? COLOR_FLASH_10 : gColorBack);
+            painter.SetColor(active ? COLOR_FLASH_01 : gColorFill);
+            painter.Draw10SymbolsInRect(x0 + 2, y0 + 1, Measure_GetChar(meas));
             if(meas < Measure_NumMeasures)
             {
-                Painter_SetFont(TypeFont_5);
-                Painter_DrawTextRelativelyRightC(x0 + dX, y0 + 12, measures[meas].name, active ? COLOR_FLASH_01 : gColorFill);
-                Painter_SetFont(TypeFont_UGO);
+                painter.SetFont(TypeFont_5);
+                painter_DrawTextRelativelyRightC(x0 + dX, y0 + 12, measures[meas].name, active ? COLOR_FLASH_01 : gColorFill);
+                painter.SetFont(TypeFont_UGO);
             }
             meas = (Measure)((int)meas + 1);    // meas++;
         }
     }
-    Painter_SetFont(TypeFont_8);
+    painter.SetFont(TypeFont_8);
 }

@@ -1,7 +1,6 @@
 #pragma once
 #include "Colors.h"
 #include "DisplayTypes.h"
-#include "PainterText.h"
 #include "PainterC.h"
 
 
@@ -19,75 +18,131 @@ extern void CalculateCurrentColor(void);
  *  @{
  */
 
-/// Вызывается в начале отрисовки каждого кадра. Заполняет буфер цветом color
-void Painter_BeginScene(Color color);
-/// \brief Заставляет дисплей вывполнить ранее засланные в него команды, не дожидаясь завершающей отрисовку команды Painter_EndScene(). 
-/// Нужно вызывать, если команды отрисовки кадра превышают размер буфера команд дисплея. Например, когда отрисовывается много сигналов на экране в 
-/// режиме накопления.
-void Painter_RunDisplay(void);
-/// Вызывается в конце отрисовки каждого кадра. Переносит содержимое буфера на экран
-void Painter_EndScene(void);
-/// Послать изображение во внешнее устройство через USB или LAN. Если first == true, то посылается шрифт
-void Painter_SendFrame(bool first);
-/// Сброс таймера мигания. Нужно для того, чтобы мигающие значки при перемещении не исчезали с экрана
-void Painter_ResetFlash(void);
-/// Установить цвет рисования
-void Painter_SetColor(Color color);
-/// Возвращает текущий цвет рисования
-Color Painter_GetColor(void);
+class Painter
+{
+public:
+    /// Вызывается в начале отрисовки каждого кадра. Заполняет буфер цветом color
+    void BeginScene(Color color);
+    /// \brief Заставляет дисплей вывполнить ранее засланные в него команды, не дожидаясь завершающей отрисовку команды EndScene(). 
+    /// Нужно вызывать, если команды отрисовки кадра превышают размер буфера команд дисплея. Например, когда отрисовывается много сигналов на экране в 
+    /// режиме накопления.
+    void RunDisplay(void);
+    /// Вызывается в конце отрисовки каждого кадра. Переносит содержимое буфера на экран
+    void EndScene(void);
+    /// Послать изображение во внешнее устройство через USB или LAN. Если first == true, то посылается шрифт
+    void SendFrame(bool first);
+    /// Сброс таймера мигания. Нужно для того, чтобы мигающие значки при перемещении не исчезали с экрана
+    void ResetFlash(void);
+    /// Установить цвет рисования
+    void SetColor(Color color);
+    /// Возвращает текущий цвет рисования
+    Color GetColor(void);
 
-void Painter_LoadPalette(void);
+    void LoadPalette(void);
 
-void Painter_SetPalette(Color color);
+    void SetPalette(Color color);
 
-void Painter_SetPoint(int x, int y);
+    void SetPoint(int x, int y);
 
-void Painter_DrawHLine(int y, int x0, int x1);
+    void DrawHLine(int y, int x0, int x1);
 
-void Painter_DrawVLine(int x, int y0, int y1);
+    void DrawVLine(int x, int y0, int y1);
 
-void Painter_DrawHPointLine(int y, int x0, int x1, float delta);
+    void DrawHPointLine(int y, int x0, int x1, float delta);
 
-void Painter_DrawVPointLine(int x, int y0, int y1, float delta);
-/// \brief Нарисовать numLines вертикальных линий, состоящих из count точек каждая с расстоянием между точками delta. Горизонтальная координата
-/// первой точки каждой линии соответствует очередному элементу массива x[]
-void Painter_DrawMultiVPointLine(int numLines, int y, uint16 x[], int delta, int count, Color color);
-/// \brief Нарисовать numLines горизонтальных линий, состоящих из count точек каждая с расстоянием между точками delta. Вертикальная координата
-/// первой точки каждой линии соответствует очередному элементу массива y[]
-void Painter_DrawMultiHPointLine(int numLines, int x, uint8 y[], int delta, int count, Color color);
+    void DrawVPointLine(int x, int y0, int y1, float delta);
+    /// \brief Нарисовать numLines вертикальных линий, состоящих из count точек каждая с расстоянием между точками delta. Горизонтальная координата
+    /// первой точки каждой линии соответствует очередному элементу массива x[]
+    void DrawMultiVPointLine(int numLines, int y, uint16 x[], int delta, int count, Color color);
+    /// \brief Нарисовать numLines горизонтальных линий, состоящих из count точек каждая с расстоянием между точками delta. Вертикальная координата
+    /// первой точки каждой линии соответствует очередному элементу массива y[]
+    void DrawMultiHPointLine(int numLines, int x, uint8 y[], int delta, int count, Color color);
 
-void Painter_DrawLine(int x0, int y0, int x1, int y1);
-/// \brief Рисует прерывистую горизонтальную линию. dFill - длина штриха, dEmpty - расст. между штрихами. Линия всегда начинается со штриха. 
-/// dStart указывает смещение первой рисуемой точки относительно начала штриха.
-void Painter_DrawDashedHLine(int y, int x0, int x1, int dFill, int dEmpty, int dStart);
-/// Рисует прерывистую вертикальную линию.
-void Painter_DrawDashedVLine(int x, int y0, int y1, int dFill, int dEmpty, int dStart);
+    void DrawLine(int x0, int y0, int x1, int y1);
+    /// \brief Рисует прерывистую горизонтальную линию. dFill - длина штриха, dEmpty - расст. между штрихами. Линия всегда начинается со штриха. 
+    /// dStart указывает смещение первой рисуемой точки относительно начала штриха.
+    void DrawDashedHLine(int y, int x0, int x1, int dFill, int dEmpty, int dStart);
+    /// Рисует прерывистую вертикальную линию.
+    void DrawDashedVLine(int x, int y0, int y1, int dFill, int dEmpty, int dStart);
 
-void Painter_DrawRectangle(int x, int y, int width, int height);
+    void DrawRectangle(int x, int y, int width, int height);
 
-void Painter_FillRegion(int x, int y, int width, int height);
+    void FillRegion(int x, int y, int width, int height);
 
-void Painter_DrawVolumeButton(int x, int y, int width, int height, int thickness, Color normal, Color bright, Color dark, bool isPressed, bool isShade);
-/// Установить яркость дисплея.
-void Painter_SetBrightnessDisplay(int16 brightness);
+    void DrawVolumeButton(int x, int y, int width, int height, int thickness, Color normal, Color bright, Color dark, bool isPressed, bool isShade);
+    /// Установить яркость дисплея.
+    void SetBrightnessDisplay(int16 brightness);
 
-uint16 Painter_ReduceBrightness(uint16 colorValue, float newBrightness);
-/// Нарисовать массив вертикальных линий. Линии рисуются одна за другой. y0y1 - массив вертикальных координат.
-void Painter_DrawVLineArray(int x, int numLines, uint8 *y0y1, Color color);
-/// modeLines - true - точками, false - точками.
-void Painter_DrawSignal(int x, uint8 data[281], bool modeLines);
+    uint16 ReduceBrightness(uint16 colorValue, float newBrightness);
+    /// Нарисовать массив вертикальных линий. Линии рисуются одна за другой. y0y1 - массив вертикальных координат.
+    void DrawVLineArray(int x, int numLines, uint8 *y0y1, Color color);
+    /// modeLines - true - точками, false - точками.
+    void DrawSignal(int x, uint8 data[281], bool modeLines);
 
-void Painter_DrawPicture(int x, int y, int width, int height, uint8 *address);
+    void DrawPicture(int x, int y, int width, int height, uint8 *address);
 
 #if _USE_LFN > 0
-void Painter_SaveScreenToFlashDrive(TCHAR *fileName);
+    void SaveScreenToFlashDrive(TCHAR *fileName);
 #else
-bool Painter_SaveScreenToFlashDrive(void);
+    bool SaveScreenToFlashDrive(void);
 #endif
 
-void    Painter_SendToDisplay(uint8 *bytes, int numBytes);
+    void SendToDisplay(uint8 *bytes, int numBytes);
 
-void    Painter_SendToInterfaces(uint8 *pointer, int size);
+    void SendToInterfaces(uint8 *pointer, int size);
+
+    void SetFont(TypeFont typeFont);
+    ///  Загрузить шрифта в дисплей
+    void LoadFont(TypeFont typeFont);
+
+    int DrawChar(int x, int y, char symbol);
+
+    int DrawCharC(int x, int y, char symbol, Color color);
+
+    int DrawText(int x, int y, const char *text);
+    /// Выводит текст на прямоугольнике цвета colorBackgound
+    int DrawTextOnBackground(int x, int y, const char *text, Color colorBackground);
+
+    int DrawFormatText(int x, int y, char *format, ...);
+    /// Пишет строку в позиции x, y
+    int DrawFormText(int x, int y, Color color, char *text, ...);
+
+    int DrawTextC(int x, int y, const char *text, Color color);
+
+    int DrawTextWithLimitationC(int x, int y, const char *text, Color color, int limitX, int limitY, int limitWidth, int limitHeight);
+    /// Возвращает нижнюю координату прямоугольника
+    int DrawTextInBoundedRectWithTransfers(int x, int y, int width, const char *text, Color colorBackground, Color colorFill);
+
+    int DrawTextInRectWithTransfersC(int x, int y, int width, int height, const char *text, Color color);
+
+    int DrawStringInCenterRect(int x, int y, int width, int height, const char *text);
+
+    int DrawStringInCenterRectC(int x, int y, int width, int height, const char *text, Color color);
+    /// Пишет строку текста в центре области(x, y, width, height)цветом ColorText на прямоугольнике с шириной бордюра widthBorder цвета colorBackground
+    void DrawStringInCenterRectOnBackgroundC(int x, int y, int width, int height, const char *text, Color colorText, int widthBorder, Color colorBackground);
+
+    int DrawStringInCenterRectAndBoundItC(int x, int y, int width, int height, const char *text, Color colorBackground, Color colorFill);
+
+    void DrawHintsForSmallButton(int x, int y, int width, void *smallButton);
+
+    void DrawTextInRect(int x, int y, int width, char *text);
+
+    void DrawTextRelativelyRight(int xRight, int y, const char *text);
+
+    void Draw2SymbolsC(int x, int y, char symbol1, char symbol2, Color color1, Color color2);
+
+    void Draw4SymbolsInRect(int x, int y, char eChar);
+
+    void Draw10SymbolsInRect(int x, int y, char eChar);
+    /// Пишет текст с переносами
+    int DrawTextInRectWithTransfers(int x, int y, int width, int height, const char *text);
+
+    void DrawBigText(int x, int y, int size, const char *text);
+};
+
+
+extern Painter painter;
+
 
 #define WRITE_BYTE(offset, value)   *(command + offset) = (uint8)value
 #define WRITE_SHORT(offset, value)  *((uint16 *)(command + offset)) = (uint16)value

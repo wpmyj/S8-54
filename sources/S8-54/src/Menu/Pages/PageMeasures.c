@@ -302,7 +302,7 @@ static void OnRegSet_Tune(int angle)
             posOnPageChoice = 0;
         }
         MEASURE(posActive) = (Measure)posOnPageChoice;
-        Painter_ResetFlash();
+        painter.ResetFlash();
     }
     else
     {
@@ -363,9 +363,9 @@ static void OnPress_Tune_Markers(void)
 
 static void Draw_Tune_Markers(int x, int y)
 {
-    Painter_SetFont(TypeFont_UGO2);
-    Painter_Draw4SymbolsInRect(x + 2, y + 2, '\x60');
-    Painter_SetFont(TypeFont_8);
+    painter.SetFont(TypeFont_UGO2);
+    painter.Draw4SymbolsInRect(x + 2, y + 2, '\x60');
+    painter.SetFont(TypeFont_8);
 }
 
 // »«Ã≈–≈Õ»ﬂ - Õ¿—“–Œ»“‹ - Õ‡ÒÚÓÈÍ‡ -----------------------------------------------------------------------------------------------------------------
@@ -392,7 +392,7 @@ static void OnPress_Tune_Settings(void)
 
 static void Draw_Tune_Settings(int x, int y)
 {
-    Painter_SetFont(TypeFont_UGO2);
-    Painter_Draw4SymbolsInRect(x + 2, y + 1, '\x62');
-    Painter_SetFont(TypeFont_8);
+    painter.SetFont(TypeFont_UGO2);
+    painter.Draw4SymbolsInRect(x + 2, y + 1, '\x62');
+    painter.SetFont(TypeFont_8);
 }

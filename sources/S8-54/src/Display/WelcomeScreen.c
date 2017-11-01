@@ -60,7 +60,7 @@ void WelcomeScreen_Init(void)
 //----------------------------------------------------------------------------------------------------------------------------------------------------
 void WelcomeScreen_Update(void)
 {
-    Painter_BeginScene(COLOR_WHITE);
+    painter.BeginScene(COLOR_WHITE);
     for(int num = 0; num < 12; num++) {
         Point p0 = mesh.points[mesh.edges[num].numPoint0];
         Point p1 = mesh.points[mesh.edges[num].numPoint1];
@@ -101,7 +101,7 @@ void WelcomeScreen_Update(void)
         PresentPointToScreen(&p0out3, &x0, &y0);
         PresentPointToScreen(&p1out3, &x1, &y1);
 
-        Painter_DrawLineC((int)x0, (int)y0, (int)x1, (int)y1, COLOR_WHITE);
+        painter_DrawLineC((int)x0, (int)y0, (int)x1, (int)y1, COLOR_WHITE);
     }
-    Painter_EndScene();
+    painter.EndScene();
 }

@@ -227,7 +227,7 @@ static void DrawData(bool forAccum)
         DrawChannel(ch, forAccum ? ColorChanAccum(ch) : gColorChan[ch]);
     }
 
-    Painter_DrawRectangleC(grid.Left(), GRID_TOP, grid.Width(), grid.FullHeight(), gColorFill);
+    painter_DrawRectangleC(grid.Left(), GRID_TOP, grid.Width(), grid.FullHeight(), gColorFill);
 }
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
@@ -238,7 +238,7 @@ static void DrawChannel(Channel ch, Color color)
         return;
     }
 
-    Painter_SetColor(color);
+    painter.SetColor(color);
 
     int left = grid.Left();
     int bottom = grid.ChannelBottom();
@@ -255,11 +255,11 @@ static void DrawChannel(Channel ch, Color color)
         DrawChannel_Normal(ch, left, bottom, scaleY);
     }
 
-    Painter_DrawVLineC(left + dataStruct->posBreak, top, bottom, COLOR_GRID);
+    painter_DrawVLineC(left + dataStruct->posBreak, top, bottom, COLOR_GRID);
 
     DrawMarkersForMeasure(ch);
 
-    Painter_RunDisplay();
+    painter.RunDisplay();
 }
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
@@ -291,7 +291,7 @@ static void DrawChannel_Normal(Channel ch, int left, int bottom, float scaleY)
 
         if(MODE_DRAW_SIGNAL_POINTS)
         {
-            Painter_SetPoint(x, y);
+            painter.SetPoint(x, y);
         }
         else
         {
@@ -299,15 +299,15 @@ static void DrawChannel_Normal(Channel ch, int left, int bottom, float scaleY)
 
             if(yNext < y)
             {
-                Painter_DrawVLine(x, y, yNext + 1);
+                painter.DrawVLine(x, y, yNext + 1);
             }
             else if(yNext > y)
             {
-                Painter_DrawVLine(x, y, yNext - 1);
+                painter.DrawVLine(x, y, yNext - 1);
             }
             else
             {
-                Painter_SetPoint(x, y);
+                painter.SetPoint(x, y);
             }
 
         }
@@ -361,18 +361,18 @@ static void DrawChannel_PeakDet(Channel ch, int left, int bottom, float scaleY)
 
         if(MODE_DRAW_SIGNAL_POINTS)
         {
-            Painter_SetPoint(x, min);
-            Painter_SetPoint(x, max);
+            painter.SetPoint(x, min);
+            painter.SetPoint(x, max);
         }
         else
         {
             if(min == max)
             {
-                Painter_SetPoint(x, min);
+                painter.SetPoint(x, min);
             }
             else
             {
-                Painter_DrawVLine(x, min, max);
+                painter.DrawVLine(x, min, max);
             }
         }
     }
@@ -450,7 +450,7 @@ static void DrawLimitLabel(int delta)
     int width = 150;
     int height = 20;
 
-    Color color = Painter_GetColor();
+    Color color = painter.GetColor();
 
     int x = grid.Width() / 2 - width / 2 + grid.Left();
     int y = 0;
@@ -463,9 +463,9 @@ static void DrawLimitLabel(int delta)
         y = GRID_TOP + delta;
     }
 
-    Painter_FillRegionC(x, y, width, height, gColorBack);
-    Painter_DrawRectangleC(x, y, width, height, color);
-    Painter_DrawStringInCenterRect(x, y, width, height, "Сигнал за пределами экрана");
+    painter_FillRegionC(x, y, width, height, gColorBack);
+    painter_DrawRectangleC(x, y, width, height, color);
+    painter.DrawStringInCenterRect(x, y, width, height, "Сигнал за пределами экрана");
 }
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
@@ -495,13 +495,13 @@ void PainterData_DrawMath(void)
     static const int WIDTH = 71;
     static const int HEIGHT = 10;
     int delta = (SHOW_STRING_NAVI_ALL && FUNC_MODE_DRAW_TOGETHER) ? 10 : 0;
-    Painter_DrawRectangleC(grid.Left(), grid.MathTop() + delta, WIDTH, HEIGHT, gColorFill);
-    Painter_FillRegionC(grid.Left() + 1, grid.MathTop() + 1 + delta, WIDTH - 2, HEIGHT - 2, gColorBack);
+    painter_DrawRectangleC(grid.Left(), grid.MathTop() + delta, WIDTH, HEIGHT, gColorFill);
+    painter_FillRegionC(grid.Left() + 1, grid.MathTop() + 1 + delta, WIDTH - 2, HEIGHT - 2, gColorBack);
     Divider divider = set.math_Divider;
-    Painter_DrawTextC(grid.Left() + 2, grid.MathTop() + 1 + delta, sChannel_Range2String(SET_RANGE_MATH, divider), gColorFill);
-    Painter_DrawText(grid.Left() + 25, grid.MathTop() + 1 + delta, ":");
+    painter.DrawTextC(grid.Left() + 2, grid.MathTop() + 1 + delta, sChannel_Range2String(SET_RANGE_MATH, divider), gColorFill);
+    painter.DrawText(grid.Left() + 25, grid.MathTop() + 1 + delta, ":");
     char buffer[20];
-    Painter_DrawText(grid.Left() + 27, grid.MathTop() + 1 + delta, sChannel_RShift2String(SET_RSHIFT_MATH, SET_RANGE_MATH, divider, buffer));
+    painter.DrawText(grid.Left() + 27, grid.MathTop() + 1 + delta, sChannel_RShift2String(SET_RSHIFT_MATH, SET_RANGE_MATH, divider, buffer));
 }
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
@@ -544,7 +544,7 @@ static void DrawChannel_Math(uint8 *dataIn)
     float scaleY = (float)(maxY - minY) / (MAX_VALUE - MIN_VALUE);
     float scaleX = (float)grid.Width() / 280.0f;
 
-    Painter_SetColor(gColorChan[Math]);
+    painter.SetColor(gColorChan[Math]);
 
     //    if (!DataBeyondTheBorders(dataIn, firstPoint, lastPoint))   // Если сигнал не выходит за пределы экрана
     {
@@ -655,19 +655,19 @@ static void DrawMarkersForMeasure(Channel ch)
     BitSet64 points = sDisplay_PointsOnDisplay();
     float scaleX = (float)(grid.Right() - grid.Left()) / (float)(points.word1 - points.word0);
 
-    Painter_SetColor(ColorCursors(ch));
+    painter.SetColor(ColorCursors(ch));
     for (int numMarker = 0; numMarker < 2; numMarker++)
     {
         int posY = bottom - (int)(MARKER_VOLTAGE(ch, numMarker) * scaleY);
         if (posY > GRID_TOP && posY < bottom)
         {
-            Painter_DrawDashedHLine(posY, left, right, 3, 2, 0);
+            painter.DrawDashedHLine(posY, left, right, 3, 2, 0);
         }
 
         int posX = left + (int)(MARKER_TIME(ch, numMarker) * scaleX);
         if (posX > left && posX < right)
         {
-            Painter_DrawDashedVLine(posX, GRID_TOP, bottom, 3, 2, 0);
+            painter.DrawDashedVLine(posX, GRID_TOP, bottom, 3, 2, 0);
         }
     }
 }
@@ -719,7 +719,7 @@ static void DrawSignalLined(const uint8 *data, int startPoint, int endPoint, int
 
             PLACE_2_ASCENDING(y0, y1);
 
-            Painter_DrawVLine((int)x, y0, y1);
+            painter.DrawVLine((int)x, y0, y1);
 
             int z0 = 0;
             int z1 = 0;
@@ -734,11 +734,11 @@ static void DrawSignalLined(const uint8 *data, int startPoint, int endPoint, int
 
             if (y1 < z0)
             {
-                Painter_DrawVLine((int)x, y1, z0);
+                painter.DrawVLine((int)x, y1, z0);
             }
             else if (y0 > z1)
             {
-                Painter_DrawVLine((int)(x + 1), z1, y0);
+                painter.DrawVLine((int)(x + 1), z1, y0);
             }
         }
     }
@@ -754,7 +754,7 @@ static void DrawSignalLined(const uint8 *data, int startPoint, int endPoint, int
     if (PEAKDET_DS == PeakDet_Disable)
     {
         CONVERT_DATA_TO_DISPLAY(dataCD[280], data[endPoint]);
-        Painter_DrawSignal(grid.Left(), dataCD, true);
+        painter.DrawSignal(grid.Left(), dataCD, true);
     }
 }
 
@@ -771,7 +771,7 @@ static void DrawSignalPointed(const uint8 *data, int startPoint, int endPoint, i
             int index = i - startPoint;
             CONVERT_DATA_TO_DISPLAY(dataCD[index], Math_CalculateFiltr(data, i, numPoints));
         }
-        Painter_DrawSignal(grid.Left(), dataCD, false);
+        painter.DrawSignal(grid.Left(), dataCD, false);
     }
     else
     {
@@ -780,7 +780,7 @@ static void DrawSignalPointed(const uint8 *data, int startPoint, int endPoint, i
             int index = i - startPoint;
             int dat = 0;
             CONVERT_DATA_TO_DISPLAY(dat, Math_CalculateFiltr(data, i, numPoints));
-            Painter_SetPoint(grid.Left() + (int)(index * scaleX), dat);
+            painter.SetPoint(grid.Left() + (int)(index * scaleX), dat);
         }
     }
 }
@@ -805,7 +805,7 @@ static void DrawMemoryWindow(void)
     float scaleX = (float)(rightX - leftX + 1) / SET_POINTS_IN_CHANNEL;
     const int xVert0 = leftX + (int)(SHIFT_IN_MEMORY_IN_POINTS * scaleX);
     int width = (int)((rightX - leftX) * (282.0f / SET_POINTS_IN_CHANNEL));
-    Painter_DrawRectangleC(xVert0, 0, width - (FPGA_POINTS_8k ? 1 : 0), GRID_TOP - 2, gColorFill);
+    painter_DrawRectangleC(xVert0, 0, width - (FPGA_POINTS_8k ? 1 : 0), GRID_TOP - 2, gColorFill);
 
     DrawTPos(leftX, rightX);
 
@@ -917,8 +917,8 @@ static void DrawTPos(int leftX, int rightX)
 {
     int x[] = {leftX, (rightX - leftX) / 2 + leftX, rightX};
     int x0 = x[TPOS];
-    Painter_FillRegionC(x0 - 3, 10, 6, 6, gColorBack);
-    Painter_DrawCharC(x0 - 3, 10, SYMBOL_TPOS_1, gColorFill);
+    painter_FillRegionC(x0 - 3, 10, 6, 6, gColorBack);
+    painter.DrawCharC(x0 - 3, 10, SYMBOL_TPOS_1, gColorFill);
 }
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
@@ -953,10 +953,10 @@ static void DrawTShift(int leftX, int rightX, int numBytes)
         dY11 = 5; dY12 = 7;
     }
 
-    Painter_FillRegionC((int)xShift - 1, 1, 6, 6, gColorBack);
-    Painter_FillRegionC((int)xShift, 2, 4, 4, gColorFill);
-    Painter_DrawLineC((int)xShift + dX01, 3, (int)xShift + dX11, dY11 - 2, gColorBack);
-    Painter_DrawLine((int)xShift + dX02, 4, (int)xShift + 2, dY12 - 2);
+    painter_FillRegionC((int)xShift - 1, 1, 6, 6, gColorBack);
+    painter_FillRegionC((int)xShift, 2, 4, 4, gColorFill);
+    painter_DrawLineC((int)xShift + dX01, 3, (int)xShift + dX11, dY11 - 2, gColorBack);
+    painter.DrawLine((int)xShift + dX02, 4, (int)xShift + 2, dY12 - 2);
 }
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
@@ -988,5 +988,5 @@ static void SendToDisplayDataInRect(Channel ch, int x, int *min, int *max, int w
         points[i * 2 + 1] = min[i] < 0 ? 0 : min[i];
     }
 
-    Painter_DrawVLineArray(x, (int)width, points, gColorChan[ch]);
+    painter.DrawVLineArray(x, (int)width, points, gColorChan[ch]);
 }

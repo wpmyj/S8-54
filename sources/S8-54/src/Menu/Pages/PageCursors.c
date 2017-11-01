@@ -274,12 +274,12 @@ static void Draw_Set_Channel(int x, int y)
 
 static void Draw_Set_ChannelA(int x, int y)
 {
-    Painter_DrawText(x + 7, y + 5, "1");
+    painter.DrawText(x + 7, y + 5, "1");
 }
 
 static void Draw_Set_ChannelB(int x, int y)
 {
-    Painter_DrawText(x + 7, y + 5, "2");
+    painter.DrawText(x + 7, y + 5, "2");
 }
 
 // ÊÓĞÑÎĞÛ - ÓÑÒÀÍÎÂÈÒÜ - Êóğñîğû U ----------------------------------------------------------------------------------------------------------------
@@ -356,7 +356,7 @@ static void CalculateConditions(int16 pos0, int16 pos1, CursCntrl cursCntrl, boo
 
 static void Draw_Set_U_disable(int x, int y)
 {
-    Painter_DrawText(x + 7, y + 5, "U");
+    painter.DrawText(x + 7, y + 5, "U");
 }
 
 static void Draw_Set_U_disableBoth(int x, int y)
@@ -387,11 +387,11 @@ static void DrawMenuCursVoltage(int x, int y, bool top, bool bottom)
     CalculateXY(&x0, &x1, &y0, &y1);
     for(int i = 0; i < (top ? 3 : 1); i++)
     {
-        Painter_DrawHLine(y0 + i, x0, x1);
+        painter.DrawHLine(y0 + i, x0, x1);
     }
     for(int i = 0; i < (bottom ? 3 : 1); i++)
     {
-        Painter_DrawHLine(y1 - i, x0, x1);
+        painter.DrawHLine(y1 - i, x0, x1);
     }
 }
 
@@ -459,7 +459,7 @@ static void Draw_Set_T(int x, int y)
 
 static void Draw_Set_T_disable(int x, int y)
 {
-    Painter_DrawText(x + 7, y + 5, "T");
+    painter.DrawText(x + 7, y + 5, "T");
 }
 
 static void Draw_Set_T_disableBoth(int x, int y)
@@ -490,11 +490,11 @@ static void DrawMenuCursTime(int x, int y, bool left, bool right)
     CalculateXY(&x0, &x1, &y0, &y1);
     for(int i = 0; i < (left ? 3 : 1); i++)
     {
-        Painter_DrawVLine(x0 + i, y0, y1);
+        painter.DrawVLine(x0 + i, y0, y1);
     }
     for(int i = 0; i < (right ? 3 : 1); i++)
     {
-        Painter_DrawVLine(x1 - i, y0, y1);
+        painter.DrawVLine(x1 - i, y0, y1);
     }
 }
 
@@ -537,9 +537,9 @@ static void OnPress_Set_100(void)
 
 static void Draw_Set_100(int x, int y)
 {
-    Painter_SetFont(TypeFont_5);
-    Painter_DrawText(x + 2, y + 3, "100%");
-    Painter_SetFont(TypeFont_8);
+    painter.SetFont(TypeFont_5);
+    painter.DrawText(x + 2, y + 3, "100%");
+    painter.SetFont(TypeFont_8);
 }
 
 // ÊÓĞÑÎĞÛ - ÓÑÒÀÍÎÂÈÒÜ - Ïåğåìåùåíèå --------------------------------------------------------------------------------------------------------------
@@ -578,14 +578,14 @@ static void Draw_Set_Movement(int x, int y)
 
 static void Draw_Set_Movement_Percents(int x, int y)
 {
-    Painter_DrawText(x + 6, y + 5, "\x83");
+    painter.DrawText(x + 6, y + 5, "\x83");
 }
 
 static void Draw_Set_Movement_Points(int x, int y)
 {
-    Painter_SetFont(TypeFont_5);
-    Painter_DrawText(x + 4, y + 3, "ò÷ê");
-    Painter_SetFont(TypeFont_8);
+    painter.SetFont(TypeFont_5);
+    painter.DrawText(x + 4, y + 3, "ò÷ê");
+    painter.SetFont(TypeFont_8);
 }
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

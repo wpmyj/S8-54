@@ -1059,11 +1059,6 @@
               <FilePath>.\src\Display\Math3D.h</FilePath>
             </File>
             <File>
-              <FileName>Painter.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\src\Display\Painter.c</FilePath>
-            </File>
-            <File>
               <FileName>Painter.h</FileName>
               <FileType>5</FileType>
               <FilePath>.\src\Display\Painter.h</FilePath>
@@ -1082,16 +1077,6 @@
               <FileName>PainterMem.h</FileName>
               <FileType>5</FileType>
               <FilePath>.\src\Display\PainterMem.h</FilePath>
-            </File>
-            <File>
-              <FileName>PainterText.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\src\Display\PainterText.c</FilePath>
-            </File>
-            <File>
-              <FileName>PainterText.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\src\Display\PainterText.h</FilePath>
             </File>
             <File>
               <FileName>Symbols.h</FileName>
@@ -1127,6 +1112,16 @@
               <FileName>Grid.cpp</FileName>
               <FileType>8</FileType>
               <FilePath>.\src\Display\Grid.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>Painter.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\src\Display\Painter.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>PainterText.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\src\Display\PainterText.cpp</FilePath>
             </File>
           </Files>
         </Group>

@@ -77,9 +77,9 @@ bool IsMainPage(const void *item)
 //----------------------------------------------------------------------------------------------------------------------------------------------------
 void DrawSB_Exit(int x, int y)
 {
-    Painter_SetFont(TypeFont_UGO2);
-    Painter_Draw4SymbolsInRect(x + 2, y + 1, '\x2e');
-    Painter_SetFont(TypeFont_8);
+    painter.SetFont(TypeFont_UGO2);
+    painter.Draw4SymbolsInRect(x + 2, y + 1, '\x2e');
+    painter.SetFont(TypeFont_8);
 }
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------

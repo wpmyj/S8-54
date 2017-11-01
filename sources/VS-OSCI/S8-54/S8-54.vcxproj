@@ -166,10 +166,10 @@
     <ClCompile Include="..\..\S8-54\src\Display\font\Font.c" />
     <ClCompile Include="..\..\S8-54\src\Display\Grid.cpp" />
     <ClCompile Include="..\..\S8-54\src\Display\Math3D.c" />
-    <ClCompile Include="..\..\S8-54\src\Display\Painter.c" />
+    <ClCompile Include="..\..\S8-54\src\Display\Painter.cpp" />
     <ClCompile Include="..\..\S8-54\src\Display\PainterData.c" />
     <ClCompile Include="..\..\S8-54\src\Display\PainterMem.c" />
-    <ClCompile Include="..\..\S8-54\src\Display\PainterText.c" />
+    <ClCompile Include="..\..\S8-54\src\Display\PainterText.cpp" />
     <ClCompile Include="..\..\S8-54\src\Display\WelcomeScreen.c" />
     <ClCompile Include="..\..\S8-54\src\Ethernet\app_ethernet.c" />
     <ClCompile Include="..\..\S8-54\src\Ethernet\Ethernet.c" />
@@ -369,7 +369,6 @@
     <ClInclude Include="..\..\S8-54\src\Display\PainterC.h" />
     <ClInclude Include="..\..\S8-54\src\Display\PainterData.h" />
     <ClInclude Include="..\..\S8-54\src\Display\PainterMem.h" />
-    <ClInclude Include="..\..\S8-54\src\Display\PainterText.h" />
     <ClInclude Include="..\..\S8-54\src\Display\Symbols.h" />
     <ClInclude Include="..\..\S8-54\src\Display\WelcomeScreen.h" />
     <ClInclude Include="..\..\S8-54\src\dox\History.h" />

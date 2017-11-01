@@ -126,7 +126,7 @@ bool sDisplay_IsSeparate(void)
 void sDisplay_SetBrightness(int16 brightness)
 {
     BRIGHTNESS_DISPLAY = brightness;
-    Painter_SetBrightnessDisplay(brightness);
+    painter.SetBrightnessDisplay(brightness);
 }
 
 //---------------------------------------------------------------------------------------------------------------------------------------------------

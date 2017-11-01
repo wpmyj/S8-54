@@ -24,7 +24,7 @@ static const int WIDTH = 295;
 static void DrawPageContent(void)
 {
     int y = 50;
-    Painter_DrawStringInCenterRect(0, y, WIDTH, 10, currentPage->titleHint[LANG]);
+    painter.DrawStringInCenterRect(0, y, WIDTH, 10, currentPage->titleHint[LANG]);
 
     int numPage = 0;
 
@@ -36,11 +36,11 @@ static void DrawPageContent(void)
         const char *title = page->titleHint[LANG];
         if(currentParagraph == numPage)
         {
-            Painter_DrawStringInCenterRectOnBackgroundC(0, y, WIDTH, 10, title, gColorBack, 2, gColorFill);
+            painter.DrawStringInCenterRectOnBackgroundC(0, y, WIDTH, 10, title, gColorBack, 2, gColorFill);
         }
         else
         {
-            Painter_DrawStringInCenterRectC(0, y, WIDTH, 10, title, gColorFill);
+            painter.DrawStringInCenterRectC(0, y, WIDTH, 10, title, gColorFill);
         }
         y += 16;
         numPage++;
@@ -50,27 +50,27 @@ static void DrawPageContent(void)
 //----------------------------------------------------------------------------------------------------------------------------------------------------
 static void DrawPageDescription(void)
 {
-    Painter_DrawStringInCenterRect(0, 3, WIDTH, 10, currentPage->titleHint[LANG]);
-    Painter_DrawTextInRectWithTransfers(2, 15, WIDTH - 5, 240, currentPage->titleHint[2 + LANG]);
+    painter.DrawStringInCenterRect(0, 3, WIDTH, 10, currentPage->titleHint[LANG]);
+    painter.DrawTextInRectWithTransfers(2, 15, WIDTH - 5, 240, currentPage->titleHint[2 + LANG]);
 }
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
 void HelpContent_Draw(void)
 {
-    Painter_FillRegionC(grid.Right(), 0, 319 - grid.Right(), 20, gColorBack);
-    Painter_FillRegion(grid.Right(), 219, 319 - grid.Right(), 21);
-    Painter_FillRegion(1, 1, WIDTH, 237);
-    Painter_DrawRectangleC(1, 0, WIDTH + 1, 239, gColorFill);   /** \todo «десь непон€тно, почему так.  оординаты верхнего левого угла должны быть 
+    painter_FillRegionC(grid.Right(), 0, 319 - grid.Right(), 20, gColorBack);
+    painter.FillRegion(grid.Right(), 219, 319 - grid.Right(), 21);
+    painter.FillRegion(1, 1, WIDTH, 237);
+    painter_DrawRectangleC(1, 0, WIDTH + 1, 239, gColorFill);   /** \todo «десь непон€тно, почему так.  оординаты верхнего левого угла должны быть 
                                                                 0, 0, но в таком случае левой вертикальной полосы не видно */
 
     /*
     uint16 *addr1 = (uint16 *)(0x08000000 + (rand() % 65535));
     uint8 *addr2 = (uint8 *)(0x08000000 + (rand() % 65535));
 
-    Painter_SetColor(COLOR_FILL);
+    painter.SetColor(COLOR_FILL);
     for (int i = 0; i < 10000; i++)
     {
-        Painter_SetPoint((*addr1) % WIDTH, Math_LimitationInt(*addr2, 0, 239));
+        painter.SetPoint((*addr1) % WIDTH, Math_LimitationInt(*addr2, 0, 239));
         addr1++;
         addr2++;
     }
