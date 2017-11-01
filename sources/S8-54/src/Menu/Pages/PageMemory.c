@@ -188,14 +188,14 @@ void OnChanged_Points(bool active)
     // Если включен пиковый детектор, то не можем переключать память
     if (SET_PEAKDET_EN && !active)
     {
-        Display_ShowWarning(WrongModePeackDet);
+        display.ShowWarning(WrongModePeackDet);
         return;
     }
 
     // Блокируем включение 32к длины записи, если включен второй канал
     if (FPGA_POINTS_32k && SET_ENABLED_B)
     {
-        Display_ShowWarning(DisableChannel2);
+        display.ShowWarning(DisableChannel2);
         FPGA_ENUM_POINTS = FNP_16k;
     }
 
@@ -409,7 +409,7 @@ void Memory_SaveSignalToFlashDrive(void)
     {
         if (FILE_NAMING_MODE_MANUAL)
         {
-            Display_SetAddDrawFunction(DrawSetName);
+            display.SetAddDrawFunction(DrawSetName);
         }
         else
         {
@@ -747,9 +747,9 @@ static const SButton bInternal_EraseAll =
 
 static void OnPress_Internal_EraseAll(void)
 {
-    Display_FuncOnWaitStart("Стираю. Подождите", "Erase. Wait", false);
+    display.FuncOnWaitStart("Стираю. Подождите", "Erase. Wait", false);
     FLASH_DeleteAllData();
-    Display_FuncOnWaitStop();
+    display.FuncOnWaitStop();
 }
 
 static void Draw_Internal_EraseAll(int x, int y)
@@ -832,9 +832,9 @@ static const SButton bInternal_SaveToMemory =
 
 static void OnPress_Internal_SaveToMemory(void)
 {
-    Display_FuncOnWaitStart(DICT(DStoredInMemory), false);
+    display.FuncOnWaitStart(DICT(DStoredInMemory), false);
     SaveSignalToIntMemory();
-    Display_FuncOnWaitStop();
+    display.FuncOnWaitStop();
 }
 
 static void SaveSignalToIntMemory(void)
@@ -846,7 +846,7 @@ static void SaveSignalToIntMemory(void)
     if (DS)                                             // Если есть что сохранять
     {
         FLASH_SaveData(NUM_ROM_SIGNAL, DS, IN_A, IN_B);   // То сохраняем данные из DS, DATA_A, DATA_B на место NUM_ROM_SIGNAL в ППЗУ
-        Display_ShowWarning(SignalIsSaved);
+        display.ShowWarning(SignalIsSaved);
     }
 }
 
@@ -873,9 +873,9 @@ static const SButton bInternal_Delete =
 
 static void OnPress_Internal_Delete(void)
 {
-    Display_FuncOnWaitStart(DICT(DDeleteFromMemory), false);
+    display.FuncOnWaitStart(DICT(DDeleteFromMemory), false);
     FLASH_DeleteData(NUM_ROM_SIGNAL);
-    Display_FuncOnWaitStop();
+    display.FuncOnWaitStop();
 }
 
 static void Draw_Internal_Delete(int x, int y)
@@ -1039,12 +1039,12 @@ void OnPress_Drive_Manager(void)
     if (FDRIVE_IS_CONNECTED)
     {
         FDrive_Mount();
-        Display_SetDrawMode(DrawMode_Auto, FM_Draw);
+        display.SetDrawMode(DrawMode_Auto, FM_Draw);
         FM_NEED_REDRAW = FM_REDRAW_FULL;
     }
     else
     {
-        Display_ShowWarning(WarnNeedForFlashDrive);
+        display.ShowWarning(WarnNeedForFlashDrive);
     }
 }
 
@@ -1063,7 +1063,7 @@ static const SButton bDrive_Manager_Exit =
 
 static void OnPress_Drive_Manager_Exit(void)
 {
-    Display_SetDrawMode(DrawMode_Auto, 0);
+    display.SetDrawMode(DrawMode_Auto, 0);
     OnPressSB_Exit();
 }
 
@@ -1155,7 +1155,7 @@ static bool IsActive_Drive_Mask(void)
 
 static void OnPress_Drive_Mask(void)
 {
-    Display_SetAddDrawFunction(DrawSetMask);
+    display.SetAddDrawFunction(DrawSetMask);
 }
 
 static void DrawSetMask(void)

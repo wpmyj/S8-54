@@ -278,7 +278,7 @@ void ChangeTShift(int *prevTime, void(*f)(int), int16 relStep)
 }
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
-void ChangeShiftScreen(int *prevTime, void(*f)(int), int16 relStep)
+void ChangeShiftScreen(int *prevTime, int16 relStep)
 {
     int count = CalculateCount(prevTime);
     int step = relStep * count;
@@ -293,7 +293,7 @@ void ChangeShiftScreen(int *prevTime, void(*f)(int), int16 relStep)
     {
         step = 1;
     }
-    f(step);
+    display.ShiftScreen(step);
 }
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
@@ -323,7 +323,7 @@ void XShift(int delta)
     static int prevTime = 0;
     if (!FPGA_IS_RUNNING || TIME_DIVXPOS == FunctionTime_ShiftInMemory)
     {
-        ChangeShiftScreen(&prevTime, Display_ShiftScreen, (int16)(2 * delta));
+        ChangeShiftScreen(&prevTime, (int16)(2 * delta));
     }
     else
     {

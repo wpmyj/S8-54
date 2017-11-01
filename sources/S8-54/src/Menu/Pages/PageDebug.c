@@ -1153,7 +1153,7 @@ static const SButton bSettings_Exit =
 
 static void OnPress_Settings_Exit(void)
 {
-    Display_SetDrawMode(DrawMode_Auto, 0);
+    display.SetDrawMode(DrawMode_Auto, 0);
 }
 
 static void DebugShowSetInfo_Draw(void)
@@ -1227,7 +1227,7 @@ static void DebugShowSetInfo_Draw(void)
 
 static void OnPress_Settings(void)
 {
-    Display_SetDrawMode(DrawMode_Auto, DebugShowSetInfo_Draw);
+    display.SetDrawMode(DrawMode_Auto, DebugShowSetInfo_Draw);
 }
 
 static void OnChanged_Pred(void)
@@ -1316,7 +1316,7 @@ static const Choice cDisplayOrientation =
 
 void OnChanged_DisplayOrientation(bool active)
 {
-    Display_SetOrientation(DISPLAY_ORIENTATION);
+    display.SetOrientation(DISPLAY_ORIENTATION);
 }
 
 // Œ“À¿ƒ ¿ - —Ú‡ÚËÒÚËÍ‡ ------------------------------------------------------------------------------------------------------------------------------
@@ -1354,7 +1354,7 @@ static bool IsActive_SaveFirmware(void)
 
 static void OnPress_SaveFirmware(void)
 {
-    Display_FuncOnWaitStart(DICT(DSaveFirmware), false);
+    display.FuncOnWaitStart(DICT(DSaveFirmware), false);
 
     StructForWrite structForWrite;
 
@@ -1373,9 +1373,9 @@ static void OnPress_SaveFirmware(void)
 
     FDrive_CloseFile(&structForWrite);
 
-    Display_FuncOnWaitStop();
+    display.FuncOnWaitStop();
 
-    Display_ShowWarning(FirmwareSaved);
+    display.ShowWarning(FirmwareSaved);
 }
 
 // Œ“À¿ƒ ¿ - —ÚÂÂÚ¸ ‰‡ÌÌ˚Â --------------------------------------------------------------------------------------------------------------------------
@@ -1392,9 +1392,9 @@ static const Button bEraseData =
 
 static void OnPress_EraseData(void)
 {
-    Display_FuncOnWaitStart(DICT(DDeleteFromMemory), false);
+    display.FuncOnWaitStart(DICT(DDeleteFromMemory), false);
     FLASH_DeleteAllData();
-    Display_FuncOnWaitStop();
+    display.FuncOnWaitStop();
 }
 
 
@@ -1421,7 +1421,7 @@ static const Page ppSerialNumber =
 
 static void OnPress_SerialNumber(void)
 {
-    Display_SetAddDrawFunction(Draw_EnterSerialNumber);
+    display.SetAddDrawFunction(Draw_EnterSerialNumber);
     MALLOC_EXTRAMEM(StructForSN, s);
     s->number = 01;
     s->year = 2017;
@@ -1569,7 +1569,7 @@ static void OnPress_SerialNumber_Save(void)
 
     if (!OTP_SaveSerialNumber(stringSN))
     {
-        Display_ShowWarning(FullyCompletedOTP);
+        display.ShowWarning(FullyCompletedOTP);
     }
 }
 
@@ -1625,21 +1625,21 @@ void OnPressDebugDisable(void)
 //------------------------------------------------------------------------------------------------------------------------------------------------------
 void OnDegubConsoleViewChanged(bool active)
 {
-    Display_SetPauseForConsole(CONSOLE_IN_PAUSE);
+    display.SetPauseForConsole(CONSOLE_IN_PAUSE);
 }
 
 
 //------------------------------------------------------------------------------------------------------------------------------------------------------
 void OnPressDebugConsoleUp(void)
 {
-    Display_OneStringUp();
+    display.OneStringUp();
 }
 
 
 //------------------------------------------------------------------------------------------------------------------------------------------------------
 void OnPressDebugConsoleDown(void)
 {
-    Display_OneStringDown();
+    display.OneStringDown();
 }
 
         /// Œ“À¿ƒ ¿ - ¿÷œ - ƒŒœ. —Ã≈Ÿ. œ¿Ã. - ¬ÂÎË˜ËÌ‡

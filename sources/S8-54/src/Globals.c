@@ -1,5 +1,3 @@
-
-
 #include "defines.h"
 #include "Globals.h"
 #include "Display/DisplayTypes.h"

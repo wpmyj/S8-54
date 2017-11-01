@@ -160,14 +160,14 @@ static const Button bResetSettings =
 void OnPress_ResetSettings(void)
 {
     Panel_Disable();
-    Display_SetDrawMode(DrawMode_Hand, Draw_ResetSettings);
+    display.SetDrawMode(DrawMode_Hand, Draw_ResetSettings);
 
     if (Panel_WaitPressingButton() == B_Start)
     {
         Settings_Load(true);
     }
 
-    Display_SetDrawMode(DrawMode_Auto, 0);
+    display.SetDrawMode(DrawMode_Auto, 0);
     Panel_Enable();
     //Func_Start(1);
 }
@@ -454,7 +454,7 @@ static void OnPress_FFT(void)
 {
     if (!IsActive_FFT())
     {
-        Display_ShowWarning(ImpossibleEnableFFT);
+        display.ShowWarning(ImpossibleEnableFFT);
     }
 }
 
@@ -644,7 +644,7 @@ static void OnPress_Function(void)
 {
     if (FFT_ENABLED)
     {
-        Display_ShowWarning(ImpossibleEnableMathFunction);
+        display.ShowWarning(ImpossibleEnableMathFunction);
     }
 }
 
@@ -753,7 +753,7 @@ static void OnPress_Function_Screen(void)
 {
     if (FFT_ENABLED)
     {
-        Display_ShowWarning(ImpossibleEnableMathFunction);
+        display.ShowWarning(ImpossibleEnableMathFunction);
     }
     else
     {
@@ -958,7 +958,7 @@ static const Choice cEthernet_Ethernet =
 
 static void OnChanged_Ethernet_Settings(bool active)
 {
-    Display_ShowWarning(NeedRebootDevice);
+    display.ShowWarning(NeedRebootDevice);
 }
 
 // ÑÅÐÂÈÑ - ETHERNET - IP àäðåñ ----------------------------------------------------------------------------------------------------------------------
@@ -1159,7 +1159,7 @@ static const Page ppInformation =
 
 static void OnPress_Information(void)
 {
-    Display_SetDrawMode(DrawMode_Auto, Information_Draw);
+    display.SetDrawMode(DrawMode_Auto, Information_Draw);
 }
 
 static void Information_Draw(void)
@@ -1210,7 +1210,7 @@ static const SButton bInformation_Exit =
 
 static void OnPress_Information_Exit(void)
 {
-    Display_SetDrawMode(DrawMode_Auto, 0);
+    display.SetDrawMode(DrawMode_Auto, 0);
 }
 
 

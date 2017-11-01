@@ -85,5 +85,5 @@ void DrawSB_Exit(int x, int y)
 //----------------------------------------------------------------------------------------------------------------------------------------------------
 void OnPressSB_Exit(void)
 {
-    Display_RemoveAddDrawFunction();
+    display.RemoveAddDrawFunction();
 }

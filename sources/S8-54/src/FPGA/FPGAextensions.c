@@ -415,7 +415,7 @@ static void FuncAttScreen(void)
         startTime = gTimeMS;
     }
     int16 y = 10;
-    Display_Clear();
+    display.Clear();
 
     Painter_SetColor(gColorFill);
 
@@ -652,7 +652,7 @@ void FPGA_ProcedureCalibration(void)
 
     SET_ENABLED_A = SET_ENABLED_B = true;
     
-    Display_SetDrawMode(DrawMode_Hand, FuncAttScreen);
+    display.SetDrawMode(DrawMode_Hand, FuncAttScreen);
     
     cal->barA.fullTime = cal->barA.passedTime = cal->barB.fullTime = cal->barB.passedTime = 0;
     
@@ -711,7 +711,7 @@ void FPGA_ProcedureCalibration(void)
     WriteAdditionRShifts(B);
     
     Panel_Enable();
-    Display_SetDrawMode(DrawMode_Auto, 0);
+    display.SetDrawMode(DrawMode_Auto, 0);
     
     SET_ENABLED_A = chanAenable;
     SET_ENABLED_B = chanBenable;
@@ -728,7 +728,7 @@ void FPGA_BalanceChannel(Channel ch)
 
     CreateCalibrationStruct();
 
-    Display_FuncOnWaitStart(DICT(ch == A ? DBalanceChA : DBalanceChB), false);
+    display.FuncOnWaitStart(DICT(ch == A ? DBalanceChA : DBalanceChB), false);
 
     Settings storedSettings;
     Settings_SaveState(&storedSettings);
@@ -747,7 +747,7 @@ void FPGA_BalanceChannel(Channel ch)
 
     Panel_Enable();
 
-    Display_FuncOnWaitStop();
+    display.FuncOnWaitStop();
     
     FPGA_OnPressStartStop();
 
@@ -976,7 +976,7 @@ void FPGA_AutoFind(void)
     {
         if (!FindWave(B))
         {                                           // ≈сли не удалось найти сигнал, то:
-            Display_ShowWarning(SignalNotFound);    // выводим соотвествующее сообщение,
+            display.ShowWarning(SignalNotFound);    // выводим соотвествующее сообщение,
             set = p->settings;                      // восстанавливаем предыдущие настройки
             FPGA_LoadSettings();                    // и загружаем их в альтеру
         }
@@ -1143,7 +1143,7 @@ static void FuncDrawAutoFind(void)
     }
     Painter_DrawStringInCenterRect(x, y + (height - 30), width, 20, buffer);
 
-    Display_DrawConsole();
+    display.DrawConsole();
 
     Painter_EndScene();
 }

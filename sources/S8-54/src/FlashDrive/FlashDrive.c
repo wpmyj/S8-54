@@ -49,7 +49,7 @@ void USBH_UserProcess(USBH_HandleTypeDef *phost, uint8 id)
             /*
             if (f_mount(&USBDISKFatFs, (TCHAR const*)USBDISKPath, 1) != FR_OK)
             {
-                Display_ShowWarning(WrongFileSystem);
+                display.ShowWarning(WrongFileSystem);
             }
             else
             {
@@ -120,11 +120,11 @@ void FDrive_Update(void)
         uint timeStart = gTimeMS;
         NEED_MOUNT = 0;
 
-        Display_FuncOnWaitStart(DICT(DDetectFlashDrive), false);
+        display.FuncOnWaitStart(DICT(DDetectFlashDrive), false);
 
         if (f_mount(&USBDISKFatFs, (TCHAR const*)USBDISKPath, 1) != FR_OK)
         {
-            Display_ShowWarning(WrongFileSystem);
+            display.ShowWarning(WrongFileSystem);
         }
         else
         {
@@ -136,7 +136,7 @@ void FDrive_Update(void)
         {
         };
 
-        Display_FuncOnWaitStop();
+        display.FuncOnWaitStop();
     }
     else
     {

@@ -156,9 +156,6 @@
     <ClCompile Include="..\..\S8-54\src\Display\Colors.c">
       <Filter>Display</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\S8-54\src\Display\Display.c">
-      <Filter>Display</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\S8-54\src\Display\DisplayPrimitives.c">
       <Filter>Display</Filter>
     </ClCompile>
@@ -584,6 +581,9 @@
     </ClCompile>
     <ClCompile Include="..\..\STM32Cube_FW_F4\Drivers\STM32F4xx_HAL_Driver\Src\stm32f4xx_hal_gpio.c">
       <Filter>HAL</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\S8-54\src\Display\Display.cpp">
+      <Filter>Display</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

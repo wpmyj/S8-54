@@ -51,6 +51,7 @@ extern const       Governor gSettings_Levels;                   ///< ÄÈÑÏËÅÉ - Í
 extern const       Governor gSettings_Time;                     ///< ÄÈÑÏËÅÉ - ÍÀÑÒÐÎÉÊÈ - Âðåìÿ
 extern const         Choice cSettings_StringNavigation;         ///< ÄÈÑÏËÅÉ - ÍÀÑÒÐÎÉÊÈ - Ñòðîêà ìåíþ
 extern const         Choice cSettings_AltMarkers;               ///< ÄÈÑÏËÅÉ - ÍÀÑÒÐÎÉÊÈ - Äîï. ìàðêåðû
+static void        OnChanged_Settings_AltMarkers(bool active);
 extern const         Choice cSettings_AutoHide;                 ///< ÄÈÑÏËÅÉ - ÍÀÑÒÐÎÉÊÈ - Ñêðûâàòü
 static void        OnChanged_Settings_AutoHide(bool active);
 
@@ -301,7 +302,7 @@ static void OnChanged_MinMax(bool active)
 
     if (maxMeasures < numMinMax)
     {
-        Display_ShowWarningWithNumber(ExcessValues, maxMeasures);
+        display.ShowWarningWithNumber(ExcessValues, maxMeasures);
     }
     */
 }
@@ -653,8 +654,15 @@ static const Choice cSettings_AltMarkers =
         { "Ïîêàçûâàòü", "Show" },
         { "Àâòî", "Auto" }
     },
-    (int8 *)&ALT_MARKERS, Display_ChangedRShiftMarkers
+    (int8 *)&ALT_MARKERS, OnChanged_Settings_AltMarkers
 };
+
+static void OnChanged_Settings_AltMarkers(bool active)
+{
+    display.ChangedRShiftMarkers(active);
+}
+
+
 
 // ÄÈÑÏËÅÉ - ÍÀÑÒÐÎÉÊÈ - Ñêðûâàòü --------------------------------------------------------------------------------------------------------------------
 static const Choice cSettings_AutoHide =

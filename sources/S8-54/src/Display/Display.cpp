@@ -23,6 +23,9 @@
 #include "Utils/Math.h"
 #include "Utils/ProcessingSignal.h"
 
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+Display display;
+
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 #define NEED_SET_ORIENTATION    (bf.needSetOrientation)
@@ -34,9 +37,9 @@ static struct BitFieldDisplay
 
 typedef struct
 {
-    Warning      warning;
-    bool         good;
-    char * const message[2][3];
+    Warning         warning;
+    bool            good;
+    char * const    message[2][3];
 } StructWarning;
 
 
@@ -111,7 +114,7 @@ static bool drawRShiftMarkers = false;
 
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-static void SetOrientation(void);
+static void SendOrientationToDisplay(void);
 
 static bool NeedForClearScreen(void);
 
@@ -172,7 +175,7 @@ static int  CalculateCountH(void);
 
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-void Display_Init(void)
+void Display::Init(void)
 {
     /*
     Проверка функций рисования 4-х битным цветом в памяти
@@ -197,11 +200,11 @@ void Display_Init(void)
 
     Painter_LoadPalette();
 
-    SetOrientation();
+    SendOrientationToDisplay();
 }
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
-void Display_Update(void)
+void Display::Update(void)
 {
     uint timeStart = gTimerTics;
 
@@ -257,7 +260,7 @@ void Display_Update(void)
         }
     }
 
-    Display_DrawConsole();
+    Display::DrawConsole();
 
     if(needClear)
     {
@@ -272,7 +275,7 @@ void Display_Update(void)
     {
         if(Painter_SaveScreenToFlashDrive())
         {
-            Display_ShowWarning(FileIsSaved);
+            Display::ShowWarning(FileIsSaved);
         }
         NEED_SAVE_TO_FLASHDRIVE = 0;
     }
@@ -281,7 +284,7 @@ void Display_Update(void)
 }
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
-void Display_RotateRShift(Channel ch)
+void Display::RotateRShift(Channel ch)
 {
     LAST_AFFECTED_CH = ch;
     if(TIME_SHOW_LEVELS)
@@ -294,7 +297,7 @@ void Display_RotateRShift(Channel ch)
 }
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
-void Display_RotateTrigLev(void)
+void Display::RotateTrigLev(void)
 {
     if(TIME_SHOW_LEVELS && TRIG_MODE_FIND_HAND)
     {
@@ -305,13 +308,13 @@ void Display_RotateTrigLev(void)
 }
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
-void Display_EnableTrigLabel(bool enable)
+void Display::EnableTrigLabel(bool enable)
 {
     trigEnable = enable;
 }
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
-void Display_ClearFromWarnings(void)
+void Display::ClearFromWarnings(void)
 {
     Timer_Disable(kShowMessages);
     for(int i = 0; i < NUM_WARNINGS; i++)
@@ -322,7 +325,7 @@ void Display_ClearFromWarnings(void)
 }
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
-void Display_SetDrawMode(DrawMode mode, pFuncVV func)
+void Display::SetDrawMode(DrawMode mode, pFuncVV func)
 {
     funcOnHand = func;
     if (mode == DrawMode_Hand)
@@ -336,31 +339,31 @@ void Display_SetDrawMode(DrawMode mode, pFuncVV func)
 }
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
-void Display_SetAddDrawFunction(pFuncVV func)
+void Display::SetAddDrawFunction(pFuncVV func)
 {
     funcAdditionDraw = func;
 }
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
-pFuncVV Display_GetAddDrawFunction(void)
+pFuncVV Display::GetAddDrawFunction(void)
 {
     return funcAdditionDraw;
 }
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
-void Display_RemoveAddDrawFunction(void)
+void Display::RemoveAddDrawFunction(void)
 {
     funcAdditionDraw = 0;
 }
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
-void Display_Clear(void)
+void Display::Clear(void)
 {
     Painter_FillRegionC(0, 0, SCREEN_WIDTH - 1, SCREEN_HEIGHT - 2, gColorBack);
 }
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
-void Display_ShiftScreen(int delta)
+void Display::ShiftScreen(int delta)
 {
     if(PEAKDET_DS)
     {
@@ -381,14 +384,14 @@ void Display_ShiftScreen(int delta)
 }
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
-void Display_ChangedRShiftMarkers(bool active)
+void Display::ChangedRShiftMarkers(bool active)
 {
     drawRShiftMarkers = !ALT_MARKERS_HIDE;
     Timer_SetAndStartOnce(kRShiftMarkersAutoHide, OnRShiftMarkersAutoHide, 5000);
 }
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
-void Display_AddStringToIndicating(const char *string)
+void Display::AddStringToIndicating(const char *string)
 {
     if(FirstEmptyString() == MAX_NUM_STRINGS)
     {
@@ -399,7 +402,7 @@ void Display_AddStringToIndicating(const char *string)
 }
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
-void Display_OneStringUp(void)
+void Display::OneStringUp(void)
 {
     if(!CONSOLE_IN_PAUSE)
     {
@@ -411,7 +414,7 @@ void Display_OneStringUp(void)
 }
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
-void Display_OneStringDown(void)
+void Display::OneStringDown(void)
 {
     if(!CONSOLE_IN_PAUSE)
     {
@@ -423,7 +426,7 @@ void Display_OneStringDown(void)
 }
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
-void Display_SetPauseForConsole(bool pause)
+void Display::SetPauseForConsole(bool pause)
 {
     if(pause)
     {
@@ -436,14 +439,14 @@ void Display_SetPauseForConsole(bool pause)
 }
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
-void Display_SetOrientation(DisplayOrientation orientation)
+void Display::SetOrientation(DisplayOrientation orientation)
 {
     DISPLAY_ORIENTATION = orientation;
     NEED_SET_ORIENTATION = 1;
 }
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
-void Display_ShowWarning(Warning warning)
+void Display::ShowWarning(Warning warning)
 {
     Painter_ResetFlash();
     for(int i = 2; i >= 0; i--)
@@ -492,7 +495,7 @@ static bool NeedForClearScreen(void)
 }
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
-static void SetOrientation(void)
+static void SendOrientationToDisplay(void)
 {
     if(NEED_SET_ORIENTATION)
     {
@@ -1039,7 +1042,7 @@ static void DrawWarnings(void)
 }
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
-void Display_DrawConsole(void)
+void Display::DrawConsole(void)
 {
     int count = 0;
     Painter_SetFont(CONSOLE_SIZE_FONT == 5 ? TypeFont_5 : TypeFont_8);
@@ -2033,16 +2036,16 @@ static void FuncOnWait(void)
 }
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
-void Display_FuncOnWaitStart(const char *text, bool eraseBackground)
+void Display::FuncOnWaitStart(const char *text, bool eraseBackground)
 {
     timeStart = gTimeMS;
     textWait = text;
     clearBackground = eraseBackground;
-    Display_SetDrawMode(DrawMode_Hand, FuncOnWait);
+    Display::SetDrawMode(DrawMode_Hand, FuncOnWait);
 }
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
-void Display_FuncOnWaitStop(void)
+void Display::FuncOnWaitStop(void)
 {
-    Display_SetDrawMode(DrawMode_Auto, 0);
+    Display::SetDrawMode(DrawMode_Auto, 0);
 }

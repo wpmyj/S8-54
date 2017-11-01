@@ -169,7 +169,7 @@ static void OnChanged_ChanA_Resistance(bool active)
     FPGA_SetResistance(A, SET_RESISTANCE_A);
     if (SET_RESISTANCE_A == Resistance_50Om)
     {
-        Display_ShowWarning(Warn50Ohms);
+        display.ShowWarning(Warn50Ohms);
     }
 }
 
@@ -273,7 +273,7 @@ void OnChanged_ChanB_Input(bool active)
 {
     if (!active)
     {
-        Display_ShowWarning(TooLongMemory);
+        display.ShowWarning(TooLongMemory);
         return;
     }
 
@@ -347,7 +347,7 @@ static void OnChanged_ChanB_Resistance(bool active)
     FPGA_SetResistance(B, SET_RESISTANCE_B);
     if (SET_RESISTANCE_B == Resistance_50Om)
     {
-        Display_ShowWarning(Warn50Ohms);
+        display.ShowWarning(Warn50Ohms);
     }
 }
 

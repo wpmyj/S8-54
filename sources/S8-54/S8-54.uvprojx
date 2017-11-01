@@ -1024,11 +1024,6 @@
               <FilePath>.\src\Display\Colors.h</FilePath>
             </File>
             <File>
-              <FileName>Display.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\src\Display\Display.c</FilePath>
-            </File>
-            <File>
               <FileName>Display.h</FileName>
               <FileType>5</FileType>
               <FilePath>.\src\Display\Display.h</FilePath>
@@ -1127,6 +1122,11 @@
               <FileName>PainterData.h</FileName>
               <FileType>5</FileType>
               <FilePath>.\src\Display\PainterData.h</FilePath>
+            </File>
+            <File>
+              <FileName>Display.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\src\Display\Display.cpp</FilePath>
             </File>
           </Files>
         </Group>

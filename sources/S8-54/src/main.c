@@ -28,7 +28,7 @@ int main(void)
     Settings_Load(false);
     FPGA_Init();
     FPGA_OnPressStartStop();
-    Display_Init();
+    display.Init();
     Ethernet_Init();
     Menu_Init();
     
@@ -40,7 +40,7 @@ int main(void)
         FPGA_Update();                  // Обновляем аппаратную часть.
         Panel_Update();                 // Обрабатываем панель
         Menu_UpdateInput();             // Обновляем состояние меню
-        Display_Update();               // Рисуем экран.
+        display.Update();               // Рисуем экран.
         Panel_DisableIfNessessary();    // Выключаем, если необходимо
     }
 }

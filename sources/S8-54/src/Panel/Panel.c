@@ -437,7 +437,7 @@ void Panel_EnableLEDTrig(bool enable)
     {
         enabled = enable;
         Panel_TransmitData(enable ? LED_TRIG_ENABLE : LED_TRIG_DISABLE);
-        Display_EnableTrigLabel(enable);
+        display.EnableTrigLabel(enable);
     }
 }
 
