@@ -21,110 +21,110 @@
 extern Page mainPage;
 extern void LoadTShift(void);
 
-static const     Page ppConsole;                            ///< ÎÒËÀÄÊÀ - ÊÎÍÑÎËÜ
-static const  Governor gConsole_NumStrings;                 ///< ÎÒËÀÄÊÀ - ÊÎÍÑÎËÜ - Ðàçìåð øðèôòà
-static const    Choice cConsole_SizeFont;                   ///< ÎÒËÀÄÊÀ - ÊÎÍÑÎËÜ - Ðàçìåð øðèôòà
-static const    Choice cConsole_ModeStop;                   ///< ÎÒËÀÄÊÀ - ÊÎÍÑÎËÜ - Ðåæ. îñòàíîâà
-static const    Page pppConsole_Registers;                  ///< ÎÒËÀÄÊÀ - ÊÎÍÑÎËÜ - ÐÅÃÈÑÒÐÛ
-static const    Choice cConsole_Registers_ShowAll;          ///< ÎÒËÀÄÊÀ - ÊÎÍÑÎËÜ - ÐÅÃÈÑÒÐÛ - Ïîêàçûâàòü âñå
-static const    Choice cConsole_Registers_RD_FL;            ///< ÎÒËÀÄÊÀ - ÊÎÍÑÎËÜ - ÐÅÃÈÑÒÐÛ - RD_FL
+extern const     Page ppConsole;                            ///< ÎÒËÀÄÊÀ - ÊÎÍÑÎËÜ
+extern const  Governor gConsole_NumStrings;                 ///< ÎÒËÀÄÊÀ - ÊÎÍÑÎËÜ - Ðàçìåð øðèôòà
+extern const    Choice cConsole_SizeFont;                   ///< ÎÒËÀÄÊÀ - ÊÎÍÑÎËÜ - Ðàçìåð øðèôòà
+extern const    Choice cConsole_ModeStop;                   ///< ÎÒËÀÄÊÀ - ÊÎÍÑÎËÜ - Ðåæ. îñòàíîâà
+extern const    Page pppConsole_Registers;                  ///< ÎÒËÀÄÊÀ - ÊÎÍÑÎËÜ - ÐÅÃÈÑÒÐÛ
+extern const    Choice cConsole_Registers_ShowAll;          ///< ÎÒËÀÄÊÀ - ÊÎÍÑÎËÜ - ÐÅÃÈÑÒÐÛ - Ïîêàçûâàòü âñå
+extern const    Choice cConsole_Registers_RD_FL;            ///< ÎÒËÀÄÊÀ - ÊÎÍÑÎËÜ - ÐÅÃÈÑÒÐÛ - RD_FL
 static bool    IsActive_Console_Registers(void);
-static const    Choice cConsole_Registers_RShiftA;          ///< ÎÒËÀÄÊÀ - ÊÎÍÑÎËÜ - ÐÅÃÈÑÒÐÛ - U ñì. 1ê
-static const    Choice cConsole_Registers_RShiftB;          ///< ÎÒËÀÄÊÀ - ÊÎÍÑÎËÜ - ÐÅÃÈÑÒÐÛ - U ñì. 2ê
-static const    Choice cConsole_Registers_TrigLev;          ///< ÎÒËÀÄÊÀ - ÊÎÍÑÎËÜ - ÐÅÃÈÑÒÐÛ - U ñèíõð.
-static const    Choice cConsole_Registers_RangeA;           ///< ÎÒËÀÄÊÀ - ÊÎÍÑÎËÜ - ÐÅÃÈÑÒÐÛ - ÂÎËÜÒ/ÄÅË 1
-static const    Choice cConsole_Registers_RangeB;           ///< ÎÒËÀÄÊÀ - ÊÎÍÑÎËÜ - ÐÅÃÈÑÒÐÛ - ÂÎËÜÒ/ÄÅË 2
-static const    Choice cConsole_Registers_TrigParam;        ///< ÎÒËÀÄÊÀ - ÊÎÍÑÎËÜ - ÐÅÃÈÑÒÐÛ - Ïàðàì. ñèíõð.
-static const    Choice cConsole_Registers_ChanParamA;       ///< ÎÒËÀÄÊÀ - ÊÎÍÑÎËÜ - ÐÅÃÈÑÒÐÛ - Ïàðàì. êàí. 2
-static const    Choice cConsole_Registers_ChanParamB;       ///< ÎÒËÀÄÊÀ - ÊÎÍÑÎËÜ - ÐÅÃÈÑÒÐÛ - Ïàðàì. êàí. 2
-static const    Choice cConsole_Registers_TBase;            ///< ÎÒËÀÄÊÀ - ÊÎÍÑÎËÜ - ÐÅÃÈÑÒÐÛ - ÂÐÅÌß/ÄÅË
-static const    Choice cConsole_Registers_TShift;           ///< ÎÒËÀÄÊÀ - ÊÎÍÑÎËÜ - ÐÅÃÈÑÒÐÛ - Ò ñì.
-static const    Button bConsole_SizeSettings;               ///< ÎÒËÀÄÊÀ - ÊÎÍÑÎËÜ - Ðàçìåð íàñòðîåê
+extern const    Choice cConsole_Registers_RShiftA;          ///< ÎÒËÀÄÊÀ - ÊÎÍÑÎËÜ - ÐÅÃÈÑÒÐÛ - U ñì. 1ê
+extern const    Choice cConsole_Registers_RShiftB;          ///< ÎÒËÀÄÊÀ - ÊÎÍÑÎËÜ - ÐÅÃÈÑÒÐÛ - U ñì. 2ê
+extern const    Choice cConsole_Registers_TrigLev;          ///< ÎÒËÀÄÊÀ - ÊÎÍÑÎËÜ - ÐÅÃÈÑÒÐÛ - U ñèíõð.
+extern const    Choice cConsole_Registers_RangeA;           ///< ÎÒËÀÄÊÀ - ÊÎÍÑÎËÜ - ÐÅÃÈÑÒÐÛ - ÂÎËÜÒ/ÄÅË 1
+extern const    Choice cConsole_Registers_RangeB;           ///< ÎÒËÀÄÊÀ - ÊÎÍÑÎËÜ - ÐÅÃÈÑÒÐÛ - ÂÎËÜÒ/ÄÅË 2
+extern const    Choice cConsole_Registers_TrigParam;        ///< ÎÒËÀÄÊÀ - ÊÎÍÑÎËÜ - ÐÅÃÈÑÒÐÛ - Ïàðàì. ñèíõð.
+extern const    Choice cConsole_Registers_ChanParamA;       ///< ÎÒËÀÄÊÀ - ÊÎÍÑÎËÜ - ÐÅÃÈÑÒÐÛ - Ïàðàì. êàí. 2
+extern const    Choice cConsole_Registers_ChanParamB;       ///< ÎÒËÀÄÊÀ - ÊÎÍÑÎËÜ - ÐÅÃÈÑÒÐÛ - Ïàðàì. êàí. 2
+extern const    Choice cConsole_Registers_TBase;            ///< ÎÒËÀÄÊÀ - ÊÎÍÑÎËÜ - ÐÅÃÈÑÒÐÛ - ÂÐÅÌß/ÄÅË
+extern const    Choice cConsole_Registers_TShift;           ///< ÎÒËÀÄÊÀ - ÊÎÍÑÎËÜ - ÐÅÃÈÑÒÐÛ - Ò ñì.
+extern const    Button bConsole_SizeSettings;               ///< ÎÒËÀÄÊÀ - ÊÎÍÑÎËÜ - Ðàçìåð íàñòðîåê
 static void        Draw_Console_SizeSettings(int x, int y); 
-static const     Page ppADC;                                ///< ÎÒËÀÄÊÀ - ÀÖÏ
-static const    Page pppADC_Balance;                        ///< ÎÒËÀÄÊÀ - ÀÖÏ - ÁÀËÀÍÑ
-static const    Choice cADC_Balance_Mode;                   ///< ÎÒËÀÄÊÀ - ÀÖÏ - ÁÀËÀÍÑ - Ðåæèì
+extern const     Page ppADC;                                ///< ÎÒËÀÄÊÀ - ÀÖÏ
+extern const    Page pppADC_Balance;                        ///< ÎÒËÀÄÊÀ - ÀÖÏ - ÁÀËÀÍÑ
+extern const    Choice cADC_Balance_Mode;                   ///< ÎÒËÀÄÊÀ - ÀÖÏ - ÁÀËÀÍÑ - Ðåæèì
 static void   OnChanged_ADC_Balance_Mode(bool active);
 static void        Draw_ADC_Balance_Mode(int x, int y);
-static const  Governor gADC_Balance_ShiftA;                 ///< ÎÒËÀÄÊÀ - ÀÖÏ - ÁÀËÀÍÑ - Ñìåùåíèå 1
+extern const  Governor gADC_Balance_ShiftA;                 ///< ÎÒËÀÄÊÀ - ÀÖÏ - ÁÀËÀÍÑ - Ñìåùåíèå 1
 static bool    IsActive_ADC_Balance_ShiftAB(void);
 static void   OnChanged_ADC_Balance_ShiftA(void);
-static const  Governor gADC_Balance_ShiftB;                 ///< ÎÒËÀÄÊÀ - ÀÖÏ - ÁÀËÀÍÑ - Ñìåùåíèå 2 
+extern const  Governor gADC_Balance_ShiftB;                 ///< ÎÒËÀÄÊÀ - ÀÖÏ - ÁÀËÀÍÑ - Ñìåùåíèå 2 
 static void   OnChanged_ADC_Balance_ShiftB(void);
-static const    Page pppADC_Stretch;                        ///< ÎÒËÀÄÊÀ - ÀÖÏ - ÐÀÑÒßÆÊÀ
-static const    Choice cADC_Stretch_Mode;                   ///< ÎÒËÀÄÊÀ - ÀÖÏ - ÐÀÑÒßÆÊÀ - Ðåæèì
+extern const    Page pppADC_Stretch;                        ///< ÎÒËÀÄÊÀ - ÀÖÏ - ÐÀÑÒßÆÊÀ
+extern const    Choice cADC_Stretch_Mode;                   ///< ÎÒËÀÄÊÀ - ÀÖÏ - ÐÀÑÒßÆÊÀ - Ðåæèì
        void   OnChanged_ADC_Stretch_Mode(bool active);
-static const  Governor gADC_Stretch_A;                      ///< ÎÒËÀÄÊÀ - ÀÖÏ - ÐÀÑÒßÆÊÀ - Ðàñòÿæêà 1ê
+extern const  Governor gADC_Stretch_A;                      ///< ÎÒËÀÄÊÀ - ÀÖÏ - ÐÀÑÒßÆÊÀ - Ðàñòÿæêà 1ê
 static bool    IsActive_ADC_StretchAB(void);
 static void   OnChanged_ADC_Stretch_A(void);
-static const  Governor gADC_Stretch_B;                      ///< ÎÒËÀÄÊÀ - ÀÖÏ - ÐÀÑÒßÆÊÀ - Ðàñòÿæêà 2ê
+extern const  Governor gADC_Stretch_B;                      ///< ÎÒËÀÄÊÀ - ÀÖÏ - ÐÀÑÒßÆÊÀ - Ðàñòÿæêà 2ê
 static void   OnChanged_ADC_Stretch_B(void);
-static const  Governor gADC_Stretch_Ak20mV;                 ///< ÎÒËÀÄÊÀ - ÀÖÏ - ÐÀÑÒßÆÊÀ - 20ìÂ/1Â 1ê
-static const  Governor gADC_Stretch_Ak50mV;                 ///< ÎÒËÀÄÊÀ - ÀÖÏ - ÐÀÑÒßÆÊÀ - 50ìÂ 1ê 
-static const  Governor gADC_Stretch_Ak100mV;                ///< ÎÒËÀÄÊÀ - ÀÖÏ - ÐÀÑÒßÆÊÀ - 100ìÂ/5Â 1ê
-static const  Governor gADC_Stretch_Ak2V;                   ///< ÎÒËÀÄÊÀ - AÖÏ - ÐÀÑÒßÆÊÀ - 2Â 1ê
-static const  Governor gADC_Stretch_Bk20mV;                 ///< ÎÒËÀÄÊÀ - ÀÖÏ - ÐÀÑÒßÆÊÀ - 20ìÂ/1Â 2ê
-static const  Governor gADC_Stretch_Bk50mV;                 ///< ÎÒËÀÄÊÀ - ÀÖÏ - ÐÀÑÒßÆÊÀ - 50ìÂ 2ê 
-static const  Governor gADC_Stretch_Bk100mV;                ///< ÎÒËÀÄÊÀ - ÀÖÏ - ÐÀÑÒßÆÊÀ - 100ìÂ/5Â 2ê
-static const  Governor gADC_Stretch_Bk2V;                   ///< ÎÒËÀÄÊÀ - ÀÖÏ - ÐÀÑÒßÆÊÀ - 2Â 2ê
-static const    Page pppADC_Shift;                          ///< ÎÒËÀÄÊÀ - ÀÖÏ - ÄÎÏ ÑÌÅÙ
-static const    Button bADC_Shift_Reset;                    ///< ÎÒËÀÄÊÀ - ÀÖÏ - ÄÎÏ ÑÌÅÙ - Ñáðîñ
+extern const  Governor gADC_Stretch_Ak20mV;                 ///< ÎÒËÀÄÊÀ - ÀÖÏ - ÐÀÑÒßÆÊÀ - 20ìÂ/1Â 1ê
+extern const  Governor gADC_Stretch_Ak50mV;                 ///< ÎÒËÀÄÊÀ - ÀÖÏ - ÐÀÑÒßÆÊÀ - 50ìÂ 1ê 
+extern const  Governor gADC_Stretch_Ak100mV;                ///< ÎÒËÀÄÊÀ - ÀÖÏ - ÐÀÑÒßÆÊÀ - 100ìÂ/5Â 1ê
+extern const  Governor gADC_Stretch_Ak2V;                   ///< ÎÒËÀÄÊÀ - AÖÏ - ÐÀÑÒßÆÊÀ - 2Â 1ê
+extern const  Governor gADC_Stretch_Bk20mV;                 ///< ÎÒËÀÄÊÀ - ÀÖÏ - ÐÀÑÒßÆÊÀ - 20ìÂ/1Â 2ê
+extern const  Governor gADC_Stretch_Bk50mV;                 ///< ÎÒËÀÄÊÀ - ÀÖÏ - ÐÀÑÒßÆÊÀ - 50ìÂ 2ê 
+extern const  Governor gADC_Stretch_Bk100mV;                ///< ÎÒËÀÄÊÀ - ÀÖÏ - ÐÀÑÒßÆÊÀ - 100ìÂ/5Â 2ê
+extern const  Governor gADC_Stretch_Bk2V;                   ///< ÎÒËÀÄÊÀ - ÀÖÏ - ÐÀÑÒßÆÊÀ - 2Â 2ê
+extern const    Page pppADC_Shift;                          ///< ÎÒËÀÄÊÀ - ÀÖÏ - ÄÎÏ ÑÌÅÙ
+extern const    Button bADC_Shift_Reset;                    ///< ÎÒËÀÄÊÀ - ÀÖÏ - ÄÎÏ ÑÌÅÙ - Ñáðîñ
 static void     OnPress_ADC_Shift_Reset(void);
-static const  Governor gADC_Shift_A2mV;                     ///< ÎÒËÀÄÊÀ - ÀÖÏ - ÄÎÏ ÑÌÅÙ - Ñì 1ê 2ìÂ ïîñò
+extern const  Governor gADC_Shift_A2mV;                     ///< ÎÒËÀÄÊÀ - ÀÖÏ - ÄÎÏ ÑÌÅÙ - Ñì 1ê 2ìÂ ïîñò
 static void   OnChanged_ADC_Shift_A(void);
-static const  Governor gADC_Shift_B2mV;                     ///< ÎÒËÀÄÊÀ - ÀÖÏ - ÄÎÏ ÑÌÅÙ - Ñì 2ê 2ìÂ ïîñò
+extern const  Governor gADC_Shift_B2mV;                     ///< ÎÒËÀÄÊÀ - ÀÖÏ - ÄÎÏ ÑÌÅÙ - Ñì 2ê 2ìÂ ïîñò
 static void   OnChanged_ADC_Shift_B(void);
-static const  Governor gADC_Shift_A5mV;                     ///< ÎÒËÀÄÊÀ - ÀÖÏ - ÄÎÏ ÑÌÅÙ - Ñì 1ê 5ìÂ ïîñò
-static const  Governor gADC_Shift_B5mV;                     ///< ÎÒËÀÄÊÀ - ÀÖÏ - ÄÎÏ ÑÌÅÙ - Ñì 2ê 5ìÂ ïîñò
-static const  Governor gADC_Shift_A10mV;                    ///< ÎÒËÀÄÊÀ - ÀÖÏ - ÄÎÏ ÑÌÅÙ - Ñì 1ê 10ìÂ ïîñò
-static const  Governor gADC_Shift_B10mV;                    ///< ÎÒËÀÄÊÀ - ÀÖÏ - ÄÎÏ ÑÌÅÙ - Ñì 2ê 10ìÂ ïîñò
-static const     Page ppRand;                               ///< ÎÒËÀÄÊÀ - ÐÀÍÄ-ÒÎÐ
-static const  Governor gRand_NumMeasures;                   ///< ÎÒËÀÄÊÀ - ÐÀÍÄ-ÒÎÐ - Âûá-ê/âîðîòà
+extern const  Governor gADC_Shift_A5mV;                     ///< ÎÒËÀÄÊÀ - ÀÖÏ - ÄÎÏ ÑÌÅÙ - Ñì 1ê 5ìÂ ïîñò
+extern const  Governor gADC_Shift_B5mV;                     ///< ÎÒËÀÄÊÀ - ÀÖÏ - ÄÎÏ ÑÌÅÙ - Ñì 2ê 5ìÂ ïîñò
+extern const  Governor gADC_Shift_A10mV;                    ///< ÎÒËÀÄÊÀ - ÀÖÏ - ÄÎÏ ÑÌÅÙ - Ñì 1ê 10ìÂ ïîñò
+extern const  Governor gADC_Shift_B10mV;                    ///< ÎÒËÀÄÊÀ - ÀÖÏ - ÄÎÏ ÑÌÅÙ - Ñì 2ê 10ìÂ ïîñò
+extern const     Page ppRand;                               ///< ÎÒËÀÄÊÀ - ÐÀÍÄ-ÒÎÐ
+extern const  Governor gRand_NumMeasures;                   ///< ÎÒËÀÄÊÀ - ÐÀÍÄ-ÒÎÐ - Âûá-ê/âîðîòà
 static void   OnChanged_Rand_NumMeasures(void);
-static const  Governor gRand_NumAverage;                    ///< ÎÒËÀÄÊÀ - ÐÀÍÄ-ÒÎÐ - Óñðåäí.
-static const  Governor gRand_NumSmooth;                     ///< ÎÒËÀÄÊÀ - ÐÀÍÄ-ÒÎÐ - Ñãëàæèâàíèå
-static const    Choice cRand_ShowInfo;                      ///< ÎÒËÀÄÊÀ - ÐÀÍÄ-ÒÎÐ - Èíôîðìàöèÿ
-static const    Choice gRand_ShowStat;                      ///< ÎÒËÀÄÊÀ - ÐÀÍÄ-ÒÎÐ - Ñòàòèñòèêà
-static const  Governor gRand_TimeCompensation;              ///< ÎÒËÀÄÊÀ - ÐÀÍÄ-ÒÎÐ - Êîìïåíñàöèÿ çàäåðæêè
+extern const  Governor gRand_NumAverage;                    ///< ÎÒËÀÄÊÀ - ÐÀÍÄ-ÒÎÐ - Óñðåäí.
+extern const  Governor gRand_NumSmooth;                     ///< ÎÒËÀÄÊÀ - ÐÀÍÄ-ÒÎÐ - Ñãëàæèâàíèå
+extern const    Choice cRand_ShowInfo;                      ///< ÎÒËÀÄÊÀ - ÐÀÍÄ-ÒÎÐ - Èíôîðìàöèÿ
+extern const    Choice gRand_ShowStat;                      ///< ÎÒËÀÄÊÀ - ÐÀÍÄ-ÒÎÐ - Ñòàòèñòèêà
+extern const  Governor gRand_TimeCompensation;              ///< ÎÒËÀÄÊÀ - ÐÀÍÄ-ÒÎÐ - Êîìïåíñàöèÿ çàäåðæêè
 static void   OnChanged_Rand_TimeCompensation(void);
-static const  Governor gRand_AddTimeShift;                  ///< ÎÒËÀÄÊÀ - ÐÀÍÄ-ÒÎÐ - Ñìåùåíèå
+extern const  Governor gRand_AddTimeShift;                  ///< ÎÒËÀÄÊÀ - ÐÀÍÄ-ÒÎÐ - Ñìåùåíèå
 static void   OnChanged_Rand_AddTimeShift(void);
-static const  Governor gRand_Pretriggered;                  ///< ÎÒËÀÄÊÀ - ÐÀÍÄ-ÒÎÐ - Ïðåäçàïóñê
+extern const  Governor gRand_Pretriggered;                  ///< ÎÒËÀÄÊÀ - ÐÀÍÄ-ÒÎÐ - Ïðåäçàïóñê
 static void   OnChanged_Rand_Pretriggered(void);
-static const     Page ppChannels;                           ///< ÎÒËÀÄÊÀ - ÊÀÍÀËÛ
-static const    Choice cChannels_BandwidthA;                ///< ÎÒËÀÄÊÀ - ÊÀÍÀËÛ - Ïîëîñà 1
+extern const     Page ppChannels;                           ///< ÎÒËÀÄÊÀ - ÊÀÍÀËÛ
+extern const    Choice cChannels_BandwidthA;                ///< ÎÒËÀÄÊÀ - ÊÀÍÀËÛ - Ïîëîñà 1
 static void   OnChanged_Channels_BandwidthA(bool active);
-static const    Choice cChannels_BandwidthB;                ///< ÎÒËÀÄÊÀ - ÊÀÍÀËÛ - Ïîëîñà 2
+extern const    Choice cChannels_BandwidthB;                ///< ÎÒËÀÄÊÀ - ÊÀÍÀËÛ - Ïîëîñà 2
 static void   OnChanged_Channels_BandwidthB(bool active);
-static const    Choice cStats;                              ///< ÎÒËÀÄÊÀ - Ñòàòèñòèêà
-static const    Choice cDisplayOrientation;                 ///< ÎÒËÀÄÊÀ - Îðèåíòàöèÿ
+extern const    Choice cStats;                              ///< ÎÒËÀÄÊÀ - Ñòàòèñòèêà
+extern const    Choice cDisplayOrientation;                 ///< ÎÒËÀÄÊÀ - Îðèåíòàöèÿ
        void   OnChanged_DisplayOrientation(bool);
-static const    Choice cEMS;                                ///< ÎÒËÀÄÊÀ - Ðåæèì ÝÌÑ
+extern const    Choice cEMS;                                ///< ÎÒËÀÄÊÀ - Ðåæèì ÝÌÑ
 static void   OnChanged_EMS(bool);
-static const Governor mgPred;                               ///< ÎÒËÀÄÊÀ - Ïðåäçàïóñê
+extern const Governor mgPred;                               ///< ÎÒËÀÄÊÀ - Ïðåäçàïóñê
 static void   OnChanged_Pred(void);
-static const Governor mgPost;                               ///< ÎÒËÀÄÊÀ - Ïîñëåçàïóñê
+extern const Governor mgPost;                               ///< ÎÒËÀÄÊÀ - Ïîñëåçàïóñê
 static void   OnChanged_Post(void);
-static const     Page ppSettings;                           ///< ÎÒËÀÄÊÀ - ÍÀÑÒÐÎÉÊÈ
+extern const     Page ppSettings;                           ///< ÎÒËÀÄÊÀ - ÍÀÑÒÐÎÉÊÈ
 static void     OnPress_Settings(void);
-static const   SButton bSettings_Exit;                      ///< ÎÒËÀÄÊÀ - ÍÀÑÒÐÎÉÊÈ - Âûõîä
+extern const   SButton bSettings_Exit;                      ///< ÎÒËÀÄÊÀ - ÍÀÑÒÐÎÉÊÈ - Âûõîä
 static void     OnPress_Settings_Exit(void);
-static const    Button bSaveFirmware;                       ///< ÎÒËÀÄÊÀ - Ñîõð. ïðîøèâêó
+extern const    Button bSaveFirmware;                       ///< ÎÒËÀÄÊÀ - Ñîõð. ïðîøèâêó
 static bool    IsActive_SaveFirmware(void);
 static void     OnPress_SaveFirmware(void);
-static const     Page ppSerialNumber;                       ///< ÎÒËÀÄÊÀ - Ñ/Í
+extern const     Page ppSerialNumber;                       ///< ÎÒËÀÄÊÀ - Ñ/Í
 static void     OnPress_SerialNumber(void);
 static void        Draw_EnterSerialNumber(void);
 static void    OnRegSet_SerialNumber(int);
-static const   SButton bSerialNumber_Exit;                  ///< ÎÒËÀÄÊÀ - Ñ/Í - Âûõîä
+extern const   SButton bSerialNumber_Exit;                  ///< ÎÒËÀÄÊÀ - Ñ/Í - Âûõîä
 static void     OnPress_SerialNumber_Exit(void);
-static const   SButton bSerialNumber_Change;                ///< ÎÒËÀÄÊÀ - Ñ/Í - Ïåðåéòè
+extern const   SButton bSerialNumber_Change;                ///< ÎÒËÀÄÊÀ - Ñ/Í - Ïåðåéòè
 static void     OnPress_SerialNumber_Change(void);
 static void        Draw_SerialNumber_Change(int, int);
-static const   SButton bSerialNumber_Save;                  ///< ÎÒËÀÄÊÀ - Ñ/Í - Ñîõðàíèòü
+extern const   SButton bSerialNumber_Save;                  ///< ÎÒËÀÄÊÀ - Ñ/Í - Ñîõðàíèòü
 static void     OnPress_SerialNumber_Save(void);
 static void        Draw_SerialNumber_Save(int, int);
-static const    Button bEraseData;                          ///< ÎÒËÀÄÊÀ - Ñòåðåòü äàííûå
+extern const    Button bEraseData;                          ///< ÎÒËÀÄÊÀ - Ñòåðåòü äàííûå
 static void     OnPress_EraseData(void);
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -579,7 +579,7 @@ static void OnChanged_ADC_Balance_ShiftB(void)
     NRST_BALANCE_ADC_B = shiftADCB;
 }
 
-static const Choice emptyChoice;
+static const Choice emptyChoice = {Item_Choice};
 
 // ÎÒËÀÄÊÀ - ÀÖÏ - ÐÀÑÒßÆÊÀ //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 static const Page pppADC_Stretch =
