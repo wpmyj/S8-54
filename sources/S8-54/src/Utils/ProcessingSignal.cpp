@@ -1521,7 +1521,7 @@ static void LinearInterpolation(uint8 *data, int numPoints)
         return;
     }
 
-    FillArrayUINT8(data, data[index], index);                      // И заполняем все первые пустые элементы этим значением
+    FillArrayUINT8(data, AVE_VALUE, index);                      // И заполняем все первые пустые элементы этим значением
     
     int iFirst = index;
     int iSecond = -1;
@@ -1530,7 +1530,7 @@ static void LinearInterpolation(uint8 *data, int numPoints)
     {
         if (!IndexNextPoint(data, numPoints, iFirst, &iSecond))    // Находим следующую непустую точку
         {                                                          // И если не нашли
-            FillArrayUINT8(&data[iFirst], data[iFirst], numPoints - iFirst);    // То заполняем последние точки последними непустыми значениями
+            FillArrayUINT8(&data[iFirst], AVE_VALUE, numPoints - iFirst);    // То заполняем последние точки последними непустыми значениями
             return;                                                             // И выходим
         }
         if (iSecond == iFirst + 1)                  // Если следующая точка находится сразу после первой
