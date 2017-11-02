@@ -970,8 +970,6 @@ static void DrawCursorTShift(void)
     int gridLeft = grid.Left();
     int gridRight = grid.Right();
 
-    //LOG_WRITE("left = %d, first = %d, last = %d, width = %d, scale = %f", gridLeft, FIRST_POINT, LAST_POINT, grid.Width(), scale);
-
     int x = gridLeft + (int)(shiftTPos * scale) - 3;
     if(IntInRange(x + 3, gridLeft, gridRight + 1))
     {
