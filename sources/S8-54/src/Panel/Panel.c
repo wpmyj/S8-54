@@ -241,7 +241,7 @@ bool Panel_ProcessingCommandFromPIC(uint16 command)
             return true;
         }
 
-        PainterData_InterruptDrawing();
+        painterData.InterruptDrawing();
 
         PANEL_CONTROL_RECEIVE = 1;
 

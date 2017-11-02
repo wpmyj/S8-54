@@ -12,12 +12,19 @@
  */
 
 
-/// Отрисовка сигнала на основном экране.
-void PainterData_DrawData(void);
-/// Прервать процесс рисования
-void PainterData_InterruptDrawing(void);
-/// Нарисовать результат математической функции
-void PainterData_DrawMath(void);
+class PainterData
+{
+public:
+    /// Отрисовка сигнала на основном экране.
+    void DrawData(void);
+    /// Прервать процесс рисования
+    void InterruptDrawing(void);
+    /// Нарисовать результат математической функции
+    void DrawMath(void);
+};
+
+
+extern PainterData painterData;
 
 
 /** @}  @}

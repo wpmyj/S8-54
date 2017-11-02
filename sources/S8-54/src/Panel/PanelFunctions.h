@@ -1,5 +1,3 @@
-
-
 #include "Globals.h"
 #include "FPGA/FPGA.h"
 #include "Hardware/Sound.h"

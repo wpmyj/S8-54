@@ -525,9 +525,6 @@
     <ClCompile Include="..\..\S8-54\src\Menu\Pages\PageService.c">
       <Filter>Menu\Pages</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\S8-54\src\Display\PainterData.c">
-      <Filter>Display</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\S8-54\src\Utils\Dictionary.c">
       <Filter>Utils</Filter>
     </ClCompile>
@@ -583,6 +580,9 @@
       <Filter>Display</Filter>
     </ClCompile>
     <ClCompile Include="..\..\S8-54\src\Display\PainterText.cpp">
+      <Filter>Display</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\S8-54\src\Display\PainterData.cpp">
       <Filter>Display</Filter>
     </ClCompile>
   </ItemGroup>

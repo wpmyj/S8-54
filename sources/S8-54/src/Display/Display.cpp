@@ -224,11 +224,11 @@ void Display::Update(void)
         DrawFullGrid();
     }
 
-    PainterData_DrawData();
+    painterData.DrawData();
 
     if(needClear)
     {
-        PainterData_DrawMath();
+        painterData.DrawMath();
         DrawSpectrum();
         DrawCursors();
         DrawHiPart();

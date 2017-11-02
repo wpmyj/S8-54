@@ -1089,11 +1089,6 @@
               <FilePath>.\src\Display\WelcomeScreen.h</FilePath>
             </File>
             <File>
-              <FileName>PainterData.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\src\Display\PainterData.c</FilePath>
-            </File>
-            <File>
               <FileName>PainterData.h</FileName>
               <FileType>5</FileType>
               <FilePath>.\src\Display\PainterData.h</FilePath>
@@ -1117,6 +1112,11 @@
               <FileName>PainterText.cpp</FileName>
               <FileType>8</FileType>
               <FilePath>.\src\Display\PainterText.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>PainterData.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\src\Display\PainterData.cpp</FilePath>
             </File>
           </Files>
         </Group>
