@@ -518,8 +518,8 @@ static bool ReadRandomizeModeSave(bool first, bool last, bool onlySave)
         
         if (START_MODE_SINGLE || SAMPLE_TYPE_IS_REAL)
         {
-            Processing_InterpolationSinX_X(dataRandA, bytesInChannel, tBase);
-            Processing_InterpolationSinX_X(dataRandB, bytesInChannel, tBase);
+            processing.InterpolationSinX_X(dataRandA, bytesInChannel, tBase);
+            processing.InterpolationSinX_X(dataRandB, bytesInChannel, tBase);
         }
     }
 

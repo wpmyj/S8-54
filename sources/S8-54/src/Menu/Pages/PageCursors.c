@@ -673,24 +673,24 @@ void CursorsUpdate(void)
 
     if(CURS_ACTIVE_T && (CURS_LOOK_U(0) || CURS_LOOK_BOTH(0)))
     {
-        float posU0 = Processing_GetCursU(source, CURsT_POS(source, 0));
+        float posU0 = processing.GetCursU(source, CURsT_POS(source, 0));
         SetCursPosU(source, 0, posU0);
     }
     if(CURS_ACTIVE_T && (CURS_LOOK_U(1) || CURS_LOOK_BOTH(1)))
     {
-        float posU1 = Processing_GetCursU(source, CURsT_POS(source, 1));
+        float posU1 = processing.GetCursU(source, CURsT_POS(source, 1));
         SetCursPosU(source, 1, posU1);
     }
     if(CURS_ACTIVE_U && (CURS_LOOK_T(0) || CURS_LOOK_BOTH(0)))
     {
         float posU0 = CURsU_POS(source, 0);
-        posT0 = Processing_GetCursT(source, posU0, 0);
+        posT0 = processing.GetCursT(source, posU0, 0);
         SetCursPosT(source, 0, posT0);
     }
     if(CURS_ACTIVE_U && (CURS_LOOK_T(1) || CURS_LOOK_BOTH(1)))
     {
         float posU1 = CURsU_POS(source, 1);
-        posT1 = Processing_GetCursT(source, posU1, 1);
+        posT1 = processing.GetCursT(source, posU1, 1);
         SetCursPosT(source, 1, posT1);
     }
 }

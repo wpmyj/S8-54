@@ -111,7 +111,7 @@ void Data_ReadFromRAM(int fromEnd, StructDataDrawing *dataStruct, bool forMemory
         {
             DS = &dataSettings;
 
-            Processing_SetData(true);
+            processing.SetData(true);
 
             PrepareDataForDraw(dataStruct);
         }
@@ -131,7 +131,7 @@ void Data_ReadFromROM(StructDataDrawing *dataStruct)
     {
         DS = &dataSettings;
 
-        Processing_SetData(true);
+        processing.SetData(true);
 
         PrepareDataForDraw(dataStruct);
     }
@@ -162,7 +162,7 @@ void ReadMinMax(StructDataDrawing *dataStruct, int direction)
     {
         DS = &dataSettings;
 
-        Processing_SetData(false);
+        processing.SetData(false);
 
         PrepareDataForDraw(dataStruct);
     }

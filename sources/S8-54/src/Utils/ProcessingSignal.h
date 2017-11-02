@@ -19,20 +19,26 @@
 extern int markerVoltage[NumChannels][2];
 extern int markerTime[NumChannels][2];
 
+class Processing
+{
+public:
+    /// \brief Установить сигнал для обработки. Данные берутся из DS, inA, inB.
+    /// Выходные данные, соответствующие текущим настройками set, рассчитываются сразу и записываются в outA, outB.
+    void SetData(bool needSmoothing);
+    /// Получить позицию курсора напряжения, соответствующю заданной позиции курсора posCurT
+    float GetCursU(Channel ch, float posCurT);
+    /// Получить позицию курсора времени, соответствующую заданной позиции курсора напряжения posCurU
+    float GetCursT(Channel ch, float posCurU, int numCur);
+    /// Аппроксимировать единичное измерение режима рандомизатора функцией sinX/X
+    void InterpolationSinX_X(uint8 *data, int numPoints, TBase tBase);
+    /// Возвращает строку автоматического измерения
+    char* GetStringMeasure(Measure measure, Channel ch, char *buffer, int lenBuf);
+    /// Расчитать все измерения
+    void CalculateMeasures(void);
+};
 
-/// \brief Установить сигнал для обработки. Данные берутся из DS, inA, inB.
-/// Выходные данные, соответствующие текущим настройками set, рассчитываются сразу и записываются в outA, outB.
-void Processing_SetData(bool needSmoothing);
-/// Получить позицию курсора напряжения, соответствующю заданной позиции курсора posCurT
-float Processing_GetCursU(Channel ch, float posCurT);
-/// Получить позицию курсора времени, соответствующую заданной позиции курсора напряжения posCurU
-float Processing_GetCursT(Channel ch, float posCurU, int numCur);
-/// Аппроксимировать единичное измерение режима рандомизатора функцией sinX/X
-void Processing_InterpolationSinX_X(uint8 *data, int numPoints, TBase tBase);
-/// Возвращает строку автоматического измерения
-char* Processing_GetStringMeasure(Measure measure, Channel ch, char *buffer, int lenBuf);
-/// Расчитать все измерения
-void Processing_CalculateMeasures(void);
+
+extern Processing processing;
 
 
 /** @}  @}

@@ -860,7 +860,7 @@ static void DrawMeasures(void)
         return;
     }
 
-    Processing_CalculateMeasures();
+    processing.CalculateMeasures();
 
     if(MEAS_ZONE_HAND)
     {
@@ -913,16 +913,16 @@ static void DrawMeasures(void)
                 }
                 if(SOURCE_MEASURE_A && SET_ENABLED_A)
                 {
-                    painter.DrawTextC(x + 2, y + 11, Processing_GetStringMeasure(meas, A, buffer, SIZE_BUFFER), gColorChan[A]);
+                    painter.DrawTextC(x + 2, y + 11, processing.GetStringMeasure(meas, A, buffer, SIZE_BUFFER), gColorChan[A]);
                 }
                 else if(SOURCE_MEASURE_B && SET_ENABLED_B)
                 {
-                    painter.DrawTextC(x + 2, y + 11, Processing_GetStringMeasure(meas, B, buffer, SIZE_BUFFER), gColorChan[B]);
+                    painter.DrawTextC(x + 2, y + 11, processing.GetStringMeasure(meas, B, buffer, SIZE_BUFFER), gColorChan[B]);
                 }
                 else
                 {
-                    painter.DrawTextC(x + 2, y + 11, Processing_GetStringMeasure(meas, A, buffer, SIZE_BUFFER), gColorChan[A]);
-                    painter.DrawTextC(x + 2, y + (SET_ENABLED_A ? 20 : 11), Processing_GetStringMeasure(meas, B, buffer, SIZE_BUFFER), gColorChan[B]);
+                    painter.DrawTextC(x + 2, y + 11, processing.GetStringMeasure(meas, A, buffer, SIZE_BUFFER), gColorChan[A]);
+                    painter.DrawTextC(x + 2, y + (SET_ENABLED_A ? 20 : 11), processing.GetStringMeasure(meas, B, buffer, SIZE_BUFFER), gColorChan[B]);
                 }
 #undef SIZE_BUFFER
             }

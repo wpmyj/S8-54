@@ -19,6 +19,9 @@
 
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+Processing processing;
+
+
 typedef struct
 {
     float value[2];
@@ -141,7 +144,7 @@ static bool picIsCalculating[2] = {false, false};
 #define PI 3.141592653589793f
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-void Processing_CalculateMeasures(void)
+void Processing::CalculateMeasures(void)
 {
     if(!SHOW_MEASURES || !isSet)
     {
@@ -1060,7 +1063,7 @@ float CalculatePhazaMinus(Channel ch)
 
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
-void Processing_SetData(bool needSmoothing)
+void Processing::SetData(bool needSmoothing)
 {
     isSet = true;
 
@@ -1106,7 +1109,7 @@ void Processing_SetData(bool needSmoothing)
 
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
-float Processing_GetCursU(Channel ch, float posCurT)
+float Processing::GetCursU(Channel ch, float posCurT)
 {
     if(!CHOICE_BUFFER)
     {
@@ -1122,7 +1125,7 @@ float Processing_GetCursU(Channel ch, float posCurT)
 
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
-float Processing_GetCursT(Channel ch, float posCurU, int numCur)
+float Processing::GetCursT(Channel ch, float posCurU, int numCur)
 {
     uint8 *dataIn = CHOICE_BUFFER;
 
@@ -1191,7 +1194,7 @@ float Processing_GetCursT(Channel ch, float posCurU, int numCur)
 
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
-void Processing_InterpolationSinX_X(uint8 *data, int numPoints, TBase tBase)
+void Processing::InterpolationSinX_X(uint8 *data, int numPoints, TBase tBase)
 {
 /*
      ѕоследовательности x в sin(x)   // Ёто, наверное, неправильно
@@ -1292,7 +1295,7 @@ void Processing_InterpolationSinX_X(uint8 *data, int numPoints, TBase tBase)
 
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
-char* Processing_GetStringMeasure(Measure measure, Channel ch, char* buffer, int lenBuf)
+char* Processing::GetStringMeasure(Measure measure, Channel ch, char* buffer, int lenBuf)
 {
     if (!SET_ENABLED(ch))
     {
