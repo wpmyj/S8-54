@@ -371,6 +371,9 @@ float CalculatePeriod(Channel ch)
 {
     static float period[2] = {0.0f, 0.0f};
 
+    static float firstIntersection = 0.0f;
+    static float secondIntersection = 0.0f;
+
     if(!periodIsCaclulating[ch])
     {
         float aveValue = CalculateAverageRel(ch);
@@ -386,8 +389,8 @@ float CalculatePeriod(Channel ch)
             EXIT_IF_ERRORS_FLOAT(intersectionDownToTop, intersectionTopToDown);
 
             bool firstDownToTop = intersectionDownToTop < intersectionTopToDown;
-            float firstIntersection = firstDownToTop ? intersectionDownToTop : intersectionTopToDown;
-            float secondIntersection = FindIntersectionWithHorLine(ch, 2, firstDownToTop, (uint8)aveValue);
+            firstIntersection = firstDownToTop ? intersectionDownToTop : intersectionTopToDown;
+            secondIntersection = FindIntersectionWithHorLine(ch, 2, firstDownToTop, (uint8)aveValue);
 
             EXIT_IF_ERRORS_FLOAT(firstIntersection, secondIntersection);
 
@@ -401,13 +404,13 @@ float CalculatePeriod(Channel ch)
             period[ch] = per;
 
             periodIsCaclulating[ch] = true;
-
-            if (MARKED_MEAS == Meas_Period || MARKED_MEAS == Meas_Freq)
-            {
-                markerTime[ch][0] = (int)((int16)firstIntersection - firstByte);
-                markerTime[ch][1] = (int)((int16)secondIntersection - firstByte);
-            }
         }
+    }
+
+    if ((MARKED_MEAS == Meas_Period || MARKED_MEAS == Meas_Freq) && periodIsCaclulating[ch])
+    {
+        markerTime[ch][0] = (int)((int16)firstIntersection - firstByte);
+        markerTime[ch][1] = (int)((int16)secondIntersection - firstByte);
     }
 
     return period[ch];
