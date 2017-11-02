@@ -236,7 +236,7 @@
     <ClCompile Include="..\..\S8-54\src\Utils\GlobalFunctions.c" />
     <ClCompile Include="..\..\S8-54\src\Utils\Map.c" />
     <ClCompile Include="..\..\S8-54\src\Utils\Math.cpp" />
-    <ClCompile Include="..\..\S8-54\src\Utils\Measures.c" />
+    <ClCompile Include="..\..\S8-54\src\Utils\Measures.cpp" />
     <ClCompile Include="..\..\S8-54\src\Utils\ProcessingSignal.cpp" />
     <ClCompile Include="..\..\S8-54\src\Utils\Strings.c" />
     <ClCompile Include="..\..\S8-54\src\VCP\SCPI\channelSCPI.c" />

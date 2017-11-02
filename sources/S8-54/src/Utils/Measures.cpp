@@ -12,6 +12,8 @@
 
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+Measures meas;
+
 typedef struct
 {
     const char *name;
@@ -50,38 +52,38 @@ extern bool pageChoiceIsActive;
 extern int8 posOnPageChoice;
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-bool Measure_IsActive(int row, int col)
+bool Measures::IsActive(int row, int col)
 {
-    if(posActive >= Measure_NumCols() * Measure_NumRows())
+    if(posActive >= NumCols() * NumRows())
     {
         posActive = 0;
     }
-    return (row * Measure_NumCols() + col) == posActive;
+    return (row * NumCols() + col) == posActive;
 }
 
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
-void Measure_GetActive(int *row, int *col)
+void Measures::GetActive(int *row, int *col)
 {
-    *row = posActive / Measure_NumCols();
-    *col = posActive - (*row) * Measure_NumCols();
+    *row = posActive / NumCols();
+    *col = posActive - (*row) * NumCols();
 }
 
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
-void Measure_SetActive(int row, int col)
+void Measures::SetActive(int row, int col)
 {
-    posActive = (int8)(row * Measure_NumCols() + col);
+    posActive = (int8)(row * NumCols() + col);
 }
 
-char  Measure_GetChar(Meas measure)
+char Measures::GetChar(Meas measure)
 {
     return measures[measure].UGO;
 }
 
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
-int Measure_GetDY(void)
+int Measures::GetDY(void)
 {
     if(SOURCE_MEASURE_A_B && SET_ENABLED_A && SET_ENABLED_B)
     {
@@ -92,39 +94,39 @@ int Measure_GetDY(void)
 
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
-int Measure_GetDX(void)
+int Measures::GetDX(void)
 {
     return GRID_WIDTH / 5; 
 }
 
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
-const char *Measure_Name(int row, int col)
+const char *Measures::Name(int row, int col)
 {
-    return measures[MEASURE(row * Measure_NumCols() + col)].name;
+    return measures[MEASURE(row * NumCols() + col)].name;
 }
 
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
-Meas Measure_Type(int row, int col)
+Meas Measures::Type(int row, int col)
 {
-    return MEASURE(row * Measure_NumCols() + col);
+    return MEASURE(row * NumCols() + col);
 }
 
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
-int Measure_GetTopTable(void)
+int Measures::GetTopTable(void)
 {
     if(NUM_MEASURES_6_1 || NUM_MEASURES_6_2)
     {
-        return GRID_BOTTOM - Measure_GetDY() * 6;
+        return GRID_BOTTOM - GetDY() * 6;
     }
-    return GRID_BOTTOM - Measure_NumRows() * Measure_GetDY();
+    return GRID_BOTTOM - NumRows() * GetDY();
 }
 
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
-int Measure_NumCols(void)
+int Measures::NumCols(void)
 {
     const int cols[] = {1, 2, 5, 5, 5, 1, 2};
     return cols[NUM_MEASURES];
@@ -132,7 +134,7 @@ int Measure_NumCols(void)
 
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
-int Measure_NumRows(void)
+int Measures::NumRows(void)
 {
     int rows[] = {1, 1, 1, 2, 3, 6, 6};
     return rows[NUM_MEASURES];
@@ -140,17 +142,17 @@ int Measure_NumRows(void)
 
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
-int Measure_GetDeltaGridLeft(void)
+int Measures::GetDeltaGridLeft(void)
 {
     if(SHOW_MEASURES && MEAS_COMPRESS_GRID)
     {
         if(NUM_MEASURES_6_1)
         {
-            return Measure_GetDX();
+            return GetDX();
         }
         else if(NUM_MEASURES_6_2)
         {
-            return Measure_GetDX() * 2;
+            return GetDX() * 2;
         }
     }
     return 0;
@@ -158,21 +160,21 @@ int Measure_GetDeltaGridLeft(void)
 
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
-int Measure_GetDeltaGridBottom(void)
+int Measures::GetDeltaGridBottom(void)
 {
     if(SHOW_MEASURES && MEAS_COMPRESS_GRID)
     {
         if(NUM_MEASURES_1_5)
         {
-            return Measure_GetDY();
+            return GetDY();
         }
         else if(NUM_MEASURES_2_5)
         {
-            return Measure_GetDY() * 2;
+            return GetDY() * 2;
         }
         else if(NUM_MEASURES_3_5)
         {
-            return Measure_GetDY() * 3;
+            return GetDY() * 3;
         }
     }
     return 0;
@@ -180,7 +182,7 @@ int Measure_GetDeltaGridBottom(void)
 
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
-void Measure_ShortPressOnSmallButonMarker(void)
+void Measures::ShortPressOnSmallButonMarker(void)
 {
     if(MEASURE(posActive) == MARKED_MEAS)
     {
@@ -194,7 +196,7 @@ void Measure_ShortPressOnSmallButonMarker(void)
 
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
-void Measure_DrawPageChoice(void)
+void Measures::DrawPageChoice(void)
 {
     if(!pageChoiceIsActive)
     {
@@ -222,7 +224,7 @@ void Measure_DrawPageChoice(void)
             painter.DrawRectangle(x0, y0, dX, dY, COLOR_WHITE);
             painter.FillRegion(x0 + 1, y0 + 1, dX - 2, dY - 2, active ? COLOR_FLASH_10 : gColorBack);
             painter.SetColor(active ? COLOR_FLASH_01 : gColorFill);
-            painter.Draw10SymbolsInRect(x0 + 2, y0 + 1, Measure_GetChar(meas));
+            painter.Draw10SymbolsInRect(x0 + 2, y0 + 1, GetChar(meas));
             if(meas < Meas_NumMeasures)
             {
                 painter.SetFont(TypeFont_5);

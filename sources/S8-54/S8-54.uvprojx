@@ -1729,11 +1729,6 @@
               <FilePath>.\src\Utils\Math.h</FilePath>
             </File>
             <File>
-              <FileName>Measures.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\src\Utils\Measures.c</FilePath>
-            </File>
-            <File>
               <FileName>Measures.h</FileName>
               <FileType>5</FileType>
               <FilePath>.\src\Utils\Measures.h</FilePath>
@@ -1782,6 +1777,11 @@
               <FileName>Math.cpp</FileName>
               <FileType>8</FileType>
               <FilePath>.\src\Utils\Math.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>Measures.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\src\Utils\Measures.cpp</FilePath>
             </File>
           </Files>
         </Group>

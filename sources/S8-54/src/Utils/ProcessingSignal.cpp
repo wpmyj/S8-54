@@ -152,26 +152,26 @@ void Processing::CalculateMeasures(void)
     periodAccurateIsCalculating[0] = periodAccurateIsCalculating[1] = false;
     picIsCalculating[0] = picIsCalculating[1] = false;
 
-    for(int str = 0; str < Measure_NumRows(); str++)
+    for(int str = 0; str < meas.NumRows(); str++)
     {
-        for(int elem = 0; elem < Measure_NumCols(); elem++)
+        for(int elem = 0; elem < meas.NumCols(); elem++)
         {
-            Meas meas = Measure_Type(str, elem);
-            pFuncFCh func = measures[meas].FuncCalculate;
+            Meas measure = meas.Type(str, elem);
+            pFuncFCh func = measures[measure].FuncCalculate;
             if(func)
             {
-                if(meas == MARKED_MEAS || MARKED_MEAS == Meas_None)
+                if(measure == MARKED_MEAS || MARKED_MEAS == Meas_None)
                 {
                     markerTime[A][0] = markerTime[A][1] = markerTime[B][0] = markerTime[B][1] = ERROR_VALUE_INT;
                     markerVoltage[A][0] = markerVoltage[A][1] = markerVoltage[B][0] = markerVoltage[B][1] = ERROR_VALUE_INT;
                 }
                 if((SOURCE_MEASURE_A || SOURCE_MEASURE_A_B) && SET_ENABLED_A)
                 {
-                    values[meas].value[A] = func(A);
+                    values[measure].value[A] = func(A);
                 }
                 if((SOURCE_MEASURE_B || SOURCE_MEASURE_A_B) && SET_ENABLED_B)
                 {
-                    values[meas].value[B] = func(B);
+                    values[measure].value[B] = func(B);
                 }
             }
         }

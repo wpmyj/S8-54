@@ -41,35 +41,43 @@ typedef enum
 
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-char Measure_GetChar(Meas measure);
+class Measures
+{
+public:
+    char GetChar(Meas measure);
 
-bool Measure_IsActive(int row, int col); 
+    bool IsActive(int row, int col);
 
-void Measure_GetActive(int *row, int *col);
+    void GetActive(int *row, int *col);
 
-void Measure_SetActive(int row, int col);
+    void SetActive(int row, int col);
 
-int Measure_GetDY(void);
+    int GetDY(void);
 
-int Measure_GetDX(void);
+    int GetDX(void);
 
-const char *Measure_Name(int row, int col);
+    const char *Name(int row, int col);
 
-Meas Measure_Type(int row, int col);
+    Meas Type(int row, int col);
 
-int Measure_NumRows(void);
+    int NumRows(void);
 
-int Measure_NumCols(void);
+    int NumCols(void);
 
-int Measure_GetTopTable(void);
+    int GetTopTable(void);
 
-int Measure_GetDeltaGridLeft(void);
+    int GetDeltaGridLeft(void);
 
-int Measure_GetDeltaGridBottom(void);
+    int GetDeltaGridBottom(void);
 
-void Measure_ShortPressOnSmallButonMarker(void);
-/// Нарисовать страницу выбора измерений
-void Measure_DrawPageChoice(void);
+    void ShortPressOnSmallButonMarker(void);
+    /// Нарисовать страницу выбора измерений
+    void DrawPageChoice(void);
+};
+
+
+extern Measures meas;
+
 
 /** @}  @}
  */

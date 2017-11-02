@@ -308,27 +308,27 @@ static void OnRegSet_Tune(int angle)
     {
         int row = 0;
         int col = 0;
-        Measure_GetActive(&row, &col);
+        meas.GetActive(&row, &col);
         col += math.Sign(currentAngle);
         if (col < 0)
         {
-            col = Measure_NumCols() - 1;
+            col = meas.NumCols() - 1;
             row--;
             if (row < 0)
             {
-                row = Measure_NumRows() - 1;
+                row = meas.NumRows() - 1;
             }
         }
-        else if (col == Measure_NumCols())
+        else if (col == meas.NumCols())
         {
             col = 0;
             row++;
-            if (row >= Measure_NumRows())
+            if (row >= meas.NumRows())
             {
                 row = 0;
             }
         }
-        Measure_SetActive(row, col);
+        meas.SetActive(row, col);
         Sound_RegulatorSwitchRotate();
     }
     currentAngle = 0;
@@ -358,7 +358,7 @@ static const SButton bTune_Markers =
 
 static void OnPress_Tune_Markers(void)
 {
-    Measure_ShortPressOnSmallButonMarker();
+    meas.ShortPressOnSmallButonMarker();
 }
 
 static void Draw_Tune_Markers(int x, int y)

@@ -249,9 +249,6 @@
     <ClCompile Include="..\..\S8-54\src\Utils\Map.c">
       <Filter>Utils</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\S8-54\src\Utils\Measures.c">
-      <Filter>Utils</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\S8-54\src\Utils\Strings.c">
       <Filter>Utils</Filter>
     </ClCompile>
@@ -583,6 +580,9 @@
       <Filter>VCP</Filter>
     </ClCompile>
     <ClCompile Include="..\..\S8-54\src\Utils\Math.cpp">
+      <Filter>Utils</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\S8-54\src\Utils\Measures.cpp">
       <Filter>Utils</Filter>
     </ClCompile>
   </ItemGroup>
