@@ -204,7 +204,7 @@ typedef enum
     A,
     B,
     A_B,
-    Math
+    MathCh
 } Channel;
 
 #define NumChannels 2

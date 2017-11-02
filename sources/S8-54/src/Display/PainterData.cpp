@@ -551,7 +551,7 @@ static void DrawChannel_Math(uint8 *dataIn)
     float scaleY = (float)(maxY - minY) / (MAX_VALUE - MIN_VALUE);
     float scaleX = (float)grid.Width() / 280.0f;
 
-    painter.SetColor(gColorChan[Math]);
+    painter.SetColor(gColorChan[MathCh]);
 
     //    if (!DataBeyondTheBorders(dataIn, firstPoint, lastPoint))   // Если сигнал не выходит за пределы экрана
     {

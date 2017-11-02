@@ -571,7 +571,7 @@ void PageService_InitGlobalColors(void)
     gColorGrid = BACKGROUND_BLACK ? COLOR_GRID : COLOR_GRID_WHITE;
     gColorChan[A] = BACKGROUND_BLACK ? COLOR_DATA_1 : COLOR_DATA_A_WHITE_ACCUM;
     gColorChan[B] = BACKGROUND_BLACK ? COLOR_DATA_2 : COLOR_DATA_B_WHITE_ACCUM;
-    gColorChan[A_B] = gColorChan[Math] = BACKGROUND_BLACK ? COLOR_WHITE : COLOR_BLACK;
+    gColorChan[A_B] = gColorChan[MathCh] = BACKGROUND_BLACK ? COLOR_WHITE : COLOR_BLACK;
 }
 
 // ÄÈÑÏËÅÉ - ÍÀÑÒÐÎÉÊÈ - ßðêîñòü ---------------------------------------------------------------------------------------------------------------------

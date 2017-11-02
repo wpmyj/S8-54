@@ -1716,7 +1716,7 @@ static void DrawCursorsRShift(void)
 {
     if(FUNC_ENABLED)
     {
-        DrawCursorRShift(Math);
+        DrawCursorRShift(MathCh);
     }
 
     static const Channel order[NumChannels][2] = { {B, A}, {A, B} };
@@ -1900,10 +1900,9 @@ static void DrawCursorRShift(Channel ch)
 {
     int x = grid.Right() - grid.Width() - Measure_GetDeltaGridLeft();
 
-    if(ch == Math)
+    if(ch == MathCh)
     {
         int yCenter = (grid.MathTop() + grid.MathBottom()) / 2;
-//        int y = yCenter - Math_RShift2Pixels(SET_RSHIFT_MATH, grid.MathHeight());
         float scaleFull = (float)grid.MathHeight() / (RShiftMax - RShiftMin);
         int yFull = yCenter - (int)(scaleFull * (SET_RSHIFT_MATH - RShiftZero));
         painter.DrawChar(x - 9, yFull - 4, SYMBOL_RSHIFT_NORMAL, gColorFill);
