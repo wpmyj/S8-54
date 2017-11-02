@@ -823,7 +823,7 @@ static void DrawDataInRect(uint width, Channel ch)
     {
         return;
     }
-    
+
     uint8 *data = OUT(ch);
 
     float elemsInColumn = BYTES_IN_CHANNEL_DS / (float)width;
@@ -881,17 +881,11 @@ static void DrawDataInRect(uint width, Channel ch)
         mines[i] = Ordinate((uint8)((min[i] > max[i - 1]) ? max[i - 1] : min[i]), scale);
     }
 
-    // Теперь уточним количество точек, которые нужно нарисовать (исходим из того, что в реальном режиме и рандомизаторе рисуем все точки,
-    // а в поточечном только начальные до определённой позиции
-
+    //*** Теперь определим количество точек, которые нужно нарисовать
     int numPoints = 0;
-    for (int i = 0; i < width; i++)
+    for (int i = 0; i < width; ++i)
     {
-        if (maxes[i] == -1 && mines[i] == -1)
-        {
-            break;
-        }          // Если обе точки не были считаны, то выходим
-        numPoints++;
+        if (maxes[i] != -1 && mines[i] != -1) { numPoints++; }
     }
 
     if (numPoints != width)                     // Если нужно выводить не все точки,
@@ -899,19 +893,26 @@ static void DrawDataInRect(uint width, Channel ch)
         numPoints--;                            // то выводим на одну меньше - во избежание артефакта в конце вывода
     }
 
+    //*** Теперь определим, с какой позиции выводить точки (если сигнал сжат по горизонтали, то вначале будет пустое место
+    int x = 1;
+    for (int i = 0; i < width; ++i)
+    {
+        if (maxes[i] == -1 && mines[i] == - 1) { ++x; }
+        else { break; }
+    }
+
     if (numPoints > 1)
     {
-        int x = 1;
-
+        int delta = x;
         if (numPoints < 256)
         {
-            SendToDisplayDataInRect(ch, x, mines, maxes, numPoints);
+            SendToDisplayDataInRect(ch, x, mines + delta, maxes + delta, numPoints);
         }
         else
         {
-            SendToDisplayDataInRect(ch, x, mines, maxes, 255);
+            SendToDisplayDataInRect(ch, x, mines + delta, maxes + delta, 255);
             numPoints -= 255;
-            SendToDisplayDataInRect(ch, x + 255, mines + 255, maxes + 255, numPoints);
+            SendToDisplayDataInRect(ch, x + 255, mines + 255 + delta, maxes + 255 + delta, numPoints);
         }
     }
 }
