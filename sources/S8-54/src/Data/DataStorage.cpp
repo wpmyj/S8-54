@@ -1,5 +1,3 @@
-
-
 #include "DataSettings.h"
 #include "DataStorage.h"
 #include "Log.h"
@@ -19,6 +17,8 @@
 
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+DataStorage dS;
+
 // Возвращает 0, если канал выключен
 static uint8 *AddressChannel(DataSettings *ds, Channel ch);
 static bool DataSettingsIsEquals(const DataSettings *ds1, const DataSettings *ds2);
@@ -72,7 +72,7 @@ void ClearLimitsAndSums(void)
 
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
-void DS_Clear(void)
+void DataStorage::Clear(void)
 {
     SIZE_POOL = RAM8(DS_POOL_END) - RAM8(DS_POOL_BEGIN);
 
@@ -111,7 +111,7 @@ static void CalculateAroundAverage(uint8 *dataA, uint8 *dataB, DataSettings *dss
         return;
     }
 
-    int numAveData = DS_NumElementsWithCurrentSettings();
+    int numAveData = dS.NumElementsWithCurrentSettings();
 
     int size = BytesInChannel(dss);
 
@@ -338,7 +338,7 @@ static void BeginLimits(uint8 *dataA, uint8 *dataB, int numElements)
 }
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
-DataSettings* DS_DataSettingsFromEnd(int indexFromEnd)
+DataSettings* DataStorage::DataSettingsFromEnd(int indexFromEnd)
 {
     int index = 0;
 
@@ -358,7 +358,7 @@ DataSettings* DS_DataSettingsFromEnd(int indexFromEnd)
 //----------------------------------------------------------------------------------------------------------------------------------------------------
 DataSettings* GetSettingsDataFromEnd(int fromEnd)
 {
-    return DS_DataSettingsFromEnd(fromEnd);
+    return dS.DataSettingsFromEnd(fromEnd);
 }
 
 
@@ -380,16 +380,16 @@ void CalculateLimits(uint8 *dataA, uint8 *dataB, DataSettings *dss)
 
     int numBytes = BytesInChannel(dss);
 
-    if(DS_NumElementsInStorage() == 0 || NUM_MIN_MAX == 1 || (!DataSettingsIsEquals(dss, GetSettingsDataFromEnd(0))))
+    if(dS.NumElementsInStorage() == 0 || NUM_MIN_MAX == 1 || (!DataSettingsIsEquals(dss, GetSettingsDataFromEnd(0))))
     {
         BeginLimits(dataA, dataB, numBytes);
     }
     else
     {
-        int allDatas = DS_NumElementsWithSameSettings();
+        int allDatas = dS.NumElementsWithSameSettings();
         LIMITATION(allDatas, 1, NUM_MIN_MAX);
 
-        if(DS_NumElementsWithSameSettings() >= NUM_MIN_MAX)
+        if(dS.NumElementsWithSameSettings() >= NUM_MIN_MAX)
         {
             BeginLimits(dataA, dataB, numBytes);
             allDatas--;
@@ -397,8 +397,8 @@ void CalculateLimits(uint8 *dataA, uint8 *dataB, DataSettings *dss)
 
         for(int numData = 0; numData < allDatas; numData++)
         {
-            const uint8 *dataA = DS_GetData_RAM(A, numData);
-            const uint8 *dataB = DS_GetData_RAM(B, numData);
+            const uint8 *dataA = dS.GetData_RAM(A, numData);
+            const uint8 *dataB = dS.GetData_RAM(B, numData);
 
             uint8 data = 0;
             uint8 limitUp = 0;
@@ -426,7 +426,7 @@ void CalculateSums(void)
     uint16 *dataA = 0;
     uint16 *dataB = 0;
 
-    DS_GetDataFromEnd_RAM(0, &ds, &dataA, &dataB);
+    dS.GetDataFromEnd_RAM(0, &ds, &dataA, &dataB);
 
     int numPoints = BytesInChannel(ds);
 
@@ -454,7 +454,7 @@ void CalculateSums(void)
 
     if(numAveragings > 1)
     {
-        int numSameSettins = DS_NumElementsWithSameSettings();
+        int numSameSettins = dS.NumElementsWithSameSettings();
         if(numSameSettins < numAveragings)
         {
             numAveragings = numSameSettins;
@@ -462,7 +462,7 @@ void CalculateSums(void)
 
         for(int i = 1; i < numAveragings; i++)
         {
-            DS_GetDataFromEnd_RAM(i, &ds, &dataA, &dataB);
+            dS.GetDataFromEnd_RAM(i, &ds, &dataA, &dataB);
 
             sumA16 = (uint16 *)sumA_RAM;
             uint16 *dA = dataA;
@@ -508,7 +508,7 @@ void CalculateSums(void)
 }
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
-void DS_AddData(uint8 *dataA, uint8 *dataB, DataSettings dss)
+void DataStorage::AddData(uint8 *dataA, uint8 *dataB, DataSettings dss)
 {
     if (!ENABLED_A(&dss) && !ENABLED_B(&dss))
     {
@@ -533,14 +533,14 @@ void DS_AddData(uint8 *dataA, uint8 *dataB, DataSettings dss)
 // Возвращает true, если настройки измерений с индексами elemFromEnd0 и elemFromEnd1 совпадают, и false в ином случае.
 static bool SettingsIsIdentical(int elemFromEnd0, int elemFromEnd1)
 {
-    DataSettings* dp0 = DS_DataSettingsFromEnd(elemFromEnd0);
-    DataSettings* dp1 = DS_DataSettingsFromEnd(elemFromEnd1);
+    DataSettings* dp0 = dS.DataSettingsFromEnd(elemFromEnd0);
+    DataSettings* dp1 = dS.DataSettingsFromEnd(elemFromEnd1);
     return DataSettingsIsEquals(dp0, dp1);
 }
 
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
-int DS_NumElementsWithSameSettings(void)
+int DataStorage::NumElementsWithSameSettings(void)
 {
     int retValue = 0;
     for(retValue = 1; retValue < numElementsInStorage; retValue++)
@@ -555,16 +555,16 @@ int DS_NumElementsWithSameSettings(void)
 
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
-int DS_NumElementsWithCurrentSettings(void)
+int DataStorage::NumElementsWithCurrentSettings(void)
 {
     DataSettings dp;
     DataSettings_Fill(&dp);
     int retValue = 0;
-    int numElements = DS_NumElementsInStorage();
+    int numElements = NumElementsInStorage();
 
     for(retValue = 0; retValue < numElements; retValue++)
     {
-        if(!DataSettingsIsEquals(&dp, DS_DataSettingsFromEnd(retValue)))
+        if(!DataSettingsIsEquals(&dp, DataSettingsFromEnd(retValue)))
         {
             break;
         }
@@ -575,7 +575,7 @@ int DS_NumElementsWithCurrentSettings(void)
 
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
-int DS_NumElementsInStorage(void)
+int DataStorage::NumElementsInStorage(void)
 {
     return numElementsInStorage;
 }
@@ -607,11 +607,11 @@ static bool CopyData(DataSettings *ds, Channel ch, uint8 *dataImportRel)
 
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
-uint8 *DS_GetData_RAM(Channel ch, int fromEnd)
+uint8 *DataStorage::GetData_RAM(Channel ch, int fromEnd)
 {
     uint8 *dataImport = (ch == A) ? RAM8(DS_DATA_IMPORT_REL_A) : RAM8(DS_DATA_IMPORT_REL_B);
 
-    DataSettings* dp = DS_DataSettingsFromEnd(fromEnd);
+    DataSettings* dp = DataSettingsFromEnd(fromEnd);
 
     if (dp == 0)
     {
@@ -628,13 +628,13 @@ uint8 *DS_GetData_RAM(Channel ch, int fromEnd)
 
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
-bool DS_GetDataFromEnd(int fromEnd, DataSettings *ds, uint8 *dataA, uint8 *dataB)
+bool DataStorage::GetDataFromEnd(int fromEnd, DataSettings *ds, uint8 *dataA, uint8 *dataB)
 {
     DataSettings *dataSettings = 0;
     uint16 *dA = 0;
     uint16 *dB = 0;
     
-    if(DS_GetDataFromEnd_RAM(fromEnd, &dataSettings, &dA, &dB))
+    if(GetDataFromEnd_RAM(fromEnd, &dataSettings, &dA, &dB))
     {
         memcpy(ds, dataSettings, sizeof(DataSettings));
         if(dA)
@@ -653,14 +653,14 @@ bool DS_GetDataFromEnd(int fromEnd, DataSettings *ds, uint8 *dataA, uint8 *dataB
 }
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
-bool DS_GetLimitation(Channel ch, uint8 *data, int direction)
+bool DataStorage::GetLimitation(Channel ch, uint8 *data, int direction)
 {
-    if (!MIN_MAX_ENABLED || DS_NumElementsWithSameSettings() < 2)
+    if (!MIN_MAX_ENABLED || NumElementsWithSameSettings() < 2)
     {
         return false;
     }
 
-    DataSettings *ds = DS_DataSettingsFromEnd(0);
+    DataSettings *ds = DataSettingsFromEnd(0);
 
     uint8 *limit = A == ch ? (uint8 *)limitDownA_RAM : (uint8 *)limitDownB_RAM;
     if (direction == 1)
@@ -674,9 +674,9 @@ bool DS_GetLimitation(Channel ch, uint8 *data, int direction)
 
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
-bool DS_GetDataFromEnd_RAM(int fromEnd, DataSettings **ds, uint16 **dataA, uint16 **dataB)
+bool DataStorage::GetDataFromEnd_RAM(int fromEnd, DataSettings **ds, uint16 **dataA, uint16 **dataB)
 {
-    DataSettings *dp = DS_DataSettingsFromEnd(fromEnd);
+    DataSettings *dp = DataSettingsFromEnd(fromEnd);
 
     if(dp == 0)
     {
@@ -702,7 +702,7 @@ bool DS_GetDataFromEnd_RAM(int fromEnd, DataSettings **ds, uint16 **dataA, uint1
 
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
-uint8 *DS_GetAverageData(Channel ch)
+uint8 *DataStorage::GetAverageData(Channel ch)
 {
     if (newSumCalculated[ch] == false)
     {
@@ -714,7 +714,7 @@ uint8 *DS_GetAverageData(Channel ch)
     DataSettings *ds = 0;
     uint16 *dA = 0;
     uint16 *dB = 0;
-    DS_GetDataFromEnd_RAM(0, &ds, &dA, &dB);
+    GetDataFromEnd_RAM(0, &ds, &dA, &dB);
 
     if (ds == 0)
     {
@@ -736,7 +736,7 @@ uint8 *DS_GetAverageData(Channel ch)
 
     int numAveraging = sDisplay_NumAverage();
 
-    LIMIT_ABOVE(numAveraging, DS_NumElementsWithSameSettings());
+    LIMIT_ABOVE(numAveraging, NumElementsWithSameSettings());
 
     for(int i = 0; i < numPoints; i++)
     {
@@ -748,7 +748,7 @@ uint8 *DS_GetAverageData(Channel ch)
 }
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
-int DS_NumberAvailableEntries(void)
+int DataStorage::NumberAvailableEntries(void)
 {
     if(ADDRESS_DATA(&datas[iFirst]) == 0)
     {
@@ -763,7 +763,7 @@ int DS_NumberAvailableEntries(void)
 
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
-void DS_NewFrameP2P(DataSettings *dss)
+void DataStorage::NewFrameP2P(DataSettings *dss)
 {
     if (!ENABLED_A(dss) && !ENABLED_B(dss))
     {
@@ -779,7 +779,7 @@ void DS_NewFrameP2P(DataSettings *dss)
 
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
-void DS_AddPointsP2P(uint16 dataA, uint16 dataB)
+void DataStorage::AddPointsP2P(uint16 dataA, uint16 dataB)
 {
     if (!ENABLED_A(&dsP2P) && !ENABLED_B(&dsP2P))
     {
@@ -822,7 +822,7 @@ void DS_AddPointsP2P(uint16 dataA, uint16 dataB)
 }
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
-int DS_GetFrameP2P_RAM(DataSettings **ds, uint8 **dataA, uint8 **dataB)
+int DataStorage::GetFrameP2P_RAM(DataSettings **ds, uint8 **dataA, uint8 **dataB)
 {
     if (!inFrameP2Pmode)
     {

@@ -37,7 +37,7 @@ static DataSettings dataSettings;   ///< Здесь хранятся настройки для текущего р
 static int numPointsP2P = 0;
 
 /// Если true, то находимся в ждущем режиме рандомизатора и нужно выводить статический сигнал
-#define STAND_P2P (IN_P2P_MODE && START_MODE_WAIT && DS_NumElementsInStorage() > 0)
+#define STAND_P2P (IN_P2P_MODE && START_MODE_WAIT && dS.NumElementsInStorage() > 0)
 
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -62,7 +62,7 @@ void Data::ReadFromRAM(int fromEnd, StructDataDrawing *dataStruct, bool forMemor
         uint8 *dataA = 0;
         uint8 *dataB = 0;
         DataSettings *ds = 0;
-        numPointsP2P = DS_GetFrameP2P_RAM(&ds, &dataA, &dataB);
+        numPointsP2P = dS.GetFrameP2P_RAM(&ds, &dataA, &dataB);
         memcpy(&dataSettings, ds, sizeof(DataSettings));
         DS = &dataSettings;
         RAM_MemCpy16(dataA, IN_A, BYTES_IN_CHANNEL_DS);
@@ -72,15 +72,15 @@ void Data::ReadFromRAM(int fromEnd, StructDataDrawing *dataStruct, bool forMemor
     else if ((IN_AVERAGING_MODE || (IN_RANDOM_MODE && NRST_NUM_AVE_FOR_RAND))       // Если включено усреднение
         && fromEnd == 0)                                                            // И запрашиваем псоледний считанный сигнал
     {
-        dataSettings = *DS_DataSettingsFromEnd(0);
+        dataSettings = *dS.DataSettingsFromEnd(0);
         DS = &dataSettings;
         if (ENABLED_DS_A)
         {
-            memcpy(IN_A, DS_GetAverageData(A), BytesInChannel(DS));
+            memcpy(IN_A, dS.GetAverageData(A), BytesInChannel(DS));
         }
         if (ENABLED_DS_B)
         {
-            memcpy(IN_B, DS_GetAverageData(B), BytesInChannel(DS));
+            memcpy(IN_B, dS.GetAverageData(B), BytesInChannel(DS));
         }
         readed = true;
     }
@@ -88,7 +88,7 @@ void Data::ReadFromRAM(int fromEnd, StructDataDrawing *dataStruct, bool forMemor
             (IN_P2P_MODE && STAND_P2P && !forMemoryWindow) ||   // или в поточечном и ждущем режиме, но нужно выоводить статический сигнал
             (IN_P2P_MODE && !FPGA_IS_RUNNING))                  // или в поточечном, но процесс чтения остановлен
     {
-        DS_GetDataFromEnd(fromEnd, &dataSettings, IN_A, IN_B);
+        dS.GetDataFromEnd(fromEnd, &dataSettings, IN_A, IN_B);
         readed = true;
     }
     else
@@ -96,7 +96,7 @@ void Data::ReadFromRAM(int fromEnd, StructDataDrawing *dataStruct, bool forMemor
         uint8 *dataA = 0;
         uint8 *dataB = 0;
         DataSettings *ds = 0;
-        numPointsP2P = DS_GetFrameP2P_RAM(&ds, &dataA, &dataB);
+        numPointsP2P = dS.GetFrameP2P_RAM(&ds, &dataA, &dataB);
         memcpy(&dataSettings, ds, sizeof(DataSettings));
         DS = &dataSettings;
         RAM_MemCpy16(dataA, IN_A, BYTES_IN_CHANNEL_DS);
@@ -154,11 +154,11 @@ void ReadMinMax(StructDataDrawing *dataStruct, int direction)
 {
     Clear();
 
-    dataSettings = *DS_DataSettingsFromEnd(0);
+    dataSettings = *dS.DataSettingsFromEnd(0);
     
     dataStruct->needDraw[A] = dataStruct->needDraw[B] = false;
 
-    if (DS_GetLimitation(A, IN_A, direction) && DS_GetLimitation(B, IN_B, direction))
+    if (dS.GetLimitation(A, IN_A, direction) && dS.GetLimitation(B, IN_B, direction))
     {
         DS = &dataSettings;
 

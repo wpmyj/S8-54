@@ -522,16 +522,10 @@
     <ClCompile Include="..\..\S8-54\src\FPGA\FPGATypes.c">
       <Filter>FPGA</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\S8-54\src\Data\Data.c">
-      <Filter>Data</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\S8-54\src\Data\DataBuffer.c">
       <Filter>Data</Filter>
     </ClCompile>
     <ClCompile Include="..\..\S8-54\src\Data\DataSettings.c">
-      <Filter>Data</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\S8-54\src\Data\DataStorage.c">
       <Filter>Data</Filter>
     </ClCompile>
     <ClCompile Include="..\..\S8-54\src\SelfRecorder\SelfRecorder.c">
@@ -584,6 +578,12 @@
     </ClCompile>
     <ClCompile Include="..\..\S8-54\src\Menu\Menu.cpp">
       <Filter>Menu</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\S8-54\src\Data\Data.cpp">
+      <Filter>Data</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\S8-54\src\Data\DataStorage.cpp">
+      <Filter>Data</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

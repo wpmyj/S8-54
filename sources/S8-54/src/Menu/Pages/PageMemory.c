@@ -264,12 +264,12 @@ static void OnDraw_Last(void)
     painter.DrawRectangle(grid.Right() - width, GRID_TOP, width, height, gColorFill);
     painter.DrawText(grid.Right() - width + 2, GRID_TOP + 1, Int2String(NUM_RAM_SIGNAL + 1, false, 3, buffer));
     painter.DrawText(grid.Right() - width + 17, GRID_TOP + 1, "/");
-    painter.DrawText(grid.Right() - width + 23, GRID_TOP + 1, Int2String(DS_NumElementsInStorage(), false, 3, buffer));
+    painter.DrawText(grid.Right() - width + 23, GRID_TOP + 1, Int2String(dS.NumElementsInStorage(), false, 3, buffer));
 }
 
 static void OnRegSet_Last(int angle)
 {
-    if (DS_NumElementsInStorage() > 1)
+    if (dS.NumElementsInStorage() > 1)
     {
         Sound_RegulatorSwitchRotate();
     }
@@ -318,7 +318,7 @@ static const SButton bLast_Next =
 
 static void OnPress_Last_Next(void)
 {
-    CircleIncreaseInt16(&NUM_RAM_SIGNAL, 0, (int16)(DS_NumElementsInStorage() - 1));
+    CircleIncreaseInt16(&NUM_RAM_SIGNAL, 0, (int16)(dS.NumElementsInStorage() - 1));
 }
 
 static void Draw_Last_Next(int x, int y)
@@ -343,7 +343,7 @@ static const SButton bLast_Prev =
 
 static void OnPress_Last_Prev(void)
 {
-    CircleDecreaseInt16(&NUM_RAM_SIGNAL, 0, (int16)(DS_NumElementsInStorage() - 1));
+    CircleDecreaseInt16(&NUM_RAM_SIGNAL, 0, (int16)(dS.NumElementsInStorage() - 1));
 }
 
 static void Draw_Last_Prev(int x, int y)

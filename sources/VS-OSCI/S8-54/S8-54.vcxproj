@@ -151,10 +151,10 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\S8-54\src\Data\Data.c" />
+    <ClCompile Include="..\..\S8-54\src\Data\Data.cpp" />
     <ClCompile Include="..\..\S8-54\src\Data\DataBuffer.c" />
     <ClCompile Include="..\..\S8-54\src\Data\DataSettings.c" />
-    <ClCompile Include="..\..\S8-54\src\Data\DataStorage.c" />
+    <ClCompile Include="..\..\S8-54\src\Data\DataStorage.cpp" />
     <ClCompile Include="..\..\S8-54\src\defines.c" />
     <ClCompile Include="..\..\S8-54\src\Display\Colors.c">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</ExcludedFromBuild>

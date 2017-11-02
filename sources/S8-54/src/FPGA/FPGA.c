@@ -116,7 +116,7 @@ static void HardwareInit(void)
 
 void FPGA_Init(void)
 {
-    DS_Clear();
+    dS.Clear();
     HardwareInit();     /// \todo Пока не получается чтение флага сделать на прерывании
     FreqMeter_Init();
     InitADC();
@@ -215,7 +215,7 @@ static bool ReadPoint(void)
         LIMITATION(bsB.byte0, MIN_VALUE, MAX_VALUE);
         LIMITATION(bsB.byte1, MIN_VALUE, MAX_VALUE);
 
-        DS_AddPointsP2P(bsA.halfWord, bsB.halfWord);
+        dS.AddPointsP2P(bsA.halfWord, bsB.halfWord);
 
         FSMC_RESTORE_MODE();
 
@@ -254,7 +254,7 @@ void FPGA_Start(void)
     else
     {
         HAL_NVIC_EnableIRQ(EXTI2_IRQn);     // Вклюение чтения одиночной точки
-        DS_NewFrameP2P(&ds);
+        dS.NewFrameP2P(&ds);
     }
 
     fpgaStateWork = StateWorkFPGA_Work;
@@ -690,7 +690,7 @@ static void DataReadSave(bool first, bool saveToStorage, bool onlySave)
     
     if (saveToStorage)
     {
-        DS_AddData(OUT_A, OUT_B, ds);
+        dS.AddData(OUT_A, OUT_B, ds);
     }
 
     if (TRIG_MODE_FIND_AUTO)
@@ -1010,7 +1010,7 @@ void FPGA_TemporaryPause(void)
 //----------------------------------------------------------------------------------------------------------------------------------------------------
 void FPGA_FindAndSetTrigLevel(void)
 {
-    if (DS_NumElementsInStorage() == 0 || TRIGSOURCE_EXT)
+    if (dS.NumElementsInStorage() == 0 || TRIGSOURCE_EXT)
     {
         return;
     }
@@ -1019,7 +1019,7 @@ void FPGA_FindAndSetTrigLevel(void)
     uint16 *dataB = 0;
     DataSettings *ds_ = 0;
 
-    DS_GetDataFromEnd_RAM(0, &ds_, &dataA, &dataB);
+    dS.GetDataFromEnd_RAM(0, &ds_, &dataA, &dataB);
 
     const uint16 *data = TRIGSOURCE_A ? dataA : dataB;
 

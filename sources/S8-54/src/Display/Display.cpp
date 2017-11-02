@@ -1149,10 +1149,10 @@ static void DrawTimeForFrame(uint timeTicks)
     painter.DrawText(grid.Left() + 2, grid.FullBottom() - 9, buffer, gColorFill);
 
     char message[SIZE] ={0};
-    snprintf(message, SIZE, "%d", DS_NumElementsWithSameSettings());
+    snprintf(message, SIZE, "%d", dS.NumElementsWithSameSettings());
     strcat(message, "/");
     char numAvail[10] ={0};
-    snprintf(numAvail, SIZE, "%d", DS_NumberAvailableEntries());
+    snprintf(numAvail, SIZE, "%d", dS.NumberAvailableEntries());
     strcat(message, numAvail);
     painter.DrawText(grid.Left() + 50, grid.FullBottom() - 9, message);
 }
