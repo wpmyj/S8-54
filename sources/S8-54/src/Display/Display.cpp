@@ -894,7 +894,7 @@ static void DrawMeasures(void)
             {
                 painter.FillRegion(x, y, dX, dY, gColorBack);
                 painter.DrawRectangle(x, y, dX, dY, gColorFill);
-                TOP_MEASURES = Math_MinInt(TOP_MEASURES, y);
+                TOP_MEASURES = math.MinInt(TOP_MEASURES, y);
             }
             if(active)
             {
@@ -1387,8 +1387,8 @@ static void DRAW_SPECTRUM(const uint8 *dataIn, int numPoints, Channel ch)
 
     RAM_MemCpy16((void *)dataIn, data, numPoints);
 
-    Math_PointsRelToVoltage(data, numPoints, RANGE_DS(ch), RSHIFT_DS(ch), dataR);
-    Math_CalculateFFT(dataR, numPoints, spectrum, &freq0, &density0, &freq1, &density1, &y0, &y1);
+    math.PointsRelToVoltage(data, numPoints, RANGE_DS(ch), RSHIFT_DS(ch), dataR);
+    math.CalculateFFT(dataR, numPoints, spectrum, &freq0, &density0, &freq1, &density1, &y0, &y1);
     DrawSpectrumChannel(spectrum, gColorChan[ch]);
     if(!MENU_IS_SHOWN || MenuIsMinimize())
     {
@@ -1464,8 +1464,8 @@ static void WriteCursors(void)
             painter.DrawText(x, y1, sCursors_GetCursVoltage(source, 0, buffer));
             painter.DrawText(x, y2, sCursors_GetCursVoltage(source, 1, buffer));
             x = startX + 49;
-            float pos0 = Math_VoltageCursor(sCursors_GetCursPosU(source, 0), SET_RANGE(source), SET_RSHIFT(source));
-            float pos1 = Math_VoltageCursor(sCursors_GetCursPosU(source, 1), SET_RANGE(source), SET_RSHIFT(source));
+            float pos0 = math.VoltageCursor(sCursors_GetCursPosU(source, 0), SET_RANGE(source), SET_RSHIFT(source));
+            float pos1 = math.VoltageCursor(sCursors_GetCursPosU(source, 1), SET_RANGE(source), SET_RSHIFT(source));
             float delta = fabsf(pos1 - pos0);
             if(SET_DIVIDER_10(source))
             {
@@ -1499,8 +1499,8 @@ static void WriteCursors(void)
             memcpy(&p1, &CURsT_POS(source, 1), sizeof(float));
             */
 
-            float pos0 = Math_TimeCursor(CURsT_POS(source, 0), SET_TBASE);
-            float pos1 = Math_TimeCursor(CURsT_POS(source, 1), SET_TBASE);
+            float pos0 = math.TimeCursor(CURsT_POS(source, 0), SET_TBASE);
+            float pos1 = math.TimeCursor(CURsT_POS(source, 1), SET_TBASE);
             float delta = fabsf(pos1 - pos0);
             painter.DrawText(x, y1, ":dT=");
             char buffer[20];
@@ -1916,7 +1916,7 @@ static void DrawCursorRShift(Channel ch)
 
     int rShift = SET_RSHIFT(ch);
 
-    int y = grid.ChannelCenterHeight() - Math_RShift2Pixels((uint16)rShift, grid.ChannelHeight());
+    int y = grid.ChannelCenterHeight() - math.RShift2Pixels((uint16)rShift, grid.ChannelHeight());
 
     float scaleFull = (float)grid.ChannelHeight() / (RShiftMax - RShiftMin) * (MATH_ENABLED ? 0.9f : 0.91f);
     int yFull = grid.ChannelCenterHeight() - (int)(scaleFull * (rShift - RShiftZero));

@@ -1,5 +1,3 @@
-
-
 #include "Math.h"
 #include "Settings/Settings.h"
 #include "Log.h"
@@ -10,6 +8,9 @@
 #include <stdlib.h>
 #include <string.h>
 
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+Math math;
 
 const float tableScalesRange[RangeSize] = {2e-3f, 5e-3f, 10e-3f, 20e-3f, 50e-3f, 100e-3f, 200e-3f, 500e-3f, 1.0f, 2.0f, 5.0f};
 /*
@@ -98,7 +99,7 @@ const float absStepTShift[] =
 
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-int Math_RShift2Rel(float rShiftAbs, Range range)
+int Math::RShift2Rel(float rShiftAbs, Range range)
 {
     int retValue = RShiftZero + (int)(rShiftAbs / absStepRShift[range]);
     if(retValue < RShiftMin)
@@ -114,7 +115,7 @@ int Math_RShift2Rel(float rShiftAbs, Range range)
 
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
-int Math_RShift2Pixels(uint16 rShift, int heightGrid)
+int Math::RShift2Pixels(uint16 rShift, int heightGrid)
 {
     float scale = (float)heightGrid / (STEP_RSHIFT * 200);
     return (int)(scale * (rShift - RShiftZero));
@@ -122,21 +123,21 @@ int Math_RShift2Pixels(uint16 rShift, int heightGrid)
 
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
-float Math_VoltageCursor(float shiftCurU, Range range, uint16 rShift)
+float Math::VoltageCursor(float shiftCurU, Range range, uint16 rShift)
 {
     return MAX_VOLTAGE_ON_SCREEN(range) - shiftCurU * voltsInPixel[range] - RSHIFT_2_ABS(rShift, range);
 }
 
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
-float Math_TimeCursor(float shiftCurT, TBase tBase)
+float Math::TimeCursor(float shiftCurT, TBase tBase)
 {
     return shiftCurT * absStepTShift[tBase];
 }
 
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
-void Math_DataExtrapolation(uint8 *data, uint8 *there, int size)
+void Math::DataExtrapolation(uint8 *data, uint8 *there, int size)
 {
     int pointer = 0;
     while(there[pointer] == 0)
@@ -183,7 +184,7 @@ void Math_DataExtrapolation(uint8 *data, uint8 *there, int size)
 
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
-void Math_PointsRelToVoltage(const uint8 *points, int numPoints, Range range, uint16 rShift, float *voltage)
+void Math::PointsRelToVoltage(const uint8 *points, int numPoints, Range range, uint16 rShift, float *voltage)
 {
     const int voltsInPointInt[RangeSize] =   // Коэффициент 20000
     {
@@ -213,7 +214,7 @@ void Math_PointsRelToVoltage(const uint8 *points, int numPoints, Range range, ui
 
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
-void Math_PointsVoltageToRel(const float *voltage, int numPoints, Range range, uint16 rShift, uint8 *points)
+void Math::PointsVoltageToRel(const float *voltage, int numPoints, Range range, uint16 rShift, uint8 *points)
 {
     float maxVoltOnScreen = MAX_VOLTAGE_ON_SCREEN(range);
     float rShiftAbs = RSHIFT_2_ABS(rShift, range);
@@ -242,7 +243,7 @@ void Math_PointsVoltageToRel(const float *voltage, int numPoints, Range range, u
 
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
-uint8 Math_VoltageToPoint(float voltage, Range range, uint16 rShift)
+uint8 Math::VoltageToPoint(float voltage, Range range, uint16 rShift)
 {
     int relValue = (int)((voltage + MAX_VOLTAGE_ON_SCREEN(range) + RSHIFT_2_ABS(rShift, range)) / voltsInPoint[range]) + MIN_VALUE;
     LIMITATION(relValue, 0, 255);
@@ -251,7 +252,7 @@ uint8 Math_VoltageToPoint(float voltage, Range range, uint16 rShift)
 
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
-float Math_GetIntersectionWithHorizontalLine(int x0, int y0, int x1, int y1, int yHorLine)
+float Math::GetIntersectionWithHorizontalLine(int x0, int y0, int x1, int y1, int yHorLine)
 {
     if(y0 == y1)
     {
@@ -263,7 +264,7 @@ float Math_GetIntersectionWithHorizontalLine(int x0, int y0, int x1, int y1, int
 
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
-bool Math_FloatsIsEquals(float value0, float value1, float epsilonPart)
+bool Math::FloatsIsEquals(float value0, float value1, float epsilonPart)
 {
     float max = fabsf(value0) > fabsf(value1) ? fabsf(value0) : fabsf(value1);
 
@@ -274,7 +275,7 @@ bool Math_FloatsIsEquals(float value0, float value1, float epsilonPart)
 
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
-float Math_MinFrom3float(float value1, float value2, float value3)
+float Math::MinFrom3float(float value1, float value2, float value3)
 {
     float retValue = value1;
     if(value2 < retValue)
@@ -290,14 +291,14 @@ float Math_MinFrom3float(float value1, float value2, float value3)
 
 
 //---------------------------------------------------------------------------------------------------------------------------------------------------
-int Math_MaxInt(int val1, int val2)
+int Math::MaxInt(int val1, int val2)
 {
     return val1 > val2 ? val1 : val2;
 }
 
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
-int Math_MinInt(int val1, int val2)
+int Math::MinInt(int val1, int val2)
 {
     return val1 < val2 ? val1 : val2;
 }
@@ -403,7 +404,7 @@ static void MultiplyToWindow(float *data, int numPoints)
 
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
-void Math_CalculateFFT(float *dataR, int numPoints, float *result, float *freq0, float *density0, float *freq1, float *density1, int *y0, int *y1)
+void Math::CalculateFFT(float *dataR, int numPoints, float *result, float *freq0, float *density0, float *freq1, float *density1, int *y0, int *y1)
 {
     float scale = 1.0f / absStepTShift[SET_TBASE] / 1024.0f;
 
@@ -550,7 +551,7 @@ void Math_CalculateFFT(float *dataR, int numPoints, float *result, float *freq0,
 
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
-void Math_CalculateMathFunction(float *data0andResult, float *dataB, int numPoints)
+void Math::CalculateMathFunction(float *data0andResult, float *dataB, int numPoints)
 {
     if (MATH_FUNC_SUM)
     {
@@ -576,7 +577,7 @@ void Math_CalculateMathFunction(float *data0andResult, float *dataB, int numPoin
 
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
-float Math_RandFloat(float min, float max)
+float Math::RandFloat(float min, float max)
 {
     float delta = max - min;
     return min + ((rand() / (float)RAND_MAX) * delta);
@@ -584,7 +585,7 @@ float Math_RandFloat(float min, float max)
 
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
-int8 Math_AddInt8WithLimitation(int8 value, int8 delta, int8 min, int8 max)
+int8 Math::AddInt8WithLimitation(int8 value, int8 delta, int8 min, int8 max)
 {
     int8 retValue = value + delta;
     if (retValue < 0)
@@ -600,7 +601,7 @@ int8 Math_AddInt8WithLimitation(int8 value, int8 delta, int8 min, int8 max)
 
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
-int Math_Sign(int value)
+int Math::Sign(int value)
 {
     if (value > 0)
     {
@@ -615,7 +616,7 @@ int Math_Sign(int value)
 
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
-int Math_Pow10(int pow)
+int Math::Pow10(int pow)
 {
     int retValue = 1;
 
@@ -629,9 +630,9 @@ int Math_Pow10(int pow)
 
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
-int Math_NumDigitsInNumber(int value)
+int Math::NumDigitsInNumber(int value)
 {
-    value = Math_FabsInt(value);
+    value = FabsInt(value);
     int num = 1;
     while ((value /= 10) > 0)
     {
@@ -642,16 +643,16 @@ int Math_NumDigitsInNumber(int value)
 
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
-int Math_FabsInt(int value)
+int Math::FabsInt(int value)
 {
     return value >= 0 ? value : -value;
 }
 
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
-uint8 Math_GetMaxFromArrayWithErrorCode(const uint8 *data, int firstPoint, int lastPoint)
+uint8 Math::GetMaxFromArrayWithErrorCode(const uint8 *data, int firstPoint, int lastPoint)
 {
-    uint8 max = Math_GetMaxFromArray(data, firstPoint, lastPoint);
+    uint8 max = GetMaxFromArray(data, firstPoint, lastPoint);
     if (max >= MAX_VALUE)
     {
         max = ERROR_VALUE_UINT8;
@@ -661,9 +662,9 @@ uint8 Math_GetMaxFromArrayWithErrorCode(const uint8 *data, int firstPoint, int l
 
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
-uint8 Math_GetMinFromArrayWithErrorCode(const uint8 *data, int firstPoint, int lastPoint)
+uint8 Math::GetMinFromArrayWithErrorCode(const uint8 *data, int firstPoint, int lastPoint)
 {
-    uint8 min = Math_GetMinFromArray(data, firstPoint, lastPoint);
+    uint8 min = GetMinFromArray(data, firstPoint, lastPoint);
     if (min < MIN_VALUE || min >= MAX_VALUE)
     {
         min = ERROR_VALUE_UINT8;
@@ -673,7 +674,7 @@ uint8 Math_GetMinFromArrayWithErrorCode(const uint8 *data, int firstPoint, int l
 
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
-uint8 Math_GetMinFromArray(const uint8 *data, int firstPoint, int lastPoint)
+uint8 Math::GetMinFromArray(const uint8 *data, int firstPoint, int lastPoint)
 {
 #define MIN_IF_LESS if(d < min) { min = d; }
 
@@ -698,7 +699,7 @@ uint8 Math_GetMinFromArray(const uint8 *data, int firstPoint, int lastPoint)
 
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
-uint8 Math_GetMinFromArray_RAM(const uint16 *data, int firstPoint, int lastPoint)
+uint8 Math::GetMinFromArray_RAM(const uint16 *data, int firstPoint, int lastPoint)
 {
     uint8 min = 255;
 
@@ -727,7 +728,7 @@ uint8 Math_GetMinFromArray_RAM(const uint16 *data, int firstPoint, int lastPoint
 
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
-uint8 Math_GetMaxFromArray(const uint8 *data, int firstPoint, int lastPoint)
+uint8 Math::GetMaxFromArray(const uint8 *data, int firstPoint, int lastPoint)
 {
 #define MAX_IF_ABOVE if(d > max) { max = d; }
 
@@ -752,7 +753,7 @@ uint8 Math_GetMaxFromArray(const uint8 *data, int firstPoint, int lastPoint)
 
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
-uint8 Math_GetMaxFromArray_RAM(const uint16 *data, int firstPoint, int lastPoint)
+uint8 Math::GetMaxFromArray_RAM(const uint16 *data, int firstPoint, int lastPoint)
 {
     uint8 max = 0;
 
@@ -789,28 +790,28 @@ uint8 Math_GetMaxFromArray_RAM(const uint16 *data, int firstPoint, int lastPoint
 
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
-int LimitationInt(int value, int min, int max)
+int Math::LimitationInt(int value, int min, int max)
 {
     LIMIT
 }
 
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
-uint8 LimitationUInt8(uint8 value, uint8 min, uint8 max)
+uint8 Math::LimitationUInt8(uint8 value, uint8 min, uint8 max)
 {
     LIMIT
 }
 
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
-float LimitationFloat(float value, float min, float max)
+float Math::LimitationFloat(float value, float min, float max)
 {
     LIMIT
 }
 
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
-uint8 Math_CalculateFiltr(const uint8 *data, int x, int numPoints)
+uint8 Math::CalculateFiltr(const uint8 *data, int x, int numPoints)
 {
     if (NUM_SMOOTHING < 2)
     {
@@ -848,7 +849,7 @@ uint8 Math_CalculateFiltr(const uint8 *data, int x, int numPoints)
 
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
-void Math_CalculateFiltrArray(const uint8 *dataIn, uint8 *dataOut, int numPoints, bool needSmoothing)
+void Math::CalculateFiltrArray(const uint8 *dataIn, uint8 *dataOut, int numPoints, bool needSmoothing)
 {
     if (NUM_SMOOTHING < 2 || !needSmoothing)
     {

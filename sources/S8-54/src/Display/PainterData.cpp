@@ -488,14 +488,14 @@ void PainterData::DrawMath(void)
 
     int numPoints = BytesInChannel(DS);
 
-    Math_PointsRelToVoltage(OUT_A, numPoints, RANGE_DS_A, RSHIFT_DS_A, dataAbsA);
-    Math_PointsRelToVoltage(OUT_B, numPoints, RANGE_DS_B, RSHIFT_DS_B, dataAbsB);
+    math.PointsRelToVoltage(OUT_A, numPoints, RANGE_DS_A, RSHIFT_DS_A, dataAbsA);
+    math.PointsRelToVoltage(OUT_B, numPoints, RANGE_DS_B, RSHIFT_DS_B, dataAbsB);
 
-    Math_CalculateMathFunction(dataAbsA, dataAbsB, numPoints);
+    math.CalculateMathFunction(dataAbsA, dataAbsB, numPoints);
 
     uint8 points[FPGA_MAX_POINTS];
 
-    Math_PointsVoltageToRel(dataAbsA, numPoints, SET_RANGE_MATH, SET_RSHIFT_MATH, points);
+    math.PointsVoltageToRel(dataAbsA, numPoints, SET_RANGE_MATH, SET_RSHIFT_MATH, points);
 
     DrawChannel_Math(points);
 
@@ -701,7 +701,7 @@ static void DrawSignalLined(const uint8 *data, int startPoint, int endPoint, int
             if (x0 >= gridLeft && x0 <= gridRight)
             {
                 int index = i - startPoint;
-                int y = calculateFiltr ? Math_CalculateFiltr(data, i, numPoints) : data[i];
+                int y = calculateFiltr ? math.CalculateFiltr(data, i, numPoints) : data[i];
                 int newY = 0;
                 CONVERT_DATA_TO_DISPLAY(newY, y);
                 dataCD[index] = (uint8)newY;
@@ -776,7 +776,7 @@ static void DrawSignalPointed(const uint8 *data, int startPoint, int endPoint, i
         for (int i = startPoint; i < endPoint; i++)
         {
             int index = i - startPoint;
-            CONVERT_DATA_TO_DISPLAY(dataCD[index], Math_CalculateFiltr(data, i, numPoints));
+            CONVERT_DATA_TO_DISPLAY(dataCD[index], math.CalculateFiltr(data, i, numPoints));
         }
         painter.DrawSignal(grid.Left(), dataCD, false);
     }
@@ -786,7 +786,7 @@ static void DrawSignalPointed(const uint8 *data, int startPoint, int endPoint, i
         {
             int index = i - startPoint;
             int dat = 0;
-            CONVERT_DATA_TO_DISPLAY(dat, Math_CalculateFiltr(data, i, numPoints));
+            CONVERT_DATA_TO_DISPLAY(dat, math.CalculateFiltr(data, i, numPoints));
             painter.SetPoint(grid.Left() + (int)(index * scaleX), dat);
         }
     }
@@ -973,7 +973,7 @@ static int Ordinate(uint8 x, float scale)
         return -1;
     }
 
-    return (17.0f - scale * LimitationInt(x - MIN_VALUE, 0, (MAX_VALUE - MIN_VALUE))) + 0.5f;
+    return (17.0f - scale * math.LimitationInt(x - MIN_VALUE, 0, (MAX_VALUE - MIN_VALUE))) + 0.5f;
 }
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------

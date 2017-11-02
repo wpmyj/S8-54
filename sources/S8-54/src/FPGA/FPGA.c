@@ -431,7 +431,7 @@ static void ReadRandomizeChannel(Channel ch, uint16 addrFirstRead, uint8 *data, 
         while (data <= last)
         {
             newData = READ_DATA_ADC_16(addr, ch);
-            *data = (uint8)((int)(2 * AVE_VALUE) - LimitationUInt8((uint8)newData, MIN_VALUE, MAX_VALUE));
+            *data = (uint8)((int)(2 * AVE_VALUE) - math.LimitationUInt8((uint8)newData, MIN_VALUE, MAX_VALUE));
             data += step;
         }
     }
@@ -651,7 +651,7 @@ static void InverseDataIsNecessary(Channel ch, uint8 *data)
     {
         for (int i = 0; i < FPGA_MAX_POINTS; i++)
         {
-            data[i] = (uint8)((int)(2 * AVE_VALUE) - LimitationUInt8(data[i], MIN_VALUE, MAX_VALUE));
+            data[i] = (uint8)((int)(2 * AVE_VALUE) - math.LimitationUInt8(data[i], MIN_VALUE, MAX_VALUE));
         }
     }
 }
@@ -1025,8 +1025,8 @@ void FPGA_FindAndSetTrigLevel(void)
 
     int lastPoint = BytesInChannel(ds_) - 1;
 
-    uint8 min = Math_GetMinFromArray_RAM(data, 0, lastPoint);
-    uint8 max = Math_GetMaxFromArray_RAM(data, 0, lastPoint);
+    uint8 min = math.GetMinFromArray_RAM(data, 0, lastPoint);
+    uint8 max = math.GetMaxFromArray_RAM(data, 0, lastPoint);
 
     uint8 aveValue = ((int)min + (int)max) / 2;
 

@@ -1724,11 +1724,6 @@
               <FilePath>.\src\Utils\Map.h</FilePath>
             </File>
             <File>
-              <FileName>Math.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\src\Utils\Math.c</FilePath>
-            </File>
-            <File>
               <FileName>Math.h</FileName>
               <FileType>5</FileType>
               <FilePath>.\src\Utils\Math.h</FilePath>
@@ -1782,6 +1777,11 @@
               <FileName>ProcessingSignal.cpp</FileName>
               <FileType>8</FileType>
               <FilePath>.\src\Utils\ProcessingSignal.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>Math.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\src\Utils\Math.cpp</FilePath>
             </File>
           </Files>
         </Group>

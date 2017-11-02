@@ -596,11 +596,11 @@ static void SetShiftCursPosU(Channel ch, int numCur, float delta)
 {
     if (CURS_MOVEMENT_IS_PERCENTS)
     {
-        CURsU_POS(ch, numCur) = LimitationFloat(CURsU_POS(ch, numCur) - delta, 0, MAX_POS_U);   /// \todo одинаковые ветки
+        CURsU_POS(ch, numCur) = math.LimitationFloat(CURsU_POS(ch, numCur) - delta, 0, MAX_POS_U);   /// \todo одинаковые ветки
     }
     else
     {
-        CURsU_POS(ch, numCur) = LimitationFloat(CURsU_POS(ch, numCur) - delta, 0, MAX_POS_U);
+        CURsU_POS(ch, numCur) = math.LimitationFloat(CURsU_POS(ch, numCur) - delta, 0, MAX_POS_U);
     }
 }
 
@@ -608,11 +608,11 @@ static void SetCursPosU(Channel ch, int numCur, float pos)
 {
     if (CURS_MOVEMENT_IS_PERCENTS)
     {
-        CURsU_POS(ch, numCur) = LimitationFloat(pos, 0, MAX_POS_U);                             /// \todo одинаковые ветки
+        CURsU_POS(ch, numCur) = math.LimitationFloat(pos, 0, MAX_POS_U);                             /// \todo одинаковые ветки
     }
     else
     {
-        CURsU_POS(ch, numCur) = LimitationFloat(pos, 0, MAX_POS_U);
+        CURsU_POS(ch, numCur) = math.LimitationFloat(pos, 0, MAX_POS_U);
     }
 }
 
@@ -621,12 +621,12 @@ void SetShiftCursPosT(Channel ch, int numCur, float delta)
     if (CURS_MOVEMENT_IS_PERCENTS)
     {
         // CURsT_POS(ch, numCur) = LimitationFloat(CURsT_POS(ch, numCur) + delta, 0, MAX_POS_T);   /// \todo одинаковые ветки
-        SetCursPosT_temp(ch, numCur, LimitationFloat(CURsT_POS(ch, numCur) + delta, 0, MAX_POS_T));
+        SetCursPosT_temp(ch, numCur, math.LimitationFloat(CURsT_POS(ch, numCur) + delta, 0, MAX_POS_T));
     }
     else
     {
         // CURsT_POS(ch, numCur) = LimitationFloat(CURsT_POS(ch, numCur) + delta, 0, MAX_POS_T);
-        SetCursPosT_temp(ch, numCur, LimitationFloat(CURsT_POS(ch, numCur) + delta, 0, MAX_POS_T));
+        SetCursPosT_temp(ch, numCur, math.LimitationFloat(CURsT_POS(ch, numCur) + delta, 0, MAX_POS_T));
     }
 }
 
@@ -635,12 +635,12 @@ void SetCursPosT(Channel ch, int numCur, float pos)
     if (CURS_MOVEMENT_IS_PERCENTS)
     {
         // CURsT_POS(ch, numCur) = LimitationFloat(pos, 0, MAX_POS_T);                             /// \todo одинаковые ветки
-        SetCursPosT_temp(ch, numCur, LimitationFloat(pos, 0, MAX_POS_T));
+        SetCursPosT_temp(ch, numCur, math.LimitationFloat(pos, 0, MAX_POS_T));
     }
     else
     {
         // CURsT_POS(ch, numCur) = LimitationFloat(pos, 0, MAX_POS_T);
-        SetCursPosT_temp(ch, numCur, LimitationFloat(pos, 0, MAX_POS_T));
+        SetCursPosT_temp(ch, numCur, math.LimitationFloat(pos, 0, MAX_POS_T));
     }
 }
 

@@ -359,7 +359,7 @@ float CalculateVoltageRMS(Channel ch)
 
     if(MARKED_MEAS == Measure_VoltageRMS)
     {
-        markerVoltage[ch][0] = Math_VoltageToPoint(sqrtf(rms / period), RANGE_DS(ch), rShift);
+        markerVoltage[ch][0] = math.VoltageToPoint(sqrtf(rms / period), RANGE_DS(ch), rShift);
     }
 
     return sqrtf(rms / period);
@@ -559,7 +559,7 @@ float FindIntersectionWithHorLine(Channel ch, int numIntersection, bool downToUp
         return ERROR_VALUE_FLOAT;
     }
     
-    return Math_GetIntersectionWithHorizontalLine(x, data[x], x + step, data[x + step], yLine);
+    return math.GetIntersectionWithHorizontalLine(x, data[x], x + step, data[x + step], yLine);
 }
 
 
@@ -884,7 +884,7 @@ float CalculateMaxRel(Channel ch)
 
     if(!maxIsCalculating[ch])
     {
-        uint8 val = Math_GetMaxFromArrayWithErrorCode(CHOICE_BUFFER, firstByte, lastByte);
+        uint8 val = math.GetMaxFromArrayWithErrorCode(CHOICE_BUFFER, firstByte, lastByte);
         max[ch] = val == ERROR_VALUE_UINT8 ? ERROR_VALUE_FLOAT : val;
         maxIsCalculating[ch] = true;
     }
@@ -900,7 +900,7 @@ float CalculateMinRel(Channel ch)
 
     if (!minIsCalculating[ch])
     {
-        uint8 val = Math_GetMinFromArrayWithErrorCode(CHOICE_BUFFER, firstByte, lastByte);
+        uint8 val = math.GetMinFromArrayWithErrorCode(CHOICE_BUFFER, firstByte, lastByte);
         min[ch] = val == ERROR_VALUE_UINT8 ? ERROR_VALUE_FLOAT : val;
         minIsCalculating[ch] = true;
     }
@@ -948,7 +948,7 @@ float CalculateDelayPlus(Channel ch)
     float periodB = CalculatePeriod(B);
 
     EXIT_IF_ERRORS_FLOAT(periodA, periodB);
-    if(!Math_FloatsIsEquals(periodA, periodB, 1.05f))
+    if(!math.FloatsIsEquals(periodA, periodB, 1.05f))
     {
         return ERROR_VALUE_FLOAT;
     }
@@ -987,7 +987,7 @@ float CalculateDelayMinus(Channel ch)
 
     EXIT_IF_ERRORS_FLOAT(period0, period1);
 
-    if(!Math_FloatsIsEquals(period0, period1, 1.05f))
+    if(!math.FloatsIsEquals(period0, period1, 1.05f))
     {
         return ERROR_VALUE_FLOAT;
     }
@@ -1087,12 +1087,12 @@ void Processing::SetData(bool needSmoothing)
 
     if (ENABLED_DS_A)
     {
-        Math_CalculateFiltrArray(IN_A, OUT_A, length, needSmoothing);
+        math.CalculateFiltrArray(IN_A, OUT_A, length, needSmoothing);
         memcpy(IN_A, OUT_A, length);
     };
     if (ENABLED_DS_B)
     {
-        Math_CalculateFiltrArray(IN_B, OUT_B, length, needSmoothing);
+        math.CalculateFiltrArray(IN_B, OUT_B, length, needSmoothing);
         memcpy(IN_B, OUT_B, length);
     };
   
@@ -1462,7 +1462,7 @@ void Processing::CountedRange(Channel ch)
         if (d)
         {
             float abs = POINT_2_VOLTAGE(d, rangeIn, rShiftIn);
-            d = Math_VoltageToPoint(abs, rangeOut, (uint16)rShiftOut);
+            d = math.VoltageToPoint(abs, rangeOut, (uint16)rShiftOut);
             LIMITATION(d, MIN_VALUE, MAX_VALUE);
             out[i] = d;
         }
