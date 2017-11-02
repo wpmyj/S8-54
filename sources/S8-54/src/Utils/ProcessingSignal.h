@@ -41,7 +41,7 @@ private:
     /// Приведение сигнала к установленному в приборе Range
     void CountedRange(Channel ch);
     /// Приведение сигнала в канале к установленному в приборе TBase
-    void CountedTBase(Channel ch);
+    void CountedTBase();
 };
 
 

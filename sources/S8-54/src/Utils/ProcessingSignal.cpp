@@ -1337,9 +1337,8 @@ void Processing::CountedToCurrentSettings(void)
 
     if (SET_TBASE != TBASE_DS)
     {
-        CountedTBase(A);
+        CountedTBase();
         memcpy(IN_A, OUT_A, numBytes);
-        CountedTBase(B);
         memcpy(IN_B, OUT_B, numBytes);
     }
     
@@ -1475,28 +1474,26 @@ void Processing::CountedRange(Channel ch)
 }
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
-void Processing::CountedTBase(Channel ch)
+void Processing::CountedTBase()
 {
     float ratio = TSHIFT_2_ABS(1, TBASE_DS) / TSHIFT_2_ABS(1, SET_TBASE);
-
-    uint8 *in = IN(ch);
-    uint8 *out = OUT(ch);
 
     int numBytes = BYTES_IN_CHANNEL_DS;
 
     for (int i = 0; i < numBytes; i++)
     {
-        out[i] = NONE_VALUE;
+        OUT_A[i] = OUT_B[i] = NONE_VALUE;
     }
 
-    const int index0 = numBytes / 2;
+    const int index0 = numBytes / 2 - (TPOS_IN_POINTS - TSHIFT_IN_POINTS);
 
     for (int i = index0; i >= 0; i--)
     {
         int indexOut = index0 + (i - index0) * ratio;
         if (IN_RANGE(indexOut, 0, numBytes - 1))
         {
-            out[indexOut] = in[i];
+            OUT_A[indexOut] = IN_A[i];
+            OUT_B[indexOut] = IN_B[i];
         }
     }
 
@@ -1505,11 +1502,13 @@ void Processing::CountedTBase(Channel ch)
         int indexOut = index0 + (i - index0) * ratio;
         if (IN_RANGE(indexOut, 0, numBytes - 1))
         {
-            out[indexOut] = in[i];
+            OUT_A[indexOut] = IN_A[i];
+            OUT_B[indexOut] = IN_B[i];
         }
     }
 
-    LinearInterpolation(out, numBytes);
+    LinearInterpolation(OUT_A, numBytes);
+    LinearInterpolation(OUT_B, numBytes);
 }
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
