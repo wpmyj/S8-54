@@ -90,7 +90,7 @@ void Hardware_Init(void)
 
     Sound_Init();
     
-    Panel_Init();
+    panel.Init();
 
     FSMC_Init();
     

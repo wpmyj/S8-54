@@ -159,16 +159,16 @@ static const Button bResetSettings =
 
 void OnPress_ResetSettings(void)
 {
-    Panel_Disable();
+    panel.Disable();
     display.SetDrawMode(DrawMode_Hand, Draw_ResetSettings);
 
-    if (Panel_WaitPressingButton() == B_Start)
+    if (panel.WaitPressingButton() == B_Start)
     {
         Settings_Load(true);
     }
 
     display.SetDrawMode(DrawMode_Auto, 0);
-    Panel_Enable();
+    panel.Enable();
     //Func_Start(1);
 }
 

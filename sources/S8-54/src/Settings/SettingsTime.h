@@ -29,7 +29,7 @@
 
 #define SAMPLE_TYPE         (set.time_SampleType)
 #define SAMPLE_TYPE_IS_REAL (SAMPLE_TYPE == SampleType_Real)
-#define SAMPLE_TYPE_IS_OLD  (set.time_SampleTypeOld)
+#define SAMPLE_TYPE_OLD     (set.time_SampleTypeOld)
 
 #define TPOS_IN_POINTS      sTime_TPosInPoints()
 #define TSHIFT_IN_POINTS    sTime_TShiftInPoints()

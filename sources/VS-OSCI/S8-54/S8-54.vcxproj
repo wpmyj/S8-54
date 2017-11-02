@@ -218,7 +218,7 @@
     <ClCompile Include="..\..\S8-54\src\Menu\Pages\PageTime.c" />
     <ClCompile Include="..\..\S8-54\src\Menu\Pages\PageTrig.c" />
     <ClCompile Include="..\..\S8-54\src\Panel\Controls.c" />
-    <ClCompile Include="..\..\S8-54\src\Panel\Panel.c" />
+    <ClCompile Include="..\..\S8-54\src\Panel\Panel.cpp" />
     <ClCompile Include="..\..\S8-54\src\Panel\PanelFunctions.h" />
     <ClCompile Include="..\..\S8-54\src\SelfRecorder\SelfRecorder.c" />
     <ClCompile Include="..\..\S8-54\src\Settings\Settings.c" />

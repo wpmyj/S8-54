@@ -1,5 +1,3 @@
-
-
 #include "Log.h"
 #include "Panel.h"
 #include "PanelFunctions.h"
@@ -13,6 +11,8 @@
 
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+Panel panel;
+
 extern void OnPress_ResetSettings(void);
 
 
@@ -230,7 +230,7 @@ void OnTimerPressedKey(void)
 
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
-bool Panel_ProcessingCommandFromPIC(uint16 command)
+bool Panel::ProcessingCommandFromPIC(uint16 command)
 {
     if (command != 0)
     {
@@ -336,7 +336,7 @@ static void ProcessingCommand(void)
 
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
-void Panel_Update(void)
+void Panel::Update(void)
 {
     if (isRunning)
     {
@@ -403,19 +403,19 @@ void Panel_Update(void)
 //----------------------------------------------------------------------------------------------------------------------------------------------------
 static void EnableLEDChannelA(bool enable)
 {
-    Panel_TransmitData(enable ? LED_CHANA_ENABLE : LED_CHANA_DISABLE);
+    panel.TransmitData(enable ? LED_CHANA_ENABLE : LED_CHANA_DISABLE);
 }
 
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
 static void EnableLEDChannelB(bool enable)
 {
-    Panel_TransmitData(enable ? LED_CHANB_ENABLE : LED_CHANB_DISABLE);
+    panel.TransmitData(enable ? LED_CHANB_ENABLE : LED_CHANB_DISABLE);
 }
 
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
-void Panel_EnableLEDChannel(Channel ch, bool enable)
+void Panel::EnableLEDChannel(Channel ch, bool enable)
 {
     if (ch == A)
     {
@@ -429,21 +429,21 @@ void Panel_EnableLEDChannel(Channel ch, bool enable)
 
 
 //---------------------------------------------------------------------------------------------------------------------------------------------------
-void Panel_EnableLEDTrig(bool enable)
+void Panel::EnableLEDTrig(bool enable)
 {
     static bool enabled = false;
 
     if (enable != enabled)
     {
         enabled = enable;
-        Panel_TransmitData(enable ? LED_TRIG_ENABLE : LED_TRIG_DISABLE);
+        panel.TransmitData(enable ? LED_TRIG_ENABLE : LED_TRIG_DISABLE);
         display.EnableTrigLabel(enable);
     }
 }
 
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
-void Panel_TransmitData(uint16 data)
+void Panel::TransmitData(uint16 data)
 {
     if(lastPos == MAX_DATA)
     {
@@ -462,7 +462,7 @@ void Panel_TransmitData(uint16 data)
 
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
-uint16 Panel_NextData(void)
+uint16 Panel::NextData(void)
 {
     if (lastPos > 0)
     {
@@ -478,14 +478,14 @@ uint16 Panel_NextData(void)
 
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
-void Panel_Disable(void)
+void Panel::Disable(void)
 {
     isRunning = false;
 }
 
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
-void Panel_Enable(void)
+void Panel::Enable(void)
 {
     isRunning = true;
 }
@@ -502,7 +502,7 @@ void Panel_Enable(void)
 
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
-void Panel_Init(void)
+void Panel::Init(void)
 {
     __HAL_RCC_GPIOA_CLK_ENABLE();
     __HAL_RCC_GPIOB_CLK_ENABLE();
@@ -549,19 +549,19 @@ void Panel_Init(void)
     isGPIOG.Alternate = GPIO_AF0_MCO;
     HAL_GPIO_Init(GPIOG, &isGPIOG);
 
-    Panel_EnableLEDRegSet(false);
+    panel.EnableLEDRegSet(false);
 }
 
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
-void Panel_EnableLEDRegSet(bool enable)
+void Panel::EnableLEDRegSet(bool enable)
 {
     HAL_GPIO_WritePin(GPIOG, GPIO_PIN_12, enable ? GPIO_PIN_SET : GPIO_PIN_RESET);
 }
 
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
-PanelButton Panel_WaitPressingButton(void)
+PanelButton Panel::WaitPressingButton(void)
 {
     releasedButton = B_Empty;
     while (releasedButton == B_Empty) {};
@@ -570,13 +570,13 @@ PanelButton Panel_WaitPressingButton(void)
 
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
-void Panel_DisableIfNessessary(void)
+void Panel::DisableIfNessessary(void)
 {
     if (NEED_DISABLE_POWER)
     {
         Settings_Save();
         Log_DisconnectLoggerUSB();
-        Panel_TransmitData(0x04);
+        panel.TransmitData(0x04);
         while (1)
         {
         };
@@ -608,13 +608,13 @@ void HAL_GPIO_EXTI_Callback(uint16_t pin)
 //----------------------------------------------------------------------------------------------------------------------------------------------------
 void HAL_SPI_RxCpltCallback(SPI_HandleTypeDef* handleSPI)
 {
-    if (!Panel_ProcessingCommandFromPIC(dataSPIfromPanel))
+    if (!panel.ProcessingCommandFromPIC(dataSPIfromPanel))
     {
         HAL_SPI_DeInit(handleSPI);
         HAL_SPI_Init(handleSPI);
     }
 
-    SPI1->DR = Panel_NextData();
+    SPI1->DR = panel.NextData();
 }
 
 

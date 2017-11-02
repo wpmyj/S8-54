@@ -53,7 +53,7 @@ int sChannel_MultiplierRel2Abs(Divider divider)
 void sChannel_SetEnabled(Channel ch, bool enabled)
 {
     SET_ENABLED(ch) = enabled;
-    Panel_EnableLEDChannel(ch, enabled);
+    panel.EnableLEDChannel(ch, enabled);
 }
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------

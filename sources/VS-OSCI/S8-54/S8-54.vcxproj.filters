@@ -243,9 +243,6 @@
     <ClCompile Include="..\..\S8-54\src\Panel\Controls.c">
       <Filter>Panel</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\S8-54\src\Panel\Panel.c">
-      <Filter>Panel</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\S8-54\src\Utils\Debug.c">
       <Filter>Utils</Filter>
     </ClCompile>
@@ -584,6 +581,9 @@
     </ClCompile>
     <ClCompile Include="..\..\S8-54\src\Display\PainterData.cpp">
       <Filter>Display</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\S8-54\src\Panel\Panel.cpp">
+      <Filter>Panel</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

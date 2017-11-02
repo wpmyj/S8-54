@@ -1539,11 +1539,6 @@
               <FilePath>.\src\Panel\Controls.h</FilePath>
             </File>
             <File>
-              <FileName>Panel.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\src\Panel\Panel.c</FilePath>
-            </File>
-            <File>
               <FileName>Panel.h</FileName>
               <FileType>5</FileType>
               <FilePath>.\src\Panel\Panel.h</FilePath>
@@ -1552,6 +1547,11 @@
               <FileName>PanelFunctions.h</FileName>
               <FileType>5</FileType>
               <FilePath>.\src\Panel\PanelFunctions.h</FilePath>
+            </File>
+            <File>
+              <FileName>Panel.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\src\Panel\Panel.cpp</FilePath>
             </File>
           </Files>
         </Group>

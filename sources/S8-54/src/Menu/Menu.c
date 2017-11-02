@@ -922,12 +922,12 @@ void SwitchSetLED(void)
     if (first)
     {
         first = false;
-        Panel_EnableLEDRegSet(state);
+        panel.EnableLEDRegSet(state);
         prevState = state;
     }
     else if (prevState != state)
     {
-        Panel_EnableLEDRegSet(state);
+        panel.EnableLEDRegSet(state);
         prevState = state;
     }
 }

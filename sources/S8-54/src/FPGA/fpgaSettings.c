@@ -572,7 +572,7 @@ void FPGA_TBaseDecrease(void)
     if (SET_TBASE == TBase_20ns &&      // Если перешли в режим эквавалентного времени
         !START_MODE_SINGLE)             // И не находимся в режиме однократного запуска
     {
-        SAMPLE_TYPE = SAMPLE_TYPE_IS_OLD;
+        SAMPLE_TYPE = SAMPLE_TYPE_OLD;
     }
 }
 

@@ -578,7 +578,7 @@ static void CalibrateChannel(Channel ch)
 {
     if (IsCalibrateChannel(ch))
     {
-        if (Panel_WaitPressingButton() == B_Start)             // Ожидаем подтверждения или отмены процедуры калибровки канала.
+        if (panel.WaitPressingButton() == B_Start)             // Ожидаем подтверждения или отмены процедуры калибровки канала.
         {
             gStateFPGA.stateCalibration = (ch == A) ? StateCalibration_RShiftAinProgress : StateCalibration_RShiftBinProgress;
 
@@ -656,7 +656,7 @@ void FPGA_ProcedureCalibration(void)
     cal->barA.fullTime = cal->barA.passedTime = cal->barB.fullTime = cal->barB.passedTime = 0;
     
     Settings_SaveState(&storedSettings);    // Сохраняем текущее состояние.
-    Panel_Disable();                        // Отлкючаем панель управления.
+    panel.Disable();                        // Отлкючаем панель управления.
     
     volatile bool run = true;
     while (run)
@@ -704,12 +704,12 @@ void FPGA_ProcedureCalibration(void)
     
     gStateFPGA.stateCalibration = StateCalibration_None;
     
-    Panel_WaitPressingButton();
+    panel.WaitPressingButton();
     
     WriteAdditionRShifts(A);
     WriteAdditionRShifts(B);
     
-    Panel_Enable();
+    panel.Enable();
     display.SetDrawMode(DrawMode_Auto, 0);
     
     SET_ENABLED_A = chanAenable;
@@ -731,7 +731,7 @@ void FPGA_BalanceChannel(Channel ch)
 
     Settings storedSettings;
     Settings_SaveState(&storedSettings);
-    Panel_Disable();
+    panel.Disable();
 
     CalibrateAddRShift(ch);
 
@@ -744,7 +744,7 @@ void FPGA_BalanceChannel(Channel ch)
     
     SET_CALIBR_MODE(ch) = mode;
 
-    Panel_Enable();
+    panel.Enable();
 
     display.FuncOnWaitStop();
     
@@ -1210,7 +1210,7 @@ static void CalibrateStretch(Channel ch)
     {
         cal->isCalculateStretch[ch] = false;
         gStateFPGA.stateCalibration = (ch == A) ? StateCalibration_ErrorCalibrationA : StateCalibration_ErrorCalibrationB;
-        Panel_WaitPressingButton();
+        panel.WaitPressingButton();
     }
     else
     {
