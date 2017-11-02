@@ -1,4 +1,4 @@
-﻿#pragma once
+#pragma once
 #include "defines.h"
 
 
@@ -13,35 +13,35 @@
 // Виды измерений
 typedef enum
 {
-    Measure_None,
-    Measure_VoltageMax,
-    Measure_VoltageMin,
-    Measure_VoltagePic,
-    Measure_VoltageMaxSteady,
-    Measure_VoltageMinSteady,
-    Measure_VoltageAmpl,
-    Measure_VoltageAverage,
-    Measure_VoltageRMS,
-    Measure_VoltageVybrosPlus,
-    Measure_VoltageVybrosMinus,
-    Measure_Period,
-    Measure_Freq,
-    Measure_TimeNarastaniya,
-    Measure_TimeSpada,
-    Measure_DurationPlus,
-    Measure_DurationMinus,
-    Measure_SkvaznostPlus,
-    Measure_SkvaznostMinus,
-    Measure_DelayPlus,
-    Measure_DelayMinus,
-    Measure_PhazaPlus,
-    Measure_PhazaMinus,
-    Measure_NumMeasures
-} Measure;
+    Meas_None,
+    Meas_VoltageMax,
+    Meas_VoltageMin,
+    Meas_VoltagePic,
+    Meas_VoltageMaxSteady,
+    Meas_VoltageMinSteady,
+    Meas_VoltageAmpl,
+    Meas_VoltageAverage,
+    Meas_VoltageRMS,
+    Meas_VoltageVybrosPlus,
+    Meas_VoltageVybrosMinus,
+    Meas_Period,
+    Meas_Freq,
+    Meas_TimeNarastaniya,
+    Meas_TimeSpada,
+    Meas_DurationPlus,
+    Meas_DurationMinus,
+    Meas_SkvaznostPlus,
+    Meas_SkvaznostMinus,
+    Meas_DelayPlus,
+    Meas_DelayMinus,
+    Meas_PhazaPlus,
+    Meas_PhazaMinus,
+    Meas_NumMeasures
+} Meas;
 
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-char Measure_GetChar(Measure measure);
+char Measure_GetChar(Meas measure);
 
 bool Measure_IsActive(int row, int col); 
 
@@ -55,7 +55,7 @@ int Measure_GetDX(void);
 
 const char *Measure_Name(int row, int col);
 
-Measure Measure_Type(int row, int col);
+Meas Measure_Type(int row, int col);
 
 int Measure_NumRows(void);
 

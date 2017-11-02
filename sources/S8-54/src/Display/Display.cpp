@@ -889,8 +889,8 @@ static void DrawMeasures(void)
             int y = y0 + str * dY;
             bool active = Measure_IsActive(str, elem) && GetNameOpenedPage() == PageSB_Measures_Tune;
             Color color = active ? gColorBack : gColorFill;
-            Measure meas = Measure_Type(str, elem);
-            if(meas != Measure_None)
+            Meas meas = Measure_Type(str, elem);
+            if(meas != Meas_None)
             {
                 painter.FillRegion(x, y, dX, dY, gColorBack);
                 painter.DrawRectangle(x, y, dX, dY, gColorFill);
@@ -900,7 +900,7 @@ static void DrawMeasures(void)
             {
                 painter.FillRegion(x + 2, y + 2, dX - 4, dY - 4, gColorFill);
             }
-            if(meas != Measure_None)
+            if(meas != Meas_None)
             {
 #define SIZE_BUFFER 20
                 char buffer[SIZE_BUFFER];

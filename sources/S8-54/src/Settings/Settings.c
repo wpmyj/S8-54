@@ -127,9 +127,9 @@ static const Settings defaultSettings =
     A_B,                    // Source
     ModeViewSignals_AsIs,   // ModeViewSignals
     {
-        Measure_VoltageMax,     Measure_VoltageMin,     Measure_VoltagePic,         Measure_VoltageMaxSteady,   Measure_VoltageMinSteady,
-        Measure_VoltageAverage, Measure_VoltageAmpl,    Measure_VoltageRMS,         Measure_VoltageVybrosPlus,  Measure_VoltageVybrosMinus,
-        Measure_Period,         Measure_Freq,           Measure_TimeNarastaniya,    Measure_TimeSpada,          Measure_DurationPlus
+        Meas_VoltageMax,     Meas_VoltageMin,     Meas_VoltagePic,         Meas_VoltageMaxSteady,   Meas_VoltageMinSteady,
+        Meas_VoltageAverage, Meas_VoltageAmpl,    Meas_VoltageRMS,         Meas_VoltageVybrosPlus,  Meas_VoltageVybrosMinus,
+        Meas_Period,         Meas_Freq,           Meas_TimeNarastaniya,    Meas_TimeSpada,          Meas_DurationPlus
     },
     false,                  // Show
     MeasuresZone_Screen,    // Zone
@@ -138,7 +138,7 @@ static const Settings defaultSettings =
     CursCntrl_1,            // CntrlU
     CursCntrl_1,            // CntrlT
     CursActive_T,           // CursActive
-    Measure_None,           // Marked
+    Meas_None,              // Marked
     // SettingsMath
     ScaleFFT_Log,           // ScaleFFT
     SourceFFT_ChannelA,     // SourceFFT

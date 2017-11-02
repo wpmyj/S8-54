@@ -32,7 +32,7 @@ public:
     /// Аппроксимировать единичное измерение режима рандомизатора функцией sinX/X
     void InterpolationSinX_X(uint8 *data, int numPoints, TBase tBase);
     /// Возвращает строку автоматического измерения
-    char* GetStringMeasure(Measure measure, Channel ch, char *buffer, int lenBuf);
+    char* GetStringMeasure(Meas measure, Channel ch, char *buffer, int lenBuf);
     /// Расчитать все измерения
     void CalculateMeasures(void);
 private:

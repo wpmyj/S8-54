@@ -295,13 +295,13 @@ static void OnRegSet_Tune(int angle)
         Sound_RegulatorSwitchRotate();
         if (posOnPageChoice < 0)
         {
-            posOnPageChoice = Measure_NumMeasures - 1;
+            posOnPageChoice = Meas_NumMeasures - 1;
         }
-        else if (posOnPageChoice == Measure_NumMeasures)
+        else if (posOnPageChoice == Meas_NumMeasures)
         {
             posOnPageChoice = 0;
         }
-        MEASURE(posActive) = (Measure)posOnPageChoice;
+        MEASURE(posActive) = (Meas)posOnPageChoice;
         painter.ResetFlash();
     }
     else

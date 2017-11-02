@@ -18,7 +18,7 @@ typedef struct
     const char UGO;
 } StructMeasure;
 
-static const StructMeasure measures[Measure_NumMeasures] =
+static const StructMeasure measures[Meas_NumMeasures] =
 {
     {"",            '\x00'},
     {"U макс",      '\x20'},
@@ -74,7 +74,7 @@ void Measure_SetActive(int row, int col)
     posActive = (int8)(row * Measure_NumCols() + col);
 }
 
-char  Measure_GetChar(Measure measure)
+char  Measure_GetChar(Meas measure)
 {
     return measures[measure].UGO;
 }
@@ -106,7 +106,7 @@ const char *Measure_Name(int row, int col)
 
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
-Measure Measure_Type(int row, int col)
+Meas Measure_Type(int row, int col)
 {
     return MEASURE(row * Measure_NumCols() + col);
 }
@@ -184,7 +184,7 @@ void Measure_ShortPressOnSmallButonMarker(void)
 {
     if(MEASURE(posActive) == MARKED_MEAS)
     {
-        MARKED_MEAS = Measure_None;
+        MARKED_MEAS = Meas_None;
     }
     else
     {
@@ -206,13 +206,13 @@ void Measure_DrawPageChoice(void)
     int dY = 22;
     int maxRow = (NUM_MEASURES_6_1 || NUM_MEASURES_6_2) ? 8 : 5;
     int maxCol = (NUM_MEASURES_6_1 || NUM_MEASURES_6_2) ? 3 : 5;
-    Measure meas = Measure_None;
+    Meas meas = Meas_None;
     painter.SetFont(TypeFont_UGO);
     for(int row = 0; row < maxRow; row++)
     {
         for(int col = 0; col < maxCol; col++)
         {
-            if(meas >= Measure_NumMeasures)
+            if(meas >= Meas_NumMeasures)
             {
                 break;
             }
@@ -223,13 +223,13 @@ void Measure_DrawPageChoice(void)
             painter.FillRegion(x0 + 1, y0 + 1, dX - 2, dY - 2, active ? COLOR_FLASH_10 : gColorBack);
             painter.SetColor(active ? COLOR_FLASH_01 : gColorFill);
             painter.Draw10SymbolsInRect(x0 + 2, y0 + 1, Measure_GetChar(meas));
-            if(meas < Measure_NumMeasures)
+            if(meas < Meas_NumMeasures)
             {
                 painter.SetFont(TypeFont_5);
                 painter.DrawTextRelativelyRight(x0 + dX, y0 + 12, measures[meas].name, active ? COLOR_FLASH_01 : gColorFill);
                 painter.SetFont(TypeFont_UGO);
             }
-            meas = (Measure)((int)meas + 1);    // meas++;
+            meas = (Meas)((int)meas + 1);    // meas++;
         }
     }
     painter.SetFont(TypeFont_8);

@@ -127,7 +127,7 @@ typedef struct
     MeasuresNumber  meas_Number;                ///< Сколько измерений выводить.
     Channel         meas_Source;                ///< Для каких каналов выводить измерения.
     ModeViewSignals meas_ModeViewSignals;       ///< Сжимать ли сигналы при выводе измерений.
-    Measure         meas_Measures[15];          ///< Выбранные для индикации измерения.
+    Meas            meas_Measures[15];          ///< Выбранные для индикации измерения.
     bool            meas_Show;                  ///< Показывать ли измерения.
     MeasuresZone    meas_Zone;                  ///< Задаёт область, из которой берутся значения для расчёта измерений.
     int16           meas_PosCurU[2];            ///< \brief Позиции курсоров, которые задают область, из которой берутся значения для расчёта 
@@ -137,7 +137,7 @@ typedef struct
     CursCntrl       meas_CntrlU;                ///< Активные курсоры напряжения.
     CursCntrl       meas_CntrlT;                ///< Активные курсоры времени.
     CursActive      meas_CursActive;            ///< Какие курсоры активны - по времени или напряжению.
-    Measure         meas_Marked;                ///< Измерение, на которое нужно выводить маркеры.
+    Meas            meas_Marked;                ///< Измерение, на которое нужно выводить маркеры.
     // SettingsMath
     ScaleFFT        math_ScaleFFT;
     SourceFFT       math_SourceFFT;
