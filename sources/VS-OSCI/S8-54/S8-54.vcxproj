@@ -198,7 +198,7 @@
     <ClCompile Include="..\..\S8-54\src\Log.c" />
     <ClCompile Include="..\..\S8-54\src\main.c" />
     <ClCompile Include="..\..\S8-54\src\Menu\FileManager.c" />
-    <ClCompile Include="..\..\S8-54\src\Menu\Menu.c" />
+    <ClCompile Include="..\..\S8-54\src\Menu\Menu.cpp" />
     <ClCompile Include="..\..\S8-54\src\Menu\MenuDrawing.c" />
     <ClCompile Include="..\..\S8-54\src\Menu\MenuFunctions.c" />
     <ClCompile Include="..\..\S8-54\src\Menu\MenuItemsGraphics.c" />

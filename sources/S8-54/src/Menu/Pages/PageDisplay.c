@@ -686,7 +686,7 @@ static const Choice cSettings_AutoHide =
 
 static void OnChanged_Settings_AutoHide(bool autoHide)
 {
-    Menu_SetAutoHide(autoHide);
+    menu.SetAutoHide(autoHide);
 }
 
 

@@ -941,7 +941,7 @@ static void DrawStringNavigation(void)
     if((SHOW_STRING_NAVIGATION || SHOW_STRING_NAVI_ALL) && (MENU_IS_SHOWN || (TypeOpenedItem()) != Item_Page))
     {
         char buffer[100];
-        char *string = Menu_StringNavigation(buffer);
+        char *string = menu.StringNavigation(buffer);
         if(string)
         {
             int length = Font_GetLengthText(string);

@@ -30,7 +30,7 @@ int main(void)
     FPGA_OnPressStartStop();
     display.Init();
     Ethernet_Init();
-    Menu_Init();
+    menu.Init();
     
     while(1)
     {
@@ -39,7 +39,7 @@ int main(void)
         FDrive_Update();                // Обрабатываем флешку
         FPGA_Update();                  // Обновляем аппаратную часть.
         panel.Update();                 // Обрабатываем панель
-        Menu_UpdateInput();             // Обновляем состояние меню
+        menu.UpdateInput();             // Обновляем состояние меню
         display.Update();               // Рисуем экран.
         panel.DisableIfNessessary();    // Выключаем, если необходимо
     }

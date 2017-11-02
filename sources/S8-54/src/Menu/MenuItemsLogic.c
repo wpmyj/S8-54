@@ -406,7 +406,7 @@ void SBPage_SetCurrent(const Page *page)
     {
         if (SHOW_STRING_NAVI_TEMP)
         {
-            Menu_TemporaryEnableStrNavi();
+            menu.TemporaryEnableStrNavi();
         }
         SetCurrentItem(page, true);
         OpenItem(page, !ItemIsOpened(page));

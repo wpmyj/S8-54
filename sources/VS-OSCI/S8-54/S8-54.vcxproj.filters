@@ -225,9 +225,6 @@
     <ClCompile Include="..\..\S8-54\src\Menu\FileManager.c">
       <Filter>Menu</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\S8-54\src\Menu\Menu.c">
-      <Filter>Menu</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\S8-54\src\Menu\MenuDrawing.c">
       <Filter>Menu</Filter>
     </ClCompile>
@@ -584,6 +581,9 @@
     </ClCompile>
     <ClCompile Include="..\..\S8-54\src\Utils\ProcessingSignal.cpp">
       <Filter>Utils</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\S8-54\src\Menu\Menu.cpp">
+      <Filter>Menu</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

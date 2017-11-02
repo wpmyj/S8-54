@@ -201,7 +201,7 @@ void CloseOpenedItem(void)
         SetMenuPosActItem(name, MENU_POS_ACT_ITEM(name) & 0x7f);
         if(item == &mainPage)
         {
-            Menu_Show(false);
+            menu.Show(false);
         }
     }
     else

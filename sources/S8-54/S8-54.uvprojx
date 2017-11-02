@@ -1369,11 +1369,6 @@
               <FilePath>.\src\Menu\FileManager.h</FilePath>
             </File>
             <File>
-              <FileName>Menu.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\src\Menu\Menu.c</FilePath>
-            </File>
-            <File>
               <FileName>Menu.h</FileName>
               <FileType>5</FileType>
               <FilePath>.\src\Menu\Menu.h</FilePath>
@@ -1422,6 +1417,11 @@
               <FileName>MenuItemsLogic.h</FileName>
               <FileType>5</FileType>
               <FilePath>.\src\Menu\MenuItemsLogic.h</FilePath>
+            </File>
+            <File>
+              <FileName>Menu.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\src\Menu\Menu.cpp</FilePath>
             </File>
           </Files>
         </Group>

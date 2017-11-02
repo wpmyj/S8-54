@@ -579,7 +579,7 @@ static void OnPress_Internal_Exit(void)
     {
         MODE_WORK = ModeWork_RAM;
         EXIT_FROM_ROM_TO_RAM = 0;
-        Menu_RunAfterUpdate(FuncForInternalExit);
+        menu.RunAfterUpdate(FuncForInternalExit);
     }
     else
     {
