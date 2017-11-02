@@ -64,7 +64,7 @@ static void DrawLongString(int x, int y, char *string, bool hightlight)
 
     if (length <= WIDTH_COL)
     {
-        painter.DrawTextC(x, y, string, color);
+        painter.DrawText(x, y, string, color);
     }
     else
     {

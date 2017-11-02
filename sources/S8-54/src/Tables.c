@@ -152,5 +152,5 @@ void DrawStr(int index, int x, int y)
     {
         painter.FillRegion(x - 1, y, Font_GetLengthText(str), 9, COLOR_FLASH_10);
     }
-    painter.DrawTextC(x, y, symbolsAlphaBet[index], index == INDEX_SYMBOL ? COLOR_FLASH_01 : gColorFill);
+    painter.DrawText(x, y, symbolsAlphaBet[index], index == INDEX_SYMBOL ? COLOR_FLASH_01 : gColorFill);
 }

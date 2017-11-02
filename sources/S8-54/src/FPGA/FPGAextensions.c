@@ -510,7 +510,7 @@ static void FuncAttScreen(void)
     const int SIZE = 100;
     char buffer[SIZE];
     snprintf(buffer, SIZE, "%.1f", (gTimeMS - startTime) / 1000.0f);
-    painter.DrawTextC(0, 0, buffer, COLOR_BLACK);
+    painter.DrawText(0, 0, buffer, COLOR_BLACK);
 
     painter.EndScene();
 }

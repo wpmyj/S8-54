@@ -657,7 +657,7 @@ static void DrawLowPart(void)
         snprintf(buffer, 100, "ñ\xa5\x10%s", source[TRIGSOURCE]);
     }
 
-    painter.DrawTextC(x, y1, buffer, ColorTrig());
+    painter.DrawText(x, y1, buffer, ColorTrig());
 
     buffer[0] = 0;
     static const char * const couple[] =
@@ -905,24 +905,24 @@ static void DrawMeasures(void)
 #define SIZE_BUFFER 20
                 char buffer[SIZE_BUFFER];
 
-                painter.DrawTextC(x + 4, y + 2, Measure_Name(str, elem), color);
+                painter.DrawText(x + 4, y + 2, Measure_Name(str, elem), color);
                 if(meas == MARKED_MEAS)
                 {
                     painter.FillRegion(x + 1, y + 1, dX - 2, 9, active ? gColorBack : gColorFill);
-                    painter.DrawTextC(x + 4, y + 2, Measure_Name(str, elem), active ? gColorFill : gColorBack);
+                    painter.DrawText(x + 4, y + 2, Measure_Name(str, elem), active ? gColorFill : gColorBack);
                 }
                 if(SOURCE_MEASURE_A && SET_ENABLED_A)
                 {
-                    painter.DrawTextC(x + 2, y + 11, processing.GetStringMeasure(meas, A, buffer, SIZE_BUFFER), gColorChan[A]);
+                    painter.DrawText(x + 2, y + 11, processing.GetStringMeasure(meas, A, buffer, SIZE_BUFFER), gColorChan[A]);
                 }
                 else if(SOURCE_MEASURE_B && SET_ENABLED_B)
                 {
-                    painter.DrawTextC(x + 2, y + 11, processing.GetStringMeasure(meas, B, buffer, SIZE_BUFFER), gColorChan[B]);
+                    painter.DrawText(x + 2, y + 11, processing.GetStringMeasure(meas, B, buffer, SIZE_BUFFER), gColorChan[B]);
                 }
                 else
                 {
-                    painter.DrawTextC(x + 2, y + 11, processing.GetStringMeasure(meas, A, buffer, SIZE_BUFFER), gColorChan[A]);
-                    painter.DrawTextC(x + 2, y + (SET_ENABLED_A ? 20 : 11), processing.GetStringMeasure(meas, B, buffer, SIZE_BUFFER), gColorChan[B]);
+                    painter.DrawText(x + 2, y + 11, processing.GetStringMeasure(meas, A, buffer, SIZE_BUFFER), gColorChan[A]);
+                    painter.DrawText(x + 2, y + (SET_ENABLED_A ? 20 : 11), processing.GetStringMeasure(meas, B, buffer, SIZE_BUFFER), gColorChan[B]);
                 }
 #undef SIZE_BUFFER
             }
@@ -948,7 +948,7 @@ static void DrawStringNavigation(void)
             int height = 10;
             painter.DrawRectangle(grid.Left(), GRID_TOP, length + 2, height, gColorFill);
             painter.FillRegion(grid.Left() + 1, GRID_TOP + 1, length, height - 2, gColorBack);
-            painter.DrawTextC(grid.Left() + 2, GRID_TOP + 1, string, gColorFill);
+            painter.DrawText(grid.Left() + 2, GRID_TOP + 1, string, gColorFill);
         }
     }
 }
@@ -1077,7 +1077,7 @@ void Display::DrawConsole(void)
         {
             y -= 3;
         }
-        painter.DrawTextC(grid.Left() + 2, y + dY + delta, strings[numString], gColorFill);
+        painter.DrawText(grid.Left() + 2, y + dY + delta, strings[numString], gColorFill);
         count++;
     }
 
@@ -1113,7 +1113,7 @@ static void WriteValueTrigLevel(void)
 
         painter.DrawRectangle(x, y, width, 10, gColorFill);
         painter.FillRegion(x + 1, y + 1, width - 2, 8, gColorBack);
-        painter.DrawTextC(x + 2, y + 1, buffer, gColorFill);
+        painter.DrawText(x + 2, y + 1, buffer, gColorFill);
     }
 }
 
@@ -1148,7 +1148,7 @@ static void DrawTimeForFrame(uint timeTicks)
 
     painter.DrawRectangle(grid.Left(), grid.FullBottom() - 10, 84, 10, gColorFill);
     painter.FillRegion(grid.Left() + 1, grid.FullBottom() - 9, 82, 8, gColorBack);
-    painter.DrawTextC(grid.Left() + 2, grid.FullBottom() - 9, buffer, gColorFill);
+    painter.DrawText(grid.Left() + 2, grid.FullBottom() - 9, buffer, gColorFill);
 
     char message[SIZE] ={0};
     snprintf(message, SIZE, "%d", DS_NumElementsWithSameSettings());
@@ -1352,7 +1352,7 @@ static void DrawGridSpectrum(void)
             painter.DrawHLine(y, grid.Left(), grid.Left() + 256, gColorGrid);
             if(!MenuIsMinimize())
             {
-                painter.DrawTextC(5, y - 4, strs[i], gColorFill);
+                painter.DrawText(5, y - 4, strs[i], gColorFill);
             }
         }
     }
@@ -1460,7 +1460,7 @@ static void WriteCursors(void)
         Color colorText = gColorChan[source];
         if (CURsU_ENABLED)
         {
-            painter.DrawTextC(x, y1, "1:", colorText);
+            painter.DrawText(x, y1, "1:", colorText);
             painter.DrawText(x, y2, "2:");
             x += 7;
             painter.DrawText(x, y1, sCursors_GetCursVoltage(source, 0, buffer));
@@ -1516,7 +1516,7 @@ static void WriteCursors(void)
                 int x = grid.Right() - width;
                 painter.DrawRectangle(x, GRID_TOP, width, 12, gColorFill);
                 painter.FillRegion(x + 1, GRID_TOP + 1, width - 2, 10, gColorBack);
-                painter.DrawTextC(x + 1, GRID_TOP + 2, "1/dT=", colorText);
+                painter.DrawText(x + 1, GRID_TOP + 2, "1/dT=", colorText);
                 char buffer[20];
                 painter.DrawText(x + 25, GRID_TOP + 2, Freq2String(1.0f / delta, false, buffer));
             }
@@ -1542,7 +1542,7 @@ static void DrawHiRightPart(void)
         if(trigEnable)
         {
             painter.FillRegion(x, 1 + y, GRID_TOP - 3, GRID_TOP - 7, gColorFill);
-            painter.DrawTextC(x + 3, 3 + y, DICT(DTrig), gColorBack);
+            painter.DrawText(x + 3, 3 + y, DICT(DTrig), gColorBack);
         }
     }
 
@@ -1620,7 +1620,7 @@ static void WriteTextVoltage(Channel ch, int x, int y)
     const int SIZE = 100;
     char buffer[SIZE];
     snprintf(buffer, SIZE, "%s\xa5%s\xa5%s", (ch == A) ? DICT(D1ch) : DICT(D2ch), couple[SET_COUPLE(ch)], sChannel_Range2String(range, divider));
-    painter.DrawTextC(x + 1, y, buffer, colorDraw);
+    painter.DrawText(x + 1, y, buffer, colorDraw);
     char bufferTemp[SIZE];
     snprintf(bufferTemp, SIZE, "\xa5%s", sChannel_RShift2String((int16)SET_RSHIFT(ch), range, divider, buffer));
     painter.DrawText(x + 46, y, bufferTemp);
@@ -1631,7 +1631,7 @@ static void WriteStringAndNumber(const char *text, int16 x, int16 y, int number)
 {
     const int SIZE = 100;
     char buffer[SIZE];
-    painter.DrawTextC(x, y, text, gColorFill);
+    painter.DrawText(x, y, text, gColorFill);
     if(number == 0)
     {
         snprintf(buffer, SIZE, "-");
@@ -1735,7 +1735,7 @@ static void DrawStringInRectangle(int x, int y, char const *text)
     painter.DrawRectangle(x, y, width + 4, height + 4, gColorFill);
     painter.DrawRectangle(x + 1, y + 1, width + 2, height + 2, gColorBack);
     painter.FillRegion(x + 2, y + 2, width, height, COLOR_FLASH_10);
-    painter.DrawTextC(x + 3, y + 2, text, COLOR_FLASH_01);
+    painter.DrawText(x + 3, y + 2, text, COLOR_FLASH_01);
 }
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------

@@ -191,8 +191,9 @@ int Painter::DrawTextOnBackground(int x, int y, const char *text, Color colorBac
 }
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
-int Painter::DrawText(int x, int y, const char *text)
+int Painter::DrawText(int x, int y, const char *text, Color color)
 {
+    SetColor(color);
     if (*text == 0)
     {
         return x;
@@ -237,13 +238,6 @@ int Painter::DrawFormatText(int x, int y, char *format, ...)
     vsprintf(buffer, format, args);
     va_end(args);
     return DrawText(x, y, buffer);
-}
-
-//----------------------------------------------------------------------------------------------------------------------------------------------------
-int Painter::DrawTextC(int x, int y, const char *text, Color color)
-{
-    SetColor(color);
-    return DrawText(x, y, text);
 }
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
@@ -663,7 +657,7 @@ int Painter::DrawFormText(int x, int y, Color color, char *text, ...)
     va_start(args, text);
     vsprintf(buffer, text, args);
     va_end(args);
-    return DrawTextC(x, y, buffer, color);
+    return DrawText(x, y, buffer, color);
 }
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------

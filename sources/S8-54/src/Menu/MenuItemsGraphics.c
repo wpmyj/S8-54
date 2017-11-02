@@ -32,7 +32,7 @@ void DrawGovernorChoiceColorFormulaHiPart(void *item, int x, int y, bool pressed
     painter.DrawVolumeButton(x + 1, y + 2, width + 2, MI_HEIGHT_VALUE + 3, 1, ColorMenuItem(false), ColorMenuItemBrighter(), ColorMenuItemLessBright(), 
         pressed, shade);
 
-    painter.DrawTextC(x + 6 + delta, y + 6 + delta, TitleItem(item), color);
+    painter.DrawText(x + 6 + delta, y + 6 + delta, TitleItem(item), color);
     
     TypeItem type = TypeMenuItem(item);
 
@@ -85,7 +85,7 @@ void DrawGovernorLowPart(Governor *governor, int x, int y, bool pressed, bool sh
         colorTextDown = ColorMenuItem(false);
     }
 
-    x = painter.DrawTextC(x + 4, y + 21, "\x80", colorTextDown);
+    x = painter.DrawText(x + 4, y + 21, "\x80", colorTextDown);
     if(OpenedItem() != governor)
     {
         int delta = (int)Governor_Step(governor);
@@ -118,9 +118,9 @@ void DrawGovernorLowPart(Governor *governor, int x, int y, bool pressed, bool sh
     }
     else
     {
-        x = painter.DrawTextC(x + 1, y + 21, Int2String(*governor->cell, false, 1, buffer), COLOR_WHITE);
+        x = painter.DrawText(x + 1, y + 21, Int2String(*governor->cell, false, 1, buffer), COLOR_WHITE);
     }
-    painter.DrawTextC(x + 1, y + 21, "\x81", colorTextDown);
+    painter.DrawText(x + 1, y + 21, "\x81", colorTextDown);
 }
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
@@ -142,12 +142,11 @@ static void DrawIPaddressLowPart(IPaddress *ip, int x, int y, bool pressed, bool
 
     if (OpenedItem() != ip)
     {
-        
-        painter.DrawTextC(x + 4, y + 21, buffer, colorTextDown);
+        painter.DrawText(x + 4, y + 21, buffer, colorTextDown);
     }
     else
     {
-        painter.DrawTextC(x + 4, y + 21, buffer, COLOR_WHITE);
+        painter.DrawText(x + 4, y + 21, buffer, COLOR_WHITE);
     }
 }
 
@@ -171,11 +170,11 @@ static void DrawMACaddressLowPart(MACaddress *mac, int x, int y, bool pressed, b
     if (OpenedItem() != mac)
     {
 
-        painter.DrawTextC(x + 4, y + 21, buffer, colorTextDown);
+        painter.DrawText(x + 4, y + 21, buffer, colorTextDown);
     }
     else
     {
-        painter.DrawTextC(x + 4, y + 21, buffer, COLOR_WHITE);
+        painter.DrawText(x + 4, y + 21, buffer, COLOR_WHITE);
     }
 }
 
@@ -304,7 +303,7 @@ void DrawGovernorValue(int x, int y, Governor *governor)
     }
     painter.SetFont(TypeFont_5);
     bool sign = governor->minValue < 0;
-    painter.DrawTextC(x + 55, y - 5, Int2String(governor->maxValue, sign, 1, buffer), COLOR_WHITE);
+    painter.DrawText(x + 55, y - 5, Int2String(governor->maxValue, sign, 1, buffer), COLOR_WHITE);
     painter.DrawText(x + 55, y + 2, Int2String(governor->minValue, sign, 1, buffer));
     painter.SetFont(TypeFont_8);
 
@@ -372,7 +371,7 @@ static void DrawMACvalue(int x, int y, MACaddress *mac)
         const int SIZE = 20;
         char buffer[SIZE];
         snprintf(buffer, SIZE, "%02X", value);
-        painter.DrawTextC(x, y, buffer, gCurDigit == num ? COLOR_BLACK : COLOR_WHITE);
+        painter.DrawText(x, y, buffer, gCurDigit == num ? COLOR_BLACK : COLOR_WHITE);
         x -= 12;
     }
 }
@@ -457,7 +456,7 @@ void DrawGovernorColorValue(int x, int y, GovernorColor *govColor, int delta)
         Color colorBack = (field == i) ? COLOR_WHITE : COLOR_BLACK;
         Color colorDraw = (field == i) ? COLOR_BLACK : COLOR_WHITE;
         painter.FillRegion(x - 1, y + 1, 29, 10, colorBack);
-        painter.DrawTextC(x, y + 2, texts[i], colorDraw);
+        painter.DrawText(x, y + 2, texts[i], colorDraw);
         painter.DrawText(x + 14, y + 2, Int2String(vals[i], false, 1, buffer));
         x -= 30;
     }
@@ -524,7 +523,7 @@ void Choice_DrawOpened(Choice *choice, int x, int y)
             painter.DrawVolumeButton(x + 1, yItem, MOI_WIDTH - 2 , MOSI_HEIGHT - 2, 2, COLOR_MENU_FIELD, ColorMenuTitleBrighter(),
                 ColorMenuTitleLessBright(), pressed, IsShade(choice));
         }
-        painter.DrawTextC(x + 4, yItem + 2, NameSubItem(choice, i), pressed ? COLOR_BLACK : COLOR_MENU_FIELD);
+        painter.DrawText(x + 4, yItem + 2, NameSubItem(choice, i), pressed ? COLOR_BLACK : COLOR_MENU_FIELD);
     }
 }
 
@@ -581,7 +580,7 @@ void Time_DrawOpened(Time *time, int x, int y)
     strcpy(strI[iSEC],      Int2String(*time->seconds,  false, 2, buffer));
     strcpy(strI[iSET],      "—охранить");
 
-    painter.DrawTextC(x + 3, y + y0, "д м г - ", COLOR_WHITE);
+    painter.DrawText(x + 3, y + y0, "д м г - ", COLOR_WHITE);
     painter.DrawText(x + 3, y + y1, "ч м с - ");
 
     for (int i = 0; i < 8; i++)
@@ -590,7 +589,7 @@ void Time_DrawOpened(Time *time, int x, int y)
         {
             painter.FillRegion(x + strPaint[i].x - 1, y + strPaint[i].y, strPaint[i].width, 8, COLOR_FLASH_10);
         }
-        painter.DrawTextC(x + strPaint[i].x, y + strPaint[i].y, strI[i], *time->curField == i ? COLOR_FLASH_01 : COLOR_WHITE);
+        painter.DrawText(x + strPaint[i].x, y + strPaint[i].y, strI[i], *time->curField == i ? COLOR_FLASH_01 : COLOR_WHITE);
     }
 }
 
@@ -689,7 +688,7 @@ void Time_DrawClosed(Time *item, int x, int y)
     int startX = 3;
     y += 21;
     PackedTime time = RTC_GetPackedTime();
-    painter.DrawTextC(x + startX, y, Int2String(time.hours, false, 2, buffer), shade ? ColorMenuItem(true) : COLOR_BLACK);
+    painter.DrawText(x + startX, y, Int2String(time.hours, false, 2, buffer), shade ? ColorMenuItem(true) : COLOR_BLACK);
     painter.DrawText(x + startX + deltaField, y, ":");
     painter.DrawText(x + startX + deltaField + deltaSeparator, y, Int2String(time.minutes, false, 2, buffer));
     painter.DrawText(x + startX + 2 * deltaField + deltaSeparator, y, ":");

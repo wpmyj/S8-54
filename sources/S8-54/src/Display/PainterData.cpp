@@ -502,7 +502,7 @@ void PainterData::DrawMath(void)
     painter.DrawRectangle(grid.Left(), grid.MathTop() + delta, WIDTH, HEIGHT, gColorFill);
     painter.FillRegion(grid.Left() + 1, grid.MathTop() + 1 + delta, WIDTH - 2, HEIGHT - 2, gColorBack);
     Divider divider = set.math_Divider;
-    painter.DrawTextC(grid.Left() + 2, grid.MathTop() + 1 + delta, sChannel_Range2String(SET_RANGE_MATH, divider), gColorFill);
+    painter.DrawText(grid.Left() + 2, grid.MathTop() + 1 + delta, sChannel_Range2String(SET_RANGE_MATH, divider), gColorFill);
     painter.DrawText(grid.Left() + 25, grid.MathTop() + 1 + delta, ":");
     char buffer[20];
     painter.DrawText(grid.Left() + 27, grid.MathTop() + 1 + delta, sChannel_RShift2String(SET_RSHIFT_MATH, SET_RANGE_MATH, divider, buffer));

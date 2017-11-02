@@ -464,7 +464,7 @@ static void DrawSetName(void)
         position++;
     }
 
-    int x = painter.DrawTextC(x0 + deltaX, y0 + 65, FILE_NAME, gColorFill);
+    int x = painter.DrawText(x0 + deltaX, y0 + 65, FILE_NAME, gColorFill);
     painter.FillRegion(x, y0 + 65, 5, 8, COLOR_FLASH_10);
 }
 

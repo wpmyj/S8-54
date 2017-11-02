@@ -92,15 +92,13 @@ public:
 
     int DrawChar(int x, int y, char symbol, Color color = NUM_COLORS);
 
-    int DrawText(int x, int y, const char *text);
+    int DrawText(int x, int y, const char *text, Color color = NUM_COLORS);
     /// Выводит текст на прямоугольнике цвета colorBackgound
     int DrawTextOnBackground(int x, int y, const char *text, Color colorBackground);
 
     int DrawFormatText(int x, int y, char *format, ...);
     /// Пишет строку в позиции x, y
     int DrawFormText(int x, int y, Color color, char *text, ...);
-
-    int DrawTextC(int x, int y, const char *text, Color color);
 
     int DrawTextWithLimitationC(int x, int y, const char *text, Color color, int limitX, int limitY, int limitWidth, int limitHeight);
     /// Возвращает нижнюю координату прямоугольника
