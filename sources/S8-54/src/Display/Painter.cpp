@@ -170,8 +170,13 @@ void Painter::SetPoint(int x, int y)
 }
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
-void Painter::DrawHLine(int y, int x0, int x1)
+void Painter::DrawHLine(int y, int x0, int x1, Color color)
 {
+    if (color != NUM_COLORS)
+    {
+        SetColor(color);
+    }
+
     CalculateCurrentColor();
 
     uint8 command[8] = {DRAW_HLINE};
@@ -389,20 +394,20 @@ void Painter::DrawVolumeButton(int x, int y, int width, int height, int thicknes
     {
         for (int i = 0; i < thickness; i++)
         {
-            painter_DrawHLineC(y + i, x + i, x + width - i, dark);
-            painter.DrawVLine(x + i, y + 1 + i, y + height - i);
-            painter.DrawVLine(x + width - i, y + 1 + i, y + height - i, bright);
-            Painter::DrawHLine(y + height - i, x + 1 + i, x + width - i);
+            DrawHLine(y + i, x + i, x + width - i, dark);
+            DrawVLine(x + i, y + 1 + i, y + height - i);
+            DrawVLine(x + width - i, y + 1 + i, y + height - i, bright);
+            DrawHLine(y + height - i, x + 1 + i, x + width - i);
         }
     }
     else
     {
         for (int i = 0; i < thickness; i++)
         {
-            painter_DrawHLineC(y + i, x + i, x + width - i, bright);
+            DrawHLine(y + i, x + i, x + width - i, bright);
             DrawVLine(x + i, y + 1 + i, y + height - i);
             DrawVLine(x + width - i, y + 1 + i, y + height - i, dark);
-            Painter::DrawHLine(y + height - i, x + 1 + i, x + width - i);
+            DrawHLine(y + height - i, x + 1 + i, x + width - i);
         }
     }
 }

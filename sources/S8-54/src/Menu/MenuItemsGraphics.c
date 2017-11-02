@@ -1,5 +1,3 @@
-
-
 #include "defines.h"
 #include "Menu/MenuItems.h"
 #include "Menu/MenuFunctions.h"
@@ -29,7 +27,7 @@ void DrawGovernorChoiceColorFormulaHiPart(void *item, int x, int y, bool pressed
     }
 
     Color color = shade ? ColorMenuTitleLessBright() : (COLOR_SCHEME_IS_WHITE_LETTERS ? COLOR_WHITE :COLOR_BLACK);
-    painter_DrawHLineC(y + 1, x, x + width + 3, ColorBorderMenu(false));
+    painter.DrawHLine(y + 1, x, x + width + 3, ColorBorderMenu(false));
 
     painter.DrawVolumeButton(x + 1, y + 2, width + 2, MI_HEIGHT_VALUE + 3, 1, ColorMenuItem(false), ColorMenuItemBrighter(), ColorMenuItemLessBright(), 
         pressed, shade);
@@ -476,7 +474,7 @@ static void GovernorColor_DrawOpened(GovernorColor *gov, int x, int y)
     painter_DrawRectangleC(x, y, MI_WIDTH + delta, MI_HEIGHT, ColorMenuTitle(false));
     painter.DrawVolumeButton(x + 1, y + 1, MI_WIDTH_VALUE + 2 + delta, MI_HEIGHT_VALUE + 3, 2, ColorMenuItem(false), 
         ColorMenuItemBrighter(), ColorMenuItemLessBright(), IsPressed(gov), IsShade(gov));
-    painter_DrawHLineC(y + MI_HEIGHT / 2 + 2, x, x + MI_WIDTH + delta, ColorMenuTitle(false));
+    painter.DrawHLine(y + MI_HEIGHT / 2 + 2, x, x + MI_WIDTH + delta, ColorMenuTitle(false));
     painter.DrawStringInCenterRectC(x + (IsPressed(gov) ? 2 : 1), y + (IsPressed(gov) ? 2 : 1), MI_WIDTH + delta, MI_HEIGHT / 2 + 2, TitleItem(gov), 
         COLOR_WHITE);
     DrawGovernorColorValue(x + 1, y + 19, gov, delta);
@@ -648,11 +646,11 @@ void Choice_DrawClosed(Choice *choice, int x, int y)
     else
     {
         painter.DrawTextWithLimitationC(x + 4, y + 21 - deltaY, NameCurrentSubItem(choice), colorText, x, y + 19, MI_WIDTH_VALUE, MI_HEIGHT_VALUE - 1);
-        painter_DrawHLineC(y + (deltaY > 0 ? 31 : 19) - deltaY, x + 3, x + MI_WIDTH_VALUE + 1, COLOR_BLACK);
+        painter.DrawHLine(y + (deltaY > 0 ? 31 : 19) - deltaY, x + 3, x + MI_WIDTH_VALUE + 1, COLOR_BLACK);
         painter.DrawTextWithLimitationC(x + 4, y + (deltaY > 0 ? 33 : 9) - deltaY, deltaY > 0 ? NameNextSubItem(choice) : NamePrevSubItem(choice), 
             colorText, x, y + 19, MI_WIDTH_VALUE, MI_HEIGHT_VALUE - 1);
     }
-    painter_DrawHLineC(y + MI_HEIGHT + 1, x, x + MI_WIDTH, ColorBorderMenu(false));
+    painter.DrawHLine(y + MI_HEIGHT + 1, x, x + MI_WIDTH, ColorBorderMenu(false));
 
     if(choice->funcForDraw)
     {
@@ -724,7 +722,7 @@ void Button_Draw(Button *button, int x, int y)
     bool pressed = IsPressed(button);
     bool shade = IsShade(button) || !ItemIsAcitve(button);
 
-    painter_DrawHLineC(y + 1, x, x + MI_WIDTH, ColorMenuTitle(shade));
+    painter.DrawHLine(y + 1, x, x + MI_WIDTH, ColorMenuTitle(shade));
     Color color = shade ? ColorMenuItem(true) : COLOR_WHITE;
     painter_FillRegionC(x + 1, y + 2, MI_WIDTH - 2, MI_HEIGHT - 2, ColorMenuItem(false));
     painter.DrawVolumeButton(x + 3, y + 4, MI_WIDTH - 6, MI_HEIGHT - 6, 2, ColorMenuItem(false), ColorMenuItemBrighter(), 
@@ -767,7 +765,7 @@ void Page_Draw(Page *page, int x, int y)
 {
     bool isShade = IsShade(page) || !ItemIsAcitve(page);
     bool isPressed = IsPressed(page);
-    painter_DrawHLineC(y + 1, x, x + MI_WIDTH, ColorBorderMenu(false));
+    painter.DrawHLine(y + 1, x, x + MI_WIDTH, ColorBorderMenu(false));
 
     painter.DrawVolumeButton(x + 1, y + 2, MI_WIDTH - 2, MI_HEIGHT - 2, 1, ColorMenuItem(false), ColorMenuItemBrighter(), ColorMenuItemLessBright(), 
         isPressed, isShade);

@@ -10,10 +10,6 @@
  *  @{
  */
 
-#define painter_DrawHLineC(y, x0, x1, color)                                \
-    painter.SetColor(color);                                                \
-    painter.DrawHLine(y, x0, x1);
-
 #define painter_FillRegionC(x, y, width, height, color)                     \
     painter.SetColor(color);                                                \
     painter.FillRegion(x, y, width, height);

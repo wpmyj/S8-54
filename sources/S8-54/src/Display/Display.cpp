@@ -520,7 +520,7 @@ static void DrawFullGrid(void)
         {
             DrawGrid(grid.Left(), GRID_TOP + grid.FullHeight() / 2, grid.Width(), grid.FullHeight() / 2);
         }
-        painter_DrawHLineC(GRID_TOP + grid.FullHeight() / 2, grid.Left(), grid.Left() + grid.Width(), gColorFill);
+        painter.DrawHLine(GRID_TOP + grid.FullHeight() / 2, grid.Left(), grid.Left() + grid.Width(), gColorFill);
     }
     else
     {
@@ -571,7 +571,7 @@ static void DrawSpectrum(void)
 
     }
 
-    painter_DrawHLineC(grid.ChannelBottom(), grid.Left(), grid.Right(), gColorFill);
+    painter.DrawHLine(grid.ChannelBottom(), grid.Left(), grid.Right(), gColorFill);
     painter.DrawHLine(grid.MathBottom(), grid.Left(), grid.Right());
 }
 
@@ -629,7 +629,7 @@ static void DrawLowPart(void)
     int y1 = SCREEN_HEIGHT - 10;
     int x = -1;
 
-    painter_DrawHLineC(grid.ChannelBottom(), 1, grid.Left() - Measure_GetDeltaGridLeft() - 2, gColorFill);
+    painter.DrawHLine(grid.ChannelBottom(), 1, grid.Left() - Measure_GetDeltaGridLeft() - 2, gColorFill);
     painter.DrawHLine(grid.FullBottom(), 1, grid.Left() - Measure_GetDeltaGridLeft() - 2);
     WriteTextVoltage(A, x + 2, y0);
     WriteTextVoltage(B, x + 2, y1);
@@ -1329,7 +1329,7 @@ static void DrawGridSpectrum(void)
         for(int i = 1; i < numParts; i++)
         {
             int y = grid.MathTop() + (int)(i * scale);
-            painter_DrawHLineC(y, grid.Left(), grid.Left() + 256, gColorGrid);
+            painter.DrawHLine(y, grid.Left(), grid.Left() + 256, gColorGrid);
             if(!MenuIsMinimize())
             {
                 painter.SetColor(gColorFill);
@@ -1349,7 +1349,7 @@ static void DrawGridSpectrum(void)
         for(int i = 1; i < 5; i++)
         {
             int y = grid.MathTop() + (int)(i * scale);
-            painter_DrawHLineC(y, grid.Left(), grid.Left() + 256, gColorGrid);
+            painter.DrawHLine(y, grid.Left(), grid.Left() + 256, gColorGrid);
             if(!MenuIsMinimize())
             {
                 painter.DrawTextC(5, y - 4, strs[i], gColorFill);

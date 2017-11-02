@@ -112,7 +112,7 @@ void Menu_Draw(void)
             else if(TypeMenuItem(item) == Item_Governor)
             {
                 Governor_Draw((Governor *)item, CalculateX(0), GRID_TOP, true);
-                painter_DrawHLineC(GRID_TOP, CalculateX(0) - 2, GRID_RIGHT, gColorFill);
+                painter.DrawHLine(GRID_TOP, CalculateX(0) - 2, GRID_RIGHT, gColorFill);
                 painter.DrawVLine(GRID_RIGHT, GRID_TOP, GRID_TOP + 40);
             }
         }

@@ -44,7 +44,7 @@ public:
 
     void SetPoint(int x, int y);
 
-    void DrawHLine(int y, int x0, int x1);
+    void DrawHLine(int y, int x0, int x1, Color color = NUM_COLORS);
 
     void DrawVLine(int x, int y0, int y1, Color color = NUM_COLORS);
 
