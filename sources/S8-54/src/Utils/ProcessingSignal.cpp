@@ -1514,28 +1514,28 @@ void Processing::CountedTBase()
 //----------------------------------------------------------------------------------------------------------------------------------------------------
 static void LinearInterpolation(uint8 *data, int numPoints)
 {
-    int index = FindAnotherElement(data, NONE_VALUE, numPoints);   // Находим индекс первого непустого элемента
+    int index = FindAnotherElement(data, NONE_VALUE, numPoints);    // Находим индекс первого непустого элемента
 
-    if (index == -1)                                               // Если такового элемента на нашлось - выходим
+    if (index == -1)                                                // Если такового элемента на нашлось - выходим
     {
         return;
     }
 
-    FillArrayUINT8(data, AVE_VALUE, index);                      // И заполняем все первые пустые элементы этим значением
+    FillArrayUINT8(data, AVE_VALUE, index);                         // И заполняем все первые пустые элементы этим значением
     
     int iFirst = index;
     int iSecond = -1;
-                                                                   // Теперь переходим непосредственно к аппроксимации
+                                                                    // Теперь переходим непосредственно к аппроксимации
     while (iFirst < numPoints)
     {
-        if (!IndexNextPoint(data, numPoints, iFirst, &iSecond))    // Находим следующую непустую точку
-        {                                                          // И если не нашли
-            FillArrayUINT8(&data[iFirst], AVE_VALUE, numPoints - iFirst);    // То заполняем последние точки последними непустыми значениями
-            return;                                                             // И выходим
+        if (!IndexNextPoint(data, numPoints, iFirst, &iSecond))     // Находим следующую непустую точку
+        {                                                           // И если не нашли
+            FillArrayUINT8(&data[iFirst], AVE_VALUE, numPoints - iFirst);   // То заполняем последние точки последними непустыми значениями
+            return;                                                         // И выходим
         }
-        if (iSecond == iFirst + 1)                  // Если следующая точка находится сразу после первой
+        if (iSecond == iFirst + 1)                                  // Если следующая точка находится сразу после первой
         {
-            iFirst = iSecond;                       // То сразу переходим к поиску следующей точки
+            iFirst = iSecond;                                       // То сразу переходим к поиску следующей точки
             continue;
         }
         float k = (data[iSecond] - data[iFirst]) / (float)(iSecond - iFirst);   // Аппроксимируем точки, если есть пустые
