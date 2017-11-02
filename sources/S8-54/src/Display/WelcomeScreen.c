@@ -101,7 +101,7 @@ void WelcomeScreen_Update(void)
         PresentPointToScreen(&p0out3, &x0, &y0);
         PresentPointToScreen(&p1out3, &x1, &y1);
 
-        painter_DrawLineC((int)x0, (int)y0, (int)x1, (int)y1, COLOR_WHITE);
+        painter.DrawLine((int)x0, (int)y0, (int)x1, (int)y1, COLOR_WHITE);
     }
     painter.EndScene();
 }

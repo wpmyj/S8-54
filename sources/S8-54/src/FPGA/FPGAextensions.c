@@ -5,7 +5,6 @@
 #include "Data/DataBuffer.h"
 #include "Data/DataStorage.h"
 #include "Display/DisplayPrimitives.h"
-#include "Display/PainterC.h"
 #include "FPGA/fpga.h" 
 #include "Hardware/FSMC.h"
 #include "Hardware/Timer.h"

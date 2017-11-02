@@ -229,7 +229,7 @@ void Painter::DrawMultiVPointLine(int numLines, int y, uint16 x[], int delta, in
 {
     ASSERT_RET(numLines > 20, "Число линий слишком большое %d", numLines);
 
-    Painter::SetColor(color);
+    SetColor(color);
 
     uint8 command[60] = {DRAW_MULTI_VPOINT_LINE, numLines, y, count, delta, 0};
 
@@ -285,16 +285,17 @@ void Painter::DrawMultiHPointLine(int numLines, int x, uint8 y[], int delta, int
 }
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
-void Painter::DrawLine(int x1, int y1, int x2, int y2)
+void Painter::DrawLine(int x1, int y1, int x2, int y2, Color color)
 {
+    SetColor(color);
     /// \todo Сделать так, чтобы этот выбор происходил в прошивке дисплея.
     if (x1 == x2)
     {
-        Painter::DrawVLine(x1, y1, y2);
+        DrawVLine(x1, y1, y2);
     }
     else if (y1 == y2)
     {
-        Painter::DrawHLine(y1, x1, x2);
+        DrawHLine(y1, x1, x2);
     }
     else
     {
@@ -304,8 +305,8 @@ void Painter::DrawLine(int x1, int y1, int x2, int y2)
         WRITE_SHORT(4, x2);
         WRITE_BYTE(6, y2);
 
-        Painter::SendToDisplay(command, 8);
-        Painter::SendToInterfaces(command, 7);
+        SendToDisplay(command, 8);
+        SendToInterfaces(command, 7);
     }
 }
 

@@ -918,7 +918,7 @@ static void DrawTPos(int leftX, int rightX)
     int x[] = {leftX, (rightX - leftX) / 2 + leftX, rightX};
     int x0 = x[TPOS];
     painter.FillRegion(x0 - 3, 10, 6, 6, gColorBack);
-    painter.DrawCharC(x0 - 3, 10, SYMBOL_TPOS_1, gColorFill);
+    painter.DrawChar(x0 - 3, 10, SYMBOL_TPOS_1, gColorFill);
 }
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
@@ -955,7 +955,7 @@ static void DrawTShift(int leftX, int rightX, int numBytes)
 
     painter.FillRegion((int)xShift - 1, 1, 6, 6, gColorBack);
     painter.FillRegion((int)xShift, 2, 4, 4, gColorFill);
-    painter_DrawLineC((int)xShift + dX01, 3, (int)xShift + dX11, dY11 - 2, gColorBack);
+    painter.DrawLine((int)xShift + dX01, 3, (int)xShift + dX11, dY11 - 2, gColorBack);
     painter.DrawLine((int)xShift + dX02, 4, (int)xShift + 2, dY12 - 2);
 }
 

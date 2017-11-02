@@ -754,12 +754,12 @@ static void DrawLowPart(void)
     // Ethernet
     if((gEthIsConnected || CABLE_LAN_IS_CONNECTED) && gTimeMS > 2000)
     {
-        painter_Draw4SymbolsInRectC(x + 87, GRID_BOTTOM + 2, SYMBOL_ETHERNET, gEthIsConnected ? COLOR_WHITE : COLOR_FLASH_01);
+        painter.Draw4SymbolsInRect(x + 87, GRID_BOTTOM + 2, SYMBOL_ETHERNET, gEthIsConnected ? COLOR_WHITE : COLOR_FLASH_01);
     }
 
     if(CONNECTED_TO_USB || CABLE_USB_IS_CONNECTED)
     {
-        painter_Draw4SymbolsInRectC(x + 72, GRID_BOTTOM + 2, SYMBOL_USB, CONNECTED_TO_USB ? COLOR_WHITE : COLOR_FLASH_01);
+        painter.Draw4SymbolsInRect(x + 72, GRID_BOTTOM + 2, SYMBOL_USB, CONNECTED_TO_USB ? COLOR_WHITE : COLOR_FLASH_01);
     }
 
     painter.SetColor(gColorFill);
@@ -830,7 +830,7 @@ static void DrawCursorTrigLevel(void)
     const char simbols[3] ={'1', '2', 'Â'};
     int dY = 0;
 
-    painter.DrawCharC(x + 5, y - 9 + dY, simbols[TRIGSOURCE], gColorBack);
+    painter.DrawChar(x + 5, y - 9 + dY, simbols[TRIGSOURCE], gColorBack);
     painter.SetFont(TypeFont_8);
 
     if(drawRShiftMarkers && !MenuIsMinimize())
@@ -845,7 +845,7 @@ static void DrawCursorTrigLevel(void)
         int yFull = GRID_TOP + DELTA + height - (int)(scale * (shiftFull - RShiftMin - TrigLevMin) + 4);
         painter.FillRegion(left + 2, yFull + 1, 4, 6, ColorTrig());
         painter.SetFont(TypeFont_5);
-        painter.DrawCharC(left + 3, yFull - 5 + dY, simbols[TRIGSOURCE], gColorBack);
+        painter.DrawChar(left + 3, yFull - 5 + dY, simbols[TRIGSOURCE], gColorBack);
         painter.SetFont(TypeFont_8);
     }
 }
@@ -988,12 +988,12 @@ static void DrawCursorTShift(void)
     else if(shiftTShift < FIRST_POINT)
     {
         painter.Draw2SymbolsC(gridLeft + 1, GRID_TOP, SYMBOL_TSHIFT_LEFT_1, SYMBOL_TSHIFT_LEFT_2, gColorBack, gColorFill);
-        painter_DrawLineC(gridLeft + 9, GRID_TOP + 1, gridLeft + 9, GRID_TOP + 7, gColorBack);
+        painter.DrawLine(gridLeft + 9, GRID_TOP + 1, gridLeft + 9, GRID_TOP + 7, gColorBack);
     }
     else if(shiftTShift > LAST_POINT)
     {
         painter.Draw2SymbolsC(gridRight - 8, GRID_TOP, SYMBOL_TSHIFT_RIGHT_1, SYMBOL_TSHIFT_RIGHT_2, gColorBack, gColorFill);
-        painter_DrawLineC(gridRight - 9, GRID_TOP + 1, gridRight - 9, GRID_TOP + 7, gColorBack);
+        painter.DrawLine(gridRight - 9, GRID_TOP + 1, gridRight - 9, GRID_TOP + 7, gColorBack);
     }
     
 #undef FIRST_POINT
@@ -1709,7 +1709,7 @@ static void DrawScaleLine(int x, bool forTrigLev)
     };
     for(int i = 0; i < 5; i++)
     {
-        painter_DrawLineC(x + 1, levels[i], x2 - 1, levels[i], gColorFill);
+        painter.DrawLine(x + 1, levels[i], x2 - 1, levels[i], gColorFill);
     }
 }
 
@@ -1908,8 +1908,8 @@ static void DrawCursorRShift(Channel ch)
 //        int y = yCenter - Math_RShift2Pixels(SET_RSHIFT_MATH, grid.MathHeight());
         float scaleFull = (float)grid.MathHeight() / (RShiftMax - RShiftMin);
         int yFull = yCenter - (int)(scaleFull * (SET_RSHIFT_MATH - RShiftZero));
-        painter.DrawCharC(x - 9, yFull - 4, SYMBOL_RSHIFT_NORMAL, gColorFill);
-        painter.DrawCharC(x - 8, yFull - 5, 'm', gColorBack);
+        painter.DrawChar(x - 9, yFull - 4, SYMBOL_RSHIFT_NORMAL, gColorFill);
+        painter.DrawChar(x - 8, yFull - 5, 'm', gColorBack);
         return;
     }
     if(!SET_ENABLED(ch))
@@ -1926,21 +1926,21 @@ static void DrawCursorRShift(Channel ch)
 
     if(y > grid.ChannelBottom())
     {
-        painter.DrawCharC(x - 7, grid.ChannelBottom() - 11, SYMBOL_RSHIFT_LOWER, gColorChan[ch]);
+        painter.DrawChar(x - 7, grid.ChannelBottom() - 11, SYMBOL_RSHIFT_LOWER, gColorChan[ch]);
         painter.SetPoint(x - 5, grid.ChannelBottom() - 2);
         y = grid.ChannelBottom() - 7;
         x++;
     }
     else if(y < GRID_TOP)
     {
-        painter.DrawCharC(x - 7, GRID_TOP + 2, SYMBOL_RSHIFT_ABOVE, gColorChan[ch]);
+        painter.DrawChar(x - 7, GRID_TOP + 2, SYMBOL_RSHIFT_ABOVE, gColorChan[ch]);
         painter.SetPoint(x - 5, GRID_TOP + 2);
         y = GRID_TOP + 7;
         x++;
     }
     else
     {
-        painter.DrawCharC(x - 8, y - 4, SYMBOL_RSHIFT_NORMAL, gColorChan[ch]);
+        painter.DrawChar(x - 8, y - 4, SYMBOL_RSHIFT_NORMAL, gColorChan[ch]);
         if(((ch == A) ? showLevelRShiftA : showLevelRShiftB) && MODE_WORK_DIR)
         {
             painter.DrawDashedHLine(y, grid.Left(), grid.Right(), 7, 3, 0);
@@ -1953,9 +1953,9 @@ static void DrawCursorRShift(Channel ch)
     if((!MenuIsMinimize() || !MENU_IS_SHOWN) && drawRShiftMarkers)
     {
         painter.FillRegion(4, yFull - 3, 4, 6, gColorChan[ch]);
-        painter.DrawCharC(5, yFull - 9 + dY, ch == A ? '1' : '2', gColorBack);
+        painter.DrawChar(5, yFull - 9 + dY, ch == A ? '1' : '2', gColorBack);
     }
-    painter.DrawCharC(x - 7, y - 9 + dY, ch == A ? '1' : '2', gColorBack);
+    painter.DrawChar(x - 7, y - 9 + dY, ch == A ? '1' : '2', gColorBack);
     painter.SetFont(TypeFont_8);
 }
 

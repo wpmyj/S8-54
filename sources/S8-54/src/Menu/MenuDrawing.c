@@ -176,7 +176,7 @@ void DrawTitlePage(Page *page, int layer, int yTop)
     x = painter.DrawStringInCenterRectC(x, yTop, MP_TITLE_WIDTH + 2 + delta, MP_TITLE_HEIGHT, TitleItem(page), colorText);
     if(condDrawRSet)
     {
-        painter_Draw4SymbolsInRectC(x + 4, yTop + 11, GetSymbolForGovernor(NumCurrentSubPage(page)), colorText);
+        painter.Draw4SymbolsInRect(x + 4, yTop + 11, GetSymbolForGovernor(NumCurrentSubPage(page)), colorText);
     }
 
     itemUnderButton[GetFuncButtonFromY(yTop)] = page;

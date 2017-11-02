@@ -674,9 +674,6 @@
     <ClInclude Include="..\..\S8-54\src\Display\Painter.h">
       <Filter>Display</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\S8-54\src\Display\PainterC.h">
-      <Filter>Display</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\S8-54\src\Display\PainterMem.h">
       <Filter>Display</Filter>
     </ClInclude>

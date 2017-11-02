@@ -158,8 +158,9 @@ static void DrawCharHardCol(int x, int y, char symbol)
 extern void CalculateCurrentColor(void);
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
-int Painter::DrawChar(int x, int y, char symbol)
+int Painter::DrawChar(int x, int y, char symbol, Color color)
 {
+    SetColor(color);
     CalculateCurrentColor();
     if (Font_GetSize() == 5)
     {
@@ -174,13 +175,6 @@ int Painter::DrawChar(int x, int y, char symbol)
         DrawCharInColorDisplay(x, y, symbol);
     }
     return x + Font_GetLengthSymbol(symbol);
-}
-
-//----------------------------------------------------------------------------------------------------------------------------------------------------
-int Painter::DrawCharC(int x, int y, char symbol, Color color)
-{
-    SetColor(color);
-    return DrawChar(x, y, symbol);
 }
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
@@ -790,8 +784,9 @@ void Painter::DrawTextInRect(int x, int y, int width, char *text)
 }
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
-void Painter::DrawTextRelativelyRight(int xRight, int y, const char *text)
+void Painter::DrawTextRelativelyRight(int xRight, int y, const char *text, Color color)
 {
+    SetColor(color);
     int lenght = Font_GetLengthText(text);
     DrawText(xRight - lenght, y, text);
 }
@@ -799,13 +794,14 @@ void Painter::DrawTextRelativelyRight(int xRight, int y, const char *text)
 //----------------------------------------------------------------------------------------------------------------------------------------------------
 void Painter::Draw2SymbolsC(int x, int y, char symbol1, char symbol2, Color color1, Color color2)
 {
-    DrawCharC(x, y, symbol1, color1);
-    DrawCharC(x, y, symbol2, color2);
+    DrawChar(x, y, symbol1, color1);
+    DrawChar(x, y, symbol2, color2);
 }
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
-void Painter::Draw4SymbolsInRect(int x, int y, char eChar)
+void Painter::Draw4SymbolsInRect(int x, int y, char eChar, Color color)
 {
+    SetColor(color);
     for (char i = 0; i < 2; i++)
     {
         DrawChar(x + 8 * i, y, eChar + i);

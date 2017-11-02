@@ -67,7 +67,7 @@ void DrawGovernorChoiceColorFormulaHiPart(void *item, int x, int y, bool pressed
             }
         }
 
-        painter_Draw4SymbolsInRectC(x + MI_WIDTH - 13, y + 5 + (ItemIsOpened(item) ? 0 : 15), symbol, shade ? color : COLOR_BLACK);
+        painter.Draw4SymbolsInRect(x + MI_WIDTH - 13, y + 5 + (ItemIsOpened(item) ? 0 : 15), symbol, shade ? color : COLOR_BLACK);
     }
 }
 
@@ -276,15 +276,15 @@ static void DrawValueWithSelectedPosition(int x, int y, int value, int numDigits
         }
         if (!(rest == 0 && value == 0) || (firstValue == 0 && i == 0))
         {
-            painter.DrawCharC(x, y, (char)(rest + 48), selPos == i ? COLOR_BLACK : COLOR_WHITE);
+            painter.DrawChar(x, y, (char)(rest + 48), selPos == i ? COLOR_BLACK : COLOR_WHITE);
         }
         else if (fillNull)
         {
-            painter.DrawCharC(x, y, '0', selPos == i ? COLOR_BLACK : COLOR_WHITE);
+            painter.DrawChar(x, y, '0', selPos == i ? COLOR_BLACK : COLOR_WHITE);
         }
         if (hLine)
         {
-            painter_DrawLineC(x, y + 9, x + 3, y + 9, COLOR_WHITE);
+            painter.DrawLine(x, y + 9, x + 3, y + 9, COLOR_WHITE);
         }
         x -= 6;
     }
@@ -340,14 +340,14 @@ static void DrawIPvalue(int x, int y, IPaddress *ip)
         DrawValueWithSelectedPosition(x, y, bytes[i], 3, numIP == i ? selPos : -1, false, true);
         if (i != 3)
         {
-            painter.DrawCharC(x + 5, y, '.', COLOR_WHITE);
+            painter.DrawChar(x + 5, y, '.', COLOR_WHITE);
         }
         x += 19;
     }
 
     if (ip->port != 0)
     {
-        painter.DrawCharC(x - 13, y, ':', COLOR_WHITE);
+        painter.DrawChar(x - 13, y, ':', COLOR_WHITE);
         DrawValueWithSelectedPosition(x + 14, y, *ip->port, 5, numIP == 4 ? selPos : -1, false, true);
     }
 }

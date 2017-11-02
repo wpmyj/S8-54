@@ -1064,11 +1064,6 @@
               <FilePath>.\src\Display\Painter.h</FilePath>
             </File>
             <File>
-              <FileName>PainterC.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\src\Display\PainterC.h</FilePath>
-            </File>
-            <File>
               <FileName>PainterMem.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\src\Display\PainterMem.c</FilePath>

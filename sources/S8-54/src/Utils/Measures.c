@@ -7,7 +7,6 @@
 #include "Display/Display.h"
 #include "Display/Colors.h"
 #include "Display/Painter.h"
-#include "Display/PainterC.h"
 #include "Display/Grid.h"
 #include "Hardware/Sound.h"
 
@@ -227,7 +226,7 @@ void Measure_DrawPageChoice(void)
             if(meas < Measure_NumMeasures)
             {
                 painter.SetFont(TypeFont_5);
-                painter_DrawTextRelativelyRightC(x0 + dX, y0 + 12, measures[meas].name, active ? COLOR_FLASH_01 : gColorFill);
+                painter.DrawTextRelativelyRight(x0 + dX, y0 + 12, measures[meas].name, active ? COLOR_FLASH_01 : gColorFill);
                 painter.SetFont(TypeFont_UGO);
             }
             meas = (Measure)((int)meas + 1);    // meas++;

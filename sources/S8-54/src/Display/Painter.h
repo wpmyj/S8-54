@@ -1,7 +1,6 @@
 #pragma once
 #include "Colors.h"
 #include "DisplayTypes.h"
-#include "PainterC.h"
 
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -53,12 +52,12 @@ public:
     void DrawVPointLine(int x, int y0, int y1, float delta);
     /// \brief Нарисовать numLines вертикальных линий, состоящих из count точек каждая с расстоянием между точками delta. Горизонтальная координата
     /// первой точки каждой линии соответствует очередному элементу массива x[]
-    void DrawMultiVPointLine(int numLines, int y, uint16 x[], int delta, int count, Color color);
+    void DrawMultiVPointLine(int numLines, int y, uint16 x[], int delta, int count, Color color = NUM_COLORS);
     /// \brief Нарисовать numLines горизонтальных линий, состоящих из count точек каждая с расстоянием между точками delta. Вертикальная координата
     /// первой точки каждой линии соответствует очередному элементу массива y[]
-    void DrawMultiHPointLine(int numLines, int x, uint8 y[], int delta, int count, Color color);
+    void DrawMultiHPointLine(int numLines, int x, uint8 y[], int delta, int count, Color color = NUM_COLORS);
 
-    void DrawLine(int x0, int y0, int x1, int y1);
+    void DrawLine(int x0, int y0, int x1, int y1, Color color = NUM_COLORS);
     /// \brief Рисует прерывистую горизонтальную линию. dFill - длина штриха, dEmpty - расст. между штрихами. Линия всегда начинается со штриха. 
     /// dStart указывает смещение первой рисуемой точки относительно начала штриха.
     void DrawDashedHLine(int y, int x0, int x1, int dFill, int dEmpty, int dStart);
@@ -95,9 +94,7 @@ public:
     ///  Загрузить шрифта в дисплей
     void LoadFont(TypeFont typeFont);
 
-    int DrawChar(int x, int y, char symbol);
-
-    int DrawCharC(int x, int y, char symbol, Color color);
+    int DrawChar(int x, int y, char symbol, Color color = NUM_COLORS);
 
     int DrawText(int x, int y, const char *text);
     /// Выводит текст на прямоугольнике цвета colorBackgound
@@ -127,11 +124,11 @@ public:
 
     void DrawTextInRect(int x, int y, int width, char *text);
 
-    void DrawTextRelativelyRight(int xRight, int y, const char *text);
+    void DrawTextRelativelyRight(int xRight, int y, const char *text, Color color = NUM_COLORS);
 
     void Draw2SymbolsC(int x, int y, char symbol1, char symbol2, Color color1, Color color2);
 
-    void Draw4SymbolsInRect(int x, int y, char eChar);
+    void Draw4SymbolsInRect(int x, int y, char eChar, Color color = NUM_COLORS);
 
     void Draw10SymbolsInRect(int x, int y, char eChar);
     /// Пишет текст с переносами

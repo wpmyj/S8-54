@@ -366,7 +366,6 @@
     <ClInclude Include="..\..\S8-54\src\Display\Grid.h" />
     <ClInclude Include="..\..\S8-54\src\Display\Math3D.h" />
     <ClInclude Include="..\..\S8-54\src\Display\Painter.h" />
-    <ClInclude Include="..\..\S8-54\src\Display\PainterC.h" />
     <ClInclude Include="..\..\S8-54\src\Display\PainterData.h" />
     <ClInclude Include="..\..\S8-54\src\Display\PainterMem.h" />
     <ClInclude Include="..\..\S8-54\src\Display\Symbols.h" />
