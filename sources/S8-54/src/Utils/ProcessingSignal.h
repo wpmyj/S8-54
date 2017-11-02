@@ -35,6 +35,13 @@ public:
     char* GetStringMeasure(Measure measure, Channel ch, char *buffer, int lenBuf);
     /// –асчитать все измерени€
     void CalculateMeasures(void);
+private:
+    /// ѕриведение сигнала к установленным в приборе настройкам
+    void CountedToCurrentSettings(void);
+    /// ѕриведение сигнала к установленному в приборе Range
+    void CountedRange(Channel ch);
+    /// ѕриведение сигнала в канале к установленному в приборе TBase
+    void CountedTBase(Channel ch);
 };
 
 

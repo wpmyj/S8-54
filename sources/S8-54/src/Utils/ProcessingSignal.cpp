@@ -62,14 +62,6 @@ static float CalculatePhazaMinus(Channel ch);
 /// \brief Ќайти точку пересечени€ сигнала с горизонтальной линией, проведЄнной на уровне yLine. numItersection - пор€дковый номер пересечени€, 
 /// начинаетс€ с 1. downToTop - если true, ищем пересечение сигнала со средней линией при прохождении из "-" в "+".
 static float FindIntersectionWithHorLine(Channel ch, int numIntersection, bool downToUp, uint8 yLine);
-
-/// ѕриведение сигнала к установленным в приборе настройкам
-static void CountedToCurrentSettings(void);
-/// ѕриведение сигнала к установленному в приборе Range
-static void CountedRange(Channel ch);
-/// ѕриведение сигнала в канале к установленному в приборе TBase
-static void CountedTBase(Channel ch);
-
 /// Ћинейна€ интерпол€ци€
 static void LinearInterpolation(uint8 *data, int numPoints);
 /// ¬озвращает индекс следующей за prevIndex ненулевой точки. ¬озвращает -1, если точки таковой не найдено
@@ -1339,7 +1331,7 @@ char* Processing::GetStringMeasure(Measure measure, Channel ch, char* buffer, in
 
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
-static void CountedToCurrentSettings(void)
+void Processing::CountedToCurrentSettings(void)
 {
     int numBytes = BYTES_IN_CHANNEL_DS;
 
@@ -1453,7 +1445,7 @@ float CalcAve(uint16 *data, Range range, uint16 rShift)
 
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
-static void CountedRange(Channel ch)
+void Processing::CountedRange(Channel ch)
 {
     Range rangeIn = RANGE_DS(ch);
     Range rangeOut = SET_RANGE(ch);
@@ -1483,7 +1475,7 @@ static void CountedRange(Channel ch)
 }
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
-static void CountedTBase(Channel ch)
+void Processing::CountedTBase(Channel ch)
 {
     float ratio = TSHIFT_2_ABS(1, TBASE_DS) / TSHIFT_2_ABS(1, SET_TBASE);
 

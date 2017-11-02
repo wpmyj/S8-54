@@ -261,9 +261,6 @@
     <ClCompile Include="..\..\S8-54\src\Utils\Measures.c">
       <Filter>Utils</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\S8-54\src\Utils\ProcessingSignal.c">
-      <Filter>Utils</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\S8-54\src\Utils\Strings.c">
       <Filter>Utils</Filter>
     </ClCompile>
@@ -584,6 +581,9 @@
     </ClCompile>
     <ClCompile Include="..\..\S8-54\src\Panel\Panel.cpp">
       <Filter>Panel</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\S8-54\src\Utils\ProcessingSignal.cpp">
+      <Filter>Utils</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

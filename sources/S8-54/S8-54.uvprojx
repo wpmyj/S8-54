@@ -1744,11 +1744,6 @@
               <FilePath>.\src\Utils\Measures.h</FilePath>
             </File>
             <File>
-              <FileName>ProcessingSignal.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\src\Utils\ProcessingSignal.c</FilePath>
-            </File>
-            <File>
               <FileName>ProcessingSignal.h</FileName>
               <FileType>5</FileType>
               <FilePath>.\src\Utils\ProcessingSignal.h</FilePath>
@@ -1782,6 +1777,11 @@
               <FileName>Dictionary.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\src\Utils\Dictionary.c</FilePath>
+            </File>
+            <File>
+              <FileName>ProcessingSignal.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\src\Utils\ProcessingSignal.cpp</FilePath>
             </File>
           </Files>
         </Group>
