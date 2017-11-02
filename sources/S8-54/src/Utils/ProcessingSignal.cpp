@@ -1487,17 +1487,7 @@ void Processing::CountedTBase()
 
     const int index0 = TPOS_IN_BYTES - TSHIFT_IN_POINTS;
 
-    for (int i = index0; i >= 0; i--)
-    {
-        int indexOut = index0 + (i - index0) * ratio;
-        if (IN_RANGE(indexOut, 0, numBytes - 1))
-        {
-            OUT_A[indexOut] = IN_A[i];
-            OUT_B[indexOut] = IN_B[i];
-        }
-    }
-
-    for (int i = index0; i < numBytes; i++)
+    for (int i = 0; i < numBytes; ++i)
     {
         int indexOut = index0 + (i - index0) * ratio;
         if (IN_RANGE(indexOut, 0, numBytes - 1))
