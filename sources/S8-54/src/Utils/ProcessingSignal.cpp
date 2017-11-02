@@ -1485,7 +1485,7 @@ void Processing::CountedTBase()
         OUT_A[i] = OUT_B[i] = NONE_VALUE;
     }
 
-    const int index0 = TPOS_IN_POINTS - TSHIFT_IN_POINTS;
+    const int index0 = TPOS_IN_BYTES - TSHIFT_IN_POINTS;
 
     for (int i = index0; i >= 0; i--)
     {

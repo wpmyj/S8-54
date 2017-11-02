@@ -897,7 +897,7 @@ static void DrawDataInRect(uint width, Channel ch)
     int x = 1;
     for (int i = 0; i < width; ++i)
     {
-        if (maxes[i] == -1 && mines[i] == - 1) { ++x; }
+        if (maxes[i] == -1 && mines[i] == -1) { ++x; }
         else { break; }
     }
 
