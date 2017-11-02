@@ -1,5 +1,3 @@
-
-
 #define _INCLUDE_DATA_
 #include "Data.h"
 #undef _INCLUDE_DATA_
@@ -24,6 +22,8 @@
 
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+Data data;
+
 static void Clear(void);
 /// «аполн€ет структуру dataStruct данными дл€ отрисовки
 static void PrepareDataForDraw(StructDataDrawing *dataStruct);
@@ -47,7 +47,7 @@ void Clear(void)
 }
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
-void Data_ReadFromRAM(int fromEnd, StructDataDrawing *dataStruct, bool forMemoryWindow)
+void Data::ReadFromRAM(int fromEnd, StructDataDrawing *dataStruct, bool forMemoryWindow)
 {
     Clear();
 
@@ -119,7 +119,7 @@ void Data_ReadFromRAM(int fromEnd, StructDataDrawing *dataStruct, bool forMemory
 }
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
-void Data_ReadFromROM(StructDataDrawing *dataStruct)
+void Data::ReadFromROM(StructDataDrawing *dataStruct)
 {
     Clear();
 
@@ -138,13 +138,13 @@ void Data_ReadFromROM(StructDataDrawing *dataStruct)
 }
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
-void Data_ReadMin(StructDataDrawing *dataStruct)
+void Data::ReadMin(StructDataDrawing *dataStruct)
 {
     ReadMinMax(dataStruct, 0);
 }
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
-void Data_ReadMax(StructDataDrawing *dataStruct)
+void Data::ReadMax(StructDataDrawing *dataStruct)
 {
     ReadMinMax(dataStruct, 1);
 }

@@ -70,17 +70,21 @@ typedef struct
     ModeWork forMode;                       ///< Для какого режима считываются данные
 } StructDataDrawing;
 
+class Data
+{
+public:
+    /// \brief Читает данные из ОЗУ, fromEnd c конца (fromEnd == 0 - последний считанный сигнал) и заполняет данными inA(B), outA(B), DS.
+    /// forMemoryWindow нужен для того, чтобы в ждущем режиме выводить разные сигналы для экрана и окна памяти
+    void ReadFromRAM(int fromEnd, StructDataDrawing *dataStruct, bool forMemoryWindow);
+    /// Читает данные из EPROM. Номер сигнала - глобвльнй NUM_ROM_SIGNAL и заполняет данными inA(B), outA(B), DS.
+    void ReadFromROM(StructDataDrawing *dataStruct);
+    /// Чтение данных, ограничивающих сигнал снизу
+    void ReadMin(StructDataDrawing *dataStruct);
+    /// Чтение данных, ограничивающих сигнал сверху
+    void ReadMax(StructDataDrawing *dataStruct);
+};
 
-/// \brief Читает данные из ОЗУ, fromEnd c конца (fromEnd == 0 - последний считанный сигнал) и заполняет данными inA(B), outA(B), DS.
-/// forMemoryWindow нужен для того, чтобы в ждущем режиме выводить разные сигналы для экрана и окна памяти
-void Data_ReadFromRAM(int fromEnd, StructDataDrawing *dataStruct, bool forMemoryWindow);
-/// Читает данные из EPROM. Номер сигнала - глобвльнй NUM_ROM_SIGNAL и заполняет данными inA(B), outA(B), DS.
-void Data_ReadFromROM(StructDataDrawing *dataStruct);
-/// Чтение данных, ограничивающих сигнал снизу
-void Data_ReadMin(StructDataDrawing *dataStruct);
-/// Чтение данных, ограничивающих сигнал сверху
-void Data_ReadMax(StructDataDrawing *dataStruct);
-
+extern Data data;
 
 /** @}  @}  @}
  */

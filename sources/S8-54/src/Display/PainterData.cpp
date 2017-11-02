@@ -144,7 +144,7 @@ void PainterData::DrawData(void)
 //----------------------------------------------------------------------------------------------------------------------------------------------------
 static void DrawData_ModeDir(void)
 {  
-    Data_ReadFromRAM(0, dataStruct, true);
+    data.ReadFromRAM(0, dataStruct, true);
     DrawMemoryWindow();
 
     if (MODE_ACCUM_NO_RESET && !IN_P2P_MODE && ENUM_ACCUM > ENumAccum_1)
@@ -164,7 +164,7 @@ static void DrawData_ModeDir(void)
         int i = 0;
         while (i < numAccum && !interruptDrawing)
         {
-            Data_ReadFromRAM(i, dataStruct, false);
+            data.ReadFromRAM(i, dataStruct, false);
             DrawData(true);
             ++i;
         }
@@ -172,14 +172,14 @@ static void DrawData_ModeDir(void)
     
     if (!IN_RANDOM_MODE && !IN_P2P_MODE)
     {
-        Data_ReadMin(dataStruct);
+        data.ReadMin(dataStruct);
         DrawData(true);
 
-        Data_ReadMax(dataStruct);
+        data.ReadMax(dataStruct);
         DrawData(true);
     }
 
-    Data_ReadFromRAM(0, dataStruct, false);
+    data.ReadFromRAM(0, dataStruct, false);
     DrawData(false);
 
     IncreaseNumDrawingSignals();
@@ -204,14 +204,14 @@ static void IncreaseNumDrawingSignals(void)
 //----------------------------------------------------------------------------------------------------------------------------------------------------
 static void DrawData_ModeRAM(void)
 {
-    Data_ReadFromRAM(NUM_RAM_SIGNAL, dataStruct, false);
+    data.ReadFromRAM(NUM_RAM_SIGNAL, dataStruct, false);
     DrawData(false);
 }
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
 static void DrawData_ModeROM(void)
 {
-    Data_ReadFromROM(dataStruct);
+    data.ReadFromROM(dataStruct);
     DrawData(false);
 }
 
