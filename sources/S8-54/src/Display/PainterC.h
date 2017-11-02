@@ -10,28 +10,6 @@
  *  @{
  */
 
-/*
-#define painter_SetPointC(x, y, color)                                      \
-    painter.SetColor(color);                                                \
-    painter.SetPoint(x, y);
-    
-#define painter_DrawDashedHLineC(y, x0, x1, dFill, dEmpty, dStart, color);  \
-    painter.SetColor(color);                                                \
-    painter.DrawDashedHLine(y, x0, x1, dFill, dEmpty, dStart);
-    
-#define painter_DrawDashedVLineC(x, y0, y1, dFill, dEmpty, dStart, color);  \
-    painter.SetColor(color);                                                \
-    painter.DrawDashedVLine(x, y0, y1, dFill, dEmpty, dStart);
-    
-#define painter_DrawTextInRectC(x, y, width, text, color)                   \
-    painter.SetColor(color);                                                \
-    painter.DrawTextInRect(x, y, width, text);
-*/
-
-#define painter_DrawVLineC(x, y0, y1, color)                                \
-    painter.SetColor(color);                                                \
-    painter.DrawVLine(x, y0, y1);
-
 #define painter_DrawHLineC(y, x0, x1, color)                                \
     painter.SetColor(color);                                                \
     painter.DrawHLine(y, x0, x1);

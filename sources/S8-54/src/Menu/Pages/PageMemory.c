@@ -720,8 +720,8 @@ static void Draw_Internal_ModeShow_Saved(int x, int y)
 static void Draw_Internal_ModeShow_Both(int x, int y)
 {
     painter.DrawText(x + 1, y + 5, "наю");
-    painter_DrawVLineC(x + 1, y + 2, y + 14, gColorBack);
-    painter_DrawVLineC(x + 2, y + 6, y + 11, gColorFill);
+    painter.DrawVLine(x + 1, y + 2, y + 14, gColorBack);
+    painter.DrawVLine(x + 2, y + 6, y + 11, gColorFill);
 }
 
 /*

@@ -536,7 +536,7 @@ static void DrawSpectrum(void)
         return;
     }
 
-    painter_DrawVLineC(grid.Right(), grid.ChannelBottom() + 1, grid.MathBottom() - 1, gColorBack);
+    painter.DrawVLine(grid.Right(), grid.ChannelBottom() + 1, grid.MathBottom() - 1, gColorBack);
 
     if(MODE_WORK_DIR)
     {
@@ -633,7 +633,7 @@ static void DrawLowPart(void)
     painter.DrawHLine(grid.FullBottom(), 1, grid.Left() - Measure_GetDeltaGridLeft() - 2);
     WriteTextVoltage(A, x + 2, y0);
     WriteTextVoltage(B, x + 2, y1);
-    painter_DrawVLineC(x + 95, GRID_BOTTOM + 2, SCREEN_HEIGHT - 2, gColorFill);
+    painter.DrawVLine(x + 95, GRID_BOTTOM + 2, SCREEN_HEIGHT - 2, gColorFill);
 
     x += 98;
     const int SIZE = 100;
@@ -700,7 +700,7 @@ static void DrawLowPart(void)
         painter.DrawText(x + 63, y1, buffer);
     }
 
-    painter_DrawVLineC(x + 79, GRID_BOTTOM + 2, SCREEN_HEIGHT - 2, gColorFill);
+    painter.DrawVLine(x + 79, GRID_BOTTOM + 2, SCREEN_HEIGHT - 2, gColorFill);
 
     painter.DrawHLine(GRID_BOTTOM, GRID_RIGHT + 2, SCREEN_WIDTH - 2);
     painter.DrawHLine(grid.ChannelBottom(), GRID_RIGHT + 2, SCREEN_WIDTH - 2);
@@ -1356,7 +1356,7 @@ static void DrawGridSpectrum(void)
             }
         }
     }
-    painter_DrawVLineC(grid.Left() + 256, grid.MathTop(), grid.MathBottom(), gColorFill);
+    painter.DrawVLine(grid.Left() + 256, grid.MathTop(), grid.MathBottom(), gColorFill);
 }
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
@@ -1454,7 +1454,7 @@ static void WriteCursors(void)
     int y2 = 9;
     if(sCursors_NecessaryDrawCursors())
     {
-        painter_DrawVLineC(x, 1, GRID_TOP - 2, gColorFill);
+        painter.DrawVLine(x, 1, GRID_TOP - 2, gColorFill);
         x += 3;
         Channel source = CURS_SOURCE;
         Color colorText = gColorChan[source];
@@ -1480,7 +1480,7 @@ static void WriteCursors(void)
         }
 
         x = startX + 101;
-        painter_DrawVLineC(x, 1, GRID_TOP - 2, gColorFill);
+        painter.DrawVLine(x, 1, GRID_TOP - 2, gColorFill);
         x += 3;
         if(CURsT_ENABLED)
         {
@@ -1535,7 +1535,7 @@ static void DrawHiRightPart(void)
 
     if(!MODE_WORK_RAM)
     {
-        painter_DrawVLineC(x, 1, GRID_TOP - 2, gColorFill);
+        painter.DrawVLine(x, 1, GRID_TOP - 2, gColorFill);
 
         x += 2;
 
@@ -1557,7 +1557,7 @@ static void DrawHiRightPart(void)
     if(!MODE_WORK_DIR)
     {
         x += 18;
-        painter_DrawVLineC(x, 1, GRID_TOP - 2, gColorFill);
+        painter.DrawVLine(x, 1, GRID_TOP - 2, gColorFill);
         x += 2;
         painter.DrawText(LANG_RU ? x : x + 3, -1, DICT(DMode));
         painter.DrawStringInCenterRect(x + 1, 9, 25, 8, strings[MODE_WORK][LANG]);
@@ -1570,7 +1570,7 @@ static void DrawHiRightPart(void)
     if(!MODE_WORK_RAM)
     {
         x += 27;
-        painter_DrawVLineC(x, 1, GRID_TOP - 2, gColorFill);
+        painter.DrawVLine(x, 1, GRID_TOP - 2, gColorFill);
 
         x += 2;
         y = 1;

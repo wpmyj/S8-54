@@ -103,10 +103,10 @@ void Menu_Draw(void)
             if(TypeMenuItem(item) == Item_Choice || TypeMenuItem(item) == Item_ChoiceReg)
             {
                 Choice_Draw((Choice *)item, CalculateX(0), GRID_TOP, false);
-                painter_DrawVLineC(CalculateX(0), GRID_TOP + 1, GRID_TOP + 34, ColorBorderMenu(false));
+                painter.DrawVLine(CalculateX(0), GRID_TOP + 1, GRID_TOP + 34, ColorBorderMenu(false));
                 painter.DrawVLine(CalculateX(0) + 1, GRID_TOP + 1, GRID_TOP + 34);
-                painter_DrawVLineC(GRID_RIGHT, GRID_TOP + 30, GRID_TOP + 40, gColorFill);
-                painter_DrawVLineC(CalculateX(0) - 1, GRID_TOP + 1, GRID_TOP + 35, gColorBack);
+                painter.DrawVLine(GRID_RIGHT, GRID_TOP + 30, GRID_TOP + 40, gColorFill);
+                painter.DrawVLine(CalculateX(0) - 1, GRID_TOP + 1, GRID_TOP + 35, gColorBack);
                 painter.DrawHLine(GRID_TOP + 35, CalculateX(0) - 1, GRID_RIGHT - 1);
             }
             else if(TypeMenuItem(item) == Item_Governor)
@@ -169,7 +169,7 @@ void DrawTitlePage(Page *page, int layer, int yTop)
         painter.DrawVolumeButton(x + 1, yTop + 1, MP_TITLE_WIDTH - 1, MP_TITLE_HEIGHT - 1, 2, ColorMenuTitle(false), ColorMenuTitleBrighter(), ColorMenuTitleLessBright(), shade, shade);
     }
     
-    painter_DrawVLineC(x, yTop, yTop + HeightOpenedItem(page), ColorBorderMenu(false));
+    painter.DrawVLine(x, yTop, yTop + HeightOpenedItem(page), ColorBorderMenu(false));
     bool condDrawRSet = NumSubPages(page) > 1 && TypeMenuItem(CurrentItem()) != Item_ChoiceReg && TypeMenuItem(CurrentItem()) != Item_Governor && TypeOpenedItem() == Item_Page;
     int delta = condDrawRSet ? -10 : 0;
     Color colorText = shade ? LightShadingTextColor() : COLOR_BLACK;

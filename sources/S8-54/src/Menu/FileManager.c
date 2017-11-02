@@ -172,7 +172,7 @@ void FM_Draw(void)
         painter_FillRegionC(left, top, grid.Width() - 2, grid.FullHeight() - 2, gColorBack);
         FDrive_GetNumDirsAndFiles(currentDir, &numDirs, &numFiles);
         DrawNameCurrentDir(left, top + 2);
-        painter_DrawVLineC(left2col, top + 16, 239, gColorFill);
+        painter.DrawVLine(left2col, top + 16, 239, gColorFill);
         painter.DrawHLine(top + 15, 0, width);
     }
 

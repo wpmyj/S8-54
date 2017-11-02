@@ -255,7 +255,7 @@ static void DrawChannel(Channel ch, Color color)
         DrawChannel_Normal(ch, left, bottom, scaleY);
     }
 
-    painter_DrawVLineC(left + dataStruct->posBreak, top, bottom, COLOR_GRID);
+    painter.DrawVLine(left + dataStruct->posBreak, top, bottom, COLOR_GRID);
 
     DrawMarkersForMeasure(ch);
 

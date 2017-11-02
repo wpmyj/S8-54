@@ -46,7 +46,7 @@ public:
 
     void DrawHLine(int y, int x0, int x1);
 
-    void DrawVLine(int x, int y0, int y1);
+    void DrawVLine(int x, int y0, int y1, Color color = NUM_COLORS);
 
     void DrawHPointLine(int y, int x0, int x1, float delta);
 

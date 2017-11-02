@@ -184,8 +184,12 @@ void Painter::DrawHLine(int y, int x0, int x1)
 }
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
-void Painter::DrawVLine(int x, int y0, int y1)
+void Painter::DrawVLine(int x, int y0, int y1, Color color)
 {
+    if (color != NUM_COLORS)
+    {
+        SetColor(color);
+    }
     CalculateCurrentColor();
 
     uint8 command[8] = {DRAW_VLINE};
@@ -358,7 +362,7 @@ void Painter::DrawRectangle(int x, int y, int width, int height)
     Painter::DrawHLine(y + height, x, x + width);
     if (x + width < SCREEN_WIDTH)
     {
-        Painter::DrawVLine(x + width, y, y + height);
+        DrawVLine(x + width, y, y + height);
     }
 }
 
@@ -386,8 +390,8 @@ void Painter::DrawVolumeButton(int x, int y, int width, int height, int thicknes
         for (int i = 0; i < thickness; i++)
         {
             painter_DrawHLineC(y + i, x + i, x + width - i, dark);
-            Painter::DrawVLine(x + i, y + 1 + i, y + height - i);
-            painter_DrawVLineC(x + width - i, y + 1 + i, y + height - i, bright);
+            painter.DrawVLine(x + i, y + 1 + i, y + height - i);
+            painter.DrawVLine(x + width - i, y + 1 + i, y + height - i, bright);
             Painter::DrawHLine(y + height - i, x + 1 + i, x + width - i);
         }
     }
@@ -396,8 +400,8 @@ void Painter::DrawVolumeButton(int x, int y, int width, int height, int thicknes
         for (int i = 0; i < thickness; i++)
         {
             painter_DrawHLineC(y + i, x + i, x + width - i, bright);
-            Painter::DrawVLine(x + i, y + 1 + i, y + height - i);
-            painter_DrawVLineC(x + width - i, y + 1 + i, y + height - i, dark);
+            DrawVLine(x + i, y + 1 + i, y + height - i);
+            DrawVLine(x + width - i, y + 1 + i, y + height - i, dark);
             Painter::DrawHLine(y + height - i, x + 1 + i, x + width - i);
         }
     }
