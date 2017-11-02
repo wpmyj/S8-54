@@ -261,7 +261,7 @@ static void OnDraw_Last(void)
     int width = 40;
     int height = 10;
     painter.FillRegion(grid.Right() - width, GRID_TOP, width, height, gColorBack);
-    painter_DrawRectangleC(grid.Right() - width, GRID_TOP, width, height, gColorFill);
+    painter.DrawRectangle(grid.Right() - width, GRID_TOP, width, height, gColorFill);
     painter.DrawText(grid.Right() - width + 2, GRID_TOP + 1, Int2String(NUM_RAM_SIGNAL + 1, false, 3, buffer));
     painter.DrawText(grid.Right() - width + 17, GRID_TOP + 1, "/");
     painter.DrawText(grid.Right() - width + 23, GRID_TOP + 1, Int2String(DS_NumElementsInStorage(), false, 3, buffer));
@@ -429,7 +429,7 @@ static void DrawSetName(void)
     int width = grid.Width() - 80;
     int height = 80;
 
-    painter_DrawRectangleC(x0, y0, width, height, gColorFill);
+    painter.DrawRectangle(x0, y0, width, height, gColorFill);
     painter.FillRegion(x0 + 1, y0 + 1, width - 2, height - 2, gColorBack);
 
     int index = 0;
@@ -529,7 +529,7 @@ static void DrawMemoryWave(int num, bool exist)
     int y = grid.FullBottom() - 10;
     int width = 12;
     painter.FillRegion(x, y, width, 10, num == NUM_ROM_SIGNAL ? COLOR_FLASH_10 : gColorBack);
-    painter_DrawRectangleC(x, y, width, 10, gColorFill);
+    painter.DrawRectangle(x, y, width, 10, gColorFill);
     painter.SetColor(num == NUM_ROM_SIGNAL ? COLOR_FLASH_01 : gColorFill);
     if (exist)
     {
@@ -1165,7 +1165,7 @@ static void DrawSetMask(void)
     int width = grid.Width() - 80;
     int height = 160;
 
-    painter_DrawRectangleC(x0, y0, width, height, gColorFill);
+    painter.DrawRectangle(x0, y0, width, height, gColorFill);
     painter.FillRegion(x0 + 1, y0 + 1, width - 2, height - 2, gColorBack);
 
     int index = 0;

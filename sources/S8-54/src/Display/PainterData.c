@@ -227,7 +227,7 @@ static void DrawData(bool forAccum)
         DrawChannel(ch, forAccum ? ColorChanAccum(ch) : gColorChan[ch]);
     }
 
-    painter_DrawRectangleC(grid.Left(), GRID_TOP, grid.Width(), grid.FullHeight(), gColorFill);
+    painter.DrawRectangle(grid.Left(), GRID_TOP, grid.Width(), grid.FullHeight(), gColorFill);
 }
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
@@ -464,7 +464,7 @@ static void DrawLimitLabel(int delta)
     }
 
     painter.FillRegion(x, y, width, height, gColorBack);
-    painter_DrawRectangleC(x, y, width, height, color);
+    painter.DrawRectangle(x, y, width, height, color);
     painter.DrawStringInCenterRect(x, y, width, height, "Сигнал за пределами экрана");
 }
 
@@ -495,7 +495,7 @@ void PainterData_DrawMath(void)
     static const int WIDTH = 71;
     static const int HEIGHT = 10;
     int delta = (SHOW_STRING_NAVI_ALL && FUNC_MODE_DRAW_TOGETHER) ? 10 : 0;
-    painter_DrawRectangleC(grid.Left(), grid.MathTop() + delta, WIDTH, HEIGHT, gColorFill);
+    painter.DrawRectangle(grid.Left(), grid.MathTop() + delta, WIDTH, HEIGHT, gColorFill);
     painter.FillRegion(grid.Left() + 1, grid.MathTop() + 1 + delta, WIDTH - 2, HEIGHT - 2, gColorBack);
     Divider divider = set.math_Divider;
     painter.DrawTextC(grid.Left() + 2, grid.MathTop() + 1 + delta, sChannel_Range2String(SET_RANGE_MATH, divider), gColorFill);
@@ -805,7 +805,7 @@ static void DrawMemoryWindow(void)
     float scaleX = (float)(rightX - leftX + 1) / SET_POINTS_IN_CHANNEL;
     const int xVert0 = leftX + (int)(SHIFT_IN_MEMORY_IN_POINTS * scaleX);
     int width = (int)((rightX - leftX) * (282.0f / SET_POINTS_IN_CHANNEL));
-    painter_DrawRectangleC(xVert0, 0, width - (FPGA_POINTS_8k ? 1 : 0), GRID_TOP - 2, gColorFill);
+    painter.DrawRectangle(xVert0, 0, width - (FPGA_POINTS_8k ? 1 : 0), GRID_TOP - 2, gColorFill);
 
     DrawTPos(leftX, rightX);
 

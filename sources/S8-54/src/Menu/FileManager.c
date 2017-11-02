@@ -168,7 +168,7 @@ void FM_Draw(void)
     {
         painter.BeginScene(gColorBack);
         Menu_Draw();
-        painter_DrawRectangleC(0, 0, width, 239, gColorFill);
+        painter.DrawRectangle(0, 0, width, 239, gColorFill);
         painter.FillRegion(left, top, grid.Width() - 2, grid.FullHeight() - 2, gColorBack);
         FDrive_GetNumDirsAndFiles(currentDir, &numDirs, &numFiles);
         DrawNameCurrentDir(left, top + 2);

@@ -65,7 +65,7 @@ public:
     /// Рисует прерывистую вертикальную линию.
     void DrawDashedVLine(int x, int y0, int y1, int dFill, int dEmpty, int dStart);
 
-    void DrawRectangle(int x, int y, int width, int height);
+    void DrawRectangle(int x, int y, int width, int height, Color color = NUM_COLORS);
 
     void FillRegion(int x, int y, int width, int height, Color color = NUM_COLORS);
 

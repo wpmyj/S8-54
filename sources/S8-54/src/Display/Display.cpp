@@ -870,7 +870,7 @@ static void DrawMeasures(void)
         int y1 = POS_MEAS_CUR_U_1 + GRID_TOP;
         SortInt(&x0, &x1);
         SortInt(&y0, &y1);
-        painter_DrawRectangleC(x0, y0, x1 - x0, y1 - y0, gColorFill);
+        painter.DrawRectangle(x0, y0, x1 - x0, y1 - y0, gColorFill);
     }
 
     int x0 = grid.Left() - Measure_GetDeltaGridLeft();
@@ -893,7 +893,7 @@ static void DrawMeasures(void)
             if(meas != Measure_None)
             {
                 painter.FillRegion(x, y, dX, dY, gColorBack);
-                painter_DrawRectangleC(x, y, dX, dY, gColorFill);
+                painter.DrawRectangle(x, y, dX, dY, gColorFill);
                 TOP_MEASURES = Math_MinInt(TOP_MEASURES, y);
             }
             if(active)
@@ -946,7 +946,7 @@ static void DrawStringNavigation(void)
         {
             int length = Font_GetLengthText(string);
             int height = 10;
-            painter_DrawRectangleC(grid.Left(), GRID_TOP, length + 2, height, gColorFill);
+            painter.DrawRectangle(grid.Left(), GRID_TOP, length + 2, height, gColorFill);
             painter.FillRegion(grid.Left() + 1, GRID_TOP + 1, length, height - 2, gColorBack);
             painter.DrawTextC(grid.Left() + 2, GRID_TOP + 1, string, gColorFill);
         }
@@ -1111,7 +1111,7 @@ static void WriteValueTrigLevel(void)
         int y = 0;
         grid.CoordTrigLevel(&x, &y, width);
 
-        painter_DrawRectangleC(x, y, width, 10, gColorFill);
+        painter.DrawRectangle(x, y, width, 10, gColorFill);
         painter.FillRegion(x + 1, y + 1, width - 2, 8, gColorBack);
         painter.DrawTextC(x + 2, y + 1, buffer, gColorFill);
     }
@@ -1146,7 +1146,7 @@ static void DrawTimeForFrame(uint timeTicks)
         numFrames = 0;
     }
 
-    painter_DrawRectangleC(grid.Left(), grid.FullBottom() - 10, 84, 10, gColorFill);
+    painter.DrawRectangle(grid.Left(), grid.FullBottom() - 10, 84, 10, gColorFill);
     painter.FillRegion(grid.Left() + 1, grid.FullBottom() - 9, 82, 8, gColorBack);
     painter.DrawTextC(grid.Left() + 2, grid.FullBottom() - 9, buffer, gColorFill);
 
@@ -1396,7 +1396,7 @@ static void DRAW_SPECTRUM(const uint8 *dataIn, int numPoints, Channel ch)
     {
         Color color = gColorFill;
         WriteParametersFFT(ch, freq0, density0, freq1, density1);
-        painter_DrawRectangleC(POS_MATH_CUR_0 + grid.Left() - s, y0 - s, s * 2, s * 2, color);
+        painter.DrawRectangle(POS_MATH_CUR_0 + grid.Left() - s, y0 - s, s * 2, s * 2, color);
         painter.DrawRectangle(POS_MATH_CUR_1 + grid.Left() - s, y1 - s, s * 2, s * 2);
 
         painter.DrawVLine(grid.Left() + POS_MATH_CUR_0, grid.MathBottom(), y0 + s);
@@ -1514,7 +1514,7 @@ static void WriteCursors(void)
             {
                 int width = 65;
                 int x = grid.Right() - width;
-                painter_DrawRectangleC(x, GRID_TOP, width, 12, gColorFill);
+                painter.DrawRectangle(x, GRID_TOP, width, 12, gColorFill);
                 painter.FillRegion(x + 1, GRID_TOP + 1, width - 2, 10, gColorBack);
                 painter.DrawTextC(x + 1, GRID_TOP + 2, "1/dT=", colorText);
                 char buffer[20];
@@ -1732,8 +1732,8 @@ static void DrawStringInRectangle(int x, int y, char const *text)
 {
     int width = Font_GetLengthText(text);
     int height = 8;
-    painter_DrawRectangleC(x, y, width + 4, height + 4, gColorFill);
-    painter_DrawRectangleC(x + 1, y + 1, width + 2, height + 2, gColorBack);
+    painter.DrawRectangle(x, y, width + 4, height + 4, gColorFill);
+    painter.DrawRectangle(x + 1, y + 1, width + 2, height + 2, gColorBack);
     painter.FillRegion(x + 2, y + 2, width, height, COLOR_FLASH_10);
     painter.DrawTextC(x + 3, y + 2, text, COLOR_FLASH_01);
 }
@@ -2023,7 +2023,7 @@ static void FuncOnWait(void)
     int y = 120 - height / 2;
 
     painter.FillRegion(x, y, width, height, gColorBack);
-    painter_DrawRectangleC(x, y, width, height, gColorFill);
+    painter.DrawRectangle(x, y, width, height, gColorFill);
     painter.DrawStringInCenterRect(x, y, width, height - 20, textWait);
     char buffer[100];
     buffer[0] = 0;

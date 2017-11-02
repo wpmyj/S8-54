@@ -832,7 +832,7 @@ void FreqMeter_Draw(int x, int y)
     int height = 19;
 
     painter.FillRegion(x + 1, y + 1, width - 2, height - 2, gColorBack);
-    painter_DrawRectangleC(x, y, width, height, ColorTrig());
+    painter.DrawRectangle(x, y, width, height, ColorTrig());
 
     painter.DrawText(x + 2, y + 1, "F =");
     painter.DrawText(x + 2, y + 10, "T");
@@ -1132,7 +1132,7 @@ static void FuncDrawAutoFind(void)
     int y = 120 - height / 2;
     painter.BeginScene(gColorBack);
     painter.FillRegion(x, y, width, height, gColorBack);
-    painter_DrawRectangleC(x, y, width, height, gColorFill);
+    painter.DrawRectangle(x, y, width, height, gColorFill);
     painter.DrawStringInCenterRect(x, y, width, height - 20, "Идёт поиск сигнала. Подождите");
     
     char buffer[101] = "";

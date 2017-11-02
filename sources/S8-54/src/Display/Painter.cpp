@@ -119,7 +119,7 @@ void Painter::ResetFlash(void)
 //----------------------------------------------------------------------------------------------------------------------------------------------------
 void Painter::SetColor(Color color)
 {
-    if (color != currentColor)
+    if (color != currentColor && color != NUM_COLORS)
     {
         currentColor = color;
         if (currentColor > NUM_COLORS)
@@ -360,8 +360,9 @@ void Painter::DrawDashedVLine(int x, int y0, int y1, int deltaFill, int deltaEmt
 }
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
-void Painter::DrawRectangle(int x, int y, int width, int height)
+void Painter::DrawRectangle(int x, int y, int width, int height, Color color)
 {
+    SetColor(color);
     Painter::DrawHLine(y, x, x + width);
     Painter::DrawVLine(x, y, y + height);
     Painter::DrawHLine(y + height, x, x + width);

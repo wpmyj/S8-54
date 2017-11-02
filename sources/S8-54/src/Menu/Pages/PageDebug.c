@@ -1159,7 +1159,7 @@ static void OnPress_Settings_Exit(void)
 static void DebugShowSetInfo_Draw(void)
 {
     painter.BeginScene(gColorBack);
-    painter_DrawRectangleC(0, 0, 319, 239, gColorFill);
+    painter.DrawRectangle(0, 0, 319, 239, gColorFill);
 
     int x0 = 30;
     int y0 = 25;
@@ -1435,7 +1435,7 @@ static void Draw_EnterSerialNumber(void)
     int width = grid.Width() - 80;
     int height = 160;
 
-    painter_DrawRectangleC(x0, y0, width, height, gColorFill);
+    painter.DrawRectangle(x0, y0, width, height, gColorFill);
     painter.FillRegion(x0 + 1, y0 + 1, width - 2, height - 2, gColorBack);
 
     int deltaX = 10;

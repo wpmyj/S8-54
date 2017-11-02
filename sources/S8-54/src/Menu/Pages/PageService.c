@@ -1168,7 +1168,7 @@ static void Information_Draw(void)
     int x = 100;
     int dY = 20;
     int y = 20;
-    painter_DrawRectangleC(0, 0, 319, 239, gColorFill);
+    painter.DrawRectangle(0, 0, 319, 239, gColorFill);
     y += dY;
     painter.DrawText(x, y, DICT(DInformation));
     y += dY;

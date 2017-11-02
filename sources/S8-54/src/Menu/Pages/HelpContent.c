@@ -60,7 +60,7 @@ void HelpContent_Draw(void)
     painter.FillRegion(grid.Right(), 0, 319 - grid.Right(), 20, gColorBack);
     painter.FillRegion(grid.Right(), 219, 319 - grid.Right(), 21);
     painter.FillRegion(1, 1, WIDTH, 237);
-    painter_DrawRectangleC(1, 0, WIDTH + 1, 239, gColorFill);   /** \todo «десь непон€тно, почему так.  оординаты верхнего левого угла должны быть 
+    painter.DrawRectangle(1, 0, WIDTH + 1, 239, gColorFill);   /** \todo «десь непон€тно, почему так.  оординаты верхнего левого угла должны быть 
                                                                 0, 0, но в таком случае левой вертикальной полосы не видно */
 
     /*
