@@ -282,7 +282,7 @@ static void DrawChannel_Normal(Channel ch, int left, int bottom, float scaleY)
     {
         uint8 val = data[i];
 
-        if(val == 0)
+        if(val == NONE_VALUE || data[i + 1] == NONE_VALUE)
         {
             continue;                                   // Если это значение отсутствует - переходим к следующей точке
         }
@@ -888,10 +888,7 @@ static void DrawDataInRect(uint width, Channel ch)
         if (maxes[i] != -1 && mines[i] != -1) { numPoints++; }
     }
 
-    if (numPoints != width)                     // Если нужно выводить не все точки,
-    {
-        numPoints--;                            // то выводим на одну меньше - во избежание артефакта в конце вывода
-    }
+    numPoints--;
 
     //*** Теперь определим, с какой позиции выводить точки (если сигнал сжат по горизонтали, то вначале будет пустое место
     int x = 1;
