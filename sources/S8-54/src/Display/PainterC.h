@@ -10,10 +10,6 @@
  *  @{
  */
 
-#define painter_FillRegionC(x, y, width, height, color)                     \
-    painter.SetColor(color);                                                \
-    painter.FillRegion(x, y, width, height);
-
 #define painter_DrawRectangleC(x, y, width, height, color)                  \
     painter.SetColor(color);                                                \
     painter.DrawRectangle(x, y, width, height);

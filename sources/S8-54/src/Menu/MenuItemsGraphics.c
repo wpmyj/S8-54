@@ -272,7 +272,7 @@ static void DrawValueWithSelectedPosition(int x, int y, int value, int numDigits
         value /= 10;
         if (selPos == i)
         {
-            painter_FillRegionC(x - 1, y, 5, height, gColorFill);
+            painter.FillRegion(x - 1, y, 5, height, gColorFill);
         }
         if (!(rest == 0 && value == 0) || (firstValue == 0 && i == 0))
         {
@@ -367,7 +367,7 @@ static void DrawMACvalue(int x, int y, MACaddress *mac)
         int value = (int)(*(bytes + num));
         if (gCurDigit == num)
         {
-            painter_FillRegionC(x - 1, y, 10, 8, COLOR_WHITE);
+            painter.FillRegion(x - 1, y, 10, 8, COLOR_WHITE);
         }
         const int SIZE = 20;
         char buffer[SIZE];
@@ -449,14 +449,14 @@ void DrawGovernorColorValue(int x, int y, GovernorColor *govColor, int delta)
     Color_Init(ct, false);
     int16 vals[4] = {(int16)(ct->brightness * 100.0f), (int16)blue, (int16)green, (int16)red};
 
-    painter_FillRegionC(x, y, MI_WIDTH + delta - 2, MI_HEIGHT / 2 - 3, COLOR_BLACK);
+    painter.FillRegion(x, y, MI_WIDTH + delta - 2, MI_HEIGHT / 2 - 3, COLOR_BLACK);
     x += 92;
     
     for(int i = 0; i < 4; i++)
     {
         Color colorBack = (field == i) ? COLOR_WHITE : COLOR_BLACK;
         Color colorDraw = (field == i) ? COLOR_BLACK : COLOR_WHITE;
-        painter_FillRegionC(x - 1, y + 1, 29, 10, colorBack);
+        painter.FillRegion(x - 1, y + 1, 29, 10, colorBack);
         painter.DrawTextC(x, y + 2, texts[i], colorDraw);
         painter.DrawText(x + 14, y + 2, Int2String(vals[i], false, 1, buffer));
         x -= 30;
@@ -485,7 +485,7 @@ static void GovernorColor_DrawClosed(GovernorColor *gov, int x, int y)
 {
     Color_Init(gov->colorType, false);
     DrawGovernorChoiceColorFormulaHiPart(gov, x, y, IsPressed(gov), IsShade(gov) || !ItemIsAcitve(gov), true);
-    painter_FillRegionC(x + 2, y + 20, MI_WIDTH_VALUE, MI_HEIGHT_VALUE - 1, gov->colorType->color);
+    painter.FillRegion(x + 2, y + 20, MI_WIDTH_VALUE, MI_HEIGHT_VALUE - 1, gov->colorType->color);
 }
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
@@ -588,7 +588,7 @@ void Time_DrawOpened(Time *time, int x, int y)
     {
         if (*time->curField == i)
         {
-            painter_FillRegionC(x + strPaint[i].x - 1, y + strPaint[i].y, strPaint[i].width, 8, COLOR_FLASH_10);
+            painter.FillRegion(x + strPaint[i].x - 1, y + strPaint[i].y, strPaint[i].width, 8, COLOR_FLASH_10);
         }
         painter.DrawTextC(x + strPaint[i].x, y + strPaint[i].y, strI[i], *time->curField == i ? COLOR_FLASH_01 : COLOR_WHITE);
     }
@@ -724,7 +724,7 @@ void Button_Draw(Button *button, int x, int y)
 
     painter.DrawHLine(y + 1, x, x + MI_WIDTH, ColorMenuTitle(shade));
     Color color = shade ? ColorMenuItem(true) : COLOR_WHITE;
-    painter_FillRegionC(x + 1, y + 2, MI_WIDTH - 2, MI_HEIGHT - 2, ColorMenuItem(false));
+    painter.FillRegion(x + 1, y + 2, MI_WIDTH - 2, MI_HEIGHT - 2, ColorMenuItem(false));
     painter.DrawVolumeButton(x + 3, y + 4, MI_WIDTH - 6, MI_HEIGHT - 6, 2, ColorMenuItem(false), ColorMenuItemBrighter(), 
                             ColorMenuItemLessBright(), pressed, shade);
 
@@ -742,7 +742,7 @@ void SmallButton_Draw(SButton *smallButton, int x, int y)
     {
         if (IsPressed(smallButton))
         {
-            painter_FillRegionC(x, y, WIDTH_SB, WIDTH_SB, gColorFill);
+            painter.FillRegion(x, y, WIDTH_SB, WIDTH_SB, gColorFill);
             painter.SetColor(COLOR_BLACK);
         }
         else

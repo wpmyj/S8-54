@@ -221,7 +221,7 @@ void Measure_DrawPageChoice(void)
             int y0 = y + row * dY;
             bool active = meas == posOnPageChoice;
             painter_DrawRectangleC(x0, y0, dX, dY, COLOR_WHITE);
-            painter_FillRegionC(x0 + 1, y0 + 1, dX - 2, dY - 2, active ? COLOR_FLASH_10 : gColorBack);
+            painter.FillRegion(x0 + 1, y0 + 1, dX - 2, dY - 2, active ? COLOR_FLASH_10 : gColorBack);
             painter.SetColor(active ? COLOR_FLASH_01 : gColorFill);
             painter.Draw10SymbolsInRect(x0 + 2, y0 + 1, Measure_GetChar(meas));
             if(meas < Measure_NumMeasures)

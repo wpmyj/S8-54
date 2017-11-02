@@ -463,7 +463,7 @@ static void DrawLimitLabel(int delta)
         y = GRID_TOP + delta;
     }
 
-    painter_FillRegionC(x, y, width, height, gColorBack);
+    painter.FillRegion(x, y, width, height, gColorBack);
     painter_DrawRectangleC(x, y, width, height, color);
     painter.DrawStringInCenterRect(x, y, width, height, "Сигнал за пределами экрана");
 }
@@ -496,7 +496,7 @@ void PainterData_DrawMath(void)
     static const int HEIGHT = 10;
     int delta = (SHOW_STRING_NAVI_ALL && FUNC_MODE_DRAW_TOGETHER) ? 10 : 0;
     painter_DrawRectangleC(grid.Left(), grid.MathTop() + delta, WIDTH, HEIGHT, gColorFill);
-    painter_FillRegionC(grid.Left() + 1, grid.MathTop() + 1 + delta, WIDTH - 2, HEIGHT - 2, gColorBack);
+    painter.FillRegion(grid.Left() + 1, grid.MathTop() + 1 + delta, WIDTH - 2, HEIGHT - 2, gColorBack);
     Divider divider = set.math_Divider;
     painter.DrawTextC(grid.Left() + 2, grid.MathTop() + 1 + delta, sChannel_Range2String(SET_RANGE_MATH, divider), gColorFill);
     painter.DrawText(grid.Left() + 25, grid.MathTop() + 1 + delta, ":");
@@ -917,7 +917,7 @@ static void DrawTPos(int leftX, int rightX)
 {
     int x[] = {leftX, (rightX - leftX) / 2 + leftX, rightX};
     int x0 = x[TPOS];
-    painter_FillRegionC(x0 - 3, 10, 6, 6, gColorBack);
+    painter.FillRegion(x0 - 3, 10, 6, 6, gColorBack);
     painter.DrawCharC(x0 - 3, 10, SYMBOL_TPOS_1, gColorFill);
 }
 
@@ -953,8 +953,8 @@ static void DrawTShift(int leftX, int rightX, int numBytes)
         dY11 = 5; dY12 = 7;
     }
 
-    painter_FillRegionC((int)xShift - 1, 1, 6, 6, gColorBack);
-    painter_FillRegionC((int)xShift, 2, 4, 4, gColorFill);
+    painter.FillRegion((int)xShift - 1, 1, 6, 6, gColorBack);
+    painter.FillRegion((int)xShift, 2, 4, 4, gColorFill);
     painter_DrawLineC((int)xShift + dX01, 3, (int)xShift + dX11, dY11 - 2, gColorBack);
     painter.DrawLine((int)xShift + dX02, 4, (int)xShift + 2, dY12 - 2);
 }

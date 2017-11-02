@@ -57,7 +57,7 @@ static void DrawPageDescription(void)
 //----------------------------------------------------------------------------------------------------------------------------------------------------
 void HelpContent_Draw(void)
 {
-    painter_FillRegionC(grid.Right(), 0, 319 - grid.Right(), 20, gColorBack);
+    painter.FillRegion(grid.Right(), 0, 319 - grid.Right(), 20, gColorBack);
     painter.FillRegion(grid.Right(), 219, 319 - grid.Right(), 21);
     painter.FillRegion(1, 1, WIDTH, 237);
     painter_DrawRectangleC(1, 0, WIDTH + 1, 239, gColorFill);   /** \todo Здесь непонятно, почему так. Координаты верхнего левого угла должны быть 

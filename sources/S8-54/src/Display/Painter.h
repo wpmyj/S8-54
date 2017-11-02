@@ -67,7 +67,7 @@ public:
 
     void DrawRectangle(int x, int y, int width, int height);
 
-    void FillRegion(int x, int y, int width, int height);
+    void FillRegion(int x, int y, int width, int height, Color color = NUM_COLORS);
 
     void DrawVolumeButton(int x, int y, int width, int height, int thickness, Color normal, Color bright, Color dark, bool isPressed, bool isShade);
     /// ”становить €ркость диспле€.

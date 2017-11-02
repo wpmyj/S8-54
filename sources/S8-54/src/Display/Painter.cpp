@@ -77,7 +77,7 @@ void Painter::BeginScene(Color color)
         }
     }
 
-    painter_FillRegionC(0, 0, 319, 239, color);
+    FillRegion(0, 0, 319, 239, color);
 }
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
@@ -372,8 +372,13 @@ void Painter::DrawRectangle(int x, int y, int width, int height)
 }
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
-void Painter::FillRegion(int x, int y, int width, int height)
+void Painter::FillRegion(int x, int y, int width, int height, Color color)
 {
+    if (color != NUM_COLORS)
+    {
+        SetColor(color);
+    }
+
     CalculateCurrentColor();
 
     uint8 command[8] = {FILL_REGION};
@@ -389,7 +394,7 @@ void Painter::FillRegion(int x, int y, int width, int height)
 //----------------------------------------------------------------------------------------------------------------------------------------------------
 void Painter::DrawVolumeButton(int x, int y, int width, int height, int thickness, Color normal, Color bright, Color dark, bool isPressed, bool isShade)
 {
-    painter_FillRegionC(x + thickness, y + thickness, width - thickness * 2, height - thickness * 2, normal);
+    FillRegion(x + thickness, y + thickness, width - thickness * 2, height - thickness * 2, normal);
     if (isPressed && !isShade)
     {
         for (int i = 0; i < thickness; i++)

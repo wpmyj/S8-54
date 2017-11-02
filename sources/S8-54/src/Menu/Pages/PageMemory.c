@@ -260,7 +260,7 @@ static void OnDraw_Last(void)
 
     int width = 40;
     int height = 10;
-    painter_FillRegionC(grid.Right() - width, GRID_TOP, width, height, gColorBack);
+    painter.FillRegion(grid.Right() - width, GRID_TOP, width, height, gColorBack);
     painter_DrawRectangleC(grid.Right() - width, GRID_TOP, width, height, gColorFill);
     painter.DrawText(grid.Right() - width + 2, GRID_TOP + 1, Int2String(NUM_RAM_SIGNAL + 1, false, 3, buffer));
     painter.DrawText(grid.Right() - width + 17, GRID_TOP + 1, "/");
@@ -430,7 +430,7 @@ static void DrawSetName(void)
     int height = 80;
 
     painter_DrawRectangleC(x0, y0, width, height, gColorFill);
-    painter_FillRegionC(x0 + 1, y0 + 1, width - 2, height - 2, gColorBack);
+    painter.FillRegion(x0 + 1, y0 + 1, width - 2, height - 2, gColorBack);
 
     int index = 0;
     int position = 0;
@@ -465,7 +465,7 @@ static void DrawSetName(void)
     }
 
     int x = painter.DrawTextC(x0 + deltaX, y0 + 65, FILE_NAME, gColorFill);
-    painter_FillRegionC(x, y0 + 65, 5, 8, COLOR_FLASH_10);
+    painter.FillRegion(x, y0 + 65, 5, 8, COLOR_FLASH_10);
 }
 
 static void Draw_Last_SaveToDrive(int x, int y)
@@ -528,7 +528,7 @@ static void DrawMemoryWave(int num, bool exist)
     int x = grid.Left() + 2 + num * 12;
     int y = grid.FullBottom() - 10;
     int width = 12;
-    painter_FillRegionC(x, y, width, 10, num == NUM_ROM_SIGNAL ? COLOR_FLASH_10 : gColorBack);
+    painter.FillRegion(x, y, width, 10, num == NUM_ROM_SIGNAL ? COLOR_FLASH_10 : gColorBack);
     painter_DrawRectangleC(x, y, width, 10, gColorFill);
     painter.SetColor(num == NUM_ROM_SIGNAL ? COLOR_FLASH_01 : gColorFill);
     if (exist)
@@ -1166,7 +1166,7 @@ static void DrawSetMask(void)
     int height = 160;
 
     painter_DrawRectangleC(x0, y0, width, height, gColorFill);
-    painter_FillRegionC(x0 + 1, y0 + 1, width - 2, height - 2, gColorBack);
+    painter.FillRegion(x0 + 1, y0 + 1, width - 2, height - 2, gColorBack);
 
     int index = 0;
     int position = 0;
@@ -1254,7 +1254,7 @@ static void DrawFileMask(int x, int y)
         }
         ch++;
     }
-    painter_FillRegionC(x, y, 5, 8, COLOR_FLASH_10);
+    painter.FillRegion(x, y, 5, 8, COLOR_FLASH_10);
 }
 
 static void OnRegSet_Drive_Mask(int angle)

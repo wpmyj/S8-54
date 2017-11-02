@@ -1436,7 +1436,7 @@ static void Draw_EnterSerialNumber(void)
     int height = 160;
 
     painter_DrawRectangleC(x0, y0, width, height, gColorFill);
-    painter_FillRegionC(x0 + 1, y0 + 1, width - 2, height - 2, gColorBack);
+    painter.FillRegion(x0 + 1, y0 + 1, width - 2, height - 2, gColorBack);
 
     int deltaX = 10;
 
