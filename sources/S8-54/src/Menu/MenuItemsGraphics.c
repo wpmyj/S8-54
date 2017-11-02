@@ -91,7 +91,7 @@ void DrawGovernorLowPart(Governor *governor, int x, int y, bool pressed, bool sh
         int delta = (int)Governor_Step(governor);
         if(delta == 0)
         {
-            x = painter.DrawText(x + 1, y + 21, Int2String(*governor->cell, false, 1, buffer));
+            x = painter.DrawText(x + 1, y + 21, trans.Int2String(*governor->cell, false, 1, buffer));
         }
         else
         {
@@ -102,23 +102,23 @@ void DrawGovernorLowPart(Governor *governor, int x, int y, bool pressed, bool sh
             int limHeight = MI_HEIGHT_VALUE - 1;
             if(delta > 0)
             {
-                x = painter.DrawTextWithLimitationC(drawX, y + 21 - delta, Int2String(*governor->cell, false, 1, buffer), 
+                x = painter.DrawTextWithLimitationC(drawX, y + 21 - delta, trans.Int2String(*governor->cell, false, 1, buffer), 
                                             COLOR_BLACK, limX, limY, limWidth, limHeight);
-                painter.DrawTextWithLimitationC(drawX, y + 21 + 10 - delta, Int2String(Governor_NextValue(governor), false, 1, buffer),
+                painter.DrawTextWithLimitationC(drawX, y + 21 + 10 - delta, trans.Int2String(Governor_NextValue(governor), false, 1, buffer),
                                             COLOR_BLACK, limX, limY, limWidth, limHeight);
             }
             if(delta < 0)
             {
-                x = painter.DrawTextWithLimitationC(drawX, y + 21 - delta, Int2String(*governor->cell, false, 1, buffer), 
+                x = painter.DrawTextWithLimitationC(drawX, y + 21 - delta, trans.Int2String(*governor->cell, false, 1, buffer), 
                                             COLOR_BLACK, limX, limY, limWidth, limHeight);
-                painter.DrawTextWithLimitationC(drawX, y + 21 - 10 - delta, Int2String(Governor_PrevValue(governor), false, 1, buffer),
+                painter.DrawTextWithLimitationC(drawX, y + 21 - 10 - delta, trans.Int2String(Governor_PrevValue(governor), false, 1, buffer),
                     COLOR_BLACK, limX, limY, limWidth, limHeight);
             }
         }
     }
     else
     {
-        x = painter.DrawText(x + 1, y + 21, Int2String(*governor->cell, false, 1, buffer), COLOR_WHITE);
+        x = painter.DrawText(x + 1, y + 21, trans.Int2String(*governor->cell, false, 1, buffer), COLOR_WHITE);
     }
     painter.DrawText(x + 1, y + 21, "\x81", colorTextDown);
 }
@@ -303,8 +303,8 @@ void DrawGovernorValue(int x, int y, Governor *governor)
     }
     painter.SetFont(TypeFont_5);
     bool sign = governor->minValue < 0;
-    painter.DrawText(x + 55, y - 5, Int2String(governor->maxValue, sign, 1, buffer), COLOR_WHITE);
-    painter.DrawText(x + 55, y + 2, Int2String(governor->minValue, sign, 1, buffer));
+    painter.DrawText(x + 55, y - 5, trans.Int2String(governor->maxValue, sign, 1, buffer), COLOR_WHITE);
+    painter.DrawText(x + 55, y + 2, trans.Int2String(governor->minValue, sign, 1, buffer));
     painter.SetFont(TypeFont_8);
 
     DrawValueWithSelectedPosition(startX, y, value, Governor_NumDigits(governor), gCurDigit, true, true);
@@ -457,7 +457,7 @@ void DrawGovernorColorValue(int x, int y, GovernorColor *govColor, int delta)
         Color colorDraw = (field == i) ? COLOR_BLACK : COLOR_WHITE;
         painter.FillRegion(x - 1, y + 1, 29, 10, colorBack);
         painter.DrawText(x, y + 2, texts[i], colorDraw);
-        painter.DrawText(x + 14, y + 2, Int2String(vals[i], false, 1, buffer));
+        painter.DrawText(x + 14, y + 2, trans.Int2String(vals[i], false, 1, buffer));
         x -= 30;
     }
     
@@ -572,12 +572,12 @@ void Time_DrawOpened(Time *time, int x, int y)
 
     char strI[8][20];
     strcpy(strI[iEXIT],     "Не сохранять");
-    strcpy(strI[iDAY],      Int2String(*time->day,      false, 2, buffer));
-    strcpy(strI[iMONTH],    Int2String(*time->month,    false, 2, buffer));
-    strcpy(strI[iYEAR],     Int2String(*time->year,     false, 2, buffer));
-    strcpy(strI[iHOURS],    Int2String(*time->hours,    false, 2, buffer));
-    strcpy(strI[iMIN],      Int2String(*time->minutes,  false, 2, buffer));
-    strcpy(strI[iSEC],      Int2String(*time->seconds,  false, 2, buffer));
+    strcpy(strI[iDAY],      trans.Int2String(*time->day,      false, 2, buffer));
+    strcpy(strI[iMONTH],    trans.Int2String(*time->month,    false, 2, buffer));
+    strcpy(strI[iYEAR],     trans.Int2String(*time->year,     false, 2, buffer));
+    strcpy(strI[iHOURS],    trans.Int2String(*time->hours,    false, 2, buffer));
+    strcpy(strI[iMIN],      trans.Int2String(*time->minutes,  false, 2, buffer));
+    strcpy(strI[iSEC],      trans.Int2String(*time->seconds,  false, 2, buffer));
     strcpy(strI[iSET],      "Сохранить");
 
     painter.DrawText(x + 3, y + y0, "д м г - ", COLOR_WHITE);
@@ -688,18 +688,18 @@ void Time_DrawClosed(Time *item, int x, int y)
     int startX = 3;
     y += 21;
     PackedTime time = RTC_GetPackedTime();
-    painter.DrawText(x + startX, y, Int2String(time.hours, false, 2, buffer), shade ? ColorMenuItem(true) : COLOR_BLACK);
+    painter.DrawText(x + startX, y, trans.Int2String(time.hours, false, 2, buffer), shade ? ColorMenuItem(true) : COLOR_BLACK);
     painter.DrawText(x + startX + deltaField, y, ":");
-    painter.DrawText(x + startX + deltaField + deltaSeparator, y, Int2String(time.minutes, false, 2, buffer));
+    painter.DrawText(x + startX + deltaField + deltaSeparator, y, trans.Int2String(time.minutes, false, 2, buffer));
     painter.DrawText(x + startX + 2 * deltaField + deltaSeparator, y, ":");
-    painter.DrawText(x + startX + 2 * deltaField + 2 * deltaSeparator, y, Int2String(time.seconds, false, 2, buffer));
+    painter.DrawText(x + startX + 2 * deltaField + 2 * deltaSeparator, y, trans.Int2String(time.seconds, false, 2, buffer));
 
     startX = 44;
-    painter.DrawText(x + startX, y, Int2String(time.day, false, 2, buffer));
+    painter.DrawText(x + startX, y, trans.Int2String(time.day, false, 2, buffer));
     painter.DrawText(x + startX + deltaField, y, ":");
-    painter.DrawText(x + startX + deltaField + deltaSeparator, y, Int2String(time.month, false, 2, buffer));
+    painter.DrawText(x + startX + deltaField + deltaSeparator, y, trans.Int2String(time.month, false, 2, buffer));
     painter.DrawText(x + startX + 2 * deltaField + deltaSeparator, y, ":");
-    painter.DrawText(x + startX + 2 * deltaField + 2 * deltaSeparator, y, Int2String(time.year, false, 2, buffer));
+    painter.DrawText(x + startX + 2 * deltaField + 2 * deltaSeparator, y, trans.Int2String(time.year, false, 2, buffer));
 }
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------

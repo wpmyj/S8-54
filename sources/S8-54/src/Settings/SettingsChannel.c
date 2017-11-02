@@ -66,5 +66,5 @@ const char *sChannel_Range2String(Range range, Divider divider)
 const char *sChannel_RShift2String(uint16 rShiftRel, Range range, Divider divider, char buffer[20])
 {
     float rShiftVal = RSHIFT_2_ABS(rShiftRel, range) * sChannel_MultiplierRel2Abs(divider);
-    return Voltage2String(rShiftVal, true, buffer);
+    return trans.Voltage2String(rShiftVal, true, buffer);
 };

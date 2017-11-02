@@ -1,5 +1,3 @@
-
-
 #include "defines.h"
 #include "GlobalFunctions.h"
 #include "Log.h"
@@ -14,53 +12,14 @@
 
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-void *AllocMemForChannelFromHeap(Channel ch, DataSettings *ds)
-{
-    int numBytes = RequestBytesForChannel(ch, ds);
-    if(numBytes)
-    {
-        return malloc(numBytes);
-    }
-    return 0;
-}
+Translate trans;
 
 
-//---------------------------------------------------------------------------------------------------------------------------------------------------
-int RequestBytesForChannel(Channel ch, DataSettings *ds)
-{
-    ENumPointsFPGA numBytes;
-    PeakDetMode peakDet;
-
-    if(ds)
-    {
-        numBytes = (ENumPointsFPGA)ENUM_BYTES(ds);
-        peakDet = PEAKDET(ds);
-    }
-    else
-    {
-        numBytes = NumPoints_2_ENumPoints(BytesInChannel(ds));
-        peakDet = SET_PEAKDET;
-    }
-
-    if((numBytes == FNP_32k) || (numBytes == FNP_16k && peakDet == PeakDet_Enable))
-    {
-        if(ch == A)
-        {
-            return FPGA_MAX_POINTS * 2;
-        }
-        return 0;
-    }
-
-    return FPGA_MAX_POINTS;
-}
-
-
-//---------------------------------------------------------------------------------------------------------------------------------------------------
-char *FloatFract2String(float value, bool alwaysSign, char bufferOut[20])
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+char *Translate::FloatFract2String(float value, bool alwaysSign, char bufferOut[20])
 {
     return Float2String(value, alwaysSign, 4, bufferOut);
 }
-
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
 static int NumDigitsInIntPart(float value)
@@ -92,21 +51,20 @@ static int NumDigitsInIntPart(float value)
     return numDigitsInInt;
 }
 
-
 //----------------------------------------------------------------------------------------------------------------------------------------------------
-char *Float2String(float value, bool alwaysSign, int numDigits, char bufferOut[20])
+char *Translate::Float2String(float value, bool alwaysSign, int numDigits, char bufferOut[20])
 {
     bufferOut[0] = 0;
     char *pBuffer = bufferOut;
 
-    if(value == ERROR_VALUE_FLOAT)
+    if (value == ERROR_VALUE_FLOAT)
     {
         strcat(bufferOut, ERROR_STRING_VALUE);
         return bufferOut;
     }
-    if(!alwaysSign)
+    if (!alwaysSign)
     {
-        if(value < 0)
+        if (value < 0)
         {
             *pBuffer = '-';
             pBuffer++;
@@ -124,7 +82,7 @@ char *Float2String(float value, bool alwaysSign, int numDigits, char bufferOut[2
     int numDigitsInInt = NumDigitsInIntPart(value);
 
     format[3] = (char)((numDigits - numDigitsInInt) + 0x30);
-    if(numDigits == numDigitsInInt)
+    if (numDigits == numDigitsInInt)
     {
         format[5] = '.';
     }
@@ -145,7 +103,7 @@ char *Float2String(float value, bool alwaysSign, int numDigits, char bufferOut[2
     }
 
     bool signExist = alwaysSign || value < 0;
-    while((uint)strlen(bufferOut) < (uint)numDigits + (signExist ? 2 : 1))
+    while ((uint)strlen(bufferOut) < (uint)numDigits + (signExist ? 2 : 1))
     {
         strcat(bufferOut, "0");
     }
@@ -153,15 +111,56 @@ char *Float2String(float value, bool alwaysSign, int numDigits, char bufferOut[2
     return bufferOut;
 }
 
+//----------------------------------------------------------------------------------------------------------------------------------------------------
+char *Translate::Bin2String(uint8 value, char buffer[9])
+{
+    for (int bit = 0; bit < 8; bit++)
+    {
+        buffer[7 - bit] = GetBit(value, bit) ? '1' : '0';
+    }
+    buffer[8] = '\0';
+    return buffer;
+}
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
-char *Int2String(int value, bool alwaysSign, int numMinFields, char buffer[20])
+char *Translate::Bin2String16(uint16 value, char valBuffer[19])
+{
+    char buffer[9];
+    strcpy(valBuffer, Bin2String(value >> 8, buffer));
+    strcpy((valBuffer[8] = ' ', valBuffer + 9), Bin2String((uint8)value, buffer));
+    valBuffer[18] = '\0';
+    return valBuffer;
+}
+
+//----------------------------------------------------------------------------------------------------------------------------------------------------
+char *Translate::Hex8toString(uint8 value, char buffer[3], bool upper)
+{
+    sprintf(buffer, upper ? "%02X" : "%02x", value);
+    return buffer;
+}
+
+//----------------------------------------------------------------------------------------------------------------------------------------------------
+char *Translate::Hex16toString(uint16 value, char buffer[5], bool upper)
+{
+    sprintf(buffer, upper ? "%04X" : "%04x", value);
+    return buffer;
+}
+
+//----------------------------------------------------------------------------------------------------------------------------------------------------
+char *Translate::Hex32toString(uint32 value, char buffer[9], bool upper)
+{
+    sprintf(buffer, upper ? "%08X" : "%08x", value);
+    return buffer;
+}
+
+//----------------------------------------------------------------------------------------------------------------------------------------------------
+char *Translate::Int2String(int value, bool alwaysSign, int numMinFields, char buffer[20])
 {
     const int SIZE = 20;
     char format[SIZE] = "%";
     snprintf(&(format[1]), SIZE, "0%d", numMinFields);
     strcat(format, "d");
-    if(alwaysSign && value >= 0)
+    if (alwaysSign && value >= 0)
     {
         buffer[0] = '+';
         snprintf(buffer + 1, SIZE - 1, format, value);
@@ -173,9 +172,8 @@ char *Int2String(int value, bool alwaysSign, int numMinFields, char buffer[20])
     return buffer;
 }
 
-
 //----------------------------------------------------------------------------------------------------------------------------------------------------
-bool String2Int(char *str, int *value)  
+bool Translate::String2Int(char *str, int *value)
 {
     int sign = str[0] == '-' ? -1 : 1;
     if (str[0] < '0' || str[0] > '9')
@@ -189,92 +187,44 @@ bool String2Int(char *str, int *value)
     }
     *value = 0;
     int pow = 1;
-    for(int i = length - 1; i >= 0; i--)
+    for (int i = length - 1; i >= 0; i--)
     {
         int val = str[i] & (~(0x30));
-        if(val < 0 || val > 9)
+        if (val < 0 || val > 9)
         {
             return false;
         }
         *value += val * pow;
         pow *= 10;
     }
-    if(sign == -1)
+    if (sign == -1)
     {
         *value *= -1;
     }
     return true;
 }
 
-
 //----------------------------------------------------------------------------------------------------------------------------------------------------
-char *Bin2String(uint8 value, char buffer[9])
-{
-    for(int bit = 0; bit < 8; bit++)
-    {
-        buffer[7 - bit] = GetBit(value, bit) ? '1' : '0';
-    }
-    buffer[8] = '\0';
-    return buffer;
-}
-
-
-//----------------------------------------------------------------------------------------------------------------------------------------------------
-char *Bin2String16(uint16 value, char valBuffer[19])
-{
-    char buffer[9];
-    strcpy(valBuffer, Bin2String(value >> 8, buffer));
-    strcpy((valBuffer[8] = ' ', valBuffer + 9), Bin2String((uint8)value, buffer));
-    valBuffer[18] = '\0';
-    return valBuffer;
-}
-
-
-//----------------------------------------------------------------------------------------------------------------------------------------------------
-char *Hex8toString(uint8 value, char buffer[3], bool upper)
-{
-    sprintf(buffer, upper ? "%02X" : "%02x", value);
-    return buffer;
-}
-
-
-//----------------------------------------------------------------------------------------------------------------------------------------------------
-char *Hex16toString(uint16 value, char buffer[5], bool upper)
-{
-    sprintf(buffer, upper ? "%04X" : "%04x", value);
-    return buffer;
-}
-
-
-//----------------------------------------------------------------------------------------------------------------------------------------------------
-char *Hex32toString(uint32 value, char buffer[9], bool upper)
-{
-    sprintf(buffer, upper ? "%08X" : "%08x", value);
-    return buffer;
-}
-
-
-//----------------------------------------------------------------------------------------------------------------------------------------------------
-char *Voltage2String(float voltage, bool alwaysSign, char buffer[20])
+char *Translate::Voltage2String(float voltage, bool alwaysSign, char buffer[20])
 {
     buffer[0] = 0;
     const char *suffix = DICT(D10kV);
-    if(voltage == ERROR_VALUE_FLOAT)
+    if (voltage == ERROR_VALUE_FLOAT)
     {
         strcat(buffer, ERROR_STRING_VALUE);
         return buffer;
     }
-    else if(fabsf(voltage) + 0.5e-4f < 1e-3f)
+    else if (fabsf(voltage) + 0.5e-4f < 1e-3f)
     {
         suffix = DICT(D10uV);
         voltage *= 1e6f;
     }
-    else if(fabsf(voltage) + 0.5e-4f < 1.0f)
+    else if (fabsf(voltage) + 0.5e-4f < 1.0f)
     {
         suffix = DICT(D10mV);
         voltage *= 1e3f;
     }
-    else if(fabsf(voltage) + 0.5e-4f < 1000.0f)
+    else if (fabsf(voltage) + 0.5e-4f < 1000.0f)
     {
         suffix = DICT(D10V);
     }
@@ -286,22 +236,20 @@ char *Voltage2String(float voltage, bool alwaysSign, char buffer[20])
     char bufferOut[20];
 
     Float2String(voltage, alwaysSign, 4, bufferOut);
-    
+
     strcat(buffer, bufferOut);
     strcat(buffer, suffix);
     return buffer;
 }
 
-
 //----------------------------------------------------------------------------------------------------------------------------------------------------
-char *Time2String(float time, bool alwaysSign, char buffer[20])
+char *Translate::Time2String(float time, bool alwaysSign, char buffer[20])
 {
     return Time2StringAccuracy(time, alwaysSign, buffer, 4);
 }
 
-
 //----------------------------------------------------------------------------------------------------------------------------------------------------
-char *Time2StringAccuracy(float time, bool alwaysSign, char buffer[20], int numDigits)
+char *Translate::Time2StringAccuracy(float time, bool alwaysSign, char buffer[20], int numDigits)
 {
     buffer[0] = 0;
     const char *suffix = DICT(Ds);
@@ -318,7 +266,7 @@ char *Time2StringAccuracy(float time, bool alwaysSign, char buffer[20], int numD
         suffix = DICT(Dns);
         time *= 1e9f;
     }
-    else if (fabsTime + 0.5e-7f < 1e-3f)    
+    else if (fabsTime + 0.5e-7f < 1e-3f)
     {
         suffix = DICT(Dus);
         time *= 1e6f;
@@ -336,26 +284,14 @@ char *Time2StringAccuracy(float time, bool alwaysSign, char buffer[20], int numD
     return buffer;
 }
 
-
 //----------------------------------------------------------------------------------------------------------------------------------------------------
-char *Phase2String(float phase, bool empty, char bufferOut[20])
-{
-    const int SIZE = 20;
-    char buffer[SIZE];
-    snprintf(bufferOut, SIZE, "%s\xa8", Float2String(phase, false, 4, buffer));
-    return bufferOut;
-}
-
-
-//----------------------------------------------------------------------------------------------------------------------------------------------------
-char *Freq2String(float freq, bool alwaysSign, char bufferOut[20])
+char *Translate::Freq2String(float freq, bool alwaysSign, char bufferOut[20])
 {
     return Freq2StringAccuracy(freq, bufferOut, 4);
 }
 
-
 //----------------------------------------------------------------------------------------------------------------------------------------------------
-char *Freq2StringAccuracy(float freq, char bufferOut[20], int numDigits)
+char *Translate::Freq2StringAccuracy(float freq, char bufferOut[20], int numDigits)
 {
     bufferOut[0] = 0;
     const char *suffix = DICT(DHz);
@@ -380,9 +316,17 @@ char *Freq2StringAccuracy(float freq, char bufferOut[20], int numDigits)
     return bufferOut;
 }
 
+//----------------------------------------------------------------------------------------------------------------------------------------------------
+char *Translate::Phase2String(float phase, bool empty, char bufferOut[20])
+{
+    const int SIZE = 20;
+    char buffer[SIZE];
+    snprintf(bufferOut, SIZE, "%s\xa8", Float2String(phase, false, 4, buffer));
+    return bufferOut;
+}
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
-char *Float2Db(float value, int numDigits, char bufferOut[20])
+char *Translate::Float2Db(float value, int numDigits, char bufferOut[20])
 {
     bufferOut[0] = 0;
     char buffer[20];
@@ -391,13 +335,68 @@ char *Float2Db(float value, int numDigits, char bufferOut[20])
     return bufferOut;
 }
 
+//----------------------------------------------------------------------------------------------------------------------------------------------------
+int Translate::BCD2Int(uint bcd)
+{
+    int pow = 1;
+
+    int value = 0;
+
+    for (int i = 0; i < 8; i++)
+    {
+        value += (bcd & 0x0f) * pow;
+        pow *= 10;
+        bcd = bcd >> 4;
+    }
+
+    return value;
+}
+
+//----------------------------------------------------------------------------------------------------------------------------------------------------
+void *AllocMemForChannelFromHeap(Channel ch, DataSettings *ds)
+{
+    int numBytes = RequestBytesForChannel(ch, ds);
+    if(numBytes)
+    {
+        return malloc(numBytes);
+    }
+    return 0;
+}
+
+//---------------------------------------------------------------------------------------------------------------------------------------------------
+int RequestBytesForChannel(Channel ch, DataSettings *ds)
+{
+    ENumPointsFPGA numBytes;
+    PeakDetMode peakDet;
+
+    if(ds)
+    {
+        numBytes = (ENumPointsFPGA)ENUM_BYTES(ds);
+        peakDet = PEAKDET(ds);
+    }
+    else
+    {
+        numBytes = NumPoints_2_ENumPoints(BytesInChannel(ds));
+        peakDet = SET_PEAKDET;
+    }
+
+    if((numBytes == FNP_32k) || (numBytes == FNP_16k && peakDet == PeakDet_Enable))
+    {
+        if(ch == A)
+        {
+            return FPGA_MAX_POINTS * 2;
+        }
+        return 0;
+    }
+
+    return FPGA_MAX_POINTS;
+}
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
 bool IntInRange(int value, int min, int max)
 {
     return (value >= min) && (value <= max);
 }
-
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
 float MaxFloat(float val1, float val2, float val3)
@@ -414,7 +413,6 @@ float MaxFloat(float val1, float val2, float val3)
     return retValue;
 }
 
-
 //----------------------------------------------------------------------------------------------------------------------------------------------------
 int8 CircleIncreaseInt8(int8 *val, int8 min, int8 max)
 {
@@ -425,7 +423,6 @@ int8 CircleIncreaseInt8(int8 *val, int8 min, int8 max)
     }
     return (*val);
 }
-
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
 int16 CircleIncreaseInt16(int16 *val, int16 min, int16 max)
@@ -438,7 +435,6 @@ int16 CircleIncreaseInt16(int16 *val, int16 min, int16 max)
     return (*val);
 }
 
-
 //----------------------------------------------------------------------------------------------------------------------------------------------------
 int CircleIncreaseInt(int *val, int min, int max)
 {
@@ -449,7 +445,6 @@ int CircleIncreaseInt(int *val, int min, int max)
     }
     return (*val);
 }
-
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
 int8 CircleDecreaseInt8(int8 *val, int8 min, int8 max)
@@ -462,7 +457,6 @@ int8 CircleDecreaseInt8(int8 *val, int8 min, int8 max)
     return *val;
 }
 
-
 //----------------------------------------------------------------------------------------------------------------------------------------------------
 int16 CircleDecreaseInt16(int16 *val, int16 min, int16 max)
 {
@@ -473,7 +467,6 @@ int16 CircleDecreaseInt16(int16 *val, int16 min, int16 max)
     }
     return (*val);
 }
-
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
 int CircleDecreaseInt(int *val, int min, int max)
@@ -486,7 +479,6 @@ int CircleDecreaseInt(int *val, int min, int max)
     return (*val);
 }
 
-
 //----------------------------------------------------------------------------------------------------------------------------------------------------
 float CircleAddFloat(float *val, float delta, float min, float max)
 {
@@ -498,7 +490,6 @@ float CircleAddFloat(float *val, float delta, float min, float max)
     return *val;
 }
 
-
 //----------------------------------------------------------------------------------------------------------------------------------------------------
 float CircleSubFloat(float *val, float delta, float min, float max)
 {
@@ -509,7 +500,6 @@ float CircleSubFloat(float *val, float delta, float min, float max)
     }
     return *val;
 }
-
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
 void AddLimitationFloat(float *val, float delta, float min, float max)
@@ -529,7 +519,6 @@ void AddLimitationFloat(float *val, float delta, float min, float max)
     }
 }
 
-
 //----------------------------------------------------------------------------------------------------------------------------------------------------
 void SwapInt(int *value0, int *value1)
 {
@@ -537,7 +526,6 @@ void SwapInt(int *value0, int *value1)
     *value0 = *value1;
     *value1 = temp;
 }
-
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
 void SortInt(int *value0, int *value1)
@@ -547,7 +535,6 @@ void SortInt(int *value0, int *value1)
         SwapInt(value0,  value1);
     }
 }
-
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
 char GetSymbolForGovernor(int value)
@@ -566,18 +553,14 @@ char GetSymbolForGovernor(int value)
     return chars[value % 4];
 }
 
-
 //----------------------------------------------------------------------------------------------------------------------------------------------------
 void EmptyFuncVV(void) { }
-
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
 void EmptyFuncVpV(void *empty) { }
 
-
 //----------------------------------------------------------------------------------------------------------------------------------------------------
 void EmptyFuncVII(int i, int ii) { }
-
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
 void EmptyFuncpVII(void *v, int i, int ii) { }
@@ -604,7 +587,6 @@ int FindAnotherElement(uint8 *data, uint8 value, int numElements)
 
     return -1;
 }
-
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
 char *IntToStrCat(char *_buffer, int _value)
@@ -648,25 +630,6 @@ char *IntToStrCat(char *_buffer, int _value)
 
     return _buffer;
 }
-
-
-//----------------------------------------------------------------------------------------------------------------------------------------------------
-int BCD2Int(uint bcd)
-{
-    int pow = 1;
-
-    int value = 0;
-
-    for (int i = 0; i < 8; i++)
-    {
-        value += (bcd & 0x0f) * pow;
-        pow *= 10;
-        bcd = bcd >> 4;
-    }
-
-    return value;
-}
-
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
 void BubbleSortINT(int array[], int num)

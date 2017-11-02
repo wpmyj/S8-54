@@ -76,11 +76,13 @@ static int numBytes = 0;
 
 typedef float (*pFuncFCh)(Channel);
 
+typedef char *(Translate::*pFuncTrans)(float, bool, char*);
+
 typedef struct
 {
     char        *name;
     pFuncFCh    FuncCalculate;
-    pFuncCFBC   FucnConvertate;
+    pFuncTrans  FucnConvertate;
     bool        showSign;           ///< Если true, нужно показывать знак.
 } MeasureCalculate;
 
@@ -88,28 +90,28 @@ typedef struct
 static const MeasureCalculate measures[Meas_NumMeasures] =
 {
     {"", 0, 0, false},
-    {"CalculateVoltageMax",         CalculateVoltageMax,           Voltage2String, true},
-    {"CalculateVoltageMin",         CalculateVoltageMin,           Voltage2String, true},
-    {"CalculateVoltagePic",         CalculateVoltagePic,           Voltage2String, false},
-    {"CalculateVoltageMaxSteady",   CalculateVoltageMaxSteady,     Voltage2String, true},
-    {"CalculateVoltageMinSteady",   CalculateVoltageMinSteady,     Voltage2String, true},
-    {"CalculateVoltageAmpl",        CalculateVoltageAmpl,          Voltage2String, false},
-    {"CalculateVoltageAverage",     CalculateVoltageAverage,       Voltage2String, true},
-    {"CalculateVoltageRMS",         CalculateVoltageRMS,           Voltage2String, false},
-    {"CalculateVoltageVybrosPlus",  CalculateVoltageVybrosPlus,    Voltage2String, false},
-    {"CalculateVoltageVybrosMinus", CalculateVoltageVybrosMinus,   Voltage2String, false},
-    {"CalculatePeriod",             CalculatePeriod,               Time2String, false},
-    {"CalculateFreq",               CalculateFreq,                 Freq2String, false},
-    {"CalculateTimeNarastaniya",    CalculateTimeNarastaniya,      Time2String, false},
-    {"CalculateTimeSpada",          CalculateTimeSpada,            Time2String, false},
-    {"CalculateDurationPlus",       CalculateDurationPlus,         Time2String, false},
-    {"CalculateDurationPlus",       CalculateDurationMinus,        Time2String, false},
-    {"CalculateSkvaznostPlus",      CalculateSkvaznostPlus,        FloatFract2String, false},
-    {"CalculateSkvaznostMinus",     CalculateSkvaznostMinus,       FloatFract2String, false},
-    {"CalculateDelayPlus",          CalculateDelayPlus,            Time2String, false},
-    {"CalculateDelayMinus",         CalculateDelayMinus,           Time2String, false},
-    {"CalculatePhazaPlus",          CalculatePhazaPlus,            Phase2String, false},
-    {"CalculatePhazaMinus",         CalculatePhazaMinus,           Phase2String, false}
+    {"CalculateVoltageMax",         CalculateVoltageMax,           &Translate::Voltage2String, true},
+    {"CalculateVoltageMin",         CalculateVoltageMin,           &Translate::Voltage2String, true},
+    {"CalculateVoltagePic",         CalculateVoltagePic,           &Translate::Voltage2String, false},
+    {"CalculateVoltageMaxSteady",   CalculateVoltageMaxSteady,     &Translate::Voltage2String, true},
+    {"CalculateVoltageMinSteady",   CalculateVoltageMinSteady,     &Translate::Voltage2String, true},
+    {"CalculateVoltageAmpl",        CalculateVoltageAmpl,          &Translate::Voltage2String, false},
+    {"CalculateVoltageAverage",     CalculateVoltageAverage,       &Translate::Voltage2String, true},
+    {"CalculateVoltageRMS",         CalculateVoltageRMS,           &Translate::Voltage2String, false},
+    {"CalculateVoltageVybrosPlus",  CalculateVoltageVybrosPlus,    &Translate::Voltage2String, false},
+    {"CalculateVoltageVybrosMinus", CalculateVoltageVybrosMinus,   &Translate::Voltage2String, false},
+    {"CalculatePeriod",             CalculatePeriod,               &Translate::Time2String, false},
+    {"CalculateFreq",               CalculateFreq,                 &Translate::Freq2String, false},
+    {"CalculateTimeNarastaniya",    CalculateTimeNarastaniya,      &Translate::Time2String, false},
+    {"CalculateTimeSpada",          CalculateTimeSpada,            &Translate::Time2String, false},
+    {"CalculateDurationPlus",       CalculateDurationPlus,         &Translate::Time2String, false},
+    {"CalculateDurationPlus",       CalculateDurationMinus,        &Translate::Time2String, false},
+    {"CalculateSkvaznostPlus",      CalculateSkvaznostPlus,        &Translate::FloatFract2String, false},
+    {"CalculateSkvaznostMinus",     CalculateSkvaznostMinus,       &Translate::FloatFract2String, false},
+    {"CalculateDelayPlus",          CalculateDelayPlus,            &Translate::Time2String, false},
+    {"CalculateDelayMinus",         CalculateDelayMinus,           &Translate::Time2String, false},
+    {"CalculatePhazaPlus",          CalculatePhazaPlus,            &Translate::Phase2String, false},
+    {"CalculatePhazaMinus",         CalculatePhazaMinus,           &Translate::Phase2String, false}
 };
 
 
@@ -1308,13 +1310,13 @@ char* Processing::GetStringMeasure(Meas measure, Channel ch, char* buffer, int l
     else if(measures[measure].FuncCalculate)
     {
         char bufferForFunc[20];
-        pFuncCFBC func = measures[measure].FucnConvertate;
+        pFuncTrans func = measures[measure].FucnConvertate;
         float value = values[measure].value[ch];
-        if (SET_DIVIDER_10(ch) && func == Voltage2String)
+        if (SET_DIVIDER_10(ch) && func == &Translate::Voltage2String)
         {
             value *= 10.0f;                         // Домножаем, если включён делитель
         }
-        char *text = func(value, measures[measure].showSign, bufferForFunc);
+        char *text = ((&trans)->*func)(value, measures[measure].showSign, bufferForFunc);
         int len = strlen(text) + strlen(buffer) + 1;
         if (len + 1 <= lenBuf)
         {

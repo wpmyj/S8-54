@@ -1234,14 +1234,14 @@ static void OnChanged_Pred(void)
 {
     gPred = ~pred;
     static char buffer[30];
-    LOG_WRITE("pred %d %s", pred, Hex16toString(gPred, buffer, true));
+    LOG_WRITE("pred %d %s", pred, trans.Hex16toString(gPred, buffer, true));
 }
 
 static void OnChanged_Post(void)
 {
     gPost = ~post;
     static char buffer[30];
-    LOG_WRITE("post %d %s", post, Hex16toString(gPost, buffer, true));
+    LOG_WRITE("post %d %s", post, trans.Hex16toString(gPost, buffer, true));
 }
 
 // ОТЛАДКА - РАНД-ТОР - Информация -------------------------------------------------------------------------------------------------------------------

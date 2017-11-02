@@ -106,7 +106,7 @@ bool SCPI_FirstIsInt(uint8 *buffer, int *value, int min, int max)
         char n[256];
         memcpy(n, param.address, param.numSymbols);
         n[param.numSymbols] = '\0';
-        if (String2Int(n, value) && *value >= min && *value <= max)
+        if (trans.String2Int(n, value) && *value >= min && *value <= max)
         {
             return true;
         }

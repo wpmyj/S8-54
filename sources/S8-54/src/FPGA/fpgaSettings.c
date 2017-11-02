@@ -729,7 +729,7 @@ void FPGA_EnableRecorderMode(bool enable)
 const char *FPGA_GetTShiftString(int16 tShiftRel, char buffer[20])
 {
     float tShiftVal = TSHIFT_2_ABS(tShiftRel, SET_TBASE);
-    return Time2String(tShiftVal, true, buffer);
+    return trans.Time2String(tShiftVal, true, buffer);
 }
 
 

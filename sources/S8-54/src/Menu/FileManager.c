@@ -374,7 +374,7 @@ bool FM_GetNameForNewFile(char name[255])
                 if (*ch == 0x07)
                 {
                     number++;
-                    strcpy(wr, Int2String(number, false, *(ch + 1), buffer));
+                    strcpy(wr, trans.Int2String(number, false, *(ch + 1), buffer));
                     wr += strlen(buffer);
                     ch++;
                 }
@@ -382,7 +382,7 @@ bool FM_GetNameForNewFile(char name[255])
                 {
                     if (*ch >= 0x01 && *ch <= 0x06)
                     {
-                        strcpy(wr, Int2String(values[*ch], false, 2, buffer));
+                        strcpy(wr, trans.Int2String(values[*ch], false, 2, buffer));
                         wr += strlen(buffer);
                     }
                 }

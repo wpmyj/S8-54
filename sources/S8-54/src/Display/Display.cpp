@@ -734,7 +734,7 @@ static void DrawLowPart(void)
         }
         else
         {
-            strcat(mesFreq, Freq2String(freq, false, buffer));
+            strcat(mesFreq, trans.Freq2String(freq, false, buffer));
         }
         painter.DrawText(x + 3, GRID_BOTTOM + 2, mesFreq);
     }
@@ -1100,7 +1100,7 @@ static void WriteValueTrigLevel(void)
         char buffer[20];
         strcpy(buffer, DICT(DTrigLev));
         char bufForVolt[20];
-        strcat(buffer, Voltage2String(trigLev, true, bufForVolt));
+        strcat(buffer, trans.Voltage2String(trigLev, true, bufForVolt));
         int width = 96;
 
         // Рассчитаем координаты вывода строки уровня синхронизации.
@@ -1472,7 +1472,7 @@ static void WriteCursors(void)
                 delta *= 10;
             }
             painter.DrawText(x, y1, ":dU=");
-            painter.DrawText(x + 17, y1, Voltage2String(delta, false, buffer));
+            painter.DrawText(x + 17, y1, trans.Voltage2String(delta, false, buffer));
             painter.DrawText(x, y2, ":");
             painter.DrawText(x + 10, y2, sCursors_GetCursorPercentsU(source, buffer));
         }
@@ -1504,7 +1504,7 @@ static void WriteCursors(void)
             float delta = fabsf(pos1 - pos0);
             painter.DrawText(x, y1, ":dT=");
             char buffer[20];
-            painter.DrawText(x + 17, y1, Time2String(delta, false, buffer));
+            painter.DrawText(x + 17, y1, trans.Time2String(delta, false, buffer));
             painter.DrawText(x, y2, ":");
             painter.DrawText(x + 8, y2, sCursors_GetCursorPercentsT(source, buffer));
 
@@ -1516,7 +1516,7 @@ static void WriteCursors(void)
                 painter.FillRegion(x + 1, GRID_TOP + 1, width - 2, 10, gColorBack);
                 painter.DrawText(x + 1, GRID_TOP + 2, "1/dT=", colorText);
                 char buffer[20];
-                painter.DrawText(x + 25, GRID_TOP + 2, Freq2String(1.0f / delta, false, buffer));
+                painter.DrawText(x + 25, GRID_TOP + 2, trans.Freq2String(1.0f / delta, false, buffer));
             }
         }
     }
@@ -1664,11 +1664,11 @@ static void DrawTime(int x, int y)
             time.seconds = TIME_SECONDS_DS;
             time.month = TIME_MONTH_DS;
             time.year = TIME_YEAR_DS;
-            painter.DrawText(x, y, Int2String(time.day, false, 2, buffer));
+            painter.DrawText(x, y, trans.Int2String(time.day, false, 2, buffer));
             painter.DrawText(x + dField, y, ":");
-            painter.DrawText(x + dField + dSeparator, y, Int2String(time.month, false, 2, buffer));
+            painter.DrawText(x + dField + dSeparator, y, trans.Int2String(time.month, false, 2, buffer));
             painter.DrawText(x + 2 * dField + dSeparator, y, ":");
-            painter.DrawText(x + 2 * dField + 2 * dSeparator, y, Int2String(time.year + 2000, false, 4, buffer));
+            painter.DrawText(x + 2 * dField + 2 * dSeparator, y, trans.Int2String(time.year + 2000, false, 4, buffer));
             y += 9;
         }
         else
@@ -1677,12 +1677,11 @@ static void DrawTime(int x, int y)
         }
     }
 
-
-    painter.DrawText(x, y, Int2String(time.hours, false, 2, buffer));
+    painter.DrawText(x, y, trans.Int2String(time.hours, false, 2, buffer));
     painter.DrawText(x + dField, y, ":");
-    painter.DrawText(x + dField + dSeparator, y, Int2String(time.minutes, false, 2, buffer));
+    painter.DrawText(x + dField + dSeparator, y, trans.Int2String(time.minutes, false, 2, buffer));
     painter.DrawText(x + 2 * dField + dSeparator, y, ":");
-    painter.DrawText(x + 2 * dField + 2 * dSeparator, y, Int2String(time.seconds, false, 2, buffer));
+    painter.DrawText(x + 2 * dField + 2 * dSeparator, y, trans.Int2String(time.seconds, false, 2, buffer));
 }
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
@@ -1878,9 +1877,9 @@ static void WriteParametersFFT(Channel ch, float freq0, float density0, float fr
 
     char buffer[20];
     painter.SetColor(gColorFill);
-    painter.DrawText(x, y, Freq2String(freq0, false, buffer));
+    painter.DrawText(x, y, trans.Freq2String(freq0, false, buffer));
     y += dY;
-    painter.DrawText(x, y, Freq2String(freq1, false, buffer));
+    painter.DrawText(x, y, trans.Freq2String(freq1, false, buffer));
     if(ch == A)
     {
         y += dY + 2;
@@ -1890,9 +1889,9 @@ static void WriteParametersFFT(Channel ch, float freq0, float density0, float fr
         y += dY * 3 + 4;
     }
     painter.SetColor(gColorChan[ch]);
-    painter.DrawText(x, y, SCALE_FFT_LOG ? Float2Db(density0, 4, buffer) : Float2String(density0, false, 7, buffer));
+    painter.DrawText(x, y, SCALE_FFT_LOG ? trans.Float2Db(density0, 4, buffer) : trans.Float2String(density0, false, 7, buffer));
     y += dY;
-    painter.DrawText(x, y, SCALE_FFT_LOG ? Float2Db(density1, 4, buffer) : Float2String(density1, false, 7, buffer));
+    painter.DrawText(x, y, SCALE_FFT_LOG ? trans.Float2Db(density1, 4, buffer) : trans.Float2String(density1, false, 7, buffer));
 }
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
