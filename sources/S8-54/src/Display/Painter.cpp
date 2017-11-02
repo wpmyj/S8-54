@@ -696,15 +696,15 @@ static void CalculateColor(uint8 *color)
 }
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
-void CalculateCurrentColor(void)
+void Painter::CalculateCurrentColor(void)
 {
     if (currentColor == COLOR_FLASH_10)
     {
-        painter.SetColor(inverseColors ? gColorBack : gColorFill);
+        SetColor(inverseColors ? gColorBack : gColorFill);
     }
     else if (currentColor == COLOR_FLASH_01)
     {
-        painter.SetColor(inverseColors ? gColorFill : gColorBack);
+        SetColor(inverseColors ? gColorFill : gColorBack);
     }
 }
 

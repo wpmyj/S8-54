@@ -4,10 +4,6 @@
 
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-extern void CalculateCurrentColor(void);
-
-
-//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
 /** @addtogroup Display
@@ -43,10 +39,6 @@ public:
 
     void SetPoint(int x, int y);
 
-    void DrawHLine(int y, int x0, int x1, Color color = NUM_COLORS);
-
-    void DrawVLine(int x, int y0, int y1, Color color = NUM_COLORS);
-
     void DrawHPointLine(int y, int x0, int x1, float delta);
 
     void DrawVPointLine(int x, int y0, int y1, float delta);
@@ -56,6 +48,10 @@ public:
     /// \brief Ќарисовать numLines горизонтальных линий, состо€щих из count точек кажда€ с рассто€нием между точками delta. ¬ертикальна€ координата
     /// первой точки каждой линии соответствует очередному элементу массива y[]
     void DrawMultiHPointLine(int numLines, int x, uint8 y[], int delta, int count, Color color = NUM_COLORS);
+    /// Ќарисовать горизонтальную линию
+    void DrawHLine(int y, int x0, int x1, Color color = NUM_COLORS);
+    /// Ќарисовать вертикальную линию
+    void DrawVLine(int x, int y0, int y1, Color color = NUM_COLORS);
 
     void DrawLine(int x0, int y0, int x1, int y1, Color color = NUM_COLORS);
     /// \brief –исует прерывистую горизонтальную линию. dFill - длина штриха, dEmpty - расст. между штрихами. Ћини€ всегда начинаетс€ со штриха. 
@@ -135,6 +131,10 @@ public:
     int DrawTextInRectWithTransfers(int x, int y, int width, int height, const char *text);
 
     void DrawBigText(int x, int y, int size, const char *text);
+
+private:
+
+    void CalculateCurrentColor(void);
 };
 
 
