@@ -37,7 +37,7 @@ static DataSettings dataSettings;   ///< Здесь хранятся настройки для текущего р
 static int numPointsP2P = 0;
 
 /// Если true, то находимся в ждущем режиме рандомизатора и нужно выводить статический сигнал
-#define STAND_P2P (IN_P2P_MODE && START_MODE_WAIT && DS_NumElementsWithCurrentSettings() > 0)
+#define STAND_P2P (IN_P2P_MODE && START_MODE_WAIT && DS_NumElementsInStorage() > 0)
 
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -69,8 +69,8 @@ void Data_ReadFromRAM(int fromEnd, StructDataDrawing *dataStruct, bool forMemory
         RAM_MemCpy16(dataB, IN_B, BYTES_IN_CHANNEL_DS);
         readed = true;
     }
-    else if ((IN_AVERAGING_MODE || (IN_RANDOM_MODE && NRST_NUM_AVE_FOR_RAND))    // Если включено усреднение
-        && fromEnd == 0)                                                    // И запрашиваем псоледний считанный сигнал
+    else if ((IN_AVERAGING_MODE || (IN_RANDOM_MODE && NRST_NUM_AVE_FOR_RAND))       // Если включено усреднение
+        && fromEnd == 0)                                                            // И запрашиваем псоледний считанный сигнал
     {
         dataSettings = *DS_DataSettingsFromEnd(0);
         DS = &dataSettings;
@@ -84,7 +84,9 @@ void Data_ReadFromRAM(int fromEnd, StructDataDrawing *dataStruct, bool forMemory
         }
         readed = true;
     }
-    else if(!IN_P2P_MODE || (IN_P2P_MODE && STAND_P2P && !forMemoryWindow) || (IN_P2P_MODE && !FPGA_IS_RUNNING))
+    else if(!IN_P2P_MODE ||                                     // Если не в поточечном режиме
+            (IN_P2P_MODE && STAND_P2P && !forMemoryWindow) ||   // или в поточечном и ждущем режиме, но нужно выоводить статический сигнал
+            (IN_P2P_MODE && !FPGA_IS_RUNNING))                  // или в поточечном, но процесс чтения остановлен
     {
         DS_GetDataFromEnd(fromEnd, &dataSettings, IN_A, IN_B);
         readed = true;
