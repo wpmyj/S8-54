@@ -426,13 +426,16 @@ static bool DataBeyondTheBorders(const uint8 *data, int firstPoint, int lastPoin
     int numPoints = lastPoint - firstPoint;
     for (int i = firstPoint; i < lastPoint; i++)
     {
-        if (data[i] <= MIN_VALUE)
+        if (data[i] != NONE_VALUE)
         {
-            numMin++;
-        }
-        if (data[i] >= MAX_VALUE)
-        {
-            numMax++;
+            if (data[i] <= MIN_VALUE)
+            {
+                numMin++;
+            }
+            if (data[i] >= MAX_VALUE)
+            {
+                numMax++;
+            }
         }
     }
     if (numMin >= numPoints - 1)

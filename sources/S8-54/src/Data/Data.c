@@ -185,7 +185,7 @@ static void PrepareDataForDraw(StructDataDrawing *dataStruct)
     dataStruct->needDraw[A] = ENABLED_DS_A && SET_ENABLED_A;
     dataStruct->needDraw[B] = ENABLED_DS_B && SET_ENABLED_B;
 
-    if ((IN_P2P_MODE && numPointsP2P < 2) || (PEAKDET_DS != SET_PEAKDET))
+    if ((IN_P2P_MODE && numPointsP2P < 2 && !STAND_P2P) || (PEAKDET_DS != SET_PEAKDET))
     {
         dataStruct->needDraw[A] = dataStruct->needDraw[B] = false;
         return;
