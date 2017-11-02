@@ -93,7 +93,7 @@ void Painter::EndScene(void)
     Painter::SendToInterfaces(command, 1);
     if (TRANSMIT_IN_PROCESS)
     {
-        VCP_Flush();
+        vcp.Flush();
         stateTransmit = StateTransmit_Free;
     }
 
@@ -662,7 +662,7 @@ void Painter::SendToInterfaces(uint8 *pointer, int size)
 {
     if (TRANSMIT_IN_PROCESS)
     {
-        VCP_SendDataSynch(pointer, size);
+        vcp.SendDataSynch(pointer, size);
         TCPSocket_Send((const char *)pointer, size);
     }
 }

@@ -1,12 +1,10 @@
-
-
-#include "../../defines.h"
+#include "defines.h"
 #include "SCPI.h"
-#include "../../Globals.h"
-#include "../../VCP/VCP.h"
-#include "../../Settings/Settings.h"
-#include "../../Utils/GlobalFunctions.h"
-#include "../../Utils/Map.h"
+#include "Globals.h"
+#include "VCP/VCP.h"
+#include "Settings/Settings.h"
+#include "Utils/GlobalFunctions.h"
+#include "Utils/Map.h"
 
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

@@ -1,5 +1,4 @@
-
-
+#include "VCP.h"
 #include "usbd_cdc_interface.h"
 #include "usbd_desc.h"
 #include "Utils/Math.h"
@@ -7,12 +6,14 @@
 
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+VCP vcp;
+
 USBD_HandleTypeDef handleUSBD;
 PCD_HandleTypeDef handlePCD;
 
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-void VCP_Init(void)
+void VCP::Init(void)
 {
     USBD_Init(&handleUSBD, &VCP_Desc, 0);
     USBD_RegisterClass(&handleUSBD, &USBD_CDC);
@@ -30,7 +31,7 @@ static bool PrevSendingComplete(void)
 
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
-void VCP_SendDataAsinch(uint8 *buffer, int size)
+void VCP::SendDataAsynch(uint8 *buffer, int size)
 {
 #define SIZE_BUFFER 64
     static uint8 trBuf[SIZE_BUFFER];
@@ -51,7 +52,7 @@ static int sizeBuffer = 0;
 
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
-void VCP_Flush(void)
+void VCP::Flush(void)
 {
     if (sizeBuffer)
     {
@@ -66,7 +67,7 @@ void VCP_Flush(void)
 
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
-void VCP_SendDataSynch(const uint8 *buffer, int size)
+void VCP::SendDataSynch(const uint8 *buffer, int size)
 {
     if (CONNECTED_TO_USB)
     {
@@ -105,21 +106,21 @@ void SendData(const uint8 *buffer, int size)
 
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
-void VCP_SendStringAsinch(char *data)
+void VCP::SendStringAsynch(char *data)
 {
-    VCP_SendDataAsinch((uint8 *)data, strlen(data));
+    SendDataAsynch((uint8 *)data, strlen(data));
 }
 
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
-void VCP_SendStringSynch(char *data)
+void VCP::SendStringSynch(char *data)
 {
-    VCP_SendDataSynch((uint8 *)data, strlen(data));
+    SendDataSynch((uint8 *)data, strlen(data));
 }
 
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
-void VCP_SendFormatStringAsynch(char *format, ...)
+void VCP::SendFormatStringAsynch(char *format, ...)
 {
     if (CONNECTED_TO_USB)
     {
@@ -129,13 +130,13 @@ void VCP_SendFormatStringAsynch(char *format, ...)
         vsprintf(buffer, format, args);
         va_end(args);
         strcat(buffer, "\r\n");
-        VCP_SendDataAsinch((uint8 *)buffer, strlen(buffer));
+        SendDataAsynch((uint8 *)buffer, strlen(buffer));
     }
 }
 
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
-void VCP_SendFormatStringSynch(char *format, ...)
+void VCP::SendFormatStringSynch(char *format, ...)
 {
     char buffer[200];
     va_list args;
@@ -143,14 +144,14 @@ void VCP_SendFormatStringSynch(char *format, ...)
     vsprintf(buffer, format, args);
     va_end(args);
     strcat(buffer, "\r\n");
-    VCP_SendDataSynch((uint8 *)buffer, strlen(buffer));
+    SendDataSynch((uint8 *)buffer, strlen(buffer));
 }
 
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
-void VCP_SendByte(uint8 byte)
+void VCP::SendByte(uint8 byte)
 {
-    VCP_SendDataSynch(&byte, 1);
+    SendDataSynch(&byte, 1);
 }
 
 

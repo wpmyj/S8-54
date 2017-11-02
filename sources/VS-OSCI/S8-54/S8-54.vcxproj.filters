@@ -147,9 +147,6 @@
     <ClCompile Include="..\..\S8-54\src\VCP\SCPI\trigSCPI.c">
       <Filter>VCP\SCPI</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\S8-54\src\VCP\VCP.c">
-      <Filter>VCP</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\S8-54\src\Display\font\Font.c">
       <Filter>Display\font</Filter>
     </ClCompile>
@@ -584,6 +581,9 @@
     </ClCompile>
     <ClCompile Include="..\..\S8-54\src\Data\DataStorage.cpp">
       <Filter>Data</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\S8-54\src\VCP\VCP.cpp">
+      <Filter>VCP</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

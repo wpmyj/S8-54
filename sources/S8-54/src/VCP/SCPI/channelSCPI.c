@@ -1,5 +1,3 @@
-
-
 #include "defines.h"
 #include "SCPI.h"
 #include "FPGA/FPGAextensions.h"

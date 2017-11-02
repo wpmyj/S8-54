@@ -1789,11 +1789,6 @@
           <GroupName>VCP</GroupName>
           <Files>
             <File>
-              <FileName>VCP.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\src\VCP\VCP.c</FilePath>
-            </File>
-            <File>
               <FileName>VCP.h</FileName>
               <FileType>5</FileType>
               <FilePath>.\src\VCP\VCP.h</FilePath>
@@ -1832,6 +1827,11 @@
               <FileName>usbd_core.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\src\VCP\usbd_core.c</FilePath>
+            </File>
+            <File>
+              <FileName>VCP.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\src\VCP\VCP.cpp</FilePath>
             </File>
           </Files>
         </Group>

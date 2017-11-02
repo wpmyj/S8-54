@@ -34,7 +34,7 @@ void Log_Write(TypeTrace type, char *format, ...)
     display.AddStringToIndicating(buffer);
     if(loggerUSB)
     {
-        VCP_SendFormatStringAsynch(buffer);
+        vcp.SendFormatStringAsynch(buffer);
     }
 }
 
@@ -67,8 +67,8 @@ void Log_Trace(TypeTrace type, const char *module, const char *func, int numLine
     display.AddStringToIndicating(buffer);
     if(loggerUSB)
     {
-        VCP_SendFormatStringAsynch(message);
-        VCP_SendFormatStringAsynch(buffer);
+        vcp.SendFormatStringAsynch(message);
+        vcp.SendFormatStringAsynch(buffer);
     }
 }
 

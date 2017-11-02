@@ -28,7 +28,7 @@
 #define SCPI_SEND(...)                              \
     if(CONNECTED_TO_USB)                            \
     {                                               \
-        VCP_SendFormatStringAsynch(__VA_ARGS__);    \
+        vcp.SendFormatStringAsynch(__VA_ARGS__);    \
     };                                              \
     if (gEthIsConnected)                            \
     {                                               \
