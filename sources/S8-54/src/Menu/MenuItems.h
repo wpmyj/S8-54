@@ -158,6 +158,8 @@ typedef struct
     int16 NextValue();
     /// ¬озвращает следующее меньшее значение, которое может прин€ть governor.
     int16 PrevValue();
+    /// –ассчитывате следующий кадр анимации.
+    float Step();
 } Governor;
 
 typedef struct

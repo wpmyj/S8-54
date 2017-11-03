@@ -88,7 +88,7 @@ void DrawGovernorLowPart(Governor *governor, int x, int y, bool pressed, bool sh
     x = painter.DrawText(x + 4, y + 21, "\x80", colorTextDown);
     if(OpenedItem() != governor)
     {
-        int delta = (int)Governor_Step(governor);
+        int delta = (int)governor->Step();
         if(delta == 0)
         {
             x = painter.DrawText(x + 1, y + 21, trans.Int2String(*governor->cell, false, 1, buffer));

@@ -176,6 +176,56 @@ int16 Governor::PrevValue()
     return ((*cell) > minValue) ? (*cell) - 1 : maxValue;
 }
 
+//----------------------------------------------------------------------------------------------------------------------------------------------------
+float Governor::Step()
+{
+    static const float speed = 0.05f;
+    static const int numLines = 10;
+    float delta = 0.0f;
+    if (tsGovernor.address == this)
+    {
+        delta = speed * (gTimeMS - tsGovernor.timeStart);
+        if (tsGovernor.dir == DECREASE)
+        {
+            delta *= -1.0f;
+            if (delta == 0.0f)
+            {
+                return -0.001f;
+            }
+            if (delta < -numLines)
+            {
+                tsGovernor.dir = NONE;
+                *cell = PrevValue();
+                if (funcOfChanged)
+                {
+                    funcOfChanged();
+                }
+                delta = 0.0f;
+                tsGovernor.address = 0;
+            }
+        }
+        else if (tsGovernor.dir == INCREASE)
+        {
+            if (delta == 0.0f)
+            {
+                return 0.001f;
+            }
+            if (delta > numLines)
+            {
+                tsGovernor.dir = NONE;
+                *cell = NextValue();
+                if (funcOfChanged)
+                {
+                    funcOfChanged();
+                }
+                delta = 0.0f;
+                tsGovernor.address = 0;
+            }
+        }
+    }
+    return delta;
+}
+
 
 
 
@@ -320,56 +370,6 @@ void IPaddress_GetNumPosIPvalue(int *numIP, int *selPos)
     }
 
 
-}
-
-//----------------------------------------------------------------------------------------------------------------------------------------------------
-float Governor_Step(Governor *governor)
-{
-    static const float speed = 0.05f;
-    static const int numLines = 10;
-    float delta = 0.0f;
-    if (tsGovernor.address == governor)
-    {
-        delta = speed * (gTimeMS - tsGovernor.timeStart);
-        if (tsGovernor.dir == DECREASE)
-        {
-            delta *= -1.0f;
-            if (delta == 0.0f)
-            {
-                return -0.001f;
-            }
-            if (delta < -numLines)
-            {
-                tsGovernor.dir = NONE;
-                *governor->cell = governor->PrevValue();
-                if (governor->funcOfChanged)
-                {
-                    governor->funcOfChanged();
-                }
-                delta = 0.0f;
-                tsGovernor.address = 0;
-            }
-        }
-        else if (tsGovernor.dir == INCREASE)
-        {
-            if (delta == 0.0f)
-            {
-                return 0.001f;
-            }
-            if (delta > numLines)
-            {
-                tsGovernor.dir = NONE;
-                *governor->cell = governor->NextValue();
-                if (governor->funcOfChanged)
-                {
-                    governor->funcOfChanged();
-                }
-                delta = 0.0f;
-                tsGovernor.address = 0;
-            }
-        }
-    }
-    return delta;
 }
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------

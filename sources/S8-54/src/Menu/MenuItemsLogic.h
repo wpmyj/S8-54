@@ -18,8 +18,6 @@ extern int8 gCurDigit;
  */
 
 
-/// Рассчитывате следующий кадр анимации.
-float Governor_Step(Governor *governor);
 /// Изменяет значение в текущей позиции при раскрытом элементе.
 void Governor_ChangeValue(Governor *governor, int delta);
 /// При открытом элементе переставляет курсор на следующую позицию.
