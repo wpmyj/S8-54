@@ -641,7 +641,7 @@ void ShortPress_Choice(void *choice_)
     else if (!ItemIsOpened(choice))
     {
         SetCurrentItem(choice, CurrentItem() != choice);
-        Choice_StartChange(choice, 1);
+        choice->StartChange(1);
     }
     else
     {

@@ -396,7 +396,7 @@ void ChangeItem(void *item, int delta)
     TypeItem type = TypeMenuItem(item);
     if (type == Item_Choice || type == Item_ChoiceReg)
     {
-        Choice_StartChange((Choice *)item, delta);
+        ((Choice *)item)->StartChange(delta);
     }
     else if (type == Item_Governor)
     {

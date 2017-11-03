@@ -17,7 +17,6 @@ extern int8 gCurDigit;
  *  @{
  */
 
-void Choice_StartChange(Choice *choice, int delta);
 /// –ассчитывает следующий кадр анимации.
 float Choice_Step(Choice *choice);
 /// »змен€ет значение choice в зависимости от величины и знака delta.

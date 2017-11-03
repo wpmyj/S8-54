@@ -1,5 +1,3 @@
-
-
 #include "Menu.h"
 #include "MenuItemsLogic.h"
 #include "Globals.h"
@@ -38,6 +36,68 @@ static TimeStruct tsChoice = {0, 0, NONE};
 static TimeStruct tsGovernor = {0, 0, NONE};
 
 int8 gCurDigit = 0;
+
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//----------------------------------------------------------------------------------------------------------------------------------------------------
+void Choice::StartChange(int delta)
+{
+    if (tsChoice.address != 0)
+    {
+        return;
+    }
+    Sound_GovernorChangedValue();
+    if (HINT_MODE_ENABLE)
+    {
+        SetItemForHint(this);
+    }
+    else if (!ItemIsAcitve(this))
+    {
+        CHOICE_RUN_FUNC_CHANGED(this, false);
+    }
+    else
+    {
+        tsChoice.address = this;
+        tsChoice.timeStart = gTimeMS;
+        tsChoice.dir = delta > 0 ? INCREASE : DECREASE;
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -164,30 +224,6 @@ void IPaddress_GetNumPosIPvalue(int *numIP, int *selPos)
     }
 
 
-}
-
-//----------------------------------------------------------------------------------------------------------------------------------------------------
-void Choice_StartChange(Choice *choice, int delta)
-{
-    if (tsChoice.address != 0)
-    {
-        return;
-    }
-    Sound_GovernorChangedValue();
-    if (HINT_MODE_ENABLE)
-    {
-        SetItemForHint(choice);
-    }
-    else if (!ItemIsAcitve(choice))
-    {
-        CHOICE_RUN_FUNC_CHANGED(choice, false);
-    }
-    else
-    {
-        tsChoice.address = choice;
-        tsChoice.timeStart = gTimeMS;
-        tsChoice.dir = delta > 0 ? INCREASE : DECREASE;
-    }
 }
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------

@@ -209,9 +209,10 @@ typedef struct
 {
     COMMON_PART_MENU_ITEM
     const char * const  names[MAX_NUM_SUBITEMS_IN_CHOICE][2];   ///< ¬арианты выбора на русском и английском €зыках.
-    int8 *               cell;                                   ///< јдрес €чейки, в которой хранитс€ позици€ текущего выбора.
+    int8 *               cell;                                  ///< јдрес €чейки, в которой хранитс€ позици€ текущего выбора.
     pFuncVB			    funcOnChanged;                          ///< ‘ункци€ должна вызыватьс€ после изменени€ значени€ элемента.
     pFuncVII            funcForDraw;                            ///< ‘ункци€ вызываетс€ после отрисовки элемента. 
+    void StartChange(int delta);
 } Choice;
 
 
