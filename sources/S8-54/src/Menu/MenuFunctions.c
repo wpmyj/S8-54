@@ -57,7 +57,7 @@ void    SetCurrentItem(const void *item, bool active)
         }
         else
         {
-            for(int i = 0; i < NumItemsInPage(page); i++)
+            for(int i = 0; i < page->NumItemsInPage(); i++)
             {
                 if(Item(page, i) == item)
                 {
@@ -107,7 +107,7 @@ int HeightOpenedItem(void *item)
     TypeItem type = TypeMenuItem(item);
     if(type == Item_Page)
     {
-        int numItems = NumItemsInPage((const Page *)item) - NumCurrentSubPage((Page *)item) * MENU_ITEMS_ON_DISPLAY;
+        int numItems = ((const Page *)item)->NumItemsInPage() - NumCurrentSubPage((Page *)item) * MENU_ITEMS_ON_DISPLAY;
         LIMITATION(numItems, 0, MENU_ITEMS_ON_DISPLAY);
         return MP_TITLE_HEIGHT + MI_HEIGHT * numItems;
     } 
@@ -266,29 +266,7 @@ bool ItemIsAcitve(const void *item)
     return true;
 }
 
-//----------------------------------------------------------------------------------------------------------------------------------------------------
-int NumItemsInPage(const Page * const page) 
-{
-    if (page->name == Page_Main)
-    {
-        return SHOW_DEBUG_MENU ? 11 : 10;
-    }
-    else if (IsPageSB(page))
-    {
-        return 5;
-    }
-    else
-    {
-        for (int i = 0; i < MAX_NUM_ITEMS_IN_PAGE; i++)
-        {
-            if (Item(page, i) == 0)
-            {
-                return i;
-            }
-        }
-    }
-    return 0;
-}
+
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
 const char *NameCurrentSubItem(Choice *choice) 

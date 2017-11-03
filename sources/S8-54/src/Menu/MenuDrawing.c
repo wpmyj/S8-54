@@ -194,7 +194,7 @@ static void DrawPagesUGO(Page *page, int right, int bottom)
     int size = 4;
     int delta = 2;
     
-    int allPages = (NumItemsInPage(page)- 1) / MENU_ITEMS_ON_DISPLAY + 1;
+    int allPages = (page->NumItemsInPage() - 1) / MENU_ITEMS_ON_DISPLAY + 1;
     int currentPage = NumCurrentSubPage(page);
 
     int left = right - (size + 1) * allPages - delta + (3 - allPages);
@@ -321,7 +321,7 @@ void DrawItemsPage(Page *page, int layer, int yTop)
     };
     int posFirstItem = PosItemOnTop(page);
     int posLastItem = posFirstItem + MENU_ITEMS_ON_DISPLAY - 1;
-    LIMITATION(posLastItem, 0, NumItemsInPage(page) - 1);
+    LIMITATION(posLastItem, 0, page->NumItemsInPage() - 1);
     int count = 0;
     for(int posItem = posFirstItem; posItem <= posLastItem; posItem++)
     {

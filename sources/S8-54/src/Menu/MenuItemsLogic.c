@@ -266,7 +266,31 @@ int Governor::NumDigits()
 //----------------------------------------------------------------------------------------------------------------------------------------------------
 int Page::NumSubPages() const
 {
-    return (NumItemsInPage(this) - 1) / MENU_ITEMS_ON_DISPLAY + 1;
+    return (NumItemsInPage() - 1) / MENU_ITEMS_ON_DISPLAY + 1;
+}
+
+//----------------------------------------------------------------------------------------------------------------------------------------------------
+int Page::NumItemsInPage() const
+{
+    if (name == Page_Main)
+    {
+        return SHOW_DEBUG_MENU ? 11 : 10;
+    }
+    else if (IsPageSB(this))
+    {
+        return 5;
+    }
+    else
+    {
+        for (int i = 0; i < MAX_NUM_ITEMS_IN_PAGE; i++)
+        {
+            if (Item(this, i) == 0)
+            {
+                return i;
+            }
+        }
+    }
+    return 0;
 }
 
 

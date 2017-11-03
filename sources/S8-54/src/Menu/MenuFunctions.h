@@ -14,8 +14,6 @@
 
 /// Вовзращает true, если элемент меню item является ативным, т.е. может быть нажат
 bool ItemIsAcitve(const void *item);
-/// Возвращает количество элементов в странице по адресу page
-int NumItemsInPage(const Page * const page);
 /// Возвращает номер текущей подстранцы элемента по адресу page
 int NumCurrentSubPage(Page *page);
 /// Возвращает тип элемента меню по адресу address

@@ -111,6 +111,7 @@ struct Page
     pFuncVV  funcOnDraw;                    ///< Будет вызываться после отрисовки кнопок
     pFuncVI  funcRegSetSB;                  ///< В странице малых кнопок вызывается при повороте ручки установка
     int NumSubPages() const;                ///< Dозвращает число подстраниц в странице по адресу page
+    int NumItemsInPage() const;             ///< Возвращает количество элементов в странице по адресу page
 };
 
 typedef struct Page Page;
