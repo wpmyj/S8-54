@@ -731,7 +731,7 @@ void ShortPress_Governor(void *governor)
     }
     if(OpenedItem() == gov)
     {
-        Governor_NextPosition(gov);
+        gov->NextPosition();
     }
     else
     {

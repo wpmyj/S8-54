@@ -242,6 +242,15 @@ void Governor::ChangeValue(int delta)
     }
 }
 
+//----------------------------------------------------------------------------------------------------------------------------------------------------
+void Governor::NextPosition()
+{
+    if (OpenedItem() == this)
+    {
+        CircleIncreaseInt8(&gCurDigit, 0, (int8)(Governor_NumDigits(this) - 1));
+    }
+}
+
 
 
 
@@ -375,14 +384,7 @@ void IPaddress_GetNumPosIPvalue(int *numIP, int *selPos)
 
 }
 
-//----------------------------------------------------------------------------------------------------------------------------------------------------
-void Governor_NextPosition(Governor *governor)
-{
-    if (OpenedItem() == governor)
-    {
-        CircleIncreaseInt8(&gCurDigit, 0, (int8)(Governor_NumDigits(governor) - 1));
-    }
-}
+
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
 int Governor_NumDigits(Governor *governor)

@@ -18,8 +18,6 @@ extern int8 gCurDigit;
  */
 
 
-/// При открытом элементе переставляет курсор на следующую позицию.
-void Governor_NextPosition(Governor *governor);
 /// Возвращает число знакомест в поле для ввода элемента governor. Зависит от максимального значения, которое может принимать governor.
 int  Governor_NumDigits(Governor *governor);
 /// При открытом элементе переставляет курсор на следующую позицию.

@@ -162,6 +162,8 @@ typedef struct
     float Step();
     /// Изменяет значение в текущей позиции при раскрытом элементе.
     void ChangeValue(int delta);
+    /// При открытом элементе переставляет курсор на следующую позицию.
+    void NextPosition();
 } Governor;
 
 typedef struct
