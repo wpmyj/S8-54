@@ -1,5 +1,3 @@
-
-
 #include "Debug.h"
 #include "defines.h"
 #include "Log.h"
