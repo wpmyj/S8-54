@@ -566,7 +566,7 @@ void ProcessingRegulatorSetRotate(void)
             }
             else if (type == Item_Time)
             {
-                angleRegSet > 0 ? Time_IncCurrentPosition((Time *)item) : Time_DecCurrentPosition((Time *)item);
+                angleRegSet > 0 ? ((Time *)item)->IncCurrentPosition() : Time_DecCurrentPosition((Time *)item);
             }
         }
     }

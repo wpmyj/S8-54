@@ -321,6 +321,24 @@ void Time::SetOpened()
     *(year) = (int8)time.year;
 }
 
+//----------------------------------------------------------------------------------------------------------------------------------------------------
+void Time::IncCurrentPosition()
+{
+    Sound_GovernorChangedValue();
+    int8 *value[] = { 0, day, month, year, hours, minutes, seconds };
+    int8 position = *curField;
+    if (position != iSET && position != iEXIT)
+    {
+        static const int8 max[] = { 0, 31, 12, 99, 23, 59, 59 };
+        static const int8 min[] = { 0, 1, 1, 15, 0, 0, 0 };
+        *(value[position]) = (*(value[position]))++;
+        if (*value[position] > max[position])
+        {
+            *value[position] = min[position];
+        }
+    }
+}
+
 
 
 
@@ -480,23 +498,7 @@ void Time_SelectNextPosition(Time *time)
     painter.ResetFlash();
 }
 
-//----------------------------------------------------------------------------------------------------------------------------------------------------
-void Time_IncCurrentPosition(Time *time)
-{
-    Sound_GovernorChangedValue();
-    int8 *value[] = {0, time->day, time->month, time->year, time->hours, time->minutes, time->seconds};
-    int8 position = *time->curField;
-    if (position != iSET && position != iEXIT)
-    {
-        static const int8 max[] = {0, 31, 12, 99, 23, 59, 59};
-        static const int8 min[] = {0, 1, 1, 15, 0, 0, 0};
-        *(value[position]) = (*(value[position]))++;
-        if (*value[position] > max[position])
-        {
-            *value[position] = min[position];
-        }
-    }
-}
+
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
 void Time_DecCurrentPosition(Time *time)

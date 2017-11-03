@@ -259,6 +259,7 @@ typedef struct
     int8 *   day;
     int8 *   year;
     void SetOpened();
+    void IncCurrentPosition();
 } Time;
 
 

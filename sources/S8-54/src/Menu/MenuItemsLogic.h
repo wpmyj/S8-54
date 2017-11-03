@@ -32,8 +32,6 @@ void Time_SetNewTime(Time *time);
 
 void Time_SelectNextPosition(Time *time);
 
-void Time_IncCurrentPosition(Time *time);
-
 void Time_DecCurrentPosition(Time *time);
 /// »зменить €ркость цвета в governor.
 void GovernorColor_ChangeValue(GovernorColor *governor, int delta);
