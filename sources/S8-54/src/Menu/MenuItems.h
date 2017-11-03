@@ -152,6 +152,8 @@ typedef struct
     int16   maxValue;       ///< Максимальное значение.
     pFuncVV funcOfChanged;  ///< Функция, которую нужно вызывать после того, как значение регулятора изменилось.
     pFuncVV funcBeforeDraw; ///< Функция, которая вызывается перед отрисовкой
+    /// Запускает процессс анимации инкремента или декремента элемента меню типа Governor (в зависимости от знака delta).
+    void StartChange(int detla);
 } Governor;
 
 typedef struct

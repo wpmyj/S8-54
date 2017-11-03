@@ -17,8 +17,7 @@ extern int8 gCurDigit;
  *  @{
  */
 
-/// Запускает процессс анимации инкремента или декремента элемента меню типа Governor (в зависимости от знака delta).
-void Governor_StartChange(Governor *governor, int detla);
+
 /// Рассчитывате следующий кадр анимации.
 float Governor_Step(Governor *governor);
 /// Изменяет значение в текущей позиции при раскрытом элементе.

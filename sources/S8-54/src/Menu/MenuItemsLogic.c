@@ -144,6 +144,26 @@ int Choice::NumSubItems()
     return i;
 }
 
+//----------------------------------------------------------------------------------------------------------------------------------------------------
+void Governor::StartChange(int delta)
+{
+    Sound_GovernorChangedValue();
+    if (delta > 0 && tsGovernor.address == this && tsGovernor.dir == INCREASE)
+    {
+        *cell = Governor_NextValue(this);
+    }
+    else if (delta < 0 && tsGovernor.address == this && tsGovernor.dir == DECREASE)
+    {
+        *cell = Governor_PrevValue(this);
+    }
+    else
+    {
+        tsGovernor.timeStart = gTimeMS;
+        tsGovernor.address = this;
+    }
+    tsGovernor.dir = delta > 0 ? INCREASE : DECREASE;
+}
+
 
 
 
@@ -182,26 +202,6 @@ int Choice::NumSubItems()
 
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-void Governor_StartChange(Governor *governor, int delta)
-{
-    Sound_GovernorChangedValue();
-    if (delta > 0 && tsGovernor.address == governor && tsGovernor.dir == INCREASE)
-    {
-        *governor->cell = Governor_NextValue(governor);
-    }
-    else if (delta < 0 && tsGovernor.address == governor && tsGovernor.dir == DECREASE)
-    {
-        *governor->cell = Governor_PrevValue(governor);
-    }
-    else
-    {
-        tsGovernor.timeStart = gTimeMS;
-        tsGovernor.address = governor;
-    }
-    tsGovernor.dir = delta > 0 ? INCREASE : DECREASE;
-}
-
-//----------------------------------------------------------------------------------------------------------------------------------------------------
 void Governor_ChangeValue(Governor *governor, int delta)
 {
     int16 oldValue = *governor->cell;

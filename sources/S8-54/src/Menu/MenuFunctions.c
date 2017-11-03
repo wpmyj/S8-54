@@ -389,7 +389,7 @@ void ChangeItem(void *item, int delta)
         Governor *governor = (Governor*)item;
         if (OpenedItem() != governor)
         {
-            Governor_StartChange(governor, delta);
+            governor->StartChange(delta);
         }
         else
         {
