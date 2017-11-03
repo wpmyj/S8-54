@@ -156,6 +156,8 @@ typedef struct
     void StartChange(int detla);
     /// Возвращает следующее большее значение, которое может принять governor.
     int16 NextValue();
+    /// Возвращает следующее меньшее значение, которое может принять governor.
+    int16 PrevValue();
 } Governor;
 
 typedef struct

@@ -154,7 +154,7 @@ void Governor::StartChange(int delta)
     }
     else if (delta < 0 && tsGovernor.address == this && tsGovernor.dir == DECREASE)
     {
-        *cell = Governor_PrevValue(this);
+        *cell = PrevValue();
     }
     else
     {
@@ -169,6 +169,41 @@ int16 Governor::NextValue()
 {
     return ((*cell) < maxValue) ? (*cell) + 1 : minValue;
 }
+
+//----------------------------------------------------------------------------------------------------------------------------------------------------
+int16 Governor::PrevValue()
+{
+    return ((*cell) > minValue) ? (*cell) - 1 : maxValue;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -306,7 +341,7 @@ float Governor_Step(Governor *governor)
             if (delta < -numLines)
             {
                 tsGovernor.dir = NONE;
-                *governor->cell = Governor_PrevValue(governor);
+                *governor->cell = governor->PrevValue();
                 if (governor->funcOfChanged)
                 {
                     governor->funcOfChanged();
@@ -335,12 +370,6 @@ float Governor_Step(Governor *governor)
         }
     }
     return delta;
-}
-
-//----------------------------------------------------------------------------------------------------------------------------------------------------
-int16 Governor_PrevValue(Governor *governor)
-{
-    return ((*governor->cell) > governor->minValue) ? (*governor->cell) - 1 : governor->maxValue;
 }
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------

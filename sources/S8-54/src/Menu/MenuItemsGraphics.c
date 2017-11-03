@@ -111,7 +111,7 @@ void DrawGovernorLowPart(Governor *governor, int x, int y, bool pressed, bool sh
             {
                 x = painter.DrawTextWithLimitationC(drawX, y + 21 - delta, trans.Int2String(*governor->cell, false, 1, buffer), 
                                             Color::BLACK, limX, limY, limWidth, limHeight);
-                painter.DrawTextWithLimitationC(drawX, y + 21 - 10 - delta, trans.Int2String(Governor_PrevValue(governor), false, 1, buffer),
+                painter.DrawTextWithLimitationC(drawX, y + 21 - 10 - delta, trans.Int2String(governor->PrevValue(), false, 1, buffer),
                     Color::BLACK, limX, limY, limWidth, limHeight);
             }
         }

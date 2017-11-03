@@ -22,8 +22,6 @@ extern int8 gCurDigit;
 float Governor_Step(Governor *governor);
 /// Изменяет значение в текущей позиции при раскрытом элементе.
 void Governor_ChangeValue(Governor *governor, int delta);
-/// Возвращает следующее меньшее значение, которое может принять governor.
-int16 Governor_PrevValue(Governor *governor);
 /// При открытом элементе переставляет курсор на следующую позицию.
 void Governor_NextPosition(Governor *governor);
 /// Возвращает число знакомест в поле для ввода элемента governor. Зависит от максимального значения, которое может принимать governor.
