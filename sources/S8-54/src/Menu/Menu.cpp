@@ -419,7 +419,7 @@ static void ProcessingShortPressureButton(void)
             }
             else                                                        // Если меню не показано.
             {
-                NamePage name = GetNamePage((const Page *)OpenedItem());
+                NamePage name = ((const Page *)OpenedItem())->GetNamePage();
                 if(button == B_Channel1 && name == Page_ChannelA && MENU_IS_SHOWN)
                 {
                     SET_ENABLED_A = !SET_ENABLED_A;

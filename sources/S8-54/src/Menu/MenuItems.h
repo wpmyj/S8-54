@@ -113,6 +113,7 @@ struct Page
     int NumSubPages() const;                ///< Dозвращает число подстраниц в странице по адресу page
     int NumItems() const;                   ///< Возвращает количество элементов в странице по адресу page
     int NumCurrentSubPage();                ///< Возвращает номер текущей подстранцы элемента по адресу page
+    NamePage GetNamePage() const;           ///< Возвращает имя страницы page
 };
 
 typedef struct Page Page;

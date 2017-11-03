@@ -159,7 +159,7 @@ void ChangeSubPage(const Page *page, int delta)
 //----------------------------------------------------------------------------------------------------------------------------------------------------
 void *RetLastOpened(Page *page, TypeItem *type)
 {
-    if(CurrentItemIsOpened(GetNamePage(page)))
+    if(CurrentItemIsOpened(page->GetNamePage()))
     {
         int8 posActItem = PosCurrentItem(page);
         void *item = Item(page, posActItem);
@@ -206,7 +206,7 @@ void OpenItem(const void *item, bool open)
     if(item)
     {
         Page *page = Keeper(item);
-        SetMenuPosActItem(GetNamePage(page), open ? (PosCurrentItem(page) | 0x80) : (PosCurrentItem(page) & 0x7f));
+        SetMenuPosActItem(page->GetNamePage(), open ? (PosCurrentItem(page) | 0x80) : (PosCurrentItem(page) & 0x7f));
     }
 }
 
@@ -217,7 +217,7 @@ bool ItemIsOpened(const void *item)
     Page *page = Keeper(item);
     if(type == Item_Page)
     {
-        return CurrentItemIsOpened(GetNamePage(Keeper(item)));
+        return CurrentItemIsOpened(Keeper(item)->GetNamePage());
     }
     return (MENU_POS_ACT_ITEM(page->name) & 0x80) != 0;
 }
@@ -229,20 +229,12 @@ Page *Keeper(const void *item)
     return (Page *)page;
 }
 
-//----------------------------------------------------------------------------------------------------------------------------------------------------
-NamePage GetNamePage(const Page *page)
-{
-    if(TypeMenuItem((void *)page) != Item_Page)
-    {
-        return Page_NoPage;
-    }
-    return page->name;
-}
+
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
 NamePage GetNameOpenedPage(void)
 {
-    return GetNamePage((const Page *)OpenedItem());
+    return ((const Page *)OpenedItem())->GetNamePage();
 }
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------

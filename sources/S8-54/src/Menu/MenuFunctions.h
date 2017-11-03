@@ -36,8 +36,6 @@ void SetCurrentItem(const void *item,               ///< адрес элемента, активно
                     );
 /// Возвращает адрес элемента, которому принадлежит элемент по адресу item
 Page *Keeper(const void *item);
-/// Возвращает имя страницы page
-NamePage GetNamePage(const Page *page);
 
 NamePage GetNameOpenedPage(void);
 

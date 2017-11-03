@@ -299,6 +299,16 @@ int Page::NumCurrentSubPage()
     return MenuCurrentSubPage(name);
 }
 
+//----------------------------------------------------------------------------------------------------------------------------------------------------
+NamePage Page::GetNamePage() const
+{
+    if (TypeMenuItem((void *)this) != Item_Page)
+    {
+        return Page_NoPage;
+    }
+    return name;
+}
+
 
 
 
