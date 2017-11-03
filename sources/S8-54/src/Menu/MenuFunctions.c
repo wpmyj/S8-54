@@ -57,7 +57,7 @@ void    SetCurrentItem(const void *item, bool active)
         }
         else
         {
-            for(int i = 0; i < page->NumItemsInPage(); i++)
+            for(int i = 0; i < page->NumItems(); i++)
             {
                 if(Item(page, i) == item)
                 {
@@ -107,7 +107,7 @@ int HeightOpenedItem(void *item)
     TypeItem type = TypeMenuItem(item);
     if(type == Item_Page)
     {
-        int numItems = ((const Page *)item)->NumItemsInPage() - NumCurrentSubPage((Page *)item) * MENU_ITEMS_ON_DISPLAY;
+        int numItems = ((const Page *)item)->NumItems() - NumCurrentSubPage((Page *)item) * MENU_ITEMS_ON_DISPLAY;
         LIMITATION(numItems, 0, MENU_ITEMS_ON_DISPLAY);
         return MP_TITLE_HEIGHT + MI_HEIGHT * numItems;
     } 

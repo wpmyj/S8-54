@@ -266,11 +266,11 @@ int Governor::NumDigits()
 //----------------------------------------------------------------------------------------------------------------------------------------------------
 int Page::NumSubPages() const
 {
-    return (NumItemsInPage() - 1) / MENU_ITEMS_ON_DISPLAY + 1;
+    return (NumItems() - 1) / MENU_ITEMS_ON_DISPLAY + 1;
 }
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
-int Page::NumItemsInPage() const
+int Page::NumItems() const
 {
     if (name == Page_Main)
     {
