@@ -176,7 +176,7 @@ void DrawTitlePage(Page *page, int layer, int yTop)
     x = painter.DrawStringInCenterRectC(x, yTop, MP_TITLE_WIDTH + 2 + delta, MP_TITLE_HEIGHT, TitleItem(page), colorText);
     if(condDrawRSet)
     {
-        painter.Draw4SymbolsInRect(x + 4, yTop + 11, GetSymbolForGovernor(NumCurrentSubPage(page)), colorText);
+        painter.Draw4SymbolsInRect(x + 4, yTop + 11, GetSymbolForGovernor(page->NumCurrentSubPage()), colorText);
     }
 
     itemUnderButton[GetFuncButtonFromY(yTop)] = page;
@@ -195,7 +195,7 @@ static void DrawPagesUGO(Page *page, int right, int bottom)
     int delta = 2;
     
     int allPages = (page->NumItems() - 1) / MENU_ITEMS_ON_DISPLAY + 1;
-    int currentPage = NumCurrentSubPage(page);
+    int currentPage = page->NumCurrentSubPage();
 
     int left = right - (size + 1) * allPages - delta + (3 - allPages);
     int top = bottom - size - delta;

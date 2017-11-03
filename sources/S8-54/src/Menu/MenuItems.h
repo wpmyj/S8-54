@@ -112,6 +112,7 @@ struct Page
     pFuncVI  funcRegSetSB;                  ///< В странице малых кнопок вызывается при повороте ручки установка
     int NumSubPages() const;                ///< Dозвращает число подстраниц в странице по адресу page
     int NumItems() const;                   ///< Возвращает количество элементов в странице по адресу page
+    int NumCurrentSubPage();                ///< Возвращает номер текущей подстранцы элемента по адресу page
 };
 
 typedef struct Page Page;

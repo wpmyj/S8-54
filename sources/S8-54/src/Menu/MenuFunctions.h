@@ -14,8 +14,6 @@
 
 /// Вовзращает true, если элемент меню item является ативным, т.е. может быть нажат
 bool ItemIsAcitve(const void *item);
-/// Возвращает номер текущей подстранцы элемента по адресу page
-int NumCurrentSubPage(Page *page);
 /// Возвращает тип элемента меню по адресу address
 TypeItem TypeMenuItem(const void *address);
 /// Возвращает тип открытого элемента меню

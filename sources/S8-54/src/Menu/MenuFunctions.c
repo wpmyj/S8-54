@@ -107,7 +107,7 @@ int HeightOpenedItem(void *item)
     TypeItem type = TypeMenuItem(item);
     if(type == Item_Page)
     {
-        int numItems = ((const Page *)item)->NumItems() - NumCurrentSubPage((Page *)item) * MENU_ITEMS_ON_DISPLAY;
+        int numItems = ((const Page *)item)->NumItems() - ((Page *)item)->NumCurrentSubPage() * MENU_ITEMS_ON_DISPLAY;
         LIMITATION(numItems, 0, MENU_ITEMS_ON_DISPLAY);
         return MP_TITLE_HEIGHT + MI_HEIGHT * numItems;
     } 
@@ -118,11 +118,7 @@ int HeightOpenedItem(void *item)
     return MI_HEIGHT;
 }
 
-//----------------------------------------------------------------------------------------------------------------------------------------------------
-int NumCurrentSubPage(Page *page)
-{
-    return MenuCurrentSubPage(page->name);
-}
+
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
 const char *TitleItem(void *item) 
@@ -133,7 +129,7 @@ const char *TitleItem(void *item)
 //----------------------------------------------------------------------------------------------------------------------------------------------------
 int PosItemOnTop(Page *page)
 {
-    return NumCurrentSubPage(page) * MENU_ITEMS_ON_DISPLAY;
+    return page->NumCurrentSubPage() * MENU_ITEMS_ON_DISPLAY;
 }
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
