@@ -403,13 +403,13 @@ static const Governor gGrid_Brightness =
 
 void OnChanged_Grid_Brightness(void)
 {
-    Color_SetBrightness(&colorTypeGrid, BRIGHTNESS_GRID / 1e2f);
+    colorTypeGrid.SetBrightness(BRIGHTNESS_GRID / 1e2f);
 }
 
 
 static void BeforeDraw_Grid_Brightness(void)
 {
-    Color_Init(&colorTypeGrid, false);
+    colorTypeGrid.Init(false);
     BRIGHTNESS_GRID = (int16)(colorTypeGrid.brightness * 100.0f);
 }
 
@@ -497,7 +497,7 @@ static const Choice cSettings_Colors_Scheme =
 };
 
 // ƒ»—œÀ≈… - Õ¿—“–Œ… » - ÷¬≈“¿ -  ‡Ì‡Î 1 -------------------------------------------------------------------------------------------------------------
-static ColorType colorT1 = {0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, COLOR_DATA_1};
+static ColorType colorT1 = {0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, Color::DATA_A};
 static const GovernorColor gcSettings_Colors_ChannelA =
 {
     Item_GovernorColor, &pppSettings_Colors, 0,
@@ -510,7 +510,7 @@ static const GovernorColor gcSettings_Colors_ChannelA =
 };
 
 // ƒ»—œÀ≈… - Õ¿—“–Œ… » - ÷¬≈“¿ -  ‡Ì‡Î 2 -------------------------------------------------------------------------------------------------------------
-static ColorType colorT2 = {0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, COLOR_DATA_2};
+static ColorType colorT2 = {0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, Color::DATA_B};
 static const GovernorColor gcSettings_Colors_ChannelB =
 {
     Item_GovernorColor, &pppSettings_Colors, 0,
@@ -523,7 +523,7 @@ static const GovernorColor gcSettings_Colors_ChannelB =
 };
 
 // ƒ»—œÀ≈… - Õ¿—“–Œ… » - ÷¬≈“¿ - —ÂÚÍ‡ ---------------------------------------------------------------------------------------------------------------
-ColorType colorTypeGrid = {0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, COLOR_GRID};
+ColorType colorTypeGrid = {0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, Color::GRID};
 static const GovernorColor gcSettings_Colors_Grid =
 {
     Item_GovernorColor, &pppSettings_Colors, 0,
@@ -559,19 +559,19 @@ static void OnChanged_Settings_Colors_Background(bool active)
     gcSettings_Colors_ChannelB.colorType->color = gColorChan[B];
     gcSettings_Colors_Grid.colorType->color = gColorGrid;
 
-    Color_Init((ColorType*)&gcSettings_Colors_ChannelA, true);
-    Color_Init((ColorType*)&gcSettings_Colors_ChannelB, true);
-    Color_Init((ColorType*)&gcSettings_Colors_Grid, true);
+    gcSettings_Colors_ChannelA.colorType->Init(true);
+    gcSettings_Colors_ChannelB.colorType->Init(true);
+    gcSettings_Colors_Grid.colorType->Init(true);
 }
 
 void PageService_InitGlobalColors(void)
 {
-    gColorBack = BACKGROUND_BLACK ? COLOR_BLACK : COLOR_WHITE;
-    gColorFill = BACKGROUND_BLACK ? COLOR_WHITE : COLOR_BLACK;
-    gColorGrid = BACKGROUND_BLACK ? COLOR_GRID : COLOR_GRID_WHITE;
-    gColorChan[A] = BACKGROUND_BLACK ? COLOR_DATA_1 : COLOR_DATA_A_WHITE_ACCUM;
-    gColorChan[B] = BACKGROUND_BLACK ? COLOR_DATA_2 : COLOR_DATA_B_WHITE_ACCUM;
-    gColorChan[A_B] = gColorChan[MathCh] = BACKGROUND_BLACK ? COLOR_WHITE : COLOR_BLACK;
+    gColorBack = BACKGROUND_BLACK ? Color::BLACK : Color::WHITE;
+    gColorFill = BACKGROUND_BLACK ? Color::WHITE : Color::BLACK;
+    gColorGrid = BACKGROUND_BLACK ? Color::GRID : Color::GRID_WHITE;
+    gColorChan[A] = BACKGROUND_BLACK ? Color::DATA_A : Color::DATA_WHITE_ACCUM_A;
+    gColorChan[B] = BACKGROUND_BLACK ? Color::DATA_B : Color::DATA_WHITE_ACCUM_B;
+    gColorChan[A_B] = gColorChan[MathCh] = BACKGROUND_BLACK ? Color::WHITE : Color::BLACK;
 }
 
 // ƒ»—œÀ≈… - Õ¿—“–Œ… » - ﬂÍÓÒÚ¸ ---------------------------------------------------------------------------------------------------------------------
@@ -694,7 +694,7 @@ static void OnChanged_Settings_AutoHide(bool autoHide)
 /*
 //----------------------------------------------------------------------------------------------------------------------------------------------------
 // —≈–¬»— - ƒ»—œÀ≈… - ÷¬≈“¿ - Ã≈Õﬁ Œ·Î‡ÒÚ¸
-static ColorType colorT6 = { 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, COLOR_MENU_FIELD };
+static ColorType colorT6 = { 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, Color::MENU_FIELD };
 const GovernorColor mgcColorMenu3 = { Item_GovernorColor, &pppSettings_Colors, { "ÃÂÌ˛ Œ·Î‡ÒÚ¸", "Menu Field" },
 {
     "",

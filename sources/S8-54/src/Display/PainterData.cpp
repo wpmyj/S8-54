@@ -223,11 +223,11 @@ static void DrawData(bool forAccum)
 
         Channel ch = order[LAST_AFFECTED_CH][0];
 
-        DrawChannel(ch, forAccum ? ColorChanAccum(ch) : gColorChan[ch]);
+        DrawChannel(ch, forAccum ? Color::ChanAccum(ch) : gColorChan[ch]);
 
         ch = order[LAST_AFFECTED_CH][1];
 
-        DrawChannel(ch, forAccum ? ColorChanAccum(ch) : gColorChan[ch]);
+        DrawChannel(ch, forAccum ? Color::ChanAccum(ch) : gColorChan[ch]);
     }
 
     painter.DrawRectangle(grid.Left(), GRID_TOP, grid.Width(), grid.FullHeight(), gColorFill);
@@ -258,7 +258,7 @@ static void DrawChannel(Channel ch, Color color)
         DrawChannel_Normal(ch, left, bottom, scaleY);
     }
 
-    painter.DrawVLine(left + dataStruct->posBreak, top, bottom, COLOR_GRID);
+    painter.DrawVLine(left + dataStruct->posBreak, top, bottom, Color::GRID);
 
     DrawMarkersForMeasure(ch);
 
@@ -661,7 +661,7 @@ static void DrawMarkersForMeasure(Channel ch)
     BitSet64 points = sDisplay_PointsOnDisplay();
     float scaleX = (float)(grid.Right() - grid.Left()) / (float)(points.word1 - points.word0);
 
-    painter.SetColor(ColorCursors(ch));
+    painter.SetColor(Color::Cursors(ch));
     for (int numMarker = 0; numMarker < 2; numMarker++)
     {
         int posY = bottom - (int)(MARKER_VOLTAGE(ch, numMarker) * scaleY);

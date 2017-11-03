@@ -22,7 +22,7 @@ Painter painter;
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 static bool inverseColors = false;
-static Color currentColor = NUM_COLORS;
+static Color currentColor = Color::NUMBER;
 static bool framesElapsed = false;
 
 
@@ -119,14 +119,14 @@ void Painter::ResetFlash(void)
 //----------------------------------------------------------------------------------------------------------------------------------------------------
 void Painter::SetColor(Color color)
 {
-    if (color != currentColor && color != NUM_COLORS)
+    if (color != currentColor && color != Color::NUMBER)
     {
         currentColor = color;
-        if (currentColor > NUM_COLORS)
+        if (currentColor > Color::NUMBER)
         {
             CalculateColor((uint8 *)(&(color)));
         }
-        uint8 command[4] = {SET_COLOR, color};
+        uint8 command[4] = {SET_COLOR, color.value};
         Painter::SendToDisplay(command, 4);
         Painter::SendToInterfaces(command, 2);
     }
@@ -141,7 +141,7 @@ Color Painter::GetColor(void)
 //----------------------------------------------------------------------------------------------------------------------------------------------------
 void Painter::LoadPalette(void)
 {
-    for (int i = 0; i < NUM_COLORS; i++)
+    for (int i = 0; i < Color::NUMBER; i++)
     {
         Painter::SetPalette((Color)i);
     }
@@ -151,8 +151,8 @@ void Painter::LoadPalette(void)
 void Painter::SetPalette(Color color)
 {
     uint8 command[4] = {SET_PALETTE_COLOR};
-    WRITE_BYTE(1, color);
-    WRITE_SHORT(2, COLOR(color));
+    WRITE_BYTE(1, color.value);
+    WRITE_SHORT(2, COLOR(color.value));
 
     Painter::SendToDisplay(command, 4);
     Painter::SendToInterfaces(command, 4);
@@ -172,7 +172,7 @@ void Painter::SetPoint(int x, int y)
 //----------------------------------------------------------------------------------------------------------------------------------------------------
 void Painter::DrawHLine(int y, int x0, int x1, Color color)
 {
-    if (color != NUM_COLORS)
+    if (color != Color::NUMBER)
     {
         SetColor(color);
     }
@@ -191,7 +191,7 @@ void Painter::DrawHLine(int y, int x0, int x1, Color color)
 //----------------------------------------------------------------------------------------------------------------------------------------------------
 void Painter::DrawVLine(int x, int y0, int y1, Color color)
 {
-    if (color != NUM_COLORS)
+    if (color != Color::NUMBER)
     {
         SetColor(color);
     }
@@ -376,7 +376,7 @@ void Painter::DrawRectangle(int x, int y, int width, int height, Color color)
 //----------------------------------------------------------------------------------------------------------------------------------------------------
 void Painter::FillRegion(int x, int y, int width, int height, Color color)
 {
-    if (color != NUM_COLORS)
+    if (color != Color::NUMBER)
     {
         SetColor(color);
     }
@@ -685,24 +685,24 @@ static void OnTimerFlashDisplay(void)
 static void CalculateColor(uint8 *color)
 {
     currentColor = (Color)*color;
-    if (*color == COLOR_FLASH_10)
+    if (*color == Color::FLASH_10)
     {
-        *color = inverseColors ? (uint8)gColorBack : (uint8)gColorFill;
+        *color = inverseColors ? gColorBack.value : gColorFill.value;
     }
-    else if (*color == COLOR_FLASH_01)
+    else if (*color == Color::FLASH_01)
     {
-        *color = inverseColors ? (uint8)gColorFill : (uint8)gColorBack;
+        *color = inverseColors ? gColorFill.value : gColorBack.value;
     }
 }
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
 void Painter::CalculateCurrentColor(void)
 {
-    if (currentColor == COLOR_FLASH_10)
+    if (currentColor == Color::FLASH_10)
     {
         SetColor(inverseColors ? gColorBack : gColorFill);
     }
-    else if (currentColor == COLOR_FLASH_01)
+    else if (currentColor == Color::FLASH_01)
     {
         SetColor(inverseColors ? gColorFill : gColorBack);
     }

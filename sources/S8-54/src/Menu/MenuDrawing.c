@@ -103,7 +103,7 @@ void Menu_Draw(void)
             if(TypeMenuItem(item) == Item_Choice || TypeMenuItem(item) == Item_ChoiceReg)
             {
                 Choice_Draw((Choice *)item, CalculateX(0), GRID_TOP, false);
-                painter.DrawVLine(CalculateX(0), GRID_TOP + 1, GRID_TOP + 34, ColorBorderMenu(false));
+                painter.DrawVLine(CalculateX(0), GRID_TOP + 1, GRID_TOP + 34, Color::BorderMenu(false));
                 painter.DrawVLine(CalculateX(0) + 1, GRID_TOP + 1, GRID_TOP + 34);
                 painter.DrawVLine(GRID_RIGHT, GRID_TOP + 30, GRID_TOP + 40, gColorFill);
                 painter.DrawVLine(CalculateX(0) - 1, GRID_TOP + 1, GRID_TOP + 35, gColorBack);
@@ -136,7 +136,7 @@ void Menu_Draw(void)
         y += LANG_RU ? 49 : 40;
         if (gStringForHint)
         {
-            painter.DrawTextInBoundedRectWithTransfers(x, y, width, gStringForHint, gColorBack, COLOR_WHITE);
+            painter.DrawTextInBoundedRectWithTransfers(x, y, width, gStringForHint, gColorBack, Color::WHITE);
         }
         else if (gItemHint)
         {
@@ -157,22 +157,22 @@ void DrawTitlePage(Page *page, int layer, int yTop)
     int height = HeightOpenedItem(page);
     bool shade = CurrentItemIsOpened(GetNamePage(page));
     painter.FillRegion(x - 1, yTop, MP_TITLE_WIDTH + 2, height + 2, gColorBack);
-    painter.DrawRectangle(x, yTop, MP_TITLE_WIDTH + 1, height + 1, ColorBorderMenu(shade));
+    painter.DrawRectangle(x, yTop, MP_TITLE_WIDTH + 1, height + 1, Color::BorderMenu(shade));
 
     if (shade)
     {
-        painter.FillRegion(x + 1, yTop + 1, MP_TITLE_WIDTH - 1, MP_TITLE_HEIGHT - 1, ColorMenuTitleLessBright());
-        painter.FillRegion(x + 4, yTop + 4, MP_TITLE_WIDTH - 7, MP_TITLE_HEIGHT - 7, COLOR_MENU_TITLE_DARK);
+        painter.FillRegion(x + 1, yTop + 1, MP_TITLE_WIDTH - 1, MP_TITLE_HEIGHT - 1, Color::MENU_TITLE_DARK);
+        painter.FillRegion(x + 4, yTop + 4, MP_TITLE_WIDTH - 7, MP_TITLE_HEIGHT - 7, Color::MENU_TITLE_DARK);
     }
     else
     {
-        painter.DrawVolumeButton(x + 1, yTop + 1, MP_TITLE_WIDTH - 1, MP_TITLE_HEIGHT - 1, 2, ColorMenuTitle(false), ColorMenuTitleBrighter(), ColorMenuTitleLessBright(), shade, shade);
+        painter.DrawVolumeButton(x + 1, yTop + 1, MP_TITLE_WIDTH - 1, MP_TITLE_HEIGHT - 1, 2, Color::MenuTitle(false), Color::MENU_TITLE_BRIGHT, Color::MENU_TITLE_DARK, shade, shade);
     }
     
-    painter.DrawVLine(x, yTop, yTop + HeightOpenedItem(page), ColorBorderMenu(false));
+    painter.DrawVLine(x, yTop, yTop + HeightOpenedItem(page), Color::BorderMenu(false));
     bool condDrawRSet = NumSubPages(page) > 1 && TypeMenuItem(CurrentItem()) != Item_ChoiceReg && TypeMenuItem(CurrentItem()) != Item_Governor && TypeOpenedItem() == Item_Page;
     int delta = condDrawRSet ? -10 : 0;
-    Color colorText = shade ? LightShadingTextColor() : COLOR_BLACK;
+    Color colorText = shade ? Color::LightShadingText() : Color::BLACK;
     x = painter.DrawStringInCenterRectC(x, yTop, MP_TITLE_WIDTH + 2 + delta, MP_TITLE_HEIGHT, TitleItem(page), colorText);
     if(condDrawRSet)
     {

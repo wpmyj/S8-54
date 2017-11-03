@@ -387,12 +387,12 @@ void GovernorColor_ChangeValue(GovernorColor *governor, int delta)
     ColorType *ct = governor->colorType;
     if (ct->currentField == 0)
     {
-        Color_BrightnessChange(ct, delta);
+        ct->BrightnessChange(delta);
         Sound_GovernorChangedValue();
     }
     else
     {
-        Color_ComponentChange(ct, delta);
+        ct->ComponentChange(delta);
         Sound_GovernorChangedValue();
     }
 

@@ -464,7 +464,7 @@ static void DrawSetName(void)
     }
 
     int x = painter.DrawText(x0 + deltaX, y0 + 65, FILE_NAME, gColorFill);
-    painter.FillRegion(x, y0 + 65, 5, 8, COLOR_FLASH_10);
+    painter.FillRegion(x, y0 + 65, 5, 8, Color::FLASH_10);
 }
 
 static void Draw_Last_SaveToDrive(int x, int y)
@@ -527,9 +527,9 @@ static void DrawMemoryWave(int num, bool exist)
     int x = grid.Left() + 2 + num * 12;
     int y = grid.FullBottom() - 10;
     int width = 12;
-    painter.FillRegion(x, y, width, 10, num == NUM_ROM_SIGNAL ? COLOR_FLASH_10 : gColorBack);
+    painter.FillRegion(x, y, width, 10, num == NUM_ROM_SIGNAL ? Color::FLASH_10 : gColorBack);
     painter.DrawRectangle(x, y, width, 10, gColorFill);
-    painter.SetColor(num == NUM_ROM_SIGNAL ? COLOR_FLASH_01 : gColorFill);
+    painter.SetColor(num == NUM_ROM_SIGNAL ? Color::FLASH_01 : gColorFill);
     if (exist)
     {
         painter.DrawText(x + 2, y + 1, trans.Int2String(num + 1, false, 2, buffer));
@@ -1253,7 +1253,7 @@ static void DrawFileMask(int x, int y)
         }
         ch++;
     }
-    painter.FillRegion(x, y, 5, 8, COLOR_FLASH_10);
+    painter.FillRegion(x, y, 5, 8, Color::FLASH_10);
 }
 
 static void OnRegSet_Drive_Mask(int angle)

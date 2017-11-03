@@ -578,7 +578,7 @@ static void DrawSpectrum(void)
 static void DrawCursors(void)
 {
     Channel source = CURS_SOURCE;
-    painter.SetColor(ColorCursors(source));
+    painter.SetColor(Color::Cursors(source));
     if(sCursors_NecessaryDrawCursors())
     {
 
@@ -656,7 +656,7 @@ static void DrawLowPart(void)
         snprintf(buffer, 100, "ñ\xa5\x10%s", source[TRIGSOURCE]);
     }
 
-    painter.DrawText(x, y1, buffer, ColorTrig());
+    painter.DrawText(x, y1, buffer, Color::Trig());
 
     buffer[0] = 0;
     static const char * const couple[] =
@@ -753,12 +753,12 @@ static void DrawLowPart(void)
     // Ethernet
     if((gEthIsConnected || CABLE_LAN_IS_CONNECTED) && gTimeMS > 2000)
     {
-        painter.Draw4SymbolsInRect(x + 87, GRID_BOTTOM + 2, SYMBOL_ETHERNET, gEthIsConnected ? COLOR_WHITE : COLOR_FLASH_01);
+        painter.Draw4SymbolsInRect(x + 87, GRID_BOTTOM + 2, SYMBOL_ETHERNET, gEthIsConnected ? Color::WHITE : Color::FLASH_01);
     }
 
     if(CONNECTED_TO_USB || CABLE_USB_IS_CONNECTED)
     {
-        painter.Draw4SymbolsInRect(x + 72, GRID_BOTTOM + 2, SYMBOL_USB, CONNECTED_TO_USB ? COLOR_WHITE : COLOR_FLASH_01);
+        painter.Draw4SymbolsInRect(x + 72, GRID_BOTTOM + 2, SYMBOL_USB, CONNECTED_TO_USB ? Color::WHITE : Color::FLASH_01);
     }
 
     painter.SetColor(gColorFill);
@@ -805,7 +805,7 @@ static void DrawCursorTrigLevel(void)
     }
 
     int x = grid.Right();
-    painter.SetColor(ColorTrig());
+    painter.SetColor(Color::Trig());
     if(y > grid.ChannelBottom())
     {
         painter.DrawChar(x + 3, grid.ChannelBottom() - 11, SYMBOL_TRIG_LEV_LOWER);
@@ -842,7 +842,7 @@ static void DrawCursorTrigLevel(void)
         scale = (float)height / (shiftFullMax - shiftFullMin);
         int shiftFull = SET_TRIGLEV(TRIGSOURCE) + (TRIGSOURCE_EXT ? 0 : SET_RSHIFT(ch));
         int yFull = GRID_TOP + DELTA + height - (int)(scale * (shiftFull - RShiftMin - TrigLevMin) + 4);
-        painter.FillRegion(left + 2, yFull + 1, 4, 6, ColorTrig());
+        painter.FillRegion(left + 2, yFull + 1, 4, 6, Color::Trig());
         painter.SetFont(TypeFont_5);
         painter.DrawChar(left + 3, yFull - 5 + dY, simbols[TRIGSOURCE], gColorBack);
         painter.SetFont(TypeFont_8);
@@ -1014,7 +1014,7 @@ static void DrawRandStat(void)
 
     float scale = (float)grid.FullHeight() / (float)max;
 
-    painter.SetColor(COLOR_WHITE);
+    painter.SetColor(Color::WHITE);
 
     for(int i = 0; i < 281; i++)
     {
@@ -1609,7 +1609,7 @@ static void WriteTextVoltage(Channel ch, int x, int y)
 
     const int widthField = 91;
     const int heightField = 8;
-    Color colorDraw = inverse ? COLOR_WHITE : color;
+    Color colorDraw = inverse ? Color::WHITE : color;
     if(inverse)
     {
         painter.FillRegion(x, y, widthField, heightField, color);
@@ -1730,8 +1730,8 @@ static void DrawStringInRectangle(int x, int y, char const *text)
     int height = 8;
     painter.DrawRectangle(x, y, width + 4, height + 4, gColorFill);
     painter.DrawRectangle(x + 1, y + 1, width + 2, height + 2, gColorBack);
-    painter.FillRegion(x + 2, y + 2, width, height, COLOR_FLASH_10);
-    painter.DrawText(x + 3, y + 2, text, COLOR_FLASH_01);
+    painter.FillRegion(x + 2, y + 2, width, height, Color::FLASH_10);
+    painter.DrawText(x + 3, y + 2, text, Color::FLASH_01);
 }
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------

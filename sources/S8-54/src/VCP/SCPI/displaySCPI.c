@@ -247,7 +247,7 @@ static void Process_GRID(uint8 *buffer)
         else if (4 == value)
         {
             extern ColorType colorTypeGrid;
-            Color_Init(&colorTypeGrid, false);
+            colorTypeGrid.Init(false);
             SCPI_SEND(":DISPLAY:GRID %s %d", map[TYPE_GRID].key, (int)(colorTypeGrid.brightness * 100.0f));
         }
     LEAVE_ANALYSIS

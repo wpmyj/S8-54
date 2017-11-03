@@ -152,11 +152,11 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="..\..\S8-54\src\Data\Data.cpp" />
-    <ClCompile Include="..\..\S8-54\src\Data\DataBuffer.c" />
     <ClCompile Include="..\..\S8-54\src\Data\DataSettings.c" />
     <ClCompile Include="..\..\S8-54\src\Data\DataStorage.cpp" />
     <ClCompile Include="..\..\S8-54\src\defines.c" />
-    <ClCompile Include="..\..\S8-54\src\Display\Colors.c">
+    <ClCompile Include="..\..\S8-54\src\Display\Colors.cpp" />
+    <ClCompile Include="..\..\S8-54\src\Display\Colors_.c">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</ExcludedFromBuild>
     </ClCompile>
     <ClCompile Include="..\..\S8-54\src\Display\Display.cpp">
@@ -358,6 +358,7 @@
     <ClInclude Include="..\..\S8-54\src\Data\DataStorage.h" />
     <ClInclude Include="..\..\S8-54\src\defines.h" />
     <ClInclude Include="..\..\S8-54\src\Display\Colors.h" />
+    <ClInclude Include="..\..\S8-54\src\Display\Colors_.h" />
     <ClInclude Include="..\..\S8-54\src\Display\Display.h" />
     <ClInclude Include="..\..\S8-54\src\Display\DisplayPrimitives.h" />
     <ClInclude Include="..\..\S8-54\src\Display\DisplayTypes.h" />

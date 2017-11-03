@@ -1,5 +1,3 @@
-
-
 #include "defines.h"
 #include "WelcomeScreen.h"
 #include "Math3D.h"
@@ -60,7 +58,7 @@ void WelcomeScreen_Init(void)
 //----------------------------------------------------------------------------------------------------------------------------------------------------
 void WelcomeScreen_Update(void)
 {
-    painter.BeginScene(COLOR_WHITE);
+    painter.BeginScene(Color::WHITE);
     for(int num = 0; num < 12; num++) {
         Point p0 = mesh.points[mesh.edges[num].numPoint0];
         Point p1 = mesh.points[mesh.edges[num].numPoint1];
@@ -101,7 +99,7 @@ void WelcomeScreen_Update(void)
         PresentPointToScreen(&p0out3, &x0, &y0);
         PresentPointToScreen(&p1out3, &x1, &y1);
 
-        painter.DrawLine((int)x0, (int)y0, (int)x1, (int)y1, COLOR_WHITE);
+        painter.DrawLine((int)x0, (int)y0, (int)x1, (int)y1, Color::WHITE);
     }
     painter.EndScene();
 }

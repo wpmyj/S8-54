@@ -1,5 +1,3 @@
-
-
 #include "Log.h"
 #include "Display/font/Font.h"
 #include "Settings/Settings.h"
@@ -150,7 +148,7 @@ void DrawStr(int index, int x, int y)
     const char *str = symbolsAlphaBet[index];
     if (index == INDEX_SYMBOL)
     {
-        painter.FillRegion(x - 1, y, Font_GetLengthText(str), 9, COLOR_FLASH_10);
+        painter.FillRegion(x - 1, y, Font_GetLengthText(str), 9, Color::FLASH_10);
     }
-    painter.DrawText(x, y, symbolsAlphaBet[index], index == INDEX_SYMBOL ? COLOR_FLASH_01 : gColorFill);
+    painter.DrawText(x, y, symbolsAlphaBet[index], index == INDEX_SYMBOL ? Color::FLASH_01 : gColorFill);
 }

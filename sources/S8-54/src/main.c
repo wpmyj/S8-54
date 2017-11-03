@@ -1,3 +1,4 @@
+#include "Display/Colors.h"
 #include "Log.h"
 #include "Ethernet/Ethernet.h"
 #include "FlashDrive/FlashDrive.h"
@@ -31,9 +32,10 @@ int main(void)
     display.Init();
     Ethernet_Init();
     menu.Init();
-    
+
     while(1)
     {
+        LOG_WRITE("%d", sizeof(Color));
         Timer_StartMultiMeasurement();  // Сброс таймера для замера длительности временных интервалов в течение одной итерации цикла.
         Ethernet_Update(0);             // Обрабатываем LAN
         FDrive_Update();                // Обрабатываем флешку

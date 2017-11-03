@@ -381,14 +381,14 @@ static void WriteStretch(Channel ch, int x, int y)
     }
     else
     {
-        painter.DrawFormText(x, y, COLOR_FLASH_01, "Калибровка %dк не прошла. Старый коэффициент %f", (int)ch + 1, GetStretchADC(ch));
+        painter.DrawFormText(x, y, Color::FLASH_01, "Калибровка %dк не прошла. Старый коэффициент %f", (int)ch + 1, GetStretchADC(ch));
     }
 }
 
 //---------------------------------------------------------------------------------------------------------------------------------------------------
 static void DrawMessageErrorCalibrate(Channel ch)
 {
-    painter.SetColor(COLOR_FLASH_01);
+    painter.SetColor(Color::FLASH_01);
     painter.DrawBigText(100, 30, 2, "ВНИМАНИЕ !!!");
 
     const int SIZE = 100;
@@ -402,7 +402,7 @@ static void DrawMessageErrorCalibrate(Channel ch)
 //----------------------------------------------------------------------------------------------------------------------------------------------------
 static void FuncAttScreen(void)
 {
-    painter.BeginScene(COLOR_BLACK);
+    painter.BeginScene(Color::BLACK);
 
     static bool first = true;
     static uint startTime = 0;
@@ -499,16 +499,16 @@ static void FuncAttScreen(void)
     int delta = 32;
     width = 80;
     height = 25;
-    DrawRectangle(x, y, width, height, COLOR_BLACK);
-    DrawStringInCenterRect(x, y, width, height, "ПРОДОЛЖИТЬ", COLOR_BLACK, false);
-    DrawRectangle(x, y - delta, width, height, COLOR_BLACK);
-    DrawStringInCenterRect(x, y - delta, width, height, "ОТМЕНИТЬ", COLOR_BLACK, false);
+    DrawRectangle(x, y, width, height, Color::BLACK);
+    DrawStringInCenterRect(x, y, width, height, "ПРОДОЛЖИТЬ", Color::BLACK, false);
+    DrawRectangle(x, y - delta, width, height, Color::BLACK);
+    DrawStringInCenterRect(x, y - delta, width, height, "ОТМЕНИТЬ", Color::BLACK, false);
     }
     */
     const int SIZE = 100;
     char buffer[SIZE];
     snprintf(buffer, SIZE, "%.1f", (gTimeMS - startTime) / 1000.0f);
-    painter.DrawText(0, 0, buffer, COLOR_BLACK);
+    painter.DrawText(0, 0, buffer, Color::BLACK);
 
     painter.EndScene();
 }
@@ -829,7 +829,7 @@ void FreqMeter_Draw(int x, int y)
     int height = 19;
 
     painter.FillRegion(x + 1, y + 1, width - 2, height - 2, gColorBack);
-    painter.DrawRectangle(x, y, width, height, ColorTrig());
+    painter.DrawRectangle(x, y, width, height, Color::Trig());
 
     painter.DrawText(x + 2, y + 1, "F =");
     painter.DrawText(x + 2, y + 10, "T");
@@ -846,7 +846,7 @@ void FreqMeter_Draw(int x, int y)
 
     bool condPeriod = GetBit(flag, FL_OVERFLOW_PERIOD) == 1 || drawPeriod == false || freq == 0.0f;
 
-    painter.SetColor(ColorTrig());
+    painter.SetColor(Color::Trig());
     painter.DrawText(x + 17, y + 10, condPeriod ? EMPTY_STRING : trans.Time2StringAccuracy(1.0f / freq, false, buffer, 6));
 
     /** @todo Последняя страка оставлена, потому что без неё получается артефакт изображения */

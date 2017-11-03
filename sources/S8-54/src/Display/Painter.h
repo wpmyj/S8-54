@@ -44,25 +44,25 @@ public:
     void DrawVPointLine(int x, int y0, int y1, float delta);
     /// \brief Нарисовать numLines вертикальных линий, состоящих из count точек каждая с расстоянием между точками delta. Горизонтальная координата
     /// первой точки каждой линии соответствует очередному элементу массива x[]
-    void DrawMultiVPointLine(int numLines, int y, uint16 x[], int delta, int count, Color color = NUM_COLORS);
+    void DrawMultiVPointLine(int numLines, int y, uint16 x[], int delta, int count, Color color = Color::NUMBER);
     /// \brief Нарисовать numLines горизонтальных линий, состоящих из count точек каждая с расстоянием между точками delta. Вертикальная координата
     /// первой точки каждой линии соответствует очередному элементу массива y[]
-    void DrawMultiHPointLine(int numLines, int x, uint8 y[], int delta, int count, Color color = NUM_COLORS);
+    void DrawMultiHPointLine(int numLines, int x, uint8 y[], int delta, int count, Color color = Color::NUMBER);
     /// Нарисовать горизонтальную линию
-    void DrawHLine(int y, int x0, int x1, Color color = NUM_COLORS);
+    void DrawHLine(int y, int x0, int x1, Color color = Color::NUMBER);
     /// Нарисовать вертикальную линию
-    void DrawVLine(int x, int y0, int y1, Color color = NUM_COLORS);
+    void DrawVLine(int x, int y0, int y1, Color color = Color::NUMBER);
 
-    void DrawLine(int x0, int y0, int x1, int y1, Color color = NUM_COLORS);
+    void DrawLine(int x0, int y0, int x1, int y1, Color color = Color::NUMBER);
     /// \brief Рисует прерывистую горизонтальную линию. dFill - длина штриха, dEmpty - расст. между штрихами. Линия всегда начинается со штриха. 
     /// dStart указывает смещение первой рисуемой точки относительно начала штриха.
     void DrawDashedHLine(int y, int x0, int x1, int dFill, int dEmpty, int dStart);
     /// Рисует прерывистую вертикальную линию.
     void DrawDashedVLine(int x, int y0, int y1, int dFill, int dEmpty, int dStart);
 
-    void DrawRectangle(int x, int y, int width, int height, Color color = NUM_COLORS);
+    void DrawRectangle(int x, int y, int width, int height, Color color = Color::NUMBER);
 
-    void FillRegion(int x, int y, int width, int height, Color color = NUM_COLORS);
+    void FillRegion(int x, int y, int width, int height, Color color = Color::NUMBER);
 
     void DrawVolumeButton(int x, int y, int width, int height, int thickness, Color normal, Color bright, Color dark, bool isPressed, bool isShade);
     /// Установить яркость дисплея.
@@ -90,9 +90,9 @@ public:
     ///  Загрузить шрифта в дисплей
     void LoadFont(TypeFont typeFont);
 
-    int DrawChar(int x, int y, char symbol, Color color = NUM_COLORS);
+    int DrawChar(int x, int y, char symbol, Color color = Color::NUMBER);
 
-    int DrawText(int x, int y, const char *text, Color color = NUM_COLORS);
+    int DrawText(int x, int y, const char *text, Color color = Color::NUMBER);
     /// Выводит текст на прямоугольнике цвета colorBackgound
     int DrawTextOnBackground(int x, int y, const char *text, Color colorBackground);
 
@@ -118,11 +118,11 @@ public:
 
     void DrawTextInRect(int x, int y, int width, char *text);
 
-    void DrawTextRelativelyRight(int xRight, int y, const char *text, Color color = NUM_COLORS);
+    void DrawTextRelativelyRight(int xRight, int y, const char *text, Color color = Color::NUMBER);
 
     void Draw2SymbolsC(int x, int y, char symbol1, char symbol2, Color color1, Color color2);
 
-    void Draw4SymbolsInRect(int x, int y, char eChar, Color color = NUM_COLORS);
+    void Draw4SymbolsInRect(int x, int y, char eChar, Color color = Color::NUMBER);
 
     void Draw10SymbolsInRect(int x, int y, char eChar);
     /// Пишет текст с переносами

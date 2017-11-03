@@ -1263,10 +1263,10 @@ void OnChangedColorMenuTitle(void)
 {
     uint16 newColor1 = painter.ReduceBrightness(COLOR(COLOR_MENU_TITLE), 0.50f);
     uint16 newColor2 = painter.ReduceBrightness(COLOR(COLOR_MENU_TITLE), 1.50f);
-    COLOR(COLOR_MENU_TITLE_DARK) = newColor1;
+    COLOR(Color::MENU_TITLE_DARK) = newColor1;
     COLOR(COLOR_MENU_TITLE_BRIGHT) = newColor2;
     Color_Log(COLOR_MENU_TITLE);
-    Color_Log(COLOR_MENU_TITLE_DARK);
+    Color_Log(Color::MENU_TITLE_DARK);
     Color_Log(COLOR_MENU_TITLE_BRIGHT);
 }
 
