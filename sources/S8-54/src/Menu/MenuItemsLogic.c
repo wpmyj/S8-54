@@ -247,8 +247,20 @@ void Governor::NextPosition()
 {
     if (OpenedItem() == this)
     {
-        CircleIncreaseInt8(&gCurDigit, 0, (int8)(Governor_NumDigits(this) - 1));
+        CircleIncreaseInt8(&gCurDigit, 0, (int8)(NumDigits() - 1));
     }
+}
+
+//----------------------------------------------------------------------------------------------------------------------------------------------------
+int Governor::NumDigits()
+{
+    int min = math.NumDigitsInNumber(math.FabsInt(minValue));
+    int max = math.NumDigitsInNumber(math.FabsInt(maxValue));
+    if (min > max)
+    {
+        max = min;
+    }
+    return max;
 }
 
 
@@ -386,17 +398,7 @@ void IPaddress_GetNumPosIPvalue(int *numIP, int *selPos)
 
 
 
-//----------------------------------------------------------------------------------------------------------------------------------------------------
-int Governor_NumDigits(Governor *governor)
-{
-    int min = math.NumDigitsInNumber(math.FabsInt(governor->minValue));
-    int max = math.NumDigitsInNumber(math.FabsInt(governor->maxValue));
-    if (min > max)
-    {
-        max = min;
-    }
-    return max;
-}
+
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
 void IPaddress_NextPosition(IPaddress *ipEthernet_IP)

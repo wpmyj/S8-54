@@ -307,7 +307,7 @@ void DrawGovernorValue(int x, int y, Governor *governor)
     painter.DrawText(x + 55, y + 2, trans.Int2String(governor->minValue, sign, 1, buffer));
     painter.SetFont(TypeFont_8);
 
-    DrawValueWithSelectedPosition(startX, y, value, Governor_NumDigits(governor), gCurDigit, true, true);
+    DrawValueWithSelectedPosition(startX, y, value, governor->NumDigits(), gCurDigit, true, true);
 
     if(sign)
     {

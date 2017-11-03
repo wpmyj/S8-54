@@ -18,8 +18,7 @@ extern int8 gCurDigit;
  */
 
 
-/// Возвращает число знакомест в поле для ввода элемента governor. Зависит от максимального значения, которое может принимать governor.
-int  Governor_NumDigits(Governor *governor);
+
 /// При открытом элементе переставляет курсор на следующую позицию.
 void IPaddress_NextPosition(IPaddress *ip);
 /// Изменяет значение в текущей позиции при открытом элементе.

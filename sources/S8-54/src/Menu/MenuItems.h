@@ -164,6 +164,8 @@ typedef struct
     void ChangeValue(int delta);
     /// При открытом элементе переставляет курсор на следующую позицию.
     void NextPosition();
+    /// Возвращает число знакомест в поле для ввода элемента governor. Зависит от максимального значения, которое может принимать governor.
+    int  NumDigits();
 } Governor;
 
 typedef struct
