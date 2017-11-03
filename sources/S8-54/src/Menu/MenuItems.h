@@ -110,6 +110,7 @@ struct Page
     pFuncVV  funcOnPress;                   ///< Будет вызываться при нажатии на свёрнутую страницу
     pFuncVV  funcOnDraw;                    ///< Будет вызываться после отрисовки кнопок
     pFuncVI  funcRegSetSB;                  ///< В странице малых кнопок вызывается при повороте ручки установка
+    int NumSubPages() const;                ///< Dозвращает число подстраниц в странице по адресу page
 };
 
 typedef struct Page Page;

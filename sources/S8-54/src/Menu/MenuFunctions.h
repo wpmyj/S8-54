@@ -18,8 +18,6 @@ bool ItemIsAcitve(const void *item);
 int NumItemsInPage(const Page * const page);
 /// Возвращает номер текущей подстранцы элемента по адресу page
 int NumCurrentSubPage(Page *page);
-/// Dозвращает число подстраниц в странице по адресу page
-int NumSubPages(const Page *page);
 /// Возвращает тип элемента меню по адресу address
 TypeItem TypeMenuItem(const void *address);
 /// Возвращает тип открытого элемента меню

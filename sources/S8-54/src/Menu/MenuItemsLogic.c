@@ -263,6 +263,13 @@ int Governor::NumDigits()
     return max;
 }
 
+//----------------------------------------------------------------------------------------------------------------------------------------------------
+int Page::NumSubPages() const
+{
+    return (NumItemsInPage(this) - 1) / MENU_ITEMS_ON_DISPLAY + 1;
+}
+
+
 
 
 

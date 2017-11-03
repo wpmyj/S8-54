@@ -902,7 +902,7 @@ static bool NeedForFireSetLED(void)
 
     type = TypeOpenedItem();
     if (type == Item_Choice       ||
-        (type == Item_Page && NumSubPages((const Page *)OpenedItem()) > 1)
+        (type == Item_Page && ((const Page *)OpenedItem())->NumSubPages() > 1)
         )
     {
         return true;

@@ -147,7 +147,7 @@ void ChangeSubPage(const Page *page, int delta)
 {
     if (page)
     {
-        if (delta > 0 && MenuCurrentSubPage(page->name) < NumSubPages(page) - 1)
+        if (delta > 0 && MenuCurrentSubPage(page->name) < page->NumSubPages() - 1)
         {
             Sound_RegulatorSwitchRotate();
             SetMenuCurrentSubPage(page->name, MenuCurrentSubPage(page->name) + 1);
@@ -158,12 +158,6 @@ void ChangeSubPage(const Page *page, int delta)
             SetMenuCurrentSubPage(page->name, MenuCurrentSubPage(page->name) - 1);
         }
     }
-}
-
-//----------------------------------------------------------------------------------------------------------------------------------------------------
-int NumSubPages(const Page *page)
-{
-    return (NumItemsInPage(page) - 1) / MENU_ITEMS_ON_DISPLAY + 1;
 }
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
