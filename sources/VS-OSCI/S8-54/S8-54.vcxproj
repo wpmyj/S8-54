@@ -354,7 +354,6 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\S8-54\src\Data\Data.h" />
-    <ClInclude Include="..\..\S8-54\src\Data\DataBuffer.h" />
     <ClInclude Include="..\..\S8-54\src\Data\DataSettings.h" />
     <ClInclude Include="..\..\S8-54\src\Data\DataStorage.h" />
     <ClInclude Include="..\..\S8-54\src\defines.h" />

@@ -23,6 +23,14 @@
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 Data data;
 
+static uint8 buffer[4][16 * 1024] __attribute__((section("CCM_DATA")));
+
+uint8 *dataIN[NumChannels] = {buffer[0], buffer[1]};
+
+uint8 *dataOUT[NumChannels] = {buffer[2], buffer[3]};
+
+void *extraMEM = 0;
+
 static void Clear(void);
 /// «аполн€ет структуру dataStruct данными дл€ отрисовки
 static void PrepareDataForDraw(StructDataDrawing *dataStruct);

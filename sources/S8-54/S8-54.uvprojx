@@ -974,16 +974,6 @@
               <FilePath>.\src\Data\Data.h</FilePath>
             </File>
             <File>
-              <FileName>DataBuffer.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\src\Data\DataBuffer.c</FilePath>
-            </File>
-            <File>
-              <FileName>DataBuffer.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\src\Data\DataBuffer.h</FilePath>
-            </File>
-            <File>
               <FileName>DataSettings.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\src\Data\DataSettings.c</FilePath>

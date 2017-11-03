@@ -1055,9 +1055,6 @@
     <ClInclude Include="..\..\S8-54\src\Data\Data.h">
       <Filter>Data</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\S8-54\src\Data\DataBuffer.h">
-      <Filter>Data</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\S8-54\src\Data\DataSettings.h">
       <Filter>Data</Filter>
     </ClInclude>
