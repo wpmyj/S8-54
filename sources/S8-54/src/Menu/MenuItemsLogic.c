@@ -63,6 +63,47 @@ void Choice::StartChange(int delta)
     }
 }
 
+//----------------------------------------------------------------------------------------------------------------------------------------------------
+float Choice::Step()
+{
+    static const float speed = 0.1f;
+    static const int numLines = 12;
+    if (tsChoice.address == this)
+    {
+        float delta = speed * (gTimeMS - tsChoice.timeStart);
+        if (delta == 0.0f)
+        {
+            delta = 0.001f; // Таймер в несколько первых кадров может показать, что прошло 0 мс, но мы возвращаем большее число, потому что ноль будет говорить о том, что движения нет
+        }
+        int8 index = *cell;
+        if (tsChoice.dir == INCREASE)
+        {
+            if (delta <= numLines)
+            {
+                return delta;
+            }
+            CircleIncreaseInt8(&index, 0, (int8)Choice_NumSubItems(this) - 1);
+        }
+        else if (tsChoice.dir == DECREASE)
+        {
+            delta = -delta;
+
+            if (delta >= -numLines)
+            {
+                return delta;
+            }
+            CircleDecreaseInt8(&index, 0, (int8)Choice_NumSubItems(this) - 1);
+        }
+        *cell = index;
+        tsChoice.address = 0;
+        CHOICE_RUN_FUNC_CHANGED(this, ItemIsAcitve(this));
+        NEED_FINISH_DRAW = 1;
+        tsChoice.dir = NONE;
+        return 0.0f;
+    }
+    return 0.0f;
+}
+
 
 
 
@@ -224,47 +265,6 @@ void IPaddress_GetNumPosIPvalue(int *numIP, int *selPos)
     }
 
 
-}
-
-//----------------------------------------------------------------------------------------------------------------------------------------------------
-float Choice_Step(Choice *choice)
-{
-    static const float speed = 0.1f;
-    static const int numLines = 12;
-    if (tsChoice.address == choice)
-    {
-        float delta = speed * (gTimeMS - tsChoice.timeStart);
-        if (delta == 0.0f)
-        {
-            delta = 0.001f; // Таймер в несколько первых кадров может показать, что прошло 0 мс, но мы возвращаем большее число, потому что ноль будет говорить о том, что движения нет
-        }
-        int8 index = *choice->cell;
-        if (tsChoice.dir == INCREASE)
-        {
-            if (delta <= numLines)
-            {
-                return delta;
-            }
-            CircleIncreaseInt8(&index, 0, (int8)Choice_NumSubItems(choice) - 1);
-        }
-        else if (tsChoice.dir == DECREASE)
-        {
-            delta = -delta;
-
-            if (delta >= -numLines)
-            {
-                return delta;
-            }
-            CircleDecreaseInt8(&index, 0, (int8)Choice_NumSubItems(choice) - 1);
-        }
-        *choice->cell = index;
-        tsChoice.address = 0;
-        CHOICE_RUN_FUNC_CHANGED(choice, ItemIsAcitve(choice));
-        NEED_FINISH_DRAW = 1;
-        tsChoice.dir = NONE;
-        return 0.0f;
-    }
-    return 0.0f;
 }
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------

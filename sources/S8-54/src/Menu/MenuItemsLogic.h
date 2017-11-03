@@ -17,8 +17,6 @@ extern int8 gCurDigit;
  *  @{
  */
 
-/// –ассчитывает следующий кадр анимации.
-float Choice_Step(Choice *choice);
 /// »змен€ет значение choice в зависимости от величины и знака delta.
 void Choice_ChangeIndex(Choice *choice, int delta);
 /// «апускает процессс анимации инкремента или декремента элемента меню типа Governor (в зависимости от знака delta).

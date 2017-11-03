@@ -213,6 +213,7 @@ typedef struct
     pFuncVB			    funcOnChanged;                          ///< Функция должна вызываться после изменения значения элемента.
     pFuncVII            funcForDraw;                            ///< Функция вызывается после отрисовки элемента. 
     void StartChange(int delta);
+    float Step();                                               ///< Рассчитывает следующий кадр анимации.
 } Choice;
 
 

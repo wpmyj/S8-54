@@ -635,7 +635,7 @@ void Choice_DrawClosed(Choice *choice, int x, int y)
     painter.DrawVolumeButton(x + 1, y + 17, MI_WIDTH_VALUE + 2, MI_HEIGHT_VALUE + 3, 1, Color::MENU_FIELD, Color::MENU_ITEM_BRIGHT, 
         Color::MENU_ITEM_DARK, true, shade);
 
-    int deltaY = (int)Choice_Step(choice);
+    int deltaY = (int)choice->Step();
     Color colorText = shade ? Color::MenuItem(true) : Color::BLACK;
     painter.SetColor(colorText);
     if(deltaY == 0)
