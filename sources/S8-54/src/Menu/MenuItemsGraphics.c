@@ -514,7 +514,7 @@ void Choice_DrawOpened(Choice *choice, int x, int y)
     painter.DrawVolumeButton(x, y + MOI_HEIGHT_TITLE, MOI_WIDTH - 1, height - MOI_HEIGHT_TITLE, 1, Color::BLACK, Color::MENU_TITLE_BRIGHT,
                         Color::MENU_TITLE_DARK, false, IsShade(choice));
     int8 index = *choice->cell;
-    for(int i = 0; i < Choice_NumSubItems(choice); i++)
+    for(int i = 0; i < choice->NumSubItems(); i++)
     {
         int yItem = y + MOI_HEIGHT_TITLE + i * MOSI_HEIGHT + 1;
         bool pressed = i == index;

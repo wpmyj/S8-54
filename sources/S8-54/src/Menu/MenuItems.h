@@ -214,7 +214,8 @@ typedef struct
     pFuncVII            funcForDraw;                            ///< Функция вызывается после отрисовки элемента. 
     void StartChange(int delta);
     float Step();                                               ///< Рассчитывает следующий кадр анимации.
-    void ChangeIndex(int delta);                                /// Изменяет значение choice в зависимости от величины и знака delta.
+    void ChangeIndex(int delta);                                ///< Изменяет значение choice в зависимости от величины и знака delta.
+    int NumSubItems();                                          ///< Возвращает количество вариантов выбора в элементе по адресу choice
 
 } Choice;
 

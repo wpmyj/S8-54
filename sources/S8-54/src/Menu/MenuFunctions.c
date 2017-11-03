@@ -113,7 +113,7 @@ int HeightOpenedItem(void *item)
     } 
     else if(type == Item_Choice || type == Item_ChoiceReg)
     {
-        return MOI_HEIGHT_TITLE + Choice_NumSubItems((Choice *)item) * MOSI_HEIGHT - 1;
+        return MOI_HEIGHT_TITLE + ((Choice *)item)->NumSubItems() * MOSI_HEIGHT - 1;
     }
     return MI_HEIGHT;
 }
@@ -273,20 +273,6 @@ bool ItemIsAcitve(const void *item)
 }
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
-int Choice_NumSubItems(Choice *choice)
-{
-    int i = 0;
-    for(; i < MAX_NUM_SUBITEMS_IN_CHOICE; i++) 
-    {
-        if(choice->names[i][LANG] == 0) 
-        {
-            return i;
-        }
-    }
-    return i;
-}
-
-//----------------------------------------------------------------------------------------------------------------------------------------------------
 int NumItemsInPage(const Page * const page) 
 {
     if (page->name == Page_Main)
@@ -332,7 +318,7 @@ const char *NameNextSubItem(Choice *choice)
     
     int index = *((int8 *)choice->cell) + 1;
     
-    if (index == Choice_NumSubItems(choice))
+    if (index == choice->NumSubItems())
     {
         index = 0;
     }
@@ -351,7 +337,7 @@ const char *NamePrevSubItem(Choice *choice)
     
     if (index < 0)
     {
-        index = Choice_NumSubItems(choice) - 1;
+        index = choice->NumSubItems() - 1;
     }
     return choice->names[index][LANG];
 }

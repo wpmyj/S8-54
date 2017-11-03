@@ -82,7 +82,7 @@ float Choice::Step()
             {
                 return delta;
             }
-            CircleIncreaseInt8(&index, 0, (int8)Choice_NumSubItems(this) - 1);
+            CircleIncreaseInt8(&index, 0, (int8)NumSubItems() - 1);
         }
         else if (tsChoice.dir == DECREASE)
         {
@@ -92,7 +92,7 @@ float Choice::Step()
             {
                 return delta;
             }
-            CircleDecreaseInt8(&index, 0, (int8)Choice_NumSubItems(this) - 1);
+            CircleDecreaseInt8(&index, 0, (int8)NumSubItems() - 1);
         }
         *cell = index;
         tsChoice.address = 0;
@@ -111,7 +111,7 @@ void Choice::ChangeIndex(int delta)
     if (delta < 0)
     {
         ++index;
-        if (index == Choice_NumSubItems(this))
+        if (index == NumSubItems())
         {
             index = 0;
         }
@@ -121,13 +121,27 @@ void Choice::ChangeIndex(int delta)
         --index;
         if (index < 0)
         {
-            index = Choice_NumSubItems(this) - 1;
+            index = NumSubItems() - 1;
         }
     }
     *cell = (int8)index;
     CHOICE_RUN_FUNC_CHANGED(this, ItemIsAcitve(this));
     Sound_GovernorChangedValue();
     NEED_FINISH_DRAW = 1;
+}
+
+//----------------------------------------------------------------------------------------------------------------------------------------------------
+int Choice::NumSubItems()
+{
+    int i = 0;
+    for (; i < MAX_NUM_SUBITEMS_IN_CHOICE; i++)
+    {
+        if (names[i][LANG] == 0)
+        {
+            return i;
+        }
+    }
+    return i;
 }
 
 
