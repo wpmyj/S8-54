@@ -703,7 +703,7 @@ void FuncOnLongPressItemTime(void *time)
         Time_SetNewTime((Time *)time);
     }
     OpenItem(time, !ItemIsOpened(time));
-    Time_SetOpened((Time *)time);
+    ((Time *)time)->SetOpened();
 }
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
@@ -712,7 +712,7 @@ void ShortPress_Time(void *time)
     if(!ItemIsOpened(time))
     {
         SetCurrentItem(time, true);
-        Time_SetOpened((Time *)time);
+        ((Time *)time)->SetOpened();
         OpenItem(time, true);
     }
     else

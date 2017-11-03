@@ -309,6 +309,18 @@ NamePage Page::GetNamePage() const
     return name;
 }
 
+//----------------------------------------------------------------------------------------------------------------------------------------------------
+void Time::SetOpened()
+{
+    PackedTime time = RTC_GetPackedTime();
+    *(seconds) = (int8)time.seconds;
+    *(minutes) = (int8)time.minutes;
+    *(hours) = (int8)time.hours;
+    *(day) = (int8)time.day;
+    *(month) = (int8)time.month;
+    *(year) = (int8)time.year;
+}
+
 
 
 
@@ -453,17 +465,7 @@ void IPaddress_NextPosition(IPaddress *ipEthernet_IP)
     CircleIncreaseInt8(&gCurDigit, 0, ipEthernet_IP->port == 0 ? 11 : 16);
 }
 
-//----------------------------------------------------------------------------------------------------------------------------------------------------
-void Time_SetOpened(Time *item)
-{
-    PackedTime time = RTC_GetPackedTime();
-    *(item->seconds) = (int8)time.seconds;
-    *(item->minutes) = (int8)time.minutes;
-    *(item->hours) = (int8)time.hours;
-    *(item->day) = (int8)time.day;
-    *(item->month) = (int8)time.month;
-    *(item->year) = (int8)time.year ;
-}
+
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
 void Time_SetNewTime(Time *time)
