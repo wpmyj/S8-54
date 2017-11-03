@@ -154,6 +154,8 @@ typedef struct
     pFuncVV funcBeforeDraw; ///< Функция, которая вызывается перед отрисовкой
     /// Запускает процессс анимации инкремента или декремента элемента меню типа Governor (в зависимости от знака delta).
     void StartChange(int detla);
+    /// Возвращает следующее большее значение, которое может принять governor.
+    int16 NextValue();
 } Governor;
 
 typedef struct

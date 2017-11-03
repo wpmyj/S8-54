@@ -150,7 +150,7 @@ void Governor::StartChange(int delta)
     Sound_GovernorChangedValue();
     if (delta > 0 && tsGovernor.address == this && tsGovernor.dir == INCREASE)
     {
-        *cell = Governor_NextValue(this);
+        *cell = NextValue();
     }
     else if (delta < 0 && tsGovernor.address == this && tsGovernor.dir == DECREASE)
     {
@@ -162,6 +162,12 @@ void Governor::StartChange(int delta)
         tsGovernor.address = this;
     }
     tsGovernor.dir = delta > 0 ? INCREASE : DECREASE;
+}
+
+//----------------------------------------------------------------------------------------------------------------------------------------------------
+int16 Governor::NextValue()
+{
+    return ((*cell) < maxValue) ? (*cell) + 1 : minValue;
 }
 
 
@@ -318,7 +324,7 @@ float Governor_Step(Governor *governor)
             if (delta > numLines)
             {
                 tsGovernor.dir = NONE;
-                *governor->cell = Governor_NextValue(governor);
+                *governor->cell = governor->NextValue();
                 if (governor->funcOfChanged)
                 {
                     governor->funcOfChanged();
@@ -329,12 +335,6 @@ float Governor_Step(Governor *governor)
         }
     }
     return delta;
-}
-
-//----------------------------------------------------------------------------------------------------------------------------------------------------
-int16 Governor_NextValue(Governor *governor)
-{
-    return ((*governor->cell) < governor->maxValue) ? (*governor->cell) + 1 : governor->minValue;
 }
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------

@@ -22,8 +22,6 @@ extern int8 gCurDigit;
 float Governor_Step(Governor *governor);
 /// »змен€ет значение в текущей позиции при раскрытом элементе.
 void Governor_ChangeValue(Governor *governor, int delta);
-/// ¬озвращает следующее большее значение, которое может прин€ть governor.
-int16 Governor_NextValue(Governor *governor);
 /// ¬озвращает следующее меньшее значение, которое может прин€ть governor.
 int16 Governor_PrevValue(Governor *governor);
 /// ѕри открытом элементе переставл€ет курсор на следующую позицию.
