@@ -160,6 +160,8 @@ typedef struct
     int16 PrevValue();
     /// Рассчитывате следующий кадр анимации.
     float Step();
+    /// Изменяет значение в текущей позиции при раскрытом элементе.
+    void ChangeValue(int delta);
 } Governor;
 
 typedef struct

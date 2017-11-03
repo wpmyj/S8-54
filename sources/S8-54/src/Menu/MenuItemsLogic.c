@@ -226,6 +226,22 @@ float Governor::Step()
     return delta;
 }
 
+//----------------------------------------------------------------------------------------------------------------------------------------------------
+void Governor::ChangeValue(int delta)
+{
+    int16 oldValue = *cell;
+    *cell += (int16)(math.Sign(delta) * math.Pow10(gCurDigit));
+    LIMITATION(*cell, minValue, maxValue);
+    if (*cell != oldValue)
+    {
+        if (funcOfChanged)
+        {
+            funcOfChanged();
+        }
+        Sound_GovernorChangedValue();
+    }
+}
+
 
 
 
@@ -293,20 +309,7 @@ float Governor::Step()
 
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-void Governor_ChangeValue(Governor *governor, int delta)
-{
-    int16 oldValue = *governor->cell;
-    *governor->cell += (int16)(math.Sign(delta) * math.Pow10(gCurDigit));
-    LIMITATION(*governor->cell, governor->minValue, governor->maxValue);
-    if (*governor->cell != oldValue)
-    {
-        if (governor->funcOfChanged)
-        {
-            governor->funcOfChanged();
-        }
-        Sound_GovernorChangedValue();
-    }
-}
+
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
 void IPaddress_ChangeValue(IPaddress *ip, int delta)
