@@ -645,7 +645,7 @@ void ShortPress_Choice(void *choice_)
     }
     else
     {
-        Choice_ChangeIndex(choice, -1);
+        choice->ChangeIndex(-1);
     }
 }
 

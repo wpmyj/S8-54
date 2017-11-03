@@ -380,7 +380,7 @@ bool ChangeOpenedItem(void *item, int delta)
     }
     else if (type == Item_ChoiceReg || type == Item_Choice)
     {
-        Choice_ChangeIndex((Choice *)item, MENU_IS_SHOWN ? delta : -delta);
+        ((Choice *)item)->ChangeIndex(MENU_IS_SHOWN ? delta : -delta);
     }
     else if (type == Item_Governor)
     {

@@ -104,6 +104,32 @@ float Choice::Step()
     return 0.0f;
 }
 
+//----------------------------------------------------------------------------------------------------------------------------------------------------
+void Choice::ChangeIndex(int delta)
+{
+    int index = *cell;
+    if (delta < 0)
+    {
+        ++index;
+        if (index == Choice_NumSubItems(this))
+        {
+            index = 0;
+        }
+    }
+    else
+    {
+        --index;
+        if (index < 0)
+        {
+            index = Choice_NumSubItems(this) - 1;
+        }
+    }
+    *cell = (int8)index;
+    CHOICE_RUN_FUNC_CHANGED(this, ItemIsAcitve(this));
+    Sound_GovernorChangedValue();
+    NEED_FINISH_DRAW = 1;
+}
+
 
 
 
@@ -142,32 +168,6 @@ float Choice::Step()
 
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-void Choice_ChangeIndex(Choice *choice, int delta)
-{
-    int index = *choice->cell;
-    if(delta < 0)
-    {
-        ++index;
-        if(index == Choice_NumSubItems(choice))
-        {
-            index = 0;
-        }
-    }
-    else
-    {
-        --index;
-        if (index < 0)
-        {
-            index = Choice_NumSubItems(choice) - 1;
-        }
-    }
-    *choice->cell = (int8)index;
-    CHOICE_RUN_FUNC_CHANGED(choice, ItemIsAcitve(choice));
-    Sound_GovernorChangedValue();
-    NEED_FINISH_DRAW = 1;
-}
-
-//----------------------------------------------------------------------------------------------------------------------------------------------------
 void Governor_StartChange(Governor *governor, int delta)
 {
     Sound_GovernorChangedValue();
