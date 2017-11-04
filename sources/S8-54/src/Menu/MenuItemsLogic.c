@@ -395,14 +395,14 @@ void Page::SetCurrentSB() const
 //----------------------------------------------------------------------------------------------------------------------------------------------------
 void GovernorColor::ChangeValue(int delta)
 {
-    if (colorType->currentField == 0)
+    if (ct->currentField == 0)
     {
-        colorType->BrightnessChange(delta);
+        ct->BrightnessChange(delta);
         Sound_GovernorChangedValue();
     }
     else
     {
-        colorType->ComponentChange(delta);
+        ct->ComponentChange(delta);
         Sound_GovernorChangedValue();
     }
 

@@ -12,10 +12,147 @@
 static void Governor_DrawOpened(Governor *governor, int x, int y);
 static void MACaddress_DrawOpened(MACaddress *mac, int x, int y);
 static void IPaddress_DrawOpened(IPaddress *ip, int x, int y);
+static void DrawGovernorChoiceColorFormulaHiPart(void *item, int x, int y, bool pressed, bool shade, bool opened);
+static void GovernorIpCommon_DrawOpened(void *item, int x, int y, int dWidth);
+static void DrawGovernorValue(int x, int y, Governor *governor);
 
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-void DrawGovernorChoiceColorFormulaHiPart(void *item, int x, int y, bool pressed, bool shade, bool opened)
+void GovernorColor::Draw(int x, int y, bool opened)
+{
+    if (opened)
+    {
+        DrawOpened(x, y);
+    }
+    else
+    {
+        DrawClosed(x, y);
+    }
+}
+
+//----------------------------------------------------------------------------------------------------------------------------------------------------
+void GovernorColor::DrawOpened(int x, int y)
+{
+    static const int delta = 43;
+    x -= delta;
+    ct->Init(false);
+    painter.DrawRectangle(x - 1, y - 1, MI_WIDTH + delta + 2, MI_HEIGHT + 2, Color::BLACK);
+    painter.DrawRectangle(x, y, MI_WIDTH + delta, MI_HEIGHT, Color::MenuTitle(false));
+    painter.DrawVolumeButton(x + 1, y + 1, MI_WIDTH_VALUE + 2 + delta, MI_HEIGHT_VALUE + 3, 2, Color::MenuItem(false),
+                             Color::MENU_ITEM_BRIGHT, Color::MENU_ITEM_DARK, IsPressed(this), IsShade(this));
+    painter.DrawHLine(y + MI_HEIGHT / 2 + 2, x, x + MI_WIDTH + delta, Color::MenuTitle(false));
+    painter.DrawStringInCenterRectC(x + (IsPressed(this) ? 2 : 1), y + (IsPressed(this) ? 2 : 1), MI_WIDTH + delta, MI_HEIGHT / 2 + 2, TitleItem(this),
+                                    Color::WHITE);
+    DrawValue(x + 1, y + 19, delta);
+}
+
+//----------------------------------------------------------------------------------------------------------------------------------------------------
+void GovernorColor::DrawClosed(int x, int y)
+{
+    ct->Init(false);
+    DrawGovernorChoiceColorFormulaHiPart(this, x, y, IsPressed(this), IsShade(this) || !ItemIsAcitve(this), true);
+    painter.FillRegion(x + 2, y + 20, MI_WIDTH_VALUE, MI_HEIGHT_VALUE - 1, ct->color);
+}
+
+//----------------------------------------------------------------------------------------------------------------------------------------------------
+void GovernorColor::DrawValue(int x, int y, int delta)
+{
+    char buffer[20];
+
+    int8 field = ct->currentField;
+    char *texts[4] = {"ßð", "Ñí", "Çë", "Êð"};
+
+    uint16 color = COLOR(ct->color.value);
+    int red = R_FROM_COLOR(color);
+    int green = G_FROM_COLOR(color);
+    int blue = B_FROM_COLOR(color);
+    ct->Init(false);
+    int16 vals[4] = {(int16)(ct->brightness * 100.0f), (int16)blue, (int16)green, (int16)red};
+
+    painter.FillRegion(x, y, MI_WIDTH + delta - 2, MI_HEIGHT / 2 - 3, Color::BLACK);
+    x += 92;
+
+    for (int i = 0; i < 4; i++)
+    {
+        Color colorBack = (field == i) ? Color::WHITE : Color::BLACK;
+        Color colorDraw = (field == i) ? Color::BLACK : Color::WHITE;
+        painter.FillRegion(x - 1, y + 1, 29, 10, colorBack);
+        painter.DrawText(x, y + 2, texts[i], colorDraw);
+        painter.DrawText(x + 14, y + 2, trans.Int2String(vals[i], false, 1, buffer));
+        x -= 30;
+    }
+
+}
+
+//----------------------------------------------------------------------------------------------------------------------------------------------------
+void Governor_DrawOpened(Governor *gov, int x, int y)
+{
+    GovernorIpCommon_DrawOpened(gov, x, y, 0);
+    DrawGovernorValue(x, y + 22, gov);
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+static void DrawGovernorChoiceColorFormulaHiPart(void *item, int x, int y, bool pressed, bool shade, bool opened)
 {
     int delta = pressed && !shade ? 1 : 0;
     int width = MI_WIDTH_VALUE;
@@ -289,7 +426,7 @@ static void DrawValueWithSelectedPosition(int x, int y, int value, int numDigits
 }
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
-void DrawGovernorValue(int x, int y, Governor *governor)
+static void DrawGovernorValue(int x, int y, Governor *governor)
 {
     char buffer[20];
 
@@ -431,73 +568,11 @@ void Formula_Draw(Formula *formula, int x, int y, bool opened)
     }
 }
 
-//----------------------------------------------------------------------------------------------------------------------------------------------------
-void DrawGovernorColorValue(int x, int y, GovernorColor *govColor, int delta)
-{
-    char buffer[20];
-    
-    ColorType *ct = govColor->colorType;
-    int8 field = ct->currentField;
-    char *texts[4] = {"ßð", "Ñí", "Çë", "Êð"};
 
-    uint16 color = COLOR(ct->color.value);
-    int red = R_FROM_COLOR(color);
-    int green = G_FROM_COLOR(color);
-    int blue = B_FROM_COLOR(color);
-    ct->Init(false);
-    int16 vals[4] = {(int16)(ct->brightness * 100.0f), (int16)blue, (int16)green, (int16)red};
 
-    painter.FillRegion(x, y, MI_WIDTH + delta - 2, MI_HEIGHT / 2 - 3, Color::BLACK);
-    x += 92;
-    
-    for(int i = 0; i < 4; i++)
-    {
-        Color colorBack = (field == i) ? Color::WHITE : Color::BLACK;
-        Color colorDraw = (field == i) ? Color::BLACK : Color::WHITE;
-        painter.FillRegion(x - 1, y + 1, 29, 10, colorBack);
-        painter.DrawText(x, y + 2, texts[i], colorDraw);
-        painter.DrawText(x + 14, y + 2, trans.Int2String(vals[i], false, 1, buffer));
-        x -= 30;
-    }
-    
-}
 
-//----------------------------------------------------------------------------------------------------------------------------------------------------
-static void GovernorColor_DrawOpened(GovernorColor *gov, int x, int y)
-{
-    static const int delta = 43;
-    x -= delta;
-    gov->colorType->Init(false);
-    painter.DrawRectangle(x - 1, y - 1, MI_WIDTH + delta + 2, MI_HEIGHT + 2, Color::BLACK);
-    painter.DrawRectangle(x, y, MI_WIDTH + delta, MI_HEIGHT, Color::MenuTitle(false));
-    painter.DrawVolumeButton(x + 1, y + 1, MI_WIDTH_VALUE + 2 + delta, MI_HEIGHT_VALUE + 3, 2, Color::MenuItem(false), 
-        Color::MENU_ITEM_BRIGHT, Color::MENU_ITEM_DARK, IsPressed(gov), IsShade(gov));
-    painter.DrawHLine(y + MI_HEIGHT / 2 + 2, x, x + MI_WIDTH + delta, Color::MenuTitle(false));
-    painter.DrawStringInCenterRectC(x + (IsPressed(gov) ? 2 : 1), y + (IsPressed(gov) ? 2 : 1), MI_WIDTH + delta, MI_HEIGHT / 2 + 2, TitleItem(gov), 
-        Color::WHITE);
-    DrawGovernorColorValue(x + 1, y + 19, gov, delta);
-}
 
-//----------------------------------------------------------------------------------------------------------------------------------------------------
-static void GovernorColor_DrawClosed(GovernorColor *gov, int x, int y)
-{
-    gov->colorType->Init(false);
-    DrawGovernorChoiceColorFormulaHiPart(gov, x, y, IsPressed(gov), IsShade(gov) || !ItemIsAcitve(gov), true);
-    painter.FillRegion(x + 2, y + 20, MI_WIDTH_VALUE, MI_HEIGHT_VALUE - 1, gov->colorType->color);
-}
 
-//----------------------------------------------------------------------------------------------------------------------------------------------------
-void GovernorColor_Draw(GovernorColor *govColor, int x, int y, bool opened)
-{
-    if(opened)
-    {
-        GovernorColor_DrawOpened(govColor, x, y);
-    }
-    else
-    {
-        GovernorColor_DrawClosed(govColor, x, y);
-    }
-}
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
 void Choice_DrawOpened(Choice *choice, int x, int y)
@@ -604,12 +679,7 @@ static void GovernorIpCommon_DrawOpened(void *item, int x, int y, int dWidth)
                              Color::MENU_TITLE_DARK, false, IsShade(item));
 }
 
-//----------------------------------------------------------------------------------------------------------------------------------------------------
-static void Governor_DrawOpened(Governor *governor, int x, int y)
-{
-    GovernorIpCommon_DrawOpened(governor, x, y, 0);
-    DrawGovernorValue(x, y + 22, governor);
-}
+
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
 static void IPaddress_DrawOpened(IPaddress *ip, int x, int y)

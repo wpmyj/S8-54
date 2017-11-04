@@ -555,13 +555,13 @@ static void OnChanged_Settings_Colors_Background(bool active)
 {
     PageService_InitGlobalColors();
 
-    gcSettings_Colors_ChannelA.colorType->color = gColorChan[A];
-    gcSettings_Colors_ChannelB.colorType->color = gColorChan[B];
-    gcSettings_Colors_Grid.colorType->color = gColorGrid;
+    gcSettings_Colors_ChannelA.ct->color = gColorChan[A];
+    gcSettings_Colors_ChannelB.ct->color = gColorChan[B];
+    gcSettings_Colors_Grid.ct->color = gColorGrid;
 
-    gcSettings_Colors_ChannelA.colorType->Init(true);
-    gcSettings_Colors_ChannelB.colorType->Init(true);
-    gcSettings_Colors_Grid.colorType->Init(true);
+    gcSettings_Colors_ChannelA.ct->Init(true);
+    gcSettings_Colors_ChannelB.ct->Init(true);
+    gcSettings_Colors_Grid.ct->Init(true);
 }
 
 void PageService_InitGlobalColors(void)

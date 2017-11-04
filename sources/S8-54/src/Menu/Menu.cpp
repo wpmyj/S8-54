@@ -766,7 +766,7 @@ void ShortPress_GovernorColor(void *governorColor)
     GovernorColor *governor = (GovernorColor*)governorColor;
     if(OpenedItem() == governor)
     {
-        CircleIncreaseInt8(&(governor->colorType->currentField), 0, 3);
+        CircleIncreaseInt8(&(governor->ct->currentField), 0, 3);
     }
     else
     {

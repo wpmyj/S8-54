@@ -749,9 +749,6 @@
     <ClInclude Include="..\..\S8-54\src\Menu\MenuItemsGraphics.h">
       <Filter>Menu</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\S8-54\src\Menu\MenuItemsLogic.h">
-      <Filter>Menu</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\S8-54\src\Panel\Controls.h">
       <Filter>Panel</Filter>
     </ClInclude>
