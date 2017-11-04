@@ -321,6 +321,9 @@ typedef struct
     void SetNewTime();
     void SelectNextPosition();
     void DecCurrentPosition();
+    void Draw(int x, int y, bool opened);
+    void DrawClosed(int x, int y);
+    void DrawOpened(int x, int y);
 } Time;
 
 

@@ -569,6 +569,116 @@ void Page::Draw(int x, int y)
     painter.DrawStringInCenterRectC(x + delta, y + delta, MI_WIDTH, MI_HEIGHT, TitleItem(this), colorText);
 }
 
+//----------------------------------------------------------------------------------------------------------------------------------------------------
+void Time::Draw(int x, int y, bool opened)
+{
+    if (opened)
+    {
+        DrawOpened(x, y);
+    }
+    else
+    {
+        DrawClosed(x, y);
+    }
+}
+
+//----------------------------------------------------------------------------------------------------------------------------------------------------
+void Time::DrawClosed(int x, int y)
+{
+    char buffer[20];
+
+    bool pressed = IsPressed(this);
+    bool shade = IsShade(this);
+    DrawGovernorChoiceColorFormulaHiPart(this, x, y, pressed, shade, false);
+
+    painter.DrawVolumeButton(x + 1, y + 17, MI_WIDTH_VALUE + 2, MI_HEIGHT_VALUE + 3, 1, Color::MENU_FIELD, Color::MENU_ITEM_BRIGHT,
+                             Color::MENU_ITEM_DARK, true, shade);
+
+    int deltaField = 10;
+    int deltaSeparator = 2;
+    int startX = 3;
+    y += 21;
+    PackedTime time = RTC_GetPackedTime();
+    painter.DrawText(x + startX, y, trans.Int2String(time.hours, false, 2, buffer), shade ? Color::MenuItem(true) : Color::BLACK);
+    painter.DrawText(x + startX + deltaField, y, ":");
+    painter.DrawText(x + startX + deltaField + deltaSeparator, y, trans.Int2String(time.minutes, false, 2, buffer));
+    painter.DrawText(x + startX + 2 * deltaField + deltaSeparator, y, ":");
+    painter.DrawText(x + startX + 2 * deltaField + 2 * deltaSeparator, y, trans.Int2String(time.seconds, false, 2, buffer));
+
+    startX = 44;
+    painter.DrawText(x + startX, y, trans.Int2String(time.day, false, 2, buffer));
+    painter.DrawText(x + startX + deltaField, y, ":");
+    painter.DrawText(x + startX + deltaField + deltaSeparator, y, trans.Int2String(time.month, false, 2, buffer));
+    painter.DrawText(x + startX + 2 * deltaField + deltaSeparator, y, ":");
+    painter.DrawText(x + startX + 2 * deltaField + 2 * deltaSeparator, y, trans.Int2String(time.year, false, 2, buffer));
+}
+
+//----------------------------------------------------------------------------------------------------------------------------------------------------
+void Time::DrawOpened(int x, int y)
+{
+    char buffer[20];
+
+    int width = MI_WIDTH_VALUE + 3;
+    int height = 61;
+    painter.DrawRectangle(x - 1, y - 1, width + 2, height + 3, gColorBack);
+    DrawGovernorChoiceColorFormulaHiPart(this, x - 1, y - 1, IsPressed(this), false, true);
+
+    painter.DrawRectangle(x - 1, y, width + 1, height + 1, Color::MenuTitle(false));
+
+    painter.DrawHLine(y + MOI_HEIGHT_TITLE - 1, x, x + MOI_WIDTH);
+    painter.DrawVolumeButton(x, y + MOI_HEIGHT_TITLE, MOI_WIDTH - 1, height - MOI_HEIGHT_TITLE, 1, Color::BLACK, Color::MENU_TITLE_BRIGHT,
+                             Color::MENU_TITLE_DARK, false, IsShade(this));
+
+    int y0 = 21;
+    int y1 = 31;
+
+    typedef struct
+    {
+        int x;
+        int y;
+        int width;
+    } StructPaint;
+
+    int y2 = 41;
+    int y3 = 51;
+    int dX = 13;
+    int wS = 10;
+    int x0 = 41;
+    StructPaint strPaint[8] =
+    {
+        {3,             y3, 60},    // Не сохранять
+        {x0,            y0, wS},    // день
+        {x0 + dX,       y0, wS},    // месяц
+        {x0 + 2 * dX,   y0, wS},    // год
+        {x0,            y1, wS},    // часы
+        {x0 + dX,       y1, wS},    // мин
+        {x0 + 2 * dX,   y1, wS},    // сек
+        {3,             y2, 46}     // Сохранить
+    };
+
+    char strI[8][20];
+    strcpy(strI[iEXIT], "Не сохранять");
+    strcpy(strI[iDAY], trans.Int2String(*day, false, 2, buffer));
+    strcpy(strI[iMONTH], trans.Int2String(*month, false, 2, buffer));
+    strcpy(strI[iYEAR], trans.Int2String(*year, false, 2, buffer));
+    strcpy(strI[iHOURS], trans.Int2String(*hours, false, 2, buffer));
+    strcpy(strI[iMIN], trans.Int2String(*minutes, false, 2, buffer));
+    strcpy(strI[iSEC], trans.Int2String(*seconds, false, 2, buffer));
+    strcpy(strI[iSET], "Сохранить");
+
+    painter.DrawText(x + 3, y + y0, "д м г - ", Color::WHITE);
+    painter.DrawText(x + 3, y + y1, "ч м с - ");
+
+    for (int i = 0; i < 8; i++)
+    {
+        if (*curField == i)
+        {
+            painter.FillRegion(x + strPaint[i].x - 1, y + strPaint[i].y, strPaint[i].width, 8, Color::FLASH_10);
+        }
+        painter.DrawText(x + strPaint[i].x, y + strPaint[i].y, strI[i], *curField == i ? Color::FLASH_01 : Color::WHITE);
+    }
+}
+
 
 
 
@@ -764,72 +874,6 @@ static void DrawValueWithSelectedPosition(int x, int y, int value, int numDigits
 }
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
-void Time_DrawOpened(Time *time, int x, int y)
-{
-    char buffer[20];
-    
-    int width = MI_WIDTH_VALUE + 3;
-    int height = 61;
-    painter.DrawRectangle(x - 1, y - 1, width + 2, height + 3, gColorBack);
-    DrawGovernorChoiceColorFormulaHiPart(time, x - 1, y - 1, IsPressed(time), false, true);
-
-    painter.DrawRectangle(x - 1, y, width + 1, height + 1, Color::MenuTitle(false));
-
-    painter.DrawHLine(y + MOI_HEIGHT_TITLE - 1, x, x + MOI_WIDTH);
-    painter.DrawVolumeButton(x, y + MOI_HEIGHT_TITLE, MOI_WIDTH - 1, height - MOI_HEIGHT_TITLE, 1, Color::BLACK, Color::MENU_TITLE_BRIGHT,
-                             Color::MENU_TITLE_DARK, false, IsShade(time));
-
-    int y0 = 21;
-    int y1 = 31;
-
-    typedef struct 
-    {
-        int x;
-        int y;
-        int width;
-    } StructPaint;
-    
-    int y2 = 41;
-    int y3 = 51;
-    int dX = 13;
-    int wS = 10;
-    int x0 = 41;
-    StructPaint strPaint[8] =
-    {
-        {3,             y3, 60},    // Не сохранять
-        {x0,            y0, wS},    // день
-        {x0 + dX,       y0, wS},    // месяц
-        {x0 + 2 * dX,   y0, wS},    // год
-        {x0,            y1, wS},    // часы
-        {x0 + dX,       y1, wS},    // мин
-        {x0 + 2 * dX,   y1, wS},    // сек
-        {3,             y2, 46}     // Сохранить
-    };
-
-    char strI[8][20];
-    strcpy(strI[iEXIT],     "Не сохранять");
-    strcpy(strI[iDAY],      trans.Int2String(*time->day,      false, 2, buffer));
-    strcpy(strI[iMONTH],    trans.Int2String(*time->month,    false, 2, buffer));
-    strcpy(strI[iYEAR],     trans.Int2String(*time->year,     false, 2, buffer));
-    strcpy(strI[iHOURS],    trans.Int2String(*time->hours,    false, 2, buffer));
-    strcpy(strI[iMIN],      trans.Int2String(*time->minutes,  false, 2, buffer));
-    strcpy(strI[iSEC],      trans.Int2String(*time->seconds,  false, 2, buffer));
-    strcpy(strI[iSET],      "Сохранить");
-
-    painter.DrawText(x + 3, y + y0, "д м г - ", Color::WHITE);
-    painter.DrawText(x + 3, y + y1, "ч м с - ");
-
-    for (int i = 0; i < 8; i++)
-    {
-        if (*time->curField == i)
-        {
-            painter.FillRegion(x + strPaint[i].x - 1, y + strPaint[i].y, strPaint[i].width, 8, Color::FLASH_10);
-        }
-        painter.DrawText(x + strPaint[i].x, y + strPaint[i].y, strI[i], *time->curField == i ? Color::FLASH_01 : Color::WHITE);
-    }
-}
-
-//----------------------------------------------------------------------------------------------------------------------------------------------------
 static void GovernorIpCommon_DrawOpened(void *item, int x, int y, int dWidth)
 {
     int height = 34;
@@ -839,48 +883,4 @@ static void GovernorIpCommon_DrawOpened(void *item, int x, int y, int dWidth)
     DrawGovernorChoiceColorFormulaHiPart(item, x - 1, y - 1, IsPressed(item), false, true);
     painter.DrawVolumeButton(x, y + MOI_HEIGHT_TITLE, MOI_WIDTH - 1 + dWidth, height - MOI_HEIGHT_TITLE, 1, Color::BLACK, Color::MENU_TITLE_BRIGHT,
                              Color::MENU_TITLE_DARK, false, IsShade(item));
-}
-
-//----------------------------------------------------------------------------------------------------------------------------------------------------
-void Time_DrawClosed(Time *item, int x, int y)
-{
-    char buffer[20];
-    
-    bool pressed = IsPressed(item);
-    bool shade = IsShade(item);
-    DrawGovernorChoiceColorFormulaHiPart(item, x, y, pressed, shade, false);
-
-    painter.DrawVolumeButton(x + 1, y + 17, MI_WIDTH_VALUE + 2, MI_HEIGHT_VALUE + 3, 1, Color::MENU_FIELD, Color::MENU_ITEM_BRIGHT, 
-        Color::MENU_ITEM_DARK, true, shade);
-
-    int deltaField = 10;
-    int deltaSeparator = 2;
-    int startX = 3;
-    y += 21;
-    PackedTime time = RTC_GetPackedTime();
-    painter.DrawText(x + startX, y, trans.Int2String(time.hours, false, 2, buffer), shade ? Color::MenuItem(true) : Color::BLACK);
-    painter.DrawText(x + startX + deltaField, y, ":");
-    painter.DrawText(x + startX + deltaField + deltaSeparator, y, trans.Int2String(time.minutes, false, 2, buffer));
-    painter.DrawText(x + startX + 2 * deltaField + deltaSeparator, y, ":");
-    painter.DrawText(x + startX + 2 * deltaField + 2 * deltaSeparator, y, trans.Int2String(time.seconds, false, 2, buffer));
-
-    startX = 44;
-    painter.DrawText(x + startX, y, trans.Int2String(time.day, false, 2, buffer));
-    painter.DrawText(x + startX + deltaField, y, ":");
-    painter.DrawText(x + startX + deltaField + deltaSeparator, y, trans.Int2String(time.month, false, 2, buffer));
-    painter.DrawText(x + startX + 2 * deltaField + deltaSeparator, y, ":");
-    painter.DrawText(x + startX + 2 * deltaField + 2 * deltaSeparator, y, trans.Int2String(time.year, false, 2, buffer));
-}
-
-//----------------------------------------------------------------------------------------------------------------------------------------------------
-void Time_Draw(Time *time, int x, int y, bool opened)
-{
-    if(opened)
-    {
-        Time_DrawOpened(time, x, y);
-    }
-    else
-    {
-        Time_DrawClosed(time, x, y);
-    }
 }

@@ -280,7 +280,7 @@ static void DrawSmallButton(void *item, int x, int y)
 //----------------------------------------------------------------------------------------------------------------------------------------------------
 static void DrawTime(void *item, int x, int y)
 {
-    Time_Draw((Time *)item, x, y, false);
+    ((Time *)item)->Draw(x, y, false);
 }
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
@@ -365,7 +365,7 @@ void DrawOpenedPage(Page *page, int layer, int yTop)
         }
         else if (type == Item_Time)
         {
-            Time_Draw((Time *)item, CalculateX(1), ItemOpenedPosY(item), true);
+            ((Time *)item)->Draw(CalculateX(1), ItemOpenedPosY(item), true);
         }
         else if (type == Item_IP)
         {
