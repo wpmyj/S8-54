@@ -45,8 +45,6 @@ const char *NameSubItem(Choice *choice, int i);
 int HeightOpenedItem(void *item);
 /// Возвращает название элемента по адресу item, как оно выглядит на дисплее прибора
 const char *TitleItem(void *item);
-/// Возвращает позицию первого элемента страницы по адресу page на экране. Если текущая подстраница 0, это будет 0, если текущая подстраница 1, это будет 5 и т.д.
-int PosItemOnTop(Page *page);
 /// Возвращает true, если button - функциональная клавиша [1..5]
 bool IsFunctionalButton(PanelButton button);
 /// Закрыть открытый элемент меню

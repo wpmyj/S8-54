@@ -107,7 +107,7 @@ struct SButton;
 struct Page
 {
     COMMON_PART_MENU_ITEM
-        NamePage name;                          ///< »м€ из перечислени€ NamePage
+        NamePage name;                      ///< »м€ из перечислени€ NamePage
     void    *items[MAX_NUM_ITEMS_IN_PAGE];  ///< «десь указатели на пункты этой страницы (в обычной странице)
                                             ///< дл€ страницы малых кнопок  здесь хран€тс€ 6 указателей на SButton : 0 - B_Menu, 1...5 - B_F1...B_F5
     bool     isPageSB;                      ///< ≈сли true, то это страница малых кнопок
@@ -122,6 +122,9 @@ struct Page
     
     void *Item(int numElement) const;       ///< ¬озвращает адрес элемента меню заданной страницы
     SButton* SmallButonFromPage(int numButton);
+    /// \todo ¬озвращает позицию первого элемента страницы по адресу page на экране. ≈сли текуща€ подстраница 0, это будет 0, если текуща€ 
+    /// подстраница 1, это будет 5 и т.д.
+    int PosItemOnTop();
 };
 
 typedef struct Page Page;

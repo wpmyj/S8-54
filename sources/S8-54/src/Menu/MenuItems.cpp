@@ -63,3 +63,8 @@ void Button::CallFuncOnDraw(int x, int y)
     }
 }
 
+//----------------------------------------------------------------------------------------------------------------------------------------------------
+int Page::PosItemOnTop()
+{
+    return NumCurrentSubPage() * MENU_ITEMS_ON_DISPLAY;
+}

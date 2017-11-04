@@ -120,12 +120,6 @@ const char *TitleItem(void *item)
 }
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
-int PosItemOnTop(Page *page)
-{
-    return page->NumCurrentSubPage() * MENU_ITEMS_ON_DISPLAY;
-}
-
-//----------------------------------------------------------------------------------------------------------------------------------------------------
 bool IsFunctionalButton(PanelButton button)
 {
     return button >= B_F1 && button <= B_F5;

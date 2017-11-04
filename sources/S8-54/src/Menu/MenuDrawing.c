@@ -319,7 +319,7 @@ void DrawItemsPage(Page *page, int layer, int yTop)
         DrawChoice,         // Item_ChoiceReg
         DrawSmallButton     // Item_SmallButton
     };
-    int posFirstItem = PosItemOnTop(page);
+    int posFirstItem = page->PosItemOnTop();
     int posLastItem = posFirstItem + MENU_ITEMS_ON_DISPLAY - 1;
     LIMITATION(posLastItem, 0, page->NumItems() - 1);
     int count = 0;
