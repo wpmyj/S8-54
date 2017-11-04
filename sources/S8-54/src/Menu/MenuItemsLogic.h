@@ -26,8 +26,6 @@ void IPaddress_ChangeValue(IPaddress *ip, int delta);
 /// Возвращает номер текущего байта (4 - номер порта) и номер текущей позиции в байте.
 void IPaddress_GetNumPosIPvalue(int *numIP, int *selPos);
 
-void MACaddress_ChangeValue(MACaddress *mac, int delta);
-
 void Time_DecCurrentPosition(Time *time);
 /// Изменить яркость цвета в governor.
 void GovernorColor_ChangeValue(GovernorColor *governor, int delta);

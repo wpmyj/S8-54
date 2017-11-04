@@ -193,6 +193,7 @@ typedef struct
     uint8 *mac4;
     uint8 *mac5;
     pFuncVB funcOfChanged;
+    void ChangeValue(int delta);
 } MACaddress;
 
 /// Описывает элемент меню для установки коэффициентов и знаков математической формулы

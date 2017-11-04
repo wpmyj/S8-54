@@ -352,6 +352,15 @@ void Time::SelectNextPosition()
     painter.ResetFlash();
 }
 
+//----------------------------------------------------------------------------------------------------------------------------------------------------
+void MACaddress::ChangeValue(int delta)
+{
+    uint8 *value = mac0 + gCurDigit;
+    *value += delta > 0 ? 1 : -1;
+    Sound_GovernorChangedValue();
+    display.ShowWarning(NeedRebootDevice);
+}
+
 
 
 
@@ -460,14 +469,7 @@ void IPaddress_ChangeValue(IPaddress *ip, int delta)
     }
 }
 
-//----------------------------------------------------------------------------------------------------------------------------------------------------
-void MACaddress_ChangeValue(MACaddress *mac, int delta)
-{
-    uint8 *value = mac->mac0 + gCurDigit;
-    *value += delta > 0 ? 1 : -1;
-    Sound_GovernorChangedValue();
-    display.ShowWarning(NeedRebootDevice);
-}
+
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
 void IPaddress_GetNumPosIPvalue(int *numIP, int *selPos)
