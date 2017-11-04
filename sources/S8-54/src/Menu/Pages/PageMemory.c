@@ -300,12 +300,16 @@ static void OnPress_Last_Exit(void)
 }
 
 // ПАМЯТЬ - ПОСЛЕДНИЕ - Следующий --------------------------------------------------------------------------------------------------------------------
-static const SButton bLast_Next
-(
+static const char * const titlesLast_Next[] =
+{
     "Следующий", "Next",
     "Перейти к следующему сигналу",
-    "Go to the next signal",
-    &ppLast, OnPress_Last_Next, Draw_Last_Next
+    "Go to the next signal"
+};
+
+static const SButton bLast_Next
+(
+    titlesLast_Next, &ppLast, OnPress_Last_Next, Draw_Last_Next
 );
 
 static void OnPress_Last_Next(void)
@@ -321,12 +325,16 @@ static void Draw_Last_Next(int x, int y)
 }
 
 // ПАМЯТЬ - ПОСЛЕДНИЕ - Предыдущий -------------------------------------------------------------------------------------------------------------------
-static const SButton bLast_Prev
-(
+static const char * const titlesLast_Prev[] =
+{
     "Предыдущий", "Previous",
     "Перейти к предыдущему сигналу",
-    "Go to the previous signal",
-    &ppLast, OnPress_Last_Prev, Draw_Last_Prev
+    "Go to the previous signal"
+};
+
+static const SButton bLast_Prev
+(
+    titlesLast_Prev, &ppLast, OnPress_Last_Prev, Draw_Last_Prev
 );
 
 static void OnPress_Last_Prev(void)
@@ -342,12 +350,16 @@ static void Draw_Last_Prev(int x, int y)
 }
 
 // ПАМЯТЬ - ПОСЛЕДНИЕ - Внутр ЗУ ---------------------------------------------------------------------------------------------------------------------
-static const SButton bLast_SaveToROM
-(
+static const char * const titlesLast_SaveToROM[] =
+{
     "Внутр ЗУ", "Internal storage",
     "Нажмите эту кнопку, чтобы сохранить сигнал во внутреннем запоминающем устройстве",
-    "Press this button to keep a signal in an internal memory",
-    &ppLast, OnPress_Last_SaveToROM, Draw_Last_SaveToROM
+    "Press this button to keep a signal in an internal memory"
+};
+
+static const SButton bLast_SaveToROM
+(
+    titlesLast_SaveToROM, &ppLast, OnPress_Last_SaveToROM, Draw_Last_SaveToROM
 );
 
 static void OnPress_Last_SaveToROM(void)
@@ -369,12 +381,16 @@ static void Draw_Last_SaveToROM(int x, int y)
 }
 
 // ПАМЯТЬ - ПОСЛЕДНИЕ - Сохранить --------------------------------------------------------------------------------------------------------------------
-static const SButton bLast_SaveToDrive
-(
+static const char * const titlesLast_SaveToDrive[] =
+{
     "Сохранить", "Save",
     "Кнопка становится доступна при присоединённом внешнем ЗУ. Позволяет сохранить сигнал на внешем ЗУ",
-    "Click this button to save the signal on the external FLASH",
-    &ppLast,  OnPress_Last_SaveToDrive, Draw_Last_SaveToDrive
+    "Click this button to save the signal on the external FLASH"
+};
+
+static const SButton bLast_SaveToDrive
+(
+    titlesLast_SaveToDrive, &ppLast, OnPress_Last_SaveToDrive, Draw_Last_SaveToDrive
 );
 
 static void OnPress_Last_SaveToDrive(void)
@@ -536,12 +552,16 @@ static void OnRegSet_Internal(int delta)
 }
 
 // ПАМЯТЬ - ВНУТР ЗУ - Выход -------------------------------------------------------------------------------------------------------------------------
-static const SButton bInternal_Exit
-(
+static const char * const titlesInternal_Exit[] =
+{
     "Выход", "Exit",
     "Кнопка для выхода в предыдущее меню",
-    "Button to return to the previous menu",
-    &ppInternal, OnPress_Internal_Exit, DrawSB_Exit
+    "Button to return to the previous menu"
+};
+
+static const SButton bInternal_Exit
+(
+    titlesInternal_Exit, &ppInternal, OnPress_Internal_Exit, DrawSB_Exit
 );
 
 static void FuncForInternalExit(void)
@@ -581,12 +601,16 @@ static const StructHelpSmallButton hintsShowAlways[] =
 };
 
 // ПАМЯТЬ - ВНУТР ЗУ - Показывать всегда -------------------------------------------------------------------------------------------------------------
-static const SButton bInternal_ShowAlways
-(
+static const char * const titlesInternal_ShowAlways[] =
+{
     "Показывать всегда", "To show always",
     "Позволяет всегда показывать выбранный сохранённый сигнал поверх текущего",
-    "Allows to show always the chosen kept signal over the current",
-    &ppInternal, OnPress_Internal_ShowAlways, Draw_Internal_ShowAlways, 0, hintsShowAlways, 2
+    "Allows to show always the chosen kept signal over the current"
+};
+
+static const SButton bInternal_ShowAlways
+(
+    titlesInternal_ShowAlways, &ppInternal, OnPress_Internal_ShowAlways, Draw_Internal_ShowAlways, 0, hintsShowAlways, 2
 );
 
 static void OnPress_Internal_ShowAlways(void)
@@ -635,12 +659,16 @@ static const StructHelpSmallButton hintsModeShow[] =
 };
 
 // ПАМЯТЬ - ВНУТР ЗУ - Вид сигнала -------------------------------------------------------------------------------------------------------------------
-static const SButton bInternal_ModeShow
-(
+static const char * const titlesInternal_ModeShow[] =
+{
     "Вид сигнала", "Type of a signal",
     "Показывать записанный или текущий сигнал в режиме ВНУТР ЗУ",
-    "Show recorded or current signal in mode Internal Memory",
-    &ppInternal, OnPress_Internal_ModeShow, Draw_Internal_ModeShow, 0, hintsModeShow, 3
+    "Show recorded or current signal in mode Internal Memory"
+};
+
+static const SButton bInternal_ModeShow
+(
+    titlesInternal_ModeShow, &ppInternal, OnPress_Internal_ModeShow, Draw_Internal_ModeShow, 0, hintsModeShow, 3
 );
 
 static void OnPress_Internal_ModeShow(void)
@@ -732,12 +760,16 @@ static const StructHelpSmallButton hintsScale[] =
 };
 
 // ПАМЯТЬ - ВНУТР ЗУ - Масштаб -----------------------------------------------------------------------------------------------------------------------
-static const SButton bInternal_Scale
-(
+static const char * const titlesInternal_Scale[] =
+{
     "Масштаб", "Scale",
     "Приводить или нет записанный сигнал к текущим установкам",
-    "Whether or not to record the recorded signal to the current settings",
-    &ppInternal, OnPress_Internal_Scale, Draw_Internal_Scale, 0, hintsScale, 2
+    "Whether or not to record the recorded signal to the current settings"
+};
+
+static const SButton bInternal_Scale
+(
+    titlesInternal_Scale, &ppInternal, OnPress_Internal_Scale, Draw_Internal_Scale, 0, hintsScale, 2
 );
 
 void OnPress_Internal_Scale(void)
@@ -775,12 +807,16 @@ void Draw_Internal_Scale_Original(int x, int y)
 
 
 // ПАМЯТЬ - ВНУТР ЗУ - Сохранить в памяти ------------------------------------------------------------------------------------------------------------
-static const SButton bInternal_SaveToMemory
-(
+static const char * const titlesInternal_SaveToMemory[] =
+{
     "Сохранить в памяти", "Save to memory",
     "Сохранить сигнал во внутреннем запоминующем устройстве",
-    "To keep a signal in an internal memory",
-    &ppInternal, OnPress_Internal_SaveToMemory, Draw_Internal_SaveToMemory
+    "To keep a signal in an internal memory"
+};
+
+static const SButton bInternal_SaveToMemory
+(
+    titlesInternal_SaveToMemory, &ppInternal, OnPress_Internal_SaveToMemory, Draw_Internal_SaveToMemory
 );
 
 static void OnPress_Internal_SaveToMemory(void)
@@ -812,12 +848,16 @@ static void Draw_Internal_SaveToMemory(int x, int y)
 
 
 // ПАМЯТЬ - ВНУТР ЗУ - Удалить -----------------------------------------------------------------------------------------------------------------------
-static const SButton bInternal_Delete
-(
+static const char * const titlesInternal_Delete[] =
+{
     "Удалить", "Delete",
     "Удаляет выбранный сигнал из внутреннего запоминающего устройства",
-    "Removes the selected signal from the internal storage device",
-    &ppInternal, OnPress_Internal_Delete, Draw_Internal_Delete
+    "Removes the selected signal from the internal storage device"
+};
+
+static const SButton bInternal_Delete
+(
+    titlesInternal_Delete, &ppInternal, OnPress_Internal_Delete, Draw_Internal_Delete
 );
 
 static void OnPress_Internal_Delete(void)
@@ -835,12 +875,16 @@ static void Draw_Internal_Delete(int x, int y)
 }
 
 // ПАМЯТЬ - ВНУТР ЗУ - Сохранить на флешку -----------------------------------------------------------------------------------------------------------
-static const SButton bInternal_SaveToDrive
-(
+static const char * const titlesInternal_SaveToDrive[] =
+{
     "Сохранить на флешку", "Save to disk",
     "Сохраняет сигнал на флешку",
-    "Save signal to flash drive",
-    &ppInternal, OnPress_Internal_SaveToDrive, Draw_Internal_SaveToDrive
+    "Save signal to flash drive"
+};
+
+static const SButton bInternal_SaveToDrive
+(
+    titlesInternal_SaveToDrive, &ppInternal, OnPress_Internal_SaveToDrive, Draw_Internal_SaveToDrive
 );
 
 static void OnPress_Internal_SaveToDrive(void)
@@ -994,12 +1038,16 @@ void OnPress_Drive_Manager(void)
 }
 
 // ПАМЯТЬ - ВНЕШН ЗУ - КАТАЛОГ - Выход ------------------------------------------------------------------------------------------------------------
-static const SButton bDrive_Manager_Exit
-(
+static const char * const titlesDrive_Manager_Exit[] =
+{
     "Выход", "Exit",
     "Кнопка для выхода в предыдущее меню",
-    "Button to return to the previous menu",
-    &pppDrive_Manager, OnPress_Drive_Manager_Exit, DrawSB_Exit
+    "Button to return to the previous menu"
+};
+
+static const SButton bDrive_Manager_Exit
+(
+    titlesDrive_Manager_Exit, &pppDrive_Manager, OnPress_Drive_Manager_Exit, DrawSB_Exit
 );
 
 static void OnPress_Drive_Manager_Exit(void)
@@ -1009,12 +1057,16 @@ static void OnPress_Drive_Manager_Exit(void)
 }
 
 // ПАМЯТЬ - ВНЕШН ЗУ - КАТАЛОГ - Tab --------------------------------------------------------------------------------------------------------------
-static const SButton bDrive_Manager_Tab
-(
+static const char * const titlesDrive_Manager_Tab[] =
+{
     "Tab", "Tab",
     "Переход между каталогами и файлами",
-    "The transition between the directories and files",
-    &pppDrive_Manager, PressSB_FM_Tab, Draw_Drive_Manager_Tab
+    "The transition between the directories and files"
+};
+
+static const SButton bDrive_Manager_Tab
+(
+    titlesDrive_Manager_Tab, &pppDrive_Manager, PressSB_FM_Tab, Draw_Drive_Manager_Tab
 );
 
 static void Draw_Drive_Manager_Tab(int x, int y)
@@ -1025,12 +1077,16 @@ static void Draw_Drive_Manager_Tab(int x, int y)
 }
 
 // ПАМЯТЬ - ВНЕШН ЗУ - КАТАЛОГ - Выйти из каталога ---------------------------------------------------------------------------------------------------
-static const SButton bDrive_Manager_LevelUp
-(
+static const char * const titlesDrive_Manager_LevelUp[] =
+{
     "Выйти из каталого", "Leave from directory",
     "Переход в родительский каталог",
-    "Transition to the parental catalog",
-    &pppDrive_Manager, PressSB_FM_LevelUp, Draw_Drive_Manager_LevelUp
+    "Transition to the parental catalog"
+};
+
+static const SButton bDrive_Manager_LevelUp
+(
+    titlesDrive_Manager_LevelUp, &pppDrive_Manager, PressSB_FM_LevelUp, Draw_Drive_Manager_LevelUp
 );
 
 static void Draw_Drive_Manager_LevelUp(int x, int y)
@@ -1041,12 +1097,16 @@ static void Draw_Drive_Manager_LevelUp(int x, int y)
 }
 
 // ПАМЯТЬ - ВНЕШН ЗУ - КАТАЛОГ - Войти в каталог --------------------------------------------------------------------------------------------------
-static const SButton bDrive_Manager_LevelDown
-(
+static const char * const titlesDrive_Manager_LevelDown[] =
+{
     "Войти в каталог", "Enter in directory",
     "Переход в выбранный каталог",
-    "Transition to the chosen catalog",
-    &pppDrive_Manager, PressSB_FM_LevelDown, Draw_Drive_Manager_LevelDown
+    "Transition to the chosen catalog"
+};
+
+static const SButton bDrive_Manager_LevelDown
+(
+    titlesDrive_Manager_LevelDown, &pppDrive_Manager, PressSB_FM_LevelDown, Draw_Drive_Manager_LevelDown
 );
 
 static void Draw_Drive_Manager_LevelDown(int x, int y)
@@ -1194,17 +1254,20 @@ static void OnRegSet_Drive_Mask(int angle)
 // ПАМЯТЬ - ВНЕШН ЗУ - МАСКА - Выход --------------------------------------------------------------------------------------------------------------
 static const SButton bDrive_Mask_Exit
 (
-    COMMON_BEGIN_SB_EXIT,
-    &pppDrive_Mask, OnPressSB_Exit, DrawSB_Exit
+    COMMON_BEGIN_SB_EXIT, &pppDrive_Mask, OnPressSB_Exit, DrawSB_Exit
 );
 
 // ПАМЯТЬ - ВНЕШН ЗУ - МАСКА - Удалить ------------------------------------------------------------------------------------------------------------
-static const SButton bDrive_Mask_Delete
-(
+static const char * const titlesDrive_Mask_Delete[] =
+{
     "Удалить", "Delete",
     "Удаляет все введённые символы",
-    "Deletes all entered symbols",
-    &pppDrive_Mask, OnPress_Drive_Mask_Delete, Draw_Drive_Mask_Delete
+    "Deletes all entered symbols"
+};
+
+static const SButton bDrive_Mask_Delete
+(
+    titlesDrive_Mask_Delete, &pppDrive_Mask, OnPress_Drive_Mask_Delete, Draw_Drive_Mask_Delete
 );
 
 static void OnPress_Drive_Mask_Delete(void)
@@ -1220,12 +1283,16 @@ static void Draw_Drive_Mask_Delete(int x, int y)
 }
 
 // ПАМЯТЬ - ВНЕШН ЗУ - МАСКА - Backspace ----------------------------------------------------------------------------------------------------------
-static const SButton bDrive_Mask_Backspace
-(
+static const char * const titlesDrive_Mask_Backspace[] =
+{
     "Backspace", "Backspace",
     "Удаляет последний введённый символ",
-    "Deletes the last entered symbol",
-    &pppDrive_Mask, OnPress_Drive_Mask_Backspace, Draw_Drive_Mask_Backspace
+    "Deletes the last entered symbol"
+};
+
+static const SButton bDrive_Mask_Backspace
+(
+    titlesDrive_Mask_Backspace, &pppDrive_Mask, OnPress_Drive_Mask_Backspace, Draw_Drive_Mask_Backspace
 );
 
 static void OnPress_Drive_Mask_Backspace(void)
@@ -1252,12 +1319,16 @@ static void Draw_Drive_Mask_Backspace(int x, int y)
 }
 
 // ПАМЯТЬ - ВНЕШН ЗУ - МАСКА - Вставить -----------------------------------------------------------------------------------------------------------
-static const SButton bDrive_Mask_Insert
-(
+static const char * const titlesDrive_Mask_Insert[] =
+{
     "Вставить", "Insert",
     "Вставляет выбранный символ",
-    "Inserts the chosen symbol",
-    &pppDrive_Mask, OnPress_Drive_Mask_Insert, Draw_Drive_Mask_Insert
+    "Inserts the chosen symbol"
+};
+
+static const SButton bDrive_Mask_Insert
+(
+    titlesDrive_Mask_Insert, &pppDrive_Mask, OnPress_Drive_Mask_Insert, Draw_Drive_Mask_Insert
 );
 
 static void OnPress_Drive_Mask_Insert(void)
@@ -1349,12 +1420,16 @@ void OnMemExtSetMaskNameRegSet(int angle, int maxIndex)
 }
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
-static const SButton bSetName_Exit    // Кнопк для выхода из режима задания имени сохраняемому сигналу. Одновременно кнопка отказа от сохранения
-(
+static const char * const titlesSetName_Exit[] =
+{
     "Выход", "Exit",
     "Отказ от сохранения",
-    "Failure to save",
-    &pSetName, OnPress_SetName_Exit, DrawSB_Exit
+    "Failure to save"
+};
+
+static const SButton bSetName_Exit    // Кнопк для выхода из режима задания имени сохраняемому сигналу. Одновременно кнопка отказа от сохранения
+(
+    titlesSetName_Exit, &pSetName, OnPress_SetName_Exit, DrawSB_Exit
 );
 
 
@@ -1375,12 +1450,16 @@ static void OnPress_SetName_Exit(void)
 }
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
-static const SButton bSetName_Delete
-(
+static const char * const titlesSetName_Delete[] =
+{
     "Удалить", "Delete",
     "Удаляет все введённые символы",
-    "Deletes all entered characters",
-    &pSetName, OnPress_SetName_Delete, Draw_SetName_Delete
+    "Deletes all entered characters"
+};
+
+static const SButton bSetName_Delete
+(
+    titlesSetName_Delete, &pSetName, OnPress_SetName_Delete, Draw_SetName_Delete
 );
 
 static void OnPress_SetName_Delete(void)
@@ -1396,12 +1475,16 @@ static void Draw_SetName_Delete(int x, int y)
 }
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
-static const SButton bSetName_Backspace
-(
+static const char * const titlesSetName_Backspace[] =
+{
     "Backspace", "Backspace",
     "Удаляет последний символ",
-    "Delete the last character",
-    &pSetName, OnPress_SetName_Backspace, Draw_SetName_Backspace
+    "Delete the last character"
+};
+
+static const SButton bSetName_Backspace
+(
+    titlesSetName_Backspace, &pSetName, OnPress_SetName_Backspace, Draw_SetName_Backspace
 );
 
 static void OnPress_SetName_Backspace(void)
@@ -1421,12 +1504,16 @@ static void Draw_SetName_Backspace(int x, int y)
 }
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
-static const SButton bSetName_Insert
-(
+static const char * const titlesSetName_Insert[] =
+{
     "Вставить", "Insert",
     "Вводит очередной символ",
-    "Print the next character",
-    &pSetName, OnPress_SetName_Insert, Draw_SetName_Insert
+    "Print the next character"
+};
+
+static const SButton bSetName_Insert
+(
+    titlesSetName_Insert, &pSetName, OnPress_SetName_Insert, Draw_SetName_Insert
 );
 
 static void OnPress_SetName_Insert(void)
@@ -1447,12 +1534,16 @@ static void Draw_SetName_Insert(int x, int y)
 }
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
-static const SButton bSetName_Save
-(
+static const char * const titlesSetName_Save[] =
+{
     "Сохранить", "Save",
     "Сохранение на флеш под заданным именем",
-    "Saving to flashdrive with the specified name",
-    &pSetName, OnPress_SetName_Save, Draw_SetName_Save
+    "Saving to flashdrive with the specified name"
+};
+
+static const SButton bSetName_Save
+(
+    titlesSetName_Save, &pSetName, OnPress_SetName_Save, Draw_SetName_Save
 );
 
 static void OnPress_SetName_Save(void)

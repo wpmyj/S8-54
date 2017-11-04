@@ -222,13 +222,18 @@ static void OnRegSet_Set(int angle)
     Sound_RegulatorShiftRotate();
 }
 
-// КУРСОРЫ - УСТАНОВИТЬ - Выход --------------------------------------------------------------------------------------------------------------------
-static const SButton bSet_Exit
-(
+//------------------------------------------------------------------------------------------------------------------- КУРСОРЫ - УСТАНОВИТЬ - Выход ---
+static const char * const titlesSet_Exit[] =
+{
     "Выход", "Exit",
     "Кнопка для выхода в предыдущее меню",
-    "Button to return to the previous menu",
-    &ppSet, OnPressSB_Exit, DrawSB_Exit
+    "Button to return to the previous menu"
+};
+
+
+static const SButton bSet_Exit
+(
+    titlesSet_Exit, &ppSet, OnPressSB_Exit, DrawSB_Exit
 );
 
 static const StructHelpSmallButton hintsChannel[] =
@@ -243,13 +248,16 @@ static const StructHelpSmallButton hintsChannel[] =
 };
 
 // КУРСОРЫ - УСТАНОВИТЬ - Канал --------------------------------------------------------------------------------------------------------------------
-static const SButton bSet_Channel
-(
+static const char * const titlesSet_Channel[] =
+{
     "Канал", "Channel",
     "Выбор канала для курсорных измерений",
-    "Channel choice for measurements",
-    &ppSet, OnPress_Set_Channel, Draw_Set_Channel, 0,
-    hintsChannel, 2
+    "Channel choice for measurements"
+};
+
+static const SButton bSet_Channel
+(
+    titlesSet_Channel, &ppSet, OnPress_Set_Channel, Draw_Set_Channel, 0, hintsChannel, 2
 );
 
 static void OnPress_Set_Channel(void)
@@ -287,13 +295,16 @@ static const StructHelpSmallButton hintsSetU[] =
 };
 
 // КУРСОРЫ - УСТАНОВИТЬ - Курсоры U ----------------------------------------------------------------------------------------------------------------
-static const SButton bSet_U       // Выбор курсора напряжения - курсор 1, курсор 2, оба курсора или отключены.
-(
+static const char * const titlesSet_U[] =
+{
     "Курсоры U", "Cursors U",
     "Выбор курсоров напряжения для индикации и управления",
-    "Choice of cursors of voltage for indication and management",
-    &ppSet, OnPress_Set_U, Draw_Set_U, 0,
-    hintsSetU, 5
+    "Choice of cursors of voltage for indication and management"
+};
+
+static const SButton bSet_U       // Выбор курсора напряжения - курсор 1, курсор 2, оба курсора или отключены.
+(
+    titlesSet_U, &ppSet, OnPress_Set_U, Draw_Set_U, 0, hintsSetU, 5
 );
 
 static void OnPress_Set_U(void)
@@ -396,13 +407,16 @@ static const StructHelpSmallButton hintsSetT[] =
 };
 
 // КУРСОРЫ - УСТАНОВИТЬ - Курсоры Т ----------------------------------------------------------------------------------------------------------------
-static const SButton bSet_T       // Выбор курсора времени - курсор 1, курсор 2, оба курсора или отключены.
-(
+static const char * const titlesSet_T[] =
+{
     "Курсоры T", "Cursors T",
     "Выбор курсоров времени для индикации и управления",
-    "Choice of cursors of time for indication and management",
-    &ppSet, OnPress_Set_T, Draw_Set_T, 0,
-    hintsSetT, 5
+    "Choice of cursors of time for indication and management"
+};
+
+static const SButton bSet_T       // Выбор курсора времени - курсор 1, курсор 2, оба курсора или отключены.
+(
+    titlesSet_T, &ppSet, OnPress_Set_T, Draw_Set_T, 0, hintsSetT, 5
 );
 
 static void OnPress_Set_T(void)
@@ -507,12 +521,16 @@ static int CalculateYforCurs(int y, bool top)
 }
 
 // КУРСОРЫ - УСТАНОВИТЬ - 100% ---------------------------------------------------------------------------------------------------------------------
-static const SButton bSet_100     // Установка 100 процентов в текущие места курсоров.
-(
+static const char * const titlesSet_100[] =
+{
     "100%", "100%",
     "Используется для процентных измерений. Нажатие помечает расстояние между активными курсорами как 100%",
-    "It is used for percentage measurements. Pressing marks distance between active cursors as 100%",
-    &ppSet, OnPress_Set_100, Draw_Set_100
+    "It is used for percentage measurements. Pressing marks distance between active cursors as 100%"
+};
+
+static const SButton bSet_100     // Установка 100 процентов в текущие места курсоров.
+(
+    titlesSet_100, &ppSet, OnPress_Set_100, Draw_Set_100
 );
 
 static void OnPress_Set_100(void)
@@ -534,13 +552,17 @@ static const StructHelpSmallButton hintsMovement[] =
 };
 
 // КУРСОРЫ - УСТАНОВИТЬ - Перемещение --------------------------------------------------------------------------------------------------------------
-static const SButton bSet_Movement      // Переключение шага перемещения курсоров - по пикселям или по процентам.
-(
+static const char * const titlesSet_Movement[] =
+{
     "Перемещение", "Movement",
     "Выбор шага перемещения курсоров - проценты или точки",
-    "Choice of a step of movement of cursors - percent or points",
-    &ppSet, OnPress_Set_Movement, Draw_Set_Movement, 0,
-    hintsMovement, 2
+    "Choice of a step of movement of cursors - percent or points"
+};
+
+
+static const SButton bSet_Movement      // Переключение шага перемещения курсоров - по пикселям или по процентам.
+(
+    titlesSet_Movement, &ppSet, OnPress_Set_Movement, Draw_Set_Movement, 0, hintsMovement, 2
 );
 
 static void OnPress_Set_Movement(void)

@@ -50,45 +50,61 @@ void OnHelpRegSet(int angle)
 }
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
-const SButton sbHelpParagraphEnter
-(
+static const char * const titlesHelpParagraphEnter[] =
+{
     "Открыть",  "Open",
     "Открывает раздел справки",
-    "Opens the section of the reference",
-    &pHelp, HelpContent_EnterParagraph, DrawSB_Help_ParagraphEnter, HelpContent_EnterParagraphIsActive
+    "Opens the section of the reference"
+};
+
+const SButton sbHelpParagraphEnter
+(
+    titlesHelpParagraphEnter, &pHelp, HelpContent_EnterParagraph, DrawSB_Help_ParagraphEnter, HelpContent_EnterParagraphIsActive
 );
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
-const SButton sbHelpParagraphLeave
-(
+static const char * const titleHelpParagraphLeave[] =
+{
      "Закрыть", "Close",
      "Закрывает раздел справки",
-     "Closes the section of the reference",
-    &pHelp, HelpContent_LeaveParagraph, DrawSB_Help_ParagraphLeave, HelpContent_LeaveParagraphIsActive
+     "Closes the section of the reference"
+};
+
+const SButton sbHelpParagraphLeave
+(
+    titleHelpParagraphLeave, &pHelp, HelpContent_LeaveParagraph, DrawSB_Help_ParagraphLeave, HelpContent_LeaveParagraphIsActive
 );
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
-const SButton sbHelpParagraphPrev
-(
+static const char * const titleHelpParagraphPrev[] =
+{
     "Предыдущий раздел", "Previous section",
     "Выбрать предыдущий раздел справки",
-    "To choose the previous section of the reference",
-    &pHelp, HelpContent_PrevParagraph, DrawSB_Help_ParagraphPrev
+    "To choose the previous section of the reference"
+};
+
+const SButton sbHelpParagraphPrev
+(
+    titleHelpParagraphPrev, &pHelp, HelpContent_PrevParagraph, DrawSB_Help_ParagraphPrev
 );
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
+static const char * const titleHelpParagraphNext[] =
+{
+    "", 
+    "",
+    "", ""
+};
+
 const SButton sbHelpParagraphNext
 (
-    "", "",
-    "", "",
-    &pHelp, HelpContent_NextParagraph, DrawSB_Help_ParagraphNext
+    titleHelpParagraphNext, &pHelp, HelpContent_NextParagraph, DrawSB_Help_ParagraphNext
 );
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
 const SButton sbExitHelp
 (
-    COMMON_BEGIN_SB_EXIT,
-    &pHelp, OnPressSB_Exit, DrawSB_Exit
+    COMMON_BEGIN_SB_EXIT, &pHelp, OnPressSB_Exit, DrawSB_Exit
 );
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------

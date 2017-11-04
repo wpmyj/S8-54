@@ -342,12 +342,16 @@ static const SButton bTune_Exit
 );
 
 // ИЗМЕРЕНИЯ - НАСТРОИТЬ - Маркеры -------------------------------------------------------------------------------------------------------------------
-static const SButton bTune_Markers 
-(
+static const char * const titlesTune_Markers[] =
+{
     "Маркер", "Marker",
     "Позволяет установить маркеры для визуального контроля измерений",
-    "Allows to establish markers for visual control of measurements",
-    &ppTune, OnPress_Tune_Markers, Draw_Tune_Markers
+    "Allows to establish markers for visual control of measurements"
+};
+
+static const SButton bTune_Markers 
+(
+    titlesTune_Markers, &ppTune, OnPress_Tune_Markers, Draw_Tune_Markers
 );
 
 static void OnPress_Tune_Markers(void)
@@ -363,12 +367,16 @@ static void Draw_Tune_Markers(int x, int y)
 }
 
 // ИЗМЕРЕНИЯ - НАСТРОИТЬ - Настройка -----------------------------------------------------------------------------------------------------------------
-static const SButton bTune_Settings 
-(
+static const char * const titlesTune_Settings[] =
+{
     "Настройка", "Setup",
     "Позволяет выбрать необходимые измерения",
-    "Allows to choose necessary measurements",
-    &ppTune, OnPress_Tune_Settings, Draw_Tune_Settings
+    "Allows to choose necessary measurements"
+};
+
+static const SButton bTune_Settings 
+(
+    titlesTune_Settings, &ppTune, OnPress_Tune_Settings, Draw_Tune_Settings
 );
 
 static void OnPress_Tune_Settings(void)

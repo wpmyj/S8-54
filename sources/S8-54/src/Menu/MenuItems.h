@@ -95,6 +95,10 @@ typedef enum
     Page_NoPage
 } NamePage;
 
+#define FuncDraw    EmptyFuncVII
+#define FuncActive  EmptyFuncBV
+#define FuncPress   EmptyFuncVV
+
 class Control
 {
 public:
@@ -165,10 +169,6 @@ typedef struct
 } Empty;
 
 #define COMMON_INIT                     \
-    titleHint[0] = titleRu;             \
-    titleHint[1] = titleEn;             \
-    titleHint[2] = hintRu;              \
-    titleHint[3] = hintEn;              \
     if (funcOnPress == 0)               \
     {                                   \
         funcOnPress = EmptyFuncVV;      \
@@ -185,24 +185,17 @@ typedef struct
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 /// Описывает кнопку.
-class Button : public Control
+struct Button
 {
-public:
-    Button(const char * const title[4], const Page *keeper_,
-        pFuncVV funcOnPress_, pFuncBV funcActive_ = EmptyFuncBV, pFuncVII funcForDraw_ = EmptyFuncVII) : 
-        type(Item_Button), keeper(keeper_), funcOfActive(funcActive_), titleHint((const char **)title), 
-        funcOnPress(funcOnPress_), funcForDraw(funcForDraw_)
-    {
-        if (funcOnPress == 0)  {  funcOnPress = EmptyFuncVV;  }
-        if (funcOfActive == 0) {  funcOfActive = EmptyFuncBV; }
-        if (funcForDraw == 0)  {  funcForDraw = EmptyFuncVII; }
-    };
-    COMMON_PART_MENU_ITEM_NEW
+    COMMON_PART_MENU_ITEM
     pFuncVV     funcOnPress;        ///< Функция, которая вызывается при нажатии на кнопку.
     pFuncVII    funcForDraw;        ///< Функция будет вызываться во время отрисовки кнопки.
     void CallFuncOnDraw(int x, int y);
     void Draw(int x, int y);
 };
+
+#define DEF_BUTTON(name, titleRU, titleEN, hintRU, hintEN, keeper, funcActive, funcPress, funcDraw) \
+static const Button name = { Item_Button, &keeper, funcActive, {titleRU, titleEN, hintRU, hintEN}, funcPress, funcDraw };
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 typedef struct
@@ -216,17 +209,17 @@ typedef struct
 class SButton
 {
 public:
-    SButton(char *titleRu, char *titleEn, char *hintRu, char *hintEn, const Page *keeper_,
+    SButton(const char * const title[4], const Page *keeper_,
         pFuncVV funcOnPress_, pFuncVII funcForDraw_ = EmptyFuncVII, pFuncBV funcActive_ = EmptyFuncBV, const StructHelpSmallButton *hintsUGO = 0,
         int numHints_ = 0) :
-        type(Item_SmallButton), keeper(keeper_), funcOfActive(funcActive_), funcOnPress(funcOnPress_), funcForDraw(funcForDraw_),
-        hintUGO(hintsUGO), numHints(numHints_)
+        type(Item_SmallButton), keeper(keeper_), funcOfActive(funcActive_), titleHint((const char **)title), 
+        funcOnPress(funcOnPress_), funcForDraw(funcForDraw_), hintUGO(hintsUGO), numHints(numHints_)
     {
         COMMON_INIT;
     }
-    COMMON_PART_MENU_ITEM
-    pFuncVV                     funcOnPress;    ///< Эта функция вызвается для обработки нажатия кнопки.
-    pFuncVII                    funcForDraw;    ///< Эта функция вызывается для отрисовки кнопки в месте с координатами x, y.
+    COMMON_PART_MENU_ITEM_NEW
+    pFuncVV                             funcOnPress;    ///< Эта функция вызвается для обработки нажатия кнопки.
+    pFuncVII                            funcForDraw;    ///< Эта функция вызывается для отрисовки кнопки в месте с координатами x, y.
     const StructHelpSmallButton *hintUGO; 
     int numHints;
     void Draw(int x, int y);

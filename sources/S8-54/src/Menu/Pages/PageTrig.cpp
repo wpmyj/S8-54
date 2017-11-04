@@ -237,18 +237,13 @@ static const Choice cSearch_Mode =
     (int8 *)&TRIG_MODE_FIND
 };
 
-static const char * const titlesSearch[4] =
-{
+// СИНХР - ПОИСК - Найти -----------------------------------------------------------------------------------------------------------------------------
+DEF_BUTTON(
+    bSearch_Search,
     "Найти", "Search",
     "Производит поиск уровня синхронизации.",
-    "Runs for search synchronization level."    
-};
-
-// СИНХР - ПОИСК - Найти -----------------------------------------------------------------------------------------------------------------------------
-static const Button bSearch_Search
-(   
-    titlesSearch, &ppSearch, OnPress_Search_Search, IsActive_Search_Search
-);
+    "Runs for search synchronization level.",
+    ppSearch, IsActive_Search_Search, OnPress_Search_Search, FuncDraw);
 
 static bool IsActive_Search_Search(void)
 {

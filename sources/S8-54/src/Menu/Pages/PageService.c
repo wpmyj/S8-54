@@ -145,18 +145,13 @@ const Page pService =
     }
 };
 
-static const char * const titlesResetSettings[] =
-{
+// СЕРВИС - Сброс настроек ---------------------------------------------------------------------------------------------------------------------------
+DEF_BUTTON(
+    bResetSettings,
     "Сброс настроек", "Reset settings",
     "Сброс настроек на настройки по умолчанию",
-    "Reset to default settings"    
-};
-
-// СЕРВИС - Сброс настроек ---------------------------------------------------------------------------------------------------------------------------
-static const Button bResetSettings
-(
-    titlesResetSettings, &pService, OnPress_ResetSettings
-);
+    "Reset to default settings",
+    pService, EmptyFuncBV, OnPress_ResetSettings, EmptyFuncVII);
 
 void OnPress_ResetSettings(void)
 {
@@ -183,18 +178,13 @@ static void Draw_ResetSettings(void)
     painter.EndScene();
 }
 
-static const char * const titlesAutoSearch[] =
-{
+// СЕРВИС - Поиск сигнала ----------------------------------------------------------------------------------------------------------------------------
+DEF_BUTTON(
+    bAutoSearch,
     "Поиск сигнала", "Find signal",
     "Устанавливает оптимальные установки осциллографа для сигнала в канале 1",
-    "Sets optimal settings for the oscilloscope signal on channel 1"
-};
-
-// СЕРВИС - Поиск сигнала ----------------------------------------------------------------------------------------------------------------------------
-static const Button bAutoSearch
-(
-    titlesAutoSearch, &pService, OnPress_AutoSearch
-);
+    "Sets optimal settings for the oscilloscope signal on channel 1",
+    pService, FuncActive, OnPress_AutoSearch, FuncDraw);
 
 static void OnPress_AutoSearch(void)
 {
@@ -241,18 +231,13 @@ static void OnChanged_Calibrator_Calibrator(bool active)
     FPGA_SetCalibratorMode(CALIBRATOR_MODE);
 }
 
-static const char * const titlesCalibrator_Calibrate[] =
-{
+// СЕРВИС - КАЛИБРАТОР - Калибровать -----------------------------------------------------------------------------------------------------------------
+DEF_BUTTON(
+    bCalibrator_Calibrate,
     "Калибровать", "Calibrate",
     "Запуск процедуры калибровки",
-    "Running the calibration procedure"
-};
-
-// СЕРВИС - КАЛИБРАТОР - Калибровать -----------------------------------------------------------------------------------------------------------------
-static const Button bCalibrator_Calibrate
-(
-    titlesCalibrator_Calibrate, &ppCalibrator, OnPress_Calibrator_Calibrate, IsActive_Calibrator_Calibrate
-);
+    "Running the calibration procedure",
+    ppCalibrator, IsActive_Calibrator_Calibrate, OnPress_Calibrator_Calibrate, FuncDraw);
 
 static bool IsActive_Calibrator_Calibrate(void)
 {
@@ -570,12 +555,15 @@ static const SButton bFFT_Cursors_Exit
 );
 
 // СЕРВИС - СПЕКТР - КУРСОРЫ - Источник --------------------------------------------------------------------------------------------------------------
-static const SButton bFFT_Cursors_Source
-(
+static const char * const titleFFT_Cursors_Source[] =
+{
      "Источник", "Source",
      "Выбор источника для расчёта спектра",
-     "Source choice for calculation of a range",
-    &pppFFT_Cursors, OnPress_FFT_Cursors_Source, Draw_FFT_Cursors_Source
+     "Source choice for calculation of a range"
+};
+static const SButton bFFT_Cursors_Source
+(
+    titleFFT_Cursors_Source, &pppFFT_Cursors, OnPress_FFT_Cursors_Source, Draw_FFT_Cursors_Source
 );
 
 static void OnPress_FFT_Cursors_Source(void)
@@ -716,12 +704,16 @@ static void OnRegSet_Function(int delta)
 }
 
 // СЕРВИС - ФУНКЦИЯ - Выход --------------------------------------------------------------------------------------------------------------------------
-static const SButton bFunction_Exit
-(
+static const char * const titleFunction_Exit[] =
+{
     "Выход", "Exit",
     "Кнопка для выхода в предыдущее меню",
-    "Button to return to the previous menu",
-    &ppFunction, 0, DrawSB_Exit
+    "Button to return to the previous menu"
+};
+
+static const SButton bFunction_Exit
+(
+    titleFunction_Exit, &ppFunction, 0, DrawSB_Exit
 );
 
 static const StructHelpSmallButton hintsScreen[] =
@@ -735,13 +727,16 @@ static const StructHelpSmallButton hintsScreen[] =
 };
 
 // СЕРВИС - ФУНКЦИЯ - Экран --------------------------------------------------------------------------------------------------------------------------
-static const SButton bFunction_Screen
-(
+static const char * const titlesFunction_Screen[] =
+{
     "Экран", "Display",
     "Выбирает режим отображения математического сигнала",
-    "Chooses the mode of display of a mathematical signal",
-    &ppFunction, OnPress_Function_Screen, Draw_Function_Screen, 0,
-    hintsScreen, 3
+    "Chooses the mode of display of a mathematical signal"
+};
+
+static const SButton bFunction_Screen
+(
+    titlesFunction_Screen, &ppFunction, OnPress_Function_Screen, Draw_Function_Screen, 0, hintsScreen, 3
 );
 
 static void OnPress_Function_Screen(void)
@@ -791,13 +786,16 @@ static const StructHelpSmallButton hintsType[] =
 };
 
 // СЕРВИС - ФУНКЦИЯ - Вид ----------------------------------------------------------------------------------------------------------------------------
-static const SButton bFunction_Type
-(
+static const char * const titlesFunction_Type[] =
+{
     "Вид", "Type",
     "Выбор математической функции",
-    "Choice of mathematical function",
-    &ppFunction, OnPress_Function_Type, Draw_Function_Type, 0,
-    hintsType, 2
+    "Choice of mathematical function"
+};
+
+static const SButton bFunction_Type
+(
+    titlesFunction_Type, &ppFunction, OnPress_Function_Type, Draw_Function_Type, 0, hintsType, 2
 );
 
 static void OnPress_Function_Type(void)
@@ -831,12 +829,16 @@ static const StructHelpSmallButton hintsModeRegSet[] =
 };
 
 // СЕРВИС - ФУНКЦИЯ - Режим ручки УСТАНОВКА ----------------------------------------------------------------------------------------------------------
-static const SButton bFunction_ModeRegSet
-(
+static const char * const titlesFunction_ModeRegSet[] =
+{
     "Режим ручки УСТАНОВКА", "Mode regulator SET",
     "Выбор режима ручки УСТАНОВКА - управление масштабом или смещением",
-    "Choice mode regulcator УСТАНОВКА - management of scale or shift",
-    &ppFunction, OnPress_Function_ModeRegSet, Draw_Function_ModeRegSet, 0, hintsModeRegSet, 2
+    "Choice mode regulcator УСТАНОВКА - management of scale or shift"
+};
+
+static const SButton bFunction_ModeRegSet
+(
+    titlesFunction_ModeRegSet, &ppFunction, OnPress_Function_ModeRegSet, Draw_Function_ModeRegSet, 0, hintsModeRegSet, 2
 );
 
 static void OnPress_Function_ModeRegSet(void)
@@ -861,12 +863,16 @@ static void Draw_Function_ModeRegSet_RShift(int x, int y)
 }
 
 // СЕРВИС - ФУНКЦИЯ - Масштаб 1-го канала ------------------------------------------------------------------------------------------------------------
-static const SButton bFunction_RangeA
-(
+static const char * const titlesFunction_RangeA[] =
+{
     "Масштаб 1-го канала", "Scale of the 1st channel",
     "Использует масштаб первого канала для отображения результата",
-    "Takes scale for a mathematical signal from the first channel",
-    &ppFunction, OnPress_Function_RangeA, Draw_Function_RangeA
+    "Takes scale for a mathematical signal from the first channel"
+};
+
+static const SButton bFunction_RangeA
+(
+    titlesFunction_RangeA, &ppFunction, OnPress_Function_RangeA, Draw_Function_RangeA
 );
 
 static void OnPress_Function_RangeA(void)
@@ -881,12 +887,16 @@ static void Draw_Function_RangeA(int x, int y)
 }
 
 // СЕРВИС - ФУНКЦИЯ - Масштаб 2-го канала ------------------------------------------------------------------------------------------------------------
-static const SButton bFunction_RangeB
-(
+static const char * const titlesFunction_RangeB[] =
+{
     "Масштаб 2-го канала", "Scale of the 2nd channel",
     "Использует масштаб второго канала для отображения результата",
-    "Takes scale for a mathematical signal from the second channel",
-    &ppFunction, OnPress_Function_RangeB, Draw_Function_RangeB
+    "Takes scale for a mathematical signal from the second channel"
+};
+
+static const SButton bFunction_RangeB
+(
+    titlesFunction_RangeB, &ppFunction, OnPress_Function_RangeB, Draw_Function_RangeB
 );
 
 static void OnPress_Function_RangeB(void)

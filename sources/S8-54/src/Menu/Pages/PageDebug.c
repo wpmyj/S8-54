@@ -448,18 +448,13 @@ static const Choice cConsole_Registers_TShift =
     (int8 *)&set.dbg_ShowTShift
 };
 
-static const char * const titlesConsole_SizeSettings[] =
-{
+// ОТЛАДКА - КОНСОЛЬ - Размер настроек ---------------------------------------------------------------------------------------------------------------
+DEF_BUTTON(
+    bConsole_SizeSettings,
     "", "",
     "Показывает текущий размер структуры для сохранения настроек",
-    "Displays the current size of the structure to save settings"
-};
-
-// ОТЛАДКА - КОНСОЛЬ - Размер настроек ---------------------------------------------------------------------------------------------------------------
-static const Button bConsole_SizeSettings
-(
-    titlesConsole_SizeSettings, &ppConsole, 0, 0, Draw_Console_SizeSettings
-);
+    "Displays the current size of the structure to save settings",
+    ppConsole, FuncActive, FuncPress, Draw_Console_SizeSettings);
 
 static void Draw_Console_SizeSettings(int x, int y)
 {
@@ -808,18 +803,13 @@ static const Page pppADC_Shift =
     }
 };
 
-static const char * const titlesADC_Shift_Reset[] =
-{
+// ОТЛАДКА - АЦП - ДОП СМЕЩ - Сброс ------------------------------------------------------------------------------------------------------------------
+DEF_BUTTON(
+    bADC_Shift_Reset,
     "Сброс", "Reset",
     "",
     "",    
-};
-
-// ОТЛАДКА - АЦП - ДОП СМЕЩ - Сброс ------------------------------------------------------------------------------------------------------------------
-static const Button bADC_Shift_Reset
-(
-    titlesADC_Shift_Reset, &pppADC_Shift, OnPress_ADC_Shift_Reset
-);
+    pppADC_Shift, FuncActive, OnPress_ADC_Shift_Reset, FuncDraw);
 
 static void OnPress_ADC_Shift_Reset(void)
 {
@@ -1335,18 +1325,13 @@ static const Choice cStats =
     (int8 *)&SHOW_STAT
 };
 
-static const char * const titlesSaveFirmware[] =
-{
+// ОТЛАДКА - Сохр. прошивку --------------------------------------------------------------------------------------------------------------------------
+DEF_BUTTON(
+    bSaveFirmware,
     "Сохр. прошивку", "Save firmware",
     "Сохранение прошивки - секторов 5, 6, 7 общим объёмом 3 х 128 кБ, где хранится программа",
-    "Saving firmware - sectors 5, 6, 7 with a total size of 3 x 128 kB, where the program is stored"
-};
-
-// ОТЛАДКА - Сохр. прошивку --------------------------------------------------------------------------------------------------------------------------
-static const Button bSaveFirmware
-(
-    titlesSaveFirmware, &pDebug, OnPress_SaveFirmware, IsActive_SaveFirmware
-);
+    "Saving firmware - sectors 5, 6, 7 with a total size of 3 x 128 kB, where the program is stored",
+    pDebug, IsActive_SaveFirmware, OnPress_SaveFirmware, FuncDraw);
 
 static bool IsActive_SaveFirmware(void)
 {
@@ -1379,18 +1364,13 @@ static void OnPress_SaveFirmware(void)
     display.ShowWarning(FirmwareSaved);
 }
 
-static const char * const titlesEraseData[] =
-{
+// ОТЛАДКА - Стереть данные --------------------------------------------------------------------------------------------------------------------------
+DEF_BUTTON(
+    bEraseData,
     "Стереть данне", "Erase data",
     "Стирает сохранённые данные из ППЗУ",
-    "Erase all saved datas from EEPROM"
-};
-
-// ОТЛАДКА - Стереть данные --------------------------------------------------------------------------------------------------------------------------
-static const Button bEraseData
-(
-    titlesEraseData, &pDebug, OnPress_EraseData
-);
+    "Erase all saved datas from EEPROM",
+    pDebug, FuncActive, OnPress_EraseData, FuncDraw);
 
 static void OnPress_EraseData(void)
 {
@@ -1519,12 +1499,16 @@ static void OnPress_SerialNumber_Exit(void)
 }
 
 // ОТЛАДКА - С/Н - Вставить --------------------------------------------------------------------------------------------------------------------------
-static const SButton bSerialNumber_Change
-(
+static const char * const titlesSerialNumber_Change[] =
+{
     "Вставить", "Insert",
     "Вставляет выбраный символ",
-    "Inserts the chosen symbol",
-    &ppSerialNumber, OnPress_SerialNumber_Change, Draw_SerialNumber_Change
+    "Inserts the chosen symbol"
+};
+
+static const SButton bSerialNumber_Change
+(
+    titlesSerialNumber_Change, &ppSerialNumber, OnPress_SerialNumber_Change, Draw_SerialNumber_Change
 );
 
 static void OnPress_SerialNumber_Change(void)
@@ -1543,12 +1527,16 @@ static void Draw_SerialNumber_Change(int x, int y)
 }
 
 // ОТЛАДКА - С/Н - Сохранить -------------------------------------------------------------------------------------------------------------------------
-static const SButton bSerialNumber_Save
-(
+static const char * const titlesSerialNumber_Save[] =
+{
     "Сохранить", "Save",
     "Записывает серийный номер в OTP",
-    "Records the serial number in OTP",
-    &ppSerialNumber, OnPress_SerialNumber_Save, Draw_SerialNumber_Save
+    "Records the serial number in OTP"
+};
+
+static const SButton bSerialNumber_Save
+(
+    titlesSerialNumber_Save, &ppSerialNumber, OnPress_SerialNumber_Save, Draw_SerialNumber_Save
 );
 
 static void OnPress_SerialNumber_Save(void)

@@ -177,18 +177,13 @@ static const Choice cAccum_Mode =
     (int8 *)&MODE_ACCUM
 };
 
-static const char * const titlesAccumClear[] =
-{
+// ДИСПЛЕЙ - НАКОПЛЕНИЕ - Очистить -------------------------------------------------------------------------------------------------------------------
+DEF_BUTTON(
+    bAccum_Clear,
     "Очистить", "Clear",
     "Очищает экран от накопленных сигналов.",
-    "Clears the screen of the saved-up signals."    
-};
-
-// ДИСПЛЕЙ - НАКОПЛЕНИЕ - Очистить -------------------------------------------------------------------------------------------------------------------
-static const Button bAccum_Clear
-(
-    titlesAccumClear, &ppAccum, OnPress_Accum_Clear, IsActive_Accum_Clear
-);
+    "Clears the screen of the saved-up signals.",
+    ppAccum, IsActive_Accum_Clear, OnPress_Accum_Clear, FuncDraw);
 
 static bool IsActive_Accum_Clear(void)
 {
