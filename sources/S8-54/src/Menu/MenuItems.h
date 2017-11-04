@@ -118,6 +118,12 @@ protected:
     pFuncBV                 funcOfActive;   /* Активен ли данный элемент */                                     \
     const char             *titleHint[4];   /* Название страницы на русском и английском языках. Также подсказка для режима помощи */
 
+#define COMMON_PART_MENU_ITEM_NEW                                                                               \
+    TypeItem                type;           /* Тип итема */                                                     \
+    const struct Page      *keeper;         /* Адрес страницы, которой принадлежит. Для Page_Main = 0 */        \
+    pFuncBV                 funcOfActive;   /* Активен ли данный элемент */                                     \
+    const char             **titleHint;     /* Название страницы на русском и английском языках. Также подсказка для режима помощи */
+
 struct SButton;
 
 /// Описывает страницу меню.
@@ -182,13 +188,16 @@ typedef struct
 class Button : public Control
 {
 public:
-    Button(char *titleRu, char *titleEn, char *hintRu, char *hintEn, const Page *keeper_,
+    Button(const char * const title[4], const Page *keeper_,
         pFuncVV funcOnPress_, pFuncBV funcActive_ = EmptyFuncBV, pFuncVII funcForDraw_ = EmptyFuncVII) : 
-        type(Item_Button), keeper(keeper_), funcOfActive(funcActive_), funcOnPress(funcOnPress_), funcForDraw(funcForDraw_)
+        type(Item_Button), keeper(keeper_), funcOfActive(funcActive_), titleHint((const char **)title), 
+        funcOnPress(funcOnPress_), funcForDraw(funcForDraw_)
     {
-        COMMON_INIT;
+        if (funcOnPress == 0)  {  funcOnPress = EmptyFuncVV;  }
+        if (funcOfActive == 0) {  funcOfActive = EmptyFuncBV; }
+        if (funcForDraw == 0)  {  funcForDraw = EmptyFuncVII; }
     };
-    COMMON_PART_MENU_ITEM
+    COMMON_PART_MENU_ITEM_NEW
     pFuncVV     funcOnPress;        ///< Функция, которая вызывается при нажатии на кнопку.
     pFuncVII    funcForDraw;        ///< Функция будет вызываться во время отрисовки кнопки.
     void CallFuncOnDraw(int x, int y);
@@ -204,7 +213,7 @@ typedef struct
 
 
 /// Описывает кнопку для дополнительного режима меню.
-class SButton : public Control
+class SButton
 {
 public:
     SButton(char *titleRu, char *titleEn, char *hintRu, char *hintEn, const Page *keeper_,
@@ -363,7 +372,7 @@ typedef struct
 #define iSET    7
 
 /// Устанавливает и показывает время.
-class Time : public Control
+class Time
 {
 public:
     Time(char *titleRu, char *titleEn, char *hintRu, char *hintEn, const Page *keeper_, pFuncBV funcActive_,

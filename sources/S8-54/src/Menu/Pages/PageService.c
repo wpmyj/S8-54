@@ -145,13 +145,17 @@ const Page pService =
     }
 };
 
+static const char * const titlesResetSettings[] =
+{
+    "Сброс настроек", "Reset settings",
+    "Сброс настроек на настройки по умолчанию",
+    "Reset to default settings"    
+};
+
 // СЕРВИС - Сброс настроек ---------------------------------------------------------------------------------------------------------------------------
 static const Button bResetSettings
 (
-    "Сброс настроек", "Reset settings",
-    "Сброс настроек на настройки по умолчанию",
-    "Reset to default settings",
-    &pService, OnPress_ResetSettings
+    titlesResetSettings, &pService, OnPress_ResetSettings
 );
 
 void OnPress_ResetSettings(void)
@@ -179,13 +183,17 @@ static void Draw_ResetSettings(void)
     painter.EndScene();
 }
 
+static const char * const titlesAutoSearch[] =
+{
+    "Поиск сигнала", "Find signal",
+    "Устанавливает оптимальные установки осциллографа для сигнала в канале 1",
+    "Sets optimal settings for the oscilloscope signal on channel 1"
+};
+
 // СЕРВИС - Поиск сигнала ----------------------------------------------------------------------------------------------------------------------------
 static const Button bAutoSearch
 (
-    "Поиск сигнала", "Find signal",
-    "Устанавливает оптимальные установки осциллографа для сигнала в канале 1",
-    "Sets optimal settings for the oscilloscope signal on channel 1",
-    &pService, OnPress_AutoSearch
+    titlesAutoSearch, &pService, OnPress_AutoSearch
 );
 
 static void OnPress_AutoSearch(void)
@@ -233,13 +241,17 @@ static void OnChanged_Calibrator_Calibrator(bool active)
     FPGA_SetCalibratorMode(CALIBRATOR_MODE);
 }
 
+static const char * const titlesCalibrator_Calibrate[] =
+{
+    "Калибровать", "Calibrate",
+    "Запуск процедуры калибровки",
+    "Running the calibration procedure"
+};
+
 // СЕРВИС - КАЛИБРАТОР - Калибровать -----------------------------------------------------------------------------------------------------------------
 static const Button bCalibrator_Calibrate
 (
-    "Калибровать", "Calibrate",
-    "Запуск процедуры калибровки",
-    "Running the calibration procedure",
-    &ppCalibrator, OnPress_Calibrator_Calibrate, IsActive_Calibrator_Calibrate
+    titlesCalibrator_Calibrate, &ppCalibrator, OnPress_Calibrator_Calibrate, IsActive_Calibrator_Calibrate
 );
 
 static bool IsActive_Calibrator_Calibrate(void)

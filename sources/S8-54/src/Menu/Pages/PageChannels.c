@@ -210,13 +210,17 @@ static const Choice cChanA_Divider =
     (int8 *)&SET_DIVIDER_A
 };
 
-// КАНАЛ 1 - Балансировать ---------------------------------------------------------------------------------------------------------------------------
-static const Button bChanA_Balance
-(
+static const char * const titlesBalanceA[] =
+{
     "Балансировать", "Balance",
     "Балансировать канал",
-    "Balancing channel",
-    &pChanA, OnPress_ChanA_Balance
+    "Balancing channel"
+};
+
+// КАНАЛ 1 - Балансировать ---------------------------------------------------------------------------------------------------------------------------
+static const Button bChanA_Balance
+(   
+    titlesBalanceA, &pChanA, OnPress_ChanA_Balance
 );
 
 static void OnPress_ChanA_Balance(void)
@@ -385,13 +389,17 @@ static const Choice cChanB_Divider =
     (int8 *)&SET_DIVIDER_B
 };
 
+static const char * const titlesBalanceB[] =
+{
+    "Балансировать", "Balance",
+    "Балансировать канал",
+    "Balancing channel"    
+};
+
 // КАНАЛ 2 - Балансировать ---------------------------------------------------------------------------------------------------------------------------
 static const Button bChanB_Balance
 (
-    "Балансировать", "Balance",
-    "Балансировать канал",
-    "Balancing channel",
-    &pChanB, OnPress_ChanB_Balance
+    titlesBalanceB, &pChanB, OnPress_ChanB_Balance
 );
 
 static void OnPress_ChanB_Balance(void)
