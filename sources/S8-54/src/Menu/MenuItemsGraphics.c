@@ -9,7 +9,6 @@
 
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-static void MACaddress_DrawOpened(MACaddress *mac, int x, int y);
 static void DrawGovernorChoiceColorFormulaHiPart(void *item, int x, int y, bool pressed, bool shade, bool opened);
 static void GovernorIpCommon_DrawOpened(void *item, int x, int y, int dWidth);
 static void DrawValueWithSelectedPosition(int x, int y, int value, int numDigits, int selPos, bool hLine, bool fillNull);
@@ -285,6 +284,136 @@ void IPaddress::DrawLowPart(int x, int y, bool pressed, bool shade)
     }
 }
 
+//----------------------------------------------------------------------------------------------------------------------------------------------------
+void MACaddress::Draw(int x, int y, bool opened)
+{
+    if (opened)
+    {
+        DrawOpened(x, y);
+    }
+    else
+    {
+        DrawClosed(x, y);
+    }
+}
+
+//----------------------------------------------------------------------------------------------------------------------------------------------------
+void MACaddress::DrawOpened(int x, int y)
+{
+    GovernorIpCommon_DrawOpened(this, x, y, 0);
+    DrawValue(x, y + 22);
+}
+
+//----------------------------------------------------------------------------------------------------------------------------------------------------
+void MACaddress::DrawClosed(int x, int y)
+{
+    bool pressed = IsPressed(this);
+    bool shade = IsShade(this) || !ItemIsAcitve(this);
+    DrawLowPart(x, y, pressed, shade);
+    DrawGovernorChoiceColorFormulaHiPart(this, x, y, pressed, shade, false);
+}
+
+//----------------------------------------------------------------------------------------------------------------------------------------------------
+void MACaddress::DrawValue(int x, int y)
+{
+    if (gCurDigit > 5)
+    {
+        gCurDigit = 0;
+    }
+    uint8 *bytes = mac0;
+    x += MOI_WIDTH - 14;
+    y++;
+    for (int num = 5; num >= 0; num--)
+    {
+        int value = (int)(*(bytes + num));
+        if (gCurDigit == num)
+        {
+            painter.FillRegion(x - 1, y, 10, 8, Color::WHITE);
+        }
+        const int SIZE = 20;
+        char buffer[SIZE];
+        snprintf(buffer, SIZE, "%02X", value);
+        painter.DrawText(x, y, buffer, gCurDigit == num ? Color::BLACK : Color::WHITE);
+        x -= 12;
+    }
+}
+
+//----------------------------------------------------------------------------------------------------------------------------------------------------
+void MACaddress::DrawLowPart(int x, int y, bool pressed, bool shade)
+{
+    const int SIZE = 20;
+    char buffer[SIZE];
+
+    Color colorTextDown = Color::BLACK;
+
+    painter.DrawVolumeButton(x + 1, y + 17, MI_WIDTH_VALUE + 2, MI_HEIGHT_VALUE + 3, 2, Color::MENU_FIELD,
+                             Color::MENU_ITEM_BRIGHT, Color::MENU_ITEM_DARK, true, shade);
+    if (shade)
+    {
+        colorTextDown = Color::MenuItem(false);
+    }
+
+    snprintf(buffer, SIZE, "%02X.%02X.%02X.%02X.%02X.%02X", *mac0, *mac1, *mac2, *mac3, *mac4, *mac5);
+
+    if (OpenedItem() != this)
+    {
+
+        painter.DrawText(x + 4, y + 21, buffer, colorTextDown);
+    }
+    else
+    {
+        painter.DrawText(x + 4, y + 21, buffer, Color::WHITE);
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -405,33 +534,7 @@ static void DrawGovernorChoiceColorFormulaHiPart(void *item, int x, int y, bool 
 
 
 
-//----------------------------------------------------------------------------------------------------------------------------------------------------
-static void DrawMACaddressLowPart(MACaddress *mac, int x, int y, bool pressed, bool shade)
-{
-    const int SIZE = 20;
-    char buffer[SIZE];
 
-    Color colorTextDown = Color::BLACK;
-
-    painter.DrawVolumeButton(x + 1, y + 17, MI_WIDTH_VALUE + 2, MI_HEIGHT_VALUE + 3, 2, Color::MENU_FIELD,
-                             Color::MENU_ITEM_BRIGHT, Color::MENU_ITEM_DARK, true, shade);
-    if (shade)
-    {
-        colorTextDown = Color::MenuItem(false);
-    }
-
-    snprintf(buffer, SIZE, "%02X.%02X.%02X.%02X.%02X.%02X", *mac->mac0, *mac->mac1, *mac->mac2, *mac->mac3, *mac->mac4, *mac->mac5);
-
-    if (OpenedItem() != mac)
-    {
-
-        painter.DrawText(x + 4, y + 21, buffer, colorTextDown);
-    }
-    else
-    {
-        painter.DrawText(x + 4, y + 21, buffer, Color::WHITE);
-    }
-}
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
 void WriteTextFormula(Formula *formula, int x, int y, bool opened)
@@ -480,14 +583,7 @@ void DrawFormulaLowPart(Formula *formula, int x, int y, bool pressed, bool shade
 
 
 
-//----------------------------------------------------------------------------------------------------------------------------------------------------
-static void MACaddress_DrawClosed(MACaddress *mac, int x, int y)
-{
-    bool pressed = IsPressed(mac);
-    bool shade = IsShade(mac) || !ItemIsAcitve(mac);
-    DrawMACaddressLowPart(mac, x, y, pressed, shade);
-    DrawGovernorChoiceColorFormulaHiPart(mac, x, y, pressed, shade, false);
-}
+
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
 void Formula_DrawClosed(Formula *formula, int x, int y)
@@ -530,47 +626,13 @@ static void DrawValueWithSelectedPosition(int x, int y, int value, int numDigits
 
 
 
-//----------------------------------------------------------------------------------------------------------------------------------------------------
-static void DrawMACvalue(int x, int y, MACaddress *mac)
-{
-    if (gCurDigit > 5)
-    {
-        gCurDigit = 0;
-    }
-    uint8 *bytes = mac->mac0;
-    x += MOI_WIDTH - 14;
-    y++;
-    for (int num = 5; num >= 0; num--)
-    {
-        int value = (int)(*(bytes + num));
-        if (gCurDigit == num)
-        {
-            painter.FillRegion(x - 1, y, 10, 8, Color::WHITE);
-        }
-        const int SIZE = 20;
-        char buffer[SIZE];
-        snprintf(buffer, SIZE, "%02X", value);
-        painter.DrawText(x, y, buffer, gCurDigit == num ? Color::BLACK : Color::WHITE);
-        x -= 12;
-    }
-}
 
 
 
 
 
-//----------------------------------------------------------------------------------------------------------------------------------------------------
-void MACaddress_Draw(MACaddress *mac, int x, int y, bool opened)
-{
-    if (opened)
-    {
-        MACaddress_DrawOpened(mac, x, y);
-    }
-    else
-    {
-        MACaddress_DrawClosed(mac, x, y);
-    }
-}
+
+
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
 void Formula_Draw(Formula *formula, int x, int y, bool opened)
@@ -700,12 +762,7 @@ static void GovernorIpCommon_DrawOpened(void *item, int x, int y, int dWidth)
 
 
 
-//----------------------------------------------------------------------------------------------------------------------------------------------------
-static void MACaddress_DrawOpened(MACaddress *mac, int x, int y)
-{
-    GovernorIpCommon_DrawOpened(mac, x, y, 0);
-    DrawMACvalue(x, y + 22, mac);
-}
+
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
 void Choice_DrawClosed(Choice *choice, int x, int y)

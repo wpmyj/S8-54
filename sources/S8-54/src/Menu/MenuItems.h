@@ -210,6 +210,11 @@ typedef struct
     uint8 *mac5;
     pFuncVB funcOfChanged;
     void ChangeValue(int delta);
+    void Draw(int x, int y, bool opened);
+    void DrawOpened(int x, int y);
+    void DrawClosed(int x, int y);
+    void DrawValue(int x, int y);
+    void DrawLowPart(int x, int y, bool pressed, bool shade);
 } MACaddress;
 
 /// Описывает элемент меню для установки коэффициентов и знаков математической формулы
