@@ -146,16 +146,13 @@ const Page pService =
 };
 
 // СЕРВИС - Сброс настроек ---------------------------------------------------------------------------------------------------------------------------
-static const Button bResetSettings =
-{
-    Item_Button, &pService, 0,
-    {
-        "Сброс настроек", "Reset settings",
-        "Сброс настроек на настройки по умолчанию",
-        "Reset to default settings"
-    },
-    OnPress_ResetSettings
-};
+static const Button bResetSettings
+(
+    "Сброс настроек", "Reset settings",
+    "Сброс настроек на настройки по умолчанию",
+    "Reset to default settings",
+    &pService, OnPress_ResetSettings
+);
 
 void OnPress_ResetSettings(void)
 {
@@ -183,16 +180,13 @@ static void Draw_ResetSettings(void)
 }
 
 // СЕРВИС - Поиск сигнала ----------------------------------------------------------------------------------------------------------------------------
-static const Button bAutoSearch =
-{
-    Item_Button, &pService, 0,
-    {
-        "Поиск сигнала", "Find signal",
-        "Устанавливает оптимальные установки осциллографа для сигнала в канале 1",
-        "Sets optimal settings for the oscilloscope signal on channel 1"
-    },
-    OnPress_AutoSearch
-};
+static const Button bAutoSearch
+(
+    "Поиск сигнала", "Find signal",
+    "Устанавливает оптимальные установки осциллографа для сигнала в канале 1",
+    "Sets optimal settings for the oscilloscope signal on channel 1",
+    &pService, OnPress_AutoSearch
+);
 
 static void OnPress_AutoSearch(void)
 {
@@ -240,16 +234,13 @@ static void OnChanged_Calibrator_Calibrator(bool active)
 }
 
 // СЕРВИС - КАЛИБРАТОР - Калибровать -----------------------------------------------------------------------------------------------------------------
-static const Button bCalibrator_Calibrate =
-{
-    Item_Button, &ppCalibrator, IsActive_Calibrator_Calibrate,
-    {
-        "Калибровать", "Calibrate",
-        "Запуск процедуры калибровки",
-        "Running the calibration procedure"
-    },
-    OnPress_Calibrator_Calibrate
-};
+static const Button bCalibrator_Calibrate
+(
+    "Калибровать", "Calibrate",
+    "Запуск процедуры калибровки",
+    "Running the calibration procedure",
+    &ppCalibrator, OnPress_Calibrator_Calibrate, IsActive_Calibrator_Calibrate
+);
 
 static bool IsActive_Calibrator_Calibrate(void)
 {

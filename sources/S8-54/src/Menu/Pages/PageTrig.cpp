@@ -238,16 +238,13 @@ static const Choice cSearch_Mode =
 };
 
 // СИНХР - ПОИСК - Найти -----------------------------------------------------------------------------------------------------------------------------
-static const Button bSearch_Search =
-{
-    Item_Button, &ppSearch, IsActive_Search_Search,
-    {
-        "Найти", "Search",
-        "Производит поиск уровня синхронизации.",
-        "Runs for search synchronization level."
-    },
-    OnPress_Search_Search, EmptyFuncVII
-};
+static const Button bSearch_Search
+(
+    "Найти", "Search",
+    "Производит поиск уровня синхронизации.",
+    "Runs for search synchronization level.",
+    &ppSearch, OnPress_Search_Search, IsActive_Search_Search
+);
 
 static bool IsActive_Search_Search(void)
 {

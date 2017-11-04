@@ -211,16 +211,13 @@ static const Choice cChanA_Divider =
 };
 
 // КАНАЛ 1 - Балансировать ---------------------------------------------------------------------------------------------------------------------------
-static const Button bChanA_Balance =
-{
-    Item_Button, &pChanA, 0,
-    {
-        "Балансировать", "Balance",
-        "Балансировать канал",
-        "Balancing channel"
-    },
-    OnPress_ChanA_Balance
-};
+static const Button bChanA_Balance
+(
+    "Балансировать", "Balance",
+    "Балансировать канал",
+    "Balancing channel",
+    &pChanA, OnPress_ChanA_Balance
+);
 
 static void OnPress_ChanA_Balance(void)
 {
@@ -389,16 +386,13 @@ static const Choice cChanB_Divider =
 };
 
 // КАНАЛ 2 - Балансировать ---------------------------------------------------------------------------------------------------------------------------
-static const Button bChanB_Balance =
-{
-    Item_Button, &pChanB, 0,
-    {
-        "Балансировать", "Balance",
-        "Балансировать канал",
-        "Balancing channel"
-    },
-    OnPress_ChanB_Balance
-};
+static const Button bChanB_Balance
+(
+    "Балансировать", "Balance",
+    "Балансировать канал",
+    "Balancing channel",
+    &pChanB, OnPress_ChanB_Balance
+);
 
 static void OnPress_ChanB_Balance(void)
 {

@@ -178,16 +178,13 @@ static const Choice cAccum_Mode =
 };
 
 // ДИСПЛЕЙ - НАКОПЛЕНИЕ - Очистить -------------------------------------------------------------------------------------------------------------------
-static const Button bAccum_Clear =
-{
-    Item_Button, &ppAccum, IsActive_Accum_Clear,
-    {
-        "Очистить", "Clear",
-        "Очищает экран от накопленных сигналов.",
-        "Clears the screen of the saved-up signals."
-    },
-    OnPress_Accum_Clear, EmptyFuncVII
-};
+static const Button bAccum_Clear
+(
+    "Очистить", "Clear",
+    "Очищает экран от накопленных сигналов.",
+    "Clears the screen of the saved-up signals.",
+    &ppAccum, OnPress_Accum_Clear, IsActive_Accum_Clear
+);
 
 static bool IsActive_Accum_Clear(void)
 {

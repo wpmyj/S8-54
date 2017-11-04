@@ -1,6 +1,7 @@
 #pragma once
 #include "Display/Colors.h"
 #include "Display/Display.h"
+#include "Utils/GlobalFunctions.h"
 #include "defines.h"
 
 
@@ -141,15 +142,44 @@ typedef struct
     COMMON_PART_MENU_ITEM
 } Empty;
 
-/// Описывает кнопку.
-typedef struct
+class Control
 {
+public:
+    /*
+    Control(TypeItem type_, char *titleRu, char *titleEn, char *hintRu, char *hintEn) : type(type_)
+    {
+        titleHint[0] = titleRu;
+        titleHint[1] = titleEn;
+        titleHint[2] = hintRu;
+        titleHint[3] = hintEn;
+    };
+*/
+protected:
+    //TypeItem type;
+};
+
+/// Описывает кнопку.
+class Button : public Control
+{
+public:
+    Button(char *titleRu, char *titleEn, char *hintRu, char *hintEn, const Page *keeper_,
+           pFuncVV funcOnPress_, pFuncBV funcActive_ = EmptyFuncBV, pFuncVII funcForDraw_ = EmptyFuncVII) : 
+        type(Item_Button), keeper(keeper_), funcOfActive(funcActive_), funcOnPress(funcOnPress_), funcForDraw(funcForDraw_)
+        {
+            titleHint[0] = titleRu;
+            titleHint[1] = titleEn;
+            titleHint[2] = hintRu;
+            titleHint[3] = hintEn;
+            if (funcOnPress == 0)  {  funcOnPress = EmptyFuncVV;  }
+            if (funcOfActive == 0) {  funcOfActive = EmptyFuncBV; }
+            if (funcForDraw == 0)  {  funcForDraw = EmptyFuncVII; }
+        };
     COMMON_PART_MENU_ITEM
     pFuncVV     funcOnPress;    ///< Функция, которая вызывается при нажатии на кнопку.
     pFuncVII    funcForDraw;    ///< Функция будет вызываться во время отрисовки кнопки.
     void CallFuncOnDraw(int x, int y);
     void Draw(int x, int y);
-} Button;
+};
 
 typedef struct
 {

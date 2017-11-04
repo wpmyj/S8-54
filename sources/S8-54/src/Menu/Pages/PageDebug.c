@@ -449,16 +449,13 @@ static const Choice cConsole_Registers_TShift =
 };
 
 // ОТЛАДКА - КОНСОЛЬ - Размер настроек ---------------------------------------------------------------------------------------------------------------
-static const Button bConsole_SizeSettings =
-{
-    Item_Button, &ppConsole, 0,
-    {
-        "", "",
-        "Показывает текущий размер структуры для сохранения настроек",
-        "Displays the current size of the structure to save settings"
-    },
-    0, Draw_Console_SizeSettings
-};
+static const Button bConsole_SizeSettings
+(
+    "", "",
+    "Показывает текущий размер структуры для сохранения настроек",
+    "Displays the current size of the structure to save settings",
+    &ppConsole, 0, 0, Draw_Console_SizeSettings
+);
 
 static void Draw_Console_SizeSettings(int x, int y)
 {
@@ -808,16 +805,13 @@ static const Page pppADC_Shift =
 };
 
 // ОТЛАДКА - АЦП - ДОП СМЕЩ - Сброс ------------------------------------------------------------------------------------------------------------------
-static const Button bADC_Shift_Reset =
-{
-    Item_Button, &pppADC_Shift, 0,
-    {
-        "Сброс", "Reset",
-        "",
-        ""
-    },
-    OnPress_ADC_Shift_Reset
-};
+static const Button bADC_Shift_Reset
+(
+    "Сброс", "Reset",
+    "",
+    "",
+    &pppADC_Shift, OnPress_ADC_Shift_Reset
+);
 
 static void OnPress_ADC_Shift_Reset(void)
 {
@@ -1336,16 +1330,13 @@ static const Choice cStats =
 };
 
 // ОТЛАДКА - Сохр. прошивку --------------------------------------------------------------------------------------------------------------------------
-static const Button bSaveFirmware =
-{
-    Item_Button, &pDebug, IsActive_SaveFirmware,
-    {
-        "Сохр. прошивку", "Save firmware",
-        "Сохранение прошивки - секторов 5, 6, 7 общим объёмом 3 х 128 кБ, где хранится программа",
-        "Saving firmware - sectors 5, 6, 7 with a total size of 3 x 128 kB, where the program is stored"
-    },
-    OnPress_SaveFirmware
-};
+static const Button bSaveFirmware
+(
+    "Сохр. прошивку", "Save firmware",
+    "Сохранение прошивки - секторов 5, 6, 7 общим объёмом 3 х 128 кБ, где хранится программа",
+    "Saving firmware - sectors 5, 6, 7 with a total size of 3 x 128 kB, where the program is stored",
+    &pDebug, OnPress_SaveFirmware, IsActive_SaveFirmware
+);
 
 static bool IsActive_SaveFirmware(void)
 {
@@ -1379,16 +1370,13 @@ static void OnPress_SaveFirmware(void)
 }
 
 // ОТЛАДКА - Стереть данные --------------------------------------------------------------------------------------------------------------------------
-static const Button bEraseData =
-{
-    Item_Button, &pDebug, 0,
-    {
-        "Стереть данне", "Erase data",
-        "Стирает сохранённые данные из ППЗУ",
-        "Erase all saved datas from EEPROM"
-    },
-    OnPress_EraseData
-};
+static const Button bEraseData
+(
+    "Стереть данне", "Erase data",
+    "Стирает сохранённые данные из ППЗУ",
+    "Erase all saved datas from EEPROM",
+    &pDebug, OnPress_EraseData
+);
 
 static void OnPress_EraseData(void)
 {

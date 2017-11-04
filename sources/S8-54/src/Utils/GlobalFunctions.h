@@ -123,6 +123,7 @@ void EmptyFuncVV(void);
 void EmptyFuncVpV(void *);
 /// Функция-заглушка. Ничего не делает
 void EmptyFuncVII(int, int);
+bool EmptyFuncBV();
 /// Функция-заглушка. Ничего не делает
 void EmptyFuncpVII(void *, int, int);
 /// Заполнить массив одним значением
