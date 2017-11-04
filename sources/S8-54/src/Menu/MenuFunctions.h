@@ -24,8 +24,6 @@ void *OpenedItem(void);
 void *CurrentItem(void);
 /// ¬озвращает true, если текущий элемент страницы с именем namePage открыт
 bool CurrentItemIsOpened(NamePage namePage);
-/// ¬озвращает позицию текущего элемента странцы page
-int8 PosCurrentItem(const Page *page);
 /// —делать/разделать текущим пункт страницы
 void SetCurrentItem(const void *item,               ///< адрес элемента, активность которого нужно установить/сн€ть
                     bool active                     ///< true - сделать элемент текущим, false - расделать элемент текущим. ¬ этом случае текущим становитс€ заголовок страницы

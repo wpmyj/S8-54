@@ -83,3 +83,9 @@ void Page::ShortPressOnItem(int numItem)
         CallFuncOnPressButton(items[numItem]);
     }
 }
+
+//----------------------------------------------------------------------------------------------------------------------------------------------------
+int8 Page::PosCurrentItem() const
+{
+    return MENU_POS_ACT_ITEM(name) & 0x7f;
+}

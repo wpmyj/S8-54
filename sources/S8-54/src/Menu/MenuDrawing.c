@@ -341,7 +341,7 @@ void DrawOpenedPage(Page *page, int layer, int yTop)
     DrawItemsPage(page, layer, yTop + MP_TITLE_HEIGHT);
     if (CurrentItemIsOpened(page->GetNamePage()))
     {
-        int8 posCurItem = PosCurrentItem(page);
+        int8 posCurItem = page->PosCurrentItem();
         void *item = page->Item(posCurItem);
         for (int i = 0; i < 5; i++)
         {
@@ -420,7 +420,7 @@ void ResetItemsUnderButton(void)
 int ItemOpenedPosY(void *item)
 {
     Page *page = Keeper(item);
-    int8 posCurItem = PosCurrentItem(page);
+    int8 posCurItem = page->PosCurrentItem();
     int y = GRID_TOP + (posCurItem % MENU_ITEMS_ON_DISPLAY) * MI_HEIGHT + MP_TITLE_HEIGHT;
     if(y + HeightOpenedItem(item) > GRID_BOTTOM)
     {
