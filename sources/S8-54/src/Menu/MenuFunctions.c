@@ -58,7 +58,7 @@ void    SetCurrentItem(const void *item, bool active)
         {
             for(int i = 0; i < page->NumItems(); i++)
             {
-                if(Item(page, i) == item)
+                if(page->Item(i) == item)
                 {
                     SetMenuPosActItem(page->name, (int8)i);
                     return;
@@ -82,12 +82,6 @@ void *OpenedItem(void)
 }
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
-void *Item(const Page *page, int numElement)
-{
-    return page->items[numElement + (IsPageSB(page) ? 1 : 0)];
-}
-
-//----------------------------------------------------------------------------------------------------------------------------------------------------
 void *CurrentItem(void)
 {
     TypeItem type = Item_None;
@@ -95,7 +89,7 @@ void *CurrentItem(void)
     int8 pos = PosCurrentItem((const Page *)lastOpened);
     if(type == Item_Page && pos != 0x7f)
     {
-        return Item((const Page *)lastOpened, pos);
+        return ((const Page *)lastOpened)->Item(pos);
     }
     return lastOpened;
 }
@@ -161,8 +155,8 @@ void *RetLastOpened(Page *page, TypeItem *type)
     if(CurrentItemIsOpened(page->GetNamePage()))
     {
         int8 posActItem = PosCurrentItem(page);
-        void *item = Item(page, posActItem);
-        TypeItem typeLocal = TypeMenuItem(Item(page, posActItem));
+        void *item = page->Item(posActItem);
+        TypeItem typeLocal = TypeMenuItem(page->Item(posActItem));
         if(typeLocal == Item_Page)
         {
             return RetLastOpened((Page *)item, type);

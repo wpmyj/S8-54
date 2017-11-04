@@ -283,7 +283,7 @@ int Page::NumItems() const
     {
         for (int i = 0; i < MAX_NUM_ITEMS_IN_PAGE; i++)
         {
-            if (Item(this, i) == 0)
+            if (Item(i) == 0)
             {
                 return i;
             }

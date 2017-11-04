@@ -325,7 +325,7 @@ void DrawItemsPage(Page *page, int layer, int yTop)
     int count = 0;
     for(int posItem = posFirstItem; posItem <= posLastItem; posItem++)
     {
-        void *item = Item(page, posItem);
+        void *item = page->Item(posItem);
         TypeItem type = TypeMenuItem(item);
         int top = yTop + MI_HEIGHT * count;
         funcOfDraw[type](item, CalculateX(layer), top);
@@ -342,7 +342,7 @@ void DrawOpenedPage(Page *page, int layer, int yTop)
     if (CurrentItemIsOpened(page->GetNamePage()))
     {
         int8 posCurItem = PosCurrentItem(page);
-        void *item = Item(page, posCurItem);
+        void *item = page->Item(posCurItem);
         for (int i = 0; i < 5; i++)
         {
             if (itemUnderButton[i + B_F1] != item)
