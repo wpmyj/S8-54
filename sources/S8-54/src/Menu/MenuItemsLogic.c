@@ -416,78 +416,8 @@ void IPaddress::NextPosition()
     CircleIncreaseInt8(&gCurDigit, 0, port == 0 ? 11 : 16);
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-
 //----------------------------------------------------------------------------------------------------------------------------------------------------
-void IPaddress_ChangeValue(IPaddress *ip, int delta)
+void IPaddress::ChangeValue(int delta)
 {
     int numByte = 0;
     int numPos = 0;
@@ -498,12 +428,12 @@ void IPaddress_ChangeValue(IPaddress *ip, int delta)
 
     if (numByte < 4)
     {
-        uint8 *bytes = ip->ip0;
+        uint8 *bytes = ip0;
         oldValue = bytes[numByte];
     }
     else
     {
-        oldValue = *ip->port;
+        oldValue = *port;
     }
 
     int newValue = oldValue + math.Sign(delta) * math.Pow10(numPos);
@@ -513,16 +443,87 @@ void IPaddress_ChangeValue(IPaddress *ip, int delta)
     {
         if (numByte == 4)
         {
-            *ip->port = (int16)newValue;
+            *port = (int16)newValue;
         }
         else
         {
-            ip->ip0[numByte] = (int8)newValue;
+            ip0[numByte] = (int8)newValue;
         }
         Sound_GovernorChangedValue();
         display.ShowWarning(NeedRebootDevice);
     }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

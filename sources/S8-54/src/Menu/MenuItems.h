@@ -182,7 +182,8 @@ typedef struct
     uint8 *ip3;
     pFuncVB funcOfChanged;
     uint16 *port;
-    void NextPosition();    ///< При открытом элементе переставляет курсор на следующую позицию.
+    void NextPosition();            ///< При открытом элементе переставляет курсор на следующую позицию.
+    void ChangeValue(int delta);    ///< Изменяет значение в текущей позиции при открытом элементе.
 } IPaddress;
 
 typedef struct

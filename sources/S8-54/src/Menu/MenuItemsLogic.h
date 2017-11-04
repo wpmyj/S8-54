@@ -19,8 +19,7 @@ extern int8 gCurDigit;
 
 
 
-/// »змен€ет значение в текущей позиции при открытом элементе.
-void IPaddress_ChangeValue(IPaddress *ip, int delta);
+
 /// ¬озвращает номер текущего байта (4 - номер порта) и номер текущей позиции в байте.
 void IPaddress_GetNumPosIPvalue(int *numIP, int *selPos);
 
