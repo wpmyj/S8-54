@@ -363,16 +363,31 @@ typedef struct
 #define iSET    7
 
 /// ”станавливает и показывает врем€.
-typedef struct
+class Time : public Control
 {
+public:
+    Time(char *titleRu, char *titleEn, char *hintRu, char *hintEn, const Page *keeper_, pFuncBV funcActive_,
+        int8 *curField_, int8 *hours_, int8 *minutes_, int8 *seconds_, int8 *month_, int8 *day_, int8 *year_) :
+        type(Item_Time), keeper(keeper_), funcOfActive(funcActive_), curField(curField_), hours(hours_), minutes(minutes_),
+        seconds(seconds_), month(month_), day(day_), year(year_)
+    {
+        titleHint[0] = titleRu;
+        titleHint[1] = titleEn;
+        titleHint[2] = hintRu;
+        titleHint[3] = hintEn;
+        if (funcOfActive == 0)
+        {
+            funcOfActive = EmptyFuncBV;
+        }
+    }
     COMMON_PART_MENU_ITEM
-    int8 *   curField;   ///< “екущее поле установки. 0 - выход, 1 - сек, 2 - мин, 3 - часы, 4 - день, 5 - мес€ц, 6 - год, 7 - установить.
-    int8 *   hours;
-    int8 *   minutes;
-    int8 *   seconds;
-    int8 *   month;
-    int8 *   day;
-    int8 *   year;
+    int8 *curField;   ///< “екущее поле установки. 0 - выход, 1 - сек, 2 - мин, 3 - часы, 4 - день, 5 - мес€ц, 6 - год, 7 - установить.
+    int8 *hours;
+    int8 *minutes;
+    int8 *seconds;
+    int8 *month;
+    int8 *day;
+    int8 *year;
     void SetOpened();
     void IncCurrentPosition();
     void SetNewTime();
@@ -381,7 +396,7 @@ typedef struct
     void Draw(int x, int y, bool opened);
     void DrawClosed(int x, int y);
     void DrawOpened(int x, int y);
-} Time;
+};
 
 
 /// —труктура дл€ хранени€ меню, вызываемого по нажатию ручки
