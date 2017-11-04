@@ -178,7 +178,7 @@ void CloseOpenedItem(void)
     {
         if (IsPageSB(item))
         {
-            CallFuncOnPressButton(SmallButonFromPage((Page *)item, 0));
+            CallFuncOnPressButton(((Page *)item)->SmallButonFromPage(0));
         }
         NamePage name = Keeper(item)->name;
         SetMenuPosActItem(name, MENU_POS_ACT_ITEM(name) & 0x7f);
@@ -336,12 +336,6 @@ bool IsPageSB(const void *item)
         return ((Page *)item)->isPageSB;
     }
     return false;
-}
-
-//----------------------------------------------------------------------------------------------------------------------------------------------------
-SButton* SmallButonFromPage(Page *page, int numButton)
-{
-    return (SButton *)page->items[numButton];
 }
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------

@@ -64,8 +64,6 @@ Page *PagePointerFromName(NamePage namePage);
 
 bool IsPageSB(const void *item);
 
-SButton* SmallButonFromPage(Page *page, int numButton);
-
 void CallFuncOnPressButton(void *button);
 
 void CallFuncOnDrawButton(Button *button, int x, int y);

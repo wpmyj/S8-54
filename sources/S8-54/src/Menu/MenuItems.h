@@ -101,6 +101,8 @@ typedef enum
     pFuncBV                 funcOfActive;   /* Активен ли данный элемент */                                     \
     const char             *titleHint[4];   /* Название страницы на русском и английском языках. Также подсказка для режима помощи */
 
+struct SButton;
+
 /// Описывает страницу меню.
 struct Page
 {
@@ -119,6 +121,7 @@ struct Page
     void SetCurrentSB() const;              ///< Установить текущей данную страницу с мылыми кнопками.
     
     void *Item(int numElement) const;       ///< Возвращает адрес элемента меню заданной страницы
+    SButton* SmallButonFromPage(int numButton);
 };
 
 typedef struct Page Page;
@@ -144,13 +147,13 @@ typedef struct
 } StructHelpSmallButton;
 
 /// Описывает кнопку для дополнительного режима меню.
-typedef struct
+struct SButton
 {
     COMMON_PART_MENU_ITEM
     pFuncVV                 funcOnPress;    ///< Эта функция вызвается для обработки нажатия кнопки.
     pFuncVII                funcOnDraw;     ///< Эта функция вызывается для отрисовки кнопки в месте с координатами x, y.
     StructHelpSmallButton   hintUGO[MAX_NUM_CHOICE_SMALL_BUTTON]; 
-} SButton;
+};
 
 /// Описывает регулятор.
 typedef struct

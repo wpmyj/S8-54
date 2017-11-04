@@ -48,3 +48,9 @@ void *Page::Item(int numElement) const
 {
     return items[numElement + (IsPageSB(this) ? 1 : 0)];
 }
+//----------------------------------------------------------------------------------------------------------------------------------------------------
+SButton* Page::SmallButonFromPage(int numButton)
+{
+    return (SButton *)items[numButton];
+}
+
