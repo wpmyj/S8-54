@@ -700,7 +700,7 @@ void FuncOnLongPressItemTime(void *time)
     }
     if(ItemIsOpened(time) && *((Time*)time)->curField == iSET)
     {
-        Time_SetNewTime((Time *)time);
+        ((Time *)time)->SetNewTime();
     }
     OpenItem(time, !ItemIsOpened(time));
     ((Time *)time)->SetOpened();

@@ -339,6 +339,12 @@ void Time::IncCurrentPosition()
     }
 }
 
+//----------------------------------------------------------------------------------------------------------------------------------------------------
+void Time::SetNewTime()
+{
+    RTC_SetTimeAndData(*day, *month, *year, *hours, *minutes, *seconds);
+}
+
 
 
 
@@ -485,11 +491,7 @@ void IPaddress_NextPosition(IPaddress *ipEthernet_IP)
 
 
 
-//----------------------------------------------------------------------------------------------------------------------------------------------------
-void Time_SetNewTime(Time *time)
-{
-    RTC_SetTimeAndData(*time->day, *time->month, *time->year, *time->hours, *time->minutes, *time->seconds);
-}
+
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
 void Time_SelectNextPosition(Time *time)
