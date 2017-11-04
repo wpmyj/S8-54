@@ -9,12 +9,11 @@
 
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-static void Governor_DrawOpened(Governor *governor, int x, int y);
 static void MACaddress_DrawOpened(MACaddress *mac, int x, int y);
 static void IPaddress_DrawOpened(IPaddress *ip, int x, int y);
 static void DrawGovernorChoiceColorFormulaHiPart(void *item, int x, int y, bool pressed, bool shade, bool opened);
 static void GovernorIpCommon_DrawOpened(void *item, int x, int y, int dWidth);
-static void DrawGovernorValue(int x, int y, Governor *governor);
+static void DrawValueWithSelectedPosition(int x, int y, int value, int numDigits, int selPos, bool hLine, bool fillNull);
 
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -85,10 +84,114 @@ void GovernorColor::DrawValue(int x, int y, int delta)
 }
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
-void Governor_DrawOpened(Governor *gov, int x, int y)
+void Governor::Draw(int x, int y, bool opened)
 {
-    GovernorIpCommon_DrawOpened(gov, x, y, 0);
-    DrawGovernorValue(x, y + 22, gov);
+    if (funcBeforeDraw)
+    {
+        funcBeforeDraw();
+    }
+    if (opened)
+    {
+        DrawOpened(x, y);
+    }
+    else
+    {
+        DrawClosed(x, y);
+    }
+}
+
+//----------------------------------------------------------------------------------------------------------------------------------------------------
+void Governor::DrawOpened(int x, int y)
+{
+    GovernorIpCommon_DrawOpened(this, x, y, 0);
+    DrawValue(x, y + 22);
+}
+
+//----------------------------------------------------------------------------------------------------------------------------------------------------
+void Governor::DrawClosed(int x, int y)
+{
+    bool pressed = IsPressed(this);
+    bool shade = IsShade(this) || !ItemIsAcitve(this);
+    DrawLowPart(x, y, pressed, shade);
+    DrawGovernorChoiceColorFormulaHiPart(this, x, y, pressed, shade, false);
+}
+
+//----------------------------------------------------------------------------------------------------------------------------------------------------
+void Governor::DrawValue(int x, int y)
+{
+    char buffer[20];
+
+    int startX = x + 40;
+    int16 value = *cell;
+    int signGovernor = *cell < 0 ? -1 : 1;
+    if (signGovernor == -1)
+    {
+        value = -value;
+    }
+    painter.SetFont(TypeFont_5);
+    bool sign = minValue < 0;
+    painter.DrawText(x + 55, y - 5, trans.Int2String(maxValue, sign, 1, buffer), Color::WHITE);
+    painter.DrawText(x + 55, y + 2, trans.Int2String(minValue, sign, 1, buffer));
+    painter.SetFont(TypeFont_8);
+
+    DrawValueWithSelectedPosition(startX, y, value, NumDigits(), gCurDigit, true, true);
+
+    if (sign)
+    {
+        painter.DrawChar(startX - 30, y, signGovernor < 0 ? '\x9b' : '\x9a');
+    }
+}
+
+//----------------------------------------------------------------------------------------------------------------------------------------------------
+void Governor::DrawLowPart(int x, int y, bool pressed, bool shade)
+{
+    char buffer[20];
+
+    Color colorTextDown = Color::BLACK;
+
+    painter.DrawVolumeButton(x + 1, y + 17, MI_WIDTH_VALUE + 2, MI_HEIGHT_VALUE + 3, 2, Color::MENU_FIELD,
+                             Color::MENU_ITEM_BRIGHT, Color::MENU_ITEM_DARK, true, shade);
+    if (shade)
+    {
+        colorTextDown = Color::MenuItem(false);
+    }
+
+    x = painter.DrawText(x + 4, y + 21, "\x80", colorTextDown);
+    if (OpenedItem() != this)
+    {
+        int delta = (int)Step();
+        if (delta == 0)
+        {
+            x = painter.DrawText(x + 1, y + 21, trans.Int2String(*cell, false, 1, buffer));
+        }
+        else
+        {
+            int drawX = x + 1;
+            int limX = x + 1;
+            int limY = y + 19;
+            int limWidth = MI_WIDTH_VALUE;
+            int limHeight = MI_HEIGHT_VALUE - 1;
+            if (delta > 0)
+            {
+                x = painter.DrawTextWithLimitationC(drawX, y + 21 - delta, trans.Int2String(*cell, false, 1, buffer),
+                                                    Color::BLACK, limX, limY, limWidth, limHeight);
+                painter.DrawTextWithLimitationC(drawX, y + 21 + 10 - delta, trans.Int2String(NextValue(), false, 1, buffer),
+                                                Color::BLACK, limX, limY, limWidth, limHeight);
+            }
+            if (delta < 0)
+            {
+                x = painter.DrawTextWithLimitationC(drawX, y + 21 - delta, trans.Int2String(*cell, false, 1, buffer),
+                                                    Color::BLACK, limX, limY, limWidth, limHeight);
+                painter.DrawTextWithLimitationC(drawX, y + 21 - 10 - delta, trans.Int2String(PrevValue(), false, 1, buffer),
+                                                Color::BLACK, limX, limY, limWidth, limHeight);
+            }
+        }
+    }
+    else
+    {
+        x = painter.DrawText(x + 1, y + 21, trans.Int2String(*cell, false, 1, buffer), Color::WHITE);
+    }
+    painter.DrawText(x + 1, y + 21, "\x81", colorTextDown);
 }
 
 
@@ -207,57 +310,7 @@ static void DrawGovernorChoiceColorFormulaHiPart(void *item, int x, int y, bool 
     }
 }
 
-//----------------------------------------------------------------------------------------------------------------------------------------------------
-void DrawGovernorLowPart(Governor *governor, int x, int y, bool pressed, bool shade)
-{
-    char buffer[20];
-    
-    Color colorTextDown = Color::BLACK;
 
-    painter.DrawVolumeButton(x + 1, y + 17, MI_WIDTH_VALUE + 2, MI_HEIGHT_VALUE + 3, 2, Color::MENU_FIELD, 
-        Color::MENU_ITEM_BRIGHT, Color::MENU_ITEM_DARK, true, shade);
-    if(shade)
-    {
-        colorTextDown = Color::MenuItem(false);
-    }
-
-    x = painter.DrawText(x + 4, y + 21, "\x80", colorTextDown);
-    if(OpenedItem() != governor)
-    {
-        int delta = (int)governor->Step();
-        if(delta == 0)
-        {
-            x = painter.DrawText(x + 1, y + 21, trans.Int2String(*governor->cell, false, 1, buffer));
-        }
-        else
-        {
-            int drawX = x + 1;
-            int limX = x + 1;
-            int limY = y + 19;
-            int limWidth = MI_WIDTH_VALUE;
-            int limHeight = MI_HEIGHT_VALUE - 1;
-            if(delta > 0)
-            {
-                x = painter.DrawTextWithLimitationC(drawX, y + 21 - delta, trans.Int2String(*governor->cell, false, 1, buffer), 
-                                            Color::BLACK, limX, limY, limWidth, limHeight);
-                painter.DrawTextWithLimitationC(drawX, y + 21 + 10 - delta, trans.Int2String(governor->NextValue(), false, 1, buffer),
-                                            Color::BLACK, limX, limY, limWidth, limHeight);
-            }
-            if(delta < 0)
-            {
-                x = painter.DrawTextWithLimitationC(drawX, y + 21 - delta, trans.Int2String(*governor->cell, false, 1, buffer), 
-                                            Color::BLACK, limX, limY, limWidth, limHeight);
-                painter.DrawTextWithLimitationC(drawX, y + 21 - 10 - delta, trans.Int2String(governor->PrevValue(), false, 1, buffer),
-                    Color::BLACK, limX, limY, limWidth, limHeight);
-            }
-        }
-    }
-    else
-    {
-        x = painter.DrawText(x + 1, y + 21, trans.Int2String(*governor->cell, false, 1, buffer), Color::WHITE);
-    }
-    painter.DrawText(x + 1, y + 21, "\x81", colorTextDown);
-}
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
 static void DrawIPaddressLowPart(IPaddress *ip, int x, int y, bool pressed, bool shade)
@@ -360,15 +413,6 @@ void DrawFormulaLowPart(Formula *formula, int x, int y, bool pressed, bool shade
 }
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
-static void Governor_DrawClosed(Governor *governor, int x, int y)
-{
-    bool pressed = IsPressed(governor);
-    bool shade = IsShade(governor) || !ItemIsAcitve(governor);
-    DrawGovernorLowPart(governor, x, y, pressed, shade);
-    DrawGovernorChoiceColorFormulaHiPart(governor, x, y, pressed, shade, false);
-}
-
-//----------------------------------------------------------------------------------------------------------------------------------------------------
 static void IPaddress_DrawClosed(IPaddress *ip, int x, int y)
 {
     bool pressed = IsPressed(ip);
@@ -422,32 +466,6 @@ static void DrawValueWithSelectedPosition(int x, int y, int value, int numDigits
             painter.DrawLine(x, y + 9, x + 3, y + 9, Color::WHITE);
         }
         x -= 6;
-    }
-}
-
-//----------------------------------------------------------------------------------------------------------------------------------------------------
-static void DrawGovernorValue(int x, int y, Governor *governor)
-{
-    char buffer[20];
-
-    int startX = x + 40;
-    int16 value = *governor->cell;
-    int signGovernor = *governor->cell < 0 ? -1 : 1;
-    if(signGovernor == -1)
-    {
-        value = -value;
-    }
-    painter.SetFont(TypeFont_5);
-    bool sign = governor->minValue < 0;
-    painter.DrawText(x + 55, y - 5, trans.Int2String(governor->maxValue, sign, 1, buffer), Color::WHITE);
-    painter.DrawText(x + 55, y + 2, trans.Int2String(governor->minValue, sign, 1, buffer));
-    painter.SetFont(TypeFont_8);
-
-    DrawValueWithSelectedPosition(startX, y, value, governor->NumDigits(), gCurDigit, true, true);
-
-    if(sign)
-    {
-       painter.DrawChar(startX - 30, y, signGovernor < 0 ? '\x9b' : '\x9a');
     }
 }
 
@@ -512,22 +530,7 @@ static void DrawMACvalue(int x, int y, MACaddress *mac)
     }
 }
 
-//----------------------------------------------------------------------------------------------------------------------------------------------------
-void Governor_Draw(Governor *governor, int x, int y, bool opened)
-{
-    if (governor->funcBeforeDraw)
-    {
-        governor->funcBeforeDraw();
-    }
-    if(opened)
-    {
-        Governor_DrawOpened(governor, x, y);
-    }
-    else
-    {
-        Governor_DrawClosed(governor, x, y);
-    }
-}
+
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
 void IPaddress_Draw(IPaddress *ip, int x, int y, bool opened)

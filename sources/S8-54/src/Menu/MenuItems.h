@@ -173,6 +173,11 @@ typedef struct
     void NextPosition();
     /// Возвращает число знакомест в поле для ввода элемента governor. Зависит от максимального значения, которое может принимать governor.
     int  NumDigits();
+    void Draw(int x, int y, bool opened);
+    void DrawOpened(int x, int y);
+    void DrawClosed(int x, int y);
+    void DrawValue(int x, int y);
+    void DrawLowPart(int x, int y, bool pressed, bool shade);
 } Governor;
 
 typedef struct

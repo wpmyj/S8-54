@@ -111,7 +111,7 @@ void Menu_Draw(void)
             }
             else if(TypeMenuItem(item) == Item_Governor)
             {
-                Governor_Draw((Governor *)item, CalculateX(0), GRID_TOP, true);
+                ((Governor *)item)->Draw(CalculateX(0), GRID_TOP, true);
                 painter.DrawHLine(GRID_TOP, CalculateX(0) - 2, GRID_RIGHT, gColorFill);
                 painter.DrawVLine(GRID_RIGHT, GRID_TOP, GRID_TOP + 40);
             }
@@ -244,7 +244,7 @@ static void DrawNestingPage(Page *page, int left, int bottom)
 //----------------------------------------------------------------------------------------------------------------------------------------------------
 static void DrawGovernor(void *item, int x, int y)
 {
-    Governor_Draw((Governor *)item, x, y, false);
+    ((Governor *)item)->Draw(x, y, false);
 }
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
@@ -357,7 +357,7 @@ void DrawOpenedPage(Page *page, int layer, int yTop)
         }
         else if (type == Item_Governor)
         {
-            Governor_Draw((Governor *)item, CalculateX(1), ItemOpenedPosY(item), true);
+            ((Governor *)item)->Draw(CalculateX(1), ItemOpenedPosY(item), true);
         }
         else if (type == Item_GovernorColor)
         {

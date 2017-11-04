@@ -13,8 +13,6 @@
  */
 
 
-void Governor_Draw(Governor *governor, int x, int y, bool opened);
-
 void IPaddress_Draw(IPaddress *ip, int x, int y, bool opened);
 
 void MACaddress_Draw(MACaddress *mac, int x, int y, bool opened);
