@@ -52,8 +52,6 @@ void OpenItem(const void *item, bool open);
 bool ItemIsOpened(const void *item);
 
 void ChangeSubPage(const Page *page, int delta);
-/// Вызывает функцию короткого нажатия кнопки над итемом numItem страницы page
-void ShortPressOnPageItem(Page *page, int numItem);
 
 Page *PagePointerFromName(NamePage namePage);
 

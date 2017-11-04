@@ -840,7 +840,7 @@ void ChangeStateFlashDrive(void)
     {
         if(GetNameOpenedPage() == PageSB_Memory_Drive_Manager)
         {
-            ShortPressOnPageItem((Page *)OpenedItem(), 0);
+            ((Page *)OpenedItem())->ShortPressOnItem(0);
         }
     }
     else if(FLASH_AUTO_CONNECT)

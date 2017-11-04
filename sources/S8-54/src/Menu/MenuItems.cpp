@@ -74,3 +74,12 @@ const char *Choice::NameSubItem(int i)
 {
     return names[i][LANG];
 }
+
+//----------------------------------------------------------------------------------------------------------------------------------------------------
+void Page::ShortPressOnItem(int numItem)
+{
+    if (TypeMenuItem(this) == Item_Page)
+    {
+        CallFuncOnPressButton(items[numItem]);
+    }
+}

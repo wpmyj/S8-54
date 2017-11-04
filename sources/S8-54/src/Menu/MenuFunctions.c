@@ -302,15 +302,6 @@ void ChangeItem(void *item, int delta)
 }
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
-void ShortPressOnPageItem(Page *page, int numItem)
-{
-    if (TypeMenuItem(page) == Item_Page)
-    {
-        CallFuncOnPressButton(page->items[numItem]);
-    }
-}
-
-//----------------------------------------------------------------------------------------------------------------------------------------------------
 Page *PagePointerFromName(NamePage namePage)
 {
     return 0;
