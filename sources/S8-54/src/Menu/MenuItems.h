@@ -107,7 +107,7 @@ struct SButton;
 struct Page
 {
     COMMON_PART_MENU_ITEM
-        NamePage name;                      ///< Имя из перечисления NamePage
+    NamePage name;                          ///< Имя из перечисления NamePage
     void    *items[MAX_NUM_ITEMS_IN_PAGE];  ///< Здесь указатели на пункты этой страницы (в обычной странице)
                                             ///< для страницы малых кнопок  здесь хранятся 6 указателей на SButton : 0 - B_Menu, 1...5 - B_F1...B_F5
     bool     isPageSB;                      ///< Если true, то это страница малых кнопок
@@ -147,6 +147,7 @@ typedef struct
     pFuncVV     funcOnPress;    ///< Функция, которая вызывается при нажатии на кнопку.
     pFuncVII    funcForDraw;    ///< Функция будет вызываться во время отрисовки кнопки.
     void CallFuncOnDraw(int x, int y);
+    void Draw(int x, int y);
 } Button;
 
 typedef struct

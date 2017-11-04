@@ -505,6 +505,25 @@ void Choice::DrawClosed(int x, int y)
     DrawGovernorChoiceColorFormulaHiPart(this, x, y, pressed, shade, false);
 }
 
+//----------------------------------------------------------------------------------------------------------------------------------------------------
+void Button::Draw(int x, int y)
+{
+    bool pressed = IsPressed(this);
+    bool shade = IsShade(this) || !ItemIsAcitve(this);
+
+    painter.DrawHLine(y + 1, x, x + MI_WIDTH, Color::MenuTitle(shade));
+    Color color = shade ? Color::MenuItem(true) : Color::WHITE;
+    painter.FillRegion(x + 1, y + 2, MI_WIDTH - 2, MI_HEIGHT - 2, Color::MenuItem(false));
+    painter.DrawVolumeButton(x + 3, y + 4, MI_WIDTH - 6, MI_HEIGHT - 6, 2, Color::MenuItem(false), Color::MENU_ITEM_BRIGHT,
+                             Color::MENU_ITEM_DARK, pressed, shade);
+
+    int delta = (pressed && (!shade)) ? 2 : 1;
+
+    painter.DrawStringInCenterRectC(x + delta, y + delta, MI_WIDTH, MI_HEIGHT, TitleItem(this), color);
+
+    CallFuncOnDraw(x, y);
+}
+
 
 
 
@@ -819,25 +838,6 @@ void Time_Draw(Time *time, int x, int y, bool opened)
     {
         Time_DrawClosed(time, x, y);
     }
-}
-
-//----------------------------------------------------------------------------------------------------------------------------------------------------
-void Button_Draw(Button *button, int x, int y)
-{
-    bool pressed = IsPressed(button);
-    bool shade = IsShade(button) || !ItemIsAcitve(button);
-
-    painter.DrawHLine(y + 1, x, x + MI_WIDTH, Color::MenuTitle(shade));
-    Color color = shade ? Color::MenuItem(true) : Color::WHITE;
-    painter.FillRegion(x + 1, y + 2, MI_WIDTH - 2, MI_HEIGHT - 2, Color::MenuItem(false));
-    painter.DrawVolumeButton(x + 3, y + 4, MI_WIDTH - 6, MI_HEIGHT - 6, 2, Color::MenuItem(false), Color::MENU_ITEM_BRIGHT, 
-                            Color::MENU_ITEM_DARK, pressed, shade);
-
-    int delta = (pressed && (!shade)) ? 2 : 1;
-    
-    painter.DrawStringInCenterRectC(x + delta, y + delta, MI_WIDTH, MI_HEIGHT, TitleItem(button), color);
-
-    button->CallFuncOnDraw(x, y);
 }
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
