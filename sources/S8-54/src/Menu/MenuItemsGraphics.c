@@ -524,6 +524,31 @@ void Button::Draw(int x, int y)
     CallFuncOnDraw(x, y);
 }
 
+//----------------------------------------------------------------------------------------------------------------------------------------------------
+void SButton::Draw(int x, int y)
+{
+    if (ItemIsAcitve(this))
+    {
+        if (IsPressed(this))
+        {
+            painter.FillRegion(x, y, WIDTH_SB, WIDTH_SB, gColorFill);
+            painter.SetColor(Color::BLACK);
+        }
+        else
+        {
+            painter.DrawRectangle(x, y, WIDTH_SB, WIDTH_SB, gColorFill);
+        }
+        if (funcOnDraw)
+        {
+            funcOnDraw(x, y);
+        }
+    }
+    else
+    {
+        painter.DrawRectangle(x, y, WIDTH_SB, WIDTH_SB, gColorFill);
+    }
+}
+
 
 
 
@@ -837,31 +862,6 @@ void Time_Draw(Time *time, int x, int y, bool opened)
     else
     {
         Time_DrawClosed(time, x, y);
-    }
-}
-
-//----------------------------------------------------------------------------------------------------------------------------------------------------
-void SmallButton_Draw(SButton *smallButton, int x, int y)
-{
-    if (ItemIsAcitve(smallButton))
-    {
-        if (IsPressed(smallButton))
-        {
-            painter.FillRegion(x, y, WIDTH_SB, WIDTH_SB, gColorFill);
-            painter.SetColor(Color::BLACK);
-        }
-        else
-        {
-            painter.DrawRectangle(x, y, WIDTH_SB, WIDTH_SB, gColorFill);
-        }
-        if (smallButton->funcOnDraw)
-        {
-            smallButton->funcOnDraw(x, y);
-        }
-    }
-    else
-    {
-        painter.DrawRectangle(x, y, WIDTH_SB, WIDTH_SB, gColorFill);
     }
 }
 

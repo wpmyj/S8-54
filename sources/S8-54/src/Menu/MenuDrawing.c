@@ -151,7 +151,7 @@ void DrawTitlePage(Page *page, int layer, int yTop)
     int x = CalculateX(layer);
     if (IsPageSB(page))
     {
-        SmallButton_Draw(page->SmallButonFromPage(0), LEFT_SB, yTop + 3);
+        page->SmallButonFromPage(0)->Draw(LEFT_SB, yTop + 3);
         return;
     }
     int height = HeightOpenedItem(page);
@@ -274,7 +274,7 @@ static void DrawChoice(void *item, int x, int y)
 //----------------------------------------------------------------------------------------------------------------------------------------------------
 static void DrawSmallButton(void *item, int x, int y)
 {
-    SmallButton_Draw((SButton *)item, LEFT_SB, y + 7);
+    ((SButton *)item)->Draw(LEFT_SB, y + 7);
 }
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------

@@ -163,6 +163,7 @@ struct SButton
     pFuncVV                 funcOnPress;    ///< Эта функция вызвается для обработки нажатия кнопки.
     pFuncVII                funcOnDraw;     ///< Эта функция вызывается для отрисовки кнопки в месте с координатами x, y.
     StructHelpSmallButton   hintUGO[MAX_NUM_CHOICE_SMALL_BUTTON]; 
+    void Draw(int x, int y);
 };
 
 /// Описывает регулятор.
