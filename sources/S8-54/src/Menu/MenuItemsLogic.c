@@ -410,6 +410,12 @@ void GovernorColor::ChangeValue(int delta)
     PageService_InitGlobalColors();
 }
 
+//----------------------------------------------------------------------------------------------------------------------------------------------------
+void IPaddress::NextPosition()
+{
+    CircleIncreaseInt8(&gCurDigit, 0, port == 0 ? 11 : 16);
+}
+
 
 
 
@@ -536,24 +542,3 @@ void IPaddress_GetNumPosIPvalue(int *numIP, int *selPos)
 
 
 }
-
-
-
-
-
-//----------------------------------------------------------------------------------------------------------------------------------------------------
-void IPaddress_NextPosition(IPaddress *ipEthernet_IP)
-{
-    CircleIncreaseInt8(&gCurDigit, 0, ipEthernet_IP->port == 0 ? 11 : 16);
-}
-
-
-
-
-
-
-
-
-
-
-

@@ -744,7 +744,7 @@ void ShortPress_IP(void *item)
 {
     if (OpenedItem() == item)
     {
-        IPaddress_NextPosition((IPaddress*)item);
+        ((IPaddress*)item)->NextPosition();
     }
 }
 

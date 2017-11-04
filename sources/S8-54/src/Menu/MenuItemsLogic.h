@@ -19,8 +19,6 @@ extern int8 gCurDigit;
 
 
 
-/// При открытом элементе переставляет курсор на следующую позицию.
-void IPaddress_NextPosition(IPaddress *ip);
 /// Изменяет значение в текущей позиции при открытом элементе.
 void IPaddress_ChangeValue(IPaddress *ip, int delta);
 /// Возвращает номер текущего байта (4 - номер порта) и номер текущей позиции в байте.
