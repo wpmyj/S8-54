@@ -332,7 +332,7 @@ static void DrawIPvalue(int x, int y, IPaddress *ip)
     int numIP = 0;
     int selPos = 0;
 
-    IPaddress_GetNumPosIPvalue(&numIP, &selPos);
+    ip->GetNumPosIPvalue(&numIP, &selPos);
 
     for (int i = 0; i < 4; i++)
     {

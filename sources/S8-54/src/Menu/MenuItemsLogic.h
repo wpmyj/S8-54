@@ -20,8 +20,7 @@ extern int8 gCurDigit;
 
 
 
-/// Возвращает номер текущего байта (4 - номер порта) и номер текущей позиции в байте.
-void IPaddress_GetNumPosIPvalue(int *numIP, int *selPos);
+
 
 
 /** @}  @}  @}
