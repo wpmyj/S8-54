@@ -197,13 +197,13 @@
     <ClCompile Include="..\..\S8-54\src\libs\usbh_conf.c" />
     <ClCompile Include="..\..\S8-54\src\Log.c" />
     <ClCompile Include="..\..\S8-54\src\main.c" />
-    <ClCompile Include="..\..\S8-54\src\Menu\FileManager.c" />
+    <ClCompile Include="..\..\S8-54\src\Menu\FileManager.cpp" />
     <ClCompile Include="..\..\S8-54\src\Menu\Menu.cpp" />
-    <ClCompile Include="..\..\S8-54\src\Menu\MenuDrawing.c" />
-    <ClCompile Include="..\..\S8-54\src\Menu\MenuFunctions.c" />
+    <ClCompile Include="..\..\S8-54\src\Menu\MenuDrawing.cpp" />
+    <ClCompile Include="..\..\S8-54\src\Menu\MenuFunctions.cpp" />
     <ClCompile Include="..\..\S8-54\src\Menu\MenuItems.cpp" />
-    <ClCompile Include="..\..\S8-54\src\Menu\MenuItemsGraphics.c" />
-    <ClCompile Include="..\..\S8-54\src\Menu\MenuItemsLogic.c" />
+    <ClCompile Include="..\..\S8-54\src\Menu\MenuItemsGraphics.cpp" />
+    <ClCompile Include="..\..\S8-54\src\Menu\MenuItemsLogic.cpp" />
     <ClCompile Include="..\..\S8-54\src\Menu\Pages\Definition.c" />
     <ClCompile Include="..\..\S8-54\src\Menu\Pages\HelpContent.c" />
     <ClCompile Include="..\..\S8-54\src\Menu\Pages\PageChannels.c" />
@@ -407,7 +407,6 @@
     <ClInclude Include="..\..\S8-54\src\Menu\MenuDrawing.h" />
     <ClInclude Include="..\..\S8-54\src\Menu\MenuFunctions.h" />
     <ClInclude Include="..\..\S8-54\src\Menu\MenuItems.h" />
-    <ClInclude Include="..\..\S8-54\src\Menu\MenuItemsGraphics.h" />
     <ClInclude Include="..\..\S8-54\src\Menu\Pages\Definition.h" />
     <ClInclude Include="..\..\S8-54\src\Menu\Pages\HelpContent.h" />
     <ClInclude Include="..\..\S8-54\src\Menu\Pages\HelpContentPages.h" />

@@ -1,5 +1,3 @@
-
-
 #include "defines.h"
 #include "MenuFunctions.h"
 #include "Globals.h"

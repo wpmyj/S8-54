@@ -1,5 +1,3 @@
-
-
 #include "FileManager.h"
 #include "Globals.h"
 #include "MenuDrawing.h"

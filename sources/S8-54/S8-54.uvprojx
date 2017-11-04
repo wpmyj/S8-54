@@ -1349,11 +1349,6 @@
           <GroupName>Menu</GroupName>
           <Files>
             <File>
-              <FileName>FileManager.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\src\Menu\FileManager.c</FilePath>
-            </File>
-            <File>
               <FileName>FileManager.h</FileName>
               <FileType>5</FileType>
               <FilePath>.\src\Menu\FileManager.h</FilePath>
@@ -1364,19 +1359,9 @@
               <FilePath>.\src\Menu\Menu.h</FilePath>
             </File>
             <File>
-              <FileName>MenuDrawing.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\src\Menu\MenuDrawing.c</FilePath>
-            </File>
-            <File>
               <FileName>MenuDrawing.h</FileName>
               <FileType>5</FileType>
               <FilePath>.\src\Menu\MenuDrawing.h</FilePath>
-            </File>
-            <File>
-              <FileName>MenuFunctions.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\src\Menu\MenuFunctions.c</FilePath>
             </File>
             <File>
               <FileName>MenuFunctions.h</FileName>
@@ -1389,16 +1374,6 @@
               <FilePath>.\src\Menu\MenuItems.h</FilePath>
             </File>
             <File>
-              <FileName>MenuItemsGraphics.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\src\Menu\MenuItemsGraphics.c</FilePath>
-            </File>
-            <File>
-              <FileName>MenuItemsLogic.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\src\Menu\MenuItemsLogic.c</FilePath>
-            </File>
-            <File>
               <FileName>Menu.cpp</FileName>
               <FileType>8</FileType>
               <FilePath>.\src\Menu\Menu.cpp</FilePath>
@@ -1407,6 +1382,31 @@
               <FileName>MenuItems.cpp</FileName>
               <FileType>8</FileType>
               <FilePath>.\src\Menu\MenuItems.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>FileManager.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\src\Menu\FileManager.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>MenuDrawing.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\src\Menu\MenuDrawing.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>MenuFunctions.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\src\Menu\MenuFunctions.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>MenuItemsGraphics.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\src\Menu\MenuItemsGraphics.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>MenuItemsLogic.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\src\Menu\MenuItemsLogic.cpp</FilePath>
             </File>
           </Files>
         </Group>
