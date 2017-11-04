@@ -201,6 +201,7 @@
     <ClCompile Include="..\..\S8-54\src\Menu\Menu.cpp" />
     <ClCompile Include="..\..\S8-54\src\Menu\MenuDrawing.c" />
     <ClCompile Include="..\..\S8-54\src\Menu\MenuFunctions.c" />
+    <ClCompile Include="..\..\S8-54\src\Menu\MenuItems.cpp" />
     <ClCompile Include="..\..\S8-54\src\Menu\MenuItemsGraphics.c" />
     <ClCompile Include="..\..\S8-54\src\Menu\MenuItemsLogic.c" />
     <ClCompile Include="..\..\S8-54\src\Menu\Pages\Definition.c" />

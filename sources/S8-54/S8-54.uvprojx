@@ -1408,6 +1408,11 @@
               <FileType>8</FileType>
               <FilePath>.\src\Menu\Menu.cpp</FilePath>
             </File>
+            <File>
+              <FileName>MenuItems.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\src\Menu\MenuItems.cpp</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>

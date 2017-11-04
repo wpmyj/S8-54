@@ -253,52 +253,10 @@ bool ItemIsAcitve(const void *item)
     return true;
 }
 
-
-
-//----------------------------------------------------------------------------------------------------------------------------------------------------
-const char *NameCurrentSubItem(Choice *choice) 
-{
-    return ((int8 *)choice->cell == 0) ? "" : choice->names[*((int8 *)choice->cell)][LANG];
-}
-
 //----------------------------------------------------------------------------------------------------------------------------------------------------
 const char *NameSubItem(Choice *choice, int i) 
 {
     return choice->names[i][LANG];
-}
-
-//----------------------------------------------------------------------------------------------------------------------------------------------------
-const char *NameNextSubItem(Choice *choice) 
-{
-    if(choice->cell == 0) 
-    {
-        return "";
-    }
-    
-    int index = *((int8 *)choice->cell) + 1;
-    
-    if (index == choice->NumSubItems())
-    {
-        index = 0;
-    }
-    return choice->names[index][LANG];
-}
-
-//----------------------------------------------------------------------------------------------------------------------------------------------------
-const char *NamePrevSubItem(Choice *choice)
-{
-    if (choice->cell == 0)
-    {
-        return "";
-    }
-    
-    int index = *((int8 *)choice->cell) - 1;
-    
-    if (index < 0)
-    {
-        index = choice->NumSubItems() - 1;
-    }
-    return choice->names[index][LANG];
 }
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------

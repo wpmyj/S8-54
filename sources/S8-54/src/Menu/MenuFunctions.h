@@ -42,14 +42,9 @@ NamePage GetNameOpenedPage(void);
 bool ChangeOpenedItem(void *item, int delta);
 /// Уменьшает или увеличивает значение Governor, GovernorColor или Choice по адресу item в зависимости от знака delta
 void ChangeItem(void *item, int delta);
-/// Возвращает имя текущего варианта выбора элемента choice, как оно записано в исходном коде программы
-const char *NameCurrentSubItem(Choice *choice);
 /// Возвращает имя варианта выбора элемента choice в позиции i как оно записано в исходном коде программы
 const char *NameSubItem(Choice *choice, int i);
-/// Возвращает имя следующего варианта выбора элемента choice, как оно записано в исходном коде программы
-const char *NameNextSubItem(Choice *choice);
 
-const char *NamePrevSubItem(Choice *choice);
 /// Возвращает высоту в пикселях открытого элемента Choice или NamePage по адресу item
 int HeightOpenedItem(void *item);
 /// Возвращает название элемента по адресу item, как оно выглядит на дисплее прибора

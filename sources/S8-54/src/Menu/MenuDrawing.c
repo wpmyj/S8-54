@@ -102,7 +102,7 @@ void Menu_Draw(void)
         {
             if(TypeMenuItem(item) == Item_Choice || TypeMenuItem(item) == Item_ChoiceReg)
             {
-                Choice_Draw((Choice *)item, CalculateX(0), GRID_TOP, false);
+                ((Choice *)item)->Draw(CalculateX(0), GRID_TOP, false);
                 painter.DrawVLine(CalculateX(0), GRID_TOP + 1, GRID_TOP + 34, Color::BorderMenu(false));
                 painter.DrawVLine(CalculateX(0) + 1, GRID_TOP + 1, GRID_TOP + 34);
                 painter.DrawVLine(GRID_RIGHT, GRID_TOP + 30, GRID_TOP + 40, gColorFill);
@@ -268,7 +268,7 @@ static void DrawFormula(void *item, int x, int y)
 //----------------------------------------------------------------------------------------------------------------------------------------------------
 static void DrawChoice(void *item, int x, int y)
 {
-    Choice_Draw((Choice *)item, x, y, false);
+    ((Choice *)item)->Draw(x, y, false);
 }
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
@@ -353,7 +353,7 @@ void DrawOpenedPage(Page *page, int layer, int yTop)
         TypeItem type = TypeMenuItem(item);
         if (type == Item_Choice || type == Item_ChoiceReg)
         {
-            Choice_Draw((Choice *)item, CalculateX(1), ItemOpenedPosY(item), true);
+            ((Choice *)item)->Draw(CalculateX(1), ItemOpenedPosY(item), true);
         }
         else if (type == Item_Governor)
         {

@@ -433,6 +433,78 @@ void Formula::WriteText(int x, int y, bool opened)
     painter.DrawText(x + 48, y, "K2");
 }
 
+//----------------------------------------------------------------------------------------------------------------------------------------------------
+void Choice::Draw(int x, int y, bool opened)
+{
+    if (opened)
+    {
+        DrawOpened(x, y);
+    }
+    else
+    {
+        DrawClosed(x, y);
+    }
+}
+
+//----------------------------------------------------------------------------------------------------------------------------------------------------
+void Choice::DrawOpened(int x, int y)
+{
+    int height = HeightOpenedItem(this);
+
+    painter.DrawRectangle(x - 2, y - 1, MP_TITLE_WIDTH + 3, height + 3, gColorBack);
+
+    DrawGovernorChoiceColorFormulaHiPart(this, x - 1, y - 1, IsPressed(this), false, true);
+    painter.DrawRectangle(x - 1, y, MP_TITLE_WIDTH + 1, height + 1, Color::MenuTitle(false));
+
+    painter.DrawHLine(y + MOI_HEIGHT_TITLE - 1, x, x + MOI_WIDTH);
+    painter.DrawVolumeButton(x, y + MOI_HEIGHT_TITLE, MOI_WIDTH - 1, height - MOI_HEIGHT_TITLE, 1, Color::BLACK, Color::MENU_TITLE_BRIGHT,
+                             Color::MENU_TITLE_DARK, false, IsShade(this));
+    int8 index = *cell;
+    for (int i = 0; i < NumSubItems(); i++)
+    {
+        int yItem = y + MOI_HEIGHT_TITLE + i * MOSI_HEIGHT + 1;
+        bool pressed = i == index;
+        if (pressed)
+        {
+            painter.DrawVolumeButton(x + 1, yItem, MOI_WIDTH - 2, MOSI_HEIGHT - 2, 2, Color::MENU_FIELD, Color::MENU_TITLE_BRIGHT,
+                                     Color::MENU_TITLE_DARK, pressed, IsShade(this));
+        }
+        painter.DrawText(x + 4, yItem + 2, NameSubItem(this, i), pressed ? Color::BLACK : Color::MENU_FIELD);
+    }
+}
+
+//----------------------------------------------------------------------------------------------------------------------------------------------------
+void Choice::DrawClosed(int x, int y)
+{
+    bool pressed = IsPressed(this);
+    bool shade = IsShade(this) || !ItemIsAcitve(this);
+
+    painter.DrawVolumeButton(x + 1, y + 17, MI_WIDTH_VALUE + 2, MI_HEIGHT_VALUE + 3, 1, Color::MENU_FIELD, Color::MENU_ITEM_BRIGHT,
+                             Color::MENU_ITEM_DARK, true, shade);
+
+    int deltaY = (int)Step();
+    Color colorText = shade ? Color::MenuItem(true) : Color::BLACK;
+    painter.SetColor(colorText);
+    if (deltaY == 0)
+    {
+        painter.DrawText(x + 4, y + 21, NameCurrentSubItem());
+    }
+    else
+    {
+        painter.DrawTextWithLimitationC(x + 4, y + 21 - deltaY, NameCurrentSubItem(), colorText, x, y + 19, MI_WIDTH_VALUE, MI_HEIGHT_VALUE - 1);
+        painter.DrawHLine(y + (deltaY > 0 ? 31 : 19) - deltaY, x + 3, x + MI_WIDTH_VALUE + 1, Color::BLACK);
+        painter.DrawTextWithLimitationC(x + 4, y + (deltaY > 0 ? 33 : 9) - deltaY, deltaY > 0 ? NameNextSubItem() : NamePrevSubItem(),
+                                        colorText, x, y + 19, MI_WIDTH_VALUE, MI_HEIGHT_VALUE - 1);
+    }
+    painter.DrawHLine(y + MI_HEIGHT + 1, x, x + MI_WIDTH, Color::BorderMenu(false));
+
+    if (funcForDraw)
+    {
+        funcForDraw(x, y);
+    }
+    DrawGovernorChoiceColorFormulaHiPart(this, x, y, pressed, shade, false);
+}
+
 
 
 
@@ -628,33 +700,6 @@ static void DrawValueWithSelectedPosition(int x, int y, int value, int numDigits
 }
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
-void Choice_DrawOpened(Choice *choice, int x, int y)
-{
-    int height = HeightOpenedItem(choice);
-
-    painter.DrawRectangle(x - 2, y - 1, MP_TITLE_WIDTH + 3, height + 3, gColorBack);
-    
-    DrawGovernorChoiceColorFormulaHiPart(choice, x - 1, y - 1, IsPressed(choice), false, true);
-    painter.DrawRectangle(x - 1, y, MP_TITLE_WIDTH + 1, height + 1, Color::MenuTitle(false));
- 
-    painter.DrawHLine(y + MOI_HEIGHT_TITLE - 1, x, x + MOI_WIDTH);
-    painter.DrawVolumeButton(x, y + MOI_HEIGHT_TITLE, MOI_WIDTH - 1, height - MOI_HEIGHT_TITLE, 1, Color::BLACK, Color::MENU_TITLE_BRIGHT,
-                        Color::MENU_TITLE_DARK, false, IsShade(choice));
-    int8 index = *choice->cell;
-    for(int i = 0; i < choice->NumSubItems(); i++)
-    {
-        int yItem = y + MOI_HEIGHT_TITLE + i * MOSI_HEIGHT + 1;
-        bool pressed = i == index;
-        if(pressed)
-        {
-            painter.DrawVolumeButton(x + 1, yItem, MOI_WIDTH - 2 , MOSI_HEIGHT - 2, 2, Color::MENU_FIELD, Color::MENU_TITLE_BRIGHT,
-                Color::MENU_TITLE_DARK, pressed, IsShade(choice));
-        }
-        painter.DrawText(x + 4, yItem + 2, NameSubItem(choice, i), pressed ? Color::BLACK : Color::MENU_FIELD);
-    }
-}
-
-//----------------------------------------------------------------------------------------------------------------------------------------------------
 void Time_DrawOpened(Time *time, int x, int y)
 {
     char buffer[20];
@@ -730,57 +775,6 @@ static void GovernorIpCommon_DrawOpened(void *item, int x, int y, int dWidth)
     DrawGovernorChoiceColorFormulaHiPart(item, x - 1, y - 1, IsPressed(item), false, true);
     painter.DrawVolumeButton(x, y + MOI_HEIGHT_TITLE, MOI_WIDTH - 1 + dWidth, height - MOI_HEIGHT_TITLE, 1, Color::BLACK, Color::MENU_TITLE_BRIGHT,
                              Color::MENU_TITLE_DARK, false, IsShade(item));
-}
-
-
-
-
-
-
-
-//----------------------------------------------------------------------------------------------------------------------------------------------------
-void Choice_DrawClosed(Choice *choice, int x, int y)
-{
-    bool pressed = IsPressed(choice);
-    bool shade = IsShade(choice) || ! ItemIsAcitve(choice);
-        
-    painter.DrawVolumeButton(x + 1, y + 17, MI_WIDTH_VALUE + 2, MI_HEIGHT_VALUE + 3, 1, Color::MENU_FIELD, Color::MENU_ITEM_BRIGHT, 
-        Color::MENU_ITEM_DARK, true, shade);
-
-    int deltaY = (int)choice->Step();
-    Color colorText = shade ? Color::MenuItem(true) : Color::BLACK;
-    painter.SetColor(colorText);
-    if(deltaY == 0)
-    {
-        painter.DrawText(x + 4, y + 21, NameCurrentSubItem(choice));
-    }
-    else
-    {
-        painter.DrawTextWithLimitationC(x + 4, y + 21 - deltaY, NameCurrentSubItem(choice), colorText, x, y + 19, MI_WIDTH_VALUE, MI_HEIGHT_VALUE - 1);
-        painter.DrawHLine(y + (deltaY > 0 ? 31 : 19) - deltaY, x + 3, x + MI_WIDTH_VALUE + 1, Color::BLACK);
-        painter.DrawTextWithLimitationC(x + 4, y + (deltaY > 0 ? 33 : 9) - deltaY, deltaY > 0 ? NameNextSubItem(choice) : NamePrevSubItem(choice), 
-            colorText, x, y + 19, MI_WIDTH_VALUE, MI_HEIGHT_VALUE - 1);
-    }
-    painter.DrawHLine(y + MI_HEIGHT + 1, x, x + MI_WIDTH, Color::BorderMenu(false));
-
-    if(choice->funcForDraw)
-    {
-        choice->funcForDraw(x, y);
-    }
-    DrawGovernorChoiceColorFormulaHiPart(choice, x, y, pressed, shade, false);
-}
-
-//----------------------------------------------------------------------------------------------------------------------------------------------------
-void Choice_Draw(Choice *choice, int x, int y, bool opened)
-{
-    if(opened)
-    {
-        Choice_DrawOpened(choice, x, y);
-    }
-    else
-    {
-        Choice_DrawClosed(choice, x, y);
-    }
 }
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
