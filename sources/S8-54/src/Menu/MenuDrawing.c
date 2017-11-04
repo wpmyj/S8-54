@@ -250,7 +250,7 @@ static void DrawGovernor(void *item, int x, int y)
 //----------------------------------------------------------------------------------------------------------------------------------------------------
 static void DrawIPaddress(void *item, int x, int y)
 {
-    IPaddress_Draw((IPaddress *)item, x, y, false);
+    ((IPaddress *)item)->Draw(x, y, false);
 }
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
@@ -369,7 +369,7 @@ void DrawOpenedPage(Page *page, int layer, int yTop)
         }
         else if (type == Item_IP)
         {
-            IPaddress_Draw((IPaddress *)item, CalculateX(1), ItemOpenedPosY(item), true);
+            ((IPaddress *)item)->Draw(CalculateX(1), ItemOpenedPosY(item), true);
         }
         else if (type == Item_MAC)
         {

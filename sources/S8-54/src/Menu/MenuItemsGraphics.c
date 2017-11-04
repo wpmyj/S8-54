@@ -10,7 +10,6 @@
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 static void MACaddress_DrawOpened(MACaddress *mac, int x, int y);
-static void IPaddress_DrawOpened(IPaddress *ip, int x, int y);
 static void DrawGovernorChoiceColorFormulaHiPart(void *item, int x, int y, bool pressed, bool shade, bool opened);
 static void GovernorIpCommon_DrawOpened(void *item, int x, int y, int dWidth);
 static void DrawValueWithSelectedPosition(int x, int y, int value, int numDigits, int selPos, bool hLine, bool fillNull);
@@ -194,6 +193,98 @@ void Governor::DrawLowPart(int x, int y, bool pressed, bool shade)
     painter.DrawText(x + 1, y + 21, "\x81", colorTextDown);
 }
 
+//----------------------------------------------------------------------------------------------------------------------------------------------------
+void IPaddress::Draw(int x, int y, bool opened)
+{
+    if (opened)
+    {
+        DrawOpened(x - (port == 0 ? 0 : MOI_WIDTH_D_IP), y);
+    }
+    else
+    {
+        DrawClosed(x, y);
+    }
+}
+
+//----------------------------------------------------------------------------------------------------------------------------------------------------
+void IPaddress::DrawOpened(int x, int y)
+{
+    GovernorIpCommon_DrawOpened(this, x, y, port == 0 ? 0 : MOI_WIDTH_D_IP);
+    DrawValue(x, y + 22);
+}
+
+//----------------------------------------------------------------------------------------------------------------------------------------------------
+void IPaddress::DrawClosed(int x, int y)
+{
+    bool pressed = IsPressed(this);
+    bool shade = IsShade(this) || !ItemIsAcitve(this);
+    DrawLowPart(x, y, pressed, shade);
+    DrawGovernorChoiceColorFormulaHiPart(this, x, y, pressed, shade, false);
+}
+
+//----------------------------------------------------------------------------------------------------------------------------------------------------
+void IPaddress::DrawValue(int x, int y)
+{
+    if (gCurDigit > (port == 0 ? 11 : 16))
+    {
+        gCurDigit = 0;
+    }
+
+    uint8 *bytes = ip0;
+
+    x += 15;
+
+    y += 1;
+
+    int numIP = 0;
+    int selPos = 0;
+
+    GetNumPosIPvalue(&numIP, &selPos);
+
+    for (int i = 0; i < 4; i++)
+    {
+        DrawValueWithSelectedPosition(x, y, bytes[i], 3, numIP == i ? selPos : -1, false, true);
+        if (i != 3)
+        {
+            painter.DrawChar(x + 5, y, '.', Color::WHITE);
+        }
+        x += 19;
+    }
+
+    if (port != 0)
+    {
+        painter.DrawChar(x - 13, y, ':', Color::WHITE);
+        DrawValueWithSelectedPosition(x + 14, y, *port, 5, numIP == 4 ? selPos : -1, false, true);
+    }
+}
+
+//----------------------------------------------------------------------------------------------------------------------------------------------------
+void IPaddress::DrawLowPart(int x, int y, bool pressed, bool shade)
+{
+    const int SIZE = 20;
+    char buffer[SIZE];
+
+    Color colorTextDown = Color::BLACK;
+
+    painter.DrawVolumeButton(x + 1, y + 17, MI_WIDTH_VALUE + 2, MI_HEIGHT_VALUE + 3, 2, Color::MENU_FIELD,
+                             Color::MENU_ITEM_BRIGHT, Color::MENU_ITEM_DARK, true, shade);
+    if (shade)
+    {
+        colorTextDown = Color::MenuItem(false);
+    }
+
+    snprintf(buffer, SIZE, "%03d.%03d.%03d.%03d", *ip0, *ip1, *ip2, *ip3);
+
+    if (OpenedItem() != this)
+    {
+        painter.DrawText(x + 4, y + 21, buffer, colorTextDown);
+    }
+    else
+    {
+        painter.DrawText(x + 4, y + 21, buffer, Color::WHITE);
+    }
+}
+
 
 
 
@@ -312,32 +403,7 @@ static void DrawGovernorChoiceColorFormulaHiPart(void *item, int x, int y, bool 
 
 
 
-//----------------------------------------------------------------------------------------------------------------------------------------------------
-static void DrawIPaddressLowPart(IPaddress *ip, int x, int y, bool pressed, bool shade)
-{
-    const int SIZE = 20;
-    char buffer[SIZE];
 
-    Color colorTextDown = Color::BLACK;
-
-    painter.DrawVolumeButton(x + 1, y + 17, MI_WIDTH_VALUE + 2, MI_HEIGHT_VALUE + 3, 2, Color::MENU_FIELD,
-                             Color::MENU_ITEM_BRIGHT, Color::MENU_ITEM_DARK, true, shade);
-    if (shade)
-    {
-        colorTextDown = Color::MenuItem(false);
-    }
-
-    snprintf(buffer, SIZE, "%03d.%03d.%03d.%03d", *ip->ip0, *ip->ip1, *ip->ip2, *ip->ip3);
-
-    if (OpenedItem() != ip)
-    {
-        painter.DrawText(x + 4, y + 21, buffer, colorTextDown);
-    }
-    else
-    {
-        painter.DrawText(x + 4, y + 21, buffer, Color::WHITE);
-    }
-}
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
 static void DrawMACaddressLowPart(MACaddress *mac, int x, int y, bool pressed, bool shade)
@@ -412,14 +478,7 @@ void DrawFormulaLowPart(Formula *formula, int x, int y, bool pressed, bool shade
     WriteTextFormula(formula, x + 6, y + 21, false);
 }
 
-//----------------------------------------------------------------------------------------------------------------------------------------------------
-static void IPaddress_DrawClosed(IPaddress *ip, int x, int y)
-{
-    bool pressed = IsPressed(ip);
-    bool shade = IsShade(ip) || !ItemIsAcitve(ip);
-    DrawIPaddressLowPart(ip, x, y, pressed, shade);
-    DrawGovernorChoiceColorFormulaHiPart(ip, x, y, pressed, shade, false);
-}
+
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
 static void MACaddress_DrawClosed(MACaddress *mac, int x, int y)
@@ -469,41 +528,7 @@ static void DrawValueWithSelectedPosition(int x, int y, int value, int numDigits
     }
 }
 
-//----------------------------------------------------------------------------------------------------------------------------------------------------
-static void DrawIPvalue(int x, int y, IPaddress *ip)
-{
-    if (gCurDigit > (ip->port == 0 ? 11 : 16))
-    {
-        gCurDigit = 0;
-    }
 
-    uint8 *bytes = ip->ip0;
-
-    x += 15;
-
-    y += 1;
-
-    int numIP = 0;
-    int selPos = 0;
-
-    ip->GetNumPosIPvalue(&numIP, &selPos);
-
-    for (int i = 0; i < 4; i++)
-    {
-        DrawValueWithSelectedPosition(x, y, bytes[i], 3, numIP == i ? selPos : -1, false, true);
-        if (i != 3)
-        {
-            painter.DrawChar(x + 5, y, '.', Color::WHITE);
-        }
-        x += 19;
-    }
-
-    if (ip->port != 0)
-    {
-        painter.DrawChar(x - 13, y, ':', Color::WHITE);
-        DrawValueWithSelectedPosition(x + 14, y, *ip->port, 5, numIP == 4 ? selPos : -1, false, true);
-    }
-}
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
 static void DrawMACvalue(int x, int y, MACaddress *mac)
@@ -532,18 +557,7 @@ static void DrawMACvalue(int x, int y, MACaddress *mac)
 
 
 
-//----------------------------------------------------------------------------------------------------------------------------------------------------
-void IPaddress_Draw(IPaddress *ip, int x, int y, bool opened)
-{
-    if (opened)
-    {
-        IPaddress_DrawOpened(ip, x - (ip->port == 0 ? 0 : MOI_WIDTH_D_IP), y);
-    }
-    else
-    {
-        IPaddress_DrawClosed(ip, x, y);
-    }
-}
+
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
 void MACaddress_Draw(MACaddress *mac, int x, int y, bool opened)
@@ -684,12 +698,7 @@ static void GovernorIpCommon_DrawOpened(void *item, int x, int y, int dWidth)
 
 
 
-//----------------------------------------------------------------------------------------------------------------------------------------------------
-static void IPaddress_DrawOpened(IPaddress *ip, int x, int y)
-{
-    GovernorIpCommon_DrawOpened(ip, x, y, ip->port == 0 ? 0 : MOI_WIDTH_D_IP);
-    DrawIPvalue(x, y + 22, ip);
-}
+
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
 static void MACaddress_DrawOpened(MACaddress *mac, int x, int y)
