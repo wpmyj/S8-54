@@ -66,7 +66,5 @@ bool IsPageSB(const void *item);
 
 void CallFuncOnPressButton(void *button);
 
-void CallFuncOnDrawButton(Button *button, int x, int y);
-
 /** @}
  */

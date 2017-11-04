@@ -350,12 +350,3 @@ void CallFuncOnPressButton(void *button)
         }
     }
 }
-
-//----------------------------------------------------------------------------------------------------------------------------------------------------
-void CallFuncOnDrawButton(Button *button, int x, int y)
-{
-    if (button->funcForDraw)
-    {
-        button->funcForDraw(x, y);
-    }
-}

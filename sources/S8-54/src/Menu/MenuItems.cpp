@@ -54,3 +54,12 @@ SButton* Page::SmallButonFromPage(int numButton)
     return (SButton *)items[numButton];
 }
 
+//----------------------------------------------------------------------------------------------------------------------------------------------------
+void Button::CallFuncOnDraw(int x, int y)
+{
+    if (funcForDraw)
+    {
+        funcForDraw(x, y);
+    }
+}
+

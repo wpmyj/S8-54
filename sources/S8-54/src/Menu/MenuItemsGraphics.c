@@ -837,7 +837,7 @@ void Button_Draw(Button *button, int x, int y)
     
     painter.DrawStringInCenterRectC(x + delta, y + delta, MI_WIDTH, MI_HEIGHT, TitleItem(button), color);
 
-    CallFuncOnDrawButton(button, x, y);
+    button->CallFuncOnDraw(x, y);
 }
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
