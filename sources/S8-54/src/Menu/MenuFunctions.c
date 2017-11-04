@@ -120,24 +120,6 @@ bool IsFunctionalButton(PanelButton button)
 }
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
-void ChangeSubPage(const Page *page, int delta)
-{
-    if (page)
-    {
-        if (delta > 0 && MenuCurrentSubPage(page->name) < page->NumSubPages() - 1)
-        {
-            Sound_RegulatorSwitchRotate();
-            SetMenuCurrentSubPage(page->name, MenuCurrentSubPage(page->name) + 1);
-        }
-        else if (delta < 0 && MenuCurrentSubPage(page->name) > 0)
-        {
-            Sound_RegulatorSwitchRotate();
-            SetMenuCurrentSubPage(page->name, MenuCurrentSubPage(page->name) - 1);
-        }
-    }
-}
-
-//----------------------------------------------------------------------------------------------------------------------------------------------------
 void *RetLastOpened(Page *page, TypeItem *type)
 {
     if(CurrentItemIsOpened(page->GetNamePage()))
@@ -247,7 +229,7 @@ bool ChangeOpenedItem(void *item, int delta)
 
     if (type == Item_Page)
     {
-        ChangeSubPage((const Page *)item, delta);
+        ((const Page *)item)->ChangeSubPage(delta);
     }
     else if (type == Item_IP)
     {

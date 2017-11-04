@@ -1,5 +1,6 @@
 #include "MenuItems.h"
 #include "MenuFunctions.h"
+#include "Hardware/Sound.h"
 #include "Settings/Settings.h"
 
 
@@ -88,4 +89,19 @@ void Page::ShortPressOnItem(int numItem)
 int8 Page::PosCurrentItem() const
 {
     return MENU_POS_ACT_ITEM(name) & 0x7f;
+}
+
+//----------------------------------------------------------------------------------------------------------------------------------------------------
+void Page::ChangeSubPage(int delta) const
+{
+    if (delta > 0 && MenuCurrentSubPage(name) < NumSubPages() - 1)
+    {
+        Sound_RegulatorSwitchRotate();
+        SetMenuCurrentSubPage(name, MenuCurrentSubPage(name) + 1);
+    }
+    else if (delta < 0 && MenuCurrentSubPage(name) > 0)
+    {
+        Sound_RegulatorSwitchRotate();
+        SetMenuCurrentSubPage(name, MenuCurrentSubPage(name) - 1);
+    }
 }

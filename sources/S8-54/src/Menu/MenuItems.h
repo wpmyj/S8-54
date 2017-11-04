@@ -129,6 +129,7 @@ struct Page
     void ShortPressOnItem(int numItem);
     /// Возвращает позицию текущего элемента странцы page
     int8 PosCurrentItem() const;
+    void ChangeSubPage(int delta) const;
 };
 
 typedef struct Page Page;

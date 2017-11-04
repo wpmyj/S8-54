@@ -49,8 +49,6 @@ void OpenItem(const void *item, bool open);
 /// Возвращает true, если элемент меню по адрему item открыт
 bool ItemIsOpened(const void *item);
 
-void ChangeSubPage(const Page *page, int delta);
-
 Page *PagePointerFromName(NamePage namePage);
 
 bool IsPageSB(const void *item);
