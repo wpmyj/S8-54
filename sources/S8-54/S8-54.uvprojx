@@ -1394,11 +1394,6 @@
               <FilePath>.\src\Menu\MenuItemsGraphics.c</FilePath>
             </File>
             <File>
-              <FileName>MenuItemsGraphics.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\src\Menu\MenuItemsGraphics.h</FilePath>
-            </File>
-            <File>
               <FileName>MenuItemsLogic.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\src\Menu\MenuItemsLogic.c</FilePath>
