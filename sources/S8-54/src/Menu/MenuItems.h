@@ -12,6 +12,8 @@
  *  @{
  */
 
+extern int8 gCurDigit;
+
 #define MAX_NUM_SUBITEMS_IN_CHOICE  12  ///< Максимальное количество вариантов выбора в элементе Choice.
 #define MAX_NUM_ITEMS_IN_PAGE       16  ///< Максимальное количество пунктов на странице.
 #define MENU_ITEMS_ON_DISPLAY       5   ///< Сколько пунктов меню помещается на экране по вертикали.

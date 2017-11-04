@@ -8,7 +8,6 @@
 #include "Display/DisplayTypes.h"
 #include "Hardware/Sound.h"
 #include "MenuItems.h"
-#include "MenuItemsLogic.h"
 #include "Menu.h"
 #include "Panel/Controls.h"
 #include "Panel/Panel.h"

@@ -1404,11 +1404,6 @@
               <FilePath>.\src\Menu\MenuItemsLogic.c</FilePath>
             </File>
             <File>
-              <FileName>MenuItemsLogic.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\src\Menu\MenuItemsLogic.h</FilePath>
-            </File>
-            <File>
               <FileName>Menu.cpp</FileName>
               <FileType>8</FileType>
               <FilePath>.\src\Menu\Menu.cpp</FilePath>
