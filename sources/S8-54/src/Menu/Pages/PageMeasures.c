@@ -335,26 +335,20 @@ static void OnRegSet_Tune(int angle)
 }
 
 // ИЗМЕРЕНИЯ - НАСТРОИТЬ - Выход ---------------------------------------------------------------------------------------------------------------------
-static const SButton bTune_Exit =
-{
-    Item_SmallButton, &ppTune,
+static const SButton bTune_Exit 
+(
     COMMON_BEGIN_SB_EXIT,
-    OnPressSB_Exit,
-    DrawSB_Exit
-};
+    &ppTune, OnPressSB_Exit, DrawSB_Exit
+);
 
 // ИЗМЕРЕНИЯ - НАСТРОИТЬ - Маркеры -------------------------------------------------------------------------------------------------------------------
-static const SButton bTune_Markers =
-{
-    Item_SmallButton, &ppTune, 0,
-    {
-        "Маркер", "Marker",
-        "Позволяет установить маркеры для визуального контроля измерений",
-        "Allows to establish markers for visual control of measurements"
-    },
-    OnPress_Tune_Markers,
-    Draw_Tune_Markers
-};
+static const SButton bTune_Markers 
+(
+    "Маркер", "Marker",
+    "Позволяет установить маркеры для визуального контроля измерений",
+    "Allows to establish markers for visual control of measurements",
+    &ppTune, OnPress_Tune_Markers, Draw_Tune_Markers
+);
 
 static void OnPress_Tune_Markers(void)
 {
@@ -369,17 +363,13 @@ static void Draw_Tune_Markers(int x, int y)
 }
 
 // ИЗМЕРЕНИЯ - НАСТРОИТЬ - Настройка -----------------------------------------------------------------------------------------------------------------
-static const SButton bTune_Settings =
-{
-    Item_SmallButton, &ppTune, 0,
-    {
-        "Настройка", "Setup",
-        "Позволяет выбрать необходимые измерения",
-        "Allows to choose necessary measurements"
-    },
-    OnPress_Tune_Settings,
-    Draw_Tune_Settings
-};
+static const SButton bTune_Settings 
+(
+    "Настройка", "Setup",
+    "Позволяет выбрать необходимые измерения",
+    "Allows to choose necessary measurements",
+    &ppTune, OnPress_Tune_Settings, Draw_Tune_Settings
+);
 
 static void OnPress_Tune_Settings(void)
 {

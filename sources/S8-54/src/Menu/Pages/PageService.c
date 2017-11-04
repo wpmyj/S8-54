@@ -551,26 +551,20 @@ static void OnRegSet_FFT_Cursors(int angle)
 
 
 // СЕРВИС - СПЕКТР - КУРСОРЫ - Выход -----------------------------------------------------------------------------------------------------------------
-static const SButton bFFT_Cursors_Exit =
-{
-    Item_SmallButton, &pppFFT_Cursors,
+static const SButton bFFT_Cursors_Exit
+(
     COMMON_BEGIN_SB_EXIT,
-    OnPressSB_Exit,
-    DrawSB_Exit
-};
+    &pppFFT_Cursors, OnPressSB_Exit, DrawSB_Exit
+);
 
 // СЕРВИС - СПЕКТР - КУРСОРЫ - Источник --------------------------------------------------------------------------------------------------------------
-static const SButton bFFT_Cursors_Source =
-{
-    Item_SmallButton, &pppFFT_Cursors, 0,
-    {
-        "Источник", "Source",
-        "Выбор источника для расчёта спектра",
-        "Source choice for calculation of a range"
-    },
-    OnPress_FFT_Cursors_Source,
-    Draw_FFT_Cursors_Source
-};
+static const SButton bFFT_Cursors_Source
+(
+     "Источник", "Source",
+     "Выбор источника для расчёта спектра",
+     "Source choice for calculation of a range",
+    &pppFFT_Cursors, OnPress_FFT_Cursors_Source, Draw_FFT_Cursors_Source
+);
 
 static void OnPress_FFT_Cursors_Source(void)
 {
@@ -710,35 +704,33 @@ static void OnRegSet_Function(int delta)
 }
 
 // СЕРВИС - ФУНКЦИЯ - Выход --------------------------------------------------------------------------------------------------------------------------
-static const SButton bFunction_Exit =
+static const SButton bFunction_Exit
+(
+    "Выход", "Exit",
+    "Кнопка для выхода в предыдущее меню",
+    "Button to return to the previous menu",
+    &ppFunction, 0, DrawSB_Exit
+);
+
+static const StructHelpSmallButton hintsScreen[] =
 {
-    Item_SmallButton, &ppFunction, 0,
-    {
-        "Выход", "Exit",
-        "Кнопка для выхода в предыдущее меню",
-        "Button to return to the previous menu"
-    },
-    0,
-    DrawSB_Exit
+    {Draw_Function_Screen_Disable,  "Вывод математической функции отключён",     
+                                    "The conclusion of mathematical function is disconnected"},
+    {Draw_Function_Screen_Separate, "Сигналы и математическая функция выводятся в разных окнах",
+                                    "Signals and mathematical function are removed in different windows"},
+    {Draw_Function_Screen_Together, "Сигналы и математическая функция выводятся в одном окне",
+                                    "Signals and mathematical function are removed in one window"}
 };
 
 // СЕРВИС - ФУНКЦИЯ - Экран --------------------------------------------------------------------------------------------------------------------------
-static const SButton bFunction_Screen =
-{
-    Item_SmallButton, &ppFunction, 0,
-    {
-        "Экран", "Display",
-        "Выбирает режим отображения математического сигнала",
-        "Chooses the mode of display of a mathematical signal"
-    },
-    OnPress_Function_Screen,
-    Draw_Function_Screen,
-    {
-        {Draw_Function_Screen_Disable,  "Вывод математической функции отключён",                        "The conclusion of mathematical function is disconnected"},
-        {Draw_Function_Screen_Separate, "Сигналы и математическая функция выводятся в разных окнах",    "Signals and mathematical function are removed in different windows"},
-        {Draw_Function_Screen_Together, "Сигналы и математическая функция выводятся в одном окне",      "Signals and mathematical function are removed in one window"}
-    }
-};
+static const SButton bFunction_Screen
+(
+    "Экран", "Display",
+    "Выбирает режим отображения математического сигнала",
+    "Chooses the mode of display of a mathematical signal",
+    &ppFunction, OnPress_Function_Screen, Draw_Function_Screen, 0,
+    hintsScreen, 3
+);
 
 static void OnPress_Function_Screen(void)
 {
@@ -780,22 +772,21 @@ static void Draw_Function_Screen_Together(int x, int y)
     painter.DrawRectangle(x + 3, y + 5, 13, 9);
 }
 
-// СЕРВИС - ФУНКЦИЯ - Вид ----------------------------------------------------------------------------------------------------------------------------
-static const SButton bFunction_Type =
+static const StructHelpSmallButton hintsType[] =
 {
-    Item_SmallButton, &ppFunction, 0,
-    {
-        "Вид", "Type",
-        "Выбор математической функции",
-        "Choice of mathematical function"
-    },
-    OnPress_Function_Type,
-    Draw_Function_Type,
-    {
-        { Draw_Function_Type_Sum,      "Сложение",     "Addition"       },
-        { Draw_Function_Type_Mul,      "Умножение",    "Multiplication" }
-    }
+    { Draw_Function_Type_Sum,      "Сложение",     "Addition"       },
+    { Draw_Function_Type_Mul,      "Умножение",    "Multiplication" }    
 };
+
+// СЕРВИС - ФУНКЦИЯ - Вид ----------------------------------------------------------------------------------------------------------------------------
+static const SButton bFunction_Type
+(
+    "Вид", "Type",
+    "Выбор математической функции",
+    "Choice of mathematical function",
+    &ppFunction, OnPress_Function_Type, Draw_Function_Type, 0,
+    hintsType, 2
+);
 
 static void OnPress_Function_Type(void)
 {
@@ -821,23 +812,20 @@ static void Draw_Function_Type_Mul(int x, int y)
     painter.SetFont(TypeFont_8);
 }
 
+static const StructHelpSmallButton hintsModeRegSet[] =
+{
+    {Draw_Function_ModeRegSet_Range,  "Управление масштабом", "Management of scale"},
+    {Draw_Function_ModeRegSet_RShift, "Управление смещением", "Management of shift"}    
+};
 
 // СЕРВИС - ФУНКЦИЯ - Режим ручки УСТАНОВКА ----------------------------------------------------------------------------------------------------------
-static const SButton bFunction_ModeRegSet =
-{
-    Item_SmallButton, &ppFunction, 0,
-    {
-        "Режим ручки УСТАНОВКА", "Mode regulator SET",
-        "Выбор режима ручки УСТАНОВКА - управление масштабом или смещением",
-        "Choice mode regulcator УСТАНОВКА - management of scale or shift"
-    },
-    OnPress_Function_ModeRegSet,
-    Draw_Function_ModeRegSet,
-    {
-        {Draw_Function_ModeRegSet_Range,  "Управление масштабом", "Management of scale"},
-        {Draw_Function_ModeRegSet_RShift, "Управление смещением", "Management of shift"}
-    }
-};
+static const SButton bFunction_ModeRegSet
+(
+    "Режим ручки УСТАНОВКА", "Mode regulator SET",
+    "Выбор режима ручки УСТАНОВКА - управление масштабом или смещением",
+    "Choice mode regulcator УСТАНОВКА - management of scale or shift",
+    &ppFunction, OnPress_Function_ModeRegSet, Draw_Function_ModeRegSet, 0, hintsModeRegSet, 2
+);
 
 static void OnPress_Function_ModeRegSet(void)
 {
@@ -861,17 +849,13 @@ static void Draw_Function_ModeRegSet_RShift(int x, int y)
 }
 
 // СЕРВИС - ФУНКЦИЯ - Масштаб 1-го канала ------------------------------------------------------------------------------------------------------------
-static const SButton bFunction_RangeA =
-{
-    Item_SmallButton, &ppFunction, 0,
-    {
-        "Масштаб 1-го канала", "Scale of the 1st channel",
-        "Использует масштаб первого канала для отображения результата",
-        "Takes scale for a mathematical signal from the first channel"
-    },
-    OnPress_Function_RangeA,
-    Draw_Function_RangeA
-};
+static const SButton bFunction_RangeA
+(
+    "Масштаб 1-го канала", "Scale of the 1st channel",
+    "Использует масштаб первого канала для отображения результата",
+    "Takes scale for a mathematical signal from the first channel",
+    &ppFunction, OnPress_Function_RangeA, Draw_Function_RangeA
+);
 
 static void OnPress_Function_RangeA(void)
 {
@@ -885,17 +869,13 @@ static void Draw_Function_RangeA(int x, int y)
 }
 
 // СЕРВИС - ФУНКЦИЯ - Масштаб 2-го канала ------------------------------------------------------------------------------------------------------------
-static const SButton bFunction_RangeB =
-{
-    Item_SmallButton, &ppFunction, 0,
-    {
-        "Масштаб 2-го канала", "Scale of the 2nd channel",
-        "Использует масштаб второго канала для отображения результата",
-        "Takes scale for a mathematical signal from the second channel"
-    },
-    OnPress_Function_RangeB,
-    Draw_Function_RangeB
-};
+static const SButton bFunction_RangeB
+(
+    "Масштаб 2-го канала", "Scale of the 2nd channel",
+    "Использует масштаб второго канала для отображения результата",
+    "Takes scale for a mathematical signal from the second channel",
+    &ppFunction, OnPress_Function_RangeB, Draw_Function_RangeB
+);
 
 static void OnPress_Function_RangeB(void)
 {
@@ -1191,13 +1171,11 @@ static void Information_Draw(void)
 }
 
 // СЕРВИС - ИНФОРМАЦИЯ - Выход -----------------------------------------------------------------------------------------------------------------------
-static const SButton bInformation_Exit =
-{
-    Item_SmallButton, &ppInformation,
+static const SButton bInformation_Exit
+(
     COMMON_BEGIN_SB_EXIT,
-    OnPress_Information_Exit,
-    DrawSB_Exit
-};
+    &ppInformation, OnPress_Information_Exit, DrawSB_Exit
+);
 
 static void OnPress_Information_Exit(void)
 {

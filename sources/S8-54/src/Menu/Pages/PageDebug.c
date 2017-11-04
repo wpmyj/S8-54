@@ -1137,13 +1137,11 @@ static const Page ppSettings =
 };
 
 // ОТЛАДКА - НАСТРОЙКИ - Выход -----------------------------------------------------------------------------------------------------------------------
-static const SButton bSettings_Exit =
-{
-    Item_SmallButton, &ppSettings,
+static const SButton bSettings_Exit
+(
     COMMON_BEGIN_SB_EXIT,
-    OnPress_Settings_Exit,
-    DrawSB_Exit
-};
+    &ppSettings, OnPress_Settings_Exit, DrawSB_Exit
+);
 
 static void OnPress_Settings_Exit(void)
 {
@@ -1492,13 +1490,11 @@ static void OnRegSet_SerialNumber(int angle)
 }
 
 // ОТЛАДКА - С/Н - Выход -----------------------------------------------------------------------------------------------------------------------------
-static const SButton bSerialNumber_Exit =
-{
-    Item_SmallButton, &ppSerialNumber,
+static const SButton bSerialNumber_Exit
+(
     COMMON_BEGIN_SB_EXIT,
-    OnPress_SerialNumber_Exit,
-    DrawSB_Exit
-};
+    &ppSerialNumber, OnPress_SerialNumber_Exit, DrawSB_Exit
+);
 
 static void OnPress_SerialNumber_Exit(void)
 {
@@ -1507,17 +1503,13 @@ static void OnPress_SerialNumber_Exit(void)
 }
 
 // ОТЛАДКА - С/Н - Вставить --------------------------------------------------------------------------------------------------------------------------
-static const SButton bSerialNumber_Change =
-{
-    Item_SmallButton, &ppSerialNumber, 0,
-    {
-        "Вставить", "Insert",
-        "Вставляет выбраный символ",
-        "Inserts the chosen symbol"
-    },
-    OnPress_SerialNumber_Change,
-    Draw_SerialNumber_Change
-};
+static const SButton bSerialNumber_Change
+(
+    "Вставить", "Insert",
+    "Вставляет выбраный символ",
+    "Inserts the chosen symbol",
+    &ppSerialNumber, OnPress_SerialNumber_Change, Draw_SerialNumber_Change
+);
 
 static void OnPress_SerialNumber_Change(void)
 {
@@ -1535,17 +1527,13 @@ static void Draw_SerialNumber_Change(int x, int y)
 }
 
 // ОТЛАДКА - С/Н - Сохранить -------------------------------------------------------------------------------------------------------------------------
-static const SButton bSerialNumber_Save =
-{
-    Item_SmallButton, &ppSerialNumber, 0,
-    {
-        "Сохранить", "Save",
-        "Записывает серийный номер в OTP",
-        "Records the serial number in OTP"
-    },
-    OnPress_SerialNumber_Save,
-    Draw_SerialNumber_Save
-};
+static const SButton bSerialNumber_Save
+(
+    "Сохранить", "Save",
+    "Записывает серийный номер в OTP",
+    "Records the serial number in OTP",
+    &ppSerialNumber, OnPress_SerialNumber_Save, Draw_SerialNumber_Save
+);
 
 static void OnPress_SerialNumber_Save(void)
 {

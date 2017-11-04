@@ -701,12 +701,16 @@ int Painter::DrawStringInCenterRectAndBoundItC(int x, int y, int width, int heig
 void Painter::DrawHintsForSmallButton(int x, int y, int width, void *smallButton)
 {
     SButton *sb = (SButton*)smallButton;
+    if(sb->numHints == 0)
+    {
+        return;
+    }
     FillRegion(x, y, width, 239 - y, gColorBack);
     DrawRectangle(x, y, width, 239 - y, gColorFill);
-    StructHelpSmallButton *structHelp = sb->hintUGO;
+    const StructHelpSmallButton *structHelp = &sb->hintUGO[0];
     x += 3;
     y += 3;
-    while (structHelp->funcDrawUGO)
+    for(int i = 0; i < sb->numHints; i++)
     {
         DrawRectangle(x, y, WIDTH_SB, WIDTH_SB);
         structHelp->funcDrawUGO(x, y);

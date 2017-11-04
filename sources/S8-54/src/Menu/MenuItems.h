@@ -95,6 +95,22 @@ typedef enum
     Page_NoPage
 } NamePage;
 
+class Control
+{
+public:
+    /*
+    Control(TypeItem type_, char *titleRu, char *titleEn, char *hintRu, char *hintEn) : type(type_)
+    {
+    titleHint[0] = titleRu;
+    titleHint[1] = titleEn;
+    titleHint[2] = hintRu;
+    titleHint[3] = hintEn;
+    };
+    */
+protected:
+    //TypeItem type;
+};
+
 /// Общая часть для всех типов элементов меню
 #define COMMON_PART_MENU_ITEM                                                                                   \
     TypeItem                type;           /* Тип итема */                                                     \
@@ -142,61 +158,72 @@ typedef struct
     COMMON_PART_MENU_ITEM
 } Empty;
 
-class Control
-{
-public:
-    /*
-    Control(TypeItem type_, char *titleRu, char *titleEn, char *hintRu, char *hintEn) : type(type_)
-    {
-        titleHint[0] = titleRu;
-        titleHint[1] = titleEn;
-        titleHint[2] = hintRu;
-        titleHint[3] = hintEn;
-    };
-*/
-protected:
-    //TypeItem type;
-};
+#define COMMON_INIT                     \
+    titleHint[0] = titleRu;             \
+    titleHint[1] = titleEn;             \
+    titleHint[2] = hintRu;              \
+    titleHint[3] = hintEn;              \
+    if (funcOnPress == 0)               \
+    {                                   \
+        funcOnPress = EmptyFuncVV;      \
+    }                                   \
+    if (funcOfActive == 0)              \
+    {                                   \
+        funcOfActive = EmptyFuncBV;     \
+    }                                   \
+    if (funcForDraw == 0)               \
+    {                                   \
+        funcForDraw = EmptyFuncVII;     \
+    }
 
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 /// Описывает кнопку.
 class Button : public Control
 {
 public:
     Button(char *titleRu, char *titleEn, char *hintRu, char *hintEn, const Page *keeper_,
-           pFuncVV funcOnPress_, pFuncBV funcActive_ = EmptyFuncBV, pFuncVII funcForDraw_ = EmptyFuncVII) : 
+        pFuncVV funcOnPress_, pFuncBV funcActive_ = EmptyFuncBV, pFuncVII funcForDraw_ = EmptyFuncVII) : 
         type(Item_Button), keeper(keeper_), funcOfActive(funcActive_), funcOnPress(funcOnPress_), funcForDraw(funcForDraw_)
-        {
-            titleHint[0] = titleRu;
-            titleHint[1] = titleEn;
-            titleHint[2] = hintRu;
-            titleHint[3] = hintEn;
-            if (funcOnPress == 0)  {  funcOnPress = EmptyFuncVV;  }
-            if (funcOfActive == 0) {  funcOfActive = EmptyFuncBV; }
-            if (funcForDraw == 0)  {  funcForDraw = EmptyFuncVII; }
-        };
+    {
+        COMMON_INIT;
+    };
     COMMON_PART_MENU_ITEM
-    pFuncVV     funcOnPress;    ///< Функция, которая вызывается при нажатии на кнопку.
-    pFuncVII    funcForDraw;    ///< Функция будет вызываться во время отрисовки кнопки.
+    pFuncVV     funcOnPress;        ///< Функция, которая вызывается при нажатии на кнопку.
+    pFuncVII    funcForDraw;        ///< Функция будет вызываться во время отрисовки кнопки.
     void CallFuncOnDraw(int x, int y);
     void Draw(int x, int y);
 };
 
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 typedef struct
 {
-    pFuncVII    funcDrawUGO;    ///< Указатель на функцию отрисовки изображения варианта кнопки
-    const char * const helpUGO[2];     ///< Подпись к данному изображению.
+    pFuncVII    funcDrawUGO;        ///< Указатель на функцию отрисовки изображения варианта кнопки
+    const char * const helpUGO[2];  ///< Подпись к данному изображению.
 } StructHelpSmallButton;
 
+
 /// Описывает кнопку для дополнительного режима меню.
-struct SButton
+class SButton : public Control
 {
+public:
+    SButton(char *titleRu, char *titleEn, char *hintRu, char *hintEn, const Page *keeper_,
+        pFuncVV funcOnPress_, pFuncVII funcForDraw_ = EmptyFuncVII, pFuncBV funcActive_ = EmptyFuncBV, const StructHelpSmallButton *hintsUGO = 0,
+        int numHints_ = 0) :
+        type(Item_SmallButton), keeper(keeper_), funcOfActive(funcActive_), funcOnPress(funcOnPress_), funcForDraw(funcForDraw_),
+        hintUGO(hintsUGO), numHints(numHints_)
+    {
+        COMMON_INIT;
+    }
     COMMON_PART_MENU_ITEM
-    pFuncVV                 funcOnPress;    ///< Эта функция вызвается для обработки нажатия кнопки.
-    pFuncVII                funcOnDraw;     ///< Эта функция вызывается для отрисовки кнопки в месте с координатами x, y.
-    StructHelpSmallButton   hintUGO[MAX_NUM_CHOICE_SMALL_BUTTON]; 
+    pFuncVV                     funcOnPress;    ///< Эта функция вызвается для обработки нажатия кнопки.
+    pFuncVII                    funcForDraw;    ///< Эта функция вызывается для отрисовки кнопки в месте с координатами x, y.
+    const StructHelpSmallButton *hintUGO; 
+    int numHints;
     void Draw(int x, int y);
 };
 
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 /// Описывает регулятор.
 typedef struct
 {

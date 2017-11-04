@@ -223,42 +223,34 @@ static void OnRegSet_Set(int angle)
 }
 
 // КУРСОРЫ - УСТАНОВИТЬ - Выход --------------------------------------------------------------------------------------------------------------------
-static const SButton bSet_Exit =
-{
-    Item_SmallButton, &ppSet, 0,
-    {
-        "Выход", "Exit",
-        "Кнопка для выхода в предыдущее меню",
-        "Button to return to the previous menu"
-    },
-    OnPressSB_Exit,
-    DrawSB_Exit
+static const SButton bSet_Exit
+(
+    "Выход", "Exit",
+    "Кнопка для выхода в предыдущее меню",
+    "Button to return to the previous menu",
+    &ppSet, OnPressSB_Exit, DrawSB_Exit
+);
+
+static const StructHelpSmallButton hintsChannel[] =
+{    
+    {   Draw_Set_ChannelA,
+        "канал 1",
+        "channel 1" },
+    
+    {   Draw_Set_ChannelB,
+        "канал 2",
+        "channel 2" }    
 };
 
 // КУРСОРЫ - УСТАНОВИТЬ - Канал --------------------------------------------------------------------------------------------------------------------
-static const SButton bSet_Channel =
-{
-    Item_SmallButton, &ppSet, 0,
-    {
-        "Канал", "Channel",
-        "Выбор канала для курсорных измерений",
-        "Channel choice for measurements"
-    },
-    OnPress_Set_Channel,
-    Draw_Set_Channel,
-    {
-        {
-            Draw_Set_ChannelA,
-            "канал 1",
-            "channel 1"
-        },
-        {
-            Draw_Set_ChannelB,
-            "канал 2",
-            "channel 2"
-        }
-    }
-};
+static const SButton bSet_Channel
+(
+    "Канал", "Channel",
+    "Выбор канала для курсорных измерений",
+    "Channel choice for measurements",
+    &ppSet, OnPress_Set_Channel, Draw_Set_Channel, 0,
+    hintsChannel, 2
+);
 
 static void OnPress_Set_Channel(void)
 {
@@ -282,28 +274,27 @@ static void Draw_Set_ChannelB(int x, int y)
     painter.DrawText(x + 7, y + 5, "2");
 }
 
-// КУРСОРЫ - УСТАНОВИТЬ - Курсоры U ----------------------------------------------------------------------------------------------------------------
-static const SButton bSet_U =      // Выбор курсора напряжения - курсор 1, курсор 2, оба курсора или отключены.
+static const StructHelpSmallButton hintsSetU[] =
 {
-    Item_SmallButton, &ppSet, 0,
-    {
-        "Курсоры U", "Cursors U",
-        "Выбор курсоров напряжения для индикации и управления",
-        "Choice of cursors of voltage for indication and management"
-    },
-    OnPress_Set_U,
-    Draw_Set_U,
-    {
-        {Draw_Set_U_disable,        "курсоры напряжения выключены", "cursors of tension are switched off"},
-        {Draw_Set_U_disableBoth,    "курсоры напряжения включены", "cursors of tension are switched on"},
-        {Draw_Set_U_enableUpper,    "курсоры напряжения включены, управление верхним курсором",
-                                    "cursors of tension are switched on, control of the top cursor"},
-        {Draw_Set_U_enableLower,    "курсоры напряжения включены, управление нижним курсором",
-                                    "cursors of tension are switched on, control of the lower cursor"},
-        {Draw_Set_U_enableBoth,     "курсоры напряжения включены, управление обоими курсорами",
-                                    "cursors of tension are switched on, control of both cursors"}
-    }
+    {Draw_Set_U_disable,        "курсоры напряжения выключены", "cursors of tension are switched off"},
+    {Draw_Set_U_disableBoth,    "курсоры напряжения включены", "cursors of tension are switched on"},
+    {Draw_Set_U_enableUpper,    "курсоры напряжения включены, управление верхним курсором",
+                                "cursors of tension are switched on, control of the top cursor"},
+    {Draw_Set_U_enableLower,    "курсоры напряжения включены, управление нижним курсором",
+                                "cursors of tension are switched on, control of the lower cursor"},
+    {Draw_Set_U_enableBoth,     "курсоры напряжения включены, управление обоими курсорами",
+                                "cursors of tension are switched on, control of both cursors"}
 };
+
+// КУРСОРЫ - УСТАНОВИТЬ - Курсоры U ----------------------------------------------------------------------------------------------------------------
+static const SButton bSet_U       // Выбор курсора напряжения - курсор 1, курсор 2, оба курсора или отключены.
+(
+    "Курсоры U", "Cursors U",
+    "Выбор курсоров напряжения для индикации и управления",
+    "Choice of cursors of voltage for indication and management",
+    &ppSet, OnPress_Set_U, Draw_Set_U, 0,
+    hintsSetU, 5
+);
 
 static void OnPress_Set_U(void)
 {
@@ -395,25 +386,24 @@ static void DrawMenuCursVoltage(int x, int y, bool top, bool bottom)
     }
 }
 
-// КУРСОРЫ - УСТАНОВИТЬ - Курсоры Т ----------------------------------------------------------------------------------------------------------------
-static const SButton bSet_T =      // Выбор курсора времени - курсор 1, курсор 2, оба курсора или отключены.
+static const StructHelpSmallButton hintsSetT[] =
 {
-    Item_SmallButton, &ppSet, 0,
-    {
-        "Курсоры T", "Cursors T",
-        "Выбор курсоров времени для индикации и управления",
-        "Choice of cursors of time for indication and management"
-    },
-    OnPress_Set_T,
-    Draw_Set_T,
-    {
-        {Draw_Set_T_disable, "курсоры времени выключены", "cursors of time are switched off"},
-        {Draw_Set_T_disableBoth, "курсоры времени включены", "cursors of time are switched on"},
-        {Draw_Set_T_enableLeft, "курсоры времени включены, управление левым курсором", "cursors of time are switched on, control of the left cursor"},
-        {Draw_Set_T_enableRight, "курсоры времени включены, управление правым курсором", "cursors of time are switched on, control of the right cursor"},
-        {Draw_Set_T_enableBoth, "курсоры времени включены, управление обоими курсорами", "cursors of time are switched on, control of both cursors"}
-    }
+    {Draw_Set_T_disable,     "курсоры времени выключены",                             "cursors of time are switched off"},
+    {Draw_Set_T_disableBoth, "курсоры времени включены",                              "cursors of time are switched on"},
+    {Draw_Set_T_enableLeft,  "курсоры времени включены, управление левым курсором",   "cursors of time are switched on, control of the left cursor"},
+    {Draw_Set_T_enableRight, "курсоры времени включены, управление правым курсором",  "cursors of time are switched on, control of the right cursor"},
+    {Draw_Set_T_enableBoth,  "курсоры времени включены, управление обоими курсорами", "cursors of time are switched on, control of both cursors"}
 };
+
+// КУРСОРЫ - УСТАНОВИТЬ - Курсоры Т ----------------------------------------------------------------------------------------------------------------
+static const SButton bSet_T       // Выбор курсора времени - курсор 1, курсор 2, оба курсора или отключены.
+(
+    "Курсоры T", "Cursors T",
+    "Выбор курсоров времени для индикации и управления",
+    "Choice of cursors of time for indication and management",
+    &ppSet, OnPress_Set_T, Draw_Set_T, 0,
+    hintsSetT, 5
+);
 
 static void OnPress_Set_T(void)
 {
@@ -516,19 +506,14 @@ static int CalculateYforCurs(int y, bool top)
     return top ? y + MI_HEIGHT / 2 + 4 : y + MI_HEIGHT - 2;
 }
 
-
 // КУРСОРЫ - УСТАНОВИТЬ - 100% ---------------------------------------------------------------------------------------------------------------------
-static const SButton bSet_100 =    // Установка 100 процентов в текущие места курсоров.
-{
-    Item_SmallButton, &ppSet, 0,
-    {
-        "100%", "100%",
-        "Используется для процентных измерений. Нажатие помечает расстояние между активными курсорами как 100%",
-        "It is used for percentage measurements. Pressing marks distance between active cursors as 100%"
-    },
-    OnPress_Set_100,
-    Draw_Set_100
-};
+static const SButton bSet_100     // Установка 100 процентов в текущие места курсоров.
+(
+    "100%", "100%",
+    "Используется для процентных измерений. Нажатие помечает расстояние между активными курсорами как 100%",
+    "It is used for percentage measurements. Pressing marks distance between active cursors as 100%",
+    &ppSet, OnPress_Set_100, Draw_Set_100
+);
 
 static void OnPress_Set_100(void)
 {
@@ -542,22 +527,21 @@ static void Draw_Set_100(int x, int y)
     painter.SetFont(TypeFont_8);
 }
 
-// КУРСОРЫ - УСТАНОВИТЬ - Перемещение --------------------------------------------------------------------------------------------------------------
-static const SButton bSet_Movement =     // Переключение шага перемещения курсоров - по пикселям или по процентам.
+static const StructHelpSmallButton hintsMovement[] =
 {
-    Item_SmallButton, &ppSet, 0,
-    {
-        "Перемещение", "Movement",
-        "Выбор шага перемещения курсоров - проценты или точки",
-        "Choice of a step of movement of cursors - percent or points"
-    },
-    OnPress_Set_Movement,
-    Draw_Set_Movement,
-    {
-        {Draw_Set_Movement_Percents, "шаг перемещения курсоров кратен одному проценту", "the step of movement of cursors is multiple to one percent"},
-        {Draw_Set_Movement_Points, "шаг перемещения курсора кратен одному пикселю", "the step of movement of the cursor is multiple to one pixel"}
-    }
+    {Draw_Set_Movement_Percents, "шаг перемещения курсоров кратен одному проценту", "the step of movement of cursors is multiple to one percent"},
+    {Draw_Set_Movement_Points,   "шаг перемещения курсора кратен одному пикселю",   "the step of movement of the cursor is multiple to one pixel"}
 };
+
+// КУРСОРЫ - УСТАНОВИТЬ - Перемещение --------------------------------------------------------------------------------------------------------------
+static const SButton bSet_Movement      // Переключение шага перемещения курсоров - по пикселям или по процентам.
+(
+    "Перемещение", "Movement",
+    "Выбор шага перемещения курсоров - проценты или точки",
+    "Choice of a step of movement of cursors - percent or points",
+    &ppSet, OnPress_Set_Movement, Draw_Set_Movement, 0,
+    hintsMovement, 2
+);
 
 static void OnPress_Set_Movement(void)
 {

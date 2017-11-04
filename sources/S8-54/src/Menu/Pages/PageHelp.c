@@ -50,64 +50,46 @@ void OnHelpRegSet(int angle)
 }
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
-const SButton sbHelpParagraphEnter =
-{
-    Item_SmallButton, &pHelp, HelpContent_EnterParagraphIsActive,
-    {
-        "Открыть",  "Open",
-        "Открывает раздел справки",
-        "Opens the section of the reference"
-    },
-    HelpContent_EnterParagraph,
-    DrawSB_Help_ParagraphEnter
-};
+const SButton sbHelpParagraphEnter
+(
+    "Открыть",  "Open",
+    "Открывает раздел справки",
+    "Opens the section of the reference",
+    &pHelp, HelpContent_EnterParagraph, DrawSB_Help_ParagraphEnter, HelpContent_EnterParagraphIsActive
+);
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
-const SButton sbHelpParagraphLeave =
-{
-    Item_SmallButton, &pHelp, HelpContent_LeaveParagraphIsActive,
-    {
-        "Закрыть", "Close",
-        "Закрывает раздел справки",
-        "Closes the section of the reference"
-    },
-    HelpContent_LeaveParagraph,
-    DrawSB_Help_ParagraphLeave
-};
+const SButton sbHelpParagraphLeave
+(
+     "Закрыть", "Close",
+     "Закрывает раздел справки",
+     "Closes the section of the reference",
+    &pHelp, HelpContent_LeaveParagraph, DrawSB_Help_ParagraphLeave, HelpContent_LeaveParagraphIsActive
+);
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
-const SButton sbHelpParagraphPrev =
-{
-    Item_SmallButton, &pHelp, 0,
-    {
-        "Предыдущий раздел", "Previous section",
-        "Выбрать предыдущий раздел справки",
-        "To choose the previous section of the reference"
-    },
-    HelpContent_PrevParagraph,
-    DrawSB_Help_ParagraphPrev
-};
+const SButton sbHelpParagraphPrev
+(
+    "Предыдущий раздел", "Previous section",
+    "Выбрать предыдущий раздел справки",
+    "To choose the previous section of the reference",
+    &pHelp, HelpContent_PrevParagraph, DrawSB_Help_ParagraphPrev
+);
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
-const SButton sbHelpParagraphNext =
-{
-    Item_SmallButton, &pHelp, 0,
-    {
-        "", "",
-        "", ""
-    },
-    HelpContent_NextParagraph,
-    DrawSB_Help_ParagraphNext
-};
+const SButton sbHelpParagraphNext
+(
+    "", "",
+    "", "",
+    &pHelp, HelpContent_NextParagraph, DrawSB_Help_ParagraphNext
+);
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
-const SButton sbExitHelp =
-{
-    Item_SmallButton, &pHelp,
+const SButton sbExitHelp
+(
     COMMON_BEGIN_SB_EXIT,
-    OnPressSB_Exit,
-    DrawSB_Exit
-};
+    &pHelp, OnPressSB_Exit, DrawSB_Exit
+);
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
 const Page pHelp =

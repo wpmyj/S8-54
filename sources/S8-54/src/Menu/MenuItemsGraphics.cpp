@@ -538,10 +538,7 @@ void SButton::Draw(int x, int y)
         {
             painter.DrawRectangle(x, y, WIDTH_SB, WIDTH_SB, gColorFill);
         }
-        if (funcOnDraw)
-        {
-            funcOnDraw(x, y);
-        }
+        funcForDraw(x, y);
     }
     else
     {
