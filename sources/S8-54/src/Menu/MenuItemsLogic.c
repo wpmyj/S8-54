@@ -361,6 +361,38 @@ void MACaddress::ChangeValue(int delta)
     display.ShowWarning(NeedRebootDevice);
 }
 
+//----------------------------------------------------------------------------------------------------------------------------------------------------
+void Time::DecCurrentPosition()
+{
+    Sound_GovernorChangedValue();
+    static const int8 max[] = {0, 31, 12, 99, 23, 59, 59};
+    static const int8 min[] = {0, 1, 1, 15, 0, 0, 0};
+    int8 *value[] = {0, day, month, year, hours, minutes, seconds};
+    int8 position = *curField;
+    if (position != iSET && position != iEXIT)
+    {
+        (*(value[position]))--;
+        if (*value[position] < min[position])
+        {
+            *value[position] = max[position];
+        }
+    }
+}
+
+//----------------------------------------------------------------------------------------------------------------------------------------------------
+void Page::SetCurrentSB() const
+{
+    if (ItemIsAcitve(this))
+    {
+        if (SHOW_STRING_NAVI_TEMP)
+        {
+            menu.TemporaryEnableStrNavi();
+        }
+        SetCurrentItem(this, true);
+        OpenItem(this, !ItemIsOpened(this));
+    }
+}
+
 
 
 
@@ -503,23 +535,7 @@ void IPaddress_NextPosition(IPaddress *ipEthernet_IP)
 
 
 
-//----------------------------------------------------------------------------------------------------------------------------------------------------
-void Time_DecCurrentPosition(Time *time)
-{
-    Sound_GovernorChangedValue();
-    static const int8 max[] = {0, 31, 12, 99, 23, 59, 59};
-    static const int8 min[] = {0, 1, 1, 15, 0, 0, 0};
-    int8 *value[] = {0, time->day, time->month, time->year, time->hours, time->minutes, time->seconds};
-    int8 position = *time->curField;
-    if (position != iSET && position != iEXIT)
-    {
-        (*(value[position]))--;
-        if (*value[position] < min[position])
-        {
-            *value[position] = max[position];
-        }
-    }
-}
+
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
 void GovernorColor_ChangeValue(GovernorColor *governor, int delta)
@@ -539,16 +555,4 @@ void GovernorColor_ChangeValue(GovernorColor *governor, int delta)
     PageService_InitGlobalColors();
 }
 
-//----------------------------------------------------------------------------------------------------------------------------------------------------
-void SBPage_SetCurrent(const Page *page)
-{
-    if (ItemIsAcitve(page))
-    {
-        if (SHOW_STRING_NAVI_TEMP)
-        {
-            menu.TemporaryEnableStrNavi();
-        }
-        SetCurrentItem(page, true);
-        OpenItem(page, !ItemIsOpened(page));
-    }
-}
+

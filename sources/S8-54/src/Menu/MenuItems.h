@@ -114,6 +114,7 @@ struct Page
     int NumItems() const;                   ///< Возвращает количество элементов в странице по адресу page
     int NumCurrentSubPage();                ///< Возвращает номер текущей подстранцы элемента по адресу page
     NamePage GetNamePage() const;           ///< Возвращает имя страницы page
+    void SetCurrentSB() const;              ///< Установить текущей данную страницу с мылыми кнопками.
 };
 
 typedef struct Page Page;
@@ -263,6 +264,7 @@ typedef struct
     void IncCurrentPosition();
     void SetNewTime();
     void SelectNextPosition();
+    void DecCurrentPosition();
 } Time;
 
 

@@ -367,7 +367,7 @@ static const SButton bLast_SaveToROM =
 
 static void OnPress_Last_SaveToROM(void)
 {
-    SBPage_SetCurrent(&ppInternal);
+    ppInternal.SetCurrentSB();
     MODE_WORK = ModeWork_ROM;   // Находимся в режиме внутренного ЗУ
     EXIT_FROM_ROM_TO_RAM = 1;   // Этот признак мы устанавливаем для того, чтобы:
                                 // 1 - по нажатии кнопки Выход со страницы "ВНУТР ЗУ" выходить в "Последние", а не в основное меню;
@@ -569,7 +569,7 @@ static const SButton bInternal_Exit =
 
 static void FuncForInternalExit(void)
 {
-    SBPage_SetCurrent(&ppLast);
+    ppLast.SetCurrentSB();
 }
 
 static void OnPress_Internal_Exit(void)

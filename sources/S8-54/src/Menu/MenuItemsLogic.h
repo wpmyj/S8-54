@@ -25,12 +25,9 @@ void IPaddress_NextPosition(IPaddress *ip);
 void IPaddress_ChangeValue(IPaddress *ip, int delta);
 /// Возвращает номер текущего байта (4 - номер порта) и номер текущей позиции в байте.
 void IPaddress_GetNumPosIPvalue(int *numIP, int *selPos);
-
-void Time_DecCurrentPosition(Time *time);
 /// Изменить яркость цвета в governor.
 void GovernorColor_ChangeValue(GovernorColor *governor, int delta);
-/// Установить текущей данную страницу с мылыми кнопками.
-void SBPage_SetCurrent(const Page *page);
+
 
 /** @}  @}  @}
  */
