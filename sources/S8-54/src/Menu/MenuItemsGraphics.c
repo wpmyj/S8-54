@@ -549,6 +549,26 @@ void SButton::Draw(int x, int y)
     }
 }
 
+//----------------------------------------------------------------------------------------------------------------------------------------------------
+void Page::Draw(int x, int y)
+{
+    bool isShade = IsShade(this) || !ItemIsAcitve(this);
+    bool isPressed = IsPressed(this);
+    painter.DrawHLine(y + 1, x, x + MI_WIDTH, Color::BorderMenu(false));
+
+    painter.DrawVolumeButton(x + 1, y + 2, MI_WIDTH - 2, MI_HEIGHT - 2, 1, Color::MenuItem(false), Color::MENU_ITEM_BRIGHT, Color::MENU_ITEM_DARK,
+                             isPressed, isShade);
+
+    Color colorText = isShade ? Color::MenuItem(true) : Color::BLACK;
+    int delta = 0;
+    if (isPressed && (!isShade))
+    {
+        colorText = Color::WHITE;
+        delta = 1;
+    }
+    painter.DrawStringInCenterRectC(x + delta, y + delta, MI_WIDTH, MI_HEIGHT, TitleItem(this), colorText);
+}
+
 
 
 
@@ -863,24 +883,4 @@ void Time_Draw(Time *time, int x, int y, bool opened)
     {
         Time_DrawClosed(time, x, y);
     }
-}
-
-//----------------------------------------------------------------------------------------------------------------------------------------------------
-void Page_Draw(Page *page, int x, int y)
-{
-    bool isShade = IsShade(page) || !ItemIsAcitve(page);
-    bool isPressed = IsPressed(page);
-    painter.DrawHLine(y + 1, x, x + MI_WIDTH, Color::BorderMenu(false));
-
-    painter.DrawVolumeButton(x + 1, y + 2, MI_WIDTH - 2, MI_HEIGHT - 2, 1, Color::MenuItem(false), Color::MENU_ITEM_BRIGHT, Color::MENU_ITEM_DARK, 
-        isPressed, isShade);
-
-    Color colorText = isShade ? Color::MenuItem(true) : Color::BLACK;
-    int delta = 0;
-    if(isPressed && (!isShade))
-    {
-        colorText = Color::WHITE;
-        delta = 1;
-    }
-    painter.DrawStringInCenterRectC(x + delta, y + delta, MI_WIDTH, MI_HEIGHT, TitleItem(page), colorText);
 }

@@ -130,6 +130,7 @@ struct Page
     /// Возвращает позицию текущего элемента странцы page
     int8 PosCurrentItem() const;
     void ChangeSubPage(int delta) const;
+    void Draw(int x, int y);
 };
 
 typedef struct Page Page;
