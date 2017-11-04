@@ -68,3 +68,9 @@ int Page::PosItemOnTop()
 {
     return NumCurrentSubPage() * MENU_ITEMS_ON_DISPLAY;
 }
+
+//----------------------------------------------------------------------------------------------------------------------------------------------------
+const char *Choice::NameSubItem(int i)
+{
+    return names[i][LANG];
+}

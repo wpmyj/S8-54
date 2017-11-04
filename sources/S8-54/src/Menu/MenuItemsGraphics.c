@@ -469,7 +469,7 @@ void Choice::DrawOpened(int x, int y)
             painter.DrawVolumeButton(x + 1, yItem, MOI_WIDTH - 2, MOSI_HEIGHT - 2, 2, Color::MENU_FIELD, Color::MENU_TITLE_BRIGHT,
                                      Color::MENU_TITLE_DARK, pressed, IsShade(this));
         }
-        painter.DrawText(x + 4, yItem + 2, NameSubItem(this, i), pressed ? Color::BLACK : Color::MENU_FIELD);
+        painter.DrawText(x + 4, yItem + 2, NameSubItem(i), pressed ? Color::BLACK : Color::MENU_FIELD);
     }
 }
 
