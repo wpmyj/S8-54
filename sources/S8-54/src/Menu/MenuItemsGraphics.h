@@ -2,8 +2,6 @@
 #include "MenuItems.h"
 
 
-void Formula_Draw(Formula *formula, int x, int y, bool opened);
-
 void Choice_Draw(Choice *choice, int x, int y, bool opened);
 
 void Button_Draw(Button *button, int x, int y);

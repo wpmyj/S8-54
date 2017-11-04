@@ -236,6 +236,10 @@ typedef struct
     int8   *koeff2mul;      ///< Адрес коэффициента при втором члене для умножения
     int8   *curDigit;       ///< Текущий разряд : 0 - знак первого члена, 1 - коэффициент первого члена, 2 - знак второго члена, 3 - коэффициент второго члена
     pFuncVV funcOfChanged;  ///< Эта функция вызывается после изменения состояния элемента управления.
+    void Draw(int x, int y, bool opened);
+    void DrawClosed(int x, int y);
+    void DrawLowPart(int x, int y, bool pressed, bool shade);
+    void WriteText(int x, int y, bool opened);
 } Formula;
 
 typedef struct

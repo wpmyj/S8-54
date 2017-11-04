@@ -366,6 +366,73 @@ void MACaddress::DrawLowPart(int x, int y, bool pressed, bool shade)
     }
 }
 
+//----------------------------------------------------------------------------------------------------------------------------------------------------
+void Formula::Draw(int x, int y, bool opened)
+{
+    if (opened)
+    {
+
+    }
+    else
+    {
+        DrawClosed(x, y);
+    }
+}
+
+//----------------------------------------------------------------------------------------------------------------------------------------------------
+void Formula::DrawClosed(int x, int y)
+{
+    bool pressed = IsPressed(this);
+    bool shade = IsShade(this) || !ItemIsAcitve(this);
+    DrawLowPart(x, y, pressed, shade);
+    DrawGovernorChoiceColorFormulaHiPart(this, x, y, pressed, shade, false);
+}
+
+//----------------------------------------------------------------------------------------------------------------------------------------------------
+void Formula::DrawLowPart(int x, int y, bool pressed, bool shade)
+{
+    Color colorTextDown = Color::BLACK;
+
+    painter.DrawVolumeButton(x + 1, y + 17, MI_WIDTH_VALUE + 2, MI_HEIGHT_VALUE + 3, 2, Color::MENU_FIELD,
+                             Color::MENU_ITEM_BRIGHT, Color::MENU_ITEM_DARK, true, shade);
+    if (shade)
+    {
+        colorTextDown = Color::MenuItem(false);
+    }
+    painter.SetColor(colorTextDown);
+    WriteText(x + 6, y + 21, false);
+}
+
+//----------------------------------------------------------------------------------------------------------------------------------------------------
+void Formula::WriteText(int x, int y, bool opened)
+{
+    Function function = (Function)(function);
+
+    if (function != Function_Mul && function != Function_Sum)
+    {
+        return;
+    }
+
+    bool funcIsMul = function == Function_Mul;
+    int8 koeff1 = funcIsMul ? *koeff1mul : *koeff1add;
+    int8 koeff2 = funcIsMul ? *koeff2mul : *koeff2add;
+    if (koeff1 != 0)
+    {
+        painter.DrawChar(x, y, koeff1 < 0 ? '-' : '+');
+    }
+    painter.DrawChar(x + 5, y, (char)(koeff1 + 0x30));
+    painter.DrawChar(x + 10, y, '*');
+    painter.DrawText(x + 14, y, "K1");
+    painter.DrawChar(x + 27, y, funcIsMul ? '*' : '+');
+    if (koeff2 != 0)
+    {
+        painter.DrawChar(x + 30, y, koeff2 < 0 ? '-' : '+');
+    }
+    painter.DrawChar(x + 39, y, (char)(koeff2 + 0x30));
+    painter.DrawChar(x + 44, y, '*');
+    painter.DrawText(x + 48, y, "K2");
+}
+
 
 
 
@@ -530,70 +597,6 @@ static void DrawGovernorChoiceColorFormulaHiPart(void *item, int x, int y, bool 
     }
 }
 
-
-
-
-
-
-
-//----------------------------------------------------------------------------------------------------------------------------------------------------
-void WriteTextFormula(Formula *formula, int x, int y, bool opened)
-{
-    Function function = (Function)(*formula->function);
-    
-    if (function != Function_Mul && function != Function_Sum)
-    {
-        return;
-    }
-
-    bool funcIsMul = function == Function_Mul;
-    int8 koeff1 = funcIsMul ? *formula->koeff1mul : *formula->koeff1add;
-    int8 koeff2 = funcIsMul ? *formula->koeff2mul : *formula->koeff2add;
-    if (koeff1 != 0)
-    {
-       painter.DrawChar(x, y, koeff1 < 0 ? '-' : '+');
-    }
-    painter.DrawChar(x + 5, y, (char)(koeff1 + 0x30));
-    painter.DrawChar(x + 10, y, '*');
-    painter.DrawText(x + 14, y, "K1");
-    painter.DrawChar(x + 27, y, funcIsMul ? '*' : '+');
-    if (koeff2 != 0)
-    {
-       painter.DrawChar(x + 30, y, koeff2 < 0 ? '-' : '+');
-    }
-    painter.DrawChar(x + 39, y, (char)(koeff2 + 0x30));
-    painter.DrawChar(x + 44, y, '*');
-    painter.DrawText(x + 48, y, "K2");
-}
-
-//----------------------------------------------------------------------------------------------------------------------------------------------------
-void DrawFormulaLowPart(Formula *formula, int x, int y, bool pressed, bool shade)
-{
-    Color colorTextDown = Color::BLACK;
-
-    painter.DrawVolumeButton(x + 1, y + 17, MI_WIDTH_VALUE + 2, MI_HEIGHT_VALUE + 3, 2, Color::MENU_FIELD,
-                     Color::MENU_ITEM_BRIGHT, Color::MENU_ITEM_DARK, true, shade);
-    if (shade)
-    {
-        colorTextDown = Color::MenuItem(false);
-    }
-    painter.SetColor(colorTextDown);
-    WriteTextFormula(formula, x + 6, y + 21, false);
-}
-
-
-
-
-
-//----------------------------------------------------------------------------------------------------------------------------------------------------
-void Formula_DrawClosed(Formula *formula, int x, int y)
-{
-    bool pressed = IsPressed(formula);
-    bool shade = IsShade(formula) || !ItemIsAcitve(formula);
-    DrawFormulaLowPart(formula, x, y, pressed, shade);
-    DrawGovernorChoiceColorFormulaHiPart(formula, x, y, pressed, shade, false);
-}
-
 //----------------------------------------------------------------------------------------------------------------------------------------------------
 // Если selPos == -1, подсвечивать не нужно
 static void DrawValueWithSelectedPosition(int x, int y, int value, int numDigits, int selPos, bool hLine, bool fillNull)
@@ -623,35 +626,6 @@ static void DrawValueWithSelectedPosition(int x, int y, int value, int numDigits
         x -= 6;
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-//----------------------------------------------------------------------------------------------------------------------------------------------------
-void Formula_Draw(Formula *formula, int x, int y, bool opened)
-{
-    if (opened)
-    {
-        
-    }
-    else
-    {
-        Formula_DrawClosed(formula, x, y);
-    }
-}
-
-
-
-
-
-
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
 void Choice_DrawOpened(Choice *choice, int x, int y)
