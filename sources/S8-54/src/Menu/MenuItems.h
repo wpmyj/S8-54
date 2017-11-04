@@ -221,8 +221,9 @@ typedef struct
 typedef struct
 {
     COMMON_PART_MENU_ITEM
-    ColorType  *colorType;      ///< Структура для описания цвета.
-    pFuncVV     funcOnChanged;  ///< Эту функцию нужно вызывать после изменения значения элемента.
+    ColorType  *colorType;          ///< Структура для описания цвета.
+    pFuncVV     funcOnChanged;      ///< Эту функцию нужно вызывать после изменения значения элемента.
+    void ChangeValue(int delta);    ///< Изменить яркость цвета в governor.
 } GovernorColor;
 
 typedef struct

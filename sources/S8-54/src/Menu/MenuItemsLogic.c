@@ -393,6 +393,23 @@ void Page::SetCurrentSB() const
     }
 }
 
+//----------------------------------------------------------------------------------------------------------------------------------------------------
+void GovernorColor::ChangeValue(int delta)
+{
+    if (colorType->currentField == 0)
+    {
+        colorType->BrightnessChange(delta);
+        Sound_GovernorChangedValue();
+    }
+    else
+    {
+        colorType->ComponentChange(delta);
+        Sound_GovernorChangedValue();
+    }
+
+    PageService_InitGlobalColors();
+}
+
 
 
 
@@ -537,22 +554,6 @@ void IPaddress_NextPosition(IPaddress *ipEthernet_IP)
 
 
 
-//----------------------------------------------------------------------------------------------------------------------------------------------------
-void GovernorColor_ChangeValue(GovernorColor *governor, int delta)
-{
-    ColorType *ct = governor->colorType;
-    if (ct->currentField == 0)
-    {
-        ct->BrightnessChange(delta);
-        Sound_GovernorChangedValue();
-    }
-    else
-    {
-        ct->ComponentChange(delta);
-        Sound_GovernorChangedValue();
-    }
 
-    PageService_InitGlobalColors();
-}
 
 
