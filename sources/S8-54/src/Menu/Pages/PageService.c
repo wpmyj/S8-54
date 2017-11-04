@@ -1070,9 +1070,10 @@ static const Page ppRTC =
 };
 
 // СЕРВИС - ВРЕМЯ - Время ----------------------------------------------------------------------------------------------------------------------------
-
-static const char * const titlesRTC_Time[] =
-{
+static int8 dServicetime = 0;
+static int8 hours = 0, minutes = 0, secondes = 0, year = 0, month = 0, day = 0;
+DEF_TIME(
+    tRTC_Time,
     "Время", "Time",
     "Установка текущего времени.\nПорядок работы:\n"
     "Нажать на элемент меню \"Время\". Откроется меню установки текущего времени. Короткими нажатиями кнопки на цифровой клавиатуре, соответсвующей "
@@ -1086,15 +1087,8 @@ static const char * const titlesRTC_Time[] =
     "Control \"Time\", highlight the hours, minutes, seconds, year, month, or a number.The selected item is indicated by a flashing area. "
     "Turn the setting knob to set the desired value. Then highlight \"Save\", press and udrezhivat more than 0.5 seconds, the button on the panel "
     "Control. Menu Setting the current time will be closed to the conservation of the new current time. Pressing a button on the prolonged retention of any other element "
-    "will lead to the closure of the current time setting menu without saving the new current time"
-};
-
-static int8 dServicetime = 0;
-static int8 hours = 0, minutes = 0, secondes = 0, year = 0, month = 0, day = 0;
-static const Time tRTC_Time
-(
-    titlesRTC_Time, &ppRTC, 0, &dServicetime, &hours, &minutes, &secondes, &month, &day, &year
-);
+    "will lead to the closure of the current time setting menu without saving the new current time",
+    ppRTC, FuncActive, dServicetime, hours, minutes, secondes, month, day, year);
 
 // СЕРВИС - ВРЕМЯ - Коррекция ------------------------------------------------------------------------------------------------------------------------
 static const Governor tRTC_Correction =

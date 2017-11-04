@@ -368,17 +368,7 @@ typedef struct
 class Time
 {
 public:
-    Time(const char * const title[4], const Page *keeper_, pFuncBV funcActive_,
-        int8 *curField_, int8 *hours_, int8 *minutes_, int8 *seconds_, int8 *month_, int8 *day_, int8 *year_) :
-        type(Item_Time), keeper(keeper_), funcOfActive(funcActive_), titleHint((const char **)title), curField(curField_), hours(hours_), 
-        minutes(minutes_), seconds(seconds_), month(month_), day(day_), year(year_)
-    {
-        if (funcOfActive == 0)
-        {
-            funcOfActive = EmptyFuncBV;
-        }
-    }
-    COMMON_PART_MENU_ITEM_NEW
+    COMMON_PART_MENU_ITEM
     int8 *curField;   ///< “екущее поле установки. 0 - выход, 1 - сек, 2 - мин, 3 - часы, 4 - день, 5 - мес€ц, 6 - год, 7 - установить.
     int8 *hours;
     int8 *minutes;
@@ -395,6 +385,9 @@ public:
     void DrawClosed(int x, int y);
     void DrawOpened(int x, int y);
 };
+
+#define DEF_TIME(name, titleRU, titleEN, hintRU, hintEN, keeper, funcActive, cur, h, mi, s, mo, d, y)   \
+static const Time name = { Item_Time, &keeper, funcActive, {titleRU, titleEN, hintRU, hintEN}, &cur, &h, &mi, &s, &mo, &d, &y };
 
 
 /// —труктура дл€ хранени€ меню, вызываемого по нажатию ручки
