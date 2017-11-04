@@ -345,6 +345,13 @@ void Time::SetNewTime()
     RTC_SetTimeAndData(*day, *month, *year, *hours, *minutes, *seconds);
 }
 
+//----------------------------------------------------------------------------------------------------------------------------------------------------
+void Time::SelectNextPosition()
+{
+    CircleIncreaseInt8(curField, 0, 7);
+    painter.ResetFlash();
+}
+
 
 
 
@@ -491,14 +498,6 @@ void IPaddress_NextPosition(IPaddress *ipEthernet_IP)
 
 
 
-
-
-//----------------------------------------------------------------------------------------------------------------------------------------------------
-void Time_SelectNextPosition(Time *time)
-{
-    CircleIncreaseInt8(time->curField, 0, 7);
-    painter.ResetFlash();
-}
 
 
 

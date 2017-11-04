@@ -28,8 +28,6 @@ void IPaddress_GetNumPosIPvalue(int *numIP, int *selPos);
 
 void MACaddress_ChangeValue(MACaddress *mac, int delta);
 
-void Time_SelectNextPosition(Time *time);
-
 void Time_DecCurrentPosition(Time *time);
 /// »зменить €ркость цвета в governor.
 void GovernorColor_ChangeValue(GovernorColor *governor, int delta);

@@ -261,6 +261,7 @@ typedef struct
     void SetOpened();
     void IncCurrentPosition();
     void SetNewTime();
+    void SelectNextPosition();
 } Time;
 
 

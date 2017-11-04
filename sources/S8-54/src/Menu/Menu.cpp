@@ -717,7 +717,7 @@ void ShortPress_Time(void *time)
     }
     else
     {
-        Time_SelectNextPosition((Time *)time);
+        ((Time *)time)->SelectNextPosition();
     }
 }
 
